@@ -699,6 +699,13 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
     }
   }, [isOpen, category]);
 
+  // UAE PASS Login Handler
+  const handleUAEPassLogin = (userType: 'applicant' | 'reviewer', userData: any) => {
+    setLoggedInUser(userData);
+    setShowUAEPassLogin(false);
+    setShowBusinessPortal(true);
+  };
+
   const activeThread = threads.find(t => t.id === activeThreadId);
 
   const updateThread = (threadId: string, updates: Partial<Omit<ChatThread, 'id'>>) => {
