@@ -417,13 +417,13 @@ export default function ReviewerPortal() {
     <div className="flex items-center gap-3">
       <button
         type="button"
-        className="rounded-full border border-neutral-600 bg-neutral-900 px-4 py-3 text-sm font-semibold text-neutral-200 transition hover:border-neutral-400 hover:text-white"
+        className="rounded-full border border-neutral-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-[0_12px_30px_-18px_rgba(15,23,42,0.18)] transition hover:border-neutral-300 hover:text-slate-900"
       >
         Export queue
       </button>
       <button
         type="button"
-        className="flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-neutral-900 shadow-[0_22px_60px_-30px_rgba(0,0,0,0.75)] transition hover:bg-neutral-200"
+        className="flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_30px_-18px_rgba(15,23,42,0.45)] transition hover:bg-slate-800"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -436,6 +436,13 @@ export default function ReviewerPortal() {
         </svg>
         Assign reviewer
       </button>
+      <PortalProfileMenu
+        name={profileName}
+        email={profileEmail}
+        avatarUrl={profileAvatar}
+        status={profileStatus}
+        onSignOut={handleSignOut}
+      />
     </div>
   );
 
