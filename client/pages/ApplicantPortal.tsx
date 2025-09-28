@@ -270,7 +270,7 @@ export default function ApplicantPortal() {
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
             placeholder="Search by service or ID"
-            className="h-11 rounded-2xl border-neutral-700 bg-neutral-900/80 pr-11 text-sm text-neutral-100 placeholder:text-neutral-500"
+            className="h-11 rounded-2xl border-neutral-200 bg-white pr-11 text-sm text-slate-900 placeholder:text-slate-400"
           />
           <svg
             className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500"
