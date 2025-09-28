@@ -17,6 +17,143 @@ interface BusinessLicensePortalProps {
   onClose: () => void;
 }
 
+interface JourneyCardProps {
+  title: string;
+  description: string;
+  items: string[];
+  onAddItem: (item: string) => void;
+  onRemoveItem: (index: number) => void;
+  showAdminActions?: boolean;
+  onToggleAdminView?: () => void;
+  isAdminView?: boolean;
+}
+
+const JourneyCard: React.FC<JourneyCardProps> = ({
+  title,
+  description,
+  items,
+  onAddItem,
+  onRemoveItem,
+  showAdminActions = false,
+  onToggleAdminView,
+  isAdminView = false
+}) => {
+  const [newItem, setNewItem] = useState('');
+  const [isAddingItem, setIsAddingItem] = useState(false);
+
+  const handleAddItem = () => {
+    if (newItem.trim()) {
+      onAddItem(newItem.trim());
+      setNewItem('');
+      setIsAddingItem(false);
+    }
+  };
+
+  return (
+    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <h3 className="text-white font-['DM_Sans'] text-xl font-semibold leading-[160%] tracking-[0.058px]">
+            {title}
+          </h3>
+          <p className="text-white/70 font-['DM_Sans'] text-sm mt-1">{description}</p>
+        </div>
+        {showAdminActions && (
+          <button
+            onClick={onToggleAdminView}
+            className="flex items-center gap-2 bg-[#54FFD4]/20 hover:bg-[#54FFD4]/30 px-3 py-2 rounded-lg border border-[#54FFD4]/30 transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="#54FFD4"/>
+            </svg>
+            <span className="text-[#54FFD4] font-['DM_Sans'] text-sm font-medium">
+              {isAdminView ? 'View Applicant' : 'View Admin Actions'}
+            </span>
+          </button>
+        )}
+      </div>
+
+      {/* Admin View Toggle Info */}
+      {isAdminView && (
+        <div className="bg-blue-500/20 border border-blue-400/30 rounded-lg p-3 mb-4">
+          <div className="flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="#60A5FA"/>
+            </svg>
+            <span className="text-blue-300 font-['DM_Sans'] text-sm font-medium">Administrative View Active</span>
+          </div>
+        </div>
+      )}
+
+      {/* Items List */}
+      <div className="space-y-3 mb-4">
+        {items.map((item, index) => (
+          <div key={index} className="flex items-center justify-between bg-white/5 rounded-lg p-3 border border-white/10">
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-6 flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 12l2 2 4-4" stroke="#54FFD4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="12" cy="12" r="10" stroke="#54FFD4" strokeWidth="2" fill="none"/>
+                </svg>
+              </div>
+              <span className="text-white font-['DM_Sans'] text-sm">{item}</span>
+            </div>
+            <button
+              onClick={() => onRemoveItem(index)}
+              className="text-white/50 hover:text-red-400 transition-colors"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* Add Item Section */}
+      {isAddingItem ? (
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={newItem}
+            onChange={(e) => setNewItem(e.target.value)}
+            placeholder="Enter new item..."
+            className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-white/50 font-['DM_Sans'] text-sm"
+            onKeyPress={(e) => e.key === 'Enter' && handleAddItem()}
+            autoFocus
+          />
+          <button
+            onClick={handleAddItem}
+            className="bg-[#54FFD4] hover:bg-[#54FFD4]/80 px-4 py-2 rounded-lg text-black font-['DM_Sans'] text-sm font-medium transition-colors"
+          >
+            Add
+          </button>
+          <button
+            onClick={() => {
+              setIsAddingItem(false);
+              setNewItem('');
+            }}
+            className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-white font-['DM_Sans'] text-sm font-medium transition-colors"
+          >
+            Cancel
+          </button>
+        </div>
+      ) : (
+        <button
+          onClick={() => setIsAddingItem(true)}
+          className="w-full flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-[#54FFD4]/50 rounded-lg p-3 transition-colors"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 5v14M5 12h14" stroke="#54FFD4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <span className="text-[#54FFD4] font-['DM_Sans'] text-sm font-medium">Add Item</span>
+        </button>
+      )}
+    </div>
+  );
+};
+
 interface Application {
   id: string;
   applicantName: string;
