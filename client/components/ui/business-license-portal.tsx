@@ -662,6 +662,60 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
         </div>
       </div>
 
+      <AnimatePresence>
+        {showExplainability && (
+          <motion.div
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.2 }}
+            className="absolute right-10 top-[120px] z-40 w-[340px] space-y-4 rounded-3xl border border-white/15 bg-white/14 p-6 backdrop-blur-2xl shadow-[0_20px_55px_rgba(8,15,38,0.45)]"
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-1">
+                <span className="text-xs font-semibold uppercase tracking-[0.28em] text-white/55">Explainability</span>
+                <h3 className="text-lg font-semibold text-white/90">Actions that stay with you</h3>
+              </div>
+              <button
+                onClick={() => setShowExplainability(false)}
+                className="flex h-7 w-7 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/70 transition-colors duration-200 hover:bg-white/20 hover:text-white"
+                aria-label="Close explainability"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            </div>
+            <p className="text-sm text-white/65">
+              We surface these details so you understand what continues to live in your TAMM workspace even after this session ends.
+            </p>
+            <ul className="space-y-3 text-sm text-white/70">
+              <li className="flex gap-3">
+                <span className="mt-1 block h-2.5 w-2.5 rounded-full bg-emerald-200/80" />
+                <div className="space-y-1">
+                  <p className="font-semibold text-white/85">Completed steps</p>
+                  <p className="text-white/55">Every task you finish is recorded so your journey resumes from the same spot next time.</p>
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <span className="mt-1 block h-2.5 w-2.5 rounded-full bg-sky-200/80" />
+                <div className="space-y-1">
+                  <p className="font-semibold text-white/85">Selected activities</p>
+                  <p className="text-white/55">Activity choices stay linked to your license profile to keep recommendations relevant.</p>
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <span className="mt-1 block h-2.5 w-2.5 rounded-full bg-white/65" />
+                <div className="space-y-1">
+                  <p className="font-semibold text-white/85">Uploaded documents</p>
+                  <p className="text-white/55">Supporting files remain securely stored for reviewers and follow-up submissions.</p>
+                </div>
+              </li>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Progress Steps Bar - Matching Figma Design Exactly */}
       <div className="w-full h-20 bg-white/30 backdrop-blur-[40px] shadow-[0_4px_4px_0_rgba(0,0,0,0.25),0_4px_4px_0_rgba(0,0,0,0.25)] flex items-center justify-center absolute top-[87px] left-0 z-10">
         <div className="w-full h-full flex items-center">
