@@ -101,7 +101,7 @@ export default function Index() {
   }, [mouseX, mouseY]);
 
   return (
-    <div className="min-h-screen bg-white font-dm-sans overflow-hidden relative">
+    <div className="min-h-screen bg-white overflow-hidden relative">
       {/* Background blur effects */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Large purple gradient blur */}
