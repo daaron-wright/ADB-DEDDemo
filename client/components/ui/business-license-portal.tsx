@@ -947,7 +947,7 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
                       const input = e.target as HTMLInputElement;
                       if (input.value.trim() && !selectedActivities.includes(input.value.trim())) {
                         setSelectedActivities([...selectedActivities, input.value.trim()]);
-                        showNotification('��� Custom activity added');
+                        showNotification('✅ Custom activity added');
                         input.value = '';
                       }
                     }
