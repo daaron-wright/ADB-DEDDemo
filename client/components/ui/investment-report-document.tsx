@@ -156,72 +156,91 @@ export const InvestmentReportDocument: React.FC<InvestmentReportDocumentProps> =
         </div>
       </div>
 
-      {/* Additional Sections */}
-      <div className="mt-8 space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Continued Content Sections */}
+      <div className="mt-6 grid grid-cols-2 gap-8 text-sm">
+        <div className="space-y-4">
           <div>
-            <h3 className="font-semibold text-purple-600 mb-3">Peak Timing:</h3>
-            <div className="space-y-2">
-              <div>
-                <h4 className="font-semibold text-gray-800 text-sm">Weekends (Friday & Saturday):</h4>
-                <p className="text-gray-600 text-xs">
-                  The Corniche is a major recreational hub for families and friends, leading to a surge in business for F&B outlets.
-                </p>
-              </div>
-            </div>
+            <h3 className="font-bold text-black mb-1">Daily and Weekly Peaks:</h3>
+            <p className="text-gray-700 leading-relaxed">
+              The Corniche sees significant footfall throughout the day, but activity peaks in the evenings and weekends.
+              Evening hours offer the best opportunities for a restaurant stroll, to exercise, and to dine
+              out. Events are also another traffic driver.
+            </p>
           </div>
-          
+
           <div>
-            <h3 className="font-semibold text-purple-600 mb-3">Seasonality:</h3>
-            <div className="space-y-2">
-              <div>
-                <h4 className="font-semibold text-gray-800 text-sm">High Season (October - April):</h4>
-                <p className="text-gray-600 text-xs">
-                  This is the busiest period for both residents and tourists. The weather is cool and pleasant, leading to maximum footfall and higher revenues.
-                </p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-800 text-sm">Low Season (May - September):</h4>
-                <p className="text-gray-600 text-xs">
-                  The summer months can be very hot, which reduces outdoor foot traffic. F&B businesses rely more on indoor seating, air-conditioned environments, and online delivery during this time.
-                </p>
-              </div>
-            </div>
+            <h3 className="font-bold text-black mb-1">Weekends (Friday & Saturday):</h3>
+            <p className="text-gray-700 leading-relaxed">
+              The Corniche is a major recreational hub for families and friends, leading to a surge in business for F&B
+              outlets.
+            </p>
           </div>
         </div>
 
-        <div>
-          <h3 className="font-semibold text-orange-600 mb-3">Ramadan:</h3>
-          <p className="text-gray-700 text-sm leading-relaxed">
-            While it is a period of fasting, it is also a time for evening social gatherings and Iftar and Suhoor meals. Restaurants often see a shift in busy hours, with activity spiking after sunset.
-          </p>
-        </div>
+        <div className="space-y-4">
+          <div>
+            <h3 className="font-bold text-black mb-1">Seasonality:</h3>
+            <div className="space-y-2">
+              <div>
+                <span className="font-bold text-black">High Season (October - April): </span>
+                <span className="text-gray-700">
+                  This is the busiest period for both residents and tourists. The weather is cool and pleasant,
+                  leading to maximum footfall and higher revenues.
+                </span>
+              </div>
+              <div>
+                <span className="font-bold text-black">Low Season (May - September): </span>
+                <span className="text-gray-700">
+                  The summer months can be very hot, which reduces outdoor foot traffic. F&B businesses rely more on
+                  indoor seating, air-conditioned environments, and online delivery during this time.
+                </span>
+              </div>
+            </div>
+          </div>
 
-        <div className="bg-gray-50 rounded-lg p-4">
-          <p className="text-gray-700 text-sm leading-relaxed italic">
-            In summary, the Abu Dhabi Corniche is a high-traffic location with a diverse customer base. A successful F&B business here would need to cater to a mix of price points and tastes, embrace digital ordering, and be prepared for significant seasonal variations in footfall.
-          </p>
+          <div>
+            <h3 className="font-bold text-black mb-1">Ramadan:</h3>
+            <p className="text-gray-700 leading-relaxed">
+              While it is a period of fasting, it is also a time for evening social
+              gatherings and Iftar and Suhoor meals. Restaurants often see a shift in
+              busy hours, with activity spiking after sunset.
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Income Statistics Table */}
-      <div className="mt-8">
-        <div className="bg-gradient-to-r from-teal-500 to-teal-600 rounded-2xl p-6 text-white">
-          <h3 className="text-lg font-bold mb-4">The Corniche</h3>
-          <div className="text-sm mb-2 opacity-90">Average monthly income AED</div>
-          
-          <div className="grid grid-cols-3 gap-4">
-            <div className="text-center">
-              <div className="text-xs opacity-75 mb-1">Area name</div>
-              <div className="text-2xl font-bold">25-35K</div>
+      {/* Summary */}
+      <div className="mt-6">
+        <p className="text-gray-700 text-sm leading-relaxed">
+          In summary, the Abu Dhabi Corniche is a high-traffic location with a
+          diverse customer base. A successful F&B business here would need to
+          cater to a mix of price points and tastes, embrace digital ordering, and
+          be prepared for significant seasonal variations in footfall.
+        </p>
+      </div>
+
+      {/* Income Statistics Bar */}
+      <div className="absolute bottom-0 left-0 right-0 -mx-8 -mb-8">
+        <div className="bg-teal-500 rounded-b-3xl px-8 py-4 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-bold mb-1">The Corniche</h3>
+              <div className="text-sm opacity-90">Average monthly income AED</div>
             </div>
-            <div className="text-center">
-              <div className="text-xs opacity-75 mb-1">Area name</div>
-              <div className="text-2xl font-bold">40-55K</div>
-            </div>
-            <div className="text-center">
-              <div className="text-xs opacity-75 mb-1">Area name</div>
-              <div className="text-2xl font-bold">60-75K</div>
+
+            <div className="flex gap-8">
+              <div className="text-center">
+                <div className="text-xs opacity-75 mb-1">Area name</div>
+                <div className="text-2xl font-bold">25-35K</div>
+              </div>
+              <div className="text-center">
+                <div className="text-xs opacity-75 mb-1">Area name</div>
+                <div className="text-2xl font-bold">40-55K</div>
+              </div>
+              <div className="text-center">
+                <div className="text-xs opacity-75 mb-1">Area name</div>
+                <div className="text-2xl font-bold">60-75K</div>
+              </div>
             </div>
           </div>
         </div>
