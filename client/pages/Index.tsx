@@ -53,20 +53,6 @@ export default function Index() {
     }
   };
 
-  // Color themes for each business category
-  const baseTheme = {
-    primary: '#0EA5E9',
-    secondary: 'rgba(14, 165, 233, 0.55)',
-    accent: 'rgba(14, 165, 233, 0.25)'
-  } as const;
-
-  const colorThemes = {
-    restaurants: { ...baseTheme },
-    'fast-food': { ...baseTheme },
-    branch: { ...baseTheme },
-    'retail-store': { ...baseTheme },
-    default: { ...baseTheme }
-  } as const;
 
   const applyFocusPoint = (point?: { x: number; y: number }) => {
     if (point) {
@@ -184,12 +170,6 @@ export default function Index() {
   };
 
   const pageRef = useRef<HTMLDivElement>(null);
-
-  const currentTheme = hoveredCategory
-    ? colorThemes[hoveredCategory as keyof typeof colorThemes]
-    : activeCategory
-      ? colorThemes[activeCategory as keyof typeof colorThemes]
-      : colorThemes.default;
 
   const handleCategoryHover = (categoryId: string, event: React.MouseEvent<HTMLDivElement>) => {
     setHoveredCategory(categoryId);
