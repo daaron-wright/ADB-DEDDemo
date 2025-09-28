@@ -434,12 +434,27 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
   const [showBusinessRegAdmin, setShowBusinessRegAdmin] = useState(false);
   const [showBusinessLicAdmin, setShowBusinessLicAdmin] = useState(false);
   const [notifications, setNotifications] = useState<string[]>([]);
+  const [lastActivity, setLastActivity] = useState(Date.now());
+
+  // Auto-refresh and activity tracking
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const timeSinceLastActivity = Date.now() - lastActivity;
+      if (timeSinceLastActivity > 30000) { // 30 seconds of inactivity
+        showNotification('💡 Tip: Check service status for updates');
+        setLastActivity(Date.now());
+      }
+    }, 60000); // Check every minute
+
+    return () => clearInterval(interval);
+  }, [lastActivity]);
 
   const showNotification = (message: string) => {
     setNotifications(prev => [...prev, message]);
+    setLastActivity(Date.now());
     setTimeout(() => {
       setNotifications(prev => prev.slice(1));
-    }, 3000);
+    }, 4000);
   };
 
   const handleUpdateBusinessRegItem = (id: string, updates: Partial<JourneyItem>) => {
