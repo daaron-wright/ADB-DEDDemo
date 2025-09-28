@@ -110,16 +110,16 @@ export function ChatUI({ isOpen, onClose, title = "AI Business" }: ChatUIProps) 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="w-full max-w-md mx-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+      <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg">
         {/* Chat Container */}
-        <div 
-          className="flex w-full h-[400px] p-3 rounded-3xl"
+        <div
+          className="flex w-full h-[450px] sm:h-[500px] p-3 rounded-3xl shadow-2xl"
           style={{
             background: 'linear-gradient(213deg, rgba(0, 0, 0, 0.23) 23.21%, rgba(102, 102, 102, 0.23) 102.41%)',
           }}
         >
-          <div className="flex flex-col w-full h-full rounded-2xl bg-transparent">
+          <div className="flex flex-col w-full h-full rounded-2xl bg-transparent backdrop-blur-sm">
             {/* App Bar */}
             <div className="flex items-center gap-3 p-4 border-b border-white/10">
               {/* Avatar */}
