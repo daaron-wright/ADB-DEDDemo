@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Tooltip } from '@aegov/design-system-react';
 import { BusinessChatUI } from '@/components/ui/business-chat-ui';
@@ -6,7 +7,6 @@ import { AnimatedConversation } from '@/components/ui/animated-conversation';
 import { conversationFlows } from '@/lib/conversations';
 import { OpenChatUI } from '@/components/ui/open-chat-ui';
 import { UAEPassLogin } from '@/components/ui/uae-pass-login';
-import BusinessLicensePortalSimplified from '@/components/ui/business-license-portal-simplified';
 
 export default function Index() {
   const [chatState, setChatState] = useState<{
