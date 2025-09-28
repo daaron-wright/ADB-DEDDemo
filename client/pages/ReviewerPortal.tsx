@@ -371,13 +371,13 @@ export default function ReviewerPortal() {
 
       <FilterSection title="Workflow stage">
         <Select value={selectedStage} onValueChange={setSelectedStage}>
-          <SelectTrigger className="h-11 rounded-2xl border-neutral-700 bg-neutral-900 text-sm text-neutral-100">
+          <SelectTrigger className="h-11 rounded-2xl border-neutral-200 bg-white text-sm text-slate-900">
             <SelectValue />
           </SelectTrigger>
-          <SelectContent className="rounded-2xl border border-neutral-800 bg-neutral-950/95 text-neutral-100">
+          <SelectContent className="rounded-2xl border border-neutral-200 bg-white text-slate-900">
             <SelectGroup>
               {stageOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value} className="rounded-xl text-sm text-neutral-100 data-[state=checked]:bg-neutral-800">
+                <SelectItem key={option.value} value={option.value} className="rounded-xl text-sm text-slate-900 data-[state=checked]:bg-purple-50">
                   {option.label}
                 </SelectItem>
               ))}
