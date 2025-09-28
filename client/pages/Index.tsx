@@ -214,8 +214,8 @@ export default function Index() {
         </main>
       </div>
 
-      {/* Investor Chat UI */}
-      <InvestorChatUI
+      {/* Business Chat UI */}
+      <BusinessChatUI
         isOpen={chatState.isOpen}
         onClose={handleCloseChat}
         category={chatState.category || 'general'}
