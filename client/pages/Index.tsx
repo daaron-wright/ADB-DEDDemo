@@ -80,7 +80,7 @@ export default function Index() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const springConfig = { damping: 100, stiffness: 100, mass: 10 };
+  const springConfig = { damping: 150, stiffness: 50, mass: 10 };
   const springX = useSpring(mouseX, springConfig);
   const springY = useSpring(mouseY, springConfig);
 
