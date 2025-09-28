@@ -329,14 +329,13 @@ export default function Index() {
                       {/* Content Overlay */}
                       <div className="absolute bottom-4 left-4 right-4 z-10">
                         <motion.div
-                          className="backdrop-blur-sm rounded-2xl p-4 flex items-center justify-between"
+                          className="flex items-center justify-between rounded-2xl border p-4 backdrop-blur-sm"
                           animate={{
-                            backgroundColor: isHovered
-                              ? `${categoryTheme.primary}40`
-                              : 'rgba(255, 255, 255, 0.28)',
-                            borderColor: isHovered ? categoryTheme.accent : 'transparent'
+                            backgroundColor: isElevated
+                              ? 'rgba(14, 165, 233, 0.22)'
+                              : 'rgba(255, 255, 255, 0.3)',
+                            borderColor: isElevated ? 'rgba(14, 165, 233, 0.4)' : 'rgba(255, 255, 255, 0.16)',
                           }}
-                          style={{ border: '1px solid' }}
                           transition={{ duration: 0.3 }}
                         >
                           <div className="flex-1">
