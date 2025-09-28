@@ -121,20 +121,32 @@ export default function Index() {
     return category ? `${category.subtitle} for ${category.title}` : 'AI Business';
   };
 
+  // Enhanced mouse tracking
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const pageRef = useRef<HTMLDivElement>(null);
 
-  const springConfig = { damping: 150, stiffness: 50, mass: 10 };
+  const springConfig = { damping: 25, stiffness: 150, mass: 1 };
   const springX = useSpring(mouseX, springConfig);
   const springY = useSpring(mouseY, springConfig);
 
+  // Background animation transforms
   const translateX = useTransform(springX, (x) => (x - (typeof window !== 'undefined' ? window.innerWidth / 2 : 800)) * 0.05);
   const translateY = useTransform(springY, (y) => (y - (typeof window !== 'undefined' ? window.innerHeight / 2 : 400)) * 0.05);
+
+  // Get current color theme
+  const currentTheme = hoveredCategory ? colorThemes[hoveredCategory as keyof typeof colorThemes] : colorThemes.default;
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
+
+      // Update CSS custom properties for gradient following
+      if (pageRef.current) {
+        pageRef.current.style.setProperty('--mouse-x', `${e.clientX}px`);
+        pageRef.current.style.setProperty('--mouse-y', `${e.clientY}px`);
+      }
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -143,6 +155,25 @@ export default function Index() {
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, [mouseX, mouseY]);
+
+  // Enhanced hover handlers with ripple effects
+  const handleCategoryHover = (categoryId: string, event: React.MouseEvent) => {
+    setHoveredCategory(categoryId);
+    const rect = event.currentTarget.getBoundingClientRect();
+    setRippleEffect({
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+      active: true
+    });
+
+    setTimeout(() => {
+      setRippleEffect(prev => ({ ...prev, active: false }));
+    }, 1000);
+  };
+
+  const handleCategoryLeave = () => {
+    setHoveredCategory(null);
+  };
 
   return (
     <div className="min-h-screen bg-white overflow-hidden relative">
