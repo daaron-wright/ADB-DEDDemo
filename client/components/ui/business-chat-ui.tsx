@@ -860,7 +860,7 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
     <QueryClientProvider client={queryClient}>
       <AnimatePresence>
         {isOpen && (
-          <div className="fixed inset-0 z-50">
+          <div key="chat-ui" className="fixed inset-0 z-50">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -1016,6 +1016,7 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
 
         {/* Summary Dashboard */}
         <SummaryDashboard
+          key="summary-dashboard"
           isOpen={showSummaryDashboard}
           onClose={() => setShowSummaryDashboard(false)}
           category={category}
