@@ -507,7 +507,7 @@ export default function ReviewerPortal() {
             No review cases match the current filters. Adjust your filters to see more results.
           </div>
         ) : (
-          <div className="space-y-6 text-neutral-100">
+          <div className="space-y-6">
             {filteredQueue.map((item) => (
               <ReviewQueueCard key={item.id} item={item} />
             ))}
