@@ -323,28 +323,36 @@ export default function Index() {
                       <motion.div
                         className="absolute -inset-1 rounded-3xl"
                         animate={{
-                          background: isElevated
-                            ? 'linear-gradient(140deg, rgba(14, 165, 233, 0.18), rgba(14, 165, 233, 0.08), transparent)'
-                            : 'transparent',
-                          filter: isElevated ? 'blur(10px)' : 'blur(0px)',
-                          opacity: isElevated ? 0.8 : 0,
+                          background: isElevated ? 'rgba(255, 255, 255, 0.5)' : 'transparent',
+                          filter: isElevated ? 'blur(14px)' : 'blur(0px)',
+                          opacity: isElevated ? 1 : 0,
                         }}
                         transition={{ duration: 0.4 }}
                       />
 
                       {/* Background Image */}
                       <div className="absolute inset-0">
-                        <img
+                        <motion.img
                           src={category.image}
                           alt={category.title}
                           className="w-full h-full object-cover"
+                          animate={{
+                            filter: isElevated ? 'blur(7px)' : 'blur(0px)',
+                            scale: isElevated ? 1.04 : 1,
+                          }}
+                          transition={{ duration: 0.45, ease: 'easeOut' }}
                         />
                         {/* Special overlay image for restaurants */}
                         {category.overlayImage && (
-                          <img
+                          <motion.img
                             src={category.overlayImage}
                             alt=""
                             className="absolute inset-0 w-full h-full object-cover"
+                            animate={{
+                              filter: isElevated ? 'blur(7px)' : 'blur(0px)',
+                              scale: isElevated ? 1.04 : 1,
+                            }}
+                            transition={{ duration: 0.45, ease: 'easeOut' }}
                           />
                         )}
 
