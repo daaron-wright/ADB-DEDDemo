@@ -65,6 +65,11 @@ const StatusIcon: React.FC<{ status: JourneyItem['status']; type: JourneyItem['t
   );
 };
 
+const formatStatus = (status: JourneyItem['status']) =>
+  status
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+
 const CollapsibleSection: React.FC<{
   section: JourneySection;
   onToggle: () => void;
