@@ -18,6 +18,7 @@ import { Progress } from '@/components/ui/progress';
 import { PortalPageLayout } from '@/components/portal/PortalPageLayout';
 import { FilterSection } from '@/components/portal/FilterSection';
 import { SummaryMetric } from '@/components/portal/SummaryMetric';
+import { PortalProfileMenu } from '@/components/portal/PortalProfileMenu';
 
 interface ApplicationRecord {
   id: string;
