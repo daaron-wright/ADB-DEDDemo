@@ -436,6 +436,98 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
   const [showBusinessLicAdmin, setShowBusinessLicAdmin] = useState(false);
   const [notifications, setNotifications] = useState<string[]>([]);
   const [lastActivity, setLastActivity] = useState(Date.now());
+  const [showCollapsibleView, setShowCollapsibleView] = useState(true);
+
+  // Sample data for CollapsibleJourneyView
+  const journeySections = [
+    {
+      id: 'legal-structure',
+      title: 'Legal Structure',
+      isCollapsed: false,
+      items: [
+        {
+          id: 'business-type',
+          text: 'New Business - Limited Liability Company',
+          status: 'completed' as const,
+          type: 'checkbox' as const
+        },
+        {
+          id: 'ownership',
+          text: 'Ownership - Single Owner',
+          status: 'completed' as const,
+          type: 'checkbox' as const
+        },
+        {
+          id: 'nationality',
+          text: 'Nationality - UAE National',
+          status: 'in_progress' as const,
+          type: 'checkbox' as const
+        }
+      ]
+    },
+    {
+      id: 'business-activities',
+      title: 'Business Activities',
+      isCollapsed: false,
+      items: [
+        {
+          id: 'full-service',
+          text: 'Full-service restaurant',
+          status: 'pending' as const,
+          type: 'radio' as const
+        },
+        {
+          id: 'bbq-services',
+          text: 'Charcoal/coal BBQ services',
+          status: 'pending' as const,
+          type: 'radio' as const
+        },
+        {
+          id: 'catering',
+          text: 'Hospitality and catering services',
+          status: 'pending' as const,
+          type: 'radio' as const
+        },
+        {
+          id: 'add-activity',
+          text: 'Add a new activity',
+          status: 'pending' as const,
+          type: 'radio' as const
+        }
+      ]
+    },
+    {
+      id: 'physical-space',
+      title: 'Physical Space Requirements',
+      isCollapsed: true,
+      items: [
+        {
+          id: 'registration',
+          text: 'Step 1: Business Registration',
+          status: 'pending' as const,
+          type: 'radio' as const
+        },
+        {
+          id: 'documents',
+          text: 'Step 2: Submission of Documents',
+          status: 'pending' as const,
+          type: 'radio' as const
+        },
+        {
+          id: 'licensing',
+          text: 'Step 3: Business Licensing',
+          status: 'pending' as const,
+          type: 'radio' as const
+        },
+        {
+          id: 'inspection',
+          text: 'Step 4: Pre-Operational Inspection',
+          status: 'pending' as const,
+          type: 'radio' as const
+        }
+      ]
+    }
+  ];
 
   // Auto-refresh and activity tracking
   useEffect(() => {
