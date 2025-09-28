@@ -479,17 +479,17 @@ export default function ApplicantPortal() {
             {filteredApplications.map((application) => (
               <article
                 key={application.id}
-                className="rounded-3xl border border-white/10 bg-neutral-950/85 p-6 shadow-[0_36px_96px_-44px_rgba(0,0,0,0.85)] backdrop-blur"
+                className="rounded-3xl border border-neutral-200 bg-white p-6 shadow-[0_24px_48px_-30px_rgba(15,23,42,0.35)]"
               >
                 <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                   <div className="space-y-1">
-                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-neutral-400">
+                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
                       {application.id}
                     </p>
-                    <h3 className="text-xl font-semibold tracking-tight text-white md:text-2xl">
+                    <h3 className="text-xl font-semibold tracking-tight text-slate-900 md:text-2xl">
                       {application.title}
                     </h3>
-                    <p className="text-sm text-neutral-300">{application.summary}</p>
+                    <p className="text-sm text-slate-600">{application.summary}</p>
                   </div>
                   <Badge
                     className={`border ${statusStyles[application.status]} px-3 py-1.5 text-xs font-semibold uppercase tracking-wide`}
