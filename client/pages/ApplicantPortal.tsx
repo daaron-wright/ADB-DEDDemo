@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import type { CheckedState } from '@radix-ui/react-checkbox';
 import {
   Select,
@@ -138,6 +139,14 @@ export default function ApplicantPortal() {
   const [selectedLicenseType, setSelectedLicenseType] = useState<(typeof licenseOptions)[number]['value']>('all');
   const [progressThreshold, setProgressThreshold] = useState<number[]>([30]);
   const [sortBy, setSortBy] = useState<SortOption>('recent');
+
+  const location = useLocation();
+  const portalUser = (location.state as { user?: { name?: string; role?: string } } | undefined)?.user;
+  const firstName = portalUser?.name ? portalUser.name.split(' ')[0] : null;
+  const workspaceTitle = firstName ? `${firstName}'s workspace` : 'Applicant workspace';
+  const workspaceDescription = firstName
+    ? `Track every application, ${firstName}, understand what is blocking approval, and continue building your business in Abu Dhabi with clarity.`
+    : 'Track every application, understand what is blocking approval, and continue building your business in Abu Dhabi with clarity.';
 
   const minProgress = progressThreshold[0] ?? 0;
   const allDirectoratesSelected = selectedDirectorates.length === directorateOptions.length;
@@ -393,9 +402,9 @@ export default function ApplicantPortal() {
 
   return (
     <PortalPageLayout
-      title="Applicant workspace"
+      title={workspaceTitle}
       subtitle="Business license portal"
-      description="Track every application, understand what is blocking approval, and continue building your business in Abu Dhabi with clarity."
+      description={workspaceDescription}
       filters={filters}
       headerActions={headerActions}
     >
