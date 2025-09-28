@@ -17,6 +17,7 @@ import { PortalPageLayout } from '@/components/portal/PortalPageLayout';
 import { FilterSection } from '@/components/portal/FilterSection';
 import { SummaryMetric } from '@/components/portal/SummaryMetric';
 import { ReviewQueueCard, type ReviewQueueItem } from '@/components/portal/ReviewQueueCard';
+import { PortalProfileMenu } from '@/components/portal/PortalProfileMenu';
 
 const directorateOptions = [
   'Department of Economic Development',
