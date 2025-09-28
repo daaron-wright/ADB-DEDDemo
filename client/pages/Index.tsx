@@ -290,6 +290,10 @@ export default function Index() {
     });
   };
 
+  const handleOpenApplicantPortal = () => {
+    navigate('/portal/applicant');
+  };
+
   const handleCloseGeneralChat = () => {
     setOpenChatState({
       isOpen: false,
