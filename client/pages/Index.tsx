@@ -150,7 +150,11 @@ export default function Index() {
             {/* Business Category Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-5xl mx-auto">
               {businessCategories.map((category) => (
-                <div key={category.id} className="group cursor-pointer">
+                <div
+                  key={category.id}
+                  className="group cursor-pointer"
+                  onClick={() => handleTileClick(category.id, category.title)}
+                >
                   {/* Card Container */}
                   <div className="relative w-full h-[271px] rounded-3xl overflow-hidden">
                     {/* Background Image */}
