@@ -199,6 +199,7 @@ export function GapAnalysisView({ isOpen, onClose, category }: GapAnalysisViewPr
   return (
     <AnimatePresence>
       <motion.div
+        key="gap-analysis-content"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -265,6 +266,7 @@ export function GapAnalysisView({ isOpen, onClose, category }: GapAnalysisViewPr
 
       {/* Properties View */}
       <PropertiesView
+        key="properties-view"
         isOpen={showProperties}
         onClose={() => setShowProperties(false)}
         category={category}
