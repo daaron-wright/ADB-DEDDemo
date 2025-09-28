@@ -25,9 +25,6 @@ export default function Index() {
     isOpen: false,
   });
 
-  const [loggedInUser, setLoggedInUser] = useState<any>(null);
-  const [showBusinessPortal, setShowBusinessPortal] = useState(false);
-
   const fallbackFocus = { x: 640, y: 360 };
   const [focusPoint, setFocusPoint] = useState<{ x: number; y: number }>(fallbackFocus);
   const categoryPositions = useRef<Record<string, { x: number; y: number }>>({});
