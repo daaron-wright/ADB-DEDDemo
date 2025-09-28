@@ -265,7 +265,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                         className="w-12 h-12 rounded-full border border-[#54FFD4] object-cover"
                       />
                       <div>
-                        <h2 className="text-white text-lg font-semibold font-dm-sans">
+                        <h2 className="text-white text-lg font-semibold">
                           {title}
                         </h2>
                       </div>
@@ -317,7 +317,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                         onChange={(e) => setInputValue(e.target.value)}
                         onKeyPress={handleKeyPress}
                         placeholder="Type your message..."
-                        className="flex-1 bg-white/10 text-white placeholder-white/60 border border-white/20 rounded-xl px-3 py-2 text-sm font-dm-sans focus:outline-none focus:ring-1 focus:ring-[#54FFD4]/50 focus:border-[#54FFD4] transition-colors backdrop-blur-sm"
+                        className="flex-1 bg-white/10 text-white placeholder-white/60 border border-white/20 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#54FFD4]/50 focus:border-[#54FFD4] transition-colors backdrop-blur-sm"
                         disabled={chatState !== 'idle'}
                       />
                       
