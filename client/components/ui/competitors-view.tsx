@@ -256,6 +256,7 @@ export function CompetitorsView({ isOpen, onClose, category }: CompetitorsViewPr
   return (
     <AnimatePresence>
       <motion.div
+        key="competitors-view-content"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -349,6 +350,7 @@ export function CompetitorsView({ isOpen, onClose, category }: CompetitorsViewPr
 
       {/* Gap Analysis View */}
       <GapAnalysisView
+        key="gap-analysis-view"
         isOpen={showGapAnalysis}
         onClose={() => setShowGapAnalysis(false)}
         category={category}
