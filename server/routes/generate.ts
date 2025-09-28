@@ -36,7 +36,7 @@ interface CategoryResponse {
 }
 
 const getInvestorResponse = (message: string, category: string = 'general') => {
-  const responses: Record<string, CategoryResponse> = {
+  const responses: Partial<Record<string, CategoryResponse>> & { restaurants: CategoryResponse } = {
     restaurants: {
       businessSetup: {
         response: "For restaurant investment in Abu Dhabi, you'll need a Commercial License for F&B. The process involves obtaining health permits, liquor license (if applicable), municipality approvals, and fire safety clearance. Initial investment typically ranges from AED 500,000 to AED 2M depending on size and location.",
