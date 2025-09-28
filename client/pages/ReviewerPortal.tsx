@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import type { CheckedState } from '@radix-ui/react-checkbox';
 import {
   Select,
@@ -157,6 +158,14 @@ export default function ReviewerPortal() {
   const [selectedStage, setSelectedStage] = useState<(typeof stageOptions)[number]['value']>('all');
   const [daysThreshold, setDaysThreshold] = useState<number[]>([7]);
   const [sortBy, setSortBy] = useState<'due' | 'priority'>('due');
+
+  const location = useLocation();
+  const portalUser = (location.state as { user?: { name?: string; role?: string } } | undefined)?.user;
+  const firstName = portalUser?.name ? portalUser.name.split(' ')[0] : null;
+  const pageTitle = firstName ? `${firstName}'s review desk` : 'Reviewer command center';
+  const pageDescription = firstName
+    ? `Monitor the unified queue, ${firstName}, keep SLAs healthy, and collaborate with your team to move applications forward.`
+    : 'Monitor the unified queue, keep SLAs healthy, and collaborate with your team to move applications forward.';
 
   const allDirectoratesSelected = selectedDirectorates.length === directorateOptions.length;
   const someDirectoratesSelected = selectedDirectorates.length > 0 && !allDirectoratesSelected;
@@ -427,9 +436,9 @@ export default function ReviewerPortal() {
 
   return (
     <PortalPageLayout
-      title="Reviewer command center"
+      title={pageTitle}
       subtitle="Business license portal"
-      description="Monitor the unified queue, keep SLAs healthy, and collaborate with your team to move applications forward." 
+      description={pageDescription}
       filters={filters}
       headerActions={headerActions}
     >
