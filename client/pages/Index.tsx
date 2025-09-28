@@ -40,37 +40,12 @@ export default function Index() {
   } as const;
 
   const colorThemes = {
-    restaurants: {
-      primary: '#FF6B6B',
-      secondary: '#FF8E53',
-      accent: '#FF9A8B',
-      gradient: 'radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 107, 107, 0.4), rgba(255, 142, 83, 0.3), rgba(255, 154, 139, 0.2), transparent 70%)'
-    },
-    'fast-food': {
-      primary: '#4ECDC4',
-      secondary: '#45B7B8',
-      accent: '#96CEB4',
-      gradient: 'radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(78, 205, 196, 0.4), rgba(69, 183, 184, 0.3), rgba(150, 206, 180, 0.2), transparent 70%)'
-    },
-    branch: {
-      primary: '#A8E6CF',
-      secondary: '#88D8A3',
-      accent: '#C5E1A5',
-      gradient: 'radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(168, 230, 207, 0.4), rgba(136, 216, 163, 0.3), rgba(197, 225, 165, 0.2), transparent 70%)'
-    },
-    'retail-store': {
-      primary: '#FFD93D',
-      secondary: '#6BCF7F',
-      accent: '#4D96FF',
-      gradient: 'radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 217, 61, 0.4), rgba(107, 207, 127, 0.3), rgba(77, 150, 255, 0.2), transparent 70%)'
-    },
-    default: {
-      primary: '#8A2BE2',
-      secondary: '#9370DB',
-      accent: '#DDA0DD',
-      gradient: 'radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(138, 43, 226, 0.4), rgba(147, 112, 219, 0.3), rgba(221, 160, 221, 0.2), transparent 70%)'
-    }
-  };
+    restaurants: { ...baseTheme },
+    'fast-food': { ...baseTheme },
+    branch: { ...baseTheme },
+    'retail-store': { ...baseTheme },
+    default: { ...baseTheme }
+  } as const;
 
   // UAE PASS Login Handler
   const handleUAEPassLogin = (userType: 'applicant' | 'reviewer', userData: any) => {
