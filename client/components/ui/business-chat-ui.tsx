@@ -23,6 +23,8 @@ interface BusinessChatUIProps {
   title?: string;
 }
 
+type ChatView = 'journey' | 'discover-experience';
+
 const SoundVisualization = () => {
   const bars = [
     { height: '4px' },
@@ -102,7 +104,7 @@ const MessageBubble = ({ message }: { message: BusinessMessage }) => {
   );
 };
 
-const InvestorJourneyCard = ({ onClose }: { onClose: () => void }) => {
+const InvestorJourneyCard = ({ onClose, onSetupBusiness }: { onClose: () => void; onSetupBusiness: () => void }) => {
   return (
     <div className="bg-white/14 rounded-3xl p-6 mt-4">
       {/* Header image */}
@@ -146,7 +148,10 @@ const InvestorJourneyCard = ({ onClose }: { onClose: () => void }) => {
         >
           Explore more options
         </button>
-        <button className="px-6 py-3 rounded-full bg-teal-gradient text-white font-semibold text-base hover:opacity-90 transition-opacity">
+        <button
+          onClick={onSetupBusiness}
+          className="px-6 py-3 rounded-full bg-teal-gradient text-white font-semibold text-base hover:opacity-90 transition-opacity"
+        >
           Set up business
         </button>
       </div>
@@ -174,9 +179,23 @@ const getCategoryTitle = (category: string) => {
   return titles[category as keyof typeof titles] || "Commercial License";
 };
 
+const getCategoryName = (category: string) => {
+  const names = {
+    restaurants: "Restaurants",
+    'fast-food': "Fast Food",
+    branch: "Branch",
+    'retail-store': "Retail Store"
+  };
+  return names[category as keyof typeof names] || "Business";
+};
+
+const DISCOVER_EXPERIENCE_BACKGROUND = 'https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3bd661b83f654e47b8d088613c4aa854?format=webp&width=800';
+
 const queryClient = new QueryClient();
 
 export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business" }: BusinessChatUIProps) {
+  const [currentView, setCurrentView] = useState<ChatView>('journey');
+
   const getInitialMessages = () => {
     return conversationFlows[category as keyof typeof conversationFlows] || conversationFlows.general;
   }
@@ -186,15 +205,22 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
     getInitialMessages()
   );
 
+  const handleSetupBusiness = () => {
+    setCurrentView('discover-experience');
+  };
+
   useEffect(() => {
     // Reset messages when category changes to ensure the correct flow is loaded
     setMessages(getInitialMessages());
+    setCurrentView('journey'); // Reset view when category changes
   }, [category]);
 
   if (!isOpen) return null;
 
-  const backgroundImage = getCategoryBackground(category);
-  const categoryTitle = getCategoryTitle(category);
+  const backgroundImage = currentView === 'discover-experience' ? DISCOVER_EXPERIENCE_BACKGROUND : getCategoryBackground(category);
+  const categoryTitle = currentView === 'discover-experience'
+    ? `Your Investment Journey for ${getCategoryName(category)}`
+    : getCategoryTitle(category);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -278,8 +304,13 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
                     ))}
                     
                     {/* Show investor journey card after the last AI message */}
-                    {messages.length >= 3 && messages[2].hasActions && (
-                      <InvestorJourneyCard onClose={onClose} />
+                    {currentView === 'journey' && messages.length >= 3 && messages[2].hasActions && (
+                      <InvestorJourneyCard onClose={onClose} onSetupBusiness={handleSetupBusiness} />
+                    )}
+
+                    {/* Show discover experience content */}
+                    {currentView === 'discover-experience' && (
+                      <DiscoverExperienceView category={category} />
                     )}
                   </div>
                 </div>
