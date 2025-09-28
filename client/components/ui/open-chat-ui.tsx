@@ -117,10 +117,10 @@ const ChatStateIndicator = ({ state }: { state: ChatState }) => {
 const queryClient = new QueryClient();
 
 export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCategories, onCategoryClick }: OpenChatUIProps) {
-  const [messages, setMessages] = useState<ChatMessage[]>([
+  const [messages, setMessages] = usePersistentState<ChatMessage[]>('open-chat-messages', [
     {
       id: '1',
-      content: 'How can I help you get started in your investor journey',
+      content: 'Welcome to the future of government services. I can help you discover, set up, and grow your business. To get started, you can ask me a question or select one of the popular business categories below.',
       isAI: true,
       timestamp: new Date(),
     }
