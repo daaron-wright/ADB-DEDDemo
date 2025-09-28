@@ -677,51 +677,103 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
             </span>
           </div>
 
-          {/* Full-service restaurant */}
-          <div className="absolute left-10 top-[463px] flex items-center gap-10 w-[529px] h-[32px]">
-            <div className="w-8 h-8">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16.0001 2C13.2311 2 10.5244 2.82109 8.22208 4.35943C5.91979 5.89776 4.12538 8.08427 3.06575 10.6424C2.00613 13.2006 1.72888 16.0155 2.26907 18.7313C2.80927 21.447 4.14264 23.9416 6.10057 25.8995C8.05851 27.8574 10.5531 29.1908 13.2688 29.731C15.9845 30.2712 18.7995 29.9939 21.3576 28.9343C23.9158 27.8747 26.1023 26.0803 27.6406 23.778C29.179 21.4757 30.0001 18.7689 30.0001 16C30.0001 12.287 28.5251 8.72601 25.8996 6.1005C23.274 3.475 19.7131 2 16.0001 2V2ZM16.0001 28C13.6267 28 11.3066 27.2962 9.33322 25.9776C7.35983 24.6591 5.82176 22.7849 4.91351 20.5922C4.00526 18.3995 3.76762 15.9867 4.23064 13.6589C4.69367 11.3311 5.83655 9.19295 7.51478 7.51472C9.19301 5.83649 11.3312 4.6936 13.659 4.23058C15.9868 3.76755 18.3996 4.00519 20.5923 4.91345C22.785 5.8217 24.6591 7.35977 25.9777 9.33316C27.2963 11.3065 28.0001 13.6266 28.0001 16C28.0001 19.1826 26.7358 22.2348 24.4853 24.4853C22.2349 26.7357 19.1827 28 16.0001 28Z" fill="white"/>
-              </svg>
-            </div>
-            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
-              Full-service restaurant
-            </div>
-          </div>
+          {/* Interactive Business Activities List */}
+          <div className="absolute left-10 top-[463px] w-[550px] space-y-4">
+            {selectedActivities.map((activity, index) => (
+              <div key={index} className="flex items-center justify-between bg-white/10 rounded-lg p-3 border border-white/20">
+                <div className="flex items-center gap-3">
+                  <div className="w-6 h-6 flex items-center justify-center">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="10" fill="#54FFD4"/>
+                      <path d="M9 12l2 2 4-4" stroke="#0B0C28" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <span className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
+                    {activity}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-green-400 text-sm font-medium bg-green-400/10 px-2 py-1 rounded border border-green-400/30">
+                    APPROVED
+                  </span>
+                  <button
+                    onClick={() => {
+                      setSelectedActivities(selectedActivities.filter((_, i) => i !== index));
+                      showNotification('❌ Activity removed');
+                    }}
+                    className="text-white/50 hover:text-red-400 transition-colors p-1"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            ))}
 
-          {/* Charcoal/coal BBQ services */}
-          <div className="absolute left-10 top-[519px] flex items-center gap-10 w-[529px] h-[32px]">
-            <div className="w-8 h-8">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16.0001 2C13.2311 2 10.5244 2.82109 8.22208 4.35943C5.91979 5.89776 4.12538 8.08427 3.06575 10.6424C2.00613 13.2006 1.72888 16.0155 2.26907 18.7313C2.80927 21.447 4.14264 23.9416 6.10057 25.8995C8.05851 27.8574 10.5531 29.1908 13.2688 29.731C15.9845 30.2712 18.7995 29.9939 21.3576 28.9343C23.9158 27.8747 26.1023 26.0803 27.6406 23.778C29.179 21.4757 30.0001 18.7689 30.0001 16C30.0001 12.287 28.5251 8.72601 25.8996 6.1005C23.274 3.475 19.7131 2 16.0001 2V2ZM16.0001 28C13.6267 28 11.3066 27.2962 9.33322 25.9776C7.35983 24.6591 5.82176 22.7849 4.91351 20.5922C4.00526 18.3995 3.76762 15.9867 4.23064 13.6589C4.69367 11.3311 5.83655 9.19295 7.51478 7.51472C9.19301 5.83649 11.3312 4.6936 13.659 4.23058C15.9868 3.76755 18.3996 4.00519 20.5923 4.91345C22.785 5.8217 24.6591 7.35977 25.9777 9.33316C27.2963 11.3065 28.0001 13.6266 28.0001 16C28.0001 19.1826 26.7358 22.2348 24.4853 24.4853C22.2349 26.7357 19.1827 28 16.0001 28Z" fill="white"/>
-              </svg>
-            </div>
-            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
-              Charcoal/coal BBQ services
-            </div>
-          </div>
+            {/* Activity Selector */}
+            <div className="bg-white/5 border border-white/20 rounded-lg p-4">
+              <h4 className="text-white font-['DM_Sans'] text-sm font-semibold mb-3">Add Business Activities:</h4>
+              <div className="grid grid-cols-1 gap-2 mb-3">
+                {[
+                  'Take-away/delivery services',
+                  'Outdoor seating services',
+                  'Live entertainment',
+                  'Alcohol service',
+                  'Private dining rooms',
+                  'Catering services',
+                  'Event hosting',
+                  'Cooking classes'
+                ].filter(activity => !selectedActivities.includes(activity)).map((activity, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setSelectedActivities([...selectedActivities, activity]);
+                      showNotification('✅ New activity added');
+                    }}
+                    className="text-left p-3 bg-white/5 hover:bg-white/10 rounded border border-white/10 hover:border-[#54FFD4]/30 text-white text-sm transition-colors flex items-center justify-between"
+                  >
+                    <span>+ {activity}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-blue-400 bg-blue-400/10 px-2 py-1 rounded border border-blue-400/30">
+                        RECOMMENDED
+                      </span>
+                    </div>
+                  </button>
+                ))}
+              </div>
 
-          {/* Hospitality and catering services */}
-          <div className="absolute left-10 top-[575px] flex items-center gap-10 w-[529px] h-[32px]">
-            <div className="w-8 h-8">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16.0001 2C13.2311 2 10.5244 2.82109 8.22208 4.35943C5.91979 5.89776 4.12538 8.08427 3.06575 10.6424C2.00613 13.2006 1.72888 16.0155 2.26907 18.7313C2.80927 21.447 4.14264 23.9416 6.10057 25.8995C8.05851 27.8574 10.5531 29.1908 13.2688 29.731C15.9845 30.2712 18.7995 29.9939 21.3576 28.9343C23.9158 27.8747 26.1023 26.0803 27.6406 23.778C29.179 21.4757 30.0001 18.7689 30.0001 16C30.0001 12.287 28.5251 8.72601 25.8996 6.1005C23.274 3.475 19.7131 2 16.0001 2V2ZM16.0001 28C13.6267 28 11.3066 27.2962 9.33322 25.9776C7.35983 24.6591 5.82176 22.7849 4.91351 20.5922C4.00526 18.3995 3.76762 15.9867 4.23064 13.6589C4.69367 11.3311 5.83655 9.19295 7.51478 7.51472C9.19301 5.83649 11.3312 4.6936 13.659 4.23058C15.9868 3.76755 18.3996 4.00519 20.5923 4.91345C22.785 5.8217 24.6591 7.35977 25.9777 9.33316C27.2963 11.3065 28.0001 13.6266 28.0001 16C28.0001 19.1826 26.7358 22.2348 24.4853 24.4853C22.2349 26.7357 19.1827 28 16.0001 28Z" fill="white"/>
-              </svg>
-            </div>
-            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
-              Hospitality and catering services
-            </div>
-          </div>
-
-          {/* Add a new activity */}
-          <div className="absolute left-10 top-[631px] flex items-center gap-10 w-[529px] h-[32px]">
-            <div className="w-8 h-8 flex items-center justify-center">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M14 0C21.7 0 28 6.30003 28 14C28 21.7 21.7 28 14 28C6.30003 28 0 21.7 0 14C4.11619e-05 6.30006 6.30006 4.11593e-05 14 0ZM14 2C7.40006 2.00004 2.00004 7.40006 2 14C2 20.6 7.40003 26 14 26C20.6 26 26 20.6 26 14C26 7.40003 20.6 2 14 2ZM15 6V13H22V15H15V22H13V15H6V13H13V6H15Z" fill="white"/>
-              </svg>
-            </div>
-            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
-              Add a new activity
+              {/* Custom Activity Input */}
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  placeholder="Enter custom activity..."
+                  className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-white/50 font-['DM_Sans'] text-sm"
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter') {
+                      const input = e.target as HTMLInputElement;
+                      if (input.value.trim() && !selectedActivities.includes(input.value.trim())) {
+                        setSelectedActivities([...selectedActivities, input.value.trim()]);
+                        showNotification('✅ Custom activity added');
+                        input.value = '';
+                      }
+                    }
+                  }}
+                />
+                <button
+                  onClick={(e) => {
+                    const input = (e.target as HTMLButtonElement).previousElementSibling as HTMLInputElement;
+                    if (input.value.trim() && !selectedActivities.includes(input.value.trim())) {
+                      setSelectedActivities([...selectedActivities, input.value.trim()]);
+                      showNotification('✅ Custom activity added');
+                      input.value = '';
+                    }
+                  }}
+                  className="bg-[#54FFD4] hover:bg-[#54FFD4]/80 px-4 py-2 rounded-lg text-black font-['DM_Sans'] text-sm font-medium transition-colors"
+                >
+                  Add
+                </button>
+              </div>
             </div>
           </div>
 
