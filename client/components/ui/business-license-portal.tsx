@@ -45,36 +45,112 @@ const JourneyCard: React.FC<JourneyCardProps> = ({
   description,
   items,
   onAddItem,
+  onUpdateItem,
   onRemoveItem,
   showAdminActions = false,
   onToggleAdminView,
-  isAdminView = false
+  isAdminView = false,
+  progress = 0
 }) => {
   const [newItem, setNewItem] = useState('');
+  const [newItemPriority, setNewItemPriority] = useState<'low' | 'medium' | 'high'>('medium');
   const [isAddingItem, setIsAddingItem] = useState(false);
+  const [showActivitySelector, setShowActivitySelector] = useState(false);
+
+  const completedItems = items.filter(item => item.completed).length;
+  const progressPercentage = items.length > 0 ? (completedItems / items.length) * 100 : 0;
 
   const handleAddItem = () => {
     if (newItem.trim()) {
-      onAddItem(newItem.trim());
+      const newJourneyItem: JourneyItem = {
+        id: Date.now().toString(),
+        text: newItem.trim(),
+        completed: false,
+        status: 'pending',
+        priority: newItemPriority
+      };
+      onAddItem(newJourneyItem);
       setNewItem('');
       setIsAddingItem(false);
+      setNewItemPriority('medium');
     }
   };
 
+  const handleCheckboxChange = (item: JourneyItem) => {
+    const newStatus = item.completed ? 'pending' : 'completed';
+    onUpdateItem(item.id, {
+      completed: !item.completed,
+      status: newStatus
+    });
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'completed': return 'text-green-400';
+      case 'in_progress': return 'text-blue-400';
+      case 'blocked': return 'text-red-400';
+      default: return 'text-yellow-400';
+    }
+  };
+
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'high': return 'border-red-400/50 bg-red-500/10';
+      case 'medium': return 'border-yellow-400/50 bg-yellow-500/10';
+      case 'low': return 'border-green-400/50 bg-green-500/10';
+      default: return 'border-white/20 bg-white/5';
+    }
+  };
+
+  const predefinedActivities = [
+    'Prepare Emirates ID copy',
+    'Submit trade name application',
+    'Obtain NOC from municipality',
+    'Complete fire safety inspection',
+    'Get health department approval',
+    'Submit financial documents',
+    'Pay government fees',
+    'Schedule site inspection',
+    'Complete training requirements',
+    'Submit insurance documentation'
+  ];
+
   return (
     <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-      {/* Header */}
+      {/* Header with Progress */}
       <div className="flex items-center justify-between mb-4">
-        <div>
-          <h3 className="text-white font-['DM_Sans'] text-xl font-semibold leading-[160%] tracking-[0.058px]">
-            {title}
-          </h3>
-          <p className="text-white/70 font-['DM_Sans'] text-sm mt-1">{description}</p>
+        <div className="flex-1">
+          <div className="flex items-center gap-3 mb-2">
+            <h3 className="text-white font-['DM_Sans'] text-xl font-semibold leading-[160%] tracking-[0.058px]">
+              {title}
+            </h3>
+            <div className="flex items-center gap-1 bg-white/10 px-2 py-1 rounded-full">
+              <span className="text-[#54FFD4] font-['DM_Sans'] text-xs font-medium">
+                {completedItems}/{items.length}
+              </span>
+            </div>
+          </div>
+          <p className="text-white/70 font-['DM_Sans'] text-sm">{description}</p>
+
+          {/* Progress Bar */}
+          <div className="mt-3">
+            <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-[#54FFD4] to-[#21FCC6] transition-all duration-500 ease-out"
+                style={{ width: `${progressPercentage}%` }}
+              />
+            </div>
+            <div className="flex justify-between text-xs text-white/60 mt-1">
+              <span>Progress</span>
+              <span>{Math.round(progressPercentage)}% Complete</span>
+            </div>
+          </div>
         </div>
+
         {showAdminActions && (
           <button
             onClick={onToggleAdminView}
-            className="flex items-center gap-2 bg-[#54FFD4]/20 hover:bg-[#54FFD4]/30 px-3 py-2 rounded-lg border border-[#54FFD4]/30 transition-colors"
+            className="ml-4 flex items-center gap-2 bg-[#54FFD4]/20 hover:bg-[#54FFD4]/30 px-3 py-2 rounded-lg border border-[#54FFD4]/30 transition-colors"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="#54FFD4"/>
@@ -100,56 +176,156 @@ const JourneyCard: React.FC<JourneyCardProps> = ({
 
       {/* Items List */}
       <div className="space-y-3 mb-4">
-        {items.map((item, index) => (
-          <div key={index} className="flex items-center justify-between bg-white/5 rounded-lg p-3 border border-white/10">
-            <div className="flex items-center gap-3">
-              <div className="w-6 h-6 flex items-center justify-center">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 12l2 2 4-4" stroke="#54FFD4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <circle cx="12" cy="12" r="10" stroke="#54FFD4" strokeWidth="2" fill="none"/>
-                </svg>
+        {items.map((item) => (
+          <div
+            key={item.id}
+            className={`flex items-center justify-between rounded-lg p-3 border transition-all duration-200 ${getPriorityColor(item.priority)} ${
+              item.completed ? 'opacity-75' : ''
+            }`}
+          >
+            <div className="flex items-center gap-3 flex-1">
+              {/* Interactive Checkbox */}
+              <button
+                onClick={() => handleCheckboxChange(item)}
+                className="w-6 h-6 flex items-center justify-center transition-all duration-200"
+              >
+                {item.completed ? (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" fill="#54FFD4"/>
+                    <path d="M9 12l2 2 4-4" stroke="#0B0C28" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                ) : (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="#54FFD4" strokeWidth="2" fill="none"/>
+                  </svg>
+                )}
+              </button>
+
+              <div className="flex-1">
+                <span className={`text-white font-['DM_Sans'] text-sm ${item.completed ? 'line-through opacity-75' : ''}`}>
+                  {item.text}
+                </span>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className={`text-xs font-medium ${getStatusColor(item.status)}`}>
+                    {item.status.replace('_', ' ').toUpperCase()}
+                  </span>
+                  <span className="text-xs text-white/50">•</span>
+                  <span className="text-xs text-white/50 capitalize">{item.priority} Priority</span>
+                </div>
               </div>
-              <span className="text-white font-['DM_Sans'] text-sm">{item}</span>
             </div>
-            <button
-              onClick={() => onRemoveItem(index)}
-              className="text-white/50 hover:text-red-400 transition-colors"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
+
+            {/* Actions */}
+            <div className="flex items-center gap-2">
+              {/* Status Change Buttons */}
+              <div className="flex gap-1">
+                <button
+                  onClick={() => onUpdateItem(item.id, { status: 'in_progress' })}
+                  className="w-6 h-6 bg-blue-500/20 hover:bg-blue-500/40 rounded border border-blue-400/30 flex items-center justify-center transition-colors"
+                  title="Set In Progress"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="3" fill="#60A5FA"/>
+                  </svg>
+                </button>
+                <button
+                  onClick={() => onUpdateItem(item.id, { status: 'blocked' })}
+                  className="w-6 h-6 bg-red-500/20 hover:bg-red-500/40 rounded border border-red-400/30 flex items-center justify-center transition-colors"
+                  title="Mark as Blocked"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="#F87171" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+
+              <button
+                onClick={() => onRemoveItem(item.id)}
+                className="text-white/50 hover:text-red-400 transition-colors p-1"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            </div>
           </div>
         ))}
       </div>
 
       {/* Add Item Section */}
       {isAddingItem ? (
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={newItem}
-            onChange={(e) => setNewItem(e.target.value)}
-            placeholder="Enter new item..."
-            className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-white/50 font-['DM_Sans'] text-sm"
-            onKeyPress={(e) => e.key === 'Enter' && handleAddItem()}
-            autoFocus
-          />
-          <button
-            onClick={handleAddItem}
-            className="bg-[#54FFD4] hover:bg-[#54FFD4]/80 px-4 py-2 rounded-lg text-black font-['DM_Sans'] text-sm font-medium transition-colors"
-          >
-            Add
-          </button>
-          <button
-            onClick={() => {
-              setIsAddingItem(false);
-              setNewItem('');
-            }}
-            className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-white font-['DM_Sans'] text-sm font-medium transition-colors"
-          >
-            Cancel
-          </button>
+        <div className="space-y-3">
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={newItem}
+              onChange={(e) => setNewItem(e.target.value)}
+              placeholder="Enter new task..."
+              className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-white/50 font-['DM_Sans'] text-sm"
+              onKeyPress={(e) => e.key === 'Enter' && handleAddItem()}
+              autoFocus
+            />
+            <select
+              value={newItemPriority}
+              onChange={(e) => setNewItemPriority(e.target.value as 'low' | 'medium' | 'high')}
+              className="bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white font-['DM_Sans'] text-sm"
+            >
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={handleAddItem}
+              className="bg-[#54FFD4] hover:bg-[#54FFD4]/80 px-4 py-2 rounded-lg text-black font-['DM_Sans'] text-sm font-medium transition-colors"
+            >
+              Add Task
+            </button>
+            <button
+              onClick={() => setShowActivitySelector(!showActivitySelector)}
+              className="bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 px-4 py-2 rounded-lg text-blue-300 font-['DM_Sans'] text-sm font-medium transition-colors"
+            >
+              Quick Add
+            </button>
+            <button
+              onClick={() => {
+                setIsAddingItem(false);
+                setNewItem('');
+                setShowActivitySelector(false);
+              }}
+              className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-white font-['DM_Sans'] text-sm font-medium transition-colors"
+            >
+              Cancel
+            </button>
+          </div>
+
+          {/* Quick Activity Selector */}
+          {showActivitySelector && (
+            <div className="bg-white/5 border border-white/20 rounded-lg p-3">
+              <h4 className="text-white font-['DM_Sans'] text-sm font-semibold mb-2">Quick Add Activities:</h4>
+              <div className="grid grid-cols-1 gap-2">
+                {predefinedActivities.map((activity, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      const newJourneyItem: JourneyItem = {
+                        id: Date.now().toString() + index,
+                        text: activity,
+                        completed: false,
+                        status: 'pending',
+                        priority: 'medium'
+                      };
+                      onAddItem(newJourneyItem);
+                    }}
+                    className="text-left p-2 bg-white/5 hover:bg-white/10 rounded border border-white/10 hover:border-[#54FFD4]/30 text-white text-sm transition-colors"
+                  >
+                    + {activity}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <button
@@ -159,7 +335,7 @@ const JourneyCard: React.FC<JourneyCardProps> = ({
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 5v14M5 12h14" stroke="#54FFD4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          <span className="text-[#54FFD4] font-['DM_Sans'] text-sm font-medium">Add Item</span>
+          <span className="text-[#54FFD4] font-['DM_Sans'] text-sm font-medium">Add New Task</span>
         </button>
       )}
     </div>
