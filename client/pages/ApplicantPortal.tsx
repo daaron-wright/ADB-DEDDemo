@@ -360,23 +360,18 @@ export default function ApplicantPortal() {
       <FilterSection title="Directorate">
         <div className="space-y-3">
           <Checkbox
-            id="all-directorates"
             label="All directorates"
             checked={allDirectoratesSelected}
             indeterminate={someDirectoratesSelected && !allDirectoratesSelected}
             onCheckedChange={handleToggleAllDirectorates}
-            className="border-neutral-200"
-            checkboxClassName="border-neutral-300 text-purple-600 focus-visible:ring-purple-300"
           />
 
           {directorateOptions.map((option) => (
             <Checkbox
               key={option}
-              id={`directorate-${slugify(option)}`}
               label={option}
               checked={selectedDirectorates.includes(option)}
               onCheckedChange={(checked) => handleDirectorateChange(option, checked)}
-              checkboxClassName="border-neutral-300 text-purple-600 focus-visible:ring-purple-300"
             />
           ))}
         </div>
