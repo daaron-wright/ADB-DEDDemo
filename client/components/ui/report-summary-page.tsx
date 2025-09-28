@@ -10,6 +10,16 @@ interface ReportSummaryPageProps {
   onExploreAnother: () => void;
 }
 
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  emiratesId: string;
+  userType: 'applicant' | 'reviewer';
+  role: string;
+  department?: string;
+}
+
 const SoundVisualization = () => {
   const bars = [
     { height: '6px' },
