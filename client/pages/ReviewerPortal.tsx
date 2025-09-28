@@ -329,7 +329,9 @@ export default function ReviewerPortal() {
       <FilterSection title="SLA status">
         <RadioGroup
           value={selectedSlaStatus}
-          onValueChange={setSelectedSlaStatus}
+          onValueChange={(value) =>
+            setSelectedSlaStatus(value as (typeof slaOptions)[number]['value'])
+          }
           className="space-y-2"
         >
           {slaOptions.map((option) => (
@@ -351,7 +353,13 @@ export default function ReviewerPortal() {
       </FilterSection>
 
       <FilterSection title="Priority">
-        <RadioGroup value={priorityFilter} onValueChange={setPriorityFilter} className="space-y-2">
+        <RadioGroup
+          value={priorityFilter}
+          onValueChange={(value) =>
+            setPriorityFilter(value as (typeof priorityOptions)[number]['value'])
+          }
+          className="space-y-2"
+        >
           {priorityOptions.map((option) => (
             <div
               key={option.value}
@@ -371,7 +379,12 @@ export default function ReviewerPortal() {
       </FilterSection>
 
       <FilterSection title="Workflow stage">
-        <Select value={selectedStage} onValueChange={setSelectedStage}>
+        <Select
+          value={selectedStage}
+          onValueChange={(value) =>
+            setSelectedStage(value as (typeof stageOptions)[number]['value'])
+          }
+        >
           <SelectTrigger className="h-11 rounded-2xl border-neutral-200 bg-white text-sm text-slate-900">
             <SelectValue />
           </SelectTrigger>
