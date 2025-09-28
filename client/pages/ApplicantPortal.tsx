@@ -514,6 +514,48 @@ export default function ApplicantPortal() {
         />
       </section>
 
+      <section className="mt-6 rounded-3xl border border-neutral-200 bg-white p-6 shadow-[0_24px_48px_-30px_rgba(15,23,42,0.35)]">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+          <div className="lg:max-w-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Application journey</p>
+            <h2 className="mt-3 text-2xl font-semibold text-slate-900">
+              {firstName ? `${firstName}'s application timeline` : 'Your application timeline'}
+            </h2>
+            <p className="mt-4 text-sm text-slate-600">
+              Follow each milestone from the initial questionnaire through pre-operational inspection. Statuses
+              here mirror what support teams see so everyone stays aligned.
+            </p>
+          </div>
+          <ol className="flex-1 space-y-5">
+            {applicantJourney.map((stage, index) => {
+              const tokens = journeyStateTokens[stage.state];
+              const isLast = index === applicantJourney.length - 1;
+
+              return (
+                <li key={stage.id} className="relative pl-9">
+                  <span className={`absolute left-0 top-2 block h-2.5 w-2.5 rounded-full ${tokens.dotClass}`} />
+                  {!isLast && <span className="absolute left-[5px] top-6 bottom-0 w-px bg-neutral-200" />}
+                  <div className="rounded-2xl border border-neutral-200 bg-white px-4 py-3 shadow-[0_12px_30px_-18px_rgba(15,23,42,0.18)]">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <h3 className="text-sm font-semibold text-slate-900">{stage.title}</h3>
+                      <span
+                        className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${tokens.badgeClass}`}
+                      >
+                        {tokens.label}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-sm text-slate-600">{stage.description}</p>
+                    {stage.statusDetail ? (
+                      <p className="mt-2 text-xs font-medium uppercase tracking-[0.28em] text-slate-400">{stage.statusDetail}</p>
+                    ) : null}
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </section>
+
       <section className="space-y-5">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
