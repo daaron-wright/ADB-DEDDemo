@@ -192,86 +192,179 @@ const getCategoryName = (category: string) => {
 const DISCOVER_EXPERIENCE_BACKGROUND = 'https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3bd661b83f654e47b8d088613c4aa854?format=webp&width=800';
 
 const DiscoverExperienceView = ({ category }: { category: string }) => {
+  const [showMapModal, setShowMapModal] = useState(false);
+
+  const conversationMessages = [
+    {
+      id: 'user-1',
+      content: 'Where are existing establishments located for specific activities (on a heat map)?',
+      isAI: false,
+      timestamp: new Date()
+    },
+    {
+      id: 'ai-1',
+      content: 'I have created a heat map for the top areas and existing businesses',
+      isAI: true,
+      timestamp: new Date()
+    },
+    {
+      id: 'user-2',
+      content: 'Interesting looking at this in a map',
+      isAI: false,
+      timestamp: new Date()
+    }
+  ];
+
   return (
-    <div className="relative w-full min-h-[60vh] flex items-center justify-center p-8">
-      {/* Gradient Background with SVG */}
-      <div className="absolute inset-0 overflow-hidden rounded-3xl">
-        <svg
-          className="w-full h-full object-cover"
-          viewBox="0 0 1194 833"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <filter id="filter0_f_0_476" x="-1931" y="-1448" width="3110" height="2519" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-              <feFlood floodOpacity="0" result="BackgroundImageFix"/>
-              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-              <feGaussianBlur stdDeviation="200" result="effect1_foregroundBlur_0_476"/>
-            </filter>
-            <filter id="filter1_f_0_476" x="-743.381" y="-875.229" width="1960.57" height="1815.68" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-              <feFlood floodOpacity="0" result="BackgroundImageFix"/>
-              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-              <feGaussianBlur stdDeviation="200" result="effect1_foregroundBlur_0_476"/>
-            </filter>
-            <filter id="filter2_f_0_476" x="-886" y="-1599" width="1587.52" height="2140" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-              <feFlood floodOpacity="0" result="BackgroundImageFix"/>
-              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-              <feGaussianBlur stdDeviation="140" result="effect1_foregroundBlur_0_476"/>
-            </filter>
-            <filter id="filter3_f_0_476" x="-730" y="-1573" width="1720.17" height="2196" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-              <feFlood floodOpacity="0" result="BackgroundImageFix"/>
-              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-              <feGaussianBlur stdDeviation="200" result="effect1_foregroundBlur_0_476"/>
-            </filter>
-            <linearGradient id="paint0_linear_0_476" x1="237" y1="152" x2="-275" y2="-232" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#0E0A2B" stopOpacity="0"/>
-              <stop offset="1" stopColor="#0E0A2B"/>
-            </linearGradient>
-            <clipPath id="clip0_0_476">
-              <rect width="1194" height="853" fill="white"/>
-            </clipPath>
-          </defs>
-          <g clipPath="url(#clip0_0_476)">
-            <rect width="1194" height="853" fill="#0B0C28"/>
-            <g filter="url(#filter0_f_0_476)">
-              <ellipse cx="-376" cy="-188.5" rx="1155" ry="859.5" fill="#0E0A2B"/>
-            </g>
-            <g filter="url(#filter1_f_0_476)">
-              <ellipse cx="236.903" cy="32.6109" rx="613.417" ry="467.069" transform="rotate(30.0789 236.903 32.6109)" fill="#0919B6"/>
-            </g>
-            <g filter="url(#filter2_f_0_476)">
-              <path d="M169 -506.5C169 -70.1951 693.262 261 231 261C-231.262 261 -606 -92.6951 -606 -529C-606 -965.305 -231.262 -1319 231 -1319C693.262 -1319 169 -942.805 169 -506.5Z" fill="#07D2FB"/>
-            </g>
-            <g filter="url(#filter3_f_0_476)">
-              <path d="M-79 -455.5C-79 -70.0052 773 223 476 223C30.8585 223 -330 -89.5052 -330 -475C-330 -860.495 30.8585 -1173 476 -1173C921.141 -1173 -79 -840.995 -79 -455.5Z" fill="#21FCC6"/>
-            </g>
-            <g style={{mixBlendMode: 'hue'}}>
-              <rect x="-275" y="-232" width="1024" height="768" fill="url(#paint0_linear_0_476)"/>
-            </g>
-          </g>
-        </svg>
-      </div>
+    <div className="w-full h-full">
+      {/* Chat Messages */}
+      <div className="space-y-4 mb-6">
+        {/* User Question */}
+        <div className="flex justify-end">
+          <div className="max-w-[80%] px-4 py-3 rounded-2xl rounded-br-sm bg-black/30 backdrop-blur-sm border border-white/10">
+            <div className="text-white text-sm leading-relaxed">
+              {conversationMessages[0].content}
+            </div>
+          </div>
+        </div>
 
-      {/* Content overlay */}
-      <div className="relative z-10 text-center text-white max-w-2xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold mb-6">
-          Discover Your Experience
-        </h2>
-        <p className="text-lg md:text-xl mb-8 text-white/90 leading-relaxed">
-          Welcome to your personalized investment journey for {getCategoryName(category).toLowerCase()}.
-          Explore opportunities, understand requirements, and take the next steps towards your business goals.
-        </p>
+        {/* AI Response */}
+        <div className="flex justify-start gap-3">
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+            alt="AI Assistant"
+            className="w-8 h-8 rounded-full border border-[#54FFD4] object-cover flex-shrink-0"
+          />
+          <div className="max-w-[70%] px-4 py-3 rounded-2xl rounded-bl-sm bg-white/20 backdrop-blur-sm border border-white/10">
+            <div className="text-white text-sm leading-relaxed">
+              {conversationMessages[1].content}
+            </div>
+          </div>
+        </div>
 
-        {/* Action buttons or additional content can be added here */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="px-8 py-4 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold text-lg hover:bg-white/30 transition-colors">
-            Explore Opportunities
-          </button>
-          <button className="px-8 py-4 rounded-full bg-gradient-to-r from-[#07D2FB] to-[#21FCC6] text-white font-semibold text-lg hover:opacity-90 transition-opacity">
-            Get Started
-          </button>
+        {/* Heat Map Image */}
+        <div className="flex justify-center my-6">
+          <div className="relative">
+            <button
+              onClick={() => setShowMapModal(true)}
+              className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            >
+              <img
+                src="https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=386"
+                alt="Abu Dhabi Heat Map"
+                className="w-48 h-48 md:w-64 md:h-64 object-cover"
+              />
+
+              {/* Heat Map Overlay Circles */}
+              <div className="absolute inset-0">
+                {/* Red density circles */}
+                <div className="absolute w-8 h-8 rounded-full" style={{
+                  background: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 0, 0) 100%)',
+                  top: '35%',
+                  left: '30%'
+                }} />
+                <div className="absolute w-6 h-6 rounded-full" style={{
+                  background: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 0, 0) 100%)',
+                  top: '40%',
+                  left: '15%'
+                }} />
+
+                {/* Orange density circles */}
+                <div className="absolute w-7 h-7 rounded-full" style={{
+                  background: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 149, 0, 0.4) 0%, rgba(255, 178, 0, 0) 100%)',
+                  top: '25%',
+                  left: '10%'
+                }} />
+                <div className="absolute w-7 h-7 rounded-full" style={{
+                  background: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 149, 0, 0.4) 0%, rgba(255, 178, 0, 0) 100%)',
+                  top: '55%',
+                  left: '30%'
+                }} />
+                <div className="absolute w-8 h-8 rounded-full" style={{
+                  background: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 149, 0, 0.4) 0%, rgba(255, 178, 0, 0) 100%)',
+                  top: '25%',
+                  right: '20%'
+                }} />
+
+                {/* Yellow density circle */}
+                <div className="absolute w-7 h-7 rounded-full" style={{
+                  background: 'radial-gradient(50% 50% at 50% 50%, rgba(251, 255, 0, 0.4) 0%, rgba(247, 255, 0, 0) 100%)',
+                  top: '15%',
+                  right: '25%'
+                }} />
+              </div>
+
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/20 backdrop-blur-sm rounded-full p-3">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 3H6C4.89543 3 4 3.89543 4 5V19C4 20.1046 4.89543 21 6 21H18C19.1046 21 20 20.1046 20 19V8L15 3Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M14 3V9H20" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M16 13L12 17L8 13" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M12 17V9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        {/* User Response */}
+        <div className="flex justify-end">
+          <div className="max-w-[70%] px-4 py-3 rounded-2xl rounded-br-sm bg-black/30 backdrop-blur-sm border border-white/10">
+            <div className="text-white text-sm leading-relaxed">
+              {conversationMessages[2].content}
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* Chat Input */}
+      <div className="mt-6">
+        <div className="flex items-center gap-3 px-4 py-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/10">
+          <div className="flex-1 text-white text-sm">
+            I want to look at the Cornich<span className="text-[#54FFD4]">|</span>
+          </div>
+          <div className="flex items-center gap-2">
+            {/* Microphone icon */}
+            <div className="w-4 h-4 flex items-center justify-center">
+              <svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.35352 6.20687V7.70687C1.35352 8.63513 1.72253 9.5251 2.37891 10.1815C3.03528 10.8379 3.92526 11.2069 4.85352 11.2069C5.78177 11.2069 6.67175 10.8379 7.32812 10.1815C7.9845 9.5251 8.35352 8.63513 8.35352 7.70687V6.20687H9.35352V7.70687C9.35299 8.8134 8.94491 9.88131 8.20703 10.7059C7.46917 11.5304 6.45312 12.0537 5.35352 12.1766V13.2069H7.35352V14.2069H2.35352V13.2069H4.35352V12.1766C3.25391 12.0537 2.23787 11.5304 1.5 10.7059C0.762117 9.88131 0.354041 8.8134 0.353516 7.70687V6.20687H1.35352ZM4.85352 0.206871C5.51656 0.206871 6.15225 0.470452 6.62109 0.939293C7.08993 1.40813 7.35352 2.04383 7.35352 2.70687V7.70687C7.35352 8.36991 7.08993 9.00561 6.62109 9.47445C6.15225 9.94329 5.51656 10.2069 4.85352 10.2069C4.19047 10.2069 3.55478 9.94329 3.08594 9.47445C2.6171 9.00561 2.35352 8.36991 2.35352 7.70687V2.70687C2.35352 2.04383 2.6171 1.40813 3.08594 0.939293C3.55478 0.470452 4.19047 0.206871 4.85352 0.206871ZM4.85352 1.20687C4.45569 1.20687 4.07427 1.36502 3.79297 1.64632C3.51166 1.92763 3.35352 2.30905 3.35352 2.70687V7.70687C3.35352 8.1047 3.51166 8.48611 3.79297 8.76742C4.07427 9.04872 4.45569 9.20687 4.85352 9.20687C5.25134 9.20687 5.63276 9.04872 5.91406 8.76742C6.19537 8.48611 6.35352 8.1047 6.35352 7.70687V2.70687C6.35352 2.30905 6.19537 1.92763 5.91406 1.64632C5.63276 1.36502 5.25134 1.20687 4.85352 1.20687Z" fill="white"/>
+              </svg>
+            </div>
+            {/* Keyboard icon */}
+            <div className="w-4 h-4 flex items-center justify-center">
+              <svg width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.8535 0.206871C14.1187 0.206871 14.373 0.312303 14.5605 0.49984C14.7481 0.687376 14.8535 0.941655 14.8535 1.20687V8.20687C14.8535 8.47209 14.7481 8.72637 14.5605 8.9139C14.373 9.10144 14.1187 9.20687 13.8535 9.20687H1.85352C1.5883 9.20687 1.33402 9.10144 1.14648 8.9139C0.958948 8.72637 0.853516 8.47209 0.853516 8.20687V1.20687C0.853516 0.941655 0.958948 0.687376 1.14648 0.49984C1.33402 0.312303 1.5883 0.206871 1.85352 0.206871H13.8535ZM1.85352 8.20687H13.8535V1.20687H1.85352V8.20687ZM3.85352 7.20687H2.85352V6.20687H3.85352V7.20687ZM10.3535 7.20687H4.85352V6.20687H10.3535V7.20687ZM12.8535 6.20687V7.20687H11.3535V6.20687H12.8535ZM3.85352 5.20687H2.85352V4.20687H3.85352V5.20687ZM5.85352 5.20687H4.85352V4.20687H5.85352V5.20687ZM7.85352 5.20687H6.85352V4.20687H7.85352V5.20687ZM9.85352 5.20687H8.85352V4.20687H9.85352V5.20687ZM12.8535 5.20687H10.8535V4.20687H12.8535V5.20687ZM3.85352 3.20687H2.85352V2.20687H3.85352V3.20687ZM5.85352 3.20687H4.85352V2.20687H5.85352V3.20687ZM7.85352 3.20687H6.85352V2.20687H7.85352V3.20687ZM9.85352 3.20687H8.85352V2.20687H9.85352V3.20687ZM12.8535 3.20687H10.8535V2.20687H12.8535V3.20687Z" fill="white"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* TODO: Add expandable modal when provided */}
+      {showMapModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 max-w-2xl w-full">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-white text-xl font-semibold">Abu Dhabi Business Heat Map</h3>
+              <button
+                onClick={() => setShowMapModal(false)}
+                className="text-white/70 hover:text-white"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            </div>
+            <img
+              src="https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=386"
+              alt="Abu Dhabi Heat Map - Full View"
+              className="w-full h-auto rounded-lg"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -395,7 +488,9 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
 
                     {/* Show discover experience content */}
                     {currentView === 'discover-experience' && (
-                      <DiscoverExperienceView category={category} />
+                      <div className="p-6">
+                        <DiscoverExperienceView category={category} />
+                      </div>
                     )}
                   </div>
                 </div>
