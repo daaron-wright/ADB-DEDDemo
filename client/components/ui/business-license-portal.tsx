@@ -901,20 +901,20 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
             <div className="flex gap-2">
               <button
                 onClick={() => setShowCollapsibleView(true)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 ${
                   showCollapsibleView
-                    ? 'bg-[#54FFD4] text-black'
-                    : 'bg-white/10 text-white border border-white/20'
+                    ? 'border-white/15 bg-white text-slate-900'
+                    : 'border-white/15 bg-white/8 text-white/70 hover:bg-white/12'
                 }`}
               >
                 Collapsible View
               </button>
               <button
                 onClick={() => setShowCollapsibleView(false)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 ${
                   !showCollapsibleView
-                    ? 'bg-[#54FFD4] text-black'
-                    : 'bg-white/10 text-white border border-white/20'
+                    ? 'border-white/15 bg-white text-slate-900'
+                    : 'border-white/15 bg-white/8 text-white/70 hover:bg-white/12'
                 }`}
               >
                 Journey Cards
