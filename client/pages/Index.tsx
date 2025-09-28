@@ -306,7 +306,10 @@ export default function Index() {
             >
               Chat with AI
             </button>
-            <button className="bg-teal-gradient text-white px-6 py-4 rounded-full font-semibold text-base hover:opacity-90 transition-opacity">
+            <button
+              onClick={() => setShowUAEPassLogin(true)}
+              className="bg-teal-gradient text-white px-6 py-4 rounded-full font-semibold text-base hover:opacity-90 transition-opacity"
+            >
               Sign in
             </button>
           </div>
