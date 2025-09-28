@@ -121,32 +121,34 @@ export function ChatUI({ isOpen, onClose, title = "AI Business" }: ChatUIProps) 
         >
           <div className="flex flex-col w-full h-full rounded-2xl bg-transparent backdrop-blur-sm">
             {/* App Bar */}
-            <div className="flex items-center gap-3 p-4 border-b border-white/10">
+            <div className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4">
               {/* Avatar */}
-              <div className="relative">
+              <div className="relative flex-shrink-0">
                 <img
                   src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
                   alt="AI Assistant"
-                  className="w-16 h-16 rounded-full border border-[#54FFD4]"
+                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#54FFD4] object-cover"
                 />
               </div>
 
               {/* Title */}
-              <div className="flex-1">
-                <h2 className="text-white text-lg font-bold font-dm-sans">
+              <div className="flex-1 min-w-0">
+                <h2 className="text-white text-base sm:text-lg font-bold font-dm-sans tracking-wide truncate">
                   {title}
                 </h2>
               </div>
 
               {/* Sound Visualization */}
-              <SoundVisualization />
+              <div className="flex-shrink-0">
+                <SoundVisualization />
+              </div>
 
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="ml-2 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                className="ml-1 sm:ml-2 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors flex-shrink-0"
               >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 4L4 12M4 4L12 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
