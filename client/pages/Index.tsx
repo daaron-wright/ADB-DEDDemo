@@ -265,33 +265,33 @@ export default function Index() {
                 return (
                   <div
                     key={category.id}
-                    className="group cursor-pointer relative"
-                    onClick={() => handleTileClick(category.id, category.title)}
-                    onMouseEnter={(e) => handleCategoryHover(category.id, e)}
+                    className="group relative cursor-pointer"
+                    onClick={(event) => handleTileClick(category.id, category.title, event)}
+                    onMouseEnter={(event) => handleCategoryHover(category.id, event)}
                     onMouseLeave={handleCategoryLeave}
                   >
-                    {/* Card Container with enhanced animations */}
+                    {/* Card Container with subtle animations */}
                     <motion.div
-                      className="relative w-full h-[271px] rounded-3xl overflow-hidden border-2"
+                      className="relative h-[271px] w-full overflow-hidden rounded-3xl border"
                       animate={{
-                        borderColor: isHovered ? categoryTheme.primary : 'white',
-                        scale: isHovered ? 1.05 : 1,
-                        boxShadow: isHovered
-                          ? `0 20px 60px -20px ${categoryTheme.primary}40, 0 0 30px ${categoryTheme.secondary}20`
-                          : '0 10px 30px -15px rgba(0, 0, 0, 0.1)',
+                        borderColor: isElevated ? categoryTheme.primary : 'rgba(255, 255, 255, 0.9)',
+                        scale: isElevated ? 1.015 : 1,
+                        boxShadow: isElevated
+                          ? '0 22px 45px -22px rgba(14, 165, 233, 0.35)'
+                          : '0 12px 28px -18px rgba(15, 23, 42, 0.18)',
                       }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                      whileHover={{ y: -5 }}
+                      transition={{ duration: 0.35, ease: 'easeOut' }}
+                      whileHover={{ y: -3 }}
                     >
-                      {/* Enhanced glow effect */}
+                      {/* Soft glow */}
                       <motion.div
                         className="absolute -inset-1 rounded-3xl"
                         animate={{
-                          background: isHovered
-                            ? `linear-gradient(135deg, ${categoryTheme.primary}30, ${categoryTheme.secondary}20, ${categoryTheme.accent}10)`
+                          background: isElevated
+                            ? 'linear-gradient(140deg, rgba(14, 165, 233, 0.18), rgba(14, 165, 233, 0.08), transparent)'
                             : 'transparent',
-                          filter: isHovered ? 'blur(8px)' : 'blur(0px)',
-                          opacity: isHovered ? 0.6 : 0
+                          filter: isElevated ? 'blur(10px)' : 'blur(0px)',
+                          opacity: isElevated ? 0.8 : 0,
                         }}
                         transition={{ duration: 0.4 }}
                       />
