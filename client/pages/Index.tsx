@@ -129,7 +129,10 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-white overflow-hidden relative">
-      <div className="absolute top-1/2 left-1/2 w-[1200px] h-[1200px] -translate-x-1/2 -translate-y-1/2">
+      <motion.div
+        className="absolute top-1/2 left-1/2 w-[1200px] h-[1200px] -translate-x-1/2 -translate-y-1/2"
+        style={{ translateX, translateY }}
+      >
         <div
           className="w-full h-full rounded-full bg-purple-500/30 animate-pulse"
           style={{
@@ -137,7 +140,7 @@ export default function Index() {
             background: 'radial-gradient(circle, rgba(138, 43, 226, 0.4) 0%, rgba(138, 43, 226, 0) 70%)',
           }}
         />
-      </div>
+      </motion.div>
       <div className="relative z-10">
         {/* Navigation Header */}
         <header className="flex justify-between items-center px-8 py-6 border-b border-gray-100/50">
