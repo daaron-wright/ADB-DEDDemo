@@ -277,8 +277,8 @@ export default function Index() {
             </h2>
 
             {/* Business Category Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-5xl mx-auto">
-              {businessCategories.map((category) => {
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto justify-items-center">
+            {businessCategories.map((category) => {
                 const isHovered = hoveredCategory === category.id;
                 const isActive = activeCategory === category.id;
                 const isElevated = isHovered || isActive;
@@ -288,22 +288,23 @@ export default function Index() {
                     key={category.id}
                     side="bottom"
                     align="center"
-                    className="aegov-tooltip bg-slate-900/95 border border-white/15 px-4 py-3 text-white/95 shadow-[0_20px_52px_-30px_rgba(15,23,42,0.55)] backdrop-blur-md"
+                    sideOffset={16}
+                    className="aegov-tooltip rounded-2xl border border-white/30 bg-white/95 px-4 py-3 text-slate-800 shadow-[0_24px_55px_-30px_rgba(24,32,63,0.35)] backdrop-blur-lg [&_svg]:fill-white"
                     content={
-                      <div className="max-w-[240px] text-sm leading-relaxed text-white/95">
+                      <div className="max-w-[240px] text-sm leading-relaxed text-slate-700">
                         {category.tooltip}
                       </div>
                     }
                   >
                     <div
-                      className="group relative cursor-pointer"
+                      className="group relative cursor-pointer w-[253px]"
                       onClick={(event) => handleTileClick(category.id, category.title, event)}
                       onMouseEnter={(event) => handleCategoryHover(category.id, event)}
                       onMouseLeave={handleCategoryLeave}
                     >
-                    {/* Card Container with subtle animations */}
-                    <motion.div
-                      className="relative h-[271px] w-full overflow-hidden rounded-3xl border"
+                      {/* Card Container with subtle animations */}
+                      <motion.div
+                        className="relative h-[271px] w-full overflow-hidden rounded-3xl border"
                       animate={{
                         borderColor: isElevated ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.7)',
                         scale: isElevated ? 1.02 : 1,
