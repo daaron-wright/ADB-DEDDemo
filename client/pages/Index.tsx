@@ -554,14 +554,6 @@ export default function Index() {
         }}
       />
 
-      {/* Business License Portal */}
-      {loggedInUser && showBusinessPortal && (
-        <BusinessLicensePortalSimplified
-          isOpen={showBusinessPortal}
-          user={loggedInUser}
-          onClose={() => setShowBusinessPortal(false)}
-        />
-      )}
     </div>
   );
 }
