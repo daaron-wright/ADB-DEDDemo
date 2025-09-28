@@ -739,8 +739,15 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
               title="Business Registration"
               description="Complete the business registration process"
               items={businessRegistrationItems}
-              onAddItem={(item) => setBusinessRegistrationItems([...businessRegistrationItems, item])}
-              onRemoveItem={(index) => setBusinessRegistrationItems(businessRegistrationItems.filter((_, i) => i !== index))}
+              onAddItem={(item) => {
+                setBusinessRegistrationItems([...businessRegistrationItems, item]);
+                showNotification('➕ New task added to Business Registration');
+              }}
+              onUpdateItem={handleUpdateBusinessRegItem}
+              onRemoveItem={(id) => {
+                setBusinessRegistrationItems(businessRegistrationItems.filter(item => item.id !== id));
+                showNotification('🗑️ Task removed');
+              }}
               showAdminActions={true}
               onToggleAdminView={() => setShowBusinessRegAdmin(!showBusinessRegAdmin)}
               isAdminView={showBusinessRegAdmin}
@@ -751,12 +758,34 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
               title="Business Licensing"
               description="Obtain required licenses for restaurant operation"
               items={businessLicensingItems}
-              onAddItem={(item) => setBusinessLicensingItems([...businessLicensingItems, item])}
-              onRemoveItem={(index) => setBusinessLicensingItems(businessLicensingItems.filter((_, i) => i !== index))}
+              onAddItem={(item) => {
+                setBusinessLicensingItems([...businessLicensingItems, item]);
+                showNotification('➕ New task added to Business Licensing');
+              }}
+              onUpdateItem={handleUpdateBusinessLicItem}
+              onRemoveItem={(id) => {
+                setBusinessLicensingItems(businessLicensingItems.filter(item => item.id !== id));
+                showNotification('🗑️ Task removed');
+              }}
               showAdminActions={true}
               onToggleAdminView={() => setShowBusinessLicAdmin(!showBusinessLicAdmin)}
               isAdminView={showBusinessLicAdmin}
             />
+          </div>
+
+          {/* Notification Toast System */}
+          <div className="fixed top-24 right-6 z-50 space-y-2">
+            {notifications.map((notification, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: 300 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 300 }}
+                className="bg-[#54FFD4] text-black px-4 py-2 rounded-lg shadow-lg font-['DM_Sans'] text-sm font-medium max-w-sm"
+              >
+                {notification}
+              </motion.div>
+            ))}
           </div>
         </div>
 
