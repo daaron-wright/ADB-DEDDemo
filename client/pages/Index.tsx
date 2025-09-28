@@ -372,9 +372,10 @@ export default function Index() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="absolute inset-0 rounded-3xl z-20"
+                            className="absolute inset-0 z-20 rounded-3xl"
                             style={{
-                              background: `linear-gradient(135deg, ${categoryTheme.primary}20, ${categoryTheme.secondary}15, rgba(0, 0, 0, 0.6))`
+                              background:
+                                'linear-gradient(135deg, rgba(14, 165, 233, 0.24), rgba(14, 165, 233, 0.12), rgba(15, 23, 42, 0.65))',
                             }}
                           >
                             <div className="backdrop-blur-sm h-full rounded-3xl">
