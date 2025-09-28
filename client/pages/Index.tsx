@@ -60,6 +60,18 @@ export default function Index() {
     });
   };
 
+  const handleOpenGeneralChat = () => {
+    setOpenChatState({
+      isOpen: true,
+    });
+  };
+
+  const handleCloseGeneralChat = () => {
+    setOpenChatState({
+      isOpen: false,
+    });
+  };
+
   const getChatTitle = () => {
     const category = businessCategories.find(cat => cat.id === chatState.category);
     return category ? `${category.title} AI Assistant` : 'AI Business';
