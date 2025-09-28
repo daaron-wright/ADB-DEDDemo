@@ -225,12 +225,12 @@ export default function Index() {
       <motion.div
         className="pointer-events-none absolute inset-0"
         animate={{
-          background: `radial-gradient(520px circle at ${focusPoint.x}px ${focusPoint.y}px, rgba(14, 165, 233, ${hoveredCategory || activeCategory ? 0.18 : 0.12}), rgba(14, 165, 233, 0.06) 48%, transparent 78%)`,
-          opacity: hoveredCategory || activeCategory ? 1 : 0.7,
+          background: `radial-gradient(540px circle at ${focusPoint.x}px ${focusPoint.y}px, rgba(168, 85, 247, ${hoveredCategory || activeCategory ? 0.28 : 0.18}), rgba(255, 255, 255, 0.55) 55%, transparent 85%)`,
+          opacity: hoveredCategory || activeCategory ? 1 : 0.8,
         }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
       />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.08),transparent_60%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.12),rgba(255,255,255,0)_60%)]" />
       <div className="relative z-10">
         {/* Navigation Header */}
         <header className="flex justify-between items-center px-8 py-6 border-b border-gray-100/50">
