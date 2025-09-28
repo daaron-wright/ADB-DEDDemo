@@ -97,10 +97,10 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         />
         <label
           htmlFor={id}
-          className={cn('flex flex-1 flex-col text-sm font-medium text-slate-700', labelClassName)}
+          className={cn('flex flex-1 flex-col text-sm font-medium text-neutral-100', labelClassName)}
         >
           <span>{label}</span>
-          {description ? <span className="mt-1 text-xs text-slate-500">{description}</span> : null}
+          {description ? <span className="mt-1 text-xs text-neutral-400">{description}</span> : null}
         </label>
       </div>
     );
