@@ -837,7 +837,8 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
                         message={message}
                         onActionClick={(action) => {
                           if (action === 'budget-ranges') {
-                            handleSendMessage('Can you give me any demographic data you have for this area.');
+                            // Budget ranges button - demographic question is already in the predefined flow
+                            console.log('Budget ranges clicked');
                           }
                         }}
                       />
