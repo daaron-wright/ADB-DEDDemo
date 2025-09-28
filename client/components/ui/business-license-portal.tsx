@@ -267,14 +267,14 @@ const JourneyCard: React.FC<JourneyCardProps> = ({
               value={newItem}
               onChange={(e) => setNewItem(e.target.value)}
               placeholder="Enter new task..."
-              className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-white/50 font-['DM_Sans'] text-sm"
+              className="flex-1 rounded-lg border border-white/15 bg-white/8 px-3 py-2 text-sm text-white placeholder-white/45"
               onKeyPress={(e) => e.key === 'Enter' && handleAddItem()}
               autoFocus
             />
             <select
               value={newItemPriority}
               onChange={(e) => setNewItemPriority(e.target.value as 'low' | 'medium' | 'high')}
-              className="bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white font-['DM_Sans'] text-sm"
+              className="rounded-lg border border-white/15 bg-white/8 px-3 py-2 text-sm text-white"
             >
               <option value="low">Low</option>
               <option value="medium">Medium</option>
@@ -284,13 +284,13 @@ const JourneyCard: React.FC<JourneyCardProps> = ({
           <div className="flex gap-2">
             <button
               onClick={handleAddItem}
-              className="bg-[#54FFD4] hover:bg-[#54FFD4]/80 px-4 py-2 rounded-lg text-black font-['DM_Sans'] text-sm font-medium transition-colors"
+              className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-slate-900 transition-colors duration-200 hover:bg-white/90"
             >
               Add Task
             </button>
             <button
               onClick={() => setShowActivitySelector(!showActivitySelector)}
-              className="bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 px-4 py-2 rounded-lg text-blue-300 font-['DM_Sans'] text-sm font-medium transition-colors"
+              className="rounded-lg border border-white/15 bg-white/8 px-4 py-2 text-sm font-medium text-white/70 transition-colors duration-200 hover:bg-white/12"
             >
               Quick Add
             </button>
@@ -300,16 +300,15 @@ const JourneyCard: React.FC<JourneyCardProps> = ({
                 setNewItem('');
                 setShowActivitySelector(false);
               }}
-              className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-white font-['DM_Sans'] text-sm font-medium transition-colors"
+              className="rounded-lg border border-white/10 px-4 py-2 text-sm font-medium text-white/55 transition-colors duration-200 hover:bg-white/15"
             >
               Cancel
             </button>
           </div>
 
-          {/* Quick Activity Selector */}
           {showActivitySelector && (
-            <div className="bg-white/5 border border-white/20 rounded-lg p-3">
-              <h4 className="text-white font-['DM_Sans'] text-sm font-semibold mb-2">Quick Add Activities:</h4>
+            <div className="space-y-2 rounded-xl border border-white/12 bg-white/6 p-3">
+              <h4 className="text-sm font-semibold text-white/85">Quick add activities</h4>
               <div className="grid grid-cols-1 gap-2">
                 {predefinedActivities.map((activity, index) => (
                   <button
@@ -324,7 +323,7 @@ const JourneyCard: React.FC<JourneyCardProps> = ({
                       };
                       onAddItem(newJourneyItem);
                     }}
-                    className="text-left p-2 bg-white/5 hover:bg-white/10 rounded border border-white/10 hover:border-[#54FFD4]/30 text-white text-sm transition-colors"
+                    className="rounded-xl border border-white/12 bg-white/5 p-2 text-left text-sm text-white transition-colors duration-200 hover:bg-white/10"
                   >
                     + {activity}
                   </button>
@@ -336,12 +335,12 @@ const JourneyCard: React.FC<JourneyCardProps> = ({
       ) : (
         <button
           onClick={() => setIsAddingItem(true)}
-          className="w-full flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-[#54FFD4]/50 rounded-lg p-3 transition-colors"
+          className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 p-3 text-sm font-medium text-white/70 transition-colors duration-200 hover:bg-white/10"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 5v14M5 12h14" stroke="#54FFD4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          <span className="text-[#54FFD4] font-['DM_Sans'] text-sm font-medium">Add New Task</span>
+          <span>Add new task</span>
         </button>
       )}
     </div>
@@ -1234,7 +1233,7 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
                 </div>
 
                 <button
-                  onClick={() => showNotification('🔄 Services refreshed')}
+                  onClick={() => showNotification('�� Services refreshed')}
                   className="w-full mt-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded p-2 text-white text-xs transition-colors"
                 >
                   Refresh Status
