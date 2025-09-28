@@ -202,10 +202,11 @@ export default function Index() {
         </main>
       </div>
 
-      {/* Chat UI */}
-      <ChatUI
+      {/* Investor Chat UI */}
+      <InvestorChatUI
         isOpen={chatState.isOpen}
         onClose={handleCloseChat}
+        category={chatState.category || 'general'}
         title={getChatTitle()}
       />
     </div>
