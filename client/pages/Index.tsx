@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { BusinessChatUI } from '@/components/ui/business-chat-ui';
+import { AnimatedConversation } from '@/components/ui/animated-conversation';
+import { conversationFlows } from '@/lib/conversations';
+import { AnimatePresence } from 'framer-motion';
 import { OpenChatUI } from '@/components/ui/open-chat-ui';
 
 export default function Index() {
@@ -12,6 +15,7 @@ export default function Index() {
     category: null,
   });
 
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [openChatState, setOpenChatState] = useState<{
     isOpen: boolean;
   }>({
@@ -164,21 +168,23 @@ export default function Index() {
               {businessCategories.map((category) => (
                 <div
                   key={category.id}
-                  className="group cursor-pointer"
+                  className="group cursor-pointer relative"
                   onClick={() => handleTileClick(category.id, category.title)}
+                  onMouseEnter={() => setHoveredCategory(category.id)}
+                  onMouseLeave={() => setHoveredCategory(null)}
                 >
                   {/* Card Container */}
                   <div className="relative w-full h-[271px] rounded-3xl overflow-hidden border-2 border-white">
                     {/* Background Image */}
                     <div className="absolute inset-0">
-                      <img 
-                        src={category.image} 
+                      <img
+                        src={category.image}
                         alt={category.title}
                         className="w-full h-full object-cover"
                       />
                       {/* Special overlay image for restaurants */}
                       {category.overlayImage && (
-                        <img 
+                        <img
                           src={category.overlayImage}
                           alt=""
                           className="absolute inset-0 w-full h-full object-cover"
@@ -187,7 +193,7 @@ export default function Index() {
                     </div>
 
                     {/* Content Overlay */}
-                    <div className="absolute bottom-4 left-4 right-4">
+                    <div className="absolute bottom-4 left-4 right-4 z-10">
                       <div className="bg-white/28 backdrop-blur-sm rounded-2xl p-4 flex items-center justify-between">
                         <div className="flex-1">
                           <p className="text-white/65 text-xs font-normal mb-1">
@@ -197,7 +203,7 @@ export default function Index() {
                             {category.title}
                           </h3>
                         </div>
-                        
+
                         {/* Arrow Button */}
                         <div className="w-11 h-11 rounded-full border border-white/18 bg-transparent flex items-center justify-center group-hover:bg-white/10 transition-colors">
                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -206,6 +212,23 @@ export default function Index() {
                         </div>
                       </div>
                     </div>
+
+                    {/* Animated Conversation Overlay */}
+                    <AnimatePresence>
+                      {hoveredCategory === category.id && (
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="absolute inset-0 bg-black/50 backdrop-blur-sm rounded-3xl z-20"
+                        >
+                          <AnimatedConversation
+                            messages={conversationFlows[category.id as keyof typeof conversationFlows] || []}
+                          />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 </div>
               ))}
