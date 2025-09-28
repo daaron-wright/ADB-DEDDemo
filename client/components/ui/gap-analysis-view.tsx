@@ -264,9 +264,9 @@ export function GapAnalysisView({ isOpen, onClose, category }: GapAnalysisViewPr
         </div>
       </motion.div>
 
-      {/* Property Map View */}
-      <PropertyMapView
-        key="property-map-view"
+      {/* Property Map Modal */}
+      <PropertyMapModal
+        key="property-map-modal"
         isOpen={showProperties}
         onClose={() => setShowProperties(false)}
       />
