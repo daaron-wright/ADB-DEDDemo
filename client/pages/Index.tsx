@@ -1,4 +1,15 @@
+import React, { useState } from 'react';
+import { ChatUI } from '@/components/ui/chat-ui';
+
 export default function Index() {
+  const [chatState, setChatState] = useState<{
+    isOpen: boolean;
+    category: string | null;
+  }>({
+    isOpen: false,
+    category: null,
+  });
+
   const businessCategories = [
     {
       id: "restaurants",
