@@ -7,7 +7,7 @@ interface FilterSectionProps {
   children: ReactNode;
 }
 
-export const FilterSection: React.FC<FilterSectionProps> = ({ title, description, action, children }) => {
+export function FilterSection({ title, description, action, children }: FilterSectionProps) {
   return (
     <section className="space-y-3">
       <div className="flex items-start justify-between gap-3">
@@ -22,4 +22,4 @@ export const FilterSection: React.FC<FilterSectionProps> = ({ title, description
       <div className="space-y-3 text-sm text-slate-600">{children}</div>
     </section>
   );
-};
+}
