@@ -516,9 +516,9 @@ interface InfoItemProps {
 
 function InfoItem({ label, value }: InfoItemProps) {
   return (
-    <div className="rounded-2xl border border-white/40 bg-white/80 px-4 py-3">
-      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-purple-500/70">{label}</p>
-      <p className="mt-2 text-sm font-semibold text-slate-800">{value}</p>
+    <div className="rounded-2xl border border-white/10 bg-neutral-900/80 px-4 py-3">
+      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-neutral-400">{label}</p>
+      <p className="mt-2 text-sm font-semibold text-neutral-100">{value}</p>
     </div>
   );
 }
