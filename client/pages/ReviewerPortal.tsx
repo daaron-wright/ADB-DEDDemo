@@ -50,8 +50,6 @@ const stageOptions = [
   { label: 'Pre-Operational Inspection', value: 'Pre-Operational Inspection' },
 ] as const;
 
-const slugify = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-
 const reviewQueue: ReviewQueueItem[] = [
   {
     id: 'REV-20347',
