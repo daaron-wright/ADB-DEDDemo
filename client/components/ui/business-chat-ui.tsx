@@ -703,39 +703,90 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
   };
 
   const handleNewTab = () => {
-    const newThread: ChatThread = {
-      id: `thread-${Date.now()}`,
-      title: 'Cost & Demographics',
-      messages: [
-        {
-          id: 'user-cost-question',
-          content: 'How much would it cost to open a restaurant',
-          isAI: false,
-          timestamp: new Date(),
-        },
-        {
-          id: 'ai-cost-response',
-          content: 'Estimated set up costs could range from: There isn\'t a single fixed price, but rather a range that can vary from approximately AED 10,000 to AED 30,000 for the trade license itself. Type of License: The cost can differ based on the type of license you get. A Tajer/e-commerce license that don\'t allow full restaurant operations start at AED 790.',
-          isAI: true,
-          timestamp: new Date(),
-        },
-        {
-          id: 'user-demographic-question',
-          content: 'Can you give me any demographic data you have for this area.',
-          isAI: false,
-          timestamp: new Date(),
-        },
-        {
-          id: 'ai-demographic-response',
-          content: 'Abu Dhabi\'s dining potential varies by zone, each offering unique demographics and footfall drivers:\nYas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10).\nAl Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10).\nSaadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10).\nAl Reem Island – 30k residents, 35k daytime; dense community market (7/10).\nAl Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10).\nCorniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10).\nAl Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).',
-          isAI: true,
-          timestamp: new Date(),
-        }
-      ],
-      view: 'discover-experience',
-    };
-    setThreads([...threads, newThread]);
-    setActiveThreadId(newThread.id);
+    // Alternate between different conversation flows
+    const isExtendedFlow = threads.length % 2 === 1;
+
+    if (isExtendedFlow) {
+      const newThread: ChatThread = {
+        id: `thread-${Date.now()}`,
+        title: 'Detailed Restaurant Analysis',
+        messages: [
+          {
+            id: 'user-detailed-cost-question',
+            content: 'What would the set up and running costs be to open a F&B Restaurant, with 300 covers?',
+            isAI: false,
+            timestamp: new Date(),
+          },
+          {
+            id: 'ai-detailed-cost-response',
+            content: 'Estimated set up costs could range from: Rough Estimate for Total Set-Up Costs: AED 6,500,000 to AED 14,000,000+ Average monthly running costs: AED 545,000 to AED 1,355,000+ all depending on location, level of service offering, staffing and finishing. Here is a breakdown of the estimated set up and national average running costs',
+            isAI: true,
+            timestamp: new Date(),
+          },
+          {
+            id: 'user-demographic-question-2',
+            content: 'Can you give me any demographic data you have for this area.',
+            isAI: false,
+            timestamp: new Date(),
+          },
+          {
+            id: 'ai-demographic-response-2',
+            content: 'Abu Dhabi\'s dining potential varies by zone, each offering unique demographics and footfall drivers:\nYas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10).\nAl Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10).\nSaadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10).\nAl Reem Island – 30k residents, 35k daytime; dense community market (7/10).\nAl Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10).\nCorniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10).\nAl Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).',
+            isAI: true,
+            timestamp: new Date(),
+          },
+          {
+            id: 'user-corniche-question',
+            content: 'Great can you give me more details on The Corniche',
+            isAI: false,
+            timestamp: new Date(),
+          },
+          {
+            id: 'ai-corniche-response',
+            content: 'The Corniche is a popular choice due to its high foot traffic and scenic views. It attracts both tourists and locals, especially during the cooler months. The area is known for its diverse range of dining options, from casual cafes to upscale restaurants, catering to a wide range of tastes and budgets.',
+            isAI: true,
+            timestamp: new Date(),
+          }
+        ],
+        view: 'discover-experience',
+      };
+      setThreads([...threads, newThread]);
+      setActiveThreadId(newThread.id);
+    } else {
+      const newThread: ChatThread = {
+        id: `thread-${Date.now()}`,
+        title: 'Cost & Demographics',
+        messages: [
+          {
+            id: 'user-cost-question',
+            content: 'How much would it cost to open a restaurant',
+            isAI: false,
+            timestamp: new Date(),
+          },
+          {
+            id: 'ai-cost-response',
+            content: 'Estimated set up costs could range from: There isn\'t a single fixed price, but rather a range that can vary from approximately AED 10,000 to AED 30,000 for the trade license itself. Type of License: The cost can differ based on the type of license you get. A Tajer/e-commerce license that don\'t allow full restaurant operations start at AED 790.',
+            isAI: true,
+            timestamp: new Date(),
+          },
+          {
+            id: 'user-demographic-question',
+            content: 'Can you give me any demographic data you have for this area.',
+            isAI: false,
+            timestamp: new Date(),
+          },
+          {
+            id: 'ai-demographic-response',
+            content: 'Abu Dhabi\'s dining potential varies by zone, each offering unique demographics and footfall drivers:\nYas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10).\nAl Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10).\nSaadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10).\nAl Reem Island – 30k residents, 35k daytime; dense community market (7/10).\nAl Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10).\nCorniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10).\nAl Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).',
+            isAI: true,
+            timestamp: new Date(),
+          }
+        ],
+        view: 'discover-experience',
+      };
+      setThreads([...threads, newThread]);
+      setActiveThreadId(newThread.id);
+    }
   };
 
   const handleSendMessage = (message: string) => {
