@@ -160,6 +160,12 @@ export default function Index() {
           <div className="flex items-center gap-4">
             <span className="text-black text-base font-medium">Welcome</span>
             <button
+              onClick={handleOpenPropertyMap}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full font-medium text-sm transition-colors"
+            >
+              Show Available Properties
+            </button>
+            <button
               onClick={handleOpenGeneralChat}
               className="bg-white/10 backdrop-blur-sm border border-gray-200 text-gray-700 px-4 py-2 rounded-full font-medium text-sm hover:bg-white/20 transition-colors"
             >
