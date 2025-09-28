@@ -76,18 +76,6 @@ export default function Index() {
     });
   };
 
-  const handleOpenPropertyMap = () => {
-    setPropertyMapState({
-      isOpen: true,
-    });
-  };
-
-  const handleClosePropertyMap = () => {
-    setPropertyMapState({
-      isOpen: false,
-    });
-  };
-
   const getChatTitle = () => {
     const category = businessCategories.find(cat => cat.id === chatState.category);
     return category ? `${category.subtitle} for ${category.title}` : 'AI Business';
