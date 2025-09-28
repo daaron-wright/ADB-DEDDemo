@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { InvestmentReportDocument } from './investment-report-document';
+import { UAEPassLogin } from './uae-pass-login';
+import { BusinessLicensePortal } from './business-license-portal';
 
 interface ReportSummaryPageProps {
   isOpen: boolean;
