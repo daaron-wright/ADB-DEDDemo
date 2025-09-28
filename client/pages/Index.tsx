@@ -84,6 +84,9 @@ export default function Index() {
   const springX = useSpring(mouseX, springConfig);
   const springY = useSpring(mouseY, springConfig);
 
+  const translateX = useTransform(springX, (x) => (x - (typeof window !== 'undefined' ? window.innerWidth / 2 : 800)) * 0.05);
+  const translateY = useTransform(springY, (y) => (y - (typeof window !== 'undefined' ? window.innerHeight / 2 : 400)) * 0.05);
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
@@ -109,8 +112,8 @@ export default function Index() {
             height: '1580px',
             left: '-38px',
             top: '-919px',
-            translateX: springX.to(x => (x - (typeof window !== 'undefined' ? window.innerWidth / 2 : 800)) * 0.05),
-            translateY: springY.to(y => (y - (typeof window !== 'undefined' ? window.innerHeight / 2 : 400)) * 0.05),
+            translateX,
+            translateY,
           }}
           width="1588"
           height="2140"
