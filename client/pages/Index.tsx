@@ -207,6 +207,10 @@ export default function Index() {
     }
   };
 
+  const handlePointerMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    queueFocusPoint({ x: event.clientX, y: event.clientY });
+  };
+
   return (
     <div
       ref={pageRef}
