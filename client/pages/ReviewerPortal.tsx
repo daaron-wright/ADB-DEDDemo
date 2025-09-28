@@ -503,7 +503,7 @@ export default function ReviewerPortal() {
         </div>
 
         {filteredQueue.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-neutral-700 bg-neutral-900/80 p-10 text-center text-sm text-neutral-300">
+          <div className="rounded-3xl border border-dashed border-neutral-200 bg-white p-10 text-center text-sm text-slate-600 shadow-[0_12px_30px_-18px_rgba(15,23,42,0.18)]">
             No review cases match the current filters. Adjust your filters to see more results.
           </div>
         ) : (
