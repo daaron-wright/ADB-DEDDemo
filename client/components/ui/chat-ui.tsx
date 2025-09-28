@@ -16,23 +16,23 @@ interface ChatUIProps {
 
 const SoundVisualization = () => {
   const bars = [
+    { height: '4px' },
+    { height: '8px' },
+    { height: '16px' },
+    { height: '10px' },
     { height: '6px' },
-    { height: '12px' },
-    { height: '20px' },
-    { height: '13px' },
-    { height: '9px' },
-    { height: '23px' },
-    { height: '30px' },
-    { height: '17px' },
-    { height: '5px' },
+    { height: '18px' },
+    { height: '24px' },
+    { height: '14px' },
+    { height: '3px' },
   ];
 
   return (
-    <div className="flex items-center justify-center gap-0.5">
+    <div className="flex items-center justify-center gap-0.5 sm:gap-1">
       {bars.map((bar, index) => (
         <div
           key={index}
-          className="w-1 bg-[#54FFD4] rounded-full"
+          className="w-0.5 sm:w-1 bg-[#54FFD4] rounded-full transition-all duration-300 hover:bg-[#54FFD4]/80"
           style={{ height: bar.height }}
         />
       ))}
