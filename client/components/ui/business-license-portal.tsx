@@ -627,6 +627,7 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
 
           <div className="flex items-center gap-4">
             <button
+              type="button"
               onClick={() => setShowExplainability(prev => !prev)}
               className="flex items-center gap-2 rounded-full border border-white/18 bg-white/12 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/75 transition-colors duration-200 hover:bg-white/18 hover:text-white"
               aria-pressed={showExplainability}
@@ -677,6 +678,7 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
                 <h3 className="text-lg font-semibold text-white/90">Actions that stay with you</h3>
               </div>
               <button
+                type="button"
                 onClick={() => setShowExplainability(false)}
                 className="flex h-7 w-7 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/70 transition-colors duration-200 hover:bg-white/20 hover:text-white"
                 aria-label="Close explainability"
