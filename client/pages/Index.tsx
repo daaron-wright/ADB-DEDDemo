@@ -56,7 +56,7 @@ export default function Index() {
         y: window.innerHeight * 0.35,
       });
     } else {
-      setFocusPoint(fallbackFocus);
+      setFocusPoint({ ...fallbackFocus });
     }
   };
 
