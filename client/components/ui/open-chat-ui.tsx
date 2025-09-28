@@ -181,40 +181,49 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
 
   // Initialize speech recognition
   useEffect(() => {
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.continuous = false;
-      recognitionRef.current.interimResults = false;
-      recognitionRef.current.lang = 'en-US';
-
-      recognitionRef.current.onstart = () => {
-        setChatState('listening');
-        setIsListening(true);
-      };
-
-      recognitionRef.current.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        setInputValue(transcript);
-        setChatState('idle');
-        setIsListening(false);
-      };
-
-      recognitionRef.current.onerror = () => {
-        setChatState('idle');
-        setIsListening(false);
-      };
-
-      recognitionRef.current.onend = () => {
-        setChatState('idle');
-        setIsListening(false);
-      };
+    const SpeechRecognitionCtor = getSpeechRecognitionConstructor();
+    if (!SpeechRecognitionCtor) {
+      return;
     }
 
-    return () => {
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
+    const recognition = new SpeechRecognitionCtor();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+
+    recognition.onstart = () => {
+      setChatState('listening');
+      setIsListening(true);
+    };
+
+    recognition.onresult = (event) => {
+      const firstResult = event.results[0] ?? event.results.item(0);
+      const firstAlternative = firstResult ? firstResult[0] ?? firstResult.item?.(0) : undefined;
+      const transcript = firstAlternative?.transcript ?? '';
+
+      if (transcript) {
+        setInputValue(transcript);
       }
+
+      setChatState('idle');
+      setIsListening(false);
+    };
+
+    recognition.onerror = () => {
+      setChatState('idle');
+      setIsListening(false);
+    };
+
+    recognition.onend = () => {
+      setChatState('idle');
+      setIsListening(false);
+    };
+
+    recognitionRef.current = recognition;
+
+    return () => {
+      recognitionRef.current?.stop();
+      recognitionRef.current = null;
     };
   }, []);
 
