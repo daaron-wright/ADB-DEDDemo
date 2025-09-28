@@ -680,6 +680,11 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
   const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
   const [showSummaryDashboard, setShowSummaryDashboard] = useState(false);
 
+  // UAE PASS Login state
+  const [showUAEPassLogin, setShowUAEPassLogin] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState<any>(null);
+  const [showBusinessPortal, setShowBusinessPortal] = useState(false);
+
   useEffect(() => {
     if (isOpen) {
       const initialMessages = conversationFlows[category as keyof typeof conversationFlows] || conversationFlows.general;
