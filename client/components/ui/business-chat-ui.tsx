@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
 import { usePersistentState } from '@/hooks/use-persistent-state';
 import { conversationFlows } from '@/lib/conversations';
+import { SummaryDashboard } from './summary-dashboard';
 
 interface BusinessMessage {
   id: string;
@@ -675,6 +676,7 @@ const queryClient = new QueryClient();
 export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business" }: BusinessChatUIProps) {
   const [threads, setThreads] = useState<ChatThread[]>([]);
   const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
+  const [showSummaryDashboard, setShowSummaryDashboard] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -811,6 +813,10 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
       const updatedMessages = [...activeThread.messages, userMessage, aiResponse];
       updateThread(activeThreadId, { messages: updatedMessages });
     }
+  };
+
+  const handleSummarize = () => {
+    setShowSummaryDashboard(true);
   };
 
   const generateAIResponse = (userMessage: string): string => {
@@ -967,6 +973,25 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
                       />
                     ))}
 
+                    {/* Summarize Button */}
+                    {activeThread?.messages && activeThread.messages.length > 2 && (
+                      <div className="flex justify-center pt-4">
+                        <button
+                          onClick={handleSummarize}
+                          className="flex items-center gap-3 px-6 py-3 bg-white rounded-xl hover:bg-white/90 transition-colors shadow-lg"
+                        >
+                          <div className="w-8 h-8 flex items-center justify-center">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M22 4H10C7.79 4 6 5.79 6 8V24C6 26.21 7.79 28 10 28H22C24.21 28 26 26.21 26 24V8C26 5.79 24.21 4 22 4ZM22 24H10V8H22V24Z" fill="#169F9F"/>
+                              <path d="M12 14H20V16H12V14Z" fill="#169F9F"/>
+                              <path d="M12 20H20V22H12V20Z" fill="#169F9F"/>
+                            </svg>
+                          </div>
+                          <span className="text-black text-sm font-semibold">Summarize</span>
+                        </button>
+                      </div>
+                    )}
+
                     {/* Show investor journey card after the last AI message */}
                     {activeThread?.view === 'journey' && activeThread?.messages.length >= 3 && activeThread?.messages[2].hasActions && (
                       <InvestorJourneyCard onClose={onClose} onSetupBusiness={handleSetupBusiness} />
@@ -988,6 +1013,13 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
             </motion.div>
           </div>
         )}
+
+        {/* Summary Dashboard */}
+        <SummaryDashboard
+          isOpen={showSummaryDashboard}
+          onClose={() => setShowSummaryDashboard(false)}
+          category={category}
+        />
       </AnimatePresence>
     </QueryClientProvider>
   );
