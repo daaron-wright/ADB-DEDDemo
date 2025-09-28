@@ -285,6 +285,11 @@ export default function Index() {
         isOpen={openChatState.isOpen}
         onClose={handleCloseGeneralChat}
         title="AI Business"
+        businessCategories={businessCategories}
+        onCategoryClick={(categoryId, categoryTitle) => {
+          handleTileClick(categoryId, categoryTitle);
+          handleCloseGeneralChat();
+        }}
       />
     </div>
   );
