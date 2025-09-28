@@ -391,6 +391,18 @@ export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboard
               </div>
             </div>
           </motion.div>
+
+          {/* "See Top Competitors" Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 2.0 }}
+            className="mt-8 text-center"
+          >
+            <button className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-semibold hover:bg-white/20 transition-colors">
+              See Top Competitors in the Area
+            </button>
+          </motion.div>
         </div>
       </motion.div>
     </AnimatePresence>
