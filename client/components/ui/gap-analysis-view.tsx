@@ -134,6 +134,8 @@ const GapAnalysisPanel = () => {
           <SoundVisualization />
         </div>
 
+        <div className="border-b border-white/20 mx-6"></div>
+
         {/* Gap Analysis Content */}
         <div className="px-9 pt-8">
           <div className="text-white text-base font-normal mb-6 tracking-wide">GAP ANALYSIS</div>
