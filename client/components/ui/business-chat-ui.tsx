@@ -68,19 +68,35 @@ const StarRating = ({ rating }: { rating: number }) => {
   );
 };
 
+const KHALID_AVATAR = 'https://api.builder.io/api/v1/image/assets/TEMP/0142e541255ee20520b15f139d595835c00ea132?width=131';
+
 const MessageBubble = ({ message }: { message: BusinessMessage }) => {
   return (
     <div className={cn(
-      "flex mb-4",
+      "flex mb-4 gap-3 items-end",
       message.isAI ? "justify-start" : "justify-end"
     )}>
+      {message.isAI && (
+         <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+            alt="AI Assistant"
+            className="w-10 h-10 rounded-full border border-[#54FFD4] object-cover"
+          />
+      )}
       <div className={cn(
-        "max-w-[90%] px-4 py-4 rounded-2xl text-base leading-relaxed bg-white/20 backdrop-blur-sm border border-white/10",
-        message.isAI ? "rounded-tl-sm" : "rounded-tr-sm"
+        "max-w-[80%] px-4 py-4 rounded-2xl text-base leading-relaxed bg-white/20 backdrop-blur-sm border border-white/10",
+        message.isAI ? "rounded-bl-sm" : "rounded-br-sm"
       )}>
         {message.rating && <StarRating rating={message.rating} />}
         <div className="text-white">{message.content}</div>
       </div>
+      {!message.isAI && (
+         <img
+            src={KHALID_AVATAR}
+            alt="Khalid"
+            className="w-10 h-10 rounded-full border-2 border-white/50"
+          />
+      )}
     </div>
   );
 };
@@ -157,7 +173,7 @@ const getCategoryTitle = (category: string) => {
 const queryClient = new QueryClient();
 
 export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business" }: BusinessChatUIProps) {
-  const [messages, setMessages] = useState<BusinessMessage[]>([
+  const [messages, setMessages] = usePersistentState<BusinessMessage[]>(`business-chat-messages-${category}`, [
     {
       id: '1',
       content: 'I want to invest my money and open a restaurant business in Abu Dhabi. What commercial activities align with my business type and can you help me set up?',
