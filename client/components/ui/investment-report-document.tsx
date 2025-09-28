@@ -36,112 +36,123 @@ export const InvestmentReportDocument: React.FC<InvestmentReportDocumentProps> =
         </div>
       </div>
 
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {/* Main Content - Two Column Layout */}
+      <div className="grid grid-cols-2 gap-8 text-sm">
         {/* Left Column - Demographics */}
-        <div className="space-y-6">
-          <section>
-            <h2 className="text-xl font-bold text-teal-600 mb-4">Demographics and Footfall</h2>
-            
-            <div className="space-y-4">
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-2">Total Population & Residents:</h3>
-                <p className="text-gray-700 text-sm leading-relaxed">
-                  The emirate of Abu Dhabi has a population of over <span className="font-semibold text-teal-600">2.2M residents</span>. 
-                  The Corniche, being a central hub, attracts a significant portion of this population, particularly those living in the surrounding high-density neighbourhoods like Al Khalidiya.
-                </p>
-              </div>
+        <div>
+          <h2 className="text-base font-bold text-teal-600 mb-4">Demographics and Footfall</h2>
 
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-2">A Diverse Mix:</h3>
-                <p className="text-gray-700 text-sm leading-relaxed mb-3">
-                  The Corniche has diverse demographics.
-                </p>
-                
-                <div className="space-y-3">
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Nationals:</h4>
-                    <p className="text-gray-600 text-sm">
-                      Emirati nationals, who have a high average household income (previously reported at around AED 47,066) and are a key consumer group for both high-end and casual dining.
-                    </p>
-                  </div>
-                  
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Expatriates:</h4>
-                    <p className="text-gray-600 text-sm">
-                      A large population of expatriates from over 200 nationalities, with a strong presence of Western, Indian, and other Asian communities. Their dining preferences are diverse, ranging from budget-friendly options to premium dining experiences.
-                    </p>
-                  </div>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-bold text-black mb-1">Total Population & Residents:</h3>
+              <p className="text-gray-700 leading-relaxed">
+                The emirate of Abu Dhabi has a population of over <span className="font-bold text-teal-600">2.2M residents</span>.
+                The Corniche, being a central hub, attracts a significant portion of this population, particularly those living in the surrounding
+                high-density neighbourhoods like Al Khalidiya.
+              </p>
+            </div>
 
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Tourists:</h4>
-                    <p className="text-gray-600 text-sm">
-                      The Corniche is a major tourist attraction. In Q1 2025 alone, Abu Dhabi welcomed 1.4 million overnight guests. Top tourist residents include UAE, India, Russia, China and the US, all of whom contribute significantly to the F&B sector. A key driver for tourists is the blend of cultural attractions, leisure activities and diverse dining options.
-                    </p>
-                  </div>
+            <div>
+              <h3 className="font-bold text-black mb-2">A Diverse Mix:</h3>
+              <p className="text-gray-700 leading-relaxed mb-3">
+                The Corniche has diverse demographics.
+              </p>
+
+              <div className="space-y-3">
+                <div>
+                  <span className="font-bold text-black">Nationals: </span>
+                  <span className="text-gray-700">
+                    Emirati nationals, who have a high average household income (previously reported at around AED 47,066) and are a key
+                    consumer group for both high-end and casual dining.
+                  </span>
                 </div>
-              </div>
 
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-2">Footfall Numbers:</h3>
-                <p className="text-gray-700 text-sm leading-relaxed">
-                  The Corniche itself sees a high volume of visitors. Reports from tourism agencies mention monthly averages ranging from 30,000 to 50,000 visitors, enjoying the various amenities like cycling paths, beaches, and parks.
-                </p>
-                
-                <div className="mt-3 bg-teal-50 rounded-lg p-3">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-teal-500 rounded-full"></div>
-                    <span className="text-teal-700 text-sm font-semibold">New Visitors</span>
-                  </div>
-                  <div className="text-2xl font-bold text-teal-600 mt-1">23,445</div>
+                <div>
+                  <span className="font-bold text-black">Expatriates: </span>
+                  <span className="text-gray-700">
+                    A large population of expatriates from over 200 nationalities, with a strong presence of Western, Indian, and other
+                    Asian communities. Their dining preferences are diverse, ranging from budget-friendly options to premium international cuisines.
+                  </span>
+                </div>
+
+                <div>
+                  <span className="font-bold text-black">Tourists: </span>
+                  <span className="text-gray-700">
+                    The Corniche is a major tourist attraction. In Q1 2025 alone, Abu Dhabi welcomed 1.4 million overnight guests. Top
+                    tourist residents include UAE, China, India, Russia, China and the US, all of whom contribute significantly to the F&B sector. A key driver for
+                    tourists is the blend of cultural attractions, leisure activities and diverse dining options.
+                  </span>
                 </div>
               </div>
             </div>
-          </section>
+
+            <div>
+              <h3 className="font-bold text-black mb-2">Footfall Numbers:</h3>
+              <p className="text-gray-700 leading-relaxed mb-3">
+                The Corniche itself sees a high volume of visitors. Reports from tourism agencies mention monthly averages ranging
+                from 30,000 to 50,000 visitors, enjoying the various amenities like cycling paths, beaches, and parks.
+              </p>
+
+              <div className="bg-teal-50 rounded-lg p-3">
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-3 h-3 bg-teal-500 rounded-full"></div>
+                  <span className="text-teal-700 font-semibold">New Visitors</span>
+                </div>
+                <div className="text-2xl font-bold text-teal-600">23,445</div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Right Column - Consumer Behavior & Trends */}
-        <div className="space-y-6">
-          <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Consumer Behavior & F&B Trends</h2>
-            
-            <div className="space-y-4">
-              <div>
-                <h3 className="font-semibold text-blue-600 mb-2">High Dining-Out Culture:</h3>
-                <p className="text-gray-700 text-sm leading-relaxed">
-                  The UAE as a whole has a strong dining-out culture, with some reports indicating residents dine out an average of 2.5 times per week. The Corniche, with its picturesque setting, is a prime location for this activity.
-                </p>
-              </div>
+        <div>
+          <h2 className="text-base font-bold text-black mb-4">Consumer Behavior & F&B Trends</h2>
 
-              <div>
-                <h3 className="font-semibold text-blue-600 mb-2">Rising Incomes and Spending:</h3>
-                <p className="text-gray-700 text-sm leading-relaxed">
-                  The UAE's economy is growing, with a projected GDP growth of 4% in 2024 and 3.5% in 2025. This translates to increased consumer spending, with the overall F&B sector expected to grow. The F&B sector is forecasted to increase by 6.3% in 2024, reinforcing its long-term sustainability.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-blue-600 mb-2">Dominance of QSR and Casual Dining:</h3>
-                <p className="text-gray-700 text-sm leading-relaxed">
-                  The Quick Service Restaurant (QSR) segment holds a large market share. The combination of busy lifestyles and the convenience culture makes quick service a massive segment, and businesses offering healthy, fresh meals on the go makes this segment a strong performer. However, fine dining and entertainment concepts are also gaining traction.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-blue-600 mb-2">Digitalization:</h3>
-                <p className="text-gray-700 text-sm leading-relaxed">
-                  The rise of online food delivery platforms like Talabat, Deliveroo, and Zomato is a key factor. An F&B business on the Corniche should be integrated with these services, as they are integral to reaching customers. The online orders of F&B in Abu Dhabi are expected to reach AED 2.3 billion by 2025.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-blue-600 mb-2">Busy and Well Spenders:</h3>
-                <p className="text-gray-700 text-sm leading-relaxed">
-                  The Corniche sees significant footfall throughout the day, but activity peaks in the evenings and weekends. Evening hours offer the best opportunities for F&B, to exercise, and to dine. Events are also another traffic driver.
-                </p>
-              </div>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-bold text-black mb-1">High Dining-Out Culture:</h3>
+              <p className="text-gray-700 leading-relaxed">
+                The UAE as a whole has a strong dining-out culture, with some reports indicating residents dine out an average of
+                2.5 times per week. The Corniche, with its picturesque setting, is a prime location for this activity.
+              </p>
             </div>
-          </section>
+
+            <div>
+              <h3 className="font-bold text-black mb-1">Rising Incomes and Spending:</h3>
+              <p className="text-gray-700 leading-relaxed">
+                The UAE's economy is growing, with a projected GDP growth of 4% in 2024 and 3.5% in 2025. This translates to
+                increased consumer spending, with the overall F&B sector expected to grow. The F&B sector is forecasted to
+                increase by 6.3% in 2024, reinforcing its long-term sustainability.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-bold text-black mb-1">Dominance of QSR and Casual Dining:</h3>
+              <p className="text-gray-700 leading-relaxed">
+                The Quick Service Restaurant (QSR) segment holds a large market share. The combination of busy
+                lifestyles and the convenience culture makes quick service a massive segment, and businesses offering healthy, fresh
+                meals on the go makes this segment a strong performer. However, fine dining and entertainment concepts are also gaining traction.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-bold text-black mb-1">Digitalization:</h3>
+              <p className="text-gray-700 leading-relaxed">
+                The rise of online food delivery platforms like Talabat, Deliveroo, and Zomato is a key factor. An F&B business on the
+                Corniche should be integrated with these services, as they are integral to reaching customers. The online orders of F&B in Abu Dhabi are expected
+                to reach AED 2.3 billion by 2025.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-bold text-black mb-1">Busy Trails and Spenders:</h3>
+              <p className="text-gray-700 leading-relaxed">
+                The Corniche sees significant footfall throughout the day, but activity peaks in the evenings and weekends.
+                Evening hours offer the best opportunities for a restaurant to roll, to exercise, and to dine
+                out are also another traffic driver.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
