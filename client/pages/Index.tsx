@@ -258,7 +258,7 @@ export default function Index() {
 
             {/* Business Category Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-5xl mx-auto">
-              {businessCategories.map((category, index) => {
+              {businessCategories.map((category) => {
                 const categoryTheme = colorThemes[category.id as keyof typeof colorThemes];
                 const isHovered = hoveredCategory === category.id;
                 const isActive = activeCategory === category.id;
