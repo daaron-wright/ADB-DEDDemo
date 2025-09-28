@@ -43,26 +43,26 @@ interface ReviewQueueCardProps {
 
 export function ReviewQueueCard({ item }: ReviewQueueCardProps) {
   return (
-    <article className="rounded-3xl border border-white/10 bg-neutral-950/85 p-6 shadow-[0_36px_96px_-44px_rgba(0,0,0,0.85)] backdrop-blur">
-      <header className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between text-neutral-100">
+    <article className="rounded-3xl border border-neutral-200 bg-white p-6 shadow-[0_24px_48px_-30px_rgba(15,23,42,0.35)]">
+      <header className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between text-slate-900">
         <div className="space-y-1">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-neutral-400">{item.id}</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">{item.id}</p>
           <h3 className="text-xl font-semibold tracking-tight md:text-2xl">
             {item.serviceName}
           </h3>
-          <p className="text-sm text-neutral-300">{item.summary}</p>
+          <p className="text-sm text-slate-600">{item.summary}</p>
         </div>
-        <div className="flex flex-wrap items-center gap-3 text-neutral-100">
+        <div className="flex flex-wrap items-center gap-3 text-slate-900">
           <Badge className={`border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide ${priorityStyles[item.priority]}`}>
             {item.priority} priority
           </Badge>
-          <Badge className="border border-purple-200 bg-purple-50/70 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-purple-700">
+          <Badge className="border border-purple-200 bg-purple-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-purple-700">
             {item.stage}
           </Badge>
         </div>
       </header>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4 text-neutral-100">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4 text-slate-900">
         <Info label="Applicant" value={item.applicantName} />
         <Info label="Directorate" value={item.directorate} />
         <Info label="Assigned to" value={item.assignedTo} />
