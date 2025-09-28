@@ -170,77 +170,87 @@ const JourneyCard: React.FC<JourneyCardProps> = ({
         </div>
       )}
 
-      {/* Items List */}
-      <div className="space-y-3 mb-4">
+      <div className="space-y-3">
         {items.map((item) => (
           <div
             key={item.id}
-            className={`flex items-center justify-between rounded-lg p-3 border transition-all duration-200 ${getPriorityColor(item.priority)} ${
-              item.completed ? 'opacity-75' : ''
-            }`}
+            className="flex flex-col gap-3 rounded-2xl border border-white/12 bg-white/[0.04] p-4 sm:flex-row sm:items-center sm:justify-between"
           >
-            <div className="flex items-center gap-3 flex-1">
-              {/* Interactive Checkbox */}
+            <div className="flex flex-1 items-start gap-3">
               <button
                 onClick={() => handleCheckboxChange(item)}
-                className="w-6 h-6 flex items-center justify-center transition-all duration-200"
+                className={`flex h-6 w-6 items-center justify-center rounded-full border transition-colors duration-200 ${
+                  item.completed
+                    ? 'border-emerald-300/40 bg-emerald-200/15 text-emerald-100'
+                    : 'border-white/18 bg-white/[0.02] text-white/60'
+                }`}
+                aria-label={item.completed ? 'Mark as pending' : 'Mark as completed'}
               >
                 {item.completed ? (
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="10" fill="#54FFD4"/>
-                    <path d="M9 12l2 2 4-4" stroke="#0B0C28" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <svg
+                    width="12"
+                    height="9"
+                    viewBox="0 0 12 9"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1 4.5L4.33333 8L11 1"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 ) : (
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="10" stroke="#54FFD4" strokeWidth="2" fill="none"/>
-                  </svg>
+                  <span className="h-2 w-2 rounded-full bg-current" />
                 )}
               </button>
 
-              <div className="flex-1">
-                <span className={`text-white font-['DM_Sans'] text-sm ${item.completed ? 'line-through opacity-75' : ''}`}>
+              <div className="space-y-2">
+                <span
+                  className={`text-sm font-medium text-white/85 sm:text-base ${
+                    item.completed ? 'line-through text-white/45' : ''
+                  }`}
+                >
                   {item.text}
                 </span>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className={`text-xs font-medium ${getStatusColor(item.status)}`}>
-                    {item.status.replace('_', ' ').toUpperCase()}
-                  </span>
-                  <span className="text-xs text-white/50">•</span>
-                  <span className="text-xs text-white/50 capitalize">{item.priority} Priority</span>
+                <div className="flex flex-wrap items-center gap-2 text-xs text-white/45">
+                  <button
+                    onClick={() => handleStatusCycle(item)}
+                    className={`flex items-center gap-2 rounded-full border px-3 py-1.5 uppercase tracking-[0.14em] transition-colors duration-200 ${
+                      statusStyles[item.status]
+                    }`}
+                    aria-label={`Update status for ${item.text}`}
+                  >
+                    <span className={`h-1.5 w-1.5 rounded-full ${statusDotClasses[item.status]}`} />
+                    {formatStatus(item.status)}
+                  </button>
+                  <span>{priorityCopy[item.priority]}</span>
                 </div>
               </div>
             </div>
 
-            {/* Actions */}
-            <div className="flex items-center gap-2">
-              {/* Status Change Buttons */}
-              <div className="flex gap-1">
-                <button
-                  onClick={() => onUpdateItem(item.id, { status: 'in_progress' })}
-                  className="w-6 h-6 bg-blue-500/20 hover:bg-blue-500/40 rounded border border-blue-400/30 flex items-center justify-center transition-colors"
-                  title="Set In Progress"
-                >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="3" fill="#60A5FA"/>
-                  </svg>
-                </button>
-                <button
-                  onClick={() => onUpdateItem(item.id, { status: 'blocked' })}
-                  className="w-6 h-6 bg-red-500/20 hover:bg-red-500/40 rounded border border-red-400/30 flex items-center justify-center transition-colors"
-                  title="Mark as Blocked"
-                >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M18 6L6 18M6 6L18 18" stroke="#F87171" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </button>
-              </div>
-
+            <div className="flex items-center gap-2 self-end sm:self-center">
               <button
                 onClick={() => onRemoveItem(item.id)}
-                className="text-white/50 hover:text-red-400 transition-colors p-1"
+                className="rounded-full border border-white/15 bg-white/8 p-2 text-white/55 transition-colors duration-200 hover:bg-white/12 hover:text-white/80"
+                aria-label={`Remove ${item.text}`}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 6h14M10 10v6M14 10v6M8 6l1-2h6l1 2M9 20h6a2 2 0 002-2v-10H7v10a2 2 0 002 2z"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
             </div>
@@ -1092,7 +1102,7 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
                   <h4 className="text-white font-['DM_Sans'] text-sm font-semibold mb-2">Status Information</h4>
                   <div className="text-white/70 text-sm space-y-1">
                     <p>• Current Status: Under Review</p>
-                    <p>��� Assigned Reviewer: {user.name}</p>
+                    <p>• Assigned Reviewer: {user.name}</p>
                     <p>• Last Updated: {new Date().toLocaleDateString()}</p>
                     <p>• Processing Time: 2-3 business days</p>
                   </div>
