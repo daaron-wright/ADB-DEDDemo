@@ -264,12 +264,11 @@ export function GapAnalysisView({ isOpen, onClose, category }: GapAnalysisViewPr
         </div>
       </motion.div>
 
-      {/* Properties View */}
-      <PropertiesView
-        key="properties-view"
+      {/* Property Map View */}
+      <PropertyMapView
+        key="property-map-view"
         isOpen={showProperties}
         onClose={() => setShowProperties(false)}
-        category={category}
       />
     </AnimatePresence>
   );
