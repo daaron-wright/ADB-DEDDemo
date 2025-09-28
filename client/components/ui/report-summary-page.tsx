@@ -53,7 +53,6 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({ isOpen, on
 
   const handleUAEPassLogin = (userType: 'applicant' | 'reviewer', userData: User) => {
     setLoggedInUser(userData);
-    setShowUAEPassLogin(false);
     setShowBusinessPortal(true);
   };
 
@@ -197,16 +196,18 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({ isOpen, on
 
                 {/* UAE Pass Login */}
                 <div className="flex justify-center py-4">
-                  <button
-                    onClick={() => setShowUAEPassLogin(true)}
-                    className="transform hover:scale-105 transition-transform duration-200"
-                  >
-                    <img
-                      src="https://api.builder.io/api/v1/image/assets/TEMP/6af0c42146feff37d8c56f7d5b67c0ce1e2c12e1?width=348"
-                      alt="UAE Pass Login"
-                      className="h-21 rounded-full shadow-lg hover:shadow-xl transition-shadow duration-200"
-                    />
-                  </button>
+                  <UAEPassLogin
+                    onLogin={handleUAEPassLogin}
+                    trigger={(
+                      <button className="transform transition-transform duration-200 hover:scale-105">
+                        <img
+                          src="https://api.builder.io/api/v1/image/assets/TEMP/6af0c42146feff37d8c56f7d5b67c0ce1e2c12e1?width=348"
+                          alt="UAE Pass Login"
+                          className="h-21 rounded-full shadow-lg transition-shadow duration-200 hover:shadow-xl"
+                        />
+                      </button>
+                    )}
+                  />
                 </div>
               </div>
             </div>
@@ -223,16 +224,6 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({ isOpen, on
           </div>
         </div>
       </motion.div>
-
-      {/* UAE PASS Login Modal */}
-      {showUAEPassLogin && (
-        <UAEPassLogin
-          key="uae-pass-login"
-          isOpen={showUAEPassLogin}
-          onClose={() => setShowUAEPassLogin(false)}
-          onLogin={handleUAEPassLogin}
-        />
-      )}
 
       {/* Business License Portal */}
       {loggedInUser && showBusinessPortal && (
