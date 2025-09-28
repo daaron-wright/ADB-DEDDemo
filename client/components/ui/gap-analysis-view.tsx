@@ -194,6 +194,7 @@ const MainContent = () => {
 
 export function GapAnalysisView({ isOpen, onClose, category }: GapAnalysisViewProps) {
   const [showProperties, setShowProperties] = useState(false);
+  const [showReport, setShowReport] = useState(false);
 
   if (!isOpen) return null;
 
