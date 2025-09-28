@@ -202,7 +202,7 @@ export const PropertyMapModal: React.FC<PropertyMapModalProps> = ({ isOpen, onCl
             ))}
 
             {/* Instructions */}
-            <div className="absolute bottom-6 left-6 bg-white/10 backdrop-blur-md rounded-2xl px-4 py-3 border border-white/20">
+            <div className="absolute top-6 left-6 bg-white/10 backdrop-blur-md rounded-2xl px-4 py-3 border border-white/20">
               <p className="text-white text-sm font-medium">
                 Hover over the red markers to view property details
               </p>
@@ -212,7 +212,7 @@ export const PropertyMapModal: React.FC<PropertyMapModalProps> = ({ isOpen, onCl
             <div className="absolute bottom-6 right-6 w-[280px] h-[160px]">
               <div className="bg-white/14 backdrop-blur-sm rounded-2xl p-3 h-full border border-white/20">
                 <div className="flex items-center gap-2 mb-3">
-                  <img 
+                  <img
                     src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
                     alt="AI Business"
                     className="w-12 h-12 rounded-full border border-[#54FFD4]"
@@ -221,10 +221,10 @@ export const PropertyMapModal: React.FC<PropertyMapModalProps> = ({ isOpen, onCl
                     <h3 className="text-white text-sm font-semibold">AI Business</h3>
                     <div className="flex items-center gap-1 mt-1">
                       {Array.from({ length: 6 }, (_, i) => (
-                        <div 
+                        <div
                           key={i}
                           className="h-0.5 bg-[#54FFD4] rounded-full"
-                          style={{ 
+                          style={{
                             width: [4, 8, 12, 8, 6, 14][i] + 'px',
                             transform: 'rotate(-90deg)'
                           }}
@@ -241,20 +241,20 @@ export const PropertyMapModal: React.FC<PropertyMapModalProps> = ({ isOpen, onCl
               </div>
             </div>
 
-            {/* Collaboration Footer - smaller for modal */}
-            <div className="absolute bottom-6 left-6 text-white">
-              <p className="text-xs font-medium mb-2 opacity-80">In collaboration with</p>
+            {/* Collaboration Footer - clearly visible in bottom left */}
+            <div className="absolute bottom-6 left-6 bg-white/10 backdrop-blur-md rounded-2xl px-4 py-3 border border-white/20">
+              <p className="text-white text-sm font-medium mb-3">In collaboration with</p>
               <div className="flex items-center gap-4">
-                <img 
+                <img
                   src="https://api.builder.io/api/v1/image/assets/TEMP/9bfd38d325da645cc4c8e1a2aef3b5d4c8eae662?width=242"
                   alt="Property Finder"
-                  className="h-8 w-auto opacity-80"
+                  className="h-10 w-auto"
                 />
-                <div className="w-px h-8 bg-white/30"></div>
-                <img 
+                <div className="w-px h-10 bg-white/50"></div>
+                <img
                   src="https://api.builder.io/api/v1/image/assets/TEMP/09683a0d837e39637290f853f491ffdcb14d48c7?width=242"
                   alt="Bayut"
-                  className="h-6 w-auto opacity-80"
+                  className="h-8 w-auto"
                 />
               </div>
             </div>
