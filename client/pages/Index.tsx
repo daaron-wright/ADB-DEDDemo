@@ -176,9 +176,15 @@ export default function Index() {
             </svg>
           </div>
 
-          {/* Welcome text and Sign in button */}
-          <div className="flex items-center gap-16">
+          {/* Welcome text and buttons */}
+          <div className="flex items-center gap-4">
             <span className="text-black text-base font-medium">Welcome</span>
+            <button
+              onClick={handleOpenGeneralChat}
+              className="bg-white/10 backdrop-blur-sm border border-gray-200 text-gray-700 px-4 py-2 rounded-full font-medium text-sm hover:bg-white/20 transition-colors"
+            >
+              Chat with AI
+            </button>
             <button className="bg-teal-gradient text-white px-6 py-4 rounded-full font-semibold text-base hover:opacity-90 transition-opacity">
               Sign in
             </button>
