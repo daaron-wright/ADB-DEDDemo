@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { InvestmentReportDocument } from './investment-report-document';
 
 interface ReportSummaryPageProps {
   isOpen: boolean;
