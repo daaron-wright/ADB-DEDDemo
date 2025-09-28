@@ -769,7 +769,7 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
                       const input = e.target as HTMLInputElement;
                       if (input.value.trim() && !selectedActivities.includes(input.value.trim())) {
                         setSelectedActivities([...selectedActivities, input.value.trim()]);
-                        showNotification('✅ Custom activity added');
+                        showNotification('��� Custom activity added');
                         input.value = '';
                       }
                     }
@@ -840,20 +840,86 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
             />
           </div>
 
-          {/* Notification Toast System */}
+          {/* Enhanced Notification Toast System */}
           <div className="fixed top-24 right-6 z-50 space-y-2">
-            {notifications.map((notification, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: 300 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 300 }}
-                className="bg-[#54FFD4] text-black px-4 py-2 rounded-lg shadow-lg font-['DM_Sans'] text-sm font-medium max-w-sm"
-              >
-                {notification}
-              </motion.div>
-            ))}
+            <AnimatePresence>
+              {notifications.map((notification, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: 300, scale: 0.8 }}
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                    scale: 1,
+                    transition: {
+                      type: "spring",
+                      stiffness: 500,
+                      damping: 30
+                    }
+                  }}
+                  exit={{
+                    opacity: 0,
+                    x: 300,
+                    scale: 0.8,
+                    transition: {
+                      duration: 0.2
+                    }
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  className={`px-4 py-3 rounded-lg shadow-lg font-['DM_Sans'] text-sm font-medium max-w-sm border ${
+                    notification.includes('✅')
+                      ? 'bg-gradient-to-r from-green-400 to-green-500 text-white border-green-300'
+                      : notification.includes('❌') || notification.includes('🗑️')
+                      ? 'bg-gradient-to-r from-red-400 to-red-500 text-white border-red-300'
+                      : notification.includes('📋') || notification.includes('🔄')
+                      ? 'bg-gradient-to-r from-blue-400 to-blue-500 text-white border-blue-300'
+                      : 'bg-gradient-to-r from-[#54FFD4] to-[#21FCC6] text-black border-[#54FFD4]'
+                  } cursor-pointer`}
+                  onClick={() => {
+                    setNotifications(prev => prev.filter((_, i) => i !== index));
+                  }}
+                >
+                  <div className="flex items-center gap-2">
+                    {notification.includes('✅') && (
+                      <motion.div
+                        initial={{ rotate: 0 }}
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        🎉
+                      </motion.div>
+                    )}
+                    <span>{notification}</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-60">
+                      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
+
+          {/* Celebration Effect for Major Completions */}
+          {businessRegistrationItems.every(item => item.completed) && businessLicensingItems.every(item => item.completed) && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="fixed inset-0 z-40 pointer-events-none flex items-center justify-center"
+            >
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                className="bg-gradient-to-r from-green-400 to-green-600 text-white px-8 py-4 rounded-2xl shadow-2xl"
+              >
+                <div className="text-center">
+                  <div className="text-2xl mb-2">🎉 Congratulations! 🎉</div>
+                  <div className="text-lg font-bold">All Tasks Completed!</div>
+                  <div className="text-sm opacity-90">Your restaurant license application is ready for submission</div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
         </div>
 
         {/* Right Panel - AI Assistant or Admin Details */}
