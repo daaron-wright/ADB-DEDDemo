@@ -57,6 +57,21 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Design system colors
+        tamm: {
+          teal: {
+            light: "#169F9F",
+            dark: "#083939",
+          },
+          purple: {
+            light: "#AEAAFE",
+            dark: "#F0EEFD",
+          },
+          gray: {
+            light: "#919191",
+            medium: "#646464",
+          },
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -84,6 +99,14 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      backgroundImage: {
+        'teal-gradient': 'linear-gradient(271deg, #169F9F 34.98%, #083939 277.12%)',
+        'purple-gradient': 'linear-gradient(159deg, #AEAAFE 39.9%, #F0EEFD 71.79%)',
+        'blur-white': 'radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.2) 100%)',
+      },
+      fontFamily: {
+        'dm-sans': ['DM Sans', 'sans-serif'],
       },
     },
   },
