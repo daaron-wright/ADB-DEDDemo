@@ -443,6 +443,7 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
   const [notifications, setNotifications] = useState<string[]>([]);
   const [lastActivity, setLastActivity] = useState(Date.now());
   const [showCollapsibleView, setShowCollapsibleView] = useState(true);
+  const [showExplainability, setShowExplainability] = useState(false);
 
   // Sample data for CollapsibleJourneyView
   const journeySections = [
@@ -624,14 +625,38 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
             Investor Journey for a Restaurant
           </div>
 
-          {/* User Info */}
-          <div className="flex items-center gap-3 text-white">
-            <div className="text-right">
-              <div className="font-['DM_Sans'] text-sm font-semibold">{user.name}</div>
-              <div className="font-['DM_Sans'] text-xs opacity-75">Emirates ID: {user.emiratesId}</div>
-            </div>
-            <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center font-['DM_Sans'] text-sm font-bold">
-              {user.name.split(' ').map(n => n[0]).join('')}
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setShowExplainability(prev => !prev)}
+              className="flex items-center gap-2 rounded-full border border-white/18 bg-white/12 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/75 transition-colors duration-200 hover:bg-white/18 hover:text-white"
+              aria-pressed={showExplainability}
+              aria-label="Explainability"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="text-white/70"
+              >
+                <path
+                  d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Zm0-14a1 1 0 1 0-1-1 1 1 0 0 0 1 1Zm-1 3h2v6h-2Z"
+                  fill="currentColor"
+                />
+              </svg>
+              Explainability
+            </button>
+
+            {/* User Info */}
+            <div className="flex items-center gap-3 text-white">
+              <div className="text-right">
+                <div className="font-['DM_Sans'] text-sm font-semibold">{user.name}</div>
+                <div className="font-['DM_Sans'] text-xs opacity-75">Emirates ID: {user.emiratesId}</div>
+              </div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 font-['DM_Sans'] text-sm font-bold">
+                {user.name.split(' ').map(n => n[0]).join('')}
+              </div>
             </div>
           </div>
         </div>
