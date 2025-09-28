@@ -410,12 +410,12 @@ export default function ApplicantPortal() {
           label="Active reviews"
           value={inReviewCount.toString()}
           helper={`${applications.filter((item) => item.status === 'Awaiting Documents').length} awaiting documents`}
-          trend={{ value: 'On track', isPositive: true }}
+          trend={{ value: `${activeReviewsUpdated} updated in 3 days`, isPositive: true }}
         />
         <SummaryMetric
           label="Average completion"
           value={`${averageProgress}%`}
-          helper="Weighted by current workflow stage"
+          helper={`${approvalsLastSevenDays} approvals in 7 days`}
         />
       </section>
 
