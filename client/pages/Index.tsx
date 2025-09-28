@@ -5,7 +5,7 @@ import { AnimatedConversation } from '@/components/ui/animated-conversation';
 import { conversationFlows } from '@/lib/conversations';
 import { OpenChatUI } from '@/components/ui/open-chat-ui';
 import { UAEPassLogin } from '@/components/ui/uae-pass-login';
-import { BusinessLicensePortal } from '@/components/ui/business-license-portal';
+import BusinessLicensePortalSimplified from '@/components/ui/business-license-portal-simplified';
 
 export default function Index() {
   const [chatState, setChatState] = useState<{
@@ -426,7 +426,7 @@ export default function Index() {
 
       {/* Business License Portal */}
       {loggedInUser && showBusinessPortal && (
-        <BusinessLicensePortal
+        <BusinessLicensePortalSimplified
           isOpen={showBusinessPortal}
           user={loggedInUser}
           onClose={() => setShowBusinessPortal(false)}
