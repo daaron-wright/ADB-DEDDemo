@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { CompetitorsView } from './competitors-view';
 
 interface SummaryDashboardProps {
   isOpen: boolean;
@@ -233,6 +234,8 @@ const NotificationBanner = () => {
 };
 
 export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboardProps) {
+  const [showCompetitors, setShowCompetitors] = useState(false);
+
   if (!isOpen) return null;
 
   return (
@@ -399,12 +402,22 @@ export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboard
             transition={{ duration: 0.8, delay: 2.0 }}
             className="mt-8 text-center"
           >
-            <button className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-semibold hover:bg-white/20 transition-colors">
+            <button
+              onClick={() => setShowCompetitors(true)}
+              className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-semibold hover:bg-white/20 transition-colors"
+            >
               See Top Competitors in the Area
             </button>
           </motion.div>
         </div>
       </motion.div>
+
+      {/* Competitors View */}
+      <CompetitorsView
+        isOpen={showCompetitors}
+        onClose={() => setShowCompetitors(false)}
+        category={category}
+      />
     </AnimatePresence>
   );
 }
