@@ -414,8 +414,8 @@ export default function Index() {
                             transition={{ duration: 0.3 }}
                             className="absolute inset-0 z-20 rounded-3xl"
                             style={{
-                              background:
-                                'linear-gradient(135deg, rgba(14, 165, 233, 0.24), rgba(14, 165, 233, 0.12), rgba(15, 23, 42, 0.65))',
+                              background: 'rgba(255, 255, 255, 0.6)',
+                              backdropFilter: 'blur(12px)',
                             }}
                           >
                             <div className="backdrop-blur-sm h-full rounded-3xl">
