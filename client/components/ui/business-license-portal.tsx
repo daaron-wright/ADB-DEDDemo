@@ -892,46 +892,87 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
             </span>
           </div>
 
-          {/* Journey Cards Section - replacing the static list */}
-          <div className="absolute left-10 top-[788px] w-[570px] space-y-6">
-            {/* Business Registration Journey Card */}
-            <JourneyCard
-              title="Business Registration"
-              description="Complete the business registration process"
-              items={businessRegistrationItems}
-              onAddItem={(item) => {
-                setBusinessRegistrationItems([...businessRegistrationItems, item]);
-                showNotification('➕ New task added to Business Registration');
-              }}
-              onUpdateItem={handleUpdateBusinessRegItem}
-              onRemoveItem={(id) => {
-                setBusinessRegistrationItems(businessRegistrationItems.filter(item => item.id !== id));
-                showNotification('🗑️ Task removed');
-              }}
-              showAdminActions={true}
-              onToggleAdminView={() => setShowBusinessRegAdmin(!showBusinessRegAdmin)}
-              isAdminView={showBusinessRegAdmin}
-            />
-
-            {/* Business Licensing Journey Card */}
-            <JourneyCard
-              title="Business Licensing"
-              description="Obtain required licenses for restaurant operation"
-              items={businessLicensingItems}
-              onAddItem={(item) => {
-                setBusinessLicensingItems([...businessLicensingItems, item]);
-                showNotification('➕ New task added to Business Licensing');
-              }}
-              onUpdateItem={handleUpdateBusinessLicItem}
-              onRemoveItem={(id) => {
-                setBusinessLicensingItems(businessLicensingItems.filter(item => item.id !== id));
-                showNotification('🗑️ Task removed');
-              }}
-              showAdminActions={true}
-              onToggleAdminView={() => setShowBusinessLicAdmin(!showBusinessLicAdmin)}
-              isAdminView={showBusinessLicAdmin}
-            />
+          {/* View Toggle */}
+          <div className="absolute left-10 top-[730px] w-[570px] mb-4">
+            <div className="flex gap-2">
+              <button
+                onClick={() => setShowCollapsibleView(true)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  showCollapsibleView
+                    ? 'bg-[#54FFD4] text-black'
+                    : 'bg-white/10 text-white border border-white/20'
+                }`}
+              >
+                Collapsible View
+              </button>
+              <button
+                onClick={() => setShowCollapsibleView(false)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  !showCollapsibleView
+                    ? 'bg-[#54FFD4] text-black'
+                    : 'bg-white/10 text-white border border-white/20'
+                }`}
+              >
+                Journey Cards
+              </button>
+            </div>
           </div>
+
+          {/* Collapsible Journey View */}
+          {showCollapsibleView ? (
+            <div className="absolute left-10 top-[788px] w-[570px]">
+              <CollapsibleJourneyView
+                journeyNumber="0987654321"
+                completedCount={2}
+                totalCount={8}
+                sections={journeySections}
+                onItemUpdate={(sectionId, itemId, status) => {
+                  showNotification(`✅ Item ${status === 'completed' ? 'completed' : 'updated'}: ${itemId}`);
+                }}
+              />
+            </div>
+          ) : (
+            /* Journey Cards Section */
+            <div className="absolute left-10 top-[788px] w-[570px] space-y-6">
+              {/* Business Registration Journey Card */}
+              <JourneyCard
+                title="Business Registration"
+                description="Complete the business registration process"
+                items={businessRegistrationItems}
+                onAddItem={(item) => {
+                  setBusinessRegistrationItems([...businessRegistrationItems, item]);
+                  showNotification('➕ New task added to Business Registration');
+                }}
+                onUpdateItem={handleUpdateBusinessRegItem}
+                onRemoveItem={(id) => {
+                  setBusinessRegistrationItems(businessRegistrationItems.filter(item => item.id !== id));
+                  showNotification('🗑️ Task removed');
+                }}
+                showAdminActions={true}
+                onToggleAdminView={() => setShowBusinessRegAdmin(!showBusinessRegAdmin)}
+                isAdminView={showBusinessRegAdmin}
+              />
+
+              {/* Business Licensing Journey Card */}
+              <JourneyCard
+                title="Business Licensing"
+                description="Obtain required licenses for restaurant operation"
+                items={businessLicensingItems}
+                onAddItem={(item) => {
+                  setBusinessLicensingItems([...businessLicensingItems, item]);
+                  showNotification('➕ New task added to Business Licensing');
+                }}
+                onUpdateItem={handleUpdateBusinessLicItem}
+                onRemoveItem={(id) => {
+                  setBusinessLicensingItems(businessLicensingItems.filter(item => item.id !== id));
+                  showNotification('🗑️ Task removed');
+                }}
+                showAdminActions={true}
+                onToggleAdminView={() => setShowBusinessLicAdmin(!showBusinessLicAdmin)}
+                isAdminView={showBusinessLicAdmin}
+              />
+            </div>
+          )}
 
           {/* Enhanced Notification Toast System */}
           <div className="fixed top-24 right-6 z-50 space-y-2">
