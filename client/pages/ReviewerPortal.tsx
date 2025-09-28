@@ -308,8 +308,8 @@ export default function ReviewerPortal() {
             checked={allDirectoratesSelected}
             indeterminate={someDirectoratesSelected && !allDirectoratesSelected}
             onCheckedChange={handleToggleAllDirectorates}
-            className="border-neutral-800 bg-neutral-900/90"
-            checkboxClassName="border-neutral-500 text-purple-200 focus-visible:ring-purple-300"
+            className="border-neutral-200"
+            checkboxClassName="border-neutral-300 text-purple-600 focus-visible:ring-purple-300"
           />
 
           {directorateOptions.map((option) => (
@@ -319,7 +319,7 @@ export default function ReviewerPortal() {
               label={option}
               checked={selectedDirectorates.includes(option)}
               onCheckedChange={(checked) => handleDirectorateChange(option, checked)}
-              checkboxClassName="border-neutral-500 text-purple-200 focus-visible:ring-purple-300"
+              checkboxClassName="border-neutral-300 text-purple-600 focus-visible:ring-purple-300"
             />
           ))}
         </div>
