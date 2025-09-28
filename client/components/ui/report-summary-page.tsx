@@ -47,6 +47,21 @@ const SoundVisualization = () => {
 };
 
 export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({ isOpen, onClose, onExploreAnother }) => {
+  const [showUAEPassLogin, setShowUAEPassLogin] = useState(false);
+  const [showBusinessPortal, setShowBusinessPortal] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
+
+  const handleUAEPassLogin = (userType: 'applicant' | 'reviewer', userData: User) => {
+    setLoggedInUser(userData);
+    setShowUAEPassLogin(false);
+    setShowBusinessPortal(true);
+  };
+
+  const handleClosePortal = () => {
+    setShowBusinessPortal(false);
+    setLoggedInUser(null);
+  };
+
   if (!isOpen) return null;
 
   return (
