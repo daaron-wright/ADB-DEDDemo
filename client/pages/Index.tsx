@@ -12,6 +12,12 @@ export default function Index() {
     category: null,
   });
 
+  const [openChatState, setOpenChatState] = useState<{
+    isOpen: boolean;
+  }>({
+    isOpen: false,
+  });
+
   const businessCategories = [
     {
       id: "restaurants",
