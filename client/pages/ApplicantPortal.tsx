@@ -273,7 +273,7 @@ export default function ApplicantPortal() {
             className="h-11 rounded-2xl border-neutral-200 bg-white pr-11 text-sm text-slate-900 placeholder:text-slate-400"
           />
           <svg
-            className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500"
+            className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="none"
