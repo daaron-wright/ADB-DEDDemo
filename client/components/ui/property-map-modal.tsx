@@ -134,7 +134,7 @@ const PropertyMarker = ({ property, isHovered, onHover, onLeave }: {
   </div>
 );
 
-export const PropertyMapModal: React.FC<PropertyMapModalProps> = ({ isOpen, onClose }) => {
+export const PropertyMapModal: React.FC<PropertyMapModalProps> = ({ isOpen, onClose, onReportRequest }) => {
   const [hoveredProperty, setHoveredProperty] = useState<string | null>(null);
 
   if (!isOpen) return null;
