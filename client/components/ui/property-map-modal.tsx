@@ -268,7 +268,10 @@ export const PropertyMapModal: React.FC<PropertyMapModalProps> = ({ isOpen, onCl
                   </div>
                 </div>
 
-                <button className="w-full bg-white/10 hover:bg-white/20 border border-white/20 rounded-full py-3 px-4 text-white text-sm font-medium transition-colors">
+                <button
+                  onClick={onReportRequest}
+                  className="w-full bg-white/10 hover:bg-white/20 border border-white/20 rounded-full py-3 px-4 text-white text-sm font-medium transition-colors"
+                >
                   Provide a summarized report
                 </button>
               </div>
