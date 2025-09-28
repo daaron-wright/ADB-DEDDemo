@@ -98,25 +98,29 @@ export default function Index() {
       title: "Restaurants",
       subtitle: "Commercial License",
       image: "https://api.builder.io/api/v1/image/assets/TEMP/5ea3e6930d5e28ed683d222762dba4e684143d78?width=498",
-      overlayImage: "https://api.builder.io/api/v1/image/assets/TEMP/6e95ba3f93ff8f50b6c5851b73729e1df3b00b90?width=800"
+      overlayImage: "https://api.builder.io/api/v1/image/assets/TEMP/6e95ba3f93ff8f50b6c5851b73729e1df3b00b90?width=800",
+      tooltip: "Ideal for full-service dining concepts. AI prepares food safety approvals, staffing plans, and timeline estimates so you can open faster."
     },
     {
       id: "fast-food",
       title: "Fast Food",
       subtitle: "Commercial License",
-      image: "https://api.builder.io/api/v1/image/assets/TEMP/93a8ccdd2ba263b5df1fa8ac003cfbbe0f2a04bf?width=766"
+      image: "https://api.builder.io/api/v1/image/assets/TEMP/93a8ccdd2ba263b5df1fa8ac003cfbbe0f2a04bf?width=766",
+      tooltip: "Best for quick-service launches with delivery or drive-thru. Get prebuilt SOPs, supplier rosters, and marketing permits in one flow."
     },
     {
       id: "branch",
       title: "Branch",
       subtitle: "Dual License",
-      image: "https://api.builder.io/api/v1/image/assets/TEMP/474e9427353e36aa9e243c53c1ca9efe1f850f1a?width=788"
+      image: "https://api.builder.io/api/v1/image/assets/TEMP/474e9427353e36aa9e243c53c1ca9efe1f850f1a?width=788",
+      tooltip: "Expanding an existing brand? Receive instant zoning checks, dual-license compliance, and performance benchmarks for new locations."
     },
     {
       id: "retail-store",
       title: "Retail Store",
       subtitle: "Commercial License",
-      image: "https://api.builder.io/api/v1/image/assets/TEMP/28a07c4a89a2e43c77d74ad46a6ad88ca8d969b3?width=616"
+      image: "https://api.builder.io/api/v1/image/assets/TEMP/28a07c4a89a2e43c77d74ad46a6ad88ca8d969b3?width=616",
+      tooltip: "Perfect for physical retail. AI recommends fit-out standards, merchandising approvals, and logistics partners tailored to your concept."
     }
   ];
 
