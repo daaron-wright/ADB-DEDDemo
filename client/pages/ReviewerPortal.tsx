@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import type { CheckedState } from '@radix-ui/react-checkbox';
 import {
   Select,
   SelectContent,
