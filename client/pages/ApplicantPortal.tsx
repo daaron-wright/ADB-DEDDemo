@@ -143,12 +143,14 @@ export default function ApplicantPortal() {
   const [sortBy, setSortBy] = useState<SortOption>('recent');
 
   const location = useLocation();
-  const portalUser = (location.state as { user?: { name?: string; role?: string } } | undefined)?.user;
+  const portalUser = (location.state as { user?: { name?: string; role?: string; email?: string } } | undefined)?.user;
   const firstName = portalUser?.name ? portalUser.name.split(' ')[0] : null;
   const workspaceTitle = firstName ? `${firstName}'s workspace` : 'Applicant workspace';
   const workspaceDescription = firstName
     ? `Track every application, ${firstName}, understand what is blocking approval, and continue building your business in Abu Dhabi with clarity.`
     : 'Track every application, understand what is blocking approval, and continue building your business in Abu Dhabi with clarity.';
+  const profileName = portalUser?.name ?? 'Ahmed Al Mansoori';
+  const profileEmail = portalUser?.email ?? 'ahmed.almansoori@email.ae';
 
   const minProgress = progressThreshold[0] ?? 0;
   const allDirectoratesSelected = selectedDirectorates.length === directorateOptions.length;
