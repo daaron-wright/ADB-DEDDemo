@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
+import { usePersistentState } from '@/hooks/use-persistent-state';
 
 interface ChatMessage {
   id: string;
