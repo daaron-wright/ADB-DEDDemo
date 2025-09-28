@@ -645,13 +645,33 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
   const handleNewTab = () => {
     const newThread: ChatThread = {
       id: `thread-${Date.now()}`,
-      title: `New Chat ${threads.length + 1}`,
-      messages: [{
-          id: 'ai-init',
-          content: 'Hello! How can I help you today?',
+      title: 'Cost & Demographics',
+      messages: [
+        {
+          id: 'user-cost-question',
+          content: 'How much would it cost to open a restaurant',
+          isAI: false,
+          timestamp: new Date(),
+        },
+        {
+          id: 'ai-cost-response',
+          content: 'Estimated set up costs could range from: There isn\'t a single fixed price, but rather a range that can vary from approximately AED 10,000 to AED 30,000 for the trade license itself. Type of License: The cost can differ based on the type of license you get. A Tajer/e-commerce license that don\'t allow full restaurant operations start at AED 790.',
           isAI: true,
           timestamp: new Date(),
-      }],
+        },
+        {
+          id: 'user-demographic-question',
+          content: 'Can you give me any demographic data you have for this area.',
+          isAI: false,
+          timestamp: new Date(),
+        },
+        {
+          id: 'ai-demographic-response',
+          content: 'Abu Dhabi\'s dining potential varies by zone, each offering unique demographics and footfall drivers:\nYas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10).\nAl Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10).\nSaadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10).\nAl Reem Island – 30k residents, 35k daytime; dense community market (7/10).\nAl Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10).\nCorniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10).\nAl Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).',
+          isAI: true,
+          timestamp: new Date(),
+        }
+      ],
       view: 'journey',
     };
     setThreads([...threads, newThread]);
