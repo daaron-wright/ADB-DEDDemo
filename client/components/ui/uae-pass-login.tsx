@@ -52,7 +52,7 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({ isOpen, onClose, onL
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[80] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+        className="fixed inset-0 z-[80] flex items-center justify-center bg-slate-950/60 backdrop-blur-sm p-4"
         onClick={onClose}
       >
         <motion.div
