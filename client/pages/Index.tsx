@@ -24,7 +24,6 @@ export default function Index() {
     isOpen: false,
   });
 
-  const [showUAEPassLogin, setShowUAEPassLogin] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState<any>(null);
   const [showBusinessPortal, setShowBusinessPortal] = useState(false);
 
@@ -90,7 +89,6 @@ export default function Index() {
   // UAE PASS Login Handler
   const handleUAEPassLogin = (userType: 'applicant' | 'reviewer', userData: any) => {
     setLoggedInUser(userData);
-    setShowUAEPassLogin(false);
     setShowBusinessPortal(true);
   };
 
@@ -239,12 +237,14 @@ export default function Index() {
             >
               Chat with AI
             </button>
-            <button
-              onClick={() => setShowUAEPassLogin(true)}
-              className="bg-teal-gradient text-white px-6 py-4 rounded-full font-semibold text-base hover:opacity-90 transition-opacity"
-            >
-              Sign in
-            </button>
+            <UAEPassLogin
+              trigger={(
+                <button className="bg-teal-gradient text-white px-6 py-4 rounded-full font-semibold text-base transition-opacity hover:opacity-90">
+                  Sign in
+                </button>
+              )}
+              onLogin={handleUAEPassLogin}
+            />
           </div>
         </header>
 
@@ -434,15 +434,6 @@ export default function Index() {
           handleCloseGeneralChat();
         }}
       />
-
-      {/* UAE PASS Login Modal */}
-      {showUAEPassLogin && (
-        <UAEPassLogin
-          isOpen={showUAEPassLogin}
-          onClose={() => setShowUAEPassLogin(false)}
-          onLogin={handleUAEPassLogin}
-        />
-      )}
 
       {/* Business License Portal */}
       {loggedInUser && showBusinessPortal && (
