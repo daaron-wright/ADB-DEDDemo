@@ -452,20 +452,24 @@ export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboard
       </motion.div>
 
       {/* Competitors View */}
-      <CompetitorsView
-        key="competitors-view"
-        isOpen={showCompetitors}
-        onClose={() => setShowCompetitors(false)}
-        category={category}
-      />
+      {showCompetitors && (
+        <CompetitorsView
+          key="competitors-view"
+          isOpen={showCompetitors}
+          onClose={() => setShowCompetitors(false)}
+          category={category}
+        />
+      )}
 
       {/* Gap Analysis View */}
-      <GapAnalysisView
-        key="gap-analysis-view"
-        isOpen={showGapAnalysis}
-        onClose={() => setShowGapAnalysis(false)}
-        category={category}
-      />
+      {showGapAnalysis && (
+        <GapAnalysisView
+          key="gap-analysis-view"
+          isOpen={showGapAnalysis}
+          onClose={() => setShowGapAnalysis(false)}
+          category={category}
+        />
+      )}
     </AnimatePresence>
   );
 }

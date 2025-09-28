@@ -67,6 +67,7 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({ isOpen, on
   return (
     <AnimatePresence>
       <motion.div
+        key="report-summary-main"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -224,15 +225,19 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({ isOpen, on
       </motion.div>
 
       {/* UAE PASS Login Modal */}
-      <UAEPassLogin
-        isOpen={showUAEPassLogin}
-        onClose={() => setShowUAEPassLogin(false)}
-        onLogin={handleUAEPassLogin}
-      />
+      {showUAEPassLogin && (
+        <UAEPassLogin
+          key="uae-pass-login"
+          isOpen={showUAEPassLogin}
+          onClose={() => setShowUAEPassLogin(false)}
+          onLogin={handleUAEPassLogin}
+        />
+      )}
 
       {/* Business License Portal */}
-      {loggedInUser && (
+      {loggedInUser && showBusinessPortal && (
         <BusinessLicensePortal
+          key="business-license-portal"
           isOpen={showBusinessPortal}
           user={loggedInUser}
           onClose={handleClosePortal}

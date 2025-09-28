@@ -267,26 +267,30 @@ export function GapAnalysisView({ isOpen, onClose, category }: GapAnalysisViewPr
       </motion.div>
 
       {/* Property Map Modal */}
-      <PropertyMapModal
-        key="property-map-modal"
-        isOpen={showProperties}
-        onClose={() => setShowProperties(false)}
-        onReportRequest={() => {
-          setShowProperties(false);
-          setShowReport(true);
-        }}
-      />
+      {showProperties && (
+        <PropertyMapModal
+          key="property-map-modal"
+          isOpen={showProperties}
+          onClose={() => setShowProperties(false)}
+          onReportRequest={() => {
+            setShowProperties(false);
+            setShowReport(true);
+          }}
+        />
+      )}
 
       {/* Report Summary Page */}
-      <ReportSummaryPage
-        key="report-summary-page"
-        isOpen={showReport}
-        onClose={() => setShowReport(false)}
-        onExploreAnother={() => {
-          setShowReport(false);
-          // Could navigate back to main page or properties
-        }}
-      />
+      {showReport && (
+        <ReportSummaryPage
+          key="report-summary-page"
+          isOpen={showReport}
+          onClose={() => setShowReport(false)}
+          onExploreAnother={() => {
+            setShowReport(false);
+            // Could navigate back to main page or properties
+          }}
+        />
+      )}
     </AnimatePresence>
   );
 }
