@@ -106,7 +106,7 @@ export default {
         'blur-white': 'radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.2) 100%)',
       },
       fontFamily: {
-        'dm-sans': ['DM Sans', 'sans-serif'],
+        sans: ['DM Sans', 'sans-serif'],
       },
     },
   },
