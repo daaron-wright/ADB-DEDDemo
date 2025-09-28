@@ -185,7 +185,7 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({ trigger, onLogin, on
                 type="button"
                 onClick={handleLogin}
                 disabled={isLoggingIn}
-                className="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-teal-400 via-teal-500 to-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-[0_12px_30px_-12px_rgba(20,128,119,0.65)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-slate-900 px-4 py-3 text-sm font-semibold text-white shadow-[0_12px_30px_-14px_rgba(24,32,63,0.55)] transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isLoggingIn ? (
                   <>
