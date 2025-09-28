@@ -293,8 +293,8 @@ export default function ApplicantPortal() {
             checked={allDirectoratesSelected}
             indeterminate={someDirectoratesSelected && !allDirectoratesSelected}
             onCheckedChange={handleToggleAllDirectorates}
-            className="border-purple-100/80 bg-purple-50/60"
-            checkboxClassName="border-purple-300 text-purple-600 focus-visible:ring-purple-400"
+            className="border-neutral-200"
+            checkboxClassName="border-neutral-300 text-purple-600 focus-visible:ring-purple-300"
           />
 
           {directorateOptions.map((option) => (
@@ -304,7 +304,7 @@ export default function ApplicantPortal() {
               label={option}
               checked={selectedDirectorates.includes(option)}
               onCheckedChange={(checked) => handleDirectorateChange(option, checked)}
-              checkboxClassName="border-purple-200 text-purple-600 focus-visible:ring-purple-400"
+              checkboxClassName="border-neutral-300 text-purple-600 focus-visible:ring-purple-300"
             />
           ))}
         </div>
