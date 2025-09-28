@@ -162,12 +162,20 @@ export default function ReviewerPortal() {
   const [sortBy, setSortBy] = useState<'due' | 'priority'>('due');
 
   const location = useLocation();
-  const portalUser = (location.state as { user?: { name?: string; role?: string } } | undefined)?.user;
+  const portalUser = (location.state as { user?: { name?: string; role?: string; email?: string; avatarUrl?: string } } | undefined)?.user;
   const firstName = portalUser?.name ? portalUser.name.split(' ')[0] : null;
   const pageTitle = firstName ? `${firstName}'s review desk` : 'Reviewer command center';
   const pageDescription = firstName
     ? `Monitor the unified queue, ${firstName}, keep SLAs healthy, and collaborate with your team to move applications forward.`
     : 'Monitor the unified queue, keep SLAs healthy, and collaborate with your team to move applications forward.';
+  const profileName = portalUser?.name ?? 'Sarah Al Zaabi';
+  const profileEmail = portalUser?.email ?? 'sarah.alzaabi@adm.ae';
+  const profileAvatar = portalUser?.avatarUrl ?? 'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80';
+  const profileStatus: 'online' | 'offline' | 'none' = 'online';
+
+  const handleSignOut = () => {
+    window.location.assign('/');
+  };
 
   const allDirectoratesSelected = selectedDirectorates.length === directorateOptions.length;
   const someDirectoratesSelected = selectedDirectorates.length > 0 && !allDirectoratesSelected;
