@@ -197,6 +197,18 @@ const mockApplications: Application[] = [
 
 const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, onClose }) => {
   const [selectedActivities, setSelectedActivities] = useState(['Full-service restaurant']);
+  const [businessRegistrationItems, setBusinessRegistrationItems] = useState([
+    'Prepare required documents',
+    'Submit application form',
+    'Pay registration fees'
+  ]);
+  const [businessLicensingItems, setBusinessLicensingItems] = useState([
+    'Food service license application',
+    'Safety compliance documentation',
+    'Health department approval'
+  ]);
+  const [showBusinessRegAdmin, setShowBusinessRegAdmin] = useState(false);
+  const [showBusinessLicAdmin, setShowBusinessLicAdmin] = useState(false);
 
   const toggleActivity = (activity: string) => {
     setSelectedActivities(prev =>
