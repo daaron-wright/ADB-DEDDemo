@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Draggable from 'react-draggable';
 import { motion, AnimatePresence } from 'framer-motion';
+import axios from 'axios';
 import { cn } from '@/lib/utils';
 
 interface Message {
@@ -76,6 +77,7 @@ export function ChatUI({ isOpen, onClose, title = "AI Business" }: ChatUIProps) 
     },
   ]);
   const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const nodeRef = useRef(null);
 
   const handleSendMessage = () => {
@@ -90,17 +92,29 @@ export function ChatUI({ isOpen, onClose, title = "AI Business" }: ChatUIProps) 
 
     setMessages(prev => [...prev, newMessage]);
     setInputValue('');
+    setIsLoading(true);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      const response = await axios.post('/api/generate', { message: inputValue });
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
-        content: "I'd be happy to help you with opening a restaurant in Abu Dhabi. The process involves several steps including obtaining the necessary licenses, finding a suitable location, and meeting health and safety requirements. Would you like me to guide you through each step?",
+        content: response.data.response,
         isAI: true,
         timestamp: new Date(),
       };
       setMessages(prev => [...prev, aiResponse]);
-    }, 1000);
+    } catch (error) {
+      console.error('Error fetching AI response:', error);
+      const errorResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        content: 'Sorry, I am having trouble connecting. Please try again later.',
+        isAI: true,
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, errorResponse]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -172,6 +186,13 @@ export function ChatUI({ isOpen, onClose, title = "AI Business" }: ChatUIProps) 
                     {messages.map((message) => (
                       <MessageBubble key={message.id} message={message} />
                     ))}
+                    {isLoading && (
+                      <div className="flex justify-start">
+                        <div className="bg-black/80 text-white rounded-xl rounded-tl-sm px-4 py-3 text-sm">
+                          Typing...
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Input Footer */}
