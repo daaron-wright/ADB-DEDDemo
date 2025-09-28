@@ -364,7 +364,7 @@ export default function ApplicantPortal() {
             step={5}
             className="py-3"
           />
-          <div className="flex items-center justify-between text-xs font-medium text-neutral-300">
+          <div className="flex items-center justify-between text-xs font-medium text-slate-600">
             <span>Minimum progress</span>
             <span>{minProgress}%</span>
           </div>
