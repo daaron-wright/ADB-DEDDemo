@@ -16,6 +16,8 @@ interface OpenChatUIProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
+  businessCategories?: Array<{ id: string; title: string; }>;
+  onCategoryClick?: (id: string, title: string) => void;
 }
 
 type ChatState = 'idle' | 'listening' | 'thinking' | 'responding';
@@ -62,10 +64,10 @@ const MessageBubble = ({ message }: { message: ChatMessage }) => {
       message.isAI ? "justify-start" : "justify-end"
     )}>
       <div className={cn(
-        "max-w-[75%] px-3 py-2 rounded-2xl text-sm leading-relaxed",
-        message.isAI 
-          ? "bg-black/80 text-white rounded-tl-sm" 
-          : "bg-white/80 text-gray-700 rounded-tr-sm"
+        "max-w-[75%] px-4 py-3 rounded-2xl text-sm leading-relaxed text-white",
+        message.isAI
+          ? "bg-white/10 rounded-tl-sm"
+          : "bg-white/20 rounded-tr-sm"
       )}>
         {message.content}
       </div>
@@ -113,7 +115,7 @@ const ChatStateIndicator = ({ state }: { state: ChatState }) => {
 
 const queryClient = new QueryClient();
 
-export function OpenChatUI({ isOpen, onClose, title = "AI Business" }: OpenChatUIProps) {
+export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCategories, onCategoryClick }: OpenChatUIProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: '1',
@@ -253,7 +255,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business" }: OpenChatU
                 className="w-full max-w-md h-[500px]"
               >
                 {/* Chat Container */}
-                <div className="flex flex-col h-full bg-gradient-to-br from-black/20 to-gray-600/20 backdrop-blur-md rounded-3xl border border-white/20 shadow-xl overflow-hidden">
+                <div className="flex flex-col h-full bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-xl overflow-hidden">
                   {/* Header */}
                   <div className="drag-handle flex items-center justify-between p-4 border-b border-white/10 cursor-move">
                     <div className="flex items-center gap-3">
@@ -287,6 +289,22 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business" }: OpenChatU
                     {messages.map((message) => (
                       <MessageBubble key={message.id} message={message} />
                     ))}
+                    {messages.length === 1 && messages[0].isAI && businessCategories && onCategoryClick && (
+                      <div className="pt-2">
+                        <div className="text-white/70 text-xs mb-3 px-2">Or select a category to get started:</div>
+                        <div className="flex flex-wrap gap-2">
+                          {businessCategories.map(category => (
+                            <button
+                              key={category.id}
+                              onClick={() => onCategoryClick(category.id, category.title)}
+                              className="px-3 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white font-medium text-xs hover:bg-white/20 transition-colors"
+                            >
+                              {category.title}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                     <ChatStateIndicator state={chatState} />
                   </div>
 
