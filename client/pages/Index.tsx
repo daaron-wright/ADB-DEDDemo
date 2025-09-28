@@ -70,14 +70,14 @@ export default function Index() {
 
   const applyFocusPoint = (point?: { x: number; y: number }) => {
     if (point) {
-      setFocusPoint({ x: point.x, y: point.y });
+      queueFocusPoint({ x: point.x, y: point.y });
     } else if (typeof window !== 'undefined') {
-      setFocusPoint({
+      queueFocusPoint({
         x: window.innerWidth / 2,
         y: window.innerHeight * 0.35,
       });
     } else {
-      setFocusPoint({ ...fallbackFocus });
+      queueFocusPoint({ ...fallbackFocus });
     }
   };
 
