@@ -218,6 +218,12 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
                 <div className="flex items-center justify-between px-10 py-5 h-full">
                   {/* Left side - Logo and back button */}
                   <div className="flex items-center gap-4">
+                    {/* Tamm Logo */}
+                    <img
+                      src="https://cdn.builder.io/api/v1/image/assets/4f55495a54b1427b9bd40ba1c8f3c8aa/e9ee86b522ee4f309ae259a6480f85c2"
+                      alt="Tamm Logo"
+                      className="h-12"
+                    />
                     <button
                       onClick={onClose}
                       className="w-11 h-11 rounded-full border border-white/18 bg-transparent flex items-center justify-center hover:bg-white/10 transition-colors"
@@ -226,13 +232,6 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
                         <path d="M19 12L5 12M5 12L11 18M5 12L11 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     </button>
-                    
-                    {/* Tamm Logo */}
-                    <img
-                      src="https://cdn.builder.io/api/v1/image/assets/4f55495a54b1427b9bd40ba1c8f3c8aa/e9ee86b522ee4f309ae259a6480f85c2"
-                      alt="Tamm Logo"
-                      className="h-12"
-                    />
                   </div>
 
                   {/* Center title */}
