@@ -155,34 +155,34 @@ export function ChatUI({ isOpen, onClose, title = "AI Business" }: ChatUIProps) 
             </div>
 
             {/* Messages Container */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-1">
+            <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-2">
               {messages.map((message) => (
                 <MessageBubble key={message.id} message={message} />
               ))}
             </div>
 
             {/* Input Footer */}
-            <div className="p-4 border-t border-white/10">
-              <div className="flex items-center gap-3">
+            <div className="p-3 sm:p-4 border-t border-white/10">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <input
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Type your message..."
-                  className="flex-1 bg-white/10 text-white placeholder-white/60 border border-white/20 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#54FFD4]/50 focus:border-[#54FFD4]"
+                  className="flex-1 bg-white/10 text-white placeholder-white/60 border border-white/20 rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 text-sm font-dm-sans focus:outline-none focus:ring-2 focus:ring-[#54FFD4]/50 focus:border-[#54FFD4] transition-colors"
                 />
                 <button
                   onClick={handleSendMessage}
                   disabled={!inputValue.trim()}
                   className={cn(
-                    "w-10 h-10 rounded-xl flex items-center justify-center transition-colors",
+                    "w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center transition-all duration-200 flex-shrink-0",
                     inputValue.trim()
-                      ? "bg-[#54FFD4] hover:bg-[#54FFD4]/80 text-black"
+                      ? "bg-[#54FFD4] hover:bg-[#54FFD4]/80 text-black hover:scale-105"
                       : "bg-white/10 text-white/40 cursor-not-allowed"
                   )}
                 >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M2 8L14 2L10 8L14 14L2 8Z" fill="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </button>
