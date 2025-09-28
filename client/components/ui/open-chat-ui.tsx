@@ -6,6 +6,53 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
 import { usePersistentState } from '@/hooks/use-persistent-state';
 
+type SpeechRecognitionConstructor = new () => SpeechRecognitionInstance;
+
+interface SpeechRecognitionAlternativeLike {
+  transcript: string;
+}
+
+interface SpeechRecognitionResultLike {
+  length: number;
+  item(index: number): SpeechRecognitionAlternativeLike;
+  [index: number]: SpeechRecognitionAlternativeLike;
+}
+
+interface SpeechRecognitionResultListLike {
+  length: number;
+  item(index: number): SpeechRecognitionResultLike;
+  [index: number]: SpeechRecognitionResultLike;
+}
+
+interface SpeechRecognitionResultEventLike {
+  results: SpeechRecognitionResultListLike;
+}
+
+interface SpeechRecognitionInstance {
+  start: () => void;
+  stop: () => void;
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  onstart: (() => void) | null;
+  onresult: ((event: SpeechRecognitionResultEventLike) => void) | null;
+  onerror: (() => void) | null;
+  onend: (() => void) | null;
+}
+
+const getSpeechRecognitionConstructor = (): SpeechRecognitionConstructor | null => {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  const browserWindow = window as typeof window & {
+    SpeechRecognition?: SpeechRecognitionConstructor;
+    webkitSpeechRecognition?: SpeechRecognitionConstructor;
+  };
+
+  return browserWindow.SpeechRecognition ?? browserWindow.webkitSpeechRecognition ?? null;
+};
+
 interface ChatMessage {
   id: string;
   content: string;
