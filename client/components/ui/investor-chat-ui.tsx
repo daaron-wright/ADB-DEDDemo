@@ -80,23 +80,23 @@ const StarRating = ({ rating }: { rating: number }) => {
   );
 };
 
-const ActionButton = ({ 
-  label, 
-  type, 
-  onClick 
-}: { 
-  label: string; 
-  type: 'primary' | 'secondary'; 
+const ActionButton = ({
+  label,
+  type,
+  onClick
+}: {
+  label: string;
+  type: 'primary' | 'secondary';
   onClick: () => void;
 }) => {
   return (
     <button
       onClick={onClick}
       className={cn(
-        "px-6 py-3 rounded-full font-bold text-sm transition-all duration-200 hover:scale-105",
-        type === 'primary' 
-          ? "bg-teal-gradient text-white shadow-lg" 
-          : "border-2 border-white text-white bg-transparent hover:bg-white/10"
+        "px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 ease-out cursor-pointer hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]",
+        type === 'primary'
+          ? "bg-white/20 shadow-md text-white"
+          : "bg-white/10 text-white border border-white/20"
       )}
     >
       {label}
@@ -111,27 +111,25 @@ const InvestorMessageBubble = ({ message }: { message: InvestorMessage }) => {
       message.isAI ? "justify-start" : "justify-end"
     )}>
       <div className={cn(
-        "max-w-[90%] px-4 py-4 rounded-xl text-sm leading-relaxed font-dm-sans",
-        message.isAI 
-          ? "bg-white/20 text-white rounded-tl-sm backdrop-blur-sm" 
-          : "bg-gray-600/20 text-white rounded-tr-sm backdrop-blur-sm"
+        "max-w-[90%] px-4 py-4 rounded-xl text-sm leading-relaxed font-dm-sans bg-white/10 backdrop-blur-md border border-white/20 shadow-lg",
+        message.isAI ? "rounded-tl-sm" : "rounded-tr-sm"
       )}>
         {message.rating && <StarRating rating={message.rating} />}
-        
-        <div className="mb-3">{message.content}</div>
-        
+
+        <div className="mb-3 text-white">{message.content}</div>
+
         {message.investorData && (
-          <div className="bg-white/10 rounded-lg p-4 mt-4 backdrop-blur-sm">
+          <div className="bg-white/10 rounded-lg p-4 mt-4 backdrop-blur-sm border border-white/20">
             <div className="flex items-center gap-3 mb-4">
               {message.investorData.entrepreneur && (
                 <>
-                  <img 
+                  <img
                     src={message.investorData.entrepreneur.avatar}
                     alt={message.investorData.entrepreneur.name}
                     className="w-16 h-16 rounded-full border-2 border-[#54FFD4]"
                   />
                   <div>
-                    <h4 className="font-bold text-lg">Investor Journey</h4>
+                    <h4 className="font-bold text-lg text-white">Investor Journey</h4>
                     <p className="text-white/80">
                       <span className="font-bold">{message.investorData.entrepreneur.name}</span> {message.investorData.entrepreneur.title}
                     </p>
@@ -139,11 +137,11 @@ const InvestorMessageBubble = ({ message }: { message: InvestorMessage }) => {
                 </>
               )}
             </div>
-            
+
             <div className="text-white/90 mb-4">
-              <p className="font-bold text-lg mb-2">Your journey, powered by AI</p>
-              <p className="text-sm leading-relaxed">
-                Discover a clear path for investors to plan, apply for, and successfully open a restaurant. 
+              <p className="font-bold text-lg mb-2 text-white">Your journey, powered by AI</p>
+              <p className="text-sm leading-relaxed text-white/90">
+                Discover a clear path for investors to plan, apply for, and successfully open a restaurant.
                 In just four seamless stages, watch Khalid, an F&B entrepreneur, go from a business idea to a thriving restaurant.
               </p>
             </div>
@@ -301,7 +299,7 @@ export function InvestorChatUI({ isOpen, onClose, category, title = "AI Business
                   <div className="absolute inset-0 bg-black/30" />
                   
                   {/* Chat Container */}
-                  <div className="relative z-10 flex flex-col h-full bg-white/10 backdrop-blur-md rounded-3xl border border-white/20">
+                  <div className="relative z-10 flex flex-col h-full bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-xl">
                     {/* Header */}
                     <div className="drag-handle flex items-center justify-between p-6 border-b border-white/20 cursor-move">
                       <div className="flex items-center gap-4">
