@@ -5,7 +5,6 @@ import { AnimatedConversation } from '@/components/ui/animated-conversation';
 import { conversationFlows } from '@/lib/conversations';
 import { AnimatePresence } from 'framer-motion';
 import { OpenChatUI } from '@/components/ui/open-chat-ui';
-import { PropertyMapView } from '@/components/ui/property-map-view';
 
 export default function Index() {
   const [chatState, setChatState] = useState<{
