@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { PropertiesView } from './properties-view';
 
 interface GapAnalysisViewProps {
   isOpen: boolean;
@@ -160,7 +161,10 @@ const GapAnalysisPanel = () => {
             transition={{ duration: 0.6, delay: 1.2 }}
             className="mt-6"
           >
-            <button className="w-full px-6 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-medium text-sm hover:bg-white/20 transition-colors">
+            <button
+              onClick={() => setShowProperties(true)}
+              className="w-full px-6 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-medium text-sm hover:bg-white/20 transition-colors"
+            >
               Show me some available properties in the area that might work for my restaurant
             </button>
           </motion.div>
@@ -188,6 +192,8 @@ const MainContent = () => {
 };
 
 export function GapAnalysisView({ isOpen, onClose, category }: GapAnalysisViewProps) {
+  const [showProperties, setShowProperties] = useState(false);
+
   if (!isOpen) return null;
 
   return (
@@ -256,6 +262,13 @@ export function GapAnalysisView({ isOpen, onClose, category }: GapAnalysisViewPr
           <StatisticsBar />
         </div>
       </motion.div>
+
+      {/* Properties View */}
+      <PropertiesView
+        isOpen={showProperties}
+        onClose={() => setShowProperties(false)}
+        category={category}
+      />
     </AnimatePresence>
   );
 }
