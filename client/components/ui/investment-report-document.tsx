@@ -11,30 +11,26 @@ export const InvestmentReportDocument: React.FC<InvestmentReportDocumentProps> =
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className={`bg-white rounded-3xl p-8 shadow-2xl max-w-4xl ${className}`}
+      className={`bg-white rounded-3xl p-8 shadow-2xl ${className}`}
+      style={{ width: '540px', height: '684px' }}
     >
       {/* Header Section */}
-      <div className="mb-8">
-        <div className="flex items-start justify-between mb-6">
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-2">
+      <div className="mb-6">
+        <div className="flex items-start justify-between mb-8">
+          <div className="flex-1 pr-6">
+            <h1 className="text-2xl font-bold text-black leading-tight">
               Abu Dhabi a diverse population for global high-end experiences
             </h1>
           </div>
-          <div className="ml-6 relative">
-            <div className="w-24 h-24 rounded-full overflow-hidden relative">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-                alt="Abu Dhabi Skyline"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-              <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 text-white text-xs font-semibold">
-                Residents
+          <div className="relative flex-shrink-0">
+            <div className="w-20 h-20 rounded-full overflow-hidden relative bg-gradient-to-br from-orange-400 via-purple-500 to-blue-600">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+              <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 text-center">
+                <div className="text-white text-xs font-medium">Residents</div>
+                <div className="text-white text-lg font-bold">2.2M</div>
               </div>
-              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white text-lg font-bold">
-                2.2M
-              </div>
+              {/* City silhouette overlay */}
+              <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/60 to-transparent"></div>
             </div>
           </div>
         </div>
