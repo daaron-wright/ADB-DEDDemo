@@ -79,7 +79,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       >
         <input
           {...rest}
-          id={id}
+          id={inputId}
           ref={setRefs}
           type="checkbox"
           className={cn(
