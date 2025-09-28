@@ -113,7 +113,7 @@ const StatisticsBar = () => {
   );
 };
 
-const GapAnalysisPanel = () => {
+const GapAnalysisPanel = ({ onShowProperties }: { onShowProperties: () => void }) => {
   return (
     <motion.div
       initial={{ opacity: 0, x: 50 }}
@@ -162,7 +162,7 @@ const GapAnalysisPanel = () => {
             className="mt-6"
           >
             <button
-              onClick={() => setShowProperties(true)}
+              onClick={onShowProperties}
               className="w-full px-6 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-medium text-sm hover:bg-white/20 transition-colors"
             >
               Show me some available properties in the area that might work for my restaurant
