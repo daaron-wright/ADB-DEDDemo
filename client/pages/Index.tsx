@@ -25,6 +25,8 @@ export default function Index() {
     isOpen: false,
   });
 
+  const navigate = useNavigate();
+
   const fallbackFocus = { x: 640, y: 360 };
   const [focusPoint, setFocusPoint] = useState<{ x: number; y: number }>(fallbackFocus);
   const categoryPositions = useRef<Record<string, { x: number; y: number }>>({});
