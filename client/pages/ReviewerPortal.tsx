@@ -397,7 +397,7 @@ export default function ReviewerPortal() {
       <button
         type="button"
         onClick={resetFilters}
-        className="w-full rounded-full border border-purple-200/60 bg-white/70 px-4 py-2 text-xs font-semibold text-purple-700 transition hover:border-purple-400 hover:text-purple-900"
+        className="w-full rounded-full border border-neutral-700 bg-neutral-900 px-4 py-2 text-xs font-semibold text-neutral-200 transition hover:border-neutral-500 hover:text-white"
       >
         Reset filters
       </button>
@@ -408,13 +408,13 @@ export default function ReviewerPortal() {
     <div className="flex items-center gap-3">
       <button
         type="button"
-        className="rounded-full border border-white/60 bg-white/70 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-purple-300 hover:text-slate-900"
+        className="rounded-full border border-neutral-600 bg-neutral-900 px-4 py-3 text-sm font-semibold text-neutral-200 transition hover:border-neutral-400 hover:text-white"
       >
         Export queue
       </button>
       <button
         type="button"
-        className="flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_44px_-24px_rgba(24,32,63,0.65)] transition hover:bg-slate-800"
+        className="flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-neutral-900 shadow-[0_22px_60px_-30px_rgba(0,0,0,0.75)] transition hover:bg-neutral-200"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -467,17 +467,17 @@ export default function ReviewerPortal() {
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-purple-500/70">Sort</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-neutral-400">Sort</span>
             <Select value={sortBy} onValueChange={(value: 'due' | 'priority') => setSortBy(value)}>
-              <SelectTrigger className="h-10 w-48 rounded-2xl border-white/60 bg-white/80 text-sm text-slate-700">
+              <SelectTrigger className="h-10 w-48 rounded-2xl border-neutral-700 bg-neutral-900 text-sm text-neutral-100">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="rounded-2xl border border-purple-100 bg-white/95">
+              <SelectContent className="rounded-2xl border border-neutral-800 bg-neutral-950/95 text-neutral-100">
                 <SelectGroup>
-                  <SelectItem value="due" className="rounded-xl text-sm">
+                  <SelectItem value="due" className="rounded-xl text-sm text-neutral-100 data-[state=checked]:bg-neutral-800">
                     Soonest SLA first
                   </SelectItem>
-                  <SelectItem value="priority" className="rounded-xl text-sm">
+                  <SelectItem value="priority" className="rounded-xl text-sm text-neutral-100 data-[state=checked]:bg-neutral-800">
                     Priority (high to low)
                   </SelectItem>
                 </SelectGroup>
@@ -487,11 +487,11 @@ export default function ReviewerPortal() {
         </div>
 
         {filteredQueue.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-purple-200 bg-white/80 p-10 text-center text-sm text-slate-600">
+          <div className="rounded-3xl border border-dashed border-neutral-700 bg-neutral-900/80 p-10 text-center text-sm text-neutral-300">
             No review cases match the current filters. Adjust your filters to see more results.
           </div>
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-6 text-neutral-100">
             {filteredQueue.map((item) => (
               <ReviewQueueCard key={item.id} item={item} />
             ))}
