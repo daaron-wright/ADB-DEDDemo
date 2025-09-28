@@ -181,19 +181,11 @@ export default function Index() {
   return (
     <div
       ref={pageRef}
-      className="min-h-screen overflow-hidden relative transition-all duration-1000 ease-out"
+      className="relative min-h-screen overflow-hidden transition-colors duration-700 ease-out"
       style={{
-        background: `
-          ${currentTheme.gradient},
-          linear-gradient(135deg,
-            rgba(255, 255, 255, 0.9) 0%,
-            rgba(248, 250, 252, 0.8) 50%,
-            rgba(241, 245, 249, 0.9) 100%
-          )
-        `,
-        '--mouse-x': '50vw',
-        '--mouse-y': '50vh'
-      } as React.CSSProperties}
+        background:
+          'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(244, 247, 252, 0.92) 45%, rgba(241, 245, 249, 0.96) 100%)',
+      }}
     >
       {/* Enhanced background layers */}
       <motion.div
