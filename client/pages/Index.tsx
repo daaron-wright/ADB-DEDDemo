@@ -187,78 +187,15 @@ export default function Index() {
           'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(244, 247, 252, 0.92) 45%, rgba(241, 245, 249, 0.96) 100%)',
       }}
     >
-      {/* Enhanced background layers */}
       <motion.div
-        className="absolute top-1/2 left-1/2 w-[1400px] h-[1400px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-        style={{ translateX, translateY }}
-      >
-        <motion.div
-          className="w-full h-full rounded-full opacity-60"
-          animate={{
-            background: hoveredCategory
-              ? `radial-gradient(circle, ${currentTheme.primary}30 0%, ${currentTheme.secondary}20 40%, ${currentTheme.accent}10 70%, transparent 100%)`
-              : 'radial-gradient(circle, rgba(138, 43, 226, 0.3) 0%, rgba(147, 112, 219, 0.2) 40%, rgba(221, 160, 221, 0.1) 70%, transparent 100%)',
-            scale: hoveredCategory ? 1.2 : 1,
-            filter: 'blur(120px)'
-          }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        />
-      </motion.div>
-
-      {/* Floating particles */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {Array.from({ length: 6 }, (_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 rounded-full"
-            style={{
-              left: `${20 + i * 15}%`,
-              top: `${30 + (i % 2) * 40}%`
-            }}
-            animate={{
-              background: hoveredCategory
-                ? `linear-gradient(45deg, ${currentTheme.primary}, ${currentTheme.secondary})`
-                : 'linear-gradient(45deg, rgba(138, 43, 226, 0.3), rgba(147, 112, 219, 0.2))',
-              y: [0, -30, 0],
-              x: [0, Math.sin(i) * 20, 0],
-              scale: hoveredCategory ? [1, 1.5, 1] : [1, 1.2, 1],
-              opacity: [0.3, 0.7, 0.3]
-            }}
-            transition={{
-              duration: 4 + i,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: i * 0.5
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Ripple effect */}
-      <AnimatePresence>
-        {rippleEffect.active && (
-          <motion.div
-            className="absolute pointer-events-none z-10"
-            style={{
-              left: rippleEffect.x,
-              top: rippleEffect.y,
-              transform: 'translate(-50%, -50%)'
-            }}
-            initial={{ scale: 0, opacity: 0.8 }}
-            animate={{ scale: 3, opacity: 0 }}
-            exit={{ scale: 4, opacity: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-          >
-            <div
-              className="w-32 h-32 rounded-full"
-              style={{
-                background: `radial-gradient(circle, ${currentTheme.primary}40 0%, ${currentTheme.secondary}20 50%, transparent 100%)`,
-                filter: 'blur(2px)'
-              }}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+        className="pointer-events-none absolute inset-0"
+        animate={{
+          background: `radial-gradient(520px circle at ${focusPoint.x}px ${focusPoint.y}px, rgba(14, 165, 233, ${hoveredCategory || activeCategory ? 0.18 : 0.12}), rgba(14, 165, 233, 0.06) 48%, transparent 78%)`,
+          opacity: hoveredCategory || activeCategory ? 1 : 0.7,
+        }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.08),transparent_60%)]" />
       <div className="relative z-10">
         {/* Navigation Header */}
         <header className="flex justify-between items-center px-8 py-6 border-b border-gray-100/50">
