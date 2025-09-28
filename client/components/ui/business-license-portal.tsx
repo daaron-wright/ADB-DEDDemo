@@ -385,18 +385,86 @@ const mockApplications: Application[] = [
 
 const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, onClose }) => {
   const [selectedActivities, setSelectedActivities] = useState(['Full-service restaurant']);
-  const [businessRegistrationItems, setBusinessRegistrationItems] = useState([
-    'Prepare required documents',
-    'Submit application form',
-    'Pay registration fees'
+  const [businessRegistrationItems, setBusinessRegistrationItems] = useState<JourneyItem[]>([
+    {
+      id: '1',
+      text: 'Prepare required documents',
+      completed: true,
+      status: 'completed',
+      priority: 'high'
+    },
+    {
+      id: '2',
+      text: 'Submit application form',
+      completed: false,
+      status: 'in_progress',
+      priority: 'high'
+    },
+    {
+      id: '3',
+      text: 'Pay registration fees',
+      completed: false,
+      status: 'pending',
+      priority: 'medium'
+    }
   ]);
-  const [businessLicensingItems, setBusinessLicensingItems] = useState([
-    'Food service license application',
-    'Safety compliance documentation',
-    'Health department approval'
+  const [businessLicensingItems, setBusinessLicensingItems] = useState<JourneyItem[]>([
+    {
+      id: '4',
+      text: 'Food service license application',
+      completed: false,
+      status: 'pending',
+      priority: 'high'
+    },
+    {
+      id: '5',
+      text: 'Safety compliance documentation',
+      completed: false,
+      status: 'pending',
+      priority: 'medium'
+    },
+    {
+      id: '6',
+      text: 'Health department approval',
+      completed: false,
+      status: 'blocked',
+      priority: 'high'
+    }
   ]);
   const [showBusinessRegAdmin, setShowBusinessRegAdmin] = useState(false);
   const [showBusinessLicAdmin, setShowBusinessLicAdmin] = useState(false);
+  const [notifications, setNotifications] = useState<string[]>([]);
+
+  const showNotification = (message: string) => {
+    setNotifications(prev => [...prev, message]);
+    setTimeout(() => {
+      setNotifications(prev => prev.slice(1));
+    }, 3000);
+  };
+
+  const handleUpdateBusinessRegItem = (id: string, updates: Partial<JourneyItem>) => {
+    setBusinessRegistrationItems(prev => prev.map(item =>
+      item.id === id ? { ...item, ...updates } : item
+    ));
+
+    if (updates.completed !== undefined) {
+      showNotification(updates.completed ? '✅ Task completed!' : '↩️ Task reopened');
+    } else if (updates.status) {
+      showNotification(`📋 Status updated to ${updates.status.replace('_', ' ')}`);
+    }
+  };
+
+  const handleUpdateBusinessLicItem = (id: string, updates: Partial<JourneyItem>) => {
+    setBusinessLicensingItems(prev => prev.map(item =>
+      item.id === id ? { ...item, ...updates } : item
+    ));
+
+    if (updates.completed !== undefined) {
+      showNotification(updates.completed ? '✅ Task completed!' : '↩️ Task reopened');
+    } else if (updates.status) {
+      showNotification(`📋 Status updated to ${updates.status.replace('_', ' ')}`);
+    }
+  };
 
   const toggleActivity = (activity: string) => {
     setSelectedActivities(prev =>
