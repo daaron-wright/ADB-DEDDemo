@@ -151,6 +151,12 @@ export default function ApplicantPortal() {
     : 'Track every application, understand what is blocking approval, and continue building your business in Abu Dhabi with clarity.';
   const profileName = portalUser?.name ?? 'Ahmed Al Mansoori';
   const profileEmail = portalUser?.email ?? 'ahmed.almansoori@email.ae';
+  const profileAvatar = portalUser?.avatarUrl ?? 'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80';
+  const profileStatus: 'online' | 'offline' | 'none' = 'online';
+
+  const handleSignOut = () => {
+    window.location.assign('/');
+  };
 
   const minProgress = progressThreshold[0] ?? 0;
   const allDirectoratesSelected = selectedDirectorates.length === directorateOptions.length;
