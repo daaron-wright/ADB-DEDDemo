@@ -74,7 +74,7 @@ export default function Index() {
 
   const getChatTitle = () => {
     const category = businessCategories.find(cat => cat.id === chatState.category);
-    return category ? `${category.title} AI Assistant` : 'AI Business';
+    return category ? `${category.subtitle} for ${category.title}` : 'AI Business';
   };
 
   const mouseX = useMotionValue(0);
