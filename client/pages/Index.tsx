@@ -284,13 +284,23 @@ export default function Index() {
                 const isElevated = isHovered || isActive;
 
                 return (
-                  <div
+                  <Tooltip
                     key={category.id}
-                    className="group relative cursor-pointer"
-                    onClick={(event) => handleTileClick(category.id, category.title, event)}
-                    onMouseEnter={(event) => handleCategoryHover(category.id, event)}
-                    onMouseLeave={handleCategoryLeave}
+                    side="bottom"
+                    align="center"
+                    className="aegov-tooltip bg-slate-900/95 border border-white/15 px-4 py-3 text-white/95 shadow-[0_20px_52px_-30px_rgba(15,23,42,0.55)] backdrop-blur-md"
+                    content={
+                      <div className="max-w-[240px] text-sm leading-relaxed text-white/95">
+                        {category.tooltip}
+                      </div>
+                    }
                   >
+                    <div
+                      className="group relative cursor-pointer"
+                      onClick={(event) => handleTileClick(category.id, category.title, event)}
+                      onMouseEnter={(event) => handleCategoryHover(category.id, event)}
+                      onMouseLeave={handleCategoryLeave}
+                    >
                     {/* Card Container with subtle animations */}
                     <motion.div
                       className="relative h-[271px] w-full overflow-hidden rounded-3xl border"
@@ -413,6 +423,7 @@ export default function Index() {
                       </AnimatePresence>
                     </motion.div>
                   </div>
+                </Tooltip>
                 );
               })}
             </div>
