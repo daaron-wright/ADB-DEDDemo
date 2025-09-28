@@ -69,6 +69,13 @@ export default function Index() {
     }
   };
 
+  // UAE PASS Login Handler
+  const handleUAEPassLogin = (userType: 'applicant' | 'reviewer', userData: any) => {
+    setLoggedInUser(userData);
+    setShowUAEPassLogin(false);
+    setShowBusinessPortal(true);
+  };
+
   const businessCategories = [
     {
       id: "restaurants",
