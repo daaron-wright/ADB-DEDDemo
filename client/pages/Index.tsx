@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { InvestorChatUI } from '@/components/ui/investor-chat-ui';
+import { OpenChatUI } from '@/components/ui/open-chat-ui';
 
 export default function Index() {
   const [chatState, setChatState] = useState<{
