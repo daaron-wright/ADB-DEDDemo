@@ -294,73 +294,136 @@ export default function Index() {
 
             {/* Business Category Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-5xl mx-auto">
-              {businessCategories.map((category) => (
-                <div
-                  key={category.id}
-                  className="group cursor-pointer relative"
-                  onClick={() => handleTileClick(category.id, category.title)}
-                  onMouseEnter={() => setHoveredCategory(category.id)}
-                  onMouseLeave={() => setHoveredCategory(null)}
-                >
-                  {/* Card Container */}
-                  <div className="relative w-full h-[271px] rounded-3xl overflow-hidden border-2 border-white">
-                    {/* Background Image */}
-                    <div className="absolute inset-0">
-                      <img
-                        src={category.image}
-                        alt={category.title}
-                        className="w-full h-full object-cover"
+              {businessCategories.map((category, index) => {
+                const categoryTheme = colorThemes[category.id as keyof typeof colorThemes];
+                const isHovered = hoveredCategory === category.id;
+
+                return (
+                  <div
+                    key={category.id}
+                    className="group cursor-pointer relative"
+                    onClick={() => handleTileClick(category.id, category.title)}
+                    onMouseEnter={(e) => handleCategoryHover(category.id, e)}
+                    onMouseLeave={handleCategoryLeave}
+                  >
+                    {/* Card Container with enhanced animations */}
+                    <motion.div
+                      className="relative w-full h-[271px] rounded-3xl overflow-hidden border-2"
+                      animate={{
+                        borderColor: isHovered ? categoryTheme.primary : 'white',
+                        scale: isHovered ? 1.05 : 1,
+                        boxShadow: isHovered
+                          ? `0 20px 60px -20px ${categoryTheme.primary}40, 0 0 30px ${categoryTheme.secondary}20`
+                          : '0 10px 30px -15px rgba(0, 0, 0, 0.1)',
+                      }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      whileHover={{ y: -5 }}
+                    >
+                      {/* Enhanced glow effect */}
+                      <motion.div
+                        className="absolute -inset-1 rounded-3xl"
+                        animate={{
+                          background: isHovered
+                            ? `linear-gradient(135deg, ${categoryTheme.primary}30, ${categoryTheme.secondary}20, ${categoryTheme.accent}10)`
+                            : 'transparent',
+                          filter: isHovered ? 'blur(8px)' : 'blur(0px)',
+                          opacity: isHovered ? 0.6 : 0
+                        }}
+                        transition={{ duration: 0.4 }}
                       />
-                      {/* Special overlay image for restaurants */}
-                      {category.overlayImage && (
+
+                      {/* Background Image */}
+                      <div className="absolute inset-0">
                         <img
-                          src={category.overlayImage}
-                          alt=""
-                          className="absolute inset-0 w-full h-full object-cover"
+                          src={category.image}
+                          alt={category.title}
+                          className="w-full h-full object-cover"
                         />
-                      )}
-                    </div>
-
-                    {/* Content Overlay */}
-                    <div className="absolute bottom-4 left-4 right-4 z-10">
-                      <div className="bg-white/28 backdrop-blur-sm rounded-2xl p-4 flex items-center justify-between">
-                        <div className="flex-1">
-                          <p className="text-white/65 text-xs font-normal mb-1">
-                            {category.subtitle}
-                          </p>
-                          <h3 className="text-white text-xl font-semibold leading-tight">
-                            {category.title}
-                          </h3>
-                        </div>
-
-                        {/* Arrow Button */}
-                        <div className="w-11 h-11 rounded-full border border-white/18 bg-transparent flex items-center justify-center group-hover:bg-white/10 transition-colors">
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Animated Conversation Overlay */}
-                    <AnimatePresence>
-                      {hoveredCategory === category.id && (
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="absolute inset-0 bg-black/50 backdrop-blur-sm rounded-3xl z-20"
-                        >
-                          <AnimatedConversation
-                            messages={conversationFlows[category.id as keyof typeof conversationFlows] || []}
+                        {/* Special overlay image for restaurants */}
+                        {category.overlayImage && (
+                          <img
+                            src={category.overlayImage}
+                            alt=""
+                            className="absolute inset-0 w-full h-full object-cover"
                           />
+                        )}
+
+                        {/* Color overlay that changes on hover */}
+                        <motion.div
+                          className="absolute inset-0"
+                          animate={{
+                            background: isHovered
+                              ? `linear-gradient(135deg, ${categoryTheme.primary}15, ${categoryTheme.secondary}10, transparent 60%)`
+                              : 'transparent'
+                          }}
+                          transition={{ duration: 0.5 }}
+                        />
+                      </div>
+
+                      {/* Content Overlay */}
+                      <div className="absolute bottom-4 left-4 right-4 z-10">
+                        <motion.div
+                          className="backdrop-blur-sm rounded-2xl p-4 flex items-center justify-between"
+                          animate={{
+                            backgroundColor: isHovered
+                              ? `${categoryTheme.primary}40`
+                              : 'rgba(255, 255, 255, 0.28)',
+                            borderColor: isHovered ? categoryTheme.accent : 'transparent'
+                          }}
+                          style={{ border: '1px solid' }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <div className="flex-1">
+                            <p className="text-white/65 text-xs font-normal mb-1">
+                              {category.subtitle}
+                            </p>
+                            <h3 className="text-white text-xl font-semibold leading-tight">
+                              {category.title}
+                            </h3>
+                          </div>
+
+                          {/* Enhanced Arrow Button */}
+                          <motion.div
+                            className="w-11 h-11 rounded-full border flex items-center justify-center"
+                            animate={{
+                              borderColor: isHovered ? categoryTheme.accent : 'rgba(255, 255, 255, 0.18)',
+                              backgroundColor: isHovered ? `${categoryTheme.primary}30` : 'transparent',
+                              scale: isHovered ? 1.1 : 1
+                            }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </motion.div>
                         </motion.div>
-                      )}
-                    </AnimatePresence>
+                      </div>
+
+                      {/* Animated Conversation Overlay */}
+                      <AnimatePresence>
+                        {hoveredCategory === category.id && (
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="absolute inset-0 rounded-3xl z-20"
+                            style={{
+                              background: `linear-gradient(135deg, ${categoryTheme.primary}20, ${categoryTheme.secondary}15, rgba(0, 0, 0, 0.6))`
+                            }}
+                          >
+                            <div className="backdrop-blur-sm h-full rounded-3xl">
+                              <AnimatedConversation
+                                messages={conversationFlows[category.id as keyof typeof conversationFlows] || []}
+                              />
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </main>
