@@ -152,138 +152,181 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
       <div className="absolute top-[167px] left-0 w-full h-[calc(100vh-167px)] flex gap-6 px-11 py-12">
         {/* Left Panel - Form */}
         <div className="w-[633px] h-[1030px] bg-white/14 rounded-3xl opacity-80 relative">
-          <div className="absolute top-6 left-8 right-8">
-            <div className="flex items-center justify-between mb-12">
-              <div className="text-white font-['DM_Sans'] text-lg font-semibold leading-[160%] tracking-[0.058px]">
-                Journey Number: 0987654321
-              </div>
-              <div className="text-[#54FFD4] font-['DM_Sans'] text-base font-normal leading-[160%] tracking-[0.051px]">
-                2 of 8 complete
-              </div>
+          {/* Dividers */}
+          <div className="absolute w-full h-0 bg-white/18 top-[77px]"></div>
+          <div className="absolute w-full h-0 bg-white/18 top-[344px]"></div>
+          <div className="absolute w-full h-0 bg-white/18 top-[695px]"></div>
+
+          {/* Journey Number */}
+          <div className="absolute left-8 top-6 w-[410px] h-[29px]">
+            <span className="text-white font-['DM_Sans'] text-lg font-semibold leading-[160%] tracking-[0.058px]">
+              Journey Number: 0987654321
+            </span>
+          </div>
+
+          {/* Progress indicator */}
+          <div className="absolute right-8 top-6 w-[118px] h-[26px]">
+            <span className="text-[#54FFD4] font-['DM_Sans'] text-base font-normal leading-[160%] tracking-[0.051px]">
+              2 of 8 complete
+            </span>
+          </div>
+
+          {/* Legal Structure Section */}
+          <div className="absolute left-8 top-[109px] w-[410px] h-[29px]">
+            <span className="text-white font-['DM_Sans'] text-lg font-semibold leading-[160%] tracking-[0.058px]">
+              1. Legal Structure
+            </span>
+          </div>
+
+          {/* New Business - Limited Liability Company */}
+          <div className="absolute left-10 top-[170px] flex items-center gap-10 w-[528px] h-[31px]">
+            <div className="w-[31px] h-[31px] flex items-center justify-center">
+              <svg width="27" height="27" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.4999 0.9375C18.0969 0.9375 21.5463 2.36674 24.0898 4.91016C26.6332 7.45361 28.0624 10.903 28.0624 14.5C28.0624 17.1824 27.2675 19.8048 25.7773 22.0352C24.287 24.2655 22.1686 26.0038 19.6904 27.0303C17.2122 28.0568 14.4852 28.325 11.8544 27.8018C9.22356 27.2784 6.80684 25.9866 4.9101 24.0898C3.01338 22.1931 1.72149 19.7763 1.19818 17.1455C0.674976 14.5148 0.943204 11.7877 1.96967 9.30957C2.99612 6.83158 4.7347 4.71385 6.96478 3.22363C9.19509 1.73339 11.8176 0.937525 14.4999 0.9375ZM18.9492 3.75977C16.825 2.87992 14.4873 2.65012 12.2324 3.09863C9.97733 3.54719 7.906 4.65449 6.28021 6.28027C4.65446 7.90605 3.54712 9.97742 3.09857 12.2324C2.65013 14.4872 2.88004 16.8243 3.7597 18.9482C4.63957 21.0724 6.13021 22.8886 8.04193 24.166C9.95355 25.4432 12.2009 26.125 14.4999 26.125C17.5831 26.125 20.5405 24.8998 22.7206 22.7197C24.9005 20.5397 26.1249 17.5829 26.1249 14.5C26.1249 12.2009 25.4432 9.95363 24.166 8.04199C22.8886 6.13036 21.0732 4.63965 18.9492 3.75977ZM21.2812 11.0264L12.5624 19.7441L7.71869 14.8994L9.08783 13.5312L12.5624 17.0049L19.9101 9.65625L21.2812 11.0264Z" fill="#54FFD4"/>
+              </svg>
             </div>
-
-            {/* Divider */}
-            <div className="w-full h-0 bg-white/18 mb-8"></div>
-
-            {/* Legal Structure Section */}
-            <div className="mb-16">
-              <h3 className="text-white font-['DM_Sans'] text-lg font-semibold leading-[160%] tracking-[0.058px] mb-8">
-                1. Legal Structure
-              </h3>
-
-              <div className="space-y-7">
-                {/* New Business - Limited Liability Company */}
-                <div className="flex items-center gap-10">
-                  <div className="w-8 h-8 flex items-center justify-center">
-                    <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M14.4999 0.9375C18.0968 0.9375 21.5462 2.36675 24.0897 4.91016C26.6332 7.45361 28.0624 10.903 28.0624 14.5C28.0624 17.1824 27.2675 19.8048 25.7772 22.0352C24.2869 24.2655 22.1685 26.0038 19.6903 27.0303C17.2121 28.0568 14.4852 28.325 11.8543 27.8018C9.22348 27.2784 6.80676 25.9866 4.91001 24.0898C3.01331 22.1931 1.7214 19.7763 1.1981 17.1455C0.674894 14.5148 0.943121 11.7877 1.96958 9.30957C2.99603 6.83158 4.73463 4.71385 6.9647 3.22363C9.19499 1.7334 11.8175 0.937533 14.4999 0.9375ZM18.9491 3.75977C16.8249 2.87991 14.4873 2.65011 12.2323 3.09863C9.97725 3.54719 7.90591 4.65449 6.28013 6.28027C4.65438 7.90605 3.54703 9.97743 3.09849 12.2324C2.65005 14.4872 2.87996 16.8243 3.75962 18.9482C4.63949 21.0724 6.13013 22.8886 8.04185 24.166C9.95346 25.4432 12.2008 26.125 14.4999 26.125C17.583 26.125 20.5404 24.8998 22.7206 22.7197C24.9004 20.5397 26.1249 17.5829 26.1249 14.5C26.1249 12.2009 25.4431 9.95364 24.1659 8.04199C22.8885 6.13035 21.0732 4.63965 18.9491 3.75977ZM21.2811 11.0264L12.5624 19.7441L7.71861 14.8994L9.08775 13.5312L12.5624 17.0049L19.91 9.65625L21.2811 11.0264Z" fill="#54FFD4"/>
-                    </svg>
-                  </div>
-                  <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[136%]">
-                    New Business - Limited Liability Company
-                  </div>
-                </div>
-
-                {/* Ownership - Single Owner */}
-                <div className="flex items-center gap-10">
-                  <div className="w-8 h-8 flex items-center justify-center">
-                    <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M14.4999 0.9375C18.0968 0.9375 21.5462 2.36675 24.0897 4.91016C26.6332 7.45361 28.0624 10.903 28.0624 14.5C28.0624 17.1824 27.2675 19.8048 25.7772 22.0352C24.2869 24.2655 22.1685 26.0038 19.6903 27.0303C17.2121 28.0568 14.4852 28.325 11.8543 27.8018C9.22348 27.2784 6.80676 25.9866 4.91001 24.0898C3.01331 22.1931 1.7214 19.7763 1.1981 17.1455C0.674894 14.5148 0.943121 11.7877 1.96958 9.30957C2.99603 6.83158 4.73463 4.71385 6.9647 3.22363C9.19499 1.7334 11.8175 0.937533 14.4999 0.9375ZM18.9491 3.75977C16.8249 2.87991 14.4873 2.65011 12.2323 3.09863C9.97725 3.54719 7.90591 4.65449 6.28013 6.28027C4.65438 7.90605 3.54703 9.97743 3.09849 12.2324C2.65005 14.4872 2.87996 16.8243 3.75962 18.9482C4.63949 21.0724 6.13013 22.8886 8.04185 24.166C9.95346 25.4432 12.2008 26.125 14.4999 26.125C17.583 26.125 20.5404 24.8998 22.7206 22.7197C24.9004 20.5397 26.1249 17.5829 26.1249 14.5C26.1249 12.2009 25.4431 9.95364 24.1659 8.04199C22.8885 6.13035 21.0732 4.63965 18.9491 3.75977ZM21.2811 11.0264L12.5624 19.7441L7.71861 14.8994L9.08775 13.5312L12.5624 17.0049L19.91 9.65625L21.2811 11.0264Z" fill="#54FFD4"/>
-                    </svg>
-                  </div>
-                  <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[136%]">
-                    Ownership - Single Owner
-                  </div>
-                </div>
-
-                {/* Nationality - UAE National */}
-                <div className="flex items-center gap-10">
-                  <div className="w-8 h-8 flex items-center justify-center">
-                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M14.0003 0C17.7132 7.17267e-05 21.2742 1.47514 23.8997 4.10059C26.5251 6.72607 28.0003 10.287 28.0003 14C28.0003 17.7129 26.5251 21.2739 23.8997 23.8994C21.2742 26.5249 17.7132 27.9999 14.0003 28V26C17.1828 25.9999 20.2353 24.7357 22.4856 22.4854C24.736 20.2349 26.0003 17.1825 26.0003 14C26.0003 10.8175 24.736 7.76506 22.4856 5.51465C20.2353 3.26428 17.1828 2.00007 14.0003 2V0ZM6.23953 23.1406C7.31689 24.0483 8.54651 24.7587 9.87039 25.2402L9.17996 27.1104C7.6537 26.5498 6.23885 25.7233 5.00027 24.6699L6.23953 23.1406ZM2.18973 16C2.42418 17.4036 2.8981 18.7566 3.59012 20L1.85965 21C1.04008 19.579 0.474926 18.0256 0.189728 16.4102L2.18973 16ZM3.59012 8C2.90902 9.22052 2.44529 10.5503 2.22 11.9297L0.220001 11.5898C0.501306 9.97773 1.05567 8.42536 1.85965 7L3.59012 8ZM9.81961 2.76074C8.51354 3.24749 7.3017 3.95784 6.23953 4.86035L5.00027 3.33008C6.22375 2.28183 7.62163 1.45639 9.13016 0.890625L9.81961 2.76074Z" fill="#54FFD4"/>
-                    </svg>
-                  </div>
-                  <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[136%]">
-                    Nationality - UAE National
-                  </div>
-                </div>
-              </div>
+            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[136%]">
+              New Business - Limited Liability Company
             </div>
+          </div>
 
-            {/* Divider */}
-            <div className="w-full h-0 bg-white/18 mb-8"></div>
-
-            {/* Business Activities Section */}
-            <div className="mb-16">
-              <h3 className="text-white font-['DM_Sans'] text-lg font-semibold leading-[160%] tracking-[0.058px] mb-2">
-                2. Business Activities
-              </h3>
-              <p className="text-white font-['DM_Sans'] text-sm font-normal leading-[160%] tracking-[0.045px] mb-8">
-                Choose from the below AI recommended activities
-              </p>
-
-              <div className="space-y-7">
-                {[
-                  'Full-service restaurant',
-                  'Charcoal/coal BBQ services',
-                  'Hospitality and catering services'
-                ].map((activity) => (
-                  <div key={activity} className="flex items-center gap-10">
-                    <div className="w-8 h-8">
-                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16.0001 2C13.2312 2 10.5244 2.82109 8.22211 4.35943C5.91983 5.89776 4.12541 8.08427 3.06578 10.6424C2.00616 13.2006 1.72891 16.0155 2.2691 18.7313C2.8093 21.447 4.14267 23.9416 6.1006 25.8995C8.05854 27.8574 10.5531 29.1908 13.2688 29.731C15.9846 30.2712 18.7995 29.9939 21.3577 28.9343C23.9158 27.8747 26.1023 26.0803 27.6407 23.778C29.179 21.4757 30.0001 18.7689 30.0001 16C30.0001 12.287 28.5251 8.72601 25.8996 6.1005C23.2741 3.475 19.7131 2 16.0001 2ZM16.0001 28C13.6267 28 11.3066 27.2962 9.33325 25.9776C7.35986 24.6591 5.82179 22.7849 4.91354 20.5922C4.00529 18.3995 3.76765 15.9867 4.23067 13.6589C4.6937 11.3311 5.83659 9.19295 7.51482 7.51472C9.19305 5.83649 11.3312 4.6936 13.659 4.23058C15.9868 3.76755 18.3996 4.00519 20.5923 4.91345C22.785 5.8217 24.6592 7.35977 25.9777 9.33316C27.2963 11.3065 28.0001 13.6266 28.0001 16C28.0001 19.1826 26.7358 22.2348 24.4854 24.4853C22.2349 26.7357 19.1827 28 16.0001 28Z" fill="white"/>
-                      </svg>
-                    </div>
-                    <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
-                      {activity}
-                    </div>
-                  </div>
-                ))}
-
-                {/* Add a new activity */}
-                <div className="flex items-center gap-10">
-                  <div className="w-8 h-8 flex items-center justify-center">
-                    <div className="w-8 h-8 border border-white rounded-full flex items-center justify-center">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 5v14M5 12h14" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
-                    Add a new activity
-                  </div>
-                </div>
-              </div>
+          {/* Ownership - Single Owner */}
+          <div className="absolute left-10 top-[225px] flex items-center gap-10 w-[528px] h-[31px]">
+            <div className="w-[31px] h-[31px] flex items-center justify-center">
+              <svg width="27" height="27" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.4999 0.9375C18.0969 0.9375 21.5463 2.36674 24.0898 4.91016C26.6332 7.45361 28.0624 10.903 28.0624 14.5C28.0624 17.1824 27.2675 19.8048 25.7773 22.0352C24.287 24.2655 22.1686 26.0038 19.6904 27.0303C17.2122 28.0568 14.4852 28.325 11.8544 27.8018C9.22356 27.2784 6.80684 25.9866 4.9101 24.0898C3.01338 22.1931 1.72149 19.7763 1.19818 17.1455C0.674976 14.5148 0.943204 11.7877 1.96967 9.30957C2.99612 6.83158 4.7347 4.71385 6.96478 3.22363C9.19509 1.73339 11.8176 0.937525 14.4999 0.9375ZM18.9492 3.75977C16.825 2.87992 14.4873 2.65012 12.2324 3.09863C9.97733 3.54719 7.906 4.65449 6.28021 6.28027C4.65446 7.90605 3.54712 9.97742 3.09857 12.2324C2.65013 14.4872 2.88004 16.8243 3.7597 18.9482C4.63957 21.0724 6.13021 22.8886 8.04193 24.166C9.95355 25.4432 12.2009 26.125 14.4999 26.125C17.5831 26.125 20.5405 24.8998 22.7206 22.7197C24.9005 20.5397 26.1249 17.5829 26.1249 14.5C26.1249 12.2009 25.4432 9.95363 24.166 8.04199C22.8886 6.13036 21.0732 4.63965 18.9492 3.75977ZM21.2812 11.0264L12.5624 19.7441L7.71869 14.8994L9.08783 13.5312L12.5624 17.0049L19.9101 9.65625L21.2812 11.0264Z" fill="#54FFD4"/>
+              </svg>
             </div>
+            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[136%]">
+              Ownership - Single Owner
+            </div>
+          </div>
 
-            {/* Divider */}
-            <div className="w-full h-0 bg-white/18 mb-8"></div>
+          {/* Nationality - UAE National */}
+          <div className="absolute left-10 top-[280px] flex items-center gap-10 w-[529px] h-[32px]">
+            <div className="w-8 h-8 flex items-center justify-center">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.0002 0C17.7131 5.25326e-05 21.2741 1.47512 23.8996 4.10059C26.525 6.72607 28.0002 10.287 28.0002 14C28.0002 17.713 26.525 21.2739 23.8996 23.8994C21.2741 26.5249 17.7131 27.9999 14.0002 28V26C17.1827 25.9999 20.2351 24.7357 22.4855 22.4854C24.7359 20.2349 26.0002 17.1825 26.0002 14C26.0002 10.8175 24.7359 7.76506 22.4855 5.51465C20.2351 3.26426 17.1827 2.00005 14.0002 2V0ZM6.24042 23.1406C7.31765 24.0481 8.54662 24.7588 9.8703 25.2402L9.17987 27.1104C7.6536 26.5498 6.23876 25.7233 5.00018 24.6699L6.24042 23.1406ZM2.18964 16C2.42408 17.4036 2.89801 18.7566 3.59003 20L1.85956 21C1.04 19.579 0.474833 18.0256 0.189636 16.4102L2.18964 16ZM3.59003 8C2.90893 9.22053 2.4452 10.5503 2.21991 11.9297L0.21991 11.5898C0.501212 9.97774 1.05558 8.42536 1.85956 7L3.59003 8ZM9.81952 2.76074C8.51357 3.24745 7.30252 3.95795 6.24042 4.86035L5.00018 3.33008C6.22367 2.28181 7.62153 1.45639 9.13007 0.890625L9.81952 2.76074Z" fill="#54FFD4"/>
+              </svg>
+            </div>
+            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[136%]">
+              Nationality - UAE National
+            </div>
+          </div>
 
-            {/* Physical Space Requirements Section */}
-            <div>
-              <h3 className="text-white font-['DM_Sans'] text-lg font-semibold leading-[160%] tracking-[0.058px] mb-8">
-                3. Physical Space Requirements
-              </h3>
+          {/* Business Activities Section */}
+          <div className="absolute left-8 top-[376px] w-[410px] h-[29px]">
+            <span className="text-white font-['DM_Sans'] text-lg font-semibold leading-[160%] tracking-[0.058px]">
+              2. Business Activities
+            </span>
+          </div>
 
-              <div className="space-y-7">
-                {[
-                  'Step 1: Business Registration',
-                  'Step 2: Submission of Documents',
-                  'Step 3: Business Licensing',
-                  'Step 4: Pre-Operational Inspection'
-                ].map((step) => (
-                  <div key={step} className="flex items-center gap-10">
-                    <div className="w-8 h-8">
-                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16.0001 2C13.2312 2 10.5244 2.82109 8.22211 4.35943C5.91983 5.89776 4.12541 8.08427 3.06578 10.6424C2.00616 13.2006 1.72891 16.0155 2.2691 18.7313C2.8093 21.447 4.14267 23.9416 6.1006 25.8995C8.05854 27.8574 10.5531 29.1908 13.2688 29.731C15.9846 30.2712 18.7995 29.9939 21.3577 28.9343C23.9158 27.8747 26.1023 26.0803 27.6407 23.778C29.179 21.4757 30.0001 18.7689 30.0001 16C30.0001 12.287 28.5251 8.72601 25.8996 6.1005C23.2741 3.475 19.7131 2 16.0001 2ZM16.0001 28C13.6267 28 11.3066 27.2962 9.33325 25.9776C7.35986 24.6591 5.82179 22.7849 4.91354 20.5922C4.00529 18.3995 3.76765 15.9867 4.23067 13.6589C4.6937 11.3311 5.83659 9.19295 7.51482 7.51472C9.19305 5.83649 11.3312 4.6936 13.659 4.23058C15.9868 3.76755 18.3996 4.00519 20.5923 4.91345C22.785 5.8217 24.6592 7.35977 25.9777 9.33316C27.2963 11.3065 28.0001 13.6266 28.0001 16C28.0001 19.1826 26.7358 22.2348 24.4854 24.4853C22.2349 26.7357 19.1827 28 16.0001 28Z" fill="white"/>
-                      </svg>
-                    </div>
-                    <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
-                      {step}
-                    </div>
-                  </div>
-                ))}
-              </div>
+          <div className="absolute left-10 top-[417px] w-[332px] h-[22px]">
+            <span className="text-white font-['DM_Sans'] text-sm font-normal leading-[160%] tracking-[0.045px]">
+              Choose from the below AI recommended activities
+            </span>
+          </div>
+
+          {/* Full-service restaurant */}
+          <div className="absolute left-10 top-[463px] flex items-center gap-10 w-[529px] h-[32px]">
+            <div className="w-8 h-8">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.0001 2C13.2311 2 10.5244 2.82109 8.22208 4.35943C5.91979 5.89776 4.12538 8.08427 3.06575 10.6424C2.00613 13.2006 1.72888 16.0155 2.26907 18.7313C2.80927 21.447 4.14264 23.9416 6.10057 25.8995C8.05851 27.8574 10.5531 29.1908 13.2688 29.731C15.9845 30.2712 18.7995 29.9939 21.3576 28.9343C23.9158 27.8747 26.1023 26.0803 27.6406 23.778C29.179 21.4757 30.0001 18.7689 30.0001 16C30.0001 12.287 28.5251 8.72601 25.8996 6.1005C23.274 3.475 19.7131 2 16.0001 2V2ZM16.0001 28C13.6267 28 11.3066 27.2962 9.33322 25.9776C7.35983 24.6591 5.82176 22.7849 4.91351 20.5922C4.00526 18.3995 3.76762 15.9867 4.23064 13.6589C4.69367 11.3311 5.83655 9.19295 7.51478 7.51472C9.19301 5.83649 11.3312 4.6936 13.659 4.23058C15.9868 3.76755 18.3996 4.00519 20.5923 4.91345C22.785 5.8217 24.6591 7.35977 25.9777 9.33316C27.2963 11.3065 28.0001 13.6266 28.0001 16C28.0001 19.1826 26.7358 22.2348 24.4853 24.4853C22.2349 26.7357 19.1827 28 16.0001 28Z" fill="white"/>
+              </svg>
+            </div>
+            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
+              Full-service restaurant
+            </div>
+          </div>
+
+          {/* Charcoal/coal BBQ services */}
+          <div className="absolute left-10 top-[519px] flex items-center gap-10 w-[529px] h-[32px]">
+            <div className="w-8 h-8">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.0001 2C13.2311 2 10.5244 2.82109 8.22208 4.35943C5.91979 5.89776 4.12538 8.08427 3.06575 10.6424C2.00613 13.2006 1.72888 16.0155 2.26907 18.7313C2.80927 21.447 4.14264 23.9416 6.10057 25.8995C8.05851 27.8574 10.5531 29.1908 13.2688 29.731C15.9845 30.2712 18.7995 29.9939 21.3576 28.9343C23.9158 27.8747 26.1023 26.0803 27.6406 23.778C29.179 21.4757 30.0001 18.7689 30.0001 16C30.0001 12.287 28.5251 8.72601 25.8996 6.1005C23.274 3.475 19.7131 2 16.0001 2V2ZM16.0001 28C13.6267 28 11.3066 27.2962 9.33322 25.9776C7.35983 24.6591 5.82176 22.7849 4.91351 20.5922C4.00526 18.3995 3.76762 15.9867 4.23064 13.6589C4.69367 11.3311 5.83655 9.19295 7.51478 7.51472C9.19301 5.83649 11.3312 4.6936 13.659 4.23058C15.9868 3.76755 18.3996 4.00519 20.5923 4.91345C22.785 5.8217 24.6591 7.35977 25.9777 9.33316C27.2963 11.3065 28.0001 13.6266 28.0001 16C28.0001 19.1826 26.7358 22.2348 24.4853 24.4853C22.2349 26.7357 19.1827 28 16.0001 28Z" fill="white"/>
+              </svg>
+            </div>
+            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
+              Charcoal/coal BBQ services
+            </div>
+          </div>
+
+          {/* Hospitality and catering services */}
+          <div className="absolute left-10 top-[575px] flex items-center gap-10 w-[529px] h-[32px]">
+            <div className="w-8 h-8">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.0001 2C13.2311 2 10.5244 2.82109 8.22208 4.35943C5.91979 5.89776 4.12538 8.08427 3.06575 10.6424C2.00613 13.2006 1.72888 16.0155 2.26907 18.7313C2.80927 21.447 4.14264 23.9416 6.10057 25.8995C8.05851 27.8574 10.5531 29.1908 13.2688 29.731C15.9845 30.2712 18.7995 29.9939 21.3576 28.9343C23.9158 27.8747 26.1023 26.0803 27.6406 23.778C29.179 21.4757 30.0001 18.7689 30.0001 16C30.0001 12.287 28.5251 8.72601 25.8996 6.1005C23.274 3.475 19.7131 2 16.0001 2V2ZM16.0001 28C13.6267 28 11.3066 27.2962 9.33322 25.9776C7.35983 24.6591 5.82176 22.7849 4.91351 20.5922C4.00526 18.3995 3.76762 15.9867 4.23064 13.6589C4.69367 11.3311 5.83655 9.19295 7.51478 7.51472C9.19301 5.83649 11.3312 4.6936 13.659 4.23058C15.9868 3.76755 18.3996 4.00519 20.5923 4.91345C22.785 5.8217 24.6591 7.35977 25.9777 9.33316C27.2963 11.3065 28.0001 13.6266 28.0001 16C28.0001 19.1826 26.7358 22.2348 24.4853 24.4853C22.2349 26.7357 19.1827 28 16.0001 28Z" fill="white"/>
+              </svg>
+            </div>
+            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
+              Hospitality and catering services
+            </div>
+          </div>
+
+          {/* Add a new activity */}
+          <div className="absolute left-10 top-[631px] flex items-center gap-10 w-[529px] h-[32px]">
+            <div className="w-8 h-8 flex items-center justify-center">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 0C21.7 0 28 6.30003 28 14C28 21.7 21.7 28 14 28C6.30003 28 0 21.7 0 14C4.11619e-05 6.30006 6.30006 4.11593e-05 14 0ZM14 2C7.40006 2.00004 2.00004 7.40006 2 14C2 20.6 7.40003 26 14 26C20.6 26 26 20.6 26 14C26 7.40003 20.6 2 14 2ZM15 6V13H22V15H15V22H13V15H6V13H13V6H15Z" fill="white"/>
+              </svg>
+            </div>
+            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
+              Add a new activity
+            </div>
+          </div>
+
+          {/* Physical Space Requirements Section */}
+          <div className="absolute left-8 top-[727px] w-[410px] h-[29px]">
+            <span className="text-white font-['DM_Sans'] text-lg font-semibold leading-[160%] tracking-[0.058px]">
+              3. Physical Space Requirements
+            </span>
+          </div>
+
+          {/* Step 1: Business Registration */}
+          <div className="absolute left-10 top-[788px] flex items-center gap-10 w-[529px] h-[32px]">
+            <div className="w-8 h-8">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.0001 2C13.2311 2 10.5244 2.82109 8.22208 4.35943C5.91979 5.89776 4.12538 8.08427 3.06575 10.6424C2.00613 13.2006 1.72888 16.0155 2.26907 18.7313C2.80927 21.447 4.14264 23.9416 6.10057 25.8995C8.05851 27.8574 10.5531 29.1908 13.2688 29.731C15.9845 30.2712 18.7995 29.9939 21.3576 28.9343C23.9158 27.8747 26.1023 26.0803 27.6406 23.778C29.179 21.4757 30.0001 18.7689 30.0001 16C30.0001 12.287 28.5251 8.72601 25.8996 6.1005C23.274 3.475 19.7131 2 16.0001 2V2ZM16.0001 28C13.6267 28 11.3066 27.2962 9.33322 25.9776C7.35983 24.6591 5.82176 22.7849 4.91351 20.5922C4.00526 18.3995 3.76762 15.9867 4.23064 13.6589C4.69367 11.3311 5.83655 9.19295 7.51478 7.51472C9.19301 5.83649 11.3312 4.6936 13.659 4.23058C15.9868 3.76755 18.3996 4.00519 20.5923 4.91345C22.785 5.8217 24.6591 7.35977 25.9777 9.33316C27.2963 11.3065 28.0001 13.6266 28.0001 16C28.0001 19.1826 26.7358 22.2348 24.4853 24.4853C22.2349 26.7357 19.1827 28 16.0001 28Z" fill="white"/>
+              </svg>
+            </div>
+            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
+              Step 1: Business Registration
+            </div>
+          </div>
+
+          {/* Step 2: Submission of Documents */}
+          <div className="absolute left-10 top-[844px] flex items-center gap-10 w-[529px] h-[32px]">
+            <div className="w-8 h-8">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.0001 2C13.2311 2 10.5244 2.82109 8.22208 4.35943C5.91979 5.89776 4.12538 8.08427 3.06575 10.6424C2.00613 13.2006 1.72888 16.0155 2.26907 18.7313C2.80927 21.447 4.14264 23.9416 6.10057 25.8995C8.05851 27.8574 10.5531 29.1908 13.2688 29.731C15.9845 30.2712 18.7995 29.9939 21.3576 28.9343C23.9158 27.8747 26.1023 26.0803 27.6406 23.778C29.179 21.4757 30.0001 18.7689 30.0001 16C30.0001 12.287 28.5251 8.72601 25.8996 6.1005C23.274 3.475 19.7131 2 16.0001 2V2ZM16.0001 28C13.6267 28 11.3066 27.2962 9.33322 25.9776C7.35983 24.6591 5.82176 22.7849 4.91351 20.5922C4.00526 18.3995 3.76762 15.9867 4.23064 13.6589C4.69367 11.3311 5.83655 9.19295 7.51478 7.51472C9.19301 5.83649 11.3312 4.6936 13.659 4.23058C15.9868 3.76755 18.3996 4.00519 20.5923 4.91345C22.785 5.8217 24.6591 7.35977 25.9777 9.33316C27.2963 11.3065 28.0001 13.6266 28.0001 16C28.0001 19.1826 26.7358 22.2348 24.4853 24.4853C22.2349 26.7357 19.1827 28 16.0001 28Z" fill="white"/>
+              </svg>
+            </div>
+            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
+              Step 2: Submission of Documents
+            </div>
+          </div>
+
+          {/* Step 3: Business Licensing */}
+          <div className="absolute left-10 top-[900px] flex items-center gap-10 w-[529px] h-[32px]">
+            <div className="w-8 h-8">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.0001 2C13.2311 2 10.5244 2.82109 8.22208 4.35943C5.91979 5.89776 4.12538 8.08427 3.06575 10.6424C2.00613 13.2006 1.72888 16.0155 2.26907 18.7313C2.80927 21.447 4.14264 23.9416 6.10057 25.8995C8.05851 27.8574 10.5531 29.1908 13.2688 29.731C15.9845 30.2712 18.7995 29.9939 21.3576 28.9343C23.9158 27.8747 26.1023 26.0803 27.6406 23.778C29.179 21.4757 30.0001 18.7689 30.0001 16C30.0001 12.287 28.5251 8.72601 25.8996 6.1005C23.274 3.475 19.7131 2 16.0001 2V2ZM16.0001 28C13.6267 28 11.3066 27.2962 9.33322 25.9776C7.35983 24.6591 5.82176 22.7849 4.91351 20.5922C4.00526 18.3995 3.76762 15.9867 4.23064 13.6589C4.69367 11.3311 5.83655 9.19295 7.51478 7.51472C9.19301 5.83649 11.3312 4.6936 13.659 4.23058C15.9868 3.76755 18.3996 4.00519 20.5923 4.91345C22.785 5.8217 24.6591 7.35977 25.9777 9.33316C27.2963 11.3065 28.0001 13.6266 28.0001 16C28.0001 19.1826 26.7358 22.2348 24.4853 24.4853C22.2349 26.7357 19.1827 28 16.0001 28Z" fill="white"/>
+              </svg>
+            </div>
+            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
+              Step 3: Business Licensing
+            </div>
+          </div>
+
+          {/* Step 4: Pre-Operational Inspection */}
+          <div className="absolute left-10 top-[956px] flex items-center gap-10 w-[529px] h-[32px]">
+            <div className="w-8 h-8">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.0001 2C13.2311 2 10.5244 2.82109 8.22208 4.35943C5.91979 5.89776 4.12538 8.08427 3.06575 10.6424C2.00613 13.2006 1.72888 16.0155 2.26907 18.7313C2.80927 21.447 4.14264 23.9416 6.10057 25.8995C8.05851 27.8574 10.5531 29.1908 13.2688 29.731C15.9845 30.2712 18.7995 29.9939 21.3576 28.9343C23.9158 27.8747 26.1023 26.0803 27.6406 23.778C29.179 21.4757 30.0001 18.7689 30.0001 16C30.0001 12.287 28.5251 8.72601 25.8996 6.1005C23.274 3.475 19.7131 2 16.0001 2V2ZM16.0001 28C13.6267 28 11.3066 27.2962 9.33322 25.9776C7.35983 24.6591 5.82176 22.7849 4.91351 20.5922C4.00526 18.3995 3.76762 15.9867 4.23064 13.6589C4.69367 11.3311 5.83655 9.19295 7.51478 7.51472C9.19301 5.83649 11.3312 4.6936 13.659 4.23058C15.9868 3.76755 18.3996 4.00519 20.5923 4.91345C22.785 5.8217 24.6591 7.35977 25.9777 9.33316C27.2963 11.3065 28.0001 13.6266 28.0001 16C28.0001 19.1826 26.7358 22.2348 24.4853 24.4853C22.2349 26.7357 19.1827 28 16.0001 28Z" fill="white"/>
+              </svg>
+            </div>
+            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
+              Step 4: Pre-Operational Inspection
             </div>
           </div>
         </div>
