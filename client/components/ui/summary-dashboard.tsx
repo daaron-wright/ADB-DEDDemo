@@ -241,6 +241,7 @@ export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboard
   return (
     <AnimatePresence>
       <motion.div
+        key="summary-dashboard"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -414,6 +415,7 @@ export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboard
 
       {/* Competitors View */}
       <CompetitorsView
+        key="competitors-view"
         isOpen={showCompetitors}
         onClose={() => setShowCompetitors(false)}
         category={category}
