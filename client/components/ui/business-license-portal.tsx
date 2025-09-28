@@ -476,52 +476,31 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
             </span>
           </div>
 
-          {/* Step 1: Business Registration */}
-          <div className="absolute left-10 top-[788px] flex items-center gap-10 w-[529px] h-[32px]">
-            <div className="w-8 h-8">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16.0001 2C13.2311 2 10.5244 2.82109 8.22208 4.35943C5.91979 5.89776 4.12538 8.08427 3.06575 10.6424C2.00613 13.2006 1.72888 16.0155 2.26907 18.7313C2.80927 21.447 4.14264 23.9416 6.10057 25.8995C8.05851 27.8574 10.5531 29.1908 13.2688 29.731C15.9845 30.2712 18.7995 29.9939 21.3576 28.9343C23.9158 27.8747 26.1023 26.0803 27.6406 23.778C29.179 21.4757 30.0001 18.7689 30.0001 16C30.0001 12.287 28.5251 8.72601 25.8996 6.1005C23.274 3.475 19.7131 2 16.0001 2V2ZM16.0001 28C13.6267 28 11.3066 27.2962 9.33322 25.9776C7.35983 24.6591 5.82176 22.7849 4.91351 20.5922C4.00526 18.3995 3.76762 15.9867 4.23064 13.6589C4.69367 11.3311 5.83655 9.19295 7.51478 7.51472C9.19301 5.83649 11.3312 4.6936 13.659 4.23058C15.9868 3.76755 18.3996 4.00519 20.5923 4.91345C22.785 5.8217 24.6591 7.35977 25.9777 9.33316C27.2963 11.3065 28.0001 13.6266 28.0001 16C28.0001 19.1826 26.7358 22.2348 24.4853 24.4853C22.2349 26.7357 19.1827 28 16.0001 28Z" fill="white"/>
-              </svg>
-            </div>
-            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
-              Step 1: Business Registration
-            </div>
-          </div>
+          {/* Journey Cards Section - replacing the static list */}
+          <div className="absolute left-10 top-[788px] w-[570px] space-y-6">
+            {/* Business Registration Journey Card */}
+            <JourneyCard
+              title="Business Registration"
+              description="Complete the business registration process"
+              items={businessRegistrationItems}
+              onAddItem={(item) => setBusinessRegistrationItems([...businessRegistrationItems, item])}
+              onRemoveItem={(index) => setBusinessRegistrationItems(businessRegistrationItems.filter((_, i) => i !== index))}
+              showAdminActions={true}
+              onToggleAdminView={() => setShowBusinessRegAdmin(!showBusinessRegAdmin)}
+              isAdminView={showBusinessRegAdmin}
+            />
 
-          {/* Step 2: Submission of Documents */}
-          <div className="absolute left-10 top-[844px] flex items-center gap-10 w-[529px] h-[32px]">
-            <div className="w-8 h-8">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16.0001 2C13.2311 2 10.5244 2.82109 8.22208 4.35943C5.91979 5.89776 4.12538 8.08427 3.06575 10.6424C2.00613 13.2006 1.72888 16.0155 2.26907 18.7313C2.80927 21.447 4.14264 23.9416 6.10057 25.8995C8.05851 27.8574 10.5531 29.1908 13.2688 29.731C15.9845 30.2712 18.7995 29.9939 21.3576 28.9343C23.9158 27.8747 26.1023 26.0803 27.6406 23.778C29.179 21.4757 30.0001 18.7689 30.0001 16C30.0001 12.287 28.5251 8.72601 25.8996 6.1005C23.274 3.475 19.7131 2 16.0001 2V2ZM16.0001 28C13.6267 28 11.3066 27.2962 9.33322 25.9776C7.35983 24.6591 5.82176 22.7849 4.91351 20.5922C4.00526 18.3995 3.76762 15.9867 4.23064 13.6589C4.69367 11.3311 5.83655 9.19295 7.51478 7.51472C9.19301 5.83649 11.3312 4.6936 13.659 4.23058C15.9868 3.76755 18.3996 4.00519 20.5923 4.91345C22.785 5.8217 24.6591 7.35977 25.9777 9.33316C27.2963 11.3065 28.0001 13.6266 28.0001 16C28.0001 19.1826 26.7358 22.2348 24.4853 24.4853C22.2349 26.7357 19.1827 28 16.0001 28Z" fill="white"/>
-              </svg>
-            </div>
-            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
-              Step 2: Submission of Documents
-            </div>
-          </div>
-
-          {/* Step 3: Business Licensing */}
-          <div className="absolute left-10 top-[900px] flex items-center gap-10 w-[529px] h-[32px]">
-            <div className="w-8 h-8">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16.0001 2C13.2311 2 10.5244 2.82109 8.22208 4.35943C5.91979 5.89776 4.12538 8.08427 3.06575 10.6424C2.00613 13.2006 1.72888 16.0155 2.26907 18.7313C2.80927 21.447 4.14264 23.9416 6.10057 25.8995C8.05851 27.8574 10.5531 29.1908 13.2688 29.731C15.9845 30.2712 18.7995 29.9939 21.3576 28.9343C23.9158 27.8747 26.1023 26.0803 27.6406 23.778C29.179 21.4757 30.0001 18.7689 30.0001 16C30.0001 12.287 28.5251 8.72601 25.8996 6.1005C23.274 3.475 19.7131 2 16.0001 2V2ZM16.0001 28C13.6267 28 11.3066 27.2962 9.33322 25.9776C7.35983 24.6591 5.82176 22.7849 4.91351 20.5922C4.00526 18.3995 3.76762 15.9867 4.23064 13.6589C4.69367 11.3311 5.83655 9.19295 7.51478 7.51472C9.19301 5.83649 11.3312 4.6936 13.659 4.23058C15.9868 3.76755 18.3996 4.00519 20.5923 4.91345C22.785 5.8217 24.6591 7.35977 25.9777 9.33316C27.2963 11.3065 28.0001 13.6266 28.0001 16C28.0001 19.1826 26.7358 22.2348 24.4853 24.4853C22.2349 26.7357 19.1827 28 16.0001 28Z" fill="white"/>
-              </svg>
-            </div>
-            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
-              Step 3: Business Licensing
-            </div>
-          </div>
-
-          {/* Step 4: Pre-Operational Inspection */}
-          <div className="absolute left-10 top-[956px] flex items-center gap-10 w-[529px] h-[32px]">
-            <div className="w-8 h-8">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16.0001 2C13.2311 2 10.5244 2.82109 8.22208 4.35943C5.91979 5.89776 4.12538 8.08427 3.06575 10.6424C2.00613 13.2006 1.72888 16.0155 2.26907 18.7313C2.80927 21.447 4.14264 23.9416 6.10057 25.8995C8.05851 27.8574 10.5531 29.1908 13.2688 29.731C15.9845 30.2712 18.7995 29.9939 21.3576 28.9343C23.9158 27.8747 26.1023 26.0803 27.6406 23.778C29.179 21.4757 30.0001 18.7689 30.0001 16C30.0001 12.287 28.5251 8.72601 25.8996 6.1005C23.274 3.475 19.7131 2 16.0001 2V2ZM16.0001 28C13.6267 28 11.3066 27.2962 9.33322 25.9776C7.35983 24.6591 5.82176 22.7849 4.91351 20.5922C4.00526 18.3995 3.76762 15.9867 4.23064 13.6589C4.69367 11.3311 5.83655 9.19295 7.51478 7.51472C9.19301 5.83649 11.3312 4.6936 13.659 4.23058C15.9868 3.76755 18.3996 4.00519 20.5923 4.91345C22.785 5.8217 24.6591 7.35977 25.9777 9.33316C27.2963 11.3065 28.0001 13.6266 28.0001 16C28.0001 19.1826 26.7358 22.2348 24.4853 24.4853C22.2349 26.7357 19.1827 28 16.0001 28Z" fill="white"/>
-              </svg>
-            </div>
-            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
-              Step 4: Pre-Operational Inspection
-            </div>
+            {/* Business Licensing Journey Card */}
+            <JourneyCard
+              title="Business Licensing"
+              description="Obtain required licenses for restaurant operation"
+              items={businessLicensingItems}
+              onAddItem={(item) => setBusinessLicensingItems([...businessLicensingItems, item])}
+              onRemoveItem={(index) => setBusinessLicensingItems(businessLicensingItems.filter((_, i) => i !== index))}
+              showAdminActions={true}
+              onToggleAdminView={() => setShowBusinessLicAdmin(!showBusinessLicAdmin)}
+              isAdminView={showBusinessLicAdmin}
+            />
           </div>
         </div>
 
