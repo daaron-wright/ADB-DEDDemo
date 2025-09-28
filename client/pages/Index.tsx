@@ -30,6 +30,11 @@ export default function Index() {
     active: boolean;
   }>({ x: 0, y: 0, active: false });
 
+  // UAE PASS Login state
+  const [showUAEPassLogin, setShowUAEPassLogin] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState<any>(null);
+  const [showBusinessPortal, setShowBusinessPortal] = useState(false);
+
   // Color themes for each business category
   const colorThemes = {
     restaurants: {
