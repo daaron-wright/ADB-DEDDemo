@@ -1,10 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Draggable from 'react-draggable';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
 import { usePersistentState } from '@/hooks/use-persistent-state';
+import { conversationFlows } from '@/lib/conversations';
 
 interface BusinessMessage {
   id: string;
