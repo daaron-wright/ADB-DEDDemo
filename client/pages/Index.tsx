@@ -109,7 +109,7 @@ export default function Index() {
 
   const handleTileClick = (
     categoryId: string,
-    categoryTitle: string,
+    _categoryTitle: string,
     event?: React.MouseEvent<HTMLDivElement>
   ) => {
     setActiveCategory(categoryId);
