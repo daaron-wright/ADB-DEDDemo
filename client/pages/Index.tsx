@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChatUI } from '@/components/ui/chat-ui';
+import { InvestorChatUI } from '@/components/ui/investor-chat-ui';
 
 export default function Index() {
   const [chatState, setChatState] = useState<{
