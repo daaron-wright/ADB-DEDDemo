@@ -85,22 +85,28 @@ const JourneyCard: React.FC<JourneyCardProps> = ({
     });
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'completed': return 'text-green-400';
-      case 'in_progress': return 'text-blue-400';
-      case 'blocked': return 'text-red-400';
-      default: return 'text-yellow-400';
-    }
+  const statusStyles: Record<JourneyItem['status'], string> = {
+    pending: 'border-white/15 bg-white/5 text-white/60',
+    in_progress: 'border-sky-300/25 bg-sky-300/10 text-sky-100',
+    completed: 'border-emerald-300/30 bg-emerald-200/12 text-emerald-100',
+    blocked: 'border-rose-300/30 bg-rose-300/10 text-rose-100'
   };
 
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'high': return 'border-red-400/50 bg-red-500/10';
-      case 'medium': return 'border-yellow-400/50 bg-yellow-500/10';
-      case 'low': return 'border-green-400/50 bg-green-500/10';
-      default: return 'border-white/20 bg-white/5';
-    }
+  const priorityCopy: Record<JourneyItem['priority'], string> = {
+    high: 'High priority',
+    medium: 'Medium priority',
+    low: 'Low priority'
+  };
+
+  const statusSequence: JourneyItem['status'][] = ['pending', 'in_progress', 'completed', 'blocked'];
+
+  const formatStatus = (status: JourneyItem['status']) =>
+    status.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+
+  const handleStatusCycle = (item: JourneyItem) => {
+    const currentIndex = statusSequence.indexOf(item.status);
+    const nextStatus = statusSequence[(currentIndex + 1) % statusSequence.length];
+    onUpdateItem(item.id, { status: nextStatus });
   };
 
   const predefinedActivities = [
