@@ -682,7 +682,7 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
     if (isOpen) {
       const initialMessages = conversationFlows[category as keyof typeof conversationFlows] || conversationFlows.general;
       const newThread: ChatThread = {
-        id: `thread-${Date.now()}`,
+        id: `thread-${Date.now()}-${Math.random()}`,
         title: getCategoryTitle(category),
         messages: initialMessages,
         view: 'journey',
@@ -710,7 +710,7 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
 
     if (isExtendedFlow) {
       const newThread: ChatThread = {
-        id: `thread-${Date.now()}`,
+        id: `thread-${Date.now()}-${Math.random()}`,
         title: 'Detailed Restaurant Analysis',
         messages: [
           {
@@ -756,7 +756,7 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
       setActiveThreadId(newThread.id);
     } else {
       const newThread: ChatThread = {
-        id: `thread-${Date.now()}`,
+        id: `thread-${Date.now()}-${Math.random()}`,
         title: 'Cost & Demographics',
         messages: [
           {
@@ -962,7 +962,7 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
                   <div className="p-6 space-y-4 max-h-[60vh] overflow-y-auto">
                     {activeThread?.messages.map((message) => (
                       <MessageBubble
-                        key={message.id}
+                        key={`${activeThread.id}-${message.id}`}
                         message={message}
                         onActionClick={(action) => {
                           if (action === 'budget-ranges') {
