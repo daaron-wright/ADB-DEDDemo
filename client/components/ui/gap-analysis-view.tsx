@@ -137,12 +137,12 @@ const GapAnalysisPanel = () => {
         <div className="border-b border-white/20 mx-6"></div>
 
         {/* Gap Analysis Content */}
-        <div className="px-9 pt-8">
+        <div className="px-9 pt-8 pb-6 h-full flex flex-col">
           <div className="text-white text-base font-normal mb-6 tracking-wide">GAP ANALYSIS</div>
 
           <h2 className="text-white text-2xl font-bold mb-24">Abu Dhabi Corniche</h2>
 
-          <div className="text-white text-lg leading-relaxed">
+          <div className="text-white text-lg leading-relaxed flex-1">
             <div className="mb-4">
               <span className="font-bold">Insights for this area:</span>
             </div>
@@ -152,6 +152,18 @@ const GapAnalysisPanel = () => {
               <p>High rise luxury experience popular.</p>
             </div>
           </div>
+
+          {/* Properties Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
+            className="mt-6"
+          >
+            <button className="w-full px-6 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-medium text-sm hover:bg-white/20 transition-colors">
+              Show me some available properties in the area that might work for my restaurant
+            </button>
+          </motion.div>
         </div>
       </div>
     </motion.div>
