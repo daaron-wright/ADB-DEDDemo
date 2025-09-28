@@ -8,6 +8,7 @@ export interface CheckboxProps
   description?: string;
   indeterminate?: boolean;
   onCheckedChange?: (checked: boolean) => void;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   checkboxClassName?: string;
   labelClassName?: string;
 }
