@@ -102,7 +102,7 @@ const MessageBubble = ({ message }: { message: BusinessMessage }) => {
   );
 };
 
-const InvestorJourneyCard = () => {
+const InvestorJourneyCard = ({ onClose }: { onClose: () => void }) => {
   return (
     <div className="bg-white/14 rounded-3xl p-6 mt-4">
       {/* Header image */}
