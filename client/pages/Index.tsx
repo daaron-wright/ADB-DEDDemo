@@ -318,9 +318,9 @@ export default function Index() {
                         <motion.div
                           className="absolute inset-0"
                           animate={{
-                            background: isHovered
-                              ? `linear-gradient(135deg, ${categoryTheme.primary}15, ${categoryTheme.secondary}10, transparent 60%)`
-                              : 'transparent'
+                            background: isElevated
+                              ? 'linear-gradient(140deg, rgba(14, 165, 233, 0.22), rgba(14, 165, 233, 0.08), transparent 65%)'
+                              : 'transparent',
                           }}
                           transition={{ duration: 0.5 }}
                         />
