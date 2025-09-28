@@ -267,7 +267,7 @@ export default function ApplicantPortal() {
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
             placeholder="Search by service or ID"
-            className="h-11 rounded-2xl border-white/50 bg-white/80 pr-11 text-sm text-slate-700 placeholder:text-slate-400"
+            className="h-11 rounded-2xl border-neutral-700 bg-neutral-900/80 pr-11 text-sm text-neutral-100 placeholder:text-neutral-500"
           />
           <svg
             className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
@@ -316,14 +316,14 @@ export default function ApplicantPortal() {
           {beneficiaryOptions.map((option) => (
             <div
               key={option.value}
-              className="flex items-center gap-3 rounded-2xl border border-white/60 bg-white/70 px-3 py-2"
+              className="flex items-center gap-3 rounded-2xl border border-neutral-800 bg-neutral-900/90 px-3 py-2"
             >
               <RadioGroupItem
                 value={option.value}
                 id={`beneficiary-${option.value}`}
-                className="border-purple-300 text-purple-600"
+                className="border-neutral-600 text-purple-200 data-[state=checked]:border-purple-200 data-[state=checked]:bg-neutral-800"
               />
-              <Label htmlFor={`beneficiary-${option.value}`} className="text-sm text-slate-700">
+              <Label htmlFor={`beneficiary-${option.value}`} className="text-sm text-neutral-100">
                 {option.label}
               </Label>
             </div>
@@ -336,13 +336,13 @@ export default function ApplicantPortal() {
           value={selectedLicenseType}
           onValueChange={setSelectedLicenseType}
         >
-          <SelectTrigger className="h-11 rounded-2xl border-white/60 bg-white/80 text-sm text-slate-700">
+          <SelectTrigger className="h-11 rounded-2xl border-neutral-700 bg-neutral-900 text-sm text-neutral-100">
             <SelectValue />
           </SelectTrigger>
-          <SelectContent className="rounded-2xl border border-purple-100 bg-white/95">
+          <SelectContent className="rounded-2xl border border-neutral-800 bg-neutral-950/95 text-neutral-100">
             <SelectGroup>
               {licenseOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value} className="rounded-xl text-sm">
+                <SelectItem key={option.value} value={option.value} className="rounded-xl text-sm text-neutral-100 data-[state=checked]:bg-neutral-800">
                   {option.label}
                 </SelectItem>
               ))}
@@ -361,7 +361,7 @@ export default function ApplicantPortal() {
             step={5}
             className="py-3"
           />
-          <div className="flex items-center justify-between text-xs font-medium text-slate-600">
+          <div className="flex items-center justify-between text-xs font-medium text-neutral-300">
             <span>Minimum progress</span>
             <span>{minProgress}%</span>
           </div>
@@ -371,7 +371,7 @@ export default function ApplicantPortal() {
       <button
         type="button"
         onClick={resetFilters}
-        className="w-full rounded-full border border-purple-200/60 bg-white/70 px-4 py-2 text-xs font-semibold text-purple-700 transition hover:border-purple-400 hover:text-purple-900"
+        className="w-full rounded-full border border-neutral-700 bg-neutral-900 px-4 py-2 text-xs font-semibold text-neutral-200 transition hover:border-neutral-500 hover:text-white"
       >
         Reset filters
       </button>
@@ -433,17 +433,17 @@ export default function ApplicantPortal() {
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-purple-500/70">Sort</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-neutral-400">Sort</span>
             <Select value={sortBy} onValueChange={(value: SortOption) => setSortBy(value)}>
-              <SelectTrigger className="h-10 w-48 rounded-2xl border-white/60 bg-white/80 text-sm text-slate-700">
+              <SelectTrigger className="h-10 w-48 rounded-2xl border-neutral-700 bg-neutral-900 text-sm text-neutral-100">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="rounded-2xl border border-purple-100 bg-white/95">
+              <SelectContent className="rounded-2xl border border-neutral-800 bg-neutral-950/95 text-neutral-100">
                 <SelectGroup>
-                  <SelectItem value="recent" className="rounded-xl text-sm">
+                  <SelectItem value="recent" className="rounded-xl text-sm text-neutral-100 data-[state=checked]:bg-neutral-800">
                     Last updated
                   </SelectItem>
-                  <SelectItem value="progress" className="rounded-xl text-sm">
+                  <SelectItem value="progress" className="rounded-xl text-sm text-neutral-100 data-[state=checked]:bg-neutral-800">
                     Progress (high to low)
                   </SelectItem>
                 </SelectGroup>
@@ -461,7 +461,7 @@ export default function ApplicantPortal() {
             {filteredApplications.map((application) => (
               <article
                 key={application.id}
-                className="rounded-3xl border border-white/30 bg-white/95 p-6 shadow-[0_28px_64px_-32px_rgba(24,32,63,0.6)] backdrop-blur-xl"
+                className="rounded-3xl border border-white/10 bg-neutral-950/85 p-6 shadow-[0_36px_96px_-44px_rgba(0,0,0,0.85)] backdrop-blur"
               >
                 <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                   <div className="space-y-1">
@@ -480,7 +480,7 @@ export default function ApplicantPortal() {
                   </Badge>
                 </header>
 
-                <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4 text-neutral-100">
                   <InfoItem label="Directorate" value={application.directorate} />
                   <InfoItem label="Beneficiary" value={application.beneficiary} />
                   <InfoItem label="License" value={application.licenseType} />
@@ -492,12 +492,12 @@ export default function ApplicantPortal() {
 
                 <div className="mt-6 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
                   <div className="flex w-full flex-1 items-center gap-4">
-                    <Progress value={application.progress} className="h-2 flex-1 overflow-hidden bg-purple-100" />
-                    <span className="text-sm font-medium text-slate-600">{application.progress}% complete</span>
+                    <Progress value={application.progress} className="h-2 flex-1 overflow-hidden bg-neutral-800" />
+                    <span className="text-sm font-medium text-neutral-300">{application.progress}% complete</span>
                   </div>
-                  <div className="max-w-md rounded-2xl border border-purple-100 bg-purple-50/70 px-4 py-3 text-sm text-purple-800">
-                    <p className="font-semibold text-purple-900">Next action</p>
-                    <p className="mt-1 leading-relaxed text-purple-700">{application.nextAction}</p>
+                  <div className="max-w-md rounded-2xl border border-neutral-800 bg-neutral-900/90 px-4 py-3 text-sm text-neutral-100">
+                    <p className="font-semibold text-white">Next action</p>
+                    <p className="mt-1 leading-relaxed text-neutral-300">{application.nextAction}</p>
                   </div>
                 </div>
               </article>
