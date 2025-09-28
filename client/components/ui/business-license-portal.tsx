@@ -92,6 +92,13 @@ const JourneyCard: React.FC<JourneyCardProps> = ({
     blocked: 'border-rose-300/30 bg-rose-300/10 text-rose-100'
   };
 
+  const statusDotClasses: Record<JourneyItem['status'], string> = {
+    pending: 'bg-white/70',
+    in_progress: 'bg-sky-200',
+    completed: 'bg-emerald-200',
+    blocked: 'bg-rose-200'
+  };
+
   const priorityCopy: Record<JourneyItem['priority'], string> = {
     high: 'High priority',
     medium: 'Medium priority',
