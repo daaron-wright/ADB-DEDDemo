@@ -5,6 +5,8 @@ import { AnimatedConversation } from '@/components/ui/animated-conversation';
 import { conversationFlows } from '@/lib/conversations';
 import { AnimatePresence } from 'framer-motion';
 import { OpenChatUI } from '@/components/ui/open-chat-ui';
+import { UAEPassLogin } from '@/components/ui/uae-pass-login';
+import { BusinessLicensePortal } from '@/components/ui/business-license-portal';
 
 export default function Index() {
   const [chatState, setChatState] = useState<{
