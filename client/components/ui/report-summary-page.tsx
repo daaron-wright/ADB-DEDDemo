@@ -196,11 +196,16 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({ isOpen, on
 
                 {/* UAE Pass Login */}
                 <div className="flex justify-center py-4">
-                  <img
-                    src="https://api.builder.io/api/v1/image/assets/TEMP/6af0c42146feff37d8c56f7d5b67c0ce1e2c12e1?width=348"
-                    alt="UAE Pass Login"
-                    className="h-21 rounded-full"
-                  />
+                  <button
+                    onClick={() => setShowUAEPassLogin(true)}
+                    className="transform hover:scale-105 transition-transform duration-200"
+                  >
+                    <img
+                      src="https://api.builder.io/api/v1/image/assets/TEMP/6af0c42146feff37d8c56f7d5b67c0ce1e2c12e1?width=348"
+                      alt="UAE Pass Login"
+                      className="h-21 rounded-full shadow-lg hover:shadow-xl transition-shadow duration-200"
+                    />
+                  </button>
                 </div>
               </div>
             </div>
