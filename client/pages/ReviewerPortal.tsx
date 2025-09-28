@@ -387,7 +387,7 @@ export default function ReviewerPortal() {
             step={1}
             className="py-3"
           />
-          <div className="flex items-center justify-between text-xs né font-medium text-neutral-300">
+          <div className="flex items-center justify-between text-xs font-medium text-neutral-300">
             <span>Days remaining</span>
             <span>{daysUpperBound} days</span>
           </div>
