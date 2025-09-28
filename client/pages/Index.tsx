@@ -107,7 +107,23 @@ export default function Index() {
     }
   ];
 
-  const handleTileClick = (categoryId: string, categoryTitle: string) => {
+  const handleTileClick = (
+    categoryId: string,
+    categoryTitle: string,
+    event?: React.MouseEvent<HTMLDivElement>
+  ) => {
+    setActiveCategory(categoryId);
+
+    if (event) {
+      const point = getFocusFromElement(event.currentTarget);
+      categoryPositions.current[categoryId] = point;
+      applyFocusPoint(point);
+    } else if (categoryPositions.current[categoryId]) {
+      applyFocusPoint(categoryPositions.current[categoryId]);
+    } else {
+      applyFocusPoint();
+    }
+
     setChatState({
       isOpen: true,
       category: categoryId,
