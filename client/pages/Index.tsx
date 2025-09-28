@@ -34,6 +34,72 @@ export default function Index() {
   const focusUpdateRaf = useRef<number | null>(null);
   const queuedFocusPoint = useRef<{ x: number; y: number } | null>(null);
 
+  const ambientOrbs = useMemo(
+    () => [
+      {
+        id: 'northwest',
+        size: 760,
+        style: { top: '-20%', left: '-12%' } as React.CSSProperties,
+        gradient: 'radial-gradient(circle, rgba(226, 212, 255, 0.34) 0%, rgba(255, 255, 255, 0) 70%)',
+        animate: {
+          x: [0, 40, -30, 0],
+          y: [0, 22, -18, 0],
+          opacity: [0.38, 0.52, 0.46, 0.5],
+        },
+        duration: 26,
+      },
+      {
+        id: 'northeast',
+        size: 620,
+        style: { top: '-12%', right: '-18%' } as React.CSSProperties,
+        gradient: 'radial-gradient(circle, rgba(214, 187, 255, 0.3) 0%, rgba(255, 255, 255, 0) 68%)',
+        animate: {
+          x: [0, -35, 18, 0],
+          y: [0, 18, -14, 0],
+          opacity: [0.3, 0.44, 0.36, 0.42],
+        },
+        duration: 24,
+      },
+      {
+        id: 'southwest',
+        size: 680,
+        style: { bottom: '-18%', left: '-10%' } as React.CSSProperties,
+        gradient: 'radial-gradient(circle, rgba(236, 229, 255, 0.28) 0%, rgba(255, 255, 255, 0) 72%)',
+        animate: {
+          x: [0, 28, -18, 0],
+          y: [0, -24, 16, 0],
+          opacity: [0.32, 0.45, 0.4, 0.48],
+        },
+        duration: 30,
+      },
+      {
+        id: 'southeast',
+        size: 540,
+        style: { bottom: '-10%', right: '-12%' } as React.CSSProperties,
+        gradient: 'radial-gradient(circle, rgba(223, 219, 255, 0.26) 0%, rgba(255, 255, 255, 0) 70%)',
+        animate: {
+          x: [0, -22, 16, 0],
+          y: [0, -18, 14, 0],
+          opacity: [0.28, 0.4, 0.34, 0.38],
+        },
+        duration: 28,
+      },
+      {
+        id: 'center',
+        size: 780,
+        style: { top: '50%', left: '50%', transform: 'translate(-50%, -45%)' } as React.CSSProperties,
+        gradient: 'radial-gradient(circle, rgba(249, 247, 255, 0.35) 0%, rgba(255, 255, 255, 0) 75%)',
+        animate: {
+          x: [0, 18, -12, 0],
+          y: [0, -16, 20, 0],
+          opacity: [0.28, 0.36, 0.32, 0.4],
+        },
+        duration: 32,
+      },
+    ],
+    []
+  );
+
   const queueFocusPoint = (point: { x: number; y: number }) => {
     if (typeof window === 'undefined') {
       setFocusPoint(point);
