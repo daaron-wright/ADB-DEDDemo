@@ -498,7 +498,7 @@ export default function ApplicantPortal() {
                   </Badge>
                 </header>
 
-                <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4 text-neutral-100">
+                <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4 text-slate-900">
                   <InfoItem label="Directorate" value={application.directorate} />
                   <InfoItem label="Beneficiary" value={application.beneficiary} />
                   <InfoItem label="License" value={application.licenseType} />
