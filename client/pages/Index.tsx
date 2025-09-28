@@ -154,8 +154,8 @@ export default function Index() {
 
   // UAE PASS Login Handler
   const handleUAEPassLogin = (userType: 'applicant' | 'reviewer', userData: any) => {
-    setLoggedInUser(userData);
-    setShowBusinessPortal(true);
+    const destination = userType === 'applicant' ? '/portal/applicant' : '/portal/reviewer';
+    navigate(destination, { state: { user: userData } });
   };
 
   const businessCategories = [
