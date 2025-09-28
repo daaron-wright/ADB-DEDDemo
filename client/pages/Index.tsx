@@ -47,6 +47,31 @@ export default function Index() {
     default: { ...baseTheme }
   } as const;
 
+  const applyFocusPoint = (point?: { x: number; y: number }) => {
+    if (point) {
+      setFocusPoint(point);
+    } else if (typeof window !== 'undefined') {
+      setFocusPoint({
+        x: window.innerWidth / 2,
+        y: window.innerHeight * 0.35,
+      });
+    } else {
+      setFocusPoint(fallbackFocus);
+    }
+  };
+
+  const getFocusFromElement = (element: HTMLElement) => {
+    const rect = element.getBoundingClientRect();
+    return {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    };
+  };
+
+  useEffect(() => {
+    applyFocusPoint();
+  }, []);
+
   // UAE PASS Login Handler
   const handleUAEPassLogin = (userType: 'applicant' | 'reviewer', userData: any) => {
     setLoggedInUser(userData);
