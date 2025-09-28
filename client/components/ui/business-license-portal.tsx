@@ -131,61 +131,42 @@ const JourneyCard: React.FC<JourneyCardProps> = ({
   ];
 
   return (
-    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-      {/* Header with Progress */}
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex-1">
-          <div className="flex items-center gap-3 mb-2">
-            <h3 className="text-white font-['DM_Sans'] text-xl font-semibold leading-[160%] tracking-[0.058px]">
-              {title}
-            </h3>
-            <div className="flex items-center gap-1 bg-white/10 px-2 py-1 rounded-full">
-              <span className="text-[#54FFD4] font-['DM_Sans'] text-xs font-medium">
-                {completedItems}/{items.length}
-              </span>
-            </div>
-          </div>
-          <p className="text-white/70 font-['DM_Sans'] text-sm">{description}</p>
-
-          {/* Progress Bar */}
-          <div className="mt-3">
-            <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-[#54FFD4] to-[#21FCC6] transition-all duration-500 ease-out"
-                style={{ width: `${progressPercentage}%` }}
-              />
-            </div>
-            <div className="flex justify-between text-xs text-white/60 mt-1">
-              <span>Progress</span>
-              <span>{Math.round(progressPercentage)}% Complete</span>
-            </div>
-          </div>
+    <div className="space-y-6 rounded-3xl border border-white/12 bg-white/10 p-6 backdrop-blur-xl shadow-[0_18px_45px_rgba(10,18,40,0.32)]">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="space-y-2">
+          <h3 className="text-lg font-semibold text-white/90 sm:text-xl">{title}</h3>
+          <p className="text-sm text-white/60">{description}</p>
         </div>
-
-        {showAdminActions && (
-          <button
-            onClick={onToggleAdminView}
-            className="ml-4 flex items-center gap-2 bg-[#54FFD4]/20 hover:bg-[#54FFD4]/30 px-3 py-2 rounded-lg border border-[#54FFD4]/30 transition-colors"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="#54FFD4"/>
-            </svg>
-            <span className="text-[#54FFD4] font-['DM_Sans'] text-sm font-medium">
-              {isAdminView ? 'View Applicant' : 'View Admin Actions'}
-            </span>
-          </button>
-        )}
+        <div className="flex flex-col items-end gap-2">
+          <div className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-medium text-white/70">
+            {completedItems}/{items.length} complete
+          </div>
+          {showAdminActions && (
+            <button
+              onClick={onToggleAdminView}
+              className="rounded-full border border-white/15 bg-white/8 px-3 py-1.5 text-xs font-medium text-white/70 transition-colors duration-200 hover:bg-white/12"
+            >
+              {isAdminView ? 'View applicant journey' : 'View admin actions'}
+            </button>
+          )}
+        </div>
       </div>
 
-      {/* Admin View Toggle Info */}
+      <div className="space-y-2">
+        <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/8">
+          <div
+            className="h-full rounded-full bg-white/70 transition-all duration-300"
+            style={{ width: `${progressValue}%` }}
+          />
+        </div>
+        <div className="flex justify-end text-xs font-medium text-white/45">
+          {progressValue}% progress
+        </div>
+      </div>
+
       {isAdminView && (
-        <div className="bg-blue-500/20 border border-blue-400/30 rounded-lg p-3 mb-4">
-          <div className="flex items-center gap-2">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="#60A5FA"/>
-            </svg>
-            <span className="text-blue-300 font-['DM_Sans'] text-sm font-medium">Administrative View Active</span>
-          </div>
+        <div className="rounded-2xl border border-white/12 bg-white/10 px-4 py-3 text-xs text-white/65">
+          Administrative view active
         </div>
       )}
 
@@ -1111,7 +1092,7 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
                   <h4 className="text-white font-['DM_Sans'] text-sm font-semibold mb-2">Status Information</h4>
                   <div className="text-white/70 text-sm space-y-1">
                     <p>• Current Status: Under Review</p>
-                    <p>• Assigned Reviewer: {user.name}</p>
+                    <p>��� Assigned Reviewer: {user.name}</p>
                     <p>• Last Updated: {new Date().toLocaleDateString()}</p>
                     <p>• Processing Time: 2-3 business days</p>
                   </div>
