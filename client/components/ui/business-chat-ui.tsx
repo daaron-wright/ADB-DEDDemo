@@ -193,6 +193,7 @@ const DISCOVER_EXPERIENCE_BACKGROUND = 'https://cdn.builder.io/api/v1/image/asse
 
 const DiscoverExperienceView = ({ category }: { category: string }) => {
   const [showMapModal, setShowMapModal] = useState(false);
+  const [hoveredLocation, setHoveredLocation] = useState<string | null>(null);
 
   const conversationMessages = [
     {
@@ -342,26 +343,216 @@ const DiscoverExperienceView = ({ category }: { category: string }) => {
         </div>
       </div>
 
-      {/* TODO: Add expandable modal when provided */}
+      {/* Interactive Heat Map Modal */}
       {showMapModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 max-w-2xl w-full">
-            <div className="flex justify-between items-center mb-4">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4">
+          <div className="bg-gray-600 rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-hidden">
+            {/* Modal Header */}
+            <div className="flex justify-between items-center p-6 border-b border-white/10">
               <h3 className="text-white text-xl font-semibold">Abu Dhabi Business Heat Map</h3>
               <button
                 onClick={() => setShowMapModal(false)}
-                className="text-white/70 hover:text-white"
+                className="text-white/70 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full"
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
             </div>
-            <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=386"
-              alt="Abu Dhabi Heat Map - Full View"
-              className="w-full h-auto rounded-lg"
-            />
+
+            {/* Interactive Heat Map */}
+            <div className="relative p-6">
+              <div className="relative w-full aspect-[200/139] rounded-2xl overflow-hidden shadow-lg">
+                {/* Background Map */}
+                <img
+                  src="https://api.builder.io/api/v1/image/assets/TEMP/df351a3a49f1c6b9b74765965e6ddb3ecf6799d7?width=1600"
+                  alt="Abu Dhabi Map"
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Heat Map Density Circles with Hover Areas */}
+                <div className="absolute inset-0">
+                  {/* Khalifa City Area - Red Circle */}
+                  <div
+                    className="absolute cursor-pointer transition-all duration-300 hover:scale-110"
+                    style={{ left: '35%', top: '28%', width: '26%', height: '38%' }}
+                    onMouseEnter={() => setHoveredLocation('khalifa-city')}
+                    onMouseLeave={() => setHoveredLocation(null)}
+                  >
+                    <svg viewBox="0 0 212 212" className="w-full h-full">
+                      <circle cx="106" cy="106" r="105" fill="url(#redGradient)" />
+                      <defs>
+                        <radialGradient id="redGradient">
+                          <stop stopColor="#FF0000" stopOpacity="0.4" />
+                          <stop offset="1" stopColor="#FF0000" stopOpacity="0" />
+                        </radialGradient>
+                      </defs>
+                    </svg>
+                    {hoveredLocation === 'khalifa-city' && (
+                      <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-sm rounded-lg p-3 text-white text-sm whitespace-nowrap z-10">
+                        <div className="font-semibold">Khalifa City</div>
+                        <div>Average visitors: 1800-2500</div>
+                        <div>Weekly footfall: 25-35K</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Marina Area - Red Circle */}
+                  <div
+                    className="absolute cursor-pointer transition-all duration-300 hover:scale-110"
+                    style={{ left: '18%', top: '38%', width: '24%', height: '34%' }}
+                    onMouseEnter={() => setHoveredLocation('marina')}
+                    onMouseLeave={() => setHoveredLocation(null)}
+                  >
+                    <svg viewBox="0 0 190 190" className="w-full h-full">
+                      <circle cx="95" cy="95" r="94" fill="url(#redGradient2)" />
+                      <defs>
+                        <radialGradient id="redGradient2">
+                          <stop stopColor="#FF0000" stopOpacity="0.4" />
+                          <stop offset="1" stopColor="#FF0000" stopOpacity="0" />
+                        </radialGradient>
+                      </defs>
+                    </svg>
+                    {hoveredLocation === 'marina' && (
+                      <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-sm rounded-lg p-3 text-white text-sm whitespace-nowrap z-10">
+                        <div className="font-semibold">Abu Dhabi Marina</div>
+                        <div>Average visitors: 450-700</div>
+                        <div>Weekly footfall: 40-55K</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Central Area - Orange Circle */}
+                  <div
+                    className="absolute cursor-pointer transition-all duration-300 hover:scale-110"
+                    style={{ left: '18%', top: '20%', width: '22%', height: '32%' }}
+                    onMouseEnter={() => setHoveredLocation('central')}
+                    onMouseLeave={() => setHoveredLocation(null)}
+                  >
+                    <svg viewBox="0 0 177 177" className="w-full h-full">
+                      <circle cx="88" cy="88" r="88" fill="url(#orangeGradient)" />
+                      <defs>
+                        <radialGradient id="orangeGradient">
+                          <stop stopColor="#FF9500" stopOpacity="0.4" />
+                          <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
+                        </radialGradient>
+                      </defs>
+                    </svg>
+                    {hoveredLocation === 'central' && (
+                      <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-sm rounded-lg p-3 text-white text-sm whitespace-nowrap z-10">
+                        <div className="font-semibold">Central District</div>
+                        <div>Average visitors: 900-1500</div>
+                        <div>Weekly footfall: 60-75K</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Baniyas Area - Orange Circle */}
+                  <div
+                    className="absolute cursor-pointer transition-all duration-300 hover:scale-110"
+                    style={{ left: '35%', top: '64%', width: '22%', height: '32%' }}
+                    onMouseEnter={() => setHoveredLocation('baniyas')}
+                    onMouseLeave={() => setHoveredLocation(null)}
+                  >
+                    <svg viewBox="0 0 177 177" className="w-full h-full">
+                      <circle cx="88" cy="88" r="88" fill="url(#orangeGradient2)" />
+                      <defs>
+                        <radialGradient id="orangeGradient2">
+                          <stop stopColor="#FF9500" stopOpacity="0.4" />
+                          <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
+                        </radialGradient>
+                      </defs>
+                    </svg>
+                    {hoveredLocation === 'baniyas' && (
+                      <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-sm rounded-lg p-3 text-white text-sm whitespace-nowrap z-10">
+                        <div className="font-semibold">Baniyas</div>
+                        <div>Average visitors: 200-300</div>
+                        <div>Weekly footfall: 60-75K</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Corniche Area - Large Orange Circle */}
+                  <div
+                    className="absolute cursor-pointer transition-all duration-300 hover:scale-110"
+                    style={{ left: '54%', top: '13%', width: '31%', height: '45%' }}
+                    onMouseEnter={() => setHoveredLocation('corniche')}
+                    onMouseLeave={() => setHoveredLocation(null)}
+                  >
+                    <svg viewBox="0 0 249 249" className="w-full h-full">
+                      <circle cx="124" cy="124" r="124" fill="url(#orangeGradientLarge)" />
+                      <defs>
+                        <radialGradient id="orangeGradientLarge">
+                          <stop stopColor="#FF9500" stopOpacity="0.4" />
+                          <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
+                        </radialGradient>
+                      </defs>
+                    </svg>
+                    {hoveredLocation === 'corniche' && (
+                      <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-sm rounded-lg p-3 text-white text-sm whitespace-nowrap z-10">
+                        <div className="font-semibold">The Corniche</div>
+                        <div>Average visitors: 2000+</div>
+                        <div>Weekly footfall: 100K+</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Coastal Area - Yellow Circle */}
+                  <div
+                    className="absolute cursor-pointer transition-all duration-300 hover:scale-110"
+                    style={{ left: '52%', top: '-5%', width: '25%', height: '32%' }}
+                    onMouseEnter={() => setHoveredLocation('coastal')}
+                    onMouseLeave={() => setHoveredLocation(null)}
+                  >
+                    <svg viewBox="0 0 203 177" className="w-full h-full">
+                      <circle cx="101" cy="75" r="101" fill="url(#yellowGradient)" />
+                      <defs>
+                        <radialGradient id="yellowGradient">
+                          <stop stopColor="#FBFF00" stopOpacity="0.4" />
+                          <stop offset="1" stopColor="#F7FF00" stopOpacity="0" />
+                        </radialGradient>
+                      </defs>
+                    </svg>
+                    {hoveredLocation === 'coastal' && (
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-black/80 backdrop-blur-sm rounded-lg p-3 text-white text-sm whitespace-nowrap z-10">
+                        <div className="font-semibold">Coastal District</div>
+                        <div>Average visitors: 800-1200</div>
+                        <div>Weekly footfall: 35-50K</div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Statistics Panel */}
+              <div className="mt-6 bg-black/20 backdrop-blur-sm rounded-xl p-6">
+                <div className="flex items-end justify-between">
+                  <div>
+                    <h4 className="text-white text-lg font-semibold mb-1">The Corniche</h4>
+                    <p className="text-white/70 text-sm">Average weekly footfall</p>
+                  </div>
+
+                  <div className="flex items-end gap-6">
+                    <div className="text-center">
+                      <div className="text-white/70 text-xs mb-1">Khalifa City</div>
+                      <div className="text-white text-2xl font-bold">25-35K</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-white/70 text-xs mb-1">Abu Dhabi Marina</div>
+                      <div className="text-white text-2xl font-bold">40-55K</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-white/70 text-xs mb-1">Baniyas</div>
+                      <div className="text-white text-2xl font-bold">60-75K</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-white/70 text-xs mb-1">Corniche</div>
+                      <div className="text-white text-2xl font-bold">100K+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
