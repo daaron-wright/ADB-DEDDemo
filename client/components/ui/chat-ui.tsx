@@ -43,14 +43,14 @@ const SoundVisualization = () => {
 const MessageBubble = ({ message }: { message: Message }) => {
   return (
     <div className={cn(
-      "flex mb-3",
+      "flex mb-2 sm:mb-3",
       message.isAI ? "justify-start" : "justify-end"
     )}>
       <div className={cn(
-        "max-w-[85%] px-4 py-3 rounded-xl text-sm leading-relaxed",
-        message.isAI 
-          ? "bg-black/80 text-white rounded-tl-sm" 
-          : "bg-white/80 text-gray-700 rounded-tr-sm"
+        "max-w-[85%] px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-sm leading-relaxed font-dm-sans transition-all duration-200 hover:scale-[1.02]",
+        message.isAI
+          ? "bg-black/80 text-white rounded-tl-sm shadow-lg"
+          : "bg-white/80 text-gray-700 rounded-tr-sm shadow-md backdrop-blur-sm"
       )}>
         {message.content}
       </div>
