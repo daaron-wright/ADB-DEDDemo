@@ -140,7 +140,10 @@ const InvestorJourneyCard = ({ onClose }: { onClose: () => void }) => {
 
       {/* Action buttons */}
       <div className="flex flex-wrap gap-3">
-        <button className="px-6 py-3 rounded-full border-2 border-white text-white font-semibold text-base hover:bg-white/10 transition-colors">
+        <button
+          onClick={onClose}
+          className="px-6 py-3 rounded-full border-2 border-white text-white font-semibold text-base hover:bg-white/10 transition-colors"
+        >
           Explore more options
         </button>
         <button className="px-6 py-3 rounded-full bg-teal-gradient text-white font-semibold text-base hover:opacity-90 transition-opacity">
