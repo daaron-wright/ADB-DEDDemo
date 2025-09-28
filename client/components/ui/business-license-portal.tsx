@@ -902,9 +902,9 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
             </div>
           )}
 
-          {/* Original AI Assistant Content */}
-          <div className={`${(showBusinessRegAdmin || showBusinessLicAdmin) ? 'opacity-30' : ''}`}>
-            {/* Header */}
+          {/* Enhanced Dashboard Content */}
+          <div className={`${(showBusinessRegAdmin || showBusinessLicAdmin) ? 'opacity-30' : ''} h-full`}>
+            {/* Header with Service Status */}
             <div className="absolute top-4 left-6 right-6 h-[77px]">
               <div className="flex items-center gap-2 p-3">
                 <img
@@ -912,8 +912,14 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
                   alt="AI Assistant"
                   className="w-16 h-16 rounded-full border border-[#54FFD4]"
                 />
-                <div className="text-white font-['DM_Sans'] text-lg font-semibold leading-[160%] tracking-[0.058px]">
-                  AI Business
+                <div>
+                  <div className="text-white font-['DM_Sans'] text-lg font-semibold leading-[160%] tracking-[0.058px]">
+                    Smart Assistant
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-green-400 font-['DM_Sans'] text-xs">Online</span>
+                  </div>
                 </div>
                 <div className="flex items-center gap-0.5 ml-auto">
                   {[5.77, 11.952, 19.783, 13.189, 8.655, 23.081, 30.499, 16.898, 4.534].map((width, i) => (
@@ -927,34 +933,119 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
               </div>
             </div>
 
-            {/* Progress Section */}
-            <div className="absolute top-[119px] left-6 right-6">
-              <div className="text-white font-['DM_Sans'] text-base font-normal leading-[160%] tracking-[0.051px] mb-4">
-                Generating application...
-              </div>
-
-              {/* Progress Bar */}
-              <div className="mb-4">
-                <div className="w-[275px] h-[19px] bg-gray-600 rounded overflow-hidden">
-                  <div className="h-full bg-[#54FFD4] w-[15%]"></div>
+            {/* Overall Progress Section */}
+            <div className="absolute top-[100px] left-6 right-6">
+              <div className="bg-white/10 rounded-lg p-4 mb-4">
+                <div className="text-white font-['DM_Sans'] text-base font-semibold mb-2">
+                  Overall Progress
                 </div>
-              </div>
 
-              <div className="text-white font-['DM_Sans'] text-base font-normal leading-[160%] tracking-[0.051px] mb-8">
-                15% complete
+                {/* Combined Progress Bar */}
+                <div className="mb-3">
+                  <div className="w-full h-3 bg-gray-600 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-[#54FFD4] to-[#21FCC6] transition-all duration-1000 ease-out"
+                      style={{
+                        width: `${Math.round(((businessRegistrationItems.filter(i => i.completed).length + businessLicensingItems.filter(i => i.completed).length) / (businessRegistrationItems.length + businessLicensingItems.length)) * 100)}%`
+                      }}
+                    />
+                  </div>
+                  <div className="flex justify-between text-xs text-white/60 mt-1">
+                    <span>Journey Progress</span>
+                    <span>{Math.round(((businessRegistrationItems.filter(i => i.completed).length + businessLicensingItems.filter(i => i.completed).length) / (businessRegistrationItems.length + businessLicensingItems.length)) * 100)}% Complete</span>
+                  </div>
+                </div>
+
+                {/* Quick Stats */}
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="bg-white/10 rounded p-2">
+                    <div className="text-xs text-white/70">Completed</div>
+                    <div className="text-lg font-bold text-green-400">
+                      {businessRegistrationItems.filter(i => i.completed).length + businessLicensingItems.filter(i => i.completed).length}
+                    </div>
+                  </div>
+                  <div className="bg-white/10 rounded p-2">
+                    <div className="text-xs text-white/70">Remaining</div>
+                    <div className="text-lg font-bold text-yellow-400">
+                      {businessRegistrationItems.filter(i => !i.completed).length + businessLicensingItems.filter(i => !i.completed).length}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Divider */}
-            <div className="absolute top-[242px] left-0 right-0 h-0 bg-white/18"></div>
+            {/* Service Status Checker */}
+            <div className="absolute top-[250px] left-6 right-6">
+              <div className="bg-white/10 rounded-lg p-4 mb-4">
+                <div className="text-white font-['DM_Sans'] text-sm font-semibold mb-3 flex items-center gap-2">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="3" fill="#54FFD4"/>
+                    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" stroke="#54FFD4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  Service Status
+                </div>
 
-            {/* Key Considerations */}
-            <div className="absolute top-[266px] left-6 right-6 bottom-6">
-              <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
-                Key considerations:<br />
-                1. Legal Structure.<br />
-                2. Business Activities.<br />
-                3. Physical Space.
+                <div className="space-y-2">
+                  {[
+                    { service: 'DED Portal', status: 'online', responseTime: '1.2s' },
+                    { service: 'Municipality System', status: 'online', responseTime: '0.8s' },
+                    { service: 'Health Department', status: 'maintenance', responseTime: '5.0s' },
+                    { service: 'Fire Safety Dept', status: 'online', responseTime: '1.5s' }
+                  ].map((service, index) => (
+                    <div key={index} className="flex items-center justify-between bg-white/5 rounded p-2">
+                      <div className="flex items-center gap-2">
+                        <div className={`w-2 h-2 rounded-full ${
+                          service.status === 'online' ? 'bg-green-400' :
+                          service.status === 'maintenance' ? 'bg-yellow-400' : 'bg-red-400'
+                        }`}></div>
+                        <span className="text-white text-xs">{service.service}</span>
+                      </div>
+                      <div className="text-right">
+                        <div className={`text-xs font-medium ${
+                          service.status === 'online' ? 'text-green-400' :
+                          service.status === 'maintenance' ? 'text-yellow-400' : 'text-red-400'
+                        }`}>
+                          {service.status.toUpperCase()}
+                        </div>
+                        <div className="text-xs text-white/50">{service.responseTime}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => showNotification('🔄 Services refreshed')}
+                  className="w-full mt-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded p-2 text-white text-xs transition-colors"
+                >
+                  Refresh Status
+                </button>
+              </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="absolute top-[420px] left-6 right-6 bottom-6">
+              <div className="bg-white/10 rounded-lg p-4">
+                <div className="text-white font-['DM_Sans'] text-sm font-semibold mb-3">Quick Actions</div>
+                <div className="space-y-2">
+                  <button
+                    onClick={() => showNotification('📋 Application summary generated')}
+                    className="w-full bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 rounded p-2 text-blue-300 text-sm transition-colors"
+                  >
+                    Generate Summary
+                  </button>
+                  <button
+                    onClick={() => showNotification('📧 Email notifications enabled')}
+                    className="w-full bg-purple-500/20 hover:bg-purple-500/30 border border-purple-400/30 rounded p-2 text-purple-300 text-sm transition-colors"
+                  >
+                    Setup Notifications
+                  </button>
+                  <button
+                    onClick={() => showNotification('💾 Progress saved successfully')}
+                    className="w-full bg-green-500/20 hover:bg-green-500/30 border border-green-400/30 rounded p-2 text-green-300 text-sm transition-colors"
+                  >
+                    Save Progress
+                  </button>
+                </div>
               </div>
             </div>
           </div>
