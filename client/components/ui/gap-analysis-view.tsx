@@ -118,35 +118,36 @@ const GapAnalysisPanel = () => {
       initial={{ opacity: 0, x: 50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8, delay: 0.8 }}
-      className="absolute top-36 right-20 w-96 h-[500px]"
+      className="absolute top-36 right-20"
     >
-      <div className="bg-white/14 backdrop-blur-md rounded-3xl border border-white/20 p-6 h-full">
+      <div className="w-[381px] h-[501px] rounded-3xl bg-white/14 backdrop-blur-md border border-white/20">
         {/* AI Business Header */}
-        <div className="flex items-center gap-4 mb-6">
+        <div className="flex items-center gap-2 p-3 pl-4">
           <img
             src="https://api.builder.io/api/v1/image/assets/TEMP/613aa3868a1f461fc53f09303440118a5f5c5ca4?width=128"
             alt="AI Assistant"
             className="w-16 h-16 rounded-full border border-[#54FFD4] object-cover"
           />
           <div className="flex-1">
-            <h3 className="text-white text-lg font-semibold">AI Business</h3>
+            <h3 className="text-white text-lg font-bold">AI Business</h3>
           </div>
           <SoundVisualization />
         </div>
 
         {/* Gap Analysis Content */}
-        <div className="space-y-6">
-          <div>
-            <div className="text-white/70 text-base mb-2">GAP ANALYSIS</div>
-            <h2 className="text-white text-2xl font-bold mb-6">Abu Dhabi Corniche</h2>
-          </div>
+        <div className="px-9 pt-8">
+          <div className="text-white text-base font-normal mb-6 tracking-wide">GAP ANALYSIS</div>
 
-          <div>
-            <h3 className="text-white font-bold text-lg mb-4">Insights for this area:</h3>
-            <div className="text-white text-lg leading-relaxed space-y-4">
+          <h2 className="text-white text-2xl font-bold mb-24">Abu Dhabi Corniche</h2>
+
+          <div className="text-white text-lg leading-relaxed">
+            <div className="mb-4">
+              <span className="font-bold">Insights for this area:</span>
+            </div>
+            <div className="space-y-4">
               <p>Emirati Fusion Cuisine Japanese influences new trend</p>
-              <p>Demand for a formal evening dining experience.</p>
-              <p>Waterfront locations High rise luxury experience popular.</p>
+              <p>Demand for a formal evening dining experience. Waterfront locations</p>
+              <p>High rise luxury experience popular.</p>
             </div>
           </div>
         </div>
