@@ -83,7 +83,7 @@ const getInvestorResponse = (message: string, category: string = 'general') => {
     }
   };
 
-  const categoryData = responses[category as keyof typeof responses] || responses.restaurants;
+  const categoryData = responses[category] ?? responses.restaurants;
 
   if (message.toLowerCase().includes('invest') || message.toLowerCase().includes('business') || message.toLowerCase().includes('setup')) {
     return categoryData.businessSetup;
