@@ -17,15 +17,27 @@ interface BusinessLicensePortalProps {
   onClose: () => void;
 }
 
+interface JourneyItem {
+  id: string;
+  text: string;
+  completed: boolean;
+  status: 'pending' | 'in_progress' | 'completed' | 'blocked';
+  dueDate?: string;
+  assignee?: string;
+  priority: 'low' | 'medium' | 'high';
+}
+
 interface JourneyCardProps {
   title: string;
   description: string;
-  items: string[];
-  onAddItem: (item: string) => void;
-  onRemoveItem: (index: number) => void;
+  items: JourneyItem[];
+  onAddItem: (item: JourneyItem) => void;
+  onUpdateItem: (id: string, updates: Partial<JourneyItem>) => void;
+  onRemoveItem: (id: string) => void;
   showAdminActions?: boolean;
   onToggleAdminView?: () => void;
   isAdminView?: boolean;
+  progress?: number;
 }
 
 const JourneyCard: React.FC<JourneyCardProps> = ({
