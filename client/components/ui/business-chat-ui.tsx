@@ -25,6 +25,13 @@ interface BusinessChatUIProps {
 
 type ChatView = 'journey' | 'discover-experience';
 
+interface ChatThread {
+  id: string;
+  title: string;
+  messages: BusinessMessage[];
+  view: ChatView;
+}
+
 const SoundVisualization = () => {
   const bars = [
     { height: '4px' },
@@ -345,8 +352,8 @@ const DiscoverExperienceView = ({ category }: { category: string }) => {
 
       {/* Interactive Heat Map Modal */}
       {showMapModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="bg-gray-600 rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-hidden">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4 md:p-8">
+          <div className="bg-gray-800/50 border border-white/10 rounded-3xl w-full h-full overflow-hidden flex flex-col">
             {/* Modal Header */}
             <div className="flex justify-between items-center p-6 border-b border-white/10">
               <h3 className="text-white text-xl font-semibold">Abu Dhabi Business Heat Map</h3>
@@ -360,8 +367,7 @@ const DiscoverExperienceView = ({ category }: { category: string }) => {
               </button>
             </div>
 
-            {/* Interactive Heat Map */}
-            <div className="relative p-6">
+            <div className="relative p-6 flex-grow overflow-y-auto">
               <div className="relative w-full aspect-[200/139] rounded-2xl overflow-hidden shadow-lg">
                 {/* Background Map */}
                 <img
@@ -563,31 +569,55 @@ const DiscoverExperienceView = ({ category }: { category: string }) => {
 const queryClient = new QueryClient();
 
 export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business" }: BusinessChatUIProps) {
-  const [currentView, setCurrentView] = useState<ChatView>('journey');
-
-  const getInitialMessages = () => {
-    return conversationFlows[category as keyof typeof conversationFlows] || conversationFlows.general;
-  }
-
-  const [messages, setMessages] = usePersistentState<BusinessMessage[]>(
-    `business-chat-messages-${category}`,
-    getInitialMessages()
-  );
-
-  const handleSetupBusiness = () => {
-    setCurrentView('discover-experience');
-  };
+  const [threads, setThreads] = useState<ChatThread[]>([]);
+  const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
 
   useEffect(() => {
-    // Reset messages when category changes to ensure the correct flow is loaded
-    setMessages(getInitialMessages());
-    setCurrentView('journey'); // Reset view when category changes
-  }, [category]);
+    if (isOpen) {
+      const initialMessages = conversationFlows[category as keyof typeof conversationFlows] || conversationFlows.general;
+      const newThread: ChatThread = {
+        id: `thread-${Date.now()}`,
+        title: getCategoryTitle(category),
+        messages: initialMessages,
+        view: 'journey',
+      };
+      setThreads([newThread]);
+      setActiveThreadId(newThread.id);
+    }
+  }, [isOpen, category]);
+
+  const activeThread = threads.find(t => t.id === activeThreadId);
+
+  const updateThread = (threadId: string, updates: Partial<Omit<ChatThread, 'id'>>) => {
+    setThreads(threads.map(t => t.id === threadId ? { ...t, ...updates } : t));
+  };
+
+  const handleSetupBusiness = () => {
+    if (activeThreadId) {
+      updateThread(activeThreadId, { view: 'discover-experience' });
+    }
+  };
+
+  const handleNewTab = () => {
+    const newThread: ChatThread = {
+      id: `thread-${Date.now()}`,
+      title: `New Chat ${threads.length + 1}`,
+      messages: [{
+          id: 'ai-init',
+          content: 'Hello! How can I help you today?',
+          isAI: true,
+          timestamp: new Date(),
+      }],
+      view: 'journey',
+    };
+    setThreads([...threads, newThread]);
+    setActiveThreadId(newThread.id);
+  };
 
   if (!isOpen) return null;
 
-  const backgroundImage = currentView === 'discover-experience' ? DISCOVER_EXPERIENCE_BACKGROUND : getCategoryBackground(category);
-  const categoryTitle = currentView === 'discover-experience'
+  const backgroundImage = activeThread?.view === 'discover-experience' ? DISCOVER_EXPERIENCE_BACKGROUND : getCategoryBackground(category);
+  const headerTitle = activeThread?.view === 'discover-experience'
     ? `Your Investment Journey for ${getCategoryName(category)}`
     : getCategoryTitle(category);
 
@@ -634,7 +664,7 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
 
                   {/* Center title */}
                   <div className="text-white text-base font-medium text-center">
-                    {categoryTitle}
+                    {headerTitle}
                   </div>
 
                   {/* Right side - Sign in button */}
@@ -651,34 +681,61 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
               {/* Chat Container */}
               <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-87px)] p-8">
                 <div className="w-full max-w-3xl bg-white/14 backdrop-blur-md rounded-3xl border border-white/20 shadow-xl">
-                  {/* Chat Header */}
-                  <div className="flex items-center gap-4 p-6 border-b border-white/10">
-                    <img
-                      src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-                      alt="AI Assistant"
-                      className="w-16 h-16 rounded-full border border-[#54FFD4] object-cover"
-                    />
-                    <div className="flex-1">
-                      <h2 className="text-white text-lg font-semibold">
-                        AI Business
-                      </h2>
+                  {/* Chat Header with Tabs */}
+                  <div className="p-6 border-b border-white/10">
+                    <div className="flex items-center gap-2 mb-4 -mx-2">
+                      {threads.map(thread => (
+                        <button
+                          key={thread.id}
+                          onClick={() => setActiveThreadId(thread.id)}
+                          className={cn(
+                            "px-3 py-2 rounded-md text-sm font-medium",
+                            activeThreadId === thread.id
+                              ? "bg-white/20 text-white"
+                              : "text-white/70 hover:bg-white/10"
+                          )}
+                        >
+                          {thread.title}
+                        </button>
+                      ))}
+                      <button
+                        onClick={handleNewTab}
+                        className="ml-2 p-2 rounded-full hover:bg-white/10 text-white/70 transition-colors"
+                        aria-label="New Chat"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                      </button>
                     </div>
-                    <SoundVisualization />
+                    <div className="flex items-center gap-4">
+                      <img
+                        src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+                        alt="AI Assistant"
+                        className="w-16 h-16 rounded-full border border-[#54FFD4] object-cover"
+                      />
+                      <div className="flex-1">
+                        <h2 className="text-white text-lg font-semibold">
+                          AI Business
+                        </h2>
+                      </div>
+                      <SoundVisualization />
+                    </div>
                   </div>
 
                   {/* Messages */}
                   <div className="p-6 space-y-4 max-h-[60vh] overflow-y-auto">
-                    {messages.map((message) => (
+                    {activeThread?.messages.map((message) => (
                       <MessageBubble key={message.id} message={message} />
                     ))}
-                    
+
                     {/* Show investor journey card after the last AI message */}
-                    {currentView === 'journey' && messages.length >= 3 && messages[2].hasActions && (
+                    {activeThread?.view === 'journey' && activeThread?.messages.length >= 3 && activeThread?.messages[2].hasActions && (
                       <InvestorJourneyCard onClose={onClose} onSetupBusiness={handleSetupBusiness} />
                     )}
 
                     {/* Show discover experience content */}
-                    {currentView === 'discover-experience' && (
+                    {activeThread?.view === 'discover-experience' && (
                       <div className="p-6">
                         <DiscoverExperienceView category={category} />
                       </div>
