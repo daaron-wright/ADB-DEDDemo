@@ -227,24 +227,24 @@ export const PropertyMapModal: React.FC<PropertyMapModalProps> = ({ isOpen, onCl
               </p>
             </div>
 
-            {/* AI Business Chat - smaller for modal */}
-            <div className="absolute bottom-6 right-6 w-[280px] h-[160px]">
-              <div className="bg-white/14 backdrop-blur-sm rounded-2xl p-3 h-full border border-white/20">
-                <div className="flex items-center gap-2 mb-3">
+            {/* AI Business Chat - centered position */}
+            <div className="absolute top-1/2 right-8 transform -translate-y-1/2 w-[380px] h-[280px]">
+              <div className="bg-white/14 backdrop-blur-sm rounded-3xl p-6 h-full border border-white/20">
+                <div className="flex items-center gap-3 mb-4">
                   <img
                     src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
                     alt="AI Business"
-                    className="w-12 h-12 rounded-full border border-[#54FFD4]"
+                    className="w-16 h-16 rounded-full border border-[#54FFD4]"
                   />
                   <div>
-                    <h3 className="text-white text-sm font-semibold">AI Business</h3>
+                    <h3 className="text-white text-lg font-semibold">AI Business</h3>
                     <div className="flex items-center gap-1 mt-1">
-                      {Array.from({ length: 6 }, (_, i) => (
+                      {Array.from({ length: 9 }, (_, i) => (
                         <div
                           key={i}
-                          className="h-0.5 bg-[#54FFD4] rounded-full"
+                          className="h-1 bg-[#54FFD4] rounded-full"
                           style={{
-                            width: [4, 8, 12, 8, 6, 14][i] + 'px',
+                            width: [6, 12, 20, 13, 9, 23, 30, 17, 5][i] + 'px',
                             transform: 'rotate(-90deg)'
                           }}
                         />
@@ -252,11 +252,24 @@ export const PropertyMapModal: React.FC<PropertyMapModalProps> = ({ isOpen, onCl
                     </div>
                   </div>
                 </div>
-                <div className="bg-white/30 rounded-xl p-2">
-                  <p className="text-white text-xs font-medium leading-[136%]">
-                    Here are retail locations in the Corniche area perfect for restaurants.
-                  </p>
+
+                <div className="space-y-3 mb-4">
+                  <div className="bg-white/20 rounded-2xl p-4">
+                    <p className="text-white text-sm font-medium leading-[136%]">
+                      Here are retail locations in the Corniche area perfect for restaurants.
+                    </p>
+                  </div>
+
+                  <div className="bg-white/20 rounded-2xl p-4">
+                    <p className="text-white text-sm font-medium leading-[136%]">
+                      Would you like me to provide a detailed analysis of these properties?
+                    </p>
+                  </div>
                 </div>
+
+                <button className="w-full bg-white/10 hover:bg-white/20 border border-white/20 rounded-full py-3 px-4 text-white text-sm font-medium transition-colors">
+                  Provide a summarized report
+                </button>
               </div>
             </div>
 
