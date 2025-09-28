@@ -22,6 +22,46 @@ export default function Index() {
     isOpen: false,
   });
 
+  const [rippleEffect, setRippleEffect] = useState<{
+    x: number;
+    y: number;
+    active: boolean;
+  }>({ x: 0, y: 0, active: false });
+
+  // Color themes for each business category
+  const colorThemes = {
+    restaurants: {
+      primary: '#FF6B6B',
+      secondary: '#FF8E53',
+      accent: '#FF9A8B',
+      gradient: 'radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 107, 107, 0.4), rgba(255, 142, 83, 0.3), rgba(255, 154, 139, 0.2), transparent 70%)'
+    },
+    'fast-food': {
+      primary: '#4ECDC4',
+      secondary: '#45B7B8',
+      accent: '#96CEB4',
+      gradient: 'radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(78, 205, 196, 0.4), rgba(69, 183, 184, 0.3), rgba(150, 206, 180, 0.2), transparent 70%)'
+    },
+    branch: {
+      primary: '#A8E6CF',
+      secondary: '#88D8A3',
+      accent: '#C5E1A5',
+      gradient: 'radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(168, 230, 207, 0.4), rgba(136, 216, 163, 0.3), rgba(197, 225, 165, 0.2), transparent 70%)'
+    },
+    'retail-store': {
+      primary: '#FFD93D',
+      secondary: '#6BCF7F',
+      accent: '#4D96FF',
+      gradient: 'radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 217, 61, 0.4), rgba(107, 207, 127, 0.3), rgba(77, 150, 255, 0.2), transparent 70%)'
+    },
+    default: {
+      primary: '#8A2BE2',
+      secondary: '#9370DB',
+      accent: '#DDA0DD',
+      gradient: 'radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(138, 43, 226, 0.4), rgba(147, 112, 219, 0.3), rgba(221, 160, 221, 0.2), transparent 70%)'
+    }
+  };
+
   const businessCategories = [
     {
       id: "restaurants",
@@ -31,21 +71,21 @@ export default function Index() {
       overlayImage: "https://api.builder.io/api/v1/image/assets/TEMP/6e95ba3f93ff8f50b6c5851b73729e1df3b00b90?width=800"
     },
     {
-      id: "fast-food", 
+      id: "fast-food",
       title: "Fast Food",
       subtitle: "Commercial License",
       image: "https://api.builder.io/api/v1/image/assets/TEMP/93a8ccdd2ba263b5df1fa8ac003cfbbe0f2a04bf?width=766"
     },
     {
       id: "branch",
-      title: "Branch", 
+      title: "Branch",
       subtitle: "Dual License",
       image: "https://api.builder.io/api/v1/image/assets/TEMP/474e9427353e36aa9e243c53c1ca9efe1f850f1a?width=788"
     },
     {
       id: "retail-store",
       title: "Retail Store",
-      subtitle: "Commercial License", 
+      subtitle: "Commercial License",
       image: "https://api.builder.io/api/v1/image/assets/TEMP/28a07c4a89a2e43c77d74ad46a6ad88ca8d969b3?width=616"
     }
   ];
