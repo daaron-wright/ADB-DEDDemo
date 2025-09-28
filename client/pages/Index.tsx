@@ -22,12 +22,6 @@ export default function Index() {
     isOpen: false,
   });
 
-  const [propertyMapState, setPropertyMapState] = useState<{
-    isOpen: boolean;
-  }>({
-    isOpen: false,
-  });
-
   const businessCategories = [
     {
       id: "restaurants",
