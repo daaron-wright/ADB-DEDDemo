@@ -319,14 +319,14 @@ export default function ApplicantPortal() {
           {beneficiaryOptions.map((option) => (
             <div
               key={option.value}
-              className="flex items-center gap-3 rounded-2xl border border-neutral-800 bg-neutral-900/90 px-3 py-2"
+              className="flex items-center gap-3 rounded-2xl border border-neutral-200 bg-white px-3 py-2 shadow-[0_12px_30px_-18px_rgba(15,23,42,0.18)]"
             >
               <RadioGroupItem
                 value={option.value}
                 id={`beneficiary-${option.value}`}
-                className="border-neutral-600 text-purple-200 data-[state=checked]:border-purple-200 data-[state=checked]:bg-neutral-800"
+                className="border-neutral-300 text-purple-600 data-[state=checked]:border-purple-500 data-[state=checked]:bg-purple-50"
               />
-              <Label htmlFor={`beneficiary-${option.value}`} className="text-sm text-neutral-100">
+              <Label htmlFor={`beneficiary-${option.value}`} className="text-sm text-slate-900">
                 {option.label}
               </Label>
             </div>
