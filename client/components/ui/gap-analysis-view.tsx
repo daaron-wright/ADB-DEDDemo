@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { PropertyMapView } from './property-map-view';
+import { PropertyMapModal } from './property-map-modal';
 
 interface GapAnalysisViewProps {
   isOpen: boolean;
