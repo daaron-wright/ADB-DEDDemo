@@ -49,7 +49,7 @@ export default function Index() {
 
   const applyFocusPoint = (point?: { x: number; y: number }) => {
     if (point) {
-      setFocusPoint(point);
+      setFocusPoint({ x: point.x, y: point.y });
     } else if (typeof window !== 'undefined') {
       setFocusPoint({
         x: window.innerWidth / 2,
