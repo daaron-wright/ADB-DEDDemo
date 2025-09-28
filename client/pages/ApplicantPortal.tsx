@@ -374,7 +374,7 @@ export default function ApplicantPortal() {
       <button
         type="button"
         onClick={resetFilters}
-        className="w-full rounded-full border border-neutral-700 bg-neutral-900 px-4 py-2 text-xs font-semibold text-neutral-200 transition hover:border-neutral-500 hover:text-white"
+        className="w-full rounded-full border border-neutral-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 transition hover:border-neutral-300 hover:text-slate-900"
       >
         Reset filters
       </button>
