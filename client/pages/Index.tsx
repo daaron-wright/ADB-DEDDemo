@@ -356,13 +356,11 @@ export default function Index() {
                           />
                         )}
 
-                        {/* Color overlay that changes on hover */}
+                        {/* Subtle white overlay for depth */}
                         <motion.div
                           className="absolute inset-0"
                           animate={{
-                            background: isElevated
-                              ? 'linear-gradient(140deg, rgba(14, 165, 233, 0.22), rgba(14, 165, 233, 0.08), transparent 65%)'
-                              : 'transparent',
+                            background: isElevated ? 'rgba(255, 255, 255, 0.18)' : 'transparent',
                           }}
                           transition={{ duration: 0.5 }}
                         />
