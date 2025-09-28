@@ -279,7 +279,7 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
                     
                     {/* Show investor journey card after the last AI message */}
                     {messages.length >= 3 && messages[2].hasActions && (
-                      <InvestorJourneyCard />
+                      <InvestorJourneyCard onClose={onClose} />
                     )}
                   </div>
                 </div>
