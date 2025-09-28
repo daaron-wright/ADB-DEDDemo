@@ -680,8 +680,6 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
   const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
   const [showSummaryDashboard, setShowSummaryDashboard] = useState(false);
 
-  // UAE PASS Login state
-  const [showUAEPassLogin, setShowUAEPassLogin] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState<any>(null);
   const [showBusinessPortal, setShowBusinessPortal] = useState(false);
 
@@ -702,7 +700,6 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
   // UAE PASS Login Handler
   const handleUAEPassLogin = (userType: 'applicant' | 'reviewer', userData: any) => {
     setLoggedInUser(userData);
-    setShowUAEPassLogin(false);
     setShowBusinessPortal(true);
   };
 
@@ -918,16 +915,18 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
 
                   {/* Right side - Sign in button */}
                   <div className="flex items-center">
-                    <button
-                      onClick={() => setShowUAEPassLogin(true)}
-                      className="hover:opacity-80 transition-opacity"
-                    >
-                      <img
-                        src="https://api.builder.io/api/v1/image/assets/TEMP/f35ba5a02338a961dd18f58928489d9e87ec7dc3?width=442"
-                        alt="Sign in with UAE PASS"
-                        className="h-8 rounded-full"
-                      />
-                    </button>
+                    <UAEPassLogin
+                      onLogin={handleUAEPassLogin}
+                      trigger={(
+                        <button className="hover:opacity-80 transition-opacity">
+                          <img
+                            src="https://api.builder.io/api/v1/image/assets/TEMP/f35ba5a02338a961dd18f58928489d9e87ec7dc3?width=442"
+                            alt="Sign in with UAE PASS"
+                            className="h-8 rounded-full"
+                          />
+                        </button>
+                      )}
+                    />
                   </div>
                 </div>
               </div>
@@ -1041,16 +1040,7 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
           category={category}
         />
 
-        {/* UAE PASS Login Modal */}
-        {showUAEPassLogin && (
-          <UAEPassLogin
-            isOpen={showUAEPassLogin}
-            onClose={() => setShowUAEPassLogin(false)}
-            onLogin={handleUAEPassLogin}
-          />
-        )}
-
-        {/* Business License Portal */}
+          {/* Business License Portal */}
         {loggedInUser && showBusinessPortal && (
           <BusinessLicensePortalSimplified
             isOpen={showBusinessPortal}
