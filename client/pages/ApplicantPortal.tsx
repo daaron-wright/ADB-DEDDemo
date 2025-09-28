@@ -270,7 +270,7 @@ export default function ApplicantPortal() {
             className="h-11 rounded-2xl border-neutral-700 bg-neutral-900/80 pr-11 text-sm text-neutral-100 placeholder:text-neutral-500"
           />
           <svg
-            className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+            className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="none"
@@ -427,8 +427,8 @@ export default function ApplicantPortal() {
       <section className="space-y-5">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-slate-900">Application overview</h2>
-            <p className="text-sm text-slate-600">
+            <h2 className="text-2xl font-semibold tracking-tight text-white">Application overview</h2>
+            <p className="text-sm text-neutral-300">
               Showing {filteredApplications.length} of {applications.length} applications.
             </p>
           </div>
@@ -453,7 +453,7 @@ export default function ApplicantPortal() {
         </div>
 
         {filteredApplications.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-purple-200 bg-white/80 p-10 text-center text-sm text-slate-600">
+          <div className="rounded-3xl border border-dashed border-neutral-700 bg-neutral-900/80 p-10 text-center text-sm text-neutral-300">
             No applications match the current filters. Adjust your filters to see more results.
           </div>
         ) : (
@@ -465,13 +465,13 @@ export default function ApplicantPortal() {
               >
                 <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                   <div className="space-y-1">
-                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-purple-500/70">
+                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-neutral-400">
                       {application.id}
                     </p>
-                    <h3 className="text-xl font-semibold tracking-tight text-slate-900 md:text-2xl">
+                    <h3 className="text-xl font-semibold tracking-tight text-white md:text-2xl">
                       {application.title}
                     </h3>
-                    <p className="text-sm text-slate-600">{application.summary}</p>
+                    <p className="text-sm text-neutral-300">{application.summary}</p>
                   </div>
                   <Badge
                     className={`border ${statusStyles[application.status]} px-3 py-1.5 text-xs font-semibold uppercase tracking-wide`}
