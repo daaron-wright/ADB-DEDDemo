@@ -104,29 +104,6 @@ export default function Index() {
     };
   }, [mouseX, mouseY]);
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springConfig = { damping: 150, stiffness: 50, mass: 10 };
-  const springX = useSpring(mouseX, springConfig);
-  const springY = useSpring(mouseY, springConfig);
-
-  const translateX = useTransform(springX, (x) => (x - (typeof window !== 'undefined' ? window.innerWidth / 2 : 800)) * 0.05);
-  const translateY = useTransform(springY, (y) => (y - (typeof window !== 'undefined' ? window.innerHeight / 2 : 400)) * 0.05);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [mouseX, mouseY]);
-
   return (
     <div className="min-h-screen bg-white overflow-hidden relative">
       <motion.div
