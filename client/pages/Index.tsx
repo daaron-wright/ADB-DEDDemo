@@ -176,19 +176,65 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen bg-white overflow-hidden relative">
+    <div
+      ref={pageRef}
+      className="min-h-screen overflow-hidden relative transition-all duration-1000 ease-out"
+      style={{
+        background: `
+          ${currentTheme.gradient},
+          linear-gradient(135deg,
+            rgba(255, 255, 255, 0.9) 0%,
+            rgba(248, 250, 252, 0.8) 50%,
+            rgba(241, 245, 249, 0.9) 100%
+          )
+        `,
+        '--mouse-x': '50vw',
+        '--mouse-y': '50vh'
+      } as React.CSSProperties}
+    >
+      {/* Enhanced background layers */}
       <motion.div
-        className="absolute top-1/2 left-1/2 w-[1200px] h-[1200px] -translate-x-1/2 -translate-y-1/2"
+        className="absolute top-1/2 left-1/2 w-[1400px] h-[1400px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
         style={{ translateX, translateY }}
       >
-        <div
-          className="w-full h-full rounded-full bg-purple-500/30 animate-pulse"
-          style={{
-            filter: 'blur(100px)',
-            background: 'radial-gradient(circle, rgba(138, 43, 226, 0.4) 0%, rgba(138, 43, 226, 0) 70%)',
+        <motion.div
+          className="w-full h-full rounded-full opacity-60"
+          animate={{
+            background: hoveredCategory
+              ? `radial-gradient(circle, ${currentTheme.primary}30 0%, ${currentTheme.secondary}20 40%, ${currentTheme.accent}10 70%, transparent 100%)`
+              : 'radial-gradient(circle, rgba(138, 43, 226, 0.3) 0%, rgba(147, 112, 219, 0.2) 40%, rgba(221, 160, 221, 0.1) 70%, transparent 100%)',
+            scale: hoveredCategory ? 1.2 : 1,
+            filter: 'blur(120px)'
           }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         />
       </motion.div>
+
+      {/* Ripple effect */}
+      <AnimatePresence>
+        {rippleEffect.active && (
+          <motion.div
+            className="absolute pointer-events-none z-10"
+            style={{
+              left: rippleEffect.x,
+              top: rippleEffect.y,
+              transform: 'translate(-50%, -50%)'
+            }}
+            initial={{ scale: 0, opacity: 0.8 }}
+            animate={{ scale: 3, opacity: 0 }}
+            exit={{ scale: 4, opacity: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+          >
+            <div
+              className="w-32 h-32 rounded-full"
+              style={{
+                background: `radial-gradient(circle, ${currentTheme.primary}40 0%, ${currentTheme.secondary}20 50%, transparent 100%)`,
+                filter: 'blur(2px)'
+              }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className="relative z-10">
         {/* Navigation Header */}
         <header className="flex justify-between items-center px-8 py-6 border-b border-gray-100/50">
