@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Tooltip } from '@aegov/design-system-react';
 import { BusinessChatUI } from '@/components/ui/business-chat-ui';
