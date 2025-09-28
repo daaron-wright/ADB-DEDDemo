@@ -91,10 +91,13 @@ export const ShadCNDemo = () => {
             <Label htmlFor="message">Message</Label>
             <Textarea id="message" placeholder="Type your message here..." />
           </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox id="terms" />
-            <Label htmlFor="terms">Accept terms and conditions</Label>
-          </div>
+          <Checkbox
+            id="terms"
+            label="Accept terms and conditions"
+            onCheckedChange={() => {}}
+            className="bg-white"
+            checkboxClassName="border-primary text-primary focus-visible:ring-primary"
+          />
           <div className="flex items-center space-x-2">
             <Switch id="notifications" />
             <Label htmlFor="notifications">Enable notifications</Label>
