@@ -222,6 +222,22 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({ isOpen, on
           </div>
         </div>
       </motion.div>
+
+      {/* UAE PASS Login Modal */}
+      <UAEPassLogin
+        isOpen={showUAEPassLogin}
+        onClose={() => setShowUAEPassLogin(false)}
+        onLogin={handleUAEPassLogin}
+      />
+
+      {/* Business License Portal */}
+      {loggedInUser && (
+        <BusinessLicensePortal
+          isOpen={showBusinessPortal}
+          user={loggedInUser}
+          onClose={handleClosePortal}
+        />
+      )}
     </AnimatePresence>
   );
 };
