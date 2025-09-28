@@ -284,30 +284,25 @@ export default function ApplicantPortal() {
 
       <FilterSection title="Directorate">
         <div className="space-y-3">
-          <div className="flex items-center gap-3 rounded-2xl border border-purple-100/80 bg-purple-50/60 px-3 py-2">
-            <Checkbox
-              id="all-directorates"
-              checked={allDirectoratesSelected ? true : someDirectoratesSelected ? 'indeterminate' : false}
-              onCheckedChange={handleToggleAllDirectorates}
-              className="border-purple-300 text-purple-600 data-[state=checked]:bg-purple-600"
-            />
-            <Label htmlFor="all-directorates" className="text-sm text-slate-700">
-              All directorates
-            </Label>
-          </div>
+          <Checkbox
+            id="all-directorates"
+            label="All directorates"
+            checked={allDirectoratesSelected}
+            indeterminate={someDirectoratesSelected && !allDirectoratesSelected}
+            onCheckedChange={handleToggleAllDirectorates}
+            className="border-purple-100/80 bg-purple-50/60"
+            checkboxClassName="border-purple-300 text-purple-600 focus-visible:ring-purple-400"
+          />
 
           {directorateOptions.map((option) => (
-            <div key={option} className="flex items-center gap-3 rounded-2xl border border-white/60 bg-white/70 px-3 py-2">
-              <Checkbox
-                id={`directorate-${option}`}
-                checked={selectedDirectorates.includes(option)}
-                onCheckedChange={(checked) => handleDirectorateChange(option, checked)}
-                className="border-purple-200 text-purple-600 data-[state=checked]:bg-purple-600"
-              />
-              <Label htmlFor={`directorate-${option}`} className="text-sm text-slate-700">
-                {option}
-              </Label>
-            </div>
+            <Checkbox
+              key={option}
+              id={`directorate-${slugify(option)}`}
+              label={option}
+              checked={selectedDirectorates.includes(option)}
+              onCheckedChange={(checked) => handleDirectorateChange(option, checked)}
+              checkboxClassName="border-purple-200 text-purple-600 focus-visible:ring-purple-400"
+            />
           ))}
         </div>
       </FilterSection>
