@@ -191,6 +191,91 @@ const getCategoryName = (category: string) => {
 
 const DISCOVER_EXPERIENCE_BACKGROUND = 'https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3bd661b83f654e47b8d088613c4aa854?format=webp&width=800';
 
+const DiscoverExperienceView = ({ category }: { category: string }) => {
+  return (
+    <div className="relative w-full min-h-[60vh] flex items-center justify-center p-8">
+      {/* Gradient Background with SVG */}
+      <div className="absolute inset-0 overflow-hidden rounded-3xl">
+        <svg
+          className="w-full h-full object-cover"
+          viewBox="0 0 1194 833"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <filter id="filter0_f_0_476" x="-1931" y="-1448" width="3110" height="2519" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+              <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+              <feGaussianBlur stdDeviation="200" result="effect1_foregroundBlur_0_476"/>
+            </filter>
+            <filter id="filter1_f_0_476" x="-743.381" y="-875.229" width="1960.57" height="1815.68" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+              <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+              <feGaussianBlur stdDeviation="200" result="effect1_foregroundBlur_0_476"/>
+            </filter>
+            <filter id="filter2_f_0_476" x="-886" y="-1599" width="1587.52" height="2140" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+              <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+              <feGaussianBlur stdDeviation="140" result="effect1_foregroundBlur_0_476"/>
+            </filter>
+            <filter id="filter3_f_0_476" x="-730" y="-1573" width="1720.17" height="2196" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+              <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+              <feGaussianBlur stdDeviation="200" result="effect1_foregroundBlur_0_476"/>
+            </filter>
+            <linearGradient id="paint0_linear_0_476" x1="237" y1="152" x2="-275" y2="-232" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#0E0A2B" stopOpacity="0"/>
+              <stop offset="1" stopColor="#0E0A2B"/>
+            </linearGradient>
+            <clipPath id="clip0_0_476">
+              <rect width="1194" height="853" fill="white"/>
+            </clipPath>
+          </defs>
+          <g clipPath="url(#clip0_0_476)">
+            <rect width="1194" height="853" fill="#0B0C28"/>
+            <g filter="url(#filter0_f_0_476)">
+              <ellipse cx="-376" cy="-188.5" rx="1155" ry="859.5" fill="#0E0A2B"/>
+            </g>
+            <g filter="url(#filter1_f_0_476)">
+              <ellipse cx="236.903" cy="32.6109" rx="613.417" ry="467.069" transform="rotate(30.0789 236.903 32.6109)" fill="#0919B6"/>
+            </g>
+            <g filter="url(#filter2_f_0_476)">
+              <path d="M169 -506.5C169 -70.1951 693.262 261 231 261C-231.262 261 -606 -92.6951 -606 -529C-606 -965.305 -231.262 -1319 231 -1319C693.262 -1319 169 -942.805 169 -506.5Z" fill="#07D2FB"/>
+            </g>
+            <g filter="url(#filter3_f_0_476)">
+              <path d="M-79 -455.5C-79 -70.0052 773 223 476 223C30.8585 223 -330 -89.5052 -330 -475C-330 -860.495 30.8585 -1173 476 -1173C921.141 -1173 -79 -840.995 -79 -455.5Z" fill="#21FCC6"/>
+            </g>
+            <g style={{mixBlendMode: 'hue'}}>
+              <rect x="-275" y="-232" width="1024" height="768" fill="url(#paint0_linear_0_476)"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      {/* Content overlay */}
+      <div className="relative z-10 text-center text-white max-w-2xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          Discover Your Experience
+        </h2>
+        <p className="text-lg md:text-xl mb-8 text-white/90 leading-relaxed">
+          Welcome to your personalized investment journey for {getCategoryName(category).toLowerCase()}.
+          Explore opportunities, understand requirements, and take the next steps towards your business goals.
+        </p>
+
+        {/* Action buttons or additional content can be added here */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <button className="px-8 py-4 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold text-lg hover:bg-white/30 transition-colors">
+            Explore Opportunities
+          </button>
+          <button className="px-8 py-4 rounded-full bg-gradient-to-r from-[#07D2FB] to-[#21FCC6] text-white font-semibold text-lg hover:opacity-90 transition-opacity">
+            Get Started
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const queryClient = new QueryClient();
 
 export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business" }: BusinessChatUIProps) {
