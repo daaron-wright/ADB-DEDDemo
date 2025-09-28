@@ -189,23 +189,20 @@ export default function Index() {
     };
   }, [mouseX, mouseY]);
 
-  // Enhanced hover handlers with ripple effects
-  const handleCategoryHover = (categoryId: string, event: React.MouseEvent) => {
+  const handleCategoryHover = (categoryId: string, event: React.MouseEvent<HTMLDivElement>) => {
     setHoveredCategory(categoryId);
-    const rect = event.currentTarget.getBoundingClientRect();
-    setRippleEffect({
-      x: rect.left + rect.width / 2,
-      y: rect.top + rect.height / 2,
-      active: true
-    });
-
-    setTimeout(() => {
-      setRippleEffect(prev => ({ ...prev, active: false }));
-    }, 1000);
+    const point = getFocusFromElement(event.currentTarget);
+    categoryPositions.current[categoryId] = point;
+    applyFocusPoint(point);
   };
 
   const handleCategoryLeave = () => {
     setHoveredCategory(null);
+    if (activeCategory && categoryPositions.current[activeCategory]) {
+      applyFocusPoint(categoryPositions.current[activeCategory]);
+    } else {
+      applyFocusPoint();
+    }
   };
 
   return (
