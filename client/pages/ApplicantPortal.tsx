@@ -143,7 +143,7 @@ export default function ApplicantPortal() {
   const [sortBy, setSortBy] = useState<SortOption>('recent');
 
   const location = useLocation();
-  const portalUser = (location.state as { user?: { name?: string; role?: string; email?: string } } | undefined)?.user;
+  const portalUser = (location.state as { user?: { name?: string; role?: string; email?: string; avatarUrl?: string } } | undefined)?.user;
   const firstName = portalUser?.name ? portalUser.name.split(' ')[0] : null;
   const workspaceTitle = firstName ? `${firstName}'s workspace` : 'Applicant workspace';
   const workspaceDescription = firstName
@@ -319,7 +319,9 @@ export default function ApplicantPortal() {
       <FilterSection title="Beneficiary">
         <RadioGroup
           value={selectedBeneficiary}
-          onValueChange={setSelectedBeneficiary}
+          onValueChange={(value) =>
+            setSelectedBeneficiary(value as (typeof beneficiaryOptions)[number]['value'])
+          }
           className="space-y-2"
         >
           {beneficiaryOptions.map((option) => (
@@ -343,7 +345,9 @@ export default function ApplicantPortal() {
       <FilterSection title="License type">
         <Select
           value={selectedLicenseType}
-          onValueChange={setSelectedLicenseType}
+          onValueChange={(value) =>
+            setSelectedLicenseType(value as (typeof licenseOptions)[number]['value'])
+          }
         >
           <SelectTrigger className="h-11 rounded-2xl border-neutral-200 bg-white text-sm text-slate-900">
             <SelectValue />
