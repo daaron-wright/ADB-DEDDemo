@@ -276,6 +276,13 @@ export default function Index() {
         category={chatState.category || 'general'}
         title={getChatTitle()}
       />
+
+      {/* Open Chat UI */}
+      <OpenChatUI
+        isOpen={openChatState.isOpen}
+        onClose={handleCloseGeneralChat}
+        title="AI Business"
+      />
     </div>
   );
 }
