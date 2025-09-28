@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { InvestorChatUI } from '@/components/ui/investor-chat-ui';
+import { BusinessChatUI } from '@/components/ui/business-chat-ui';
 import { OpenChatUI } from '@/components/ui/open-chat-ui';
 
 export default function Index() {
