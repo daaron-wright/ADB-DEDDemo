@@ -279,7 +279,7 @@ export default function ReviewerPortal() {
             className="h-11 rounded-2xl border-neutral-700 bg-neutral-900/80 pr-11 text-sm text-neutral-100 placeholder:text-neutral-500"
           />
           <svg
-            className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+            className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="none"
@@ -461,8 +461,8 @@ export default function ReviewerPortal() {
       <section className="space-y-5">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-slate-900">Review queue</h2>
-            <p className="text-sm text-slate-600">
+            <h2 className="text-2xl font-semibold tracking-tight text-white">Review queue</h2>
+            <p className="text-sm text-neutral-300">
               Showing {filteredQueue.length} of {reviewQueue.length} cases.
             </p>
           </div>
