@@ -80,7 +80,7 @@ export function ChatUI({ isOpen, onClose, title = "AI Business" }: ChatUIProps) 
   const [isLoading, setIsLoading] = useState(false);
   const nodeRef = useRef(null);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
 
     const newMessage: Message = {
