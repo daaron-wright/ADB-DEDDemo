@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CollapsibleJourneyView } from './collapsible-journey-view';
 import SimpleQuestionnaire from './simple-questionnaire';
+import AIChatPanel from './ai-chat-panel';
 
 interface User {
   id: string;
