@@ -1040,6 +1040,24 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
           onClose={() => setShowSummaryDashboard(false)}
           category={category}
         />
+
+        {/* UAE PASS Login Modal */}
+        {showUAEPassLogin && (
+          <UAEPassLogin
+            isOpen={showUAEPassLogin}
+            onClose={() => setShowUAEPassLogin(false)}
+            onLogin={handleUAEPassLogin}
+          />
+        )}
+
+        {/* Business License Portal */}
+        {loggedInUser && showBusinessPortal && (
+          <BusinessLicensePortal
+            isOpen={showBusinessPortal}
+            user={loggedInUser}
+            onClose={() => setShowBusinessPortal(false)}
+          />
+        )}
       </AnimatePresence>
     </QueryClientProvider>
   );
