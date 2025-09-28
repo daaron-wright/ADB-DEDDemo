@@ -168,7 +168,7 @@ export default function Index() {
                   onClick={() => handleTileClick(category.id, category.title)}
                 >
                   {/* Card Container */}
-                  <div className="relative w-full h-[271px] rounded-3xl overflow-hidden">
+                  <div className="relative w-full h-[271px] rounded-3xl overflow-hidden border-2 border-white">
                     {/* Background Image */}
                     <div className="absolute inset-0">
                       <img 
