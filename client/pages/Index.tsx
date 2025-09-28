@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { InvestorChatUI } from '@/components/ui/investor-chat-ui';
 
 export default function Index() {
@@ -57,19 +58,41 @@ export default function Index() {
     return category ? `${category.title} AI Assistant` : 'AI Business';
   };
 
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 100, stiffness: 100, mass: 10 };
+  const springX = useSpring(mouseX, springConfig);
+  const springY = useSpring(mouseY, springConfig);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [mouseX, mouseY]);
+
   return (
     <div className="min-h-screen bg-white font-dm-sans overflow-hidden relative">
       {/* Background blur effects */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Large purple gradient blur */}
-        <div 
+        <motion.div
           className="absolute w-[1028px] h-[1580px] opacity-60"
           style={{
             left: '-38px',
             top: '-919px',
             background: 'linear-gradient(159deg, #AEAEFE 39.9%, #F0EEFD 71.79%)',
             filter: 'blur(140px)',
-            borderRadius: '50%'
+            borderRadius: '50%',
+            translateX: springX,
+            translateY: springY,
           }}
         />
         
