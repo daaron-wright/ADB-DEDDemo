@@ -843,12 +843,12 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
                       setSelectedActivities([...selectedActivities, activity]);
                       showNotification('✅ New activity added');
                     }}
-                    className="text-left p-3 bg-white/5 hover:bg-white/10 rounded border border-white/10 hover:border-[#54FFD4]/30 text-white text-sm transition-colors flex items-center justify-between"
+                    className="flex items-center justify-between gap-2 rounded-2xl border border-white/12 bg-white/6 p-3 text-left text-sm text-white transition-colors duration-200 hover:bg-white/10"
                   >
                     <span>+ {activity}</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-blue-400 bg-blue-400/10 px-2 py-1 rounded border border-blue-400/30">
-                        RECOMMENDED
+                      <span className="rounded-full border border-white/15 bg-white/8 px-2 py-1 text-xs font-medium text-white/65">
+                        Recommended
                       </span>
                     </div>
                   </button>
@@ -860,7 +860,7 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
                 <input
                   type="text"
                   placeholder="Enter custom activity..."
-                  className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-white/50 font-['DM_Sans'] text-sm"
+                  className="flex-1 rounded-lg border border-white/15 bg-white/8 px-3 py-2 text-sm text-white placeholder-white/45"
                   onKeyPress={(e) => {
                     if (e.key === 'Enter') {
                       const input = e.target as HTMLInputElement;
@@ -881,7 +881,7 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
                       input.value = '';
                     }
                   }}
-                  className="bg-[#54FFD4] hover:bg-[#54FFD4]/80 px-4 py-2 rounded-lg text-black font-['DM_Sans'] text-sm font-medium transition-colors"
+                  className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-slate-900 transition-colors duration-200 hover:bg-white/90"
                 >
                   Add
                 </button>
