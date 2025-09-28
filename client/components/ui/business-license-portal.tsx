@@ -158,7 +158,7 @@ const JourneyCard: React.FC<JourneyCardProps> = ({
         <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/8">
           <div
             className="h-full rounded-full bg-white/70 transition-all duration-300"
-            style={{ width: `${progressValue}%` }}
+            style={{ width: `${clampedProgress}%` }}
           />
         </div>
         <div className="flex justify-end text-xs font-medium text-white/45">
