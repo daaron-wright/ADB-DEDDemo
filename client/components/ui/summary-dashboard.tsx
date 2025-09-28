@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CompetitorsView } from './competitors-view';
+import { GapAnalysisView } from './gap-analysis-view';
 
 interface SummaryDashboardProps {
   isOpen: boolean;
@@ -207,7 +208,7 @@ const StatisticCard = () => {
   );
 };
 
-const StatusBar = () => {
+const StatusBar = ({ onViewGapAnalysis }: { onViewGapAnalysis: () => void }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -234,7 +235,13 @@ const StatusBar = () => {
       transition={{ duration: 0.5, delay: 1.8 }}
       className="mt-6 flex justify-center"
     >
-      <div className="bg-white/10 backdrop-blur-md rounded-full shadow-lg p-2 w-96">
+      <button
+        onClick={progress >= 100 ? onViewGapAnalysis : undefined}
+        disabled={progress < 100}
+        className={`bg-white/10 backdrop-blur-md rounded-full shadow-lg p-2 w-96 ${
+          progress >= 100 ? 'hover:bg-white/20 cursor-pointer' : 'cursor-default'
+        } transition-colors`}
+      >
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center">
             {progress < 100 ? (
@@ -257,13 +264,14 @@ const StatusBar = () => {
             </div>
           </div>
         </div>
-      </div>
+      </button>
     </motion.div>
   );
 };
 
 export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboardProps) {
   const [showCompetitors, setShowCompetitors] = useState(false);
+  const [showGapAnalysis, setShowGapAnalysis] = useState(false);
 
   if (!isOpen) return null;
 
@@ -348,7 +356,7 @@ export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboard
           </motion.div>
 
           {/* Status Bar */}
-          <StatusBar />
+          <StatusBar onViewGapAnalysis={() => setShowGapAnalysis(true)} />
 
           {/* Dashboard Content */}
           <div className="grid grid-cols-12 gap-8 max-w-7xl mx-auto">
@@ -448,6 +456,14 @@ export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboard
         key="competitors-view"
         isOpen={showCompetitors}
         onClose={() => setShowCompetitors(false)}
+        category={category}
+      />
+
+      {/* Gap Analysis View */}
+      <GapAnalysisView
+        key="gap-analysis-view"
+        isOpen={showGapAnalysis}
+        onClose={() => setShowGapAnalysis(false)}
         category={category}
       />
     </AnimatePresence>
