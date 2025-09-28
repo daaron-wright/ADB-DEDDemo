@@ -151,21 +151,23 @@ export const CollapsibleJourneyView: React.FC<CollapsibleJourneyViewProps> = ({
   onItemUpdate
 }) => {
   const [sections, setSections] = useState<JourneySection[]>(initialSections);
+  const completionRatio = totalCount > 0 ? completedCount / totalCount : 0;
+  const completionPercent = Math.round(completionRatio * 100);
 
   const toggleSection = (sectionId: string) => {
-    setSections(prev => prev.map(section => 
-      section.id === sectionId 
+    setSections(prev => prev.map(section =>
+      section.id === sectionId
         ? { ...section, isCollapsed: !section.isCollapsed }
         : section
     ));
   };
 
   const handleItemUpdate = (sectionId: string, itemId: string, status: JourneyItem['status']) => {
-    setSections(prev => prev.map(section => 
-      section.id === sectionId 
+    setSections(prev => prev.map(section =>
+      section.id === sectionId
         ? {
             ...section,
-            items: section.items.map(item => 
+            items: section.items.map(item =>
               item.id === itemId ? { ...item, status } : item
             )
           }
@@ -175,18 +177,28 @@ export const CollapsibleJourneyView: React.FC<CollapsibleJourneyViewProps> = ({
   };
 
   return (
-    <div className="w-full max-w-2xl bg-white/14 backdrop-blur-md rounded-3xl border border-white/20 overflow-hidden">
-      {/* Header */}
-      <div className="flex items-center justify-between px-8 py-6 border-b border-white/10">
-        <h2 className="text-white font-['DM_Sans'] text-lg font-semibold leading-[160%] tracking-[0.058px]">
-          Journey Number: {journeyNumber}
-        </h2>
-        <span className="text-[#54FFD4] font-['DM_Sans'] text-base font-normal leading-[160%] tracking-[0.051px]">
-          {completedCount} of {totalCount} complete
-        </span>
+    <div className="w-full max-w-2xl overflow-hidden rounded-3xl border border-white/15 bg-white/10 backdrop-blur-xl shadow-[0_20px_50px_rgba(8,15,40,0.35)]">
+      <div className="space-y-4 border-b border-white/12 bg-white/[0.05] px-6 py-5">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/40">Journey</span>
+            <h2 className="mt-1 text-lg font-semibold text-white/90 sm:text-xl">{journeyNumber}</h2>
+          </div>
+          <div className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-medium text-white/70">
+            {completedCount} of {totalCount}
+          </div>
+        </div>
+        <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/8">
+          <div
+            className="h-full rounded-full bg-white/70 transition-all duration-300"
+            style={{ width: `${completionPercent}%` }}
+          />
+        </div>
+        <div className="flex justify-end text-xs font-medium text-white/45">
+          {completionPercent}% complete
+        </div>
       </div>
 
-      {/* Sections */}
       <div>
         {sections.map((section) => (
           <CollapsibleSection
