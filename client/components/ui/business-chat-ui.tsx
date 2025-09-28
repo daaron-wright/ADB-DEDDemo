@@ -816,8 +816,20 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
   const generateAIResponse = (userMessage: string): string => {
     const lowerMessage = userMessage.toLowerCase();
 
+    if (lowerMessage.includes('corniche') && (lowerMessage.includes('details') || lowerMessage.includes('more'))) {
+      return "The Corniche is a popular choice due to its high foot traffic and scenic views. It attracts both tourists and locals, especially during the cooler months. The area is known for its diverse range of dining options, from casual cafes to upscale restaurants, catering to a wide range of tastes and budgets.";
+    }
+
     if (lowerMessage.includes('corniche') || lowerMessage.includes('cornich')) {
       return "Abu Dhabi's Corniche is one of the most prestigious dining locations with ~20k daily leisure visitors and a scenic high-traffic zone rating of 8/10. The area attracts both tourists and locals, making it ideal for upscale restaurants. Would you like specific demographic data for this area?";
+    }
+
+    if (lowerMessage.includes('reports') || lowerMessage.includes('deeper') || lowerMessage.includes('generate')) {
+      return "I can generate detailed reports covering market analysis, competitor landscape, foot traffic patterns, seasonal variations, target demographics, pricing strategies, and location-specific recommendations for each area. What specific type of report would you like me to focus on?";
+    }
+
+    if (lowerMessage.includes('300 covers') || lowerMessage.includes('f&b restaurant')) {
+      return "Estimated set up costs could range from: Rough Estimate for Total Set-Up Costs: AED 6,500,000 to AED 14,000,000+ Average monthly running costs: AED 545,000 to AED 1,355,000+ all depending on location, level of service offering, staffing and finishing. Here is a breakdown of the estimated set up and national average running costs";
     }
 
     if (lowerMessage.includes('cost') || lowerMessage.includes('price') || lowerMessage.includes('budget')) {
