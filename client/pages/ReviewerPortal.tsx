@@ -276,7 +276,7 @@ export default function ReviewerPortal() {
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
             placeholder="Search by applicant or ID"
-            className="h-11 rounded-2xl border-white/50 bg-white/80 pr-11 text-sm text-slate-700 placeholder:text-slate-400"
+            className="h-11 rounded-2xl border-neutral-700 bg-neutral-900/80 pr-11 text-sm text-neutral-100 placeholder:text-neutral-500"
           />
           <svg
             className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
@@ -299,8 +299,8 @@ export default function ReviewerPortal() {
             checked={allDirectoratesSelected}
             indeterminate={someDirectoratesSelected && !allDirectoratesSelected}
             onCheckedChange={handleToggleAllDirectorates}
-            className="border-purple-100/80 bg-purple-50/60"
-            checkboxClassName="border-purple-300 text-purple-600 focus-visible:ring-purple-400"
+            className="border-neutral-800 bg-neutral-900/90"
+            checkboxClassName="border-neutral-500 text-purple-200 focus-visible:ring-purple-300"
           />
 
           {directorateOptions.map((option) => (
@@ -310,7 +310,7 @@ export default function ReviewerPortal() {
               label={option}
               checked={selectedDirectorates.includes(option)}
               onCheckedChange={(checked) => handleDirectorateChange(option, checked)}
-              checkboxClassName="border-purple-200 text-purple-600 focus-visible:ring-purple-400"
+              checkboxClassName="border-neutral-500 text-purple-200 focus-visible:ring-purple-300"
             />
           ))}
         </div>
@@ -325,14 +325,14 @@ export default function ReviewerPortal() {
           {slaOptions.map((option) => (
             <div
               key={option.value}
-              className="flex items-center gap-3 rounded-2xl border border-white/60 bg-white/70 px-3 py-2"
+              className="flex items-center gap-3 rounded-2xl border border-neutral-800 bg-neutral-900/90 px-3 py-2"
             >
               <RadioGroupItem
                 value={option.value}
                 id={`sla-${option.value}`}
-                className="border-purple-300 text-purple-600"
+                className="border-neutral-600 text-purple-200 data-[state=checked]:border-purple-200 data-[state=checked]:bg-neutral-800"
               />
-              <Label htmlFor={`sla-${option.value}`} className="text-sm text-slate-700">
+              <Label htmlFor={`sla-${option.value}`} className="text-sm text-neutral-100">
                 {option.label}
               </Label>
             </div>
@@ -345,14 +345,14 @@ export default function ReviewerPortal() {
           {priorityOptions.map((option) => (
             <div
               key={option.value}
-              className="flex items-center gap-3 rounded-2xl border border-white/60 bg-white/70 px-3 py-2"
+              className="flex items-center gap-3 rounded-2xl border border-neutral-800 bg-neutral-900/90 px-3 py-2"
             >
               <RadioGroupItem
                 value={option.value}
                 id={`priority-${option.value}`}
-                className="border-purple-300 text-purple-600"
+                className="border-neutral-600 text-purple-200 data-[state=checked]:border-purple-200 data-[state=checked]:bg-neutral-800"
               />
-              <Label htmlFor={`priority-${option.value}`} className="text-sm text-slate-700">
+              <Label htmlFor={`priority-${option.value}`} className="text-sm text-neutral-100">
                 {option.label}
               </Label>
             </div>
@@ -362,13 +362,13 @@ export default function ReviewerPortal() {
 
       <FilterSection title="Workflow stage">
         <Select value={selectedStage} onValueChange={setSelectedStage}>
-          <SelectTrigger className="h-11 rounded-2xl border-white/60 bg-white/80 text-sm text-slate-700">
+          <SelectTrigger className="h-11 rounded-2xl border-neutral-700 bg-neutral-900 text-sm text-neutral-100">
             <SelectValue />
           </SelectTrigger>
-          <SelectContent className="rounded-2xl border border-purple-100 bg-white/95">
+          <SelectContent className="rounded-2xl border border-neutral-800 bg-neutral-950/95 text-neutral-100">
             <SelectGroup>
               {stageOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value} className="rounded-xl text-sm">
+                <SelectItem key={option.value} value={option.value} className="rounded-xl text-sm text-neutral-100 data-[state=checked]:bg-neutral-800">
                   {option.label}
                 </SelectItem>
               ))}
@@ -387,7 +387,7 @@ export default function ReviewerPortal() {
             step={1}
             className="py-3"
           />
-          <div className="flex items-center justify-between text-xs font-medium text-slate-600">
+          <div className="flex items-center justify-between text-xs né font-medium text-neutral-300">
             <span>Days remaining</span>
             <span>{daysUpperBound} days</span>
           </div>
