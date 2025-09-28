@@ -978,7 +978,7 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
                         <DiscoverExperienceView
                           category={category}
                           onSendMessage={handleSendMessage}
-                          isStandalone={activeThread.messages.length === 4}
+                          isStandalone={activeThread.messages.length >= 4}
                         />
                       </div>
                     )}
