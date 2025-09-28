@@ -494,6 +494,24 @@ export default function Index() {
           handleCloseGeneralChat();
         }}
       />
+
+      {/* UAE PASS Login Modal */}
+      {showUAEPassLogin && (
+        <UAEPassLogin
+          isOpen={showUAEPassLogin}
+          onClose={() => setShowUAEPassLogin(false)}
+          onLogin={handleUAEPassLogin}
+        />
+      )}
+
+      {/* Business License Portal */}
+      {loggedInUser && showBusinessPortal && (
+        <BusinessLicensePortal
+          isOpen={showBusinessPortal}
+          user={loggedInUser}
+          onClose={() => setShowBusinessPortal(false)}
+        />
+      )}
     </div>
   );
 }
