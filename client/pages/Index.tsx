@@ -17,24 +17,28 @@ export default function Index() {
   });
 
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [openChatState, setOpenChatState] = useState<{
     isOpen: boolean;
   }>({
     isOpen: false,
   });
 
-  const [rippleEffect, setRippleEffect] = useState<{
-    x: number;
-    y: number;
-    active: boolean;
-  }>({ x: 0, y: 0, active: false });
-
-  // UAE PASS Login state
   const [showUAEPassLogin, setShowUAEPassLogin] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState<any>(null);
   const [showBusinessPortal, setShowBusinessPortal] = useState(false);
 
+  const fallbackFocus = { x: 640, y: 360 };
+  const [focusPoint, setFocusPoint] = useState<{ x: number; y: number }>(fallbackFocus);
+  const categoryPositions = useRef<Record<string, { x: number; y: number }>>({});
+
   // Color themes for each business category
+  const baseTheme = {
+    primary: '#0EA5E9',
+    secondary: 'rgba(14, 165, 233, 0.55)',
+    accent: 'rgba(14, 165, 233, 0.25)'
+  } as const;
+
   const colorThemes = {
     restaurants: {
       primary: '#FF6B6B',
