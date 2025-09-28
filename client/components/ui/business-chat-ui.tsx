@@ -80,7 +80,9 @@ const StarRating = ({ rating }: { rating: number }) => {
 
 const KHALID_AVATAR = 'https://api.builder.io/api/v1/image/assets/TEMP/0142e541255ee20520b15f139d595835c00ea132?width=131';
 
-const MessageBubble = ({ message }: { message: BusinessMessage }) => {
+const MessageBubble = ({ message, onActionClick }: { message: BusinessMessage; onActionClick?: (action: string) => void }) => {
+  const shouldShowBudgetButton = message.isAI && message.content.includes('AED 10,000 to AED 30,000');
+
   return (
     <div className={cn(
       "flex mb-4 gap-3 items-end",
@@ -94,11 +96,31 @@ const MessageBubble = ({ message }: { message: BusinessMessage }) => {
           />
       )}
       <div className={cn(
-        "max-w-[80%] px-4 py-4 rounded-2xl text-base leading-relaxed bg-white/20 backdrop-blur-sm border border-white/10",
-        message.isAI ? "rounded-bl-sm" : "rounded-br-sm"
+        "max-w-[80%] flex flex-col gap-3",
+        message.isAI ? "items-start" : "items-end"
       )}>
-        {message.rating && <StarRating rating={message.rating} />}
-        <div className="text-white">{message.content}</div>
+        <div className={cn(
+          "px-4 py-4 rounded-2xl text-base leading-relaxed bg-white/20 backdrop-blur-sm border border-white/10",
+          message.isAI ? "rounded-bl-sm" : "rounded-br-sm"
+        )}>
+          {message.rating && <StarRating rating={message.rating} />}
+          <div className="text-white">{message.content}</div>
+        </div>
+
+        {/* Budget ranges button */}
+        {shouldShowBudgetButton && onActionClick && (
+          <button
+            onClick={() => onActionClick('budget-ranges')}
+            className="flex items-center gap-3 px-4 py-3 bg-white rounded-xl hover:bg-white/90 transition-colors shadow-lg"
+          >
+            <div className="w-8 h-8 flex items-center justify-center">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M26.9998 3.00003H4.99976C4.46932 3.00003 3.96061 3.21074 3.58554 3.58582C3.21047 3.96089 2.99976 4.4696 2.99976 5.00003V27C2.99976 27.5305 3.21047 28.0392 3.58554 28.4142C3.96061 28.7893 4.46932 29 4.99976 29H26.9998C27.5302 29 28.0389 28.7893 28.414 28.4142C28.789 28.0392 28.9998 27.5305 28.9998 27V5.00003C28.9998 4.4696 28.789 3.96089 28.414 3.58582C28.0389 3.21074 27.5302 3.00003 26.9998 3.00003ZM26.9998 5.00003V9.00003H4.99976V5.00003H26.9998ZM16.9998 11H26.9998V18H16.9998V11ZM14.9998 18H4.99976V11H14.9998V18ZM4.99976 20H14.9998V27H4.99976V20ZM16.9998 27V20H26.9998V27H16.9998Z" fill="#169F9F"/>
+              </svg>
+            </div>
+            <span className="text-black text-sm font-semibold">Budget ranges</span>
+          </button>
+        )}
       </div>
       {!message.isAI && (
          <img
@@ -794,7 +816,15 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
                   {/* Messages */}
                   <div className="p-6 space-y-4 max-h-[60vh] overflow-y-auto">
                     {activeThread?.messages.map((message) => (
-                      <MessageBubble key={message.id} message={message} />
+                      <MessageBubble
+                        key={message.id}
+                        message={message}
+                        onActionClick={(action) => {
+                          if (action === 'budget-ranges') {
+                            handleSendMessage('Can you give me any demographic data you have for this area.');
+                          }
+                        }}
+                      />
                     ))}
 
                     {/* Show investor journey card after the last AI message */}
