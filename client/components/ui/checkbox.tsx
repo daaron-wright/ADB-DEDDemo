@@ -69,7 +69,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     return (
       <div
         className={cn(
-          'aegov-check-item flex items-start gap-3 rounded-2xl border border-neutral-800 bg-neutral-900/90 px-3 py-2 text-neutral-200 transition-colors duration-200',
+          'aegov-check-item flex items-start gap-3 rounded-2xl border border-neutral-200 bg-white px-3 py-2 text-slate-800 shadow-[0_12px_30px_-18px_rgba(15,23,42,0.18)] transition-colors duration-200',
           disabled && 'opacity-60',
           className,
         )}
@@ -80,7 +80,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           ref={setRefs}
           type="checkbox"
           className={cn(
-            'mt-1 h-4 w-4 shrink-0 rounded-sm border border-neutral-500 bg-neutral-900 text-purple-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-300 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950',
+            'mt-1 h-4 w-4 shrink-0 rounded-sm border border-neutral-400 bg-white text-purple-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white',
             checkboxClassName,
           )}
           defaultChecked={defaultChecked}
