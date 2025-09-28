@@ -114,13 +114,9 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({ isOpen, on
 
         {/* Main Content */}
         <div className="relative z-20 pt-32 px-20 h-full">
-          {/* Report Document */}
-          <div className="absolute left-20 top-32">
-            <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/1d1d9a7981c3f7173ebde9af5c27218d2f2fd692?width=1080"
-              alt="Abu Dhabi Investment Report"
-              className="w-[540px] h-[684px] rounded-3xl object-cover shadow-2xl"
-            />
+          {/* Interactive Report Document */}
+          <div className="absolute left-20 top-32 max-w-3xl">
+            <InvestmentReportDocument className="w-[540px] max-h-[684px] overflow-y-auto" />
           </div>
 
           {/* Chat UI */}
