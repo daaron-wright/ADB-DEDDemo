@@ -659,31 +659,27 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
   };
 
   const handleSendMessage = (message: string) => {
-    // Create a new thread for this conversation
-    const threadTitle = message.length > 30 ? message.substring(0, 30) + '...' : message;
+    if (!activeThreadId) return;
 
-    const newThread: ChatThread = {
-      id: `thread-${Date.now()}`,
-      title: threadTitle,
-      messages: [
-        {
-          id: `user-${Date.now()}`,
-          content: message,
-          isAI: false,
-          timestamp: new Date(),
-        },
-        {
-          id: `ai-${Date.now()}`,
-          content: generateAIResponse(message),
-          isAI: true,
-          timestamp: new Date(),
-        }
-      ],
-      view: 'journey',
+    const userMessage: BusinessMessage = {
+      id: `user-${Date.now()}`,
+      content: message,
+      isAI: false,
+      timestamp: new Date(),
     };
 
-    setThreads([...threads, newThread]);
-    setActiveThreadId(newThread.id);
+    const aiResponse: BusinessMessage = {
+      id: `ai-${Date.now()}`,
+      content: generateAIResponse(message),
+      isAI: true,
+      timestamp: new Date(),
+    };
+
+    const activeThread = threads.find(t => t.id === activeThreadId);
+    if (activeThread) {
+      const updatedMessages = [...activeThread.messages, userMessage, aiResponse];
+      updateThread(activeThreadId, { messages: updatedMessages });
+    }
   };
 
   const generateAIResponse = (userMessage: string): string => {
@@ -779,10 +775,10 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
                           key={thread.id}
                           onClick={() => setActiveThreadId(thread.id)}
                           className={cn(
-                            "px-3 py-2 rounded-md text-sm font-medium",
+                            "px-4 py-2 text-sm font-medium border-b-2 transition-all",
                             activeThreadId === thread.id
-                              ? "bg-white/20 text-white"
-                              : "text-white/70 hover:bg-white/10"
+                              ? "border-white text-white"
+                              : "border-transparent text-white/60 hover:text-white hover:border-white/30"
                           )}
                         >
                           {thread.title}
@@ -790,7 +786,7 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
                       ))}
                       <button
                         onClick={handleNewTab}
-                        className="ml-2 p-2 rounded-full hover:bg-white/10 text-white/70 transition-colors"
+                        className="ml-4 p-2 rounded-full hover:bg-white/10 text-white/70 hover:text-white transition-colors"
                         aria-label="New Chat"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
