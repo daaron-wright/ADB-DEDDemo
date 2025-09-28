@@ -111,7 +111,7 @@ const InvestorMessageBubble = ({ message }: { message: InvestorMessage }) => {
       message.isAI ? "justify-start" : "justify-end"
     )}>
       <div className={cn(
-        "max-w-[90%] px-4 py-4 rounded-xl text-sm leading-relaxed font-dm-sans bg-white/10 backdrop-blur-md border border-white/20 shadow-lg",
+        "max-w-[90%] px-4 py-4 rounded-xl text-sm leading-relaxed bg-white/10 backdrop-blur-md border border-white/20 shadow-lg",
         message.isAI ? "rounded-tl-sm" : "rounded-tr-sm"
       )}>
         {message.rating && <StarRating rating={message.rating} />}
@@ -309,7 +309,7 @@ export function InvestorChatUI({ isOpen, onClose, category, title = "AI Business
                           className="w-16 h-16 rounded-full border-2 border-[#54FFD4] object-cover"
                         />
                         <div>
-                          <h2 className="text-white text-xl font-bold font-dm-sans">
+                          <h2 className="text-white text-xl font-bold">
                             {title}
                           </h2>
                           <p className="text-white/70 text-sm">Investment Research Assistant</p>
@@ -352,7 +352,7 @@ export function InvestorChatUI({ isOpen, onClose, category, title = "AI Business
                           onChange={(e) => setInputValue(e.target.value)}
                           onKeyPress={handleKeyPress}
                           placeholder="Ask about investment opportunities..."
-                          className="flex-1 bg-white/10 text-white placeholder-white/60 border border-white/20 rounded-xl px-4 py-3 text-sm font-dm-sans focus:outline-none focus:ring-2 focus:ring-[#54FFD4]/50 focus:border-[#54FFD4] transition-colors backdrop-blur-sm"
+                          className="flex-1 bg-white/10 text-white placeholder-white/60 border border-white/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#54FFD4]/50 focus:border-[#54FFD4] transition-colors backdrop-blur-sm"
                         />
                         <button
                           onClick={handleSendMessage}
