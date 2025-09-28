@@ -190,7 +190,7 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({ isOpen, on
 
                 <div className="bg-white/20 rounded-2xl p-4">
                   <p className="text-white text-base font-medium leading-[136%]">
-                    Perfect! Let's get you logged in with UAE Pass to proceed
+                    Perfect! Click the UAE Pass button below to access the business license registration portal
                   </p>
                 </div>
 
