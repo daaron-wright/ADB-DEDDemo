@@ -139,7 +139,19 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({ isOpen, on
               <div className="space-y-4 mb-6">
                 <div className="bg-white/20 rounded-2xl p-4">
                   <p className="text-white text-base font-medium leading-[136%]">
-                    Would you like me to automate the application process and pre-fill all your information base on your exploration?
+                    Here's your comprehensive investment report for Abu Dhabi Corniche. The document contains detailed demographics, consumer behavior analysis, and market insights.
+                  </p>
+                </div>
+
+                <div className="flex justify-end">
+                  <div className="bg-black/30 rounded-2xl px-4 py-3 max-w-[200px]">
+                    <p className="text-white text-sm">This looks great!</p>
+                  </div>
+                </div>
+
+                <div className="bg-white/20 rounded-2xl p-4">
+                  <p className="text-white text-base font-medium leading-[136%]">
+                    Would you like me to automate the application process and pre-fill all your information based on this analysis?
                   </p>
                 </div>
 
@@ -151,7 +163,7 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({ isOpen, on
 
                 <div className="bg-white/20 rounded-2xl p-4">
                   <p className="text-white text-base font-medium leading-[136%]">
-                    Let's get you logged in with UAE Pass
+                    Perfect! Let's get you logged in with UAE Pass to proceed
                   </p>
                 </div>
 
