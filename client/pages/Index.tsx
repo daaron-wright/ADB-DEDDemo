@@ -201,6 +201,13 @@ export default function Index() {
           </div>
         </main>
       </div>
+
+      {/* Chat UI */}
+      <ChatUI
+        isOpen={chatState.isOpen}
+        onClose={handleCloseChat}
+        title={getChatTitle()}
+      />
     </div>
   );
 }
