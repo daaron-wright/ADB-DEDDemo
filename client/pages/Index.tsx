@@ -158,70 +158,6 @@ export default function Index() {
     navigate(destination, { state: { user: userData } });
   };
 
-  type JourneyState = 'done' | 'current' | 'upcoming';
-
-  const applicantJourney: Array<{
-    id: string;
-    title: string;
-    description: string;
-    state: JourneyState;
-    statusDetail?: string;
-  }> = [
-    {
-      id: 'questionnaire',
-      title: 'Questionnaire',
-      description: 'Personalized intake is complete and responses now prefill every downstream form automatically.',
-      state: 'done',
-      statusDetail: 'Finished 12 Mar 2024',
-    },
-    {
-      id: 'business-registration',
-      title: 'Business Registration',
-      description: 'Trade name is reserved and the entity profile has been registered with the Department of Economic Development.',
-      state: 'done',
-      statusDetail: 'Certificate issued 14 Mar 2024',
-    },
-    {
-      id: 'submit-documents',
-      title: 'Submit Documents',
-      description: 'All mandatory files are uploaded and validated, including Emirates ID, tenancy contract, and shareholder agreements.',
-      state: 'done',
-      statusDetail: '5 documents verified',
-    },
-    {
-      id: 'business-licensing',
-      title: 'Business Licensing',
-      description: 'Licensing specialists are reviewing the financial plan, compliance attachments, and fee payments.',
-      state: 'current',
-      statusDetail: 'In review now',
-    },
-    {
-      id: 'pre-operational-inspection',
-      title: 'Pre-Operational Inspection',
-      description: 'Inspection will be scheduled once licensing is approved so you can activate utilities and begin fit-out.',
-      state: 'upcoming',
-      statusDetail: 'Awaiting scheduling',
-    },
-  ];
-
-  const journeyStateTokens: Record<JourneyState, { label: string; badgeClass: string; dotClass: string }> = {
-    done: {
-      label: 'Completed',
-      badgeClass: 'border-emerald-200 bg-emerald-50 text-emerald-700',
-      dotClass: 'bg-emerald-500',
-    },
-    current: {
-      label: 'In progress',
-      badgeClass: 'border-purple-200 bg-purple-50 text-purple-700',
-      dotClass: 'bg-purple-500',
-    },
-    upcoming: {
-      label: 'Next',
-      badgeClass: 'border-slate-200 bg-slate-50 text-slate-600',
-      dotClass: 'bg-slate-300',
-    },
-  };
-
   const businessCategories = [
     {
       id: "restaurants",
@@ -288,10 +224,6 @@ export default function Index() {
     setOpenChatState({
       isOpen: true,
     });
-  };
-
-  const handleOpenApplicantPortal = () => {
-    navigate('/portal/applicant');
   };
 
   const handleCloseGeneralChat = () => {
@@ -439,50 +371,6 @@ export default function Index() {
           <p className="text-tamm-gray-medium text-base font-medium text-center max-w-lg leading-relaxed mb-16">
             Welcome to the future of government services. Experience how Abu Dhabi is building an AI Native Government to empower entrepreneurs and simplify business setup.
           </p>
-
-          <section className="w-full mb-16">
-            <div className="mx-auto flex flex-col gap-10 rounded-3xl border border-neutral-200 bg-white/80 p-8 shadow-[0_36px_60px_-40px_rgba(15,23,42,0.38)] backdrop-blur-xl md:flex-row md:items-start md:justify-between">
-              <div className="md:max-w-sm">
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Applicant journey</p>
-                <h2 className="mt-3 text-2xl font-semibold text-slate-900">See where your application stands</h2>
-                <p className="mt-4 text-sm text-slate-600">
-                  Track every milestone from the questionnaire to the final inspection. Updates mirror the data inside the Applicant Portal so everyone stays aligned.
-                </p>
-                <button
-                  type="button"
-                  onClick={handleOpenApplicantPortal}
-                  className="mt-6 inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_30px_-18px_rgba(15,23,42,0.45)] transition hover:bg-slate-800"
-                >
-                  Open applicant portal
-                </button>
-              </div>
-              <ol className="flex-1 space-y-5">
-                {applicantJourney.map((stage, index) => {
-                  const tokens = journeyStateTokens[stage.state];
-                  const isLast = index === applicantJourney.length - 1;
-
-                  return (
-                    <li key={stage.id} className="relative pl-10">
-                      <span className={`absolute left-0 top-2 block h-2.5 w-2.5 rounded-full ${tokens.dotClass}`} />
-                      {!isLast && <span className="absolute left-[4px] top-6 bottom-0 w-px bg-neutral-200" />}
-                      <div className="rounded-2xl border border-neutral-200 bg-white/90 p-4 shadow-[0_18px_36px_-26px_rgba(15,23,42,0.28)] backdrop-blur">
-                        <div className="flex flex-wrap items-center justify-between gap-3">
-                          <h3 className="text-sm font-semibold text-slate-900">{stage.title}</h3>
-                          <span className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${tokens.badgeClass}`}>
-                            {tokens.label}
-                          </span>
-                        </div>
-                        <p className="mt-2 text-sm text-slate-600">{stage.description}</p>
-                        {stage.statusDetail ? (
-                          <p className="mt-2 text-xs font-medium uppercase tracking-[0.28em] text-slate-400">{stage.statusDetail}</p>
-                        ) : null}
-                      </div>
-                    </li>
-                  );
-                })}
-              </ol>
-            </div>
-          </section>
 
           {/* Business Categories Section */}
           <div className="w-full">
