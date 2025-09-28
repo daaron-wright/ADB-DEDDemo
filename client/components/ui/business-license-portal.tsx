@@ -504,59 +504,121 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
           </div>
         </div>
 
-        {/* Right Panel - AI Assistant */}
-        <div className="w-[446px] h-[426px] bg-white/20 rounded-3xl shadow-[0_4px_44px_0_#169F9F] relative">
-          {/* Header */}
-          <div className="absolute top-4 left-6 right-6 h-[77px]">
-            <div className="flex items-center gap-2 p-3">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-                alt="AI Assistant"
-                className="w-16 h-16 rounded-full border border-[#54FFD4]"
-              />
-              <div className="text-white font-['DM_Sans'] text-lg font-semibold leading-[160%] tracking-[0.058px]">
-                AI Business
+        {/* Right Panel - AI Assistant or Admin Details */}
+        <div className="w-[446px] min-h-[426px] bg-white/20 rounded-3xl shadow-[0_4px_44px_0_#169F9F] relative">
+          {(showBusinessRegAdmin || showBusinessLicAdmin) && (
+            <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-3xl p-6 z-10">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-white font-['DM_Sans'] text-lg font-semibold">
+                  {showBusinessRegAdmin ? 'Business Registration Admin' : 'Business Licensing Admin'}
+                </h3>
+                <button
+                  onClick={() => {
+                    setShowBusinessRegAdmin(false);
+                    setShowBusinessLicAdmin(false);
+                  }}
+                  className="text-white/70 hover:text-white"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
               </div>
-              <div className="flex items-center gap-0.5 ml-auto">
-                {[5.77, 11.952, 19.783, 13.189, 8.655, 23.081, 30.499, 16.898, 4.534].map((width, i) => (
-                  <div
-                    key={i}
-                    className="bg-[#54FFD4] rounded-[15.737px] transform -rotate-90"
-                    style={{ width: `${width}px`, height: '3.297px' }}
+
+              <div className="space-y-4">
+                <div className="bg-blue-500/20 border border-blue-400/30 rounded-lg p-4">
+                  <h4 className="text-blue-300 font-['DM_Sans'] text-sm font-semibold mb-2">Reviewer Actions</h4>
+                  <div className="space-y-2">
+                    <button className="w-full bg-green-500/20 hover:bg-green-500/30 border border-green-400/30 rounded-lg p-2 text-green-300 text-sm transition-colors">
+                      Approve Section
+                    </button>
+                    <button className="w-full bg-yellow-500/20 hover:bg-yellow-500/30 border border-yellow-400/30 rounded-lg p-2 text-yellow-300 text-sm transition-colors">
+                      Request Changes
+                    </button>
+                    <button className="w-full bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 rounded-lg p-2 text-red-300 text-sm transition-colors">
+                      Reject Section
+                    </button>
+                  </div>
+                </div>
+
+                <div className="bg-white/10 border border-white/20 rounded-lg p-4">
+                  <h4 className="text-white font-['DM_Sans'] text-sm font-semibold mb-2">Status Information</h4>
+                  <div className="text-white/70 text-sm space-y-1">
+                    <p>• Current Status: Under Review</p>
+                    <p>• Assigned Reviewer: {user.name}</p>
+                    <p>• Last Updated: {new Date().toLocaleDateString()}</p>
+                    <p>• Processing Time: 2-3 business days</p>
+                  </div>
+                </div>
+
+                <div className="bg-white/10 border border-white/20 rounded-lg p-4">
+                  <h4 className="text-white font-['DM_Sans'] text-sm font-semibold mb-2">Comments</h4>
+                  <textarea
+                    placeholder="Add review comments..."
+                    className="w-full bg-white/10 border border-white/20 rounded-lg p-2 text-white placeholder-white/50 text-sm h-20 resize-none"
                   />
-                ))}
+                  <button className="mt-2 bg-[#54FFD4] hover:bg-[#54FFD4]/80 px-4 py-2 rounded-lg text-black font-['DM_Sans'] text-sm font-medium transition-colors">
+                    Add Comment
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
-          {/* Progress Section */}
-          <div className="absolute top-[119px] left-6 right-6">
-            <div className="text-white font-['DM_Sans'] text-base font-normal leading-[160%] tracking-[0.051px] mb-4">
-              Generating application...
-            </div>
-
-            {/* Progress Bar */}
-            <div className="mb-4">
-              <div className="w-[275px] h-[19px] bg-gray-600 rounded overflow-hidden">
-                <div className="h-full bg-[#54FFD4] w-[15%]"></div>
+          {/* Original AI Assistant Content */}
+          <div className={`${(showBusinessRegAdmin || showBusinessLicAdmin) ? 'opacity-30' : ''}`}>
+            {/* Header */}
+            <div className="absolute top-4 left-6 right-6 h-[77px]">
+              <div className="flex items-center gap-2 p-3">
+                <img
+                  src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+                  alt="AI Assistant"
+                  className="w-16 h-16 rounded-full border border-[#54FFD4]"
+                />
+                <div className="text-white font-['DM_Sans'] text-lg font-semibold leading-[160%] tracking-[0.058px]">
+                  AI Business
+                </div>
+                <div className="flex items-center gap-0.5 ml-auto">
+                  {[5.77, 11.952, 19.783, 13.189, 8.655, 23.081, 30.499, 16.898, 4.534].map((width, i) => (
+                    <div
+                      key={i}
+                      className="bg-[#54FFD4] rounded-[15.737px] transform -rotate-90"
+                      style={{ width: `${width}px`, height: '3.297px' }}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
 
-            <div className="text-white font-['DM_Sans'] text-base font-normal leading-[160%] tracking-[0.051px] mb-8">
-              15% complete
+            {/* Progress Section */}
+            <div className="absolute top-[119px] left-6 right-6">
+              <div className="text-white font-['DM_Sans'] text-base font-normal leading-[160%] tracking-[0.051px] mb-4">
+                Generating application...
+              </div>
+
+              {/* Progress Bar */}
+              <div className="mb-4">
+                <div className="w-[275px] h-[19px] bg-gray-600 rounded overflow-hidden">
+                  <div className="h-full bg-[#54FFD4] w-[15%]"></div>
+                </div>
+              </div>
+
+              <div className="text-white font-['DM_Sans'] text-base font-normal leading-[160%] tracking-[0.051px] mb-8">
+                15% complete
+              </div>
             </div>
-          </div>
 
-          {/* Divider */}
-          <div className="absolute top-[242px] left-0 right-0 h-0 bg-white/18"></div>
+            {/* Divider */}
+            <div className="absolute top-[242px] left-0 right-0 h-0 bg-white/18"></div>
 
-          {/* Key Considerations */}
-          <div className="absolute top-[266px] left-6 right-6 bottom-6">
-            <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
-              Key considerations:<br />
-              1. Legal Structure.<br />
-              2. Business Activities.<br />
-              3. Physical Space.
+            {/* Key Considerations */}
+            <div className="absolute top-[266px] left-6 right-6 bottom-6">
+              <div className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px]">
+                Key considerations:<br />
+                1. Legal Structure.<br />
+                2. Business Activities.<br />
+                3. Physical Space.
+              </div>
             </div>
           </div>
         </div>
