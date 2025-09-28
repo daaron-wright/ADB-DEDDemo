@@ -152,7 +152,7 @@ export const CollapsibleJourneyView: React.FC<CollapsibleJourneyViewProps> = ({
 }) => {
   const [sections, setSections] = useState<JourneySection[]>(initialSections);
   const completionRatio = totalCount > 0 ? completedCount / totalCount : 0;
-  const completionPercent = Math.round(completionRatio * 100);
+  const completionPercent = Math.min(100, Math.round(completionRatio * 100));
 
   const toggleSection = (sectionId: string) => {
     setSections(prev => prev.map(section =>
