@@ -93,6 +93,14 @@ export default function Index() {
     applyFocusPoint();
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (focusUpdateRaf.current !== null && typeof window !== 'undefined') {
+        window.cancelAnimationFrame(focusUpdateRaf.current);
+      }
+    };
+  }, []);
+
   // UAE PASS Login Handler
   const handleUAEPassLogin = (userType: 'applicant' | 'reviewer', userData: any) => {
     setLoggedInUser(userData);
