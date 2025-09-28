@@ -43,10 +43,11 @@ const priorityOptions = [
 
 const stageOptions = [
   { label: 'All stages', value: 'all' },
-  { label: 'Technical Review', value: 'Technical Review' },
-  { label: 'Compliance Check', value: 'Compliance Check' },
-  { label: 'Field Inspection', value: 'Field Inspection' },
-  { label: 'Financial Vetting', value: 'Financial Vetting' },
+  { label: 'Questionnaire', value: 'Questionnaire' },
+  { label: 'Business Registration', value: 'Business Registration' },
+  { label: 'Submit Documents', value: 'Submit Documents' },
+  { label: 'Business Licensing', value: 'Business Licensing' },
+  { label: 'Pre-Operational Inspection', value: 'Pre-Operational Inspection' },
 ] as const;
 
 const slugify = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
