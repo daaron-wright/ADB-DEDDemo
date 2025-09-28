@@ -38,6 +38,25 @@ export default function Index() {
     }
   ];
 
+  const handleTileClick = (categoryId: string, categoryTitle: string) => {
+    setChatState({
+      isOpen: true,
+      category: categoryId,
+    });
+  };
+
+  const handleCloseChat = () => {
+    setChatState({
+      isOpen: false,
+      category: null,
+    });
+  };
+
+  const getChatTitle = () => {
+    const category = businessCategories.find(cat => cat.id === chatState.category);
+    return category ? `${category.title} AI Assistant` : 'AI Business';
+  };
+
   return (
     <div className="min-h-screen bg-white font-dm-sans overflow-hidden relative">
       {/* Background blur effects */}
