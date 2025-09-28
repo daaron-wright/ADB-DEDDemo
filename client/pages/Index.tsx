@@ -369,20 +369,20 @@ export default function Index() {
                       {/* Content Overlay */}
                       <div className="absolute bottom-4 left-4 right-4 z-10">
                         <motion.div
-                          className="flex items-center justify-between rounded-2xl border p-4 backdrop-blur-sm"
+                          className="flex items-center justify-between rounded-2xl border p-4 backdrop-blur-md"
                           animate={{
                             backgroundColor: isElevated
-                              ? 'rgba(14, 165, 233, 0.22)'
-                              : 'rgba(255, 255, 255, 0.3)',
-                            borderColor: isElevated ? 'rgba(14, 165, 233, 0.4)' : 'rgba(255, 255, 255, 0.16)',
+                              ? 'rgba(255, 255, 255, 0.45)'
+                              : 'rgba(255, 255, 255, 0.28)',
+                            borderColor: isElevated ? 'rgba(255, 255, 255, 0.6)' : 'rgba(255, 255, 255, 0.18)',
                           }}
                           transition={{ duration: 0.3 }}
                         >
                           <div className="flex-1">
-                            <p className="text-white/65 text-xs font-normal mb-1">
+                            <p className="text-slate-600 text-xs font-medium mb-1">
                               {category.subtitle}
                             </p>
-                            <h3 className="text-white text-xl font-semibold leading-tight">
+                            <h3 className="text-slate-900 text-xl font-semibold leading-tight">
                               {category.title}
                             </h3>
                           </div>
@@ -391,8 +391,8 @@ export default function Index() {
                           <motion.div
                             className="flex h-11 w-11 items-center justify-center rounded-full border"
                             animate={{
-                              borderColor: isElevated ? 'rgba(14, 165, 233, 0.45)' : 'rgba(255, 255, 255, 0.2)',
-                              backgroundColor: isElevated ? 'rgba(14, 165, 233, 0.2)' : 'transparent',
+                              borderColor: isElevated ? 'rgba(255, 255, 255, 0.6)' : 'rgba(255, 255, 255, 0.25)',
+                              backgroundColor: isElevated ? 'rgba(255, 255, 255, 0.4)' : 'rgba(255, 255, 255, 0.15)',
                               scale: isElevated ? 1.06 : 1,
                             }}
                             transition={{ duration: 0.2 }}
