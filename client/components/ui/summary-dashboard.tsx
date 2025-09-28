@@ -207,7 +207,7 @@ const StatisticCard = () => {
   );
 };
 
-const NotificationBanner = () => {
+const StatusBar = () => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -222,17 +222,17 @@ const NotificationBanner = () => {
         });
       }, 50);
       return () => clearInterval(interval);
-    }, 500);
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <motion.div
-      initial={{ y: -100, opacity: 0 }}
+      initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="absolute top-20 left-1/2 transform -translate-x-1/2 z-50"
+      transition={{ duration: 0.5, delay: 1.8 }}
+      className="mt-6 flex justify-center"
     >
       <div className="bg-white/10 backdrop-blur-md rounded-full shadow-lg p-2 w-96">
         <div className="flex items-center gap-3">
@@ -247,7 +247,7 @@ const NotificationBanner = () => {
           </div>
           <div className="flex-1">
             <div className="text-white text-sm font-semibold">
-              {progress < 100 ? 'Analysis in progress...' : 'Analysis Complete'}
+              {progress < 100 ? 'Analysis in progress...' : 'View Gap Analysis'}
             </div>
             <div className="w-full bg-white/10 rounded-full h-1.5 mt-1">
               <motion.div
@@ -288,8 +288,6 @@ export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboard
           <div className="absolute inset-0 bg-black/30"></div>
         </div>
 
-        {/* Notification Banner */}
-        <NotificationBanner />
 
         {/* Header */}
         <motion.div
@@ -348,6 +346,9 @@ export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboard
             </div>
             <SoundVisualization />
           </motion.div>
+
+          {/* Status Bar */}
+          <StatusBar />
 
           {/* Dashboard Content */}
           <div className="grid grid-cols-12 gap-8 max-w-7xl mx-auto">
