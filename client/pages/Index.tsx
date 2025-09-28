@@ -102,64 +102,6 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-white overflow-hidden relative">
-      {/* Background blur effects */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Large purple gradient blur */}
-        <motion.svg
-          className="absolute opacity-60"
-          style={{
-            width: '1028px',
-            height: '1580px',
-            left: '-38px',
-            top: '-919px',
-            translateX,
-            translateY,
-          }}
-          width="1588"
-          height="2140"
-          viewBox="0 0 1588 2140"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <filter id="filter0_f_0_1331" x="0" y="0" width="1587.52" height="2140" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-              <feFlood floodOpacity="0" result="BackgroundImageFix"/>
-              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-              <feGaussianBlur stdDeviation="140" result="effect1_foregroundBlur_0_1331"/>
-            </filter>
-            <linearGradient id="paint0_linear_0_1331" x1="545" y1="994" x2="845" y2="1514" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#AEAAFE"/>
-              <stop offset="1" stopColor="#F0EEFD"/>
-            </linearGradient>
-          </defs>
-          <g filter="url(#filter0_f_0_1331)">
-            <path d="M1055 1092.5C1055 1528.8 1579.26 1860 1117 1860C654.738 1860 280 1506.3 280 1070C280 633.695 654.738 280 1117 280C1579.26 280 1055 656.195 1055 1092.5Z" fill="url(#paint0_linear_0_1331)"/>
-          </g>
-        </motion.svg>
-        
-        {/* White blur elements */}
-        <div 
-          className="absolute w-[924px] h-[761px] bg-white opacity-80"
-          style={{
-            left: '-188px',
-            top: '204px',
-            filter: 'blur(100px)',
-            borderRadius: '50%'
-          }}
-        />
-        
-        <div 
-          className="absolute w-[884px] h-[319px] bg-white opacity-80"
-          style={{
-            left: '158px',
-            top: '179px',
-            filter: 'blur(100px)',
-            borderRadius: '50%'
-          }}
-        />
-      </div>
-
-      {/* Main content */}
       <div className="relative z-10">
         {/* Navigation Header */}
         <header className="flex justify-between items-center px-8 py-6 border-b border-gray-100/50">
