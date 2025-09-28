@@ -228,8 +228,8 @@ export default function ApplicantPortal() {
     return diffInDays <= 3;
   }).length;
 
-  const handleDirectorateChange = (value: string, checked: CheckedState) => {
-    if (checked === true) {
+  const handleDirectorateChange = (value: string, checked: boolean) => {
+    if (checked) {
       setSelectedDirectorates((prev) => {
         if (prev.includes(value)) return prev;
         return [...prev, value];
@@ -239,8 +239,8 @@ export default function ApplicantPortal() {
     }
   };
 
-  const handleToggleAllDirectorates = (checked: CheckedState) => {
-    if (checked === true || (checked === 'indeterminate' && !allDirectoratesSelected)) {
+  const handleToggleAllDirectorates = (checked: boolean) => {
+    if (checked) {
       setSelectedDirectorates(defaultDirectorates);
     } else {
       setSelectedDirectorates([]);
