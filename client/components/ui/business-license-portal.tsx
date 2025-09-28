@@ -60,7 +60,9 @@ const JourneyCard: React.FC<JourneyCardProps> = ({
 
   const completedItems = items.filter(item => item.completed).length;
   const progressPercentage = items.length > 0 ? (completedItems / items.length) * 100 : 0;
-  const progressValue = Math.round(progressPercentage);
+  const progressBasis = progress > 0 ? progress : progressPercentage;
+  const clampedProgress = Math.min(100, Math.max(0, progressBasis));
+  const progressValue = Math.round(clampedProgress);
 
   const handleAddItem = () => {
     if (newItem.trim()) {
