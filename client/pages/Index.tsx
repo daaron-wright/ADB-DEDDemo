@@ -210,6 +210,35 @@ export default function Index() {
         />
       </motion.div>
 
+      {/* Floating particles */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {Array.from({ length: 6 }, (_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 rounded-full"
+            style={{
+              left: `${20 + i * 15}%`,
+              top: `${30 + (i % 2) * 40}%`
+            }}
+            animate={{
+              background: hoveredCategory
+                ? `linear-gradient(45deg, ${currentTheme.primary}, ${currentTheme.secondary})`
+                : 'linear-gradient(45deg, rgba(138, 43, 226, 0.3), rgba(147, 112, 219, 0.2))',
+              y: [0, -30, 0],
+              x: [0, Math.sin(i) * 20, 0],
+              scale: hoveredCategory ? [1, 1.5, 1] : [1, 1.2, 1],
+              opacity: [0.3, 0.7, 0.3]
+            }}
+            transition={{
+              duration: 4 + i,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.5
+            }}
+          />
+        ))}
+      </div>
+
       {/* Ripple effect */}
       <AnimatePresence>
         {rippleEffect.active && (
