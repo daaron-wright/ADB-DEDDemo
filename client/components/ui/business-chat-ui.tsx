@@ -174,28 +174,19 @@ const getCategoryTitle = (category: string) => {
 const queryClient = new QueryClient();
 
 export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business" }: BusinessChatUIProps) {
-  const [messages, setMessages] = usePersistentState<BusinessMessage[]>(`business-chat-messages-${category}`, [
-    {
-      id: '1',
-      content: 'I want to invest my money and open a restaurant business in Abu Dhabi. What commercial activities align with my business type and can you help me set up?',
-      isAI: false,
-      timestamp: new Date(),
-      rating: 5,
-    },
-    {
-      id: '2',
-      content: 'Opening a restaurant in Abu Dhabi involves several steps: planning, licensing, approvals, staffing, fit-out, and operations.',
-      isAI: true,
-      timestamp: new Date(),
-    },
-    {
-      id: '3',
-      content: 'You will need a Commercial License for F&B. I have generated an investor journey below that will assist you.',
-      isAI: true,
-      timestamp: new Date(),
-      hasActions: true,
-    }
-  ]);
+  const getInitialMessages = () => {
+    return conversationFlows[category as keyof typeof conversationFlows] || conversationFlows.general;
+  }
+
+  const [messages, setMessages] = usePersistentState<BusinessMessage[]>(
+    `business-chat-messages-${category}`,
+    getInitialMessages()
+  );
+
+  useEffect(() => {
+    // Reset messages when category changes to ensure the correct flow is loaded
+    setMessages(getInitialMessages());
+  }, [category]);
 
   if (!isOpen) return null;
 
