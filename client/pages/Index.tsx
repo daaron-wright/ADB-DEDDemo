@@ -261,6 +261,8 @@ export default function Index() {
               {businessCategories.map((category, index) => {
                 const categoryTheme = colorThemes[category.id as keyof typeof colorThemes];
                 const isHovered = hoveredCategory === category.id;
+                const isActive = activeCategory === category.id;
+                const isElevated = isHovered || isActive;
 
                 return (
                   <div
