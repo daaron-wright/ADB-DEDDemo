@@ -47,7 +47,6 @@ const SoundVisualization = () => {
 };
 
 export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({ isOpen, onClose, onExploreAnother }) => {
-  const [showUAEPassLogin, setShowUAEPassLogin] = useState(false);
   const [showBusinessPortal, setShowBusinessPortal] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
 
