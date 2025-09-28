@@ -71,55 +71,63 @@ const CollapsibleSection: React.FC<{
   onItemUpdate?: (itemId: string, status: JourneyItem['status']) => void;
 }> = ({ section, onToggle, onItemUpdate }) => {
   return (
-    <div className="border-b border-white/10 last:border-b-0">
-      {/* Section Header */}
+    <div className="border-t border-white/12 first:border-t-0">
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between py-6 px-8 text-left hover:bg-white/5 transition-colors"
+        className="flex w-full items-center justify-between px-6 py-5 text-left transition-colors duration-200 hover:bg-white/6"
       >
-        <h3 className="text-white font-['DM_Sans'] text-lg font-semibold leading-[160%] tracking-[0.058px]">
+        <h3 className="text-base font-semibold tracking-tight text-white/85 sm:text-lg">
           {section.title}
         </h3>
         <motion.div
           animate={{ rotate: section.isCollapsed ? 0 : 180 }}
           transition={{ duration: 0.2 }}
+          className="text-white/55"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white/70">
-            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </motion.div>
       </button>
 
-      {/* Section Content */}
       <AnimatePresence>
         {!section.isCollapsed && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            transition={{ duration: 0.28, ease: 'easeInOut' }}
             className="overflow-hidden"
           >
-            <div className="px-8 pb-6 space-y-4">
+            <div className="space-y-3 px-6 pb-5">
               {section.id === 'business-activities' && (
-                <p className="text-white/70 font-['DM_Sans'] text-sm leading-[160%] tracking-[0.045px] mb-4">
-                  Choose from the below AI recommended activities
+                <p className="text-sm text-white/60">
+                  Choose from the below AI recommended activities.
                 </p>
               )}
-              
+
               {section.items.map((item) => (
-                <div key={item.id} className="flex items-center gap-10">
+                <div
+                  key={item.id}
+                  className="flex items-center gap-4 rounded-2xl border border-white/12 bg-white/[0.04] px-4 py-3"
+                >
                   <button
-                    onClick={() => onItemUpdate?.(item.id, 
-                      item.status === 'completed' ? 'pending' : 'completed'
-                    )}
-                    className="flex-shrink-0 hover:scale-105 transition-transform"
+                    onClick={() =>
+                      onItemUpdate?.(item.id, item.status === 'completed' ? 'pending' : 'completed')
+                    }
+                    className="flex-shrink-0 rounded-full focus:outline-none focus:ring-2 focus:ring-white/30"
+                    aria-label={`Toggle ${item.text}`}
                   >
                     <StatusIcon status={item.status} type={item.type} />
                   </button>
-                  <span className="text-white font-['DM_Sans'] text-lg font-normal leading-[160%] tracking-[0.058px] flex-1">
-                    {item.text}
-                  </span>
+                  <div className="flex flex-1 flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <span className="text-sm font-medium text-white/85 sm:text-base">
+                      {item.text}
+                    </span>
+                    <span className="text-xs font-medium capitalize tracking-[0.08em] text-white/45">
+                      {formatStatus(item.status)}
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
