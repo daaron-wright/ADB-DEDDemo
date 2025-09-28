@@ -39,6 +39,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     ref,
   ) => {
     const inputRef = useRef<HTMLInputElement | null>(null);
+    const generatedId = useId();
+    const inputId = id ?? generatedId;
 
     const setRefs = useCallback(
       (node: HTMLInputElement | null) => {
