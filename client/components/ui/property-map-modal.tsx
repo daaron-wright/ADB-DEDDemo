@@ -14,6 +14,7 @@ interface Property {
 interface PropertyMapModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onReportRequest: () => void;
 }
 
 const properties: Property[] = [
