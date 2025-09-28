@@ -259,7 +259,7 @@ export function GapAnalysisView({ isOpen, onClose, category }: GapAnalysisViewPr
         <div className="relative z-10 h-[calc(100vh-87px)] overflow-hidden">
           <MainContent />
           <FootfallInsight />
-          <GapAnalysisPanel />
+          <GapAnalysisPanel onShowProperties={() => setShowProperties(true)} />
           <StatisticsBar />
         </div>
       </motion.div>
