@@ -349,11 +349,11 @@ export default function Index() {
 
                           {/* Enhanced Arrow Button */}
                           <motion.div
-                            className="w-11 h-11 rounded-full border flex items-center justify-center"
+                            className="flex h-11 w-11 items-center justify-center rounded-full border"
                             animate={{
-                              borderColor: isHovered ? categoryTheme.accent : 'rgba(255, 255, 255, 0.18)',
-                              backgroundColor: isHovered ? `${categoryTheme.primary}30` : 'transparent',
-                              scale: isHovered ? 1.1 : 1
+                              borderColor: isElevated ? 'rgba(14, 165, 233, 0.45)' : 'rgba(255, 255, 255, 0.2)',
+                              backgroundColor: isElevated ? 'rgba(14, 165, 233, 0.2)' : 'transparent',
+                              scale: isElevated ? 1.06 : 1,
                             }}
                             transition={{ duration: 0.2 }}
                           >
