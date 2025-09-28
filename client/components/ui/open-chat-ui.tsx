@@ -177,7 +177,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
   const [chatState, setChatState] = useState<ChatState>('idle');
   const [isListening, setIsListening] = useState(false);
   const nodeRef = useRef(null);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
 
   // Initialize speech recognition
   useEffect(() => {
