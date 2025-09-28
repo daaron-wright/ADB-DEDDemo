@@ -202,6 +202,24 @@ export default function ApplicantPortal() {
     return diffInDays <= 14;
   }).length;
 
+  const approvalsLastSevenDays = applications.filter((item) => {
+    if (item.status !== 'Approved') {
+      return false;
+    }
+    const approvalDate = new Date(item.lastUpdated);
+    const diffInDays = (Date.now() - approvalDate.getTime()) / (1000 * 60 * 60 * 24);
+    return diffInDays <= 7;
+  }).length;
+
+  const activeReviewsUpdated = applications.filter((item) => {
+    if (!(item.status === 'In Review' || item.status === 'Awaiting Documents')) {
+      return false;
+    }
+    const updateDate = new Date(item.lastUpdated);
+    const diffInDays = (Date.now() - updateDate.getTime()) / (1000 * 60 * 60 * 24);
+    return diffInDays <= 3;
+  }).length;
+
   const handleDirectorateChange = (value: string, checked: CheckedState) => {
     if (checked === true) {
       setSelectedDirectorates((prev) => {
