@@ -310,11 +310,11 @@ export default function Index() {
                     <motion.div
                       className="relative h-[271px] w-full overflow-hidden rounded-3xl border"
                       animate={{
-                        borderColor: isElevated ? categoryTheme.primary : 'rgba(255, 255, 255, 0.9)',
-                        scale: isElevated ? 1.015 : 1,
+                        borderColor: isElevated ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.7)',
+                        scale: isElevated ? 1.02 : 1,
                         boxShadow: isElevated
-                          ? '0 22px 45px -22px rgba(14, 165, 233, 0.35)'
-                          : '0 12px 28px -18px rgba(15, 23, 42, 0.18)',
+                          ? '0 28px 52px -28px rgba(15, 15, 45, 0.35)'
+                          : '0 18px 40px -26px rgba(15, 15, 45, 0.18)',
                       }}
                       transition={{ duration: 0.35, ease: 'easeOut' }}
                       whileHover={{ y: -3 }}
