@@ -293,6 +293,12 @@ export default function Index() {
           handleCloseGeneralChat();
         }}
       />
+
+      {/* Property Map View */}
+      <PropertyMapView
+        isOpen={propertyMapState.isOpen}
+        onClose={handleClosePropertyMap}
+      />
     </div>
   );
 }
