@@ -31,6 +31,27 @@ export default function Index() {
   const fallbackFocus = { x: 640, y: 360 };
   const [focusPoint, setFocusPoint] = useState<{ x: number; y: number }>(fallbackFocus);
   const categoryPositions = useRef<Record<string, { x: number; y: number }>>({});
+  const focusUpdateRaf = useRef<number | null>(null);
+  const queuedFocusPoint = useRef<{ x: number; y: number } | null>(null);
+
+  const queueFocusPoint = (point: { x: number; y: number }) => {
+    if (typeof window === 'undefined') {
+      setFocusPoint(point);
+      return;
+    }
+
+    queuedFocusPoint.current = point;
+
+    if (focusUpdateRaf.current === null) {
+      focusUpdateRaf.current = window.requestAnimationFrame(() => {
+        if (queuedFocusPoint.current) {
+          setFocusPoint(queuedFocusPoint.current);
+          queuedFocusPoint.current = null;
+        }
+        focusUpdateRaf.current = null;
+      });
+    }
+  };
 
   // Color themes for each business category
   const baseTheme = {
