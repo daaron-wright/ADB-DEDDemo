@@ -158,6 +158,70 @@ export default function Index() {
     navigate(destination, { state: { user: userData } });
   };
 
+  type JourneyState = 'done' | 'current' | 'upcoming';
+
+  const applicantJourney: Array<{
+    id: string;
+    title: string;
+    description: string;
+    state: JourneyState;
+    statusDetail?: string;
+  }> = [
+    {
+      id: 'questionnaire',
+      title: 'Questionnaire',
+      description: 'Personalized intake is complete and responses now prefill every downstream form automatically.',
+      state: 'done',
+      statusDetail: 'Finished 12 Mar 2024',
+    },
+    {
+      id: 'business-registration',
+      title: 'Business Registration',
+      description: 'Trade name is reserved and the entity profile has been registered with the Department of Economic Development.',
+      state: 'done',
+      statusDetail: 'Certificate issued 14 Mar 2024',
+    },
+    {
+      id: 'submit-documents',
+      title: 'Submit Documents',
+      description: 'All mandatory files are uploaded and validated, including Emirates ID, tenancy contract, and shareholder agreements.',
+      state: 'done',
+      statusDetail: '5 documents verified',
+    },
+    {
+      id: 'business-licensing',
+      title: 'Business Licensing',
+      description: 'Licensing specialists are reviewing the financial plan, compliance attachments, and fee payments.',
+      state: 'current',
+      statusDetail: 'In review now',
+    },
+    {
+      id: 'pre-operational-inspection',
+      title: 'Pre-Operational Inspection',
+      description: 'Inspection will be scheduled once licensing is approved so you can activate utilities and begin fit-out.',
+      state: 'upcoming',
+      statusDetail: 'Awaiting scheduling',
+    },
+  ];
+
+  const journeyStateTokens: Record<JourneyState, { label: string; badgeClass: string; dotClass: string }> = {
+    done: {
+      label: 'Completed',
+      badgeClass: 'border-emerald-200 bg-emerald-50 text-emerald-700',
+      dotClass: 'bg-emerald-500',
+    },
+    current: {
+      label: 'In progress',
+      badgeClass: 'border-purple-200 bg-purple-50 text-purple-700',
+      dotClass: 'bg-purple-500',
+    },
+    upcoming: {
+      label: 'Next',
+      badgeClass: 'border-slate-200 bg-slate-50 text-slate-600',
+      dotClass: 'bg-slate-300',
+    },
+  };
+
   const businessCategories = [
     {
       id: "restaurants",
