@@ -191,7 +191,7 @@ export const PropertyMapModal: React.FC<PropertyMapModalProps> = ({ isOpen, onCl
           </div>
 
           {/* Map Content */}
-          <div className="relative w-full h-full mt-16">
+          <div className="relative w-full h-full" style={{ marginTop: '87px' }}>
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/30">
               <img 
                 src="https://api.builder.io/api/v1/image/assets/TEMP/24d2c321c242bd9798f44e1501c06f777c444c46?width=2388"
