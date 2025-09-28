@@ -56,8 +56,6 @@ const licenseOptions = [
   { label: 'Professional License', value: 'Professional License' },
 ] as const;
 
-const slugify = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-
 const applications: ApplicationRecord[] = [
   {
     id: 'APP-48291',
