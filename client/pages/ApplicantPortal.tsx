@@ -445,23 +445,23 @@ export default function ApplicantPortal() {
       <section className="space-y-5">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-white">Application overview</h2>
-            <p className="text-sm text-neutral-300">
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-900">Application overview</h2>
+            <p className="text-sm text-slate-600">
               Showing {filteredApplications.length} of {applications.length} applications.
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-neutral-400">Sort</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Sort</span>
             <Select value={sortBy} onValueChange={(value: SortOption) => setSortBy(value)}>
-              <SelectTrigger className="h-10 w-48 rounded-2xl border-neutral-700 bg-neutral-900 text-sm text-neutral-100">
+              <SelectTrigger className="h-10 w-48 rounded-2xl border-neutral-200 bg-white text-sm text-slate-900">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="rounded-2xl border border-neutral-800 bg-neutral-950/95 text-neutral-100">
+              <SelectContent className="rounded-2xl border border-neutral-200 bg-white text-slate-900">
                 <SelectGroup>
-                  <SelectItem value="recent" className="rounded-xl text-sm text-neutral-100 data-[state=checked]:bg-neutral-800">
+                  <SelectItem value="recent" className="rounded-xl text-sm text-slate-900 data-[state=checked]:bg-purple-50">
                     Last updated
                   </SelectItem>
-                  <SelectItem value="progress" className="rounded-xl text-sm text-neutral-100 data-[state=checked]:bg-neutral-800">
+                  <SelectItem value="progress" className="rounded-xl text-sm text-slate-900 data-[state=checked]:bg-purple-50">
                     Progress (high to low)
                   </SelectItem>
                 </SelectGroup>
