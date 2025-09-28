@@ -154,40 +154,13 @@ export default function Index() {
     return category ? `${category.subtitle} for ${category.title}` : 'AI Business';
   };
 
-  // Enhanced mouse tracking
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
   const pageRef = useRef<HTMLDivElement>(null);
 
-  const springConfig = { damping: 25, stiffness: 150, mass: 1 };
-  const springX = useSpring(mouseX, springConfig);
-  const springY = useSpring(mouseY, springConfig);
-
-  // Background animation transforms
-  const translateX = useTransform(springX, (x) => (x - (typeof window !== 'undefined' ? window.innerWidth / 2 : 800)) * 0.05);
-  const translateY = useTransform(springY, (y) => (y - (typeof window !== 'undefined' ? window.innerHeight / 2 : 400)) * 0.05);
-
-  // Get current color theme
-  const currentTheme = hoveredCategory ? colorThemes[hoveredCategory as keyof typeof colorThemes] : colorThemes.default;
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-
-      // Update CSS custom properties for gradient following
-      if (pageRef.current) {
-        pageRef.current.style.setProperty('--mouse-x', `${e.clientX}px`);
-        pageRef.current.style.setProperty('--mouse-y', `${e.clientY}px`);
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [mouseX, mouseY]);
+  const currentTheme = hoveredCategory
+    ? colorThemes[hoveredCategory as keyof typeof colorThemes]
+    : activeCategory
+      ? colorThemes[activeCategory as keyof typeof colorThemes]
+      : colorThemes.default;
 
   const handleCategoryHover = (categoryId: string, event: React.MouseEvent<HTMLDivElement>) => {
     setHoveredCategory(categoryId);
