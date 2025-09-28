@@ -429,11 +429,3 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
     </QueryClientProvider>
   );
 }
-
-// Extend Window interface for speech recognition
-declare global {
-  interface Window {
-    SpeechRecognition: typeof SpeechRecognition;
-    webkitSpeechRecognition: typeof SpeechRecognition;
-  }
-}
