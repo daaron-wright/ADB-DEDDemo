@@ -99,7 +99,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           aria-label={label}
         />
         <label
-          htmlFor={id}
+          htmlFor={inputId}
           className={cn('flex flex-1 flex-col text-sm font-medium text-slate-900', labelClassName)}
         >
           <span>{label}</span>
