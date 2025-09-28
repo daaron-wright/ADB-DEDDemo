@@ -349,12 +349,14 @@ export function CompetitorsView({ isOpen, onClose, category }: CompetitorsViewPr
       </motion.div>
 
       {/* Gap Analysis View */}
-      <GapAnalysisView
-        key="gap-analysis-view"
-        isOpen={showGapAnalysis}
-        onClose={() => setShowGapAnalysis(false)}
-        category={category}
-      />
+      {showGapAnalysis && (
+        <GapAnalysisView
+          key="gap-analysis-view"
+          isOpen={showGapAnalysis}
+          onClose={() => setShowGapAnalysis(false)}
+          category={category}
+        />
+      )}
     </AnimatePresence>
   );
 }
