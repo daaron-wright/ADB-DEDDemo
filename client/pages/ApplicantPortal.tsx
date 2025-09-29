@@ -367,6 +367,14 @@ export default function ApplicantPortal() {
   const [selectedLicenseType, setSelectedLicenseType] = useState<(typeof licenseOptions)[number]['value']>('all');
   const [progressThreshold, setProgressThreshold] = useState<number[]>([30]);
   const [sortBy, setSortBy] = useState<SortOption>('recent');
+  const [activeJourneyStageId, setActiveJourneyStageId] = useState(
+    () => applicantJourney.find((stage) => stage.state === 'current')?.id ?? applicantJourney[0].id,
+  );
+
+  const activeJourneyStage = useMemo(
+    () => applicantJourney.find((stage) => stage.id === activeJourneyStageId) ?? applicantJourney[0],
+    [activeJourneyStageId],
+  );
 
   const location = useLocation();
   const portalUser = (location.state as { user?: { name?: string; role?: string; email?: string; avatarUrl?: string } } | undefined)?.user;
