@@ -10,7 +10,6 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { ReviewQueueItem, DocumentArtifact } from "@/components/portal/ReviewQueueCard";
 import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
 
 interface ReviewFocusSheetProps {
   open: boolean;
