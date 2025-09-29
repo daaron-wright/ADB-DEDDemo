@@ -1165,10 +1165,6 @@ export function BusinessChatUI({
     }
   };
 
-  const handleSummarize = () => {
-    setShowSummaryDashboard(true);
-  };
-
   const generateAIResponse = (userMessage: string): string => {
     const lowerMessage = userMessage.toLowerCase();
 
