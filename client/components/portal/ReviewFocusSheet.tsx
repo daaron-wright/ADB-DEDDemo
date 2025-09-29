@@ -17,7 +17,7 @@ import {
   Award,
   BadgeCheck,
   BarChart3,
-  CheckCircle2,
+  CircleCheck,
   FileSignature,
   FileText,
   Ruler,
