@@ -676,7 +676,7 @@ const DiscoverExperienceView = ({ category, onSendMessage, isStandalone = false 
 
 const queryClient = new QueryClient();
 
-export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business" }: BusinessChatUIProps) {
+export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business", initialMessage }: BusinessChatUIProps) {
   const [threads, setThreads] = useState<ChatThread[]>([]);
   const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
   const [showSummaryDashboard, setShowSummaryDashboard] = useState(false);
