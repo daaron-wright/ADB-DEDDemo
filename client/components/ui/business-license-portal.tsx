@@ -446,6 +446,7 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
   const [lastActivity, setLastActivity] = useState(Date.now());
   const [showCollapsibleView, setShowCollapsibleView] = useState(true);
   const [showExplainability, setShowExplainability] = useState(false);
+  const questionnaireRef = useRef<SimpleQuestionnaireHandle>(null);
 
   // Sample data for CollapsibleJourneyView
   const journeySections = [
