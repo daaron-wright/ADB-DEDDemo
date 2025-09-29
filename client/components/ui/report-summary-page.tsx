@@ -197,6 +197,8 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({ isOpen, on
                 <div className="flex justify-center py-4">
                   <UAEPassLogin
                     onLogin={handleUAEPassLogin}
+                    mode="quick"
+                    defaultUserType="applicant"
                     trigger={(
                       <button className="transform transition-transform duration-200 hover:scale-105">
                         <img
