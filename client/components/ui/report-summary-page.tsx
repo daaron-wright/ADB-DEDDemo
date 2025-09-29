@@ -209,7 +209,7 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({ isOpen, on
                             event.currentTarget.click();
                           }
                         }}
-                        className="inline-flex outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0f766e] focus-visible:ring-offset-slate-900/20 transform transition-transform duration-200 hover:scale-105"
+                        className="inline-flex cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0f766e] focus-visible:ring-offset-slate-900/20 transform transition-transform duration-200 hover:scale-105"
                       >
                         <img
                           src="https://api.builder.io/api/v1/image/assets/TEMP/6af0c42146feff37d8c56f7d5b67c0ce1e2c12e1?width=348"
