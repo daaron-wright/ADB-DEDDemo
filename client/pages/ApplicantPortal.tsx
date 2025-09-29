@@ -27,7 +27,7 @@ interface ApplicationRecord {
   directorate: string;
   beneficiary: 'Citizen' | 'Resident' | 'Investor' | 'Visitor';
   status: 'In Review' | 'Awaiting Documents' | 'Approved' | 'Draft';
-  licenseType: 'Commercial License' | 'Dual License' | 'Professional License';
+  licenseType: 'Commercial License' | 'Dual License';
   progress: number;
   submissionDate: string;
   lastUpdated: string;
@@ -38,7 +38,6 @@ interface ApplicationRecord {
 const directorateOptions = [
   'Department of Economic Development',
   'Abu Dhabi Agriculture and Food Safety Authority',
-  'Department of Health',
   'Department of Culture and Tourism',
 ] as const;
 
