@@ -13,6 +13,7 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { PortalPageLayout } from "@/components/portal/PortalPageLayout";
 import { PortalProfileMenu } from "@/components/portal/PortalProfileMenu";
+import { CollapsibleJourneyView } from "@/components/ui/collapsible-journey-view";
 import { cn } from "@/lib/utils";
 
 type JourneyHighlightState = "done" | "current" | "upcoming";
