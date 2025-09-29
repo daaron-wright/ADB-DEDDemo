@@ -879,7 +879,7 @@ export default function ApplicantPortal() {
               >
                 <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                   <div className="space-y-1">
-                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                       {application.id}
                     </p>
                     <h3 className="text-xl font-semibold tracking-tight text-slate-900 md:text-2xl">
