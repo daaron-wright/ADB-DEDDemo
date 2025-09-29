@@ -358,6 +358,7 @@ export default function ApplicantPortal() {
   const [selectedBusinessActivities, setSelectedBusinessActivities] = useState<
     string[]
   >(["full-service-restaurant", "charcoal-bbq"]);
+  const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
 
   const actorOptions = useMemo<ActorOption[]>(
     () => [
