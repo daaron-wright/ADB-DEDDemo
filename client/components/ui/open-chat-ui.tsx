@@ -366,7 +366,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                   </div>
 
                   {/* Input Footer */}
-                  <div className="p-4 border-t border-white/10">
+                  <div className="border-t border-white/60 bg-white/60 p-4">
                     <div className="flex items-center gap-2">
                       <input
                         type="text"
@@ -374,21 +374,21 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                         onChange={(e) => setInputValue(e.target.value)}
                         onKeyPress={handleKeyPress}
                         placeholder="Type your message..."
-                        className="flex-1 bg-white/10 text-white placeholder-white/60 border border-white/20 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#54FFD4]/50 focus:border-[#54FFD4] transition-colors backdrop-blur-sm"
+                        className="flex-1 rounded-xl border border-white/60 bg-white/80 px-3 py-2 text-sm text-slate-900 placeholder-slate-500 transition-colors backdrop-blur-sm focus:border-[#54FFD4] focus:outline-none focus:ring-1 focus:ring-[#54FFD4]/50"
                         disabled={chatState !== 'idle'}
                       />
-                      
+
                       {/* Microphone Button */}
                       <button
                         onClick={isListening ? stopListening : startListening}
                         disabled={chatState === 'thinking' || chatState === 'responding'}
                         className={cn(
-                          "w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200",
+                          "flex h-10 w-10 items-center justify-center rounded-xl border border-transparent transition-all duration-200",
                           isListening
                             ? "bg-red-500 hover:bg-red-600 text-white"
                             : chatState === 'idle'
                             ? "bg-[#54FFD4] hover:bg-[#54FFD4]/80 text-black"
-                            : "bg-white/10 text-white/40 cursor-not-allowed"
+                            : "border-white/80 bg-white/60 text-slate-400 cursor-not-allowed"
                         )}
                       >
                         {isListening ? (
@@ -408,10 +408,10 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                         onClick={handleSendMessage}
                         disabled={!inputValue.trim() || chatState !== 'idle'}
                         className={cn(
-                          "w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200",
+                          "flex h-10 w-10 items-center justify-center rounded-xl border border-transparent transition-all duration-200",
                           inputValue.trim() && chatState === 'idle'
                             ? "bg-[#54FFD4] hover:bg-[#54FFD4]/80 text-black hover:scale-105"
-                            : "bg-white/10 text-white/40 cursor-not-allowed"
+                            : "border-white/80 bg-white/60 text-slate-400 cursor-not-allowed"
                         )}
                       >
                         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
