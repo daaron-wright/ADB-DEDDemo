@@ -829,6 +829,7 @@ export default function ReviewerPortal() {
                 key={item.id}
                 item={item}
                 onOpen={handleFocusOpen}
+                policyAssignments={reviewPolicyActors[item.id]}
               />
             ))}
           </div>
