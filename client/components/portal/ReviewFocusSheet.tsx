@@ -36,6 +36,33 @@ const dateFormatter = new Intl.DateTimeFormat("en-GB", {
   year: "numeric",
 });
 
+const documentStatusStyles: Record<DocumentArtifact["status"], string> = {
+  approved: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
+  pending: "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
+  rejected: "border-[#f4bebe] bg-[#fdf1f0] text-[#b23b31]",
+  under_review: "border-[#c7d2fe] bg-[#f0f4ff] text-[#4f46e5]",
+  required: "border-[#e0e7ff] bg-[#f8fafc] text-[#64748b]",
+};
+
+const documentTypeIcons: Record<DocumentArtifact["type"], string> = {
+  certificate: "🏆",
+  license: "📜",
+  permit: "✅",
+  form: "📋",
+  report: "📊",
+  contract: "📄",
+  plan: "📐",
+};
+
+const handleDocumentClick = (document: DocumentArtifact) => {
+  if (document.url) {
+    window.open(document.url, '_blank');
+  } else {
+    // Handle document preview/download logic here
+    console.log('Opening document:', document.name);
+  }
+};
+
 export function ReviewFocusSheet({
   open,
   review,
