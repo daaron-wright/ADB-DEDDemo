@@ -721,10 +721,10 @@ export default function ApplicantPortal() {
                       tabIndex={isActive ? 0 : -1}
                       onClick={() => setActiveJourneyStageId(stage.id)}
                       className={cn(
-                        'w-full rounded-2xl border px-4 py-3 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-200',
+                        'w-full rounded-2xl border px-4 py-3 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30',
                         isActive
-                          ? 'border-purple-400 bg-purple-50/80 shadow-[0_16px_40px_-28px_rgba(109,40,217,0.45)]'
-                          : 'border-neutral-200 bg-white hover:border-slate-900 hover:shadow-[0_12px_32px_-20px_rgba(24,32,63,0.55)]',
+                          ? 'border-[#0f766e] bg-[#eaf7f3] shadow-[0_16px_32px_-28px_rgba(11,64,55,0.32)]'
+                          : 'border-[#d8e4df] bg-white hover:border-[#0f766e] hover:shadow-[0_16px_30px_-28px_rgba(11,64,55,0.24)]',
                       )}
                     >
                       <div className="flex flex-wrap items-center justify-between gap-3">
