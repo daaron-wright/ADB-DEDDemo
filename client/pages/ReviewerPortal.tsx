@@ -262,6 +262,7 @@ export default function ReviewerPortal() {
     setDaysThreshold([7]);
     setSortBy('due');
     setPolicyAssignments(buildDefaultPolicyAssignments());
+    setFocusedReview(null);
   };
 
   const filters = (
