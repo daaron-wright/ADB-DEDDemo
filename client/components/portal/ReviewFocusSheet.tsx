@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
 import {
   Sheet,
@@ -12,6 +13,15 @@ import type { ReviewQueueItem, DocumentArtifact } from "@/components/portal/Revi
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import {
+  Award,
+  BadgeCheck,
+  BarChart3,
+  CheckCircle2,
+  FileSignature,
+  FileText,
+  Ruler,
+} from "lucide-react";
 
 interface ReviewFocusSheetProps {
   open: boolean;
