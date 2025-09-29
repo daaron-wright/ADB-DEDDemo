@@ -56,6 +56,8 @@ export function ReviewQueueCard({ item, onOpen }: ReviewQueueCardProps) {
     }
   };
 
+  const submissionDisplayDate = dateFormatter.format(new Date());
+
   return (
     <article
       role={onOpen ? "button" : undefined}
@@ -86,7 +88,7 @@ export function ReviewQueueCard({ item, onOpen }: ReviewQueueCardProps) {
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 text-slate-900">
         <Info label="Applicant" value={item.applicantName} />
-        <Info label="Submission" value={dateFormatter.format(new Date(item.submittedAt))} />
+        <Info label="Submission" value={submissionDisplayDate} />
         <Info label="Attachments" value={`${item.attachments} attachments`} />
         <Info label="Directorate" value={item.directorate} />
       </div>
