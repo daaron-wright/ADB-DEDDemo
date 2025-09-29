@@ -371,6 +371,37 @@ export default function ApplicantPortal() {
   const [activeJourneyStageId, setActiveJourneyStageId] = useState(
     () => applicantJourney.find((stage) => stage.state === 'current')?.id ?? applicantJourney[0].id,
   );
+  const [showJourneyView, setShowJourneyView] = useState(false);
+  const [selectedBusinessActivities, setSelectedBusinessActivities] = useState<string[]>([
+    'full-service-restaurant',
+    'charcoal-bbq'
+  ]);
+
+  // Map journey data to stepper format
+  const journeySteps: JourneyStep[] = applicantJourney.map((stage) => ({
+    id: stage.id,
+    label: stage.title,
+    state: stage.state
+  }));
+
+  // Business activities data
+  const businessActivities: BusinessActivity[] = [
+    {
+      id: 'full-service-restaurant',
+      label: 'Full-service restaurant',
+      isRecommended: true
+    },
+    {
+      id: 'charcoal-bbq',
+      label: 'Charcoal/coal BBQ services',
+      isRecommended: true
+    },
+    {
+      id: 'hospitality-catering',
+      label: 'Hospitality and catering services',
+      isRecommended: true
+    }
+  ];
 
   const activeJourneyStage = useMemo(
     () => applicantJourney.find((stage) => stage.id === activeJourneyStageId) ?? applicantJourney[0],
