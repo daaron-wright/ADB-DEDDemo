@@ -770,7 +770,7 @@ export default function ApplicantPortal() {
                 </span>
               </div>
               {activeJourneyStage.statusDetail ? (
-                <p className="mt-4 text-xs font-medium uppercase tracking-[0.28em] text-slate-400">
+                <p className="mt-4 text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
                   {activeJourneyStage.statusDetail}
                 </p>
               ) : null}
