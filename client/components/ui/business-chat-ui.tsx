@@ -1178,7 +1178,7 @@ export function BusinessChatUI({
     userData: any,
   ) => {
     setLoggedInUser(userData);
-    setShowBusinessPortal(true);
+    setShowBusinessPortal(false);
   };
 
   const activeThread = threads.find((t) => t.id === activeThreadId);
