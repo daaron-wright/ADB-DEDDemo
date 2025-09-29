@@ -350,10 +350,14 @@ const DiscoverExperienceView = ({
     },
   ];
 
+  const insightById = heatMapInsights.reduce<
+    Record<string, (typeof heatMapInsights)[number]>
+  >((acc, spot) => {
+    acc[spot.id] = spot;
+    return acc;
+  }, {});
   const activeInsightId = hoveredLocation ?? "corniche";
-  const activeInsight =
-    heatMapInsights.find((spot) => spot.id === activeInsightId) ??
-    heatMapInsights[0];
+  const activeInsight = insightById[activeInsightId] ?? heatMapInsights[0];
   const secondaryInsights = heatMapInsights.filter(
     (spot) => spot.id !== activeInsightId,
   );
