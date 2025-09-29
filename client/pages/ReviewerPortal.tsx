@@ -453,21 +453,15 @@ export default function ReviewerPortal() {
       });
   }, [searchTerm, selectedStage, daysUpperBound, sortBy]);
 
-  const atRiskCount = reviewQueue.filter(
-    (item) => item.slaStatus === "At Risk" || item.slaStatus === "Breached",
-  ).length;
-  const breachedCount = reviewQueue.filter(
-    (item) => item.slaStatus === "Breached",
-  ).length;
-  const recoverableCount = reviewQueue.filter(
-    (item) => item.slaStatus === "At Risk" && item.daysRemaining > 0,
-  ).length;
-  const highPriorityCount = reviewQueue.filter(
+  const highPriorityTotal = reviewQueue.filter(
     (item) => item.priority === "High",
   ).length;
-  const averageDaysRemaining = Math.round(
-    reviewQueue.reduce((acc, item) => acc + item.daysRemaining, 0) /
-      reviewQueue.length,
+  const highPriorityOnTrackCount = reviewQueue.filter(
+    (item) => item.priority === "High" && item.slaStatus === "On Track",
+  ).length;
+  const highPriorityAtRiskCount = Math.max(
+    highPriorityTotal - highPriorityOnTrackCount,
+    0,
   );
   const latestIntake = reviewQueue
     .map((item) => new Date(item.submittedAt))
@@ -670,7 +664,7 @@ export default function ReviewerPortal() {
       filters={filters}
       headerActions={headerActions}
     >
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <section className="grid gap-4 md:grid-cols-2">
         <SummaryMetric
           label="Queue volume"
           value={reviewQueue.length.toString()}
@@ -682,18 +676,13 @@ export default function ReviewerPortal() {
           trend={{ value: `${newIntakes48h} in 48 hours`, isPositive: true }}
         />
         <SummaryMetric
-          label="At risk or breached"
-          value={atRiskCount.toString()}
-          helper={`${breachedCount} breached • ${recoverableCount} recoverable`}
+          label="High priority not at risk"
+          value={highPriorityOnTrackCount.toString()}
+          helper={`${highPriorityAtRiskCount} high priority at risk`}
           trend={{
-            value: `${recoverableCount} within SLA`,
-            isPositive: recoverableCount > 0,
+            value: `${highPriorityTotal} total high priority`,
+            isPositive: highPriorityOnTrackCount === highPriorityTotal,
           }}
-        />
-        <SummaryMetric
-          label="High priority"
-          value={highPriorityCount.toString()}
-          helper={`Avg days remaining ${averageDaysRemaining}d`}
         />
       </section>
 
