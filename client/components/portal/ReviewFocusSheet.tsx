@@ -296,36 +296,6 @@ export function ReviewFocusSheet({
               </div>
             </section>
 
-            <section className="space-y-3">
-              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Reviewer notes
-              </h3>
-              <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-5 py-4 text-sm leading-relaxed text-slate-700">
-                {review.notes}
-              </div>
-            </section>
-
-            <section className="space-y-3">
-              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Suggested follow-up
-              </h3>
-              <div className="rounded-2xl border border-[#d8e4df] bg-white px-5 py-4 text-sm text-slate-700">
-                <ul className="list-inside list-disc space-y-2">
-                  <li>
-                    Confirm outstanding documents and notify {review.assignedTo}{" "}
-                    of updated SLA expectations.
-                  </li>
-                  <li>
-                    Review supporting files ({review.attachments}) for
-                    compliance deviations before next stage.
-                  </li>
-                  <li>
-                    Coordinate with the {review.directorate} team for any
-                    dependencies impacting the business journey.
-                  </li>
-                </ul>
-              </div>
-            </section>
           </div>
         </ScrollArea>
       </SheetContent>
