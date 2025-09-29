@@ -159,7 +159,7 @@ export function ReviewFocusSheet({
           <div className="space-y-8 px-6 py-6">
             <section className="space-y-4">
               <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Review Timeline
+                REVIEW TIMELINE
               </h3>
               <div className="space-y-4">
                 {timelineSteps.map((step, index) => {
