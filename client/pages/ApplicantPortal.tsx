@@ -462,6 +462,11 @@ export default function ApplicantPortal() {
     activityCatalog.filter((activity) => initialActivityIds.includes(activity.id)),
   );
 
+  const availableActivities = useMemo(
+    () => activityCatalog.filter((activity) => !businessActivities.some((item) => item.id === activity.id)),
+    [activityCatalog, businessActivities],
+  );
+
   const activeJourneyStage = useMemo(
     () => applicantJourney.find((stage) => stage.id === activeJourneyStageId) ?? applicantJourney[0],
     [activeJourneyStageId],
