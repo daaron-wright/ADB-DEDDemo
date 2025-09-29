@@ -1129,17 +1129,17 @@ const DiscoverExperienceView = ({
                       </div>
                     </div>
 
-                    <div className="pointer-events-none absolute inset-x-6 bottom-5 flex flex-wrap items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/60">
+                    <div className="pointer-events-none absolute inset-x-6 bottom-5 flex flex-wrap items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500">
                       <span className="flex items-center gap-2">
-                        <span className="h-2 w-8 rounded-full bg-[#ef4444]" />
+                        <span className="h-2 w-8 rounded-full bg-[#0f766e]" />
                         High density
                       </span>
                       <span className="flex items-center gap-2">
-                        <span className="h-2 w-8 rounded-full bg-[#f59e0b]" />
+                        <span className="h-2 w-8 rounded-full bg-[#34d399]" />
                         Active growth
                       </span>
                       <span className="flex items-center gap-2">
-                        <span className="h-2 w-8 rounded-full bg-[#facc15]" />
+                        <span className="h-2 w-8 rounded-full bg-[#a7f3d0]" />
                         Seasonal peaks
                       </span>
                     </div>
