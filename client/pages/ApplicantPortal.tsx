@@ -47,53 +47,191 @@ const statusStyles: Record<ApplicationRecord["status"], string> = {
   Draft: "border-[#d8e4df] bg-[#f4f8f6] text-slate-600",
 };
 
-const journeyHighlights: Array<{
+type JourneyTaskStatus = "completed" | "in_progress" | "pending";
+
+type JourneyTask = {
   id: string;
   label: string;
-  detail?: string;
+  status: JourneyTaskStatus;
+  owner: string;
+  dueDate?: string;
+  completedOn?: string;
+};
+
+type JourneyStage = {
+  id: string;
+  title: string;
+  highlight: {
+    label: string;
+    detail?: string;
+  };
+  description: string;
   state: JourneyHighlightState;
-}> = [
+  statusDetail?: string;
+  tasks: JourneyTask[];
+};
+
+const journeyStages: JourneyStage[] = [
   {
-    id: "submitted",
-    label: "Application submitted",
-    detail: "Completed 14 Mar 2024",
+    id: "intake",
+    title: "Questionnaire intake",
+    highlight: {
+      label: "Application submitted",
+      detail: "Completed 14 Mar 2024",
+    },
+    description:
+      "Personalized intake is complete and responses now prefill every downstream form automatically.",
     state: "done",
+    statusDetail: "Finished 12 Mar 2024",
+    tasks: [
+      {
+        id: "intake-questionnaire",
+        label: "Complete smart intake questionnaire",
+        status: "completed",
+        owner: "Applicant",
+        completedOn: "2024-03-12",
+      },
+      {
+        id: "intake-profile",
+        label: "Review generated business profile",
+        status: "completed",
+        owner: "Applicant",
+        completedOn: "2024-03-12",
+      },
+    ],
   },
   {
     id: "documents",
-    label: "Documents verified",
-    detail: "All mandatory files cleared",
+    title: "Document submission",
+    highlight: {
+      label: "Documents verified",
+      detail: "All mandatory files cleared",
+    },
+    description:
+      "All mandatory documents are uploaded and validated, including Emirates ID and tenancy contract.",
     state: "done",
+    statusDetail: "5 documents verified",
+    tasks: [
+      {
+        id: "documents-tenancy",
+        label: "Tenancy contract upload",
+        status: "completed",
+        owner: "Applicant",
+        completedOn: "2024-03-15",
+      },
+      {
+        id: "documents-shareholder",
+        label: "Shareholder Emirates IDs",
+        status: "completed",
+        owner: "Applicant",
+        completedOn: "2024-03-15",
+      },
+    ],
   },
   {
     id: "licensing",
-    label: "Licensing in progress",
-    detail: "Specialists reviewing financial plan",
+    title: "Licensing review",
+    highlight: {
+      label: "Licensing in progress",
+      detail: "Specialists reviewing financial plan",
+    },
+    description:
+      "Licensing specialists are reviewing the financial plan, compliance attachments, and fee payments.",
     state: "current",
+    statusDetail: "In review now",
+    tasks: [
+      {
+        id: "licensing-financials",
+        label: "Upload revised financial projections",
+        status: "in_progress",
+        owner: "Applicant",
+        dueDate: "2024-03-22",
+      },
+      {
+        id: "licensing-fee",
+        label: "Settle AED 2,500 licensing fee",
+        status: "pending",
+        owner: "Applicant",
+        dueDate: "2024-03-21",
+      },
+      {
+        id: "licensing-analyst",
+        label: "Compliance analyst review",
+        status: "in_progress",
+        owner: "Licensing analyst",
+        dueDate: "2024-03-24",
+      },
+    ],
   },
   {
     id: "inspection",
-    label: "Inspection next",
-    detail: "Scheduling once licensing completes",
+    title: "Pre-operational inspection",
+    highlight: {
+      label: "Inspection next",
+      detail: "Scheduling once licensing completes",
+    },
+    description:
+      "Inspection will be scheduled once licensing is approved so you can activate utilities and begin fit-out.",
     state: "upcoming",
+    statusDetail: "Awaiting scheduling",
+    tasks: [
+      {
+        id: "inspection-slots",
+        label: "Propose inspection time slots",
+        status: "pending",
+        owner: "Applicant",
+        dueDate: "2024-03-28",
+      },
+      {
+        id: "inspection-checklist",
+        label: "Upload fit-out readiness checklist",
+        status: "pending",
+        owner: "Applicant",
+        dueDate: "2024-03-30",
+      },
+    ],
   },
 ];
 
 const journeyHighlightTokens: Record<
   JourneyHighlightState,
-  { badgeClass: string; detailClass: string }
+  { badgeClass: string; detailClass: string; dotClass: string }
 > = {
   done: {
     badgeClass: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
     detailClass: "text-slate-500",
+    dotClass: "bg-[#0f766e]",
   },
   current: {
     badgeClass: "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
     detailClass: "text-[#0b7d6f]",
+    dotClass: "bg-[#0b7d6f]",
   },
   upcoming: {
     badgeClass: "border-[#dbe7e1] bg-[#f4f8f6] text-slate-600",
     detailClass: "text-slate-500",
+    dotClass: "bg-[#a6bbb1]",
+  },
+};
+
+const taskStatusTokens: Record<
+  JourneyTaskStatus,
+  { label: string; badgeClass: string; helperClass: string }
+> = {
+  completed: {
+    label: "Completed",
+    badgeClass: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
+    helperClass: "text-slate-500",
+  },
+  in_progress: {
+    label: "In progress",
+    badgeClass: "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
+    helperClass: "text-[#0b7d6f]",
+  },
+  pending: {
+    label: "Waiting on you",
+    badgeClass: "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
+    helperClass: "text-[#b97324]",
   },
 };
 
