@@ -23,6 +23,7 @@ const BusinessLicensePortalSimplified: React.FC<BusinessLicensePortalProps> = ({
   const [notifications, setNotifications] = useState<string[]>([]);
   const [lastActivity, setLastActivity] = useState(Date.now());
   const [showExplainability, setShowExplainability] = useState(false);
+  const questionnaireRef = useRef<SimpleQuestionnaireHandle>(null);
 
   // Auto-refresh and activity tracking
   useEffect(() => {
