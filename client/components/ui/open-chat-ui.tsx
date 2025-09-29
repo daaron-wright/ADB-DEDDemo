@@ -406,7 +406,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                 {/* Chat Container */}
                 <div className="flex flex-col h-full overflow-hidden rounded-3xl border border-white/25 bg-gradient-to-br from-white/25 via-white/10 to-white/5 text-slate-100 backdrop-blur-3xl shadow-[0_28px_70px_-24px_rgba(10,18,40,0.65)]">
                   {/* Header */}
-                  <div className="drag-handle flex items-center justify-between p-4 border-b border-white/70 bg-white/85 backdrop-blur-sm cursor-move">
+                  <div className="drag-handle flex items-center justify-between p-4 border-b border-white/20 bg-white/10 backdrop-blur-xl cursor-move">
                     <div className="flex items-center gap-3">
                       <img
                         src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
@@ -414,7 +414,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                         className="h-12 w-12 rounded-full border border-[#54FFD4] object-cover"
                       />
                       <div>
-                        <h2 className="text-lg font-semibold text-slate-900">
+                        <h2 className="text-lg font-semibold text-white">
                           {title}
                         </h2>
                       </div>
@@ -424,7 +424,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                       <SoundVisualization isActive={isListening || chatState === 'responding'} />
                       <button
                         onClick={onClose}
-                        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/70 bg-white/90 text-slate-900 transition-colors hover:bg-white"
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20"
                       >
                         <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
