@@ -1,6 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Modal, Close } from '@aegov/design-system-react';
-import { DialogTitle } from '@radix-ui/react-dialog';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface UAEPassLoginProps {
@@ -70,10 +69,10 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({ trigger, onLogin, on
     <Modal
       trigger={enhancedTrigger}
       size="md"
-      className="rounded-3xl border border-white/25 bg-white/90 shadow-[0_24px_60px_-20px_rgba(24,32,63,0.28)] backdrop-blur-xl sm:max-w-md"
+      title="Sign in with UAE PASS"
+      className="rounded-3xl border border-white/25 bg-white/90 shadow-[0_24px_60px_-20px_rgba(24,32,63,0.28)] backdrop-blur-xl sm:max-w-md [&>div:first-child]:sr-only [&>div:first-child]:m-0 [&>div:first-child]:h-0 [&>div:first-child]:p-0 [&>div:first-child>button]:hidden"
     >
       <div className="space-y-6">
-        <DialogTitle className="sr-only">Sign in with UAE PASS</DialogTitle>
         <header className="flex items-start justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">UAE Pass</p>
