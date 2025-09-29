@@ -33,12 +33,6 @@ export interface ReviewQueueItem {
   completion: number;
 }
 
-const priorityStyles: Record<ReviewQueueItem["priority"], string> = {
-  High: "border-[#f4bebe] bg-[#fdf1f0] text-[#b23b31]",
-  Medium: "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
-  Low: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
-};
-
 const slaStyles: Record<ReviewQueueItem["slaStatus"], string> = {
   "On Track": "text-[#0f766e] bg-[#eaf7f3] border-[#b7e1d4]",
   "At Risk": "text-[#b97324] bg-[#fdf6e4] border-[#f3dcb6]",
