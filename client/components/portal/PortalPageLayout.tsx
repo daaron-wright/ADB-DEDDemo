@@ -35,10 +35,8 @@ export function PortalPageLayout({
 
         <div className="mt-10 grid gap-10 lg:grid-cols-[320px,1fr] xl:grid-cols-[360px,1fr]">
           <aside className="lg:sticky lg:top-32">
-            <div className="rounded-3xl border border-[#d8e4df] bg-white px-6 py-8 shadow-[0_12px_32px_-28px_rgba(11,64,55,0.18)] lg:max-h-[calc(100vh_-_10rem)] lg:overflow-hidden">
-              <div className="space-y-8 lg:max-h-[calc(100vh_-_10rem)] lg:overflow-y-auto lg:pr-2">
-                {filters}
-              </div>
+            <div className="space-y-8 rounded-3xl border border-[#d8e4df] bg-white px-6 py-8 shadow-[0_12px_32px_-28px_rgba(11,64,55,0.18)] lg:max-h-[calc(100vh_-_10rem)] lg:overflow-y-auto">
+              {filters}
             </div>
           </aside>
           <main className="flex-1 space-y-8 text-slate-900">
