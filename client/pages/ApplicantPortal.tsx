@@ -681,7 +681,7 @@ export default function ApplicantPortal() {
       <section className="mt-6 rounded-3xl border border-[#d8e4df] bg-white p-8 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)]">
         <div className="flex flex-col gap-10 xl:flex-row xl:items-start">
           <div className="xl:max-w-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Application journey</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Application journey</p>
             <h2 className="mt-3 text-2xl font-semibold text-slate-900">
               {firstName ? `${firstName}'s application timeline` : 'Your application timeline'}
             </h2>
