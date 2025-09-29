@@ -49,6 +49,48 @@ const stageOptions = [
   { label: 'Pre-Operational Inspection', value: 'Pre-Operational Inspection' },
 ] as const;
 
+const policyAgentOptions = [
+  { id: 'policy-ai', label: 'Policy AI Specialist' },
+  { id: 'compliance-lead', label: 'Compliance Lead' },
+  { id: 'operations-mentor', label: 'Operations Mentor' },
+  { id: 'legal-reviewer', label: 'Legal Reviewer' },
+] as const;
+
+const policyGlossary = [
+  {
+    id: 'foreign-ownership-policy',
+    document: 'Foreign ownership structure',
+    summary:
+      'Clarifies mainland vs. freezone equity rules, Emirati partner requirements, and capital thresholds for each business type.',
+    category: 'Governance',
+    defaultAgent: 'policy-ai',
+  },
+  {
+    id: 'food-safety-blueprint',
+    document: 'Food safety blueprint',
+    summary:
+      'Outlines HACCP certification evidence, cold-chain monitoring expectations, and seasonal permit escalation timelines.',
+    category: 'Operations',
+    defaultAgent: 'compliance-lead',
+  },
+  {
+    id: 'retail-fitout-policy',
+    document: 'Retail fit-out compliance',
+    summary:
+      'Details signage, accessibility, and fire-suppression design standards for retail and F&B fit-outs in Abu Dhabi.',
+    category: 'Infrastructure',
+    defaultAgent: 'operations-mentor',
+  },
+  {
+    id: 'dual-license-guidance',
+    document: 'Dual license guidance',
+    summary:
+      'Explains documentation for dual mainland-freezone licensing, including attestation flow and SLA expectations.',
+    category: 'Licensing',
+    defaultAgent: 'legal-reviewer',
+  },
+] as const;
+
 const reviewQueue: ReviewQueueItem[] = [
   {
     id: 'REV-20347',
