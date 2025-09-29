@@ -20,6 +20,9 @@ import { FilterSection } from '@/components/portal/FilterSection';
 import { SummaryMetric } from '@/components/portal/SummaryMetric';
 import { PortalProfileMenu } from '@/components/portal/PortalProfileMenu';
 import { cn } from '@/lib/utils';
+import { JourneyView } from '@/components/portal/JourneyView';
+import type { JourneyStep } from '@/components/portal/JourneyStepper';
+import type { BusinessActivity } from '@/components/portal/BusinessActivitiesSelection';
 
 interface ApplicationRecord {
   id: string;
