@@ -910,7 +910,7 @@ const DiscoverExperienceView = ({
                 {mapViewMode === "heatmap" ? (
                   <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
                 <div className="relative flex h-full flex-col gap-5 rounded-[28px] border border-[#dbe9e3] bg-[#f6faf8] p-6 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]">
-                  <div className="relative flex-1 overflow-hidden rounded-2xl border border-white/10">
+                  <div className="relative flex-1 overflow-hidden rounded-[24px] border border-[#dbe9e3] bg-white">
                     <img
                       src="https://api.builder.io/api/v1/image/assets/TEMP/df351a3a49f1c6b9b74765965e6ddb3ecf6799d7?width=1600"
                       alt="Abu Dhabi Map"
