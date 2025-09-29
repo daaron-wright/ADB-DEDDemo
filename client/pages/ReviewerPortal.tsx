@@ -149,6 +149,40 @@ const reviewQueue: ReviewQueueItem[] = [
     daysRemaining: 5,
     assignedTo: "Omar Rahman",
     attachments: 7,
+    documents: [
+      {
+        id: "doc-franchise-agreement",
+        name: "Franchise Agreement",
+        type: "contract",
+        status: "approved",
+        uploadedAt: "2024-03-10",
+        size: "4.2 MB"
+      },
+      {
+        id: "doc-supplier-contracts",
+        name: "Supplier Contracts",
+        type: "contract",
+        status: "under_review",
+        uploadedAt: "2024-03-11",
+        size: "6.8 MB"
+      },
+      {
+        id: "doc-packaging-approval",
+        name: "Packaging Material Approval",
+        type: "permit",
+        status: "pending",
+        issuer: "ADAFSA",
+        uploadedAt: "2024-03-12",
+        size: "2.1 MB"
+      },
+      {
+        id: "doc-cold-chain-sop",
+        name: "Cold Chain SOP",
+        type: "report",
+        status: "required",
+        size: "Expected"
+      }
+    ],
     summary:
       "Quick-service franchise expansion focused on supplier traceability, packaging approvals, and delivery routing compliance.",
     notes:
