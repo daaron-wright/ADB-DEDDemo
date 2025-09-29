@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,7 +14,6 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { PortalPageLayout } from "@/components/portal/PortalPageLayout";
 import { PortalProfileMenu } from "@/components/portal/PortalProfileMenu";
-import { CollapsibleJourneyView } from "@/components/ui/collapsible-journey-view";
 import { cn } from "@/lib/utils";
 
 type JourneyHighlightState = "done" | "current" | "upcoming";
