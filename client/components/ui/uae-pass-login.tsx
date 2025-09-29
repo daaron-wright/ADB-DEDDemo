@@ -1,7 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Modal, Close } from '@aegov/design-system-react';
 import { DialogTitle } from '@radix-ui/react-dialog';
-import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface UAEPassLoginProps {
