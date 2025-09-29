@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import SimpleQuestionnaire from './simple-questionnaire';
+import SimpleQuestionnaire, { SimpleQuestionnaireHandle } from './simple-questionnaire';
 import AIChatPanel from './ai-chat-panel';
 
 interface User {
