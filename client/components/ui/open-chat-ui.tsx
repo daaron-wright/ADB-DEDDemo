@@ -123,10 +123,10 @@ const MessageBubble = ({ message }: { message: ChatMessage }) => {
       message.isAI ? "justify-start" : "justify-end"
     )}>
       <div className={cn(
-        "max-w-[75%] rounded-2xl border px-4 py-3 text-sm leading-relaxed text-slate-900 backdrop-blur-sm",
+        "max-w-[75%] rounded-2xl border px-4 py-3 text-sm leading-relaxed backdrop-blur-xl",
         message.isAI
-          ? "rounded-tl-sm border-white/70 bg-white/85 shadow-sm"
-          : "rounded-tr-sm border-[#54FFD4]/35 bg-white/95 shadow-[0_18px_48px_-32px_rgba(15,23,42,0.45)]"
+          ? "rounded-tl-sm border-white/25 bg-white/12 text-slate-100 shadow-[0_18px_40px_-30px_rgba(10,18,40,0.6)]"
+          : "rounded-tr-sm border-[#54FFD4]/40 bg-[#54FFD4]/15 text-[#E7FFF8] shadow-[0_24px_55px_-28px_rgba(10,18,40,0.7)]"
       )}>
         {message.content}
       </div>
