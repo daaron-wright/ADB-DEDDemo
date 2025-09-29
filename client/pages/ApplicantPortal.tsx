@@ -666,6 +666,7 @@ export default function ApplicantPortal() {
 
             <div className="flex justify-center">
               <CollapsibleJourneyView
+                key={journeyModalStage?.id ?? activeStage.id}
                 journeyNumber={primaryApplication.id}
                 completedCount={completedJourneyTasks}
                 totalCount={totalJourneyTasks}
