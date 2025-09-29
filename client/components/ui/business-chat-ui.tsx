@@ -939,7 +939,7 @@ const DiscoverExperienceView = ({
                           </defs>
                         </svg>
                         {hoveredLocation === "khalifa-city" && (
-                          <div className="absolute -top-20 left-1/2 -translate-x-1/2 rounded-2xl border border-white/40 bg-white/95 px-4 py-3 text-xs text-slate-700 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.35)]">
+                          <div className="absolute -top-20 left-1/2 -translate-x-1/2 rounded-2xl border border-[#dbe9e3] bg-white/95 px-4 py-3 text-xs text-slate-600 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.2)]">
                             <p className="text-sm font-semibold text-slate-900">
                               {insightById["khalifa-city"]?.name}
                             </p>
@@ -974,7 +974,7 @@ const DiscoverExperienceView = ({
                           </defs>
                         </svg>
                         {hoveredLocation === "marina" && (
-                          <div className="absolute -top-20 left-1/2 -translate-x-1/2 rounded-2xl border border-white/40 bg-white/95 px-4 py-3 text-xs text-slate-700 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.35)]">
+                          <div className="absolute -top-20 left-1/2 -translate-x-1/2 rounded-2xl border border-[#dbe9e3] bg-white/95 px-4 py-3 text-xs text-slate-600 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.2)]">
                             <p className="text-sm font-semibold text-slate-900">
                               {insightById["marina"]?.name}
                             </p>
@@ -1009,7 +1009,7 @@ const DiscoverExperienceView = ({
                           </defs>
                         </svg>
                         {hoveredLocation === "central" && (
-                          <div className="absolute -top-20 left-1/2 -translate-x-1/2 rounded-2xl border border-white/40 bg-white/95 px-4 py-3 text-xs text-slate-700 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.35)]">
+                          <div className="absolute -top-20 left-1/2 -translate-x-1/2 rounded-2xl border border-[#dbe9e3] bg-white/95 px-4 py-3 text-xs text-slate-600 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.2)]">
                             <p className="text-sm font-semibold text-slate-900">
                               {insightById["central"]?.name}
                             </p>
@@ -1044,7 +1044,7 @@ const DiscoverExperienceView = ({
                           </defs>
                         </svg>
                         {hoveredLocation === "baniyas" && (
-                          <div className="absolute -top-20 left-1/2 -translate-x-1/2 rounded-2xl border border-white/40 bg-white/95 px-4 py-3 text-xs text-slate-700 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.35)]">
+                          <div className="absolute -top-20 left-1/2 -translate-x-1/2 rounded-2xl border border-[#dbe9e3] bg-white/95 px-4 py-3 text-xs text-slate-600 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.2)]">
                             <p className="text-sm font-semibold text-slate-900">
                               {insightById["baniyas"]?.name}
                             </p>
@@ -1079,7 +1079,7 @@ const DiscoverExperienceView = ({
                           </defs>
                         </svg>
                         {hoveredLocation === "corniche" && (
-                          <div className="absolute -top-20 left-1/2 -translate-x-1/2 rounded-2xl border border-white/40 bg-white/95 px-4 py-3 text-xs text-slate-700 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.35)]">
+                          <div className="absolute -top-20 left-1/2 -translate-x-1/2 rounded-2xl border border-[#dbe9e3] bg-white/95 px-4 py-3 text-xs text-slate-600 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.2)]">
                             <p className="text-sm font-semibold text-slate-900">
                               {insightById["corniche"]?.name}
                             </p>
@@ -1114,7 +1114,7 @@ const DiscoverExperienceView = ({
                           </defs>
                         </svg>
                         {hoveredLocation === "coastal" && (
-                          <div className="absolute top-full left-1/2 mt-3 -translate-x-1/2 rounded-2xl border border-white/40 bg-white/95 px-4 py-3 text-xs text-slate-700 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.35)]">
+                          <div className="absolute top-full left-1/2 mt-3 -translate-x-1/2 rounded-2xl border border-[#dbe9e3] bg-white/95 px-4 py-3 text-xs text-slate-600 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.2)]">
                             <p className="text-sm font-semibold text-slate-900">
                               {insightById["coastal"]?.name}
                             </p>
