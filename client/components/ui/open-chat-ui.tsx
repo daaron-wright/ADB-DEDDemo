@@ -393,7 +393,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
     <QueryClientProvider client={queryClient}>
       <AnimatePresence>
         {isOpen && (
-          <div className="fixed inset-0 z-50 flex items-end justify-end bg-black/45 backdrop-blur-sm p-6">
+          <div className="fixed inset-0 z-50 flex items-end justify-end bg-black/45 backdrop-blur-sm p-6 relative">
             <Draggable nodeRef={nodeRef} handle=".drag-handle" bounds="parent">
               <motion.div
                 ref={nodeRef}
