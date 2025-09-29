@@ -204,6 +204,14 @@ export default function ReviewerPortal() {
     setPolicyAssignments((prev) => ({ ...prev, [policyId]: agentId }));
   };
 
+  const handleFocusOpen = (review: ReviewQueueItem) => {
+    setFocusedReview(review);
+  };
+
+  const handleFocusClose = () => {
+    setFocusedReview(null);
+  };
+
   const daysUpperBound = daysThreshold[0] ?? 7;
 
   const filteredQueue = useMemo(() => {
