@@ -365,6 +365,7 @@ const DiscoverExperienceView = ({
 }) => {
   const [showMapModal, setShowMapModal] = useState(false);
   const [hoveredLocation, setHoveredLocation] = useState<string | null>(null);
+  const [mapViewMode, setMapViewMode] = useState<"heatmap" | "timeline">("heatmap");
   const [inputValue, setInputValue] = useState(
     isStandalone ? "Ask me..." : "I want to look at the Cornich",
   );
