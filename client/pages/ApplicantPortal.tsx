@@ -456,6 +456,127 @@ export default function ApplicantPortal() {
           </div>
         </div>
 
+        <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_16px_32px_-28px_rgba(11,64,55,0.2)]">
+          <div className="flex flex-col gap-6 lg:flex-row lg:gap-10">
+            <ol className="space-y-4 lg:w-72">
+              {journeyStages.map((stage) => {
+                const tokens = journeyHighlightTokens[stage.state];
+                const isActive = stage.id === activeStageId;
+
+                return (
+                  <li key={stage.id}>
+                    <button
+                      type="button"
+                      onClick={() => setActiveStageId(stage.id)}
+                      className={cn(
+                        "w-full rounded-2xl border px-4 py-3 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
+                        isActive
+                          ? "border-[#0f766e] bg-[#eaf7f3] shadow-[0_16px_32px_-28px_rgba(11,64,55,0.32)]"
+                          : "border-[#d8e4df] bg-white hover:border-[#0f766e] hover:bg-[#f4faf8]",
+                      )}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-start gap-3">
+                          <span
+                            className={cn("mt-1 h-2.5 w-2.5 rounded-full", tokens.dotClass)}
+                            aria-hidden="true"
+                          />
+                          <div>
+                            <p className="text-sm font-semibold text-slate-900">
+                              {stage.title}
+                            </p>
+                            {stage.statusDetail ? (
+                              <p className="mt-1 text-xs text-slate-500">
+                                {stage.statusDetail}
+                              </p>
+                            ) : null}
+                          </div>
+                        </div>
+                        <Badge
+                          className={cn(
+                            "border px-2.5 py-1 text-xs font-semibold uppercase tracking-wide",
+                            tokens.badgeClass,
+                          )}
+                        >
+                          {tokens.stateLabel}
+                        </Badge>
+                      </div>
+                      <p className="mt-2 text-xs leading-relaxed text-slate-600">
+                        {stage.description}
+                      </p>
+                    </button>
+                  </li>
+                );
+              })}
+            </ol>
+
+            <div className="flex-1 rounded-3xl border border-[#d8e4df] bg-[#f9fbfa] p-6">
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div className="max-w-xl space-y-3">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    {journeyHighlightTokens[activeStage.state].stateLabel}
+                  </p>
+                  <h4 className="text-xl font-semibold text-slate-900">
+                    {activeStage.title}
+                  </h4>
+                  <p className="text-sm leading-relaxed text-slate-600">
+                    {activeStage.description}
+                  </p>
+                  {activeStage.statusDetail ? (
+                    <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
+                      {activeStage.statusDetail}
+                    </p>
+                  ) : null}
+                </div>
+                <Badge
+                  className={cn(
+                    "border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide",
+                    journeyHighlightTokens[activeStage.state].badgeClass,
+                  )}
+                >
+                  {journeyHighlightTokens[activeStage.state].stateLabel}
+                </Badge>
+              </div>
+
+              <div className="mt-6 space-y-3">
+                {activeStage.tasks.map((task) => {
+                  const tokens = taskStatusTokens[task.status];
+                  const meta = task.completedOn
+                    ? `Completed ${dateFormatter.format(new Date(task.completedOn))}`
+                    : task.dueDate
+                      ? `Due ${dateFormatter.format(new Date(task.dueDate))}`
+                      : null;
+
+                  return (
+                    <div
+                      key={task.id}
+                      className="rounded-2xl border border-[#d8e4df] bg-white p-4 shadow-[0_12px_24px_-20px_rgba(11,64,55,0.16)]"
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <p className="text-sm font-semibold text-slate-900">
+                          {task.label}
+                        </p>
+                        <Badge
+                          className={cn(
+                            "border px-2.5 py-1 text-xs font-semibold uppercase tracking-wide",
+                            tokens.badgeClass,
+                          )}
+                        >
+                          {tokens.label}
+                        </Badge>
+                      </div>
+                      <p className={cn("mt-2 text-xs", tokens.helperClass)}>
+                        Owner: <span className="font-semibold text-slate-900">{task.owner}</span>
+                        {meta ? ` • ${meta}` : null}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 text-sm leading-relaxed text-slate-700">
           <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
             Application summary
