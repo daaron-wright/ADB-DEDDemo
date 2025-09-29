@@ -108,14 +108,14 @@ const SoundVisualization = ({ isActive = false }: { isActive?: boolean }) => {
 const MessageBubble = ({ message }: { message: ChatMessage }) => {
   return (
     <div className={cn(
-      "flex mb-3",
+      "mb-3 flex",
       message.isAI ? "justify-start" : "justify-end"
     )}>
       <div className={cn(
-        "max-w-[75%] px-4 py-3 rounded-2xl text-sm leading-relaxed text-white",
+        "max-w-[75%] rounded-2xl border px-4 py-3 text-sm leading-relaxed text-slate-900 backdrop-blur-sm",
         message.isAI
-          ? "bg-white/10 rounded-tl-sm"
-          : "bg-white/20 rounded-tr-sm"
+          ? "rounded-tl-sm border-white/70 bg-white/80 shadow-sm"
+          : "rounded-tr-sm border-[#54FFD4]/50 bg-[#54FFD4]/70"
       )}>
         {message.content}
       </div>
