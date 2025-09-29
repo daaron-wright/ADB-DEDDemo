@@ -2,6 +2,8 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 
+const OPA_REVIEW_URL = "http://localhost:4000";
+
 export interface DocumentArtifact {
   id: string;
   name: string;
