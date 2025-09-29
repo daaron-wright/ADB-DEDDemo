@@ -328,6 +328,7 @@ export default function ReviewerPortal() {
     setSelectedStage('all');
     setDaysThreshold([7]);
     setSortBy('due');
+    setPolicyAssignments(buildDefaultPolicyAssignments());
   };
 
   const filters = (
