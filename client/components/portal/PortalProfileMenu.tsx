@@ -67,13 +67,13 @@ export function PortalProfileMenu({
           <User className="h-4 w-4 text-neutral-500" />
           View profile
         </DropdownMenuItem>
-        <DropdownMenuItem className="rounded-lg text-neutral-700 hover:bg-neutral-100">
+        <DropdownMenuItem className="rounded-lg text-slate-700 hover:bg-[#eaf7f3]">
           <Settings className="h-4 w-4 text-neutral-500" />
           Preferences
         </DropdownMenuItem>
-        <DropdownMenuSeparator className="bg-neutral-100" />
+        <DropdownMenuSeparator className="bg-[#d8e4df]" />
         <DropdownMenuItem
-          className="rounded-lg text-rose-600 hover:bg-rose-50"
+          className="rounded-lg text-[#b23b31] hover:bg-[#fdf1f0]"
           onSelect={(event) => {
             event.preventDefault();
             onSignOut?.();
