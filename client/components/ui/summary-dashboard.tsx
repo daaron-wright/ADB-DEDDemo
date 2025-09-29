@@ -307,10 +307,10 @@ export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboard
           <div className="flex items-center justify-between px-10 py-5 h-full">
             <div className="flex items-center gap-4">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/4f55495a54b1427b9bd40ba1c8f3c8aa/e9ee86b522ee4f309ae259a6480f85c2"
-                alt="Tamm Logo"
-                className="h-12"
-              />
+              src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F397f9a8d2a3c4c8cb1d79ae828b476be"
+              alt="Tamm Logo"
+              className="h-12"
+            />
               <button
                 onClick={onClose}
                 className="w-11 h-11 rounded-full border border-white/18 bg-transparent flex items-center justify-center hover:bg-white/10 transition-colors"
