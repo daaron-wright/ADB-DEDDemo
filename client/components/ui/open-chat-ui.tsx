@@ -125,8 +125,8 @@ const MessageBubble = ({ message }: { message: ChatMessage }) => {
       <div className={cn(
         "max-w-[75%] rounded-2xl border px-4 py-3 text-sm leading-relaxed text-slate-900 backdrop-blur-sm",
         message.isAI
-          ? "rounded-tl-sm border-white/70 bg-white/80 shadow-sm"
-          : "rounded-tr-sm border-[#54FFD4]/50 bg-[#54FFD4]/70"
+          ? "rounded-tl-sm border-white/70 bg-white/85 shadow-sm"
+          : "rounded-tr-sm border-[#54FFD4]/35 bg-white/95 shadow-[0_18px_48px_-32px_rgba(15,23,42,0.45)]"
       )}>
         {message.content}
       </div>
@@ -148,7 +148,7 @@ const ChatStateIndicator = ({ state }: { state: ChatState }) => {
 
   return (
     <div className="mb-3 flex justify-start">
-      <div className="flex items-center gap-2 rounded-2xl rounded-tl-sm border border-white/70 bg-white/70 px-3 py-2 text-sm text-slate-900 shadow-sm">
+      <div className="flex items-center gap-2 rounded-2xl rounded-tl-sm border border-white/70 bg-white/85 px-3 py-2 text-sm text-slate-900 shadow-sm">
         <div className="flex gap-1">
           <motion.div
             className="h-1 w-1 rounded-full bg-[#54FFD4]"
