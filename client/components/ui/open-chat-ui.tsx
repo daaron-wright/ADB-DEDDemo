@@ -64,8 +64,12 @@ interface OpenChatUIProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
-  businessCategories?: Array<{ id: string; title: string; }>;
+  businessCategories?: Array<{ id: string; title: string; prompt?: string; }>;
   onCategoryClick?: (id: string, title: string) => void;
+  mode?: 'general' | 'category';
+  initialCategoryId?: string;
+  initialCategoryTitle?: string;
+  onPromptSubmit?: (options: { categoryId?: string | null; message?: string | null }) => void;
 }
 
 type ChatState = 'idle' | 'listening' | 'thinking' | 'responding';
