@@ -2,6 +2,18 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 
+export interface DocumentArtifact {
+  id: string;
+  name: string;
+  type: "certificate" | "license" | "permit" | "form" | "report" | "contract" | "plan";
+  status: "approved" | "pending" | "rejected" | "under_review" | "required";
+  url?: string;
+  uploadedAt?: string;
+  size?: string;
+  issuer?: string;
+  validUntil?: string;
+}
+
 export interface ReviewQueueItem {
   id: string;
   applicantName: string;
@@ -15,6 +27,7 @@ export interface ReviewQueueItem {
   daysRemaining: number;
   assignedTo: string;
   attachments: number;
+  documents: DocumentArtifact[];
   summary: string;
   notes: string;
   completion: number;
