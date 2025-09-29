@@ -90,29 +90,11 @@ export function ReviewQueueCard({ item, onOpen }: ReviewQueueCardProps) {
         </div>
       </header>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4 text-slate-900">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 text-slate-900">
         <Info label="Applicant" value={item.applicantName} />
+        <Info label="Submission" value={dateFormatter.format(new Date(item.submittedAt))} />
+        <Info label="Attachments" value={`${item.attachments} attachments`} />
         <Info label="Directorate" value={item.directorate} />
-        <Info label="Assigned to" value={item.assignedTo} />
-        <Info
-          label="Submitted"
-          value={dateFormatter.format(new Date(item.submittedAt))}
-        />
-        <Info
-          label="SLA due"
-          value={dateFormatter.format(new Date(item.dueAt))}
-        />
-        <Info label="Attachments" value={`${item.attachments} supporting`} />
-        <Info
-          label="SLA status"
-          value={item.slaStatus}
-          badgeClass={slaStyles[item.slaStatus]}
-        />
-        <Info
-          label="Days remaining"
-          value={`${item.daysRemaining} days`}
-          emphasise={item.daysRemaining <= 2}
-        />
       </div>
 
       <div className="mt-6">
