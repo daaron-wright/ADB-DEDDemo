@@ -236,8 +236,9 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
     }
 
     if (isIntroMode) {
-      const introContent = selectedCategory
-        ? `You're exploring ${selectedCategory.title}. Choose a suggested prompt below or type your own question to continue.`
+      const introTarget = selectedCategory?.title ?? initialCategoryTitle;
+      const introContent = introTarget
+        ? `You're exploring ${introTarget}. Choose a suggested prompt below or type your own question to continue.`
         : 'Choose a suggested prompt below or type your own question to continue.';
       setMessages([createIntroMessage(introContent)]);
       setInputValue('');
