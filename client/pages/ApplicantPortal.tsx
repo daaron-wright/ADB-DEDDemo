@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -256,7 +256,6 @@ const dateFormatter = new Intl.DateTimeFormat("en-GB", {
 
 export default function ApplicantPortal() {
   const location = useLocation();
-  const navigate = useNavigate();
   const portalUser = (
     location.state as
       | {
