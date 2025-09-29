@@ -75,42 +75,34 @@ export function ReviewFocusSheet({
     return null;
   }
 
-  const timelineSteps = [
-    {
-      id: "submitted",
-      label: "Application Submitted",
-      date: dateFormatter.format(new Date(review.submittedAt)),
-      status: "completed" as const,
-      description: `Submitted by ${review.applicantName}`,
-    },
-    {
-      id: "assigned",
-      label: "Assigned for Review",
-      date: dateFormatter.format(new Date(review.submittedAt)),
-      status: "completed" as const,
-      description: `Assigned to ${review.assignedTo}`,
-    },
-    {
-      id: "reviewing",
-      label: "Under Review",
-      date: "In progress",
-      status: "current" as const,
-      description: `${review.stage} - ${review.completion}% complete`,
-    },
-    {
-      id: "sla-due",
-      label: "SLA Due Date",
-      date: dateFormatter.format(new Date(review.dueAt)),
-      status: review.daysRemaining <= 0 ? "overdue" as const : "upcoming" as const,
-      description: `${review.daysRemaining} days remaining`,
-    },
+  type JourneyState = "approved" | "in_progress" | "needs_attention";
+
+  const journeyState: JourneyState =
+    review.completion >= 100 || review.stage.toLowerCase().includes("approved")
+      ? "approved"
+      : review.slaStatus === "Breached" || review.slaStatus === "At Risk"
+        ? "needs_attention"
+        : "in_progress";
+
+  const journeyBadges: { id: JourneyState; label: string }[] = [
+    { id: "approved", label: "Approved" },
+    { id: "in_progress", label: "In Progress" },
+    { id: "needs_attention", label: "Needs Attention" },
   ];
 
-  const timelineStatusStyles = {
-    completed: "bg-[#0f766e] border-[#0f766e]",
-    current: "bg-[#0b7d6f] border-[#0b7d6f] ring-4 ring-[#c8e7df]",
-    upcoming: "bg-[#a6bbb1] border-[#a6bbb1]",
-    overdue: "bg-[#b23b31] border-[#b23b31]",
+  const journeyBadgeStyles: Record<JourneyState, { active: string; inactive: string }> = {
+    approved: {
+      active: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
+      inactive: "border-[#d8e4df] bg-white text-slate-500",
+    },
+    in_progress: {
+      active: "border-[#bfd6f8] bg-[#eef4ff] text-[#1d4ed8]",
+      inactive: "border-[#d8e4df] bg-white text-slate-500",
+    },
+    needs_attention: {
+      active: "border-[#f4bebe] bg-[#fdf1f0] text-[#b23b31]",
+      inactive: "border-[#d8e4df] bg-white text-slate-500",
+    },
   };
 
   const keyDocuments = review.documents.slice(0, 3);
@@ -159,38 +151,20 @@ export function ReviewFocusSheet({
 
         <ScrollArea className="flex-1">
           <div className="space-y-8 px-6 py-6">
-            <section className="space-y-4">
+            <section className="space-y-3">
               <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                REVIEW TIMELINE
+                REVIEW JOURNEY
               </h3>
-              <div className="space-y-4">
-                {timelineSteps.map((step, index) => {
-                  const isLast = index === timelineSteps.length - 1;
+              <div className="flex flex-wrap gap-2">
+                {journeyBadges.map((badge) => {
+                  const isActive = journeyState === badge.id;
                   return (
-                    <div key={step.id} className="relative pl-8">
-                      <div className="absolute left-0 top-2">
-                        <div
-                          className={cn(
-                            "h-3 w-3 rounded-full border-2",
-                            timelineStatusStyles[step.status]
-                          )}
-                        />
-                        {!isLast && (
-                          <div className="absolute left-[5px] top-6 h-8 w-px bg-[#d8e4df]" />
-                        )}
-                      </div>
-                      <div className="rounded-2xl border border-[#d8e4df] bg-white p-4">
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="flex-1">
-                            <h4 className="text-sm font-semibold text-slate-900">{step.label}</h4>
-                            <p className="text-xs text-slate-600 mt-1">{step.description}</p>
-                          </div>
-                          <Badge className="text-xs px-2 py-1 border-[#d8e4df] bg-[#f9fbfa] text-slate-700">
-                            {step.date}
-                          </Badge>
-                        </div>
-                      </div>
-                    </div>
+                    <Badge
+                      key={badge.id}
+                      className={`border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide ${journeyBadgeStyles[badge.id][isActive ? "active" : "inactive"]}`}
+                    >
+                      {badge.label}
+                    </Badge>
                   );
                 })}
               </div>
