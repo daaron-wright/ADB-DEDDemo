@@ -531,18 +531,24 @@ export default function Index() {
         onClose={handleCloseChat}
         category={chatState.category || 'general'}
         title={getChatTitle()}
+        initialMessage={chatState.initialMessage || undefined}
       />
 
       {/* Open Chat UI */}
       <OpenChatUI
         isOpen={openChatState.isOpen}
-        onClose={handleCloseGeneralChat}
-        title="AI Business"
+        onClose={resetOpenChatState}
+        title={
+          openChatState.mode === 'category' && openChatState.categoryTitle
+            ? `AI Guidance for ${openChatState.categoryTitle}`
+            : 'AI Business'
+        }
         businessCategories={businessCategories}
-        onCategoryClick={(categoryId, categoryTitle) => {
-          handleTileClick(categoryId, categoryTitle);
-          handleCloseGeneralChat();
-        }}
+        onCategoryClick={handleOpenChatCategoryClick}
+        mode={openChatState.mode}
+        initialCategoryId={openChatState.category ?? undefined}
+        initialCategoryTitle={openChatState.categoryTitle ?? undefined}
+        onPromptSubmit={openChatState.mode === 'category' ? handleChatPromptSubmit : undefined}
       />
 
     </div>
