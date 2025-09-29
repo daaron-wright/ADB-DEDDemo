@@ -209,6 +209,7 @@ export default function ReviewerPortal() {
   const [selectedStage, setSelectedStage] = useState<(typeof stageOptions)[number]['value']>('all');
   const [daysThreshold, setDaysThreshold] = useState<number[]>([7]);
   const [sortBy, setSortBy] = useState<'due' | 'priority'>('due');
+  const [policyAssignments, setPolicyAssignments] = useState<Record<PolicyId, PolicyAgentId>>(() => buildDefaultPolicyAssignments());
 
   const location = useLocation();
   const portalUser = (location.state as { user?: { name?: string; role?: string; email?: string; avatarUrl?: string } } | undefined)?.user;
@@ -224,6 +225,10 @@ export default function ReviewerPortal() {
 
   const handleSignOut = () => {
     window.location.assign('/');
+  };
+
+  const handlePolicyAgentChange = (policyId: PolicyId, agentId: PolicyAgentId) => {
+    setPolicyAssignments((prev) => ({ ...prev, [policyId]: agentId }));
   };
 
   const allDirectoratesSelected = selectedDirectorates.length === directorateOptions.length;
