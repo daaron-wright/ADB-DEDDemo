@@ -85,6 +85,51 @@ const reviewQueue: ReviewQueueItem[] = [
     daysRemaining: 3,
     assignedTo: "Sarah Al Zaabi",
     attachments: 5,
+    documents: [
+      {
+        id: "doc-economic-license",
+        name: "Economic License (DED)",
+        type: "license",
+        status: "approved",
+        issuer: "Department of Economic Development",
+        validUntil: "2025-03-15",
+        uploadedAt: "2024-03-10",
+        size: "2.1 MB"
+      },
+      {
+        id: "doc-certificate-conformity",
+        name: "Certificate of Conformity (ADCDA)",
+        type: "certificate",
+        status: "approved",
+        issuer: "Abu Dhabi City and Districts Center",
+        uploadedAt: "2024-03-12",
+        size: "1.8 MB"
+      },
+      {
+        id: "doc-food-safety-cert",
+        name: "Food Safety Certification (ADAFSA)",
+        type: "certificate",
+        status: "under_review",
+        issuer: "Abu Dhabi Agriculture and Food Safety Authority",
+        uploadedAt: "2024-03-14",
+        size: "3.2 MB"
+      },
+      {
+        id: "doc-fire-suppression",
+        name: "Fire Suppression Layout",
+        type: "plan",
+        status: "pending",
+        uploadedAt: "2024-03-15",
+        size: "5.4 MB"
+      },
+      {
+        id: "doc-tenancy-contract",
+        name: "Signed Tenancy Contract",
+        type: "contract",
+        status: "required",
+        size: "Expected"
+      }
+    ],
     summary:
       "Full-service restaurant launch requiring updated fire suppression layout, IoT kitchen monitoring configuration, and tenancy validation.",
     notes:
