@@ -930,8 +930,8 @@ interface InfoItemProps {
 
 function InfoItem({ label, value }: InfoItemProps) {
   return (
-    <div className="rounded-2xl border border-neutral-200 bg-white px-4 py-3 shadow-[0_12px_30px_-18px_rgba(15,23,42,0.18)]">
-      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">{label}</p>
+    <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">{label}</p>
       <p className="mt-2 text-sm font-semibold text-slate-900">{value}</p>
     </div>
   );
