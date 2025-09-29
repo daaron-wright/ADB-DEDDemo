@@ -197,27 +197,6 @@ export function ReviewFocusSheet({
               </div>
             </section>
 
-            <section className="space-y-3">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Progress Overview
-                </h3>
-                <span className="text-sm font-semibold text-[#0f766e]">
-                  {review.completion}% Complete
-                </span>
-              </div>
-              <div className="rounded-2xl border border-[#d8e4df] bg-white p-4">
-                <Progress
-                  value={review.completion}
-                  className="h-3 overflow-hidden rounded-full bg-[#e3efea]"
-                />
-                <div className="mt-3 flex items-center justify-between text-xs text-slate-600">
-                  <span>Started {dateFormatter.format(new Date(review.submittedAt))}</span>
-                  <span>Due {dateFormatter.format(new Date(review.dueAt))}</span>
-                </div>
-              </div>
-            </section>
-
             <section className="space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
