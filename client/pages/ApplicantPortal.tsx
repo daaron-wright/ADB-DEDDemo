@@ -704,7 +704,7 @@ export default function ApplicantPortal() {
                             </div>
                             <Button
                               type="button"
-                              variant="secondary"
+                              variant="outline"
                               className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold text-[#0f766e] shadow-[0_10px_20px_-18px_rgba(11,64,55,0.35)] transition hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
                             >
                               <svg
