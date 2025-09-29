@@ -875,7 +875,7 @@ export default function ApplicantPortal() {
             {filteredApplications.map((application) => (
               <article
                 key={application.id}
-                className="rounded-3xl border border-neutral-200 bg-white p-6 shadow-[0_24px_48px_-30px_rgba(15,23,42,0.35)]"
+                className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_16px_36px_-30px_rgba(11,64,55,0.22)]"
               >
                 <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                   <div className="space-y-1">
