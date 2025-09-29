@@ -714,321 +714,394 @@ const DiscoverExperienceView = ({
 
       {/* Interactive Heat Map Modal */}
       {showMapModal && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4 md:p-8">
-          <div className="bg-gray-800/50 border border-white/10 rounded-3xl w-full h-full overflow-hidden flex flex-col">
-            {/* Modal Header */}
-            <div className="flex justify-between items-center p-6 border-b border-white/10">
-              <h3 className="text-white text-xl font-semibold">
-                Abu Dhabi Business Heat Map
-              </h3>
-              <button
-                onClick={() => setShowMapModal(false)}
-                className="text-white/70 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full"
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M18 6L6 18M6 6L18 18"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-            </div>
-
-            <div className="relative p-6 flex-grow overflow-y-auto">
-              <div className="relative w-full aspect-[200/139] rounded-2xl overflow-hidden shadow-lg">
-                {/* Background Map */}
-                <img
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/df351a3a49f1c6b9b74765965e6ddb3ecf6799d7?width=1600"
-                  alt="Abu Dhabi Map"
-                  className="w-full h-full object-cover"
-                />
-
-                {/* Heat Map Density Circles with Hover Areas */}
-                <div className="absolute inset-0">
-                  {/* Khalifa City Area - Red Circle */}
-                  <div
-                    className="absolute cursor-pointer transition-all duration-300 hover:scale-110"
-                    style={{
-                      left: "35%",
-                      top: "28%",
-                      width: "26%",
-                      height: "38%",
-                    }}
-                    onMouseEnter={() => setHoveredLocation("khalifa-city")}
-                    onMouseLeave={() => setHoveredLocation(null)}
-                  >
-                    <svg viewBox="0 0 212 212" className="w-full h-full">
-                      <circle
-                        cx="106"
-                        cy="106"
-                        r="105"
-                        fill="url(#redGradient)"
-                      />
-                      <defs>
-                        <radialGradient id="redGradient">
-                          <stop stopColor="#FF0000" stopOpacity="0.4" />
-                          <stop
-                            offset="1"
-                            stopColor="#FF0000"
-                            stopOpacity="0"
-                          />
-                        </radialGradient>
-                      </defs>
-                    </svg>
-                    {hoveredLocation === "khalifa-city" && (
-                      <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-sm rounded-lg p-3 text-white text-sm whitespace-nowrap z-10">
-                        <div className="font-semibold">Khalifa City</div>
-                        <div>Average visitors: 1800-2500</div>
-                        <div>Weekly footfall: 25-35K</div>
-                      </div>
-                    )}
+        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-8">
+          <div
+            className="absolute inset-0 bg-slate-950/75 backdrop-blur-2xl"
+            onClick={() => {
+              setShowMapModal(false);
+              setHoveredLocation(null);
+            }}
+          />
+          <div className="relative z-10 w-full max-w-6xl">
+            <div className="flex h-full max-h-[85vh] flex-col overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-[#0c1f1b]/85 via-[#152d28]/82 to-[#091a17]/85 shadow-[0_32px_88px_-30px_rgba(9,29,23,0.65)] backdrop-blur-xl">
+              <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/10 px-6 py-5">
+                <div className="space-y-3">
+                  <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/70">
+                    Heat map
+                  </span>
+                  <div className="space-y-1">
+                    <h3 className="text-xl font-semibold text-white md:text-2xl">
+                      Abu Dhabi F&B Hotspot Density
+                    </h3>
+                    <p className="max-w-xl text-sm text-white/70">
+                      Compare licensing concentration and live footfall signals across the city&apos;s restaurant districts.
+                    </p>
                   </div>
-
-                  {/* Marina Area - Red Circle */}
-                  <div
-                    className="absolute cursor-pointer transition-all duration-300 hover:scale-110"
-                    style={{
-                      left: "18%",
-                      top: "38%",
-                      width: "24%",
-                      height: "34%",
-                    }}
-                    onMouseEnter={() => setHoveredLocation("marina")}
-                    onMouseLeave={() => setHoveredLocation(null)}
+                </div>
+                <div className="flex items-center gap-3">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="rounded-full border-white/40 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/20"
                   >
-                    <svg viewBox="0 0 190 190" className="w-full h-full">
-                      <circle
-                        cx="95"
-                        cy="95"
-                        r="94"
-                        fill="url(#redGradient2)"
-                      />
-                      <defs>
-                        <radialGradient id="redGradient2">
-                          <stop stopColor="#FF0000" stopOpacity="0.4" />
-                          <stop
-                            offset="1"
-                            stopColor="#FF0000"
-                            stopOpacity="0"
-                          />
-                        </radialGradient>
-                      </defs>
-                    </svg>
-                    {hoveredLocation === "marina" && (
-                      <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-sm rounded-lg p-3 text-white text-sm whitespace-nowrap z-10">
-                        <div className="font-semibold">Abu Dhabi Marina</div>
-                        <div>Average visitors: 450-700</div>
-                        <div>Weekly footfall: 40-55K</div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Central Area - Orange Circle */}
-                  <div
-                    className="absolute cursor-pointer transition-all duration-300 hover:scale-110"
-                    style={{
-                      left: "18%",
-                      top: "20%",
-                      width: "22%",
-                      height: "32%",
+                    Download heat map
+                  </Button>
+                  <button
+                    onClick={() => {
+                      setShowMapModal(false);
+                      setHoveredLocation(null);
                     }}
-                    onMouseEnter={() => setHoveredLocation("central")}
-                    onMouseLeave={() => setHoveredLocation(null)}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/80 transition hover:border-white/30 hover:text-white"
+                    aria-label="Close heat map"
                   >
-                    <svg viewBox="0 0 177 177" className="w-full h-full">
-                      <circle
-                        cx="88"
-                        cy="88"
-                        r="88"
-                        fill="url(#orangeGradient)"
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M18 6L6 18M6 6L18 18"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
-                      <defs>
-                        <radialGradient id="orangeGradient">
-                          <stop stopColor="#FF9500" stopOpacity="0.4" />
-                          <stop
-                            offset="1"
-                            stopColor="#FFB300"
-                            stopOpacity="0"
-                          />
-                        </radialGradient>
-                      </defs>
                     </svg>
-                    {hoveredLocation === "central" && (
-                      <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-sm rounded-lg p-3 text-white text-sm whitespace-nowrap z-10">
-                        <div className="font-semibold">Central District</div>
-                        <div>Average visitors: 900-1500</div>
-                        <div>Weekly footfall: 60-75K</div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Baniyas Area - Orange Circle */}
-                  <div
-                    className="absolute cursor-pointer transition-all duration-300 hover:scale-110"
-                    style={{
-                      left: "35%",
-                      top: "64%",
-                      width: "22%",
-                      height: "32%",
-                    }}
-                    onMouseEnter={() => setHoveredLocation("baniyas")}
-                    onMouseLeave={() => setHoveredLocation(null)}
-                  >
-                    <svg viewBox="0 0 177 177" className="w-full h-full">
-                      <circle
-                        cx="88"
-                        cy="88"
-                        r="88"
-                        fill="url(#orangeGradient2)"
-                      />
-                      <defs>
-                        <radialGradient id="orangeGradient2">
-                          <stop stopColor="#FF9500" stopOpacity="0.4" />
-                          <stop
-                            offset="1"
-                            stopColor="#FFB300"
-                            stopOpacity="0"
-                          />
-                        </radialGradient>
-                      </defs>
-                    </svg>
-                    {hoveredLocation === "baniyas" && (
-                      <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-sm rounded-lg p-3 text-white text-sm whitespace-nowrap z-10">
-                        <div className="font-semibold">Baniyas</div>
-                        <div>Average visitors: 200-300</div>
-                        <div>Weekly footfall: 60-75K</div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Corniche Area - Large Orange Circle */}
-                  <div
-                    className="absolute cursor-pointer transition-all duration-300 hover:scale-110"
-                    style={{
-                      left: "54%",
-                      top: "13%",
-                      width: "31%",
-                      height: "45%",
-                    }}
-                    onMouseEnter={() => setHoveredLocation("corniche")}
-                    onMouseLeave={() => setHoveredLocation(null)}
-                  >
-                    <svg viewBox="0 0 249 249" className="w-full h-full">
-                      <circle
-                        cx="124"
-                        cy="124"
-                        r="124"
-                        fill="url(#orangeGradientLarge)"
-                      />
-                      <defs>
-                        <radialGradient id="orangeGradientLarge">
-                          <stop stopColor="#FF9500" stopOpacity="0.4" />
-                          <stop
-                            offset="1"
-                            stopColor="#FFB300"
-                            stopOpacity="0"
-                          />
-                        </radialGradient>
-                      </defs>
-                    </svg>
-                    {hoveredLocation === "corniche" && (
-                      <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-sm rounded-lg p-3 text-white text-sm whitespace-nowrap z-10">
-                        <div className="font-semibold">The Corniche</div>
-                        <div>Average visitors: 2000+</div>
-                        <div>Weekly footfall: 100K+</div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Coastal Area - Yellow Circle */}
-                  <div
-                    className="absolute cursor-pointer transition-all duration-300 hover:scale-110"
-                    style={{
-                      left: "52%",
-                      top: "-5%",
-                      width: "25%",
-                      height: "32%",
-                    }}
-                    onMouseEnter={() => setHoveredLocation("coastal")}
-                    onMouseLeave={() => setHoveredLocation(null)}
-                  >
-                    <svg viewBox="0 0 203 177" className="w-full h-full">
-                      <circle
-                        cx="101"
-                        cy="75"
-                        r="101"
-                        fill="url(#yellowGradient)"
-                      />
-                      <defs>
-                        <radialGradient id="yellowGradient">
-                          <stop stopColor="#FBFF00" stopOpacity="0.4" />
-                          <stop
-                            offset="1"
-                            stopColor="#F7FF00"
-                            stopOpacity="0"
-                          />
-                        </radialGradient>
-                      </defs>
-                    </svg>
-                    {hoveredLocation === "coastal" && (
-                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-black/80 backdrop-blur-sm rounded-lg p-3 text-white text-sm whitespace-nowrap z-10">
-                        <div className="font-semibold">Coastal District</div>
-                        <div>Average visitors: 800-1200</div>
-                        <div>Weekly footfall: 35-50K</div>
-                      </div>
-                    )}
-                  </div>
+                  </button>
                 </div>
               </div>
 
-              {/* Bottom Statistics Panel */}
-              <div className="mt-6 bg-black/20 backdrop-blur-sm rounded-xl p-6">
-                <div className="flex items-end justify-between">
-                  <div>
-                    <h4 className="text-white text-lg font-semibold mb-1">
-                      The Corniche
-                    </h4>
-                    <p className="text-white/70 text-sm">
-                      Average weekly footfall
+              <div className="grid flex-1 gap-6 overflow-hidden px-6 py-6 lg:grid-cols-[1.4fr_1fr]">
+                <div className="relative flex h-full flex-col gap-4 rounded-2xl border border-white/12 bg-slate-900/40 p-4 shadow-[0_22px_50px_-34px_rgba(7,27,23,0.6)]">
+                  <div className="relative flex-1 overflow-hidden rounded-2xl border border-white/10">
+                    <img
+                      src="https://api.builder.io/api/v1/image/assets/TEMP/df351a3a49f1c6b9b74765965e6ddb3ecf6799d7?width=1600"
+                      alt="Abu Dhabi Map"
+                      className="h-full w-full object-cover"
+                    />
+
+                    <div className="absolute inset-0">
+                      <div
+                        className="absolute cursor-pointer transition duration-300 hover:scale-110"
+                        style={{
+                          left: "35%",
+                          top: "28%",
+                          width: "26%",
+                          height: "38%",
+                        }}
+                        onMouseEnter={() => setHoveredLocation("khalifa-city")}
+                        onMouseLeave={() => setHoveredLocation(null)}
+                      >
+                        <svg viewBox="0 0 212 212" className="h-full w-full">
+                          <circle cx="106" cy="106" r="105" fill="url(#redGradient)" />
+                          <defs>
+                            <radialGradient id="redGradient">
+                              <stop stopColor="#FF0000" stopOpacity="0.4" />
+                              <stop offset="1" stopColor="#FF0000" stopOpacity="0" />
+                            </radialGradient>
+                          </defs>
+                        </svg>
+                        {hoveredLocation === "khalifa-city" && (
+                          <div className="absolute -top-20 left-1/2 -translate-x-1/2 rounded-2xl border border-white/40 bg-white/95 px-4 py-3 text-xs text-slate-700 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.35)]">
+                            <p className="text-sm font-semibold text-slate-900">
+                              {insightById["khalifa-city"]?.name}
+                            </p>
+                            <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                              {insightById["khalifa-city"]?.trend}
+                            </p>
+                            <p className="text-xs text-slate-600">
+                              {insightById["khalifa-city"]?.footfall}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+
+                      <div
+                        className="absolute cursor-pointer transition duration-300 hover:scale-110"
+                        style={{
+                          left: "18%",
+                          top: "38%",
+                          width: "24%",
+                          height: "34%",
+                        }}
+                        onMouseEnter={() => setHoveredLocation("marina")}
+                        onMouseLeave={() => setHoveredLocation(null)}
+                      >
+                        <svg viewBox="0 0 190 190" className="h-full w-full">
+                          <circle cx="95" cy="95" r="94" fill="url(#redGradient2)" />
+                          <defs>
+                            <radialGradient id="redGradient2">
+                              <stop stopColor="#FF0000" stopOpacity="0.4" />
+                              <stop offset="1" stopColor="#FF0000" stopOpacity="0" />
+                            </radialGradient>
+                          </defs>
+                        </svg>
+                        {hoveredLocation === "marina" && (
+                          <div className="absolute -top-20 left-1/2 -translate-x-1/2 rounded-2xl border border-white/40 bg-white/95 px-4 py-3 text-xs text-slate-700 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.35)]">
+                            <p className="text-sm font-semibold text-slate-900">
+                              {insightById["marina"]?.name}
+                            </p>
+                            <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                              {insightById["marina"]?.trend}
+                            </p>
+                            <p className="text-xs text-slate-600">
+                              {insightById["marina"]?.footfall}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+
+                      <div
+                        className="absolute cursor-pointer transition duration-300 hover:scale-110"
+                        style={{
+                          left: "18%",
+                          top: "20%",
+                          width: "22%",
+                          height: "32%",
+                        }}
+                        onMouseEnter={() => setHoveredLocation("central")}
+                        onMouseLeave={() => setHoveredLocation(null)}
+                      >
+                        <svg viewBox="0 0 177 177" className="h-full w-full">
+                          <circle cx="88" cy="88" r="88" fill="url(#orangeGradient)" />
+                          <defs>
+                            <radialGradient id="orangeGradient">
+                              <stop stopColor="#FF9500" stopOpacity="0.4" />
+                              <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
+                            </radialGradient>
+                          </defs>
+                        </svg>
+                        {hoveredLocation === "central" && (
+                          <div className="absolute -top-20 left-1/2 -translate-x-1/2 rounded-2xl border border-white/40 bg-white/95 px-4 py-3 text-xs text-slate-700 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.35)]">
+                            <p className="text-sm font-semibold text-slate-900">
+                              {insightById["central"]?.name}
+                            </p>
+                            <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                              {insightById["central"]?.trend}
+                            </p>
+                            <p className="text-xs text-slate-600">
+                              {insightById["central"]?.footfall}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+
+                      <div
+                        className="absolute cursor-pointer transition duration-300 hover:scale-110"
+                        style={{
+                          left: "35%",
+                          top: "64%",
+                          width: "22%",
+                          height: "32%",
+                        }}
+                        onMouseEnter={() => setHoveredLocation("baniyas")}
+                        onMouseLeave={() => setHoveredLocation(null)}
+                      >
+                        <svg viewBox="0 0 177 177" className="h-full w-full">
+                          <circle cx="88" cy="88" r="88" fill="url(#orangeGradient2)" />
+                          <defs>
+                            <radialGradient id="orangeGradient2">
+                              <stop stopColor="#FF9500" stopOpacity="0.4" />
+                              <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
+                            </radialGradient>
+                          </defs>
+                        </svg>
+                        {hoveredLocation === "baniyas" && (
+                          <div className="absolute -top-20 left-1/2 -translate-x-1/2 rounded-2xl border border-white/40 bg-white/95 px-4 py-3 text-xs text-slate-700 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.35)]">
+                            <p className="text-sm font-semibold text-slate-900">
+                              {insightById["baniyas"]?.name}
+                            </p>
+                            <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                              {insightById["baniyas"]?.trend}
+                            </p>
+                            <p className="text-xs text-slate-600">
+                              {insightById["baniyas"]?.footfall}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+
+                      <div
+                        className="absolute cursor-pointer transition duration-300 hover:scale-110"
+                        style={{
+                          left: "54%",
+                          top: "13%",
+                          width: "31%",
+                          height: "45%",
+                        }}
+                        onMouseEnter={() => setHoveredLocation("corniche")}
+                        onMouseLeave={() => setHoveredLocation(null)}
+                      >
+                        <svg viewBox="0 0 249 249" className="h-full w-full">
+                          <circle cx="124" cy="124" r="124" fill="url(#orangeGradientLarge)" />
+                          <defs>
+                            <radialGradient id="orangeGradientLarge">
+                              <stop stopColor="#FF9500" stopOpacity="0.4" />
+                              <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
+                            </radialGradient>
+                          </defs>
+                        </svg>
+                        {hoveredLocation === "corniche" && (
+                          <div className="absolute -top-20 left-1/2 -translate-x-1/2 rounded-2xl border border-white/40 bg-white/95 px-4 py-3 text-xs text-slate-700 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.35)]">
+                            <p className="text-sm font-semibold text-slate-900">
+                              {insightById["corniche"]?.name}
+                            </p>
+                            <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                              {insightById["corniche"]?.trend}
+                            </p>
+                            <p className="text-xs text-slate-600">
+                              {insightById["corniche"]?.footfall}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+
+                      <div
+                        className="absolute cursor-pointer transition duration-300 hover:scale-110"
+                        style={{
+                          left: "52%",
+                          top: "-5%",
+                          width: "25%",
+                          height: "32%",
+                        }}
+                        onMouseEnter={() => setHoveredLocation("coastal")}
+                        onMouseLeave={() => setHoveredLocation(null)}
+                      >
+                        <svg viewBox="0 0 203 177" className="h-full w-full">
+                          <circle cx="101" cy="75" r="101" fill="url(#yellowGradient)" />
+                          <defs>
+                            <radialGradient id="yellowGradient">
+                              <stop stopColor="#FBFF00" stopOpacity="0.4" />
+                              <stop offset="1" stopColor="#F7FF00" stopOpacity="0" />
+                            </radialGradient>
+                          </defs>
+                        </svg>
+                        {hoveredLocation === "coastal" && (
+                          <div className="absolute top-full left-1/2 mt-3 -translate-x-1/2 rounded-2xl border border-white/40 bg-white/95 px-4 py-3 text-xs text-slate-700 shadow-[0_18px_36px_-24px_rgba(11,64,55,0.35)]">
+                            <p className="text-sm font-semibold text-slate-900">
+                              {insightById["coastal"]?.name}
+                            </p>
+                            <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                              {insightById["coastal"]?.trend}
+                            </p>
+                            <p className="text-xs text-slate-600">
+                              {insightById["coastal"]?.footfall}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="pointer-events-none absolute inset-x-6 bottom-5 flex flex-wrap items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/60">
+                      <span className="flex items-center gap-2">
+                        <span className="h-2 w-8 rounded-full bg-[#ef4444]" />
+                        High density
+                      </span>
+                      <span className="flex items-center gap-2">
+                        <span className="h-2 w-8 rounded-full bg-[#f59e0b]" />
+                        Active growth
+                      </span>
+                      <span className="flex items-center gap-2">
+                        <span className="h-2 w-8 rounded-full bg-[#facc15]" />
+                        Seasonal peaks
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex h-full flex-col gap-4 rounded-2xl border border-white/12 bg-white/10 p-5 text-white backdrop-blur-lg">
+                  <div className="rounded-2xl border border-white/15 bg-black/25 p-5 shadow-[0_18px_44px_-26px_rgba(12,46,39,0.55)]">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/60">
+                      Focused district
                     </p>
+                    <h4 className="mt-2 text-lg font-semibold text-white">
+                      {activeInsight.name}
+                    </h4>
+                    <p className="mt-2 text-sm text-white/70">
+                      {activeInsight.summary}
+                    </p>
+                    <dl className="mt-4 grid grid-cols-2 gap-4 text-xs text-white/70">
+                      <div>
+                        <dt className="text-white/50 uppercase tracking-[0.2em]">
+                          Footfall
+                        </dt>
+                        <dd className="mt-1 text-sm font-semibold text-white">
+                          {activeInsight.footfall}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="text-white/50 uppercase tracking-[0.2em]">
+                          Density
+                        </dt>
+                        <dd className="mt-1 text-sm font-semibold text-white">
+                          {activeInsight.density}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="text-white/50 uppercase tracking-[0.2em]">
+                          Trend
+                        </dt>
+                        <dd className="mt-1 text-sm font-semibold text-white">
+                          {activeInsight.trend}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="text-white/50 uppercase tracking-[0.2em]">
+                          Cuisine focus
+                        </dt>
+                        <dd className="mt-1 text-sm font-semibold text-white">
+                          {activeInsight.focus}
+                        </dd>
+                      </div>
+                    </dl>
                   </div>
 
-                  <div className="flex items-end gap-6">
-                    <div className="text-center">
-                      <div className="text-white/70 text-xs mb-1">
-                        Khalifa City
-                      </div>
-                      <div className="text-white text-2xl font-bold">
-                        25-35K
-                      </div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-white/70 text-xs mb-1">
-                        Abu Dhabi Marina
-                      </div>
-                      <div className="text-white text-2xl font-bold">
-                        40-55K
-                      </div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-white/70 text-xs mb-1">Baniyas</div>
-                      <div className="text-white text-2xl font-bold">
-                        60-75K
-                      </div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-white/70 text-xs mb-1">Corniche</div>
-                      <div className="text-white text-2xl font-bold">100K+</div>
-                    </div>
+                  <div className="flex-1 overflow-y-auto rounded-2xl border border-white/12 bg-white/12 p-4">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/60">
+                      Other hotspots
+                    </p>
+                    <ul className="mt-3 space-y-3 text-sm">
+                      {secondaryInsights.map((spot) => {
+                        const isHighlighted = hoveredLocation === spot.id;
+                        const width = `${Math.min(spot.intensity, 100)}%`;
+                        return (
+                          <li
+                            key={spot.id}
+                            className={cn(
+                              "cursor-pointer rounded-2xl border border-white/10 bg-white/10 p-3 transition",
+                              isHighlighted
+                                ? "border-[#54ffd4]/60 bg-[#54ffd4]/15 shadow-[0_18px_40px_-26px_rgba(84,255,212,0.45)]"
+                                : "hover:border-white/20 hover:bg-white/16",
+                            )}
+                            onMouseEnter={() => setHoveredLocation(spot.id)}
+                            onMouseLeave={() => setHoveredLocation(null)}
+                          >
+                            <div className="flex items-center justify-between text-sm font-semibold">
+                              <span>{spot.name}</span>
+                              <span className="text-white/70">{spot.footfall}</span>
+                            </div>
+                            <div className="mt-1 flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-white/60">
+                              <span>{spot.density}</span>
+                              <span className="rounded-full bg-white/15 px-2 py-0.5 text-[10px] text-white/70">
+                                {spot.trend}
+                              </span>
+                            </div>
+                            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
+                              <div
+                                className="h-full rounded-full bg-gradient-to-r from-[#9df6d3] via-[#54ffd4] to-[#0f766e]"
+                                style={{ width }}
+                              />
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/12 bg-black/25 px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/70">
+                    Powered by aggregated licensing &amp; mobility data (updated weekly)
                   </div>
                 </div>
               </div>
