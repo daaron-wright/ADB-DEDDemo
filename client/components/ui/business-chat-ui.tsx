@@ -572,8 +572,8 @@ const DiscoverExperienceView = ({
       <div className="space-y-4 mb-6">
         {/* User Question */}
         <div className="flex justify-end">
-          <div className="max-w-[80%] px-4 py-3 rounded-2xl rounded-br-sm bg-black/30 backdrop-blur-sm border border-white/10">
-            <div className="text-white text-sm leading-relaxed">
+          <div className="max-w-[80%] px-4 py-3 rounded-2xl rounded-br-sm bg-[#E6F7F3] border border-[#54FFD4]/60 shadow-sm">
+            <div className="text-slate-900 text-sm leading-relaxed">
               {conversationMessages[0].content}
             </div>
           </div>
@@ -586,8 +586,8 @@ const DiscoverExperienceView = ({
             alt="AI Assistant"
             className="w-8 h-8 rounded-full border border-[#54FFD4] object-cover flex-shrink-0"
           />
-          <div className="max-w-[70%] px-4 py-3 rounded-2xl rounded-bl-sm bg-white/20 backdrop-blur-sm border border-white/10">
-            <div className="text-white text-sm leading-relaxed">
+          <div className="max-w-[70%] px-4 py-3 rounded-2xl rounded-bl-sm bg-white border border-slate-200 shadow-sm">
+            <div className="text-slate-900 text-sm leading-relaxed">
               {conversationMessages[1].content}
             </div>
           </div>
@@ -716,8 +716,8 @@ const DiscoverExperienceView = ({
 
         {/* User Response */}
         <div className="flex justify-end">
-          <div className="max-w-[70%] px-4 py-3 rounded-2xl rounded-br-sm bg-black/30 backdrop-blur-sm border border-white/10">
-            <div className="text-white text-sm leading-relaxed">
+          <div className="max-w-[70%] px-4 py-3 rounded-2xl rounded-br-sm bg-[#E6F7F3] border border-[#54FFD4]/60 shadow-sm">
+            <div className="text-slate-900 text-sm leading-relaxed">
               {conversationMessages[2].content}
             </div>
           </div>
