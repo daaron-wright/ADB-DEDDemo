@@ -510,7 +510,7 @@ export default function ApplicantPortal() {
                   <li key={stage.id}>
                     <button
                       type="button"
-                      onClick={() => setActiveStageId(stage.id)}
+                      onClick={() => handleStageSelect(stage)}
                       className={cn(
                         "w-full rounded-2xl border px-4 py-3 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
                         isActive
