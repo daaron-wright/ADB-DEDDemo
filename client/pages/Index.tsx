@@ -406,9 +406,12 @@ export default function Index() {
             </button>
             <UAEPassLogin
               trigger={(
-                <button className="bg-teal-gradient text-white px-6 py-4 rounded-full font-semibold text-base transition-opacity hover:opacity-90">
+                <span
+                  className="inline-flex items-center justify-center rounded-full bg-teal-gradient px-6 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90"
+                  role="presentation"
+                >
                   Sign in
-                </button>
+                </span>
               )}
               onLogin={handleUAEPassLogin}
             />
