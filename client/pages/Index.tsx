@@ -229,6 +229,7 @@ export default function Index() {
     setChatState({
       isOpen: false,
       category: null,
+      initialMessage: null,
     });
   };
 
