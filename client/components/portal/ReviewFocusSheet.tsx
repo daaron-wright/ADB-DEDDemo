@@ -82,6 +82,7 @@ export function ReviewFocusSheet({
   open,
   review,
   onClose,
+  policyAssignments,
 }: ReviewFocusSheetProps) {
   const [showAllDocuments, setShowAllDocuments] = useState(false);
 
