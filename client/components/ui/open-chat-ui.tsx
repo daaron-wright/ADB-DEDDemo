@@ -476,7 +476,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         onKeyPress={handleKeyPress}
-                        placeholder="Type your message..."
+                        placeholder={placeholderText}
                         className="flex-1 rounded-xl border border-white/60 bg-white/80 px-3 py-2 text-sm text-slate-900 placeholder-slate-500 transition-colors backdrop-blur-sm focus:border-[#54FFD4] focus:outline-none focus:ring-1 focus:ring-[#54FFD4]/50"
                         disabled={chatState !== 'idle'}
                       />
