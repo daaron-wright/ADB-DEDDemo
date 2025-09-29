@@ -366,6 +366,13 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
     }
   };
 
+  const handlePromptSelection = (message: string) => {
+    if (isIntroMode && onPromptSubmit) {
+      onPromptSubmit({ categoryId: selectedCategory?.id ?? initialCategoryId ?? null, message });
+      setInputValue('');
+    }
+  };
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
