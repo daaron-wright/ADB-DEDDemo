@@ -753,7 +753,7 @@ export default function ApplicantPortal() {
               role="tabpanel"
               id={`journey-panel-${activeJourneyStage.id}`}
               aria-labelledby={`journey-tab-${activeJourneyStage.id}`}
-              className="flex-1 rounded-3xl border border-neutral-200 bg-slate-50 p-6 shadow-[0_16px_40px_-30px_rgba(15,23,42,0.25)]"
+              className="flex-1 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_16px_36px_-30px_rgba(11,64,55,0.2)]"
             >
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
