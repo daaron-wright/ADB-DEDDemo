@@ -1,8 +1,11 @@
 import type { Config } from "tailwindcss";
 
-export default {
+const config: Config = {
   darkMode: ["class"],
-  content: ["./client/**/*.{ts,tsx}", './node_modules/@aegov/design-system-react/**/*.{js,jsx,ts,tsx}'],
+  content: [
+    "./client/**/*.{ts,tsx}",
+    "./node_modules/@aegov/design-system-react/**/*.{js,jsx,ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -57,7 +60,6 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Design system colors
         tamm: {
           teal: {
             light: "#169F9F",
@@ -101,14 +103,16 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       backgroundImage: {
-        'teal-gradient': 'linear-gradient(271deg, #169F9F 34.98%, #083939 277.12%)',
-        'purple-gradient': 'linear-gradient(159deg, #AEAAFE 39.9%, #F0EEFD 71.79%)',
-        'blur-white': 'radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.2) 100%)',
+        "teal-gradient": "linear-gradient(271deg, #169F9F 34.98%, #083939 277.12%)",
+        "purple-gradient": "linear-gradient(159deg, #AEAAFE 39.9%, #F0EEFD 71.79%)",
+        "blur-white": "radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.2) 100%)",
       },
       fontFamily: {
-        sans: ['DM Sans', 'sans-serif'],
+        sans: ["DM Sans", "sans-serif"],
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+};
+
+export default config;
