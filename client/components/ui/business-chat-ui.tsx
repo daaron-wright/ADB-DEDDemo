@@ -86,6 +86,86 @@ const StarRating = ({ rating }: { rating: number }) => {
 const KHALID_AVATAR =
   "https://api.builder.io/api/v1/image/assets/TEMP/0142e541255ee20520b15f139d595835c00ea132?width=131";
 
+const AccessibleHeatMap = () => {
+  const heatPoints = [
+    { id: 1, x: 25, y: 35, intensity: 'high', label: 'Marina Royal Complex', businesses: 15 },
+    { id: 2, x: 45, y: 45, intensity: 'medium', label: 'Al Khalidiya District', businesses: 8 },
+    { id: 3, x: 65, y: 25, intensity: 'high', label: 'Corniche Area', businesses: 22 },
+    { id: 4, x: 75, y: 55, intensity: 'medium', label: 'Al Bateen', businesses: 12 },
+    { id: 5, x: 35, y: 65, intensity: 'low', label: 'Downtown District', businesses: 5 },
+  ];
+
+  return (
+    <div className="mt-4 mb-2">
+      {/* Heat map container */}
+      <div
+        className="relative w-full max-w-sm bg-white rounded-2xl p-3 shadow-lg border border-white/20"
+        role="img"
+        aria-label="Heat map showing restaurant density across Abu Dhabi districts"
+      >
+        {/* Base map image */}
+        <img
+          src="https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=386"
+          alt="Abu Dhabi district map"
+          className="w-full h-auto rounded-xl"
+        />
+
+        {/* Heat points overlay */}
+        <div className="absolute inset-3">
+          {heatPoints.map((point) => (
+            <div
+              key={point.id}
+              className="absolute rounded-full transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 hover:scale-110"
+              style={{
+                left: `${point.x}%`,
+                top: `${point.y}%`,
+                width: point.intensity === 'high' ? '64px' : point.intensity === 'medium' ? '48px' : '32px',
+                height: point.intensity === 'high' ? '64px' : point.intensity === 'medium' ? '48px' : '32px',
+                background: `radial-gradient(circle, ${
+                  point.intensity === 'high' ? 'rgba(239, 68, 68, 0.6)' :
+                  point.intensity === 'medium' ? 'rgba(245, 158, 11, 0.6)' :
+                  'rgba(250, 204, 21, 0.6)'
+                } 0%, transparent 70%)`,
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label={`${point.label}: ${point.businesses} restaurants, ${point.intensity} density`}
+              title={`${point.label}: ${point.businesses} restaurants`}
+            >
+              {/* Inner circle for better visibility */}
+              <div className="absolute inset-2 rounded-full bg-white/20 border border-white/40"></div>
+
+              {/* Business count indicator */}
+              <div className="absolute -top-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold text-gray-800 border border-gray-200 shadow-sm">
+                {point.businesses}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Accessible legend */}
+      <div className="mt-3 p-3 bg-white/80 rounded-xl border border-white/20 backdrop-blur-sm">
+        <h4 className="text-sm font-semibold text-white mb-2">Restaurant Density Legend</h4>
+        <div className="space-y-1 text-xs">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-red-500/60"></div>
+            <span className="text-white/90">High (15+ restaurants)</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-orange-500/60"></div>
+            <span className="text-white/90">Medium (8-14 restaurants)</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-yellow-400/60"></div>
+            <span className="text-white/90">Low (1-7 restaurants)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const MessageBubble = ({
   message,
   onActionClick,
