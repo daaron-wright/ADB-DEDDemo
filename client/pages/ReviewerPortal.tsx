@@ -275,30 +275,8 @@ export default function ReviewerPortal() {
     return diffInDays <= 2;
   }).length;
 
-  const handleDirectorateChange = (value: string, checked: boolean) => {
-    if (checked) {
-      setSelectedDirectorates((prev) => {
-        if (prev.includes(value)) return prev;
-        return [...prev, value];
-      });
-    } else {
-      setSelectedDirectorates((prev) => prev.filter((item) => item !== value));
-    }
-  };
-
-  const handleToggleAllDirectorates = (checked: boolean) => {
-    if (checked) {
-      setSelectedDirectorates(defaultDirectorates);
-    } else {
-      setSelectedDirectorates([]);
-    }
-  };
-
   const resetFilters = () => {
     setSearchTerm('');
-    setSelectedDirectorates(defaultDirectorates);
-    setSelectedSlaStatus('all');
-    setPriorityFilter('all');
     setSelectedStage('all');
     setDaysThreshold([7]);
     setSortBy('due');
