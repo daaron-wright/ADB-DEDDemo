@@ -840,6 +840,9 @@ export default function ReviewerPortal() {
         open={Boolean(focusedReview)}
         review={focusedReview}
         onClose={handleFocusClose}
+        policyAssignments={
+          focusedReview ? reviewPolicyActors[focusedReview.id] : undefined
+        }
       />
     </PortalPageLayout>
   );
