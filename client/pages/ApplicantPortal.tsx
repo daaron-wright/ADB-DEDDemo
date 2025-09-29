@@ -115,10 +115,10 @@ const applications: ApplicationRecord[] = [
 ];
 
 const statusStyles: Record<ApplicationRecord['status'], string> = {
-  'In Review': 'bg-purple-50 text-purple-700 border-purple-200',
-  'Awaiting Documents': 'bg-amber-50 text-amber-700 border-amber-200',
-  Approved: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  Draft: 'bg-slate-50 text-slate-600 border-slate-200',
+  'In Review': 'bg-[#dff2ec] text-[#0b7d6f] border-[#94d2c2]',
+  'Awaiting Documents': 'bg-[#fdf6e4] text-[#b97324] border-[#f3dcb6]',
+  Approved: 'bg-[#eaf7f3] text-[#0f766e] border-[#b7e1d4]',
+  Draft: 'bg-[#f4f8f6] text-slate-600 border-[#d8e4df]',
 };
 
 type JourneyState = 'done' | 'current' | 'upcoming';
