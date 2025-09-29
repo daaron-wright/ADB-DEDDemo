@@ -180,9 +180,6 @@ const buildDefaultPolicyAssignments = (): Record<PolicyId, PolicyAgentId> =>
 
 export default function ReviewerPortal() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedDirectorates, setSelectedDirectorates] = useState<string[]>(defaultDirectorates);
-  const [selectedSlaStatus, setSelectedSlaStatus] = useState<(typeof slaOptions)[number]['value']>('all');
-  const [priorityFilter, setPriorityFilter] = useState<(typeof priorityOptions)[number]['value']>('all');
   const [selectedStage, setSelectedStage] = useState<(typeof stageOptions)[number]['value']>('all');
   const [daysThreshold, setDaysThreshold] = useState<number[]>([7]);
   const [sortBy, setSortBy] = useState<'due' | 'priority'>('due');
