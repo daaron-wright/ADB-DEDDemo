@@ -735,19 +735,19 @@ const DiscoverExperienceView = ({
             }
           }}
         >
-          <div className="flex items-center gap-3 px-4 py-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/10">
+          <div className="flex items-center gap-3 px-4 py-3 rounded-full bg-white border border-slate-200 shadow-sm">
             <input
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              className="flex-1 bg-transparent text-white text-sm placeholder-white/50 outline-none"
+              className="flex-1 bg-transparent text-slate-900 text-sm placeholder-slate-400 outline-none"
               placeholder="Ask me..."
             />
             <div className="flex items-center gap-2">
               {/* Send button */}
               <button
                 type="submit"
-                className="p-1 rounded-full hover:bg-white/10 text-white/70 transition-colors"
+                className="p-2 rounded-full bg-[#54FFD4] text-slate-900 transition-colors hover:bg-[#3dd9b5]"
               >
                 <svg
                   width="16"
@@ -766,7 +766,7 @@ const DiscoverExperienceView = ({
                 </svg>
               </button>
               {/* Microphone icon */}
-              <div className="w-4 h-4 flex items-center justify-center text-white/70">
+              <div className="w-4 h-4 flex items-center justify-center text-teal-600/80">
                 <svg
                   width="10"
                   height="15"
@@ -776,12 +776,12 @@ const DiscoverExperienceView = ({
                 >
                   <path
                     d="M1.35352 6.20687V7.70687C1.35352 8.63513 1.72253 9.5251 2.37891 10.1815C3.03528 10.8379 3.92526 11.2069 4.85352 11.2069C5.78177 11.2069 6.67175 10.8379 7.32812 10.1815C7.9845 9.5251 8.35352 8.63513 8.35352 7.70687V6.20687H9.35352V7.70687C9.35299 8.8134 8.94491 9.88131 8.20703 10.7059C7.46917 11.5304 6.45312 12.0537 5.35352 12.1766V13.2069H7.35352V14.2069H2.35352V13.2069H4.35352V12.1766C3.25391 12.0537 2.23787 11.5304 1.5 10.7059C0.762117 9.88131 0.354041 8.8134 0.353516 7.70687V6.20687H1.35352ZM4.85352 0.206871C5.51656 0.206871 6.15225 0.470452 6.62109 0.939293C7.08993 1.40813 7.35352 2.04383 7.35352 2.70687V7.70687C7.35352 8.36991 7.08993 9.00561 6.62109 9.47445C6.15225 9.94329 5.51656 10.2069 4.85352 10.2069C4.19047 10.2069 3.55478 9.94329 3.08594 9.47445C2.6171 9.00561 2.35352 8.36991 2.35352 7.70687V2.70687C2.35352 2.04383 2.6171 1.40813 3.08594 0.939293C3.55478 0.470452 4.19047 0.206871 4.85352 0.206871ZM4.85352 1.20687C4.45569 1.20687 4.07427 1.36502 3.79297 1.64632C3.51166 1.92763 3.35352 2.30905 3.35352 2.70687V7.70687C3.35352 8.1047 3.51166 8.48611 3.79297 8.76742C4.07427 9.04872 4.45569 9.20687 4.85352 9.20687C5.25134 9.20687 5.63276 9.04872 5.91406 8.76742C6.19537 8.48611 6.35352 8.1047 6.35352 7.70687V2.70687C6.35352 2.30905 6.19537 1.92763 5.91406 1.64632C5.63276 1.36502 5.25134 1.20687 4.85352 1.20687Z"
-                    fill="white"
+                    fill="currentColor"
                   />
                 </svg>
               </div>
               {/* Keyboard icon */}
-              <div className="w-4 h-4 flex items-center justify-center text-white/70">
+              <div className="w-4 h-4 flex items-center justify-center text-teal-600/80">
                 <svg
                   width="15"
                   height="10"
@@ -791,7 +791,7 @@ const DiscoverExperienceView = ({
                 >
                   <path
                     d="M13.8535 0.206871C14.1187 0.206871 14.373 0.312303 14.5605 0.49984C14.7481 0.687376 14.8535 0.941655 14.8535 1.20687V8.20687C14.8535 8.47209 14.7481 8.72637 14.5605 8.9139C14.373 9.10144 14.1187 9.20687 13.8535 9.20687H1.85352C1.5883 9.20687 1.33402 9.10144 1.14648 8.9139C0.958948 8.72637 0.853516 8.47209 0.853516 8.20687V1.20687C0.853516 0.941655 0.958948 0.687376 1.14648 0.49984C1.33402 0.312303 1.5883 0.206871 1.85352 0.206871H13.8535ZM1.85352 8.20687H13.8535V1.20687H1.85352V8.20687ZM3.85352 7.20687H2.85352V6.20687H3.85352V7.20687ZM10.3535 7.20687H4.85352V6.20687H10.3535V7.20687ZM12.8535 6.20687V7.20687H11.3535V6.20687H12.8535ZM3.85352 5.20687H2.85352V4.20687H3.85352V5.20687ZM5.85352 5.20687H4.85352V4.20687H5.85352V5.20687ZM7.85352 5.20687H6.85352V4.20687H7.85352V5.20687ZM9.85352 5.20687H8.85352V4.20687H9.85352V5.20687ZM12.8535 5.20687H10.8535V4.20687H12.8535V5.20687ZM3.85352 3.20687H2.85352V2.20687H3.85352V3.20687ZM5.85352 3.20687H4.85352V2.20687H5.85352V3.20687ZM7.85352 3.20687H6.85352V2.20687H7.85352V3.20687ZM9.85352 3.20687H8.85352V2.20687H9.85352V3.20687ZM12.8535 3.20687H10.8535V2.20687H12.8535V3.20687Z"
-                    fill="white"
+                    fill="currentColor"
                   />
                 </svg>
               </div>
