@@ -678,7 +678,7 @@ export default function ApplicantPortal() {
         />
       </section>
 
-      <section className="mt-6 rounded-3xl border border-neutral-200 bg-white p-6 shadow-[0_24px_48px_-30px_rgba(15,23,42,0.35)]">
+      <section className="mt-6 rounded-3xl border border-[#d8e4df] bg-white p-8 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)]">
         <div className="flex flex-col gap-10 xl:flex-row xl:items-start">
           <div className="xl:max-w-sm">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Application journey</p>
