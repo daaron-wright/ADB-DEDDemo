@@ -1226,6 +1226,7 @@ export function BusinessChatUI({
     const clonedMessages = baseMessages.map((message) => ({
       ...message,
       timestamp: new Date(message.timestamp),
+      type: message.type || 'text',
     }));
 
     let seededMessages = clonedMessages;
