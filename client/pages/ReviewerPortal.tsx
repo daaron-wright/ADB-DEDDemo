@@ -621,32 +621,56 @@ export default function ReviewerPortal() {
                     </div>
                   </div>
 
-                  <Select
-                  value={assignedAgent}
-                  onValueChange={(value) =>
-                    handlePolicyAgentChange(policy.id, value as PolicyAgentId)
-                  }
-                  className="w-full sm:w-auto"
-                >
-                  <SelectTrigger className="h-10 w-full max-w-full rounded-2xl border-[#d8e4df] bg-white text-sm text-slate-900 sm:min-w-[12rem]">
-                      <SelectValue
-                        aria-label={selectedAgentLabel ?? "Select policy agent"}
-                      />
-                    </SelectTrigger>
-                    <SelectContent className="rounded-2xl border border-[#d8e4df] bg-white text-slate-900">
-                      <SelectGroup>
-                        {policyAgentOptions.map((agent) => (
-                          <SelectItem
-                            key={agent.id}
-                            value={agent.id}
-                            className="rounded-xl text-sm text-slate-900 data-[state=checked]:bg-[#dff2ec] data-[state=checked]:text-[#0b7d6f]"
-                          >
-                            {agent.label}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  <div className="flex w-full flex-col gap-2 sm:w-auto sm:items-end">
+                    <Select
+                      value={assignedAgent}
+                      onValueChange={(value) =>
+                        handlePolicyAgentChange(policy.id, value as PolicyAgentId)
+                      }
+                    >
+                      <SelectTrigger className="h-10 w-full rounded-2xl border-[#d8e4df] bg-white text-sm text-slate-900 sm:min-w-[12rem]">
+                        <SelectValue
+                          aria-label={selectedAgentLabel ?? "Select policy agent"}
+                        />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl border border-[#d8e4df] bg-white text-slate-900">
+                        <SelectGroup>
+                          {policyAgentOptions.map((agent) => (
+                            <SelectItem
+                              key={agent.id}
+                              value={agent.id}
+                              className="rounded-xl text-sm text-slate-900 data-[state=checked]:bg-[#dff2ec] data-[state=checked]:text-[#0b7d6f]"
+                            >
+                              {agent.label}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <button
+                      type="button"
+                      onClick={() => handleAddPolicyActorToReview(policy.id)}
+                      disabled={buttonDisabled}
+                      className="inline-flex items-center justify-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold text-[#0f766e] transition hover:bg-[#eaf7f3] disabled:cursor-not-allowed disabled:border-[#d8e4df] disabled:bg-[#f1f5f4] disabled:text-slate-400"
+                    >
+                      <svg
+                        className="h-3.5 w-3.5"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M10 4v12M4 10h12"
+                          stroke="currentColor"
+                          strokeWidth="1.6"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      <span>{buttonLabel}</span>
+                    </button>
+                    <span className="text-[11px] text-slate-500">{helperMessage}</span>
+                  </div>
                 </div>
               </div>
             );
