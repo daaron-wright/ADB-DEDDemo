@@ -20,15 +20,15 @@ export interface ReviewQueueItem {
 }
 
 const priorityStyles: Record<ReviewQueueItem['priority'], string> = {
-  High: 'border-rose-200 bg-rose-50 text-rose-700',
-  Medium: 'border-amber-200 bg-amber-50 text-amber-700',
-  Low: 'border-emerald-200 bg-emerald-50 text-emerald-700',
+  High: 'border-[#f4bebe] bg-[#fdf1f0] text-[#b23b31]',
+  Medium: 'border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]',
+  Low: 'border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]',
 };
 
 const slaStyles: Record<ReviewQueueItem['slaStatus'], string> = {
-  'On Track': 'text-emerald-700 bg-emerald-50 border-emerald-200',
-  'At Risk': 'text-amber-700 bg-amber-50 border-amber-200',
-  Breached: 'text-rose-700 bg-rose-50 border-rose-200',
+  'On Track': 'text-[#0f766e] bg-[#eaf7f3] border-[#b7e1d4]',
+  'At Risk': 'text-[#b97324] bg-[#fdf6e4] border-[#f3dcb6]',
+  Breached: 'text-[#b23b31] bg-[#fdf1f0] border-[#f4bebe]',
 };
 
 const dateFormatter = new Intl.DateTimeFormat('en-GB', {
