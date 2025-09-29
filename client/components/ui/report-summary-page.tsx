@@ -200,13 +200,23 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({ isOpen, on
                     mode="quick"
                     defaultUserType="applicant"
                     trigger={(
-                      <button className="transform transition-transform duration-200 hover:scale-105">
+                      <span
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault();
+                            event.currentTarget.click();
+                          }
+                        }}
+                        className="inline-flex outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0f766e] focus-visible:ring-offset-slate-900/20 transform transition-transform duration-200 hover:scale-105"
+                      >
                         <img
                           src="https://api.builder.io/api/v1/image/assets/TEMP/6af0c42146feff37d8c56f7d5b67c0ce1e2c12e1?width=348"
                           alt="UAE Pass Login"
                           className="h-21 rounded-full shadow-lg transition-shadow duration-200 hover:shadow-xl"
                         />
-                      </button>
+                      </span>
                     )}
                   />
                 </div>
