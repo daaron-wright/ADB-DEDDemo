@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { PropertyMapModal } from './property-map-modal';
-import { ReportSummaryPage } from './report-summary-page';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { PropertyMapModal } from "./property-map-modal";
+import { ReportSummaryPage } from "./report-summary-page";
 
 interface GapAnalysisViewProps {
   isOpen: boolean;
@@ -11,15 +11,15 @@ interface GapAnalysisViewProps {
 
 const SoundVisualization = () => {
   const bars = [
-    { height: '4px' },
-    { height: '8px' },
-    { height: '16px' },
-    { height: '10px' },
-    { height: '6px' },
-    { height: '18px' },
-    { height: '24px' },
-    { height: '14px' },
-    { height: '3px' },
+    { height: "4px" },
+    { height: "8px" },
+    { height: "16px" },
+    { height: "10px" },
+    { height: "6px" },
+    { height: "18px" },
+    { height: "24px" },
+    { height: "14px" },
+    { height: "3px" },
   ];
 
   return (
@@ -37,11 +37,11 @@ const SoundVisualization = () => {
 
 const FootfallInsight = () => {
   const [count, setCount] = useState(0);
-  
+
   useEffect(() => {
     const timer = setTimeout(() => {
       const interval = setInterval(() => {
-        setCount(prev => {
+        setCount((prev) => {
           if (prev >= 6.3) {
             clearInterval(interval);
             return 6.3;
@@ -51,7 +51,7 @@ const FootfallInsight = () => {
       }, 50);
       return () => clearInterval(interval);
     }, 800);
-    
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -66,11 +66,15 @@ const FootfallInsight = () => {
         Footfall insights
       </div>
       <div className="flex items-center gap-2">
-        <div className="text-white text-5xl font-bold">
-          {count.toFixed(1)}%
-        </div>
-        <svg width="19" height="19" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#54FFD4"/>
+        <div className="text-white text-5xl font-bold">{count.toFixed(1)}%</div>
+        <svg
+          width="19"
+          height="19"
+          viewBox="0 0 17 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#54FFD4" />
         </svg>
       </div>
     </motion.div>
@@ -89,20 +93,22 @@ const StatisticsBar = () => {
         <div className="flex items-center justify-between">
           <div>
             <div className="text-white/70 text-lg mb-1">INSIGHTS</div>
-            <div className="text-white text-2xl font-bold">Abu Dhabi Corniche</div>
+            <div className="text-white text-2xl font-bold">
+              Abu Dhabi Corniche
+            </div>
           </div>
-          
+
           <div className="flex gap-12">
             <div className="text-center">
               <div className="text-white/70 text-lg mb-1">Expats in area</div>
               <div className="text-white text-5xl font-bold">85-90%</div>
             </div>
-            
+
             <div className="text-center">
               <div className="text-white/70 text-lg mb-1">Eat out weekly</div>
               <div className="text-white text-5xl font-bold">2.5x</div>
             </div>
-            
+
             <div className="text-center">
               <div className="text-white/70 text-lg mb-1">% who dine out</div>
               <div className="text-white text-5xl font-bold">78%</div>
@@ -114,7 +120,11 @@ const StatisticsBar = () => {
   );
 };
 
-const GapAnalysisPanel = ({ onShowProperties }: { onShowProperties: () => void }) => {
+const GapAnalysisPanel = ({
+  onShowProperties,
+}: {
+  onShowProperties: () => void;
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, x: 50 }}
@@ -140,9 +150,13 @@ const GapAnalysisPanel = ({ onShowProperties }: { onShowProperties: () => void }
 
         {/* Gap Analysis Content */}
         <div className="px-9 pt-8 pb-6 h-full flex flex-col">
-          <div className="text-white text-base font-normal mb-6 tracking-wide">GAP ANALYSIS</div>
+          <div className="text-white text-base font-normal mb-6 tracking-wide">
+            GAP ANALYSIS
+          </div>
 
-          <h2 className="text-white text-2xl font-bold mb-24">Abu Dhabi Corniche</h2>
+          <h2 className="text-white text-2xl font-bold mb-24">
+            Abu Dhabi Corniche
+          </h2>
 
           <div className="text-white text-lg leading-relaxed flex-1">
             <div className="mb-4">
@@ -150,7 +164,10 @@ const GapAnalysisPanel = ({ onShowProperties }: { onShowProperties: () => void }
             </div>
             <div className="space-y-4">
               <p>Emirati Fusion Cuisine Japanese influences new trend</p>
-              <p>Demand for a formal evening dining experience. Waterfront locations</p>
+              <p>
+                Demand for a formal evening dining experience. Waterfront
+                locations
+              </p>
               <p>High rise luxury experience popular.</p>
             </div>
           </div>
@@ -166,7 +183,8 @@ const GapAnalysisPanel = ({ onShowProperties }: { onShowProperties: () => void }
               onClick={onShowProperties}
               className="w-full px-6 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-medium text-sm hover:bg-white/20 transition-colors"
             >
-              Show me some available properties in the area that might work for my restaurant
+              Show me some available properties in the area that might work for
+              my restaurant
             </button>
           </motion.div>
         </div>
@@ -184,15 +202,20 @@ const MainContent = () => {
       className="absolute top-40 left-20 max-w-md"
     >
       <div className="text-white text-lg font-bold leading-relaxed">
-        The Abu Dhabi Corniche presents a dynamic and lucrative environment for F&B businesses, 
-        driven by a mix of residents, tourists, and a strong culture of dining out. Here is an 
-        overview of the key insights for the F&B sector in this area:
+        The Abu Dhabi Corniche presents a dynamic and lucrative environment for
+        F&B businesses, driven by a mix of residents, tourists, and a strong
+        culture of dining out. Here is an overview of the key insights for the
+        F&B sector in this area:
       </div>
     </motion.div>
   );
 };
 
-export function GapAnalysisView({ isOpen, onClose, category }: GapAnalysisViewProps) {
+export function GapAnalysisView({
+  isOpen,
+  onClose,
+  category,
+}: GapAnalysisViewProps) {
   const [showProperties, setShowProperties] = useState(false);
   const [showReport, setShowReport] = useState(false);
 
@@ -208,12 +231,13 @@ export function GapAnalysisView({ isOpen, onClose, category }: GapAnalysisViewPr
         className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
       >
         {/* Background */}
-        <div 
+        <div
           className="absolute inset-0"
           style={{
-            backgroundImage: 'url(https://api.builder.io/api/v1/image/assets/TEMP/3b6e0140bf72d8214b7baf7dc727cc0c1eb894d4?width=2390)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
+            backgroundImage:
+              "url(https://api.builder.io/api/v1/image/assets/TEMP/3b6e0140bf72d8214b7baf7dc727cc0c1eb894d4?width=2390)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         >
           <div className="absolute inset-0 bg-black/30"></div>
@@ -237,8 +261,20 @@ export function GapAnalysisView({ isOpen, onClose, category }: GapAnalysisViewPr
                 onClick={onClose}
                 className="w-11 h-11 rounded-full border border-white/18 bg-transparent flex items-center justify-center hover:bg-white/10 transition-colors"
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M19 12L5 12M5 12L11 18M5 12L11 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 12L5 12M5 12L11 18M5 12L11 6"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
             </div>
@@ -248,7 +284,7 @@ export function GapAnalysisView({ isOpen, onClose, category }: GapAnalysisViewPr
             </div>
 
             <div className="flex items-center">
-              <img 
+              <img
                 src="https://api.builder.io/api/v1/image/assets/TEMP/f35ba5a02338a961dd18f58928489d9e87ec7dc3?width=442"
                 alt="Sign in with UAE PASS"
                 className="h-8 rounded-full"

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { GapAnalysisView } from './gap-analysis-view';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { GapAnalysisView } from "./gap-analysis-view";
 
 interface CompetitorsViewProps {
   isOpen: boolean;
@@ -10,15 +10,15 @@ interface CompetitorsViewProps {
 
 const SoundVisualization = () => {
   const bars = [
-    { height: '4px' },
-    { height: '8px' },
-    { height: '16px' },
-    { height: '10px' },
-    { height: '6px' },
-    { height: '18px' },
-    { height: '24px' },
-    { height: '14px' },
-    { height: '3px' },
+    { height: "4px" },
+    { height: "8px" },
+    { height: "16px" },
+    { height: "10px" },
+    { height: "6px" },
+    { height: "18px" },
+    { height: "24px" },
+    { height: "14px" },
+    { height: "3px" },
   ];
 
   return (
@@ -34,13 +34,17 @@ const SoundVisualization = () => {
   );
 };
 
-const StatusBar = ({ onViewGapAnalysis }: { onViewGapAnalysis: () => void }) => {
+const StatusBar = ({
+  onViewGapAnalysis,
+}: {
+  onViewGapAnalysis: () => void;
+}) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       const interval = setInterval(() => {
-        setProgress(prev => {
+        setProgress((prev) => {
           if (prev >= 100) {
             clearInterval(interval);
             return 100;
@@ -65,7 +69,9 @@ const StatusBar = ({ onViewGapAnalysis }: { onViewGapAnalysis: () => void }) => 
         onClick={progress >= 100 ? onViewGapAnalysis : undefined}
         disabled={progress < 100}
         className={`bg-white/10 backdrop-blur-md rounded-full shadow-lg p-2 w-96 ${
-          progress >= 100 ? 'hover:bg-white/20 cursor-pointer' : 'cursor-default'
+          progress >= 100
+            ? "hover:bg-white/20 cursor-pointer"
+            : "cursor-default"
         } transition-colors`}
       >
         <div className="flex items-center gap-3">
@@ -73,14 +79,24 @@ const StatusBar = ({ onViewGapAnalysis }: { onViewGapAnalysis: () => void }) => 
             {progress < 100 ? (
               <div className="w-4 h-4 border-2 border-white/50 rounded-full border-t-white animate-spin"></div>
             ) : (
-              <svg className="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              <svg
+                className="w-5 h-5 text-green-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
             )}
           </div>
           <div className="flex-1">
             <div className="text-white text-sm font-semibold">
-              {progress < 100 ? 'Analysis in progress...' : 'View Gap Analysis'}
+              {progress < 100 ? "Analysis in progress..." : "View Gap Analysis"}
             </div>
             <div className="w-full bg-white/10 rounded-full h-1.5 mt-1">
               <motion.div
@@ -95,12 +111,12 @@ const StatusBar = ({ onViewGapAnalysis }: { onViewGapAnalysis: () => void }) => 
   );
 };
 
-const CompetitorCard = ({ 
-  name, 
-  location, 
-  image, 
-  delay = 0 
-}: { 
+const CompetitorCard = ({
+  name,
+  location,
+  image,
+  delay = 0,
+}: {
   name: string;
   location: string;
   image: string;
@@ -134,7 +150,7 @@ const LoadingCard = ({ delay = 0 }: { delay?: number }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       const interval = setInterval(() => {
-        setProgress(prev => {
+        setProgress((prev) => {
           if (prev >= 76) {
             clearInterval(interval);
             return 76;
@@ -144,7 +160,7 @@ const LoadingCard = ({ delay = 0 }: { delay?: number }) => {
       }, 50);
       return () => clearInterval(interval);
     }, delay * 1000);
-    
+
     return () => clearTimeout(timer);
   }, [delay]);
 
@@ -170,18 +186,18 @@ const ChatInterface = () => {
     {
       id: 1,
       isUser: true,
-      text: "Who are the top competitors in the area?"
+      text: "Who are the top competitors in the area?",
     },
     {
       id: 2,
       isUser: false,
-      text: "Here are the top 4 restaurants in Abu Dhabi Corniche."
+      text: "Here are the top 4 restaurants in Abu Dhabi Corniche.",
     },
     {
       id: 3,
       isUser: true,
-      text: "Can you provide a gap analysis on these?"
-    }
+      text: "Can you provide a gap analysis on these?",
+    },
   ];
 
   return (
@@ -212,13 +228,13 @@ const ChatInterface = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.8 + index * 0.3 }}
-            className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+            className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}
           >
             <div
               className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
                 message.isUser
-                  ? 'bg-black/30 backdrop-blur-sm border border-white/10 rounded-br-sm'
-                  : 'bg-white/20 backdrop-blur-sm border border-white/10 rounded-bl-sm'
+                  ? "bg-black/30 backdrop-blur-sm border border-white/10 rounded-br-sm"
+                  : "bg-white/20 backdrop-blur-sm border border-white/10 rounded-bl-sm"
               }`}
             >
               <div className="text-white">{message.text}</div>
@@ -230,7 +246,11 @@ const ChatInterface = () => {
   );
 };
 
-export function CompetitorsView({ isOpen, onClose, category }: CompetitorsViewProps) {
+export function CompetitorsView({
+  isOpen,
+  onClose,
+  category,
+}: CompetitorsViewProps) {
   const [showGapAnalysis, setShowGapAnalysis] = useState(false);
 
   if (!isOpen) return null;
@@ -239,18 +259,21 @@ export function CompetitorsView({ isOpen, onClose, category }: CompetitorsViewPr
     {
       name: "Shurfa Bay",
       location: "Al Bateen, Abu Dhabi",
-      image: "https://api.builder.io/api/v1/image/assets/TEMP/3e6d5f6b9acc69a87e4bcc76536ec7140340c252?width=680"
+      image:
+        "https://api.builder.io/api/v1/image/assets/TEMP/3e6d5f6b9acc69a87e4bcc76536ec7140340c252?width=680",
     },
     {
       name: "Palms & Pearls",
-      location: "Corniche, Abu Dhabi", 
-      image: "https://api.builder.io/api/v1/image/assets/TEMP/9c0a40e0fbebae5a6bba8355f1193760feb2d391?width=472"
+      location: "Corniche, Abu Dhabi",
+      image:
+        "https://api.builder.io/api/v1/image/assets/TEMP/9c0a40e0fbebae5a6bba8355f1193760feb2d391?width=472",
     },
     {
       name: "Villa Toscana",
       location: "The St Regis Abu Dhabi",
-      image: "https://api.builder.io/api/v1/image/assets/TEMP/df1e40725eb1f230e3df15cd8d949ee274a1c9dd?width=496"
-    }
+      image:
+        "https://api.builder.io/api/v1/image/assets/TEMP/df1e40725eb1f230e3df15cd8d949ee274a1c9dd?width=496",
+    },
   ];
 
   return (
@@ -263,17 +286,17 @@ export function CompetitorsView({ isOpen, onClose, category }: CompetitorsViewPr
         className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
       >
         {/* Background */}
-        <div 
+        <div
           className="absolute inset-0"
           style={{
-            backgroundImage: 'url(https://api.builder.io/api/v1/image/assets/TEMP/7e2092faf64b59c4ede24041656b85968d42a542?width=2388)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
+            backgroundImage:
+              "url(https://api.builder.io/api/v1/image/assets/TEMP/7e2092faf64b59c4ede24041656b85968d42a542?width=2388)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         >
           <div className="absolute inset-0 bg-black/30"></div>
         </div>
-
 
         {/* Header */}
         <motion.div
@@ -293,8 +316,20 @@ export function CompetitorsView({ isOpen, onClose, category }: CompetitorsViewPr
                 onClick={onClose}
                 className="w-11 h-11 rounded-full border border-white/18 bg-transparent flex items-center justify-center hover:bg-white/10 transition-colors"
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M19 12L5 12M5 12L11 18M5 12L11 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 12L5 12M5 12L11 18M5 12L11 6"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
             </div>
@@ -304,7 +339,7 @@ export function CompetitorsView({ isOpen, onClose, category }: CompetitorsViewPr
             </div>
 
             <div className="flex items-center">
-              <img 
+              <img
                 src="https://api.builder.io/api/v1/image/assets/TEMP/f35ba5a02338a961dd18f58928489d9e87ec7dc3?width=442"
                 alt="Sign in with UAE PASS"
                 className="h-8 rounded-full"
@@ -330,7 +365,7 @@ export function CompetitorsView({ isOpen, onClose, category }: CompetitorsViewPr
                       delay={0.4 + index * 0.2}
                     />
                   ))}
-                  
+
                   {/* Loading Card */}
                   <LoadingCard delay={1.0} />
                 </div>
@@ -340,7 +375,9 @@ export function CompetitorsView({ isOpen, onClose, category }: CompetitorsViewPr
               <div className="lg:col-span-4 flex flex-col justify-center lg:justify-end">
                 <ChatInterface />
                 <div className="flex justify-center">
-                  <StatusBar onViewGapAnalysis={() => setShowGapAnalysis(true)} />
+                  <StatusBar
+                    onViewGapAnalysis={() => setShowGapAnalysis(true)}
+                  />
                 </div>
               </div>
             </div>

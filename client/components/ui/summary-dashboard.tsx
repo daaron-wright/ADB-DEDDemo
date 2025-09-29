@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { CompetitorsView } from './competitors-view';
-import { GapAnalysisView } from './gap-analysis-view';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { CompetitorsView } from "./competitors-view";
+import { GapAnalysisView } from "./gap-analysis-view";
 
 interface SummaryDashboardProps {
   isOpen: boolean;
@@ -11,15 +11,15 @@ interface SummaryDashboardProps {
 
 const SoundVisualization = () => {
   const bars = [
-    { height: '4px' },
-    { height: '8px' },
-    { height: '16px' },
-    { height: '10px' },
-    { height: '6px' },
-    { height: '18px' },
-    { height: '24px' },
-    { height: '14px' },
-    { height: '3px' },
+    { height: "4px" },
+    { height: "8px" },
+    { height: "16px" },
+    { height: "10px" },
+    { height: "6px" },
+    { height: "18px" },
+    { height: "24px" },
+    { height: "14px" },
+    { height: "3px" },
   ];
 
   return (
@@ -44,13 +44,21 @@ const VisitorTrendsChart = () => {
   }, []);
 
   const chartData = [
-    { label: 'Tourists lean toward Emirati + Asian', value: 30, color: '#E29F37' },
-    { label: 'Locals prefer Emirati + Mediterranean', value: 45, color: '#429195' },
-    { label: 'Expats like Emirati + Indian', value: 20, color: '#A02E1F' },
+    {
+      label: "Tourists lean toward Emirati + Asian",
+      value: 30,
+      color: "#E29F37",
+    },
+    {
+      label: "Locals prefer Emirati + Mediterranean",
+      value: 45,
+      color: "#429195",
+    },
+    { label: "Expats like Emirati + Indian", value: 20, color: "#A02E1F" },
   ];
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6, delay: 0.3 }}
@@ -58,14 +66,28 @@ const VisitorTrendsChart = () => {
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <h3 className="text-sm font-semibold text-gray-800">Visitor Taste Trends</h3>
+          <h3 className="text-sm font-semibold text-gray-800">
+            Visitor Taste Trends
+          </h3>
           <div className="w-3 h-3 rounded-full bg-gray-400 flex items-center justify-center">
             <div className="w-1 h-1 bg-white rounded-full"></div>
           </div>
         </div>
         <div className="flex items-center gap-2 px-2 py-1 border border-gray-200 rounded-full bg-white shadow-sm">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5.7594 11.1759H2.94824V8.36478M8.00833 3.30469H10.8195V6.11585" stroke="#888888" strokeWidth="0.843348" strokeLinecap="round" strokeLinejoin="round"/>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5.7594 11.1759H2.94824V8.36478M8.00833 3.30469H10.8195V6.11585"
+              stroke="#888888"
+              strokeWidth="0.843348"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </div>
       </div>
@@ -75,8 +97,17 @@ const VisitorTrendsChart = () => {
         <p className="text-2xl font-semibold text-gray-800">1230</p>
         <div className="flex items-center gap-1 mt-1">
           <div className="flex items-center gap-1 px-2 py-0.5 bg-gray-100 rounded-full">
-            <svg width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4.86888 3.02024V7.58241H4.11923V3.02024L2.10869 5.03077L1.57861 4.5007L4.49406 1.58527L7.40945 4.5007L6.87938 5.03077L4.86888 3.02024Z" fill="#434343"/>
+            <svg
+              width="9"
+              height="10"
+              viewBox="0 0 9 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.86888 3.02024V7.58241H4.11923V3.02024L2.10869 5.03077L1.57861 4.5007L4.49406 1.58527L7.40945 4.5007L6.87938 5.03077L4.86888 3.02024Z"
+                fill="#434343"
+              />
             </svg>
             <span className="text-xs text-gray-600">12%</span>
           </div>
@@ -89,7 +120,9 @@ const VisitorTrendsChart = () => {
           <div key={index} className="relative">
             <motion.div
               initial={{ width: 0 }}
-              animate={isVisible ? { width: `${item.value * 2}px` } : { width: 0 }}
+              animate={
+                isVisible ? { width: `${item.value * 2}px` } : { width: 0 }
+              }
               transition={{ duration: 1, delay: index * 0.2 }}
               className="h-5 rounded-sm"
               style={{ backgroundColor: item.color }}
@@ -114,20 +147,20 @@ const VisitorTrendsChart = () => {
 const CuisinePopularityPanel = () => {
   const cuisines = [
     {
-      name: 'Middle Eastern',
-      popularity: '30-35%',
-      context: 'Cultural resonance, traditional appeal'
+      name: "Middle Eastern",
+      popularity: "30-35%",
+      context: "Cultural resonance, traditional appeal",
     },
     {
-      name: 'American', 
-      popularity: '20-25%',
-      context: 'Fast-food dominance, familiarity, chain presence'
+      name: "American",
+      popularity: "20-25%",
+      context: "Fast-food dominance, familiarity, chain presence",
     },
     {
-      name: 'Indian',
-      popularity: '15-20%', 
-      context: 'Large expat community, flavor alignment with local preferences'
-    }
+      name: "Indian",
+      popularity: "15-20%",
+      context: "Large expat community, flavor alignment with local preferences",
+    },
   ];
 
   return (
@@ -138,7 +171,9 @@ const CuisinePopularityPanel = () => {
       className="bg-white/14 backdrop-blur-md rounded-3xl border border-white/20 p-8 w-[472px] h-[589px]"
     >
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-xl font-semibold text-white">Popularity of cuisines in Abu Dhabi</h2>
+        <h2 className="text-xl font-semibold text-white">
+          Popularity of cuisines in Abu Dhabi
+        </h2>
         <div className="w-5 h-5 bg-white/10 rounded"></div>
       </div>
 
@@ -153,14 +188,18 @@ const CuisinePopularityPanel = () => {
           >
             <div className="grid grid-cols-3 gap-6">
               <div>
-                <h3 className="text-white font-semibold text-sm">{cuisine.name}</h3>
+                <h3 className="text-white font-semibold text-sm">
+                  {cuisine.name}
+                </h3>
               </div>
               <div>
                 <p className="text-white font-semibold text-sm">Popularity</p>
                 <p className="text-white/80 text-sm">{cuisine.popularity}</p>
               </div>
               <div>
-                <p className="text-white font-semibold text-sm">Supporting Context</p>
+                <p className="text-white font-semibold text-sm">
+                  Supporting Context
+                </p>
                 <p className="text-white/80 text-sm">{cuisine.context}</p>
               </div>
             </div>
@@ -173,11 +212,11 @@ const CuisinePopularityPanel = () => {
 
 const StatisticCard = () => {
   const [count, setCount] = useState(0);
-  
+
   useEffect(() => {
     const timer = setTimeout(() => {
       const interval = setInterval(() => {
-        setCount(prev => {
+        setCount((prev) => {
           if (prev >= 78) {
             clearInterval(interval);
             return 78;
@@ -187,7 +226,7 @@ const StatisticCard = () => {
       }, 50);
       return () => clearInterval(interval);
     }, 1200);
-    
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -198,9 +237,7 @@ const StatisticCard = () => {
       transition={{ duration: 0.6, delay: 1.5 }}
       className="text-center"
     >
-      <div className="text-8xl font-bold text-white mb-4">
-        {count}%
-      </div>
+      <div className="text-8xl font-bold text-white mb-4">{count}%</div>
       <p className="text-white/70 text-sm max-w-[140px]">
         Residents eat out twice a week
       </p>
@@ -208,13 +245,17 @@ const StatisticCard = () => {
   );
 };
 
-const StatusBar = ({ onViewGapAnalysis }: { onViewGapAnalysis: () => void }) => {
+const StatusBar = ({
+  onViewGapAnalysis,
+}: {
+  onViewGapAnalysis: () => void;
+}) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       const interval = setInterval(() => {
-        setProgress(prev => {
+        setProgress((prev) => {
           if (prev >= 100) {
             clearInterval(interval);
             return 100;
@@ -239,7 +280,9 @@ const StatusBar = ({ onViewGapAnalysis }: { onViewGapAnalysis: () => void }) => 
         onClick={progress >= 100 ? onViewGapAnalysis : undefined}
         disabled={progress < 100}
         className={`bg-white/10 backdrop-blur-md rounded-full shadow-lg p-2 w-96 ${
-          progress >= 100 ? 'hover:bg-white/20 cursor-pointer' : 'cursor-default'
+          progress >= 100
+            ? "hover:bg-white/20 cursor-pointer"
+            : "cursor-default"
         } transition-colors`}
       >
         <div className="flex items-center gap-3">
@@ -247,14 +290,24 @@ const StatusBar = ({ onViewGapAnalysis }: { onViewGapAnalysis: () => void }) => 
             {progress < 100 ? (
               <div className="w-4 h-4 border-2 border-white/50 rounded-full border-t-white animate-spin"></div>
             ) : (
-              <svg className="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              <svg
+                className="w-5 h-5 text-green-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
             )}
           </div>
           <div className="flex-1">
             <div className="text-white text-sm font-semibold">
-              {progress < 100 ? 'Analysis in progress...' : 'View Gap Analysis'}
+              {progress < 100 ? "Analysis in progress..." : "View Gap Analysis"}
             </div>
             <div className="w-full bg-white/10 rounded-full h-1.5 mt-1">
               <motion.div
@@ -269,7 +322,11 @@ const StatusBar = ({ onViewGapAnalysis }: { onViewGapAnalysis: () => void }) => 
   );
 };
 
-export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboardProps) {
+export function SummaryDashboard({
+  isOpen,
+  onClose,
+  category,
+}: SummaryDashboardProps) {
   const [showCompetitors, setShowCompetitors] = useState(false);
   const [showGapAnalysis, setShowGapAnalysis] = useState(false);
 
@@ -285,17 +342,17 @@ export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboard
         className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
       >
         {/* Background with gradient */}
-        <div 
+        <div
           className="absolute inset-0"
           style={{
-            backgroundImage: 'url(https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F9b0dc1e702cd47b081613f3972914c00?format=webp&width=800)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
+            backgroundImage:
+              "url(https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F9b0dc1e702cd47b081613f3972914c00?format=webp&width=800)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         >
           <div className="absolute inset-0 bg-black/30"></div>
         </div>
-
 
         {/* Header */}
         <motion.div
@@ -307,16 +364,28 @@ export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboard
           <div className="flex items-center justify-between px-10 py-5 h-full">
             <div className="flex items-center gap-4">
               <img
-              src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F397f9a8d2a3c4c8cb1d79ae828b476be"
-              alt="Tamm Logo"
-              className="h-12"
-            />
+                src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F397f9a8d2a3c4c8cb1d79ae828b476be"
+                alt="Tamm Logo"
+                className="h-12"
+              />
               <button
                 onClick={onClose}
                 className="w-11 h-11 rounded-full border border-white/18 bg-transparent flex items-center justify-center hover:bg-white/10 transition-colors"
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M19 12L5 12M5 12L11 18M5 12L11 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 12L5 12M5 12L11 18M5 12L11 6"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
             </div>
@@ -326,7 +395,7 @@ export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboard
             </div>
 
             <div className="flex items-center">
-              <img 
+              <img
                 src="https://api.builder.io/api/v1/image/assets/TEMP/f35ba5a02338a961dd18f58928489d9e87ec7dc3?width=442"
                 alt="Sign in with UAE PASS"
                 className="h-8 rounded-full"
@@ -363,7 +432,7 @@ export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboard
             {/* Left Column - Charts */}
             <div className="col-span-4 space-y-8">
               <VisitorTrendsChart />
-              
+
               {/* Heat Map Analysis */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -387,7 +456,7 @@ export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboard
             {/* Right Column - Statistics & Map */}
             <div className="col-span-3 space-y-8">
               <StatisticCard />
-              
+
               {/* Interactive Map */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -412,20 +481,34 @@ export function SummaryDashboard({ isOpen, onClose, category }: SummaryDashboard
             className="mt-12 max-w-4xl mx-auto"
           >
             <div className="bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 p-8">
-              <h3 className="text-xl font-semibold text-white mb-6">Key Insights Summary</h3>
+              <h3 className="text-xl font-semibold text-white mb-6">
+                Key Insights Summary
+              </h3>
               <div className="grid grid-cols-2 gap-8">
                 <div>
-                  <h4 className="text-white font-medium mb-3">Market Opportunity</h4>
+                  <h4 className="text-white font-medium mb-3">
+                    Market Opportunity
+                  </h4>
                   <ul className="text-white/80 text-sm space-y-2">
-                    <li>• Middle Eastern cuisine dominates with 30-35% market share</li>
+                    <li>
+                      • Middle Eastern cuisine dominates with 30-35% market
+                      share
+                    </li>
                     <li>• Strong dining culture: 78% eat out twice weekly</li>
-                    <li>• The Corniche offers premium location with 100K+ weekly footfall</li>
+                    <li>
+                      • The Corniche offers premium location with 100K+ weekly
+                      footfall
+                    </li>
                   </ul>
                 </div>
                 <div>
-                  <h4 className="text-white font-medium mb-3">Investment Considerations</h4>
+                  <h4 className="text-white font-medium mb-3">
+                    Investment Considerations
+                  </h4>
                   <ul className="text-white/80 text-sm space-y-2">
-                    <li>• Setup costs: AED 6.5M - 14M for 300-cover restaurant</li>
+                    <li>
+                      • Setup costs: AED 6.5M - 14M for 300-cover restaurant
+                    </li>
                     <li>• Monthly operating: AED 545K - 1.3M</li>
                     <li>• Cultural alignment crucial for success</li>
                   </ul>
