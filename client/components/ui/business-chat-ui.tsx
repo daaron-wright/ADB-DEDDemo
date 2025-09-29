@@ -1392,13 +1392,53 @@ export function BusinessChatUI({
               transition={{ duration: 0.3 }}
               className="w-full h-full"
               style={{
-                backgroundImage: `url(${backgroundImage})`,
+                backgroundImage: isLoggedIn ? 'none' : `url(${backgroundImage})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
             >
-              {/* Background overlay */}
-              <div className="absolute inset-0 bg-black/30" />
+              {/* Gradient Background for logged-in users */}
+              {isLoggedIn && (
+                <>
+                  {/* Background gradients matching Figma design */}
+                  <div className="absolute inset-0 bg-white" />
+
+                  {/* First gradient blob */}
+                  <div
+                    className="absolute w-[1028px] h-[1580px] opacity-80"
+                    style={{
+                      left: '-252px',
+                      top: '-1048px',
+                      background: 'linear-gradient(159deg, #AEAAFE 39.9%, #F0EEFD 71.79%)',
+                      filter: 'blur(140px)',
+                      borderRadius: '50%',
+                    }}
+                  />
+
+                  {/* Second gradient blob */}
+                  <div
+                    className="absolute w-[936px] h-[834px] opacity-80"
+                    style={{
+                      right: '-300px',
+                      top: '84px',
+                      background: 'linear-gradient(159deg, #AEAAFE 39.9%, #F0EEFD 71.79%)',
+                      filter: 'blur(140px)',
+                      borderRadius: '50%',
+                    }}
+                  />
+
+                  {/* Box shadow overlay */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      boxShadow: '0 4px 4px 0 rgba(0, 0, 0, 0.25), 0 4px 4px 0 rgba(0, 0, 0, 0.25)',
+                    }}
+                  />
+                </>
+              )}
+
+              {/* Background overlay for non-logged-in users */}
+              {!isLoggedIn && <div className="absolute inset-0 bg-black/30" />}
 
               {/* Header */}
               <div className="relative z-10 w-full h-[87px] border-b border-white/30 bg-white/30 backdrop-blur-[40px]">
