@@ -708,10 +708,10 @@ export default function ApplicantPortal() {
                       className={cn(
                         'absolute left-0 top-2 block h-2.5 w-2.5 rounded-full transition-shadow duration-200',
                         tokens.dotClass,
-                        isActive ? 'ring-4 ring-purple-200 ring-offset-2 ring-offset-white' : '',
+                        isActive ? 'ring-4 ring-[#c8e7df] ring-offset-2 ring-offset-white' : '',
                       )}
                     />
-                    {!isLast && <span className="absolute left-[5px] top-6 bottom-0 w-px bg-neutral-200" />}
+                    {!isLast && <span className="absolute left-[5px] top-6 bottom-0 w-px bg-[#d8e4df]" />}
                     <button
                       type="button"
                       role="tab"
