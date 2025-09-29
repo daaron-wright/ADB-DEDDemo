@@ -225,8 +225,9 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
 
   const isIntroMode = mode === 'category' && Boolean(onPromptSubmit);
 
-  const placeholderText = isIntroMode && selectedCategory
-    ? `Ask about ${selectedCategory.title.toLowerCase()}...`
+  const placeholderSubject = selectedCategory?.title ?? initialCategoryTitle;
+  const placeholderText = isIntroMode && placeholderSubject
+    ? `Ask about ${placeholderSubject.toLowerCase()}...`
     : 'Type your message...';
 
   useEffect(() => {
