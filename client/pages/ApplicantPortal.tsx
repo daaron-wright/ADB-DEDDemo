@@ -841,17 +841,23 @@ export default function ApplicantPortal() {
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Sort</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Sort</span>
             <Select value={sortBy} onValueChange={(value: SortOption) => setSortBy(value)}>
-              <SelectTrigger className="h-10 w-48 rounded-2xl border-neutral-200 bg-white text-sm text-slate-900">
+              <SelectTrigger className="h-10 w-48 rounded-2xl border-[#d8e4df] bg-white text-sm text-slate-900">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="rounded-2xl border border-neutral-200 bg-white text-slate-900">
+              <SelectContent className="rounded-2xl border border-[#d8e4df] bg-white text-slate-900">
                 <SelectGroup>
-                  <SelectItem value="recent" className="rounded-xl text-sm text-slate-900 data-[state=checked]:bg-purple-50">
+                  <SelectItem
+                    value="recent"
+                    className="rounded-xl text-sm text-slate-900 data-[state=checked]:bg-[#dff2ec] data-[state=checked]:text-[#0b7d6f]"
+                  >
                     Last updated
                   </SelectItem>
-                  <SelectItem value="progress" className="rounded-xl text-sm text-slate-900 data-[state=checked]:bg-purple-50">
+                  <SelectItem
+                    value="progress"
+                    className="rounded-xl text-sm text-slate-900 data-[state=checked]:bg-[#dff2ec] data-[state=checked]:text-[#0b7d6f]"
+                  >
                     Progress (high to low)
                   </SelectItem>
                 </SelectGroup>
