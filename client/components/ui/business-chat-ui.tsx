@@ -1393,14 +1393,6 @@ export function BusinessChatUI({
           </div>
         )}
 
-        {/* Summary Dashboard */}
-        <SummaryDashboard
-          key="summary-dashboard"
-          isOpen={showSummaryDashboard}
-          onClose={() => setShowSummaryDashboard(false)}
-          category={category}
-        />
-
         {/* Business License Portal */}
         {loggedInUser && showBusinessPortal && (
           <BusinessLicensePortalSimplified
