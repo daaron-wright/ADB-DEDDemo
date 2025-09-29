@@ -816,7 +816,7 @@ const DiscoverExperienceView = ({
             }}
           />
           <div className="relative z-10 w-full max-w-6xl">
-            <div className="flex h-full max-h-[85vh] flex-col overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-[#0c1f1b]/85 via-[#152d28]/82 to-[#091a17]/85 shadow-[0_32px_88px_-30px_rgba(9,29,23,0.65)] backdrop-blur-xl">
+            <div className="max-h-[85vh] overflow-hidden rounded-[32px] border border-[#e2ede8] bg-white shadow-[0_24px_48px_-32px_rgba(11,64,55,0.25)]">
               <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/10 px-6 py-5">
                 <div className="space-y-3">
                   <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/70">
