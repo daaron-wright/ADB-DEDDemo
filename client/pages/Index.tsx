@@ -278,6 +278,47 @@ export default function Index() {
     }
   };
 
+  const startBusinessChat = (categoryId: string, initialMessage?: string | null) => {
+    setChatState({
+      isOpen: true,
+      category: categoryId,
+      initialMessage: initialMessage ?? null,
+    });
+  };
+
+  const handleChatPromptSubmit = ({
+    categoryId,
+    message,
+  }: {
+    categoryId?: string | null;
+    message?: string | null;
+  }) => {
+    const resolvedCategory = categoryId ?? openChatState.category ?? 'general';
+
+    if (categoryPositions.current[resolvedCategory]) {
+      applyFocusPoint(categoryPositions.current[resolvedCategory]);
+    } else {
+      applyFocusPoint();
+    }
+
+    setActiveCategory(resolvedCategory);
+    resetOpenChatState();
+    startBusinessChat(resolvedCategory, message ?? null);
+  };
+
+  const handleOpenChatCategoryClick = (categoryId: string, _categoryTitle: string) => {
+    setActiveCategory(categoryId);
+
+    if (categoryPositions.current[categoryId]) {
+      applyFocusPoint(categoryPositions.current[categoryId]);
+    } else {
+      applyFocusPoint();
+    }
+
+    resetOpenChatState();
+    startBusinessChat(categoryId);
+  };
+
   const handlePointerMove = (event: React.MouseEvent<HTMLDivElement>) => {
     queueFocusPoint({ x: event.clientX, y: event.clientY });
   };
