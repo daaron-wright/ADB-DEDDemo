@@ -283,7 +283,7 @@ export default function ReviewerPortal() {
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
             placeholder="Search by applicant or ID"
-            className="h-11 rounded-2xl border-neutral-200 bg-white pr-11 text-sm text-slate-900 placeholder:text-slate-400"
+            className="h-11 rounded-2xl border-[#d8e4df] bg-white pr-11 text-sm text-slate-900 placeholder:text-slate-400"
           />
           <svg
             className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
@@ -329,12 +329,12 @@ export default function ReviewerPortal() {
           {slaOptions.map((option) => (
             <div
               key={option.value}
-              className="flex items-center gap-3 rounded-2xl border border-neutral-200 bg-white px-3 py-2 shadow-[0_12px_30px_-18px_rgba(15,23,42,0.18)]"
+              className="flex items-center gap-3 rounded-2xl border border-[#d8e4df] bg-white px-3 py-2 shadow-[0_12px_24px_-20px_rgba(11,64,55,0.16)]"
             >
               <RadioGroupItem
                 value={option.value}
                 id={`sla-${option.value}`}
-                className="border-neutral-300 text-purple-600 data-[state=checked]:border-purple-500 data-[state=checked]:bg-purple-50"
+                className="border-[#c6d8d1] text-[#0f766e] data-[state=checked]:border-[#0f766e] data-[state=checked]:bg-[#dff2ec]"
               />
               <Label htmlFor={`sla-${option.value}`} className="text-sm text-slate-900">
                 {option.label}
@@ -355,12 +355,12 @@ export default function ReviewerPortal() {
           {priorityOptions.map((option) => (
             <div
               key={option.value}
-              className="flex items-center gap-3 rounded-2xl border border-neutral-200 bg-white px-3 py-2 shadow-[0_12px_30px_-18px_rgba(15,23,42,0.18)]"
+              className="flex items-center gap-3 rounded-2xl border border-[#d8e4df] bg-white px-3 py-2 shadow-[0_12px_24px_-20px_rgba(11,64,55,0.16)]"
             >
               <RadioGroupItem
                 value={option.value}
                 id={`priority-${option.value}`}
-                className="border-neutral-300 text-purple-600 data-[state=checked]:border-purple-500 data-[state=checked]:bg-purple-50"
+                className="border-[#c6d8d1] text-[#0f766e] data-[state=checked]:border-[#0f766e] data-[state=checked]:bg-[#dff2ec]"
               />
               <Label htmlFor={`priority-${option.value}`} className="text-sm text-slate-900">
                 {option.label}
@@ -377,13 +377,17 @@ export default function ReviewerPortal() {
             setSelectedStage(value as (typeof stageOptions)[number]['value'])
           }
         >
-          <SelectTrigger className="h-11 rounded-2xl border-neutral-200 bg-white text-sm text-slate-900">
+          <SelectTrigger className="h-11 rounded-2xl border-[#d8e4df] bg-white text-sm text-slate-900">
             <SelectValue />
           </SelectTrigger>
-          <SelectContent className="rounded-2xl border border-neutral-200 bg-white text-slate-900">
+          <SelectContent className="rounded-2xl border border-[#d8e4df] bg-white text-slate-900">
             <SelectGroup>
               {stageOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value} className="rounded-xl text-sm text-slate-900 data-[state=checked]:bg-purple-50">
+                <SelectItem
+                  key={option.value}
+                  value={option.value}
+                  className="rounded-xl text-sm text-slate-900 data-[state=checked]:bg-[#dff2ec] data-[state=checked]:text-[#0b7d6f]"
+                >
                   {option.label}
                 </SelectItem>
               ))}
@@ -412,7 +416,7 @@ export default function ReviewerPortal() {
       <button
         type="button"
         onClick={resetFilters}
-        className="w-full rounded-full border border-neutral-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 transition hover:border-neutral-300 hover:text-slate-900"
+        className="w-full rounded-full border border-[#d8e4df] bg-white px-4 py-2 text-xs font-semibold text-[#0f766e] transition hover:bg-[#eaf7f3]"
       >
         Reset filters
       </button>
