@@ -534,6 +534,31 @@ export default function ApplicantPortal() {
     setSortBy('recent');
   };
 
+  const handleJourneyStepChange = (stepId: string) => {
+    setActiveJourneyStageId(stepId);
+  };
+
+  const handleActivityToggle = (activityId: string) => {
+    setSelectedBusinessActivities(prev =>
+      prev.includes(activityId)
+        ? prev.filter(id => id !== activityId)
+        : [...prev, activityId]
+    );
+  };
+
+  const handleAddNewActivity = () => {
+    // Handle adding new activity
+    console.log('Add new activity clicked');
+  };
+
+  const handleOpenJourneyView = () => {
+    setShowJourneyView(true);
+  };
+
+  const handleCloseJourneyView = () => {
+    setShowJourneyView(false);
+  };
+
   const filters = (
     <>
       <FilterSection title="Search and filter" description="Find an application quickly by service or reference ID.">
