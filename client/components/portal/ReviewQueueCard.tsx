@@ -75,10 +75,10 @@ export function ReviewQueueCard({ item }: ReviewQueueCardProps) {
 
       <div className="mt-6 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
         <div className="flex w-full flex-1 items-center gap-4 text-slate-900">
-          <Progress value={item.completion} className="h-2 flex-1 overflow-hidden bg-neutral-200" />
-          <span className="text-sm font-medium text-slate-600">{item.completion}% checklist complete</span>
+          <Progress value={item.completion} className="h-2 flex-1 overflow-hidden rounded-full bg-[#e3efea]" />
+          <span className="text-sm font-medium text-[#0f766e]">{item.completion}% checklist complete</span>
         </div>
-        <div className="max-w-md rounded-2xl border border-neutral-200 bg-white px-4 py-3 text-sm text-slate-700 shadow-[0_12px_30px_-18px_rgba(15,23,42,0.18)]">
+        <div className="max-w-md rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3 text-sm text-slate-700">
           <p className="font-semibold text-slate-900">Reviewer notes</p>
           <p className="mt-1 leading-relaxed text-slate-600">{item.notes}</p>
         </div>
