@@ -246,6 +246,39 @@ const reviewQueue: ReviewQueueItem[] = [
     daysRemaining: 10,
     assignedTo: "Fatima Al Mazrouei",
     attachments: 6,
+    documents: [
+      {
+        id: "doc-merchandising-layout",
+        name: "Merchandising Layout Plans",
+        type: "plan",
+        status: "approved",
+        uploadedAt: "2024-03-07",
+        size: "8.2 MB"
+      },
+      {
+        id: "doc-signage-compliance",
+        name: "Signage Compliance Report",
+        type: "report",
+        status: "under_review",
+        uploadedAt: "2024-03-08",
+        size: "3.1 MB"
+      },
+      {
+        id: "doc-visitor-flow",
+        name: "Visitor Flow Analysis",
+        type: "report",
+        status: "approved",
+        uploadedAt: "2024-03-06",
+        size: "4.7 MB"
+      },
+      {
+        id: "doc-storefront-renders",
+        name: "Updated Storefront Renders",
+        type: "plan",
+        status: "required",
+        size: "Expected"
+      }
+    ],
     summary:
       "Luxury retail experience reviewing merchandising layouts, signage compliance, and visitor flow plans for the flagship store.",
     notes:
