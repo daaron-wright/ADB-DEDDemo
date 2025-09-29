@@ -229,8 +229,10 @@ export function ReviewFocusSheet({
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-2">
-                              <span className="text-lg">{documentTypeIcons[document.type]}</span>
+                            <div className="flex items-center gap-3 mb-2">
+                              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#d8e4df] bg-white text-slate-600">
+                                {documentTypeIcons[document.type]}
+                              </span>
                               <h4 className="font-medium text-slate-900 text-sm leading-tight">
                                 {document.name}
                               </h4>
