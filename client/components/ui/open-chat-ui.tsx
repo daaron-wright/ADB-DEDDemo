@@ -406,7 +406,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                 {/* Chat Container */}
                 <div className="flex flex-col h-full overflow-hidden rounded-3xl border border-white/25 bg-gradient-to-br from-white/25 via-white/10 to-white/5 text-slate-100 backdrop-blur-3xl shadow-[0_28px_70px_-24px_rgba(10,18,40,0.65)]">
                   {/* Header */}
-                  <div className="drag-handle flex items-center justify-between p-4 border-b border-white/20 bg-white/10 backdrop-blur-xl cursor-move">
+                  <div className="drag-handle flex items-center justify-between p-4 border-b border-white/20 bg-white/10 backdrop-blur-xl cursor-grab active:cursor-grabbing">
                     <div className="flex items-center gap-3">
                       <img
                         src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
