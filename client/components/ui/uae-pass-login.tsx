@@ -73,9 +73,7 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({ trigger, onLogin, on
       className="rounded-3xl border border-white/25 bg-white/90 shadow-[0_24px_60px_-20px_rgba(24,32,63,0.28)] backdrop-blur-xl sm:max-w-md"
     >
       <div className="space-y-6">
-        <VisuallyHidden>
-          <DialogTitle>Sign in with UAE PASS</DialogTitle>
-        </VisuallyHidden>
+        <DialogTitle className="sr-only">Sign in with UAE PASS</DialogTitle>
         <header className="flex items-start justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">UAE Pass</p>
