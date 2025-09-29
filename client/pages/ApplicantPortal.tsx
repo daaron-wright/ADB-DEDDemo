@@ -676,8 +676,8 @@ export default function ApplicantPortal() {
       </section>
 
       <section className="mt-6 rounded-3xl border border-neutral-200 bg-white p-6 shadow-[0_24px_48px_-30px_rgba(15,23,42,0.35)]">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
-          <div className="lg:max-w-sm">
+        <div className="flex flex-col gap-10 xl:flex-row xl:items-start">
+          <div className="xl:max-w-sm">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Application journey</p>
             <h2 className="mt-3 text-2xl font-semibold text-slate-900">
               {firstName ? `${firstName}'s application timeline` : 'Your application timeline'}
@@ -687,33 +687,145 @@ export default function ApplicantPortal() {
               here mirror what support teams see so everyone stays aligned.
             </p>
           </div>
-          <ol className="flex-1 space-y-5">
-            {applicantJourney.map((stage, index) => {
-              const tokens = journeyStateTokens[stage.state];
-              const isLast = index === applicantJourney.length - 1;
+          <div className="flex flex-col gap-8 xl:flex-1 xl:flex-row xl:items-start xl:gap-10">
+            <ol
+              className="space-y-5 xl:w-80"
+              role="tablist"
+              aria-label="Application journey"
+              aria-orientation="vertical"
+            >
+              {applicantJourney.map((stage, index) => {
+                const tokens = journeyStateTokens[stage.state];
+                const isLast = index === applicantJourney.length - 1;
+                const isActive = stage.id === activeJourneyStageId;
 
-              return (
-                <li key={stage.id} className="relative pl-9">
-                  <span className={`absolute left-0 top-2 block h-2.5 w-2.5 rounded-full ${tokens.dotClass}`} />
-                  {!isLast && <span className="absolute left-[5px] top-6 bottom-0 w-px bg-neutral-200" />}
-                  <div className="rounded-2xl border border-neutral-200 bg-white px-4 py-3 shadow-[0_12px_30px_-18px_rgba(15,23,42,0.18)]">
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <h3 className="text-sm font-semibold text-slate-900">{stage.title}</h3>
-                      <span
-                        className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${tokens.badgeClass}`}
-                      >
-                        {tokens.label}
-                      </span>
-                    </div>
-                    <p className="mt-2 text-sm text-slate-600">{stage.description}</p>
-                    {stage.statusDetail ? (
-                      <p className="mt-2 text-xs font-medium uppercase tracking-[0.28em] text-slate-400">{stage.statusDetail}</p>
-                    ) : null}
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
+                return (
+                  <li key={stage.id} className="relative pl-9">
+                    <span
+                      className={cn(
+                        'absolute left-0 top-2 block h-2.5 w-2.5 rounded-full transition-shadow duration-200',
+                        tokens.dotClass,
+                        isActive ? 'ring-4 ring-purple-200 ring-offset-2 ring-offset-white' : '',
+                      )}
+                    />
+                    {!isLast && <span className="absolute left-[5px] top-6 bottom-0 w-px bg-neutral-200" />}
+                    <button
+                      type="button"
+                      role="tab"
+                      id={`journey-tab-${stage.id}`}
+                      aria-selected={isActive}
+                      aria-controls={`journey-panel-${stage.id}`}
+                      tabIndex={isActive ? 0 : -1}
+                      onClick={() => setActiveJourneyStageId(stage.id)}
+                      className={cn(
+                        'w-full rounded-2xl border px-4 py-3 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-200',
+                        isActive
+                          ? 'border-purple-400 bg-purple-50/80 shadow-[0_16px_40px_-28px_rgba(109,40,217,0.45)]'
+                          : 'border-neutral-200 bg-white hover:border-slate-900 hover:shadow-[0_12px_32px_-20px_rgba(24,32,63,0.55)]',
+                      )}
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <h3 className="text-sm font-semibold text-slate-900">{stage.title}</h3>
+                        <span
+                          className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${tokens.badgeClass}`}
+                        >
+                          {tokens.label}
+                        </span>
+                      </div>
+                      <p className="mt-2 text-sm text-slate-600">{stage.description}</p>
+                      {stage.statusDetail ? (
+                        <p className="mt-2 text-xs font-medium uppercase tracking-[0.28em] text-slate-400">{stage.statusDetail}</p>
+                      ) : null}
+                      {isActive ? (
+                        <span className="mt-3 inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-purple-600">
+                          Viewing tasks
+                        </span>
+                      ) : null}
+                    </button>
+                  </li>
+                );
+              })}
+            </ol>
+            <div
+              role="tabpanel"
+              id={`journey-panel-${activeJourneyStage.id}`}
+              aria-labelledby={`journey-tab-${activeJourneyStage.id}`}
+              className="flex-1 rounded-3xl border border-neutral-200 bg-slate-50 p-6 shadow-[0_16px_40px_-30px_rgba(15,23,42,0.25)]"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
+                    {journeyStateTokens[activeJourneyStage.state].label}
+                  </p>
+                  <h3 className="mt-2 text-xl font-semibold text-slate-900">{activeJourneyStage.title}</h3>
+                  <p className="mt-2 text-sm text-slate-600">{activeJourneyStage.description}</p>
+                </div>
+                <span
+                  className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${journeyStateTokens[activeJourneyStage.state].badgeClass}`}
+                >
+                  {journeyStateTokens[activeJourneyStage.state].label}
+                </span>
+              </div>
+              {activeJourneyStage.statusDetail ? (
+                <p className="mt-4 text-xs font-medium uppercase tracking-[0.28em] text-slate-400">
+                  {activeJourneyStage.statusDetail}
+                </p>
+              ) : null}
+              <div className="mt-6 space-y-3">
+                {activeJourneyStage.tasks.length > 0 ? (
+                  <ul className="space-y-3">
+                    {activeJourneyStage.tasks.map((task) => {
+                      const taskTokens = taskStatusTokens[task.status];
+                      const timelineCopy =
+                        task.status === 'completed' && task.completedOn
+                          ? `Completed ${dateFormatter.format(new Date(task.completedOn))}`
+                          : task.dueDate
+                          ? `Due ${dateFormatter.format(new Date(task.dueDate))}`
+                          : null;
+
+                      return (
+                        <li
+                          key={task.id}
+                          className="rounded-2xl border border-neutral-200 bg-white px-4 py-4 shadow-[0_12px_30px_-20px_rgba(15,23,42,0.18)]"
+                        >
+                          <div className="flex flex-wrap items-start justify-between gap-3">
+                            <div className="space-y-2">
+                              <div className="flex items-center gap-2">
+                                <span className={`inline-flex h-2.5 w-2.5 rounded-full ${taskTokens.dotClass}`} />
+                                <p className="text-sm font-semibold text-slate-900">{task.label}</p>
+                              </div>
+                              {task.description ? (
+                                <p className="text-sm text-slate-600">{task.description}</p>
+                              ) : null}
+                              <div className="flex flex-wrap gap-3 text-xs text-slate-500">
+                                <span>Assigned to {task.owner}</span>
+                                {timelineCopy ? <span>{timelineCopy}</span> : null}
+                              </div>
+                            </div>
+                            <span
+                              className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${taskTokens.badgeClass}`}
+                            >
+                              {taskTokens.label}
+                            </span>
+                          </div>
+                          {task.tag ? (
+                            <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+                              <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+                              {task.tag}
+                            </div>
+                          ) : null}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : (
+                  <p className="rounded-2xl border border-dashed border-neutral-200 bg-white px-4 py-6 text-sm text-slate-600">
+                    No user tasks are assigned to this journey stage yet.
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
