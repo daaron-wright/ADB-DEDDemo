@@ -662,6 +662,9 @@ export default function ApplicantPortal() {
                     : task.dueDate
                       ? `Due ${dateFormatter.format(new Date(task.dueDate))}`
                       : null;
+                  const library = documentLibraries[task.id];
+                  const showFitOutLibrary =
+                    activeStage.id === "pre-operational-inspection" && Boolean(library);
 
                   return (
                     <div
@@ -688,6 +691,65 @@ export default function ApplicantPortal() {
                         </span>
                         {meta ? ` • ${meta}` : null}
                       </p>
+                      {showFitOutLibrary && library ? (
+                        <div className="mt-4 space-y-3 rounded-2xl border border-dashed border-[#c9e1d7] bg-[#f4faf8] p-4">
+                          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                              <p className="text-sm font-semibold text-slate-900">
+                                {library.title}
+                              </p>
+                              <p className="mt-1 text-xs leading-relaxed text-slate-600">
+                                {library.description}
+                              </p>
+                            </div>
+                            <Button
+                              type="button"
+                              variant="secondary"
+                              className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold text-[#0f766e] shadow-[0_10px_20px_-18px_rgba(11,64,55,0.35)] transition hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                            >
+                              <svg
+                                className="h-4 w-4"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  d="M10 4v8m0 0 3-3m-3 3-3-3M4 14h12"
+                                  stroke="currentColor"
+                                  strokeWidth="1.6"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                              Upload fit-out readiness artifacts
+                            </Button>
+                          </div>
+                          <div>
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                              Document library
+                            </p>
+                            <ul className="mt-2 grid gap-2 text-xs text-slate-600 sm:grid-cols-2">
+                              {library.items.map((item) => (
+                                <li
+                                  key={item.id}
+                                  className="flex items-start gap-2 rounded-xl border border-[#dbe7e1] bg-white px-3 py-2"
+                                >
+                                  <span className="mt-0.5 h-2 w-2 rounded-full bg-[#0f766e]" aria-hidden="true" />
+                                  <div>
+                                    <p className="font-medium text-slate-900">
+                                      {item.name}
+                                    </p>
+                                    <p className="text-[11px] text-slate-500">
+                                      {item.type} • Updated {dateFormatter.format(new Date(item.updatedAt))}
+                                    </p>
+                                  </div>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      ) : null}
                     </div>
                   );
                 })}
