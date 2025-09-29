@@ -651,33 +651,7 @@ export default function ReviewerPortal() {
   );
 
   const headerActions = (
-    <div className="flex items-center gap-3">
-      <button
-        type="button"
-        className="rounded-full border border-[#d8e4df] bg-white px-4 py-3 text-sm font-semibold text-[#0f766e] transition hover:bg-[#eaf7f3]"
-      >
-        Export queue
-      </button>
-      <button
-        type="button"
-        className="flex items-center gap-2 rounded-full bg-[#0f766e] px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_-18px_rgba(11,64,55,0.45)] transition hover:bg-[#0c635d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          className="h-4 w-4"
-          aria-hidden="true"
-        >
-          <path
-            d="M12 5v14M5 12h14"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </svg>
-        Assign reviewer
-      </button>
+    <div className="flex items-center">
       <PortalProfileMenu
         name={profileName}
         email={profileEmail}
