@@ -118,13 +118,6 @@ export function ReviewFocusSheet({
   const remainingDocuments = review.documents.slice(3);
   const documentsToShow = showAllDocuments ? review.documents : keyDocuments;
 
-  const dossier = [
-    { label: "Applicant", value: review.applicantName },
-    { label: "Directorate", value: review.directorate },
-    { label: "Assigned to", value: review.assignedTo },
-    { label: "Attachments", value: `${review.attachments} supporting files` },
-  ];
-
   return (
     <Sheet open={open} onOpenChange={(value) => !value && onClose()}>
       <SheetContent
