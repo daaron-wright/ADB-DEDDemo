@@ -8,7 +8,11 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import type { ReviewQueueItem, DocumentArtifact } from "@/components/portal/ReviewQueueCard";
+import type {
+  ReviewQueueItem,
+  DocumentArtifact,
+  PolicyActorAssignment,
+} from "@/components/portal/ReviewQueueCard";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
