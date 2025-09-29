@@ -560,6 +560,11 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
     }, 4000);
   };
 
+  const handleTimelineClick = (itemId: string) => {
+    questionnaireRef.current?.scrollToItem(itemId);
+    setLastActivity(Date.now());
+  };
+
   const handleUpdateBusinessRegItem = (id: string, updates: Partial<JourneyItem>) => {
     setBusinessRegistrationItems(prev => prev.map(item =>
       item.id === id ? { ...item, ...updates } : item
