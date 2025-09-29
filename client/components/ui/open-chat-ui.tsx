@@ -404,7 +404,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                 className="absolute top-6 right-6 w-full max-w-md h-[500px] cursor-grab active:cursor-grabbing pointer-events-auto"
               >
                 {/* Chat Container */}
-                <div className="flex flex-col h-full overflow-hidden rounded-3xl border border-white/25 bg-gradient-to-br from-white/25 via-white/10 to-white/5 text-slate-100 backdrop-blur-3xl shadow-[0_28px_70px_-24px_rgba(10,18,40,0.65)]">
+                <div className="flex flex-col h-full overflow-hidden rounded-3xl border border-black/15 bg-gradient-to-br from-white/40 via-white/18 to-white/8 text-slate-900 backdrop-blur-3xl shadow-[0_28px_70px_-24px_rgba(10,18,40,0.55)]">
                   {/* Header */}
                   <div className="drag-handle flex items-center justify-between p-4 border-b border-white/20 bg-white/10 backdrop-blur-xl cursor-grab active:cursor-grabbing">
                     <div className="flex items-center gap-3">
