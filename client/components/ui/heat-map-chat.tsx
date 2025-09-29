@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@/lib/utils';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface HeatMapChatProps {
   isOpen: boolean;
@@ -12,7 +12,7 @@ interface Message {
   content: string;
   isAI: boolean;
   timestamp: Date;
-  type?: 'text' | 'heat-map';
+  type?: "text" | "heat-map";
 }
 
 const AccessibleMessageBubble = ({ message }: { message: Message }) => {
@@ -33,7 +33,7 @@ const AccessibleMessageBubble = ({ message }: { message: Message }) => {
           <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-[#54FFD4] rounded-full border-2 border-white"></div>
         </div>
       )}
-      
+
       <div
         className={cn(
           "max-w-[85%] flex flex-col gap-2",
@@ -46,7 +46,7 @@ const AccessibleMessageBubble = ({ message }: { message: Message }) => {
             AI Business
           </span>
         )}
-        
+
         <div
           className={cn(
             "px-5 py-4 rounded-2xl text-base leading-relaxed shadow-lg border text-gray-900",
@@ -57,18 +57,20 @@ const AccessibleMessageBubble = ({ message }: { message: Message }) => {
           role={message.isAI ? "status" : "log"}
           aria-live={message.isAI ? "polite" : "off"}
         >
-          <p className="font-medium leading-7 text-inherit whitespace-pre-wrap">{message.content}</p>
+          <p className="font-medium leading-7 text-inherit whitespace-pre-wrap">
+            {message.content}
+          </p>
         </div>
-        
+
         {/* Timestamp for accessibility */}
-        <time 
+        <time
           className="text-xs text-gray-500 px-2"
           dateTime={message.timestamp.toISOString()}
         >
           {message.timestamp.toLocaleTimeString()}
         </time>
       </div>
-      
+
       {!message.isAI && (
         <div className="w-12 h-12 rounded-full bg-[#54FFD4] flex items-center justify-center text-slate-900 font-semibold text-sm border-2 border-[#1f6f63]/40">
           You
@@ -80,37 +82,80 @@ const AccessibleMessageBubble = ({ message }: { message: Message }) => {
 
 const AccessibleHeatMap = () => {
   const heatPoints = [
-    { id: 1, x: 25, y: 35, intensity: 'high', label: 'Marina Royal Complex', businesses: 15 },
-    { id: 2, x: 45, y: 45, intensity: 'medium', label: 'Al Khalidiya District', businesses: 8 },
-    { id: 3, x: 65, y: 25, intensity: 'high', label: 'Corniche Area', businesses: 22 },
-    { id: 4, x: 75, y: 55, intensity: 'medium', label: 'Al Bateen', businesses: 12 },
-    { id: 5, x: 35, y: 65, intensity: 'low', label: 'Downtown District', businesses: 5 },
+    {
+      id: 1,
+      x: 25,
+      y: 35,
+      intensity: "high",
+      label: "Marina Royal Complex",
+      businesses: 15,
+    },
+    {
+      id: 2,
+      x: 45,
+      y: 45,
+      intensity: "medium",
+      label: "Al Khalidiya District",
+      businesses: 8,
+    },
+    {
+      id: 3,
+      x: 65,
+      y: 25,
+      intensity: "high",
+      label: "Corniche Area",
+      businesses: 22,
+    },
+    {
+      id: 4,
+      x: 75,
+      y: 55,
+      intensity: "medium",
+      label: "Al Bateen",
+      businesses: 12,
+    },
+    {
+      id: 5,
+      x: 35,
+      y: 65,
+      intensity: "low",
+      label: "Downtown District",
+      businesses: 5,
+    },
   ];
 
   const getIntensityColor = (intensity: string) => {
     switch (intensity) {
-      case 'high': return 'from-red-500/60 to-red-600/40';
-      case 'medium': return 'from-orange-500/60 to-yellow-500/40';
-      case 'low': return 'from-yellow-400/60 to-green-400/40';
-      default: return 'from-blue-500/60 to-blue-600/40';
+      case "high":
+        return "from-red-500/60 to-red-600/40";
+      case "medium":
+        return "from-orange-500/60 to-yellow-500/40";
+      case "low":
+        return "from-yellow-400/60 to-green-400/40";
+      default:
+        return "from-blue-500/60 to-blue-600/40";
     }
   };
 
   const getIntensitySize = (intensity: string) => {
     switch (intensity) {
-      case 'high': return 'w-16 h-16';
-      case 'medium': return 'w-12 h-12';
-      case 'low': return 'w-8 h-8';
-      default: return 'w-10 h-10';
+      case "high":
+        return "w-16 h-16";
+      case "medium":
+        return "w-12 h-12";
+      case "low":
+        return "w-8 h-8";
+      default:
+        return "w-10 h-10";
     }
   };
 
   return (
     <div className="relative">
       {/* Heat map container */}
-      <div 
+      <div
         className="relative w-full max-w-md mx-auto bg-white rounded-3xl p-4 shadow-xl border border-gray-200"
-        role="img" 
+        role="img"
         aria-label="Heat map showing restaurant density across Abu Dhabi districts"
       >
         {/* Base map image */}
@@ -119,7 +164,7 @@ const AccessibleHeatMap = () => {
           alt="Abu Dhabi district map"
           className="w-full h-auto rounded-2xl"
         />
-        
+
         {/* Heat points overlay */}
         <div className="absolute inset-4">
           {heatPoints.map((point) => (
@@ -128,7 +173,7 @@ const AccessibleHeatMap = () => {
               className={cn(
                 "absolute rounded-full bg-gradient-radial transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 hover:scale-110",
                 getIntensityColor(point.intensity),
-                getIntensitySize(point.intensity)
+                getIntensitySize(point.intensity),
               )}
               style={{
                 left: `${point.x}%`,
@@ -141,7 +186,7 @@ const AccessibleHeatMap = () => {
             >
               {/* Inner circle for better visibility */}
               <div className="absolute inset-2 rounded-full bg-white/30 border border-white/50"></div>
-              
+
               {/* Business count indicator */}
               <div className="absolute -top-1 -right-1 bg-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold text-gray-800 border border-gray-300 shadow-sm">
                 {point.businesses}
@@ -150,22 +195,30 @@ const AccessibleHeatMap = () => {
           ))}
         </div>
       </div>
-      
+
       {/* Legend for accessibility */}
       <div className="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
-        <h4 className="text-sm font-semibold text-gray-800 mb-3">Heat Map Legend</h4>
+        <h4 className="text-sm font-semibold text-gray-800 mb-3">
+          Heat Map Legend
+        </h4>
         <div className="space-y-2">
           <div className="flex items-center gap-3">
             <div className="w-4 h-4 rounded-full bg-gradient-to-r from-red-500/60 to-red-600/40"></div>
-            <span className="text-sm text-gray-700">High density (15+ restaurants)</span>
+            <span className="text-sm text-gray-700">
+              High density (15+ restaurants)
+            </span>
           </div>
           <div className="flex items-center gap-3">
             <div className="w-4 h-4 rounded-full bg-gradient-to-r from-orange-500/60 to-yellow-500/40"></div>
-            <span className="text-sm text-gray-700">Medium density (8-14 restaurants)</span>
+            <span className="text-sm text-gray-700">
+              Medium density (8-14 restaurants)
+            </span>
           </div>
           <div className="flex items-center gap-3">
             <div className="w-4 h-4 rounded-full bg-gradient-to-r from-yellow-400/60 to-green-400/40"></div>
-            <span className="text-sm text-gray-700">Low density (1-7 restaurants)</span>
+            <span className="text-sm text-gray-700">
+              Low density (1-7 restaurants)
+            </span>
           </div>
         </div>
       </div>
@@ -173,14 +226,18 @@ const AccessibleHeatMap = () => {
   );
 };
 
-const ChatInput = ({ onSendMessage }: { onSendMessage: (message: string) => void }) => {
-  const [inputValue, setInputValue] = useState('');
+const ChatInput = ({
+  onSendMessage,
+}: {
+  onSendMessage: (message: string) => void;
+}) => {
+  const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (inputValue.trim()) {
       onSendMessage(inputValue.trim());
-      setInputValue('');
+      setInputValue("");
     }
   };
 
@@ -195,7 +252,7 @@ const ChatInput = ({ onSendMessage }: { onSendMessage: (message: string) => void
           className="flex-1 bg-transparent text-slate-900 placeholder-slate-400 text-base outline-none"
           aria-label="Type your message"
         />
-        
+
         <div className="flex items-center gap-2">
           {/* Microphone button */}
           <button
@@ -216,7 +273,7 @@ const ChatInput = ({ onSendMessage }: { onSendMessage: (message: string) => void
               />
             </svg>
           </button>
-          
+
           {/* Keyboard button */}
           <button
             type="button"
@@ -236,7 +293,7 @@ const ChatInput = ({ onSendMessage }: { onSendMessage: (message: string) => void
               />
             </svg>
           </button>
-          
+
           {/* Send button */}
           <button
             type="submit"
@@ -266,24 +323,29 @@ const ChatInput = ({ onSendMessage }: { onSendMessage: (message: string) => void
   );
 };
 
-export const HeatMapChat: React.FC<HeatMapChatProps> = ({ isOpen, onClose }) => {
+export const HeatMapChat: React.FC<HeatMapChatProps> = ({
+  isOpen,
+  onClose,
+}) => {
   const [messages, setMessages] = useState<Message[]>([
     {
-      id: '1',
-      content: 'Where are existing establishments located for specific activities (on a heat map)?',
+      id: "1",
+      content:
+        "Where are existing establishments located for specific activities (on a heat map)?",
       isAI: false,
       timestamp: new Date(Date.now() - 120000),
     },
     {
-      id: '2', 
-      content: 'I have created a heat map for the top areas and existing businesses',
+      id: "2",
+      content:
+        "I have created a heat map for the top areas and existing businesses",
       isAI: true,
       timestamp: new Date(Date.now() - 60000),
-      type: 'heat-map',
+      type: "heat-map",
     },
     {
-      id: '3',
-      content: 'Interesting looking at this in a map',
+      id: "3",
+      content: "Interesting looking at this in a map",
       isAI: false,
       timestamp: new Date(),
     },
@@ -296,8 +358,8 @@ export const HeatMapChat: React.FC<HeatMapChatProps> = ({ isOpen, onClose }) => 
       isAI: false,
       timestamp: new Date(),
     };
-    setMessages(prev => [...prev, newMessage]);
-    
+    setMessages((prev) => [...prev, newMessage]);
+
     // Simulate AI response
     setTimeout(() => {
       const aiResponse: Message = {
@@ -306,7 +368,7 @@ export const HeatMapChat: React.FC<HeatMapChatProps> = ({ isOpen, onClose }) => 
         isAI: true,
         timestamp: new Date(),
       };
-      setMessages(prev => [...prev, aiResponse]);
+      setMessages((prev) => [...prev, aiResponse]);
     }, 1000);
   };
 
@@ -332,13 +394,18 @@ export const HeatMapChat: React.FC<HeatMapChatProps> = ({ isOpen, onClose }) => 
                   className="w-10 h-10 rounded-full border-2 border-[#54FFD4]"
                 />
                 <div>
-                  <h2 id="heat-map-chat-title" className="text-lg font-semibold text-gray-900">
+                  <h2
+                    id="heat-map-chat-title"
+                    className="text-lg font-semibold text-gray-900"
+                  >
                     AI Business
                   </h2>
-                  <p className="text-sm text-gray-600">Location Analysis Assistant</p>
+                  <p className="text-sm text-gray-600">
+                    Location Analysis Assistant
+                  </p>
                 </div>
               </div>
-              
+
               <button
                 onClick={onClose}
                 className="p-2 hover:bg-gray-200 rounded-full transition-colors"
@@ -368,7 +435,7 @@ export const HeatMapChat: React.FC<HeatMapChatProps> = ({ isOpen, onClose }) => 
               {messages.map((message) => (
                 <div key={message.id}>
                   <AccessibleMessageBubble message={message} />
-                  {message.type === 'heat-map' && (
+                  {message.type === "heat-map" && (
                     <div className="mt-4 mb-6">
                       <AccessibleHeatMap />
                     </div>

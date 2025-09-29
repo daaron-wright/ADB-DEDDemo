@@ -52,10 +52,13 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const timeouts = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  const cancelTimeout = useCallback((timeoutId: ReturnType<typeof setTimeout>) => {
-    clearTimeout(timeoutId);
-    timeouts.current = timeouts.current.filter((id) => id !== timeoutId);
-  }, []);
+  const cancelTimeout = useCallback(
+    (timeoutId: ReturnType<typeof setTimeout>) => {
+      clearTimeout(timeoutId);
+      timeouts.current = timeouts.current.filter((id) => id !== timeoutId);
+    },
+    [],
+  );
 
   const clearAllTimeouts = useCallback(() => {
     timeouts.current.forEach((timeoutId) => clearTimeout(timeoutId));
@@ -64,17 +67,14 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
 
   useEffect(() => () => clearAllTimeouts(), [clearAllTimeouts]);
 
-  const scheduleTimeout = useCallback(
-    (callback: () => void, delay: number) => {
-      const timeoutId = setTimeout(() => {
-        timeouts.current = timeouts.current.filter((id) => id !== timeoutId);
-        callback();
-      }, delay);
-      timeouts.current.push(timeoutId);
-      return timeoutId;
-    },
-    [],
-  );
+  const scheduleTimeout = useCallback((callback: () => void, delay: number) => {
+    const timeoutId = setTimeout(() => {
+      timeouts.current = timeouts.current.filter((id) => id !== timeoutId);
+      callback();
+    }, delay);
+    timeouts.current.push(timeoutId);
+    return timeoutId;
+  }, []);
 
   const resetFlow = useCallback(() => {
     clearAllTimeouts();
@@ -321,7 +321,10 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
                   </svg>
                 </div>
                 <h3 className="text-base font-semibold text-slate-900">
-                  Continue as {selectedUserType === "applicant" ? "business applicant" : "license reviewer"}
+                  Continue as{" "}
+                  {selectedUserType === "applicant"
+                    ? "business applicant"
+                    : "license reviewer"}
                 </h3>
                 <p className="text-sm text-slate-500">
                   We'll redirect you to UAE PASS to finish signing in.
@@ -407,12 +410,24 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
                 <motion.div
                   className="absolute inset-0 rounded-full border-2 border-[#54FFD4]/40"
                   animate={{ scale: [1, 1.08, 1], opacity: [0.55, 0.2, 0.55] }}
-                  transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{
+                    duration: 1.6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                 />
                 <motion.div
                   className="absolute inset-2 rounded-full border border-[#54FFD4]/30"
-                  animate={{ scale: [0.95, 1.03, 0.95], opacity: [0.3, 0.6, 0.3] }}
-                  transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+                  animate={{
+                    scale: [0.95, 1.03, 0.95],
+                    opacity: [0.3, 0.6, 0.3],
+                  }}
+                  transition={{
+                    duration: 1.6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.2,
+                  }}
                 />
                 {isLoggingIn && (
                   <motion.div
@@ -423,7 +438,11 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
                     <motion.div
                       className="absolute inset-0 bg-gradient-to-b from-[#54FFD4]/45 via-transparent to-[#54FFD4]/20"
                       animate={{ y: ["100%", "-100%"] }}
-                      transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                      transition={{
+                        duration: 1.6,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
                     />
                   </motion.div>
                 )}
@@ -435,7 +454,12 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
                   xmlns="http://www.w3.org/2000/svg"
                   className="relative z-10"
                 >
-                  <g stroke="#0F172A" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                  <g
+                    stroke="#0F172A"
+                    strokeWidth="2.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M32 9C20.402 9 11 18.402 11 30" />
                     <path d="M32 15C23.163 15 16 22.163 16 31" />
                     <path d="M32 21C26.477 21 22 25.477 22 31" />
