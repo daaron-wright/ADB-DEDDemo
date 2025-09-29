@@ -19,27 +19,6 @@ import { SummaryMetric } from '@/components/portal/SummaryMetric';
 import { ReviewQueueCard, type ReviewQueueItem } from '@/components/portal/ReviewQueueCard';
 import { PortalProfileMenu } from '@/components/portal/PortalProfileMenu';
 
-const directorateOptions = [
-  'Department of Economic Development',
-  'Abu Dhabi Agriculture and Food Safety Authority',
-  'Abu Dhabi Municipality',
-  'Department of Culture and Tourism',
-] as const;
-
-const slaOptions = [
-  { label: 'All statuses', value: 'all' },
-  { label: 'On track', value: 'On Track' },
-  { label: 'At risk', value: 'At Risk' },
-  { label: 'Breached', value: 'Breached' },
-] as const;
-
-const priorityOptions = [
-  { label: 'All priorities', value: 'all' },
-  { label: 'High', value: 'High' },
-  { label: 'Medium', value: 'Medium' },
-  { label: 'Low', value: 'Low' },
-] as const;
-
 const stageOptions = [
   { label: 'All stages', value: 'all' },
   { label: 'Questionnaire', value: 'Questionnaire' },
