@@ -1442,13 +1442,13 @@ export function BusinessChatUI({
                     <UAEPassLogin
                       onLogin={handleUAEPassLogin}
                       trigger={
-                        <button className="hover:opacity-80 transition-opacity">
+                        <span className="inline-flex cursor-pointer items-center transition-opacity hover:opacity-80">
                           <img
                             src="https://api.builder.io/api/v1/image/assets/TEMP/f35ba5a02338a961dd18f58928489d9e87ec7dc3?width=442"
                             alt="Sign in with UAE PASS"
                             className="h-8 rounded-full"
                           />
-                        </button>
+                        </span>
                       }
                     />
                   </div>
