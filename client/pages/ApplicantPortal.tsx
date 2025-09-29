@@ -315,36 +315,36 @@ const applicantJourney: Array<{
 const journeyStateTokens: Record<JourneyState, { label: string; badgeClass: string; dotClass: string }> = {
   done: {
     label: 'Completed',
-    badgeClass: 'border-emerald-200 bg-emerald-50 text-emerald-700',
-    dotClass: 'bg-emerald-500',
+    badgeClass: 'border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]',
+    dotClass: 'bg-[#0f766e]',
   },
   current: {
     label: 'In progress',
-    badgeClass: 'border-purple-200 bg-purple-50 text-purple-700',
-    dotClass: 'bg-purple-500',
+    badgeClass: 'border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]',
+    dotClass: 'bg-[#0b7d6f]',
   },
   upcoming: {
     label: 'Next',
-    badgeClass: 'border-slate-200 bg-slate-50 text-slate-600',
-    dotClass: 'bg-slate-300',
+    badgeClass: 'border-[#dbe7e1] bg-[#f4f8f6] text-slate-600',
+    dotClass: 'bg-[#a6bbb1]',
   },
 };
 
 const taskStatusTokens: Record<JourneyTaskStatus, { label: string; badgeClass: string; dotClass: string }> = {
   completed: {
     label: 'Completed',
-    badgeClass: 'border-emerald-200 bg-emerald-50 text-emerald-700',
-    dotClass: 'bg-emerald-500',
+    badgeClass: 'border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]',
+    dotClass: 'bg-[#0f766e]',
   },
   in_progress: {
     label: 'In progress',
-    badgeClass: 'border-purple-200 bg-purple-50 text-purple-700',
-    dotClass: 'bg-purple-500',
+    badgeClass: 'border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]',
+    dotClass: 'bg-[#0b7d6f]',
   },
   pending: {
     label: 'Waiting on you',
-    badgeClass: 'border-amber-200 bg-amber-50 text-amber-700',
-    dotClass: 'bg-amber-500',
+    badgeClass: 'border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]',
+    dotClass: 'bg-[#d8a437]',
   },
 };
 
