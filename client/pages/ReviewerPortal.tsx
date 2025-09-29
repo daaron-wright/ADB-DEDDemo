@@ -420,8 +420,50 @@ export default function ReviewerPortal() {
     setPolicyAssignments((prev) => ({ ...prev, [policyId]: agentId }));
   };
 
+  const handleAddPolicyActorToReview = (policyId: PolicyId) => {
+    if (!focusedReview) {
+      return;
+    }
+
+    const agentId = policyAssignments[policyId];
+    const agent = policyAgentOptions.find((option) => option.id === agentId);
+    const policy = policyGlossary.find((entry) => entry.id === policyId);
+
+    if (!agent || !policy) {
+      return;
+    }
+
+    setReviewPolicyActors((prev) => {
+      const currentAssignments = prev[focusedReview.id] ?? [];
+      const nextAssignment: PolicyActorAssignment = {
+        policyId,
+        policyLabel: policy.document,
+        agentId,
+        agentLabel: agent.label,
+      };
+      const existingIndex = currentAssignments.findIndex(
+        (assignment) => assignment.policyId === policyId,
+      );
+
+      const updatedAssignments =
+        existingIndex >= 0
+          ? currentAssignments.map((assignment, index) =>
+              index === existingIndex ? nextAssignment : assignment,
+            )
+          : [...currentAssignments, nextAssignment];
+
+      return {
+        ...prev,
+        [focusedReview.id]: updatedAssignments,
+      };
+    });
+  };
+
   const handleFocusOpen = (review: ReviewQueueItem) => {
     setFocusedReview(review);
+    setReviewPolicyActors((prev) =>
+      prev[review.id] ? prev : { ...prev, [review.id]: [] },
+    );
   };
 
   const handleFocusClose = () => {
