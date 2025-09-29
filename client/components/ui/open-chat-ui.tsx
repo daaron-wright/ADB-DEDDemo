@@ -476,7 +476,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                   </div>
 
                   {/* Input Footer */}
-                  <div className="border-t border-white/20 bg-white/8 p-4">
+                  <div className="border-t border-black/10 bg-white/70 p-4">
                     <div className="flex items-center gap-2">
                       <input
                         type="text"
@@ -484,7 +484,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                         onChange={(e) => setInputValue(e.target.value)}
                         onKeyPress={handleKeyPress}
                         placeholder={placeholderText}
-                        className="flex-1 rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-slate-300 transition-colors backdrop-blur-2xl focus:border-[#54FFD4] focus:outline-none focus:ring-1 focus:ring-[#54FFD4]/50"
+                        className="flex-1 rounded-xl border border-black/10 bg-white/85 px-3 py-2 text-sm text-slate-900 placeholder-slate-500 transition-colors backdrop-blur-2xl focus:border-[#54FFD4] focus:outline-none focus:ring-1 focus:ring-[#54FFD4]/50"
                         disabled={chatState !== 'idle'}
                       />
 
