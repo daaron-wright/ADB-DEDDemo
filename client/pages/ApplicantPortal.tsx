@@ -256,6 +256,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-GB", {
 
 export default function ApplicantPortal() {
   const location = useLocation();
+  const navigate = useNavigate();
   const portalUser = (
     location.state as
       | {
