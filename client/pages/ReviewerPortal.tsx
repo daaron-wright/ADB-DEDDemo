@@ -95,7 +95,7 @@ const reviewQueue: ReviewQueueItem[] = [
         issuer: "Department of Economic Development",
         validUntil: "2025-03-15",
         uploadedAt: "2024-03-10",
-        size: "2.1 MB"
+        size: "2.1 MB",
       },
       {
         id: "doc-certificate-conformity",
@@ -104,7 +104,7 @@ const reviewQueue: ReviewQueueItem[] = [
         status: "approved",
         issuer: "Abu Dhabi City and Districts Center",
         uploadedAt: "2024-03-12",
-        size: "1.8 MB"
+        size: "1.8 MB",
       },
       {
         id: "doc-food-safety-cert",
@@ -113,7 +113,7 @@ const reviewQueue: ReviewQueueItem[] = [
         status: "under_review",
         issuer: "Abu Dhabi Agriculture and Food Safety Authority",
         uploadedAt: "2024-03-14",
-        size: "3.2 MB"
+        size: "3.2 MB",
       },
       {
         id: "doc-fire-suppression",
@@ -121,15 +121,15 @@ const reviewQueue: ReviewQueueItem[] = [
         type: "plan",
         status: "pending",
         uploadedAt: "2024-03-15",
-        size: "5.4 MB"
+        size: "5.4 MB",
       },
       {
         id: "doc-tenancy-contract",
         name: "Signed Tenancy Contract",
         type: "contract",
         status: "required",
-        size: "Expected"
-      }
+        size: "Expected",
+      },
     ],
     summary:
       "Full-service restaurant launch requiring updated fire suppression layout, IoT kitchen monitoring configuration, and tenancy validation.",
@@ -157,7 +157,7 @@ const reviewQueue: ReviewQueueItem[] = [
         type: "contract",
         status: "approved",
         uploadedAt: "2024-03-10",
-        size: "4.2 MB"
+        size: "4.2 MB",
       },
       {
         id: "doc-supplier-contracts",
@@ -165,7 +165,7 @@ const reviewQueue: ReviewQueueItem[] = [
         type: "contract",
         status: "under_review",
         uploadedAt: "2024-03-11",
-        size: "6.8 MB"
+        size: "6.8 MB",
       },
       {
         id: "doc-packaging-approval",
@@ -174,15 +174,15 @@ const reviewQueue: ReviewQueueItem[] = [
         status: "pending",
         issuer: "ADAFSA",
         uploadedAt: "2024-03-12",
-        size: "2.1 MB"
+        size: "2.1 MB",
       },
       {
         id: "doc-cold-chain-sop",
         name: "Cold Chain SOP",
         type: "report",
         status: "required",
-        size: "Expected"
-      }
+        size: "Expected",
+      },
     ],
     summary:
       "Quick-service franchise expansion focused on supplier traceability, packaging approvals, and delivery routing compliance.",
@@ -210,7 +210,7 @@ const reviewQueue: ReviewQueueItem[] = [
         type: "form",
         status: "approved",
         uploadedAt: "2024-03-08",
-        size: "3.5 MB"
+        size: "3.5 MB",
       },
       {
         id: "doc-shareholder-attestation",
@@ -218,15 +218,15 @@ const reviewQueue: ReviewQueueItem[] = [
         type: "certificate",
         status: "under_review",
         uploadedAt: "2024-03-09",
-        size: "2.4 MB"
+        size: "2.4 MB",
       },
       {
         id: "doc-shareholder-resolution",
         name: "Notarized Shareholder Resolution",
         type: "form",
         status: "required",
-        size: "Expected"
-      }
+        size: "Expected",
+      },
     ],
     summary:
       "Branch launch requiring cross-jurisdiction approvals, updated governance documents, and foreign shareholder attestations.",
@@ -254,7 +254,7 @@ const reviewQueue: ReviewQueueItem[] = [
         type: "plan",
         status: "approved",
         uploadedAt: "2024-03-07",
-        size: "8.2 MB"
+        size: "8.2 MB",
       },
       {
         id: "doc-signage-compliance",
@@ -262,7 +262,7 @@ const reviewQueue: ReviewQueueItem[] = [
         type: "report",
         status: "under_review",
         uploadedAt: "2024-03-08",
-        size: "3.1 MB"
+        size: "3.1 MB",
       },
       {
         id: "doc-visitor-flow",
@@ -270,15 +270,15 @@ const reviewQueue: ReviewQueueItem[] = [
         type: "report",
         status: "approved",
         uploadedAt: "2024-03-06",
-        size: "4.7 MB"
+        size: "4.7 MB",
       },
       {
         id: "doc-storefront-renders",
         name: "Updated Storefront Renders",
         type: "plan",
         status: "required",
-        size: "Expected"
-      }
+        size: "Expected",
+      },
     ],
     summary:
       "Luxury retail experience reviewing merchandising layouts, signage compliance, and visitor flow plans for the flagship store.",
@@ -307,7 +307,7 @@ const reviewQueue: ReviewQueueItem[] = [
         status: "approved",
         issuer: "Abu Dhabi Municipality",
         uploadedAt: "2024-03-09",
-        size: "5.3 MB"
+        size: "5.3 MB",
       },
       {
         id: "doc-waste-management",
@@ -315,7 +315,7 @@ const reviewQueue: ReviewQueueItem[] = [
         type: "plan",
         status: "under_review",
         uploadedAt: "2024-03-10",
-        size: "3.8 MB"
+        size: "3.8 MB",
       },
       {
         id: "doc-safety-planning",
@@ -323,22 +323,22 @@ const reviewQueue: ReviewQueueItem[] = [
         type: "report",
         status: "approved",
         uploadedAt: "2024-03-08",
-        size: "4.1 MB"
+        size: "4.1 MB",
       },
       {
         id: "doc-waste-disposal",
         name: "Final Waste Disposal Schedule",
         type: "plan",
         status: "required",
-        size: "Expected"
+        size: "Expected",
       },
       {
         id: "doc-crowd-management",
         name: "Updated Crowd Management Layout",
         type: "plan",
         status: "required",
-        size: "Expected"
-      }
+        size: "Expected",
+      },
     ],
     summary:
       "Seasonal fast-food cluster across the marina boardwalk needing zoning validation, waste management, and safety planning.",
@@ -591,7 +591,7 @@ export default function ReviewerPortal() {
             )?.label;
             const currentReviewId = selectedReviewId;
             const activeAssignments = currentReviewId
-              ? reviewPolicyActors[currentReviewId] ?? []
+              ? (reviewPolicyActors[currentReviewId] ?? [])
               : [];
             const existingAssignment = activeAssignments.find(
               (assignment) => assignment.policyId === policy.id,
@@ -637,12 +637,17 @@ export default function ReviewerPortal() {
                     <Select
                       value={assignedAgent}
                       onValueChange={(value) =>
-                        handlePolicyAgentChange(policy.id, value as PolicyAgentId)
+                        handlePolicyAgentChange(
+                          policy.id,
+                          value as PolicyAgentId,
+                        )
                       }
                     >
                       <SelectTrigger className="h-10 w-full rounded-2xl border-[#d8e4df] bg-white text-sm text-slate-900 sm:min-w-[12rem]">
                         <SelectValue
-                          aria-label={selectedAgentLabel ?? "Select policy agent"}
+                          aria-label={
+                            selectedAgentLabel ?? "Select policy agent"
+                          }
                         />
                       </SelectTrigger>
                       <SelectContent className="rounded-2xl border border-[#d8e4df] bg-white text-slate-900">
@@ -681,7 +686,9 @@ export default function ReviewerPortal() {
                       </svg>
                       <span>{buttonLabel}</span>
                     </button>
-                    <span className="text-[11px] text-slate-500">{helperMessage}</span>
+                    <span className="text-[11px] text-slate-500">
+                      {helperMessage}
+                    </span>
                   </div>
                 </div>
               </div>

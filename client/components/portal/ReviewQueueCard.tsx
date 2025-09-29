@@ -2,12 +2,20 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 
-const OPA_REVIEW_URL = "https://c64e5974ca6d436eb4bd2ecabd67f8dd-nova-haven.projects.builder.my";
+const OPA_REVIEW_URL =
+  "https://c64e5974ca6d436eb4bd2ecabd67f8dd-nova-haven.projects.builder.my";
 
 export interface DocumentArtifact {
   id: string;
   name: string;
-  type: "certificate" | "license" | "permit" | "form" | "report" | "contract" | "plan";
+  type:
+    | "certificate"
+    | "license"
+    | "permit"
+    | "form"
+    | "report"
+    | "contract"
+    | "plan";
   status: "approved" | "pending" | "rejected" | "under_review" | "required";
   url?: string;
   uploadedAt?: string;
@@ -74,11 +82,15 @@ export function ReviewQueueCard({
     }
   };
 
-  const handleInteractionLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleInteractionLinkClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+  ) => {
     event.stopPropagation();
   };
 
-  const handleInteractionLinkKeyDown = (event: React.KeyboardEvent<HTMLAnchorElement>) => {
+  const handleInteractionLinkKeyDown = (
+    event: React.KeyboardEvent<HTMLAnchorElement>,
+  ) => {
     event.stopPropagation();
   };
 
@@ -135,8 +147,12 @@ export function ReviewQueueCard({
 
       <div className="mt-6">
         <div className="flex items-center justify-between mb-3">
-          <h4 className="text-sm font-semibold text-slate-900">Key Documents</h4>
-          <span className="text-xs text-slate-500">{item.documents.length} artifacts</span>
+          <h4 className="text-sm font-semibold text-slate-900">
+            Key Documents
+          </h4>
+          <span className="text-xs text-slate-500">
+            {item.documents.length} artifacts
+          </span>
         </div>
         <div className="flex flex-wrap gap-2">
           {item.documents.slice(0, 4).map((document) => {
@@ -166,8 +182,13 @@ export function ReviewQueueCard({
                   "hover:brightness-[0.92] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0f766e]/40",
                 )}
               >
-                <span className="h-2 w-2 rounded-full bg-current opacity-60" aria-hidden="true"></span>
-                <span className="max-w-[140px] truncate text-left">{document.name}</span>
+                <span
+                  className="h-2 w-2 rounded-full bg-current opacity-60"
+                  aria-hidden="true"
+                ></span>
+                <span className="max-w-[140px] truncate text-left">
+                  {document.name}
+                </span>
               </button>
             );
           })}
@@ -181,14 +202,18 @@ export function ReviewQueueCard({
 
       {policyAssignments?.length ? (
         <div className="mt-6 rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
-          <h4 className="text-sm font-semibold text-slate-900">Policy actors in review</h4>
+          <h4 className="text-sm font-semibold text-slate-900">
+            Policy actors in review
+          </h4>
           <div className="mt-3 flex flex-wrap gap-2 text-xs">
             {policyAssignments.map((assignment) => (
               <span
                 key={assignment.policyId}
                 className="inline-flex items-center gap-2 rounded-full border border-[#bfd6f8] bg-[#eef4ff] px-3 py-1 font-medium text-[#1d4ed8]"
               >
-                <span className="font-semibold text-[#0f172a]">{assignment.agentLabel}</span>
+                <span className="font-semibold text-[#0f172a]">
+                  {assignment.agentLabel}
+                </span>
                 <span
                   aria-hidden="true"
                   className="h-1 w-1 rounded-full bg-[#1d4ed8]/40"

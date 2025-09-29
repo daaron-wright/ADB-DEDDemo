@@ -71,10 +71,10 @@ const documentTypeIcons: Record<DocumentArtifact["type"], ReactNode> = {
 
 const handleDocumentClick = (document: DocumentArtifact) => {
   if (document.url) {
-    window.open(document.url, '_blank');
+    window.open(document.url, "_blank");
   } else {
     // Handle document preview/download logic here
-    console.log('Opening document:', document.name);
+    console.log("Opening document:", document.name);
   }
 };
 
@@ -105,7 +105,10 @@ export function ReviewFocusSheet({
     { id: "needs_attention", label: "Needs Attention" },
   ];
 
-  const journeyBadgeStyles: Record<JourneyState, { active: string; inactive: string }> = {
+  const journeyBadgeStyles: Record<
+    JourneyState,
+    { active: string; inactive: string }
+  > = {
     approved: {
       active: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
       inactive: "border-[#d8e4df] bg-white text-slate-500",
@@ -192,7 +195,8 @@ export function ReviewFocusSheet({
                     Policy actors in this review
                   </h3>
                   <span className="text-xs text-slate-500">
-                    {policyAssignments.length} actor{policyAssignments.length > 1 ? "s" : ""}
+                    {policyAssignments.length} actor
+                    {policyAssignments.length > 1 ? "s" : ""}
                   </span>
                 </div>
                 <div className="flex flex-wrap gap-2 text-xs">
@@ -201,12 +205,16 @@ export function ReviewFocusSheet({
                       key={assignment.policyId}
                       className="inline-flex items-center gap-2 rounded-full border border-[#bfd6f8] bg-[#eef4ff] px-3 py-1 font-medium text-[#1d4ed8]"
                     >
-                      <span className="font-semibold text-[#0f172a]">{assignment.agentLabel}</span>
+                      <span className="font-semibold text-[#0f172a]">
+                        {assignment.agentLabel}
+                      </span>
                       <span
                         aria-hidden="true"
                         className="h-1 w-1 rounded-full bg-[#1d4ed8]/40"
                       />
-                      <span className="text-[#1e293b]">{assignment.policyLabel}</span>
+                      <span className="text-[#1e293b]">
+                        {assignment.policyLabel}
+                      </span>
                     </span>
                   ))}
                 </div>
@@ -216,7 +224,10 @@ export function ReviewFocusSheet({
             <section className="space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Key Documents {!showAllDocuments && review.documents.length > 3 && `(${keyDocuments.length} of ${review.documents.length})`}
+                  Key Documents{" "}
+                  {!showAllDocuments &&
+                    review.documents.length > 3 &&
+                    `(${keyDocuments.length} of ${review.documents.length})`}
                 </h3>
                 {remainingDocuments.length > 0 && (
                   <Button
@@ -227,15 +238,35 @@ export function ReviewFocusSheet({
                   >
                     {showAllDocuments ? (
                       <>
-                        <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                        <svg
+                          className="w-3 h-3 mr-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 15l7-7 7 7"
+                          />
                         </svg>
                         Show Less
                       </>
                     ) : (
                       <>
-                        <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        <svg
+                          className="w-3 h-3 mr-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 9l-7 7-7-7"
+                          />
                         </svg>
                         Show All ({review.documents.length})
                       </>
@@ -257,7 +288,9 @@ export function ReviewFocusSheet({
                         onClick={() => handleDocumentClick(document)}
                         className={cn(
                           "cursor-pointer rounded-2xl border bg-white p-4",
-                          isKeyDocument ? "border-[#0f766e] bg-[#f9fbfa]" : "border-[#d8e4df]"
+                          isKeyDocument
+                            ? "border-[#0f766e] bg-[#f9fbfa]"
+                            : "border-[#d8e4df]",
                         )}
                       >
                         <div className="flex items-start justify-between gap-3">
@@ -278,21 +311,31 @@ export function ReviewFocusSheet({
                             <div className="grid grid-cols-2 gap-2 text-xs text-slate-600">
                               {document.issuer && (
                                 <div>
-                                  <span className="font-medium">Issuer:</span> {document.issuer}
+                                  <span className="font-medium">Issuer:</span>{" "}
+                                  {document.issuer}
                                 </div>
                               )}
                               {document.uploadedAt && (
                                 <div>
-                                  <span className="font-medium">Uploaded:</span> {dateFormatter.format(new Date(document.uploadedAt))}
+                                  <span className="font-medium">Uploaded:</span>{" "}
+                                  {dateFormatter.format(
+                                    new Date(document.uploadedAt),
+                                  )}
                                 </div>
                               )}
                               {document.validUntil && (
                                 <div>
-                                  <span className="font-medium">Valid until:</span> {dateFormatter.format(new Date(document.validUntil))}
+                                  <span className="font-medium">
+                                    Valid until:
+                                  </span>{" "}
+                                  {dateFormatter.format(
+                                    new Date(document.validUntil),
+                                  )}
                                 </div>
                               )}
                               <div>
-                                <span className="font-medium">Size:</span> {document.size}
+                                <span className="font-medium">Size:</span>{" "}
+                                {document.size}
                               </div>
                             </div>
                           </div>
@@ -300,10 +343,20 @@ export function ReviewFocusSheet({
                             <Badge
                               className={`text-xs px-2 py-1 ${documentStatusStyles[document.status]}`}
                             >
-                              {document.status.replace('_', ' ')}
+                              {document.status.replace("_", " ")}
                             </Badge>
-                            <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            <svg
+                              className="w-4 h-4 text-slate-400"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                              />
                             </svg>
                           </div>
                         </div>
@@ -313,7 +366,6 @@ export function ReviewFocusSheet({
                 )}
               </div>
             </section>
-
           </div>
         </ScrollArea>
       </SheetContent>
