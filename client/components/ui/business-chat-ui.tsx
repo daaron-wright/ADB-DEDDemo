@@ -447,6 +447,10 @@ const DiscoverExperienceView = ({
   }, {});
   const activeInsightId = hoveredLocation ?? "corniche";
   const activeInsight = insightById[activeInsightId] ?? heatMapInsights[0];
+  const progressValue = Math.min(
+    Math.max(Math.round(activeInsight?.intensity ?? 0), 0),
+    100,
+  );
   const secondaryInsights = heatMapInsights.filter(
     (spot) => spot.id !== activeInsightId,
   );
