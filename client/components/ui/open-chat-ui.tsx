@@ -255,7 +255,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
       setInputValue('');
       setChatState('idle');
     }
-  }, [isOpen, isIntroMode, selectedCategory, mode, setMessages, setInputValue, setChatState]);
+  }, [isOpen, isIntroMode, selectedCategory, mode, initialCategoryTitle, setMessages, setInputValue, setChatState]);
 
   // Initialize speech recognition
   useEffect(() => {
