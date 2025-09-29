@@ -19,6 +19,7 @@ import { PortalPageLayout } from '@/components/portal/PortalPageLayout';
 import { FilterSection } from '@/components/portal/FilterSection';
 import { SummaryMetric } from '@/components/portal/SummaryMetric';
 import { PortalProfileMenu } from '@/components/portal/PortalProfileMenu';
+import { cn } from '@/lib/utils';
 
 interface ApplicationRecord {
   id: string;
