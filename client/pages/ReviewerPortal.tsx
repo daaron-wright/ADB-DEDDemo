@@ -169,8 +169,6 @@ const priorityWeight: Record<ReviewQueueItem['priority'], number> = {
   Low: 2,
 };
 
-const defaultDirectorates = directorateOptions.map((value) => value);
-
 type PolicyAgentId = (typeof policyAgentOptions)[number]['id'];
 type PolicyId = (typeof policyGlossary)[number]['id'];
 
