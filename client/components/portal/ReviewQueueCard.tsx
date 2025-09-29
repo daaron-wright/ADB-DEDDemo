@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 
@@ -35,6 +36,13 @@ export interface ReviewQueueItem {
   completion: number;
 }
 
+export interface PolicyActorAssignment {
+  policyId: string;
+  policyLabel: string;
+  agentId: string;
+  agentLabel: string;
+}
+
 const dateFormatter = new Intl.DateTimeFormat("en-GB", {
   day: "2-digit",
   month: "short",
@@ -44,9 +52,10 @@ const dateFormatter = new Intl.DateTimeFormat("en-GB", {
 interface ReviewQueueCardProps {
   item: ReviewQueueItem;
   onOpen?: (item: ReviewQueueItem) => void;
+  policyAssignments?: PolicyActorAssignment[];
 }
 
-export function ReviewQueueCard({ item, onOpen }: ReviewQueueCardProps) {
+export function ReviewQueueCard({ item, onOpen, policyAssignments }: ReviewQueueCardProps) {
   const handleActivate = () => {
     onOpen?.(item);
   };
@@ -145,6 +154,27 @@ export function ReviewQueueCard({ item, onOpen }: ReviewQueueCardProps) {
           )}
         </div>
       </div>
+
+      {policyAssignments?.length ? (
+        <div className="mt-6 rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
+          <h4 className="text-sm font-semibold text-slate-900">Policy actors in review</h4>
+          <div className="mt-3 flex flex-wrap gap-2 text-xs">
+            {policyAssignments.map((assignment) => (
+              <span
+                key={assignment.policyId}
+                className="inline-flex items-center gap-2 rounded-full border border-[#bfd6f8] bg-[#eef4ff] px-3 py-1 font-medium text-[#1d4ed8]"
+              >
+                <span className="font-semibold text-[#0f172a]">{assignment.agentLabel}</span>
+                <span
+                  aria-hidden="true"
+                  className="h-1 w-1 rounded-full bg-[#1d4ed8]/40"
+                />
+                <span className="text-[#1e293b]">{assignment.policyLabel}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      ) : null}
 
       <div className="mt-6 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
         <div className="flex w-full flex-1 items-center gap-4 text-slate-900">
