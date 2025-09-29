@@ -49,15 +49,15 @@ const AccessibleMessageBubble = ({ message }: { message: Message }) => {
         
         <div
           className={cn(
-            "px-5 py-4 rounded-2xl text-base leading-relaxed shadow-lg",
-            message.isAI 
-              ? "bg-white border border-gray-200 text-gray-900 rounded-bl-md" 
-              : "bg-gray-800 text-white rounded-br-md",
+            "px-5 py-4 rounded-2xl text-base leading-relaxed shadow-lg border text-gray-900",
+            message.isAI
+              ? "bg-white border-gray-200 rounded-bl-md"
+              : "bg-[#E6F7F3] border-[#54FFD4]/60 rounded-br-md",
           )}
           role={message.isAI ? "status" : "log"}
           aria-live={message.isAI ? "polite" : "off"}
         >
-          <p className="font-medium leading-7">{message.content}</p>
+          <p className="font-medium leading-7 text-inherit whitespace-pre-wrap">{message.content}</p>
         </div>
         
         {/* Timestamp for accessibility */}
@@ -70,7 +70,7 @@ const AccessibleMessageBubble = ({ message }: { message: Message }) => {
       </div>
       
       {!message.isAI && (
-        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center text-white font-semibold text-sm border-2 border-gray-300">
+        <div className="w-12 h-12 rounded-full bg-[#54FFD4] flex items-center justify-center text-slate-900 font-semibold text-sm border-2 border-[#1f6f63]/40">
           You
         </div>
       )}
