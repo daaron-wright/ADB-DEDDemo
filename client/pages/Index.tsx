@@ -10,17 +10,25 @@ export default function Index() {
   const [chatState, setChatState] = useState<{
     isOpen: boolean;
     category: string | null;
+    initialMessage: string | null;
   }>({
     isOpen: false,
     category: null,
+    initialMessage: null,
   });
 
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [openChatState, setOpenChatState] = useState<{
     isOpen: boolean;
+    mode: 'general' | 'category';
+    category: string | null;
+    categoryTitle: string | null;
   }>({
     isOpen: false,
+    mode: 'general',
+    category: null,
+    categoryTitle: null,
   });
 
   const navigate = useNavigate();
