@@ -195,22 +195,25 @@ const journeyStages: JourneyStage[] = [
 
 const journeyHighlightTokens: Record<
   JourneyHighlightState,
-  { badgeClass: string; detailClass: string; dotClass: string }
+  { badgeClass: string; detailClass: string; dotClass: string; stateLabel: string }
 > = {
   done: {
     badgeClass: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
     detailClass: "text-slate-500",
     dotClass: "bg-[#0f766e]",
+    stateLabel: "Completed",
   },
   current: {
     badgeClass: "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
     detailClass: "text-[#0b7d6f]",
     dotClass: "bg-[#0b7d6f]",
+    stateLabel: "In progress",
   },
   upcoming: {
     badgeClass: "border-[#dbe7e1] bg-[#f4f8f6] text-slate-600",
     detailClass: "text-slate-500",
     dotClass: "bg-[#a6bbb1]",
+    stateLabel: "Next",
   },
 };
 
