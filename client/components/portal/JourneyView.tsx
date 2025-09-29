@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { JourneyStepper, type JourneyStep } from './JourneyStepper';
-import { BusinessActivitiesSelection, type BusinessActivity } from './BusinessActivitiesSelection';
+import { BusinessActivitiesSelection, type BusinessActivity, type ActorOption } from './BusinessActivitiesSelection';
 import { AIAssistantPanel } from './AIAssistantPanel';
 
 interface JourneyViewProps {
@@ -12,9 +12,10 @@ interface JourneyViewProps {
   steps: JourneyStep[];
   activities: BusinessActivity[];
   selectedActivityIds: string[];
+  actorOptions: ActorOption[];
   onStepChange: (stepId: string) => void;
   onActivityToggle: (activityId: string) => void;
-  onAddNewActivity: () => void;
+  onCreateActivity: (activityName: string, actorIds: string[]) => void;
   onClose?: () => void;
   className?: string;
 }
@@ -27,9 +28,10 @@ export function JourneyView({
   steps,
   activities,
   selectedActivityIds,
+  actorOptions,
   onStepChange,
   onActivityToggle,
-  onAddNewActivity,
+  onCreateActivity,
   onClose,
   className
 }: JourneyViewProps) {
@@ -114,8 +116,9 @@ export function JourneyView({
               totalSteps={totalSteps}
               activities={activities}
               selectedActivityIds={selectedActivityIds}
+              actorOptions={actorOptions}
               onActivityToggle={onActivityToggle}
-              onAddNewActivity={onAddNewActivity}
+              onCreateActivity={onCreateActivity}
             />
           </div>
 
