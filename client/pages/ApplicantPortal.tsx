@@ -74,26 +74,26 @@ type JourneyStage = {
 
 const journeyStages: JourneyStage[] = [
   {
-    id: "intake",
+    id: "questionnaire",
     title: "Questionnaire intake",
     highlight: {
-      label: "Application submitted",
-      detail: "Completed 14 Mar 2024",
+      label: "Questionnaire completed",
+      detail: "Finished 12 Mar 2024",
     },
     description:
-      "Personalized intake is complete and responses now prefill every downstream form automatically.",
+      "Smart intake responses now prefill every downstream form automatically.",
     state: "done",
-    statusDetail: "Finished 12 Mar 2024",
+    statusDetail: "Completed 12 Mar 2024",
     tasks: [
       {
-        id: "intake-questionnaire",
+        id: "questionnaire-intake",
         label: "Complete smart intake questionnaire",
         status: "completed",
         owner: "Applicant",
         completedOn: "2024-03-12",
       },
       {
-        id: "intake-profile",
+        id: "questionnaire-profile",
         label: "Review generated business profile",
         status: "completed",
         owner: "Applicant",
@@ -102,7 +102,42 @@ const journeyStages: JourneyStage[] = [
     ],
   },
   {
-    id: "documents",
+    id: "business-registration",
+    title: "Business registration",
+    highlight: {
+      label: "Trade name reserved",
+      detail: "Marwah approved",
+    },
+    description:
+      "Initial approvals secured, including trade name reservation and legal structure confirmation.",
+    state: "done",
+    statusDetail: "Initial approvals granted",
+    tasks: [
+      {
+        id: "registration-trade-name",
+        label: "Reserve trade name",
+        status: "completed",
+        owner: "Applicant",
+        completedOn: "2024-03-13",
+      },
+      {
+        id: "registration-initial-approval",
+        label: "Initial approval (DED)",
+        status: "completed",
+        owner: "Department of Economic Development",
+        completedOn: "2024-03-14",
+      },
+      {
+        id: "registration-ownership",
+        label: "Confirm ownership structure",
+        status: "completed",
+        owner: "Applicant",
+        completedOn: "2024-03-14",
+      },
+    ],
+  },
+  {
+    id: "submit-documents",
     title: "Document submission",
     highlight: {
       label: "Documents verified",
@@ -127,11 +162,18 @@ const journeyStages: JourneyStage[] = [
         owner: "Applicant",
         completedOn: "2024-03-15",
       },
+      {
+        id: "documents-review",
+        label: "Compliance review (DED)",
+        status: "completed",
+        owner: "Department of Economic Development",
+        completedOn: "2024-03-16",
+      },
     ],
   },
   {
-    id: "licensing",
-    title: "Licensing review",
+    id: "business-licensing",
+    title: "Business licensing",
     highlight: {
       label: "Licensing in progress",
       detail: "Specialists reviewing financial plan",
@@ -165,7 +207,7 @@ const journeyStages: JourneyStage[] = [
     ],
   },
   {
-    id: "inspection",
+    id: "pre-operational-inspection",
     title: "Pre-operational inspection",
     highlight: {
       label: "Inspection next",
