@@ -477,10 +477,10 @@ export default function Index() {
                           transition={{ duration: 0.3 }}
                         >
                           <div className="flex-1">
-                            <p className="text-slate-600 text-xs font-medium mb-1">
+                            <p className="text-white text-xs font-medium mb-1">
                               {category.subtitle}
                             </p>
-                            <h3 className="text-slate-900 text-xl font-semibold leading-tight">
+                            <h3 className="text-white text-xl font-semibold leading-tight">
                               {category.title}
                             </h3>
                           </div>
