@@ -375,6 +375,9 @@ export default function ReviewerPortal() {
   const [policyAssignments, setPolicyAssignments] = useState<
     Record<PolicyId, PolicyAgentId>
   >(() => buildDefaultPolicyAssignments());
+  const [reviewPolicyActors, setReviewPolicyActors] = useState<
+    Record<string, PolicyActorAssignment[]>
+  >({});
   const [focusedReview, setFocusedReview] = useState<ReviewQueueItem | null>(
     null,
   );
