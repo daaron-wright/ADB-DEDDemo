@@ -46,7 +46,7 @@ export function ReviewQueueCard({ item }: ReviewQueueCardProps) {
     <article className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_16px_36px_-30px_rgba(11,64,55,0.22)]">
       <header className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between text-slate-900">
         <div className="space-y-1">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">{item.id}</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">{item.id}</p>
           <h3 className="text-xl font-semibold tracking-tight md:text-2xl">
             {item.serviceName}
           </h3>
