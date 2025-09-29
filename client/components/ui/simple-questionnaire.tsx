@@ -67,12 +67,8 @@ const AddIcon: React.FC = () => (
   </svg>
 );
 
-const SimpleQuestionnaire: React.FC<SimpleQuestionnaireProps> = ({
-  journeyNumber,
-  completedCount,
-  totalCount,
-  onItemUpdate
-}) => {
+const SimpleQuestionnaire = forwardRef<SimpleQuestionnaireHandle, SimpleQuestionnaireProps>(
+  ({ journeyNumber, completedCount, totalCount, onItemUpdate }, ref) => {
   const [sections, setSections] = useState<QuestionnaireSection[]>([
     {
       id: 'legal-structure',
@@ -257,20 +253,26 @@ const SimpleQuestionnaire: React.FC<SimpleQuestionnaireProps> = ({
                   {section.items.map((item) => (
                     <motion.div
                       key={item.id}
-                      className="flex items-center gap-10 cursor-pointer group"
+                      className={cn(
+                        'group flex cursor-pointer items-center gap-10 rounded-2xl transition-colors duration-200',
+                        highlightedItem === item.id ? 'bg-white/10 ring-2 ring-[#54FFD4]' : 'hover:bg-white/6'
+                      )}
+                      ref={(element) => {
+                        itemRefs.current[item.id] = element;
+                      }}
                       onClick={() => handleItemClick(section.id, item.id, item.status, item.type)}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       transition={{ duration: 0.2 }}
                     >
                       {/* Icon */}
-                      <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center transition-transform duration-200 group-hover:scale-110">
                         {renderIcon(item, section.id)}
                       </div>
 
                       {/* Text */}
                       <div className="flex-1">
-                        <span className="text-white font-['DM_Sans'] text-lg font-normal leading-[136%] group-hover:text-white/90 transition-colors duration-200">
+                        <span className="text-white font-['DM_Sans'] text-lg font-normal leading-[136%] transition-colors duration-200 group-hover:text-white/90">
                           {item.text}
                         </span>
                       </div>
@@ -284,6 +286,6 @@ const SimpleQuestionnaire: React.FC<SimpleQuestionnaireProps> = ({
       </div>
     </div>
   );
-};
+});
 
 export default SimpleQuestionnaire;
