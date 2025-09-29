@@ -1146,7 +1146,7 @@ const DiscoverExperienceView = ({
                   </div>
                 </div>
 
-                <div className="flex h-full flex-col gap-4 rounded-2xl border border-white/12 bg-white/10 p-5 text-white backdrop-blur-lg">
+                <div className="flex h-full flex-col gap-4 rounded-[26px] border border-[#dbe9e3] bg-white/85 p-5 text-slate-900 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]">
                   <div className="rounded-2xl border border-white/15 bg-black/25 p-5 shadow-[0_18px_44px_-26px_rgba(12,46,39,0.55)]">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/60">
                       Focused district
