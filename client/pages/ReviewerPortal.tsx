@@ -182,6 +182,7 @@ export default function ReviewerPortal() {
   const [daysThreshold, setDaysThreshold] = useState<number[]>([7]);
   const [sortBy, setSortBy] = useState<'due' | 'priority'>('due');
   const [policyAssignments, setPolicyAssignments] = useState<Record<PolicyId, PolicyAgentId>>(() => buildDefaultPolicyAssignments());
+  const [focusedReview, setFocusedReview] = useState<ReviewQueueItem | null>(null);
 
   const location = useLocation();
   const portalUser = (location.state as { user?: { name?: string; role?: string; email?: string; avatarUrl?: string } } | undefined)?.user;
