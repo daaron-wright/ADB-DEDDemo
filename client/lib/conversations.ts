@@ -15,6 +15,13 @@ export const conversationFlows = {
     },
     {
       id: '3',
+      content: 'I have created a heat map for the top areas and existing businesses in Abu Dhabi. This will help you identify optimal locations for your restaurant.',
+      isAI: true,
+      timestamp: new Date(),
+      type: 'heat-map',
+    },
+    {
+      id: '4',
       content: 'You will need a Commercial License for F&B. I have generated an investor journey below that will assist you.',
       isAI: true,
       timestamp: new Date(),
