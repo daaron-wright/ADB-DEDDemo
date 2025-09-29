@@ -512,13 +512,37 @@ export default function ApplicantPortal() {
           </div>
         </div>
 
-        <div className="mt-8">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-            Next action
-          </h3>
-          <p className="mt-2 text-sm leading-relaxed text-slate-700">
-            {primaryApplication.nextAction}
-          </p>
+        <div className="mt-8 space-y-4">
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+              Next action
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              {primaryApplication.nextAction}
+            </p>
+          </div>
+          <Button
+            type="button"
+            variant="outline"
+            className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] transition hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+          >
+            <svg
+              className="h-3.5 w-3.5"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M5 10h10m0 0-4-4m4 4-4 4"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            Continue to next interaction
+          </Button>
         </div>
       </section>
 
