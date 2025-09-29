@@ -96,14 +96,14 @@ interface InfoProps {
 
 function Info({ label, value, badgeClass, emphasise }: InfoProps) {
   return (
-    <div className="rounded-2xl border border-neutral-200 bg-white px-4 py-3 shadow-[0_12px_30px_-18px_rgba(15,23,42,0.18)]">
-      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">{label}</p>
+    <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">{label}</p>
       {badgeClass ? (
         <span className={`mt-2 inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold ${badgeClass}`}>
           {value}
         </span>
       ) : (
-        <p className={`mt-2 text-sm font-semibold ${emphasise ? 'text-rose-600' : 'text-slate-900'}`}>
+        <p className={`mt-2 text-sm font-semibold ${emphasise ? 'text-[#b23b31]' : 'text-slate-900'}`}>
           {value}
         </p>
       )}
