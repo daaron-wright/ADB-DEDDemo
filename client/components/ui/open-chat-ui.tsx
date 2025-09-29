@@ -148,7 +148,7 @@ const ChatStateIndicator = ({ state }: { state: ChatState }) => {
 
   return (
     <div className="mb-3 flex justify-start">
-      <div className="flex items-center gap-2 rounded-2xl rounded-tl-sm border border-white/25 bg-white/12 px-3 py-2 text-sm text-white shadow-sm">
+      <div className="flex items-center gap-2 rounded-2xl rounded-tl-sm border border-black/10 bg-white/85 px-3 py-2 text-sm text-slate-900 shadow-sm">
         <div className="flex gap-1">
           <motion.div
             className="h-1 w-1 rounded-full bg-[#54FFD4]"
