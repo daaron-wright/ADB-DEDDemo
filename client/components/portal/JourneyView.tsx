@@ -12,10 +12,11 @@ interface JourneyViewProps {
   steps: JourneyStep[];
   activities: BusinessActivity[];
   selectedActivityIds: string[];
+  availableActivities: BusinessActivity[];
   actorOptions: ActorOption[];
   onStepChange: (stepId: string) => void;
   onActivityToggle: (activityId: string) => void;
-  onCreateActivity: (activityName: string, actorIds: string[]) => void;
+  onAddActivity: (activityId: string) => void;
   onClose?: () => void;
   className?: string;
 }
@@ -28,10 +29,11 @@ export function JourneyView({
   steps,
   activities,
   selectedActivityIds,
+  availableActivities,
   actorOptions,
   onStepChange,
   onActivityToggle,
-  onCreateActivity,
+  onAddActivity,
   onClose,
   className
 }: JourneyViewProps) {
@@ -116,9 +118,10 @@ export function JourneyView({
               totalSteps={totalSteps}
               activities={activities}
               selectedActivityIds={selectedActivityIds}
+              availableActivities={availableActivities}
               actorOptions={actorOptions}
               onActivityToggle={onActivityToggle}
-              onCreateActivity={onCreateActivity}
+              onAddActivity={onAddActivity}
             />
           </div>
 
