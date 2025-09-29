@@ -969,7 +969,6 @@ export function BusinessChatUI({
 }: BusinessChatUIProps) {
   const [threads, setThreads] = useState<ChatThread[]>([]);
   const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
-  const [showSummaryDashboard, setShowSummaryDashboard] = useState(false);
 
   const [loggedInUser, setLoggedInUser] = useState<any>(null);
   const [showBusinessPortal, setShowBusinessPortal] = useState(false);
