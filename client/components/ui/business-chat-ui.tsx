@@ -1494,23 +1494,25 @@ export function BusinessChatUI({
                     {isLoggedIn ? 'Investor Journey for a Restaurant' : headerTitle}
                   </div>
 
-                  {/* Right side - Sign in button */}
-                  <div className="flex items-center">
-                    <UAEPassLogin
-                      onLogin={handleUAEPassLogin}
-                      mode="quick"
-                      defaultUserType="applicant"
-                      trigger={
-                        <span className="inline-flex cursor-pointer items-center transition-opacity hover:opacity-80">
-                          <img
-                            src="https://api.builder.io/api/v1/image/assets/TEMP/f35ba5a02338a961dd18f58928489d9e87ec7dc3?width=442"
-                            alt="Sign in with UAE PASS"
-                            className="h-8 rounded-full"
-                          />
-                        </span>
-                      }
-                    />
-                  </div>
+                  {/* Right side - Sign in button (only for non-logged-in users) */}
+                  {!isLoggedIn && (
+                    <div className="absolute right-10 flex items-center">
+                      <UAEPassLogin
+                        onLogin={handleUAEPassLogin}
+                        mode="quick"
+                        defaultUserType="applicant"
+                        trigger={
+                          <span className="inline-flex cursor-pointer items-center transition-opacity hover:opacity-80">
+                            <img
+                              src="https://api.builder.io/api/v1/image/assets/TEMP/f35ba5a02338a961dd18f58928489d9e87ec7dc3?width=442"
+                              alt="Sign in with UAE PASS"
+                              className="h-8 rounded-full"
+                            />
+                          </span>
+                        }
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
 
