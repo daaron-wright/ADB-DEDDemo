@@ -427,13 +427,13 @@ export default function ReviewerPortal() {
     <div className="flex items-center gap-3">
       <button
         type="button"
-        className="rounded-full border border-neutral-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-[0_12px_30px_-18px_rgba(15,23,42,0.18)] transition hover:border-neutral-300 hover:text-slate-900"
+        className="rounded-full border border-[#d8e4df] bg-white px-4 py-3 text-sm font-semibold text-[#0f766e] transition hover:bg-[#eaf7f3]"
       >
         Export queue
       </button>
       <button
         type="button"
-        className="flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_30px_-18px_rgba(15,23,42,0.45)] transition hover:bg-slate-800"
+        className="flex items-center gap-2 rounded-full bg-[#0f766e] px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_-18px_rgba(11,64,55,0.45)] transition hover:bg-[#0c635d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
