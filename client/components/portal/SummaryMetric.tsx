@@ -1,3 +1,5 @@
+import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+
 interface SummaryMetricProps {
   label: string;
   value: string;
@@ -16,9 +18,14 @@ export function SummaryMetric({ label, value, helper, trend }: SummaryMetricProp
         <span className="text-3xl font-semibold tracking-tight text-slate-900">{value}</span>
         {trend ? (
           <span
-            className={`text-xs font-semibold ${trend.isPositive === false ? 'text-rose-500' : 'text-emerald-600'}`}
+            className={`inline-flex items-center gap-1 text-xs font-semibold ${trend.isPositive === false ? "text-rose-500" : "text-emerald-600"}`}
           >
-            {trend.isPositive === false ? '▼' : '▲'} {trend.value}
+            {trend.isPositive === false ? (
+              <ArrowDownRight className="h-3 w-3" aria-hidden="true" />
+            ) : (
+              <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+            )}
+            {trend.value}
           </span>
         ) : null}
       </div>
