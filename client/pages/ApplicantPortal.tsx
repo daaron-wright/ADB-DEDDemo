@@ -509,46 +509,64 @@ export default function ApplicantPortal() {
 
                 return (
                   <li key={stage.id}>
-                    <button
-                      type="button"
-                      onClick={() => handleStageSelect(stage)}
+                    <div
                       className={cn(
-                        "w-full rounded-2xl border px-4 py-3 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
+                        "rounded-2xl border px-4 py-3 transition-all duration-200",
                         isActive
                           ? "border-[#0f766e] bg-[#eaf7f3] shadow-[0_16px_32px_-28px_rgba(11,64,55,0.32)]"
                           : "border-[#d8e4df] bg-white hover:border-[#0f766e] hover:bg-[#f4faf8]",
                       )}
                     >
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="flex items-start gap-3">
-                          <span
-                            className={cn("mt-1 h-2.5 w-2.5 rounded-full", tokens.dotClass)}
-                            aria-hidden="true"
-                          />
-                          <div>
-                            <p className="text-sm font-semibold text-slate-900">
-                              {stage.title}
-                            </p>
-                            {stage.statusDetail ? (
-                              <p className="mt-1 text-xs text-slate-500">
-                                {stage.statusDetail}
-                              </p>
-                            ) : null}
-                          </div>
-                        </div>
-                        <Badge
-                          className={cn(
-                            "border px-2.5 py-1 text-xs font-semibold uppercase tracking-wide",
-                            tokens.badgeClass,
-                          )}
+                      <div className="flex flex-wrap items-start justify-between gap-3">
+                        <button
+                          type="button"
+                          onClick={() => setActiveStageId(stage.id)}
+                          className="flex-1 w-full rounded-none border-none bg-transparent p-0 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
                         >
-                          {tokens.stateLabel}
-                        </Badge>
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="flex items-start gap-3">
+                              <span
+                                className={cn("mt-1 h-2.5 w-2.5 rounded-full", tokens.dotClass)}
+                                aria-hidden="true"
+                              />
+                              <div>
+                                <p className="text-sm font-semibold text-slate-900">
+                                  {stage.title}
+                                </p>
+                              </div>
+                            </div>
+                            <Badge
+                              className={cn(
+                                "border px-2.5 py-1 text-xs font-semibold uppercase tracking-wide",
+                                tokens.badgeClass,
+                              )}
+                            >
+                              {tokens.stateLabel}
+                            </Badge>
+                          </div>
+                          <p className="mt-2 text-xs leading-relaxed text-slate-600">
+                            {stage.description}
+                          </p>
+                          {stage.statusDetail ? (
+                            <p className="mt-2 text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
+                              {stage.statusDetail}
+                            </p>
+                          ) : null}
+                          {isActive ? (
+                            <span className="mt-3 inline-flex items-center rounded-full bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                              Viewing tasks
+                            </span>
+                          ) : null}
+                        </button>
+                        <Link
+                          to={`/journey?stage=${stage.id}`}
+                          className="inline-flex items-center rounded-full border border-[#0f766e] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#0f766e] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                          aria-label={`Open ${stage.title} in the Investor Journey`}
+                        >
+                          Journey
+                        </Link>
                       </div>
-                      <p className="mt-2 text-xs leading-relaxed text-slate-600">
-                        {stage.description}
-                      </p>
-                    </button>
+                    </div>
                   </li>
                 );
               })}
