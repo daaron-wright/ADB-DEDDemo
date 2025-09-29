@@ -1084,10 +1084,11 @@ export default function ApplicantPortal() {
         steps={journeySteps}
         activities={businessActivities}
         selectedActivityIds={selectedBusinessActivities}
+        availableActivities={availableActivities}
         actorOptions={actorOptions}
         onStepChange={handleJourneyStepChange}
         onActivityToggle={handleActivityToggle}
-        onCreateActivity={handleCreateActivity}
+        onAddActivity={handleAddActivity}
         onClose={handleCloseJourneyView}
       />
     )}
