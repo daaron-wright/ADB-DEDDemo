@@ -103,9 +103,12 @@ const config: Config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       backgroundImage: {
-        "teal-gradient": "linear-gradient(271deg, #169F9F 34.98%, #083939 277.12%)",
-        "purple-gradient": "linear-gradient(159deg, #AEAAFE 39.9%, #F0EEFD 71.79%)",
-        "blur-white": "radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.2) 100%)",
+        "teal-gradient":
+          "linear-gradient(271deg, #169F9F 34.98%, #083939 277.12%)",
+        "purple-gradient":
+          "linear-gradient(159deg, #AEAAFE 39.9%, #F0EEFD 71.79%)",
+        "blur-white":
+          "radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.2) 100%)",
       },
       fontFamily: {
         sans: ["DM Sans", "sans-serif"],

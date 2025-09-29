@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { cn } from '@/lib/utils';
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 export interface ActorOption {
   id: string;
@@ -38,7 +38,7 @@ export function BusinessActivitiesSelection({
   actorOptions,
   onActivityToggle,
   onAddActivity,
-  className
+  className,
 }: BusinessActivitiesSelectionProps) {
   const [showCatalog, setShowCatalog] = useState(false);
 
@@ -78,14 +78,16 @@ export function BusinessActivitiesSelection({
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-3xl border border-white/20 bg-white/[0.14] backdrop-blur-xl',
+        "relative overflow-hidden rounded-3xl border border-white/20 bg-white/[0.14] backdrop-blur-xl",
         className,
       )}
     >
       <div className="p-8 text-white">
         <div className="mb-8 flex items-start justify-between">
           <div>
-            <h3 className="mb-1 text-lg font-semibold text-white">Journey Number: {journeyNumber}</h3>
+            <h3 className="mb-1 text-lg font-semibold text-white">
+              Journey Number: {journeyNumber}
+            </h3>
           </div>
           <div className="text-right">
             <span className="text-base font-normal text-[#54FFD4]">
@@ -97,9 +99,12 @@ export function BusinessActivitiesSelection({
         <div className="mb-8 h-px w-full bg-white/[0.18]" />
 
         <div className="mb-8">
-          <h4 className="text-lg font-semibold text-white">2. Business Activities</h4>
+          <h4 className="text-lg font-semibold text-white">
+            2. Business Activities
+          </h4>
           <p className="mb-6 text-sm font-normal text-white/90">
-            Choose from the recommended activities below. Reviewers are assigned automatically for each selection.
+            Choose from the recommended activities below. Reviewers are assigned
+            automatically for each selection.
           </p>
 
           <div className="space-y-4">
@@ -112,8 +117,8 @@ export function BusinessActivitiesSelection({
                   type="button"
                   onClick={() => onActivityToggle(activity.id)}
                   className={cn(
-                    'flex w-full items-start gap-6 rounded-2xl p-3 text-left transition-colors',
-                    'hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50',
+                    "flex w-full items-start gap-6 rounded-2xl p-3 text-left transition-colors",
+                    "hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50",
                   )}
                 >
                   <div className="mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center">
@@ -128,7 +133,9 @@ export function BusinessActivitiesSelection({
 
                   <div className="flex-1 space-y-2">
                     <div className="flex items-center gap-3">
-                      <span className="text-lg font-normal text-white">{activity.label}</span>
+                      <span className="text-lg font-normal text-white">
+                        {activity.label}
+                      </span>
                       {activity.isRecommended ? (
                         <span className="inline-flex items-center rounded-full border border-[#54FFD4]/40 bg-[#54FFD4]/10 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-[#54FFD4]">
                           Recommended
@@ -144,9 +151,12 @@ export function BusinessActivitiesSelection({
             <div className="rounded-2xl border border-white/20 bg-white/5 p-4">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-sm font-medium text-white">Need to add another activity?</p>
+                  <p className="text-sm font-medium text-white">
+                    Need to add another activity?
+                  </p>
                   <p className="mt-1 text-xs text-white/70">
-                    Select from the catalog below. Reviewers will be assigned based on the activity type.
+                    Select from the catalog below. Reviewers will be assigned
+                    based on the activity type.
                   </p>
                 </div>
                 <button
@@ -154,7 +164,7 @@ export function BusinessActivitiesSelection({
                   onClick={() => setShowCatalog((prev) => !prev)}
                   className="rounded-full border border-white/30 px-4 py-2 text-xs font-semibold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
                 >
-                  {showCatalog ? 'Hide catalog' : 'Browse catalog'}
+                  {showCatalog ? "Hide catalog" : "Browse catalog"}
                 </button>
               </div>
 
@@ -179,7 +189,9 @@ export function BusinessActivitiesSelection({
                               ) : null}
                             </div>
                             {activity.description ? (
-                              <p className="text-xs text-white/70">{activity.description}</p>
+                              <p className="text-xs text-white/70">
+                                {activity.description}
+                              </p>
                             ) : null}
                             {renderActorBadges(activity.actors)}
                           </div>
@@ -195,7 +207,8 @@ export function BusinessActivitiesSelection({
                     ))
                   ) : (
                     <p className="text-sm text-white/70">
-                      All predefined activities have already been added to this journey.
+                      All predefined activities have already been added to this
+                      journey.
                     </p>
                   )}
                 </div>
@@ -207,9 +220,12 @@ export function BusinessActivitiesSelection({
         <div className="mb-8 h-px w-full bg-white/[0.18]" />
 
         <div>
-          <h4 className="mb-2 text-lg font-semibold text-white">3. Physical Space Requirements</h4>
+          <h4 className="mb-2 text-lg font-semibold text-white">
+            3. Physical Space Requirements
+          </h4>
           <p className="text-sm font-normal text-white/90">
-            Physical space requirements will be generated once the above steps are complete.
+            Physical space requirements will be generated once the above steps
+            are complete.
           </p>
         </div>
       </div>

@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
 import {
   Select,
   SelectContent,
@@ -7,200 +7,234 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Slider } from '@/components/ui/slider';
-import { Input } from '@/components/ui/input';
-import { PortalPageLayout } from '@/components/portal/PortalPageLayout';
-import { FilterSection } from '@/components/portal/FilterSection';
-import { SummaryMetric } from '@/components/portal/SummaryMetric';
-import { ReviewQueueCard, type ReviewQueueItem } from '@/components/portal/ReviewQueueCard';
-import { PortalProfileMenu } from '@/components/portal/PortalProfileMenu';
-import { ReviewFocusSheet } from '@/components/portal/ReviewFocusSheet';
+} from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
+import { Input } from "@/components/ui/input";
+import { PortalPageLayout } from "@/components/portal/PortalPageLayout";
+import { FilterSection } from "@/components/portal/FilterSection";
+import { SummaryMetric } from "@/components/portal/SummaryMetric";
+import {
+  ReviewQueueCard,
+  type ReviewQueueItem,
+} from "@/components/portal/ReviewQueueCard";
+import { PortalProfileMenu } from "@/components/portal/PortalProfileMenu";
+import { ReviewFocusSheet } from "@/components/portal/ReviewFocusSheet";
 
 const stageOptions = [
-  { label: 'All stages', value: 'all' },
-  { label: 'Questionnaire', value: 'Questionnaire' },
-  { label: 'Business Registration', value: 'Business Registration' },
-  { label: 'Submit Documents', value: 'Submit Documents' },
-  { label: 'Business Licensing', value: 'Business Licensing' },
-  { label: 'Pre-Operational Inspection', value: 'Pre-Operational Inspection' },
+  { label: "All stages", value: "all" },
+  { label: "Questionnaire", value: "Questionnaire" },
+  { label: "Business Registration", value: "Business Registration" },
+  { label: "Submit Documents", value: "Submit Documents" },
+  { label: "Business Licensing", value: "Business Licensing" },
+  { label: "Pre-Operational Inspection", value: "Pre-Operational Inspection" },
 ] as const;
 
 const policyAgentOptions = [
-  { id: 'policy-ai', label: 'Policy AI Specialist' },
-  { id: 'compliance-lead', label: 'Compliance Lead' },
-  { id: 'operations-mentor', label: 'Operations Mentor' },
-  { id: 'legal-reviewer', label: 'Legal Reviewer' },
+  { id: "policy-ai", label: "Policy AI Specialist" },
+  { id: "compliance-lead", label: "Compliance Lead" },
+  { id: "operations-mentor", label: "Operations Mentor" },
+  { id: "legal-reviewer", label: "Legal Reviewer" },
 ] as const;
 
 const policyGlossary = [
   {
-    id: 'foreign-ownership-policy',
-    document: 'Foreign ownership structure',
+    id: "foreign-ownership-policy",
+    document: "Foreign ownership structure",
     summary:
-      'Clarifies mainland vs. freezone equity rules, Emirati partner requirements, and capital thresholds for each business type.',
-    category: 'Governance',
-    defaultAgent: 'policy-ai',
+      "Clarifies mainland vs. freezone equity rules, Emirati partner requirements, and capital thresholds for each business type.",
+    category: "Governance",
+    defaultAgent: "policy-ai",
   },
   {
-    id: 'food-safety-blueprint',
-    document: 'Food safety blueprint',
+    id: "food-safety-blueprint",
+    document: "Food safety blueprint",
     summary:
-      'Outlines HACCP certification evidence, cold-chain monitoring expectations, and seasonal permit escalation timelines.',
-    category: 'Operations',
-    defaultAgent: 'compliance-lead',
+      "Outlines HACCP certification evidence, cold-chain monitoring expectations, and seasonal permit escalation timelines.",
+    category: "Operations",
+    defaultAgent: "compliance-lead",
   },
   {
-    id: 'retail-fitout-policy',
-    document: 'Retail fit-out compliance',
+    id: "retail-fitout-policy",
+    document: "Retail fit-out compliance",
     summary:
-      'Details signage, accessibility, and fire-suppression design standards for retail and F&B fit-outs in Abu Dhabi.',
-    category: 'Infrastructure',
-    defaultAgent: 'operations-mentor',
+      "Details signage, accessibility, and fire-suppression design standards for retail and F&B fit-outs in Abu Dhabi.",
+    category: "Infrastructure",
+    defaultAgent: "operations-mentor",
   },
   {
-    id: 'dual-license-guidance',
-    document: 'Dual license guidance',
+    id: "dual-license-guidance",
+    document: "Dual license guidance",
     summary:
-      'Explains documentation for dual mainland-freezone licensing, including attestation flow and SLA expectations.',
-    category: 'Licensing',
-    defaultAgent: 'legal-reviewer',
+      "Explains documentation for dual mainland-freezone licensing, including attestation flow and SLA expectations.",
+    category: "Licensing",
+    defaultAgent: "legal-reviewer",
   },
 ] as const;
 
 const reviewQueue: ReviewQueueItem[] = [
   {
-    id: 'REV-20347',
-    applicantName: 'Corniche Culinary Collective',
-    serviceName: 'Commercial Kitchen Fit-Out Inspection',
-    directorate: 'Department of Economic Development',
-    priority: 'High',
-    stage: 'Business Licensing',
-    submittedAt: '2024-03-15',
-    dueAt: '2024-03-22',
-    slaStatus: 'At Risk',
+    id: "REV-20347",
+    applicantName: "Corniche Culinary Collective",
+    serviceName: "Commercial Kitchen Fit-Out Inspection",
+    directorate: "Department of Economic Development",
+    priority: "High",
+    stage: "Business Licensing",
+    submittedAt: "2024-03-15",
+    dueAt: "2024-03-22",
+    slaStatus: "At Risk",
     daysRemaining: 3,
-    assignedTo: 'Sarah Al Zaabi',
+    assignedTo: "Sarah Al Zaabi",
     attachments: 5,
     summary:
-      'Full-service restaurant launch requiring updated fire suppression layout, IoT kitchen monitoring configuration, and tenancy validation.',
-    notes: 'Awaiting revised fire suppression drawings before issuing final clearance.',
+      "Full-service restaurant launch requiring updated fire suppression layout, IoT kitchen monitoring configuration, and tenancy validation.",
+    notes:
+      "Awaiting revised fire suppression drawings before issuing final clearance.",
     completion: 54,
   },
   {
-    id: 'REV-20318',
-    applicantName: 'Falafel Express Drive-Thru',
-    serviceName: 'Drive-Thru Operations Permit',
-    directorate: 'Abu Dhabi Agriculture and Food Safety Authority',
-    priority: 'Medium',
-    stage: 'Submit Documents',
-    submittedAt: '2024-03-12',
-    dueAt: '2024-03-24',
-    slaStatus: 'On Track',
+    id: "REV-20318",
+    applicantName: "Falafel Express Drive-Thru",
+    serviceName: "Drive-Thru Operations Permit",
+    directorate: "Abu Dhabi Agriculture and Food Safety Authority",
+    priority: "Medium",
+    stage: "Submit Documents",
+    submittedAt: "2024-03-12",
+    dueAt: "2024-03-24",
+    slaStatus: "On Track",
     daysRemaining: 5,
-    assignedTo: 'Omar Rahman',
+    assignedTo: "Omar Rahman",
     attachments: 7,
     summary:
-      'Quick-service franchise expansion focused on supplier traceability, packaging approvals, and delivery routing compliance.',
-    notes: 'Verify cold chain SOP signatures and update drive-thru traffic management map.',
+      "Quick-service franchise expansion focused on supplier traceability, packaging approvals, and delivery routing compliance.",
+    notes:
+      "Verify cold chain SOP signatures and update drive-thru traffic management map.",
     completion: 68,
   },
   {
-    id: 'REV-20294',
-    applicantName: 'Global Tech Branch Setup',
-    serviceName: 'Dual License Compliance Review',
-    directorate: 'Department of Economic Development',
-    priority: 'High',
-    stage: 'Business Registration',
-    submittedAt: '2024-03-09',
-    dueAt: '2024-03-19',
-    slaStatus: 'Breached',
+    id: "REV-20294",
+    applicantName: "Global Tech Branch Setup",
+    serviceName: "Dual License Compliance Review",
+    directorate: "Department of Economic Development",
+    priority: "High",
+    stage: "Business Registration",
+    submittedAt: "2024-03-09",
+    dueAt: "2024-03-19",
+    slaStatus: "Breached",
     daysRemaining: -1,
-    assignedTo: 'Mariam Al Nuaimi',
+    assignedTo: "Mariam Al Nuaimi",
     attachments: 4,
     summary:
-      'Branch launch requiring cross-jurisdiction approvals, updated governance documents, and foreign shareholder attestations.',
-    notes: 'Waiting for notarized shareholder resolution before restoring SLA status.',
+      "Branch launch requiring cross-jurisdiction approvals, updated governance documents, and foreign shareholder attestations.",
+    notes:
+      "Waiting for notarized shareholder resolution before restoring SLA status.",
     completion: 42,
   },
   {
-    id: 'REV-20288',
-    applicantName: 'Luxe Abaya Retail Flagship',
-    serviceName: 'Retail Fit-Out Approval',
-    directorate: 'Department of Culture and Tourism',
-    priority: 'Medium',
-    stage: 'Pre-Operational Inspection',
-    submittedAt: '2024-03-08',
-    dueAt: '2024-03-28',
-    slaStatus: 'On Track',
+    id: "REV-20288",
+    applicantName: "Luxe Abaya Retail Flagship",
+    serviceName: "Retail Fit-Out Approval",
+    directorate: "Department of Culture and Tourism",
+    priority: "Medium",
+    stage: "Pre-Operational Inspection",
+    submittedAt: "2024-03-08",
+    dueAt: "2024-03-28",
+    slaStatus: "On Track",
     daysRemaining: 10,
-    assignedTo: 'Fatima Al Mazrouei',
+    assignedTo: "Fatima Al Mazrouei",
     attachments: 6,
     summary:
-      'Luxury retail experience reviewing merchandising layouts, signage compliance, and visitor flow plans for the flagship store.',
-    notes: 'Awaiting updated storefront renders with bilingual signage placements.',
+      "Luxury retail experience reviewing merchandising layouts, signage compliance, and visitor flow plans for the flagship store.",
+    notes:
+      "Awaiting updated storefront renders with bilingual signage placements.",
     completion: 47,
   },
   {
-    id: 'REV-20277',
-    applicantName: 'Harbor Street Food Pods',
-    serviceName: 'Outdoor Food Cluster Permit',
-    directorate: 'Abu Dhabi Municipality',
-    priority: 'Low',
-    stage: 'Questionnaire',
-    submittedAt: '2024-03-10',
-    dueAt: '2024-03-20',
-    slaStatus: 'At Risk',
+    id: "REV-20277",
+    applicantName: "Harbor Street Food Pods",
+    serviceName: "Outdoor Food Cluster Permit",
+    directorate: "Abu Dhabi Municipality",
+    priority: "Low",
+    stage: "Questionnaire",
+    submittedAt: "2024-03-10",
+    dueAt: "2024-03-20",
+    slaStatus: "At Risk",
     daysRemaining: 2,
-    assignedTo: 'Yousef Al Ameri',
+    assignedTo: "Yousef Al Ameri",
     attachments: 9,
     summary:
-      'Seasonal fast-food cluster across the marina boardwalk needing zoning validation, waste management, and safety planning.',
-    notes: 'Need final waste disposal schedule and updated crowd management layout.',
+      "Seasonal fast-food cluster across the marina boardwalk needing zoning validation, waste management, and safety planning.",
+    notes:
+      "Need final waste disposal schedule and updated crowd management layout.",
     completion: 61,
   },
 ];
 
-const priorityWeight: Record<ReviewQueueItem['priority'], number> = {
+const priorityWeight: Record<ReviewQueueItem["priority"], number> = {
   High: 0,
   Medium: 1,
   Low: 2,
 };
 
-type PolicyAgentId = (typeof policyAgentOptions)[number]['id'];
-type PolicyId = (typeof policyGlossary)[number]['id'];
+type PolicyAgentId = (typeof policyAgentOptions)[number]["id"];
+type PolicyId = (typeof policyGlossary)[number]["id"];
 
 const buildDefaultPolicyAssignments = (): Record<PolicyId, PolicyAgentId> =>
-  policyGlossary.reduce((acc, item) => {
-    acc[item.id] = item.defaultAgent;
-    return acc;
-  }, {} as Record<PolicyId, PolicyAgentId>);
+  policyGlossary.reduce(
+    (acc, item) => {
+      acc[item.id] = item.defaultAgent;
+      return acc;
+    },
+    {} as Record<PolicyId, PolicyAgentId>,
+  );
 
 export default function ReviewerPortal() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedStage, setSelectedStage] = useState<(typeof stageOptions)[number]['value']>('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedStage, setSelectedStage] =
+    useState<(typeof stageOptions)[number]["value"]>("all");
   const [daysThreshold, setDaysThreshold] = useState<number[]>([7]);
-  const [sortBy, setSortBy] = useState<'due' | 'priority'>('due');
-  const [policyAssignments, setPolicyAssignments] = useState<Record<PolicyId, PolicyAgentId>>(() => buildDefaultPolicyAssignments());
-  const [focusedReview, setFocusedReview] = useState<ReviewQueueItem | null>(null);
+  const [sortBy, setSortBy] = useState<"due" | "priority">("due");
+  const [policyAssignments, setPolicyAssignments] = useState<
+    Record<PolicyId, PolicyAgentId>
+  >(() => buildDefaultPolicyAssignments());
+  const [focusedReview, setFocusedReview] = useState<ReviewQueueItem | null>(
+    null,
+  );
 
   const location = useLocation();
-  const portalUser = (location.state as { user?: { name?: string; role?: string; email?: string; avatarUrl?: string } } | undefined)?.user;
-  const firstName = portalUser?.name ? portalUser.name.split(' ')[0] : null;
-  const pageTitle = firstName ? `${firstName}'s review desk` : 'Reviewer command center';
+  const portalUser = (
+    location.state as
+      | {
+          user?: {
+            name?: string;
+            role?: string;
+            email?: string;
+            avatarUrl?: string;
+          };
+        }
+      | undefined
+  )?.user;
+  const firstName = portalUser?.name ? portalUser.name.split(" ")[0] : null;
+  const pageTitle = firstName
+    ? `${firstName}'s review desk`
+    : "Reviewer command center";
   const pageDescription = firstName
     ? `Monitor the unified queue, ${firstName}, keep SLAs healthy, and collaborate with your team to move applications forward.`
-    : 'Monitor the unified queue, keep SLAs healthy, and collaborate with your team to move applications forward.';
-  const profileName = portalUser?.name ?? 'Sarah Al Zaabi';
-  const profileEmail = portalUser?.email ?? 'sarah.alzaabi@adm.ae';
-  const profileAvatar = portalUser?.avatarUrl ?? 'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80';
-  const profileStatus: 'online' | 'offline' | 'none' = 'online';
+    : "Monitor the unified queue, keep SLAs healthy, and collaborate with your team to move applications forward.";
+  const profileName = portalUser?.name ?? "Sarah Al Zaabi";
+  const profileEmail = portalUser?.email ?? "sarah.alzaabi@adm.ae";
+  const profileAvatar =
+    portalUser?.avatarUrl ??
+    "https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80";
+  const profileStatus: "online" | "offline" | "none" = "online";
 
   const handleSignOut = () => {
-    window.location.assign('/');
+    window.location.assign("/");
   };
 
-  const handlePolicyAgentChange = (policyId: PolicyId, agentId: PolicyAgentId) => {
+  const handlePolicyAgentChange = (
+    policyId: PolicyId,
+    agentId: PolicyAgentId,
+  ) => {
     setPolicyAssignments((prev) => ({ ...prev, [policyId]: agentId }));
   };
 
@@ -225,14 +259,15 @@ export default function ReviewerPortal() {
             item.id.toLowerCase().includes(loweredSearch)
           : true;
 
-        const matchesStage = selectedStage === 'all' ? true : item.stage === selectedStage;
+        const matchesStage =
+          selectedStage === "all" ? true : item.stage === selectedStage;
 
         const matchesDays = item.daysRemaining <= daysUpperBound;
 
         return matchesSearch && matchesStage && matchesDays;
       })
       .sort((a, b) => {
-        if (sortBy === 'priority') {
+        if (sortBy === "priority") {
           return priorityWeight[a.priority] - priorityWeight[b.priority];
         }
 
@@ -240,34 +275,47 @@ export default function ReviewerPortal() {
       });
   }, [searchTerm, selectedStage, daysUpperBound, sortBy]);
 
-  const atRiskCount = reviewQueue.filter((item) => item.slaStatus === 'At Risk' || item.slaStatus === 'Breached').length;
-  const breachedCount = reviewQueue.filter((item) => item.slaStatus === 'Breached').length;
-  const recoverableCount = reviewQueue.filter((item) => item.slaStatus === 'At Risk' && item.daysRemaining > 0).length;
-  const highPriorityCount = reviewQueue.filter((item) => item.priority === 'High').length;
+  const atRiskCount = reviewQueue.filter(
+    (item) => item.slaStatus === "At Risk" || item.slaStatus === "Breached",
+  ).length;
+  const breachedCount = reviewQueue.filter(
+    (item) => item.slaStatus === "Breached",
+  ).length;
+  const recoverableCount = reviewQueue.filter(
+    (item) => item.slaStatus === "At Risk" && item.daysRemaining > 0,
+  ).length;
+  const highPriorityCount = reviewQueue.filter(
+    (item) => item.priority === "High",
+  ).length;
   const averageDaysRemaining = Math.round(
-    reviewQueue.reduce((acc, item) => acc + item.daysRemaining, 0) / reviewQueue.length,
+    reviewQueue.reduce((acc, item) => acc + item.daysRemaining, 0) /
+      reviewQueue.length,
   );
   const latestIntake = reviewQueue
     .map((item) => new Date(item.submittedAt))
     .sort((a, b) => b.getTime() - a.getTime())[0];
   const newIntakes48h = reviewQueue.filter((item) => {
     const submitted = new Date(item.submittedAt);
-    const diffInDays = (Date.now() - submitted.getTime()) / (1000 * 60 * 60 * 24);
+    const diffInDays =
+      (Date.now() - submitted.getTime()) / (1000 * 60 * 60 * 24);
     return diffInDays <= 2;
   }).length;
 
   const resetFilters = () => {
-    setSearchTerm('');
-    setSelectedStage('all');
+    setSearchTerm("");
+    setSelectedStage("all");
     setDaysThreshold([7]);
-    setSortBy('due');
+    setSortBy("due");
     setPolicyAssignments(buildDefaultPolicyAssignments());
     setFocusedReview(null);
   };
 
   const filters = (
     <>
-      <FilterSection title="Search and filter" description="Search by applicant, service name, or queue reference.">
+      <FilterSection
+        title="Search and filter"
+        description="Search by applicant, service name, or queue reference."
+      >
         <div className="relative">
           <Input
             type="search"
@@ -283,8 +331,19 @@ export default function ReviewerPortal() {
             fill="none"
             aria-hidden="true"
           >
-            <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
-            <path d="m16 16 4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            <circle
+              cx="11"
+              cy="11"
+              r="7"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            />
+            <path
+              d="m16 16 4 4"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
           </svg>
         </div>
       </FilterSection>
@@ -296,7 +355,9 @@ export default function ReviewerPortal() {
         <div className="space-y-3 lg:max-h-72 lg:overflow-y-auto lg:pr-1">
           {policyGlossary.map((policy) => {
             const assignedAgent = policyAssignments[policy.id];
-            const selectedAgentLabel = policyAgentOptions.find((agent) => agent.id === assignedAgent)?.label;
+            const selectedAgentLabel = policyAgentOptions.find(
+              (agent) => agent.id === assignedAgent,
+            )?.label;
 
             return (
               <div
@@ -307,21 +368,32 @@ export default function ReviewerPortal() {
                   <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 rounded-full bg-[#eaf7f3] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#0f766e]">
                       <span>{policy.category}</span>
-                      <span className="h-1 w-1 rounded-full bg-[#0f766e]/40" aria-hidden="true" />
-                      <span>{selectedAgentLabel ?? 'Agent not set'}</span>
+                      <span
+                        className="h-1 w-1 rounded-full bg-[#0f766e]/40"
+                        aria-hidden="true"
+                      />
+                      <span>{selectedAgentLabel ?? "Agent not set"}</span>
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-slate-900">{policy.document}</p>
-                      <p className="mt-1 text-xs text-slate-500">{policy.summary}</p>
+                      <p className="text-sm font-semibold text-slate-900">
+                        {policy.document}
+                      </p>
+                      <p className="mt-1 text-xs text-slate-500">
+                        {policy.summary}
+                      </p>
                     </div>
                   </div>
 
                   <Select
                     value={assignedAgent}
-                    onValueChange={(value) => handlePolicyAgentChange(policy.id, value as PolicyAgentId)}
+                    onValueChange={(value) =>
+                      handlePolicyAgentChange(policy.id, value as PolicyAgentId)
+                    }
                   >
                     <SelectTrigger className="h-10 min-w-[10rem] rounded-2xl border-[#d8e4df] bg-white text-sm text-slate-900">
-                      <SelectValue aria-label={selectedAgentLabel ?? 'Select policy agent'} />
+                      <SelectValue
+                        aria-label={selectedAgentLabel ?? "Select policy agent"}
+                      />
                     </SelectTrigger>
                     <SelectContent className="rounded-2xl border border-[#d8e4df] bg-white text-slate-900">
                       <SelectGroup>
@@ -348,7 +420,7 @@ export default function ReviewerPortal() {
         <Select
           value={selectedStage}
           onValueChange={(value) =>
-            setSelectedStage(value as (typeof stageOptions)[number]['value'])
+            setSelectedStage(value as (typeof stageOptions)[number]["value"])
           }
         >
           <SelectTrigger className="h-11 rounded-2xl border-[#d8e4df] bg-white text-sm text-slate-900">
@@ -370,7 +442,10 @@ export default function ReviewerPortal() {
         </Select>
       </FilterSection>
 
-      <FilterSection title="Due within" description="Focus on items with the tightest SLA window.">
+      <FilterSection
+        title="Due within"
+        description="Focus on items with the tightest SLA window."
+      >
         <div className="space-y-3">
           <Slider
             value={daysThreshold}
@@ -416,7 +491,12 @@ export default function ReviewerPortal() {
           className="h-4 w-4"
           aria-hidden="true"
         >
-          <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          <path
+            d="M12 5v14M5 12h14"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
         </svg>
         Assign reviewer
       </button>
@@ -442,14 +522,21 @@ export default function ReviewerPortal() {
         <SummaryMetric
           label="Queue volume"
           value={reviewQueue.length.toString()}
-          helper={latestIntake ? `Latest intake ${latestIntake.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}` : undefined}
+          helper={
+            latestIntake
+              ? `Latest intake ${latestIntake.toLocaleDateString("en-GB", { day: "2-digit", month: "short" })}`
+              : undefined
+          }
           trend={{ value: `${newIntakes48h} in 48 hours`, isPositive: true }}
         />
         <SummaryMetric
           label="At risk or breached"
           value={atRiskCount.toString()}
           helper={`${breachedCount} breached • ${recoverableCount} recoverable`}
-          trend={{ value: `${recoverableCount} within SLA`, isPositive: recoverableCount > 0 }}
+          trend={{
+            value: `${recoverableCount} within SLA`,
+            isPositive: recoverableCount > 0,
+          }}
         />
         <SummaryMetric
           label="High priority"
@@ -461,14 +548,21 @@ export default function ReviewerPortal() {
       <section className="space-y-5">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-slate-900">Review queue</h2>
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-900">
+              Review queue
+            </h2>
             <p className="text-sm text-slate-600">
               Showing {filteredQueue.length} of {reviewQueue.length} cases.
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Sort</span>
-            <Select value={sortBy} onValueChange={(value: 'due' | 'priority') => setSortBy(value)}>
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+              Sort
+            </span>
+            <Select
+              value={sortBy}
+              onValueChange={(value: "due" | "priority") => setSortBy(value)}
+            >
               <SelectTrigger className="h-10 w-48 rounded-2xl border-[#d8e4df] bg-white text-sm text-slate-900">
                 <SelectValue />
               </SelectTrigger>
@@ -494,18 +588,27 @@ export default function ReviewerPortal() {
 
         {filteredQueue.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-[#d8e4df] bg-white p-10 text-center text-sm text-slate-600 shadow-[0_12px_28px_-20px_rgba(11,64,55,0.18)]">
-            No review cases match the current filters. Adjust your filters to see more results.
+            No review cases match the current filters. Adjust your filters to
+            see more results.
           </div>
         ) : (
           <div className="space-y-6">
             {filteredQueue.map((item) => (
-              <ReviewQueueCard key={item.id} item={item} onOpen={handleFocusOpen} />
+              <ReviewQueueCard
+                key={item.id}
+                item={item}
+                onOpen={handleFocusOpen}
+              />
             ))}
           </div>
         )}
       </section>
 
-      <ReviewFocusSheet open={Boolean(focusedReview)} review={focusedReview} onClose={handleFocusClose} />
+      <ReviewFocusSheet
+        open={Boolean(focusedReview)}
+        review={focusedReview}
+        onClose={handleFocusClose}
+      />
     </PortalPageLayout>
   );
 }

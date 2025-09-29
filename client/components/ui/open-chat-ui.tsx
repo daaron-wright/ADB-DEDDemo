@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
-import Draggable from 'react-draggable';
-import { motion, AnimatePresence } from 'framer-motion';
-import axios from 'axios';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { cn } from '@/lib/utils';
-import { usePersistentState } from '@/hooks/use-persistent-state';
+import React, { useState, useRef, useEffect, useMemo } from "react";
+import Draggable from "react-draggable";
+import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { cn } from "@/lib/utils";
+import { usePersistentState } from "@/hooks/use-persistent-state";
 
 type SpeechRecognitionConstructor = new () => SpeechRecognitionInstance;
 
@@ -40,18 +40,23 @@ interface SpeechRecognitionInstance {
   onend: (() => void) | null;
 }
 
-const getSpeechRecognitionConstructor = (): SpeechRecognitionConstructor | null => {
-  if (typeof window === 'undefined') {
-    return null;
-  }
+const getSpeechRecognitionConstructor =
+  (): SpeechRecognitionConstructor | null => {
+    if (typeof window === "undefined") {
+      return null;
+    }
 
-  const browserWindow = window as typeof window & {
-    SpeechRecognition?: SpeechRecognitionConstructor;
-    webkitSpeechRecognition?: SpeechRecognitionConstructor;
+    const browserWindow = window as typeof window & {
+      SpeechRecognition?: SpeechRecognitionConstructor;
+      webkitSpeechRecognition?: SpeechRecognitionConstructor;
+    };
+
+    return (
+      browserWindow.SpeechRecognition ??
+      browserWindow.webkitSpeechRecognition ??
+      null
+    );
   };
-
-  return browserWindow.SpeechRecognition ?? browserWindow.webkitSpeechRecognition ?? null;
-};
 
 interface ChatMessage {
   id: string;
@@ -71,27 +76,30 @@ interface OpenChatUIProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
-  businessCategories?: Array<{ id: string; title: string; prompt?: string; }>;
+  businessCategories?: Array<{ id: string; title: string; prompt?: string }>;
   onCategoryClick?: (id: string, title: string) => void;
-  mode?: 'general' | 'category';
+  mode?: "general" | "category";
   initialCategoryId?: string;
   initialCategoryTitle?: string;
-  onPromptSubmit?: (options: { categoryId?: string | null; message?: string | null }) => void;
+  onPromptSubmit?: (options: {
+    categoryId?: string | null;
+    message?: string | null;
+  }) => void;
 }
 
-type ChatState = 'idle' | 'listening' | 'thinking' | 'responding';
+type ChatState = "idle" | "listening" | "thinking" | "responding";
 
 const SoundVisualization = ({ isActive = false }: { isActive?: boolean }) => {
   const bars = [
-    { baseHeight: '6px', maxHeight: '12px' },
-    { baseHeight: '12px', maxHeight: '24px' },
-    { baseHeight: '20px', maxHeight: '40px' },
-    { baseHeight: '13px', maxHeight: '26px' },
-    { baseHeight: '9px', maxHeight: '18px' },
-    { baseHeight: '23px', maxHeight: '46px' },
-    { baseHeight: '30px', maxHeight: '60px' },
-    { baseHeight: '17px', maxHeight: '34px' },
-    { baseHeight: '5px', maxHeight: '10px' },
+    { baseHeight: "6px", maxHeight: "12px" },
+    { baseHeight: "12px", maxHeight: "24px" },
+    { baseHeight: "20px", maxHeight: "40px" },
+    { baseHeight: "13px", maxHeight: "26px" },
+    { baseHeight: "9px", maxHeight: "18px" },
+    { baseHeight: "23px", maxHeight: "46px" },
+    { baseHeight: "30px", maxHeight: "60px" },
+    { baseHeight: "17px", maxHeight: "34px" },
+    { baseHeight: "5px", maxHeight: "10px" },
   ];
 
   return (
@@ -101,14 +109,18 @@ const SoundVisualization = ({ isActive = false }: { isActive?: boolean }) => {
           key={index}
           className="w-0.5 bg-[#54FFD4] rounded-full"
           style={{ height: bar.baseHeight }}
-          animate={isActive ? {
-            height: [bar.baseHeight, bar.maxHeight, bar.baseHeight],
-            opacity: [0.7, 1, 0.7]
-          } : {}}
+          animate={
+            isActive
+              ? {
+                  height: [bar.baseHeight, bar.maxHeight, bar.baseHeight],
+                  opacity: [0.7, 1, 0.7],
+                }
+              : {}
+          }
           transition={{
-            duration: 0.6 + (index * 0.1),
+            duration: 0.6 + index * 0.1,
             repeat: isActive ? Infinity : 0,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
         />
       ))}
@@ -118,16 +130,20 @@ const SoundVisualization = ({ isActive = false }: { isActive?: boolean }) => {
 
 const MessageBubble = ({ message }: { message: ChatMessage }) => {
   return (
-    <div className={cn(
-      "mb-3 flex",
-      message.isAI ? "justify-start" : "justify-end"
-    )}>
-      <div className={cn(
-        "max-w-[75%] rounded-2xl border px-4 py-3 text-sm leading-relaxed backdrop-blur-xl",
-        message.isAI
-          ? "rounded-tl-sm border-black/10 bg-white/85 text-slate-900 shadow-[0_18px_40px_-30px_rgba(10,18,40,0.35)]"
-          : "rounded-tr-sm border-[#54FFD4]/45 bg-[#54FFD4]/25 text-[#0F2F28] shadow-[0_24px_55px_-28px_rgba(10,18,40,0.45)]"
-      )}>
+    <div
+      className={cn(
+        "mb-3 flex",
+        message.isAI ? "justify-start" : "justify-end",
+      )}
+    >
+      <div
+        className={cn(
+          "max-w-[75%] rounded-2xl border px-4 py-3 text-sm leading-relaxed backdrop-blur-xl",
+          message.isAI
+            ? "rounded-tl-sm border-black/10 bg-white/85 text-slate-900 shadow-[0_18px_40px_-30px_rgba(10,18,40,0.35)]"
+            : "rounded-tr-sm border-[#54FFD4]/45 bg-[#54FFD4]/25 text-[#0F2F28] shadow-[0_24px_55px_-28px_rgba(10,18,40,0.45)]",
+        )}
+      >
         {message.content}
       </div>
     </div>
@@ -137,14 +153,18 @@ const MessageBubble = ({ message }: { message: ChatMessage }) => {
 const ChatStateIndicator = ({ state }: { state: ChatState }) => {
   const getStateText = () => {
     switch (state) {
-      case 'listening': return 'Listening...';
-      case 'thinking': return 'Thinking...';
-      case 'responding': return 'Responding...';
-      default: return '';
+      case "listening":
+        return "Listening...";
+      case "thinking":
+        return "Thinking...";
+      case "responding":
+        return "Responding...";
+      default:
+        return "";
     }
   };
 
-  if (state === 'idle') return null;
+  if (state === "idle") return null;
 
   return (
     <div className="mb-3 flex justify-start">
@@ -174,29 +194,48 @@ const ChatStateIndicator = ({ state }: { state: ChatState }) => {
 
 const queryClient = new QueryClient();
 
-export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCategories, onCategoryClick, mode = 'general', initialCategoryId, initialCategoryTitle, onPromptSubmit }: OpenChatUIProps) {
-  const [messages, setMessages] = usePersistentState<ChatMessage[]>('open-chat-messages', [
-    {
-      id: '1',
-      content: 'Welcome to the future of government services. I can help you discover, set up, and grow your business. To get started, you can ask me a question or select one of the popular business categories below.',
-      isAI: true,
-      timestamp: new Date(),
-    }
-  ]);
-  
-  const [inputValue, setInputValue] = useState('');
-  const [chatState, setChatState] = useState<ChatState>('idle');
+export function OpenChatUI({
+  isOpen,
+  onClose,
+  title = "AI Business",
+  businessCategories,
+  onCategoryClick,
+  mode = "general",
+  initialCategoryId,
+  initialCategoryTitle,
+  onPromptSubmit,
+}: OpenChatUIProps) {
+  const [messages, setMessages] = usePersistentState<ChatMessage[]>(
+    "open-chat-messages",
+    [
+      {
+        id: "1",
+        content:
+          "Welcome to the future of government services. I can help you discover, set up, and grow your business. To get started, you can ask me a question or select one of the popular business categories below.",
+        isAI: true,
+        timestamp: new Date(),
+      },
+    ],
+  );
+
+  const [inputValue, setInputValue] = useState("");
+  const [chatState, setChatState] = useState<ChatState>("idle");
   const [isListening, setIsListening] = useState(false);
   const nodeRef = useRef(null);
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
 
   const selectedCategory = useMemo(
-    () => (initialCategoryId ? businessCategories?.find(category => category.id === initialCategoryId) : undefined),
-    [businessCategories, initialCategoryId]
+    () =>
+      initialCategoryId
+        ? businessCategories?.find(
+            (category) => category.id === initialCategoryId,
+          )
+        : undefined,
+    [businessCategories, initialCategoryId],
   );
 
   const promptSuggestions = useMemo(() => {
-    if (mode !== 'category') {
+    if (mode !== "category") {
       return [] as Array<{ id: string; message: string }>;
     }
 
@@ -206,7 +245,9 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
     }
 
     const normalizedTitle = baseTitle.toLowerCase();
-    const basePrompt = selectedCategory?.prompt ?? `I'm exploring opportunities around ${baseTitle}. What should I consider?`;
+    const basePrompt =
+      selectedCategory?.prompt ??
+      `I'm exploring opportunities around ${baseTitle}. What should I consider?`;
 
     const suggestions = [
       basePrompt,
@@ -214,8 +255,10 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
       `What costs should I plan for when launching a ${normalizedTitle}?`,
     ];
 
-    const unique = Array.from(new Set(suggestions.map(entry => entry.trim()).filter(Boolean)));
-    const baseId = selectedCategory?.id ?? initialCategoryId ?? 'category';
+    const unique = Array.from(
+      new Set(suggestions.map((entry) => entry.trim()).filter(Boolean)),
+    );
+    const baseId = selectedCategory?.id ?? initialCategoryId ?? "category";
 
     return unique.map((message, index) => ({
       id: `${baseId}-prompt-${index}`,
@@ -223,12 +266,13 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
     }));
   }, [mode, selectedCategory, initialCategoryTitle, initialCategoryId]);
 
-  const isIntroMode = mode === 'category' && Boolean(onPromptSubmit);
+  const isIntroMode = mode === "category" && Boolean(onPromptSubmit);
 
   const placeholderSubject = selectedCategory?.title ?? initialCategoryTitle;
-  const placeholderText = isIntroMode && placeholderSubject
-    ? `Ask about ${placeholderSubject.toLowerCase()}...`
-    : 'Type your message...';
+  const placeholderText =
+    isIntroMode && placeholderSubject
+      ? `Ask about ${placeholderSubject.toLowerCase()}...`
+      : "Type your message...";
 
   useEffect(() => {
     if (!isOpen) {
@@ -239,23 +283,32 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
       const introTarget = selectedCategory?.title ?? initialCategoryTitle;
       const introContent = introTarget
         ? `You're exploring ${introTarget}. Choose a suggested prompt below or type your own question to continue.`
-        : 'Choose a suggested prompt below or type your own question to continue.';
+        : "Choose a suggested prompt below or type your own question to continue.";
       setMessages([createIntroMessage(introContent)]);
-      setInputValue('');
-      setChatState('idle');
+      setInputValue("");
+      setChatState("idle");
       return;
     }
 
-    if (mode === 'general') {
+    if (mode === "general") {
       setMessages([
         createIntroMessage(
-          'Welcome to the future of government services. I can help you discover, set up, and grow your business. To get started, you can ask me a question or select one of the popular business categories below.'
+          "Welcome to the future of government services. I can help you discover, set up, and grow your business. To get started, you can ask me a question or select one of the popular business categories below.",
         ),
       ]);
-      setInputValue('');
-      setChatState('idle');
+      setInputValue("");
+      setChatState("idle");
     }
-  }, [isOpen, isIntroMode, selectedCategory, mode, initialCategoryTitle, setMessages, setInputValue, setChatState]);
+  }, [
+    isOpen,
+    isIntroMode,
+    selectedCategory,
+    mode,
+    initialCategoryTitle,
+    setMessages,
+    setInputValue,
+    setChatState,
+  ]);
 
   // Initialize speech recognition
   useEffect(() => {
@@ -267,33 +320,35 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
     const recognition = new SpeechRecognitionCtor();
     recognition.continuous = false;
     recognition.interimResults = false;
-    recognition.lang = 'en-US';
+    recognition.lang = "en-US";
 
     recognition.onstart = () => {
-      setChatState('listening');
+      setChatState("listening");
       setIsListening(true);
     };
 
     recognition.onresult = (event) => {
       const firstResult = event.results[0] ?? event.results.item(0);
-      const firstAlternative = firstResult ? firstResult[0] ?? firstResult.item?.(0) : undefined;
-      const transcript = firstAlternative?.transcript ?? '';
+      const firstAlternative = firstResult
+        ? (firstResult[0] ?? firstResult.item?.(0))
+        : undefined;
+      const transcript = firstAlternative?.transcript ?? "";
 
       if (transcript) {
         setInputValue(transcript);
       }
 
-      setChatState('idle');
+      setChatState("idle");
       setIsListening(false);
     };
 
     recognition.onerror = () => {
-      setChatState('idle');
+      setChatState("idle");
       setIsListening(false);
     };
 
     recognition.onend = () => {
-      setChatState('idle');
+      setChatState("idle");
       setIsListening(false);
     };
 
@@ -322,8 +377,11 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
     if (!trimmedValue) return;
 
     if (isIntroMode && onPromptSubmit) {
-      onPromptSubmit({ categoryId: selectedCategory?.id ?? initialCategoryId ?? null, message: trimmedValue });
-      setInputValue('');
+      onPromptSubmit({
+        categoryId: selectedCategory?.id ?? initialCategoryId ?? null,
+        message: trimmedValue,
+      });
+      setInputValue("");
       return;
     }
 
@@ -334,54 +392,60 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
       timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, newMessage]);
-    setInputValue('');
-    setChatState('thinking');
+    setMessages((prev) => [...prev, newMessage]);
+    setInputValue("");
+    setChatState("thinking");
 
     try {
-      const response = await axios.post('/api/generate', {
+      const response = await axios.post("/api/generate", {
         message: trimmedValue,
-        type: 'open-chat'
+        type: "open-chat",
       });
 
-      setChatState('responding');
+      setChatState("responding");
 
       // Simulate typing delay
       setTimeout(() => {
         const aiResponse: ChatMessage = {
           id: (Date.now() + 1).toString(),
-          content: response.data.response || "I understand your question. Let me help you with that information.",
+          content:
+            response.data.response ||
+            "I understand your question. Let me help you with that information.",
           isAI: true,
           timestamp: new Date(),
         };
-        setMessages(prev => [...prev, aiResponse]);
-        setChatState('idle');
+        setMessages((prev) => [...prev, aiResponse]);
+        setChatState("idle");
       }, 1500);
     } catch (error) {
-      console.error('Error fetching AI response:', error);
-      setChatState('responding');
+      console.error("Error fetching AI response:", error);
+      setChatState("responding");
       setTimeout(() => {
         const errorResponse: ChatMessage = {
           id: (Date.now() + 1).toString(),
-          content: 'I apologize, but I\'m having trouble connecting right now. Please try again in a moment.',
+          content:
+            "I apologize, but I'm having trouble connecting right now. Please try again in a moment.",
           isAI: true,
           timestamp: new Date(),
         };
-        setMessages(prev => [...prev, errorResponse]);
-        setChatState('idle');
+        setMessages((prev) => [...prev, errorResponse]);
+        setChatState("idle");
       }, 1000);
     }
   };
 
   const handlePromptSelection = (message: string) => {
     if (isIntroMode && onPromptSubmit) {
-      onPromptSubmit({ categoryId: selectedCategory?.id ?? initialCategoryId ?? null, message });
-      setInputValue('');
+      onPromptSubmit({
+        categoryId: selectedCategory?.id ?? initialCategoryId ?? null,
+        message,
+      });
+      setInputValue("");
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
     }
@@ -394,7 +458,12 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
       <AnimatePresence>
         {isOpen && (
           <div className="fixed inset-0 z-50 pointer-events-none">
-            <Draggable nodeRef={nodeRef} handle=".drag-handle" bounds="parent" defaultPosition={{ x: 0, y: 0 }}>
+            <Draggable
+              nodeRef={nodeRef}
+              handle=".drag-handle"
+              bounds="parent"
+              defaultPosition={{ x: 0, y: 0 }}
+            >
               <motion.div
                 ref={nodeRef}
                 initial={{ opacity: 0, y: -12, scale: 0.96 }}
@@ -421,13 +490,27 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                     </div>
 
                     <div className="flex items-center gap-3">
-                      <SoundVisualization isActive={isListening || chatState === 'responding'} />
+                      <SoundVisualization
+                        isActive={isListening || chatState === "responding"}
+                      />
                       <button
                         onClick={onClose}
                         className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 bg-white/70 text-slate-700 transition-colors hover:bg-white"
                       >
-                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M12 4L4 12M4 4L12 12"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
                         </svg>
                       </button>
                     </div>
@@ -441,13 +524,17 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                     {isIntroMode && promptSuggestions.length > 0 && (
                       <div className="pt-2">
                         <div className="mb-3 px-2 text-xs text-slate-600">
-                          {placeholderSubject ? `Quick prompts for ${placeholderSubject}:` : 'Quick prompts to get started:'}
+                          {placeholderSubject
+                            ? `Quick prompts for ${placeholderSubject}:`
+                            : "Quick prompts to get started:"}
                         </div>
                         <div className="flex flex-col gap-2">
-                          {promptSuggestions.map(prompt => (
+                          {promptSuggestions.map((prompt) => (
                             <button
                               key={prompt.id}
-                              onClick={() => handlePromptSelection(prompt.message)}
+                              onClick={() =>
+                                handlePromptSelection(prompt.message)
+                              }
                               className="rounded-lg border border-black/10 bg-white/85 px-3 py-2 text-sm font-medium text-slate-900 backdrop-blur-xl transition-colors hover:bg-white"
                             >
                               {prompt.message}
@@ -456,22 +543,30 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                         </div>
                       </div>
                     )}
-                    {mode === 'general' && messages.length === 1 && messages[0].isAI && businessCategories && onCategoryClick && (
-                      <div className="pt-2">
-                        <div className="mb-3 px-2 text-xs text-slate-600">Or select a category to get started:</div>
-                        <div className="flex flex-wrap gap-2">
-                          {businessCategories.map(category => (
-                            <button
-                              key={category.id}
-                              onClick={() => onCategoryClick(category.id, category.title)}
-                              className="rounded-lg border border-black/10 bg-white/85 px-3 py-2 text-xs font-medium text-slate-900 backdrop-blur-xl transition-colors hover:bg-white"
-                            >
-                              {category.title}
-                            </button>
-                          ))}
+                    {mode === "general" &&
+                      messages.length === 1 &&
+                      messages[0].isAI &&
+                      businessCategories &&
+                      onCategoryClick && (
+                        <div className="pt-2">
+                          <div className="mb-3 px-2 text-xs text-slate-600">
+                            Or select a category to get started:
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {businessCategories.map((category) => (
+                              <button
+                                key={category.id}
+                                onClick={() =>
+                                  onCategoryClick(category.id, category.title)
+                                }
+                                className="rounded-lg border border-black/10 bg-white/85 px-3 py-2 text-xs font-medium text-slate-900 backdrop-blur-xl transition-colors hover:bg-white"
+                              >
+                                {category.title}
+                              </button>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
                     <ChatStateIndicator state={chatState} />
                   </div>
 
@@ -485,30 +580,60 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                         onKeyPress={handleKeyPress}
                         placeholder={placeholderText}
                         className="flex-1 rounded-xl border border-black/10 bg-white/85 px-3 py-2 text-sm text-slate-900 placeholder-slate-500 transition-colors backdrop-blur-2xl focus:border-[#54FFD4] focus:outline-none focus:ring-1 focus:ring-[#54FFD4]/50"
-                        disabled={chatState !== 'idle'}
+                        disabled={chatState !== "idle"}
                       />
 
                       {/* Microphone Button */}
                       <button
                         onClick={isListening ? stopListening : startListening}
-                        disabled={chatState === 'thinking' || chatState === 'responding'}
+                        disabled={
+                          chatState === "thinking" || chatState === "responding"
+                        }
                         className={cn(
                           "flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-200",
                           isListening
                             ? "border-red-500/40 bg-red-500/80 hover:bg-red-500 text-white"
-                            : chatState === 'idle'
-                            ? "border-[#54FFD4]/45 bg-[#54FFD4]/30 text-[#082C25] hover:bg-[#54FFD4]/40"
-                            : "border-black/10 bg-white/70 text-slate-500 cursor-not-allowed"
+                            : chatState === "idle"
+                              ? "border-[#54FFD4]/45 bg-[#54FFD4]/30 text-[#082C25] hover:bg-[#54FFD4]/40"
+                              : "border-black/10 bg-white/70 text-slate-500 cursor-not-allowed",
                         )}
                       >
                         {isListening ? (
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/>
+                          <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <rect
+                              x="6"
+                              y="6"
+                              width="12"
+                              height="12"
+                              rx="2"
+                              fill="currentColor"
+                            />
                           </svg>
                         ) : (
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4Z" fill="currentColor"/>
-                            <path d="M8 18v3a1 1 0 0 1-2 0v-3a8 8 0 1 1 16 0v3a1 1 0 0 1-2 0v-3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 2a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4Z"
+                              fill="currentColor"
+                            />
+                            <path
+                              d="M8 18v3a1 1 0 0 1-2 0v-3a8 8 0 1 1 16 0v3a1 1 0 0 1-2 0v-3"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
                           </svg>
                         )}
                       </button>
@@ -516,16 +641,25 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                       {/* Send Button */}
                       <button
                         onClick={handleSendMessage}
-                        disabled={!inputValue.trim() || chatState !== 'idle'}
+                        disabled={!inputValue.trim() || chatState !== "idle"}
                         className={cn(
                           "flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-200",
-                          inputValue.trim() && chatState === 'idle'
+                          inputValue.trim() && chatState === "idle"
                             ? "border-[#54FFD4]/45 bg-[#54FFD4]/30 text-[#082C25] hover:bg-[#54FFD4]/40 hover:scale-105"
-                            : "border-black/10 bg-white/70 text-slate-500 cursor-not-allowed"
+                            : "border-black/10 bg-white/70 text-slate-500 cursor-not-allowed",
                         )}
                       >
-                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M2 8L14 2L10 8L14 14L2 8Z" fill="currentColor"/>
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 8L14 2L10 8L14 14L2 8Z"
+                            fill="currentColor"
+                          />
                         </svg>
                       </button>
                     </div>

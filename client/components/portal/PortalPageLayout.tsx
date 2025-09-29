@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 interface PortalPageLayoutProps {
   title: string;
@@ -23,13 +23,21 @@ export function PortalPageLayout({
         <header className="rounded-3xl border border-[#d8e4df] bg-white/95 px-8 py-10 shadow-[0_16px_40px_-32px_rgba(11,64,55,0.28)] backdrop-blur-sm lg:px-10">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl space-y-3 text-slate-900">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">{subtitle}</p>
-              <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">{title}</h1>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                {subtitle}
+              </p>
+              <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+                {title}
+              </h1>
               {description ? (
-                <p className="text-base leading-relaxed text-slate-600">{description}</p>
+                <p className="text-base leading-relaxed text-slate-600">
+                  {description}
+                </p>
               ) : null}
             </div>
-            {headerActions ? <div className="flex items-center gap-4">{headerActions}</div> : null}
+            {headerActions ? (
+              <div className="flex items-center gap-4">{headerActions}</div>
+            ) : null}
           </div>
         </header>
 
@@ -39,9 +47,7 @@ export function PortalPageLayout({
               {filters}
             </div>
           </aside>
-          <main className="flex-1 space-y-8 text-slate-900">
-            {children}
-          </main>
+          <main className="flex-1 space-y-8 text-slate-900">{children}</main>
         </div>
       </div>
     </div>

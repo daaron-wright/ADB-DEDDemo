@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import { cn } from '@/lib/utils';
+import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 interface AIAssistantPanelProps {
   assistantName?: string;
   avatarUrl?: string;
-  status: 'listening' | 'speaking' | 'thinking' | 'idle';
+  status: "listening" | "speaking" | "thinking" | "idle";
   statusMessage: string;
   progressPercentage: number;
   message: string;
@@ -18,27 +18,27 @@ export function AIAssistantPanel({
   statusMessage,
   progressPercentage,
   message,
-  className
+  className,
 }: AIAssistantPanelProps) {
   const [animationKey, setAnimationKey] = useState(0);
 
   // Reset animation when status changes
   useEffect(() => {
-    setAnimationKey(prev => prev + 1);
+    setAnimationKey((prev) => prev + 1);
   }, [status]);
 
   // Audio visualization bars
   const AudioVisualization = () => {
     const bars = [
-      { height: '6px', delay: '0ms' },
-      { height: '12px', delay: '100ms' },
-      { height: '20px', delay: '200ms' },
-      { height: '14px', delay: '300ms' },
-      { height: '9px', delay: '400ms' },
-      { height: '23px', delay: '500ms' },
-      { height: '30px', delay: '600ms' },
-      { height: '17px', delay: '700ms' },
-      { height: '5px', delay: '800ms' }
+      { height: "6px", delay: "0ms" },
+      { height: "12px", delay: "100ms" },
+      { height: "20px", delay: "200ms" },
+      { height: "14px", delay: "300ms" },
+      { height: "9px", delay: "400ms" },
+      { height: "23px", delay: "500ms" },
+      { height: "30px", delay: "600ms" },
+      { height: "17px", delay: "700ms" },
+      { height: "5px", delay: "800ms" },
     ];
 
     return (
@@ -48,12 +48,12 @@ export function AIAssistantPanel({
             key={`${animationKey}-${index}`}
             className={cn(
               "w-1 bg-[#54FFD4] rounded-full transition-all duration-300",
-              status === 'speaking' ? 'animate-pulse' : ''
+              status === "speaking" ? "animate-pulse" : "",
             )}
             style={{
-              height: status === 'speaking' ? bar.height : '3px',
+              height: status === "speaking" ? bar.height : "3px",
               animationDelay: bar.delay,
-              transform: 'rotate(-90deg)'
+              transform: "rotate(-90deg)",
             }}
           />
         ))}
@@ -62,14 +62,16 @@ export function AIAssistantPanel({
   };
 
   return (
-    <div className={cn(
-      "relative rounded-3xl overflow-hidden",
-      "bg-white/20 backdrop-blur-xl",
-      "shadow-[0_4px_44px_0_#169F9F]", // Cyan glow
-      "border border-white/20",
-      "w-[446px] h-[426px]",
-      className
-    )}>
+    <div
+      className={cn(
+        "relative rounded-3xl overflow-hidden",
+        "bg-white/20 backdrop-blur-xl",
+        "shadow-[0_4px_44px_0_#169F9F]", // Cyan glow
+        "border border-white/20",
+        "w-[446px] h-[426px]",
+        className,
+      )}
+    >
       {/* Header Section */}
       <div className="p-6 pb-0">
         <div className="flex items-center gap-4 mb-6">
@@ -97,15 +99,13 @@ export function AIAssistantPanel({
 
         {/* Status Message */}
         <div className="mb-4">
-          <p className="text-base font-normal text-white">
-            {statusMessage}
-          </p>
+          <p className="text-base font-normal text-white">{statusMessage}</p>
         </div>
 
         {/* Progress Bar */}
         <div className="mb-4">
           <div className="w-full bg-white/20 rounded-full h-2 overflow-hidden">
-            <div 
+            <div
               className="h-full bg-gradient-to-r from-[#54FFD4] to-[#169F9F] transition-all duration-500 ease-out"
               style={{ width: `${progressPercentage}%` }}
             />
@@ -128,7 +128,7 @@ export function AIAssistantPanel({
 
       {/* Optional three dots menu */}
       <div className="absolute top-5 right-5">
-        <button 
+        <button
           type="button"
           className="w-5 h-5 flex items-center justify-center text-white/60 hover:text-white transition-colors"
         >

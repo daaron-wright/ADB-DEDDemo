@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 interface AIChatPanelProps {
   className?: string;
 }
 
-const AIChatPanel: React.FC<AIChatPanelProps> = ({ className = '' }) => {
+const AIChatPanel: React.FC<AIChatPanelProps> = ({ className = "" }) => {
   const [progress, setProgress] = useState(15);
   const [isGenerating, setIsGenerating] = useState(true);
 
   useEffect(() => {
     if (isGenerating && progress < 76) {
       const timer = setTimeout(() => {
-        setProgress(prev => Math.min(prev + 1, 76));
+        setProgress((prev) => Math.min(prev + 1, 76));
       }, 200);
       return () => clearTimeout(timer);
     }
@@ -31,7 +31,7 @@ const AIChatPanel: React.FC<AIChatPanelProps> = ({ className = '' }) => {
     { width: 23.081, height: 3.297 },
     { width: 30.499, height: 3.297 },
     { width: 16.898, height: 3.297 },
-    { width: 4.534, height: 3.297 }
+    { width: 4.534, height: 3.297 },
   ];
 
   return (
@@ -65,7 +65,7 @@ const AIChatPanel: React.FC<AIChatPanelProps> = ({ className = '' }) => {
                     duration: 2,
                     repeat: Infinity,
                     delay: index * 0.1,
-                    ease: 'easeInOut',
+                    ease: "easeInOut",
                   }}
                 />
               ))}
@@ -76,15 +76,17 @@ const AIChatPanel: React.FC<AIChatPanelProps> = ({ className = '' }) => {
         <div className="space-y-4 px-6">
           <div className="space-y-2">
             <p className="font-['DM_Sans'] text-base font-normal leading-[160%] tracking-[0.051px] text-slate-700">
-              {isGenerating ? 'Generating application...' : 'Application ready for review'}
+              {isGenerating
+                ? "Generating application..."
+                : "Application ready for review"}
             </p>
             <div className="space-y-2">
               <div className="h-[19px] w-full max-w-[275px] overflow-hidden rounded-full border border-white/70 bg-white/70 shadow-inner">
                 <motion.div
                   className="h-full rounded-full bg-gradient-to-r from-[#54FFD4] to-[#21FCC6]"
-                  initial={{ width: '15%' }}
+                  initial={{ width: "15%" }}
                   animate={{ width: `${progress}%` }}
-                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
                 />
               </div>
               <p className="font-['DM_Sans'] text-base font-normal leading-[160%] tracking-[0.051px] text-slate-600">
@@ -151,11 +153,11 @@ const AIChatPanel: React.FC<AIChatPanelProps> = ({ className = '' }) => {
                 transition={{
                   duration: 1.5,
                   repeat: isGenerating ? Infinity : 0,
-                  ease: 'easeInOut',
+                  ease: "easeInOut",
                 }}
               />
               <span className="font-['DM_Sans'] text-sm text-slate-500">
-                {isGenerating ? 'Processing...' : 'Ready'}
+                {isGenerating ? "Processing..." : "Ready"}
               </span>
             </div>
 
@@ -178,7 +180,13 @@ const AIChatPanel: React.FC<AIChatPanelProps> = ({ className = '' }) => {
 
         <div className="absolute right-6 top-[19px]">
           <button className="h-5 w-5 text-slate-400 transition-colors hover:text-slate-600">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <circle cx="12" cy="12" r="1" fill="currentColor" />
               <circle cx="19" cy="12" r="1" fill="currentColor" />
               <circle cx="5" cy="12" r="1" fill="currentColor" />
