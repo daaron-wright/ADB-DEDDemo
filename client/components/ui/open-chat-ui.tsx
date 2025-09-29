@@ -448,7 +448,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                             <button
                               key={prompt.id}
                               onClick={() => handlePromptSelection(prompt.message)}
-                              className="rounded-lg border border-white/70 bg-white/80 px-3 py-2 text-sm font-medium text-slate-900 backdrop-blur-sm transition-colors hover:bg-white"
+                              className="rounded-lg border border-white/70 bg-white/90 px-3 py-2 text-sm font-medium text-slate-900 backdrop-blur-sm transition-colors hover:bg-white"
                             >
                               {prompt.message}
                             </button>
@@ -464,7 +464,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                             <button
                               key={category.id}
                               onClick={() => onCategoryClick(category.id, category.title)}
-                              className="rounded-lg border border-white/70 bg-white/80 px-3 py-2 text-xs font-medium text-slate-900 backdrop-blur-sm transition-colors hover:bg-white"
+                              className="rounded-lg border border-white/70 bg-white/90 px-3 py-2 text-xs font-medium text-slate-900 backdrop-blur-sm transition-colors hover:bg-white"
                             >
                               {category.title}
                             </button>
