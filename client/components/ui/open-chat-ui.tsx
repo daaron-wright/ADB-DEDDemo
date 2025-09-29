@@ -125,8 +125,8 @@ const MessageBubble = ({ message }: { message: ChatMessage }) => {
       <div className={cn(
         "max-w-[75%] rounded-2xl border px-4 py-3 text-sm leading-relaxed backdrop-blur-xl",
         message.isAI
-          ? "rounded-tl-sm border-white/25 bg-white/12 text-slate-100 shadow-[0_18px_40px_-30px_rgba(10,18,40,0.6)]"
-          : "rounded-tr-sm border-[#54FFD4]/40 bg-[#54FFD4]/15 text-[#E7FFF8] shadow-[0_24px_55px_-28px_rgba(10,18,40,0.7)]"
+          ? "rounded-tl-sm border-black/10 bg-white/85 text-slate-900 shadow-[0_18px_40px_-30px_rgba(10,18,40,0.35)]"
+          : "rounded-tr-sm border-[#54FFD4]/45 bg-[#54FFD4]/25 text-[#0F2F28] shadow-[0_24px_55px_-28px_rgba(10,18,40,0.45)]"
       )}>
         {message.content}
       </div>
