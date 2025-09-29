@@ -77,51 +77,6 @@ const applications: ApplicationRecord[] = [
     summary:
       "Full-service restaurant launch covering trade name reservation, food safety clearance, and smart staffing approvals for the Abu Dhabi mainland.",
   },
-  {
-    id: "APP-47903",
-    title: "Falafel Express Drive-Thru",
-    directorate: "Abu Dhabi Agriculture and Food Safety Authority",
-    beneficiary: "Investor",
-    status: "Awaiting Documents",
-    licenseType: "Commercial License",
-    progress: 51,
-    submissionDate: "2024-03-05",
-    lastUpdated: "2024-03-16",
-    nextAction:
-      "Submit finalized supplier contracts for drive-thru operations.",
-    summary:
-      "Quick-service concept with delivery-first operations requiring food safety approvals, franchise documentation, and marketing permits.",
-  },
-  {
-    id: "APP-47112",
-    title: "Global Tech Branch Setup",
-    directorate: "Department of Economic Development",
-    beneficiary: "Investor",
-    status: "Approved",
-    licenseType: "Dual License",
-    progress: 100,
-    submissionDate: "2024-02-08",
-    lastUpdated: "2024-03-12",
-    nextAction:
-      "Schedule onboarding session and collect the dual license certificate.",
-    summary:
-      "Expansion branch for an established technology firm covering dual mainland and free-zone registration with compliance attachments.",
-  },
-  {
-    id: "APP-46744",
-    title: "Luxe Abaya Retail Flagship",
-    directorate: "Department of Culture and Tourism",
-    beneficiary: "Citizen",
-    status: "Draft",
-    licenseType: "Commercial License",
-    progress: 32,
-    submissionDate: "2024-02-21",
-    lastUpdated: "2024-03-02",
-    nextAction:
-      "Confirm mall lease start date to trigger merchandising inspection scheduling.",
-    summary:
-      "Luxury retail concept with AI-assisted fitting services requiring merchandising approvals and logistics planning.",
-  },
 ];
 
 const statusStyles: Record<ApplicationRecord["status"], string> = {
