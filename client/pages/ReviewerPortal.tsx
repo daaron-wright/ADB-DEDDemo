@@ -293,7 +293,7 @@ export default function ReviewerPortal() {
         title="Display policy glossary"
         description="Reference key policies and choose which agent should surface insights per document."
       >
-        <div className="space-y-3">
+        <div className="space-y-3 lg:max-h-72 lg:overflow-y-auto lg:pr-1">
           {policyGlossary.map((policy) => {
             const assignedAgent = policyAssignments[policy.id];
             const selectedAgentLabel = policyAgentOptions.find((agent) => agent.id === assignedAgent)?.label;
