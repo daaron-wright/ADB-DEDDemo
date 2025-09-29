@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import {
@@ -10,6 +11,8 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { ReviewQueueItem, DocumentArtifact } from "@/components/portal/ReviewQueueCard";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface ReviewFocusSheetProps {
   open: boolean;
@@ -67,18 +70,53 @@ export function ReviewFocusSheet({
   review,
   onClose,
 }: ReviewFocusSheetProps) {
+  const [showAllDocuments, setShowAllDocuments] = useState(false);
+
   if (!review) {
     return null;
   }
 
-  const timeline = [
+  const timelineSteps = [
     {
-      label: "Submitted",
-      value: dateFormatter.format(new Date(review.submittedAt)),
+      id: "submitted",
+      label: "Application Submitted",
+      date: dateFormatter.format(new Date(review.submittedAt)),
+      status: "completed" as const,
+      description: `Submitted by ${review.applicantName}`,
     },
-    { label: "SLA due", value: dateFormatter.format(new Date(review.dueAt)) },
-    { label: "Days remaining", value: `${review.daysRemaining} days` },
+    {
+      id: "assigned",
+      label: "Assigned for Review",
+      date: dateFormatter.format(new Date(review.submittedAt)),
+      status: "completed" as const,
+      description: `Assigned to ${review.assignedTo}`,
+    },
+    {
+      id: "reviewing",
+      label: "Under Review",
+      date: "In progress",
+      status: "current" as const,
+      description: `${review.stage} - ${review.completion}% complete`,
+    },
+    {
+      id: "sla-due",
+      label: "SLA Due Date",
+      date: dateFormatter.format(new Date(review.dueAt)),
+      status: review.daysRemaining <= 0 ? "overdue" as const : "upcoming" as const,
+      description: `${review.daysRemaining} days remaining`,
+    },
   ];
+
+  const timelineStatusStyles = {
+    completed: "bg-[#0f766e] border-[#0f766e]",
+    current: "bg-[#0b7d6f] border-[#0b7d6f] ring-4 ring-[#c8e7df]",
+    upcoming: "bg-[#a6bbb1] border-[#a6bbb1]",
+    overdue: "bg-[#b23b31] border-[#b23b31]",
+  };
+
+  const keyDocuments = review.documents.slice(0, 3);
+  const remainingDocuments = review.documents.slice(3);
+  const documentsToShow = showAllDocuments ? review.documents : keyDocuments;
 
   const dossier = [
     { label: "Applicant", value: review.applicantName },
@@ -142,80 +180,154 @@ export function ReviewFocusSheet({
               ))}
             </section>
 
-            <section className="grid gap-4 md:grid-cols-3">
-              {timeline.map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-2xl border border-[#d8e4df] bg-white px-4 py-3"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                    {item.label}
-                  </p>
-                  <p className="mt-2 text-sm font-semibold text-slate-900">
-                    {item.value}
-                  </p>
-                </div>
-              ))}
-              <div className="rounded-2xl border border-[#d8e4df] bg-white px-4 py-3">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Completion
-                </p>
-                <div className="mt-3 flex items-center gap-3">
-                  <Progress
-                    value={review.completion}
-                    className="h-2 flex-1 overflow-hidden rounded-full bg-[#e3efea]"
-                  />
-                  <span className="text-sm font-semibold text-[#0f766e]">
-                    {review.completion}%
-                  </span>
+            <section className="space-y-4">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Review Timeline
+              </h3>
+              <div className="space-y-4">
+                {timelineSteps.map((step, index) => {
+                  const isLast = index === timelineSteps.length - 1;
+                  return (
+                    <div key={step.id} className="relative pl-8">
+                      <div className="absolute left-0 top-2">
+                        <div
+                          className={cn(
+                            "h-3 w-3 rounded-full border-2",
+                            timelineStatusStyles[step.status]
+                          )}
+                        />
+                        {!isLast && (
+                          <div className="absolute left-[5px] top-6 h-8 w-px bg-[#d8e4df]" />
+                        )}
+                      </div>
+                      <div className="rounded-2xl border border-[#d8e4df] bg-white p-4">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex-1">
+                            <h4 className="text-sm font-semibold text-slate-900">{step.label}</h4>
+                            <p className="text-xs text-slate-600 mt-1">{step.description}</p>
+                          </div>
+                          <Badge className="text-xs px-2 py-1 border-[#d8e4df] bg-[#f9fbfa] text-slate-700">
+                            {step.date}
+                          </Badge>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+
+            <section className="space-y-3">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Progress Overview
+                </h3>
+                <span className="text-sm font-semibold text-[#0f766e]">
+                  {review.completion}% Complete
+                </span>
+              </div>
+              <div className="rounded-2xl border border-[#d8e4df] bg-white p-4">
+                <Progress
+                  value={review.completion}
+                  className="h-3 overflow-hidden rounded-full bg-[#e3efea]"
+                />
+                <div className="mt-3 flex items-center justify-between text-xs text-slate-600">
+                  <span>Started {dateFormatter.format(new Date(review.submittedAt))}</span>
+                  <span>Due {dateFormatter.format(new Date(review.dueAt))}</span>
                 </div>
               </div>
             </section>
 
             <section className="space-y-4">
-              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Document Artifacts ({review.documents.length})
-              </h3>
-              <div className="grid gap-3 sm:grid-cols-2">
-                {review.documents.map((document) => (
-                  <div
-                    key={document.id}
-                    onClick={() => handleDocumentClick(document)}
-                    className="group cursor-pointer rounded-2xl border border-[#d8e4df] bg-white p-4 transition-all hover:border-[#0f766e] hover:shadow-[0_8px_24px_-12px_rgba(11,64,55,0.25)]"
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Key Documents {!showAllDocuments && `(${keyDocuments.length} of ${review.documents.length})`}
+                </h3>
+                {remainingDocuments.length > 0 && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowAllDocuments(!showAllDocuments)}
+                    className="text-xs border-[#d8e4df] text-slate-600 hover:text-[#0f766e] hover:border-[#0f766e]"
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="text-lg">{documentTypeIcons[document.type]}</span>
-                          <h4 className="font-medium text-slate-900 text-sm leading-tight truncate">
-                            {document.name}
-                          </h4>
+                    {showAllDocuments ? (
+                      <>
+                        <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                        </svg>
+                        Show Less
+                      </>
+                    ) : (
+                      <>
+                        <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                        Show All ({review.documents.length})
+                      </>
+                    )}
+                  </Button>
+                )}
+              </div>
+              <div className="space-y-3">
+                {documentsToShow.map((document, index) => {
+                  const isKeyDocument = index < 3;
+                  return (
+                    <div
+                      key={document.id}
+                      onClick={() => handleDocumentClick(document)}
+                      className={cn(
+                        "group cursor-pointer rounded-2xl border bg-white p-4 transition-all hover:border-[#0f766e] hover:shadow-[0_8px_24px_-12px_rgba(11,64,55,0.25)]",
+                        isKeyDocument ? "border-[#0f766e] bg-[#f9fbfa]" : "border-[#d8e4df]"
+                      )}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-lg">{documentTypeIcons[document.type]}</span>
+                            <h4 className="font-medium text-slate-900 text-sm leading-tight">
+                              {document.name}
+                            </h4>
+                            {isKeyDocument && (
+                              <Badge className="text-xs px-2 py-1 border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]">
+                                Key
+                              </Badge>
+                            )}
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 text-xs text-slate-600">
+                            {document.issuer && (
+                              <div>
+                                <span className="font-medium">Issuer:</span> {document.issuer}
+                              </div>
+                            )}
+                            {document.uploadedAt && (
+                              <div>
+                                <span className="font-medium">Uploaded:</span> {dateFormatter.format(new Date(document.uploadedAt))}
+                              </div>
+                            )}
+                            {document.validUntil && (
+                              <div>
+                                <span className="font-medium">Valid until:</span> {dateFormatter.format(new Date(document.validUntil))}
+                              </div>
+                            )}
+                            <div>
+                              <span className="font-medium">Size:</span> {document.size}
+                            </div>
+                          </div>
                         </div>
-                        <div className="space-y-1">
-                          {document.issuer && (
-                            <p className="text-xs text-slate-600">Issued by: {document.issuer}</p>
-                          )}
-                          {document.uploadedAt && (
-                            <p className="text-xs text-slate-500">
-                              Uploaded: {dateFormatter.format(new Date(document.uploadedAt))}
-                            </p>
-                          )}
-                          {document.validUntil && (
-                            <p className="text-xs text-slate-500">
-                              Valid until: {dateFormatter.format(new Date(document.validUntil))}
-                            </p>
-                          )}
-                          <p className="text-xs text-slate-500">{document.size}</p>
+                        <div className="flex flex-col items-end gap-2">
+                          <Badge
+                            className={`text-xs px-2 py-1 ${documentStatusStyles[document.status]}`}
+                          >
+                            {document.status.replace('_', ' ')}
+                          </Badge>
+                          <svg className="w-4 h-4 text-slate-400 group-hover:text-[#0f766e] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
                         </div>
                       </div>
-                      <Badge
-                        className={`text-xs px-2 py-1 ${documentStatusStyles[document.status]}`}
-                      >
-                        {document.status.replace('_', ' ')}
-                      </Badge>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </section>
 
