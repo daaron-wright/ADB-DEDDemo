@@ -822,7 +822,7 @@ export default function ApplicantPortal() {
                     })}
                   </ul>
                 ) : (
-                  <p className="rounded-2xl border border-dashed border-neutral-200 bg-white px-4 py-6 text-sm text-slate-600">
+                  <p className="rounded-2xl border border-dashed border-[#d8e4df] bg-white px-4 py-6 text-sm text-slate-600">
                     No user tasks are assigned to this journey stage yet.
                   </p>
                 )}
