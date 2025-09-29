@@ -536,7 +536,7 @@ export default function ReviewerPortal() {
                 key={policy.id}
                 className="rounded-2xl border border-[#d8e4df] bg-white p-3 shadow-[0_12px_24px_-20px_rgba(11,64,55,0.16)]"
               >
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
                   <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 rounded-full bg-[#eaf7f3] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#0f766e]">
                       <span>{policy.category}</span>
@@ -557,12 +557,13 @@ export default function ReviewerPortal() {
                   </div>
 
                   <Select
-                    value={assignedAgent}
-                    onValueChange={(value) =>
-                      handlePolicyAgentChange(policy.id, value as PolicyAgentId)
-                    }
-                  >
-                    <SelectTrigger className="h-10 min-w-[10rem] rounded-2xl border-[#d8e4df] bg-white text-sm text-slate-900">
+                  value={assignedAgent}
+                  onValueChange={(value) =>
+                    handlePolicyAgentChange(policy.id, value as PolicyAgentId)
+                  }
+                  className="w-full sm:w-auto"
+                >
+                  <SelectTrigger className="h-10 w-full max-w-full rounded-2xl border-[#d8e4df] bg-white text-sm text-slate-900 sm:min-w-[12rem]">
                       <SelectValue
                         aria-label={selectedAgentLabel ?? "Select policy agent"}
                       />
