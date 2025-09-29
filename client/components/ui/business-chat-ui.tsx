@@ -1127,6 +1127,7 @@ export function BusinessChatUI({
 
   const [loggedInUser, setLoggedInUser] = useState<any>(null);
   const [showBusinessPortal, setShowBusinessPortal] = useState(false);
+  const isLoggedIn = Boolean(loggedInUser);
 
   useEffect(() => {
     if (!isOpen) {
@@ -1508,21 +1509,36 @@ export function BusinessChatUI({
 
                   {/* Messages */}
                   <div className="p-6 space-y-4 max-h-[60vh] overflow-y-auto">
-                    {activeThread?.messages.map((message) => (
-                      <MessageBubble
-                        key={`${activeThread.id}-${message.id}`}
-                        message={message}
-                        onActionClick={(action) => {
-                          if (action === "budget-ranges") {
-                            // Budget ranges button - demographic question is already in the predefined flow
-                            console.log("Budget ranges clicked");
-                          }
-                        }}
-                      />
-                    ))}
+                    {activeThread?.messages.map((message) => {
+                      const isJourneyIntro = Boolean(message.hasActions);
+                      const displayContent = !isLoggedIn && isJourneyIntro
+                        ? "Sign in with UAE Pass to generate your investor journey."
+                        : isJourneyIntro
+                          ? "I have generated an investor journey below that will assist you. Your journey, powered by AI."
+                          : message.content;
+
+                      const enrichedMessage =
+                        displayContent === message.content
+                          ? message
+                          : { ...message, content: displayContent };
+
+                      return (
+                        <MessageBubble
+                          key={`${activeThread.id}-${message.id}`}
+                          message={enrichedMessage}
+                          onActionClick={(action) => {
+                            if (action === "budget-ranges") {
+                              // Budget ranges button - demographic question is already in the predefined flow
+                              console.log("Budget ranges clicked");
+                            }
+                          }}
+                        />
+                      );
+                    })}
 
                     {/* Show investor journey card after the last AI message */}
-                    {activeThread?.view === "journey" &&
+                    {isLoggedIn &&
+                      activeThread?.view === "journey" &&
                       activeThread?.messages.length >= 3 &&
                       activeThread?.messages[2].hasActions && (
                         <InvestorJourneyCard
