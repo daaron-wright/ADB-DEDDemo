@@ -382,55 +382,85 @@ export default function ApplicantPortal() {
       {
         id: 'economic-reviewer',
         label: 'Economic Development Reviewer',
-        description: 'Validates business alignment with economic priorities.'
+        description: 'Validates business alignment with economic priorities.',
       },
       {
         id: 'health-safety',
         label: 'Health & Safety Officer',
-        description: 'Ensures compliance with health and safety standards.'
+        description: 'Ensures compliance with health and safety standards.',
       },
       {
         id: 'fire-marshal',
         label: 'Fire Marshal',
-        description: 'Evaluates occupancy and fire preparedness requirements.'
+        description: 'Evaluates occupancy and fire preparedness requirements.',
       },
       {
         id: 'environmental-review',
         label: 'Environmental Review Board',
-        description: 'Reviews sustainability criteria for approvals.'
-      }
+        description: 'Reviews sustainability criteria for approvals.',
+      },
     ],
-    []
+    [],
+  );
+
+  const activityCatalog = useMemo<BusinessActivity[]>(
+    () => [
+      {
+        id: 'full-service-restaurant',
+        label: 'Full-service restaurant',
+        isRecommended: true,
+        actors: ['economic-reviewer', 'health-safety'],
+      },
+      {
+        id: 'charcoal-bbq',
+        label: 'Charcoal/coal BBQ services',
+        isRecommended: true,
+        actors: ['health-safety', 'fire-marshal'],
+      },
+      {
+        id: 'hospitality-catering',
+        label: 'Hospitality and catering services',
+        isRecommended: true,
+        actors: ['economic-reviewer'],
+      },
+      {
+        id: 'food-truck',
+        label: 'Mobile food truck operations',
+        description: 'Covers mobile kitchens serving food across multiple districts.',
+        actors: ['health-safety', 'fire-marshal', 'environmental-review'],
+      },
+      {
+        id: 'shared-kitchen',
+        label: 'Shared commercial kitchen',
+        description: 'Multi-tenant facility providing licensed preparation space.',
+        actors: ['economic-reviewer', 'health-safety'],
+      },
+      {
+        id: 'culinary-incubator',
+        label: 'Culinary incubator program',
+        description: 'Supports early-stage food businesses with advisory services.',
+        actors: ['economic-reviewer', 'environmental-review'],
+      },
+    ],
+    [],
+  );
+
+  const initialActivityIds = useMemo(
+    () => ['full-service-restaurant', 'charcoal-bbq', 'hospitality-catering'],
+    [],
   );
 
   // Map journey data to stepper format
   const journeySteps: JourneyStep[] = applicantJourney.map((stage) => ({
     id: stage.id,
     label: stage.title,
-    state: stage.state
+    state: stage.state,
   }));
 
   // Business activities data
-  const [businessActivities, setBusinessActivities] = useState<BusinessActivity[]>(() => [
-    {
-      id: 'full-service-restaurant',
-      label: 'Full-service restaurant',
-      isRecommended: true,
-      actors: ['economic-reviewer', 'health-safety']
-    },
-    {
-      id: 'charcoal-bbq',
-      label: 'Charcoal/coal BBQ services',
-      isRecommended: true,
-      actors: ['health-safety', 'fire-marshal']
-    },
-    {
-      id: 'hospitality-catering',
-      label: 'Hospitality and catering services',
-      isRecommended: true,
-      actors: ['economic-reviewer']
-    }
-  ]);
+  const [businessActivities, setBusinessActivities] = useState<BusinessActivity[]>(() =>
+    activityCatalog.filter((activity) => initialActivityIds.includes(activity.id)),
+  );
 
   const activeJourneyStage = useMemo(
     () => applicantJourney.find((stage) => stage.id === activeJourneyStageId) ?? applicantJourney[0],
