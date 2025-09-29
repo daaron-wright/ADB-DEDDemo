@@ -441,7 +441,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                     {isIntroMode && promptSuggestions.length > 0 && (
                       <div className="pt-2">
                         <div className="mb-3 px-2 text-xs text-slate-600">
-                          {selectedCategory ? `Quick prompts for ${selectedCategory.title}:` : 'Quick prompts to get started:'}
+                          {placeholderSubject ? `Quick prompts for ${placeholderSubject}:` : 'Quick prompts to get started:'}
                         </div>
                         <div className="flex flex-col gap-2">
                           {promptSuggestions.map(prompt => (
