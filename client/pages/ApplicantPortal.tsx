@@ -867,7 +867,7 @@ export default function ApplicantPortal() {
         </div>
 
         {filteredApplications.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-neutral-200 bg-white p-10 text-center text-sm text-slate-600 shadow-[0_12px_30px_-18px_rgba(15,23,42,0.18)]">
+          <div className="rounded-3xl border border-dashed border-[#d8e4df] bg-white p-10 text-center text-sm text-slate-600 shadow-[0_12px_28px_-20px_rgba(11,64,55,0.18)]">
             No applications match the current filters. Adjust your filters to see more results.
           </div>
         ) : (
