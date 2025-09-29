@@ -284,6 +284,7 @@ const BusinessLicensePortalSimplified: React.FC<BusinessLicensePortalProps> = ({
         {/* Left Panel - Simplified Questionnaire */}
         <div className="w-full max-w-[633px]">
           <SimpleQuestionnaire
+            ref={questionnaireRef}
             journeyNumber="0987654321"
             completedCount={2}
             totalCount={8}
