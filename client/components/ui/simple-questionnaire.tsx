@@ -324,3 +324,4 @@ const SimpleQuestionnaire = forwardRef<SimpleQuestionnaireHandle, SimpleQuestion
 });
 
 export default SimpleQuestionnaire;
+export type { SimpleQuestionnaireHandle };
