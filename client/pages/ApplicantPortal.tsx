@@ -710,6 +710,7 @@ export default function ApplicantPortal() {
   );
 
   return (
+    <>
     <PortalPageLayout
       title={workspaceTitle}
       subtitle="Business license portal"
@@ -997,6 +998,24 @@ export default function ApplicantPortal() {
         )}
       </section>
     </PortalPageLayout>
+
+    {/* Journey View Modal */}
+    {showJourneyView && (
+      <JourneyView
+        journeyNumber="0987654321"
+        completedSteps={3}
+        totalSteps={8}
+        currentStepId={activeJourneyStageId}
+        steps={journeySteps}
+        activities={businessActivities}
+        selectedActivityIds={selectedBusinessActivities}
+        onStepChange={handleJourneyStepChange}
+        onActivityToggle={handleActivityToggle}
+        onAddNewActivity={handleAddNewActivity}
+        onClose={handleCloseJourneyView}
+      />
+    )}
+    </>
   );
 }
 
