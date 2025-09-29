@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import { Modal, Close } from "@aegov/design-system-react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -6,28 +6,83 @@ interface UAEPassLoginProps {
   trigger: React.ReactElement;
   onLogin: (userType: "applicant" | "reviewer", userData: any) => void;
   onClose?: () => void;
+  mode?: "quick" | "full";
+  defaultUserType?: "applicant" | "reviewer";
 }
 
 type UserType = "applicant" | "reviewer" | null;
 
-type LoginStep = "userType" | "login" | "success";
+type LoginStep = "userType" | "login" | "success" | "fingerprint";
+
+const MOCK_USER_PROFILES = {
+  applicant: {
+    name: "Ahmed Al Mansoori",
+    email: "ahmed.almansoori@email.ae",
+    emiratesId: "784-1985-1234567-8",
+    userType: "applicant" as const,
+    role: "Business Applicant",
+  },
+  reviewer: {
+    name: "Sarah Al Zaabi",
+    email: "sarah.alzaabi@adm.ae",
+    emiratesId: "784-1982-7654321-2",
+    userType: "reviewer" as const,
+    role: "License Reviewer",
+    department: "Abu Dhabi Municipality",
+  },
+};
+
+const createMockUserData = (type: "applicant" | "reviewer") => ({
+  id: `${type}-${Date.now()}`,
+  ...MOCK_USER_PROFILES[type],
+});
 
 export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
   trigger,
   onLogin,
   onClose,
+  mode = "full",
+  defaultUserType = "applicant",
 }) => {
-  const [selectedUserType, setSelectedUserType] = useState<UserType>(null);
+  const [selectedUserType, setSelectedUserType] = useState<UserType>(
+    mode === "quick" ? defaultUserType : null,
+  );
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [loginStep, setLoginStep] = useState<LoginStep>("userType");
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const timeouts = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  const cancelTimeout = useCallback((timeoutId: ReturnType<typeof setTimeout>) => {
+    clearTimeout(timeoutId);
+    timeouts.current = timeouts.current.filter((id) => id !== timeoutId);
+  }, []);
+
+  const clearAllTimeouts = useCallback(() => {
+    timeouts.current.forEach((timeoutId) => clearTimeout(timeoutId));
+    timeouts.current = [];
+  }, []);
+
+  useEffect(() => () => clearAllTimeouts(), [clearAllTimeouts]);
+
+  const scheduleTimeout = useCallback(
+    (callback: () => void, delay: number) => {
+      const timeoutId = setTimeout(() => {
+        timeouts.current = timeouts.current.filter((id) => id !== timeoutId);
+        callback();
+      }, delay);
+      timeouts.current.push(timeoutId);
+      return timeoutId;
+    },
+    [],
+  );
 
   const resetFlow = useCallback(() => {
-    setSelectedUserType(null);
+    clearAllTimeouts();
+    setSelectedUserType(mode === "quick" ? defaultUserType : null);
     setIsLoggingIn(false);
     setLoginStep("userType");
     onClose?.();
-  }, [onClose]);
+  }, [clearAllTimeouts, mode, defaultUserType, onClose]);
 
   const handleUserTypeSelect = (type: UserType) => {
     if (!type) return;
@@ -35,49 +90,64 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
     setLoginStep("login");
   };
 
-  const handleLogin = async () => {
+  const handleLogin = useCallback(() => {
     if (!selectedUserType) return;
     setIsLoggingIn(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    setLoginStep("success");
-
-    setTimeout(() => {
-      const mockUserData = {
-        id: `${selectedUserType}-${Date.now()}`,
-        name:
-          selectedUserType === "applicant"
-            ? "Ahmed Al Mansoori"
-            : "Sarah Al Zaabi",
-        email:
-          selectedUserType === "applicant"
-            ? "ahmed.almansoori@email.ae"
-            : "sarah.alzaabi@adm.ae",
-        emiratesId:
-          selectedUserType === "applicant"
-            ? "784-1985-1234567-8"
-            : "784-1982-7654321-2",
-        userType: selectedUserType,
-        role:
-          selectedUserType === "applicant"
-            ? "Business Applicant"
-            : "License Reviewer",
-        department:
-          selectedUserType === "reviewer"
-            ? "Abu Dhabi Municipality"
-            : undefined,
-      };
-
-      onLogin(selectedUserType, mockUserData);
+    scheduleTimeout(() => {
+      setLoginStep("success");
       setIsLoggingIn(false);
-      closeButtonRef.current?.click();
-    }, 1200);
-  };
+      const mockUserData = createMockUserData(selectedUserType);
+
+      scheduleTimeout(() => {
+        onLogin(selectedUserType, mockUserData);
+        closeButtonRef.current?.click();
+      }, 900);
+    }, 1500);
+  }, [selectedUserType, scheduleTimeout, onLogin]);
+
+  useEffect(() => {
+    if (mode !== "quick" || loginStep !== "fingerprint") {
+      return;
+    }
+
+    const userType = selectedUserType ?? defaultUserType;
+    if (!userType) {
+      return;
+    }
+
+    setIsLoggingIn(true);
+
+    const fingerprintTimeout = scheduleTimeout(() => {
+      setLoginStep("success");
+      setIsLoggingIn(false);
+      const mockUserData = createMockUserData(userType);
+
+      scheduleTimeout(() => {
+        onLogin(userType, mockUserData);
+        closeButtonRef.current?.click();
+      }, 700);
+    }, 1400);
+
+    return () => {
+      cancelTimeout(fingerprintTimeout);
+    };
+  }, [
+    mode,
+    loginStep,
+    selectedUserType,
+    defaultUserType,
+    scheduleTimeout,
+    cancelTimeout,
+    onLogin,
+  ]);
 
   const enhancedTrigger = React.cloneElement(trigger, {
     onClick: (event: React.MouseEvent<HTMLElement>) => {
       resetFlow();
+      if (mode === "quick") {
+        setLoginStep("fingerprint");
+      }
       if (typeof trigger.props.onClick === "function") {
         trigger.props.onClick(event);
       }
@@ -98,10 +168,12 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
               UAE Pass
             </p>
             <h2 className="mt-1 text-2xl font-semibold text-slate-900">
-              Sign in
+              {mode === "quick" ? "Fingerprint quick sign-in" : "Sign in"}
             </h2>
             <p className="mt-1 text-sm text-slate-500">
-              Continue with UAE PASS to access your workspace.
+              {mode === "quick"
+                ? "Authenticate instantly with your UAE PASS fingerprint."
+                : "Continue with UAE PASS to access your workspace."}
             </p>
           </div>
           <Close asChild>
@@ -132,7 +204,7 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
         </header>
 
         <AnimatePresence mode="wait">
-          {loginStep === "userType" && (
+          {mode === "full" && loginStep === "userType" && (
             <motion.div
               key="userType"
               initial={{ opacity: 0, y: 12 }}
@@ -221,7 +293,7 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
             </motion.div>
           )}
 
-          {loginStep === "login" && (
+          {mode === "full" && loginStep === "login" && (
             <motion.div
               key="login"
               initial={{ opacity: 0, y: 12 }}
@@ -249,10 +321,7 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
                   </svg>
                 </div>
                 <h3 className="text-base font-semibold text-slate-900">
-                  Continue as{" "}
-                  {selectedUserType === "applicant"
-                    ? "business applicant"
-                    : "license reviewer"}
+                  Continue as {selectedUserType === "applicant" ? "business applicant" : "license reviewer"}
                 </h3>
                 <p className="text-sm text-slate-500">
                   We'll redirect you to UAE PASS to finish signing in.
@@ -325,6 +394,71 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
             </motion.div>
           )}
 
+          {mode === "quick" && loginStep === "fingerprint" && (
+            <motion.div
+              key="fingerprint"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="flex flex-col items-center gap-6 py-4"
+            >
+              <div className="relative flex h-28 w-28 items-center justify-center rounded-full border border-slate-200 bg-white shadow-[0_20px_45px_-30px_rgba(24,32,63,0.45)]">
+                <motion.div
+                  className="absolute inset-0 rounded-full border-2 border-[#54FFD4]/40"
+                  animate={{ scale: [1, 1.08, 1], opacity: [0.55, 0.2, 0.55] }}
+                  transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                  className="absolute inset-2 rounded-full border border-[#54FFD4]/30"
+                  animate={{ scale: [0.95, 1.03, 0.95], opacity: [0.3, 0.6, 0.3] }}
+                  transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+                />
+                {isLoggingIn && (
+                  <motion.div
+                    className="absolute inset-3 overflow-hidden rounded-full"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  >
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-b from-[#54FFD4]/45 via-transparent to-[#54FFD4]/20"
+                      animate={{ y: ["100%", "-100%"] }}
+                      transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                  </motion.div>
+                )}
+                <svg
+                  width="64"
+                  height="64"
+                  viewBox="0 0 64 64"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="relative z-10"
+                >
+                  <g stroke="#0F172A" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M32 9C20.402 9 11 18.402 11 30" />
+                    <path d="M32 15C23.163 15 16 22.163 16 31" />
+                    <path d="M32 21C26.477 21 22 25.477 22 31" />
+                    <path d="M32 27C29.239 27 27 29.239 27 32" />
+                    <path d="M32 33c0 6 2 11 4 15" />
+                    <path d="M24 33c0 8 3 14 5.5 18.5" />
+                    <path d="M39 31c0 9-3 16-5.2 20.2" />
+                    <path d="M45 28c0 10-3 18-6 23" />
+                  </g>
+                </svg>
+              </div>
+
+              <div className="space-y-2 text-center">
+                <h3 className="text-base font-semibold text-slate-900">
+                  Confirm with UAE PASS
+                </h3>
+                <p className="text-sm text-slate-500">
+                  Place your finger on the sensor to sign in securely.
+                </p>
+              </div>
+            </motion.div>
+          )}
+
           {loginStep === "success" && (
             <motion.div
               key="success"
@@ -352,10 +486,12 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
                 </svg>
               </div>
               <h3 className="text-base font-semibold text-slate-900">
-                You're signed in
+                {mode === "quick" ? "Fingerprint verified" : "You're signed in"}
               </h3>
               <p className="text-sm text-slate-500">
-                We’re preparing your business license portal…
+                {mode === "quick"
+                  ? "We’re getting your workspace ready…"
+                  : "We’re preparing your business license portal…"}
               </p>
             </motion.div>
           )}
