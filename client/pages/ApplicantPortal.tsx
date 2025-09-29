@@ -756,15 +756,15 @@ export default function ApplicantPortal() {
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
-                    {journeyStateTokens[activeJourneyStage.state].label}
+                    {activeJourneyTokens.label}
                   </p>
                   <h3 className="mt-2 text-xl font-semibold text-slate-900">{activeJourneyStage.title}</h3>
                   <p className="mt-2 text-sm text-slate-600">{activeJourneyStage.description}</p>
                 </div>
                 <span
-                  className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${journeyStateTokens[activeJourneyStage.state].badgeClass}`}
+                  className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${activeJourneyTokens.badgeClass}`}
                 >
-                  {journeyStateTokens[activeJourneyStage.state].label}
+                  {activeJourneyTokens.label}
                 </span>
               </div>
               {activeJourneyStage.statusDetail ? (
