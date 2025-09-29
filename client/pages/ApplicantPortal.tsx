@@ -757,7 +757,7 @@ export default function ApplicantPortal() {
             >
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                     {activeJourneyTokens.label}
                   </p>
                   <h3 className="mt-2 text-xl font-semibold text-slate-900">{activeJourneyStage.title}</h3>
