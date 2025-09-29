@@ -157,22 +157,6 @@ export function ReviewFocusSheet({
 
         <ScrollArea className="flex-1">
           <div className="space-y-8 px-6 py-6">
-            <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {dossier.map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                    {item.label}
-                  </p>
-                  <p className="mt-2 text-sm font-semibold text-slate-900">
-                    {item.value}
-                  </p>
-                </div>
-              ))}
-            </section>
-
             <section className="space-y-4">
               <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                 Review Timeline
