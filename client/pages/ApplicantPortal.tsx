@@ -599,27 +599,26 @@ export default function ApplicantPortal() {
 
   const handleActivityToggle = (activityId: string) => {
     setSelectedBusinessActivities((prev) =>
-      prev.includes(activityId)
-        ? prev.filter((id) => id !== activityId)
-        : [...prev, activityId]
+      prev.includes(activityId) ? prev.filter((id) => id !== activityId) : [...prev, activityId],
     );
   };
 
-  const handleCreateActivity = (activityName: string, actorIds: string[]) => {
-    const normalizedName = activityName.trim();
-    if (!normalizedName) {
+  const handleAddActivity = (activityId: string) => {
+    const catalogActivity = activityCatalog.find((activity) => activity.id === activityId);
+    if (!catalogActivity) {
       return;
     }
 
-    const generatedId = `custom-${Date.now()}`;
-    const newActivity: BusinessActivity = {
-      id: generatedId,
-      label: normalizedName,
-      actors: actorIds
-    };
+    setBusinessActivities((prev) => {
+      if (prev.some((activity) => activity.id === catalogActivity.id)) {
+        return prev;
+      }
+      return [...prev, catalogActivity];
+    });
 
-    setBusinessActivities((prev) => [...prev, newActivity]);
-    setSelectedBusinessActivities((prev) => [...prev, generatedId]);
+    setSelectedBusinessActivities((prev) =>
+      prev.includes(activityId) ? prev : [...prev, activityId],
+    );
   };
 
   const handleOpenJourneyView = () => {
