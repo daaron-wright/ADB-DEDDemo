@@ -431,7 +431,25 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                     {messages.map((message) => (
                       <MessageBubble key={message.id} message={message} />
                     ))}
-                    {messages.length === 1 && messages[0].isAI && businessCategories && onCategoryClick && (
+                    {isIntroMode && promptSuggestions.length > 0 && (
+                      <div className="pt-2">
+                        <div className="mb-3 px-2 text-xs text-slate-600">
+                          {selectedCategory ? `Quick prompts for ${selectedCategory.title}:` : 'Quick prompts to get started:'}
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          {promptSuggestions.map(prompt => (
+                            <button
+                              key={prompt.id}
+                              onClick={() => handlePromptSelection(prompt.message)}
+                              className="rounded-lg border border-white/70 bg-white/80 px-3 py-2 text-sm font-medium text-slate-900 backdrop-blur-sm transition-colors hover:bg-white"
+                            >
+                              {prompt.message}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {mode === 'general' && messages.length === 1 && messages[0].isAI && businessCategories && onCategoryClick && (
                       <div className="pt-2">
                         <div className="mb-3 px-2 text-xs text-slate-600">Or select a category to get started:</div>
                         <div className="flex flex-wrap gap-2">
