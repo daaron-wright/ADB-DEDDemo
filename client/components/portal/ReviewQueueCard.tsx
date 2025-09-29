@@ -56,7 +56,7 @@ export function ReviewQueueCard({ item }: ReviewQueueCardProps) {
           <Badge className={`border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide ${priorityStyles[item.priority]}`}>
             {item.priority} priority
           </Badge>
-          <Badge className="border border-purple-200 bg-purple-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-purple-700">
+          <Badge className="border border-[#b7e1d4] bg-[#eaf7f3] px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#0f766e]">
             {item.stage}
           </Badge>
         </div>
