@@ -24,6 +24,10 @@ interface SimpleQuestionnaireProps {
   onItemUpdate?: (sectionId: string, itemId: string, status: QuestionnaireItem['status']) => void;
 }
 
+export type SimpleQuestionnaireHandle = {
+  scrollToItem: (itemId: string) => void;
+};
+
 const CheckmarkIcon: React.FC = () => (
   <svg width="27" height="27" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path 
