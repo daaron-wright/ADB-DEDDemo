@@ -737,10 +737,10 @@ export default function ApplicantPortal() {
                       </div>
                       <p className="mt-2 text-sm text-slate-600">{stage.description}</p>
                       {stage.statusDetail ? (
-                        <p className="mt-2 text-xs font-medium uppercase tracking-[0.28em] text-slate-400">{stage.statusDetail}</p>
+                        <p className="mt-2 text-xs font-medium uppercase tracking-[0.18em] text-slate-400">{stage.statusDetail}</p>
                       ) : null}
                       {isActive ? (
-                        <span className="mt-3 inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-purple-600">
+                        <span className="mt-3 inline-flex items-center rounded-full bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                           Viewing tasks
                         </span>
                       ) : null}
