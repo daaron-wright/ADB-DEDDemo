@@ -196,13 +196,17 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
   );
 
   const promptSuggestions = useMemo(() => {
-    if (mode !== 'category' || !selectedCategory) {
+    if (mode !== 'category') {
       return [] as Array<{ id: string; message: string }>;
     }
 
-    const baseTitle = selectedCategory.title;
+    const baseTitle = selectedCategory?.title ?? initialCategoryTitle;
+    if (!baseTitle) {
+      return [] as Array<{ id: string; message: string }>;
+    }
+
     const normalizedTitle = baseTitle.toLowerCase();
-    const basePrompt = selectedCategory.prompt ?? `I'm exploring opportunities around ${baseTitle}. What should I consider?`;
+    const basePrompt = selectedCategory?.prompt ?? `I'm exploring opportunities around ${baseTitle}. What should I consider?`;
 
     const suggestions = [
       basePrompt,
@@ -211,12 +215,13 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
     ];
 
     const unique = Array.from(new Set(suggestions.map(entry => entry.trim()).filter(Boolean)));
+    const baseId = selectedCategory?.id ?? initialCategoryId ?? 'category';
 
     return unique.map((message, index) => ({
-      id: `${selectedCategory.id}-prompt-${index}`,
+      id: `${baseId}-prompt-${index}`,
       message,
     }));
-  }, [mode, selectedCategory]);
+  }, [mode, selectedCategory, initialCategoryTitle, initialCategoryId]);
 
   const isIntroMode = mode === 'category' && Boolean(onPromptSubmit);
 
