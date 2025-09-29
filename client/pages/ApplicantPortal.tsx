@@ -822,11 +822,29 @@ export default function ApplicantPortal() {
                   <h3 className="mt-2 text-xl font-semibold text-slate-900">{activeJourneyStage.title}</h3>
                   <p className="mt-2 text-sm text-slate-600">{activeJourneyStage.description}</p>
                 </div>
-                <span
-                  className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${activeJourneyTokens.badgeClass}`}
-                >
-                  {activeJourneyTokens.label}
-                </span>
+                <div className="flex items-center gap-3">
+                  <span
+                    className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${activeJourneyTokens.badgeClass}`}
+                  >
+                    {activeJourneyTokens.label}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleOpenJourneyView}
+                    className="flex items-center gap-2 rounded-full bg-[#0f766e] px-4 py-2 text-sm font-semibold text-white shadow-[0_12px_24px_-18px_rgba(11,64,55,0.45)] transition hover:bg-[#0c635d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      className="h-4 w-4"
+                      aria-hidden="true"
+                    >
+                      <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    Open Journey View
+                  </button>
+                </div>
               </div>
               {activeJourneyStage.statusDetail ? (
                 <p className="mt-4 text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
