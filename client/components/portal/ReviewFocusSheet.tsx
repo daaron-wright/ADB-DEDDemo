@@ -185,6 +185,34 @@ export function ReviewFocusSheet({
               </div>
             </section>
 
+            {policyAssignments?.length ? (
+              <section className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    Policy actors in this review
+                  </h3>
+                  <span className="text-xs text-slate-500">
+                    {policyAssignments.length} actor{policyAssignments.length > 1 ? "s" : ""}
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2 text-xs">
+                  {policyAssignments.map((assignment) => (
+                    <span
+                      key={assignment.policyId}
+                      className="inline-flex items-center gap-2 rounded-full border border-[#bfd6f8] bg-[#eef4ff] px-3 py-1 font-medium text-[#1d4ed8]"
+                    >
+                      <span className="font-semibold text-[#0f172a]">{assignment.agentLabel}</span>
+                      <span
+                        aria-hidden="true"
+                        className="h-1 w-1 rounded-full bg-[#1d4ed8]/40"
+                      />
+                      <span className="text-[#1e293b]">{assignment.policyLabel}</span>
+                    </span>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
             <section className="space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
