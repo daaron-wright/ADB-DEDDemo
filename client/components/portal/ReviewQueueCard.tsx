@@ -39,11 +39,32 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
 
 interface ReviewQueueCardProps {
   item: ReviewQueueItem;
+  onOpen?: (item: ReviewQueueItem) => void;
 }
 
-export function ReviewQueueCard({ item }: ReviewQueueCardProps) {
+export function ReviewQueueCard({ item, onOpen }: ReviewQueueCardProps) {
+  const handleActivate = () => {
+    onOpen?.(item);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleActivate();
+    }
+  };
+
   return (
-    <article className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_16px_36px_-30px_rgba(11,64,55,0.22)]">
+    <article
+      role={onOpen ? 'button' : undefined}
+      tabIndex={onOpen ? 0 : undefined}
+      onClick={onOpen ? handleActivate : undefined}
+      onKeyDown={onOpen ? handleKeyDown : undefined}
+      className={cn(
+        'rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_16px_36px_-30px_rgba(11,64,55,0.22)] transition hover:shadow-[0_22px_48px_-34px_rgba(11,64,55,0.30)] focus:outline-none focus:ring-2 focus:ring-[#0f766e]/40 focus:ring-offset-2',
+        onOpen ? 'cursor-pointer focus-visible:ring-[#0f766e]/40' : ''
+      )}
+    >
       <header className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between text-slate-900">
         <div className="space-y-1">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">{item.id}</p>
