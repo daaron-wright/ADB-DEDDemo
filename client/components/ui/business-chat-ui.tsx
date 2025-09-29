@@ -1870,7 +1870,7 @@ export function BusinessChatUI({
                                       event.currentTarget.click();
                                     }
                                   }}
-                                  className="w-full flex items-center justify-between p-4 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/10 hover:bg-white/25 transition-all duration-200 group outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#54ffd4] focus-visible:ring-offset-white/10"
+                                  className="w-full flex cursor-pointer items-center justify-between p-4 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/10 hover:bg-white/25 transition-all duration-200 group outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#54ffd4] focus-visible:ring-offset-white/10"
                                 >
                                   <span className="text-white font-medium text-base">
                                     Let's get you logged in with UAE Pass
