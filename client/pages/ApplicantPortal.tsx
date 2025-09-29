@@ -321,10 +321,6 @@ export default function ApplicantPortal() {
     journeyStages.find((stage) => stage.state === "current")?.id ?? journeyStages[0].id;
 
   const [activeStageId, setActiveStageId] = useState<string>(initialStageId);
-  const [journeyModalStage, setJourneyModalStage] = useState<JourneyStage | null>(
-    journeyStages.find((stage) => stage.id === initialStageId) ?? journeyStages[0],
-  );
-  const [journeyModalOpen, setJourneyModalOpen] = useState(false);
 
   const activeStage =
     journeyStages.find((stage) => stage.id === activeStageId) ?? journeyStages[0];
@@ -334,34 +330,6 @@ export default function ApplicantPortal() {
     detail: stage.highlight.detail,
     state: stage.state,
   }));
-
-  const totalJourneyTasks = journeyStages.reduce(
-    (acc, stage) => acc + stage.tasks.length,
-    0,
-  );
-  const completedJourneyTasks = journeyStages.reduce(
-    (acc, stage) =>
-      acc + stage.tasks.filter((task) => task.status === "completed").length,
-    0,
-  );
-
-  const journeyViewSections = journeyStages.map((stage) => ({
-    id: stage.id,
-    title: stage.title,
-    items: stage.tasks.map((task) => ({
-      id: task.id,
-      text: task.label,
-      status: task.status,
-      type: "checkbox" as const,
-    })),
-    isCollapsed: stage.id !== (journeyModalStage?.id ?? activeStage.id),
-  }));
-
-  const handleStageSelect = (stage: JourneyStage) => {
-    setActiveStageId(stage.id);
-    setJourneyModalStage(stage);
-    setJourneyModalOpen(true);
-  };
 
   const headerActions = (
     <PortalProfileMenu
