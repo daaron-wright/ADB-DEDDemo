@@ -206,6 +206,11 @@ const MessageBubble = ({
           <div className="text-white">{message.content}</div>
         </div>
 
+        {/* Heat map visualization for location-related AI messages */}
+        {message.isAI && message.type === 'heat-map' && (
+          <AccessibleHeatMap />
+        )}
+
         {/* Budget ranges button */}
         {shouldShowBudgetButton && onActionClick && (
           <button
