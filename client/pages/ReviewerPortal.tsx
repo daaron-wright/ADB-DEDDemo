@@ -192,6 +192,15 @@ const priorityWeight: Record<ReviewQueueItem['priority'], number> = {
 
 const defaultDirectorates = directorateOptions.map((value) => value);
 
+type PolicyAgentId = (typeof policyAgentOptions)[number]['id'];
+type PolicyId = (typeof policyGlossary)[number]['id'];
+
+const buildDefaultPolicyAssignments = (): Record<PolicyId, PolicyAgentId> =>
+  policyGlossary.reduce((acc, item) => {
+    acc[item.id] = item.defaultAgent;
+    return acc;
+  }, {} as Record<PolicyId, PolicyAgentId>);
+
 export default function ReviewerPortal() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDirectorates, setSelectedDirectorates] = useState<string[]>(defaultDirectorates);
