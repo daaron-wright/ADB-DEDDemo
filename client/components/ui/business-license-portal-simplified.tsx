@@ -46,6 +46,11 @@ const BusinessLicensePortalSimplified: React.FC<BusinessLicensePortalProps> = ({
     }, 4000);
   };
 
+  const handleTimelineClick = (itemId: string) => {
+    questionnaireRef.current?.scrollToItem(itemId);
+    setLastActivity(Date.now());
+  };
+
   if (!isOpen) return null;
 
   return (
