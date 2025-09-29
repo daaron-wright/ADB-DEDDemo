@@ -404,9 +404,9 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                 className="w-full max-w-md h-[500px]"
               >
                 {/* Chat Container */}
-                <div className="flex flex-col h-full overflow-hidden rounded-3xl border border-white/60 bg-white/40 text-slate-900 backdrop-blur-xl shadow-[0_28px_60px_-28px_rgba(15,15,45,0.35)]">
+                <div className="flex flex-col h-full overflow-hidden rounded-3xl border border-white/70 bg-white/80 text-slate-900 backdrop-blur-2xl shadow-[0_28px_70px_-34px_rgba(15,23,42,0.45)]">
                   {/* Header */}
-                  <div className="drag-handle flex items-center justify-between p-4 border-b border-white/60 bg-white/60 cursor-move">
+                  <div className="drag-handle flex items-center justify-between p-4 border-b border-white/70 bg-white/85 backdrop-blur-sm cursor-move">
                     <div className="flex items-center gap-3">
                       <img
                         src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
@@ -424,7 +424,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                       <SoundVisualization isActive={isListening || chatState === 'responding'} />
                       <button
                         onClick={onClose}
-                        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/70 bg-white/80 text-slate-900 transition-colors hover:bg-white"
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/70 bg-white/90 text-slate-900 transition-colors hover:bg-white"
                       >
                         <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -476,7 +476,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                   </div>
 
                   {/* Input Footer */}
-                  <div className="border-t border-white/60 bg-white/60 p-4">
+                  <div className="border-t border-white/70 bg-white/85 p-4">
                     <div className="flex items-center gap-2">
                       <input
                         type="text"
