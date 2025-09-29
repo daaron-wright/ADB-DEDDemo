@@ -15,6 +15,7 @@ import { FilterSection } from '@/components/portal/FilterSection';
 import { SummaryMetric } from '@/components/portal/SummaryMetric';
 import { ReviewQueueCard, type ReviewQueueItem } from '@/components/portal/ReviewQueueCard';
 import { PortalProfileMenu } from '@/components/portal/PortalProfileMenu';
+import { ReviewFocusSheet } from '@/components/portal/ReviewFocusSheet';
 
 const stageOptions = [
   { label: 'All stages', value: 'all' },
