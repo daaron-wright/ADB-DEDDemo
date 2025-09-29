@@ -909,7 +909,7 @@ const DiscoverExperienceView = ({
               <div className="px-6 py-6 lg:px-8 lg:py-7">
                 {mapViewMode === "heatmap" ? (
                   <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
-                <div className="relative flex h-full flex-col gap-4 rounded-2xl border border-white/12 bg-slate-900/40 p-4 shadow-[0_22px_50px_-34px_rgba(7,27,23,0.6)]">
+                <div className="relative flex h-full flex-col gap-5 rounded-[28px] border border-[#dbe9e3] bg-[#f6faf8] p-6 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]">
                   <div className="relative flex-1 overflow-hidden rounded-2xl border border-white/10">
                     <img
                       src="https://api.builder.io/api/v1/image/assets/TEMP/df351a3a49f1c6b9b74765965e6ddb3ecf6799d7?width=1600"
