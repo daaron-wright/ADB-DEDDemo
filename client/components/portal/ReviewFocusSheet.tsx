@@ -206,7 +206,7 @@ export function ReviewFocusSheet({
                     variant="outline"
                     size="sm"
                     onClick={() => setShowAllDocuments(!showAllDocuments)}
-                    className="text-xs border-[#d8e4df] text-slate-600 hover:text-[#0f766e] hover:border-[#0f766e]"
+                    className="text-xs border-[#d8e4df] text-slate-600"
                   >
                     {showAllDocuments ? (
                       <>
@@ -239,7 +239,7 @@ export function ReviewFocusSheet({
                         key={document.id}
                         onClick={() => handleDocumentClick(document)}
                         className={cn(
-                          "group cursor-pointer rounded-2xl border bg-white p-4 transition-all hover:border-[#0f766e] hover:shadow-[0_8px_24px_-12px_rgba(11,64,55,0.25)]",
+                          "cursor-pointer rounded-2xl border bg-white p-4",
                           isKeyDocument ? "border-[#0f766e] bg-[#f9fbfa]" : "border-[#d8e4df]"
                         )}
                       >
@@ -283,7 +283,7 @@ export function ReviewFocusSheet({
                             >
                               {document.status.replace('_', ' ')}
                             </Badge>
-                            <svg className="w-4 h-4 text-slate-400 group-hover:text-[#0f766e] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                             </svg>
                           </div>
