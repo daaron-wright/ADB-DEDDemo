@@ -24,6 +24,7 @@ interface BusinessChatUIProps {
   onClose: () => void;
   category: string;
   title?: string;
+  initialMessage?: string;
 }
 
 type ChatView = 'journey' | 'discover-experience';
