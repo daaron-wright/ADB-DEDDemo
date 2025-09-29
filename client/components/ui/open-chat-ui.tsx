@@ -458,7 +458,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                     )}
                     {mode === 'general' && messages.length === 1 && messages[0].isAI && businessCategories && onCategoryClick && (
                       <div className="pt-2">
-                        <div className="mb-3 px-2 text-xs text-slate-600">Or select a category to get started:</div>
+                        <div className="mb-3 px-2 text-xs text-slate-200/80">Or select a category to get started:</div>
                         <div className="flex flex-wrap gap-2">
                           {businessCategories.map(category => (
                             <button
