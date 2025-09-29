@@ -799,7 +799,7 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
             className="group relative flex-1 cursor-pointer px-5 py-2 opacity-50 transition duration-200 hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
           >
             <span className="absolute top-2 right-3 rounded-full bg-[#54FFD4] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-900">
-              Pre-op inspection
+              Pre op inspection
             </span>
             <div className="flex flex-col items-center gap-1">
               <div className="text-white text-center font-['Manrope'] text-sm font-bold leading-[133%]">
