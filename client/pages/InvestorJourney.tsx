@@ -208,7 +208,7 @@ export default function InvestorJourney() {
       onStepChange={handleStepChange}
       onActivityToggle={handleActivityToggle}
       onAddActivity={handleAddActivity}
-      onClose={() => navigate("/portal/applicant")}
+      onClose={() => navigate("/portal/applicant", { replace: true })}
     />
   );
 }
