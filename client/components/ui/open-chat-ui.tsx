@@ -448,7 +448,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                             <button
                               key={prompt.id}
                               onClick={() => handlePromptSelection(prompt.message)}
-                              className="rounded-lg border border-white/70 bg-white/90 px-3 py-2 text-sm font-medium text-slate-900 backdrop-blur-sm transition-colors hover:bg-white"
+                              className="rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm font-medium text-white backdrop-blur-xl transition-colors hover:bg-white/20"
                             >
                               {prompt.message}
                             </button>
