@@ -228,65 +228,71 @@ export function ReviewFocusSheet({
                 )}
               </div>
               <div className="space-y-3">
-                {documentsToShow.map((document, index) => {
-                  const isKeyDocument = index < 3;
-                  return (
-                    <div
-                      key={document.id}
-                      onClick={() => handleDocumentClick(document)}
-                      className={cn(
-                        "group cursor-pointer rounded-2xl border bg-white p-4 transition-all hover:border-[#0f766e] hover:shadow-[0_8px_24px_-12px_rgba(11,64,55,0.25)]",
-                        isKeyDocument ? "border-[#0f766e] bg-[#f9fbfa]" : "border-[#d8e4df]"
-                      )}
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="text-lg">{documentTypeIcons[document.type]}</span>
-                            <h4 className="font-medium text-slate-900 text-sm leading-tight">
-                              {document.name}
-                            </h4>
-                            {isKeyDocument && (
-                              <Badge className="text-xs px-2 py-1 border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]">
-                                Key
-                              </Badge>
-                            )}
-                          </div>
-                          <div className="grid grid-cols-2 gap-2 text-xs text-slate-600">
-                            {document.issuer && (
+                {documentsToShow.length === 0 ? (
+                  <div className="rounded-2xl border border-dashed border-[#d8e4df] bg-white p-6 text-sm text-slate-600">
+                    No documents have been attached to this review yet.
+                  </div>
+                ) : (
+                  documentsToShow.map((document, index) => {
+                    const isKeyDocument = index < 3;
+                    return (
+                      <div
+                        key={document.id}
+                        onClick={() => handleDocumentClick(document)}
+                        className={cn(
+                          "group cursor-pointer rounded-2xl border bg-white p-4 transition-all hover:border-[#0f766e] hover:shadow-[0_8px_24px_-12px_rgba(11,64,55,0.25)]",
+                          isKeyDocument ? "border-[#0f766e] bg-[#f9fbfa]" : "border-[#d8e4df]"
+                        )}
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="text-lg">{documentTypeIcons[document.type]}</span>
+                              <h4 className="font-medium text-slate-900 text-sm leading-tight">
+                                {document.name}
+                              </h4>
+                              {isKeyDocument && (
+                                <Badge className="text-xs px-2 py-1 border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]">
+                                  Key
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="grid grid-cols-2 gap-2 text-xs text-slate-600">
+                              {document.issuer && (
+                                <div>
+                                  <span className="font-medium">Issuer:</span> {document.issuer}
+                                </div>
+                              )}
+                              {document.uploadedAt && (
+                                <div>
+                                  <span className="font-medium">Uploaded:</span> {dateFormatter.format(new Date(document.uploadedAt))}
+                                </div>
+                              )}
+                              {document.validUntil && (
+                                <div>
+                                  <span className="font-medium">Valid until:</span> {dateFormatter.format(new Date(document.validUntil))}
+                                </div>
+                              )}
                               <div>
-                                <span className="font-medium">Issuer:</span> {document.issuer}
+                                <span className="font-medium">Size:</span> {document.size}
                               </div>
-                            )}
-                            {document.uploadedAt && (
-                              <div>
-                                <span className="font-medium">Uploaded:</span> {dateFormatter.format(new Date(document.uploadedAt))}
-                              </div>
-                            )}
-                            {document.validUntil && (
-                              <div>
-                                <span className="font-medium">Valid until:</span> {dateFormatter.format(new Date(document.validUntil))}
-                              </div>
-                            )}
-                            <div>
-                              <span className="font-medium">Size:</span> {document.size}
                             </div>
                           </div>
-                        </div>
-                        <div className="flex flex-col items-end gap-2">
-                          <Badge
-                            className={`text-xs px-2 py-1 ${documentStatusStyles[document.status]}`}
-                          >
-                            {document.status.replace('_', ' ')}
-                          </Badge>
-                          <svg className="w-4 h-4 text-slate-400 group-hover:text-[#0f766e] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                          </svg>
+                          <div className="flex flex-col items-end gap-2">
+                            <Badge
+                              className={`text-xs px-2 py-1 ${documentStatusStyles[document.status]}`}
+                            >
+                              {document.status.replace('_', ' ')}
+                            </Badge>
+                            <svg className="w-4 h-4 text-slate-400 group-hover:text-[#0f766e] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })
+                )}
               </div>
             </section>
 
