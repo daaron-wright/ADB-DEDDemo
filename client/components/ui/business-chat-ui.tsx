@@ -145,20 +145,20 @@ const AccessibleHeatMap = () => {
       </div>
 
       {/* Accessible legend */}
-      <div className="mt-3 p-3 bg-white/80 rounded-xl border border-white/20 backdrop-blur-sm">
-        <h4 className="text-sm font-semibold text-white mb-2">Restaurant Density Legend</h4>
-        <div className="space-y-1 text-xs">
+      <div className="mt-3 p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+        <h4 className="text-sm font-semibold text-slate-900 mb-2">Restaurant Density Legend</h4>
+        <div className="space-y-1 text-xs text-slate-700">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-red-500/60"></div>
-            <span className="text-white/90">High (15+ restaurants)</span>
+            <span>High (15+ restaurants)</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-orange-500/60"></div>
-            <span className="text-white/90">Medium (8-14 restaurants)</span>
+            <span>Medium (8-14 restaurants)</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-yellow-400/60"></div>
-            <span className="text-white/90">Low (1-7 restaurants)</span>
+            <span>Low (1-7 restaurants)</span>
           </div>
         </div>
       </div>
@@ -198,12 +198,14 @@ const MessageBubble = ({
       >
         <div
           className={cn(
-            "px-4 py-4 rounded-2xl text-base leading-relaxed bg-white/20 backdrop-blur-sm border border-white/10",
-            message.isAI ? "rounded-bl-sm" : "rounded-br-sm",
+            "px-4 py-4 rounded-2xl text-base leading-relaxed shadow-sm border text-slate-900",
+            message.isAI
+              ? "bg-white border-slate-200 rounded-bl-sm"
+              : "bg-[#E6F7F3] border-[#54FFD4]/60 rounded-br-sm",
           )}
         >
           {message.rating && <StarRating rating={message.rating} />}
-          <div className="text-white">{message.content}</div>
+          <div className="text-inherit whitespace-pre-wrap">{message.content}</div>
         </div>
 
         {/* Heat map visualization for location-related AI messages */}
