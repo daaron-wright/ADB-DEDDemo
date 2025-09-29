@@ -1147,50 +1147,53 @@ const DiscoverExperienceView = ({
                 </div>
 
                 <div className="flex h-full flex-col gap-4 rounded-[26px] border border-[#dbe9e3] bg-white/85 p-5 text-slate-900 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]">
-                  <div className="rounded-2xl border border-white/15 bg-black/25 p-5 shadow-[0_18px_44px_-26px_rgba(12,46,39,0.55)]">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/60">
-                      Focused district
-                    </p>
-                    <h4 className="mt-2 text-lg font-semibold text-white">
-                      {activeInsight.name}
-                    </h4>
-                    <p className="mt-2 text-sm text-white/70">
-                      {activeInsight.summary}
-                    </p>
-                    <dl className="mt-4 grid grid-cols-2 gap-4 text-xs text-white/70">
-                      <div>
-                        <dt className="text-white/50 uppercase tracking-[0.2em]">
-                          Footfall
-                        </dt>
-                        <dd className="mt-1 text-sm font-semibold text-white">
-                          {activeInsight.footfall}
-                        </dd>
-                      </div>
-                      <div>
-                        <dt className="text-white/50 uppercase tracking-[0.2em]">
-                          Density
-                        </dt>
-                        <dd className="mt-1 text-sm font-semibold text-white">
-                          {activeInsight.density}
-                        </dd>
-                      </div>
-                      <div>
-                        <dt className="text-white/50 uppercase tracking-[0.2em]">
-                          Trend
-                        </dt>
-                        <dd className="mt-1 text-sm font-semibold text-white">
-                          {activeInsight.trend}
-                        </dd>
-                      </div>
-                      <div>
-                        <dt className="text-white/50 uppercase tracking-[0.2em]">
-                          Cuisine focus
-                        </dt>
-                        <dd className="mt-1 text-sm font-semibold text-white">
-                          {activeInsight.focus}
-                        </dd>
-                      </div>
-                    </dl>
+                  <div className="relative overflow-hidden rounded-[26px] border border-[#dbe9e3] bg-white p-5 shadow-[0_18px_36px_-28px_rgba(15,118,110,0.25)]">
+                    <span className="absolute left-0 top-5 bottom-5 w-1.5 rounded-full bg-gradient-to-b from-[#0f766e] via-[#34d399] to-transparent" />
+                    <div className="pl-4">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e]">
+                        Focused district
+                      </p>
+                      <h4 className="mt-2 text-xl font-semibold text-slate-900">
+                        {activeInsight.name}
+                      </h4>
+                      <p className="mt-3 text-sm text-slate-600">
+                        {activeInsight.summary}
+                      </p>
+                      <dl className="mt-4 grid grid-cols-2 gap-4 text-xs text-slate-600">
+                        <div>
+                          <dt className="uppercase tracking-[0.2em] text-slate-400">
+                            Footfall
+                          </dt>
+                          <dd className="mt-1 text-sm font-semibold text-slate-900">
+                            {activeInsight.footfall}
+                          </dd>
+                        </div>
+                        <div>
+                          <dt className="uppercase tracking-[0.2em] text-slate-400">
+                            Density
+                          </dt>
+                          <dd className="mt-1 text-sm font-semibold text-slate-900">
+                            {activeInsight.density}
+                          </dd>
+                        </div>
+                        <div>
+                          <dt className="uppercase tracking-[0.2em] text-slate-400">
+                            Trend
+                          </dt>
+                          <dd className="mt-1 text-sm font-semibold text-slate-900">
+                            {activeInsight.trend}
+                          </dd>
+                        </div>
+                        <div>
+                          <dt className="uppercase tracking-[0.2em] text-slate-400">
+                            Cuisine focus
+                          </dt>
+                          <dd className="mt-1 text-sm font-semibold text-slate-900">
+                            {activeInsight.focus}
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
                   </div>
 
                   <div className="flex-1 overflow-y-auto rounded-2xl border border-white/12 bg-white/12 p-4">
