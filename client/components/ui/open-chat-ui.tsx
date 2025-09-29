@@ -493,12 +493,12 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                         onClick={isListening ? stopListening : startListening}
                         disabled={chatState === 'thinking' || chatState === 'responding'}
                         className={cn(
-                          "flex h-10 w-10 items-center justify-center rounded-xl border border-transparent transition-all duration-200",
+                          "flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-200",
                           isListening
-                            ? "bg-red-500 hover:bg-red-600 text-white"
+                            ? "border-red-500/40 bg-red-500/80 hover:bg-red-500 text-white"
                             : chatState === 'idle'
-                            ? "bg-[#54FFD4] hover:bg-[#54FFD4]/80 text-black"
-                            : "border-white/70 bg-white/70 text-slate-400 cursor-not-allowed"
+                            ? "border-[#54FFD4]/40 bg-[#54FFD4]/25 text-[#0A1F1B] hover:bg-[#54FFD4]/35"
+                            : "border-white/15 bg-white/8 text-white/40 cursor-not-allowed"
                         )}
                       >
                         {isListening ? (
@@ -518,10 +518,10 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                         onClick={handleSendMessage}
                         disabled={!inputValue.trim() || chatState !== 'idle'}
                         className={cn(
-                          "flex h-10 w-10 items-center justify-center rounded-xl border border-transparent transition-all duration-200",
+                          "flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-200",
                           inputValue.trim() && chatState === 'idle'
-                            ? "bg-[#54FFD4] hover:bg-[#54FFD4]/80 text-black hover:scale-105"
-                            : "border-white/70 bg-white/70 text-slate-400 cursor-not-allowed"
+                            ? "border-[#54FFD4]/40 bg-[#54FFD4]/25 text-[#0A1F1B] hover:bg-[#54FFD4]/35 hover:scale-105"
+                            : "border-white/15 bg-white/8 text-white/40 cursor-not-allowed"
                         )}
                       >
                         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
