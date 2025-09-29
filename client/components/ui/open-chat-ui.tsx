@@ -312,30 +312,30 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                 className="w-full max-w-md h-[500px]"
               >
                 {/* Chat Container */}
-                <div className="flex flex-col h-full bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-xl overflow-hidden">
+                <div className="flex flex-col h-full overflow-hidden rounded-3xl border border-white/60 bg-white/40 text-slate-900 backdrop-blur-xl shadow-[0_28px_60px_-28px_rgba(15,15,45,0.35)]">
                   {/* Header */}
-                  <div className="drag-handle flex items-center justify-between p-4 border-b border-white/10 cursor-move">
+                  <div className="drag-handle flex items-center justify-between p-4 border-b border-white/60 bg-white/60 cursor-move">
                     <div className="flex items-center gap-3">
                       <img
                         src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
                         alt="AI Assistant"
-                        className="w-12 h-12 rounded-full border border-[#54FFD4] object-cover"
+                        className="h-12 w-12 rounded-full border border-[#54FFD4] object-cover"
                       />
                       <div>
-                        <h2 className="text-white text-lg font-semibold">
+                        <h2 className="text-lg font-semibold text-slate-900">
                           {title}
                         </h2>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-center gap-3">
                       <SoundVisualization isActive={isListening || chatState === 'responding'} />
                       <button
                         onClick={onClose}
-                        className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-white/70 bg-white/80 text-slate-900 transition-colors hover:bg-white"
                       >
                         <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 4L4 12M4 4L12 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                       </button>
                     </div>
