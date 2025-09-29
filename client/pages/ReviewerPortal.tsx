@@ -499,11 +499,13 @@ export default function ReviewerPortal() {
         ) : (
           <div className="space-y-6">
             {filteredQueue.map((item) => (
-            <ReviewQueueCard key={item.id} item={item} onOpen={handleFocusOpen} />
-          ))}
+              <ReviewQueueCard key={item.id} item={item} onOpen={handleFocusOpen} />
+            ))}
           </div>
         )}
       </section>
+
+      <ReviewFocusSheet open={Boolean(focusedReview)} review={focusedReview} onClose={handleFocusClose} />
     </PortalPageLayout>
   );
 }
