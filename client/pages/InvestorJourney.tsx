@@ -18,7 +18,11 @@ const ACTOR_OPTIONS: ActorOption[] = [
 
 const INITIAL_STEPS: JourneyStep[] = [
   { id: "questionnaire", label: "Questionnaire", state: "completed" },
-  { id: "business-registration", label: "Business Registration", state: "completed" },
+  {
+    id: "business-registration",
+    label: "Business Registration",
+    state: "completed",
+  },
   { id: "submit-documents", label: "Submit Documents", state: "completed" },
   { id: "business-licensing", label: "Business Licensing", state: "current" },
   {
@@ -78,7 +82,9 @@ const INITIAL_SELECTED_ACTIVITY_IDS = [
 ];
 
 const computeSteps = (activeStepId: string): JourneyStep[] => {
-  const targetIndex = INITIAL_STEPS.findIndex((step) => step.id === activeStepId);
+  const targetIndex = INITIAL_STEPS.findIndex(
+    (step) => step.id === activeStepId,
+  );
 
   return INITIAL_STEPS.map((step, index) => {
     if (targetIndex === -1) {
@@ -101,19 +107,25 @@ export default function InvestorJourney() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const stageParam = searchParams.get("stage");
-  const defaultStepId = stageParam && INITIAL_STEPS.some((step) => step.id === stageParam)
-    ? stageParam
-    : INITIAL_STEPS.find((step) => step.state === "current")?.id ?? INITIAL_STEPS[0].id;
+  const defaultStepId =
+    stageParam && INITIAL_STEPS.some((step) => step.id === stageParam)
+      ? stageParam
+      : (INITIAL_STEPS.find((step) => step.state === "current")?.id ??
+        INITIAL_STEPS[0].id);
 
-  const [steps, setSteps] = useState<JourneyStep[]>(() => computeSteps(defaultStepId));
+  const [steps, setSteps] = useState<JourneyStep[]>(() =>
+    computeSteps(defaultStepId),
+  );
   const [currentStepId, setCurrentStepId] = useState<string>(defaultStepId);
-  const [activities, setActivities] = useState<BusinessActivity[]>(RECOMMENDED_ACTIVITIES);
+  const [activities, setActivities] = useState<BusinessActivity[]>(
+    RECOMMENDED_ACTIVITIES,
+  );
   const [selectedActivityIds, setSelectedActivityIds] = useState<string[]>(
     INITIAL_SELECTED_ACTIVITY_IDS,
   );
-  const [availableActivities, setAvailableActivities] = useState<BusinessActivity[]>(
-    ADDITIONAL_ACTIVITIES,
-  );
+  const [availableActivities, setAvailableActivities] = useState<
+    BusinessActivity[]
+  >(ADDITIONAL_ACTIVITIES);
 
   const updateCurrentStep = useCallback(
     (stepId: string, syncQuery = true) => {
@@ -133,7 +145,11 @@ export default function InvestorJourney() {
 
   useEffect(() => {
     const stage = searchParams.get("stage");
-    if (stage && stage !== currentStepId && INITIAL_STEPS.some((step) => step.id === stage)) {
+    if (
+      stage &&
+      stage !== currentStepId &&
+      INITIAL_STEPS.some((step) => step.id === stage)
+    ) {
       updateCurrentStep(stage, false);
     }
   }, [searchParams, currentStepId, updateCurrentStep]);

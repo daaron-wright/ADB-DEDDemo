@@ -237,7 +237,12 @@ const journeyStages: JourneyStage[] = [
 
 const journeyHighlightTokens: Record<
   JourneyHighlightState,
-  { badgeClass: string; detailClass: string; dotClass: string; stateLabel: string }
+  {
+    badgeClass: string;
+    detailClass: string;
+    dotClass: string;
+    stateLabel: string;
+  }
 > = {
   done: {
     badgeClass: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
@@ -317,12 +322,14 @@ export default function ApplicantPortal() {
 
   const primaryApplication = applications[0];
   const initialStageId =
-    journeyStages.find((stage) => stage.state === "current")?.id ?? journeyStages[0].id;
+    journeyStages.find((stage) => stage.state === "current")?.id ??
+    journeyStages[0].id;
 
   const [activeStageId, setActiveStageId] = useState<string>(initialStageId);
 
   const activeStage =
-    journeyStages.find((stage) => stage.id === activeStageId) ?? journeyStages[0];
+    journeyStages.find((stage) => stage.id === activeStageId) ??
+    journeyStages[0];
   const journeyHighlights = journeyStages.map((stage) => ({
     id: stage.id,
     label: stage.highlight.label,
@@ -357,15 +364,20 @@ export default function ApplicantPortal() {
         <h3 className="text-sm font-semibold text-slate-900">Need support?</h3>
         <p className="mt-2 leading-relaxed">
           Our licensing team is available Sunday to Thursday, 8:00–18:00 GST.
-          Reach out at <span className="font-medium text-[#0f766e]">licensing@adm.ae</span>
-          or call <span className="font-medium text-[#0f766e]">800-555-0134</span>.
+          Reach out at{" "}
+          <span className="font-medium text-[#0f766e]">licensing@adm.ae</span>
+          or call{" "}
+          <span className="font-medium text-[#0f766e]">800-555-0134</span>.
         </p>
       </div>
       <div>
         <h3 className="text-sm font-semibold text-slate-900">Key dates</h3>
         <dl className="mt-3 space-y-2">
           {keyDates.map((item) => (
-            <div key={item.label} className="flex items-center justify-between text-slate-600">
+            <div
+              key={item.label}
+              className="flex items-center justify-between text-slate-600"
+            >
               <dt>{item.label}</dt>
               <dd className="font-medium text-slate-900">{item.value}</dd>
             </div>
@@ -374,9 +386,7 @@ export default function ApplicantPortal() {
       </div>
       <div>
         <h3 className="text-sm font-semibold text-slate-900">Next action</h3>
-        <p className="mt-2 leading-relaxed">
-          {primaryApplication.nextAction}
-        </p>
+        <p className="mt-2 leading-relaxed">{primaryApplication.nextAction}</p>
       </div>
     </div>
   );
@@ -415,9 +425,14 @@ export default function ApplicantPortal() {
           <div className="w-full max-w-xs rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] p-4">
             <div className="flex items-center justify-between text-sm font-medium text-slate-700">
               <span>Overall progress</span>
-              <span className="text-slate-900">{primaryApplication.progress}%</span>
+              <span className="text-slate-900">
+                {primaryApplication.progress}%
+              </span>
             </div>
-            <Progress value={primaryApplication.progress} className="mt-3 h-2" />
+            <Progress
+              value={primaryApplication.progress}
+              className="mt-3 h-2"
+            />
             <p className="mt-3 text-xs text-slate-500">
               Stay on track by completing outstanding tasks before the SLA
               threshold.
@@ -525,7 +540,10 @@ export default function ApplicantPortal() {
                           <div className="flex items-start justify-between gap-3">
                             <div className="flex items-start gap-3">
                               <span
-                                className={cn("mt-1 h-2.5 w-2.5 rounded-full", tokens.dotClass)}
+                                className={cn(
+                                  "mt-1 h-2.5 w-2.5 rounded-full",
+                                  tokens.dotClass,
+                                )}
                                 aria-hidden="true"
                               />
                               <div>
@@ -627,7 +645,10 @@ export default function ApplicantPortal() {
                         </Badge>
                       </div>
                       <p className={cn("mt-2 text-xs", tokens.helperClass)}>
-                        Owner: <span className="font-semibold text-slate-900">{task.owner}</span>
+                        Owner:{" "}
+                        <span className="font-semibold text-slate-900">
+                          {task.owner}
+                        </span>
                         {meta ? ` • ${meta}` : null}
                       </p>
                     </div>
@@ -642,12 +663,9 @@ export default function ApplicantPortal() {
           <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
             Application summary
           </h3>
-          <p className="mt-3">
-            {primaryApplication.summary}
-          </p>
+          <p className="mt-3">{primaryApplication.summary}</p>
         </div>
       </section>
-
     </PortalPageLayout>
   );
 }
