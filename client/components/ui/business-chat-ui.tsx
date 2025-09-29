@@ -1196,11 +1196,11 @@ const DiscoverExperienceView = ({
                     </div>
                   </div>
 
-                  <div className="flex-1 overflow-y-auto rounded-2xl border border-white/12 bg-white/12 p-4">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/60">
+                  <div className="flex-1 overflow-y-auto rounded-[26px] border border-[#dbe9e3] bg-white/70 p-4">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e]">
                       Other hotspots
                     </p>
-                    <ul className="mt-3 space-y-3 text-sm">
+                    <ul className="mt-4 space-y-3 text-sm">
                       {secondaryInsights.map((spot) => {
                         const isHighlighted = hoveredLocation === spot.id;
                         const width = `${Math.min(spot.intensity, 100)}%`;
@@ -1208,29 +1208,30 @@ const DiscoverExperienceView = ({
                           <li
                             key={spot.id}
                             className={cn(
-                              "cursor-pointer rounded-2xl border border-white/10 bg-white/10 p-3 transition",
-                              isHighlighted
-                                ? "border-[#54ffd4]/60 bg-[#54ffd4]/15 shadow-[0_18px_40px_-26px_rgba(84,255,212,0.45)]"
-                                : "hover:border-white/20 hover:bg-white/16",
+                              "relative overflow-hidden rounded-[24px] border border-[#dbe9e3] bg-white px-4 py-3 transition hover:border-[#0f766e]/50 hover:shadow-[0_16px_30px_-24px_rgba(15,118,110,0.3)]",
+                              isHighlighted && "border-[#0f766e] shadow-[0_22px_48px_-26px_rgba(15,118,110,0.32)]",
                             )}
                             onMouseEnter={() => setHoveredLocation(spot.id)}
                             onMouseLeave={() => setHoveredLocation(null)}
                           >
-                            <div className="flex items-center justify-between text-sm font-semibold">
-                              <span>{spot.name}</span>
-                              <span className="text-white/70">{spot.footfall}</span>
-                            </div>
-                            <div className="mt-1 flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-white/60">
-                              <span>{spot.density}</span>
-                              <span className="rounded-full bg-white/15 px-2 py-0.5 text-[10px] text-white/70">
-                                {spot.trend}
-                              </span>
-                            </div>
-                            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
-                              <div
-                                className="h-full rounded-full bg-gradient-to-r from-[#9df6d3] via-[#54ffd4] to-[#0f766e]"
-                                style={{ width }}
-                              />
+                            <span className="absolute left-0 top-2 bottom-2 w-1 rounded-full bg-gradient-to-b from-[#0f766e] via-[#34d399] to-transparent" />
+                            <div className="pl-3">
+                              <div className="flex items-center justify-between text-sm font-semibold text-slate-900">
+                                <span>{spot.name}</span>
+                                <span className="text-slate-500">{spot.footfall}</span>
+                              </div>
+                              <div className="mt-1 flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-slate-500">
+                                <span>{spot.density}</span>
+                                <span className="rounded-full bg-[#f6faf8] px-2 py-0.5 text-[10px] text-[#0f766e]">
+                                  {spot.trend}
+                                </span>
+                              </div>
+                              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-[#e2ede8]">
+                                <div
+                                  className="h-full rounded-full bg-gradient-to-r from-[#0f766e] via-[#23b893] to-[#54ffd4]"
+                                  style={{ width }}
+                                />
+                              </div>
                             </div>
                           </li>
                         );
