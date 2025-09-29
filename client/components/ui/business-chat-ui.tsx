@@ -17,6 +17,7 @@ interface BusinessMessage {
   timestamp: Date;
   rating?: number;
   hasActions?: boolean;
+  type?: 'text' | 'heat-map';
 }
 
 interface BusinessChatUIProps {
