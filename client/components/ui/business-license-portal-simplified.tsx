@@ -257,18 +257,25 @@ const BusinessLicensePortalSimplified: React.FC<BusinessLicensePortalProps> = ({
           </div>
 
           {/* Step 5: Pre-Operational Inspection - Inactive */}
-          <div className="flex-1 flex flex-col items-center justify-center gap-2.5 px-5 py-2 opacity-50 relative">
+          <button
+            type="button"
+            onClick={() => handleTimelineClick('inspection')}
+            className="group relative flex-1 cursor-pointer px-5 py-2 opacity-50 transition duration-200 hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+          >
+            <span className="absolute top-2 right-3 rounded-full bg-[#54FFD4] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-900">
+              Pre-op inspection
+            </span>
             <div className="flex flex-col items-center gap-1">
               <div className="text-white text-center font-['Manrope'] text-sm font-bold leading-[133%]">
                 Pre-Operational Inspection
               </div>
-              <div className="w-6 h-6 flex items-center justify-center">
+              <div className="flex h-6 w-6 items-center justify-center transition-transform duration-200 group-hover:scale-110">
                 <svg width="24" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.6001 1.50024C10.5234 1.50024 8.49333 2.11606 6.76661 3.26981C5.0399 4.42357 3.69409 6.06344 2.89937 7.98207C2.10465 9.90069 1.89671 12.0119 2.30186 14.0487C2.707 16.0855 3.70703 17.9564 5.17548 19.4249C6.64393 20.8933 8.51485 21.8933 10.5517 22.2985C12.5885 22.7036 14.6997 22.4957 16.6183 21.701C18.5369 20.9063 20.1768 19.5604 21.3305 17.8337C22.4843 16.107 23.1001 14.0769 23.1001 12.0002C23.1001 9.21547 21.9939 6.54475 20.0247 4.57562C18.0556 2.60649 15.3849 1.50024 12.6001 1.50024ZM12.6001 21.0002C10.8201 21.0002 9.08001 20.4724 7.59997 19.4835C6.11993 18.4945 4.96638 17.0889 4.28519 15.4444C3.604 13.7999 3.42577 11.9903 3.77303 10.2444C4.1203 8.4986 4.97747 6.89496 6.23614 5.63628C7.49481 4.37761 9.09846 3.52044 10.8443 3.17318C12.5901 2.82591 14.3997 3.00414 16.0443 3.68533C17.6888 4.36652 19.0944 5.52007 20.0833 7.00011C21.0723 8.48015 21.6001 10.2202 21.6001 12.0002C21.6001 14.3872 20.6519 16.6764 18.9641 18.3642C17.2762 20.052 14.9871 21.0002 12.6001 21.0002Z" fill="white"/>
                 </svg>
               </div>
             </div>
-          </div>
+          </button>
         </div>
       </div>
 
