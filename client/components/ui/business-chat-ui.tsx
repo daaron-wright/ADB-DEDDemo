@@ -906,7 +906,9 @@ const DiscoverExperienceView = ({
                 </div>
               </div>
 
-              <div className="grid flex-1 gap-6 overflow-hidden px-6 py-6 lg:grid-cols-[1.4fr_1fr]">
+              <div className="px-6 py-6 lg:px-8 lg:py-7">
+                {mapViewMode === "heatmap" ? (
+                  <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
                 <div className="relative flex h-full flex-col gap-4 rounded-2xl border border-white/12 bg-slate-900/40 p-4 shadow-[0_22px_50px_-34px_rgba(7,27,23,0.6)]">
                   <div className="relative flex-1 overflow-hidden rounded-2xl border border-white/10">
                     <img
@@ -1237,6 +1239,113 @@ const DiscoverExperienceView = ({
                     Powered by aggregated licensing &amp; mobility data (updated weekly)
                   </div>
                 </div>
+                  </div>
+                ) : (
+                  <div className="space-y-6 rounded-[28px] border border-[#dbe9e3] bg-[#f6faf8] p-6">
+                    <div className="flex flex-col gap-2">
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e]">
+                        Hotspot rollout timeline
+                      </span>
+                      <h4 className="text-2xl font-semibold leading-tight text-slate-900">
+                        Priority sequence for restaurant expansion
+                      </h4>
+                      <p className="text-base text-slate-600">
+                        Track each district&apos;s readiness, intensity signals, and recommended launch focus.
+                      </p>
+                    </div>
+                    <div className="space-y-4">
+                      {heatMapInsights.map((spot, index) => {
+                        const isHighlighted = hoveredLocation === spot.id;
+                        const width = `${Math.min(spot.intensity, 100)}%`;
+                        return (
+                          <div
+                            key={spot.id}
+                            className={cn(
+                              "relative flex gap-4 rounded-[26px] border border-[#dbe9e3] bg-white px-5 py-4 transition hover:border-[#0f766e]/50 hover:shadow-[0_18px_36px_-28px_rgba(15,118,110,0.28)]",
+                              isHighlighted && "border-[#0f766e] shadow-[0_22px_48px_-28px_rgba(15,118,110,0.35)]",
+                            )}
+                            onMouseEnter={() => setHoveredLocation(spot.id)}
+                            onMouseLeave={() => setHoveredLocation(null)}
+                          >
+                            <div className="relative flex w-12 flex-col items-center">
+                              <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#0f766e]">
+                                {String(index + 1).padStart(2, "0")}
+                              </span>
+                              <span className="mt-2 h-full w-0.5 bg-gradient-to-b from-[#0f766e] via-[#34d399] to-transparent" />
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex flex-wrap items-baseline justify-between gap-3">
+                                <div>
+                                  <h5 className="text-lg font-semibold text-slate-900">
+                                    {spot.name}
+                                  </h5>
+                                  <p className="text-sm text-slate-600">
+                                    {spot.summary}
+                                  </p>
+                                </div>
+                                <span className="rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e]">
+                                  {spot.density}
+                                </span>
+                              </div>
+                              <div className="mt-3 grid grid-cols-3 gap-4 text-xs text-slate-600 md:grid-cols-4">
+                                <div>
+                                  <span className="uppercase tracking-[0.2em] text-slate-400">
+                                    Footfall
+                                  </span>
+                                  <p className="mt-1 text-sm font-semibold text-slate-900">
+                                    {spot.footfall}
+                                  </p>
+                                </div>
+                                <div>
+                                  <span className="uppercase tracking-[0.2em] text-slate-400">
+                                    Trend
+                                  </span>
+                                  <p className="mt-1 text-sm font-semibold text-slate-900">
+                                    {spot.trend}
+                                  </p>
+                                </div>
+                                <div className="md:col-span-2">
+                                  <span className="uppercase tracking-[0.2em] text-slate-400">
+                                    Focus
+                                  </span>
+                                  <p className="mt-1 text-sm font-semibold text-slate-900">
+                                    {spot.focus}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[#e2ede8]">
+                                <div
+                                  className="h-full rounded-full bg-gradient-to-r from-[#0f766e] via-[#23b893] to-[#54ffd4]"
+                                  style={{ width }}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3 pt-2">
+                      <button
+                        type="button"
+                        className="rounded-full bg-[#0f766e] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-white shadow-[0_16px_30px_-22px_rgba(15,118,110,0.5)] transition hover:bg-[#0c5f58]"
+                      >
+                        Export timeline
+                      </button>
+                      <button
+                        type="button"
+                        className="rounded-full border border-[#0f766e] px-6 py-3 text-[11px] font-semibold uppercase tracking_[0.22em] text-[#0f766e] transition hover:bg-[#0f766e]/10"
+                      >
+                        Download CSV
+                      </button>
+                      <button
+                        type="button"
+                        className="rounded-full border border-[#dbe9e3] bg-white px-6 py-3 text-[11px] font-semibold uppercase tracking_[0.22em] text-slate-600 transition hover:text-[#0f766e]"
+                      >
+                        Share view
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
