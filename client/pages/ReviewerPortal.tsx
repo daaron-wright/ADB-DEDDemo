@@ -499,8 +499,8 @@ export default function ReviewerPortal() {
         ) : (
           <div className="space-y-6">
             {filteredQueue.map((item) => (
-              <ReviewQueueCard key={item.id} item={item} />
-            ))}
+            <ReviewQueueCard key={item.id} item={item} onOpen={handleFocusOpen} />
+          ))}
           </div>
         )}
       </section>
