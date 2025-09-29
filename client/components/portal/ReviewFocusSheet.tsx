@@ -173,6 +173,53 @@ export function ReviewFocusSheet({
               </div>
             </section>
 
+            <section className="space-y-4">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Document Artifacts ({review.documents.length})
+              </h3>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {review.documents.map((document) => (
+                  <div
+                    key={document.id}
+                    onClick={() => handleDocumentClick(document)}
+                    className="group cursor-pointer rounded-2xl border border-[#d8e4df] bg-white p-4 transition-all hover:border-[#0f766e] hover:shadow-[0_8px_24px_-12px_rgba(11,64,55,0.25)]"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-lg">{documentTypeIcons[document.type]}</span>
+                          <h4 className="font-medium text-slate-900 text-sm leading-tight truncate">
+                            {document.name}
+                          </h4>
+                        </div>
+                        <div className="space-y-1">
+                          {document.issuer && (
+                            <p className="text-xs text-slate-600">Issued by: {document.issuer}</p>
+                          )}
+                          {document.uploadedAt && (
+                            <p className="text-xs text-slate-500">
+                              Uploaded: {dateFormatter.format(new Date(document.uploadedAt))}
+                            </p>
+                          )}
+                          {document.validUntil && (
+                            <p className="text-xs text-slate-500">
+                              Valid until: {dateFormatter.format(new Date(document.validUntil))}
+                            </p>
+                          )}
+                          <p className="text-xs text-slate-500">{document.size}</p>
+                        </div>
+                      </div>
+                      <Badge
+                        className={`text-xs px-2 py-1 ${documentStatusStyles[document.status]}`}
+                      >
+                        {document.status.replace('_', ' ')}
+                      </Badge>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
             <section className="space-y-3">
               <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                 Reviewer notes
