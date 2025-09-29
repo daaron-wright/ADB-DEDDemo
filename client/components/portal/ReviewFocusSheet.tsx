@@ -200,7 +200,7 @@ export function ReviewFocusSheet({
             <section className="space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Key Documents {!showAllDocuments && `(${keyDocuments.length} of ${review.documents.length})`}
+                  Key Documents {!showAllDocuments && review.documents.length > 3 && `(${keyDocuments.length} of ${review.documents.length})`}
                 </h3>
                 {remainingDocuments.length > 0 && (
                   <Button
