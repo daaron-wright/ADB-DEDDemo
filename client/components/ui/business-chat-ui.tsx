@@ -1511,11 +1511,44 @@ export function BusinessChatUI({
                   <div className="p-6 space-y-4 max-h-[60vh] overflow-y-auto">
                     {activeThread?.messages.map((message) => {
                       const isJourneyIntro = Boolean(message.hasActions);
-                      const displayContent = !isLoggedIn && isJourneyIntro
-                        ? "Sign in with UAE Pass to generate your investor journey."
-                        : isJourneyIntro
-                          ? "I have generated an investor journey below that will assist you. Your journey, powered by AI."
-                          : message.content;
+
+                      // Show UAE Pass login button instead of text when not logged in
+                      if (!isLoggedIn && isJourneyIntro) {
+                        return (
+                          <div key={`${activeThread.id}-${message.id}`} className="space-y-4">
+                            {/* Show previous messages normally */}
+                            <MessageBubble
+                              message={message}
+                              onActionClick={(action) => {
+                                if (action === "budget-ranges") {
+                                  console.log("Budget ranges clicked");
+                                }
+                              }}
+                            />
+
+                            {/* UAE Pass Login Button */}
+                            <UAEPassLogin
+                              onLogin={handleUAEPassLogin}
+                              trigger={
+                                <button className="w-full flex items-center justify-between p-4 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/10 hover:bg-white/25 transition-all duration-200 group">
+                                  <span className="text-white font-medium text-base">
+                                    Let's get you logged in with UAE Pass
+                                  </span>
+                                  <img
+                                    src="https://api.builder.io/api/v1/image/assets/TEMP/6af0c42146feff37d8c56f7d5b67c0ce1e2c12e1?width=348"
+                                    alt="UAE Pass"
+                                    className="w-[87px] h-[42px] rounded-full object-cover group-hover:scale-105 transition-transform duration-200"
+                                  />
+                                </button>
+                              }
+                            />
+                          </div>
+                        );
+                      }
+
+                      const displayContent = isJourneyIntro
+                        ? "I have generated an investor journey below that will assist you. Your journey, powered by AI."
+                        : message.content;
 
                       const enrichedMessage =
                         displayContent === message.content
