@@ -202,7 +202,7 @@ export default function Index() {
 
   const handleTileClick = (
     categoryId: string,
-    _categoryTitle: string,
+    categoryTitle: string,
     event?: React.MouseEvent<HTMLDivElement>
   ) => {
     setActiveCategory(categoryId);
@@ -217,9 +217,11 @@ export default function Index() {
       applyFocusPoint();
     }
 
-    setChatState({
+    setOpenChatState({
       isOpen: true,
+      mode: 'category',
       category: categoryId,
+      categoryTitle,
     });
   };
 
