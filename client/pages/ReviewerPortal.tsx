@@ -218,26 +218,11 @@ export default function ReviewerPortal() {
             item.id.toLowerCase().includes(loweredSearch)
           : true;
 
-        const matchesDirectorate = allDirectoratesSelected
-          ? true
-          : selectedDirectorates.includes(item.directorate);
-
-        const matchesSla = selectedSlaStatus === 'all' ? true : item.slaStatus === selectedSlaStatus;
-
-        const matchesPriority = priorityFilter === 'all' ? true : item.priority === priorityFilter;
-
         const matchesStage = selectedStage === 'all' ? true : item.stage === selectedStage;
 
         const matchesDays = item.daysRemaining <= daysUpperBound;
 
-        return (
-          matchesSearch &&
-          matchesDirectorate &&
-          matchesSla &&
-          matchesPriority &&
-          matchesStage &&
-          matchesDays
-        );
+        return matchesSearch && matchesStage && matchesDays;
       })
       .sort((a, b) => {
         if (sortBy === 'priority') {
