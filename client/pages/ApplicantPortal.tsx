@@ -54,13 +54,12 @@ const licenseOptions = [
   { label: 'All license types', value: 'all' },
   { label: 'Commercial License', value: 'Commercial License' },
   { label: 'Dual License', value: 'Dual License' },
-  { label: 'Professional License', value: 'Professional License' },
 ] as const;
 
 const applications: ApplicationRecord[] = [
   {
     id: 'APP-48291',
-    title: 'AI Hospitality Launch Permit',
+    title: 'Corniche Culinary Collective',
     directorate: 'Department of Economic Development',
     beneficiary: 'Citizen',
     status: 'In Review',
@@ -68,41 +67,41 @@ const applications: ApplicationRecord[] = [
     progress: 68,
     submissionDate: '2024-03-14',
     lastUpdated: '2024-03-18',
-    nextAction: 'Upload signed tenancy contract for Khalifa City premises.',
+    nextAction: 'Upload signed tenancy contract for the Corniche location fit-out.',
     summary:
-      'Comprehensive restaurant launch covering trade name reservation, food safety clearance, and smart staffing approvals across the Abu Dhabi mainland.',
+      'Full-service restaurant launch covering trade name reservation, food safety clearance, and smart staffing approvals for the Abu Dhabi mainland.',
   },
   {
     id: 'APP-47903',
-    title: 'AgriTech Research Hub License',
+    title: 'Falafel Express Drive-Thru',
     directorate: 'Abu Dhabi Agriculture and Food Safety Authority',
     beneficiary: 'Investor',
     status: 'Awaiting Documents',
-    licenseType: 'Dual License',
+    licenseType: 'Commercial License',
     progress: 51,
     submissionDate: '2024-03-05',
     lastUpdated: '2024-03-16',
-    nextAction: 'Submit memorandum of association signed by all shareholders.',
+    nextAction: 'Submit finalized supplier contracts for drive-thru operations.',
     summary:
-      'Dual mainland and free-zone registration for smart greenhouse operations including cross-emirate produce distribution and AI irrigation models.',
+      'Quick-service concept with delivery-first operations requiring food safety approvals, franchise documentation, and marketing permits.',
   },
   {
     id: 'APP-47112',
-    title: 'Wellness Clinic Expansion',
-    directorate: 'Department of Health',
-    beneficiary: 'Resident',
+    title: 'Global Tech Branch Setup',
+    directorate: 'Department of Economic Development',
+    beneficiary: 'Investor',
     status: 'Approved',
-    licenseType: 'Professional License',
+    licenseType: 'Dual License',
     progress: 100,
     submissionDate: '2024-02-08',
     lastUpdated: '2024-03-12',
-    nextAction: 'Schedule onboarding and collect final license packet from smart locker.',
+    nextAction: 'Schedule onboarding session and collect the dual license certificate.',
     summary:
-      'Professional services expansion for physiotherapy and AI-guided rehabilitation programs located within Reem Island innovation district.',
+      'Expansion branch for an established technology firm covering dual mainland and free-zone registration with compliance attachments.',
   },
   {
     id: 'APP-46744',
-    title: 'Cultural Experience Studio',
+    title: 'Luxe Abaya Retail Flagship',
     directorate: 'Department of Culture and Tourism',
     beneficiary: 'Citizen',
     status: 'Draft',
@@ -110,9 +109,9 @@ const applications: ApplicationRecord[] = [
     progress: 32,
     submissionDate: '2024-02-21',
     lastUpdated: '2024-03-02',
-    nextAction: 'Confirm venue lease start date to trigger site inspection scheduling.',
+    nextAction: 'Confirm mall lease start date to trigger merchandising inspection scheduling.',
     summary:
-      'Immersive visitor studio combining AR-guided heritage tours with curated retail for Emirati artisans in the Yas Creative Hub.',
+      'Luxury retail concept with AI-assisted fitting services requiring merchandising approvals and logistics planning.',
   },
 ];
 
