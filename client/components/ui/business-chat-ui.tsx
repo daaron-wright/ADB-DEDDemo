@@ -281,6 +281,83 @@ const DiscoverExperienceView = ({
     isStandalone ? "Ask me..." : "I want to look at the Cornich",
   );
 
+  const heatMapInsights = [
+    {
+      id: "corniche",
+      name: "Corniche waterfront",
+      summary:
+        "Flagship promenade combining daily commuters, tourists, and premium dining demand across the waterfront.",
+      footfall: "100K+ weekly visits",
+      density: "Very high density",
+      trend: "+14% YoY evening visitors",
+      focus: "Fine dining, experiential cafes, promenade lounges",
+      intensity: 96,
+    },
+    {
+      id: "marina",
+      name: "Abu Dhabi Marina & Breakwater",
+      summary:
+        "Destination leisure cluster anchored by luxury hotels, yacht clubs, and family attractions.",
+      footfall: "40–55K weekly visits",
+      density: "High density",
+      trend: "+9% weekend uplift",
+      focus: "Waterfront lounges, seafood houses, family dining",
+      intensity: 84,
+    },
+    {
+      id: "baniyas",
+      name: "Baniyas community spine",
+      summary:
+        "Established residential corridor seeing strong family traffic and quick-service demand spikes.",
+      footfall: "60–75K weekly visits",
+      density: "Growing density",
+      trend: "+11% midday demand",
+      focus: "Family restaurants, fast casual, bakeries",
+      intensity: 78,
+    },
+    {
+      id: "khalifa-city",
+      name: "Khalifa City",
+      summary:
+        "Expanding suburb with new schools, villas, and lifestyle centers attracting higher disposable income.",
+      footfall: "25–35K weekly visits",
+      density: "Emerging density",
+      trend: "+6% new households",
+      focus: "Community casual dining, specialty coffee",
+      intensity: 68,
+    },
+    {
+      id: "central",
+      name: "Central business zone",
+      summary:
+        "High-rise core around Hamdan and Electra streets with office workers and late-night crowd overlap.",
+      footfall: "70–85K weekly visits",
+      density: "High mixed density",
+      trend: "+8% lunch rush",
+      focus: "Express lunch spots, premium quick service",
+      intensity: 74,
+    },
+    {
+      id: "coastal",
+      name: "Coastal district",
+      summary:
+        "Lifestyle beachfront with active tourism calendar and family day-trip itineraries.",
+      footfall: "35–50K weekly visits",
+      density: "Seasonal peaks",
+      trend: "+5% holiday uplift",
+      focus: "Beach clubs, ice cream bars, casual dining",
+      intensity: 64,
+    },
+  ];
+
+  const activeInsightId = hoveredLocation ?? "corniche";
+  const activeInsight =
+    heatMapInsights.find((spot) => spot.id === activeInsightId) ??
+    heatMapInsights[0];
+  const secondaryInsights = heatMapInsights.filter(
+    (spot) => spot.id !== activeInsightId,
+  );
+
   const conversationMessages = [
     {
       id: "user-1",
