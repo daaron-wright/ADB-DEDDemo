@@ -298,6 +298,47 @@ const reviewQueue: ReviewQueueItem[] = [
     daysRemaining: 2,
     assignedTo: "Yousef Al Ameri",
     attachments: 9,
+    documents: [
+      {
+        id: "doc-zoning-validation",
+        name: "Zoning Validation Report",
+        type: "report",
+        status: "approved",
+        issuer: "Abu Dhabi Municipality",
+        uploadedAt: "2024-03-09",
+        size: "5.3 MB"
+      },
+      {
+        id: "doc-waste-management",
+        name: "Waste Management Plan",
+        type: "plan",
+        status: "under_review",
+        uploadedAt: "2024-03-10",
+        size: "3.8 MB"
+      },
+      {
+        id: "doc-safety-planning",
+        name: "Safety Planning Document",
+        type: "report",
+        status: "approved",
+        uploadedAt: "2024-03-08",
+        size: "4.1 MB"
+      },
+      {
+        id: "doc-waste-disposal",
+        name: "Final Waste Disposal Schedule",
+        type: "plan",
+        status: "required",
+        size: "Expected"
+      },
+      {
+        id: "doc-crowd-management",
+        name: "Updated Crowd Management Layout",
+        type: "plan",
+        status: "required",
+        size: "Expected"
+      }
+    ],
     summary:
       "Seasonal fast-food cluster across the marina boardwalk needing zoning validation, waste management, and safety planning.",
     notes:
