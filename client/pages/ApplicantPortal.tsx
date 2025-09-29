@@ -789,7 +789,7 @@ export default function ApplicantPortal() {
                       return (
                         <li
                           key={task.id}
-                          className="rounded-2xl border border-neutral-200 bg-white px-4 py-4 shadow-[0_12px_30px_-20px_rgba(15,23,42,0.18)]"
+                          className="rounded-2xl border border-[#d8e4df] bg-white px-4 py-4 shadow-[0_12px_26px_-20px_rgba(11,64,55,0.18)]"
                         >
                           <div className="flex flex-wrap items-start justify-between gap-3">
                             <div className="space-y-2">
