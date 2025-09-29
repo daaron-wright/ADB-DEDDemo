@@ -22,7 +22,7 @@ import { PortalProfileMenu } from '@/components/portal/PortalProfileMenu';
 import { cn } from '@/lib/utils';
 import { JourneyView } from '@/components/portal/JourneyView';
 import type { JourneyStep } from '@/components/portal/JourneyStepper';
-import type { BusinessActivity } from '@/components/portal/BusinessActivitiesSelection';
+import type { BusinessActivity, ActorOption } from '@/components/portal/BusinessActivitiesSelection';
 
 interface ApplicationRecord {
   id: string;
@@ -377,6 +377,32 @@ export default function ApplicantPortal() {
     'charcoal-bbq'
   ]);
 
+  const actorOptions = useMemo<ActorOption[]>(
+    () => [
+      {
+        id: 'economic-reviewer',
+        label: 'Economic Development Reviewer',
+        description: 'Validates business alignment with economic priorities.'
+      },
+      {
+        id: 'health-safety',
+        label: 'Health & Safety Officer',
+        description: 'Ensures compliance with health and safety standards.'
+      },
+      {
+        id: 'fire-marshal',
+        label: 'Fire Marshal',
+        description: 'Evaluates occupancy and fire preparedness requirements.'
+      },
+      {
+        id: 'environmental-review',
+        label: 'Environmental Review Board',
+        description: 'Reviews sustainability criteria for approvals.'
+      }
+    ],
+    []
+  );
+
   // Map journey data to stepper format
   const journeySteps: JourneyStep[] = applicantJourney.map((stage) => ({
     id: stage.id,
@@ -385,23 +411,26 @@ export default function ApplicantPortal() {
   }));
 
   // Business activities data
-  const businessActivities: BusinessActivity[] = [
+  const [businessActivities, setBusinessActivities] = useState<BusinessActivity[]>(() => [
     {
       id: 'full-service-restaurant',
       label: 'Full-service restaurant',
-      isRecommended: true
+      isRecommended: true,
+      actors: ['economic-reviewer', 'health-safety']
     },
     {
       id: 'charcoal-bbq',
       label: 'Charcoal/coal BBQ services',
-      isRecommended: true
+      isRecommended: true,
+      actors: ['health-safety', 'fire-marshal']
     },
     {
       id: 'hospitality-catering',
       label: 'Hospitality and catering services',
-      isRecommended: true
+      isRecommended: true,
+      actors: ['economic-reviewer']
     }
-  ];
+  ]);
 
   const activeJourneyStage = useMemo(
     () => applicantJourney.find((stage) => stage.id === activeJourneyStageId) ?? applicantJourney[0],
@@ -539,16 +568,28 @@ export default function ApplicantPortal() {
   };
 
   const handleActivityToggle = (activityId: string) => {
-    setSelectedBusinessActivities(prev =>
+    setSelectedBusinessActivities((prev) =>
       prev.includes(activityId)
-        ? prev.filter(id => id !== activityId)
+        ? prev.filter((id) => id !== activityId)
         : [...prev, activityId]
     );
   };
 
-  const handleAddNewActivity = () => {
-    // Handle adding new activity
-    console.log('Add new activity clicked');
+  const handleCreateActivity = (activityName: string, actorIds: string[]) => {
+    const normalizedName = activityName.trim();
+    if (!normalizedName) {
+      return;
+    }
+
+    const generatedId = `custom-${Date.now()}`;
+    const newActivity: BusinessActivity = {
+      id: generatedId,
+      label: normalizedName,
+      actors: actorIds
+    };
+
+    setBusinessActivities((prev) => [...prev, newActivity]);
+    setSelectedBusinessActivities((prev) => [...prev, generatedId]);
   };
 
   const handleOpenJourneyView = () => {
@@ -1009,9 +1050,10 @@ export default function ApplicantPortal() {
         steps={journeySteps}
         activities={businessActivities}
         selectedActivityIds={selectedBusinessActivities}
+        actorOptions={actorOptions}
         onStepChange={handleJourneyStepChange}
         onActivityToggle={handleActivityToggle}
-        onAddNewActivity={handleAddNewActivity}
+        onCreateActivity={handleCreateActivity}
         onClose={handleCloseJourneyView}
       />
     )}
