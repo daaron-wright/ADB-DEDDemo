@@ -812,8 +812,8 @@ export default function ApplicantPortal() {
                             </span>
                           </div>
                           {task.tag ? (
-                            <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
-                              <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+                            <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#f4f8f6] px-3 py-1 text-xs font-medium text-slate-600">
+                              <span className="h-1.5 w-1.5 rounded-full bg-[#a6bbb1]" />
                               {task.tag}
                             </div>
                           ) : null}
