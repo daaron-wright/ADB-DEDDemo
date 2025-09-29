@@ -631,62 +631,6 @@ export default function ApplicantPortal() {
         </div>
       </section>
 
-      <Dialog
-        open={journeyModalOpen}
-        onOpenChange={(open) => {
-          setJourneyModalOpen(open);
-          if (!open) {
-            setJourneyModalStage(null);
-          }
-        }}
-      >
-        <DialogContent className="max-w-4xl border-none bg-[#061c16] p-0 text-white shadow-[0_32px_80px_-32px_rgba(11,64,55,0.6)]">
-          <DialogHeader className="space-y-3 bg-[#0b2d26] px-6 py-5">
-            <DialogTitle className="text-xl font-semibold">
-              Journey workspace
-            </DialogTitle>
-            <DialogDescription className="text-sm text-white/70">
-              Review each licensing milestone, update tasks, and explore AI recommendations tailored to your application.
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-6 bg-[#061c16] px-6 pb-6 pt-4">
-            <div className="flex flex-wrap items-start justify-between gap-4 text-sm text-white/70">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-300/70">
-                  Currently viewing
-                </p>
-                <p className="mt-1 text-base font-semibold text-white">
-                  {(journeyModalStage ?? activeStage).title}
-                </p>
-              </div>
-              <div className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-white/70">
-                {completedJourneyTasks} of {totalJourneyTasks} tasks complete
-              </div>
-            </div>
-
-            <div className="flex justify-center">
-              <CollapsibleJourneyView
-                key={journeyModalStage?.id ?? activeStage.id}
-                journeyNumber={primaryApplication.id}
-                completedCount={completedJourneyTasks}
-                totalCount={totalJourneyTasks}
-                sections={journeyViewSections}
-              />
-            </div>
-          </div>
-
-          <DialogFooter className="flex items-center justify-end gap-3 bg-[#061c16] px-6 pb-6">
-            <Button
-              variant="outline"
-              className="border-white/20 bg-transparent text-white hover:bg-white/10"
-              onClick={() => setJourneyModalOpen(false)}
-            >
-              Close
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </PortalPageLayout>
   );
 }
