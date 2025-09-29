@@ -1144,6 +1144,26 @@ const DiscoverExperienceView = ({
                       </span>
                     </div>
                   </div>
+                  <div className="mt-5 flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      className="rounded-full bg-[#0f766e] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-white shadow-[0_16px_30px_-22px_rgba(15,118,110,0.5)] transition hover:bg-[#0c5f58]"
+                    >
+                      Export insights
+                    </button>
+                    <button
+                      type="button"
+                      className="rounded-full border border-[#0f766e] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e] transition hover:bg-[#0f766e]/10"
+                    >
+                      Download CSV
+                    </button>
+                    <button
+                      type="button"
+                      className="rounded-full border border-[#dbe9e3] bg-white px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-600 transition hover:text-[#0f766e]"
+                    >
+                      Share view
+                    </button>
+                  </div>
                 </div>
 
                 <div className="flex h-full flex-col gap-4 rounded-[26px] border border-[#dbe9e3] bg-white/85 p-5 text-slate-900 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]">
