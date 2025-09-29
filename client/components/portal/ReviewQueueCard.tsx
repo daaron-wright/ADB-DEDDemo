@@ -93,6 +93,16 @@ export function ReviewQueueCard({ item, onOpen }: ReviewQueueCardProps) {
           <Badge className="border border-[#f4bebe] bg-[#fdf1f0] px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#b23b31]">
             OPA Review
           </Badge>
+          <a
+            href={OPA_REVIEW_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={handleInteractionLinkClick}
+            onKeyDown={handleInteractionLinkKeyDown}
+            className="inline-flex items-center rounded-full border border-[#0f766e] px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#0f766e] transition hover:bg-[#0f766e] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40 focus-visible:ring-offset-2"
+          >
+            Launch Interaction
+          </a>
         </div>
       </header>
 
