@@ -60,6 +60,13 @@ interface ChatMessage {
   timestamp: Date;
 }
 
+const createIntroMessage = (content: string): ChatMessage => ({
+  id: `intro-${Date.now()}`,
+  content,
+  isAI: true,
+  timestamp: new Date(),
+});
+
 interface OpenChatUIProps {
   isOpen: boolean;
   onClose: () => void;
