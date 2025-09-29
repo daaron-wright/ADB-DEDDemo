@@ -58,6 +58,14 @@ export function ReviewQueueCard({ item, onOpen }: ReviewQueueCardProps) {
     }
   };
 
+  const handleInteractionLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.stopPropagation();
+  };
+
+  const handleInteractionLinkKeyDown = (event: React.KeyboardEvent<HTMLAnchorElement>) => {
+    event.stopPropagation();
+  };
+
   const submissionDisplayDate = dateFormatter.format(new Date());
 
   return (
