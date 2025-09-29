@@ -272,6 +272,18 @@ export default function ApplicantPortal() {
 
   const primaryApplication = applications[0];
 
+  const [activeStageId, setActiveStageId] = useState<string>(
+    () => journeyStages.find((stage) => stage.state === "current")?.id ?? journeyStages[0].id,
+  );
+  const activeStage =
+    journeyStages.find((stage) => stage.id === activeStageId) ?? journeyStages[0];
+  const journeyHighlights = journeyStages.map((stage) => ({
+    id: stage.id,
+    label: stage.highlight.label,
+    detail: stage.highlight.detail,
+    state: stage.state,
+  }));
+
   const headerActions = (
     <PortalProfileMenu
       name={profileName}
