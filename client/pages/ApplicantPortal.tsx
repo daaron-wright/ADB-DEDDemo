@@ -302,6 +302,34 @@ export default function ApplicantPortal() {
     state: stage.state,
   }));
 
+  const totalJourneyTasks = journeyStages.reduce(
+    (acc, stage) => acc + stage.tasks.length,
+    0,
+  );
+  const completedJourneyTasks = journeyStages.reduce(
+    (acc, stage) =>
+      acc + stage.tasks.filter((task) => task.status === "completed").length,
+    0,
+  );
+
+  const journeyViewSections = journeyStages.map((stage) => ({
+    id: stage.id,
+    title: stage.title,
+    items: stage.tasks.map((task) => ({
+      id: task.id,
+      text: task.label,
+      status: task.status,
+      type: "checkbox" as const,
+    })),
+    isCollapsed: stage.id !== (journeyModalStage?.id ?? activeStage.id),
+  }));
+
+  const handleStageSelect = (stage: JourneyStage) => {
+    setActiveStageId(stage.id);
+    setJourneyModalStage(stage);
+    setJourneyModalOpen(true);
+  };
+
   const headerActions = (
     <PortalProfileMenu
       name={profileName}
