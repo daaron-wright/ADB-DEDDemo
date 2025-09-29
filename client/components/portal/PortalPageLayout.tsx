@@ -18,28 +18,28 @@ export function PortalPageLayout({
   children,
 }: PortalPageLayoutProps) {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-white">
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-purple-50/40 to-white" />
-
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-12 lg:px-10">
-        <header className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl space-y-2 text-slate-900">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-purple-500/80">{subtitle}</p>
-            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h1>
-            {description ? (
-              <p className="text-base text-slate-600">{description}</p>
-            ) : null}
+    <div className="relative min-h-screen bg-[#f5f8f6]">
+      <div className="mx-auto w-full max-w-6xl px-6 pb-16 pt-12 lg:px-12">
+        <header className="rounded-3xl border border-[#d8e4df] bg-white/95 px-8 py-10 shadow-[0_16px_40px_-32px_rgba(11,64,55,0.28)] backdrop-blur-sm lg:px-10">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl space-y-3 text-slate-900">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">{subtitle}</p>
+              <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">{title}</h1>
+              {description ? (
+                <p className="text-base leading-relaxed text-slate-600">{description}</p>
+              ) : null}
+            </div>
+            {headerActions ? <div className="flex items-center gap-4">{headerActions}</div> : null}
           </div>
-          {headerActions ? <div className="flex items-center gap-4">{headerActions}</div> : null}
         </header>
 
-        <div className="mt-12 flex flex-col gap-8 lg:flex-row lg:items-start">
-          <aside className="lg:w-80 xl:w-96">
-            <div className="space-y-8 rounded-3xl border border-neutral-200 bg-white p-6 shadow-[0_18px_40px_-24px_rgba(15,23,42,0.28)]">
+        <div className="mt-10 grid gap-10 lg:grid-cols-[320px,1fr] xl:grid-cols-[360px,1fr]">
+          <aside>
+            <div className="space-y-8 rounded-3xl border border-[#d8e4df] bg-white px-6 py-8 shadow-[0_12px_32px_-28px_rgba(11,64,55,0.18)]">
               {filters}
             </div>
           </aside>
-          <main className="flex-1 space-y-8 pb-20 text-slate-900">
+          <main className="flex-1 space-y-8 text-slate-900">
             {children}
           </main>
         </div>
