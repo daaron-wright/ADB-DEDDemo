@@ -541,7 +541,7 @@ export default function ApplicantPortal() {
                 strokeLinejoin="round"
               />
             </svg>
-            Continue to next interaction
+            Continue to Your Next Action
           </Button>
         </div>
       </section>
