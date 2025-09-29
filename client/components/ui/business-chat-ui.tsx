@@ -919,7 +919,7 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
                   <div className="flex items-center gap-4">
                     {/* Tamm Logo */}
                     <img
-                      src="https://cdn.builder.io/api/v1/image/assets/4f55495a54b1427b9bd40ba1c8f3c8aa/e9ee86b522ee4f309ae259a6480f85c2"
+                      src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F397f9a8d2a3c4c8cb1d79ae828b476be"
                       alt="Tamm Logo"
                       className="h-12"
                     />
