@@ -60,10 +60,10 @@ export function PortalProfileMenu({
         </span>
         <ChevronDown className="ml-1 h-4 w-4 shrink-0 text-neutral-400 transition group-hover:text-neutral-600" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56 rounded-xl border border-neutral-100 bg-white shadow-[0_20px_40px_-24px_rgba(15,23,42,0.28)]">
-        <DropdownMenuLabel className="text-xs uppercase tracking-[0.18em] text-neutral-500">Account</DropdownMenuLabel>
-        <DropdownMenuSeparator className="bg-neutral-100" />
-        <DropdownMenuItem className="rounded-lg text-neutral-700 hover:bg-neutral-100">
+      <DropdownMenuContent align="end" className="w-56 rounded-xl border border-[#d8e4df] bg-white shadow-[0_20px_40px_-28px_rgba(11,64,55,0.2)]">
+        <DropdownMenuLabel className="text-xs uppercase tracking-[0.18em] text-[#0f766e]">Account</DropdownMenuLabel>
+        <DropdownMenuSeparator className="bg-[#d8e4df]" />
+        <DropdownMenuItem className="rounded-lg text-slate-700 hover:bg-[#eaf7f3]">
           <User className="h-4 w-4 text-neutral-500" />
           View profile
         </DropdownMenuItem>
