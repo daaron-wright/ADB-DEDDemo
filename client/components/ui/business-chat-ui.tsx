@@ -830,7 +830,7 @@ const DiscoverExperienceView = ({
                         <span className="inline-flex items-center rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0f766e]">
                           Heat map
                         </span>
-                        <span className="inline-flex items-center rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking_[0.22em] text-[#0f766e]">
+                        <span className="inline-flex items-center rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e]">
                           Commercial licenses
                         </span>
                       </div>
@@ -1337,13 +1337,13 @@ const DiscoverExperienceView = ({
                       </button>
                       <button
                         type="button"
-                        className="rounded-full border border-[#0f766e] px-6 py-3 text-[11px] font-semibold uppercase tracking_[0.22em] text-[#0f766e] transition hover:bg-[#0f766e]/10"
+                        className="rounded-full border border-[#0f766e] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e] transition hover:bg-[#0f766e]/10"
                       >
                         Download CSV
                       </button>
                       <button
                         type="button"
-                        className="rounded-full border border-[#dbe9e3] bg-white px-6 py-3 text-[11px] font-semibold uppercase tracking_[0.22em] text-slate-600 transition hover:text-[#0f766e]"
+                        className="rounded-full border border-[#dbe9e3] bg-white px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-600 transition hover:text-[#0f766e]"
                       >
                         Share view
                       </button>
