@@ -33,12 +33,6 @@ export interface ReviewQueueItem {
   completion: number;
 }
 
-const slaStyles: Record<ReviewQueueItem["slaStatus"], string> = {
-  "On Track": "text-[#0f766e] bg-[#eaf7f3] border-[#b7e1d4]",
-  "At Risk": "text-[#b97324] bg-[#fdf6e4] border-[#f3dcb6]",
-  Breached: "text-[#b23b31] bg-[#fdf1f0] border-[#f4bebe]",
-};
-
 const dateFormatter = new Intl.DateTimeFormat("en-GB", {
   day: "2-digit",
   month: "short",
