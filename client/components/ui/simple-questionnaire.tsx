@@ -158,6 +158,41 @@ const SimpleQuestionnaire = forwardRef<SimpleQuestionnaireHandle, SimpleQuestion
   ]);
 
   const [selectedRadioItems, setSelectedRadioItems] = useState<Record<string, string>>({});
+  const [highlightedItem, setHighlightedItem] = useState<string | null>(null);
+  const itemRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const highlightTimeoutRef = useRef<number | null>(null);
+
+  const scrollToItem = (itemId: string) => {
+    const element = itemRefs.current[itemId];
+    if (!element) {
+      return;
+    }
+
+    element.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+    setHighlightedItem(itemId);
+
+    if (highlightTimeoutRef.current !== null && typeof window !== 'undefined') {
+      window.clearTimeout(highlightTimeoutRef.current);
+    }
+
+    if (typeof window !== 'undefined') {
+      highlightTimeoutRef.current = window.setTimeout(() => {
+        setHighlightedItem((current) => (current === itemId ? null : current));
+      }, 2000);
+    }
+  };
+
+  useImperativeHandle(ref, () => ({
+    scrollToItem
+  }));
+
+  useEffect(() => {
+    return () => {
+      if (highlightTimeoutRef.current !== null && typeof window !== 'undefined') {
+        window.clearTimeout(highlightTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleItemClick = (sectionId: string, itemId: string, currentStatus: QuestionnaireItem['status'], type: QuestionnaireItem['type']) => {
     if (type === 'checkbox') {
