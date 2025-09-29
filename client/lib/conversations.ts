@@ -44,6 +44,13 @@ export const conversationFlows = {
     },
     {
       id: '3',
+      content: 'Here\'s a location analysis showing existing fast-food establishments across Abu Dhabi districts.',
+      isAI: true,
+      timestamp: new Date(),
+      type: 'heat-map',
+    },
+    {
+      id: '4',
       content: 'You will need a Commercial License for F&B, with a focus on fast-food operations. Here is a tailored investor journey.',
       isAI: true,
       timestamp: new Date(),
