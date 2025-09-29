@@ -153,7 +153,6 @@ export function ReviewQueueCard({
             ) => {
               event.stopPropagation();
               onOpen?.(item);
-              handleDocumentClick(document);
             };
 
             return (
