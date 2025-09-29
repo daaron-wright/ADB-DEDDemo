@@ -51,18 +51,26 @@ const dateFormatter = new Intl.DateTimeFormat("en-GB", {
 interface ReviewQueueCardProps {
   item: ReviewQueueItem;
   onOpen?: (item: ReviewQueueItem) => void;
+  onSelect?: (item: ReviewQueueItem) => void;
+  selected?: boolean;
   policyAssignments?: PolicyActorAssignment[];
 }
 
-export function ReviewQueueCard({ item, onOpen, policyAssignments }: ReviewQueueCardProps) {
-  const handleActivate = () => {
-    onOpen?.(item);
+export function ReviewQueueCard({
+  item,
+  onOpen,
+  onSelect,
+  selected = false,
+  policyAssignments,
+}: ReviewQueueCardProps) {
+  const handleSelect = () => {
+    onSelect?.(item);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      handleActivate();
+      handleSelect();
     }
   };
 
@@ -78,14 +86,18 @@ export function ReviewQueueCard({ item, onOpen, policyAssignments }: ReviewQueue
 
   return (
     <article
-      role={onOpen ? "button" : undefined}
-      tabIndex={onOpen ? 0 : undefined}
-      onClick={onOpen ? handleActivate : undefined}
-      onKeyDown={onOpen ? handleKeyDown : undefined}
+      role={onSelect ? "button" : undefined}
+      tabIndex={onSelect ? 0 : undefined}
+      onClick={onSelect ? handleSelect : undefined}
+      onKeyDown={onSelect ? handleKeyDown : undefined}
       className={cn(
-        "rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_16px_36px_-30px_rgba(11,64,55,0.22)] transition hover:shadow-[0_22px_48px_-34px_rgba(11,64,55,0.30)] focus:outline-none focus:ring-2 focus:ring-[#0f766e]/40 focus:ring-offset-2",
-        onOpen ? "cursor-pointer focus-visible:ring-[#0f766e]/40" : "",
+        "rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_16px_36px_-30px_rgba(11,64,55,0.22)] transition focus:outline-none focus:ring-2 focus:ring-offset-2",
+        onSelect ? "cursor-pointer" : "",
+        selected
+          ? "border-[#0f766e] shadow-[0_22px_48px_-34px_rgba(11,64,55,0.30)] focus:ring-[#0f766e]/60"
+          : "hover:shadow-[0_22px_48px_-34px_rgba(11,64,55,0.30)] focus:ring-[#0f766e]/40",
       )}
+      aria-pressed={onSelect ? selected : undefined}
     >
       <header className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between text-slate-900">
         <div className="space-y-1">
@@ -136,14 +148,28 @@ export function ReviewQueueCard({ item, onOpen, policyAssignments }: ReviewQueue
               required: "bg-gray-100 text-gray-600 border-gray-200",
             };
 
+            const handleDocumentInteraction = (
+              event: React.MouseEvent<HTMLButtonElement>,
+            ) => {
+              event.stopPropagation();
+              onOpen?.(item);
+              handleDocumentClick(document);
+            };
+
             return (
-              <div
+              <button
                 key={document.id}
-                className={`inline-flex items-center gap-1 px-2 py-1 rounded-full border text-xs font-medium ${statusColors[document.status]}`}
+                type="button"
+                onClick={handleDocumentInteraction}
+                className={cn(
+                  "inline-flex items-center gap-1 rounded-full border px-2 py-1 text-xs font-medium transition",
+                  statusColors[document.status],
+                  "hover:brightness-[0.92] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0f766e]/40",
+                )}
               >
-                <span className="w-2 h-2 rounded-full bg-current opacity-60"></span>
-                <span className="truncate max-w-[120px]">{document.name}</span>
-              </div>
+                <span className="h-2 w-2 rounded-full bg-current opacity-60" aria-hidden="true"></span>
+                <span className="max-w-[140px] truncate text-left">{document.name}</span>
+              </button>
             );
           })}
           {item.documents.length > 4 && (
