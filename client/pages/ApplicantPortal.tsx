@@ -284,10 +284,15 @@ export default function ApplicantPortal() {
   const profileStatus: "online" | "offline" | "none" = "online";
 
   const primaryApplication = applications[0];
+  const initialStageId =
+    journeyStages.find((stage) => stage.state === "current")?.id ?? journeyStages[0].id;
 
-  const [activeStageId, setActiveStageId] = useState<string>(
-    () => journeyStages.find((stage) => stage.state === "current")?.id ?? journeyStages[0].id,
+  const [activeStageId, setActiveStageId] = useState<string>(initialStageId);
+  const [journeyModalStage, setJourneyModalStage] = useState<JourneyStage | null>(
+    journeyStages.find((stage) => stage.id === initialStageId) ?? journeyStages[0],
   );
+  const [journeyModalOpen, setJourneyModalOpen] = useState(false);
+
   const activeStage =
     journeyStages.find((stage) => stage.id === activeStageId) ?? journeyStages[0];
   const journeyHighlights = journeyStages.map((stage) => ({
