@@ -375,6 +375,7 @@ export default function ApplicantPortal() {
     () => applicantJourney.find((stage) => stage.id === activeJourneyStageId) ?? applicantJourney[0],
     [activeJourneyStageId],
   );
+  const activeJourneyTokens = journeyStateTokens[activeJourneyStage.state];
 
   const location = useLocation();
   const portalUser = (location.state as { user?: { name?: string; role?: string; email?: string; avatarUrl?: string } } | undefined)?.user;
