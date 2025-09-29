@@ -994,6 +994,36 @@ export default function ApplicantPortal() {
           </Dialog>
         </section>
 
+        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <SummaryMetric
+            label="Total applications"
+            value={applications.length.toString()}
+            helper={
+              latestSubmission
+                ? `Last submission ${dateFormatter.format(latestSubmission)}`
+                : undefined
+            }
+            trend={{
+              value: `${recentSubmissionsCount} in 14 days`,
+              isPositive: true,
+            }}
+          />
+          <SummaryMetric
+            label="Active reviews"
+            value={inReviewCount.toString()}
+            helper={`${applications.filter((item) => item.status === "Awaiting Documents").length} awaiting documents`}
+            trend={{
+              value: `${activeReviewsUpdated} updated in 3 days`,
+              isPositive: true,
+            }}
+          />
+          <SummaryMetric
+            label="Average completion"
+            value={`${averageProgress}%`}
+            helper={`${approvalsLastSevenDays} approvals in 7 days`}
+          />
+        </section>
+
         <section className="mt-6 rounded-3xl border border-[#d8e4df] bg-white p-8 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)]">
           <div className="flex flex-col gap-10 xl:flex-row xl:items-start">
             <div className="xl:max-w-sm">
