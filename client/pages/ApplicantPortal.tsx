@@ -15,6 +15,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { PortalPageLayout } from "@/components/portal/PortalPageLayout";
 import { FilterSection } from "@/components/portal/FilterSection";
 import { SummaryMetric } from "@/components/portal/SummaryMetric";
