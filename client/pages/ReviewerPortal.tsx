@@ -16,6 +16,7 @@ import { SummaryMetric } from "@/components/portal/SummaryMetric";
 import {
   ReviewQueueCard,
   type ReviewQueueItem,
+  type PolicyActorAssignment,
 } from "@/components/portal/ReviewQueueCard";
 import { PortalProfileMenu } from "@/components/portal/PortalProfileMenu";
 import { ReviewFocusSheet } from "@/components/portal/ReviewFocusSheet";
