@@ -404,127 +404,54 @@ export default function Index() {
                       onMouseEnter={(event) => handleCategoryHover(category.id, event)}
                       onMouseLeave={handleCategoryLeave}
                     >
-                      {/* Card Container with subtle animations */}
                       <motion.div
-                        className="relative h-[271px] w-full overflow-hidden rounded-3xl border"
-                      animate={{
-                        borderColor: isElevated ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.7)',
-                        scale: isElevated ? 1.02 : 1,
-                        boxShadow: isElevated
-                          ? '0 28px 52px -28px rgba(15, 15, 45, 0.35)'
-                          : '0 18px 40px -26px rgba(15, 15, 45, 0.18)',
-                      }}
-                      transition={{ duration: 0.35, ease: 'easeOut' }}
-                      whileHover={{ y: -3 }}
-                    >
-                      {/* Soft glow */}
-                      <motion.div
-                        className="absolute -inset-1 rounded-3xl"
-                        animate={{
-                          background: isElevated ? 'rgba(255, 255, 255, 0.5)' : 'transparent',
-                          filter: isElevated ? 'blur(14px)' : 'blur(0px)',
-                          opacity: isElevated ? 1 : 0,
-                        }}
-                        transition={{ duration: 0.4 }}
-                      />
-
-                      {/* Background Image */}
-                      <div className="absolute inset-0">
-                        <motion.img
-                          src={category.image}
-                          alt={category.title}
-                          className="w-full h-full object-cover"
-                          animate={{
-                            filter: isElevated ? 'blur(7px)' : 'blur(0px)',
-                            scale: isElevated ? 1.04 : 1,
-                          }}
-                          transition={{ duration: 0.45, ease: 'easeOut' }}
-                        />
-                        {/* Special overlay image for restaurants */}
-                        {category.overlayImage && (
+                        className="relative h-[271px] w-full overflow-hidden rounded-3xl border border-white/70 shadow-[0_18px_40px_-26px_rgba(15,15,45,0.18)]"
+                        whileHover={{ y: -3 }}
+                      >
+                        <div className="absolute inset-0">
                           <motion.img
-                            src={category.overlayImage}
-                            alt=""
-                            className="absolute inset-0 w-full h-full object-cover"
+                            src={category.image}
+                            alt={category.title}
+                            className="h-full w-full object-cover"
                             animate={{
                               filter: isElevated ? 'blur(7px)' : 'blur(0px)',
                               scale: isElevated ? 1.04 : 1,
                             }}
                             transition={{ duration: 0.45, ease: 'easeOut' }}
                           />
-                        )}
+                          {category.overlayImage && (
+                            <motion.img
+                              src={category.overlayImage}
+                              alt=""
+                              className="absolute inset-0 h-full w-full object-cover"
+                              animate={{
+                                filter: isElevated ? 'blur(7px)' : 'blur(0px)',
+                                scale: isElevated ? 1.04 : 1,
+                              }}
+                              transition={{ duration: 0.45, ease: 'easeOut' }}
+                            />
+                          )}
+                        </div>
 
-                        {/* Subtle white overlay for depth */}
-                        <motion.div
-                          className="absolute inset-0"
-                          animate={{
-                            background: isElevated ? 'rgba(255, 255, 255, 0.18)' : 'transparent',
-                          }}
-                          transition={{ duration: 0.5 }}
-                        />
-                      </div>
-
-                      {/* Content Overlay */}
-                      <div className="absolute bottom-4 left-4 right-4 z-10">
-                        <motion.div
-                          className="flex items-center justify-between rounded-2xl border p-4 backdrop-blur-md"
-                          animate={{
-                            backgroundColor: isElevated
-                              ? 'rgba(255, 255, 255, 0.45)'
-                              : 'rgba(255, 255, 255, 0.28)',
-                            borderColor: isElevated ? 'rgba(255, 255, 255, 0.6)' : 'rgba(255, 255, 255, 0.18)',
-                          }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <div className="flex-1">
-                            <p className="text-white text-xs font-medium mb-1">
-                              {category.subtitle}
-                            </p>
-                            <h3 className="text-white text-xl font-semibold leading-tight">
-                              {category.title}
-                            </h3>
-                          </div>
-
-                          {/* Enhanced Arrow Button */}
-                          <motion.div
-                            className="flex h-11 w-11 items-center justify-center rounded-full border"
-                            animate={{
-                              borderColor: isElevated ? 'rgba(255, 255, 255, 0.6)' : 'rgba(255, 255, 255, 0.25)',
-                              backgroundColor: isElevated ? 'rgba(255, 255, 255, 0.4)' : 'rgba(255, 255, 255, 0.15)',
-                              scale: isElevated ? 1.06 : 1,
-                            }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                          </motion.div>
-                        </motion.div>
-                      </div>
-
-                      {/* Animated Conversation Overlay */}
-                      <AnimatePresence>
-                        {hoveredCategory === category.id && (
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="absolute inset-0 z-20 rounded-3xl"
-                            style={{
-                              background: 'rgba(255, 255, 255, 0.6)',
-                              backdropFilter: 'blur(12px)',
-                            }}
-                          >
-                            <div className="backdrop-blur-sm h-full rounded-3xl">
-                              <AnimatedConversation
-                                messages={conversationFlows[category.id as keyof typeof conversationFlows] || []}
-                              />
+                        <div className="absolute bottom-4 left-4 right-4 z-10">
+                          <div className="flex items-center justify-between rounded-2xl border border-white/40 bg-black/60 p-4 backdrop-blur-md">
+                            <div className="flex-1">
+                              <p className="text-white text-xs font-medium mb-1">
+                                {category.subtitle}
+                              </p>
+                              <h3 className="text-white text-xl font-semibold leading-tight">
+                                {category.title}
+                              </h3>
                             </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </motion.div>
+
+                            <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/40 bg-white/20">
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
                   </div>
                 </Tooltip>
                 );
