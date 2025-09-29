@@ -577,6 +577,24 @@ export default function ReviewerPortal() {
             const selectedAgentLabel = policyAgentOptions.find(
               (agent) => agent.id === assignedAgent,
             )?.label;
+            const currentReviewId = focusedReview?.id ?? null;
+            const activeAssignments = currentReviewId
+              ? reviewPolicyActors[currentReviewId] ?? []
+              : [];
+            const existingAssignment = activeAssignments.find(
+              (assignment) => assignment.policyId === policy.id,
+            );
+            const buttonDisabled = !currentReviewId;
+            const buttonLabel = buttonDisabled
+              ? "Select a review tile"
+              : existingAssignment
+                ? `Update ${currentReviewId}`
+                : `Add to ${currentReviewId}`;
+            const helperMessage = buttonDisabled
+              ? "Open a review case to enable adding policy actors."
+              : existingAssignment
+                ? `Currently added as ${existingAssignment.agentLabel}.`
+                : `Will add ${selectedAgentLabel ?? "this policy actor"} to the selected review.`;
 
             return (
               <div
