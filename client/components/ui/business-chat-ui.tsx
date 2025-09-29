@@ -685,18 +685,42 @@ export function BusinessChatUI({ isOpen, onClose, category, title = "AI Business
   const [showBusinessPortal, setShowBusinessPortal] = useState(false);
 
   useEffect(() => {
-    if (isOpen) {
-      const initialMessages = conversationFlows[category as keyof typeof conversationFlows] || conversationFlows.general;
-      const newThread: ChatThread = {
-        id: `thread-${Date.now()}-${Math.random()}`,
-        title: getCategoryTitle(category),
-        messages: initialMessages,
-        view: 'journey',
-      };
-      setThreads([newThread]);
-      setActiveThreadId(newThread.id);
+    if (!isOpen) {
+      return;
     }
-  }, [isOpen, category]);
+
+    const baseMessages = conversationFlows[category as keyof typeof conversationFlows] || conversationFlows.general;
+    const clonedMessages = baseMessages.map(message => ({ ...message, timestamp: new Date(message.timestamp) }));
+
+    let seededMessages = clonedMessages;
+    const trimmedInitial = initialMessage?.trim();
+
+    if (trimmedInitial) {
+      const userMessage = {
+        id: `user-initial-${Date.now()}`,
+        content: trimmedInitial,
+        isAI: false,
+        timestamp: new Date(),
+      } satisfies BusinessMessage;
+
+      if (seededMessages.length > 0 && seededMessages[0].isAI === false) {
+        const [, ...rest] = seededMessages;
+        seededMessages = [userMessage, ...rest];
+      } else {
+        seededMessages = [userMessage, ...seededMessages];
+      }
+    }
+
+    const newThread: ChatThread = {
+      id: `thread-${Date.now()}-${Math.random()}`,
+      title: getCategoryTitle(category),
+      messages: seededMessages,
+      view: 'journey',
+    };
+
+    setThreads([newThread]);
+    setActiveThreadId(newThread.id);
+  }, [isOpen, category, initialMessage]);
 
   // UAE PASS Login Handler
   const handleUAEPassLogin = (userType: 'applicant' | 'reviewer', userData: any) => {
