@@ -147,6 +147,9 @@ export function ReviewFocusSheet({
             >
               {review.slaStatus}
             </Badge>
+            <Badge className="border border-[#c7b0f5] bg-[#f3ecff] px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#5b21b6]">
+              OPA Review
+            </Badge>
             <Badge className="border border-[#d8e4df] bg-white px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-slate-700">
               {review.id}
             </Badge>
