@@ -90,15 +90,7 @@ export function ReviewQueueCard({ item, onOpen }: ReviewQueueCardProps) {
           <p className="text-sm text-slate-600">{item.summary}</p>
         </div>
         <div className="flex flex-wrap items-center gap-3 text-slate-900">
-          <Badge
-            className={`border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide ${priorityStyles[item.priority]}`}
-          >
-            {item.priority} priority
-          </Badge>
-          <Badge className="border border-[#b7e1d4] bg-[#eaf7f3] px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#0f766e]">
-            {item.stage}
-          </Badge>
-          <Badge className="border border-[#c7b0f5] bg-[#f3ecff] px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#5b21b6]">
+          <Badge className="border border-[#f4bebe] bg-[#fdf1f0] px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#b23b31]">
             OPA Review
           </Badge>
         </div>
