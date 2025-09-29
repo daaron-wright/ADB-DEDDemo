@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 
-const OPA_REVIEW_URL = "http://localhost:4000";
+const OPA_REVIEW_URL = "https://c64e5974ca6d436eb4bd2ecabd67f8dd-nova-haven.projects.builder.my";
 
 export interface DocumentArtifact {
   id: string;
