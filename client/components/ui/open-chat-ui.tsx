@@ -136,11 +136,11 @@ const ChatStateIndicator = ({ state }: { state: ChatState }) => {
   if (state === 'idle') return null;
 
   return (
-    <div className="flex justify-start mb-3">
-      <div className="bg-black/80 text-white/70 rounded-2xl rounded-tl-sm px-3 py-2 text-sm flex items-center gap-2">
+    <div className="mb-3 flex justify-start">
+      <div className="flex items-center gap-2 rounded-2xl rounded-tl-sm border border-white/70 bg-white/70 px-3 py-2 text-sm text-slate-900 shadow-sm">
         <div className="flex gap-1">
           <motion.div
-            className="w-1 h-1 bg-[#54FFD4] rounded-full"
+            className="h-1 w-1 rounded-full bg-[#54FFD4]"
             animate={{ opacity: [0.4, 1, 0.4] }}
             transition={{ duration: 1, repeat: Infinity, delay: 0 }}
           />
