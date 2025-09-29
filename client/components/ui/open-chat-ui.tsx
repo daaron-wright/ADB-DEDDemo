@@ -190,6 +190,66 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
   const nodeRef = useRef(null);
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
 
+  const selectedCategory = useMemo(
+    () => (initialCategoryId ? businessCategories?.find(category => category.id === initialCategoryId) : undefined),
+    [businessCategories, initialCategoryId]
+  );
+
+  const promptSuggestions = useMemo(() => {
+    if (mode !== 'category' || !selectedCategory) {
+      return [] as Array<{ id: string; message: string }>;
+    }
+
+    const baseTitle = selectedCategory.title;
+    const normalizedTitle = baseTitle.toLowerCase();
+    const basePrompt = selectedCategory.prompt ?? `I'm exploring opportunities around ${baseTitle}. What should I consider?`;
+
+    const suggestions = [
+      basePrompt,
+      `What licenses do I need for a ${normalizedTitle}?`,
+      `What costs should I plan for when launching a ${normalizedTitle}?`,
+    ];
+
+    const unique = Array.from(new Set(suggestions.map(entry => entry.trim()).filter(Boolean)));
+
+    return unique.map((message, index) => ({
+      id: `${selectedCategory.id}-prompt-${index}`,
+      message,
+    }));
+  }, [mode, selectedCategory]);
+
+  const isIntroMode = mode === 'category' && Boolean(onPromptSubmit);
+
+  const placeholderText = isIntroMode && selectedCategory
+    ? `Ask about ${selectedCategory.title.toLowerCase()}...`
+    : 'Type your message...';
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    if (isIntroMode) {
+      const introContent = selectedCategory
+        ? `You're exploring ${selectedCategory.title}. Choose a suggested prompt below or type your own question to continue.`
+        : 'Choose a suggested prompt below or type your own question to continue.';
+      setMessages([createIntroMessage(introContent)]);
+      setInputValue('');
+      setChatState('idle');
+      return;
+    }
+
+    if (mode === 'general') {
+      setMessages([
+        createIntroMessage(
+          'Welcome to the future of government services. I can help you discover, set up, and grow your business. To get started, you can ask me a question or select one of the popular business categories below.'
+        ),
+      ]);
+      setInputValue('');
+      setChatState('idle');
+    }
+  }, [isOpen, isIntroMode, selectedCategory, mode, setMessages, setInputValue, setChatState]);
+
   // Initialize speech recognition
   useEffect(() => {
     const SpeechRecognitionCtor = getSpeechRecognitionConstructor();
