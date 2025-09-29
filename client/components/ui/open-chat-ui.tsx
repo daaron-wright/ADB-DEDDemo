@@ -393,15 +393,15 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
     <QueryClientProvider client={queryClient}>
       <AnimatePresence>
         {isOpen && (
-          <div className="fixed inset-0 z-50 flex items-end justify-end bg-black/45 backdrop-blur-sm p-6 relative">
-            <Draggable nodeRef={nodeRef} handle=".drag-handle" bounds="parent">
+          <div className="fixed inset-0 z-50 pointer-events-none">
+            <Draggable nodeRef={nodeRef} handle=".drag-handle" bounds="parent" defaultPosition={{ x: 0, y: 0 }}>
               <motion.div
                 ref={nodeRef}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, y: -12, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -12, scale: 0.96 }}
                 transition={{ duration: 0.2 }}
-                className="w-full max-w-md h-[500px] cursor-grab active:cursor-grabbing"
+                className="absolute top-6 right-6 w-full max-w-md h-[500px] cursor-grab active:cursor-grabbing pointer-events-auto"
               >
                 {/* Chat Container */}
                 <div className="flex flex-col h-full overflow-hidden rounded-3xl border border-white/25 bg-gradient-to-br from-white/25 via-white/10 to-white/5 text-slate-100 backdrop-blur-3xl shadow-[0_28px_70px_-24px_rgba(10,18,40,0.65)]">
