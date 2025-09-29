@@ -862,45 +862,15 @@ export default function ApplicantPortal() {
         filters={filters}
         headerActions={headerActions}
       >
-        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          <SummaryMetric
-            label="Total applications"
-            value={applications.length.toString()}
-            helper={
-              latestSubmission
-                ? `Last submission ${dateFormatter.format(latestSubmission)}`
-                : undefined
-            }
-            trend={{
-              value: `${recentSubmissionsCount} in 14 days`,
-              isPositive: true,
-            }}
-          />
-          <SummaryMetric
-            label="Active reviews"
-            value={inReviewCount.toString()}
-            helper={`${applications.filter((item) => item.status === "Awaiting Documents").length} awaiting documents`}
-            trend={{
-              value: `${activeReviewsUpdated} updated in 3 days`,
-              isPositive: true,
-            }}
-          />
-          <SummaryMetric
-            label="Average completion"
-            value={`${averageProgress}%`}
-            helper={`${approvalsLastSevenDays} approvals in 7 days`}
-          />
-        </section>
-
         {/* Application Overview Pill */}
-        <section className="mt-6">
+        <section className="mb-6">
           <Dialog open={isApplicationModalOpen} onOpenChange={setIsApplicationModalOpen}>
             <DialogTrigger asChild>
               <button
                 type="button"
-                className="w-full max-w-2xl bg-gradient-to-r from-[#0f766e] to-[#0c635d] hover:from-[#0c635d] hover:to-[#0a524a] rounded-full px-6 py-4 shadow-[0_16px_32px_-16px_rgba(11,64,55,0.4)] transition-all duration-200 hover:shadow-[0_20px_40px_-16px_rgba(11,64,55,0.5)] group"
+                className="w-full max-w-2xl bg-white hover:bg-gray-50 border border-[#d8e4df] rounded-full px-6 py-4 shadow-[0_16px_32px_-16px_rgba(11,64,55,0.2)] transition-all duration-200 hover:shadow-[0_20px_40px_-16px_rgba(11,64,55,0.3)] group"
               >
-                <div className="flex items-center justify-between text-white">
+                <div className="flex items-center justify-between text-slate-900">
                   <div className="flex items-center gap-4">
                     <div className="bg-white/20 rounded-full p-2">
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
