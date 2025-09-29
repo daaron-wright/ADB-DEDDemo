@@ -525,6 +525,7 @@ export default function ReviewerPortal() {
     setDaysThreshold([7]);
     setSortBy("due");
     setPolicyAssignments(buildDefaultPolicyAssignments());
+    setReviewPolicyActors({});
     setFocusedReview(null);
   };
 
