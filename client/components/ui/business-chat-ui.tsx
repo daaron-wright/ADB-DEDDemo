@@ -1442,6 +1442,8 @@ export function BusinessChatUI({
                   <div className="flex items-center">
                     <UAEPassLogin
                       onLogin={handleUAEPassLogin}
+                      mode="quick"
+                      defaultUserType="applicant"
                       trigger={
                         <span className="inline-flex cursor-pointer items-center transition-opacity hover:opacity-80">
                           <img
@@ -1512,13 +1514,16 @@ export function BusinessChatUI({
                     {activeThread?.messages.map((message) => {
                       const isJourneyIntro = Boolean(message.hasActions);
 
-                      // Show UAE Pass login button instead of text when not logged in
                       if (!isLoggedIn && isJourneyIntro) {
+                        const promptMessage = {
+                          ...message,
+                          content: "Sign in with UAE Pass to generate your investor journey.",
+                        };
+
                         return (
                           <div key={`${activeThread.id}-${message.id}`} className="space-y-4">
-                            {/* Show previous messages normally */}
                             <MessageBubble
-                              message={message}
+                              message={promptMessage}
                               onActionClick={(action) => {
                                 if (action === "budget-ranges") {
                                   console.log("Budget ranges clicked");
@@ -1526,9 +1531,10 @@ export function BusinessChatUI({
                               }}
                             />
 
-                            {/* UAE Pass Login Button */}
                             <UAEPassLogin
                               onLogin={handleUAEPassLogin}
+                              mode="quick"
+                              defaultUserType="applicant"
                               trigger={
                                 <button className="w-full flex items-center justify-between p-4 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/10 hover:bg-white/25 transition-all duration-200 group">
                                   <span className="text-white font-medium text-base">
@@ -1561,7 +1567,6 @@ export function BusinessChatUI({
                           message={enrichedMessage}
                           onActionClick={(action) => {
                             if (action === "budget-ranges") {
-                              // Budget ranges button - demographic question is already in the predefined flow
                               console.log("Budget ranges clicked");
                             }
                           }}
