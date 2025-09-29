@@ -202,6 +202,31 @@ const reviewQueue: ReviewQueueItem[] = [
     daysRemaining: -1,
     assignedTo: "Mariam Al Nuaimi",
     attachments: 4,
+    documents: [
+      {
+        id: "doc-governance-docs",
+        name: "Updated Governance Documents",
+        type: "form",
+        status: "approved",
+        uploadedAt: "2024-03-08",
+        size: "3.5 MB"
+      },
+      {
+        id: "doc-shareholder-attestation",
+        name: "Foreign Shareholder Attestations",
+        type: "certificate",
+        status: "under_review",
+        uploadedAt: "2024-03-09",
+        size: "2.4 MB"
+      },
+      {
+        id: "doc-shareholder-resolution",
+        name: "Notarized Shareholder Resolution",
+        type: "form",
+        status: "required",
+        size: "Expected"
+      }
+    ],
     summary:
       "Branch launch requiring cross-jurisdiction approvals, updated governance documents, and foreign shareholder attestations.",
     notes:
