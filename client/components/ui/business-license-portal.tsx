@@ -758,18 +758,25 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
           </div>
 
           {/* Step 3: Submit Documents - Inactive */}
-          <div className="flex-1 flex flex-col items-center justify-center gap-2.5 px-5 py-2 border-r border-white/30 opacity-50 relative">
+          <button
+            type="button"
+            onClick={() => handleTimelineClick('documents')}
+            className="group relative flex-1 cursor-pointer border-r border-white/30 px-5 py-2 opacity-50 transition duration-200 hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+          >
+            <span className="absolute top-2 right-3 rounded-full bg-[#54FFD4] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-900">
+              Submitting docs
+            </span>
             <div className="flex flex-col items-center gap-1">
               <div className="text-white text-center font-['Manrope'] text-sm font-bold leading-[133%]">
                 Submit Documents
               </div>
-              <div className="w-6 h-6 flex items-center justify-center">
+              <div className="flex h-6 w-6 items-center justify-center transition-transform duration-200 group-hover:scale-110">
                 <svg width="24" height="24" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.0002 2.00024C9.92348 2.00024 7.89342 2.61606 6.1667 3.76981C4.43998 4.92357 3.09417 6.56344 2.29945 8.48207C1.50473 10.4007 1.2968 12.5119 1.70194 14.5487C2.10709 16.5855 3.10712 18.4564 4.57557 19.9249C6.04402 21.3933 7.91494 22.3933 9.95174 22.7985C11.9885 23.2036 14.0997 22.9957 16.0184 22.201C17.937 21.4063 19.5769 20.0604 20.7306 18.3337C21.8844 16.607 22.5002 14.5769 22.5002 12.5002C22.5002 9.71547 21.3939 7.04475 19.4248 5.07562C17.4557 3.10649 14.785 2.00024 12.0002 2.00024ZM12.0002 21.5002C10.2202 21.5002 8.4801 20.9724 7.00006 19.9835C5.52001 18.9945 4.36646 17.5889 3.68527 15.9444C3.00408 14.2999 2.82585 12.4903 3.17312 10.7444C3.52039 8.9986 4.37755 7.39496 5.63623 6.13628C6.8949 4.87761 8.49855 4.02044 10.2444 3.67318C11.9902 3.32591 13.7998 3.50414 15.4443 4.18533C17.0889 4.86652 18.4945 6.02007 19.4834 7.50011C20.4723 8.98015 21.0002 10.7202 21.0002 12.5002C21.0002 14.8872 20.052 17.1764 18.3641 18.8642C16.6763 20.552 14.3871 21.5002 12.0002 21.5002Z" fill="white"/>
                 </svg>
               </div>
             </div>
-          </div>
+          </button>
 
           {/* Step 4: Business Licensing - Inactive */}
           <div className="flex-1 flex flex-col items-center justify-center gap-2.5 px-5 py-2 border-r border-white/30 opacity-50 relative">
