@@ -99,6 +99,9 @@ export function ReviewQueueCard({ item, onOpen }: ReviewQueueCardProps) {
           <Badge className="border border-[#b7e1d4] bg-[#eaf7f3] px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#0f766e]">
             {item.stage}
           </Badge>
+          <Badge className="border border-[#c7b0f5] bg-[#f3ecff] px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#5b21b6]">
+            OPA Review
+          </Badge>
         </div>
       </header>
 
