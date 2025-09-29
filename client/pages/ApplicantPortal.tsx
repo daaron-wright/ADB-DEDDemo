@@ -125,12 +125,26 @@ const statusStyles: Record<ApplicationRecord['status'], string> = {
 
 type JourneyState = 'done' | 'current' | 'upcoming';
 
+type JourneyTaskStatus = 'completed' | 'in_progress' | 'pending';
+
+interface JourneyTask {
+  id: string;
+  label: string;
+  status: JourneyTaskStatus;
+  owner: string;
+  dueDate?: string;
+  completedOn?: string;
+  tag?: string;
+  description?: string;
+}
+
 const applicantJourney: Array<{
   id: string;
   title: string;
   description: string;
   state: JourneyState;
   statusDetail?: string;
+  tasks: JourneyTask[];
 }> = [
   {
     id: 'questionnaire',
