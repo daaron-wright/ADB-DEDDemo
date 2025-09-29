@@ -205,8 +205,6 @@ export default function ReviewerPortal() {
     setPolicyAssignments((prev) => ({ ...prev, [policyId]: agentId }));
   };
 
-  const allDirectoratesSelected = selectedDirectorates.length === directorateOptions.length;
-  const someDirectoratesSelected = selectedDirectorates.length > 0 && !allDirectoratesSelected;
   const daysUpperBound = daysThreshold[0] ?? 7;
 
   const filteredQueue = useMemo(() => {
