@@ -12,7 +12,7 @@ export function FilterSection({ title, description, action, children }: FilterSe
     <section className="space-y-3">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h3 className="text-sm font-semibold tracking-tight text-slate-900">{title}</h3>
+          <h3 className="text-sm font-semibold text-slate-900">{title}</h3>
           {description ? (
             <p className="mt-1 text-xs text-slate-500">{description}</p>
           ) : null}
