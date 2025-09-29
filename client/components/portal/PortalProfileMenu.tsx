@@ -20,8 +20,8 @@ interface PortalProfileMenuProps {
 }
 
 const statusStyles: Record<Exclude<PortalProfileMenuProps['status'], undefined>, string> = {
-  online: 'bg-emerald-500',
-  offline: 'bg-slate-400',
+  online: 'bg-[#0f766e]',
+  offline: 'bg-[#a6bbb1]',
   none: 'hidden',
 };
 
