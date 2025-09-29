@@ -378,6 +378,7 @@ export default function ReviewerPortal() {
   const [reviewPolicyActors, setReviewPolicyActors] = useState<
     Record<string, PolicyActorAssignment[]>
   >({});
+  const [selectedReviewId, setSelectedReviewId] = useState<string | null>(null);
   const [focusedReview, setFocusedReview] = useState<ReviewQueueItem | null>(
     null,
   );
@@ -420,8 +421,14 @@ export default function ReviewerPortal() {
     setPolicyAssignments((prev) => ({ ...prev, [policyId]: agentId }));
   };
 
+  const ensureReviewActorRecord = (reviewId: string) => {
+    setReviewPolicyActors((prev) =>
+      prev[reviewId] ? prev : { ...prev, [reviewId]: [] },
+    );
+  };
+
   const handleAddPolicyActorToReview = (policyId: PolicyId) => {
-    if (!focusedReview) {
+    if (!selectedReviewId) {
       return;
     }
 
@@ -434,7 +441,7 @@ export default function ReviewerPortal() {
     }
 
     setReviewPolicyActors((prev) => {
-      const currentAssignments = prev[focusedReview.id] ?? [];
+      const currentAssignments = prev[selectedReviewId] ?? [];
       const nextAssignment: PolicyActorAssignment = {
         policyId,
         policyLabel: policy.document,
@@ -454,20 +461,24 @@ export default function ReviewerPortal() {
 
       return {
         ...prev,
-        [focusedReview.id]: updatedAssignments,
+        [selectedReviewId]: updatedAssignments,
       };
     });
   };
 
   const handleFocusOpen = (review: ReviewQueueItem) => {
+    setSelectedReviewId(review.id);
+    ensureReviewActorRecord(review.id);
     setFocusedReview(review);
-    setReviewPolicyActors((prev) =>
-      prev[review.id] ? prev : { ...prev, [review.id]: [] },
-    );
   };
 
   const handleFocusClose = () => {
     setFocusedReview(null);
+  };
+
+  const handleReviewSelect = (review: ReviewQueueItem) => {
+    setSelectedReviewId(review.id);
+    ensureReviewActorRecord(review.id);
   };
 
   const daysUpperBound = daysThreshold[0] ?? 7;
@@ -526,6 +537,7 @@ export default function ReviewerPortal() {
     setSortBy("due");
     setPolicyAssignments(buildDefaultPolicyAssignments());
     setReviewPolicyActors({});
+    setSelectedReviewId(null);
     setFocusedReview(null);
   };
 
@@ -577,7 +589,7 @@ export default function ReviewerPortal() {
             const selectedAgentLabel = policyAgentOptions.find(
               (agent) => agent.id === assignedAgent,
             )?.label;
-            const currentReviewId = focusedReview?.id ?? null;
+            const currentReviewId = selectedReviewId;
             const activeAssignments = currentReviewId
               ? reviewPolicyActors[currentReviewId] ?? []
               : [];
@@ -829,6 +841,8 @@ export default function ReviewerPortal() {
                 key={item.id}
                 item={item}
                 onOpen={handleFocusOpen}
+                onSelect={handleReviewSelect}
+                selected={selectedReviewId === item.id}
                 policyAssignments={reviewPolicyActors[item.id]}
               />
             ))}
