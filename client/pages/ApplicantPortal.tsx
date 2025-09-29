@@ -892,6 +892,138 @@ export default function ApplicantPortal() {
           />
         </section>
 
+        {/* Application Overview Pill */}
+        <section className="mt-6">
+          <Dialog open={isApplicationModalOpen} onOpenChange={setIsApplicationModalOpen}>
+            <DialogTrigger asChild>
+              <button
+                type="button"
+                className="w-full max-w-2xl bg-gradient-to-r from-[#0f766e] to-[#0c635d] hover:from-[#0c635d] hover:to-[#0a524a] rounded-full px-6 py-4 shadow-[0_16px_32px_-16px_rgba(11,64,55,0.4)] transition-all duration-200 hover:shadow-[0_20px_40px_-16px_rgba(11,64,55,0.5)] group"
+              >
+                <div className="flex items-center justify-between text-white">
+                  <div className="flex items-center gap-4">
+                    <div className="bg-white/20 rounded-full p-2">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <div className="text-left">
+                      <h3 className="font-semibold text-lg">{applications[0].title}</h3>
+                      <p className="text-white/80 text-sm">{applications[0].directorate}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="bg-white/15 backdrop-blur-sm rounded-full px-4 py-2">
+                      <span className="text-sm font-medium">{applications[0].status}</span>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold">{applications[0].progress}%</div>
+                      <div className="text-white/80 text-sm">Complete</div>
+                    </div>
+                    <svg className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </button>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-bold text-slate-900">
+                  {applications[0].title}
+                </DialogTitle>
+              </DialogHeader>
+              <div className="grid gap-6 md:grid-cols-2 mt-6">
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-3">Application Details</h4>
+                    <div className="space-y-3">
+                      <div className="flex justify-between py-2 border-b border-slate-100">
+                        <span className="text-slate-600">Application ID:</span>
+                        <span className="font-medium">{applications[0].id}</span>
+                      </div>
+                      <div className="flex justify-between py-2 border-b border-slate-100">
+                        <span className="text-slate-600">Directorate:</span>
+                        <span className="font-medium">{applications[0].directorate}</span>
+                      </div>
+                      <div className="flex justify-between py-2 border-b border-slate-100">
+                        <span className="text-slate-600">Beneficiary:</span>
+                        <span className="font-medium">{applications[0].beneficiary}</span>
+                      </div>
+                      <div className="flex justify-between py-2 border-b border-slate-100">
+                        <span className="text-slate-600">License Type:</span>
+                        <span className="font-medium">{applications[0].licenseType}</span>
+                      </div>
+                      <div className="flex justify-between py-2 border-b border-slate-100">
+                        <span className="text-slate-600">Status:</span>
+                        <Badge className={cn("px-3 py-1", statusStyles[applications[0].status])}>
+                          {applications[0].status}
+                        </Badge>
+                      </div>
+                      <div className="flex justify-between py-2 border-b border-slate-100">
+                        <span className="text-slate-600">Submitted:</span>
+                        <span className="font-medium">{new Date(applications[0].submissionDate).toLocaleDateString()}</span>
+                      </div>
+                      <div className="flex justify-between py-2">
+                        <span className="text-slate-600">Last Updated:</span>
+                        <span className="font-medium">{new Date(applications[0].lastUpdated).toLocaleDateString()}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-3">Progress Overview</h4>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-600">Overall Progress</span>
+                        <span className="text-lg font-semibold text-slate-900">{applications[0].progress}%</span>
+                      </div>
+                      <Progress value={applications[0].progress} className="h-3" />
+                      <div className="text-sm text-slate-500">
+                        {applications[0].progress < 50 ? "Early stages" :
+                         applications[0].progress < 80 ? "Good progress" :
+                         "Near completion"}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-3">Application Summary</h4>
+                    <p className="text-slate-700 leading-relaxed">{applications[0].summary}</p>
+                  </div>
+
+                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-4">
+                    <h5 className="font-semibold text-blue-900 mb-2 flex items-center gap-2">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                      </svg>
+                      Next Action Required
+                    </h5>
+                    <p className="text-blue-800">{applications[0].nextAction}</p>
+                  </div>
+
+                  <div className="bg-slate-50 rounded-xl p-4">
+                    <h5 className="font-semibold text-slate-900 mb-2">Quick Actions</h5>
+                    <div className="space-y-2">
+                      <button className="w-full text-left px-3 py-2 rounded-lg bg-white border border-slate-200 hover:border-[#0f766e] hover:bg-[#eaf7f3] transition-colors">
+                        <span className="text-sm font-medium text-slate-900">Upload Documents</span>
+                      </button>
+                      <button className="w-full text-left px-3 py-2 rounded-lg bg-white border border-slate-200 hover:border-[#0f766e] hover:bg-[#eaf7f3] transition-colors">
+                        <span className="text-sm font-medium text-slate-900">Schedule Inspection</span>
+                      </button>
+                      <button className="w-full text-left px-3 py-2 rounded-lg bg-white border border-slate-200 hover:border-[#0f766e] hover:bg-[#eaf7f3] transition-colors">
+                        <span className="text-sm font-medium text-slate-900">Contact Support</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </section>
+
         <section className="mt-6 rounded-3xl border border-[#d8e4df] bg-white p-8 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)]">
           <div className="flex flex-col gap-10 xl:flex-row xl:items-start">
             <div className="xl:max-w-sm">
