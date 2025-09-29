@@ -55,14 +55,14 @@ const documentStatusStyles: Record<DocumentArtifact["status"], string> = {
   required: "border-[#e0e7ff] bg-[#f8fafc] text-[#64748b]",
 };
 
-const documentTypeIcons: Record<DocumentArtifact["type"], string> = {
-  certificate: "🏆",
-  license: "📜",
-  permit: "✅",
-  form: "📋",
-  report: "📊",
-  contract: "📄",
-  plan: "📐",
+const documentTypeIcons: Record<DocumentArtifact["type"], ReactNode> = {
+  certificate: <Award className="h-4 w-4" aria-hidden="true" />,
+  license: <BadgeCheck className="h-4 w-4" aria-hidden="true" />,
+  permit: <CircleCheck className="h-4 w-4" aria-hidden="true" />,
+  form: <FileText className="h-4 w-4" aria-hidden="true" />,
+  report: <BarChart3 className="h-4 w-4" aria-hidden="true" />,
+  contract: <FileSignature className="h-4 w-4" aria-hidden="true" />,
+  plan: <Ruler className="h-4 w-4" aria-hidden="true" />,
 };
 
 const handleDocumentClick = (document: DocumentArtifact) => {
