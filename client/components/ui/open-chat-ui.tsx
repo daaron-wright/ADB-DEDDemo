@@ -167,7 +167,7 @@ const ChatStateIndicator = ({ state }: { state: ChatState }) => {
 
 const queryClient = new QueryClient();
 
-export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCategories, onCategoryClick }: OpenChatUIProps) {
+export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCategories, onCategoryClick, mode = 'general', initialCategoryId, initialCategoryTitle, onPromptSubmit }: OpenChatUIProps) {
   const [messages, setMessages] = usePersistentState<ChatMessage[]>('open-chat-messages', [
     {
       id: '1',
