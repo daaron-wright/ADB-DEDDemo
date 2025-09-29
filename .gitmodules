@@ -1,0 +1,3 @@
+[submodule "opa-review-ui"]
+	path = opa-review-ui
+	url = https://github.com/daaron-wright/OPAReviewUI-main.git
