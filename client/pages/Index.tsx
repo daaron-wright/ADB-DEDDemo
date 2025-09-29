@@ -400,7 +400,7 @@ export default function Index() {
             <span className="text-black text-base font-medium">Welcome</span>
             <button
               onClick={handleOpenGeneralChat}
-              className="bg-white/10 backdrop-blur-sm border border-gray-200 text-gray-700 px-4 py-2 rounded-full font-medium text-sm hover:bg-white/20 transition-colors"
+              className="bg-white text-gray-900 px-5 py-2.5 rounded-full font-semibold text-sm shadow-sm transition-shadow hover:shadow-md"
             >
               Chat with AI
             </button>
