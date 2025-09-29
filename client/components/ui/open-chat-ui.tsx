@@ -311,11 +311,18 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
   };
 
   const handleSendMessage = async () => {
-    if (!inputValue.trim()) return;
+    const trimmedValue = inputValue.trim();
+    if (!trimmedValue) return;
+
+    if (isIntroMode && onPromptSubmit) {
+      onPromptSubmit({ categoryId: selectedCategory?.id ?? initialCategoryId ?? null, message: trimmedValue });
+      setInputValue('');
+      return;
+    }
 
     const newMessage: ChatMessage = {
       id: Date.now().toString(),
-      content: inputValue,
+      content: trimmedValue,
       isAI: false,
       timestamp: new Date(),
     };
@@ -325,13 +332,13 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
     setChatState('thinking');
 
     try {
-      const response = await axios.post('/api/generate', { 
-        message: inputValue,
+      const response = await axios.post('/api/generate', {
+        message: trimmedValue,
         type: 'open-chat'
       });
-      
+
       setChatState('responding');
-      
+
       // Simulate typing delay
       setTimeout(() => {
         const aiResponse: ChatMessage = {
