@@ -332,6 +332,24 @@ const journeyStateTokens: Record<JourneyState, { label: string; badgeClass: stri
   },
 };
 
+const taskStatusTokens: Record<JourneyTaskStatus, { label: string; badgeClass: string; dotClass: string }> = {
+  completed: {
+    label: 'Completed',
+    badgeClass: 'border-emerald-200 bg-emerald-50 text-emerald-700',
+    dotClass: 'bg-emerald-500',
+  },
+  in_progress: {
+    label: 'In progress',
+    badgeClass: 'border-purple-200 bg-purple-50 text-purple-700',
+    dotClass: 'bg-purple-500',
+  },
+  pending: {
+    label: 'Waiting on you',
+    badgeClass: 'border-amber-200 bg-amber-50 text-amber-700',
+    dotClass: 'bg-amber-500',
+  },
+};
+
 const dateFormatter = new Intl.DateTimeFormat('en-GB', {
   day: '2-digit',
   month: 'short',
