@@ -464,7 +464,7 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                             <button
                               key={category.id}
                               onClick={() => onCategoryClick(category.id, category.title)}
-                              className="rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-xs font-medium text-white backdrop-blur-xl transition-colors hover:bg-white/20"
+                              className="rounded-lg border border-black/10 bg-white/85 px-3 py-2 text-xs font-medium text-slate-900 backdrop-blur-xl transition-colors hover:bg-white"
                             >
                               {category.title}
                             </button>
