@@ -251,10 +251,6 @@ export default function Index() {
     });
   };
 
-  const handleCloseGeneralChat = () => {
-    resetOpenChatState();
-  };
-
   const getChatTitle = () => {
     const category = businessCategories.find(cat => cat.id === chatState.category);
     return category ? `${category.subtitle} for ${category.title}` : 'AI Business';
