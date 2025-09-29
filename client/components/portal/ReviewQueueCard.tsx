@@ -126,6 +126,39 @@ export function ReviewQueueCard({ item, onOpen }: ReviewQueueCardProps) {
         />
       </div>
 
+      <div className="mt-6">
+        <div className="flex items-center justify-between mb-3">
+          <h4 className="text-sm font-semibold text-slate-900">Key Documents</h4>
+          <span className="text-xs text-slate-500">{item.documents.length} artifacts</span>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {item.documents.slice(0, 4).map((document) => {
+            const statusColors = {
+              approved: "bg-green-100 text-green-800 border-green-200",
+              pending: "bg-yellow-100 text-yellow-800 border-yellow-200",
+              rejected: "bg-red-100 text-red-800 border-red-200",
+              under_review: "bg-blue-100 text-blue-800 border-blue-200",
+              required: "bg-gray-100 text-gray-600 border-gray-200",
+            };
+
+            return (
+              <div
+                key={document.id}
+                className={`inline-flex items-center gap-1 px-2 py-1 rounded-full border text-xs font-medium ${statusColors[document.status]}`}
+              >
+                <span className="w-2 h-2 rounded-full bg-current opacity-60"></span>
+                <span className="truncate max-w-[120px]">{document.name}</span>
+              </div>
+            );
+          })}
+          {item.documents.length > 4 && (
+            <div className="inline-flex items-center px-2 py-1 rounded-full border border-gray-200 bg-gray-50 text-xs font-medium text-gray-600">
+              +{item.documents.length - 4} more
+            </div>
+          )}
+        </div>
+      </div>
+
       <div className="mt-6 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
         <div className="flex w-full flex-1 items-center gap-4 text-slate-900">
           <Progress
