@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { conversationFlows } from "@/lib/conversations";
+import { Button } from "@/components/ui/button";
 import { UAEPassLogin } from "./uae-pass-login";
 import BusinessLicensePortalSimplified from "./business-license-portal-simplified";
 
