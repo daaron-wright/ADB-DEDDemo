@@ -231,16 +231,7 @@ export default function ReviewerPortal() {
 
         return a.daysRemaining - b.daysRemaining;
       });
-  }, [
-    searchTerm,
-    selectedDirectorates,
-    selectedSlaStatus,
-    priorityFilter,
-    selectedStage,
-    daysUpperBound,
-    sortBy,
-    allDirectoratesSelected,
-  ]);
+  }, [searchTerm, selectedStage, daysUpperBound, sortBy]);
 
   const atRiskCount = reviewQueue.filter((item) => item.slaStatus === 'At Risk' || item.slaStatus === 'Breached').length;
   const breachedCount = reviewQueue.filter((item) => item.slaStatus === 'Breached').length;
