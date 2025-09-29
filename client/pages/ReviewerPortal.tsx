@@ -355,6 +355,61 @@ export default function ReviewerPortal() {
         </div>
       </FilterSection>
 
+      <FilterSection
+        title="Display policy glossary"
+        description="Reference key policies and choose which agent should surface insights per document."
+      >
+        <div className="space-y-3">
+          {policyGlossary.map((policy) => {
+            const assignedAgent = policyAssignments[policy.id];
+            const selectedAgentLabel = policyAgentOptions.find((agent) => agent.id === assignedAgent)?.label;
+
+            return (
+              <div
+                key={policy.id}
+                className="rounded-2xl border border-[#d8e4df] bg-white p-3 shadow-[0_12px_24px_-20px_rgba(11,64,55,0.16)]"
+              >
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="space-y-2">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-[#eaf7f3] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#0f766e]">
+                      <span>{policy.category}</span>
+                      <span className="h-1 w-1 rounded-full bg-[#0f766e]/40" aria-hidden="true" />
+                      <span>{selectedAgentLabel ?? 'Agent not set'}</span>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-900">{policy.document}</p>
+                      <p className="mt-1 text-xs text-slate-500">{policy.summary}</p>
+                    </div>
+                  </div>
+
+                  <Select
+                    value={assignedAgent}
+                    onValueChange={(value) => handlePolicyAgentChange(policy.id, value as PolicyAgentId)}
+                  >
+                    <SelectTrigger className="h-10 min-w-[10rem] rounded-2xl border-[#d8e4df] bg-white text-sm text-slate-900">
+                      <SelectValue aria-label={selectedAgentLabel ?? 'Select policy agent'} />
+                    </SelectTrigger>
+                    <SelectContent className="rounded-2xl border border-[#d8e4df] bg-white text-slate-900">
+                      <SelectGroup>
+                        {policyAgentOptions.map((agent) => (
+                          <SelectItem
+                            key={agent.id}
+                            value={agent.id}
+                            className="rounded-xl text-sm text-slate-900 data-[state=checked]:bg-[#dff2ec] data-[state=checked]:text-[#0b7d6f]"
+                          >
+                            {agent.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </FilterSection>
+
       <FilterSection title="Directorate">
         <div className="space-y-3">
           <Checkbox
