@@ -497,8 +497,8 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                           isListening
                             ? "border-red-500/40 bg-red-500/80 hover:bg-red-500 text-white"
                             : chatState === 'idle'
-                            ? "border-[#54FFD4]/40 bg-[#54FFD4]/25 text-[#0A1F1B] hover:bg-[#54FFD4]/35"
-                            : "border-white/15 bg-white/8 text-white/40 cursor-not-allowed"
+                            ? "border-[#54FFD4]/45 bg-[#54FFD4]/30 text-[#082C25] hover:bg-[#54FFD4]/40"
+                            : "border-black/10 bg-white/70 text-slate-500 cursor-not-allowed"
                         )}
                       >
                         {isListening ? (
@@ -520,8 +520,8 @@ export function OpenChatUI({ isOpen, onClose, title = "AI Business", businessCat
                         className={cn(
                           "flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-200",
                           inputValue.trim() && chatState === 'idle'
-                            ? "border-[#54FFD4]/40 bg-[#54FFD4]/25 text-[#0A1F1B] hover:bg-[#54FFD4]/35 hover:scale-105"
-                            : "border-white/15 bg-white/8 text-white/40 cursor-not-allowed"
+                            ? "border-[#54FFD4]/45 bg-[#54FFD4]/30 text-[#082C25] hover:bg-[#54FFD4]/40 hover:scale-105"
+                            : "border-black/10 bg-white/70 text-slate-500 cursor-not-allowed"
                         )}
                       >
                         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
