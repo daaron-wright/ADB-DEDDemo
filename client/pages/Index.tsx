@@ -233,16 +233,26 @@ export default function Index() {
     });
   };
 
+  const resetOpenChatState = () => {
+    setOpenChatState({
+      isOpen: false,
+      mode: 'general',
+      category: null,
+      categoryTitle: null,
+    });
+  };
+
   const handleOpenGeneralChat = () => {
     setOpenChatState({
       isOpen: true,
+      mode: 'general',
+      category: null,
+      categoryTitle: null,
     });
   };
 
   const handleCloseGeneralChat = () => {
-    setOpenChatState({
-      isOpen: false,
-    });
+    resetOpenChatState();
   };
 
   const getChatTitle = () => {
