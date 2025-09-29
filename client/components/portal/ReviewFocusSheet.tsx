@@ -30,6 +30,7 @@ interface ReviewFocusSheetProps {
   open: boolean;
   review: ReviewQueueItem | null;
   onClose: () => void;
+  policyAssignments?: PolicyActorAssignment[];
 }
 
 const priorityStyles: Record<ReviewQueueItem["priority"], string> = {
