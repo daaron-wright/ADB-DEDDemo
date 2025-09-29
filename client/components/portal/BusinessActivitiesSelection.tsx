@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -57,7 +56,7 @@ export function BusinessActivitiesSelection({
     });
   };
 
-  const handleCreateActivity = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleCreateActivity = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const label = newActivityName.trim();
     if (!label || newActivityActors.length === 0) {
