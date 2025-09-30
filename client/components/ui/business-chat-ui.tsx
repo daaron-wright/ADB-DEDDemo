@@ -3843,9 +3843,9 @@ export function BusinessChatUI({
 
               {/* Chat Container */}
               <div className="relative z-10 flex w-full justify-center px-3 py-6 sm:px-6 sm:py-8 lg:px-12 lg:py-10">
-                <div className="mx-auto w-full max-w-6xl rounded-[28px] sm:rounded-[32px] border border-white/60 bg-white/75 backdrop-blur-2xl shadow-[0_48px_120px_-52px_rgba(15,23,42,0.45)]">
+                <div className="mx-auto w-full max-w-6xl rounded-[28px] sm:rounded-[32px] border border-white/30 bg-white/35 backdrop-blur-[36px] shadow-[0_60px_150px_-68px_rgba(15,23,42,0.45)]">
                   {/* Chat Header */}
-                  <div className="border-b border-slate-200 bg-white/80 p-3 backdrop-blur-xl sm:p-4 lg:p-6">
+                  <div className="border-b border-white/40 bg-white/60 p-3 backdrop-blur-2xl sm:p-4 lg:p-6">
                     <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                       <div className="flex flex-col gap-1 text-left">
                         <span className="inline-flex w-fit items-center rounded-full border border-slate-200/70 bg-white/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
@@ -3941,7 +3941,7 @@ export function BusinessChatUI({
 
                   <div className="px-3 sm:px-4 lg:px-6 pb-4 sm:pb-6 lg:pb-8">
                     <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8">
-                      <div className="flex flex-col rounded-[24px] border border-white/60 bg-white/70 backdrop-blur-xl p-3 sm:p-5 lg:p-6 shadow-[0_30px_80px_-55px_rgba(15,23,42,0.4)] min-h-[420px]">
+                      <div className="flex flex-col rounded-[24px] border border-white/30 bg-white/30 backdrop-blur-[32px] p-3 sm:p-5 lg:p-6 shadow-[0_45px_120px_-70px_rgba(15,23,42,0.35)] min-h-[420px]">
                         <div className="flex-1 overflow-y-auto space-y-3 sm:space-y-4 pr-1 sm:pr-2 lg:pr-3 max-h-[52vh] sm:max-h-[58vh]">
                           {activeThread?.messages.map((message) => {
                             const isJourneyIntro = Boolean(message.hasActions);
@@ -4014,8 +4014,8 @@ export function BusinessChatUI({
                           )}
                         </div>
 
-                        <div className="mt-4 border-t border-slate-200 pt-3 sm:pt-4">
-                          <div className="flex items-center gap-2 rounded-[18px] border border-white/60 bg-white/80 p-2 shadow-[0_20px_45px_-32px_rgba(15,23,42,0.35)] sm:gap-3 sm:p-3">
+                        <div className="mt-4 border-t border-white/40 pt-3 sm:pt-4">
+                          <div className="flex items-center gap-2 rounded-[18px] border border-white/30 bg-white/40 p-2 shadow-[0_24px_55px_-38px_rgba(15,23,42,0.35)] sm:gap-3 sm:p-3">
                             <input
                               type="text"
                               value={currentInput}
