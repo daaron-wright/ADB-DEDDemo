@@ -4397,6 +4397,10 @@ export function BusinessChatUI({
     setModalView("gap-analysis");
   }, []);
 
+  const openRetailLocations = useCallback(() => {
+    setModalView("retail-locations");
+  }, []);
+
   const handleAction = useCallback(
     (action: ConversationAction, label: string) => {
       setMessages((prev) => {
