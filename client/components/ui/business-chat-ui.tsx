@@ -3695,6 +3695,7 @@ export function BusinessChatUI({
       content: generateAIResponse(trimmedMessage),
       isAI: true,
       timestamp: new Date(),
+      type: "text",
     };
 
     if (activeThread) {
