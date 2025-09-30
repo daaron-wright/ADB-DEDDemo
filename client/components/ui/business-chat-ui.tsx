@@ -4228,6 +4228,21 @@ export function BusinessChatUI({
                               key={message.id}
                               message={message}
                               onActionClick={handleAction}
+                              dialogueDocProps={
+                                message.type === "dialogue-doc"
+                                  ? {
+                                      title: message.docTitle ?? "Investor dialogue workspace",
+                                      summary: message.content,
+                                      notes: dialogueDocState.notes,
+                                      highlights: dialogueDocState.highlights,
+                                      onNotesChange: handleDialogueDocNotesChange,
+                                      onToggleHighlight: handleDialogueDocToggleHighlight,
+                                      onHighlightChange: handleDialogueDocHighlightChange,
+                                      onHighlightRemove: handleDialogueDocHighlightRemove,
+                                      onAddHighlight: handleDialogueDocHighlightAdd,
+                                    }
+                                  : undefined
+                              }
                             />
                           ))}
                         </div>
