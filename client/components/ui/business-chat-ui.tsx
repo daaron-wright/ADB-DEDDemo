@@ -4554,6 +4554,7 @@ export function BusinessChatUI({
     const handleCompetitorBreakout = () => setCompetitorBreakoutOpen(true);
     const handleGapBreakout = () => setGapBreakoutOpen(true);
     const handleGapAnalysis = () => openGapAnalysis();
+    const handleRetailLocations = () => openRetailLocations();
 
     window.addEventListener("openCuisineBreakout", handleCuisineBreakout);
     window.addEventListener("openCompetitorBreakout", handleCompetitorBreakout);
