@@ -4014,7 +4014,7 @@ export function BusinessChatUI({
                                 }
                               }}
                               disabled={!currentInput.trim()}
-                              className="inline-flex items-center justify-center rounded-xl bg-[#54FFD4] px-4 sm:px-6 py-2.5 sm:py-3 text-sm font-semibold text-slate-900 transition hover:bg-[#42f6c9] disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/40"
+                              className="inline-flex items-center justify-center rounded-xl bg-[#54FFD4] px-4 sm:px-6 py-2.5 sm:py-3 text-sm font-semibold text-slate-900 transition hover:bg-[#42f6c9] disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
                             >
                               <svg
                                 width="20"
