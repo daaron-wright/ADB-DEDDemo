@@ -4190,6 +4190,7 @@ export function BusinessChatUI({
     }
 
     setView("basic");
+    setCurrentView("basic");
     setCurrentStep("intro");
     setDialogueDocState(createInitialDialogueDocState());
 
