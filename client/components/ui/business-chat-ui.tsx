@@ -4342,6 +4342,10 @@ export function BusinessChatUI({
     setModalView("heat-map");
   }, []);
 
+  const openBudgetRangesFocus = useCallback(() => {
+    setModalView("budget-ranges");
+  }, []);
+
   const handleAction = useCallback(
     (action: ConversationAction, label: string) => {
       setMessages((prev) => {
