@@ -3993,7 +3993,7 @@ export function BusinessChatUI({
                           )}
                         </div>
 
-                        <div className="mt-4 border-t border-white/10 pt-3 sm:pt-4">
+                        <div className="mt-4 border-t border-slate-200 pt-3 sm:pt-4">
                           <div className="flex gap-2 sm:gap-3">
                             <input
                               type="text"
