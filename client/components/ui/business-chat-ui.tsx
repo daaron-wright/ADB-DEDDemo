@@ -331,6 +331,386 @@ const GapAnalysisCard = ({ className = "" }: { className?: string }) => {
   );
 };
 
+type ContextTabId = "insights" | "workflow" | "reports";
+
+const CONTEXT_TABS: Array<{ id: ContextTabId; label: string; meta: string }> = [
+  { id: "insights", label: "Insights", meta: "Live" },
+  { id: "workflow", label: "Workflow", meta: "9 routines" },
+  { id: "reports", label: "Breakouts", meta: "3 available" },
+];
+
+const MetricTile = ({
+  label,
+  value,
+  caption,
+  trend,
+}: {
+  label: string;
+  value: string;
+  caption: string;
+  trend?: string;
+}) => {
+  return (
+    <div className="rounded-xl border border-white/12 bg-white/[0.07] p-3 sm:p-4 text-left">
+      <div className="text-[11px] uppercase tracking-[0.18em] text-white/60">
+        {label}
+      </div>
+      <div className="mt-2 text-lg font-semibold text-white">{value}</div>
+      {trend && (
+        <div className="text-xs font-semibold text-emerald-300">{trend}</div>
+      )}
+      <p className="mt-1 text-xs text-white/70 leading-relaxed">{caption}</p>
+    </div>
+  );
+};
+
+const InsightsSummary = () => {
+  return (
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+      <MetricTile
+        label="Market appetite"
+        value="High · 8.1 index"
+        caption="Tourist and resident demand for Corniche dining stays strong."
+        trend="▲ 6.2% month-on-month"
+      />
+      <MetricTile
+        label="License readiness"
+        value="3 of 4 docs"
+        caption="Compliance dossier awaiting final reviewer attachment."
+      />
+      <MetricTile
+        label="Site priority"
+        value="Corniche focus"
+        caption="Footfall uplift remains highest compared to Yas and Al Maryah."
+        trend="▲ 12% week-on-week"
+      />
+      <MetricTile
+        label="Processing SLA"
+        value="48h target"
+        caption="Average reviewer turnaround for business license issuance."
+      />
+    </div>
+  );
+};
+
+const InsightAccordionPanel = () => {
+  return (
+    <Accordion
+      type="single"
+      collapsible
+      className="rounded-2xl border border-white/12 bg-white/10 backdrop-blur-xl"
+    >
+      <AccordionItem
+        value="corniche"
+        className="border-b border-white/10 last:border-b-0"
+      >
+        <AccordionTrigger className="px-4 text-left text-sm font-semibold text-white">
+          <span className="flex items-center gap-3">
+            <span>Corniche watchlist</span>
+            <Badge
+              variant="outline"
+              className="border-white/20 bg-white/10 text-[10px] uppercase tracking-wide text-white/80"
+            >
+              Priority
+            </Badge>
+          </span>
+        </AccordionTrigger>
+        <AccordionContent className="space-y-3 px-4 text-sm text-white/75">
+          <p>Waterfront corridor indexed 8/10 on visitor engagement this week.</p>
+          <ul className="space-y-2 text-xs text-white/60">
+            <li className="flex items-start gap-2">
+              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-300" />
+              <span>Event calendar drove a 12% uplift from Thursday to Saturday.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-sky-300" />
+              <span>Premium casual concepts outperform traditional fine dining by 1.4x spend.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-1 h-1.5 w-1.5 rounded-full bg-amber-300" />
+              <span>Morning trade growing due to family wellness events along the promenade.</span>
+            </li>
+          </ul>
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem
+        value="policy"
+        className="border-b border-white/10 last:border-b-0"
+      >
+        <AccordionTrigger className="px-4 text-left text-sm font-semibold text-white">
+          <span className="flex items-center gap-3">
+            <span>Policy bulletin</span>
+            <Badge
+              variant="outline"
+              className="border-white/20 bg-white/10 text-[10px] uppercase tracking-wide text-white/80"
+            >
+              New
+            </Badge>
+          </span>
+        </AccordionTrigger>
+        <AccordionContent className="space-y-3 px-4 text-sm text-white/75">
+          <p>DED released an update for Real Beneficiary Declarations across all nine routines.</p>
+          <p className="text-xs text-white/60">
+            Applicants must confirm shareholder attestations prior to reviewer assignment. UAE Pass signatures are auto-requested at stage three.
+          </p>
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="experience">
+        <AccordionTrigger className="px-4 text-left text-sm font-semibold text-white">
+          <span className="flex items-center gap-3">
+            <span>Experience highlights</span>
+            <Badge
+              variant="outline"
+              className="border-white/15 bg-white/10 text-[10px] uppercase tracking-wide text-white/80"
+            >
+              Journey
+            </Badge>
+          </span>
+        </AccordionTrigger>
+        <AccordionContent className="space-y-3 px-4 text-sm text-white/75">
+          <p>Investor journey showcases four stages from idea capture to license issuance.</p>
+          <p className="text-xs text-white/60">
+            Personalised playbooks, onboarding checklist, and portal shortcuts surface here once the applicant signs in.
+          </p>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  );
+};
+
+const WORKFLOW_STEPS: Array<{
+  title: string;
+  status: "Complete" | "In review" | "Scheduled" | "Upcoming";
+  description: string;
+}> = [
+  {
+    title: "Intake & idea capture",
+    status: "Complete",
+    description: "Opportunity qualified by AI Business and shared with the applicant.",
+  },
+  {
+    title: "Compliance dossier",
+    status: "In review",
+    description: "Supporting evidence awaiting reviewer assignment via license portal.",
+  },
+  {
+    title: "Stakeholder approvals",
+    status: "Scheduled",
+    description: "DED legal and finance sign-off queued post compliance validation.",
+  },
+  {
+    title: "License issuance",
+    status: "Upcoming",
+    description: "UAE Pass notification triggers once approvals are finalised.",
+  },
+];
+
+const getStatusBadgeClass = (status: "Complete" | "In review" | "Scheduled" | "Upcoming") => {
+  switch (status) {
+    case "Complete":
+      return "border-emerald-300/40 bg-emerald-400/15 text-emerald-200";
+    case "In review":
+      return "border-amber-300/40 bg-amber-400/15 text-amber-200";
+    case "Scheduled":
+      return "border-sky-300/40 bg-sky-400/15 text-sky-200";
+    case "Upcoming":
+    default:
+      return "border-white/25 bg-white/10 text-white/70";
+  }
+};
+
+const WorkflowSnapshot = () => {
+  return (
+    <div className="space-y-4">
+      {WORKFLOW_STEPS.map((step, index) => (
+        <div key={step.title} className="flex items-start gap-3">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-white/10 text-sm font-semibold text-white">
+            {index + 1}
+          </div>
+          <div className="flex-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-sm font-semibold text-white">{step.title}</span>
+              <Badge
+                variant="outline"
+                className={cn(
+                  "text-[10px] uppercase tracking-wide",
+                  getStatusBadgeClass(step.status),
+                )}
+              >
+                {step.status}
+              </Badge>
+            </div>
+            <p className="mt-1 text-xs text-white/70 leading-relaxed">
+              {step.description}
+            </p>
+          </div>
+        </div>
+      ))}
+      <div className="rounded-xl border border-white/10 bg-white/5 p-4 text-xs text-white/65">
+        Timeline auto-syncs with reviewer assignments and UAE Pass status updates.
+      </div>
+    </div>
+  );
+};
+
+interface ContextActionPillProps {
+  label: string;
+  description: string;
+  onClick: () => void;
+  gradient: string;
+  icon: React.ReactNode;
+}
+
+const ContextActionPill = ({
+  label,
+  description,
+  onClick,
+  gradient,
+  icon,
+}: ContextActionPillProps) => {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="group w-full rounded-2xl border border-white/12 bg-white/5 p-4 text-left transition hover:border-[#54FFD4]/70 hover:bg-white/10"
+    >
+      <div className="flex items-center gap-3">
+        <div
+          className={cn(
+            "flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-slate-900",
+            gradient,
+          )}
+        >
+          {icon}
+        </div>
+        <div>
+          <div className="text-sm font-semibold text-white">{label}</div>
+          <p className="mt-1 text-xs text-white/70 leading-relaxed">{description}</p>
+        </div>
+      </div>
+    </button>
+  );
+};
+
+const ReportsPanel = ({
+  onOpenCuisine,
+  onOpenCompetitor,
+  onOpenGap,
+  onDownloadDigest,
+}: {
+  onOpenCuisine: () => void;
+  onOpenCompetitor: () => void;
+  onOpenGap: () => void;
+  onDownloadDigest: () => void;
+}) => {
+  return (
+    <div className="space-y-4">
+      <div className="grid gap-3">
+        <ContextActionPill
+          label="Cuisine popularity breakout"
+          description="Deep dive into cuisine share, spend behaviour, and recommendation heatmap."
+          onClick={onOpenCuisine}
+          gradient="bg-gradient-to-br from-emerald-300 to-teal-500"
+          icon={
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="text-slate-900"
+            >
+              <path
+                d="M10 2.5C5.86 2.5 2.5 5.86 2.5 10C2.5 14.14 5.86 17.5 10 17.5C14.14 17.5 17.5 14.14 17.5 10C17.5 5.86 14.14 2.5 10 2.5ZM10 15.8333C6.77667 15.8333 4.16667 13.2233 4.16667 10C4.16667 6.77667 6.77667 4.16667 10 4.16667C13.2233 4.16667 15.8333 6.77667 15.8333 10C15.8333 13.2233 13.2233 15.8333 10 15.8333Z"
+                fill="currentColor"
+              />
+              <path
+                d="M10.8333 5.83325H9.16663V9.99992L12.5 12.2083L13.3333 10.9416L10.8333 9.33325V5.83325Z"
+                fill="currentColor"
+              />
+            </svg>
+          }
+        />
+        <ContextActionPill
+          label="Competitor radar"
+          description="Track ratings, pricing tiers, and positioning across premium venues."
+          onClick={onOpenCompetitor}
+          gradient="bg-gradient-to-br from-sky-300 to-indigo-500"
+          icon={
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="text-slate-900"
+            >
+              <path
+                d="M4.16667 15.8333H15.8333V14.1666H4.16667V15.8333ZM4.16667 10.8333H15.8333V9.16659H4.16667V10.8333ZM4.16667 4.16659V5.83325H15.8333V4.16659H4.16667Z"
+                fill="currentColor"
+              />
+            </svg>
+          }
+        />
+        <ContextActionPill
+          label="Gap opportunity brief"
+          description="Surface unmet demand segments and recommended service concepts."
+          onClick={onOpenGap}
+          gradient="bg-gradient-to-br from-amber-300 to-orange-500"
+          icon={
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="text-slate-900"
+            >
+              <path
+                d="M10 1.66675L1.66667 18.3334H18.3333L10 1.66675ZM10 5.27508L15.4417 16.6667H4.55833L10 5.27508ZM9.16667 13.3334H10.8333V15.0001H9.16667V13.3334ZM9.16667 8.33341H10.8333V11.6667H9.16667V8.33341Z"
+                fill="currentColor"
+              />
+            </svg>
+          }
+        />
+      </div>
+      <div className="rounded-2xl border border-white/12 bg-white/6 p-4 space-y-3">
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <p className="text-sm font-semibold text-white">Summary digest</p>
+            <p className="text-xs text-white/65">Export latest conversation, analysis cards, and compliance status.</p>
+          </div>
+          <Badge
+            variant="outline"
+            className="border-sky-300/50 bg-sky-400/10 text-[10px] uppercase tracking-wide text-sky-100"
+          >
+            Beta
+          </Badge>
+        </div>
+        <button
+          type="button"
+          onClick={onDownloadDigest}
+          className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold text-white transition hover:border-[#54FFD4] hover:text-[#54FFD4]"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10 13.3333L15 8.33325H11.6667V2.49992H8.33333V8.33325H5L10 13.3333ZM5 15.8333V17.4999H15V15.8333H5Z"
+              fill="currentColor"
+            />
+          </svg>
+          Download digest
+        </button>
+      </div>
+    </div>
+  );
+};
+
 // Preloaded Prompt Selector Component
 const PreloadedPrompts = ({
   category,
