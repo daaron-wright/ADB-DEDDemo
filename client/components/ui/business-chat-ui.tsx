@@ -541,8 +541,12 @@ const CompetitorAnalysisView = ({ onBack, onGapAnalysis, onSendMessage }: { onBa
                   placeholder="Can you provide a gap analysis on these?"
                   className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/60 text-sm outline-none focus:border-[#54FFD4]/50"
                   onKeyPress={(e) => {
-                    if (e.key === 'Enter' && e.currentTarget.value.trim().toLowerCase().includes('gap analysis')) {
-                      onGapAnalysis();
+                    if (e.key === 'Enter' && e.currentTarget.value.trim()) {
+                      const message = e.currentTarget.value.trim();
+                      if (onSendMessage) {
+                        onSendMessage(message);
+                      }
+                      e.currentTarget.value = '';
                     }
                   }}
                 />
