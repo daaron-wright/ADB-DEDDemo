@@ -481,7 +481,7 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
 
             {/* Right Sidebar */}
             <div className="absolute right-[81px] top-[146px] w-[381px] h-[501px]">
-              <div className="w-full h-full rounded-[24px] bg-white/14 backdrop-blur-md">
+              <div className={chatCardClass("w-full h-full bg-white/14 backdrop-blur-md")}>
                 {/* AI Business Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
@@ -535,7 +535,7 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
 
             {/* Bottom Insights Bar */}
             <div className="absolute bottom-[81px] left-[81px] w-[1033px] h-[124px]">
-              <div className="w-full h-full rounded-[24px] bg-white/14 backdrop-blur-md">
+              <div className={chatCardClass("w-full h-full bg-white/14 backdrop-blur-md")}>
                 <div className="p-6">
                   <div className="text-white text-lg mb-2">INSIGHTS</div>
                   <div className="text-white text-2xl font-semibold mb-4">Abu Dhabi Cuisine Trends</div>
@@ -638,7 +638,7 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
 
             {/* Right Sidebar */}
             <div className="absolute right-[81px] top-[146px] w-[381px] h-[501px]">
-              <div className="w-full h-full rounded-[24px] bg-white/14 backdrop-blur-md">
+              <div className={chatCardClass("w-full h-full bg-white/14 backdrop-blur-md")}>
                 {/* AI Business Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
@@ -692,7 +692,7 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
 
             {/* Bottom Insights Bar */}
             <div className="absolute bottom-[81px] left-[81px] w-[1033px] h-[124px]">
-              <div className="w-full h-full rounded-[24px] bg-white/14 backdrop-blur-md">
+              <div className={chatCardClass("w-full h-full bg-white/14 backdrop-blur-md")}>
                 <div className="p-6">
                   <div className="text-white text-lg mb-2">INSIGHTS</div>
                   <div className="text-white text-2xl font-semibold mb-4">Competitive Landscape</div>
@@ -812,7 +812,7 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
 
             {/* Right Sidebar */}
             <div className="absolute right-[81px] top-[146px] w-[381px] h-[501px]">
-              <div className="w-full h-full rounded-[24px] bg-white/14 backdrop-blur-md">
+              <div className={chatCardClass("w-full h-full bg-white/14 backdrop-blur-md")}>
                 {/* AI Business Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
@@ -858,7 +858,7 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
 
             {/* Bottom Insights Bar */}
             <div className="absolute bottom-[81px] left-[81px] w-[1033px] h-[124px]">
-              <div className="w-full h-full rounded-[24px] bg-white/14 backdrop-blur-md">
+              <div className={chatCardClass("w-full h-full bg-white/14 backdrop-blur-md")}>
                 <div className="p-6">
                   <div className="text-white text-lg mb-2">INSIGHTS</div>
                   <div className="text-white text-2xl font-semibold mb-4">Abu Dhabi Corniche</div>
