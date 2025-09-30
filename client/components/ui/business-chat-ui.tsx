@@ -4176,8 +4176,8 @@ export function BusinessChatUI({
                     {/* Show investor journey card after the last AI message */}
                     {isLoggedIn &&
                       activeThread?.view === "journey" &&
-                      activeThread?.messages.length >= 3 &&
-                      activeThread?.messages[2].hasActions && (
+                      activeThread?.messages.length >= 4 &&
+                      activeThread?.messages.some(msg => msg.hasActions) && (
                         <InvestorJourneyCard
                           onClose={onClose}
                           onSetupBusiness={handleSetupBusiness}
