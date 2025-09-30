@@ -4328,26 +4328,6 @@ export function BusinessChatUI({
           onClose={() => setShowBudgetModal(false)}
         />
 
-        {/* Cuisine Popularity Breakout */}
-        <CuisinePopularityBreakout
-          key="cuisine-popularity-breakout"
-          isOpen={showCuisineBreakout}
-          onClose={() => setShowCuisineBreakout(false)}
-        />
-
-        {/* Competitor Analysis Breakout */}
-        <CompetitorAnalysisBreakout
-          key="competitor-analysis-breakout"
-          isOpen={showCompetitorBreakout}
-          onClose={() => setShowCompetitorBreakout(false)}
-        />
-
-        {/* Gap Analysis Breakout */}
-        <GapAnalysisBreakout
-          key="gap-analysis-breakout"
-          isOpen={showGapAnalysisBreakout}
-          onClose={() => setShowGapAnalysisBreakout(false)}
-        />
       </AnimatePresence>
     </QueryClientProvider>
   );
