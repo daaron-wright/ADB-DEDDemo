@@ -10,6 +10,7 @@ interface UAEPassLoginProps {
   onClose?: () => void;
   mode?: "quick" | "full";
   defaultUserType?: "applicant" | "reviewer";
+  autoLogin?: boolean;
 }
 
 type UserType = "applicant" | "reviewer" | null;
