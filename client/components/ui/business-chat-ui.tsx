@@ -153,7 +153,12 @@ const PRELOADED_PROMPTS = {
   ],
 };
 
-const CONVERSATION_BLUEPRINT = {
+type ConversationStep = "intro" | "summary" | "handoff";
+
+const CONVERSATION_BLUEPRINT: Record<
+  ConversationStep,
+  { message: string; actions?: ReadonlyArray<{ label: string; action: ConversationAction }> }
+> = {
   intro: {
     message:
       "Welcome to the Abu Dhabi business assistant. I'll keep this focused so you know exactly what to do next. Ready for the snapshot that matters most?",
@@ -168,12 +173,7 @@ const CONVERSATION_BLUEPRINT = {
     message:
       "Loading your investor journey dashboard now. You'll land on the tailored checklist with milestones, documents, and submission guidance.",
   },
-} as const satisfies Record<
-  "intro" | "summary" | "handoff",
-  { message: string; actions?: ReadonlyArray<{ label: string; action: ConversationAction }> }
->;
-
-type ConversationStep = keyof typeof CONVERSATION_BLUEPRINT;
+};
 
 const ARTIFACT_ACTION_BUTTON_CLASSES =
   "inline-flex items-center gap-2 rounded-full border border-[#0E766E]/45 bg-white/80 px-4 py-2 text-sm font-semibold text-[#0A4A46] shadow-sm transition hover:bg-white hover:text-[#073F3B]";
