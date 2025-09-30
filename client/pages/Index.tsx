@@ -326,25 +326,6 @@ export default function Index() {
     });
   };
 
-  const handleChatPromptSubmit = ({
-    categoryId,
-    message,
-  }: {
-    categoryId?: string | null;
-    message?: string | null;
-  }) => {
-    const resolvedCategory = categoryId ?? openChatState.category ?? "general";
-
-    if (categoryPositions.current[resolvedCategory]) {
-      applyFocusPoint(categoryPositions.current[resolvedCategory]);
-    } else {
-      applyFocusPoint();
-    }
-
-    setActiveCategory(resolvedCategory);
-    resetOpenChatState();
-    startBusinessChat(resolvedCategory, message ?? null);
-  };
 
   const handleOpenChatCategoryClick = (
     categoryId: string,
