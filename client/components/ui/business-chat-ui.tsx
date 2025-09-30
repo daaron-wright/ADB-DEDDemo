@@ -4548,15 +4548,18 @@ export function BusinessChatUI({
     const handleCuisineBreakout = () => setCuisineBreakoutOpen(true);
     const handleCompetitorBreakout = () => setCompetitorBreakoutOpen(true);
     const handleGapBreakout = () => setGapBreakoutOpen(true);
+    const handleGapAnalysis = () => openGapAnalysis();
 
     window.addEventListener("openCuisineBreakout", handleCuisineBreakout);
     window.addEventListener("openCompetitorBreakout", handleCompetitorBreakout);
     window.addEventListener("openGapAnalysisBreakout", handleGapBreakout);
+    window.addEventListener("openGapAnalysis", handleGapAnalysis);
 
     return () => {
       window.removeEventListener("openCuisineBreakout", handleCuisineBreakout);
       window.removeEventListener("openCompetitorBreakout", handleCompetitorBreakout);
       window.removeEventListener("openGapAnalysisBreakout", handleGapBreakout);
+      window.removeEventListener("openGapAnalysis", handleGapAnalysis);
     };
   }, []);
 
