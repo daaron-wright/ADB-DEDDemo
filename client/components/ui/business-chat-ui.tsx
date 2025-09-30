@@ -3701,6 +3701,8 @@ export function BusinessChatUI({
     (type: BreakoutType, options: { withToast?: boolean } = {}) => {
       const { withToast = true } = options;
 
+      setActiveContextTab("reports");
+
       if (type === "cuisine") {
         setShowCuisineCard(true);
         setCuisineBreakoutOpen(true);
