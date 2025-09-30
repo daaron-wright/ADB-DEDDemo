@@ -233,6 +233,35 @@ export default function Index() {
     [],
   );
 
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+
+    if (params.get("chat") !== "open") {
+      return;
+    }
+
+    const categoryParam = params.get("category");
+    const messageParam = params.get("message");
+    const matchedCategory = categoryParam
+      ? businessCategories.find((category) => category.id === categoryParam)
+      : undefined;
+
+    setChatState({
+      isOpen: true,
+      category: matchedCategory ? matchedCategory.id : "general",
+      initialMessage: messageParam ?? null,
+    });
+
+    setActiveCategory(matchedCategory ? matchedCategory.id : null);
+    setOpenChatState((prev) => ({
+      ...prev,
+      isOpen: false,
+      mode: "general",
+      category: matchedCategory ? matchedCategory.id : null,
+      categoryTitle: matchedCategory ? matchedCategory.title : null,
+    }));
+  }, [location.search, businessCategories]);
+
   const handleTileClick = (
     categoryId: string,
     categoryTitle: string,
