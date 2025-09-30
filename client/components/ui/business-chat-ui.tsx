@@ -4212,6 +4212,8 @@ export function BusinessChatUI({
       setCompetitorBreakoutOpen(false);
       setGapBreakoutOpen(false);
       setDialogueDocState(createInitialDialogueDocState());
+      setIsInvestorLoginPending(false);
+      setShouldPromptLogin(false);
       return;
     }
 
@@ -4219,6 +4221,8 @@ export function BusinessChatUI({
     setModalView("chat");
     setCurrentStep("intro");
     setDialogueDocState(createInitialDialogueDocState());
+    setIsInvestorLoginPending(false);
+    setShouldPromptLogin(false);
 
     const introMessage = buildStepMessage("intro");
     const conversation: BusinessMessage[] = [];
