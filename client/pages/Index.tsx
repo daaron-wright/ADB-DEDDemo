@@ -327,21 +327,6 @@ export default function Index() {
   };
 
 
-  const handleOpenChatCategoryClick = (
-    categoryId: string,
-    _categoryTitle: string,
-  ) => {
-    setActiveCategory(categoryId);
-
-    if (categoryPositions.current[categoryId]) {
-      applyFocusPoint(categoryPositions.current[categoryId]);
-    } else {
-      applyFocusPoint();
-    }
-
-    resetOpenChatState();
-    startBusinessChat(categoryId);
-  };
 
   const handlePointerMove = (event: React.MouseEvent<HTMLDivElement>) => {
     queueFocusPoint({ x: event.clientX, y: event.clientY });
