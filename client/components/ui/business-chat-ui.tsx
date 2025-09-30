@@ -3001,6 +3001,163 @@ const GapBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
   );
 };
 
+const HeatMapBreakoutModal = ({
+  isOpen,
+  onClose,
+  onOpenFullMap,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onOpenFullMap?: () => void;
+}) => {
+  if (!isOpen) return null;
+
+  const renderSignalIcon = (id: string) => {
+    switch (id) {
+      case "conversion":
+        return <TrendingUp className="h-4 w-4" aria-hidden />;
+      case "approval":
+        return <Clock3 className="h-4 w-4" aria-hidden />;
+      case "premium":
+      default:
+        return <Flame className="h-4 w-4" aria-hidden />;
+    }
+  };
+
+  const handleLaunchFullMap = () => {
+    if (!onOpenFullMap) {
+      onClose();
+      return;
+    }
+
+    onClose();
+    onOpenFullMap();
+  };
+
+  return (
+    <div className="fixed inset-0 z-[83] flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative z-10 w-full max-w-[900px]" style={MODAL_MIN_DIMENSIONS}>
+        <div className={chatCardClass("overflow-hidden border border-white/15 bg-slate-900/85 shadow-[0_48px_96px_-40px_rgba(6,27,36,0.85)] backdrop-blur-2xl ring-4 ring-[#0E766E]/18 ring-offset-2 ring-offset-slate-900")}
+        >
+          <div className="border-b border-white/12 bg-white/10 px-6 py-5">
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center rounded-full border border-white/25 bg-white/12 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-100">
+                    Focused artifact
+                  </span>
+                  <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-100">
+                    <MapPin className="h-3.5 w-3.5" aria-hidden />
+                    Heat map spotlight
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-[#0E766E] hover:text-[#0E766E]"
+                  aria-label="Close heat map breakout"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+              </div>
+              <div className="space-y-2 text-white">
+                <h3 className="text-xl font-semibold">Location density focus</h3>
+                <p className="text-sm text-white/70">
+                  Hotspots ranked by verified UAE PASS check-ins and spend velocity. Use this snapshot before diving into the full interactive explorer.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-6 p-6 sm:p-8 text-white">
+            <div className="grid gap-6 lg:grid-cols-[minmax(0,320px)_1fr]">
+              <div className="relative overflow-hidden rounded-[28px] border border-white/15 bg-gradient-to-br from-emerald-500/15 via-slate-900/40 to-slate-900/80">
+                <img
+                  src={HEAT_MAP_THUMBNAIL_URL}
+                  alt="Heat map preview of Abu Dhabi business density"
+                  className="h-full w-full object-cover"
+                />
+                <div className="pointer-events-none absolute inset-0">
+                  {HEAT_MAP_BREAKOUT_HOTSPOTS.map((hotspot) => (
+                    <div
+                      key={hotspot.id}
+                      className="absolute flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full bg-emerald-500/15 text-emerald-100 shadow-[0_12px_30px_-18px_rgba(16,118,110,0.65)] backdrop-blur-xl"
+                      style={{ top: hotspot.position.top, left: hotspot.position.left }}
+                    >
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.18em]">Hotspot</span>
+                      <span className="text-[11px] font-semibold">{hotspot.metric}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="absolute left-4 bottom-4 flex items-center gap-2 rounded-full border border-white/20 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-white/90">
+                  <MapPin className="h-3.5 w-3.5 text-emerald-200" aria-hidden />
+                  Live density overlay
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {HEAT_MAP_BREAKOUT_HOTSPOTS.map((hotspot) => (
+                    <div
+                      key={`${hotspot.id}-insight`}
+                      className="rounded-2xl border border-white/12 bg-white/10 p-4"
+                    >
+                      <div className="flex flex-col gap-2">
+                        <div className="flex items-center justify-between gap-3">
+                          <p className="text-sm font-semibold text-white">{hotspot.name}</p>
+                          <span className="inline-flex items-center rounded-full border border-emerald-300/40 bg-emerald-400/10 px-2 py-0.5 text-[10px] uppercase tracking-[0.18em] text-emerald-100">
+                            {hotspot.metric}
+                          </span>
+                        </div>
+                        <p className="text-xs text-white/70 leading-relaxed">{hotspot.descriptor}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-3">
+                  {HEAT_MAP_BREAKOUT_SIGNALS.map((signal) => (
+                    <div
+                      key={signal.id}
+                      className="rounded-2xl border border-white/12 bg-white/10 p-4"
+                    >
+                      <div className="flex items-center gap-2 text-emerald-100">
+                        <span className="flex h-9 w-9 items-center justify-center rounded-full border border-emerald-300/40 bg-emerald-400/10">
+                          {renderSignalIcon(signal.id)}
+                        </span>
+                        <div>
+                          <p className="text-xs font-semibold uppercase tracking-[0.2em]">{signal.label}</p>
+                          <p className="text-base font-semibold text-white">{signal.value}</p>
+                        </div>
+                      </div>
+                      <p className="mt-3 text-xs text-white/70 leading-relaxed">{signal.description}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {onOpenFullMap && (
+                  <button
+                    type="button"
+                    onClick={handleLaunchFullMap}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-[#0E766E] shadow-[0_18px_40px_-22px_rgba(15,23,42,0.35)] transition hover:shadow-[0_20px_44px_-20px_rgba(15,23,42,0.45)]"
+                  >
+                    <MapIcon className="h-4 w-4" aria-hidden />
+                    Launch interactive heat map
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const DiscoverExperienceView = ({
   category,
   onSendMessage,
