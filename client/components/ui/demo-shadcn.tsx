@@ -5,6 +5,7 @@ import { Input } from './input';
 import { Label } from './label';
 import { Badge } from './badge';
 import { Avatar, AvatarFallback, AvatarImage } from './avatar';
+import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 import { Separator } from './separator';
 import { Progress } from './progress';
 import { Switch } from './switch';
@@ -115,7 +116,7 @@ export const ShadCNDemo = () => {
           <CardContent className="space-y-4">
             <div className="flex items-center space-x-4">
               <Avatar>
-                <AvatarImage src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128" />
+                <AvatarImage src={AI_ASSISTANT_PROFILE.avatar} alt={AI_ASSISTANT_PROFILE.name} />
                 <AvatarFallback>AI</AvatarFallback>
               </Avatar>
               <div>
