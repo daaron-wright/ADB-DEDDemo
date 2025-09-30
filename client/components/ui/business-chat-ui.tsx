@@ -330,31 +330,6 @@ const GapAnalysisCard = ({ className = "" }: { className?: string }) => {
   );
 };
 
-const MetricTile = ({
-  label,
-  value,
-  caption,
-  trend,
-}: {
-  label: string;
-  value: string;
-  caption: string;
-  trend?: string;
-}) => {
-  return (
-    <div className="rounded-xl border border-white/12 bg-white/[0.07] p-3 sm:p-4 text-left">
-      <div className="text-[11px] uppercase tracking-[0.18em] text-white/60">
-        {label}
-      </div>
-      <div className="mt-2 text-lg font-semibold text-white">{value}</div>
-      {trend && (
-        <div className="text-xs font-semibold text-emerald-300">{trend}</div>
-      )}
-      <p className="mt-1 text-xs text-white/70 leading-relaxed">{caption}</p>
-    </div>
-  );
-};
-
 const InsightsSummary = () => {
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
@@ -373,7 +348,7 @@ const InsightsSummary = () => {
         label="Site priority"
         value="Corniche focus"
         caption="Footfall uplift remains highest compared to Yas and Al Maryah."
-        trend="�� 12% week-on-week"
+        trend="▲ 12% week-on-week"
       />
       <MetricTile
         label="Processing SLA"
