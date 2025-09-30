@@ -41,6 +41,33 @@ interface ChatThread {
 const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   if (!isOpen) return null;
 
+  const cuisineData = [
+    {
+      name: "Middle Eastern",
+      image: "https://api.builder.io/api/v1/image/assets/TEMP/c8f7a6e8d9f2a1b3e4c5d6f7e8a9b0c1d2e3f4g5?width=400",
+      popularity: "30-35%",
+      rating: 4.8,
+      keyInsights: ["Cultural resonance", "Traditional appeal", "High authenticity demand"],
+      restaurantTypes: "Fine dining: 40% • Casual dining: 45% • Fast casual: 15%"
+    },
+    {
+      name: "American",
+      image: "https://api.builder.io/api/v1/image/assets/TEMP/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0?width=400",
+      popularity: "20-25%",
+      rating: 4.2,
+      keyInsights: ["Fast-food dominance", "Brand recognition", "Chain presence"],
+      restaurantTypes: "Fast food: 60% • Casual dining: 30% • Fine dining: 10%"
+    },
+    {
+      name: "Indian",
+      image: "https://api.builder.io/api/v1/image/assets/TEMP/f5e4d3c2b1a0z9y8x7w6v5u4t3s2r1q0p9o8n7m6?width=400",
+      popularity: "15-20%",
+      rating: 4.5,
+      keyInsights: ["Expat community support", "Spice preference alignment", "Growing acceptance"],
+      restaurantTypes: "Casual dining: 50% • Fine dining: 30% • Fast casual: 20%"
+    }
+  ];
+
   return (
     <div className="fixed inset-0 z-[80] flex items-center justify-center p-4">
       <div
@@ -48,25 +75,27 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
         onClick={onClose}
       />
       <div className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-hidden">
-        <div className="rounded-[32px] border border-white/20 bg-gradient-to-br from-[#0B0F2C]/95 via-[#101a43]/90 to-[#152d63]/85 backdrop-blur-xl shadow-[0_24px_48px_rgba(7,12,32,0.5)]">
+        <div className="rounded-[24px] bg-[#1A2951] shadow-2xl">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-white/20">
+          <div className="flex items-center justify-between p-6 border-b border-white/10">
             <div className="flex items-center gap-4">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-                alt="AI Assistant"
-                className="w-12 h-12 rounded-full border border-[#54FFD4]"
-              />
+              <div className="w-12 h-12 rounded-full bg-white/10 border border-[#54FFD4] flex items-center justify-center">
+                <img
+                  src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+                  alt="AI Assistant"
+                  className="w-8 h-8 rounded-full"
+                />
+              </div>
               <div>
-                <h3 className="text-white text-xl font-semibold">Cuisine Popularity Analysis</h3>
+                <h3 className="text-white text-lg font-semibold">Cuisine Popularity Analysis</h3>
                 <p className="text-white/70 text-sm">Detailed breakdown of cuisine preferences in Abu Dhabi</p>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="w-10 h-10 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+              className="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
@@ -74,109 +103,98 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
 
           {/* Content */}
           <div className="p-6 max-h-[70vh] overflow-y-auto">
-            <div className="space-y-8">
-              <h2 className="text-white text-2xl font-semibold mb-8">
-                Popularity of cuisines in Abu Dhabi
-              </h2>
+            <h2 className="text-white text-xl font-semibold mb-6">
+              Key Cuisines in Abu Dhabi
+            </h2>
 
-              {/* Enhanced Cuisine Data */}
-              <div className="space-y-6">
-                {/* Middle Eastern */}
-                <div className="p-6 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-sm">
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div>
-                      <h3 className="text-white font-bold text-lg mb-2">Middle Eastern</h3>
-                      <div className="w-full bg-white/20 rounded-full h-3 mb-2">
-                        <div className="bg-gradient-to-r from-[#54FFD4] to-[#169F9F] h-3 rounded-full" style={{width: "35%"}}></div>
+            <div className="space-y-4">
+              {cuisineData.map((cuisine, index) => (
+                <div key={index} className="rounded-2xl bg-[#243B6B] p-6 border border-white/10">
+                  <div className="flex gap-6">
+                    {/* Cuisine Image */}
+                    <div className="flex-shrink-0">
+                      <div className="w-24 h-24 rounded-xl bg-white/10 overflow-hidden">
+                        <div className="w-full h-full bg-gradient-to-br from-orange-400/20 to-red-500/20 flex items-center justify-center">
+                          <span className="text-2xl">{cuisine.name === "Middle Eastern" ? "🥙" : cuisine.name === "American" ? "🍔" : "🍛"}</span>
+                        </div>
                       </div>
-                      <span className="text-white/80 text-sm">35% market share</span>
                     </div>
-                    <div>
-                      <span className="text-white font-bold text-sm block mb-2">Key Insights</span>
-                      <ul className="text-white/80 text-sm space-y-1">
-                        <li>• Cultural resonance with locals</li>
-                        <li>• Traditional appeal for tourists</li>
-                        <li>• High authenticity demand</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <span className="text-white font-bold text-sm block mb-2">Restaurant Types</span>
-                      <div className="text-white/80 text-sm space-y-1">
-                        <div>Fine dining: 40%</div>
-                        <div>Casual dining: 45%</div>
-                        <div>Fast casual: 15%</div>
+
+                    {/* Cuisine Details */}
+                    <div className="flex-1 space-y-4">
+                      <div>
+                        <h3 className="text-white text-xl font-semibold mb-1">{cuisine.name}</h3>
+                        <p className="text-white/70 text-sm">Market Preference Analysis</p>
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-6">
+                        <div>
+                          <span className="text-white/60 text-xs uppercase tracking-wider block mb-1">Popularity</span>
+                          <p className="text-white text-lg font-semibold">{cuisine.popularity}</p>
+                        </div>
+                        <div>
+                          <span className="text-white/60 text-xs uppercase tracking-wider block mb-1">Rating</span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-white text-lg font-semibold">{cuisine.rating}</span>
+                            <div className="flex">
+                              {[1, 2, 3, 4, 5].map((star) => (
+                                <svg
+                                  key={star}
+                                  width="14"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  fill={star <= cuisine.rating ? "#FFD700" : "none"}
+                                  stroke={star <= cuisine.rating ? "#FFD700" : "#666"}
+                                  strokeWidth="1"
+                                >
+                                  <polygon points="8,1 10,6 15,6 11,9 13,14 8,11 3,14 5,9 1,6 6,6" />
+                                </svg>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <span className="text-white/60 text-xs uppercase tracking-wider block mb-1">Restaurant Types</span>
+                          <p className="text-white/80 text-sm">{cuisine.restaurantTypes}</p>
+                        </div>
+                      </div>
+
+                      <div>
+                        <span className="text-white/60 text-xs uppercase tracking-wider block mb-2">Key Strengths</span>
+                        <div className="flex flex-wrap gap-2">
+                          {cuisine.keyInsights.map((insight, i) => (
+                            <span key={i} className="px-3 py-1 bg-[#54FFD4]/20 text-[#54FFD4] text-xs rounded-full">
+                              {insight}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              ))}
+            </div>
 
-                {/* American */}
-                <div className="p-6 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-sm">
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div>
-                      <h3 className="text-white font-bold text-lg mb-2">American</h3>
-                      <div className="w-full bg-white/20 rounded-full h-3 mb-2">
-                        <div className="bg-gradient-to-r from-[#54FFD4] to-[#169F9F] h-3 rounded-full" style={{width: "25%"}}></div>
-                      </div>
-                      <span className="text-white/80 text-sm">25% market share</span>
-                    </div>
-                    <div>
-                      <span className="text-white font-bold text-sm block mb-2">Key Insights</span>
-                      <ul className="text-white/80 text-sm space-y-1">
-                        <li>• Fast-food dominance</li>
-                        <li>• Familiar brand recognition</li>
-                        <li>• Strong chain presence</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <span className="text-white font-bold text-sm block mb-2">Restaurant Types</span>
-                      <div className="text-white/80 text-sm space-y-1">
-                        <div>Fast food: 60%</div>
-                        <div>Casual dining: 30%</div>
-                        <div>Fine dining: 10%</div>
-                      </div>
-                    </div>
-                  </div>
+            {/* Summary Insights */}
+            <div className="mt-6 p-6 rounded-2xl bg-gradient-to-r from-[#54FFD4]/10 to-[#169F9F]/10 border border-[#54FFD4]/30">
+              <h3 className="text-white text-lg font-semibold mb-4">Market Analysis Summary</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span className="text-[#54FFD4] font-medium">Market Opportunities:</span>
+                  <ul className="text-white/80 mt-1 space-y-1">
+                    <li>• Fusion cuisine concepts show 15% growth potential</li>
+                    <li>• Premium casual dining undersupplied</li>
+                    <li>• Health-conscious options gaining traction</li>
+                  </ul>
                 </div>
-
-                {/* Indian */}
-                <div className="p-6 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-sm">
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div>
-                      <h3 className="text-white font-bold text-lg mb-2">Indian</h3>
-                      <div className="w-full bg-white/20 rounded-full h-3 mb-2">
-                        <div className="bg-gradient-to-r from-[#54FFD4] to-[#169F9F] h-3 rounded-full" style={{width: "20%"}}></div>
-                      </div>
-                      <span className="text-white/80 text-sm">20% market share</span>
-                    </div>
-                    <div>
-                      <span className="text-white font-bold text-sm block mb-2">Key Insights</span>
-                      <ul className="text-white/80 text-sm space-y-1">
-                        <li>• Large expat community support</li>
-                        <li>• Spice preference alignment</li>
-                        <li>• Growing local acceptance</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <span className="text-white font-bold text-sm block mb-2">Restaurant Types</span>
-                      <div className="text-white/80 text-sm space-y-1">
-                        <div>Casual dining: 50%</div>
-                        <div>Fine dining: 30%</div>
-                        <div>Fast casual: 20%</div>
-                      </div>
-                    </div>
-                  </div>
+                <div>
+                  <span className="text-[#54FFD4] font-medium">Success Factors:</span>
+                  <ul className="text-white/80 mt-1 space-y-1">
+                    <li>• Authentic flavor profiles critical</li>
+                    <li>• Location proximity to business districts</li>
+                    <li>• Cultural sensitivity in menu design</li>
+                  </ul>
                 </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex gap-4 pt-6 border-t border-white/20">
-                <button className="px-6 py-3 bg-[#54FFD4] text-[#042B28] rounded-full font-semibold hover:bg-[#42f6c9] transition-colors">
-                  Export Data
-                </button>
-                <button className="px-6 py-3 border border-white/40 text-white rounded-full font-semibold hover:bg-white/10 transition-colors">
-                  Download Report
-                </button>
               </div>
             </div>
           </div>
