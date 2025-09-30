@@ -1918,6 +1918,10 @@ export function BusinessChatUI({
       return "The Corniche is a popular choice due to its high foot traffic and scenic views. It attracts both tourists and locals, especially during the cooler months. The area is known for its diverse range of dining options, from casual cafes to upscale restaurants, catering to a wide range of tastes and budgets.";
     }
 
+    if (lowerMessage.includes("corniche") && (lowerMessage.includes("details") || lowerMessage.includes("more"))) {
+      return "The Corniche is a popular choice due to its high foot traffic and scenic views. It attracts both tourists and locals, especially during the cooler months. The area is known for its diverse range of dining options, from casual cafes to upscale restaurants, catering to a wide range of tastes and budgets.";
+    }
+
     if (lowerMessage.includes("corniche") || lowerMessage.includes("cornich")) {
       return "Abu Dhabi's Corniche is one of the most prestigious dining locations with ~20k daily leisure visitors and a scenic high-traffic zone rating of 8/10. The area attracts both tourists and locals, making it ideal for upscale restaurants. Would you like specific demographic data for this area?";
     }
