@@ -336,13 +336,13 @@ const PreloadedPrompts = ({
 
   return (
     <div className="space-y-3">
-      <h4 className="text-sm font-medium text-slate-700 mb-3">Suggested questions to get you started:</h4>
+      <h4 className="text-sm font-medium text-slate-300 mb-3">Suggested questions to get you started:</h4>
       <div className="grid gap-2">
         {prompts.map((prompt, index) => (
           <button
             key={index}
             onClick={() => onPromptSelect(prompt)}
-            className="text-left p-3 text-sm bg-white border border-slate-200 rounded-xl hover:border-slate-300 hover:shadow-sm transition-all"
+            className="text-left p-3 text-sm bg-slate-700/60 border border-slate-600/50 text-slate-200 rounded-xl hover:border-slate-500/70 hover:bg-slate-700/80 hover:shadow-sm transition-all"
           >
             {prompt}
           </button>
