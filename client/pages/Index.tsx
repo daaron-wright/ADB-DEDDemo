@@ -341,16 +341,16 @@ export default function Index() {
     }
   };
 
-  const startBusinessChat = (
-    categoryId: string,
-    initialMessage?: string | null,
-  ) => {
-    setChatState({
-      isOpen: true,
-      category: categoryId,
-      initialMessage: initialMessage ?? null,
-    });
-  };
+  const startBusinessChat = useCallback(
+    (categoryId: string, initialMessage?: string | null) => {
+      setChatState({
+        isOpen: true,
+        category: categoryId,
+        initialMessage: initialMessage ?? null,
+      });
+    },
+    [],
+  );
 
   const handlePromptSelect = useCallback(
     (option: ChatPromptOption) => {
