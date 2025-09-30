@@ -248,12 +248,12 @@ function ApplicantOverviewCard({ progress }: { progress: number }): JSX.Element 
         <div className="flex items-center gap-4">
           <img
             src={APPLICANT_AVATAR_URL}
-            alt="Ahmed Al Mansoori"
+            alt={APPLICANT_NAME}
             className="h-16 w-16 rounded-2xl border border-white/20 object-cover"
           />
           <div className="space-y-1">
-            <h3 className="text-lg font-semibold text-white">Ahmed Al Mansoori</h3>
-            <p className="text-sm text-white/70">ahmed.almansoori@email.ae</p>
+            <h3 className="text-lg font-semibold text-white">{APPLICANT_NAME}</h3>
+            <p className="text-sm text-white/70">khalid.entrepreneur@email.ae</p>
             <p className="text-xs uppercase tracking-[0.2em] text-emerald-300">License applicant</p>
           </div>
         </div>
