@@ -24,6 +24,8 @@ const barItemVariants = {
 };
 
 export default function CompilationDashboard() {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-[#0B0C28] relative overflow-hidden">
       {/* Background Gradients */}
