@@ -2660,7 +2660,7 @@ export function BusinessChatUI({
                   </div>
 
                   {/* Center title */}
-                  <div className="text-black text-base font-medium text-center leading-[130%] max-w-[383px]">
+                  <div className="text-black text-sm sm:text-base font-medium text-center leading-[130%] max-w-[250px] sm:max-w-[383px] mx-2">
                     {isLoggedIn
                       ? "Investor Journey for a Restaurant"
                       : headerTitle}
