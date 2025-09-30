@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CollapsibleJourneyView } from './collapsible-journey-view';
 import SimpleQuestionnaire, { SimpleQuestionnaireHandle } from './simple-questionnaire';
 import AIChatPanel from './ai-chat-panel';
-import { ENTREPRENEUR_PROFILE } from '@/lib/profile';
+import { ENTREPRENEUR_PROFILE, AI_ASSISTANT_PROFILE } from '@/lib/profile';
 
 interface User {
   id: string;
@@ -898,8 +898,8 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
             <div className="absolute top-4 left-6 right-6 h-[77px]">
               <div className="flex items-center gap-2 p-3">
                 <img
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-                  alt="AI Assistant"
+                  src={AI_ASSISTANT_PROFILE.avatar}
+                  alt={AI_ASSISTANT_PROFILE.name}
                   className="w-16 h-16 rounded-full border border-[#54FFD4]"
                 />
                 <div>
