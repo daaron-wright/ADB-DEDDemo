@@ -2185,7 +2185,7 @@ const GapBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
     <div className="fixed inset-0 z-[82] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={onClose} />
       <div className="relative z-10 w-full max-w-[880px]" style={MODAL_MIN_DIMENSIONS}>
-        <div className="overflow-hidden rounded-3xl border border-white/15 bg-slate-900/80 shadow-[0_45px_85px_-40px_rgba(15,23,42,0.8)] backdrop-blur-2xl ring-4 ring-[#0E766E]/18 ring-offset-2 ring-offset-slate-900">
+        <div className={chatCardClass("overflow-hidden border border-white/15 bg-slate-900/80 shadow-[0_45px_85px_-40px_rgba(15,23,42,0.8)] backdrop-blur-2xl ring-4 ring-[#0E766E]/18 ring-offset-2 ring-offset-slate-900")}>
           <div className="border-b border-white/12 bg-white/12 px-6 py-5">
             <div className="flex flex-col gap-4">
               <div className="flex flex-wrap items-center justify-between gap-3">
