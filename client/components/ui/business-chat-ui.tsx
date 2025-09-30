@@ -4193,10 +4193,14 @@ export function BusinessChatUI({
           return [...updated, buildStepMessage("summary")];
         }
 
-        if (action === "open-investor-journey" && currentStep !== "handoff") {
-          setCurrentStep("handoff");
-          setModalView("heat-map");
-          return [...updated, buildStepMessage("handoff")];
+        if (action === "open-investor-journey") {
+          setIsInvestorLoginPending(true);
+          setShouldPromptLogin(true);
+          const loginPromptMessage = buildMessage(
+            "I'll connect you to UAE PASS and sign in Khalid Entrepreneur now so we can continue with your setup.",
+            true,
+          );
+          return [...updated, loginPromptMessage];
         }
 
         return updated;
