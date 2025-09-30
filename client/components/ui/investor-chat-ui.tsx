@@ -130,11 +130,14 @@ const InvestorMessageBubble = ({ message }: { message: InvestorMessage }) => {
                     className="w-16 h-16 rounded-full border-2 border-[#54FFD4]"
                   />
                   <div>
-                    <h4 className="font-bold text-lg text-white">Investor Journey</h4>
-                    <p className="text-white/80">
-                      <span className="font-bold">{message.investorData.entrepreneur.name}</span> {message.investorData.entrepreneur.title}
-                    </p>
-                  </div>
+                  <h4 className="font-bold text-lg text-white">Investor Journey</h4>
+                  <p className="text-white/80">
+                    <span className="font-bold">{message.investorData.entrepreneur.name}</span>
+                  </p>
+                  <p className="text-white/70 text-sm">
+                    {message.investorData.entrepreneur.title}
+                  </p>
+                </div>
                 </>
               )}
             </div>
