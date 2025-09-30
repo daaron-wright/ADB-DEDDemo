@@ -4169,7 +4169,7 @@ export function BusinessChatUI({
 
         if (action === "open-investor-journey" && currentStep !== "handoff") {
           setCurrentStep("handoff");
-          setView("investor-journey");
+          setCurrentView("heat-map");
           return [...updated, buildStepMessage("handoff")];
         }
 
