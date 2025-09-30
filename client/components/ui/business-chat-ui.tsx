@@ -176,6 +176,12 @@ const CONVERSATION_BLUEPRINT: Record<
   },
 };
 
+const CONVERSATION_STEPS: Array<{ id: ConversationStep; label: string }> = [
+  { id: "intro", label: "Start" },
+  { id: "summary", label: "Market Summary" },
+  { id: "handoff", label: "Investor Workspace" },
+];
+
 const ARTIFACT_ACTION_BUTTON_CLASSES =
   "inline-flex items-center gap-2 rounded-full border border-[#0E766E]/45 bg-white/80 px-4 py-2 text-sm font-semibold text-[#0A4A46] shadow-sm transition hover:bg-white hover:text-[#073F3B]";
 
