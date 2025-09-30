@@ -831,7 +831,7 @@ const ApplicantView: React.FC<{ user: User; onClose: () => void }> = ({ user, on
         </div>
 
         {/* Right Panel - AI Assistant or Admin Details */}
-        <div className="w-[446px] min-h-[426px] bg-white/20 rounded-3xl shadow-[0_4px_44px_0_#169F9F] relative">
+        <div className="w-[446px] min-h-[426px] bg-white/20 rounded-3xl shadow-[0_4px_44px_0_#0E766E] relative">
           {(showBusinessRegAdmin || showBusinessLicAdmin) && (
             <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-3xl p-6 z-10">
               <div className="flex items-center justify-between mb-4">
