@@ -2066,6 +2066,32 @@ export function BusinessChatUI({
       timestamp: new Date(),
     };
 
+    const isCompilationRequest =
+      lowerMessage.includes("go deeper") ||
+      (lowerMessage.includes("report") && lowerMessage.includes("generate")) ||
+      lowerMessage.includes("compiled research") ||
+      lowerMessage.includes("compilation");
+
+    const activeThread = threads.find((t) => t.id === activeThreadId);
+
+    if (isCompilationRequest) {
+      const compilationResponse: BusinessMessage = {
+        id: `ai-${Date.now()}-compilation`,
+        content:
+          "I've synthesised the discovery research across the shortlisted zones. Review the summary below and let me know which area you want to model in detail next.",
+        isAI: true,
+        timestamp: new Date(),
+        type: "compilation",
+      };
+
+      if (activeThread) {
+        updateThread(activeThreadId, {
+          messages: [...activeThread.messages, userMessage, compilationResponse],
+        });
+      }
+      return;
+    }
+
     const aiResponse: BusinessMessage = {
       id: `ai-${Date.now()}`,
       content: generateAIResponse(message),
@@ -2073,7 +2099,6 @@ export function BusinessChatUI({
       timestamp: new Date(),
     };
 
-    const activeThread = threads.find((t) => t.id === activeThreadId);
     if (activeThread) {
       const updatedMessages = [
         ...activeThread.messages,
