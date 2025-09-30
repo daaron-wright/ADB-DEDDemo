@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 
 interface AIChatPanelProps {
   className?: string;
@@ -40,8 +41,8 @@ const AIChatPanel: React.FC<AIChatPanelProps> = ({ className = "" }) => {
         <div className="flex w-full flex-col gap-2 px-6 pt-4 pb-2">
           <div className="flex w-full items-center gap-3">
             <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-              alt="AI Assistant"
+              src={AI_ASSISTANT_PROFILE.avatar}
+              alt={AI_ASSISTANT_PROFILE.name}
               className="h-16 w-16 flex-shrink-0 rounded-full border border-[#54FFD4]"
             />
             <div className="flex-1">
