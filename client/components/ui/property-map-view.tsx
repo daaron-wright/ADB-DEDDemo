@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 
 interface Property {
   id: string;
@@ -137,9 +138,9 @@ const AIBusinessChat = () => (
   <div className="absolute bottom-6 right-6 w-[351px] h-[206px] z-30">
     <div className="bg-white/14 backdrop-blur-sm rounded-3xl p-4 h-full border border-white/20">
       <div className="flex items-center gap-3 mb-4">
-        <img 
-          src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-          alt="AI Business"
+        <img
+          src={AI_ASSISTANT_PROFILE.avatar}
+          alt={AI_ASSISTANT_PROFILE.name}
           className="w-16 h-16 rounded-full border border-[#54FFD4]"
         />
         <div>
