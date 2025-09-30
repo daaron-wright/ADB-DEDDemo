@@ -91,7 +91,7 @@ interface DialogueDocProps {
 
 const createInitialDialogueDocState = (): DialogueDocState => ({
   notes:
-    "Capture next steps, decisions, and follow-ups here.\n• Define target district and audience\n• Outline licensing documents\n• Track stakeholder approvals",
+    "Capture next steps, decisions, and follow-ups here.\n• Define target district and audience\n• Outline licensing documents\n�� Track stakeholder approvals",
   highlights: [
     {
       id: "dialogue-highlight-1",
@@ -4431,6 +4431,21 @@ export function BusinessChatUI({
             true,
           );
           return [...updated, loginPromptMessage];
+        }
+
+        if (action === "confirm-retail-automation") {
+          setIsInvestorLoginPending(true);
+          setShouldPromptLogin(true);
+          const approvalMessage = buildMessage("Let’s get you logged in with UAE Pass.", true);
+          return [...updated, approvalMessage];
+        }
+
+        if (action === "decline-retail-automation") {
+          const acknowledgement = buildMessage(
+            "No worries. Let me know whenever you’d like me to take care of the paperwork.",
+            true,
+          );
+          return [...updated, acknowledgement];
         }
 
         return updated;
