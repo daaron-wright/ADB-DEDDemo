@@ -79,6 +79,9 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
   );
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [loginStep, setLoginStep] = useState<LoginStep>("userType");
+  const activeUserType: "applicant" | "reviewer" =
+    selectedUserType ?? defaultUserType ?? "applicant";
+  const activeUserDetail = USER_TYPE_DETAILS[activeUserType];
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const timeouts = useRef<ReturnType<typeof setTimeout>[]>([]);
 
