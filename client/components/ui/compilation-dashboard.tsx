@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 
 // Animation variants for the AI chat interface
 const barVariants = {
@@ -107,9 +108,9 @@ export default function CompilationDashboard() {
               className="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/20"
             >
               <div className="flex items-center gap-4 mb-6">
-                <img 
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-                  alt="AI Assistant"
+                <img
+                  src={AI_ASSISTANT_PROFILE.avatar}
+                  alt={AI_ASSISTANT_PROFILE.name}
                   className="w-16 h-16 rounded-full border border-[#54FFD4]"
                 />
                 <div>
