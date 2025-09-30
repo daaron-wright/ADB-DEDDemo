@@ -3847,7 +3847,7 @@ export function BusinessChatUI({
                   </div>
 
                   {/* Chat Input */}
-                  <div className="p-3 sm:p-4 lg:p-6 border-t border-white/10">
+                  <div className="p-3 sm:p-4 lg:p-6 border-t border-slate-600/30">
                     <div className="flex gap-2 sm:gap-3">
                       <input
                         type="text"
