@@ -3015,12 +3015,12 @@ const HeatMapBreakoutModal = ({
   const renderSignalIcon = (id: string) => {
     switch (id) {
       case "conversion":
-        return <TrendingUp className="h-4 w-4" aria-hidden />;
+        return <TrendingUp className="h-4 w-4" aria-hidden="true" />;
       case "approval":
-        return <Clock3 className="h-4 w-4" aria-hidden />;
+        return <Clock3 className="h-4 w-4" aria-hidden="true" />;
       case "premium":
       default:
-        return <Flame className="h-4 w-4" aria-hidden />;
+        return <Flame className="h-4 w-4" aria-hidden="true" />;
     }
   };
 
@@ -3048,7 +3048,7 @@ const HeatMapBreakoutModal = ({
                     Focused artifact
                   </span>
                   <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-100">
-                    <MapPin className="h-3.5 w-3.5" aria-hidden />
+                    <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
                     Heat map spotlight
                   </span>
                 </div>
@@ -3094,7 +3094,7 @@ const HeatMapBreakoutModal = ({
                   ))}
                 </div>
                 <div className="absolute left-4 bottom-4 flex items-center gap-2 rounded-full border border-white/20 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-white/90">
-                  <MapPin className="h-3.5 w-3.5 text-emerald-200" aria-hidden />
+                  <MapPin className="h-3.5 w-3.5 text-emerald-200" aria-hidden="true" />
                   Live density overlay
                 </div>
               </div>
@@ -3145,7 +3145,7 @@ const HeatMapBreakoutModal = ({
                     onClick={handleLaunchFullMap}
                     className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-[#0E766E] shadow-[0_18px_40px_-22px_rgba(15,23,42,0.35)] transition hover:shadow-[0_20px_44px_-20px_rgba(15,23,42,0.45)]"
                   >
-                    <MapIcon className="h-4 w-4" aria-hidden />
+                    <MapIcon className="h-4 w-4" aria-hidden="true" />
                     Launch interactive heat map
                   </button>
                 )}
