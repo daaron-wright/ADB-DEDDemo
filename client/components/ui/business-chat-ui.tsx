@@ -3842,7 +3842,7 @@ export function BusinessChatUI({
               </div>
 
               {/* Chat Container */}
-              <div className="relative z-10 flex min-h-[calc(100vh-88px)] items-center justify-center px-3 py-6 sm:px-6 sm:py-8 lg:px-12 lg:py-10">
+              <div className="relative z-10 flex w-full justify-center px-3 py-6 sm:px-6 sm:py-8 lg:px-12 lg:py-10">
                 <div className="mx-auto w-full max-w-6xl rounded-[28px] sm:rounded-[32px] border border-white/60 bg-white/75 backdrop-blur-2xl shadow-[0_48px_120px_-52px_rgba(15,23,42,0.45)]">
                   {/* Chat Header with Tabs */}
                   <div className="p-3 sm:p-4 lg:p-6 border-b border-slate-200 bg-white/80 backdrop-blur-xl">
