@@ -3776,7 +3776,7 @@ export function BusinessChatUI({
 
 
               {/* Header */}
-              <div className="relative z-10 w-full h-[70px] sm:h-[87px] border-b border-white/30 bg-white/30 backdrop-blur-[40px]">
+              <div className="relative z-10 w-full h-[70px] sm:h-[87px] border-b border-slate-200 bg-white/80 backdrop-blur-[40px]">
                 <div className="flex items-center justify-center px-4 sm:px-6 lg:px-10 py-3 sm:py-5 h-full relative">
                   {/* Left side - Logo and back button */}
                   <div className="absolute left-4 sm:left-6 lg:left-10 flex items-center gap-2 sm:gap-4">
