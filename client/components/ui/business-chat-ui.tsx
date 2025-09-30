@@ -2696,9 +2696,6 @@ const DiscoverExperienceView = ({
                       <span className="inline-flex items-center rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
                         Heat map
                       </span>
-                      <span className="inline-flex items-center rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
-                        Commercial licenses
-                      </span>
                     </div>
                     <button
                       type="button"
