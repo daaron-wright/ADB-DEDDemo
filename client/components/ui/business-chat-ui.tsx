@@ -4780,6 +4780,7 @@ export function BusinessChatUI({
                                   : undefined
                               }
                               onHeatMapOpen={openHeatMapFullView}
+                              onBudgetRangesOpen={openBudgetRangesFocus}
                             />
                           ))}
                         </div>
