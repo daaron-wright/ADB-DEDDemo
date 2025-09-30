@@ -2682,81 +2682,20 @@ const DiscoverExperienceView = ({
             className="relative z-10 w-full max-w-6xl"
             style={MODAL_MIN_DIMENSIONS}
           >
-            <div className="max-h-[85vh] min-h-[556px] overflow-hidden rounded-[32px] border border-[#e2ede8] bg-white shadow-[0_24px_48px_-32px_rgba(11,64,55,0.25)]">
+            <div className="max-h-[85vh] min-h-[556px] overflow-hidden rounded-[32px] border border-[#e2ede8] bg-white shadow-[0_24px_48px_-32px_rgba(11,64,55,0.25)] ring-4 ring-[#0E766E]/15 ring-offset-2 ring-offset-white">
               <div className="border-b border-[#e2ede8] bg-[#f6faf8] px-6 py-7 lg:px-8">
-                <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-                  <div className="flex flex-col gap-5">
-                    <div className="flex items-center gap-4">
-                      <img
-                        src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
-                        alt="AI Business Assistant"
-                        className="h-12 w-12 rounded-full border border-[#dbe9e3] object-cover"
-                      />
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="inline-flex items-center rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
-                          Heat map
-                        </span>
-                        <span className="inline-flex items-center rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
-                          Commercial licenses
-                        </span>
-                      </div>
-                    </div>
-                    <div className="space-y-3">
-                      <h3 className="text-3xl font-semibold leading-tight text-slate-900">
-                        Abu Dhabi F&B Hotspot Density
-                      </h3>
-                      <p className="max-w-2xl text-base text-slate-600">
-                        Compare licensing concentration and live footfall
-                        signals across the city&apos;s restaurant districts.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-stretch gap-3 lg:items-end">
-                    <div className="flex items-center gap-3 rounded-full border border-[#dbe9e3] bg-white px-4 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)]">
-                      <img
-                        src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
-                        alt="Reviewer avatar"
-                        className="h-9 w-9 rounded-full border border-[#dbe9e3] object-cover"
-                      />
-                      <div className="flex flex-col text-left lg:text-right">
-                        <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
-                          Reviewer
-                        </span>
-                        <span className="text-sm font-semibold text-slate-700">
-                          AI Business Analyst
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 rounded-full border border-[#dbe9e3] bg-white px-4 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)]">
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
-                        Progress
+                <div className="flex flex-col gap-5">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="inline-flex items-center rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
+                        Focused artifact
                       </span>
-                      <div className="relative h-2.5 w-28 overflow-hidden rounded-full bg-[#e2ede8]">
-                        <div
-                          className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#0E766E] via-[#2fc4a8] to-[#6ee7b7] shadow-[0_1px_2px_rgba(15,118,110,0.4)]"
-                          style={{ width: `${progressValue}%` }}
-                        />
-                      </div>
-                      <span className="text-xs font-semibold text-slate-700">
-                        {progressValue}%
+                      <span className="inline-flex items-center rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
+                        Heat map
                       </span>
-                    </div>
-                    <div className="flex items-center gap-2 rounded-full border border-[#dbe9e3] bg-white px-2 py-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)]">
-                      {(["heatmap", "timeline"] as const).map((mode) => (
-                        <button
-                          key={mode}
-                          type="button"
-                          onClick={() => setMapViewMode(mode)}
-                          className={cn(
-                            "rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] transition",
-                            mapViewMode === mode
-                              ? "bg-[#0E766E] text-white shadow-[0_12px_24px_-18px_rgba(14,118,110,0.45)]"
-                              : "text-slate-600 hover:text-[#0E766E]",
-                          )}
-                        >
-                          {mode === "heatmap" ? "Map view" : "Timeline"}
-                        </button>
-                      ))}
+                      <span className="inline-flex items-center rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
+                        Commercial licenses
+                      </span>
                     </div>
                     <button
                       type="button"
@@ -2764,11 +2703,55 @@ const DiscoverExperienceView = ({
                         setShowMapModal(false);
                         setHoveredLocation(null);
                       }}
-                      className="self-end rounded-full border border-[#dbe9e3] bg-white px-3 py-2 text-sm font-semibold text-slate-500 transition hover:text-slate-900"
+                      className="rounded-full border border-[#dbe9e3] bg-white px-3 py-2 text-sm font-semibold text-slate-500 transition hover:text-slate-900"
                       aria-label="Close heat map"
                     >
                       Close
                     </button>
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-3xl font-semibold leading-tight text-slate-900">
+                      Abu Dhabi F&B Hotspot Density
+                    </h3>
+                    <p className="max-w-2xl text-base text-slate-600">
+                      Compare licensing concentration and live footfall signals across the city&apos;s restaurant districts.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="px-6 pt-5 lg:px-8">
+                <div className="flex flex-wrap items-center gap-3">
+                  <div className="flex items-center gap-3 rounded-full border border-[#dbe9e3] bg-white px-4 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)]">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
+                      Progress
+                    </span>
+                    <div className="relative h-2.5 w-28 overflow-hidden rounded-full bg-[#e2ede8]">
+                      <div
+                        className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#0E766E] via-[#2fc4a8] to-[#6ee7b7] shadow-[0_1px_2px_rgba(15,118,110,0.4)]"
+                        style={{ width: `${progressValue}%` }}
+                      />
+                    </div>
+                    <span className="text-xs font-semibold text-slate-700">
+                      {progressValue}%
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 rounded-full border border-[#dbe9e3] bg-white px-2 py-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)]">
+                    {(["heatmap", "timeline"] as const).map((mode) => (
+                      <button
+                        key={mode}
+                        type="button"
+                        onClick={() => setMapViewMode(mode)}
+                        className={cn(
+                          "rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] transition",
+                          mapViewMode === mode
+                            ? "bg-[#0E766E] text-white shadow-[0_12px_24px_-18px_rgba(14,118,110,0.45)]"
+                            : "text-slate-600 hover:text-[#0E766E]",
+                        )}
+                      >
+                        {mode === "heatmap" ? "Map view" : "Timeline"}
+                      </button>
+                    ))}
                   </div>
                 </div>
               </div>
