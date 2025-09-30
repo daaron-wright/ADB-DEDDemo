@@ -4315,6 +4315,13 @@ export function BusinessChatUI({
             }
           )
         );
+      } else if (mentionsCornicheDetails) {
+        responses.push(
+          buildMessage(
+            "The Corniche is a popular choice due to its high foot traffic and scenic views. It attracts both tourists and locals, especially during the cooler months. The area is known for its diverse range of dining options, from casual cafes to upscale restaurants, catering to a wide range of tastes and budgets.",
+            true
+          )
+        );
       } else if (mentionsTargetMarket) {
         responses.push(
           buildMessage(
