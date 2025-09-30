@@ -349,25 +349,25 @@ export default function Index() {
       >
         {ambientOrbs.map((orb) => (
           <motion.div
-          key={orb.id}
-          className="pointer-events-none absolute rounded-full"
-          style={{
-            width: orb.size,
-            height: orb.size,
-            ...orb.style,
-            background: orb.gradient,
-            filter: "blur(120px)",
-            mixBlendMode: "screen",
-          }}
-          initial={false}
-          animate={orb.animate}
-          transition={{
-            duration: orb.duration,
-            ease: "easeInOut",
-            repeat: Infinity,
-            repeatType: "mirror",
-          }}
-        />
+            key={orb.id}
+            className="pointer-events-none absolute rounded-full"
+            style={{
+              width: orb.size,
+              height: orb.size,
+              ...orb.style,
+              background: orb.gradient,
+              filter: "blur(120px)",
+              mixBlendMode: "screen",
+            }}
+            initial={false}
+            animate={orb.animate}
+            transition={{
+              duration: orb.duration,
+              ease: "easeInOut",
+              repeat: Infinity,
+              repeatType: "mirror",
+            }}
+          />
         ))}
 
         <motion.div
