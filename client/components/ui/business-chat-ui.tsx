@@ -115,7 +115,7 @@ interface BusinessChatUIProps {
 }
 
 type ChatView = "basic" | "investor-journey" | "discover-experience";
-type ModalView = "chat" | "heat-map" | "budget-ranges";
+type ModalView = "chat" | "heat-map" | "budget-ranges" | "gap-analysis";
 
 interface ChatThread {
   id: string;
