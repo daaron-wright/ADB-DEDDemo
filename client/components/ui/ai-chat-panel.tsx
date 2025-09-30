@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { chatCardClass } from "@/lib/chat-style";
+import { cn } from "@/lib/utils";
 import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 
 interface AIChatPanelProps {
@@ -36,8 +38,12 @@ const AIChatPanel: React.FC<AIChatPanelProps> = ({ className = "" }) => {
   ];
 
   return (
-    <div className={`w-full max-w-[446px] ${className}`}>
-      <div className="relative h-[426px] w-full overflow-hidden rounded-3xl border border-white/70 bg-white/80 backdrop-blur-2xl shadow-[0_28px_60px_-34px_rgba(15,23,42,0.45)]">
+    <div className={cn("w-full max-w-[446px]", className)}>
+      <div
+        className={chatCardClass(
+          "relative h-[426px] w-full overflow-hidden border border-white/70 bg-white/80 backdrop-blur-2xl shadow-[0_28px_60px_-34px_rgba(15,23,42,0.45)]"
+        )}
+      >
         <div className="flex w-full flex-col gap-2 px-6 pt-4 pb-2">
           <div className="flex w-full items-center gap-3">
             <img
