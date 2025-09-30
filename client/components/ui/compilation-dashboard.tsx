@@ -1,22 +1,21 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 
 // Animation variants for the AI chat interface
-const barVariants = {
+const barVariants: Variants = {
   animate: {
     height: ["3px", "30px", "15px", "25px", "8px", "35px", "20px", "12px", "5px"],
     transition: {
       duration: 2,
       repeat: Infinity,
       ease: "easeInOut",
-      staggerChildren: 0.1,
     },
   },
 };
 
-const barItemVariants = {
+const barItemVariants: Variants = {
   animate: {
     transition: {
       staggerChildren: 0.05,
