@@ -330,14 +330,6 @@ const GapAnalysisCard = ({ className = "" }: { className?: string }) => {
   );
 };
 
-type ContextTabId = "insights" | "workflow" | "reports";
-
-const CONTEXT_TABS: Array<{ id: ContextTabId; label: string; meta: string }> = [
-  { id: "insights", label: "Insights", meta: "Live" },
-  { id: "workflow", label: "Workflow", meta: "9 routines" },
-  { id: "reports", label: "Breakouts", meta: "3 available" },
-];
-
 const MetricTile = ({
   label,
   value,
@@ -381,7 +373,7 @@ const InsightsSummary = () => {
         label="Site priority"
         value="Corniche focus"
         caption="Footfall uplift remains highest compared to Yas and Al Maryah."
-        trend="▲ 12% week-on-week"
+        trend="�� 12% week-on-week"
       />
       <MetricTile
         label="Processing SLA"
