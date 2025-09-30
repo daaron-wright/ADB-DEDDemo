@@ -1828,8 +1828,8 @@ const InvestorJourneyCard = ({
         {/* Avatar and details overlay */}
         <div className="absolute left-6 top-4 flex items-center gap-4">
           <img
-            src="https://api.builder.io/api/v1/image/assets/TEMP/0142e541255ee20520b15f139d595835c00ea132?width=131"
-            alt="Khalid"
+            src={ENTREPRENEUR_PROFILE.avatar}
+            alt={ENTREPRENEUR_PROFILE.name}
             className="w-16 h-16 rounded-full border-2 border-[#0E766E]"
           />
           <div>
@@ -1837,7 +1837,7 @@ const InvestorJourneyCard = ({
               Investor Journey
             </h4>
             <p className="text-white/90 text-lg">
-              <span className="font-semibold">Khalid</span> Entrepreneur
+              <span className="font-semibold">{ENTREPRENEUR_PROFILE.name}</span>
             </p>
           </div>
         </div>
