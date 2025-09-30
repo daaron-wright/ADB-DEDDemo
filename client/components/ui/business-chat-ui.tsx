@@ -17,6 +17,8 @@ import { UAEPassLogin } from "@/components/ui/uae-pass-login";
 import LocationHeatMap from "@/components/ui/location-heat-map";
 import HeatMapView from "@/components/ui/heat-map-view";
 import BudgetRanges from "@/components/ui/budget-ranges";
+import BudgetRangesView from "@/components/ui/budget-ranges-view";
+import { budgetSummaryRows } from "@/components/ui/budget-ranges-data";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
 import { Map as MapIcon } from "lucide-react";
