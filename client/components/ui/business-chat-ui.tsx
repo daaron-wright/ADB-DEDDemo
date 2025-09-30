@@ -6,6 +6,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { chatCardClass } from "@/lib/chat-style";
 import { Badge } from "@/components/ui/badge";
+import {
+  CuisinePopularityChart,
+  CompetitorAnalysisChart,
+  DemographicsCard,
+  VisitorTasteTrendsChart,
+} from "@/components/ui/data-visualizations";
+import LocationHeatMap from "@/components/ui/location-heat-map";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
 import { ENTREPRENEUR_PROFILE, AI_ASSISTANT_PROFILE } from "@/lib/profile";
