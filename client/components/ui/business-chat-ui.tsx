@@ -1826,6 +1826,14 @@ export function BusinessChatUI({
   const handleSendMessage = (message: string) => {
     if (!activeThreadId) return;
 
+    const lowerMessage = message.toLowerCase();
+
+    // Check if this should trigger the Corniche detail view
+    if (lowerMessage.includes("corniche") || lowerMessage.includes("cornich")) {
+      createCorniceDetailThread(message);
+      return;
+    }
+
     const userMessage: BusinessMessage = {
       id: `user-${Date.now()}`,
       content: message,
@@ -1849,6 +1857,49 @@ export function BusinessChatUI({
       ];
       updateThread(activeThreadId, { messages: updatedMessages });
     }
+  };
+
+  const createCorniceDetailThread = (userMessage: string) => {
+    const newThread: ChatThread = {
+      id: `corniche-detail-${Date.now()}`,
+      title: "Corniche Area Analysis",
+      messages: [
+        {
+          id: `user-${Date.now()}`,
+          content: "How much would it cost to open a restaurant",
+          isAI: false,
+          timestamp: new Date(),
+        },
+        {
+          id: `ai-${Date.now()}-1`,
+          content: "Estimated set up costs could range from: There isn't a single fixed price, but rather a range that can vary from approximately AED 10,000 to AED 30,000 for the trade license itself.\nType of License: The cost can differ based on the type of license you get. A Tajer/e-commerce license that don't allow full restaurant operations start at AED 790.",
+          isAI: true,
+          timestamp: new Date(),
+        },
+        {
+          id: `user-${Date.now()}-2`,
+          content: "Can you give me any demographic data you have for this area.",
+          isAI: false,
+          timestamp: new Date(),
+        },
+        {
+          id: `ai-${Date.now()}-3`,
+          content: "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers:\nYas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10).\nAl Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10).\nSaadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10).\nAl Reem Island – 30k residents, 35k daytime; dense community market (7/10).\nAl Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10).\nCorniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10).\nAl Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).",
+          isAI: true,
+          timestamp: new Date(),
+          type: "corniche-detail",
+        },
+        {
+          id: `user-${Date.now()}-4`,
+          content: "Of these who are the target market for a high end restaurants?",
+          isAI: false,
+          timestamp: new Date(),
+        },
+      ],
+      view: "corniche-detail",
+    };
+    setThreads([...threads, newThread]);
+    setActiveThreadId(newThread.id);
   };
 
   const generateAIResponse = (userMessage: string): string => {
