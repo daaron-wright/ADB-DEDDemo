@@ -853,6 +853,12 @@ const CompetitorAnalysisView = ({ onBack, onGapAnalysis, onSendMessage }: { onBa
               <div className="flex justify-start">
                 <div className="max-w-[240px] bg-white/30 rounded-xl px-4 py-3">
                   <p className="text-white text-sm font-medium">Here are the top 4 restaurants in Abu Dhabi Corniche.</p>
+                  <button
+                    onClick={() => window.dispatchEvent(new CustomEvent('openCompetitorBreakout'))}
+                    className="mt-2 px-3 py-1 bg-[#54FFD4]/20 border border-[#54FFD4]/40 rounded-lg text-[#54FFD4] text-xs hover:bg-[#54FFD4]/30 transition-colors"
+                  >
+                    View detailed analysis
+                  </button>
                 </div>
               </div>
 
