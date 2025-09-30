@@ -429,7 +429,7 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <img
-                      src="https://api.builder.io/api/v1/image/assets/TEMP/613aa3868a1f461fc53f09303440118a5f5c5ca4?width=128"
+                      src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F167b1065184840e68ba0ed60f27e62ec?format=webp&width=800"
                       alt="AI Business"
                       className="w-16 h-16 rounded-full border border-[#54FFD4]"
                     />
@@ -583,7 +583,7 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <img
-                      src="https://api.builder.io/api/v1/image/assets/TEMP/613aa3868a1f461fc53f09303440118a5f5c5ca4?width=128"
+                      src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F167b1065184840e68ba0ed60f27e62ec?format=webp&width=800"
                       alt="AI Business"
                       className="w-16 h-16 rounded-full border border-[#54FFD4]"
                     />
@@ -754,7 +754,7 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <img
-                      src="https://api.builder.io/api/v1/image/assets/TEMP/613aa3868a1f461fc53f09303440118a5f5c5ca4?width=128"
+                      src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F167b1065184840e68ba0ed60f27e62ec?format=webp&width=800"
                       alt="AI Business"
                       className="w-16 h-16 rounded-full border border-[#54FFD4]"
                     />
@@ -1256,7 +1256,7 @@ const CompetitorAnalysisView = ({ onBack, onGapAnalysis, onSendMessage }: { onBa
             {/* AI Business Header */}
             <div className="flex items-center gap-3 mb-6">
               <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+                src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F167b1065184840e68ba0ed60f27e62ec?format=webp&width=800"
                 alt="AI Assistant"
                 className="w-16 h-16 rounded-full border border-[#54FFD4]"
               />
@@ -1422,7 +1422,7 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
           >
             <div className="flex items-center gap-4 mb-6">
               <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+                src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F167b1065184840e68ba0ed60f27e62ec?format=webp&width=800"
                 alt="AI Assistant"
                 className="w-16 h-16 rounded-full border border-[#54FFD4]"
               />
@@ -1832,7 +1832,7 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
         <div className="flex flex-col p-6 pb-8">
           <div className="flex items-center gap-2 mb-8">
             <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+              src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F167b1065184840e68ba0ed60f27e62ec?format=webp&width=800"
               alt="AI Assistant"
               className="w-16 h-16 rounded-full border border-[#54FFD4]"
             />
@@ -2512,7 +2512,7 @@ const DiscoverExperienceView = ({
         {/* AI Response */}
         <div className="flex justify-start gap-3">
           <img
-            src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+            src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F167b1065184840e68ba0ed60f27e62ec?format=webp&width=800"
             alt="AI Assistant"
             className="w-8 h-8 rounded-full border border-[#54FFD4] object-cover flex-shrink-0"
           />
@@ -2747,7 +2747,7 @@ const DiscoverExperienceView = ({
                   <div className="flex flex-col gap-5">
                     <div className="flex items-center gap-4">
                       <img
-                        src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+                        src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F167b1065184840e68ba0ed60f27e62ec?format=webp&width=800"
                         alt="AI Business Assistant"
                         className="h-12 w-12 rounded-full border border-[#dbe9e3] object-cover"
                       />
@@ -2773,7 +2773,7 @@ const DiscoverExperienceView = ({
                   <div className="flex flex-col items-stretch gap-3 lg:items-end">
                     <div className="flex items-center gap-3 rounded-full border border-[#dbe9e3] bg-white px-4 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)]">
                       <img
-                        src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+                        src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F167b1065184840e68ba0ed60f27e62ec?format=webp&width=800"
                         alt="Reviewer avatar"
                         className="h-9 w-9 rounded-full border border-[#dbe9e3] object-cover"
                       />
@@ -4055,7 +4055,7 @@ export function BusinessChatUI({
                     </div>
                     <div className="flex items-center gap-3 sm:gap-4">
                       <img
-                        src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+                        src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F167b1065184840e68ba0ed60f27e62ec?format=webp&width=800"
                         alt="AI Assistant"
                         className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border border-[#54FFD4] object-cover"
                       />
