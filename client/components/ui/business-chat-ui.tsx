@@ -192,24 +192,28 @@ const HEAT_MAP_BREAKOUT_HOTSPOTS: Array<{
   name: string;
   metric: string;
   descriptor: string;
+  position: { top: string; left: string };
 }> = [
   {
     id: "corniche",
     name: "Corniche Waterfront",
     metric: "96% evening footfall",
     descriptor: "Premium dining strip with high spend social rituals",
+    position: { top: "38%", left: "32%" },
   },
   {
     id: "louvre",
     name: "Saadiyat Cultural District",
     metric: "+22% weekend uplift",
     descriptor: "Museum traffic spills over into experiential dining requests",
+    position: { top: "24%", left: "62%" },
   },
   {
     id: "yas",
     name: "Yas Marina",
     metric: "4.3★ visitor satisfaction",
     descriptor: "Events calendar drives spikes in waterfront lounge demand",
+    position: { top: "60%", left: "70%" },
   },
 ];
 
