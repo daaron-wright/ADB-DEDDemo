@@ -3043,7 +3043,7 @@ const DiscoverExperienceView = ({
                         </button>
                         <button
                           type="button"
-                          className="rounded-full border border-[#0f766e] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e] transition hover:bg-[#0E766E]/10"
+                          className="rounded-full border border-[#0E766E] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e] transition hover:bg-[#0E766E]/10"
                         >
                           Download CSV
                         </button>
@@ -3118,9 +3118,9 @@ const DiscoverExperienceView = ({
                               <li
                                 key={spot.id}
                                 className={cn(
-                                  "relative overflow-hidden rounded-[24px] border border-[#dbe9e3] bg-white px-4 py-3 transition hover:border-[#0f766e]/50 hover:shadow-[0_16px_30px_-24px_rgba(15,118,110,0.3)]",
+                                  "relative overflow-hidden rounded-[24px] border border-[#dbe9e3] bg-white px-4 py-3 transition hover:border-[#0E766E]/50 hover:shadow-[0_16px_30px_-24px_rgba(15,118,110,0.3)]",
                                   isHighlighted &&
-                                    "border-[#0f766e] shadow-[0_22px_48px_-26px_rgba(15,118,110,0.32)]",
+                                    "border-[#0E766E] shadow-[0_22px_48px_-26px_rgba(15,118,110,0.32)]",
                                 )}
                                 onMouseEnter={() => setHoveredLocation(spot.id)}
                                 onMouseLeave={() => setHoveredLocation(null)}
@@ -3180,9 +3180,9 @@ const DiscoverExperienceView = ({
                           <div
                             key={spot.id}
                             className={cn(
-                              "relative flex gap-4 rounded-[26px] border border-[#dbe9e3] bg-white px-5 py-4 transition hover:border-[#0f766e]/50 hover:shadow-[0_18px_36px_-28px_rgba(15,118,110,0.28)]",
+                              "relative flex gap-4 rounded-[26px] border border-[#dbe9e3] bg-white px-5 py-4 transition hover:border-[#0E766E]/50 hover:shadow-[0_18px_36px_-28px_rgba(15,118,110,0.28)]",
                               isHighlighted &&
-                                "border-[#0f766e] shadow-[0_22px_48px_-28px_rgba(15,118,110,0.35)]",
+                                "border-[#0E766E] shadow-[0_22px_48px_-28px_rgba(15,118,110,0.35)]",
                             )}
                             onMouseEnter={() => setHoveredLocation(spot.id)}
                             onMouseLeave={() => setHoveredLocation(null)}
@@ -3253,7 +3253,7 @@ const DiscoverExperienceView = ({
                       </button>
                       <button
                         type="button"
-                        className="rounded-full border border-[#0f766e] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e] transition hover:bg-[#0E766E]/10"
+                        className="rounded-full border border-[#0E766E] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e] transition hover:bg-[#0E766E]/10"
                       >
                         Download CSV
                       </button>
