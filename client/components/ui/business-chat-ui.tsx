@@ -974,9 +974,6 @@ const StarRating = ({ rating }: { rating: number }) => {
   );
 };
 
-const KHALID_AVATAR =
-  "https://api.builder.io/api/v1/image/assets/TEMP/0142e541255ee20520b15f139d595835c00ea132?width=131";
-
 const AccessibleHeatMap = () => {
   const heatPoints = [
     {
