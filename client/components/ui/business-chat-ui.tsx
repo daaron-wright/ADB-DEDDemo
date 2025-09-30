@@ -3868,7 +3868,7 @@ export function BusinessChatUI({
                           }
                         }}
                         disabled={!currentInput.trim()}
-                        className="bg-[#54FFD4] hover:bg-[#54FFD4]/90 disabled:bg-white/20 disabled:text-white/50 text-slate-900 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium transition-all disabled:cursor-not-allowed"
+                        className="bg-[#54FFD4] hover:bg-[#54FFD4]/90 disabled:bg-slate-600/50 disabled:text-slate-400 text-slate-900 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium transition-all disabled:cursor-not-allowed"
                       >
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="m22 2-7 20-4-9-9-4Z"/>
