@@ -2682,7 +2682,7 @@ const DiscoverExperienceView = ({
                       </span>
                       <div className="relative h-2.5 w-28 overflow-hidden rounded-full bg-[#e2ede8]">
                         <div
-                          className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#0f766e] via-[#23b893] to-[#54ffd4] shadow-[0_1px_2px_rgba(15,118,110,0.4)]"
+                          className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#0E766E] via-[#2fc4a8] to-[#6ee7b7] shadow-[0_1px_2px_rgba(15,118,110,0.4)]"
                           style={{ width: `${progressValue}%` }}
                         />
                       </div>
@@ -3141,7 +3141,7 @@ const DiscoverExperienceView = ({
                                   </div>
                                   <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-[#e2ede8]">
                                     <div
-                                      className="h-full rounded-full bg-gradient-to-r from-[#0f766e] via-[#23b893] to-[#54ffd4]"
+                                      className="h-full rounded-full bg-gradient-to-r from-[#0E766E] via-[#2fc4a8] to-[#6ee7b7]"
                                       style={{ width }}
                                     />
                                   </div>
@@ -3235,7 +3235,7 @@ const DiscoverExperienceView = ({
                               </div>
                               <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[#e2ede8]">
                                 <div
-                                  className="h-full rounded-full bg-gradient-to-r from-[#0f766e] via-[#23b893] to-[#54ffd4]"
+                                  className="h-full rounded-full bg-gradient-to-r from-[#0E766E] via-[#2fc4a8] to-[#6ee7b7]"
                                   style={{ width }}
                                 />
                               </div>
