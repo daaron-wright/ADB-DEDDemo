@@ -29,6 +29,7 @@ type BusinessMessageType =
   | "text"
   | "heat-map"
   | "property-cards"
+  | "setup-cta"
   | "cuisine-analysis"
   | "competitor-analysis"
   | "demographics"
@@ -1886,6 +1887,48 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
   );
 };
 
+const SetupBusinessCTA = ({ onSetup }: { onSetup?: () => void }) => (
+  <div
+    className={chatCardClass(
+      "relative w-full max-w-xl overflow-hidden border border-white/45 bg-white/30 backdrop-blur-3xl shadow-[0_35px_80px_-48px_rgba(15,23,42,0.45)]",
+      "rounded-[32px]"
+    )}
+  >
+    <div className="relative h-44 w-full">
+      <img
+        src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fde779785c6e84d7a98704dd7126a5e07?format=webp&width=1200"
+        alt="Abu Dhabi investor journey map"
+        className="h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/15 to-black/40" />
+      <div className="absolute left-6 top-6 flex items-center gap-3">
+        <img
+          src={ENTREPRENEUR_PROFILE.avatar}
+          alt={ENTREPRENEUR_PROFILE.name}
+          className="h-12 w-12 rounded-full border-2 border-white object-cover"
+        />
+        <div className="text-left">
+          <p className="text-white text-sm font-semibold leading-tight">Investor Journey</p>
+          <p className="text-white/80 text-xs font-medium">{ENTREPRENEUR_PROFILE.name}</p>
+        </div>
+      </div>
+    </div>
+
+    <div className="flex flex-col items-center gap-6 bg-white/85 px-8 pb-8 pt-10 text-center backdrop-blur-2xl">
+      <p className="text-sm font-medium text-slate-600">
+        Launch a tailored setup flow with the exact steps to open your business in Abu Dhabi.
+      </p>
+      <button
+        type="button"
+        onClick={onSetup}
+        className="rounded-full bg-gradient-to-r from-[#0E766E] to-[#0A4A46] px-8 py-3 text-sm font-semibold text-white shadow-[0_24px_52px_-24px_rgba(14,118,110,0.55)] transition-transform duration-200 hover:scale-[1.02] hover:shadow-[0_36px_74px_-30px_rgba(14,118,110,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E766E]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white/40"
+      >
+        Set up business
+      </button>
+    </div>
+  </div>
+);
+
 const CHAT_ACTION_BUTTON_CLASSES =
   "inline-flex items-center gap-2 rounded-full bg-[#0E766E] px-4 py-2 text-sm font-semibold text-white shadow-[0_16px_30px_-18px_rgba(14,118,110,0.45)] transition hover:bg-[#0a5a55]";
 
@@ -1899,6 +1942,21 @@ const MessageBubble = ({
   const bubbleContainerClasses = message.isAI
     ? "bg-white/90 border border-slate-200 text-slate-900 shadow-[0_22px_48px_-28px_rgba(15,23,42,0.45)]"
     : "bg-[#0E766E]/15 border border-[#0E766E]/35 text-[#043A36] shadow-[0_20px_44px_-28px_rgba(14,118,110,0.55)]";
+
+  if (message.type === "setup-cta") {
+    const primaryAction = message.actions?.[0];
+    return (
+      <div className="mb-6 flex w-full justify-center">
+        <SetupBusinessCTA
+          onSetup={
+            primaryAction && onActionClick
+              ? () => onActionClick(primaryAction.action, primaryAction.label)
+              : undefined
+          }
+        />
+      </div>
+    );
+  }
 
   return (
     <div
