@@ -2350,8 +2350,8 @@ const MessageBubble = ({
   dialogueDocProps,
 }: MessageBubbleProps) => {
   const bubbleContainerClasses = message.isAI
-    ? "bg-white/90 border border-slate-200 text-slate-900 shadow-[0_22px_48px_-28px_rgba(15,23,42,0.45)]"
-    : "bg-[#0E766E]/15 border border-[#0E766E]/35 text-[#043A36] shadow-[0_20px_44px_-28px_rgba(14,118,110,0.55)]";
+    ? "bg-[#E5E5E5] text-slate-900"
+    : "bg-[#BFBFBF] text-white";
 
   if (message.type === "dialogue-doc" && dialogueDocProps) {
     return (
