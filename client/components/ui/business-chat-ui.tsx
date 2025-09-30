@@ -1722,58 +1722,47 @@ const MessageBubble = ({
   return (
     <div
       className={cn(
-        "flex mb-3 sm:mb-4 gap-2 sm:gap-3 items-end",
+        "mb-4 flex gap-3 sm:gap-4",
         message.isAI ? "justify-start" : "justify-end",
       )}
     >
       {message.isAI && (
-        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-[#169F9F] bg-white flex items-center justify-center flex-shrink-0">
+        <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-full border border-[#169F9F] bg-white/70 shadow-sm backdrop-blur-xl sm:h-10 sm:w-10">
           <ChatIcon isAnimated={false} isDark={true} />
         </div>
       )}
       <div
         className={cn(
-          "max-w-[85%] sm:max-w-[80%] flex flex-col gap-2 sm:gap-3",
-          message.isAI ? "items-start" : "items-end",
+          "flex max-w-[85%] sm:max-w-[78%] flex-col gap-2 sm:gap-3",
+          message.isAI ? "items-start text-left" : "items-end text-right",
         )}
       >
+        {message.rating && <StarRating rating={message.rating} />}
         <div
           className={cn(
-            "px-3 sm:px-4 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-sm sm:text-base leading-relaxed shadow-sm border",
-            message.isAI
-              ? isOnLightBackground
-                ? "bg-white border-slate-300 text-slate-900 rounded-bl-sm"
-                : "bg-slate-100 border-slate-300 text-slate-900 rounded-bl-sm shadow-md"
-              : isOnLightBackground
-                ? "bg-slate-200 border-slate-400 text-slate-900 rounded-br-sm"
-                : "bg-[#169F9F]/90 border-[#169F9F] text-slate-900 rounded-br-sm shadow-md",
+            "whitespace-pre-wrap text-sm leading-relaxed sm:text-base",
+            message.isAI ? "text-slate-900" : "text-[#0c5252] font-semibold",
           )}
         >
-          {message.rating && <StarRating rating={message.rating} />}
-          <div className="text-inherit whitespace-pre-wrap break-words">
-            {message.content}
-          </div>
+          {message.content}
         </div>
 
-        {/* Heat map visualization for location-related AI messages */}
-        {message.isAI && message.type === "heat-map" && <AccessibleHeatMap />}
+        {message.isAI && message.type === "heat-map" && (
+          <div className="w-full rounded-2xl border border-white/30 bg-white/30 p-3 backdrop-blur-xl">
+            <AccessibleHeatMap />
+          </div>
+        )}
 
-        {/* Budget ranges button */}
         {shouldShowBudgetButton && onActionClick && (
           <button
             onClick={() => onActionClick("budget-ranges")}
-            className={cn(
-              "flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl transition-colors shadow-lg text-sm sm:text-base",
-              isOnLightBackground
-                ? "bg-white border border-slate-300 hover:bg-slate-50 text-slate-900"
-                : "bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-300 shadow-md"
-            )}
+            className="inline-flex items-center gap-2 rounded-full border border-[#169F9F]/40 bg-white/40 px-3 py-2 text-sm font-semibold text-[#0c5252] shadow-sm backdrop-blur-xl transition hover:bg-white/60 hover:text-[#094646] sm:px-4"
           >
-            <div className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center">
+            <div className="flex h-6 w-6 items-center justify-center sm:h-8 sm:w-8">
               <svg
                 width="24"
                 height="24"
-                className="sm:w-8 sm:h-8"
+                className="sm:h-8 sm:w-8"
                 viewBox="0 0 32 32"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -1784,9 +1773,7 @@ const MessageBubble = ({
                 />
               </svg>
             </div>
-            <span className="font-semibold">
-              Budget ranges
-            </span>
+            <span>Budget ranges</span>
           </button>
         )}
       </div>
@@ -1794,7 +1781,7 @@ const MessageBubble = ({
         <img
           src={KHALID_AVATAR}
           alt="Khalid"
-          className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white/50 flex-shrink-0"
+          className="h-8 w-8 flex-shrink-0 rounded-full border-2 border-white/60 object-cover sm:h-10 sm:w-10"
         />
       )}
     </div>
