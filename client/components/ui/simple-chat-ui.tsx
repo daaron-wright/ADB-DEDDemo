@@ -101,9 +101,9 @@ const SimpleChatBubble = ({ message }: { message: SimpleChatMessage }) => {
         <img
           src={aiAvatar}
           alt="AI Business"
-          className="w-10 h-10 rounded-full border border-[#54FFD4] flex-shrink-0"
+          className="w-10 h-10 rounded-full border border-[#54FFD4] flex-shrink-0 mt-1"
         />
-        <div className="flex flex-col max-w-[70%]">
+        <div className="flex flex-col max-w-[75%]">
           <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 text-white text-sm leading-relaxed">
             {message.content}
           </div>
@@ -114,15 +114,15 @@ const SimpleChatBubble = ({ message }: { message: SimpleChatMessage }) => {
 
   return (
     <div className="flex items-start gap-3 mb-4 justify-end">
-      <div className="flex flex-col max-w-[70%]">
-        <div className="bg-black/30 backdrop-blur-sm rounded-2xl px-4 py-3 text-white text-sm leading-relaxed">
+      <div className="flex flex-col max-w-[75%]">
+        <div className="bg-black/30 backdrop-blur-sm rounded-2xl px-4 py-3 text-white text-sm leading-relaxed text-right">
           {message.content}
         </div>
       </div>
       <img
         src={userAvatar}
         alt="User"
-        className="w-10 h-10 rounded-full border border-[#54FFD4] flex-shrink-0"
+        className="w-10 h-10 rounded-full border border-[#54FFD4] flex-shrink-0 mt-1"
       />
     </div>
   );
