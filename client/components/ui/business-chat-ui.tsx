@@ -17,7 +17,15 @@ interface BusinessMessage {
   timestamp: Date;
   rating?: number;
   hasActions?: boolean;
-  type?: "text" | "heat-map" | "corniche-detail";
+  type?: "text" | "heat-map" | "corniche-detail" | "compilation";
+}
+
+interface CompilationAreaInsight {
+  name: string;
+  priority: string;
+  audience: string;
+  opportunity: string;
+  nextStep: string;
 }
 
 interface BusinessChatUIProps {
