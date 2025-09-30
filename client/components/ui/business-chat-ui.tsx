@@ -310,10 +310,10 @@ const ResearchSynthesisView = ({ onBack }: { onBack: () => void }) => (
   </div>
 );
 
-const DiscoveryCompilationCard = () => {
+const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () => void }) => {
   const handleOpenDashboard = () => {
-    if (typeof window !== "undefined") {
-      window.open("/compilation", "_blank", "noopener,noreferrer");
+    if (onViewDashboard) {
+      onViewDashboard();
     }
   };
 
