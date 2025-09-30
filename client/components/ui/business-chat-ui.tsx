@@ -2040,23 +2040,37 @@ const CompetitorBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose
     <div className="fixed inset-0 z-[80] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={onClose} />
       <div className="relative z-10 w-full max-w-[920px]" style={MODAL_MIN_DIMENSIONS}>
-        <div className="overflow-hidden rounded-3xl border border-white/15 bg-slate-900/85 shadow-[0_45px_85px_-40px_rgba(15,23,42,0.9)] backdrop-blur-2xl">
-          <div className="flex items-center justify-between border-b border-white/15 bg-white/12 px-6 py-4">
-            <div>
-              <p className="text-xs uppercase tracking-[0.22em] text-white/60">Competitor landscape</p>
-              <h3 className="text-xl font-semibold text-white">Premium waterfront benchmarks</h3>
+        <div className="overflow-hidden rounded-3xl border border-white/15 bg-slate-900/85 shadow-[0_45px_85px_-40px_rgba(15,23,42,0.9)] backdrop-blur-2xl ring-4 ring-[#0E766E]/18 ring-offset-2 ring-offset-slate-950/30">
+          <div className="border-b border-white/15 bg-white/12 px-6 py-5">
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center rounded-full border border-white/25 bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-100">
+                    Focused artifact
+                  </span>
+                  <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-100">
+                    Competitor landscape
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-[#0E766E] hover:text-[#0E766E]"
+                  aria-label="Close competitor breakout"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+              </div>
+              <div className="space-y-2 text-white">
+                <h3 className="text-xl font-semibold">Premium waterfront benchmarks</h3>
+                <p className="text-sm text-white/70">
+                  Benchmark high-performing venues to position your concept with differentiated premium rituals.
+                </p>
+              </div>
             </div>
-            <button
-              type="button"
-              onClick={onClose}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-[#0E766E] hover:text-[#0E766E]"
-              aria-label="Close competitor breakout"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
           </div>
           <div className="grid gap-6 p-6 sm:p-8">
             <div className="grid gap-4 sm:grid-cols-3">
