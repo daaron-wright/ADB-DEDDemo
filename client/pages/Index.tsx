@@ -337,7 +337,17 @@ export default function Index() {
       onMouseMove={handlePointerMove}
       onMouseLeave={() => applyFocusPoint()}
     >
-      {ambientOrbs.map((orb) => (
+      <div
+        className={cn(
+          "relative min-h-screen overflow-hidden transition-[filter] duration-300 ease-out",
+          chatState.isOpen && "blur-lg",
+        )}
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(222, 209, 255, 0.94) 50%, rgba(255, 255, 255, 0.98) 100%)",
+        }}
+      >
+        {ambientOrbs.map((orb) => (
         <motion.div
           key={orb.id}
           className="pointer-events-none absolute rounded-full"
@@ -379,12 +389,7 @@ export default function Index() {
             "radial-gradient(860px circle at 15% 12%, rgba(233, 225, 255, 0.28), transparent 68%), radial-gradient(720px circle at 80% 18%, rgba(220, 207, 255, 0.22), transparent 72%), radial-gradient(960px circle at 55% 95%, rgba(248, 245, 255, 0.4), transparent 80%)",
         }}
       />
-      <div
-        className={cn(
-          "relative z-10 transition-[filter] duration-300 ease-out",
-          chatState.isOpen && "blur-lg",
-        )}
-      >
+      <div className="relative z-10 transition-[filter] duration-300 ease-out">
         {/* Navigation Header */}
         <header className="flex justify-between items-center px-8 py-6 border-b border-gray-100/50">
           {/* Tamm Logo */}
@@ -586,6 +591,7 @@ export default function Index() {
             </div>
           </div>
         </main>
+      </div>
       </div>
 
       {/* Business Chat UI */}
