@@ -16,6 +16,7 @@ import { JourneyBreadcrumb } from "@/components/ui/journey-breadcrumb";
 import { UAEPassLogin } from "@/components/ui/uae-pass-login";
 import LocationHeatMap from "@/components/ui/location-heat-map";
 import HeatMapView from "@/components/ui/heat-map-view";
+import BudgetRanges from "@/components/ui/budget-ranges";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
 import { Map as MapIcon } from "lucide-react";
@@ -38,7 +39,8 @@ type BusinessMessageType =
   | "cuisine-analysis"
   | "competitor-analysis"
   | "demographics"
-  | "location-analysis";
+  | "location-analysis"
+  | "budget-ranges";
 
 interface BusinessMessage {
   id: string;
