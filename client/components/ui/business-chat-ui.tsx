@@ -3867,7 +3867,7 @@ export function BusinessChatUI({
               <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-87px)] p-2 sm:p-4 lg:p-8">
                 <div className="w-full max-w-6xl mx-auto rounded-2xl sm:rounded-3xl border border-white/15 bg-white/10 backdrop-blur-2xl shadow-[0_45px_85px_-40px_rgba(15,23,42,0.8)]">
                   {/* Chat Header with Tabs */}
-                  <div className="p-3 sm:p-4 lg:p-6 border-b border-white/15">
+                  <div className="p-3 sm:p-4 lg:p-6 border-b border-slate-200 bg-white/80 backdrop-blur-xl">
                     <div className="mb-4 flex items-center gap-1 sm:gap-2 -mx-1 sm:-mx-2 overflow-x-auto">
                       {threads.map((thread) => (
                         <button
@@ -3877,7 +3877,7 @@ export function BusinessChatUI({
                             "px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium border transition-all whitespace-nowrap flex-shrink-0 rounded-full",
                             activeThreadId === thread.id
                               ? "border-[#54FFD4] bg-[#54FFD4]/90 text-slate-900 shadow-[0_12px_32px_-18px_rgba(84,255,212,0.6)]"
-                              : "border-white/10 bg-white/5 text-white/70 hover:border-[#54FFD4]/70 hover:text-white",
+                              : "border-slate-300 bg-white/70 text-slate-600 hover:border-[#54FFD4]/60 hover:text-slate-900",
                           )}
                         >
                           {thread.title}
@@ -3885,7 +3885,7 @@ export function BusinessChatUI({
                       ))}
                       <button
                         onClick={handleNewTab}
-                        className="ml-2 sm:ml-4 inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition hover:border-[#54FFD4]/60 hover:text-[#54FFD4]"
+                        className="ml-2 sm:ml-4 inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-600 transition hover:border-[#54FFD4]/60 hover:text-[#1b5c4c]"
                         aria-label="New Chat"
                       >
                         <svg
@@ -3907,10 +3907,10 @@ export function BusinessChatUI({
                         className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border border-[#54FFD4] object-cover"
                       />
                       <div className="flex-1 min-w-0">
-                        <h2 className="text-white text-base sm:text-lg font-semibold truncate">
+                        <h2 className="text-slate-900 text-base sm:text-lg font-semibold truncate">
                           AI Business
                         </h2>
-                        <p className="text-xs text-white/60">Guiding your Abu Dhabi investment journey</p>
+                        <p className="text-xs text-slate-500">Guiding your Abu Dhabi investment journey</p>
                       </div>
                       <div className="hidden sm:block">
                         <SoundVisualization />
