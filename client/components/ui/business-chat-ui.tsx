@@ -326,8 +326,9 @@ const GapAnalysisCard = ({ className = "" }: { className?: string }) => {
         </div>
 
         {/* Action Button */}
-        <button className="w-full mt-6 bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-3 px-4 rounded-xl font-semibold hover:shadow-lg transition-all">
-          View Detailed Opportunities
+        <button className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "mt-6 w-full justify-center")}
+        >
+          View detailed opportunities
         </button>
       </div>
     </div>
