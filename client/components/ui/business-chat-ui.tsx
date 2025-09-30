@@ -3471,7 +3471,7 @@ export function BusinessChatUI({
       id: `thread-${Date.now()}-${Math.random()}`,
       title: getCategoryTitle(category),
       messages: seededMessages,
-      view: "journey",
+      view: "basic",
     };
 
     setThreads([newThread]);
