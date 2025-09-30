@@ -340,7 +340,7 @@ export default function Index() {
       <div
         className={cn(
           "relative min-h-screen overflow-hidden transition-[filter] duration-300 ease-out",
-          chatState.isOpen && "blur-lg",
+          chatState.isOpen && "blur-lg pointer-events-none",
         )}
         style={{
           background:
