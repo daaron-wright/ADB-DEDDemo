@@ -293,7 +293,12 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
 // Gap Analysis Card Component
 const GapAnalysisCard = ({ className = "" }: { className?: string }) => {
   return (
-    <div className={cn("w-full max-w-lg bg-white rounded-3xl border border-slate-200/50 shadow-lg overflow-hidden", className)}>
+    <div
+      className={chatCardClass(
+        "w-full max-w-lg bg-white border border-slate-200/50 shadow-lg overflow-hidden",
+        className
+      )}
+    >
       {/* Header */}
       <div className="bg-gradient-to-r from-emerald-50 to-teal-50 px-6 py-4 border-b border-slate-200/50">
         <div className="flex items-center gap-3">
