@@ -4567,6 +4567,7 @@ export function BusinessChatUI({
       window.removeEventListener("openCompetitorBreakout", handleCompetitorBreakout);
       window.removeEventListener("openGapAnalysisBreakout", handleGapBreakout);
       window.removeEventListener("openGapAnalysis", handleGapAnalysis);
+      window.removeEventListener("openRetailLocations", handleRetailLocations);
     };
   }, [openGapAnalysis]);
 
