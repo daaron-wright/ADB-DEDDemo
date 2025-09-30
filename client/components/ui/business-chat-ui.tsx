@@ -4231,6 +4231,14 @@ export function BusinessChatUI({
         lower.includes("residents") ||
         lower.includes("visitors") ||
         lower.includes("people");
+      const mentionsTargetMarket =
+        lower.includes("target market") ||
+        lower.includes("high end") ||
+        lower.includes("high-end") ||
+        lower.includes("luxury") ||
+        lower.includes("premium") ||
+        (lower.includes("who") && (lower.includes("target") || lower.includes("market"))) ||
+        (lower.includes("fine dining") || lower.includes("upscale"));
 
       if (mentionsCost) {
         responses.push(
