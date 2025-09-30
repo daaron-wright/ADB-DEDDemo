@@ -2676,17 +2676,17 @@ export function BusinessChatUI({
               </div>
 
               {/* Chat Container */}
-              <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-87px)] p-8">
-                <div className="w-full max-w-3xl bg-white/14 backdrop-blur-md rounded-3xl border border-white/20 shadow-xl">
+              <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-87px)] p-2 sm:p-4 lg:p-8">
+                <div className="w-full max-w-4xl mx-auto bg-white/14 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-white/20 shadow-xl">
                   {/* Chat Header with Tabs */}
-                  <div className="p-6 border-b border-white/10">
-                    <div className="flex items-center gap-2 mb-4 -mx-2">
+                  <div className="p-3 sm:p-4 lg:p-6 border-b border-white/10">
+                    <div className="flex items-center gap-1 sm:gap-2 mb-4 -mx-1 sm:-mx-2 overflow-x-auto">
                       {threads.map((thread) => (
                         <button
                           key={thread.id}
                           onClick={() => setActiveThreadId(thread.id)}
                           className={cn(
-                            "px-4 py-2 text-sm font-medium border-b-2 transition-all",
+                            "px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium border-b-2 transition-all whitespace-nowrap flex-shrink-0",
                             activeThreadId === thread.id
                               ? "border-white text-white"
                               : "border-transparent text-white/60 hover:text-white hover:border-white/30",
@@ -2697,13 +2697,14 @@ export function BusinessChatUI({
                       ))}
                       <button
                         onClick={handleNewTab}
-                        className="ml-4 p-2 rounded-full hover:bg-white/10 text-white/70 hover:text-white transition-colors"
+                        className="ml-2 sm:ml-4 p-1.5 sm:p-2 rounded-full hover:bg-white/10 text-white/70 hover:text-white transition-colors flex-shrink-0"
                         aria-label="New Chat"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
+                          width="14"
+                          height="14"
+                          className="sm:w-4 sm:h-4"
                           fill="currentColor"
                           viewBox="0 0 16 16"
                         >
@@ -2711,23 +2712,25 @@ export function BusinessChatUI({
                         </svg>
                       </button>
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3 sm:gap-4">
                       <img
                         src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
                         alt="AI Assistant"
-                        className="w-16 h-16 rounded-full border border-[#54FFD4] object-cover"
+                        className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border border-[#54FFD4] object-cover"
                       />
-                      <div className="flex-1">
-                        <h2 className="text-white text-lg font-semibold">
+                      <div className="flex-1 min-w-0">
+                        <h2 className="text-white text-base sm:text-lg font-semibold truncate">
                           AI Business
                         </h2>
                       </div>
-                      <SoundVisualization />
+                      <div className="hidden sm:block">
+                        <SoundVisualization />
+                      </div>
                     </div>
                   </div>
 
                   {/* Messages */}
-                  <div className="p-6 space-y-4 max-h-[60vh] overflow-y-auto">
+                  <div className="p-3 sm:p-4 lg:p-6 space-y-3 sm:space-y-4 max-h-[50vh] sm:max-h-[60vh] overflow-y-auto">
                     {activeThread?.messages.map((message) => {
                       const isJourneyIntro = Boolean(message.hasActions);
 
