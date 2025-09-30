@@ -20,6 +20,7 @@ import {
 } from "@/components/portal/ReviewQueueCard";
 import { PortalProfileMenu } from "@/components/portal/PortalProfileMenu";
 import { ReviewFocusSheet } from "@/components/portal/ReviewFocusSheet";
+import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
 
 const stageOptions = [
   { label: "All stages", value: "all" },
