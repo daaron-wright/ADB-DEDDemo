@@ -3762,7 +3762,6 @@ export function BusinessChatUI({
   const handlePromptSelect = (prompt: string) => {
     setCurrentInput(prompt);
     setShowPreloadedPrompts(false);
-    setActiveContextTab("insights");
     toast({
       title: "Prompt submitted",
       description: "AI Business is preparing tailored insights for your query.",
