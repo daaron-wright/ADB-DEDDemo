@@ -79,6 +79,93 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({ onBack }) => 
     }));
   };
 
+  if (modalState === "automation-prompt") {
+    return (
+      <div className="relative flex h-full min-h-[640px] flex-col overflow-x-hidden overflow-y-auto bg-[#f5f8f6]">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -left-24 top-[-160px] h-[360px] w-[360px] rounded-full bg-[#0E766E]/15 blur-3xl" />
+          <div className="absolute right-[-180px] bottom-[-200px] h-[420px] w-[420px] rounded-full bg-[#0E766E]/12 blur-3xl" />
+          <div className="absolute left-1/2 top-1/3 h-[240px] w-[240px] -translate-x-1/2 rounded-full bg-[#0E766E]/8 blur-[120px]" />
+        </div>
+
+        <div className="relative z-10 mx-auto w-full max-w-4xl px-6 py-6 lg:px-12">
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+            <button
+              type="button"
+              onClick={() => setModalState("locations")}
+              className="inline-flex items-center gap-2 rounded-full border border-[#d8e4df] bg-white px-4 py-2 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55]"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m12 19-7-7 7-7" />
+                <path d="M19 12H5" />
+              </svg>
+              Back to locations
+            </button>
+            <div className="flex flex-col text-right">
+              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-[#0F766E]">Application automation</span>
+              <span className="text-sm text-slate-500">Pre-fill your information</span>
+            </div>
+          </div>
+
+          <div className="flex flex-col lg:flex-row gap-8 items-center">
+            {/* Summary Image */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="w-full lg:w-1/2"
+            >
+              <div className="rounded-2xl overflow-hidden shadow-lg border border-[#d8e4df]">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F125a5315389d40ddae35cadc063e858b?format=webp&width=800"
+                  alt="Abu Dhabi business opportunity summary"
+                  className="w-full h-auto"
+                />
+              </div>
+            </motion.div>
+
+            {/* Automation Prompt */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="w-full lg:w-1/2 space-y-6"
+            >
+              <div className="text-center lg:text-left">
+                <h2 className="text-2xl font-bold text-slate-900 mb-4">
+                  Interested? Would you like me to automate the application process and pre-fill all your information based on your exploration?
+                </h2>
+                <p className="text-slate-600 mb-8">
+                  Save time by letting our AI assistant handle the paperwork and pre-fill your application with the information from your exploration.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  type="button"
+                  onClick={handleAutomationConfirm}
+                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#0F766E] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0a5a55] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                  Yes, automate it
+                </button>
+                <button
+                  type="button"
+                  onClick={handleAutomationDecline}
+                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-[#d8e4df] bg-white px-6 py-3 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55]"
+                >
+                  Not right now
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="relative flex h-full min-h-[640px] flex-col overflow-x-hidden overflow-y-auto bg-[#f5f8f6]">
       <div className="pointer-events-none absolute inset-0">
