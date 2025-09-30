@@ -3617,6 +3617,7 @@ export function BusinessChatUI({
       content: trimmedMessage,
       isAI: false,
       timestamp: new Date(),
+      type: "text",
     };
 
     const isCompilationRequest =
