@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import CompetitorDataSection from "@/components/ui/competitor-data";
 
 interface ComprehensiveReportProps {
   className?: string;
@@ -203,6 +204,7 @@ const DemographicsHighlight: React.FC = () => {
 
 const ComprehensiveReport: React.FC<ComprehensiveReportProps> = ({ className }) => {
   const [currentStep, setCurrentStep] = useState(0);
+  const [showCompetitorData, setShowCompetitorData] = useState(false);
 
   useEffect(() => {
     const steps = [
@@ -303,6 +305,7 @@ const ComprehensiveReport: React.FC<ComprehensiveReportProps> = ({ className }) 
         {currentStep >= 4 && (
           <motion.button
             type="button"
+            onClick={() => setShowCompetitorData(true)}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
@@ -320,6 +323,19 @@ const ComprehensiveReport: React.FC<ComprehensiveReportProps> = ({ className }) 
               Here are the top 4 restaurants in Abu Dhabi Corniche.
             </span>
           </motion.button>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showCompetitorData && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.6 }}
+          >
+            <CompetitorDataSection />
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
