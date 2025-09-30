@@ -3684,61 +3684,6 @@ export function BusinessChatUI({
                     {activeThread?.messages.map((message) => {
                       const isJourneyIntro = Boolean(message.hasActions);
 
-                      if (!isLoggedIn && isJourneyIntro) {
-                        const promptMessage = {
-                          ...message,
-                          content:
-                            "Sign in with UAE Pass to generate your investor journey.",
-                        };
-
-                        return (
-                          <div
-                            key={`${activeThread.id}-${message.id}-login-prompt`}
-                            className="space-y-4"
-                          >
-                            <MessageBubble
-                              message={promptMessage}
-                              onActionClick={(action) => {
-                                if (action === "budget-ranges") {
-                                  setShowBudgetModal(true);
-                                }
-                              }}
-                              isOnLightBackground={activeThread?.view === "investor-journey"}
-                            />
-
-                            <UAEPassLogin
-                              onLogin={handleUAEPassLogin}
-                              mode="quick"
-                              defaultUserType="applicant"
-                              trigger={
-                                <div
-                                  role="button"
-                                  tabIndex={0}
-                                  onKeyDown={(event) => {
-                                    if (
-                                      event.key === "Enter" ||
-                                      event.key === " "
-                                    ) {
-                                      event.preventDefault();
-                                      event.currentTarget.click();
-                                    }
-                                  }}
-                                  className="w-full flex cursor-pointer items-center justify-between p-4 rounded-2xl bg-slate-700/60 backdrop-blur-sm border border-slate-600/50 hover:bg-slate-700/80 transition-all duration-200 group outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#54ffd4]"
-                                >
-                                  <span className="text-white font-medium text-base">
-                                    Let's get you logged in with UAE Pass
-                                  </span>
-                                  <img
-                                    src="https://api.builder.io/api/v1/image/assets/TEMP/6af0c42146feff37d8c56f7d5b67c0ce1e2c12e1?width=348"
-                                    alt="UAE Pass"
-                                    className="w-[87px] h-[42px] rounded-full object-cover group-hover:scale-105 transition-transform duration-200"
-                                  />
-                                </div>
-                              }
-                            />
-                          </div>
-                        );
-                      }
 
                       const displayContent = isJourneyIntro
                         ? "I have generated an investor journey below that will assist you. Your journey, powered by AI."
