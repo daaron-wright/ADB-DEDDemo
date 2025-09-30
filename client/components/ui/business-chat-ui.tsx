@@ -2781,7 +2781,7 @@ const DiscoverExperienceView = ({
                           ))}
                         </div>
                       </div>
-                      <div className="relative flex-1 overflow-hidden rounded-[24px] border border-[#dbe9e3] bg-white">
+                      <div className={chatCardClass("relative flex-1 overflow-hidden border border-[#dbe9e3] bg-white")}>
                         <img
                           src="https://api.builder.io/api/v1/image/assets/TEMP/df351a3a49f1c6b9b74765965e6ddb3ecf6799d7?width=1600"
                           alt="Abu Dhabi Map"
