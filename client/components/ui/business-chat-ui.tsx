@@ -2396,13 +2396,13 @@ const MessageBubble = ({
       )}
       <div
         className={cn(
-          "flex max-w-[85%] sm:max-w-[78%] flex-col gap-2 sm:gap-3",
+          "flex max-w-[80%] sm:max-w-[72%] flex-col gap-2 sm:gap-3",
           message.isAI ? "items-start" : "items-end",
         )}
       >
         <div
           className={cn(
-            "w-full rounded-2xl px-4 py-3 text-sm leading-relaxed sm:px-5 sm:py-4 sm:text-base backdrop-blur-xl transition-colors duration-200",
+            "w-full rounded-[24px] px-4 py-3 text-sm leading-relaxed sm:px-5 sm:py-4 sm:text-base shadow-sm transition-colors duration-200",
             bubbleContainerClasses,
             message.isAI ? "text-left" : "text-right",
           )}
@@ -2418,6 +2418,20 @@ const MessageBubble = ({
             </div>
           )}
           <div className="whitespace-pre-wrap">{message.content}</div>
+
+          {message.type === "heat-map" && message.imageUrl && (
+            <div className={cn("mt-3", message.isAI ? "text-left" : "text-right")}
+            >
+              <img
+                src={message.imageUrl}
+                alt="AI generated map insight"
+                className={cn(
+                  "inline-block rounded-2xl border border-black/10 shadow-sm",
+                  message.isAI ? "max-w-[220px]" : "max-w-[180px]"
+                )}
+              />
+            </div>
+          )}
 
           {message.type === "property-cards" && (
             <>
