@@ -2575,6 +2575,20 @@ export function BusinessChatUI({
   const [showBusinessPortal, setShowBusinessPortal] = useState(false);
   const isLoggedIn = Boolean(loggedInUser);
 
+  // Event listeners for breakout modals
+  useEffect(() => {
+    const handleOpenCuisineBreakout = () => setShowCuisineBreakout(true);
+    const handleOpenCompetitorBreakout = () => setShowCompetitorBreakout(true);
+
+    window.addEventListener('openCuisineBreakout', handleOpenCuisineBreakout);
+    window.addEventListener('openCompetitorBreakout', handleOpenCompetitorBreakout);
+
+    return () => {
+      window.removeEventListener('openCuisineBreakout', handleOpenCuisineBreakout);
+      window.removeEventListener('openCompetitorBreakout', handleOpenCompetitorBreakout);
+    };
+  }, []);
+
   useEffect(() => {
     if (!isOpen) {
       return;
