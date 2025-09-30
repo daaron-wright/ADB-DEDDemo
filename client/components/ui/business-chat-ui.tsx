@@ -3920,7 +3920,7 @@ export function BusinessChatUI({
 
                   <div className="px-3 sm:px-4 lg:px-6 pb-4 sm:pb-6 lg:pb-8">
                     <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8">
-                      <div className="flex flex-col rounded-2xl sm:rounded-3xl border border-white/12 bg-slate-900/55 backdrop-blur-xl p-3 sm:p-4 lg:p-6 min-h-[420px]">
+                      <div className="flex flex-col rounded-2xl sm:rounded-3xl border border-slate-200 bg-white/80 backdrop-blur-xl p-3 sm:p-4 lg:p-6 min-h-[420px]">
                         <div className="flex-1 overflow-y-auto space-y-3 sm:space-y-4 pr-1 sm:pr-2 lg:pr-3 max-h-[52vh] sm:max-h-[58vh]">
                           {activeThread?.messages.map((message) => {
                             const isJourneyIntro = Boolean(message.hasActions);
