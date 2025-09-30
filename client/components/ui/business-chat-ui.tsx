@@ -2206,7 +2206,7 @@ export function BusinessChatUI({
                               message={promptMessage}
                               onActionClick={(action) => {
                                 if (action === "budget-ranges") {
-                                  console.log("Budget ranges clicked");
+                                  setShowBudgetModal(true);
                                 }
                               }}
                             />
