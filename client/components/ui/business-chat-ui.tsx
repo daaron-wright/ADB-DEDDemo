@@ -330,45 +330,6 @@ const GapAnalysisCard = ({ className = "" }: { className?: string }) => {
   );
 };
 
-interface ContextActionPillProps {
-  label: string;
-  description: string;
-  onClick: () => void;
-  gradient: string;
-  icon: React.ReactNode;
-}
-
-const ContextActionPill = ({
-  label,
-  description,
-  onClick,
-  gradient,
-  icon,
-}: ContextActionPillProps) => {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="group w-full rounded-2xl border border-white/12 bg-white/5 p-4 text-left transition hover:border-[#54FFD4]/70 hover:bg-white/10"
-    >
-      <div className="flex items-center gap-3">
-        <div
-          className={cn(
-            "flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-slate-900",
-            gradient,
-          )}
-        >
-          {icon}
-        </div>
-        <div>
-          <div className="text-sm font-semibold text-white">{label}</div>
-          <p className="mt-1 text-xs text-white/70 leading-relaxed">{description}</p>
-        </div>
-      </div>
-    </button>
-  );
-};
-
 const ReportsPanel = ({
   onOpenCuisine,
   onOpenCompetitor,
