@@ -866,6 +866,138 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
   </div>
 );
 
+const FinalCompilationView = ({ onBack }: { onBack: () => void }) => (
+  <div className="relative w-full min-h-screen bg-gradient-to-br from-[#B8B5FF] via-[#E6E4FF] to-[#F0EFFF] overflow-hidden">
+    {/* Header */}
+    <div className="relative z-10 flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="flex items-center gap-2 sm:gap-4">
+        <TammLogo className="w-16 sm:w-20 lg:w-[84px] text-[#0B0C28]" color="#0B0C28" />
+        <button
+          type="button"
+          onClick={onBack}
+          className="inline-flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-[#0B0C28]/15 bg-white/70 text-[#0B0C28] transition hover:bg-white"
+          aria-label="Back"
+        >
+          <svg
+            width="16"
+            height="16"
+            className="sm:w-5 sm:h-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M15 19L8 12L15 5" stroke="#0B0C28" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+      </div>
+      <h3 className="text-xs sm:text-sm font-medium tracking-wide text-[#0B0C28] text-center flex-1 mx-2">
+        Investor Journey for a Restaurant
+      </h3>
+      <div className="w-16 sm:w-20 lg:w-[84px]" aria-hidden="true" />
+    </div>
+
+    {/* Animated Compilation Content */}
+    <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-100px)] p-4">
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="text-center space-y-8 max-w-4xl mx-auto"
+      >
+        {/* Main Title */}
+        <motion.h1
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#0B0C28] leading-tight"
+        >
+          Analysis Complete
+        </motion.h1>
+
+        {/* Subtitle */}
+        <motion.p
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="text-lg sm:text-xl text-[#0B0C28]/80 max-w-2xl mx-auto"
+        >
+          Your comprehensive restaurant investment analysis is ready. From market research to competitor analysis,
+          every insight has been compiled for your investment decision.
+        </motion.p>
+
+        {/* Stats Grid */}
+        <motion.div
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12"
+        >
+          <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+            <div className="text-3xl font-bold text-[#0B0C28] mb-2">6</div>
+            <div className="text-[#0B0C28]/70 text-sm">Districts Analyzed</div>
+          </div>
+          <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+            <div className="text-3xl font-bold text-[#0B0C28] mb-2">78%</div>
+            <div className="text-[#0B0C28]/70 text-sm">Dining Frequency</div>
+          </div>
+          <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+            <div className="text-3xl font-bold text-[#0B0C28] mb-2">4</div>
+            <div className="text-[#0B0C28]/70 text-sm">Top Competitors</div>
+          </div>
+        </motion.div>
+
+        {/* Call to Action */}
+        <motion.div
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="space-y-4 pt-8"
+        >
+          <button className="inline-flex items-center gap-3 bg-gradient-to-r from-[#5B6DDE] to-[#273489] text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all">
+            Download Complete Report
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7,10 12,15 17,10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+          </button>
+          <p className="text-sm text-[#0B0C28]/60">
+            Your personalized restaurant investment guide is ready
+          </p>
+        </motion.div>
+      </motion.div>
+    </div>
+
+    {/* Background Elements */}
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <motion.div
+        animate={{
+          x: [0, 100, 0],
+          y: [0, -50, 0],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-gradient-to-r from-purple-300/20 to-blue-300/20 blur-3xl"
+      />
+      <motion.div
+        animate={{
+          x: [0, -80, 0],
+          y: [0, 60, 0],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        className="absolute bottom-1/4 right-1/4 w-48 h-48 rounded-full bg-gradient-to-r from-cyan-300/20 to-purple-300/20 blur-3xl"
+      />
+    </div>
+  </div>
+);
+
 const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () => void }) => {
   const handleOpenDashboard = () => {
     if (onViewDashboard) {
