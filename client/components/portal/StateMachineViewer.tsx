@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
+import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
 
 const BRAND_LOGO_URL =
   "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F67c03d8c981249bc809a682c60a2173f?format=webp&width=800";
