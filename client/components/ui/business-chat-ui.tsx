@@ -779,7 +779,11 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
 
           {/* Top Banner */}
           <div className="absolute top-[-112px] left-[541px] w-[605px] h-[103px] z-20">
-            <div className="w-full h-full rounded-[20px] bg-gradient-to-b from-white to-[#F2F1EE] shadow-[0_0_10px_10px_rgba(0,0,0,0.07)]">
+            <div
+              className={chatCardClass(
+                "w-full h-full bg-gradient-to-b from-white to-[#F2F1EE] shadow-[0_0_10px_10px_rgba(0,0,0,0.07)]"
+              )}
+            >
               <div className="flex items-center gap-5 h-full px-5">
                 <div className="flex-1">
                   <div className="text-[#282B3E] font-semibold text-sm mb-1">Analysis Complete</div>
@@ -1164,7 +1168,9 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="mx-auto mb-8 w-full max-w-[605px] h-[103px] rounded-[20px] bg-gradient-to-b from-white to-[#F2F1EE] shadow-[0_0_10px_10px_rgba(0,0,0,0.07)]"
+        className={chatCardClass(
+          "mx-auto mb-8 w-full max-w-[605px] h-[103px] bg-gradient-to-b from-white to-[#F2F1EE] shadow-[0_0_10px_10px_rgba(0,0,0,0.07)]"
+        )}
       >
         <div className="flex items-center gap-5 h-full px-5">
           <div className="flex-1">
