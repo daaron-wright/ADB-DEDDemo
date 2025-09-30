@@ -243,84 +243,86 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="space-y-4"
+              className="space-y-6"
             >
-              <p className="text-sm text-slate-500">
-                Choose how you'd like to continue with UAE PASS.
-              </p>
-
-              <div className="space-y-2">
-                <button
-                  type="button"
-                  onClick={() => handleUserTypeSelect("applicant")}
-                  className="group flex w-full items-center justify-between rounded-md border border-slate-200/80 bg-white px-4 py-3 text-left transition-all duration-200 hover:border-slate-900 hover:shadow-[0_12px_32px_-20px_rgba(24,32,63,0.55)]"
-                >
-                  <span className="flex items-center gap-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-600 transition group-hover:border-slate-900 group-hover:text-slate-900">
-                      BA
-                    </span>
-                    <span>
-                      <span className="block text-sm font-semibold text-slate-900">
-                        Business applicant
-                      </span>
-                      <span className="block text-xs text-slate-500">
-                        Start or renew a business license.
-                      </span>
-                    </span>
-                  </span>
+              <div className="space-y-3 text-center">
+                <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700">
                   <svg
-                    width="16"
-                    height="16"
+                    width="18"
+                    height="18"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="text-slate-400 transition group-hover:text-slate-700"
                   >
                     <path
-                      d="M9 6L15 12L9 18"
+                      d="M9 12l2 2 4-4"
                       stroke="currentColor"
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                   </svg>
-                </button>
+                  Ministry of Economy
+                </div>
+                <div className="space-y-1">
+                  <h3 className="text-base font-semibold text-slate-900">
+                    Who's signing in today?
+                  </h3>
+                  <p className="text-sm text-slate-500">
+                    Select your role to continue securely with UAE PASS.
+                  </p>
+                </div>
+              </div>
 
-                <button
-                  type="button"
-                  onClick={() => handleUserTypeSelect("reviewer")}
-                  className="group flex w-full items-center justify-between rounded-md border border-slate-200/80 bg-white px-4 py-3 text-left transition-all duration-200 hover:border-slate-900 hover:shadow-[0_12px_32px_-20px_rgba(24,32,63,0.55)]"
-                >
-                  <span className="flex items-center gap-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-600 transition group-hover:border-slate-900 group-hover:text-slate-900">
-                      LR
-                    </span>
-                    <span>
-                      <span className="block text-sm font-semibold text-slate-900">
-                        License reviewer
-                      </span>
-                      <span className="block text-xs text-slate-500">
-                        Review and approve applications.
-                      </span>
-                    </span>
-                  </span>
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="text-slate-400 transition group-hover:text-slate-700"
-                  >
-                    <path
-                      d="M9 6L15 12L9 18"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
+              <div className="space-y-3">
+                {( ["applicant", "reviewer"] as const ).map((type) => {
+                  const detail = USER_TYPE_DETAILS[type];
+                  return (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => handleUserTypeSelect(type)}
+                      className="group w-full overflow-hidden rounded-2xl border border-slate-200 bg-white text-left transition-all duration-200 hover:border-slate-900 hover:shadow-[0_16px_40px_-24px_rgba(15,23,42,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+                    >
+                      <div
+                        className={`flex items-center gap-4 px-5 py-4 bg-gradient-to-r ${detail.gradientFrom} ${detail.gradientTo}`}
+                      >
+                        <div
+                          className="flex h-12 w-12 items-center justify-center rounded-full border border-white/50 bg-white/80 text-base font-semibold text-slate-900 shadow-sm"
+                        >
+                          {detail.badge}
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm font-semibold text-slate-900">
+                            {detail.label}
+                          </p>
+                          <p className="text-xs text-slate-600 mt-1">
+                            {detail.secondary}
+                          </p>
+                        </div>
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="text-slate-400 transition group-hover:text-slate-700"
+                        >
+                          <path
+                            d="M9 6l6 6-6 6"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+                      <div className="px-5 pb-4 text-sm text-slate-500">
+                        {detail.description}
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </motion.div>
           )}
