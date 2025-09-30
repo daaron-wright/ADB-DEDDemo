@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Tooltip } from "@aegov/design-system-react";
 import { BusinessChatUI } from "@/components/ui/business-chat-ui";
+import { ChatPromptDialog, type ChatPromptOption } from "@/components/ui/chat-prompt-dialog";
 import { UAEPassLogin } from "@/components/ui/uae-pass-login";
 import { cn } from "@/lib/utils";
 
