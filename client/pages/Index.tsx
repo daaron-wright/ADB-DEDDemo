@@ -441,7 +441,7 @@ export default function Index() {
           <div className="flex items-center gap-4">
             <span className="text-black text-base font-medium">Welcome</span>
             <button
-              onClick={handleOpenGeneralChat}
+              onClick={() => setChatState({ isOpen: true, category: "general", initialMessage: null })}
               className="bg-white text-gray-900 px-5 py-2.5 rounded-full font-semibold text-sm shadow-sm transition-shadow hover:shadow-md"
             >
               Chat with AI
