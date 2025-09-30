@@ -5012,6 +5012,7 @@ export function BusinessChatUI({
           label: action.label,
           action: action.action,
         })),
+        stepId: step,
       });
     },
     [buildMessage],
