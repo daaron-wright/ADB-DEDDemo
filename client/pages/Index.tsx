@@ -550,8 +550,11 @@ export default function Index() {
                         </div>
 
                         <div className="absolute bottom-4 left-4 right-4 z-10">
-                          <div className="flex items-center justify-between rounded-2xl border border-white/40 bg-black/60 p-4 backdrop-blur-md">
-                            <div className="flex-1">
+                          <div className="relative flex items-center justify-between overflow-hidden rounded-2xl border border-white/50 bg-white/15 p-4 backdrop-blur-xl shadow-[0_25px_55px_-34px_rgba(24,32,63,0.55)]">
+                            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/70 via-white/15 to-white/5 opacity-80" />
+                            <div className="pointer-events-none absolute -top-12 left-1/2 h-24 w-32 -translate-x-1/2 rounded-full bg-white/40 blur-3xl" />
+
+                            <div className="relative z-10 flex-1">
                               <p className="text-white text-xs font-medium mb-1">
                                 {category.subtitle}
                               </p>
@@ -560,7 +563,7 @@ export default function Index() {
                               </h3>
                             </div>
 
-                            <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/40 bg-white/20">
+                            <div className="relative z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/60 bg-white/25 shadow-[0_12px_30px_-18px_rgba(24,32,63,0.7)]">
                               <svg
                                 width="24"
                                 height="24"
