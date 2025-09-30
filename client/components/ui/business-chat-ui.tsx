@@ -273,6 +273,43 @@ const AccessibleHeatMap = () => {
   );
 };
 
+const ResearchSynthesisView = ({ onBack }: { onBack: () => void }) => (
+  <div className="relative w-full rounded-[36px] overflow-hidden border border-white/20 bg-gradient-to-br from-white via-[#efeaff] to-[#dcd9ff] shadow-[0_35px_80px_rgba(17,20,45,0.35)]">
+    <div className="flex items-center justify-between px-6 sm:px-8 py-6">
+      <div className="flex items-center gap-4">
+        <TammLogo className="w-[84px] text-[#0B0C28]" color="#0B0C28" />
+        <button
+          type="button"
+          onClick={onBack}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#0B0C28]/15 bg-white/70 text-[#0B0C28] transition hover:bg-white"
+          aria-label="Back"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M15 19L8 12L15 5" stroke="#0B0C28" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+      </div>
+      <h3 className="text-xs sm:text-sm font-medium tracking-wide text-[#0B0C28]">
+        Investor Journey for a Restaurant
+      </h3>
+      <div className="w-[84px]" aria-hidden="true" />
+    </div>
+
+    <div className="relative px-4 pb-10 sm:px-10">
+      <div className="absolute inset-x-4 sm:inset-x-10 top-0 h-40 rounded-full bg-white/60 blur-3xl" aria-hidden="true" />
+      <div className="relative py-10 flex justify-center">
+        <DiscoveryCompilationCard />
+      </div>
+    </div>
+  </div>
+);
+
 const DiscoveryCompilationCard = () => {
   const handleOpenDashboard = () => {
     if (typeof window !== "undefined") {
