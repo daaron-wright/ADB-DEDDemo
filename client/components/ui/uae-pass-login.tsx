@@ -140,7 +140,7 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
   }, [selectedUserType, scheduleTimeout, onLogin]);
 
   const handleDirectLogin = useCallback(() => {
-    const userType = selectedUserType || defaultUserType;
+    const userType = selectedUserType ?? defaultUserType ?? "applicant";
     setIsLoggingIn(true);
 
     scheduleTimeout(() => {
