@@ -2511,8 +2511,48 @@ const MessageBubble = ({
           )}
 
           {message.type === "budget-ranges" && (
-            <div className="mt-4">
-              <BudgetRanges />
+            <div className="mt-4 space-y-4">
+              <BudgetRanges
+                onClick={onBudgetRangesOpen}
+                className={cn("self-start", !onBudgetRangesOpen && "pointer-events-none")}
+              />
+              <div className="overflow-hidden rounded-2xl border border-[#d8e4df] bg-white/70">
+                <div className="grid gap-0 text-sm text-slate-600">
+                  <div className="grid items-center gap-3 border-b border-[#d8e4df]/60 bg-[#0E766E]/8 px-4 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-[#0E766E] md:grid-cols-[1.6fr,1fr,1fr]">
+                    <span>Zone</span>
+                    <span className="hidden md:block">Boutique</span>
+                    <span className="hidden md:block">Flagship</span>
+                    <div className="flex gap-4 md:hidden">
+                      <span>Boutique</span>
+                      <span>Flagship</span>
+                    </div>
+                  </div>
+                  {budgetSummaryRows.map((row) => (
+                    <div
+                      key={row.area}
+                      className="grid items-center gap-3 border-b border-[#d8e4df]/40 px-4 py-3 last:border-none md:grid-cols-[1.6fr,1fr,1fr]"
+                    >
+                      <div className="space-y-1">
+                        <span className="text-sm font-semibold text-slate-900">{row.area}</span>
+                        <p className="text-xs text-slate-500">
+                          {row.boutiqueRange !== "–" ? "High street or lifestyle hub positioning" : "Premium district suited to flagship scale"}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between gap-2 text-xs md:block">
+                        <span className="font-semibold text-slate-800">{row.boutiqueRange}</span>
+                        <span className="md:hidden">Boutique</span>
+                      </div>
+                      <div className="flex items-center justify-between gap-2 text-xs md:block">
+                        <span className="font-semibold text-slate-800">{row.flagshipRange}</span>
+                        <span className="md:hidden">Flagship</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <p className="text-xs text-slate-500">
+                Tap the budget ranges pill to open an interactive view with detailed breakdowns, timelines, and recommended next steps for each district.
+              </p>
             </div>
           )}
 
