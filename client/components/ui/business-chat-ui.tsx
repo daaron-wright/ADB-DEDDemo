@@ -4568,33 +4568,34 @@ export function BusinessChatUI({
   ]);
 
   useEffect(() => {
-    const handleRetailLocationSelected = (_event: Event) => {
+    const handleRetailLocationSelected = (event: Event) => {
+      const customEvent = event as CustomEvent;
+      const { automationConfirmed } = customEvent.detail || {};
+
       setModalView("chat");
       setMessages((prev) => {
         const sanitized = prev.map((message) =>
           message.actions ? { ...message, actions: undefined } : message,
         );
-        return [
-          ...sanitized,
-          buildMessage(
-            "Interested? Would you like me to automate the application process and pre-fill all your information based on your exploration?",
-            true,
-            {
-              actions: [
-                {
-                  id: "retail-automation-yes",
-                  label: "Yes, automate it",
-                  action: "confirm-retail-automation",
-                },
-                {
-                  id: "retail-automation-no",
-                  label: "Not right now",
-                  action: "decline-retail-automation",
-                },
-              ],
-            },
-          ),
-        ];
+
+        if (automationConfirmed === true) {
+          setIsInvestorLoginPending(true);
+          setShouldPromptLogin(true);
+          return [
+            ...sanitized,
+            buildMessage("Let's get you logged in with UAE Pass.", true),
+          ];
+        } else if (automationConfirmed === false) {
+          return [
+            ...sanitized,
+            buildMessage(
+              "No worries. Let me know whenever you'd like me to take care of the paperwork.",
+              true,
+            ),
+          ];
+        }
+
+        return sanitized;
       });
     };
 
