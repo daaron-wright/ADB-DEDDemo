@@ -2383,8 +2383,8 @@ const MessageBubble = ({
   onBudgetRangesOpen,
 }: MessageBubbleProps) => {
   const bubbleContainerClasses = message.isAI
-    ? "bg-[#E5E5E5] text-slate-900"
-    : "bg-[#BFBFBF] text-white";
+    ? "border border-white/30 bg-white/18 text-slate-900 backdrop-blur-xl"
+    : "border border-[#0E766E]/45 bg-[#0E766E]/30 text-white backdrop-blur-xl";
 
   if (message.type === "dialogue-doc" && dialogueDocProps) {
     return (
