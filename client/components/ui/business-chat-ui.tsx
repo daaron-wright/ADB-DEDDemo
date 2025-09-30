@@ -4512,6 +4512,20 @@ export function BusinessChatUI({
 
   if (!isOpen) return null;
 
+  if (modalView === "budget-ranges") {
+    return (
+      <div className="fixed inset-0 z-[80] flex items-center justify-center">
+        <div
+          className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+          onClick={() => setModalView("chat")}
+        />
+        <div className="relative z-10 h-[90vh] w-full max-w-[920px] overflow-hidden rounded-2xl bg-white shadow-2xl">
+          <BudgetRangesView onBack={() => setModalView("chat")} />
+        </div>
+      </div>
+    );
+  }
+
   // Render heat map view if current view is heat-map
   if (modalView === "heat-map") {
     return (
