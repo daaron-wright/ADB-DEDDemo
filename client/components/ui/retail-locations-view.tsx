@@ -63,7 +63,20 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({ onBack }) => 
 
   const handleLocationClick = (location: RetailLocation) => {
     setSelectedLocationId(location.id);
-    window.dispatchEvent(new CustomEvent("retailLocationSelected", { detail: location }));
+    setSelectedLocation(location);
+    setModalState("automation-prompt");
+  };
+
+  const handleAutomationConfirm = () => {
+    window.dispatchEvent(new CustomEvent("retailLocationSelected", {
+      detail: { ...selectedLocation, automationConfirmed: true }
+    }));
+  };
+
+  const handleAutomationDecline = () => {
+    window.dispatchEvent(new CustomEvent("retailLocationSelected", {
+      detail: { ...selectedLocation, automationConfirmed: false }
+    }));
   };
 
   return (
