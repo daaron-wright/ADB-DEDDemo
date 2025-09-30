@@ -223,7 +223,7 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
               <div className="text-xs text-slate-600">Market gaps</div>
             </div>
             <div>
-              <div className="text-lg font-bold text-blue-600">4.5���</div>
+              <div className="text-lg font-bold text-blue-600">4.5★</div>
               <div className="text-xs text-slate-600">Avg rating</div>
             </div>
             <div>
@@ -3678,7 +3678,7 @@ export function BusinessChatUI({
                       ))}
                       <button
                         onClick={handleNewTab}
-                        className="ml-2 sm:ml-4 p-1.5 sm:p-2 rounded-full hover:bg-white/10 text-white/70 hover:text-white transition-colors flex-shrink-0"
+                        className="ml-2 sm:ml-4 p-1.5 sm:p-2 rounded-full hover:bg-slate-700/50 text-slate-300 hover:text-white transition-colors flex-shrink-0"
                         aria-label="New Chat"
                       >
                         <svg
