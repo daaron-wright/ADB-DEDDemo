@@ -2568,6 +2568,8 @@ export function BusinessChatUI({
   const [threads, setThreads] = useState<ChatThread[]>([]);
   const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
   const [showBudgetModal, setShowBudgetModal] = useState(false);
+  const [showCuisineBreakout, setShowCuisineBreakout] = useState(false);
+  const [showCompetitorBreakout, setShowCompetitorBreakout] = useState(false);
 
   const [loggedInUser, setLoggedInUser] = useState<any>(null);
   const [showBusinessPortal, setShowBusinessPortal] = useState(false);
