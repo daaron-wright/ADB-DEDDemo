@@ -4591,6 +4591,20 @@ export function BusinessChatUI({
     );
   }
 
+  if (modalView === "gap-analysis") {
+    return (
+      <div className="fixed inset-0 z-[80] flex items-center justify-center">
+        <div
+          className="absolute inset-0 bg-slate-950/90 backdrop-blur-sm"
+          onClick={() => setModalView("chat")}
+        />
+        <div className="relative z-10 h-[95vh] w-full max-w-[1200px] overflow-hidden rounded-2xl shadow-2xl">
+          <GapAnalysisView onBack={() => setModalView("chat")} />
+        </div>
+      </div>
+    );
+  }
+
   const backgroundImage =
     view === "discover-experience"
       ? DISCOVER_EXPERIENCE_BACKGROUND
