@@ -4499,14 +4499,17 @@ export function BusinessChatUI({
           onClose={() => setShowBudgetModal(false)}
         />
         <CuisinePopularityBreakout
+          key="cuisine-breakout-modal"
           isOpen={isCuisineBreakoutOpen}
           onClose={() => setCuisineBreakoutOpen(false)}
         />
         <CompetitorBreakoutModal
+          key="competitor-breakout-modal"
           isOpen={isCompetitorBreakoutOpen}
           onClose={() => setCompetitorBreakoutOpen(false)}
         />
         <GapBreakoutModal
+          key="gap-breakout-modal"
           isOpen={isGapBreakoutOpen}
           onClose={() => setGapBreakoutOpen(false)}
         />
