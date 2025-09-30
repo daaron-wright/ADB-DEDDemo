@@ -4262,6 +4262,48 @@ export function BusinessChatUI({
                         </div>
                       </div>
                     )}
+
+                    {/* Preloaded Prompts - Show when no messages or conversation is starting */}
+                    {showPreloadedPrompts && activeThread && activeThread.messages.length <= 3 && (
+                      <div className="mt-6">
+                        <PreloadedPrompts
+                          category={category}
+                          onPromptSelect={handlePromptSelect}
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Chat Input */}
+                  <div className="p-3 sm:p-4 lg:p-6 border-t border-white/10">
+                    <div className="flex gap-2 sm:gap-3">
+                      <input
+                        type="text"
+                        value={currentInput}
+                        onChange={(e) => setCurrentInput(e.target.value)}
+                        placeholder="Ask about market opportunities, competitors, licensing requirements..."
+                        className="flex-1 bg-white/10 border border-white/20 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-white placeholder-white/60 text-sm sm:text-base outline-none focus:border-[#54FFD4]/50 focus:bg-white/15 transition-all"
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter' && currentInput.trim()) {
+                            handleSendMessage(currentInput);
+                          }
+                        }}
+                      />
+                      <button
+                        onClick={() => {
+                          if (currentInput.trim()) {
+                            handleSendMessage(currentInput);
+                          }
+                        }}
+                        disabled={!currentInput.trim()}
+                        className="bg-[#54FFD4] hover:bg-[#54FFD4]/90 disabled:bg-white/20 disabled:text-white/50 text-slate-900 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium transition-all disabled:cursor-not-allowed"
+                      >
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="m22 2-7 20-4-9-9-4Z"/>
+                          <path d="M22 2 11 13"/>
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
