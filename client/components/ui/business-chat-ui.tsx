@@ -3702,6 +3702,23 @@ export function BusinessChatUI({
       conversation.push(buildMessage(initialMessage, false));
     }
 
+    conversation.push(
+      buildMessage(
+        "Let's launch your investor workspace with a tailored setup journey.",
+        true,
+        {
+          type: "setup-cta",
+          actions: [
+            {
+              id: "setup-business-primary",
+              label: "Set up business",
+              action: "open-investor-journey",
+            },
+          ],
+        },
+      ),
+    );
+
     conversation.push(introMessage);
 
     setMessages(conversation);
