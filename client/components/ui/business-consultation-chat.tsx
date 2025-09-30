@@ -5,6 +5,7 @@ import { chatCardClass } from "@/lib/chat-style";
 import { Badge } from "@/components/ui/badge";
 import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 import { CuisinePopularityChart, CompetitorAnalysisChart, VisitorTasteTrendsChart, DemographicsCard } from "@/components/ui/data-visualizations";
+import LocationHeatMap from "@/components/ui/location-heat-map";
 
 interface PropertyCard {
   id: string;
@@ -22,7 +23,7 @@ interface ConsultationMessage {
   content: string;
   isAI: boolean;
   timestamp: Date;
-  type?: "text" | "property-cards" | "insights" | "investor-journey" | "cuisine-analysis" | "competitor-analysis" | "demographics" | "market-trends";
+  type?: "text" | "property-cards" | "insights" | "investor-journey" | "cuisine-analysis" | "competitor-analysis" | "demographics" | "market-trends" | "location-analysis";
   data?: any;
 }
 
@@ -265,6 +266,13 @@ const BusinessConsultationChat: React.FC<BusinessConsultationChatProps> = ({
       isAI: true,
       timestamp: new Date(),
       type: "demographics"
+    },
+    {
+      id: "9",
+      content: "I've created a heat map showing the best locations for your restaurant business:",
+      isAI: true,
+      timestamp: new Date(),
+      type: "location-analysis"
     }
   ]);
 
@@ -408,6 +416,12 @@ const BusinessConsultationChat: React.FC<BusinessConsultationChatProps> = ({
                     <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
                       <DemographicsCard />
                       <VisitorTasteTrendsChart />
+                    </div>
+                  )}
+
+                  {message.type === "location-analysis" && (
+                    <div className="mt-4">
+                      <LocationHeatMap />
                     </div>
                   )}
                 </div>
