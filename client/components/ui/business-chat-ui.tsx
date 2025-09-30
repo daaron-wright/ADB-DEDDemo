@@ -4561,7 +4561,7 @@ export function BusinessChatUI({
       window.removeEventListener("openGapAnalysisBreakout", handleGapBreakout);
       window.removeEventListener("openGapAnalysis", handleGapAnalysis);
     };
-  }, []);
+  }, [openGapAnalysis]);
 
   if (!isOpen) return null;
 
