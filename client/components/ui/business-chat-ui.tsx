@@ -3407,11 +3407,11 @@ export function BusinessChatUI({
   const [showBusinessPortal, setShowBusinessPortal] = useState(false);
   const isLoggedIn = Boolean(loggedInUser);
 
-  // Event listeners for breakout modals
+  // Event listeners for breakout cards
   useEffect(() => {
-    const handleOpenCuisineBreakout = () => setShowCuisineBreakout(true);
-    const handleOpenCompetitorBreakout = () => setShowCompetitorBreakout(true);
-    const handleOpenGapAnalysisBreakout = () => setShowGapAnalysisBreakout(true);
+    const handleOpenCuisineBreakout = () => setShowCuisineCard(true);
+    const handleOpenCompetitorBreakout = () => setShowCompetitorCard(true);
+    const handleOpenGapAnalysisBreakout = () => setShowGapAnalysisCard(true);
 
     window.addEventListener('openCuisineBreakout', handleOpenCuisineBreakout);
     window.addEventListener('openCompetitorBreakout', handleOpenCompetitorBreakout);
@@ -3423,6 +3423,62 @@ export function BusinessChatUI({
       window.removeEventListener('openGapAnalysisBreakout', handleOpenGapAnalysisBreakout);
     };
   }, []);
+
+  // Function to handle preloaded prompt selection
+  const handlePromptSelect = (prompt: string) => {
+    setCurrentInput(prompt);
+    setShowPreloadedPrompts(false);
+    // Optionally auto-send the message
+    handleSendMessage(prompt);
+  };
+
+  // Function to handle sending messages
+  const handleSendMessage = (message: string) => {
+    if (!activeThreadId || !message.trim()) return;
+
+    const userMessage: BusinessMessage = {
+      id: `user-${Date.now()}`,
+      content: message.trim(),
+      isAI: false,
+      timestamp: new Date(),
+    };
+
+    const aiResponse: BusinessMessage = {
+      id: `ai-${Date.now()}`,
+      content: generateAIResponse(message.trim()),
+      isAI: true,
+      timestamp: new Date(),
+    };
+
+    updateThread(activeThreadId, {
+      messages: [...(activeThread?.messages || []), userMessage, aiResponse],
+    });
+
+    setCurrentInput("");
+    setShowPreloadedPrompts(false);
+  };
+
+  // Simple AI response generator (can be enhanced with actual AI integration)
+  const generateAIResponse = (userMessage: string): string => {
+    const lowerMessage = userMessage.toLowerCase();
+
+    if (lowerMessage.includes('competitor') || lowerMessage.includes('competition')) {
+      setShowCompetitorCard(true);
+      return "I've analyzed the competitive landscape for restaurants in Abu Dhabi. Based on our research, here are the top competitors and market positioning insights. You can view the detailed analysis in the card below.";
+    }
+
+    if (lowerMessage.includes('cuisine') || lowerMessage.includes('popular') || lowerMessage.includes('food')) {
+      setShowCuisineCard(true);
+      return "Here's a comprehensive analysis of cuisine popularity in Abu Dhabi. Middle Eastern cuisine leads with 35% market share, followed by American and Indian cuisines. See the detailed breakdown in the analysis card.";
+    }
+
+    if (lowerMessage.includes('gap') || lowerMessage.includes('opportunity') || lowerMessage.includes('corniche')) {
+      setShowGapAnalysisCard(true);
+      return "I've identified several market gaps and opportunities in Abu Dhabi, particularly in the Corniche area. There's strong potential for Emirati fusion cuisine and formal evening dining experiences. Check out the detailed gap analysis below.";
+    }
+
+    return "Thank you for your question. I'm analyzing the Abu Dhabi restaurant market to provide you with comprehensive insights. Let me know if you'd like to explore specific areas like competitor analysis, cuisine trends, or market opportunities.";
+  };
 
   useEffect(() => {
     if (!isOpen) {
