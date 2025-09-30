@@ -1393,7 +1393,7 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 1.0 }}
-            className="rounded-3xl overflow-hidden"
+            className={chatCardClass("overflow-hidden")}
           >
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/6217a05a0af8f9420e0485cc166613634d45f299?width=634"
@@ -1407,7 +1407,7 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 1.2 }}
-            className="rounded-3xl overflow-hidden"
+            className={chatCardClass("overflow-hidden")}
           >
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/eade8edabdbb717ecdef1b65c3b40e5d1928605a?width=418"
