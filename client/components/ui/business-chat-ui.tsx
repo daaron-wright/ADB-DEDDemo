@@ -4426,63 +4426,6 @@ export function BusinessChatUI({
                         </div>
                       </div>
 
-                      <div className="flex flex-col rounded-2xl sm:rounded-3xl border border-white/12 bg-white/10 backdrop-blur-xl p-3 sm:p-4 lg:p-6">
-                        <div className="space-y-4">
-                          <div>
-                            <div className="flex items-center justify-between gap-3">
-                              <p className="text-xs uppercase tracking-[0.24em] text-white/60">Journey navigator</p>
-                              <Badge
-                                variant="outline"
-                                className="border-[#54FFD4]/40 bg-[#54FFD4]/20 px-2 py-0.5 text-[10px] uppercase tracking-wide text-[#042B28]"
-                              >
-                                Live
-                              </Badge>
-                            </div>
-                            <p className="mt-2 text-sm text-white/70 leading-relaxed">
-                              Switch between curated insights, workflow checkpoints, and breakout reports without leaving the chat.
-                            </p>
-                          </div>
-
-                          <div className="flex flex-wrap gap-2">
-                            {CONTEXT_TABS.map((tab) => (
-                              <button
-                                key={tab.id}
-                                type="button"
-                                onClick={() => setActiveContextTab(tab.id)}
-                                className={cn(
-                                  "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition",
-                                  activeContextTab === tab.id
-                                    ? "border-[#54FFD4] bg-[#54FFD4]/90 text-slate-900 shadow-[0_12px_32px_-18px_rgba(84,255,212,0.65)]"
-                                    : "border-white/12 bg-white/8 text-white/70 hover:border-[#54FFD4]/60 hover:text-white",
-                                )}
-                              >
-                                <span>{tab.label}</span>
-                                <span className="text-[10px] uppercase tracking-[0.18em] text-white/60">
-                                  {tab.meta}
-                                </span>
-                              </button>
-                            ))}
-                          </div>
-
-                          <div className="overflow-y-auto space-y-4 pr-1 sm:pr-2 lg:pr-3 max-h-[360px]">
-                            {activeContextTab === "insights" && (
-                              <>
-                                <InsightsSummary />
-                                <InsightAccordionPanel />
-                              </>
-                            )}
-                            {activeContextTab === "workflow" && <WorkflowSnapshot />}
-                            {activeContextTab === "reports" && (
-                              <ReportsPanel
-                                onOpenCuisine={() => openBreakout("cuisine")}
-                                onOpenCompetitor={() => openBreakout("competitor")}
-                                onOpenGap={() => openBreakout("gap")}
-                                onDownloadDigest={handleDownloadDigest}
-                              />
-                            )}
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
