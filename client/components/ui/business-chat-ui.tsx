@@ -3729,7 +3729,7 @@ export function BusinessChatUI({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="relative flex h-full w-full items-stretch bg-gradient-to-br from-slate-100 via-white to-slate-50"
+              className="relative flex min-h-screen w-full items-center justify-center bg-gradient-to-br from-slate-100 via-white to-slate-50"
               style={{
                 backgroundImage: "none",
                 backgroundSize: "cover",
