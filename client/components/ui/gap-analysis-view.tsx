@@ -124,6 +124,16 @@ const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({ onBack }) => {
                     Elevate guest journey with concierge-style reservations and private dining.
                   </li>
                 </ul>
+                <button
+                  type="button"
+                  onClick={() => window.dispatchEvent(new CustomEvent('openRetailLocations'))}
+                  className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#0E766E]/25 bg-[#0E766E]/10 px-4 py-2 text-sm font-semibold text-[#0E766E] transition hover:bg-[#0E766E]/20"
+                >
+                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+                  </svg>
+                  Here are some retail locations available to rent
+                </button>
               </div>
             </div>
           </div>
