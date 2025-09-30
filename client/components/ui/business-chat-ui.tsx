@@ -4235,9 +4235,6 @@ export function BusinessChatUI({
       ),
     );
 
-    conversation.push(
-      buildMessage("Can you give me any demographic data you have for this area.", false),
-    );
 
     conversation.push(
       buildMessage(
