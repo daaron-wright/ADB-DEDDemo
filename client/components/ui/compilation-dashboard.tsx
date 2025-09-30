@@ -38,7 +38,19 @@ export default function CompilationDashboard() {
 
       {/* Header */}
       <header className="relative z-10 flex items-center justify-between px-10 py-5 border-b border-white/30 bg-white/30 backdrop-blur-[40px]">
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
+          {/* Back Button */}
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center gap-2 text-white hover:text-white/80 transition-colors"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="m12 19-7-7 7-7"/>
+              <path d="M19 12H5"/>
+            </svg>
+            <span className="text-sm font-medium">Back</span>
+          </button>
+
           {/* Tamm Logo */}
           <svg width="111" height="50" viewBox="0 0 111 50" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M65.7294 29.4802V38.9245H63.8521V29.4802H60.2383V27.6821H69.3588V29.4802H65.7294Z" fill="white"/>
