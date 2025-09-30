@@ -4257,19 +4257,19 @@ export function BusinessChatUI({
 
               {/* Chat Container */}
               <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-87px)] p-2 sm:p-4 lg:p-8">
-                <div className="w-full max-w-4xl mx-auto bg-slate-900/85 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-slate-700/50 shadow-xl">
+                <div className="w-full max-w-6xl mx-auto rounded-2xl sm:rounded-3xl border border-white/15 bg-white/10 backdrop-blur-2xl shadow-[0_45px_85px_-40px_rgba(15,23,42,0.8)]">
                   {/* Chat Header with Tabs */}
-                  <div className="p-3 sm:p-4 lg:p-6 border-b border-slate-600/30">
-                    <div className="flex items-center gap-1 sm:gap-2 mb-4 -mx-1 sm:-mx-2 overflow-x-auto">
+                  <div className="p-3 sm:p-4 lg:p-6 border-b border-white/15">
+                    <div className="mb-4 flex items-center gap-1 sm:gap-2 -mx-1 sm:-mx-2 overflow-x-auto">
                       {threads.map((thread) => (
                         <button
                           key={thread.id}
                           onClick={() => setActiveThreadId(thread.id)}
                           className={cn(
-                            "px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium border-b-2 transition-all whitespace-nowrap flex-shrink-0",
+                            "px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium border transition-all whitespace-nowrap flex-shrink-0 rounded-full",
                             activeThreadId === thread.id
-                              ? "border-[#54FFD4] text-white bg-slate-800/50"
-                              : "border-transparent text-slate-300 hover:text-white hover:border-slate-400/50 hover:bg-slate-800/30",
+                              ? "border-[#54FFD4] bg-[#54FFD4]/90 text-slate-900 shadow-[0_12px_32px_-18px_rgba(84,255,212,0.6)]"
+                              : "border-white/10 bg-white/5 text-white/70 hover:border-[#54FFD4]/70 hover:text-white",
                           )}
                         >
                           {thread.title}
@@ -4277,7 +4277,7 @@ export function BusinessChatUI({
                       ))}
                       <button
                         onClick={handleNewTab}
-                        className="ml-2 sm:ml-4 p-1.5 sm:p-2 rounded-full hover:bg-slate-700/50 text-slate-300 hover:text-white transition-colors flex-shrink-0"
+                        className="ml-2 sm:ml-4 inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition hover:border-[#54FFD4]/60 hover:text-[#54FFD4]"
                         aria-label="New Chat"
                       >
                         <svg
@@ -4302,6 +4302,7 @@ export function BusinessChatUI({
                         <h2 className="text-white text-base sm:text-lg font-semibold truncate">
                           AI Business
                         </h2>
+                        <p className="text-xs text-white/60">Guiding your Abu Dhabi investment journey</p>
                       </div>
                       <div className="hidden sm:block">
                         <SoundVisualization />
@@ -4309,115 +4310,179 @@ export function BusinessChatUI({
                     </div>
                   </div>
 
-                  {/* Messages */}
-                  <div className="p-3 sm:p-4 lg:p-6 space-y-3 sm:space-y-4 max-h-[50vh] sm:max-h-[60vh] overflow-y-auto">
-                    {activeThread?.messages.map((message) => {
-                      const isJourneyIntro = Boolean(message.hasActions);
+                  <div className="px-3 sm:px-4 lg:px-6 pb-4 sm:pb-6 lg:pb-8">
+                    <div className="grid gap-4 sm:gap-6 lg:gap-8 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+                      <div className="flex flex-col rounded-2xl sm:rounded-3xl border border-white/12 bg-slate-900/55 backdrop-blur-xl p-3 sm:p-4 lg:p-6 min-h-[420px]">
+                        <div className="flex-1 overflow-y-auto space-y-3 sm:space-y-4 pr-1 sm:pr-2 lg:pr-3 max-h-[52vh] sm:max-h-[58vh]">
+                          {activeThread?.messages.map((message) => {
+                            const isJourneyIntro = Boolean(message.hasActions);
+                            const displayContent = isJourneyIntro
+                              ? "I have generated an investor journey below that will assist you. Your journey, powered by AI."
+                              : message.content;
+                            const enrichedMessage =
+                              displayContent === message.content
+                                ? message
+                                : { ...message, content: displayContent };
 
+                            return (
+                              <MessageBubble
+                                key={`${activeThread.id}-${message.id}`}
+                                message={enrichedMessage}
+                                onActionClick={(action) => {
+                                  if (action === "budget-ranges") {
+                                    setShowBudgetModal(true);
+                                  }
+                                }}
+                                isOnLightBackground={activeThread?.view === "investor-journey"}
+                              />
+                            );
+                          })}
 
-                      const displayContent = isJourneyIntro
-                        ? "I have generated an investor journey below that will assist you. Your journey, powered by AI."
-                        : message.content;
+                          {showCuisineCard && (
+                            <div className="flex justify-start">
+                              <CuisinePopularityCard className="max-w-lg" />
+                            </div>
+                          )}
 
-                      const enrichedMessage =
-                        displayContent === message.content
-                          ? message
-                          : { ...message, content: displayContent };
+                          {showCompetitorCard && (
+                            <div className="flex justify-start">
+                              <CompetitorAnalysisCard className="max-w-lg" />
+                            </div>
+                          )}
 
-                      return (
-                        <MessageBubble
-                          key={`${activeThread.id}-${message.id}`}
-                          message={enrichedMessage}
-                          onActionClick={(action) => {
-                            if (action === "budget-ranges") {
-                              setShowBudgetModal(true);
-                            }
-                          }}
-                          isOnLightBackground={activeThread?.view === "investor-journey"}
-                        />
-                      );
-                    })}
+                          {showGapAnalysisCard && (
+                            <div className="flex justify-start">
+                              <GapAnalysisCard className="max-w-lg" />
+                            </div>
+                          )}
 
-                    {/* Show analysis cards */}
-                    {showCuisineCard && (
-                      <div className="flex justify-start">
-                        <CuisinePopularityCard className="max-w-lg" />
+                          {activeThread?.view === "basic" &&
+                            activeThread?.messages.length >= 4 &&
+                            activeThread?.messages.some((msg) => msg.hasActions) && (
+                              <InvestorJourneyCard
+                                onClose={onClose}
+                                onSetupBusiness={handleSetupBusiness}
+                              />
+                            )}
+
+                          {activeThread?.view === "investor-journey" && (
+                            <div className="p-6">
+                              <DiscoverExperienceView
+                                category={category}
+                                onSendMessage={handleSendMessage}
+                                isStandalone={false}
+                              />
+                            </div>
+                          )}
+
+                          {showPreloadedPrompts && activeThread && activeThread.messages.length <= 3 && (
+                            <div className="mt-6">
+                              <PreloadedPrompts
+                                category={category}
+                                onPromptSelect={handlePromptSelect}
+                              />
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="mt-4 border-t border-white/10 pt-3 sm:pt-4">
+                          <div className="flex gap-2 sm:gap-3">
+                            <input
+                              type="text"
+                              value={currentInput}
+                              onChange={(e) => setCurrentInput(e.target.value)}
+                              placeholder="Ask about market opportunities, competitors, licensing requirements..."
+                              className="flex-1 rounded-xl border border-white/15 bg-white/10 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-white placeholder-white/60 outline-none transition focus:border-[#54FFD4] focus:bg-white/15"
+                              onKeyPress={(e) => {
+                                if (e.key === "Enter" && currentInput.trim()) {
+                                  handleSendMessage(currentInput);
+                                }
+                              }}
+                            />
+                            <button
+                              onClick={() => {
+                                if (currentInput.trim()) {
+                                  handleSendMessage(currentInput);
+                                }
+                              }}
+                              disabled={!currentInput.trim()}
+                              className="inline-flex items-center justify-center rounded-xl bg-[#54FFD4] px-4 sm:px-6 py-2.5 sm:py-3 text-sm font-semibold text-slate-900 transition hover:bg-[#42f6c9] disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/40"
+                            >
+                              <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              >
+                                <path d="m22 2-7 20-4-9-9-4Z" />
+                                <path d="M22 2 11 13" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
                       </div>
-                    )}
 
-                    {showCompetitorCard && (
-                      <div className="flex justify-start">
-                        <CompetitorAnalysisCard className="max-w-lg" />
-                      </div>
-                    )}
+                      <aside className="flex flex-col rounded-2xl sm:rounded-3xl border border-white/12 bg-white/10 backdrop-blur-xl p-3 sm:p-4 lg:p-6">
+                        <div className="space-y-4">
+                          <div>
+                            <div className="flex items-center justify-between gap-3">
+                              <p className="text-xs uppercase tracking-[0.24em] text-white/60">Journey navigator</p>
+                              <Badge
+                                variant="outline"
+                                className="border-[#54FFD4]/40 bg-[#54FFD4]/20 px-2 py-0.5 text-[10px] uppercase tracking-wide text-[#042B28]"
+                              >
+                                Live
+                              </Badge>
+                            </div>
+                            <p className="mt-2 text-sm text-white/70 leading-relaxed">
+                              Switch between curated insights, workflow checkpoints, and breakout reports without leaving the chat.
+                            </p>
+                          </div>
 
-                    {showGapAnalysisCard && (
-                      <div className="flex justify-start">
-                        <GapAnalysisCard className="max-w-lg" />
-                      </div>
-                    )}
+                          <div className="flex flex-wrap gap-2">
+                            {CONTEXT_TABS.map((tab) => (
+                              <button
+                                key={tab.id}
+                                type="button"
+                                onClick={() => setActiveContextTab(tab.id)}
+                                className={cn(
+                                  "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition",
+                                  activeContextTab === tab.id
+                                    ? "border-[#54FFD4] bg-[#54FFD4]/90 text-slate-900 shadow-[0_12px_32px_-18px_rgba(84,255,212,0.65)]"
+                                    : "border-white/12 bg-white/8 text-white/70 hover:border-[#54FFD4]/60 hover:text-white",
+                                )}
+                              >
+                                <span>{tab.label}</span>
+                                <span className="text-[10px] uppercase tracking-[0.18em] text-white/60">
+                                  {tab.meta}
+                                </span>
+                              </button>
+                            ))}
+                          </div>
 
-                    {/* Show investor journey card on basic view */}
-                    {activeThread?.view === "basic" &&
-                      activeThread?.messages.length >= 4 &&
-                      activeThread?.messages.some(msg => msg.hasActions) && (
-                        <InvestorJourneyCard
-                          onClose={onClose}
-                          onSetupBusiness={handleSetupBusiness}
-                        />
-                      )}
-
-                    {/* Show investor journey content */}
-                    {activeThread?.view === "investor-journey" && (
-                      <div className="p-6">
-                        <DiscoverExperienceView
-                          category={category}
-                          onSendMessage={handleSendMessage}
-                          isStandalone={false}
-                        />
-                      </div>
-                    )}
-
-                    {/* Preloaded Prompts - Show when no messages or conversation is starting */}
-                    {showPreloadedPrompts && activeThread && activeThread.messages.length <= 3 && (
-                      <div className="mt-6">
-                        <PreloadedPrompts
-                          category={category}
-                          onPromptSelect={handlePromptSelect}
-                        />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Chat Input */}
-                  <div className="p-3 sm:p-4 lg:p-6 border-t border-slate-600/30">
-                    <div className="flex gap-2 sm:gap-3">
-                      <input
-                        type="text"
-                        value={currentInput}
-                        onChange={(e) => setCurrentInput(e.target.value)}
-                        placeholder="Ask about market opportunities, competitors, licensing requirements..."
-                        className="flex-1 bg-slate-700/80 border border-slate-600/50 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-white placeholder-slate-400 text-sm sm:text-base outline-none focus:border-[#54FFD4]/70 focus:bg-slate-700/90 transition-all"
-                        onKeyPress={(e) => {
-                          if (e.key === 'Enter' && currentInput.trim()) {
-                            handleSendMessage(currentInput);
-                          }
-                        }}
-                      />
-                      <button
-                        onClick={() => {
-                          if (currentInput.trim()) {
-                            handleSendMessage(currentInput);
-                          }
-                        }}
-                        disabled={!currentInput.trim()}
-                        className="bg-[#54FFD4] hover:bg-[#54FFD4]/90 disabled:bg-slate-600/50 disabled:text-slate-400 text-slate-900 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium transition-all disabled:cursor-not-allowed"
-                      >
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="m22 2-7 20-4-9-9-4Z"/>
-                          <path d="M22 2 11 13"/>
-                        </svg>
-                      </button>
+                          <div className="flex-1 overflow-y-auto space-y-4 pr-1 sm:pr-2 lg:pr-3 max-h-[360px]">
+                            {activeContextTab === "insights" && (
+                              <>
+                                <InsightsSummary />
+                                <InsightAccordionPanel />
+                              </>
+                            )}
+                            {activeContextTab === "workflow" && <WorkflowSnapshot />}
+                            {activeContextTab === "reports" && (
+                              <ReportsPanel
+                                onOpenCuisine={() => openBreakout("cuisine")}
+                                onOpenCompetitor={() => openBreakout("competitor")}
+                                onOpenGap={() => openBreakout("gap")}
+                                onDownloadDigest={handleDownloadDigest}
+                              />
+                            )}
+                          </div>
+                        </div>
+                      </aside>
                     </div>
                   </div>
                 </div>
