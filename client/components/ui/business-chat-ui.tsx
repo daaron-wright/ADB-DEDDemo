@@ -37,6 +37,42 @@ interface ChatThread {
   view: ChatView;
 }
 
+// Chat icon component with animation based on Figma design
+const ChatIcon = ({ isAnimated = false, isDark = false }: { isAnimated?: boolean; isDark?: boolean }) => {
+  const bars = [
+    { width: "5.77px", height: "3.297px" },
+    { width: "11.952px", height: "3.297px" },
+    { width: "19.783px", height: "3.297px" },
+    { width: "13.189px", height: "3.297px" },
+    { width: "8.655px", height: "3.297px" },
+    { width: "23.081px", height: "3.297px" },
+    { width: "30.499px", height: "3.297px" },
+    { width: "16.898px", height: "3.297px" },
+    { width: "4.534px", height: "3.297px" },
+  ];
+
+  const color = isDark ? "#169F9F" : "#FFF";
+
+  return (
+    <div className="inline-flex justify-center items-center gap-0.5 w-12 h-8">
+      {bars.map((bar, index) => (
+        <div
+          key={index}
+          className={`transform rotate-90 rounded-full transition-all duration-300 ${
+            isAnimated ? 'animate-pulse' : ''
+          }`}
+          style={{
+            width: bar.height,
+            height: bar.width,
+            background: color,
+            animationDelay: isAnimated ? `${index * 0.1}s` : undefined,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 const SoundVisualization = () => {
   const bars = [
     { height: "4px" },
@@ -233,11 +269,9 @@ const MessageBubble = ({
       )}
     >
       {message.isAI && (
-        <img
-          src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-          alt="AI Assistant"
-          className="w-10 h-10 rounded-full border border-[#54FFD4] object-cover"
-        />
+        <div className="w-10 h-10 rounded-full border border-[#54FFD4] bg-white flex items-center justify-center">
+          <ChatIcon isAnimated={false} isDark={true} />
+        </div>
       )}
       <div
         className={cn(
@@ -266,7 +300,7 @@ const MessageBubble = ({
         {shouldShowBudgetButton && onActionClick && (
           <button
             onClick={() => onActionClick("budget-ranges")}
-            className="flex items-center gap-3 px-4 py-3 bg-white rounded-xl hover:bg-white/90 transition-colors shadow-lg"
+            className="flex items-center gap-3 px-4 py-3 bg-white rounded-md hover:bg-white/90 transition-colors shadow-lg"
           >
             <div className="w-8 h-8 flex items-center justify-center">
               <svg
@@ -349,13 +383,13 @@ const InvestorJourneyCard = ({
       <div className="flex flex-wrap gap-3">
         <button
           onClick={onClose}
-          className="px-6 py-3 rounded-full border-2 border-white text-white font-semibold text-base hover:bg-white/10 transition-colors"
+          className="px-6 py-3 rounded-md border-2 border-white text-white font-semibold text-base hover:bg-white/10 transition-colors"
         >
           Explore more options
         </button>
         <button
           onClick={onSetupBusiness}
-          className="px-6 py-3 rounded-full bg-teal-gradient text-white font-semibold text-base hover:opacity-90 transition-opacity"
+          className="px-6 py-3 rounded-md bg-teal-gradient text-white font-semibold text-base hover:opacity-90 transition-opacity"
         >
           Set up business
         </button>
@@ -566,7 +600,7 @@ const DiscoverExperienceView = ({
                 {/* Send button */}
                 <button
                   type="submit"
-                  className="p-2 rounded-full bg-[#54FFD4] text-slate-900 transition-colors hover:bg-[#3dd9b5]"
+                  className="p-2 rounded-md bg-[#54FFD4] text-slate-900 transition-colors hover:bg-[#3dd9b5]"
                 >
                   <svg
                     width="16"
@@ -791,7 +825,7 @@ const DiscoverExperienceView = ({
             }
           }}
         >
-          <div className="flex items-center gap-3 px-4 py-3 rounded-full bg-white border border-slate-200 shadow-sm">
+          <div className="flex items-center gap-3 px-4 py-3 rounded-md bg-white border border-slate-200 shadow-sm">
             <input
               type="text"
               value={inputValue}
@@ -803,7 +837,7 @@ const DiscoverExperienceView = ({
               {/* Send button */}
               <button
                 type="submit"
-                className="p-2 rounded-full bg-[#54FFD4] text-slate-900 transition-colors hover:bg-[#3dd9b5]"
+                className="p-2 rounded-md bg-[#54FFD4] text-slate-900 transition-colors hover:bg-[#3dd9b5]"
               >
                 <svg
                   width="16"

@@ -89,6 +89,52 @@ interface OpenChatUIProps {
 
 type ChatState = "idle" | "listening" | "thinking" | "responding";
 
+// Chat icon component with animation based on Figma design
+const ChatIcon = ({ isAnimated = false, isDark = false }: { isAnimated?: boolean; isDark?: boolean }) => {
+  const bars = [
+    { width: "5.77px", height: "3.297px" },
+    { width: "11.952px", height: "3.297px" },
+    { width: "19.783px", height: "3.297px" },
+    { width: "13.189px", height: "3.297px" },
+    { width: "8.655px", height: "3.297px" },
+    { width: "23.081px", height: "3.297px" },
+    { width: "30.499px", height: "3.297px" },
+    { width: "16.898px", height: "3.297px" },
+    { width: "4.534px", height: "3.297px" },
+  ];
+
+  const color = isDark ? "#169F9F" : "#FFF";
+
+  return (
+    <div className="inline-flex justify-center items-center gap-0.5 w-12 h-8">
+      {bars.map((bar, index) => (
+        <motion.div
+          key={index}
+          className="transform rotate-90 rounded-full"
+          style={{
+            width: bar.height,
+            height: bar.width,
+            background: color,
+          }}
+          animate={
+            isAnimated
+              ? {
+                  opacity: [0.6, 1, 0.6],
+                  scale: [0.8, 1.1, 0.8],
+                }
+              : {}
+          }
+          transition={{
+            duration: 0.8 + index * 0.1,
+            repeat: isAnimated ? Infinity : 0,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 const SoundVisualization = ({ isActive = false }: { isActive?: boolean }) => {
   const bars = [
     { baseHeight: "6px", maxHeight: "12px" },
@@ -477,11 +523,9 @@ export function OpenChatUI({
                   {/* Header */}
                   <div className="drag-handle flex items-center justify-between p-4 border-b border-black/10 bg-white/80 backdrop-blur-xl cursor-grab active:cursor-grabbing">
                     <div className="flex items-center gap-3">
-                      <img
-                        src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-                        alt="AI Assistant"
-                        className="h-12 w-12 rounded-full border border-[#54FFD4] object-cover"
-                      />
+                      <div className="h-12 w-12 rounded-full border border-[#54FFD4] bg-white/80 flex items-center justify-center">
+                        <ChatIcon isAnimated={chatState === "responding"} isDark={true} />
+                      </div>
                       <div>
                         <h2 className="text-lg font-semibold text-slate-900">
                           {title}
@@ -490,8 +534,9 @@ export function OpenChatUI({
                     </div>
 
                     <div className="flex items-center gap-3">
-                      <SoundVisualization
-                        isActive={isListening || chatState === "responding"}
+                      <ChatIcon
+                        isAnimated={isListening || chatState === "responding"}
+                        isDark={false}
                       />
                       <button
                         onClick={onClose}
@@ -535,7 +580,7 @@ export function OpenChatUI({
                               onClick={() =>
                                 handlePromptSelection(prompt.message)
                               }
-                              className="rounded-lg border border-black/10 bg-white/85 px-3 py-2 text-sm font-medium text-slate-900 backdrop-blur-xl transition-colors hover:bg-white"
+                              className="rounded-md border border-black/10 bg-white/85 px-3 py-2 text-sm font-medium text-slate-900 backdrop-blur-xl transition-colors hover:bg-white"
                             >
                               {prompt.message}
                             </button>
@@ -559,7 +604,7 @@ export function OpenChatUI({
                                 onClick={() =>
                                   onCategoryClick(category.id, category.title)
                                 }
-                                className="rounded-lg border border-black/10 bg-white/85 px-3 py-2 text-xs font-medium text-slate-900 backdrop-blur-xl transition-colors hover:bg-white"
+                                className="rounded-md border border-black/10 bg-white/85 px-3 py-2 text-xs font-medium text-slate-900 backdrop-blur-xl transition-colors hover:bg-white"
                               >
                                 {category.title}
                               </button>
@@ -579,7 +624,7 @@ export function OpenChatUI({
                         onChange={(e) => setInputValue(e.target.value)}
                         onKeyPress={handleKeyPress}
                         placeholder={placeholderText}
-                        className="flex-1 rounded-xl border border-black/10 bg-white/85 px-3 py-2 text-sm text-slate-900 placeholder-slate-500 transition-colors backdrop-blur-2xl focus:border-[#54FFD4] focus:outline-none focus:ring-1 focus:ring-[#54FFD4]/50"
+                        className="flex-1 rounded-md border border-black/10 bg-white/85 px-3 py-2 text-sm text-slate-900 placeholder-slate-500 transition-colors backdrop-blur-2xl focus:border-[#54FFD4] focus:outline-none focus:ring-1 focus:ring-[#54FFD4]/50"
                         disabled={chatState !== "idle"}
                       />
 
@@ -590,7 +635,7 @@ export function OpenChatUI({
                           chatState === "thinking" || chatState === "responding"
                         }
                         className={cn(
-                          "flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-200",
+                          "flex h-10 w-10 items-center justify-center rounded-md border transition-all duration-200",
                           isListening
                             ? "border-red-500/40 bg-red-500/80 hover:bg-red-500 text-white"
                             : chatState === "idle"
@@ -643,7 +688,7 @@ export function OpenChatUI({
                         onClick={handleSendMessage}
                         disabled={!inputValue.trim() || chatState !== "idle"}
                         className={cn(
-                          "flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-200",
+                          "flex h-10 w-10 items-center justify-center rounded-md border transition-all duration-200",
                           inputValue.trim() && chatState === "idle"
                             ? "border-[#54FFD4]/45 bg-[#54FFD4]/30 text-[#082C25] hover:bg-[#54FFD4]/40 hover:scale-105"
                             : "border-black/10 bg-white/70 text-slate-500 cursor-not-allowed",
