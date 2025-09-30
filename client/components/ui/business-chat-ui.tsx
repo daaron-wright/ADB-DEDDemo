@@ -18,7 +18,7 @@ import LocationHeatMap from "@/components/ui/location-heat-map";
 import HeatMapView from "@/components/ui/heat-map-view";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
-import { Map as MapIcon, MapPin, Flame, TrendingUp, Clock3 } from "lucide-react";
+import { Map as MapIcon } from "lucide-react";
 import { ENTREPRENEUR_PROFILE, AI_ASSISTANT_PROFILE } from "@/lib/profile";
 
 type ConversationAction = "show-summary" | "open-investor-journey";
