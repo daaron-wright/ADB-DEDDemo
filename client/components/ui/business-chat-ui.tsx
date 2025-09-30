@@ -3482,9 +3482,7 @@ export function BusinessChatUI({
               transition={{ duration: 0.3 }}
               className="w-full h-full relative"
               style={{
-                backgroundImage: isLoggedIn
-                  ? "none"
-                  : `url(${backgroundImage})`,
+                backgroundImage: "none",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
