@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Tooltip } from "@aegov/design-system-react";
 import { BusinessChatUI } from "@/components/ui/business-chat-ui";
-import { OpenChatUI } from "@/components/ui/open-chat-ui";
 import { UAEPassLogin } from "@/components/ui/uae-pass-login";
 
 export default function Index() {
