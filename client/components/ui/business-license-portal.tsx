@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CollapsibleJourneyView } from './collapsible-journey-view';
 import SimpleQuestionnaire, { SimpleQuestionnaireHandle } from './simple-questionnaire';
 import AIChatPanel from './ai-chat-panel';
+import { ENTREPRENEUR_PROFILE } from '@/lib/profile';
 
 interface User {
   id: string;
@@ -365,7 +366,7 @@ interface Application {
 const mockApplications: Application[] = [
   {
     id: 'APP-2024-001',
-    applicantName: 'Ahmed Al Mansoori',
+    applicantName: ENTREPRENEUR_PROFILE.name,
     businessName: 'Corniche Fine Dining',
     businessType: 'Restaurant',
     location: 'Abu Dhabi Corniche',
