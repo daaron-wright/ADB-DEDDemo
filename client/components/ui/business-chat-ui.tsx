@@ -47,6 +47,7 @@ interface BusinessMessage {
   actions?: MessageAction[];
   docId?: string;
   docTitle?: string;
+  imageUrl?: string;
 }
 
 interface DialogueDocHighlight {
