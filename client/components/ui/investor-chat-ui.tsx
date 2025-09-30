@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
+import { ENTREPRENEUR_PROFILE } from '@/lib/profile';
 
 interface InvestorMessage {
   id: string;
