@@ -3721,6 +3721,7 @@ export function BusinessChatUI({
         {/* Business License Portal */}
         {loggedInUser && showBusinessPortal && (
           <BusinessLicensePortalSimplified
+            key="business-license-portal"
             isOpen={showBusinessPortal}
             user={loggedInUser}
             onClose={() => setShowBusinessPortal(false)}
@@ -3729,18 +3730,21 @@ export function BusinessChatUI({
 
         {/* Budget Ranges Modal */}
         <BudgetRangesModal
+          key="budget-ranges-modal"
           isOpen={showBudgetModal}
           onClose={() => setShowBudgetModal(false)}
         />
 
         {/* Cuisine Popularity Breakout */}
         <CuisinePopularityBreakout
+          key="cuisine-popularity-breakout"
           isOpen={showCuisineBreakout}
           onClose={() => setShowCuisineBreakout(false)}
         />
 
         {/* Competitor Analysis Breakout */}
         <CompetitorAnalysisBreakout
+          key="competitor-analysis-breakout"
           isOpen={showCompetitorBreakout}
           onClose={() => setShowCompetitorBreakout(false)}
         />
