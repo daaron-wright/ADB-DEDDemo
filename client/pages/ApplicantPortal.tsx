@@ -524,7 +524,7 @@ export default function ApplicantPortal() {
           <Button
             type="button"
             variant="outline"
-            className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] transition hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+            className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] transition hover:bg-white hover:shadow-[0_16px_32px_-24px_rgba(11,64,55,0.32)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
           >
             <svg
               className="h-3.5 w-3.5"
@@ -638,7 +638,7 @@ export default function ApplicantPortal() {
                         </button>
                         <Link
                           to={`/journey?stage=${stage.id}`}
-                          className="inline-flex items-center rounded-full border border-[#0f766e] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#0f766e] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                          className="inline-flex items-center rounded-full border border-[#0f766e] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-white hover:text-[#0f766e] hover:shadow-[0_14px_28px_-22px_rgba(11,64,55,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
                           aria-label={`Open ${stage.title} in the Investor Journey`}
                         >
                           Journey
@@ -729,7 +729,7 @@ export default function ApplicantPortal() {
                             <Button
                               type="button"
                               variant="outline"
-                              className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold text-[#0f766e] shadow-[0_10px_20px_-18px_rgba(11,64,55,0.35)] transition hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                              className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold text-[#0f766e] shadow-[0_10px_20px_-18px_rgba(11,64,55,0.35)] transition hover:bg-white hover:shadow-[0_14px_28px_-22px_rgba(11,64,55,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
                             >
                               <svg
                                 className="h-4 w-4"
