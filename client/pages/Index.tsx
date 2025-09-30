@@ -284,14 +284,6 @@ export default function Index() {
   };
 
 
-  const handleOpenGeneralChat = () => {
-    setOpenChatState({
-      isOpen: true,
-      mode: "general",
-      category: null,
-      categoryTitle: null,
-    });
-  };
 
   const getChatTitle = () => {
     const category = businessCategories.find(
