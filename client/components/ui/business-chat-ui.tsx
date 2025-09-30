@@ -3697,11 +3697,51 @@ export function BusinessChatUI({
 
   const { toast } = useToast();
 
+  const openBreakout = useCallback(
+    (type: BreakoutType, options: { withToast?: boolean } = {}) => {
+      const { withToast = true } = options;
+
+      if (type === "cuisine") {
+        setShowCuisineCard(true);
+        setCuisineBreakoutOpen(true);
+        if (withToast) {
+          toast({
+            title: "Cuisine popularity breakout",
+            description: "Review live cuisine share, spend behaviour, and actionable recommendations.",
+          });
+        }
+      }
+
+      if (type === "competitor") {
+        setShowCompetitorCard(true);
+        setCompetitorBreakoutOpen(true);
+        if (withToast) {
+          toast({
+            title: "Competitor radar",
+            description: "Comparing waterfront benchmarks and positioning cues for Corniche concepts.",
+          });
+        }
+      }
+
+      if (type === "gap") {
+        setShowGapAnalysisCard(true);
+        setGapBreakoutOpen(true);
+        if (withToast) {
+          toast({
+            title: "Gap opportunity brief",
+            description: "Highlighting unmet demand segments and launch readiness tasks.",
+          });
+        }
+      }
+    },
+    [toast],
+  );
+
   // Event listeners for breakout cards
   useEffect(() => {
-    const handleOpenCuisineBreakout = () => setShowCuisineCard(true);
-    const handleOpenCompetitorBreakout = () => setShowCompetitorCard(true);
-    const handleOpenGapAnalysisBreakout = () => setShowGapAnalysisCard(true);
+    const handleOpenCuisineBreakout = () => openBreakout("cuisine");
+    const handleOpenCompetitorBreakout = () => openBreakout("competitor");
+    const handleOpenGapAnalysisBreakout = () => openBreakout("gap");
 
     window.addEventListener('openCuisineBreakout', handleOpenCuisineBreakout);
     window.addEventListener('openCompetitorBreakout', handleOpenCompetitorBreakout);
@@ -3712,7 +3752,7 @@ export function BusinessChatUI({
       window.removeEventListener('openCompetitorBreakout', handleOpenCompetitorBreakout);
       window.removeEventListener('openGapAnalysisBreakout', handleOpenGapAnalysisBreakout);
     };
-  }, []);
+  }, [openBreakout]);
 
   // Function to handle preloaded prompt selection
   const handlePromptSelect = (prompt: string) => {
