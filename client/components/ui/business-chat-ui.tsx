@@ -3786,15 +3786,6 @@ export function BusinessChatUI({
           </div>
         )}
 
-        {/* Business License Portal */}
-        {loggedInUser && showBusinessPortal && (
-          <BusinessLicensePortalSimplified
-            key="business-license-portal"
-            isOpen={showBusinessPortal}
-            user={loggedInUser}
-            onClose={() => setShowBusinessPortal(false)}
-          />
-        )}
 
         {/* Budget Ranges Modal */}
         <BudgetRangesModal
