@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { chatCardClass } from "@/lib/chat-style";
 import { Badge } from "@/components/ui/badge";
 import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
+import { CuisinePopularityChart, CompetitorAnalysisChart, VisitorTasteTrendsChart, DemographicsCard } from "@/components/ui/data-visualizations";
 
 interface PropertyCard {
   id: string;
@@ -21,7 +22,7 @@ interface ConsultationMessage {
   content: string;
   isAI: boolean;
   timestamp: Date;
-  type?: "text" | "property-cards" | "insights" | "investor-journey";
+  type?: "text" | "property-cards" | "insights" | "investor-journey" | "cuisine-analysis" | "competitor-analysis" | "demographics" | "market-trends";
   data?: any;
 }
 
@@ -243,6 +244,27 @@ const BusinessConsultationChat: React.FC<BusinessConsultationChatProps> = ({
       isAI: true,
       timestamp: new Date(),
       type: "insights"
+    },
+    {
+      id: "6",
+      content: "Let me show you the cuisine popularity analysis for Abu Dhabi:",
+      isAI: true,
+      timestamp: new Date(),
+      type: "cuisine-analysis"
+    },
+    {
+      id: "7",
+      content: "Here's a detailed competitor analysis for the area:",
+      isAI: true,
+      timestamp: new Date(),
+      type: "competitor-analysis"
+    },
+    {
+      id: "8",
+      content: "Key demographics and market trends for Abu Dhabi Corniche:",
+      isAI: true,
+      timestamp: new Date(),
+      type: "demographics"
     }
   ]);
 
@@ -367,6 +389,25 @@ const BusinessConsultationChat: React.FC<BusinessConsultationChatProps> = ({
                   {message.type === "investor-journey" && (
                     <div className="mt-4">
                       <InvestorJourneyCard />
+                    </div>
+                  )}
+
+                  {message.type === "cuisine-analysis" && (
+                    <div className="mt-4">
+                      <CuisinePopularityChart />
+                    </div>
+                  )}
+
+                  {message.type === "competitor-analysis" && (
+                    <div className="mt-4">
+                      <CompetitorAnalysisChart />
+                    </div>
+                  )}
+
+                  {message.type === "demographics" && (
+                    <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
+                      <DemographicsCard />
+                      <VisitorTasteTrendsChart />
                     </div>
                   )}
                 </div>
