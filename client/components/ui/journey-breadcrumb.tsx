@@ -35,18 +35,20 @@ export function JourneyBreadcrumb({
         const isCurrent = index === currentIndex;
         const indicatorClasses = cn(
           "flex h-7 w-7 items-center justify-center rounded-full border text-[11px] font-semibold transition",
-          isCompleted && "border-[#0E766E] bg-[#0E766E] text-white",
+          isCompleted &&
+            "border-[#0E766E] bg-[#0E766E] text-white shadow-[0_8px_18px_rgba(14,118,110,0.35)]",
           isCurrent &&
             !isCompleted &&
-            "border-[#0E766E] bg-[#0E766E]/10 text-[#0A4A46]",
+            "border-[#0E766E] bg-white/70 text-[#0A4A46] shadow-[0_10px_24px_rgba(14,118,110,0.28)] backdrop-blur-sm",
           !isCompleted &&
             !isCurrent &&
-            "border-slate-200 bg-white text-slate-400",
+            "border-white/30 bg-white/40 text-slate-400 backdrop-blur-sm",
         );
         const labelClasses = cn(
           "text-[11px] font-semibold uppercase tracking-[0.22em] transition",
           isCompleted && "text-[#0E766E]",
-          isCurrent && !isCompleted && "text-[#0A4A46]",
+          isCurrent && !isCompleted &&
+            "text-[#0A4A46] drop-shadow-[0_4px_12px_rgba(14,118,110,0.25)]",
           !isCompleted && !isCurrent && "text-slate-400",
         );
 
