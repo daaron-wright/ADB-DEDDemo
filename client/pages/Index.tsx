@@ -260,12 +260,6 @@ export default function Index() {
       applyFocusPoint();
     }
 
-    setOpenChatState({
-      isOpen: true,
-      mode: "category",
-      category: categoryId,
-      categoryTitle,
-    });
   };
 
   const handleCloseChat = () => {
