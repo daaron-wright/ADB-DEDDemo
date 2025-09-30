@@ -273,7 +273,7 @@ const AccessibleHeatMap = () => {
   );
 };
 
-const ResearchSynthesisView = ({ onBack }: { onBack: () => void }) => (
+const ResearchSynthesisView = ({ onBack, onViewDashboard }: { onBack: () => void; onViewDashboard: () => void }) => (
   <div className="relative w-full rounded-[36px] overflow-hidden border border-white/20 bg-gradient-to-br from-white via-[#efeaff] to-[#dcd9ff] shadow-[0_35px_80px_rgba(17,20,45,0.35)]">
     <div className="flex items-center justify-between px-6 sm:px-8 py-6">
       <div className="flex items-center gap-4">
@@ -304,9 +304,303 @@ const ResearchSynthesisView = ({ onBack }: { onBack: () => void }) => (
     <div className="relative px-4 pb-10 sm:px-10">
       <div className="absolute inset-x-4 sm:inset-x-10 top-0 h-40 rounded-full bg-white/60 blur-3xl" aria-hidden="true" />
       <div className="relative py-10 flex justify-center">
-        <DiscoveryCompilationCard />
+        <DiscoveryCompilationCard onViewDashboard={onViewDashboard} />
       </div>
     </div>
+  </div>
+);
+
+const DashboardView = ({ onBack }: { onBack: () => void }) => (
+  <div className="relative w-full min-h-screen bg-[#0B0C28] overflow-hidden">
+    {/* Background Gradients */}
+    <div className="absolute inset-0">
+      <div className="absolute -top-96 -left-96 w-[2310px] h-[1719px] rounded-full bg-gradient-to-br from-[#0E0A2B] via-[#0E0A2B] to-transparent opacity-40 blur-[400px]" />
+      <div className="absolute top-8 left-60 w-[1227px] h-[934px] rounded-full bg-gradient-to-br from-[#0919B6] to-transparent opacity-30 blur-[400px] rotate-[30deg]" />
+      <div className="absolute -top-[1319px] left-[169px] w-[1587px] h-[2140px] rounded-full bg-gradient-to-br from-[#07D2FB] to-transparent opacity-20 blur-[280px]" />
+      <div className="absolute -top-[1173px] -left-[79px] w-[1720px] h-[2196px] rounded-full bg-gradient-to-br from-[#21FCC6] to-transparent opacity-25 blur-[400px]" />
+    </div>
+
+    {/* Header */}
+    <header className="relative z-10 flex items-center justify-between px-10 py-5 border-b border-white/30 bg-white/30 backdrop-blur-[40px]">
+      <div className="flex items-center gap-4">
+        {/* Back Button */}
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 text-white hover:text-white/80 transition-colors"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m12 19-7-7 7-7"/>
+            <path d="M19 12H5"/>
+          </svg>
+          <span className="text-sm font-medium">Back</span>
+        </button>
+
+        {/* Tamm Logo */}
+        <TammLogo className="w-[111px]" color="white" />
+      </div>
+
+      <h1 className="text-white text-center text-base font-medium">
+        Investor Journey for a Restaurant
+      </h1>
+
+      <div className="w-[111px]" />
+    </header>
+
+    {/* Main Content */}
+    <div className="relative z-10 p-4 lg:p-8">
+      {/* Notification Banner */}
+      <motion.div
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="mx-auto mb-8 w-full max-w-[605px] h-[103px] rounded-[20px] bg-gradient-to-b from-white to-[#F2F1EE] shadow-[0_0_10px_10px_rgba(0,0,0,0.07)]"
+      >
+        <div className="flex items-center gap-5 h-full px-5">
+          <div className="flex-1">
+            <div className="text-[#282B3E] font-semibold text-sm mb-1">Research Complete</div>
+            <div className="text-[#282B3E] text-sm leading-[19px]">
+              Your comprehensive restaurant investment analysis is ready for review.
+            </div>
+          </div>
+          <button className="w-[138px] h-10 rounded-full bg-gradient-to-b from-[#5B6DDE] to-[#273489] text-white text-xs font-semibold">
+            Download Report
+          </button>
+        </div>
+      </motion.div>
+
+      {/* Main Dashboard Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+        {/* Left Column */}
+        <div className="space-y-6">
+          {/* AI Business Chat Interface */}
+          <motion.div
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/20"
+          >
+            <div className="flex items-center gap-4 mb-6">
+              <img
+                src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+                alt="AI Assistant"
+                className="w-16 h-16 rounded-full border border-[#54FFD4]"
+              />
+              <div>
+                <h3 className="text-white text-lg font-semibold">AI Business</h3>
+                <motion.div
+                  className="flex items-center gap-1 mt-2"
+                  animate={{
+                    opacity: [0.6, 1, 0.6],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  {[5.77, 11.95, 19.78, 13.19, 8.66, 23.08, 30.5, 16.9, 4.53].map((height, index) => (
+                    <motion.div
+                      key={index}
+                      className="bg-[#54FFD4] rounded-full"
+                      style={{
+                        width: '3px',
+                        height: `${height}px`,
+                        transform: 'rotate(-90deg)'
+                      }}
+                      animate={{
+                        height: [`${height * 0.5}px`, `${height}px`, `${height * 0.7}px`],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: index * 0.1,
+                      }}
+                    />
+                  ))}
+                </motion.div>
+              </div>
+            </div>
+            <div className="text-white/80 text-sm">
+              Analysis complete. This dashboard synthesizes all insights from our conversation about restaurant opportunities in Abu Dhabi.
+            </div>
+          </motion.div>
+
+          {/* Visitor Taste Trends Chart */}
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="bg-white rounded-[33px] p-4 shadow-lg border border-[#EFEFEF]"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <span className="text-black text-[11px] font-semibold">Visitor Taste Trends</span>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <circle cx="6.24" cy="6.24" r="4.5" fill="#888888"/>
+                  <path fillRule="evenodd" clipRule="evenodd" d="M6.97 4.69C7.04 4.57 7.08 4.42 7.08 4.27C7.08 3.81 6.71 3.43 6.24 3.43C5.78 3.43 5.4 3.81 5.4 4.27C5.4 4.74 5.78 5.12 6.24 5.12C6.55 5.12 6.83 4.94 6.97 4.69ZM5.68 5.68H5.96H6.52C6.83 5.68 7.08 5.93 7.08 6.24V6.8V9.05C7.08 9.36 6.83 9.61 6.52 9.61C6.21 9.61 5.96 9.36 5.96 9.05V7.22C5.96 6.99 5.77 6.8 5.54 6.8C5.31 6.8 5.12 6.61 5.12 6.38V6.24C5.12 6.04 5.22 5.87 5.37 5.77C5.46 5.71 5.57 5.68 5.68 5.68Z" fill="white"/>
+                </svg>
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <div className="text-[#878787] text-[10px] mb-1">Total survey this month</div>
+              <div className="text-black text-2xl font-semibold">1230</div>
+              <div className="flex items-center gap-2 mt-2">
+                <div className="flex items-center gap-1 px-2 py-1 border border-[#D9D9D9] rounded-full bg-[#EEE] text-xs">
+                  <svg width="9" height="10" viewBox="0 0 9 10" fill="none">
+                    <path d="M4.87 3.02V7.58H4.12V3.02L2.11 5.03L1.58 4.5L4.49 1.59L7.41 4.5L6.88 5.03L4.87 3.02Z" fill="#434343"/>
+                  </svg>
+                  <span className="text-[#434343]">12%</span>
+                </div>
+                <span className="text-[#878787] text-xs">vs last month</span>
+              </div>
+            </div>
+
+            {/* Bar Chart */}
+            <div className="relative h-32 mb-4">
+              <div className="absolute inset-0 flex items-end gap-6 px-3">
+                <div className="flex flex-col items-center">
+                  <div className="w-5 h-16 bg-[#E29F37] rounded mb-2" />
+                  <span className="text-[8px] text-[#878787] text-center">Tourists lean toward Emirati + Asian</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-5 h-24 bg-[#429195] rounded mb-2" />
+                  <span className="text-[8px] text-[#878787] text-center">Locals prefer Emirati + Mediterranean</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-5 h-10 bg-[#A02E1F] rounded mb-2" />
+                  <span className="text-[8px] text-[#878787] text-center">Expats like Emirati + Indian</span>
+                </div>
+              </div>
+            </div>
+
+            {/* X-axis labels */}
+            <div className="flex justify-between text-[9px] text-[#878787] px-3">
+              <span>0</span>
+              <span>10%</span>
+              <span>20%</span>
+              <span>30%</span>
+              <span>40%</span>
+              <span>50%</span>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Center Column - Main Data Visualization */}
+        <div className="lg:col-span-1">
+          <motion.div
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="bg-white/14 backdrop-blur-md rounded-3xl p-8 h-full"
+          >
+            <h2 className="text-white text-xl font-semibold mb-8">
+              Popularity of cuisines in Abu Dhabi
+            </h2>
+
+            <div className="space-y-6">
+              {/* Middle Eastern */}
+              <div className="border-b border-white/18 pb-6">
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <h3 className="text-white font-bold text-sm">Middle Eastern</h3>
+                  </div>
+                  <div>
+                    <span className="text-white font-bold text-sm">Popularity</span>
+                    <div className="text-white text-sm">30-35%</div>
+                  </div>
+                  <div>
+                    <span className="text-white font-bold text-sm">Supporting Context</span>
+                    <div className="text-white text-sm">Cultural resonance, traditional appeal</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* American */}
+              <div className="border-b border-white/18 pb-6">
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <h3 className="text-white font-bold text-sm">American</h3>
+                  </div>
+                  <div>
+                    <div className="text-white text-sm">20-25%</div>
+                  </div>
+                  <div>
+                    <div className="text-white text-sm">Fast-food dominance, familiarity, chain presence</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Indian */}
+              <div>
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <h3 className="text-white font-bold text-sm">Indian</h3>
+                  </div>
+                  <div>
+                    <div className="text-white text-sm">15-20%</div>
+                  </div>
+                  <div>
+                    <div className="text-white text-sm">Large expat community, flavor alignment with local preferences</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Right Column */}
+        <div className="space-y-6">
+          {/* Large Statistic */}
+          <motion.div
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="text-center"
+          >
+            <div className="text-white text-8xl lg:text-[100px] font-bold leading-none">78%</div>
+            <div className="text-white text-sm mt-2">Residents eat out twice a week</div>
+          </motion.div>
+
+          {/* Map Visualization */}
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.0 }}
+            className="rounded-3xl overflow-hidden"
+          >
+            <img
+              src="https://api.builder.io/api/v1/image/assets/TEMP/6217a05a0af8f9420e0485cc166613634d45f299?width=634"
+              alt="Abu Dhabi Map with Demographics"
+              className="w-full h-auto rounded-3xl"
+            />
+          </motion.div>
+
+          {/* Additional Chart */}
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
+            className="rounded-3xl overflow-hidden"
+          >
+            <img
+              src="https://api.builder.io/api/v1/image/assets/TEMP/eade8edabdbb717ecdef1b65c3b40e5d1928605a?width=418"
+              alt="Market Analysis Chart"
+              className="w-full h-auto rounded-3xl"
+            />
+          </motion.div>
+        </div>
+      </div>
+    </div>
+
+    {/* Background Image Overlay */}
+    <div className="absolute inset-0 bg-black/30 pointer-events-none" />
+    <img
+      src="https://api.builder.io/api/v1/image/assets/TEMP/7e2092faf64b59c4ede24041656b85968d42a542?width=2388"
+      alt="Background"
+      className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none"
+    />
   </div>
 );
 
