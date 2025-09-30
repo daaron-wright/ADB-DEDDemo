@@ -71,6 +71,11 @@ const USER_TYPE_DETAILS: Record<
   },
 };
 
+const MODAL_MIN_DIMENSIONS: React.CSSProperties = {
+  minWidth: "min(100%, 800px)",
+  minHeight: 556,
+};
+
 interface UserTypeSelectionProps {
   onSelect: (type: "applicant" | "reviewer") => void;
 }
@@ -412,9 +417,13 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
       trigger={enhancedTrigger}
       size="md"
       title="Sign in with UAE PASS"
-      className="rounded-3xl border border-white/25 bg-white/90 shadow-[0_24px_60px_-20px_rgba(24,32,63,0.28)] backdrop-blur-xl sm:max-w-md [&>div:first-child]:sr-only [&>div:first-child]:m-0 [&>div:first-child]:h-0 [&>div:first-child]:p-0 [&>div:first-child>button]:hidden"
+      className="w-full max-w-[900px] rounded-3xl border border-white/25 bg-white/90 shadow-[0_24px_60px_-20px_rgba(24,32,63,0.28)] backdrop-blur-xl [&>div:first-child]:sr-only [&>div:first-child]:m-0 [&>div:first-child]:h-0 [&>div:first-child]:p-0 [&>div:first-child>button]:hidden"
+      style={MODAL_MIN_DIMENSIONS}
     >
-      <div className="w-full sm:w-[26rem] mx-auto p-6 text-center space-y-10 border border-[#d8e4df] rounded-md min-h-[32rem] xl:min-h-[35rem] flex flex-wrap justify-between flex-col content-between [&>*]:w-full">
+      <div
+        className="relative mx-auto flex w-full max-w-[840px] flex-col justify-between gap-10 rounded-md border border-[#d8e4df] p-6 text-center [&>*]:w-full"
+        style={MODAL_MIN_DIMENSIONS}
+      >
         <Close asChild>
           <button
             ref={closeButtonRef}
