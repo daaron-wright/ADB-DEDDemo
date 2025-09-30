@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { InvestmentReportDocument } from "./investment-report-document";
-import { BusinessLicensePortal } from "./business-license-portal";
 
 interface ReportSummaryPageProps {
   isOpen: boolean;
