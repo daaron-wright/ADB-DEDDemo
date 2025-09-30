@@ -3670,7 +3670,7 @@ export function BusinessChatUI({
 
     // Check for cuisine-related queries and show cuisine card
     if (lowerMessage.includes('cuisine') || lowerMessage.includes('popular') || lowerMessage.includes('food')) {
-      setShowCuisineCard(true);
+      openBreakout("cuisine", { withToast: false });
       return "Here's a comprehensive analysis of cuisine popularity in Abu Dhabi. Middle Eastern cuisine leads with 35% market share, followed by American and Indian cuisines. See the detailed breakdown in the analysis card.";
     }
 
