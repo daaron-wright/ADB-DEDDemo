@@ -1729,10 +1729,10 @@ const MessageBubble = ({
             message.isAI
               ? isOnLightBackground
                 ? "bg-white border-slate-300 text-slate-900 rounded-bl-sm"
-                : "bg-white border-slate-200 text-slate-900 rounded-bl-sm"
+                : "bg-slate-100 border-slate-300 text-slate-900 rounded-bl-sm shadow-md"
               : isOnLightBackground
-                ? "bg-slate-100 border-slate-300 text-slate-900 rounded-br-sm"
-                : "bg-[#E6F7F3] border-[#54FFD4]/60 text-slate-900 rounded-br-sm",
+                ? "bg-slate-200 border-slate-400 text-slate-900 rounded-br-sm"
+                : "bg-[#54FFD4]/90 border-[#54FFD4] text-slate-900 rounded-br-sm shadow-md",
           )}
         >
           {message.rating && <StarRating rating={message.rating} />}
