@@ -271,15 +271,6 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({
         </div>
       </motion.div>
 
-      {/* Business License Portal */}
-      {loggedInUser && showBusinessPortal && (
-        <BusinessLicensePortal
-          key="business-license-portal"
-          isOpen={showBusinessPortal}
-          user={loggedInUser}
-          onClose={handleClosePortal}
-        />
-      )}
     </AnimatePresence>
   );
 };
