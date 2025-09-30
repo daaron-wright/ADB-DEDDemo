@@ -4222,6 +4222,7 @@ export function BusinessChatUI({
         typeof userData?.name === "string" && userData.name.length > 0
           ? userData.name
           : ENTREPRENEUR_PROFILE.name;
+      const roleDescriptor = userType === "reviewer" ? "reviewer access" : "business account";
 
       setMessages((prev) => {
         const sanitized = prev.map((message) =>
