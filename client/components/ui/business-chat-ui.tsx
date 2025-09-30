@@ -311,7 +311,7 @@ const ResearchSynthesisView = ({ onBack, onViewDashboard }: { onBack: () => void
   </div>
 );
 
-const CompetitorAnalysisView = ({ onBack, onGapAnalysis }: { onBack: () => void; onGapAnalysis: () => void }) => (
+const CompetitorAnalysisView = ({ onBack, onGapAnalysis, onSendMessage }: { onBack: () => void; onGapAnalysis: () => void; onSendMessage?: (message: string) => void }) => (
   <div className="relative w-full min-h-screen bg-[#0B0C28] overflow-hidden">
     {/* Background Gradients */}
     <div className="absolute inset-0">
