@@ -4184,62 +4184,14 @@ export function BusinessChatUI({
                         />
                       )}
 
-                    {/* Show discover experience content */}
-                    {activeThread?.view === "discover-experience" && (
+                    {/* Show investor journey content only after sign-in */}
+                    {isLoggedIn && activeThread?.view === "investor-journey" && (
                       <div className="p-6">
                         <DiscoverExperienceView
                           category={category}
                           onSendMessage={handleSendMessage}
                           isStandalone={false}
                         />
-                      </div>
-                    )}
-
-                    {activeThread?.view === "compilation" && activeThreadId && (
-                      <ResearchSynthesisView
-                        onBack={() => updateThread(activeThreadId, { view: "corniche-detail" })}
-                        onViewDashboard={() => updateThread(activeThreadId, { view: "dashboard" })}
-                      />
-                    )}
-
-                    {activeThread?.view === "dashboard" && activeThreadId && (
-                      <DashboardView
-                        onBack={() => updateThread(activeThreadId, { view: "compilation" })}
-                        onSendMessage={handleSendMessage}
-                      />
-                    )}
-
-                    {activeThread?.view === "competitors" && activeThreadId && (
-                      <CompetitorAnalysisView
-                        onBack={() => updateThread(activeThreadId, { view: "dashboard" })}
-                        onGapAnalysis={() => updateThread(activeThreadId, { view: "final-compilation" })}
-                        onSendMessage={handleSendMessage}
-                      />
-                    )}
-
-                    {activeThread?.view === "final-compilation" && activeThreadId && (
-                      <FinalCompilationView
-                        onBack={() => updateThread(activeThreadId, { view: "competitors" })}
-                      />
-                    )}
-
-                    {/* Show corniche detail view content */}
-                    {activeThread?.view === "corniche-detail" && (
-                      <div className="space-y-3 sm:space-y-4">
-                        {/* Continue conversation input */}
-                        <div className="px-3 sm:px-4 py-2.5 sm:py-3 rounded-full bg-white/20 border border-white/10">
-                          <input
-                            type="text"
-                            placeholder="Can you go deeper and generate some reports on these areas"
-                            className="w-full bg-transparent text-white placeholder-white/70 outline-none text-sm sm:text-base"
-                            onKeyPress={(e) => {
-                              if (e.key === 'Enter' && e.currentTarget.value.trim()) {
-                                handleSendMessage(e.currentTarget.value.trim());
-                                e.currentTarget.value = '';
-                              }
-                            }}
-                          />
-                        </div>
                       </div>
                     )}
 
