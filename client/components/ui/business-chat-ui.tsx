@@ -4234,7 +4234,6 @@ export function BusinessChatUI({
     setMessages(conversation);
   }, [
     isOpen,
-    buildStepMessage,
     buildMessage,
     initialMessage,
   ]);
