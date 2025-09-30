@@ -4257,6 +4257,21 @@ export function BusinessChatUI({
 
   if (!isOpen) return null;
 
+  // Render heat map view if current view is heat-map
+  if (currentView === "heat-map") {
+    return (
+      <div className="fixed inset-0 z-[80] flex items-center justify-center">
+        <div
+          className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+          onClick={() => setCurrentView("basic")}
+        />
+        <div className="relative z-10 w-full max-w-[800px] h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden">
+          <HeatMapView onBack={() => setCurrentView("basic")} />
+        </div>
+      </div>
+    );
+  }
+
   const backgroundImage =
     view === "discover-experience"
       ? DISCOVER_EXPERIENCE_BACKGROUND
