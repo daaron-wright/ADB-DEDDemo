@@ -2010,7 +2010,9 @@ const BudgetRangesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =
               {budgetRanges.map((budget, index) => (
                 <div
                   key={index}
-                  className="rounded-[26px] border border-[#dbe9e3] bg-white p-6 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)] transition hover:shadow-[0_22px_48px_-28px_rgba(15,118,110,0.25)]"
+                  className={chatCardClass(
+                    "border border-[#dbe9e3] bg-white p-6 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)] transition hover:shadow-[0_22px_48px_-28px_rgba(15,118,110,0.25)]"
+                  )}
                 >
                   <div className="mb-4">
                     <span className="text-2xl font-bold text-[#0E766E]">{budget.range}</span>
@@ -2747,7 +2749,11 @@ const DiscoverExperienceView = ({
               <div className="px-6 py-6 lg:px-8 lg:py-7 space-y-6">
                 {mapViewMode === "heatmap" ? (
                   <div className="grid gap-6 lg:grid-cols-2">
-                    <div className="relative flex h-full flex-col gap-5 rounded-[26px] border border-[#dbe9e3] bg-white p-6 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]">
+                    <div
+                      className={chatCardClass(
+                        "relative flex h-full flex-col gap-5 border border-[#dbe9e3] bg-white p-6 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]"
+                      )}
+                    >
                       <div className="flex flex-wrap items-center justify-between gap-3">
                         <div className="flex items-center gap-3 rounded-full border border-[#dbe9e3] bg-white px-4 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)]">
                           <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
@@ -3111,7 +3117,11 @@ const DiscoverExperienceView = ({
                       </div>
                     </div>
 
-                    <div className="flex h-full flex-col gap-4 rounded-[26px] border border-[#dbe9e3] bg-white p-6 text-slate-900 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]">
+                    <div
+                      className={chatCardClass(
+                        "flex h-full flex-col gap-4 border border-[#dbe9e3] bg-white p-6 text-slate-900 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]"
+                      )}
+                    >
                       <div className={chatCardClass("relative overflow-hidden border border-[#dbe9e3] bg-white p-5 shadow-[0_18px_36px_-28px_rgba(15,118,110,0.25)]")}>
                         <span className="absolute left-0 top-5 bottom-5 w-1.5 rounded-full bg-gradient-to-b from-[#0E766E] via-[#34d399] to-transparent" />
                         <div className="pl-4">
@@ -3216,7 +3226,11 @@ const DiscoverExperienceView = ({
                     </div>
                   </div>
                 ) : (
-                  <div className="space-y-6 rounded-[26px] border border-[#dbe9e3] bg-white p-6">
+                  <div
+                    className={chatCardClass(
+                      "space-y-6 border border-[#dbe9e3] bg-white p-6"
+                    )}
+                  >
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <div className="flex items-center gap-3 rounded-full border border-[#dbe9e3] bg-white px-4 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)]">
                         <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
@@ -3270,7 +3284,9 @@ const DiscoverExperienceView = ({
                           <div
                             key={spot.id}
                             className={cn(
-                              "relative flex gap-4 rounded-[26px] border border-[#dbe9e3] bg-white px-5 py-4 transition hover:border-[#0E766E]/50 hover:shadow-[0_18px_36px_-28px_rgba(15,118,110,0.28)]",
+                              chatCardClass(
+                                "relative flex gap-4 border border-[#dbe9e3] bg-white px-5 py-4 transition hover:border-[#0E766E]/50 hover:shadow-[0_18px_36px_-28px_rgba(15,118,110,0.28)]"
+                              ),
                               isHighlighted &&
                                 "border-[#0E766E] shadow-[0_22px_48px_-28px_rgba(15,118,110,0.35)]",
                             )}
