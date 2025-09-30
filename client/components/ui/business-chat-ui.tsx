@@ -3638,39 +3638,13 @@ export function BusinessChatUI({
     setCurrentStep("intro");
 
     const introMessage = buildStepMessage("intro");
-    const conversation: BusinessMessage[] = [introMessage];
+    const conversation: BusinessMessage[] = [];
 
     if (initialMessage) {
       conversation.push(buildMessage(initialMessage, false));
     }
 
-    conversation.push(
-      buildMessage(
-        "Here are some retail locations available to rent along the Corniche and canal districts:",
-        true,
-        { type: "property-cards" },
-      ),
-      buildMessage(
-        "Let me show you the cuisine popularity analysis for Abu Dhabi:",
-        true,
-        { type: "cuisine-analysis" },
-      ),
-      buildMessage(
-        "Here's a detailed competitor analysis for the area:",
-        true,
-        { type: "competitor-analysis" },
-      ),
-      buildMessage(
-        "Key demographics and market trends for Abu Dhabi Corniche:",
-        true,
-        { type: "demographics" },
-      ),
-      buildMessage(
-        "I've created a heat map showing the best locations for your restaurant business:",
-        true,
-        { type: "location-analysis" },
-      ),
-    );
+    conversation.push(introMessage);
 
     setMessages(conversation);
   }, [
