@@ -352,6 +352,14 @@ export default function Index() {
     });
   };
 
+  const handlePromptSelect = useCallback(
+    (option: ChatPromptOption) => {
+      setPromptModalOpen(false);
+      startBusinessChat("general", option.prompt);
+    },
+    [startBusinessChat],
+  );
+
 
 
   const handlePointerMove = (event: React.MouseEvent<HTMLDivElement>) => {
