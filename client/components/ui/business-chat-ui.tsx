@@ -4946,7 +4946,10 @@ export function BusinessChatUI({
                         </div>
 
                         {view === "investor-journey" && (
-                          <div className={chatCardClass("mt-6 border border-white/25 bg-white/18 p-4 shadow-[0_35px_90px_-60px_rgba(15,23,42,0.35)] backdrop-blur-xl")}
+                          <div
+                            className={chatCardClass(
+                              "mt-6 border border-white/25 bg-white/18 p-4 shadow-[0_35px_90px_-60px_rgba(15,23,42,0.35)] backdrop-blur-xl"
+                            )}
                           >
                             <DiscoverExperienceView
                               category={category}
