@@ -12,6 +12,7 @@ import {
   DemographicsCard,
   VisitorTasteTrendsChart,
 } from "@/components/ui/data-visualizations";
+import { JourneyBreadcrumb } from "@/components/ui/journey-breadcrumb";
 import LocationHeatMap from "@/components/ui/location-heat-map";
 import HeatMapView from "@/components/ui/heat-map-view";
 import { usePersistentState } from "@/hooks/use-persistent-state";
