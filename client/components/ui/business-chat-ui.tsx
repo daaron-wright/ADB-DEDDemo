@@ -3555,7 +3555,7 @@ export function BusinessChatUI({
             timestamp: new Date(),
           },
         ],
-        view: "discover-experience",
+        view: "basic",
       };
       setThreads([...threads, newThread]);
       setActiveThreadId(newThread.id);
@@ -3592,7 +3592,7 @@ export function BusinessChatUI({
             timestamp: new Date(),
           },
         ],
-        view: "discover-experience",
+        view: "basic",
       };
       setThreads([...threads, newThread]);
       setActiveThreadId(newThread.id);
