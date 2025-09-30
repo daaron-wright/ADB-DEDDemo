@@ -330,35 +330,6 @@ const GapAnalysisCard = ({ className = "" }: { className?: string }) => {
   );
 };
 
-const InsightsSummary = () => {
-  return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
-      <MetricTile
-        label="Market appetite"
-        value="High · 8.1 index"
-        caption="Tourist and resident demand for Corniche dining stays strong."
-        trend="▲ 6.2% month-on-month"
-      />
-      <MetricTile
-        label="License readiness"
-        value="3 of 4 docs"
-        caption="Compliance dossier awaiting final reviewer attachment."
-      />
-      <MetricTile
-        label="Site priority"
-        value="Corniche focus"
-        caption="Footfall uplift remains highest compared to Yas and Al Maryah."
-        trend="▲ 12% week-on-week"
-      />
-      <MetricTile
-        label="Processing SLA"
-        value="48h target"
-        caption="Average reviewer turnaround for business license issuance."
-      />
-    </div>
-  );
-};
-
 const InsightAccordionPanel = () => {
   return (
     <Accordion
