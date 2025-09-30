@@ -397,18 +397,12 @@ export default function ReviewerPortal() {
         }
       | undefined
   )?.user;
-  const firstName = portalUser?.name ? portalUser.name.split(" ")[0] : null;
-  const pageTitle = firstName
-    ? `${firstName}'s review desk`
-    : "Reviewer command center";
-  const pageDescription = firstName
-    ? `Monitor the unified queue, ${firstName}, keep SLAs healthy, and collaborate with your team to move applications forward.`
-    : "Monitor the unified queue, keep SLAs healthy, and collaborate with your team to move applications forward.";
-  const profileName = portalUser?.name ?? "Sarah Al Zaabi";
-  const profileEmail = portalUser?.email ?? "sarah.alzaabi@adm.ae";
-  const profileAvatar =
-    portalUser?.avatarUrl ??
-    "https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80";
+  const profileName = portalUser?.name ?? ENTREPRENEUR_PROFILE.name;
+  const firstName = profileName.split(" ")[0];
+  const pageTitle = `${firstName}'s review desk`;
+  const pageDescription = `Monitor the unified queue, ${firstName}, keep SLAs healthy, and collaborate with your team to move applications forward.`;
+  const profileEmail = portalUser?.email ?? "khalid.entrepreneur@email.ae";
+  const profileAvatar = portalUser?.avatarUrl ?? ENTREPRENEUR_PROFILE.avatar;
   const profileStatus: "online" | "offline" | "none" = "online";
 
   const handleSignOut = () => {
