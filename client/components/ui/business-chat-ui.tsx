@@ -3150,7 +3150,7 @@ const DiscoverExperienceView = ({
                         </ul>
                       </div>
 
-                      <div className="rounded-[26px] border border-[#dbe9e3] bg-[#f6faf8] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+                      <div className="rounded-[24px] border border-[#dbe9e3] bg-[#f6faf8] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500">
                         Powered by aggregated licensing &amp; mobility data
                         (updated weekly)
                       </div>
