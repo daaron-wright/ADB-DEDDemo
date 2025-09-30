@@ -18,6 +18,7 @@ import LocationHeatMap from "@/components/ui/location-heat-map";
 import HeatMapView from "@/components/ui/heat-map-view";
 import BudgetRanges from "@/components/ui/budget-ranges";
 import BudgetRangesView from "@/components/ui/budget-ranges-view";
+import ComprehensiveReport from "@/components/ui/comprehensive-report";
 import { budgetSummaryRows } from "@/components/ui/budget-ranges-data";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
