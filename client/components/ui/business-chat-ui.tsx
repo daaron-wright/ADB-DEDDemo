@@ -347,7 +347,7 @@ const PreloadedPrompts = ({
           <button
             key={index}
             onClick={() => onPromptSelect(prompt)}
-            className="text-left p-3 text-sm rounded-xl border border-slate-200 bg-white text-slate-700 transition-all hover:border-[#54FFD4]/70 hover:bg-[#54FFD4]/10 hover:text-slate-900"
+            className="text-left p-3 text-sm rounded-xl border border-slate-200 bg-white text-slate-700 transition-all hover:border-[#169F9F]/70 hover:bg-[#169F9F]/10 hover:text-slate-900"
           >
             {prompt}
           </button>
@@ -422,7 +422,7 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
               <div className="flex items-center gap-2 mb-6">
                 <span className="text-white text-[52px] font-semibold leading-none">35%</span>
                 <svg width="19" height="19" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#54FFD4"/>
+                  <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#169F9F"/>
                 </svg>
               </div>
               <div className="text-white text-lg font-semibold leading-[140%] max-w-[346px]">
@@ -439,7 +439,7 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
                     <img
                       src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
                       alt="AI Business"
-                      className="w-16 h-16 rounded-full border border-[#54FFD4]"
+                      className="w-16 h-16 rounded-full border border-[#169F9F]"
                     />
                     <div>
                       <div className="text-white text-lg font-semibold">AI Business</div>
@@ -447,7 +447,7 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
                         {[5.77, 11.952, 19.783, 13.189, 8.655, 23.081, 30.499, 16.898, 4.534].map((width, index) => (
                           <div
                             key={index}
-                            className="bg-[#54FFD4] rounded-full transform rotate-90"
+                            className="bg-[#169F9F] rounded-full transform rotate-90"
                             style={{
                               width: '3.297px',
                               height: `${width}px`,
@@ -579,7 +579,7 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
               <div className="flex items-center gap-2 mb-6">
                 <span className="text-white text-[52px] font-semibold leading-none">4.6</span>
                 <svg width="19" height="19" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#54FFD4"/>
+                  <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#169F9F"/>
                 </svg>
               </div>
               <div className="text-white text-lg font-semibold leading-[140%] max-w-[346px]">
@@ -596,7 +596,7 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
                     <img
                       src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
                       alt="AI Business"
-                      className="w-16 h-16 rounded-full border border-[#54FFD4]"
+                      className="w-16 h-16 rounded-full border border-[#169F9F]"
                     />
                     <div>
                       <div className="text-white text-lg font-semibold">AI Business</div>
@@ -604,7 +604,7 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
                         {[5.77, 11.952, 19.783, 13.189, 8.655, 23.081, 30.499, 16.898, 4.534].map((width, index) => (
                           <div
                             key={index}
-                            className="bg-[#54FFD4] rounded-full transform rotate-90"
+                            className="bg-[#169F9F] rounded-full transform rotate-90"
                             style={{
                               width: '3.297px',
                               height: `${width}px`,
@@ -753,7 +753,7 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
               <div className="flex items-center gap-2 mb-6">
                 <span className="text-white text-[52px] font-semibold leading-none">6.3%</span>
                 <svg width="19" height="19" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#54FFD4"/>
+                  <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#169F9F"/>
                 </svg>
               </div>
               <div className="text-white text-lg font-semibold leading-[140%] max-w-[346px]">
@@ -770,7 +770,7 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                     <img
                       src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
                       alt="AI Business"
-                      className="w-16 h-16 rounded-full border border-[#54FFD4]"
+                      className="w-16 h-16 rounded-full border border-[#169F9F]"
                     />
                     <div>
                       <div className="text-white text-lg font-semibold">AI Business</div>
@@ -778,7 +778,7 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                         {[5.77, 11.952, 19.783, 13.189, 8.655, 23.081, 30.499, 16.898, 4.534].map((width, index) => (
                           <div
                             key={index}
-                            className="bg-[#54FFD4] rounded-full transform rotate-90"
+                            className="bg-[#169F9F] rounded-full transform rotate-90"
                             style={{
                               width: '3.297px',
                               height: `${width}px`,
@@ -913,7 +913,7 @@ const SoundVisualization = () => {
       {bars.map((bar, index) => (
         <div
           key={index}
-          className="w-0.5 bg-[#54FFD4] rounded-full transition-all duration-300"
+          className="w-0.5 bg-[#169F9F] rounded-full transition-all duration-300"
           style={{ height: bar.height }}
         />
       ))}
@@ -1148,7 +1148,7 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
                 alt="AI Assistant"
-                className="w-16 h-16 rounded-full border border-[#54FFD4]"
+                className="w-16 h-16 rounded-full border border-[#169F9F]"
               />
               <div>
                 <h3 className="text-white text-lg font-semibold">AI Business</h3>
@@ -1166,7 +1166,7 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
                   {[5.77, 11.95, 19.78, 13.19, 8.66, 23.08, 30.5, 16.9, 4.53].map((height, index) => (
                     <motion.div
                       key={index}
-                      className="bg-[#54FFD4] rounded-full"
+                      className="bg-[#169F9F] rounded-full"
                       style={{
                         width: '3px',
                         height: `${height}px`,
@@ -1482,7 +1482,7 @@ const FinalCompilationView = ({ onBack }: { onBack: () => void }) => (
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('openGapAnalysisBreakout'))}
-              className="inline-flex items-center gap-3 bg-gradient-to-r from-[#54FFD4] to-[#169F9F] text-[#042B28] px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
+              className="inline-flex items-center gap-3 bg-gradient-to-r from-[#169F9F] to-[#169F9F] text-[#042B28] px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
             >
               View Gap Analysis
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1558,7 +1558,7 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
             <img
               src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
               alt="AI Assistant"
-              className="w-16 h-16 rounded-full border border-[#54FFD4]"
+              className="w-16 h-16 rounded-full border border-[#169F9F]"
             />
             <div className="flex-1">
               <h3 className="text-white text-lg font-semibold mb-2">AI Business</h3>
@@ -1576,7 +1576,7 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
                 {[5.77, 11.95, 19.78, 13.19, 8.66, 23.08, 30.5, 16.9, 4.53].map((height, index) => (
                   <motion.div
                     key={index}
-                    className="bg-[#54FFD4] rounded-full"
+                    className="bg-[#169F9F] rounded-full"
                     style={{
                       width: '3px',
                       height: `${Math.max(3, height * 0.8)}px`,
@@ -1668,7 +1668,7 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
             <button
               type="button"
               onClick={handleOpenCuisineBreakout}
-              className="inline-flex items-center gap-2 rounded-full border border-[#54FFD4]/40 px-4 py-2 text-sm font-semibold text-[#54FFD4] transition hover:bg-[#54FFD4]/10"
+              className="inline-flex items-center gap-2 rounded-full border border-[#169F9F]/40 px-4 py-2 text-sm font-semibold text-[#169F9F] transition hover:bg-[#169F9F]/10"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -1681,7 +1681,7 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
             <button
               type="button"
               onClick={handleOpenDashboard}
-              className="inline-flex items-center gap-2 rounded-full bg-[#54FFD4] px-4 py-2 text-sm font-semibold text-[#042B28] shadow-md shadow-[#54FFD4]/40 transition hover:bg-[#42f6c9]"
+              className="inline-flex items-center gap-2 rounded-full bg-[#169F9F] px-4 py-2 text-sm font-semibold text-[#042B28] shadow-md shadow-[#169F9F]/40 transition hover:bg-[#42f6c9]"
             >
               View complete analysis
               <svg
@@ -1727,7 +1727,7 @@ const MessageBubble = ({
       )}
     >
       {message.isAI && (
-        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-[#54FFD4] bg-white flex items-center justify-center flex-shrink-0">
+        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-[#169F9F] bg-white flex items-center justify-center flex-shrink-0">
           <ChatIcon isAnimated={false} isDark={true} />
         </div>
       )}
@@ -1746,7 +1746,7 @@ const MessageBubble = ({
                 : "bg-slate-100 border-slate-300 text-slate-900 rounded-bl-sm shadow-md"
               : isOnLightBackground
                 ? "bg-slate-200 border-slate-400 text-slate-900 rounded-br-sm"
-                : "bg-[#54FFD4]/90 border-[#54FFD4] text-slate-900 rounded-br-sm shadow-md",
+                : "bg-[#169F9F]/90 border-[#169F9F] text-slate-900 rounded-br-sm shadow-md",
           )}
         >
           {message.rating && <StarRating rating={message.rating} />}
@@ -1823,7 +1823,7 @@ const InvestorJourneyCard = ({
           <img
             src="https://api.builder.io/api/v1/image/assets/TEMP/0142e541255ee20520b15f139d595835c00ea132?width=131"
             alt="Khalid"
-            className="w-16 h-16 rounded-full border-2 border-[#54FFD4]"
+            className="w-16 h-16 rounded-full border-2 border-[#169F9F]"
           />
           <div>
             <h4 className="text-white text-lg font-semibold">
@@ -2041,7 +2041,7 @@ const CompetitorBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose
             <button
               type="button"
               onClick={onClose}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-[#54FFD4] hover:text-[#54FFD4]"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-[#169F9F] hover:text-[#169F9F]"
               aria-label="Close competitor breakout"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -2135,7 +2135,7 @@ const GapBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
             <button
               type="button"
               onClick={onClose}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-[#54FFD4] hover:text-[#54FFD4]"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-[#169F9F] hover:text-[#169F9F]"
               aria-label="Close opportunity breakout"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -2342,7 +2342,7 @@ const DiscoverExperienceView = ({
                 {/* Send button */}
                 <button
                   type="submit"
-                  className="p-2 rounded-md bg-[#54FFD4] text-slate-900 transition-colors hover:bg-[#3dd9b5]"
+                  className="p-2 rounded-md bg-[#169F9F] text-slate-900 transition-colors hover:bg-[#3dd9b5]"
                 >
                   <svg
                     width="16"
@@ -2404,7 +2404,7 @@ const DiscoverExperienceView = ({
       <div className="space-y-4 mb-6">
         {/* User Question */}
         <div className="flex justify-end">
-          <div className="max-w-[80%] px-4 py-3 rounded-2xl rounded-br-sm bg-[#E6F7F3] border border-[#54FFD4]/60 shadow-sm">
+          <div className="max-w-[80%] px-4 py-3 rounded-2xl rounded-br-sm bg-[#E6F7F3] border border-[#169F9F]/60 shadow-sm">
             <div className="text-slate-900 text-sm leading-relaxed">
               {conversationMessages[0].content}
             </div>
@@ -2416,7 +2416,7 @@ const DiscoverExperienceView = ({
           <img
             src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
             alt="AI Assistant"
-            className="w-8 h-8 rounded-full border border-[#54FFD4] object-cover flex-shrink-0"
+            className="w-8 h-8 rounded-full border border-[#169F9F] object-cover flex-shrink-0"
           />
           <div className="max-w-[70%] px-4 py-3 rounded-2xl rounded-bl-sm bg-white border border-slate-200 shadow-sm">
             <div className="text-slate-900 text-sm leading-relaxed">
@@ -2548,7 +2548,7 @@ const DiscoverExperienceView = ({
 
         {/* User Response */}
         <div className="flex justify-end">
-          <div className="max-w-[70%] px-4 py-3 rounded-2xl rounded-br-sm bg-[#E6F7F3] border border-[#54FFD4]/60 shadow-sm">
+          <div className="max-w-[70%] px-4 py-3 rounded-2xl rounded-br-sm bg-[#E6F7F3] border border-[#169F9F]/60 shadow-sm">
             <div className="text-slate-900 text-sm leading-relaxed">
               {conversationMessages[2].content}
             </div>
@@ -2579,7 +2579,7 @@ const DiscoverExperienceView = ({
               {/* Send button */}
               <button
                 type="submit"
-                className="p-2 rounded-md bg-[#54FFD4] text-slate-900 transition-colors hover:bg-[#3dd9b5]"
+                className="p-2 rounded-md bg-[#169F9F] text-slate-900 transition-colors hover:bg-[#3dd9b5]"
               >
                 <svg
                   width="16"
@@ -3798,7 +3798,7 @@ export function BusinessChatUI({
                     {/* Back button */}
                     <button
                       onClick={onClose}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:border-[#54FFD4]/70 hover:text-[#1b5c4c] sm:h-10 sm:w-10 lg:h-11 lg:w-11"
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:border-[#169F9F]/70 hover:text-[#1b5c4c] sm:h-10 sm:w-10 lg:h-11 lg:w-11"
                       aria-label="Close chat"
                     >
                       <svg
@@ -3867,7 +3867,7 @@ export function BusinessChatUI({
                         </div>
                         <button
                           onClick={onClose}
-                          className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:border-[#54FFD4]/70 hover:text-[#1b5c4c] sm:h-10 sm:w-10"
+                          className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:border-[#169F9F]/70 hover:text-[#1b5c4c] sm:h-10 sm:w-10"
                           aria-label="Close chat"
                         >
                           <svg
@@ -3897,8 +3897,8 @@ export function BusinessChatUI({
                           className={cn(
                             "flex-shrink-0 whitespace-nowrap rounded-full border px-2 py-1.5 text-xs font-medium transition-all sm:px-4 sm:py-2 sm:text-sm",
                             activeThreadId === thread.id
-                              ? "border-[#54FFD4] bg-[#54FFD4]/90 text-slate-900 shadow-[0_12px_32px_-18px_rgba(84,255,212,0.6)]"
-                              : "border-slate-300 bg-white/70 text-slate-600 hover:border-[#54FFD4]/60 hover:text-slate-900",
+                              ? "border-[#169F9F] bg-[#169F9F]/90 text-slate-900 shadow-[0_12px_32px_-18px_rgba(84,255,212,0.6)]"
+                              : "border-slate-300 bg-white/70 text-slate-600 hover:border-[#169F9F]/60 hover:text-slate-900",
                           )}
                         >
                           {thread.title}
@@ -3906,7 +3906,7 @@ export function BusinessChatUI({
                       ))}
                       <button
                         onClick={handleNewTab}
-                        className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-600 transition hover:border-[#54FFD4]/60 hover:text-[#1b5c4c] sm:ml-4"
+                        className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-600 transition hover:border-[#169F9F]/60 hover:text-[#1b5c4c] sm:ml-4"
                         aria-label="New Chat"
                       >
                         <svg
@@ -3925,7 +3925,7 @@ export function BusinessChatUI({
                       <img
                         src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
                         alt="AI Assistant"
-                        className="h-12 w-12 rounded-full border border-[#54FFD4] object-cover sm:h-16 sm:w-16"
+                        className="h-12 w-12 rounded-full border border-[#169F9F] object-cover sm:h-16 sm:w-16"
                       />
                       <div className="min-w-0 flex-1 text-left">
                         <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
@@ -4035,7 +4035,7 @@ export function BusinessChatUI({
                                 }
                               }}
                               disabled={!currentInput.trim()}
-                              className="inline-flex h-10 min-w-[3rem] items-center justify-center rounded-[14px] bg-[#54FFD4] px-4 text-sm font-semibold text-slate-900 transition hover:bg-[#42f6c9] hover:shadow-[0_12px_24px_-12px_rgba(15,23,42,0.4)] disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 sm:h-11 sm:px-6"
+                              className="inline-flex h-10 min-w-[3rem] items-center justify-center rounded-[14px] bg-[#169F9F] px-4 text-sm font-semibold text-slate-900 transition hover:bg-[#42f6c9] hover:shadow-[0_12px_24px_-12px_rgba(15,23,42,0.4)] disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 sm:h-11 sm:px-6"
                             >
                               <svg
                                 width="20"
