@@ -140,8 +140,9 @@ const CuisinePopularityCard = ({ className = "" }: { className?: string }) => {
         </div>
 
         {/* Action Button */}
-        <button className="w-full mt-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 px-4 rounded-xl font-semibold hover:shadow-lg transition-all">
-          View Detailed Analysis
+        <button className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "mt-6 w-full justify-center")}
+        >
+          View detailed analysis
         </button>
       </div>
     </div>
