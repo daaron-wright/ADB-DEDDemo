@@ -3713,9 +3713,10 @@ export function BusinessChatUI({
     activeThread?.view === "discover-experience"
       ? DISCOVER_EXPERIENCE_BACKGROUND
       : getCategoryBackground(category);
+  const categoryName = getCategoryName(category);
   const headerTitle =
     activeThread?.view === "discover-experience"
-      ? `Your Investment Journey for ${getCategoryName(category)}`
+      ? `Your Investment Journey for ${categoryName}`
       : getCategoryTitle(category);
 
   return (
@@ -3728,58 +3729,21 @@ export function BusinessChatUI({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="w-full h-full relative"
+              className="relative flex h-full w-full items-stretch bg-gradient-to-br from-slate-100 via-white to-slate-50"
               style={{
                 backgroundImage: "none",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
             >
-              {/* Gradient Background */}
-              {/* Background gradients matching Figma design */}
-              <div className="absolute inset-0 bg-white" />
-
-              {/* First gradient blob */}
-              <div
-                className="absolute w-[1028px] h-[1580px] opacity-80"
-                style={{
-                  left: "-252px",
-                  top: "-1048px",
-                  background:
-                    "linear-gradient(159deg, #AEAAFE 39.9%, #F0EEFD 71.79%)",
-                  filter: "blur(140px)",
-                  borderRadius: "50%",
-                }}
-              />
-
-              {/* Second gradient blob */}
-              <div
-                className="absolute w-[936px] h-[834px] opacity-80"
-                style={{
-                  right: "-300px",
-                  top: "84px",
-                  background:
-                    "linear-gradient(159deg, #AEAAFE 39.9%, #F0EEFD 71.79%)",
-                  filter: "blur(140px)",
-                  borderRadius: "50%",
-                }}
-              />
-
-              {/* Box shadow overlay */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  boxShadow:
-                    "0 4px 4px 0 rgba(0, 0, 0, 0.25), 0 4px 4px 0 rgba(0, 0, 0, 0.25)",
-                }}
-              />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(84,255,212,0.18),transparent_55%)]" />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(79,70,229,0.08),transparent_60%)]" />
 
 
               {/* Header */}
-              <div className="relative z-10 w-full h-[70px] sm:h-[87px] border-b border-slate-200 bg-white/80 backdrop-blur-[40px]">
-                <div className="flex items-center justify-center px-4 sm:px-6 lg:px-10 py-3 sm:py-5 h-full relative">
-                  {/* Left side - Logo and back button */}
-                  <div className="absolute left-4 sm:left-6 lg:left-10 flex items-center gap-2 sm:gap-4">
+              <div className="relative z-10 w-full border-b border-white/50 bg-white/70 backdrop-blur-2xl">
+                <div className="mx-auto flex h-full w-full max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 sm:py-5 lg:px-10">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     {/* Tamm Logo */}
                     <svg
                       width="111"
@@ -3834,19 +3798,20 @@ export function BusinessChatUI({
                     {/* Back button */}
                     <button
                       onClick={onClose}
-                      className="w-8 h-8 sm:w-10 sm:h-10 lg:w-11 lg:h-11 rounded-full border border-black/18 bg-transparent flex items-center justify-center hover:bg-black/5 transition-colors"
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:border-[#54FFD4]/70 hover:text-[#1b5c4c] sm:h-10 sm:w-10 lg:h-11 lg:w-11"
+                      aria-label="Close chat"
                     >
                       <svg
                         width="18"
                         height="18"
-                        className="sm:w-5 sm:h-5 lg:w-6 lg:h-6"
+                        className="sm:h-5 sm:w-5 lg:h-6 lg:w-6"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          d="M19 12L5 12M5 12L11 18M5 12L11 6"
-                          stroke="black"
+                          d="M19 12H5M5 12L11 18M5 12L11 6"
+                          stroke="currentColor"
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -3855,11 +3820,24 @@ export function BusinessChatUI({
                     </button>
                   </div>
 
-                  {/* Center title */}
-                  <div className="text-black text-sm sm:text-base font-medium text-center leading-[130%] max-w-[250px] sm:max-w-[383px] mx-2">
-                    "Investor Journey for a Restaurant"
+                  <div className="mx-auto flex flex-1 flex-col items-center gap-1 text-center">
+                    <span className="inline-flex items-center rounded-full border border-slate-200/70 bg-white/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+                      Application Journey
+                    </span>
+                    <h2 className="max-w-[320px] text-sm font-semibold leading-tight text-slate-900 sm:text-base lg:text-lg">
+                      {headerTitle}
+                    </h2>
+                    <p className="hidden text-xs text-slate-500 sm:block">
+                      Guided insights tailored to {categoryName} licensing.
+                    </p>
                   </div>
 
+                  <div className="hidden sm:flex items-center gap-2 text-slate-500">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.22em]">Status</span>
+                    <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
+                      Live
+                    </span>
+                  </div>
                 </div>
               </div>
 
