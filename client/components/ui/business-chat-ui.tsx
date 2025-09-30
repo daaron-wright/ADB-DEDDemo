@@ -1716,19 +1716,16 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
   );
 };
 
+const CHAT_ACTION_BUTTON_CLASSES =
+  "inline-flex items-center gap-2 rounded-full bg-[#0E766E] px-4 py-2 text-sm font-semibold text-white shadow-[0_16px_30px_-18px_rgba(14,118,110,0.45)] transition hover:bg-[#0a5a55]";
+
 const MessageBubble = ({
   message,
   onActionClick,
 }: {
   message: BusinessMessage;
-  onActionClick?: (action: string) => void;
+  onActionClick?: (action: ConversationAction, label: string) => void;
 }) => {
-  const shouldShowBudgetButton =
-    message.isAI &&
-    (message.content.includes("AED 10,000 to AED 30,000") ||
-      message.content.includes("AED 6,500,000 to AED 14,000,000") ||
-      message.content.includes("set up costs"));
-
   const bubbleContainerClasses = message.isAI
     ? "bg-white/90 border border-slate-200 text-slate-900 shadow-[0_22px_48px_-28px_rgba(15,23,42,0.45)]"
     : "bg-[#0E766E]/15 border border-[#0E766E]/35 text-[#043A36] shadow-[0_20px_44px_-28px_rgba(14,118,110,0.55)]";
@@ -1768,38 +1765,20 @@ const MessageBubble = ({
               <StarRating rating={message.rating} />
             </div>
           )}
-          <div className="whitespace-pre-wrap">
-            {message.content}
-          </div>
+          <div className="whitespace-pre-wrap">{message.content}</div>
 
-          {message.isAI && message.type === "heat-map" && (
-            <div className="mt-3 w-full rounded-xl border border-white/40 bg-white/30 p-3">
-              <AccessibleHeatMap />
-            </div>
-          )}
-
-          {shouldShowBudgetButton && onActionClick && (
-            <button
-              onClick={() => onActionClick("budget-ranges")}
-              className="mt-3 inline-flex items-center gap-2 rounded-full border border-[#0E766E]/40 bg-white/70 px-3 py-2 text-sm font-semibold text-[#0A4A46] shadow-sm backdrop-blur-xl transition hover:bg-white hover:text-[#073F3B] sm:px-4"
-            >
-              <div className="flex h-6 w-6 items-center justify-center sm:h-8 sm:w-8">
-                <svg
-                  width="24"
-                  height="24"
-                  className="sm:h-8 sm:w-8"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+          {message.actions && message.actions.length > 0 && onActionClick && (
+            <div className="mt-3 flex flex-wrap gap-2">
+              {message.actions.map((action) => (
+                <button
+                  key={action.id}
+                  onClick={() => onActionClick(action.action, action.label)}
+                  className={CHAT_ACTION_BUTTON_CLASSES}
                 >
-                  <path
-                    d="M26.9998 3.00003H4.99976C4.46932 3.00003 3.96061 3.21074 3.58554 3.58582C3.21047 3.96089 2.99976 4.4696 2.99976 5.00003V27C2.99976 27.5305 3.21047 28.0392 3.58554 28.4142C3.96061 28.7893 4.46932 29 4.99976 29H26.9998C27.5302 29 28.0389 28.7893 28.414 28.4142C28.789 28.0392 28.9998 27.5305 28.9998 27V5.00003C28.9998 4.4696 28.789 3.96089 28.414 3.58582C28.0389 3.21074 27.5302 3.00003 26.9998 3.00003ZM26.9998 5.00003V9.00003H4.99976V5.00003H26.9998ZM16.9998 11H26.9998V18H16.9998V11ZM14.9998 18H4.99976V11H14.9998V18ZM4.99976 20H14.9998V27H4.99976V20ZM16.9998 27V20H26.9998V27H16.9998Z"
-                    fill="#0E766E"
-                  />
-                </svg>
-              </div>
-              <span>Budget ranges</span>
-            </button>
+                  {action.label}
+                </button>
+              ))}
+            </div>
           )}
         </div>
       </div>
