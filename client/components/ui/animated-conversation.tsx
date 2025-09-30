@@ -71,8 +71,8 @@ export function AnimatedConversation({ messages, className }: AnimatedConversati
             </div>
             {!message.isAI && (
               <img
-                src={KHALID_AVATAR}
-                alt="Khalid"
+                src={ENTREPRENEUR_PROFILE.avatar}
+                alt={ENTREPRENEUR_PROFILE.name}
                 className="w-6 h-6 rounded-full border-2 border-white/50"
               />
             )}
