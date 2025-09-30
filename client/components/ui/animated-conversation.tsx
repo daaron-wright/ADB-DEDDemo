@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { ENTREPRENEUR_PROFILE } from '@/lib/profile';
 
 interface Message {
   id: string;
