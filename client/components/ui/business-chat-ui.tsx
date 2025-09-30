@@ -20,14 +20,6 @@ interface BusinessMessage {
   type?: "text" | "heat-map" | "corniche-detail" | "compilation";
 }
 
-interface CompilationAreaInsight {
-  name: string;
-  priority: string;
-  audience: string;
-  opportunity: string;
-  nextStep: string;
-}
-
 interface BusinessChatUIProps {
   isOpen: boolean;
   onClose: () => void;
