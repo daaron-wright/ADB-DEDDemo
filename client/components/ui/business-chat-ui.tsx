@@ -1937,6 +1937,42 @@ const MessageBubble = ({
           )}
           <div className="whitespace-pre-wrap">{message.content}</div>
 
+          {message.type === "property-cards" && (
+            <>
+              <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                {PROPERTY_OPPORTUNITIES.map((opportunity) => (
+                  <PropertyOpportunityCard key={opportunity.id} opportunity={opportunity} />
+                ))}
+              </div>
+              <PropertyCollaborators />
+            </>
+          )}
+
+          {message.type === "cuisine-analysis" && (
+            <div className="mt-4">
+              <CuisinePopularityChart />
+            </div>
+          )}
+
+          {message.type === "competitor-analysis" && (
+            <div className="mt-4">
+              <CompetitorAnalysisChart />
+            </div>
+          )}
+
+          {message.type === "demographics" && (
+            <div className="mt-4 grid gap-4 lg:grid-cols-2">
+              <DemographicsCard />
+              <VisitorTasteTrendsChart />
+            </div>
+          )}
+
+          {message.type === "location-analysis" && (
+            <div className="mt-4">
+              <LocationHeatMap />
+            </div>
+          )}
+
           {message.actions && message.actions.length > 0 && onActionClick && (
             <div className="mt-3 flex flex-wrap gap-2">
               {message.actions.map((action) => (
