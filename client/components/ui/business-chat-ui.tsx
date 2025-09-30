@@ -3173,7 +3173,9 @@ const DiscoverExperienceView = ({
                               <li
                                 key={spot.id}
                                 className={cn(
-                                  "relative overflow-hidden rounded-[24px] border border-[#dbe9e3] bg-white px-4 py-3 transition hover:border-[#0E766E]/50 hover:shadow-[0_16px_30px_-24px_rgba(15,118,110,0.3)]",
+                                  chatCardClass(
+                                    "relative overflow-hidden border border-[#dbe9e3] bg-white px-4 py-3 transition hover:border-[#0E766E]/50 hover:shadow-[0_16px_30px_-24px_rgba(15,118,110,0.3)]"
+                                  ),
                                   isHighlighted &&
                                     "border-[#0E766E] shadow-[0_22px_48px_-26px_rgba(15,118,110,0.32)]",
                                 )}
