@@ -62,7 +62,7 @@ const config: Config = {
         },
         tamm: {
           teal: {
-            light: "#169F9F",
+            light: "#0E766E",
             dark: "#083939",
           },
           purple: {
@@ -104,7 +104,7 @@ const config: Config = {
       },
       backgroundImage: {
         "teal-gradient":
-          "linear-gradient(271deg, #169F9F 34.98%, #083939 277.12%)",
+          "linear-gradient(271deg, #0E766E 34.98%, #083939 277.12%)",
         "purple-gradient":
           "linear-gradient(159deg, #AEAAFE 39.9%, #F0EEFD 71.79%)",
         "blur-white":
