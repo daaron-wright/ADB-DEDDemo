@@ -3783,7 +3783,7 @@ export function BusinessChatUI({
                     {/* Back button */}
                     <button
                       onClick={onClose}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:border-[#169F9F]/70 hover:text-[#1b5c4c] sm:h-10 sm:w-10 lg:h-11 lg:w-11"
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:border-[#169F9F]/70 hover:text-[#0c5252] sm:h-10 sm:w-10 lg:h-11 lg:w-11"
                       aria-label="Close chat"
                     >
                       <svg
@@ -3852,7 +3852,7 @@ export function BusinessChatUI({
                         </div>
                         <button
                           onClick={onClose}
-                          className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:border-[#169F9F]/70 hover:text-[#1b5c4c] sm:h-10 sm:w-10"
+                          className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:border-[#169F9F]/70 hover:text-[#0c5252] sm:h-10 sm:w-10"
                           aria-label="Close chat"
                         >
                           <svg
@@ -3891,7 +3891,7 @@ export function BusinessChatUI({
                       ))}
                       <button
                         onClick={handleNewTab}
-                        className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-600 transition hover:border-[#169F9F]/60 hover:text-[#1b5c4c] sm:ml-4"
+                        className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-600 transition hover:border-[#169F9F]/60 hover:text-[#0c5252] sm:ml-4"
                         aria-label="New Chat"
                       >
                         <svg
