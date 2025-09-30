@@ -3917,6 +3917,48 @@ export function BusinessChatUI({
     [buildMessage],
   );
 
+  const handleDialogueDocNotesChange = useCallback((value: string) => {
+    setDialogueDocState((prev) => ({ ...prev, notes: value }));
+  }, []);
+
+  const handleDialogueDocToggleHighlight = useCallback((id: string) => {
+    setDialogueDocState((prev) => ({
+      ...prev,
+      highlights: prev.highlights.map((item) =>
+        item.id === id ? { ...item, completed: !item.completed } : item,
+      ),
+    }));
+  }, []);
+
+  const handleDialogueDocHighlightChange = useCallback((id: string, value: string) => {
+    setDialogueDocState((prev) => ({
+      ...prev,
+      highlights: prev.highlights.map((item) =>
+        item.id === id ? { ...item, text: value } : item,
+      ),
+    }));
+  }, []);
+
+  const handleDialogueDocHighlightRemove = useCallback((id: string) => {
+    setDialogueDocState((prev) => ({
+      ...prev,
+      highlights: prev.highlights.filter((item) => item.id !== id),
+    }));
+  }, []);
+
+  const handleDialogueDocHighlightAdd = useCallback((value: string) => {
+    setDialogueDocState((prev) => ({
+      ...prev,
+      highlights: [
+        ...prev.highlights,
+        {
+          id: `dialogue-highlight-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+          text: value,
+          completed: false,
+        },
+      ],
+    }));
+  }, []);
 
   const handleAction = useCallback(
     (action: ConversationAction, label: string) => {
