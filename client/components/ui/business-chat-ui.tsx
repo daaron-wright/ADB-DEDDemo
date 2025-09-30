@@ -3976,6 +3976,7 @@ export function BusinessChatUI({
   const [isCompetitorBreakoutOpen, setCompetitorBreakoutOpen] = useState(false);
   const [isGapBreakoutOpen, setGapBreakoutOpen] = useState(false);
   const [dialogueDocState, setDialogueDocState] = useState<DialogueDocState>(createInitialDialogueDocState);
+  const [inputValue, setInputValue] = useState("");
 
   const buildMessage = useCallback(
     (content: string, isAI: boolean, extra?: Partial<BusinessMessage>): BusinessMessage => ({
