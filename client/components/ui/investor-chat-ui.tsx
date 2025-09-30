@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
+import { chatCardClass } from '@/lib/chat-style';
 import { ENTREPRENEUR_PROFILE, AI_ASSISTANT_PROFILE } from '@/lib/profile';
 
 interface InvestorMessage {
@@ -291,8 +292,10 @@ export function InvestorChatUI({ isOpen, onClose, category, title = "AI Business
                 className="w-full max-w-4xl h-[85vh]"
               >
                 {/* Background Image */}
-                <div 
-                  className="w-full h-full rounded-3xl overflow-hidden relative"
+                <div
+                  className={chatCardClass(
+                    "w-full h-full overflow-hidden relative"
+                  )}
                   style={{
                     backgroundImage: `url(${backgroundImage})`,
                     backgroundSize: 'cover',
@@ -303,7 +306,11 @@ export function InvestorChatUI({ isOpen, onClose, category, title = "AI Business
                   <div className="absolute inset-0 bg-black/30" />
                   
                   {/* Chat Container */}
-                  <div className="relative z-10 flex flex-col h-full bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-xl">
+                  <div
+                    className={chatCardClass(
+                      "relative z-10 flex flex-col h-full bg-white/10 backdrop-blur-md border border-white/20 shadow-xl"
+                    )}
+                  >
                     {/* Header */}
                     <div className="drag-handle flex items-center justify-between p-6 border-b border-white/20 cursor-move">
                       <div className="flex items-center gap-4">
