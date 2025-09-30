@@ -2609,6 +2609,15 @@ export function BusinessChatUI({
       lowerMessage.includes("compiled research") ||
       lowerMessage.includes("compilation");
 
+    const isCompetitorRequest =
+      lowerMessage.includes("competitor") ||
+      lowerMessage.includes("competition") ||
+      (lowerMessage.includes("top") && lowerMessage.includes("area"));
+
+    const isGapAnalysisRequest =
+      lowerMessage.includes("gap analysis") ||
+      (lowerMessage.includes("gap") && lowerMessage.includes("analysis"));
+
     const activeThread = threads.find((t) => t.id === activeThreadId);
 
     if (isCompilationRequest) {
@@ -2625,6 +2634,40 @@ export function BusinessChatUI({
         updateThread(activeThreadId, {
           messages: [...activeThread.messages, userMessage, compilationResponse],
           view: "compilation",
+        });
+      }
+      return;
+    }
+
+    if (isCompetitorRequest && activeThread?.view === "dashboard") {
+      const competitorResponse: BusinessMessage = {
+        id: `ai-${Date.now()}-competitors`,
+        content: "Here are the top 4 restaurants in Abu Dhabi Corniche.",
+        isAI: true,
+        timestamp: new Date(),
+      };
+
+      if (activeThread) {
+        updateThread(activeThreadId, {
+          messages: [...activeThread.messages, userMessage, competitorResponse],
+          view: "competitors",
+        });
+      }
+      return;
+    }
+
+    if (isGapAnalysisRequest && activeThread?.view === "competitors") {
+      const gapAnalysisResponse: BusinessMessage = {
+        id: `ai-${Date.now()}-gap-analysis`,
+        content: "I'm analyzing the competitive gaps and opportunities. Here's the comprehensive final compilation.",
+        isAI: true,
+        timestamp: new Date(),
+      };
+
+      if (activeThread) {
+        updateThread(activeThreadId, {
+          messages: [...activeThread.messages, userMessage, gapAnalysisResponse],
+          view: "final-compilation",
         });
       }
       return;
