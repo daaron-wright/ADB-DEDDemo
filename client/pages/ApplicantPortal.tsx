@@ -94,26 +94,26 @@ const journeyStages: JourneyStage[] = [
     title: "Questionnaire intake",
     highlight: {
       label: "Questionnaire completed",
-      detail: "Finished 12 Mar 2024",
+      detail: `Finished ${formatDisplayDate(daysFromToday(-12))}`,
     },
     description:
       "Smart intake responses now prefill every downstream form automatically.",
     state: "done",
-    statusDetail: "Completed 12 Mar 2024",
+    statusDetail: `Completed ${formatDisplayDate(daysFromToday(-12))}`,
     tasks: [
       {
         id: "questionnaire-intake",
         label: "Complete smart intake questionnaire",
         status: "completed",
         owner: "Applicant",
-        completedOn: "2024-03-12",
+        completedOn: isoDate(daysFromToday(-12)),
       },
       {
         id: "questionnaire-profile",
         label: "Review generated business profile",
         status: "completed",
         owner: "Applicant",
-        completedOn: "2024-03-12",
+        completedOn: isoDate(daysFromToday(-11)),
       },
     ],
   },
