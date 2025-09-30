@@ -334,10 +334,6 @@ export default function Index() {
     <div
       ref={pageRef}
       className="relative min-h-screen overflow-hidden transition-colors duration-700 ease-out"
-      style={{
-        background:
-          "linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(222, 209, 255, 0.94) 50%, rgba(255, 255, 255, 0.98) 100%)",
-      }}
       onMouseMove={handlePointerMove}
       onMouseLeave={() => applyFocusPoint()}
     >
