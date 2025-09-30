@@ -3609,9 +3609,7 @@ export function BusinessChatUI({
 
                   {/* Center title */}
                   <div className="text-black text-sm sm:text-base font-medium text-center leading-[130%] max-w-[250px] sm:max-w-[383px] mx-2">
-                    {isLoggedIn
-                      ? "Investor Journey for a Restaurant"
-                      : headerTitle}
+                    "Investor Journey for a Restaurant"
                   </div>
 
                 </div>
@@ -3719,9 +3717,8 @@ export function BusinessChatUI({
                       </div>
                     )}
 
-                    {/* Show investor journey card when logged in on basic view */}
-                    {isLoggedIn &&
-                      activeThread?.view === "basic" &&
+                    {/* Show investor journey card on basic view */}
+                    {activeThread?.view === "basic" &&
                       activeThread?.messages.length >= 4 &&
                       activeThread?.messages.some(msg => msg.hasActions) && (
                         <InvestorJourneyCard
@@ -3730,8 +3727,8 @@ export function BusinessChatUI({
                         />
                       )}
 
-                    {/* Show investor journey content only after sign-in */}
-                    {isLoggedIn && activeThread?.view === "investor-journey" && (
+                    {/* Show investor journey content */}
+                    {activeThread?.view === "investor-journey" && (
                       <div className="p-6">
                         <DiscoverExperienceView
                           category={category}
