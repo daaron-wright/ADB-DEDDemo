@@ -244,26 +244,28 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
         className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
         onClick={onClose}
       />
-      <div className="relative z-10 w-full max-w-5xl max-h-[90vh] overflow-hidden">
-        <div className="rounded-[32px] border border-white/20 bg-gradient-to-br from-[#0B0F2C]/95 via-[#101a43]/90 to-[#152d63]/85 backdrop-blur-xl shadow-[0_24px_48px_rgba(7,12,32,0.5)]">
+      <div className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-hidden">
+        <div className="rounded-[24px] bg-[#1A2951] shadow-2xl">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-white/20">
+          <div className="flex items-center justify-between p-6 border-b border-white/10">
             <div className="flex items-center gap-4">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-                alt="AI Assistant"
-                className="w-12 h-12 rounded-full border border-[#54FFD4]"
-              />
+              <div className="w-12 h-12 rounded-full bg-white/10 border border-[#54FFD4] flex items-center justify-center">
+                <img
+                  src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+                  alt="AI Assistant"
+                  className="w-8 h-8 rounded-full"
+                />
+              </div>
               <div>
-                <h3 className="text-white text-xl font-semibold">Competitor Analysis</h3>
+                <h3 className="text-white text-lg font-semibold">Competitor Analysis</h3>
                 <p className="text-white/70 text-sm">Top competitors in Abu Dhabi's restaurant market</p>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="w-10 h-10 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+              className="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
@@ -271,110 +273,98 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
 
           {/* Content */}
           <div className="p-6 max-h-[70vh] overflow-y-auto">
-            <div className="space-y-6">
-              <h2 className="text-white text-2xl font-semibold mb-6">
-                Key Competitors in Abu Dhabi
-              </h2>
+            <h2 className="text-white text-xl font-semibold mb-6">
+              Key Competitors in Abu Dhabi
+            </h2>
 
-              <div className="grid gap-6">
-                {competitors.map((competitor, index) => (
-                  <div key={index} className="p-6 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-sm">
-                    <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                      {/* Image */}
-                      <div className="lg:col-span-1">
-                        <img
-                          src={competitor.image}
-                          alt={competitor.name}
-                          className="w-full h-48 lg:h-32 object-cover rounded-xl"
-                        />
+            <div className="space-y-4">
+              {competitors.map((competitor, index) => (
+                <div key={index} className="rounded-2xl bg-[#243B6B] p-6 border border-white/10">
+                  <div className="flex gap-6">
+                    {/* Restaurant Image */}
+                    <div className="flex-shrink-0">
+                      <img
+                        src={competitor.image}
+                        alt={competitor.name}
+                        className="w-24 h-24 rounded-xl object-cover"
+                      />
+                    </div>
+
+                    {/* Restaurant Details */}
+                    <div className="flex-1 space-y-4">
+                      <div>
+                        <h3 className="text-white text-xl font-semibold mb-1">{competitor.name}</h3>
+                        <p className="text-white/70 text-sm">{competitor.location}</p>
                       </div>
 
-                      {/* Details */}
-                      <div className="lg:col-span-3 space-y-4">
+                      <div className="grid grid-cols-3 gap-6">
                         <div>
-                          <h3 className="text-white text-xl font-semibold mb-1">{competitor.name}</h3>
-                          <p className="text-white/70 text-sm">{competitor.location}</p>
+                          <span className="text-white/60 text-xs uppercase tracking-wider block mb-1">Cuisine Type</span>
+                          <p className="text-white text-sm font-medium">{competitor.cuisine}</p>
                         </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          <div>
-                            <span className="text-white/60 text-xs uppercase tracking-wider">Cuisine Type</span>
-                            <p className="text-white text-sm font-medium">{competitor.cuisine}</p>
-                          </div>
-                          <div>
-                            <span className="text-white/60 text-xs uppercase tracking-wider">Price Range</span>
-                            <p className="text-white text-sm font-medium">{competitor.priceRange}</p>
-                          </div>
-                          <div>
-                            <span className="text-white/60 text-xs uppercase tracking-wider">Rating</span>
-                            <div className="flex items-center gap-2">
-                              <span className="text-white text-sm font-medium">{competitor.rating}</span>
-                              <div className="flex">
-                                {[1, 2, 3, 4, 5].map((star) => (
-                                  <svg
-                                    key={star}
-                                    width="14"
-                                    height="14"
-                                    viewBox="0 0 16 16"
-                                    fill={star <= competitor.rating ? "#FFD700" : "none"}
-                                    stroke={star <= competitor.rating ? "#FFD700" : "#666"}
-                                    strokeWidth="1"
-                                  >
-                                    <polygon points="8,1 10,6 15,6 11,9 13,14 8,11 3,14 5,9 1,6 6,6" />
-                                  </svg>
-                                ))}
-                              </div>
+                        <div>
+                          <span className="text-white/60 text-xs uppercase tracking-wider block mb-1">Price Range</span>
+                          <p className="text-white text-sm font-medium">{competitor.priceRange}</p>
+                        </div>
+                        <div>
+                          <span className="text-white/60 text-xs uppercase tracking-wider block mb-1">Rating</span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-white text-sm font-medium">{competitor.rating}</span>
+                            <div className="flex">
+                              {[1, 2, 3, 4, 5].map((star) => (
+                                <svg
+                                  key={star}
+                                  width="14"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  fill={star <= competitor.rating ? "#FFD700" : "none"}
+                                  stroke={star <= competitor.rating ? "#FFD700" : "#666"}
+                                  strokeWidth="1"
+                                >
+                                  <polygon points="8,1 10,6 15,6 11,9 13,14 8,11 3,14 5,9 1,6 6,6" />
+                                </svg>
+                              ))}
                             </div>
                           </div>
                         </div>
+                      </div>
 
-                        <div>
-                          <span className="text-white/60 text-xs uppercase tracking-wider block mb-2">Key Strengths</span>
-                          <div className="flex flex-wrap gap-2">
-                            {competitor.strengths.map((strength, i) => (
-                              <span key={i} className="px-3 py-1 bg-[#54FFD4]/20 text-[#54FFD4] text-xs rounded-full">
-                                {strength}
-                              </span>
-                            ))}
-                          </div>
+                      <div>
+                        <span className="text-white/60 text-xs uppercase tracking-wider block mb-2">Key Strengths</span>
+                        <div className="flex flex-wrap gap-2">
+                          {competitor.strengths.map((strength, i) => (
+                            <span key={i} className="px-3 py-1 bg-[#54FFD4]/20 text-[#54FFD4] text-xs rounded-full">
+                              {strength}
+                            </span>
+                          ))}
                         </div>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-
-              {/* Summary Insights */}
-              <div className="p-6 rounded-2xl bg-gradient-to-r from-[#54FFD4]/10 to-[#169F9F]/10 border border-[#54FFD4]/30">
-                <h3 className="text-white text-lg font-semibold mb-4">Market Analysis Summary</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <span className="text-[#54FFD4] font-medium">Market Gaps Identified:</span>
-                    <ul className="text-white/80 mt-1 space-y-1">
-                      <li>• Affordable luxury dining options</li>
-                      <li>• Family-friendly fine dining</li>
-                      <li>• Fusion cuisine concepts</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <span className="text-[#54FFD4] font-medium">Competitive Advantages:</span>
-                    <ul className="text-white/80 mt-1 space-y-1">
-                      <li>• Prime location selection critical</li>
-                      <li>• Differentiated cuisine positioning</li>
-                      <li>• Superior service experience</li>
-                    </ul>
-                  </div>
                 </div>
-              </div>
+              ))}
+            </div>
 
-              {/* Action Buttons */}
-              <div className="flex gap-4 pt-6 border-t border-white/20">
-                <button className="px-6 py-3 bg-[#54FFD4] text-[#042B28] rounded-full font-semibold hover:bg-[#42f6c9] transition-colors">
-                  Generate Gap Analysis
-                </button>
-                <button className="px-6 py-3 border border-white/40 text-white rounded-full font-semibold hover:bg-white/10 transition-colors">
-                  Export Competitor Data
-                </button>
+            {/* Summary Insights */}
+            <div className="mt-6 p-6 rounded-2xl bg-gradient-to-r from-[#54FFD4]/10 to-[#169F9F]/10 border border-[#54FFD4]/30">
+              <h3 className="text-white text-lg font-semibold mb-4">Market Analysis Summary</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span className="text-[#54FFD4] font-medium">Market Gaps Identified:</span>
+                  <ul className="text-white/80 mt-1 space-y-1">
+                    <li>• Affordable luxury dining options</li>
+                    <li>• Family-friendly fine dining</li>
+                    <li>• Fusion cuisine concepts</li>
+                  </ul>
+                </div>
+                <div>
+                  <span className="text-[#54FFD4] font-medium">Competitive Advantages:</span>
+                  <ul className="text-white/80 mt-1 space-y-1">
+                    <li>• Prime location selection critical</li>
+                    <li>• Differentiated cuisine positioning</li>
+                    <li>• Superior service experience</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
