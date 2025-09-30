@@ -4392,6 +4392,10 @@ export function BusinessChatUI({
     setModalView("budget-ranges");
   }, []);
 
+  const openGapAnalysis = useCallback(() => {
+    setModalView("gap-analysis");
+  }, []);
+
   const handleAction = useCallback(
     (action: ConversationAction, label: string) => {
       setMessages((prev) => {
