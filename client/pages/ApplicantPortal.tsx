@@ -354,18 +354,12 @@ export default function ApplicantPortal() {
       | undefined
   )?.user;
 
-  const firstName = portalUser?.name ? portalUser.name.split(" ")[0] : null;
-  const workspaceTitle = firstName
-    ? `${firstName}'s workspace`
-    : "Applicant workspace";
-  const workspaceDescription = firstName
-    ? `Track your business license progress, ${firstName}, and know exactly what comes next.`
-    : "Track your business license progress and know exactly what comes next.";
-  const profileName = portalUser?.name ?? "Ahmed Al Mansoori";
-  const profileEmail = portalUser?.email ?? "ahmed.almansoori@email.ae";
-  const profileAvatar =
-    portalUser?.avatarUrl ??
-    "https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80";
+  const profileName = portalUser?.name ?? ENTREPRENEUR_PROFILE.name;
+  const firstName = profileName.split(" ")[0];
+  const workspaceTitle = `${firstName}'s workspace`;
+  const workspaceDescription = `Track your business license progress, ${firstName}, and know exactly what comes next.`;
+  const profileEmail = portalUser?.email ?? "khalid.entrepreneur@email.ae";
+  const profileAvatar = portalUser?.avatarUrl ?? ENTREPRENEUR_PROFILE.avatar;
   const profileStatus: "online" | "offline" | "none" = "online";
 
   const primaryApplication = applications[0];
