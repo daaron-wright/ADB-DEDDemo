@@ -262,17 +262,11 @@ export default function Index() {
       applyFocusPoint();
     }
 
-    // Open Business Consultation Chat for restaurant-related categories
-    if (categoryId === "restaurants" || categoryId === "fast-food") {
-      setConsultationChatOpen(true);
-    } else {
-      // Open regular BusinessChatUI for other categories
-      setChatState({
-        isOpen: true,
-        category: categoryId,
-        initialMessage: null,
-      });
-    }
+    setChatState({
+      isOpen: true,
+      category: categoryId,
+      initialMessage: null,
+    });
   };
 
   const handleCloseChat = () => {
