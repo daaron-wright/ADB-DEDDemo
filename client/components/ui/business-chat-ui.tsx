@@ -4079,7 +4079,7 @@ export function BusinessChatUI({
   const [isGapBreakoutOpen, setGapBreakoutOpen] = useState(false);
   const [dialogueDocState, setDialogueDocState] = useState<DialogueDocState>(createInitialDialogueDocState);
   const [inputValue, setInputValue] = useState("");
-  const loginTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const loginTriggerRef = useRef<HTMLElement | null>(null);
   const [shouldPromptLogin, setShouldPromptLogin] = useState(false);
   const [isInvestorLoginPending, setIsInvestorLoginPending] = useState(false);
 
@@ -4418,15 +4418,14 @@ export function BusinessChatUI({
     <QueryClientProvider client={queryClient}>
       <UAEPassLogin
         trigger={
-          <button
-            type="button"
+          <span
             ref={loginTriggerRef}
             tabIndex={-1}
             aria-hidden="true"
             className="sr-only"
           >
             Launch UAE PASS
-          </button>
+          </span>
         }
         mode="quick"
         autoLogin
