@@ -1002,6 +1002,12 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
             <div className="text-white/80 text-sm">
               Analysis complete. This dashboard synthesizes all insights from our conversation about restaurant opportunities in Abu Dhabi.
             </div>
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('openCompetitorBreakout'))}
+              className="mt-4 px-4 py-2 bg-white/10 border border-white/20 rounded-full text-white text-sm hover:bg-white/20 transition-colors"
+            >
+              View competitor details
+            </button>
           </motion.div>
 
           {/* Visitor Taste Trends Chart */}
