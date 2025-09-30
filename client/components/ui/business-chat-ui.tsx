@@ -3658,7 +3658,7 @@ export function BusinessChatUI({
 
               {/* Chat Container */}
               <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-87px)] p-2 sm:p-4 lg:p-8">
-                <div className="w-full max-w-4xl mx-auto bg-white/14 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-white/20 shadow-xl">
+                <div className="w-full max-w-4xl mx-auto bg-slate-900/85 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-slate-700/50 shadow-xl">
                   {/* Chat Header with Tabs */}
                   <div className="p-3 sm:p-4 lg:p-6 border-b border-white/10">
                     <div className="flex items-center gap-1 sm:gap-2 mb-4 -mx-1 sm:-mx-2 overflow-x-auto">
