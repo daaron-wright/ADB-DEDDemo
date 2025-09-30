@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import { Modal, Close } from "@aegov/design-system-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { chatCardClass } from "@/lib/chat-style";
 import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
 
 interface UAEPassLoginProps {
@@ -89,38 +90,23 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: -12 }}
     transition={{ duration: 0.2, ease: "easeOut" }}
-    className="space-y-6"
+    className="space-y-8"
   >
-    <div className="space-y-3 text-center">
-      <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700">
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M9 12l2 2 4-4"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-        Ministry of Economy
-      </div>
-      <div className="space-y-1">
-        <h3 className="text-base font-semibold text-slate-900">
-          Who's signing in today?
+    <div className="space-y-4 text-center">
+      <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#0f766e]">
+        Abu Dhabi Government Services
+      </span>
+      <div className="space-y-2">
+        <h3 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+          Choose your workspace
         </h3>
-        <p className="text-sm text-slate-500">
-          Select your role to continue securely with UAE PASS.
+        <p className="text-sm text-slate-600">
+          Select the experience you need to demonstrate either the applicant journey or the reviewer console.
         </p>
       </div>
     </div>
 
-    <div className="space-y-3">
+    <div className="grid gap-4 sm:grid-cols-2">
       {(["applicant", "reviewer"] as const).map((type) => {
         const detail = USER_TYPE_DETAILS[type];
         return (
@@ -128,36 +114,59 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
             key={type}
             type="button"
             onClick={() => onSelect(type)}
-            className="group w-full overflow-hidden rounded-2xl border border-slate-200 bg-white text-left transition-all duration-200 hover:border-slate-900 hover:shadow-[0_16px_40px_-24px_rgba(15,23,42,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+            className={chatCardClass(
+              "group flex h-full flex-col justify-between border border-slate-200 bg-white p-6 text-left shadow-sm transition-all duration-200 hover:border-slate-400 hover:shadow-[0_18px_40px_-26px_rgba(15,23,42,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+            )}
+            aria-label={`Continue as ${detail.label}`}
+            style={{
+              boxShadow: "0 12px 30px -24px rgba(15, 23, 42, 0.3)",
+            }}
           >
-            <div
-              className={`flex items-center gap-4 px-5 py-4 bg-gradient-to-r ${detail.gradientFrom} ${detail.gradientTo}`}
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/50 bg-white/80 text-base font-semibold text-slate-900 shadow-sm">
+            <div className="space-y-4">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full text-base font-semibold text-white shadow-sm"
+                style={{ background: `linear-gradient(140deg, ${detail.accent} 0%, ${detail.accent}cc 100%)` }}
+              >
                 {detail.badge}
               </div>
-              <div className="flex-1">
-                <p className="text-sm font-semibold text-slate-900">{detail.label}</p>
-                <p className="mt-1 text-xs text-slate-600">{detail.secondary}</p>
+              <div className="space-y-2">
+                <h4 className="text-lg font-semibold text-slate-900">{detail.label}</h4>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  {detail.description}
+                </p>
+                <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                  {detail.secondary}
+                </p>
               </div>
+            </div>
+            <span
+              className="mt-6 inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white transition group-hover:translate-x-0.5"
+              style={{ backgroundColor: detail.accent }}
+            >
+              Continue
               <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="text-slate-400 transition group-hover:text-slate-700"
+                className="text-white/90"
               >
                 <path
-                  d="M9 6l6 6-6 6"
+                  d="M3.5 8h9"
                   stroke="currentColor"
-                  strokeWidth="2"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M9.5 4l3.5 4-3.5 4"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
               </svg>
-            </div>
-            <div className="px-5 pb-4 text-sm text-slate-500">{detail.description}</div>
+            </span>
           </button>
         );
       })}
