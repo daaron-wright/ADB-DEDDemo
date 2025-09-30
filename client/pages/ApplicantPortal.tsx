@@ -4,7 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { PortalPageLayout } from "@/components/portal/PortalPageLayout";
-import { PortalProfileMenu } from "@components/portal/PortalProfileMenu";
+import { PortalProfileMenu } from "@/components/portal/PortalProfileMenu";
+import { cn } from "@/lib/utils";
+import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
+
 type JourneyHighlightState = "done" | "current" | "upcoming";
 
 interface ApplicationRecord {
