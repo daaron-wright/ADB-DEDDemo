@@ -614,7 +614,7 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
 
   return (
     <div className="w-full max-w-[471px] mx-auto">
-      <div className="rounded-[24px] bg-gradient-to-br from-[#0B0F2C]/90 via-[#101a43]/85 to-[#152d63]/80 backdrop-blur-xl border border-white/15 shadow-[0_24px_60px_rgba(7,12,32,0.45)] overflow-hidden">
+      <div className="rounded-[20px] sm:rounded-[24px] bg-gradient-to-br from-[#0B0F2C]/95 via-[#101a43]/90 to-[#152d63]/85 backdrop-blur-xl border border-[#0B0C28]/20 shadow-[0_20px_50px_rgba(7,12,32,0.5)] overflow-hidden">
         {/* AI Business Header */}
         <div className="flex flex-col p-6 pb-8">
           <div className="flex items-center gap-2 mb-8">
@@ -2329,7 +2329,7 @@ export function BusinessChatUI({
           {
             id: "ai-demographic-response",
             content:
-              "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers:\nYas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10).\nAl Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10).\nSaadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10).\nAl Reem Island ��� 30k residents, 35k daytime; dense community market (7/10).\nAl Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10).\nCorniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10).\nAl Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).",
+              "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers:\nYas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10).\nAl Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10).\nSaadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10).\nAl Reem Island – 30k residents, 35k daytime; dense community market (7/10).\nAl Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10).\nCorniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10).\nAl Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).",
             isAI: true,
             timestamp: new Date(),
           },
