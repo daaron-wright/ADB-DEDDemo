@@ -660,24 +660,6 @@ export default function Index() {
         initialMessage={chatState.initialMessage || undefined}
       />
 
-      {/* Open Chat UI */}
-      <OpenChatUI
-        isOpen={openChatState.isOpen}
-        onClose={resetOpenChatState}
-        title={
-          openChatState.mode === "category" && openChatState.categoryTitle
-            ? `AI Guidance for ${openChatState.categoryTitle}`
-            : "AI Business"
-        }
-        businessCategories={businessCategories}
-        onCategoryClick={handleOpenChatCategoryClick}
-        mode={openChatState.mode}
-        initialCategoryId={openChatState.category ?? undefined}
-        initialCategoryTitle={openChatState.categoryTitle ?? undefined}
-        onPromptSubmit={
-          openChatState.mode === "category" ? handleChatPromptSubmit : undefined
-        }
-      />
     </div>
   );
 }
