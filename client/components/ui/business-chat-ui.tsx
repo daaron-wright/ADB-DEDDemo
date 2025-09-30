@@ -9,7 +9,6 @@ import { Badge } from "@/components/ui/badge";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
 import { conversationFlows } from "@/lib/conversations";
-import { Button } from "@/components/ui/button";
 import BusinessLicensePortalSimplified from "./business-license-portal-simplified";
 
 interface BusinessMessage {
