@@ -57,7 +57,7 @@ export function AnimatedConversation({ messages, className }: AnimatedConversati
             {message.isAI && (
               <img
                 src={AI_AVATAR}
-                alt="AI Assistant"
+                alt={AI_ASSISTANT_PROFILE.name}
                 className="w-6 h-6 rounded-full border border-[#54FFD4] object-cover"
               />
             )}
