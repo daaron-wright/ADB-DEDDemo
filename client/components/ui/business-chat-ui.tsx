@@ -4000,7 +4000,7 @@ export function BusinessChatUI({
                               value={currentInput}
                               onChange={(e) => setCurrentInput(e.target.value)}
                               placeholder="Ask about market opportunities, competitors, licensing requirements..."
-                              className="flex-1 rounded-xl border border-white/15 bg-white/10 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-white placeholder-white/60 outline-none transition focus:border-[#54FFD4] focus:bg-white/15"
+                              className="flex-1 rounded-xl border border-slate-300 bg-white px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder-slate-400 outline-none transition focus:border-[#54FFD4] focus:bg-white"
                               onKeyPress={(e) => {
                                 if (e.key === "Enter" && currentInput.trim()) {
                                   handleSendMessage(currentInput);
