@@ -4079,6 +4079,9 @@ export function BusinessChatUI({
   const [isGapBreakoutOpen, setGapBreakoutOpen] = useState(false);
   const [dialogueDocState, setDialogueDocState] = useState<DialogueDocState>(createInitialDialogueDocState);
   const [inputValue, setInputValue] = useState("");
+  const loginTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const [shouldPromptLogin, setShouldPromptLogin] = useState(false);
+  const [isInvestorLoginPending, setIsInvestorLoginPending] = useState(false);
 
   const buildMessage = useCallback(
     (content: string, isAI: boolean, extra?: Partial<BusinessMessage>): BusinessMessage => ({
