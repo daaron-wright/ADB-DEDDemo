@@ -732,7 +732,7 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
               onClick={handleOpenDashboard}
               className="inline-flex items-center gap-2 rounded-full bg-[#54FFD4] px-4 py-2 text-sm font-semibold text-[#042B28] shadow-md shadow-[#54FFD4]/40 transition hover:bg-[#42f6c9]"
             >
-              View full dashboard
+              View complete analysis
               <svg
                 width="16"
                 height="16"
@@ -2415,7 +2415,7 @@ export function BusinessChatUI({
         },
         {
           id: `ai-${Date.now()}-3`,
-          content: "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers:\nYas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10).\nAl Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10).\nSaadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10).\nAl Reem Island – 30k residents, 35k daytime; dense community market (7/10).\nAl Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10).\nCorniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10).\nAl Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).",
+          content: "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers:\nYas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10).\nAl Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10).\nSaadiyat Island �� 5k residents, 15k visitors; cultural/tourist draw (6/10).\nAl Reem Island – 30k residents, 35k daytime; dense community market (7/10).\nAl Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10).\nCorniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10).\nAl Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).",
           isAI: true,
           timestamp: new Date(),
           type: "corniche-detail",
