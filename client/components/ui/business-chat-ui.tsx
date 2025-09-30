@@ -3035,7 +3035,7 @@ const DiscoverExperienceView = ({
                       <div className="mt-5 flex flex-wrap items-center gap-3">
                         <button
                           type="button"
-                          className="rounded-full bg-[#0E766E] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-white shadow-[0_16px_30px_-22px_rgba(14,118,110,0.5)] transition hover:bg-[#0a5a55]"
+                          className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "justify-center uppercase tracking-[0.18em]")}
                         >
                           Export insights
                         </button>
