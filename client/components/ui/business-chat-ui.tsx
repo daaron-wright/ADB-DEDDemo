@@ -3688,7 +3688,6 @@ export function BusinessChatUI({
   const [showGapAnalysisCard, setShowGapAnalysisCard] = useState(false);
   const [showPreloadedPrompts, setShowPreloadedPrompts] = useState(true);
   const [currentInput, setCurrentInput] = useState("");
-  const [activeContextTab, setActiveContextTab] = useState<ContextTabId>("insights");
   const [isCuisineBreakoutOpen, setCuisineBreakoutOpen] = useState(false);
   const [isCompetitorBreakoutOpen, setCompetitorBreakoutOpen] = useState(false);
   const [isGapBreakoutOpen, setGapBreakoutOpen] = useState(false);
