@@ -4094,7 +4094,7 @@ export function BusinessChatUI({
                                   setShowBudgetModal(true);
                                 }
                               }}
-                              isOnLightBackground={activeThread?.view === "compilation" || activeThread?.view === "dashboard"}
+                              isOnLightBackground={activeThread?.view === "investor-journey"}
                             />
 
                             <UAEPassLogin
@@ -4149,7 +4149,7 @@ export function BusinessChatUI({
                               setShowBudgetModal(true);
                             }
                           }}
-                          isOnLightBackground={activeThread?.view === "compilation" || activeThread?.view === "dashboard"}
+                          isOnLightBackground={activeThread?.view === "investor-journey"}
                         />
                       );
                     })}
