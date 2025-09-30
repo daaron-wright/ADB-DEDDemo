@@ -2302,7 +2302,7 @@ export function BusinessChatUI({
                         <div className="px-4 py-3 rounded-full bg-white/20 border border-white/10">
                           <input
                             type="text"
-                            placeholder="Of these who are the target market for a high end restaurants?"
+                            placeholder="Can you go deeper and generate some reports on these areas"
                             className="w-full bg-transparent text-white placeholder-white/70 outline-none text-sm"
                             onKeyPress={(e) => {
                               if (e.key === 'Enter' && e.currentTarget.value.trim()) {
