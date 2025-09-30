@@ -17,6 +17,11 @@ interface PropertyMapModalProps {
   onReportRequest: () => void;
 }
 
+const MODAL_MIN_DIMENSIONS: React.CSSProperties = {
+  minWidth: "min(100%, 800px)",
+  minHeight: 556,
+};
+
 const properties: Property[] = [
   {
     id: 'property-1',
@@ -154,7 +159,8 @@ export const PropertyMapModal: React.FC<PropertyMapModalProps> = ({ isOpen, onCl
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.8, opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="relative w-full max-w-5xl h-[80vh] bg-black rounded-3xl overflow-hidden border border-white/20"
+          className="relative w-full max-w-5xl h-[80vh] min-h-[556px] bg-black rounded-3xl overflow-hidden border border-white/20"
+          style={MODAL_MIN_DIMENSIONS}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Modal Header - matching Figma design */}
