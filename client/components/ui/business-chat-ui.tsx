@@ -259,7 +259,10 @@ const MessageBubble = ({
   onActionClick?: (action: string) => void;
 }) => {
   const shouldShowBudgetButton =
-    message.isAI && message.content.includes("AED 10,000 to AED 30,000");
+    message.isAI &&
+    (message.content.includes("AED 10,000 to AED 30,000") ||
+     message.content.includes("AED 6,500,000 to AED 14,000,000") ||
+     message.content.includes("set up costs"));
 
   return (
     <div
