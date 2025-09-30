@@ -4738,12 +4738,6 @@ export function BusinessChatUI({
           isOpen={isGapBreakoutOpen}
           onClose={() => setGapBreakoutOpen(false)}
         />
-        <HeatMapBreakoutModal
-          key="heat-map-breakout-modal"
-          isOpen={isHeatMapBreakoutOpen}
-          onClose={() => setHeatMapBreakoutOpen(false)}
-          onOpenFullMap={openHeatMapFullView}
-        />
 
       </AnimatePresence>
     </QueryClientProvider>
