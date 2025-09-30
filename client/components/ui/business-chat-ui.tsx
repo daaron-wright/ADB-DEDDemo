@@ -120,7 +120,12 @@ interface BusinessChatUIProps {
 }
 
 type ChatView = "basic" | "investor-journey" | "discover-experience";
-type ModalView = "chat" | "heat-map" | "budget-ranges" | "gap-analysis" | "retail-locations";
+type ModalView =
+  | "chat"
+  | "heat-map"
+  | "budget-ranges"
+  | "gap-analysis"
+  | "retail-locations";
 
 interface ChatThread {
   id: string;
@@ -172,7 +177,10 @@ type ConversationStep = "intro" | "summary" | "handoff";
 
 const CONVERSATION_BLUEPRINT: Record<
   ConversationStep,
-  { message: string; actions?: ReadonlyArray<{ label: string; action: ConversationAction }> }
+  {
+    message: string;
+    actions?: ReadonlyArray<{ label: string; action: ConversationAction }>;
+  }
 > = {
   intro: {
     message:
@@ -182,7 +190,9 @@ const CONVERSATION_BLUEPRINT: Record<
   summary: {
     message:
       "Here is the market signal summary you need to decide fast:\n• Corniche waterfront is running at 96% footfall intensity with premium dining demand.\n• Emirati fusion and coastal casual concepts are the fastest growing cuisine segments.\n• Licensing turnaround averages 14 days once documents are pre-validated.\nWhen you're ready, I'll take you straight into the investor journey workspace.",
-    actions: [{ label: "Open my investor journey", action: "open-investor-journey" }],
+    actions: [
+      { label: "Open my investor journey", action: "open-investor-journey" },
+    ],
   },
   handoff: {
     message:
@@ -218,7 +228,8 @@ const PROPERTY_OPPORTUNITIES: PropertyOpportunity[] = [
     price: "640,000 / year",
     currency: "AED",
     rating: 4.9,
-    image: "https://api.builder.io/api/v1/image/assets/TEMP/321de87c306c0308a02c60a25803d7fd29f66f22?width=600",
+    image:
+      "https://api.builder.io/api/v1/image/assets/TEMP/321de87c306c0308a02c60a25803d7fd29f66f22?width=600",
   },
   {
     id: "canal-view",
@@ -226,7 +237,8 @@ const PROPERTY_OPPORTUNITIES: PropertyOpportunity[] = [
     price: "580,000 / year",
     currency: "AED",
     rating: 4.7,
-    image: "https://api.builder.io/api/v1/image/assets/TEMP/90b42e755964109a96d26e28153d3260c27dab3c?width=600",
+    image:
+      "https://api.builder.io/api/v1/image/assets/TEMP/90b42e755964109a96d26e28153d3260c27dab3c?width=600",
   },
   {
     id: "corniche-beach",
@@ -234,7 +246,8 @@ const PROPERTY_OPPORTUNITIES: PropertyOpportunity[] = [
     price: "495,000 / year",
     currency: "AED",
     rating: 4.3,
-    image: "https://api.builder.io/api/v1/image/assets/TEMP/a9f0bf6d758ce0797379785bd5ae18dfc4113f43?width=600",
+    image:
+      "https://api.builder.io/api/v1/image/assets/TEMP/a9f0bf6d758ce0797379785bd5ae18dfc4113f43?width=600",
   },
 ];
 
@@ -251,13 +264,17 @@ const COLLABORATOR_LOGOS = [
   },
 ];
 
-const PropertyOpportunityCard = ({ opportunity }: { opportunity: PropertyOpportunity }) => (
+const PropertyOpportunityCard = ({
+  opportunity,
+}: {
+  opportunity: PropertyOpportunity;
+}) => (
   <motion.div
     initial={{ opacity: 0, scale: 0.9 }}
     animate={{ opacity: 1, scale: 1 }}
     className={chatCardClass(
       "overflow-hidden border border-white/35 bg-white/20 backdrop-blur-xl shadow-[0_30px_80px_-60px_rgba(15,23,42,0.45)]",
-      "rounded-3xl"
+      "rounded-3xl",
     )}
   >
     <div className="relative">
@@ -273,7 +290,9 @@ const PropertyOpportunityCard = ({ opportunity }: { opportunity: PropertyOpportu
             fill="#FFE100"
           />
         </svg>
-        <span className="text-sm font-medium opacity-90">{opportunity.rating.toFixed(1)}</span>
+        <span className="text-sm font-medium opacity-90">
+          {opportunity.rating.toFixed(1)}
+        </span>
       </div>
     </div>
     <div className="space-y-4 p-5">
@@ -294,7 +313,11 @@ const PropertyOpportunityCard = ({ opportunity }: { opportunity: PropertyOpportu
 );
 
 const PropertyCollaborators = () => (
-  <div className={chatCardClass("mt-5 flex flex-col gap-3 border border-white/25 bg-white/20 px-4 py-3 text-white backdrop-blur-xl", "rounded-3xl")}
+  <div
+    className={chatCardClass(
+      "mt-5 flex flex-col gap-3 border border-white/25 bg-white/20 px-4 py-3 text-white backdrop-blur-xl",
+      "rounded-3xl",
+    )}
   >
     <span className="text-sm font-medium uppercase tracking-[0.14em] text-white/80">
       In collaboration with
@@ -318,20 +341,29 @@ const CuisinePopularityCard = ({ className = "" }: { className?: string }) => {
     <div
       className={chatCardClass(
         "w-full max-w-lg bg-white border border-slate-200/50 shadow-lg overflow-hidden",
-        className
+        className,
       )}
     >
       {/* Header */}
       <div className="bg-gradient-to-r from-purple-50 to-indigo-50 px-6 py-4 border-b border-slate-200/50">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-              <polyline points="9,22 9,12 15,12 15,22"/>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="white"
+              strokeWidth="2"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9,22 9,12 15,12 15,22" />
             </svg>
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-slate-900">Cuisine Popularity Analysis</h3>
+            <h3 className="text-lg font-semibold text-slate-900">
+              Cuisine Popularity Analysis
+            </h3>
             <p className="text-sm text-slate-600">Market share breakdown</p>
           </div>
         </div>
@@ -343,11 +375,19 @@ const CuisinePopularityCard = ({ className = "" }: { className?: string }) => {
         <div className="text-center mb-6">
           <div className="flex items-center justify-center gap-2 mb-2">
             <span className="text-4xl font-bold text-slate-900">35%</span>
-            <svg width="16" height="16" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#10b981"/>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 17 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#10b981" />
             </svg>
           </div>
-          <p className="text-sm text-slate-600">Middle Eastern cuisine market share</p>
+          <p className="text-sm text-slate-600">
+            Middle Eastern cuisine market share
+          </p>
         </div>
 
         {/* Cuisine Breakdown */}
@@ -355,7 +395,9 @@ const CuisinePopularityCard = ({ className = "" }: { className?: string }) => {
           <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
             <div>
               <div className="font-semibold text-slate-900">Middle Eastern</div>
-              <div className="text-sm text-slate-600">Cultural resonance, traditional appeal</div>
+              <div className="text-sm text-slate-600">
+                Cultural resonance, traditional appeal
+              </div>
             </div>
             <div className="text-xl font-bold text-emerald-600">35%</div>
           </div>
@@ -363,7 +405,9 @@ const CuisinePopularityCard = ({ className = "" }: { className?: string }) => {
           <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
             <div>
               <div className="font-semibold text-slate-900">American</div>
-              <div className="text-sm text-slate-600">Fast-food dominance, brand recognition</div>
+              <div className="text-sm text-slate-600">
+                Fast-food dominance, brand recognition
+              </div>
             </div>
             <div className="text-xl font-bold text-blue-600">25%</div>
           </div>
@@ -371,14 +415,20 @@ const CuisinePopularityCard = ({ className = "" }: { className?: string }) => {
           <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
             <div>
               <div className="font-semibold text-slate-900">Indian</div>
-              <div className="text-sm text-slate-600">Expat community support, spice alignment</div>
+              <div className="text-sm text-slate-600">
+                Expat community support, spice alignment
+              </div>
             </div>
             <div className="text-xl font-bold text-orange-600">20%</div>
           </div>
         </div>
 
         {/* Action Button */}
-        <button className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "mt-6 w-full justify-center")}
+        <button
+          className={cn(
+            ARTIFACT_ACTION_BUTTON_CLASSES,
+            "mt-6 w-full justify-center",
+          )}
         >
           View detailed analysis
         </button>
@@ -393,21 +443,30 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
     <div
       className={chatCardClass(
         "w-full max-w-lg bg-white border border-slate-200/50 shadow-lg overflow-hidden",
-        className
+        className,
       )}
     >
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-50 to-cyan-50 px-6 py-4 border-b border-slate-200/50">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-              <path d="M18 20V10"/>
-              <path d="M12 20V4"/>
-              <path d="M6 20v-6"/>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="white"
+              strokeWidth="2"
+            >
+              <path d="M18 20V10" />
+              <path d="M12 20V4" />
+              <path d="M6 20v-6" />
             </svg>
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-slate-900">Competitor Analysis</h3>
+            <h3 className="text-lg font-semibold text-slate-900">
+              Competitor Analysis
+            </h3>
             <p className="text-sm text-slate-600">Market leaders overview</p>
           </div>
         </div>
@@ -421,8 +480,14 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
             <span className="text-4xl font-bold text-slate-900">4.6</span>
             <div className="flex text-yellow-400">
               {Array.from({ length: 5 }, (_, i) => (
-                <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                <svg
+                  key={i}
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                 </svg>
               ))}
             </div>
@@ -435,7 +500,9 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
           <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
             <div>
               <div className="font-semibold text-slate-900">Shurfa Bay</div>
-              <div className="text-sm text-slate-600">Waterfront premium seafood experience</div>
+              <div className="text-sm text-slate-600">
+                Waterfront premium seafood experience
+              </div>
             </div>
             <div className="text-right">
               <div className="text-sm font-semibold text-blue-600">4.8★</div>
@@ -446,7 +513,9 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
           <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
             <div>
               <div className="font-semibold text-slate-900">Villa Toscana</div>
-              <div className="text-sm text-slate-600">Luxury hotel-based Italian dining</div>
+              <div className="text-sm text-slate-600">
+                Luxury hotel-based Italian dining
+              </div>
             </div>
             <div className="text-right">
               <div className="text-sm font-semibold text-blue-600">4.7★</div>
@@ -457,7 +526,9 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
           <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
             <div>
               <div className="font-semibold text-slate-900">Palms & Pearls</div>
-              <div className="text-sm text-slate-600">Modern Middle Eastern on Corniche</div>
+              <div className="text-sm text-slate-600">
+                Modern Middle Eastern on Corniche
+              </div>
             </div>
             <div className="text-right">
               <div className="text-sm font-semibold text-blue-600">4.3★</div>
@@ -486,7 +557,11 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
         </div>
 
         {/* Action Button */}
-        <button className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "mt-6 w-full justify-center")}
+        <button
+          className={cn(
+            ARTIFACT_ACTION_BUTTON_CLASSES,
+            "mt-6 w-full justify-center",
+          )}
         >
           View detailed analysis
         </button>
@@ -501,21 +576,32 @@ const GapAnalysisCard = ({ className = "" }: { className?: string }) => {
     <div
       className={chatCardClass(
         "w-full max-w-lg bg-white border border-slate-200/50 shadow-lg overflow-hidden",
-        className
+        className,
       )}
     >
       {/* Header */}
       <div className="bg-gradient-to-r from-emerald-50 to-teal-50 px-6 py-4 border-b border-slate-200/50">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-              <circle cx="12" cy="12" r="3"/>
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="white"
+              strokeWidth="2"
+            >
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
             </svg>
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-slate-900">Gap Analysis</h3>
-            <p className="text-sm text-slate-600">Market opportunities identified</p>
+            <h3 className="text-lg font-semibold text-slate-900">
+              Gap Analysis
+            </h3>
+            <p className="text-sm text-slate-600">
+              Market opportunities identified
+            </p>
           </div>
         </div>
       </div>
@@ -526,37 +612,65 @@ const GapAnalysisCard = ({ className = "" }: { className?: string }) => {
         <div className="text-center mb-6">
           <div className="flex items-center justify-center gap-2 mb-2">
             <span className="text-4xl font-bold text-slate-900">6.3%</span>
-            <svg width="16" height="16" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#10b981"/>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 17 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#10b981" />
             </svg>
           </div>
-          <p className="text-sm text-slate-600">Footfall growth potential in Corniche area</p>
+          <p className="text-sm text-slate-600">
+            Footfall growth potential in Corniche area
+          </p>
         </div>
 
         {/* Gap Opportunities */}
         <div className="space-y-4">
           <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-200">
-            <div className="font-semibold text-slate-900 mb-2">Emirati Fusion Cuisine</div>
-            <div className="text-sm text-slate-600 mb-2">Japanese influences creating new trend</div>
-            <div className="text-xs font-semibold text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full inline-block">High Opportunity</div>
+            <div className="font-semibold text-slate-900 mb-2">
+              Emirati Fusion Cuisine
+            </div>
+            <div className="text-sm text-slate-600 mb-2">
+              Japanese influences creating new trend
+            </div>
+            <div className="text-xs font-semibold text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full inline-block">
+              High Opportunity
+            </div>
           </div>
 
           <div className="p-4 bg-blue-50 rounded-xl border border-blue-200">
-            <div className="font-semibold text-slate-900 mb-2">Formal Evening Dining</div>
-            <div className="text-sm text-slate-600 mb-2">Waterfront locations with luxury experience</div>
-            <div className="text-xs font-semibold text-blue-600 bg-blue-100 px-2 py-1 rounded-full inline-block">Medium Opportunity</div>
+            <div className="font-semibold text-slate-900 mb-2">
+              Formal Evening Dining
+            </div>
+            <div className="text-sm text-slate-600 mb-2">
+              Waterfront locations with luxury experience
+            </div>
+            <div className="text-xs font-semibold text-blue-600 bg-blue-100 px-2 py-1 rounded-full inline-block">
+              Medium Opportunity
+            </div>
           </div>
 
           <div className="p-4 bg-yellow-50 rounded-xl border border-yellow-200">
-            <div className="font-semibold text-slate-900 mb-2">Family-Friendly Dining</div>
-            <div className="text-sm text-slate-600 mb-2">Gap in affordable luxury segment</div>
-            <div className="text-xs font-semibold text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full inline-block">Emerging</div>
+            <div className="font-semibold text-slate-900 mb-2">
+              Family-Friendly Dining
+            </div>
+            <div className="text-sm text-slate-600 mb-2">
+              Gap in affordable luxury segment
+            </div>
+            <div className="text-xs font-semibold text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full inline-block">
+              Emerging
+            </div>
           </div>
         </div>
 
         {/* Area Demographics */}
         <div className="mt-6 p-4 bg-slate-50 rounded-xl">
-          <h4 className="font-semibold text-slate-900 mb-3">Abu Dhabi Corniche Demographics</h4>
+          <h4 className="font-semibold text-slate-900 mb-3">
+            Abu Dhabi Corniche Demographics
+          </h4>
           <div className="grid grid-cols-3 gap-3 text-center">
             <div>
               <div className="text-lg font-bold text-emerald-600">85-90%</div>
@@ -574,7 +688,11 @@ const GapAnalysisCard = ({ className = "" }: { className?: string }) => {
         </div>
 
         {/* Action Button */}
-        <button className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "mt-6 w-full justify-center")}
+        <button
+          className={cn(
+            ARTIFACT_ACTION_BUTTON_CLASSES,
+            "mt-6 w-full justify-center",
+          )}
         >
           View detailed opportunities
         </button>
@@ -586,16 +704,20 @@ const GapAnalysisCard = ({ className = "" }: { className?: string }) => {
 // Preloaded Prompt Selector Component
 const PreloadedPrompts = ({
   category,
-  onPromptSelect
+  onPromptSelect,
 }: {
   category: string;
   onPromptSelect: (prompt: string) => void;
 }) => {
-  const prompts = PRELOADED_PROMPTS[category as keyof typeof PRELOADED_PROMPTS] || PRELOADED_PROMPTS.general;
+  const prompts =
+    PRELOADED_PROMPTS[category as keyof typeof PRELOADED_PROMPTS] ||
+    PRELOADED_PROMPTS.general;
 
   return (
     <div className="space-y-3">
-      <h4 className="mb-3 text-sm font-medium text-slate-600">Suggested questions to get you started:</h4>
+      <h4 className="mb-3 text-sm font-medium text-slate-600">
+        Suggested questions to get you started:
+      </h4>
       <div className="grid gap-2">
         {prompts.map((prompt, index) => (
           <button
@@ -612,7 +734,13 @@ const PreloadedPrompts = ({
 };
 
 // Cuisine Popularity Breakout Modal
-const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+const CuisinePopularityBreakout = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -640,17 +768,53 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
           <div className="relative z-10 flex items-center justify-between px-10 py-5 h-[87px] border-b border-white/30 bg-white/30 backdrop-blur-[40px]">
             <div className="flex items-center gap-4">
               {/* Tamm Logo */}
-              <svg width="111" height="50" viewBox="0 0 111 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M65.7294 29.4802V38.9245H63.8521V29.4802H60.2383V27.6821H69.3588V29.4802H65.7294Z" fill="white"/>
-                <path d="M71.2519 34.5151L73.223 34.2493C73.6611 34.1867 73.7862 33.9678 73.7862 33.6864C73.7862 33.0296 73.3482 32.5136 72.3313 32.5136C71.5178 32.4667 70.8138 33.0765 70.7669 33.9053C70.7669 33.9053 70.7669 33.9053 70.7669 33.9209L69.0773 33.5456C69.2181 32.2166 70.4071 31.0282 72.3 31.0282C74.6623 31.0282 75.554 32.3729 75.554 33.9053V37.7518C75.554 38.1583 75.5853 38.5805 75.6479 38.987H73.9583C73.8957 38.6587 73.8644 38.3303 73.8801 38.0019C73.3638 38.7838 72.4721 39.2528 71.5178 39.2059C70.1881 39.3154 69.0304 38.3147 68.9365 37.0012C68.9365 36.9543 68.9365 36.923 68.9365 36.8761C68.9522 35.4532 69.9534 34.7027 71.2519 34.5151ZM73.7862 35.7347V35.3594L71.7838 35.6565C71.2206 35.7503 70.7669 36.0631 70.7669 36.7041C70.7669 37.267 71.2206 37.7205 71.7838 37.7205C71.8151 37.7205 71.8463 37.7205 71.8776 37.7205C72.9101 37.7361 73.7862 37.2358 73.7862 35.7347Z" fill="white"/>
-                <path d="M77.7754 38.9245V31.2002H79.5275V32.1852C80.0125 31.4191 80.8573 30.9656 81.7647 30.9813C82.7346 30.9344 83.642 31.466 84.0643 32.3416C84.565 31.4503 85.5349 30.9187 86.5518 30.9813C87.9441 30.9813 89.2582 31.8725 89.2582 33.9209V38.9245H87.4904V34.2336C87.4904 33.3267 87.0367 32.6543 86.0199 32.6543C85.1438 32.6543 84.4242 33.3736 84.4242 34.2649C84.4242 34.2961 84.4242 34.3118 84.4242 34.343V38.9245H82.6251V34.2492C82.6251 33.358 82.187 32.67 81.1545 32.67C80.2941 32.6543 79.5745 33.358 79.5588 34.218C79.5588 34.2649 79.5588 34.3118 79.5588 34.3587V38.9401L77.7754 38.9245Z" fill="white"/>
-                <path d="M91.5107 38.9245V31.2002H93.2629V32.1852C93.7479 31.4191 94.5926 30.9656 95.5 30.9813C96.4699 30.9344 97.3773 31.466 97.7997 32.3416C98.3003 31.4503 99.2546 30.9187 100.271 30.9813C101.664 30.9813 102.978 31.8725 102.978 33.9209V38.9245H101.257V34.2336C101.351 33.4674 100.819 32.7638 100.052 32.6543C99.9586 32.6387 99.8647 32.6387 99.7865 32.6387C98.9104 32.6387 98.1908 33.358 98.1908 34.2492C98.1908 34.2805 98.1908 34.2961 98.1908 34.3274V38.9088H96.4074V34.2336C96.5012 33.4674 95.9693 32.7638 95.2028 32.6543C95.1089 32.6387 95.015 32.6387 94.9368 32.6387C94.0764 32.6231 93.3568 33.3267 93.3411 34.1867C93.3411 34.2336 93.3411 34.2805 93.3411 34.3274V38.9088L91.5107 38.9245Z" fill="white"/>
-                <path d="M101.07 12.5305C101.586 12.5775 102.04 12.2178 102.086 11.7018C102.086 11.6706 102.086 11.6393 102.086 11.608C102.024 11.0451 101.523 10.6229 100.96 10.6855C100.475 10.7324 100.1 11.1233 100.037 11.608C100.037 12.124 100.444 12.5305 100.96 12.5462C100.991 12.5462 101.038 12.5462 101.07 12.5305Z" fill="white"/>
-                <path d="M103.51 10.7011C102.994 10.6542 102.54 11.0295 102.493 11.5611C102.493 11.5924 102.493 11.608 102.493 11.6393C102.556 12.2022 103.056 12.6244 103.62 12.5618C104.105 12.5149 104.48 12.124 104.543 11.6393C104.543 11.1233 104.12 10.7011 103.588 10.7011C103.557 10.6855 103.541 10.6855 103.51 10.7011Z" fill="white"/>
-                <path d="M69.6404 18.3629C69.6404 18.2378 69.6404 18.1127 69.6404 17.972C69.6404 15.8142 68.3263 14.3756 66.3552 14.3756C64.7125 14.3131 63.2889 15.5327 63.1012 17.1745C61.2864 17.2683 60.2383 18.4723 60.2383 20.505V22.741H62.0061V20.8021C62.0061 19.8014 62.3346 19.1134 63.1325 19.0039C63.4453 20.5207 64.8064 21.5839 66.3395 21.5057C67.3877 21.5526 68.3733 21.0679 68.999 20.2236H102.963V13.5782H101.179V18.3629H69.6404ZM67.857 17.9251C67.857 18.957 67.2938 19.645 66.3552 19.645C65.5104 19.645 64.8064 18.9727 64.8064 18.1127C64.8064 18.0501 64.8064 17.9876 64.822 17.9251C64.822 16.8774 65.4321 16.1738 66.3552 16.1738C67.2625 16.1738 67.857 16.8774 67.857 17.9251Z" fill="white"/>
-                <path d="M27.4986 23.1028L26.8103 20.3821C26.3253 20.5072 25.8247 20.5854 25.3241 20.601C24.8078 20.5541 24.2759 20.4916 23.7753 20.3821L23.0557 23.0716C23.8222 23.2905 24.6044 23.3999 25.4023 23.3999C26.1063 23.3999 26.8103 23.3061 27.4986 23.1028Z" fill="white"/>
-                <path d="M29.3921 31.1085C27.593 32.4376 26.4041 33.1099 25.262 33.1099C22.8216 33.1099 20.8973 31.0616 20.8973 31.0616L20.209 33.7197C21.6639 34.8455 23.416 35.4866 25.262 35.5804C26.7482 35.5804 28.2032 34.9237 30.1587 33.5946L29.5016 30.999L29.3921 31.1085Z" fill="white"/>
-                <path d="M45.6929 19.8349L43.1117 17.2549L43.0647 17.208C42.173 16.4575 41.0466 16.0353 39.8733 15.9727C39.7169 15.9727 37.0417 15.6444 35.0705 16.7545L31.5193 18.6934L32.1764 21.2421L36.2595 19.0062C37.3546 18.4902 38.5748 18.3182 39.7794 18.5058C40.3426 18.5527 40.8902 18.7403 41.3439 19.0687L43.2055 20.9294C40.9997 21.6643 39.3727 23.0872 36.2595 25.9017L33.9285 27.9344L34.6482 30.6708L37.9804 27.8406C40.7807 25.2919 43.1586 23.2905 44.457 23.2905C44.6135 23.2748 44.7699 23.2905 44.9264 23.3374C44.9577 23.7439 44.9107 24.1661 44.8012 24.5726C44.6135 25.0886 44.4101 25.589 44.1598 26.0737L42.9083 28.9195L42.6893 29.373C40.8902 33.0006 40.4521 34.4235 38.5592 35.8933C38.2307 36.1434 37.8709 36.3311 37.4798 36.4562L37.3233 36.5031C36.8227 36.6438 36.3064 36.6438 35.8215 36.5031C35.5868 36.4249 35.3834 36.3154 35.2113 36.1591C34.8828 35.8776 34.6482 35.4711 34.5699 35.0333L29.5169 15.2378C29.1571 13.7837 28.4374 11.1568 24.3699 11.0004H20.2399C19.6297 10.9848 19.0822 11.407 18.9258 12.0011C18.7693 12.5953 19.0353 13.2051 19.5672 13.5022C19.8801 13.7055 20.1304 13.9713 20.3181 14.284C20.7874 15.0502 20.9439 15.9571 20.7718 16.8327L20.6466 17.3018L15.9847 35.0176C15.8908 35.4398 15.6718 35.8307 15.3432 36.1434C14.9991 36.4249 14.561 36.5969 14.123 36.5969C13.3252 36.6282 12.5429 36.3623 11.9328 35.862C10.0555 34.3922 9.60184 32.9693 7.80276 29.3573L6.31656 26.0424C6.06625 25.5577 5.84724 25.0574 5.67515 24.5414C5.58129 24.1348 5.53435 23.7283 5.55 23.3061C5.70644 23.2436 5.86288 23.2279 6.01932 23.2592C7.63067 23.4781 9.68006 25.2606 12.496 27.8093L15.8282 30.6395L16.5322 27.9188L14.1856 25.9174C11.1037 23.1185 9.42975 21.6799 7.23957 20.9294L9.10123 19.0687C9.57055 18.7403 10.1025 18.5527 10.6813 18.5058C11.8702 18.3025 13.1061 18.4745 14.1856 19.0062L18.2687 21.2421L18.9258 18.6934L15.3745 16.7545C13.419 15.6287 10.7439 15.9415 10.5718 15.9884C9.39846 16.0353 8.28773 16.4731 7.38037 17.2236L7.33343 17.2705L4.75214 19.8505C3.70398 20.7574 3.06258 22.0709 3 23.4625C3.06258 24.8072 3.45368 26.105 4.12638 27.2621L5.59693 30.5457C7.45859 34.3453 8.08435 36.0965 10.4153 37.9416C11.1037 38.4889 11.9172 38.8641 12.7776 39.0674C13.7163 39.2707 14.7018 39.2238 15.6092 38.9423C16.6574 38.5827 17.5334 37.8321 18.0653 36.8627C18.2687 36.5031 18.4095 36.1278 18.519 35.7369L23.2905 17.5051C23.2905 17.4582 23.2905 17.4269 23.2905 17.38C23.5408 16.0822 23.3844 14.7531 22.8212 13.5648H24.2135C24.9957 13.5022 25.7466 13.7837 26.3098 14.3153C26.654 14.7844 26.873 15.3316 26.9669 15.9102L32.0199 35.6431C32.1138 36.0496 32.2702 36.4562 32.4736 36.8314C32.9899 37.8165 33.8659 38.5827 34.9298 38.9267C35.4617 39.0987 36.0092 39.1925 36.5567 39.1925C36.9478 39.1925 37.3546 39.1456 37.7457 39.0674C38.6061 38.8641 39.4196 38.4889 40.1236 37.9416C42.4546 36.0965 43.0804 34.3453 44.942 30.5457L46.4126 27.2621C47.0853 26.105 47.4607 24.8072 47.539 23.4625C47.4294 22.0709 46.7724 20.7574 45.6929 19.8349Z" fill="white"/>
+              <svg
+                width="111"
+                height="50"
+                viewBox="0 0 111 50"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M65.7294 29.4802V38.9245H63.8521V29.4802H60.2383V27.6821H69.3588V29.4802H65.7294Z"
+                  fill="white"
+                />
+                <path
+                  d="M71.2519 34.5151L73.223 34.2493C73.6611 34.1867 73.7862 33.9678 73.7862 33.6864C73.7862 33.0296 73.3482 32.5136 72.3313 32.5136C71.5178 32.4667 70.8138 33.0765 70.7669 33.9053C70.7669 33.9053 70.7669 33.9053 70.7669 33.9209L69.0773 33.5456C69.2181 32.2166 70.4071 31.0282 72.3 31.0282C74.6623 31.0282 75.554 32.3729 75.554 33.9053V37.7518C75.554 38.1583 75.5853 38.5805 75.6479 38.987H73.9583C73.8957 38.6587 73.8644 38.3303 73.8801 38.0019C73.3638 38.7838 72.4721 39.2528 71.5178 39.2059C70.1881 39.3154 69.0304 38.3147 68.9365 37.0012C68.9365 36.9543 68.9365 36.923 68.9365 36.8761C68.9522 35.4532 69.9534 34.7027 71.2519 34.5151ZM73.7862 35.7347V35.3594L71.7838 35.6565C71.2206 35.7503 70.7669 36.0631 70.7669 36.7041C70.7669 37.267 71.2206 37.7205 71.7838 37.7205C71.8151 37.7205 71.8463 37.7205 71.8776 37.7205C72.9101 37.7361 73.7862 37.2358 73.7862 35.7347Z"
+                  fill="white"
+                />
+                <path
+                  d="M77.7754 38.9245V31.2002H79.5275V32.1852C80.0125 31.4191 80.8573 30.9656 81.7647 30.9813C82.7346 30.9344 83.642 31.466 84.0643 32.3416C84.565 31.4503 85.5349 30.9187 86.5518 30.9813C87.9441 30.9813 89.2582 31.8725 89.2582 33.9209V38.9245H87.4904V34.2336C87.4904 33.3267 87.0367 32.6543 86.0199 32.6543C85.1438 32.6543 84.4242 33.3736 84.4242 34.2649C84.4242 34.2961 84.4242 34.3118 84.4242 34.343V38.9245H82.6251V34.2492C82.6251 33.358 82.187 32.67 81.1545 32.67C80.2941 32.6543 79.5745 33.358 79.5588 34.218C79.5588 34.2649 79.5588 34.3118 79.5588 34.3587V38.9401L77.7754 38.9245Z"
+                  fill="white"
+                />
+                <path
+                  d="M91.5107 38.9245V31.2002H93.2629V32.1852C93.7479 31.4191 94.5926 30.9656 95.5 30.9813C96.4699 30.9344 97.3773 31.466 97.7997 32.3416C98.3003 31.4503 99.2546 30.9187 100.271 30.9813C101.664 30.9813 102.978 31.8725 102.978 33.9209V38.9245H101.257V34.2336C101.351 33.4674 100.819 32.7638 100.052 32.6543C99.9586 32.6387 99.8647 32.6387 99.7865 32.6387C98.9104 32.6387 98.1908 33.358 98.1908 34.2492C98.1908 34.2805 98.1908 34.2961 98.1908 34.3274V38.9088H96.4074V34.2336C96.5012 33.4674 95.9693 32.7638 95.2028 32.6543C95.1089 32.6387 95.015 32.6387 94.9368 32.6387C94.0764 32.6231 93.3568 33.3267 93.3411 34.1867C93.3411 34.2336 93.3411 34.2805 93.3411 34.3274V38.9088L91.5107 38.9245Z"
+                  fill="white"
+                />
+                <path
+                  d="M101.07 12.5305C101.586 12.5775 102.04 12.2178 102.086 11.7018C102.086 11.6706 102.086 11.6393 102.086 11.608C102.024 11.0451 101.523 10.6229 100.96 10.6855C100.475 10.7324 100.1 11.1233 100.037 11.608C100.037 12.124 100.444 12.5305 100.96 12.5462C100.991 12.5462 101.038 12.5462 101.07 12.5305Z"
+                  fill="white"
+                />
+                <path
+                  d="M103.51 10.7011C102.994 10.6542 102.54 11.0295 102.493 11.5611C102.493 11.5924 102.493 11.608 102.493 11.6393C102.556 12.2022 103.056 12.6244 103.62 12.5618C104.105 12.5149 104.48 12.124 104.543 11.6393C104.543 11.1233 104.12 10.7011 103.588 10.7011C103.557 10.6855 103.541 10.6855 103.51 10.7011Z"
+                  fill="white"
+                />
+                <path
+                  d="M69.6404 18.3629C69.6404 18.2378 69.6404 18.1127 69.6404 17.972C69.6404 15.8142 68.3263 14.3756 66.3552 14.3756C64.7125 14.3131 63.2889 15.5327 63.1012 17.1745C61.2864 17.2683 60.2383 18.4723 60.2383 20.505V22.741H62.0061V20.8021C62.0061 19.8014 62.3346 19.1134 63.1325 19.0039C63.4453 20.5207 64.8064 21.5839 66.3395 21.5057C67.3877 21.5526 68.3733 21.0679 68.999 20.2236H102.963V13.5782H101.179V18.3629H69.6404ZM67.857 17.9251C67.857 18.957 67.2938 19.645 66.3552 19.645C65.5104 19.645 64.8064 18.9727 64.8064 18.1127C64.8064 18.0501 64.8064 17.9876 64.822 17.9251C64.822 16.8774 65.4321 16.1738 66.3552 16.1738C67.2625 16.1738 67.857 16.8774 67.857 17.9251Z"
+                  fill="white"
+                />
+                <path
+                  d="M27.4986 23.1028L26.8103 20.3821C26.3253 20.5072 25.8247 20.5854 25.3241 20.601C24.8078 20.5541 24.2759 20.4916 23.7753 20.3821L23.0557 23.0716C23.8222 23.2905 24.6044 23.3999 25.4023 23.3999C26.1063 23.3999 26.8103 23.3061 27.4986 23.1028Z"
+                  fill="white"
+                />
+                <path
+                  d="M29.3921 31.1085C27.593 32.4376 26.4041 33.1099 25.262 33.1099C22.8216 33.1099 20.8973 31.0616 20.8973 31.0616L20.209 33.7197C21.6639 34.8455 23.416 35.4866 25.262 35.5804C26.7482 35.5804 28.2032 34.9237 30.1587 33.5946L29.5016 30.999L29.3921 31.1085Z"
+                  fill="white"
+                />
+                <path
+                  d="M45.6929 19.8349L43.1117 17.2549L43.0647 17.208C42.173 16.4575 41.0466 16.0353 39.8733 15.9727C39.7169 15.9727 37.0417 15.6444 35.0705 16.7545L31.5193 18.6934L32.1764 21.2421L36.2595 19.0062C37.3546 18.4902 38.5748 18.3182 39.7794 18.5058C40.3426 18.5527 40.8902 18.7403 41.3439 19.0687L43.2055 20.9294C40.9997 21.6643 39.3727 23.0872 36.2595 25.9017L33.9285 27.9344L34.6482 30.6708L37.9804 27.8406C40.7807 25.2919 43.1586 23.2905 44.457 23.2905C44.6135 23.2748 44.7699 23.2905 44.9264 23.3374C44.9577 23.7439 44.9107 24.1661 44.8012 24.5726C44.6135 25.0886 44.4101 25.589 44.1598 26.0737L42.9083 28.9195L42.6893 29.373C40.8902 33.0006 40.4521 34.4235 38.5592 35.8933C38.2307 36.1434 37.8709 36.3311 37.4798 36.4562L37.3233 36.5031C36.8227 36.6438 36.3064 36.6438 35.8215 36.5031C35.5868 36.4249 35.3834 36.3154 35.2113 36.1591C34.8828 35.8776 34.6482 35.4711 34.5699 35.0333L29.5169 15.2378C29.1571 13.7837 28.4374 11.1568 24.3699 11.0004H20.2399C19.6297 10.9848 19.0822 11.407 18.9258 12.0011C18.7693 12.5953 19.0353 13.2051 19.5672 13.5022C19.8801 13.7055 20.1304 13.9713 20.3181 14.284C20.7874 15.0502 20.9439 15.9571 20.7718 16.8327L20.6466 17.3018L15.9847 35.0176C15.8908 35.4398 15.6718 35.8307 15.3432 36.1434C14.9991 36.4249 14.561 36.5969 14.123 36.5969C13.3252 36.6282 12.5429 36.3623 11.9328 35.862C10.0555 34.3922 9.60184 32.9693 7.80276 29.3573L6.31656 26.0424C6.06625 25.5577 5.84724 25.0574 5.67515 24.5414C5.58129 24.1348 5.53435 23.7283 5.55 23.3061C5.70644 23.2436 5.86288 23.2279 6.01932 23.2592C7.63067 23.4781 9.68006 25.2606 12.496 27.8093L15.8282 30.6395L16.5322 27.9188L14.1856 25.9174C11.1037 23.1185 9.42975 21.6799 7.23957 20.9294L9.10123 19.0687C9.57055 18.7403 10.1025 18.5527 10.6813 18.5058C11.8702 18.3025 13.1061 18.4745 14.1856 19.0062L18.2687 21.2421L18.9258 18.6934L15.3745 16.7545C13.419 15.6287 10.7439 15.9415 10.5718 15.9884C9.39846 16.0353 8.28773 16.4731 7.38037 17.2236L7.33343 17.2705L4.75214 19.8505C3.70398 20.7574 3.06258 22.0709 3 23.4625C3.06258 24.8072 3.45368 26.105 4.12638 27.2621L5.59693 30.5457C7.45859 34.3453 8.08435 36.0965 10.4153 37.9416C11.1037 38.4889 11.9172 38.8641 12.7776 39.0674C13.7163 39.2707 14.7018 39.2238 15.6092 38.9423C16.6574 38.5827 17.5334 37.8321 18.0653 36.8627C18.2687 36.5031 18.4095 36.1278 18.519 35.7369L23.2905 17.5051C23.2905 17.4582 23.2905 17.4269 23.2905 17.38C23.5408 16.0822 23.3844 14.7531 22.8212 13.5648H24.2135C24.9957 13.5022 25.7466 13.7837 26.3098 14.3153C26.654 14.7844 26.873 15.3316 26.9669 15.9102L32.0199 35.6431C32.1138 36.0496 32.2702 36.4562 32.4736 36.8314C32.9899 37.8165 33.8659 38.5827 34.9298 38.9267C35.4617 39.0987 36.0092 39.1925 36.5567 39.1925C36.9478 39.1925 37.3546 39.1456 37.7457 39.0674C38.6061 38.8641 39.4196 38.4889 40.1236 37.9416C42.4546 36.0965 43.0804 34.3453 44.942 30.5457L46.4126 27.2621C47.0853 26.105 47.4607 24.8072 47.539 23.4625C47.4294 22.0709 46.7724 20.7574 45.6929 19.8349Z"
+                  fill="white"
+                />
               </svg>
             </div>
 
@@ -662,7 +826,14 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
               onClick={onClose}
               className="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
@@ -672,21 +843,41 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
           <div className="relative z-10 h-full">
             {/* Left Side Content */}
             <div className="absolute left-20 top-40">
-              <div className="text-white text-lg font-medium mb-2">Market Share Analysis</div>
+              <div className="text-white text-lg font-medium mb-2">
+                Market Share Analysis
+              </div>
               <div className="flex items-center gap-2 mb-6">
-                <span className="text-white text-[52px] font-semibold leading-none">35%</span>
-                <svg width="19" height="19" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#0E766E"/>
+                <span className="text-white text-[52px] font-semibold leading-none">
+                  35%
+                </span>
+                <svg
+                  width="19"
+                  height="19"
+                  viewBox="0 0 17 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z"
+                    fill="#0E766E"
+                  />
                 </svg>
               </div>
               <div className="text-white text-lg font-semibold leading-[140%] max-w-[346px]">
-                Middle Eastern cuisine dominates Abu Dhabi's culinary landscape, followed by American fast-food chains and authentic Indian restaurants. Local preferences drive strong cultural and traditional dining experiences.
+                Middle Eastern cuisine dominates Abu Dhabi's culinary landscape,
+                followed by American fast-food chains and authentic Indian
+                restaurants. Local preferences drive strong cultural and
+                traditional dining experiences.
               </div>
             </div>
 
             {/* Right Sidebar */}
             <div className="absolute right-[81px] top-[146px] w-[381px] h-[501px]">
-              <div className={chatCardClass("w-full h-full bg-white/14 backdrop-blur-md")}>
+              <div
+                className={chatCardClass(
+                  "w-full h-full bg-white/14 backdrop-blur-md",
+                )}
+              >
                 {/* AI Business Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
@@ -696,14 +887,19 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
                       className="w-16 h-16 rounded-full border border-[#0E766E]"
                     />
                     <div>
-                      <div className="text-white text-lg font-semibold">AI Business</div>
+                      <div className="text-white text-lg font-semibold">
+                        AI Business
+                      </div>
                       <div className="flex items-center gap-1">
-                        {[5.77, 11.952, 19.783, 13.189, 8.655, 23.081, 30.499, 16.898, 4.534].map((width, index) => (
+                        {[
+                          5.77, 11.952, 19.783, 13.189, 8.655, 23.081, 30.499,
+                          16.898, 4.534,
+                        ].map((width, index) => (
                           <div
                             key={index}
                             className="bg-[#0E766E] rounded-full transform rotate-90"
                             style={{
-                              width: '3.297px',
+                              width: "3.297px",
                               height: `${width}px`,
                             }}
                           />
@@ -715,11 +911,17 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
 
                 {/* Cuisine Analysis Content */}
                 <div className="px-9 pb-8">
-                  <div className="text-white text-base font-normal uppercase tracking-wide mb-2">CUISINE ANALYSIS</div>
-                  <div className="text-white text-2xl font-semibold mb-6">Popular Cuisines</div>
+                  <div className="text-white text-base font-normal uppercase tracking-wide mb-2">
+                    CUISINE ANALYSIS
+                  </div>
+                  <div className="text-white text-2xl font-semibold mb-6">
+                    Popular Cuisines
+                  </div>
                   <div className="text-white text-lg leading-[140%] space-y-4">
                     <div>
-                      <span className="font-semibold">Middle Eastern (35%):</span>
+                      <span className="font-semibold">
+                        Middle Eastern (35%):
+                      </span>
                       <br />
                       Cultural resonance, traditional appeal
                     </div>
@@ -740,22 +942,40 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
 
             {/* Bottom Insights Bar */}
             <div className="absolute bottom-[81px] left-[81px] w-[1033px] h-[124px]">
-              <div className={chatCardClass("w-full h-full bg-white/14 backdrop-blur-md")}>
+              <div
+                className={chatCardClass(
+                  "w-full h-full bg-white/14 backdrop-blur-md",
+                )}
+              >
                 <div className="p-6">
                   <div className="text-white text-lg mb-2">INSIGHTS</div>
-                  <div className="text-white text-2xl font-semibold mb-4">Abu Dhabi Cuisine Trends</div>
+                  <div className="text-white text-2xl font-semibold mb-4">
+                    Abu Dhabi Cuisine Trends
+                  </div>
                   <div className="grid grid-cols-3 gap-8">
                     <div>
-                      <div className="text-white text-lg mb-1">Fusion cuisine growth</div>
-                      <div className="text-white text-[52px] font-semibold leading-none">15%</div>
+                      <div className="text-white text-lg mb-1">
+                        Fusion cuisine growth
+                      </div>
+                      <div className="text-white text-[52px] font-semibold leading-none">
+                        15%
+                      </div>
                     </div>
                     <div>
-                      <div className="text-white text-lg mb-1">Health-conscious demand</div>
-                      <div className="text-white text-[52px] font-semibold leading-none">+8%</div>
+                      <div className="text-white text-lg mb-1">
+                        Health-conscious demand
+                      </div>
+                      <div className="text-white text-[52px] font-semibold leading-none">
+                        +8%
+                      </div>
                     </div>
                     <div>
-                      <div className="text-white text-lg mb-1">Premium casual dining</div>
-                      <div className="text-white text-[52px] font-semibold leading-none">Gap</div>
+                      <div className="text-white text-lg mb-1">
+                        Premium casual dining
+                      </div>
+                      <div className="text-white text-[52px] font-semibold leading-none">
+                        Gap
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -769,7 +989,13 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
 };
 
 // Competitor Analysis Breakout Modal
-const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+const CompetitorAnalysisBreakout = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -797,17 +1023,53 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
           <div className="relative z-10 flex items-center justify-between px-10 py-5 h-[87px] border-b border-white/30 bg-white/30 backdrop-blur-[40px]">
             <div className="flex items-center gap-4">
               {/* Tamm Logo */}
-              <svg width="111" height="50" viewBox="0 0 111 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M65.7294 29.4802V38.9245H63.8521V29.4802H60.2383V27.6821H69.3588V29.4802H65.7294Z" fill="white"/>
-                <path d="M71.2519 34.5151L73.223 34.2493C73.6611 34.1867 73.7862 33.9678 73.7862 33.6864C73.7862 33.0296 73.3482 32.5136 72.3313 32.5136C71.5178 32.4667 70.8138 33.0765 70.7669 33.9053C70.7669 33.9053 70.7669 33.9053 70.7669 33.9209L69.0773 33.5456C69.2181 32.2166 70.4071 31.0282 72.3 31.0282C74.6623 31.0282 75.554 32.3729 75.554 33.9053V37.7518C75.554 38.1583 75.5853 38.5805 75.6479 38.987H73.9583C73.8957 38.6587 73.8644 38.3303 73.8801 38.0019C73.3638 38.7838 72.4721 39.2528 71.5178 39.2059C70.1881 39.3154 69.0304 38.3147 68.9365 37.0012C68.9365 36.9543 68.9365 36.923 68.9365 36.8761C68.9522 35.4532 69.9534 34.7027 71.2519 34.5151ZM73.7862 35.7347V35.3594L71.7838 35.6565C71.2206 35.7503 70.7669 36.0631 70.7669 36.7041C70.7669 37.267 71.2206 37.7205 71.7838 37.7205C71.8151 37.7205 71.8463 37.7205 71.8776 37.7205C72.9101 37.7361 73.7862 37.2358 73.7862 35.7347Z" fill="white"/>
-                <path d="M77.7754 38.9245V31.2002H79.5275V32.1852C80.0125 31.4191 80.8573 30.9656 81.7647 30.9813C82.7346 30.9344 83.642 31.466 84.0643 32.3416C84.565 31.4503 85.5349 30.9187 86.5518 30.9813C87.9441 30.9813 89.2582 31.8725 89.2582 33.9209V38.9245H87.4904V34.2336C87.4904 33.3267 87.0367 32.6543 86.0199 32.6543C85.1438 32.6543 84.4242 33.3736 84.4242 34.2649C84.4242 34.2961 84.4242 34.3118 84.4242 34.343V38.9245H82.6251V34.2492C82.6251 33.358 82.187 32.67 81.1545 32.67C80.2941 32.6543 79.5745 33.358 79.5588 34.218C79.5588 34.2649 79.5588 34.3118 79.5588 34.3587V38.9401L77.7754 38.9245Z" fill="white"/>
-                <path d="M91.5107 38.9245V31.2002H93.2629V32.1852C93.7479 31.4191 94.5926 30.9656 95.5 30.9813C96.4699 30.9344 97.3773 31.466 97.7997 32.3416C98.3003 31.4503 99.2546 30.9187 100.271 30.9813C101.664 30.9813 102.978 31.8725 102.978 33.9209V38.9245H101.257V34.2336C101.351 33.4674 100.819 32.7638 100.052 32.6543C99.9586 32.6387 99.8647 32.6387 99.7865 32.6387C98.9104 32.6387 98.1908 33.358 98.1908 34.2492C98.1908 34.2805 98.1908 34.2961 98.1908 34.3274V38.9088H96.4074V34.2336C96.5012 33.4674 95.9693 32.7638 95.2028 32.6543C95.1089 32.6387 95.015 32.6387 94.9368 32.6387C94.0764 32.6231 93.3568 33.3267 93.3411 34.1867C93.3411 34.2336 93.3411 34.2805 93.3411 34.3274V38.9088L91.5107 38.9245Z" fill="white"/>
-                <path d="M101.07 12.5305C101.586 12.5775 102.04 12.2178 102.086 11.7018C102.086 11.6706 102.086 11.6393 102.086 11.608C102.024 11.0451 101.523 10.6229 100.96 10.6855C100.475 10.7324 100.1 11.1233 100.037 11.608C100.037 12.124 100.444 12.5305 100.96 12.5462C100.991 12.5462 101.038 12.5462 101.07 12.5305Z" fill="white"/>
-                <path d="M103.51 10.7011C102.994 10.6542 102.54 11.0295 102.493 11.5611C102.493 11.5924 102.493 11.608 102.493 11.6393C102.556 12.2022 103.056 12.6244 103.62 12.5618C104.105 12.5149 104.48 12.124 104.543 11.6393C104.543 11.1233 104.12 10.7011 103.588 10.7011C103.557 10.6855 103.541 10.6855 103.51 10.7011Z" fill="white"/>
-                <path d="M69.6404 18.3629C69.6404 18.2378 69.6404 18.1127 69.6404 17.972C69.6404 15.8142 68.3263 14.3756 66.3552 14.3756C64.7125 14.3131 63.2889 15.5327 63.1012 17.1745C61.2864 17.2683 60.2383 18.4723 60.2383 20.505V22.741H62.0061V20.8021C62.0061 19.8014 62.3346 19.1134 63.1325 19.0039C63.4453 20.5207 64.8064 21.5839 66.3395 21.5057C67.3877 21.5526 68.3733 21.0679 68.999 20.2236H102.963V13.5782H101.179V18.3629H69.6404ZM67.857 17.9251C67.857 18.957 67.2938 19.645 66.3552 19.645C65.5104 19.645 64.8064 18.9727 64.8064 18.1127C64.8064 18.0501 64.8064 17.9876 64.822 17.9251C64.822 16.8774 65.4321 16.1738 66.3552 16.1738C67.2625 16.1738 67.857 16.8774 67.857 17.9251Z" fill="white"/>
-                <path d="M27.4986 23.1028L26.8103 20.3821C26.3253 20.5072 25.8247 20.5854 25.3241 20.601C24.8078 20.5541 24.2759 20.4916 23.7753 20.3821L23.0557 23.0716C23.8222 23.2905 24.6044 23.3999 25.4023 23.3999C26.1063 23.3999 26.8103 23.3061 27.4986 23.1028Z" fill="white"/>
-                <path d="M29.3921 31.1085C27.593 32.4376 26.4041 33.1099 25.262 33.1099C22.8216 33.1099 20.8973 31.0616 20.8973 31.0616L20.209 33.7197C21.6639 34.8455 23.416 35.4866 25.262 35.5804C26.7482 35.5804 28.2032 34.9237 30.1587 33.5946L29.5016 30.999L29.3921 31.1085Z" fill="white"/>
-                <path d="M45.6929 19.8349L43.1117 17.2549L43.0647 17.208C42.173 16.4575 41.0466 16.0353 39.8733 15.9727C39.7169 15.9727 37.0417 15.6444 35.0705 16.7545L31.5193 18.6934L32.1764 21.2421L36.2595 19.0062C37.3546 18.4902 38.5748 18.3182 39.7794 18.5058C40.3426 18.5527 40.8902 18.7403 41.3439 19.0687L43.2055 20.9294C40.9997 21.6643 39.3727 23.0872 36.2595 25.9017L33.9285 27.9344L34.6482 30.6708L37.9804 27.8406C40.7807 25.2919 43.1586 23.2905 44.457 23.2905C44.6135 23.2748 44.7699 23.2905 44.9264 23.3374C44.9577 23.7439 44.9107 24.1661 44.8012 24.5726C44.6135 25.0886 44.4101 25.589 44.1598 26.0737L42.9083 28.9195L42.6893 29.373C40.8902 33.0006 40.4521 34.4235 38.5592 35.8933C38.2307 36.1434 37.8709 36.3311 37.4798 36.4562L37.3233 36.5031C36.8227 36.6438 36.3064 36.6438 35.8215 36.5031C35.5868 36.4249 35.3834 36.3154 35.2113 36.1591C34.8828 35.8776 34.6482 35.4711 34.5699 35.0333L29.5169 15.2378C29.1571 13.7837 28.4374 11.1568 24.3699 11.0004H20.2399C19.6297 10.9848 19.0822 11.407 18.9258 12.0011C18.7693 12.5953 19.0353 13.2051 19.5672 13.5022C19.8801 13.7055 20.1304 13.9713 20.3181 14.284C20.7874 15.0502 20.9439 15.9571 20.7718 16.8327L20.6466 17.3018L15.9847 35.0176C15.8908 35.4398 15.6718 35.8307 15.3432 36.1434C14.9991 36.4249 14.561 36.5969 14.123 36.5969C13.3252 36.6282 12.5429 36.3623 11.9328 35.862C10.0555 34.3922 9.60184 32.9693 7.80276 29.3573L6.31656 26.0424C6.06625 25.5577 5.84724 25.0574 5.67515 24.5414C5.58129 24.1348 5.53435 23.7283 5.55 23.3061C5.70644 23.2436 5.86288 23.2279 6.01932 23.2592C7.63067 23.4781 9.68006 25.2606 12.496 27.8093L15.8282 30.6395L16.5322 27.9188L14.1856 25.9174C11.1037 23.1185 9.42975 21.6799 7.23957 20.9294L9.10123 19.0687C9.57055 18.7403 10.1025 18.5527 10.6813 18.5058C11.8702 18.3025 13.1061 18.4745 14.1856 19.0062L18.2687 21.2421L18.9258 18.6934L15.3745 16.7545C13.419 15.6287 10.7439 15.9415 10.5718 15.9884C9.39846 16.0353 8.28773 16.4731 7.38037 17.2236L7.33343 17.2705L4.75214 19.8505C3.70398 20.7574 3.06258 22.0709 3 23.4625C3.06258 24.8072 3.45368 26.105 4.12638 27.2621L5.59693 30.5457C7.45859 34.3453 8.08435 36.0965 10.4153 37.9416C11.1037 38.4889 11.9172 38.8641 12.7776 39.0674C13.7163 39.2707 14.7018 39.2238 15.6092 38.9423C16.6574 38.5827 17.5334 37.8321 18.0653 36.8627C18.2687 36.5031 18.4095 36.1278 18.519 35.7369L23.2905 17.5051C23.2905 17.4582 23.2905 17.4269 23.2905 17.38C23.5408 16.0822 23.3844 14.7531 22.8212 13.5648H24.2135C24.9957 13.5022 25.7466 13.7837 26.3098 14.3153C26.654 14.7844 26.873 15.3316 26.9669 15.9102L32.0199 35.6431C32.1138 36.0496 32.2702 36.4562 32.4736 36.8314C32.9899 37.8165 33.8659 38.5827 34.9298 38.9267C35.4617 39.0987 36.0092 39.1925 36.5567 39.1925C36.9478 39.1925 37.3546 39.1456 37.7457 39.0674C38.6061 38.8641 39.4196 38.4889 40.1236 37.9416C42.4546 36.0965 43.0804 34.3453 44.942 30.5457L46.4126 27.2621C47.0853 26.105 47.4607 24.8072 47.539 23.4625C47.4294 22.0709 46.7724 20.7574 45.6929 19.8349Z" fill="white"/>
+              <svg
+                width="111"
+                height="50"
+                viewBox="0 0 111 50"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M65.7294 29.4802V38.9245H63.8521V29.4802H60.2383V27.6821H69.3588V29.4802H65.7294Z"
+                  fill="white"
+                />
+                <path
+                  d="M71.2519 34.5151L73.223 34.2493C73.6611 34.1867 73.7862 33.9678 73.7862 33.6864C73.7862 33.0296 73.3482 32.5136 72.3313 32.5136C71.5178 32.4667 70.8138 33.0765 70.7669 33.9053C70.7669 33.9053 70.7669 33.9053 70.7669 33.9209L69.0773 33.5456C69.2181 32.2166 70.4071 31.0282 72.3 31.0282C74.6623 31.0282 75.554 32.3729 75.554 33.9053V37.7518C75.554 38.1583 75.5853 38.5805 75.6479 38.987H73.9583C73.8957 38.6587 73.8644 38.3303 73.8801 38.0019C73.3638 38.7838 72.4721 39.2528 71.5178 39.2059C70.1881 39.3154 69.0304 38.3147 68.9365 37.0012C68.9365 36.9543 68.9365 36.923 68.9365 36.8761C68.9522 35.4532 69.9534 34.7027 71.2519 34.5151ZM73.7862 35.7347V35.3594L71.7838 35.6565C71.2206 35.7503 70.7669 36.0631 70.7669 36.7041C70.7669 37.267 71.2206 37.7205 71.7838 37.7205C71.8151 37.7205 71.8463 37.7205 71.8776 37.7205C72.9101 37.7361 73.7862 37.2358 73.7862 35.7347Z"
+                  fill="white"
+                />
+                <path
+                  d="M77.7754 38.9245V31.2002H79.5275V32.1852C80.0125 31.4191 80.8573 30.9656 81.7647 30.9813C82.7346 30.9344 83.642 31.466 84.0643 32.3416C84.565 31.4503 85.5349 30.9187 86.5518 30.9813C87.9441 30.9813 89.2582 31.8725 89.2582 33.9209V38.9245H87.4904V34.2336C87.4904 33.3267 87.0367 32.6543 86.0199 32.6543C85.1438 32.6543 84.4242 33.3736 84.4242 34.2649C84.4242 34.2961 84.4242 34.3118 84.4242 34.343V38.9245H82.6251V34.2492C82.6251 33.358 82.187 32.67 81.1545 32.67C80.2941 32.6543 79.5745 33.358 79.5588 34.218C79.5588 34.2649 79.5588 34.3118 79.5588 34.3587V38.9401L77.7754 38.9245Z"
+                  fill="white"
+                />
+                <path
+                  d="M91.5107 38.9245V31.2002H93.2629V32.1852C93.7479 31.4191 94.5926 30.9656 95.5 30.9813C96.4699 30.9344 97.3773 31.466 97.7997 32.3416C98.3003 31.4503 99.2546 30.9187 100.271 30.9813C101.664 30.9813 102.978 31.8725 102.978 33.9209V38.9245H101.257V34.2336C101.351 33.4674 100.819 32.7638 100.052 32.6543C99.9586 32.6387 99.8647 32.6387 99.7865 32.6387C98.9104 32.6387 98.1908 33.358 98.1908 34.2492C98.1908 34.2805 98.1908 34.2961 98.1908 34.3274V38.9088H96.4074V34.2336C96.5012 33.4674 95.9693 32.7638 95.2028 32.6543C95.1089 32.6387 95.015 32.6387 94.9368 32.6387C94.0764 32.6231 93.3568 33.3267 93.3411 34.1867C93.3411 34.2336 93.3411 34.2805 93.3411 34.3274V38.9088L91.5107 38.9245Z"
+                  fill="white"
+                />
+                <path
+                  d="M101.07 12.5305C101.586 12.5775 102.04 12.2178 102.086 11.7018C102.086 11.6706 102.086 11.6393 102.086 11.608C102.024 11.0451 101.523 10.6229 100.96 10.6855C100.475 10.7324 100.1 11.1233 100.037 11.608C100.037 12.124 100.444 12.5305 100.96 12.5462C100.991 12.5462 101.038 12.5462 101.07 12.5305Z"
+                  fill="white"
+                />
+                <path
+                  d="M103.51 10.7011C102.994 10.6542 102.54 11.0295 102.493 11.5611C102.493 11.5924 102.493 11.608 102.493 11.6393C102.556 12.2022 103.056 12.6244 103.62 12.5618C104.105 12.5149 104.48 12.124 104.543 11.6393C104.543 11.1233 104.12 10.7011 103.588 10.7011C103.557 10.6855 103.541 10.6855 103.51 10.7011Z"
+                  fill="white"
+                />
+                <path
+                  d="M69.6404 18.3629C69.6404 18.2378 69.6404 18.1127 69.6404 17.972C69.6404 15.8142 68.3263 14.3756 66.3552 14.3756C64.7125 14.3131 63.2889 15.5327 63.1012 17.1745C61.2864 17.2683 60.2383 18.4723 60.2383 20.505V22.741H62.0061V20.8021C62.0061 19.8014 62.3346 19.1134 63.1325 19.0039C63.4453 20.5207 64.8064 21.5839 66.3395 21.5057C67.3877 21.5526 68.3733 21.0679 68.999 20.2236H102.963V13.5782H101.179V18.3629H69.6404ZM67.857 17.9251C67.857 18.957 67.2938 19.645 66.3552 19.645C65.5104 19.645 64.8064 18.9727 64.8064 18.1127C64.8064 18.0501 64.8064 17.9876 64.822 17.9251C64.822 16.8774 65.4321 16.1738 66.3552 16.1738C67.2625 16.1738 67.857 16.8774 67.857 17.9251Z"
+                  fill="white"
+                />
+                <path
+                  d="M27.4986 23.1028L26.8103 20.3821C26.3253 20.5072 25.8247 20.5854 25.3241 20.601C24.8078 20.5541 24.2759 20.4916 23.7753 20.3821L23.0557 23.0716C23.8222 23.2905 24.6044 23.3999 25.4023 23.3999C26.1063 23.3999 26.8103 23.3061 27.4986 23.1028Z"
+                  fill="white"
+                />
+                <path
+                  d="M29.3921 31.1085C27.593 32.4376 26.4041 33.1099 25.262 33.1099C22.8216 33.1099 20.8973 31.0616 20.8973 31.0616L20.209 33.7197C21.6639 34.8455 23.416 35.4866 25.262 35.5804C26.7482 35.5804 28.2032 34.9237 30.1587 33.5946L29.5016 30.999L29.3921 31.1085Z"
+                  fill="white"
+                />
+                <path
+                  d="M45.6929 19.8349L43.1117 17.2549L43.0647 17.208C42.173 16.4575 41.0466 16.0353 39.8733 15.9727C39.7169 15.9727 37.0417 15.6444 35.0705 16.7545L31.5193 18.6934L32.1764 21.2421L36.2595 19.0062C37.3546 18.4902 38.5748 18.3182 39.7794 18.5058C40.3426 18.5527 40.8902 18.7403 41.3439 19.0687L43.2055 20.9294C40.9997 21.6643 39.3727 23.0872 36.2595 25.9017L33.9285 27.9344L34.6482 30.6708L37.9804 27.8406C40.7807 25.2919 43.1586 23.2905 44.457 23.2905C44.6135 23.2748 44.7699 23.2905 44.9264 23.3374C44.9577 23.7439 44.9107 24.1661 44.8012 24.5726C44.6135 25.0886 44.4101 25.589 44.1598 26.0737L42.9083 28.9195L42.6893 29.373C40.8902 33.0006 40.4521 34.4235 38.5592 35.8933C38.2307 36.1434 37.8709 36.3311 37.4798 36.4562L37.3233 36.5031C36.8227 36.6438 36.3064 36.6438 35.8215 36.5031C35.5868 36.4249 35.3834 36.3154 35.2113 36.1591C34.8828 35.8776 34.6482 35.4711 34.5699 35.0333L29.5169 15.2378C29.1571 13.7837 28.4374 11.1568 24.3699 11.0004H20.2399C19.6297 10.9848 19.0822 11.407 18.9258 12.0011C18.7693 12.5953 19.0353 13.2051 19.5672 13.5022C19.8801 13.7055 20.1304 13.9713 20.3181 14.284C20.7874 15.0502 20.9439 15.9571 20.7718 16.8327L20.6466 17.3018L15.9847 35.0176C15.8908 35.4398 15.6718 35.8307 15.3432 36.1434C14.9991 36.4249 14.561 36.5969 14.123 36.5969C13.3252 36.6282 12.5429 36.3623 11.9328 35.862C10.0555 34.3922 9.60184 32.9693 7.80276 29.3573L6.31656 26.0424C6.06625 25.5577 5.84724 25.0574 5.67515 24.5414C5.58129 24.1348 5.53435 23.7283 5.55 23.3061C5.70644 23.2436 5.86288 23.2279 6.01932 23.2592C7.63067 23.4781 9.68006 25.2606 12.496 27.8093L15.8282 30.6395L16.5322 27.9188L14.1856 25.9174C11.1037 23.1185 9.42975 21.6799 7.23957 20.9294L9.10123 19.0687C9.57055 18.7403 10.1025 18.5527 10.6813 18.5058C11.8702 18.3025 13.1061 18.4745 14.1856 19.0062L18.2687 21.2421L18.9258 18.6934L15.3745 16.7545C13.419 15.6287 10.7439 15.9415 10.5718 15.9884C9.39846 16.0353 8.28773 16.4731 7.38037 17.2236L7.33343 17.2705L4.75214 19.8505C3.70398 20.7574 3.06258 22.0709 3 23.4625C3.06258 24.8072 3.45368 26.105 4.12638 27.2621L5.59693 30.5457C7.45859 34.3453 8.08435 36.0965 10.4153 37.9416C11.1037 38.4889 11.9172 38.8641 12.7776 39.0674C13.7163 39.2707 14.7018 39.2238 15.6092 38.9423C16.6574 38.5827 17.5334 37.8321 18.0653 36.8627C18.2687 36.5031 18.4095 36.1278 18.519 35.7369L23.2905 17.5051C23.2905 17.4582 23.2905 17.4269 23.2905 17.38C23.5408 16.0822 23.3844 14.7531 22.8212 13.5648H24.2135C24.9957 13.5022 25.7466 13.7837 26.3098 14.3153C26.654 14.7844 26.873 15.3316 26.9669 15.9102L32.0199 35.6431C32.1138 36.0496 32.2702 36.4562 32.4736 36.8314C32.9899 37.8165 33.8659 38.5827 34.9298 38.9267C35.4617 39.0987 36.0092 39.1925 36.5567 39.1925C36.9478 39.1925 37.3546 39.1456 37.7457 39.0674C38.6061 38.8641 39.4196 38.4889 40.1236 37.9416C42.4546 36.0965 43.0804 34.3453 44.942 30.5457L46.4126 27.2621C47.0853 26.105 47.4607 24.8072 47.539 23.4625C47.4294 22.0709 46.7724 20.7574 45.6929 19.8349Z"
+                  fill="white"
+                />
               </svg>
             </div>
 
@@ -819,7 +1081,14 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
               onClick={onClose}
               className="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
@@ -829,21 +1098,41 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
           <div className="relative z-10 h-full">
             {/* Left Side Content */}
             <div className="absolute left-20 top-40">
-              <div className="text-white text-lg font-medium mb-2">Market Leaders</div>
+              <div className="text-white text-lg font-medium mb-2">
+                Market Leaders
+              </div>
               <div className="flex items-center gap-2 mb-6">
-                <span className="text-white text-[52px] font-semibold leading-none">4.6</span>
-                <svg width="19" height="19" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#0E766E"/>
+                <span className="text-white text-[52px] font-semibold leading-none">
+                  4.6
+                </span>
+                <svg
+                  width="19"
+                  height="19"
+                  viewBox="0 0 17 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z"
+                    fill="#0E766E"
+                  />
                 </svg>
               </div>
               <div className="text-white text-lg font-semibold leading-[140%] max-w-[346px]">
-                Top competitors maintain premium positioning through exceptional locations, authentic cuisine, and superior service delivery. Market gaps exist in affordable luxury and family-friendly fine dining.
+                Top competitors maintain premium positioning through exceptional
+                locations, authentic cuisine, and superior service delivery.
+                Market gaps exist in affordable luxury and family-friendly fine
+                dining.
               </div>
             </div>
 
             {/* Right Sidebar */}
             <div className="absolute right-[81px] top-[146px] w-[381px] h-[501px]">
-              <div className={chatCardClass("w-full h-full bg-white/14 backdrop-blur-md")}>
+              <div
+                className={chatCardClass(
+                  "w-full h-full bg-white/14 backdrop-blur-md",
+                )}
+              >
                 {/* AI Business Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
@@ -853,14 +1142,19 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
                       className="w-16 h-16 rounded-full border border-[#0E766E]"
                     />
                     <div>
-                      <div className="text-white text-lg font-semibold">AI Business</div>
+                      <div className="text-white text-lg font-semibold">
+                        AI Business
+                      </div>
                       <div className="flex items-center gap-1">
-                        {[5.77, 11.952, 19.783, 13.189, 8.655, 23.081, 30.499, 16.898, 4.534].map((width, index) => (
+                        {[
+                          5.77, 11.952, 19.783, 13.189, 8.655, 23.081, 30.499,
+                          16.898, 4.534,
+                        ].map((width, index) => (
                           <div
                             key={index}
                             className="bg-[#0E766E] rounded-full transform rotate-90"
                             style={{
-                              width: '3.297px',
+                              width: "3.297px",
                               height: `${width}px`,
                             }}
                           />
@@ -872,8 +1166,12 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
 
                 {/* Competitor Analysis Content */}
                 <div className="px-9 pb-8">
-                  <div className="text-white text-base font-normal uppercase tracking-wide mb-2">COMPETITOR ANALYSIS</div>
-                  <div className="text-white text-2xl font-semibold mb-6">Market Leaders</div>
+                  <div className="text-white text-base font-normal uppercase tracking-wide mb-2">
+                    COMPETITOR ANALYSIS
+                  </div>
+                  <div className="text-white text-2xl font-semibold mb-6">
+                    Market Leaders
+                  </div>
                   <div className="text-white text-lg leading-[140%] space-y-4">
                     <div>
                       <span className="font-semibold">Shurfa Bay:</span>
@@ -897,22 +1195,40 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
 
             {/* Bottom Insights Bar */}
             <div className="absolute bottom-[81px] left-[81px] w-[1033px] h-[124px]">
-              <div className={chatCardClass("w-full h-full bg-white/14 backdrop-blur-md")}>
+              <div
+                className={chatCardClass(
+                  "w-full h-full bg-white/14 backdrop-blur-md",
+                )}
+              >
                 <div className="p-6">
                   <div className="text-white text-lg mb-2">INSIGHTS</div>
-                  <div className="text-white text-2xl font-semibold mb-4">Competitive Landscape</div>
+                  <div className="text-white text-2xl font-semibold mb-4">
+                    Competitive Landscape
+                  </div>
                   <div className="grid grid-cols-3 gap-8">
                     <div>
-                      <div className="text-white text-lg mb-1">Average rating</div>
-                      <div className="text-white text-[52px] font-semibold leading-none">4.5★</div>
+                      <div className="text-white text-lg mb-1">
+                        Average rating
+                      </div>
+                      <div className="text-white text-[52px] font-semibold leading-none">
+                        4.5★
+                      </div>
                     </div>
                     <div>
-                      <div className="text-white text-lg mb-1">Market gaps identified</div>
-                      <div className="text-white text-[52px] font-semibold leading-none">3</div>
+                      <div className="text-white text-lg mb-1">
+                        Market gaps identified
+                      </div>
+                      <div className="text-white text-[52px] font-semibold leading-none">
+                        3
+                      </div>
                     </div>
                     <div>
-                      <div className="text-white text-lg mb-1">Premium positioning</div>
-                      <div className="text-white text-[52px] font-semibold leading-none">$$$$</div>
+                      <div className="text-white text-lg mb-1">
+                        Premium positioning
+                      </div>
+                      <div className="text-white text-[52px] font-semibold leading-none">
+                        $$$$
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -926,7 +1242,13 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
 };
 
 // Gap Analysis Breakout Modal - Matching Figma Design
-const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+const GapAnalysisBreakout = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -954,17 +1276,53 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
           <div className="relative z-10 flex items-center justify-between px-10 py-5 h-[87px] border-b border-white/30 bg-white/30 backdrop-blur-[40px]">
             <div className="flex items-center gap-4">
               {/* Tamm Logo */}
-              <svg width="111" height="50" viewBox="0 0 111 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M65.7294 29.4802V38.9245H63.8521V29.4802H60.2383V27.6821H69.3588V29.4802H65.7294Z" fill="white"/>
-                <path d="M71.2519 34.5151L73.223 34.2493C73.6611 34.1867 73.7862 33.9678 73.7862 33.6864C73.7862 33.0296 73.3482 32.5136 72.3313 32.5136C71.5178 32.4667 70.8138 33.0765 70.7669 33.9053C70.7669 33.9053 70.7669 33.9053 70.7669 33.9209L69.0773 33.5456C69.2181 32.2166 70.4071 31.0282 72.3 31.0282C74.6623 31.0282 75.554 32.3729 75.554 33.9053V37.7518C75.554 38.1583 75.5853 38.5805 75.6479 38.987H73.9583C73.8957 38.6587 73.8644 38.3303 73.8801 38.0019C73.3638 38.7838 72.4721 39.2528 71.5178 39.2059C70.1881 39.3154 69.0304 38.3147 68.9365 37.0012C68.9365 36.9543 68.9365 36.923 68.9365 36.8761C68.9522 35.4532 69.9534 34.7027 71.2519 34.5151ZM73.7862 35.7347V35.3594L71.7838 35.6565C71.2206 35.7503 70.7669 36.0631 70.7669 36.7041C70.7669 37.267 71.2206 37.7205 71.7838 37.7205C71.8151 37.7205 71.8463 37.7205 71.8776 37.7205C72.9101 37.7361 73.7862 37.2358 73.7862 35.7347Z" fill="white"/>
-                <path d="M77.7754 38.9245V31.2002H79.5275V32.1852C80.0125 31.4191 80.8573 30.9656 81.7647 30.9813C82.7346 30.9344 83.642 31.466 84.0643 32.3416C84.565 31.4503 85.5349 30.9187 86.5518 30.9813C87.9441 30.9813 89.2582 31.8725 89.2582 33.9209V38.9245H87.4904V34.2336C87.4904 33.3267 87.0367 32.6543 86.0199 32.6543C85.1438 32.6543 84.4242 33.3736 84.4242 34.2649C84.4242 34.2961 84.4242 34.3118 84.4242 34.343V38.9245H82.6251V34.2492C82.6251 33.358 82.187 32.67 81.1545 32.67C80.2941 32.6543 79.5745 33.358 79.5588 34.218C79.5588 34.2649 79.5588 34.3118 79.5588 34.3587V38.9401L77.7754 38.9245Z" fill="white"/>
-                <path d="M91.5107 38.9245V31.2002H93.2629V32.1852C93.7479 31.4191 94.5926 30.9656 95.5 30.9813C96.4699 30.9344 97.3773 31.466 97.7997 32.3416C98.3003 31.4503 99.2546 30.9187 100.271 30.9813C101.664 30.9813 102.978 31.8725 102.978 33.9209V38.9245H101.257V34.2336C101.351 33.4674 100.819 32.7638 100.052 32.6543C99.9586 32.6387 99.8647 32.6387 99.7865 32.6387C98.9104 32.6387 98.1908 33.358 98.1908 34.2492C98.1908 34.2805 98.1908 34.2961 98.1908 34.3274V38.9088H96.4074V34.2336C96.5012 33.4674 95.9693 32.7638 95.2028 32.6543C95.1089 32.6387 95.015 32.6387 94.9368 32.6387C94.0764 32.6231 93.3568 33.3267 93.3411 34.1867C93.3411 34.2336 93.3411 34.2805 93.3411 34.3274V38.9088L91.5107 38.9245Z" fill="white"/>
-                <path d="M101.07 12.5305C101.586 12.5775 102.04 12.2178 102.086 11.7018C102.086 11.6706 102.086 11.6393 102.086 11.608C102.024 11.0451 101.523 10.6229 100.96 10.6855C100.475 10.7324 100.1 11.1233 100.037 11.608C100.037 12.124 100.444 12.5305 100.96 12.5462C100.991 12.5462 101.038 12.5462 101.07 12.5305Z" fill="white"/>
-                <path d="M103.51 10.7011C102.994 10.6542 102.54 11.0295 102.493 11.5611C102.493 11.5924 102.493 11.608 102.493 11.6393C102.556 12.2022 103.056 12.6244 103.62 12.5618C104.105 12.5149 104.48 12.124 104.543 11.6393C104.543 11.1233 104.12 10.7011 103.588 10.7011C103.557 10.6855 103.541 10.6855 103.51 10.7011Z" fill="white"/>
-                <path d="M69.6404 18.3629C69.6404 18.2378 69.6404 18.1127 69.6404 17.972C69.6404 15.8142 68.3263 14.3756 66.3552 14.3756C64.7125 14.3131 63.2889 15.5327 63.1012 17.1745C61.2864 17.2683 60.2383 18.4723 60.2383 20.505V22.741H62.0061V20.8021C62.0061 19.8014 62.3346 19.1134 63.1325 19.0039C63.4453 20.5207 64.8064 21.5839 66.3395 21.5057C67.3877 21.5526 68.3733 21.0679 68.999 20.2236H102.963V13.5782H101.179V18.3629H69.6404ZM67.857 17.9251C67.857 18.957 67.2938 19.645 66.3552 19.645C65.5104 19.645 64.8064 18.9727 64.8064 18.1127C64.8064 18.0501 64.8064 17.9876 64.822 17.9251C64.822 16.8774 65.4321 16.1738 66.3552 16.1738C67.2625 16.1738 67.857 16.8774 67.857 17.9251Z" fill="white"/>
-                <path d="M27.4986 23.1028L26.8103 20.3821C26.3253 20.5072 25.8247 20.5854 25.3241 20.601C24.8078 20.5541 24.2759 20.4916 23.7753 20.3821L23.0557 23.0716C23.8222 23.2905 24.6044 23.3999 25.4023 23.3999C26.1063 23.3999 26.8103 23.3061 27.4986 23.1028Z" fill="white"/>
-                <path d="M29.3921 31.1085C27.593 32.4376 26.4041 33.1099 25.262 33.1099C22.8216 33.1099 20.8973 31.0616 20.8973 31.0616L20.209 33.7197C21.6639 34.8455 23.416 35.4866 25.262 35.5804C26.7482 35.5804 28.2032 34.9237 30.1587 33.5946L29.5016 30.999L29.3921 31.1085Z" fill="white"/>
-                <path d="M45.6929 19.8349L43.1117 17.2549L43.0647 17.208C42.173 16.4575 41.0466 16.0353 39.8733 15.9727C39.7169 15.9727 37.0417 15.6444 35.0705 16.7545L31.5193 18.6934L32.1764 21.2421L36.2595 19.0062C37.3546 18.4902 38.5748 18.3182 39.7794 18.5058C40.3426 18.5527 40.8902 18.7403 41.3439 19.0687L43.2055 20.9294C40.9997 21.6643 39.3727 23.0872 36.2595 25.9017L33.9285 27.9344L34.6482 30.6708L37.9804 27.8406C40.7807 25.2919 43.1586 23.2905 44.457 23.2905C44.6135 23.2748 44.7699 23.2905 44.9264 23.3374C44.9577 23.7439 44.9107 24.1661 44.8012 24.5726C44.6135 25.0886 44.4101 25.589 44.1598 26.0737L42.9083 28.9195L42.6893 29.373C40.8902 33.0006 40.4521 34.4235 38.5592 35.8933C38.2307 36.1434 37.8709 36.3311 37.4798 36.4562L37.3233 36.5031C36.8227 36.6438 36.3064 36.6438 35.8215 36.5031C35.5868 36.4249 35.3834 36.3154 35.2113 36.1591C34.8828 35.8776 34.6482 35.4711 34.5699 35.0333L29.5169 15.2378C29.1571 13.7837 28.4374 11.1568 24.3699 11.0004H20.2399C19.6297 10.9848 19.0822 11.407 18.9258 12.0011C18.7693 12.5953 19.0353 13.2051 19.5672 13.5022C19.8801 13.7055 20.1304 13.9713 20.3181 14.284C20.7874 15.0502 20.9439 15.9571 20.7718 16.8327L20.6466 17.3018L15.9847 35.0176C15.8908 35.4398 15.6718 35.8307 15.3432 36.1434C14.9991 36.4249 14.561 36.5969 14.123 36.5969C13.3252 36.6282 12.5429 36.3623 11.9328 35.862C10.0555 34.3922 9.60184 32.9693 7.80276 29.3573L6.31656 26.0424C6.06625 25.5577 5.84724 25.0574 5.67515 24.5414C5.58129 24.1348 5.53435 23.7283 5.55 23.3061C5.70644 23.2436 5.86288 23.2279 6.01932 23.2592C7.63067 23.4781 9.68006 25.2606 12.496 27.8093L15.8282 30.6395L16.5322 27.9188L14.1856 25.9174C11.1037 23.1185 9.42975 21.6799 7.23957 20.9294L9.10123 19.0687C9.57055 18.7403 10.1025 18.5527 10.6813 18.5058C11.8702 18.3025 13.1061 18.4745 14.1856 19.0062L18.2687 21.2421L18.9258 18.6934L15.3745 16.7545C13.419 15.6287 10.7439 15.9415 10.5718 15.9884C9.39846 16.0353 8.28773 16.4731 7.38037 17.2236L7.33343 17.2705L4.75214 19.8505C3.70398 20.7574 3.06258 22.0709 3 23.4625C3.06258 24.8072 3.45368 26.105 4.12638 27.2621L5.59693 30.5457C7.45859 34.3453 8.08435 36.0965 10.4153 37.9416C11.1037 38.4889 11.9172 38.8641 12.7776 39.0674C13.7163 39.2707 14.7018 39.2238 15.6092 38.9423C16.6574 38.5827 17.5334 37.8321 18.0653 36.8627C18.2687 36.5031 18.4095 36.1278 18.519 35.7369L23.2905 17.5051C23.2905 17.4582 23.2905 17.4269 23.2905 17.38C23.5408 16.0822 23.3844 14.7531 22.8212 13.5648H24.2135C24.9957 13.5022 25.7466 13.7837 26.3098 14.3153C26.654 14.7844 26.873 15.3316 26.9669 15.9102L32.0199 35.6431C32.1138 36.0496 32.2702 36.4562 32.4736 36.8314C32.9899 37.8165 33.8659 38.5827 34.9298 38.9267C35.4617 39.0987 36.0092 39.1925 36.5567 39.1925C36.9478 39.1925 37.3546 39.1456 37.7457 39.0674C38.6061 38.8641 39.4196 38.4889 40.1236 37.9416C42.4546 36.0965 43.0804 34.3453 44.942 30.5457L46.4126 27.2621C47.0853 26.105 47.4607 24.8072 47.539 23.4625C47.4294 22.0709 46.7724 20.7574 45.6929 19.8349Z" fill="white"/>
+              <svg
+                width="111"
+                height="50"
+                viewBox="0 0 111 50"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M65.7294 29.4802V38.9245H63.8521V29.4802H60.2383V27.6821H69.3588V29.4802H65.7294Z"
+                  fill="white"
+                />
+                <path
+                  d="M71.2519 34.5151L73.223 34.2493C73.6611 34.1867 73.7862 33.9678 73.7862 33.6864C73.7862 33.0296 73.3482 32.5136 72.3313 32.5136C71.5178 32.4667 70.8138 33.0765 70.7669 33.9053C70.7669 33.9053 70.7669 33.9053 70.7669 33.9209L69.0773 33.5456C69.2181 32.2166 70.4071 31.0282 72.3 31.0282C74.6623 31.0282 75.554 32.3729 75.554 33.9053V37.7518C75.554 38.1583 75.5853 38.5805 75.6479 38.987H73.9583C73.8957 38.6587 73.8644 38.3303 73.8801 38.0019C73.3638 38.7838 72.4721 39.2528 71.5178 39.2059C70.1881 39.3154 69.0304 38.3147 68.9365 37.0012C68.9365 36.9543 68.9365 36.923 68.9365 36.8761C68.9522 35.4532 69.9534 34.7027 71.2519 34.5151ZM73.7862 35.7347V35.3594L71.7838 35.6565C71.2206 35.7503 70.7669 36.0631 70.7669 36.7041C70.7669 37.267 71.2206 37.7205 71.7838 37.7205C71.8151 37.7205 71.8463 37.7205 71.8776 37.7205C72.9101 37.7361 73.7862 37.2358 73.7862 35.7347Z"
+                  fill="white"
+                />
+                <path
+                  d="M77.7754 38.9245V31.2002H79.5275V32.1852C80.0125 31.4191 80.8573 30.9656 81.7647 30.9813C82.7346 30.9344 83.642 31.466 84.0643 32.3416C84.565 31.4503 85.5349 30.9187 86.5518 30.9813C87.9441 30.9813 89.2582 31.8725 89.2582 33.9209V38.9245H87.4904V34.2336C87.4904 33.3267 87.0367 32.6543 86.0199 32.6543C85.1438 32.6543 84.4242 33.3736 84.4242 34.2649C84.4242 34.2961 84.4242 34.3118 84.4242 34.343V38.9245H82.6251V34.2492C82.6251 33.358 82.187 32.67 81.1545 32.67C80.2941 32.6543 79.5745 33.358 79.5588 34.218C79.5588 34.2649 79.5588 34.3118 79.5588 34.3587V38.9401L77.7754 38.9245Z"
+                  fill="white"
+                />
+                <path
+                  d="M91.5107 38.9245V31.2002H93.2629V32.1852C93.7479 31.4191 94.5926 30.9656 95.5 30.9813C96.4699 30.9344 97.3773 31.466 97.7997 32.3416C98.3003 31.4503 99.2546 30.9187 100.271 30.9813C101.664 30.9813 102.978 31.8725 102.978 33.9209V38.9245H101.257V34.2336C101.351 33.4674 100.819 32.7638 100.052 32.6543C99.9586 32.6387 99.8647 32.6387 99.7865 32.6387C98.9104 32.6387 98.1908 33.358 98.1908 34.2492C98.1908 34.2805 98.1908 34.2961 98.1908 34.3274V38.9088H96.4074V34.2336C96.5012 33.4674 95.9693 32.7638 95.2028 32.6543C95.1089 32.6387 95.015 32.6387 94.9368 32.6387C94.0764 32.6231 93.3568 33.3267 93.3411 34.1867C93.3411 34.2336 93.3411 34.2805 93.3411 34.3274V38.9088L91.5107 38.9245Z"
+                  fill="white"
+                />
+                <path
+                  d="M101.07 12.5305C101.586 12.5775 102.04 12.2178 102.086 11.7018C102.086 11.6706 102.086 11.6393 102.086 11.608C102.024 11.0451 101.523 10.6229 100.96 10.6855C100.475 10.7324 100.1 11.1233 100.037 11.608C100.037 12.124 100.444 12.5305 100.96 12.5462C100.991 12.5462 101.038 12.5462 101.07 12.5305Z"
+                  fill="white"
+                />
+                <path
+                  d="M103.51 10.7011C102.994 10.6542 102.54 11.0295 102.493 11.5611C102.493 11.5924 102.493 11.608 102.493 11.6393C102.556 12.2022 103.056 12.6244 103.62 12.5618C104.105 12.5149 104.48 12.124 104.543 11.6393C104.543 11.1233 104.12 10.7011 103.588 10.7011C103.557 10.6855 103.541 10.6855 103.51 10.7011Z"
+                  fill="white"
+                />
+                <path
+                  d="M69.6404 18.3629C69.6404 18.2378 69.6404 18.1127 69.6404 17.972C69.6404 15.8142 68.3263 14.3756 66.3552 14.3756C64.7125 14.3131 63.2889 15.5327 63.1012 17.1745C61.2864 17.2683 60.2383 18.4723 60.2383 20.505V22.741H62.0061V20.8021C62.0061 19.8014 62.3346 19.1134 63.1325 19.0039C63.4453 20.5207 64.8064 21.5839 66.3395 21.5057C67.3877 21.5526 68.3733 21.0679 68.999 20.2236H102.963V13.5782H101.179V18.3629H69.6404ZM67.857 17.9251C67.857 18.957 67.2938 19.645 66.3552 19.645C65.5104 19.645 64.8064 18.9727 64.8064 18.1127C64.8064 18.0501 64.8064 17.9876 64.822 17.9251C64.822 16.8774 65.4321 16.1738 66.3552 16.1738C67.2625 16.1738 67.857 16.8774 67.857 17.9251Z"
+                  fill="white"
+                />
+                <path
+                  d="M27.4986 23.1028L26.8103 20.3821C26.3253 20.5072 25.8247 20.5854 25.3241 20.601C24.8078 20.5541 24.2759 20.4916 23.7753 20.3821L23.0557 23.0716C23.8222 23.2905 24.6044 23.3999 25.4023 23.3999C26.1063 23.3999 26.8103 23.3061 27.4986 23.1028Z"
+                  fill="white"
+                />
+                <path
+                  d="M29.3921 31.1085C27.593 32.4376 26.4041 33.1099 25.262 33.1099C22.8216 33.1099 20.8973 31.0616 20.8973 31.0616L20.209 33.7197C21.6639 34.8455 23.416 35.4866 25.262 35.5804C26.7482 35.5804 28.2032 34.9237 30.1587 33.5946L29.5016 30.999L29.3921 31.1085Z"
+                  fill="white"
+                />
+                <path
+                  d="M45.6929 19.8349L43.1117 17.2549L43.0647 17.208C42.173 16.4575 41.0466 16.0353 39.8733 15.9727C39.7169 15.9727 37.0417 15.6444 35.0705 16.7545L31.5193 18.6934L32.1764 21.2421L36.2595 19.0062C37.3546 18.4902 38.5748 18.3182 39.7794 18.5058C40.3426 18.5527 40.8902 18.7403 41.3439 19.0687L43.2055 20.9294C40.9997 21.6643 39.3727 23.0872 36.2595 25.9017L33.9285 27.9344L34.6482 30.6708L37.9804 27.8406C40.7807 25.2919 43.1586 23.2905 44.457 23.2905C44.6135 23.2748 44.7699 23.2905 44.9264 23.3374C44.9577 23.7439 44.9107 24.1661 44.8012 24.5726C44.6135 25.0886 44.4101 25.589 44.1598 26.0737L42.9083 28.9195L42.6893 29.373C40.8902 33.0006 40.4521 34.4235 38.5592 35.8933C38.2307 36.1434 37.8709 36.3311 37.4798 36.4562L37.3233 36.5031C36.8227 36.6438 36.3064 36.6438 35.8215 36.5031C35.5868 36.4249 35.3834 36.3154 35.2113 36.1591C34.8828 35.8776 34.6482 35.4711 34.5699 35.0333L29.5169 15.2378C29.1571 13.7837 28.4374 11.1568 24.3699 11.0004H20.2399C19.6297 10.9848 19.0822 11.407 18.9258 12.0011C18.7693 12.5953 19.0353 13.2051 19.5672 13.5022C19.8801 13.7055 20.1304 13.9713 20.3181 14.284C20.7874 15.0502 20.9439 15.9571 20.7718 16.8327L20.6466 17.3018L15.9847 35.0176C15.8908 35.4398 15.6718 35.8307 15.3432 36.1434C14.9991 36.4249 14.561 36.5969 14.123 36.5969C13.3252 36.6282 12.5429 36.3623 11.9328 35.862C10.0555 34.3922 9.60184 32.9693 7.80276 29.3573L6.31656 26.0424C6.06625 25.5577 5.84724 25.0574 5.67515 24.5414C5.58129 24.1348 5.53435 23.7283 5.55 23.3061C5.70644 23.2436 5.86288 23.2279 6.01932 23.2592C7.63067 23.4781 9.68006 25.2606 12.496 27.8093L15.8282 30.6395L16.5322 27.9188L14.1856 25.9174C11.1037 23.1185 9.42975 21.6799 7.23957 20.9294L9.10123 19.0687C9.57055 18.7403 10.1025 18.5527 10.6813 18.5058C11.8702 18.3025 13.1061 18.4745 14.1856 19.0062L18.2687 21.2421L18.9258 18.6934L15.3745 16.7545C13.419 15.6287 10.7439 15.9415 10.5718 15.9884C9.39846 16.0353 8.28773 16.4731 7.38037 17.2236L7.33343 17.2705L4.75214 19.8505C3.70398 20.7574 3.06258 22.0709 3 23.4625C3.06258 24.8072 3.45368 26.105 4.12638 27.2621L5.59693 30.5457C7.45859 34.3453 8.08435 36.0965 10.4153 37.9416C11.1037 38.4889 11.9172 38.8641 12.7776 39.0674C13.7163 39.2707 14.7018 39.2238 15.6092 38.9423C16.6574 38.5827 17.5334 37.8321 18.0653 36.8627C18.2687 36.5031 18.4095 36.1278 18.519 35.7369L23.2905 17.5051C23.2905 17.4582 23.2905 17.4269 23.2905 17.38C23.5408 16.0822 23.3844 14.7531 22.8212 13.5648H24.2135C24.9957 13.5022 25.7466 13.7837 26.3098 14.3153C26.654 14.7844 26.873 15.3316 26.9669 15.9102L32.0199 35.6431C32.1138 36.0496 32.2702 36.4562 32.4736 36.8314C32.9899 37.8165 33.8659 38.5827 34.9298 38.9267C35.4617 39.0987 36.0092 39.1925 36.5567 39.1925C36.9478 39.1925 37.3546 39.1456 37.7457 39.0674C38.6061 38.8641 39.4196 38.4889 40.1236 37.9416C42.4546 36.0965 43.0804 34.3453 44.942 30.5457L46.4126 27.2621C47.0853 26.105 47.4607 24.8072 47.539 23.4625C47.4294 22.0709 46.7724 20.7574 45.6929 19.8349Z"
+                  fill="white"
+                />
               </svg>
             </div>
 
@@ -976,7 +1334,14 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
               onClick={onClose}
               className="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
@@ -986,18 +1351,23 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
           <div className="absolute top-[-112px] left-[541px] w-[605px] h-[103px] z-20">
             <div
               className={chatCardClass(
-                "w-full h-full bg-gradient-to-b from-white to-[#F2F1EE] shadow-[0_0_10px_10px_rgba(0,0,0,0.07)]"
+                "w-full h-full bg-gradient-to-b from-white to-[#F2F1EE] shadow-[0_0_10px_10px_rgba(0,0,0,0.07)]",
               )}
             >
               <div className="flex items-center gap-5 h-full px-5">
                 <div className="flex-1">
-                  <div className="text-[#282B3E] font-semibold text-sm mb-1">Analysis Complete</div>
+                  <div className="text-[#282B3E] font-semibold text-sm mb-1">
+                    Analysis Complete
+                  </div>
                   <div className="text-[#282B3E] text-sm leading-[19px]">
-                    Comprehensive gap analysis and market opportunities identified for Abu Dhabi restaurant sector.
+                    Comprehensive gap analysis and market opportunities
+                    identified for Abu Dhabi restaurant sector.
                   </div>
                 </div>
                 <div className="w-[138px] h-10 rounded-full bg-gradient-to-b from-[#5B6DDE] to-[#273489] flex items-center justify-center">
-                  <span className="text-white text-xs font-semibold">View details</span>
+                  <span className="text-white text-xs font-semibold">
+                    View details
+                  </span>
                 </div>
               </div>
             </div>
@@ -1007,21 +1377,41 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
           <div className="relative z-10 h-full">
             {/* Left Side Content */}
             <div className="absolute left-20 top-40">
-              <div className="text-white text-lg font-medium mb-2">Footfall insights</div>
+              <div className="text-white text-lg font-medium mb-2">
+                Footfall insights
+              </div>
               <div className="flex items-center gap-2 mb-6">
-                <span className="text-white text-[52px] font-semibold leading-none">6.3%</span>
-                <svg width="19" height="19" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#0E766E"/>
+                <span className="text-white text-[52px] font-semibold leading-none">
+                  6.3%
+                </span>
+                <svg
+                  width="19"
+                  height="19"
+                  viewBox="0 0 17 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z"
+                    fill="#0E766E"
+                  />
                 </svg>
               </div>
               <div className="text-white text-lg font-semibold leading-[140%] max-w-[346px]">
-                The Abu Dhabi Corniche presents a dynamic and lucrative environment for F&B businesses, driven by a mix of residents, tourists, and a strong culture of dining out. Here is an overview of the key insights for the F&B sector in this area:
+                The Abu Dhabi Corniche presents a dynamic and lucrative
+                environment for F&B businesses, driven by a mix of residents,
+                tourists, and a strong culture of dining out. Here is an
+                overview of the key insights for the F&B sector in this area:
               </div>
             </div>
 
             {/* Right Sidebar */}
             <div className="absolute right-[81px] top-[146px] w-[381px] h-[501px]">
-              <div className={chatCardClass("w-full h-full bg-white/14 backdrop-blur-md")}>
+              <div
+                className={chatCardClass(
+                  "w-full h-full bg-white/14 backdrop-blur-md",
+                )}
+              >
                 {/* AI Business Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
@@ -1031,14 +1421,19 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                       className="w-16 h-16 rounded-full border border-[#0E766E]"
                     />
                     <div>
-                      <div className="text-white text-lg font-semibold">AI Business</div>
+                      <div className="text-white text-lg font-semibold">
+                        AI Business
+                      </div>
                       <div className="flex items-center gap-1">
-                        {[5.77, 11.952, 19.783, 13.189, 8.655, 23.081, 30.499, 16.898, 4.534].map((width, index) => (
+                        {[
+                          5.77, 11.952, 19.783, 13.189, 8.655, 23.081, 30.499,
+                          16.898, 4.534,
+                        ].map((width, index) => (
                           <div
                             key={index}
                             className="bg-[#0E766E] rounded-full transform rotate-90"
                             style={{
-                              width: '3.297px',
+                              width: "3.297px",
                               height: `${width}px`,
                             }}
                           />
@@ -1050,14 +1445,22 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
 
                 {/* Gap Analysis Content */}
                 <div className="px-9 pb-8">
-                  <div className="text-white text-base font-normal uppercase tracking-wide mb-2">GAP ANALYSIS</div>
-                  <div className="text-white text-2xl font-semibold mb-6">Abu Dhabi Corniche</div>
+                  <div className="text-white text-base font-normal uppercase tracking-wide mb-2">
+                    GAP ANALYSIS
+                  </div>
+                  <div className="text-white text-2xl font-semibold mb-6">
+                    Abu Dhabi Corniche
+                  </div>
                   <div className="text-white text-lg leading-[140%]">
-                    <span className="font-semibold">Insights for this area:</span>
+                    <span className="font-semibold">
+                      Insights for this area:
+                    </span>
                     <br />
                     Emirati Fusion Cuisine Japanese influences new trend
-                    <br /><br />
-                    Demand for a formal evening dining experience. Waterfront locations
+                    <br />
+                    <br />
+                    Demand for a formal evening dining experience. Waterfront
+                    locations
                     <br />
                     High rise luxury experience popular.
                   </div>
@@ -1067,22 +1470,40 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
 
             {/* Bottom Insights Bar */}
             <div className="absolute bottom-[81px] left-[81px] w-[1033px] h-[124px]">
-              <div className={chatCardClass("w-full h-full bg-white/14 backdrop-blur-md")}>
+              <div
+                className={chatCardClass(
+                  "w-full h-full bg-white/14 backdrop-blur-md",
+                )}
+              >
                 <div className="p-6">
                   <div className="text-white text-lg mb-2">INSIGHTS</div>
-                  <div className="text-white text-2xl font-semibold mb-4">Abu Dhabi Corniche</div>
+                  <div className="text-white text-2xl font-semibold mb-4">
+                    Abu Dhabi Corniche
+                  </div>
                   <div className="grid grid-cols-3 gap-8">
                     <div>
-                      <div className="text-white text-lg mb-1">Expats in area</div>
-                      <div className="text-white text-[52px] font-semibold leading-none">85-90%</div>
+                      <div className="text-white text-lg mb-1">
+                        Expats in area
+                      </div>
+                      <div className="text-white text-[52px] font-semibold leading-none">
+                        85-90%
+                      </div>
                     </div>
                     <div>
-                      <div className="text-white text-lg mb-1">Eat out weekly</div>
-                      <div className="text-white text-[52px] font-semibold leading-none">2.5x</div>
+                      <div className="text-white text-lg mb-1">
+                        Eat out weekly
+                      </div>
+                      <div className="text-white text-[52px] font-semibold leading-none">
+                        2.5x
+                      </div>
                     </div>
                     <div>
-                      <div className="text-white text-lg mb-1">% who dine out</div>
-                      <div className="text-white text-[52px] font-semibold leading-none">78%</div>
+                      <div className="text-white text-lg mb-1">
+                        % who dine out
+                      </div>
+                      <div className="text-white text-[52px] font-semibold leading-none">
+                        78%
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1096,7 +1517,13 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
 };
 
 // Chat icon component with animation based on Figma design
-const ChatIcon = ({ isAnimated = false, isDark = false }: { isAnimated?: boolean; isDark?: boolean }) => {
+const ChatIcon = ({
+  isAnimated = false,
+  isDark = false,
+}: {
+  isAnimated?: boolean;
+  isDark?: boolean;
+}) => {
   const bars = [
     { width: "5.77px", height: "3.297px" },
     { width: "11.952px", height: "3.297px" },
@@ -1117,7 +1544,7 @@ const ChatIcon = ({ isAnimated = false, isDark = false }: { isAnimated?: boolean
         <div
           key={index}
           className={`transform rotate-90 rounded-full transition-all duration-300 ${
-            isAnimated ? 'animate-pulse' : ''
+            isAnimated ? "animate-pulse" : ""
           }`}
           style={{
             width: bar.height,
@@ -1131,7 +1558,13 @@ const ChatIcon = ({ isAnimated = false, isDark = false }: { isAnimated?: boolean
   );
 };
 
-const TammLogo = ({ className = "", color = "currentColor" }: { className?: string; color?: string }) => (
+const TammLogo = ({
+  className = "",
+  color = "currentColor",
+}: {
+  className?: string;
+  color?: string;
+}) => (
   <svg
     className={className}
     width="111"
@@ -1140,16 +1573,46 @@ const TammLogo = ({ className = "", color = "currentColor" }: { className?: stri
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M65.7294 29.4802V38.9245H63.8521V29.4802H60.2383V27.6821H69.3588V29.4802H65.7294Z" fill={color} />
-    <path d="M71.2519 34.5151L73.223 34.2493C73.6611 34.1867 73.7862 33.9678 73.7862 33.6864C73.7862 33.0296 73.3482 32.5136 72.3313 32.5136C71.5178 32.4667 70.8138 33.0765 70.7669 33.9053C70.7669 33.9053 70.7669 33.9053 70.7669 33.9209L69.0773 33.5456C69.2181 32.2166 70.4071 31.0282 72.3 31.0282C74.6623 31.0282 75.554 32.3729 75.554 33.9053V37.7518C75.554 38.1583 75.5853 38.5805 75.6479 38.987H73.9583C73.8957 38.6587 73.8644 38.3303 73.8801 38.0019C73.3638 38.7838 72.4721 39.2528 71.5178 39.2059C70.1881 39.3154 69.0304 38.3147 68.9365 37.0012C68.9365 36.9543 68.9365 36.923 68.9365 36.8761C68.9522 35.4532 69.9534 34.7027 71.2519 34.5151ZM73.7862 35.7347V35.3594L71.7838 35.6565C71.2206 35.7503 70.7669 36.0631 70.7669 36.7041C70.7669 37.267 71.2206 37.7205 71.7838 37.7205C71.8151 37.7205 71.8463 37.7205 71.8776 37.7205C72.9101 37.7361 73.7862 37.2358 73.7862 35.7347Z" fill={color} />
-    <path d="M77.7754 38.9245V31.2002H79.5275V32.1852C80.0125 31.4191 80.8573 30.9656 81.7647 30.9813C82.7346 30.9344 83.642 31.466 84.0643 32.3416C84.565 31.4503 85.5349 30.9187 86.5518 30.9813C87.9441 30.9813 89.2582 31.8725 89.2582 33.9209V38.9245H87.4904V34.2336C87.4904 33.3267 87.0367 32.6543 86.0199 32.6543C85.1438 32.6543 84.4242 33.3736 84.4242 34.2649C84.4242 34.2961 84.4242 34.3118 84.4242 34.343V38.9245H82.6251V34.2492C82.6251 33.358 82.187 32.67 81.1545 32.67C80.2941 32.6543 79.5745 33.358 79.5588 34.218C79.5588 34.2649 79.5588 34.3118 79.5588 34.3587V38.9401L77.7754 38.9245Z" fill={color} />
-    <path d="M91.5107 38.9245V31.2002H93.2629V32.1852C93.7479 31.4191 94.5926 30.9656 95.5 30.9813C96.4699 30.9344 97.3773 31.466 97.7997 32.3416C98.3003 31.4503 99.2546 30.9187 100.271 30.9813C101.664 30.9813 102.978 31.8725 102.978 33.9209V38.9245H101.257V34.2336C101.351 33.4674 100.819 32.7638 100.052 32.6543C99.9586 32.6387 99.8647 32.6387 99.7865 32.6387C98.9104 32.6387 98.1908 33.358 98.1908 34.2492C98.1908 34.2805 98.1908 34.2961 98.1908 34.3274V38.9088H96.4074V34.2336C96.5012 33.4674 95.9693 32.7638 95.2028 32.6543C95.1089 32.6387 95.015 32.6387 94.9368 32.6387C94.0764 32.6231 93.3568 33.3267 93.3411 34.1867C93.3411 34.2336 93.3411 34.2805 93.3411 34.3274V38.9088L91.5107 38.9245Z" fill={color} />
-    <path d="M101.07 12.5305C101.586 12.5775 102.04 12.2178 102.086 11.7018C102.086 11.6706 102.086 11.6393 102.086 11.608C102.024 11.0451 101.523 10.6229 100.96 10.6855C100.475 10.7324 100.1 11.1233 100.037 11.608C100.037 12.124 100.444 12.5305 100.96 12.5462C100.991 12.5462 101.038 12.5462 101.07 12.5305Z" fill={color} />
-    <path d="M103.51 10.7011C102.994 10.6542 102.54 11.0295 102.493 11.5611C102.493 11.5924 102.493 11.608 102.493 11.6393C102.556 12.2022 103.056 12.6244 103.62 12.5618C104.105 12.5149 104.48 12.124 104.543 11.6393C104.543 11.1233 104.12 10.7011 103.588 10.7011C103.557 10.6855 103.541 10.6855 103.51 10.7011Z" fill={color} />
-    <path d="M69.6404 18.3629C69.6404 18.2378 69.6404 18.1127 69.6404 17.972C69.6404 15.8142 68.3263 14.3756 66.3552 14.3756C64.7125 14.3131 63.2889 15.5327 63.1012 17.1745C61.2864 17.2683 60.2383 18.4723 60.2383 20.505V22.741H62.0061V20.8021C62.0061 19.8014 62.3346 19.1134 63.1325 19.0039C63.4453 20.5207 64.8064 21.5839 66.3395 21.5057C67.3877 21.5526 68.3733 21.0679 68.999 20.2236H102.963V13.5782H101.179V18.3629H69.6404ZM67.857 17.9251C67.857 18.957 67.2938 19.645 66.3552 19.645C65.5104 19.645 64.8064 18.9727 64.8064 18.1127C64.8064 18.0501 64.8064 17.9876 64.822 17.9251C64.822 16.8774 65.4321 16.1738 66.3552 16.1738C67.2625 16.1738 67.857 16.8774 67.857 17.9251Z" fill={color} />
-    <path d="M27.4986 23.1028L26.8103 20.3821C26.3253 20.5072 25.8247 20.5854 25.3241 20.601C24.8078 20.5541 24.2759 20.4916 23.7753 20.3821L23.0557 23.0716C23.8222 23.2905 24.6044 23.3999 25.4023 23.3999C26.1063 23.3999 26.8103 23.3061 27.4986 23.1028Z" fill={color} />
-    <path d="M29.3916 31.1085C27.5925 32.4376 26.4036 33.1099 25.2616 33.1099C22.8211 33.1099 20.8968 31.0616 20.8968 31.0616L20.2085 33.7197C21.6634 34.8455 23.4155 35.4866 25.2616 35.5804C26.7478 35.5804 28.2027 34.9237 30.1582 33.5946L29.5011 30.999L29.3916 31.1085Z" fill={color} />
-    <path d="M45.6929 19.8349L43.1117 17.2549L43.0647 17.208C42.173 16.4575 41.0466 16.0353 39.8733 15.9727C39.7169 15.9727 37.0417 15.6444 35.0705 16.7545L31.5193 18.6934L32.1764 21.2421L36.2595 19.0062C37.3546 18.4902 38.5748 18.3182 39.7794 18.5058C40.3426 18.5527 40.8902 18.7403 41.3439 19.0687L43.2055 20.9294C40.9997 21.6643 39.3727 23.0872 36.2595 25.9017L33.9285 27.9344L34.6482 30.6708L37.9804 27.8406C40.7807 25.2919 43.1586 23.2905 44.457 23.2905C44.6135 23.2748 44.7699 23.2905 44.9264 23.3374C44.9577 23.7439 44.9107 24.1661 44.8012 24.5726C44.6135 25.0886 44.4101 25.589 44.1598 26.0737L42.9083 28.9195L42.6893 29.373C40.8902 33.0006 40.4521 34.4235 38.5592 35.8933C38.2307 36.1434 37.8709 36.3311 37.4798 36.4562L37.3233 36.5031C36.8227 36.6438 36.3064 36.6438 35.8215 36.5031C35.5868 36.4249 35.3834 36.3154 35.2113 36.1591C34.8828 35.8776 34.6482 35.4711 34.5699 35.0333L29.5169 15.2378C29.1571 13.7837 28.4374 11.1568 24.3699 11.0004H20.2399C19.6297 10.9848 19.0822 11.407 18.9258 12.0011C18.7693 12.5953 19.0353 13.2051 19.5672 13.5022C19.8801 13.7055 20.1304 13.9713 20.3181 14.284C20.7874 15.0502 20.9439 15.9571 20.7718 16.8327L20.6466 17.3018L15.9847 35.0176C15.8908 35.4398 15.6718 35.8307 15.3432 36.1434C14.9991 36.4249 14.561 36.5969 14.123 36.5969C13.3252 36.6282 12.5429 36.3623 11.9328 35.862C10.0555 34.3922 9.60184 32.9693 7.80276 29.3573L6.31656 26.0424C6.06625 25.5577 5.84724 25.0574 5.67515 24.5414C5.58129 24.1348 5.53435 23.7283 5.55 23.3061C5.70644 23.2436 5.86288 23.2279 6.01932 23.2592C7.63067 23.4781 9.68006 25.2606 12.496 27.8093L15.8282 30.6395L16.5322 27.9188L14.1856 25.9174C11.1037 23.1185 9.42975 21.6799 7.23957 20.9294L9.10123 19.0687C9.57055 18.7403 10.1025 18.5527 10.6813 18.5058C11.8702 18.3025 13.1061 18.4745 14.1856 19.0062L18.2687 21.2421L18.9258 18.6934L15.3745 16.7545C13.419 15.6287 10.7439 15.9415 10.5718 15.9884C9.39846 16.0353 8.28773 16.4731 7.38037 17.2236L7.33343 17.2705L4.75214 19.8505C3.70398 20.7574 3.06258 22.0709 3 23.4625C3.06258 24.8072 3.45368 26.105 4.12638 27.2621L5.59693 30.5457C7.45859 34.3453 8.08435 36.0965 10.4153 37.9416C11.1037 38.4889 11.9172 38.8641 12.7776 39.0674C13.7163 39.2707 14.7018 39.2238 15.6092 38.9423C16.6574 38.5827 17.5334 37.8321 18.0653 36.8627C18.2687 36.5031 18.4095 36.1278 18.519 35.7369L23.2905 17.5051C23.2905 17.4582 23.2905 17.4269 23.2905 17.38C23.5408 16.0822 23.3844 14.7531 22.8212 13.5648H24.2135C24.9957 13.5022 25.7466 13.7837 26.3098 14.3153C26.654 14.7844 26.873 15.3316 26.9669 15.9102L32.0199 35.6431C32.1138 36.0496 32.2702 36.4562 32.4736 36.8314C32.9899 37.8165 33.8659 38.5827 34.9298 38.9267C35.4617 39.0987 36.0092 39.1925 36.5567 39.1925C36.9478 39.1925 37.3546 39.1456 37.7457 39.0674C38.6061 38.8641 39.4196 38.4889 40.1236 37.9416C42.4546 36.0965 43.0804 34.3453 44.942 30.5457L46.4126 27.2621C47.0853 26.105 47.4607 24.8072 47.539 23.4625C47.4294 22.0709 46.7724 20.7574 45.6929 19.8349Z" fill={color} />
+    <path
+      d="M65.7294 29.4802V38.9245H63.8521V29.4802H60.2383V27.6821H69.3588V29.4802H65.7294Z"
+      fill={color}
+    />
+    <path
+      d="M71.2519 34.5151L73.223 34.2493C73.6611 34.1867 73.7862 33.9678 73.7862 33.6864C73.7862 33.0296 73.3482 32.5136 72.3313 32.5136C71.5178 32.4667 70.8138 33.0765 70.7669 33.9053C70.7669 33.9053 70.7669 33.9053 70.7669 33.9209L69.0773 33.5456C69.2181 32.2166 70.4071 31.0282 72.3 31.0282C74.6623 31.0282 75.554 32.3729 75.554 33.9053V37.7518C75.554 38.1583 75.5853 38.5805 75.6479 38.987H73.9583C73.8957 38.6587 73.8644 38.3303 73.8801 38.0019C73.3638 38.7838 72.4721 39.2528 71.5178 39.2059C70.1881 39.3154 69.0304 38.3147 68.9365 37.0012C68.9365 36.9543 68.9365 36.923 68.9365 36.8761C68.9522 35.4532 69.9534 34.7027 71.2519 34.5151ZM73.7862 35.7347V35.3594L71.7838 35.6565C71.2206 35.7503 70.7669 36.0631 70.7669 36.7041C70.7669 37.267 71.2206 37.7205 71.7838 37.7205C71.8151 37.7205 71.8463 37.7205 71.8776 37.7205C72.9101 37.7361 73.7862 37.2358 73.7862 35.7347Z"
+      fill={color}
+    />
+    <path
+      d="M77.7754 38.9245V31.2002H79.5275V32.1852C80.0125 31.4191 80.8573 30.9656 81.7647 30.9813C82.7346 30.9344 83.642 31.466 84.0643 32.3416C84.565 31.4503 85.5349 30.9187 86.5518 30.9813C87.9441 30.9813 89.2582 31.8725 89.2582 33.9209V38.9245H87.4904V34.2336C87.4904 33.3267 87.0367 32.6543 86.0199 32.6543C85.1438 32.6543 84.4242 33.3736 84.4242 34.2649C84.4242 34.2961 84.4242 34.3118 84.4242 34.343V38.9245H82.6251V34.2492C82.6251 33.358 82.187 32.67 81.1545 32.67C80.2941 32.6543 79.5745 33.358 79.5588 34.218C79.5588 34.2649 79.5588 34.3118 79.5588 34.3587V38.9401L77.7754 38.9245Z"
+      fill={color}
+    />
+    <path
+      d="M91.5107 38.9245V31.2002H93.2629V32.1852C93.7479 31.4191 94.5926 30.9656 95.5 30.9813C96.4699 30.9344 97.3773 31.466 97.7997 32.3416C98.3003 31.4503 99.2546 30.9187 100.271 30.9813C101.664 30.9813 102.978 31.8725 102.978 33.9209V38.9245H101.257V34.2336C101.351 33.4674 100.819 32.7638 100.052 32.6543C99.9586 32.6387 99.8647 32.6387 99.7865 32.6387C98.9104 32.6387 98.1908 33.358 98.1908 34.2492C98.1908 34.2805 98.1908 34.2961 98.1908 34.3274V38.9088H96.4074V34.2336C96.5012 33.4674 95.9693 32.7638 95.2028 32.6543C95.1089 32.6387 95.015 32.6387 94.9368 32.6387C94.0764 32.6231 93.3568 33.3267 93.3411 34.1867C93.3411 34.2336 93.3411 34.2805 93.3411 34.3274V38.9088L91.5107 38.9245Z"
+      fill={color}
+    />
+    <path
+      d="M101.07 12.5305C101.586 12.5775 102.04 12.2178 102.086 11.7018C102.086 11.6706 102.086 11.6393 102.086 11.608C102.024 11.0451 101.523 10.6229 100.96 10.6855C100.475 10.7324 100.1 11.1233 100.037 11.608C100.037 12.124 100.444 12.5305 100.96 12.5462C100.991 12.5462 101.038 12.5462 101.07 12.5305Z"
+      fill={color}
+    />
+    <path
+      d="M103.51 10.7011C102.994 10.6542 102.54 11.0295 102.493 11.5611C102.493 11.5924 102.493 11.608 102.493 11.6393C102.556 12.2022 103.056 12.6244 103.62 12.5618C104.105 12.5149 104.48 12.124 104.543 11.6393C104.543 11.1233 104.12 10.7011 103.588 10.7011C103.557 10.6855 103.541 10.6855 103.51 10.7011Z"
+      fill={color}
+    />
+    <path
+      d="M69.6404 18.3629C69.6404 18.2378 69.6404 18.1127 69.6404 17.972C69.6404 15.8142 68.3263 14.3756 66.3552 14.3756C64.7125 14.3131 63.2889 15.5327 63.1012 17.1745C61.2864 17.2683 60.2383 18.4723 60.2383 20.505V22.741H62.0061V20.8021C62.0061 19.8014 62.3346 19.1134 63.1325 19.0039C63.4453 20.5207 64.8064 21.5839 66.3395 21.5057C67.3877 21.5526 68.3733 21.0679 68.999 20.2236H102.963V13.5782H101.179V18.3629H69.6404ZM67.857 17.9251C67.857 18.957 67.2938 19.645 66.3552 19.645C65.5104 19.645 64.8064 18.9727 64.8064 18.1127C64.8064 18.0501 64.8064 17.9876 64.822 17.9251C64.822 16.8774 65.4321 16.1738 66.3552 16.1738C67.2625 16.1738 67.857 16.8774 67.857 17.9251Z"
+      fill={color}
+    />
+    <path
+      d="M27.4986 23.1028L26.8103 20.3821C26.3253 20.5072 25.8247 20.5854 25.3241 20.601C24.8078 20.5541 24.2759 20.4916 23.7753 20.3821L23.0557 23.0716C23.8222 23.2905 24.6044 23.3999 25.4023 23.3999C26.1063 23.3999 26.8103 23.3061 27.4986 23.1028Z"
+      fill={color}
+    />
+    <path
+      d="M29.3916 31.1085C27.5925 32.4376 26.4036 33.1099 25.2616 33.1099C22.8211 33.1099 20.8968 31.0616 20.8968 31.0616L20.2085 33.7197C21.6634 34.8455 23.4155 35.4866 25.2616 35.5804C26.7478 35.5804 28.2027 34.9237 30.1582 33.5946L29.5011 30.999L29.3916 31.1085Z"
+      fill={color}
+    />
+    <path
+      d="M45.6929 19.8349L43.1117 17.2549L43.0647 17.208C42.173 16.4575 41.0466 16.0353 39.8733 15.9727C39.7169 15.9727 37.0417 15.6444 35.0705 16.7545L31.5193 18.6934L32.1764 21.2421L36.2595 19.0062C37.3546 18.4902 38.5748 18.3182 39.7794 18.5058C40.3426 18.5527 40.8902 18.7403 41.3439 19.0687L43.2055 20.9294C40.9997 21.6643 39.3727 23.0872 36.2595 25.9017L33.9285 27.9344L34.6482 30.6708L37.9804 27.8406C40.7807 25.2919 43.1586 23.2905 44.457 23.2905C44.6135 23.2748 44.7699 23.2905 44.9264 23.3374C44.9577 23.7439 44.9107 24.1661 44.8012 24.5726C44.6135 25.0886 44.4101 25.589 44.1598 26.0737L42.9083 28.9195L42.6893 29.373C40.8902 33.0006 40.4521 34.4235 38.5592 35.8933C38.2307 36.1434 37.8709 36.3311 37.4798 36.4562L37.3233 36.5031C36.8227 36.6438 36.3064 36.6438 35.8215 36.5031C35.5868 36.4249 35.3834 36.3154 35.2113 36.1591C34.8828 35.8776 34.6482 35.4711 34.5699 35.0333L29.5169 15.2378C29.1571 13.7837 28.4374 11.1568 24.3699 11.0004H20.2399C19.6297 10.9848 19.0822 11.407 18.9258 12.0011C18.7693 12.5953 19.0353 13.2051 19.5672 13.5022C19.8801 13.7055 20.1304 13.9713 20.3181 14.284C20.7874 15.0502 20.9439 15.9571 20.7718 16.8327L20.6466 17.3018L15.9847 35.0176C15.8908 35.4398 15.6718 35.8307 15.3432 36.1434C14.9991 36.4249 14.561 36.5969 14.123 36.5969C13.3252 36.6282 12.5429 36.3623 11.9328 35.862C10.0555 34.3922 9.60184 32.9693 7.80276 29.3573L6.31656 26.0424C6.06625 25.5577 5.84724 25.0574 5.67515 24.5414C5.58129 24.1348 5.53435 23.7283 5.55 23.3061C5.70644 23.2436 5.86288 23.2279 6.01932 23.2592C7.63067 23.4781 9.68006 25.2606 12.496 27.8093L15.8282 30.6395L16.5322 27.9188L14.1856 25.9174C11.1037 23.1185 9.42975 21.6799 7.23957 20.9294L9.10123 19.0687C9.57055 18.7403 10.1025 18.5527 10.6813 18.5058C11.8702 18.3025 13.1061 18.4745 14.1856 19.0062L18.2687 21.2421L18.9258 18.6934L15.3745 16.7545C13.419 15.6287 10.7439 15.9415 10.5718 15.9884C9.39846 16.0353 8.28773 16.4731 7.38037 17.2236L7.33343 17.2705L4.75214 19.8505C3.70398 20.7574 3.06258 22.0709 3 23.4625C3.06258 24.8072 3.45368 26.105 4.12638 27.2621L5.59693 30.5457C7.45859 34.3453 8.08435 36.0965 10.4153 37.9416C11.1037 38.4889 11.9172 38.8641 12.7776 39.0674C13.7163 39.2707 14.7018 39.2238 15.6092 38.9423C16.6574 38.5827 17.5334 37.8321 18.0653 36.8627C18.2687 36.5031 18.4095 36.1278 18.519 35.7369L23.2905 17.5051C23.2905 17.4582 23.2905 17.4269 23.2905 17.38C23.5408 16.0822 23.3844 14.7531 22.8212 13.5648H24.2135C24.9957 13.5022 25.7466 13.7837 26.3098 14.3153C26.654 14.7844 26.873 15.3316 26.9669 15.9102L32.0199 35.6431C32.1138 36.0496 32.2702 36.4562 32.4736 36.8314C32.9899 37.8165 33.8659 38.5827 34.9298 38.9267C35.4617 39.0987 36.0092 39.1925 36.5567 39.1925C36.9478 39.1925 37.3546 39.1456 37.7457 39.0674C38.6061 38.8641 39.4196 38.4889 40.1236 37.9416C42.4546 36.0965 43.0804 34.3453 44.942 30.5457L46.4126 27.2621C47.0853 26.105 47.4607 24.8072 47.539 23.4625C47.4294 22.0709 46.7724 20.7574 45.6929 19.8349Z"
+      fill={color}
+    />
   </svg>
 );
 
@@ -1328,9 +1791,13 @@ const AccessibleHeatMap = () => {
   );
 };
 
-
-
-const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMessage?: (message: string) => void }) => (
+const DashboardView = ({
+  onBack,
+  onSendMessage,
+}: {
+  onBack: () => void;
+  onSendMessage?: (message: string) => void;
+}) => (
   <div className="relative w-full min-h-screen bg-[#0B0C28] overflow-hidden">
     {/* Background Gradients */}
     <div className="absolute inset-0">
@@ -1348,11 +1815,23 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
           onClick={onBack}
           className="flex items-center gap-1 sm:gap-2 text-white hover:text-white/80 transition-colors"
         >
-          <svg width="18" height="18" className="sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m12 19-7-7 7-7"/>
-            <path d="M19 12H5"/>
+          <svg
+            width="18"
+            height="18"
+            className="sm:w-5 sm:h-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="m12 19-7-7 7-7" />
+            <path d="M19 12H5" />
           </svg>
-          <span className="text-xs sm:text-sm font-medium hidden sm:inline">Back</span>
+          <span className="text-xs sm:text-sm font-medium hidden sm:inline">
+            Back
+          </span>
         </button>
 
         {/* Tamm Logo */}
@@ -1374,14 +1853,17 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={chatCardClass(
-          "mx-auto mb-8 w-full max-w-[605px] h-[103px] bg-gradient-to-b from-white to-[#F2F1EE] shadow-[0_0_10px_10px_rgba(0,0,0,0.07)]"
+          "mx-auto mb-8 w-full max-w-[605px] h-[103px] bg-gradient-to-b from-white to-[#F2F1EE] shadow-[0_0_10px_10px_rgba(0,0,0,0.07)]",
         )}
       >
         <div className="flex items-center gap-5 h-full px-5">
           <div className="flex-1">
-            <div className="text-[#282B3E] font-semibold text-sm mb-1">Research Complete</div>
+            <div className="text-[#282B3E] font-semibold text-sm mb-1">
+              Research Complete
+            </div>
             <div className="text-[#282B3E] text-sm leading-[19px]">
-              Your comprehensive restaurant investment analysis is ready for review.
+              Your comprehensive restaurant investment analysis is ready for
+              review.
             </div>
           </div>
           <button className="w-[138px] h-10 rounded-full bg-gradient-to-b from-[#5B6DDE] to-[#273489] text-white text-xs font-semibold">
@@ -1399,7 +1881,9 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className={chatCardClass("bg-white/10 backdrop-blur-md p-6 border border-white/20")}
+            className={chatCardClass(
+              "bg-white/10 backdrop-blur-md p-6 border border-white/20",
+            )}
           >
             <div className="flex items-center gap-4 mb-6">
               <img
@@ -1408,7 +1892,9 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
                 className="w-16 h-16 rounded-full border border-[#0E766E]"
               />
               <div>
-                <h3 className="text-white text-lg font-semibold">AI Business</h3>
+                <h3 className="text-white text-lg font-semibold">
+                  AI Business
+                </h3>
                 <motion.div
                   className="flex items-center gap-1 mt-2"
                   animate={{
@@ -1420,17 +1906,23 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
                     ease: "easeInOut",
                   }}
                 >
-                  {[5.77, 11.95, 19.78, 13.19, 8.66, 23.08, 30.5, 16.9, 4.53].map((height, index) => (
+                  {[
+                    5.77, 11.95, 19.78, 13.19, 8.66, 23.08, 30.5, 16.9, 4.53,
+                  ].map((height, index) => (
                     <motion.div
                       key={index}
                       className="bg-[#0E766E] rounded-full"
                       style={{
-                        width: '3px',
+                        width: "3px",
                         height: `${height}px`,
-                        transform: 'rotate(-90deg)'
+                        transform: "rotate(-90deg)",
                       }}
                       animate={{
-                        height: [`${height * 0.5}px`, `${height}px`, `${height * 0.7}px`],
+                        height: [
+                          `${height * 0.5}px`,
+                          `${height}px`,
+                          `${height * 0.7}px`,
+                        ],
                       }}
                       transition={{
                         duration: 1.5,
@@ -1444,10 +1936,13 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
               </div>
             </div>
             <div className="text-white/80 text-sm">
-              Analysis complete. This dashboard synthesizes all insights from our conversation about restaurant opportunities in Abu Dhabi.
+              Analysis complete. This dashboard synthesizes all insights from
+              our conversation about restaurant opportunities in Abu Dhabi.
             </div>
             <button
-              onClick={() => window.dispatchEvent(new CustomEvent('openCompetitorBreakout'))}
+              onClick={() =>
+                window.dispatchEvent(new CustomEvent("openCompetitorBreakout"))
+              }
               className="mt-4 px-4 py-2 bg-white/10 border border-white/20 rounded-full text-white text-sm hover:bg-white/20 transition-colors"
             >
               View competitor details
@@ -1460,26 +1955,38 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             className={chatCardClass(
-              "bg-white p-4 shadow-lg border border-[#EFEFEF]"
+              "bg-white p-4 shadow-lg border border-[#EFEFEF]",
             )}
           >
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <span className="text-black text-[11px] font-semibold">Visitor Taste Trends</span>
+                <span className="text-black text-[11px] font-semibold">
+                  Visitor Taste Trends
+                </span>
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <circle cx="6.24" cy="6.24" r="4.5" fill="#888888"/>
-                  <path fillRule="evenodd" clipRule="evenodd" d="M6.97 4.69C7.04 4.57 7.08 4.42 7.08 4.27C7.08 3.81 6.71 3.43 6.24 3.43C5.78 3.43 5.4 3.81 5.4 4.27C5.4 4.74 5.78 5.12 6.24 5.12C6.55 5.12 6.83 4.94 6.97 4.69ZM5.68 5.68H5.96H6.52C6.83 5.68 7.08 5.93 7.08 6.24V6.8V9.05C7.08 9.36 6.83 9.61 6.52 9.61C6.21 9.61 5.96 9.36 5.96 9.05V7.22C5.96 6.99 5.77 6.8 5.54 6.8C5.31 6.8 5.12 6.61 5.12 6.38V6.24C5.12 6.04 5.22 5.87 5.37 5.77C5.46 5.71 5.57 5.68 5.68 5.68Z" fill="white"/>
+                  <circle cx="6.24" cy="6.24" r="4.5" fill="#888888" />
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M6.97 4.69C7.04 4.57 7.08 4.42 7.08 4.27C7.08 3.81 6.71 3.43 6.24 3.43C5.78 3.43 5.4 3.81 5.4 4.27C5.4 4.74 5.78 5.12 6.24 5.12C6.55 5.12 6.83 4.94 6.97 4.69ZM5.68 5.68H5.96H6.52C6.83 5.68 7.08 5.93 7.08 6.24V6.8V9.05C7.08 9.36 6.83 9.61 6.52 9.61C6.21 9.61 5.96 9.36 5.96 9.05V7.22C5.96 6.99 5.77 6.8 5.54 6.8C5.31 6.8 5.12 6.61 5.12 6.38V6.24C5.12 6.04 5.22 5.87 5.37 5.77C5.46 5.71 5.57 5.68 5.68 5.68Z"
+                    fill="white"
+                  />
                 </svg>
               </div>
             </div>
 
             <div className="mb-4">
-              <div className="text-[#878787] text-[10px] mb-1">Total survey this month</div>
+              <div className="text-[#878787] text-[10px] mb-1">
+                Total survey this month
+              </div>
               <div className="text-black text-2xl font-semibold">1230</div>
               <div className="flex items-center gap-2 mt-2">
                 <div className="flex items-center gap-1 px-2 py-1 border border-[#D9D9D9] rounded-full bg-[#EEE] text-xs">
                   <svg width="9" height="10" viewBox="0 0 9 10" fill="none">
-                    <path d="M4.87 3.02V7.58H4.12V3.02L2.11 5.03L1.58 4.5L4.49 1.59L7.41 4.5L6.88 5.03L4.87 3.02Z" fill="#434343"/>
+                    <path
+                      d="M4.87 3.02V7.58H4.12V3.02L2.11 5.03L1.58 4.5L4.49 1.59L7.41 4.5L6.88 5.03L4.87 3.02Z"
+                      fill="#434343"
+                    />
                   </svg>
                   <span className="text-[#434343]">12%</span>
                 </div>
@@ -1492,15 +1999,21 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
               <div className="absolute inset-0 flex items-end gap-6 px-3">
                 <div className="flex flex-col items-center">
                   <div className="w-5 h-16 bg-[#E29F37] rounded mb-2" />
-                  <span className="text-[8px] text-[#878787] text-center">Tourists lean toward Emirati + Asian</span>
+                  <span className="text-[8px] text-[#878787] text-center">
+                    Tourists lean toward Emirati + Asian
+                  </span>
                 </div>
                 <div className="flex flex-col items-center">
                   <div className="w-5 h-24 bg-[#429195] rounded mb-2" />
-                  <span className="text-[8px] text-[#878787] text-center">Locals prefer Emirati + Mediterranean</span>
+                  <span className="text-[8px] text-[#878787] text-center">
+                    Locals prefer Emirati + Mediterranean
+                  </span>
                 </div>
                 <div className="flex flex-col items-center">
                   <div className="w-5 h-10 bg-[#A02E1F] rounded mb-2" />
-                  <span className="text-[8px] text-[#878787] text-center">Expats like Emirati + Indian</span>
+                  <span className="text-[8px] text-[#878787] text-center">
+                    Expats like Emirati + Indian
+                  </span>
                 </div>
               </div>
             </div>
@@ -1534,15 +2047,23 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
               <div className="border-b border-white/18 pb-6">
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <h3 className="text-white font-bold text-sm">Middle Eastern</h3>
+                    <h3 className="text-white font-bold text-sm">
+                      Middle Eastern
+                    </h3>
                   </div>
                   <div>
-                    <span className="text-white font-bold text-sm">Popularity</span>
+                    <span className="text-white font-bold text-sm">
+                      Popularity
+                    </span>
                     <div className="text-white text-sm">30-35%</div>
                   </div>
                   <div>
-                    <span className="text-white font-bold text-sm">Supporting Context</span>
-                    <div className="text-white text-sm">Cultural resonance, traditional appeal</div>
+                    <span className="text-white font-bold text-sm">
+                      Supporting Context
+                    </span>
+                    <div className="text-white text-sm">
+                      Cultural resonance, traditional appeal
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1557,7 +2078,9 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
                     <div className="text-white text-sm">20-25%</div>
                   </div>
                   <div>
-                    <div className="text-white text-sm">Fast-food dominance, familiarity, chain presence</div>
+                    <div className="text-white text-sm">
+                      Fast-food dominance, familiarity, chain presence
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1572,7 +2095,10 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
                     <div className="text-white text-sm">15-20%</div>
                   </div>
                   <div>
-                    <div className="text-white text-sm">Large expat community, flavor alignment with local preferences</div>
+                    <div className="text-white text-sm">
+                      Large expat community, flavor alignment with local
+                      preferences
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1589,8 +2115,12 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
             transition={{ duration: 0.8, delay: 0.8 }}
             className="text-center"
           >
-            <div className="text-white text-8xl lg:text-[100px] font-bold leading-none">78%</div>
-            <div className="text-white text-sm mt-2">Residents eat out twice a week</div>
+            <div className="text-white text-8xl lg:text-[100px] font-bold leading-none">
+              78%
+            </div>
+            <div className="text-white text-sm mt-2">
+              Residents eat out twice a week
+            </div>
           </motion.div>
 
           {/* Map Visualization */}
@@ -1632,9 +2162,13 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
           placeholder="Who are the top competitors in the area?"
           className="w-full bg-transparent text-white placeholder-white/70 outline-none text-sm"
           onKeyPress={(e) => {
-            if (e.key === 'Enter' && e.currentTarget.value.trim() && onSendMessage) {
+            if (
+              e.key === "Enter" &&
+              e.currentTarget.value.trim() &&
+              onSendMessage
+            ) {
               onSendMessage(e.currentTarget.value.trim());
-              e.currentTarget.value = '';
+              e.currentTarget.value = "";
             }
           }}
         />
@@ -1656,7 +2190,10 @@ const FinalCompilationView = ({ onBack }: { onBack: () => void }) => (
     {/* Header */}
     <div className="relative z-10 flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
       <div className="flex items-center gap-2 sm:gap-4">
-        <TammLogo className="w-16 sm:w-20 lg:w-[84px] text-[#0B0C28]" color="#0B0C28" />
+        <TammLogo
+          className="w-16 sm:w-20 lg:w-[84px] text-[#0B0C28]"
+          color="#0B0C28"
+        />
         <button
           type="button"
           onClick={onBack}
@@ -1671,7 +2208,13 @@ const FinalCompilationView = ({ onBack }: { onBack: () => void }) => (
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path d="M15 19L8 12L15 5" stroke="#0B0C28" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+              d="M15 19L8 12L15 5"
+              stroke="#0B0C28"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </button>
       </div>
@@ -1706,8 +2249,9 @@ const FinalCompilationView = ({ onBack }: { onBack: () => void }) => (
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-lg sm:text-xl text-[#0B0C28]/80 max-w-2xl mx-auto"
         >
-          Your comprehensive restaurant investment analysis is ready. From market research to competitor analysis,
-          every insight has been compiled for your investment decision.
+          Your comprehensive restaurant investment analysis is ready. From
+          market research to competitor analysis, every insight has been
+          compiled for your investment decision.
         </motion.p>
 
         {/* Stats Grid */}
@@ -1740,22 +2284,42 @@ const FinalCompilationView = ({ onBack }: { onBack: () => void }) => (
         >
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
             <button
-              onClick={() => window.dispatchEvent(new CustomEvent('openGapAnalysisBreakout'))}
+              onClick={() =>
+                window.dispatchEvent(new CustomEvent("openGapAnalysisBreakout"))
+              }
               className="inline-flex items-center gap-3 bg-gradient-to-r from-[#0E766E] to-[#0E766E] text-[#042B28] px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
             >
               View Gap Analysis
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 11H5a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2h-4"/>
-                <path d="M9 7l3-3 3 3"/>
-                <path d="M12 4v8"/>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M9 11H5a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2h-4" />
+                <path d="M9 7l3-3 3 3" />
+                <path d="M12 4v8" />
               </svg>
             </button>
             <button className="inline-flex items-center gap-3 bg-gradient-to-r from-[#5B6DDE] to-[#273489] text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all">
               Download Complete Report
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="7,10 12,15 17,10"/>
-                <line x1="12" y1="15" x2="12" y2="3"/>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7,10 12,15 17,10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
             </button>
           </div>
@@ -1796,7 +2360,11 @@ const FinalCompilationView = ({ onBack }: { onBack: () => void }) => (
   </div>
 );
 
-const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () => void }) => {
+const DiscoveryCompilationCard = ({
+  onViewDashboard,
+}: {
+  onViewDashboard?: () => void;
+}) => {
   const handleOpenDashboard = () => {
     if (onViewDashboard) {
       onViewDashboard();
@@ -1805,7 +2373,7 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
 
   const handleOpenCuisineBreakout = () => {
     // Dispatch custom event to trigger the breakout modal
-    window.dispatchEvent(new CustomEvent('openCuisineBreakout'));
+    window.dispatchEvent(new CustomEvent("openCuisineBreakout"));
   };
 
   return (
@@ -1813,7 +2381,7 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
       <div
         className={chatCardClass(
           "bg-gradient-to-br from-[#0B0F2C]/95 via-[#101a43]/90 to-[#152d63]/85 backdrop-blur-xl border border-[#0B0C28]/20 shadow-[0_20px_50px_rgba(7,12,32,0.5)] overflow-hidden",
-          "sm:rounded-3xl"
+          "sm:rounded-3xl",
         )}
       >
         {/* AI Business Header */}
@@ -1825,7 +2393,9 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
               className="w-16 h-16 rounded-full border border-[#0E766E]"
             />
             <div className="flex-1">
-              <h3 className="text-white text-lg font-semibold mb-2">AI Business</h3>
+              <h3 className="text-white text-lg font-semibold mb-2">
+                AI Business
+              </h3>
               <motion.div
                 className="flex items-center gap-1"
                 animate={{
@@ -1837,26 +2407,32 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
                   ease: "easeInOut",
                 }}
               >
-                {[5.77, 11.95, 19.78, 13.19, 8.66, 23.08, 30.5, 16.9, 4.53].map((height, index) => (
-                  <motion.div
-                    key={index}
-                    className="bg-[#0E766E] rounded-full"
-                    style={{
-                      width: '3px',
-                      height: `${Math.max(3, height * 0.8)}px`,
-                      transform: 'rotate(-90deg)'
-                    }}
-                    animate={{
-                      height: [`${Math.max(3, height * 0.5)}px`, `${height}px`, `${Math.max(3, height * 0.7)}px`],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: index * 0.1,
-                    }}
-                  />
-                ))}
+                {[5.77, 11.95, 19.78, 13.19, 8.66, 23.08, 30.5, 16.9, 4.53].map(
+                  (height, index) => (
+                    <motion.div
+                      key={index}
+                      className="bg-[#0E766E] rounded-full"
+                      style={{
+                        width: "3px",
+                        height: `${Math.max(3, height * 0.8)}px`,
+                        transform: "rotate(-90deg)",
+                      }}
+                      animate={{
+                        height: [
+                          `${Math.max(3, height * 0.5)}px`,
+                          `${height}px`,
+                          `${Math.max(3, height * 0.7)}px`,
+                        ],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: index * 0.1,
+                      }}
+                    />
+                  ),
+                )}
               </motion.div>
             </div>
           </div>
@@ -1876,11 +2452,15 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
                   </h3>
                 </div>
                 <div>
-                  <p className="text-white font-bold text-sm mb-1">Popularity</p>
+                  <p className="text-white font-bold text-sm mb-1">
+                    Popularity
+                  </p>
                   <p className="text-white text-sm leading-[120%]">30-35%</p>
                 </div>
                 <div>
-                  <p className="text-white font-bold text-sm mb-1">Supporting Context</p>
+                  <p className="text-white font-bold text-sm mb-1">
+                    Supporting Context
+                  </p>
                   <p className="text-white text-sm leading-[120%]">
                     Cultural resonance, traditional appeal
                   </p>
@@ -1920,7 +2500,8 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
                 </div>
                 <div>
                   <p className="text-white text-sm leading-[120%]">
-                    Large expat community, flavor alignment with local preferences
+                    Large expat community, flavor alignment with local
+                    preferences
                   </p>
                 </div>
               </div>
@@ -1934,11 +2515,18 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
               onClick={handleOpenCuisineBreakout}
               className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "justify-center")}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                <line x1="16" y1="2" x2="16" y2="6"/>
-                <line x1="8" y1="2" x2="8" y2="6"/>
-                <line x1="3" y1="10" x2="21" y2="10"/>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
               </svg>
               Detailed breakdown
             </button>
@@ -1993,7 +2581,10 @@ const ChatInputField = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className={cn("w-full max-w-[691px]", className)}>
+    <form
+      onSubmit={handleSubmit}
+      className={cn("w-full max-w-[691px]", className)}
+    >
       <div className="flex h-[39px] w-full items-center justify-center gap-4 rounded-full bg-white/20 px-[13px] py-[16px] backdrop-blur-sm">
         <input
           type="text"
@@ -2002,7 +2593,9 @@ const ChatInputField = ({
           onKeyPress={handleKeyPress}
           placeholder={placeholder}
           className="flex-1 bg-transparent text-[13px] font-normal leading-[140%] text-white placeholder-white/70 outline-none"
-          style={{ fontFamily: "DM Sans, -apple-system, Roboto, Helvetica, sans-serif" }}
+          style={{
+            fontFamily: "DM Sans, -apple-system, Roboto, Helvetica, sans-serif",
+          }}
         />
 
         {/* Microphone Icon */}
@@ -2162,10 +2755,18 @@ const DialogueDocCard = ({
   const [newHighlight, setNewHighlight] = useState("");
   const completedCount = highlights.filter((item) => item.completed).length;
   const totalHighlights = highlights.length;
-  const progressPercentage = totalHighlights > 0 ? Math.round((completedCount / totalHighlights) * 100) : 0;
-  const highlightStatus = totalHighlights > 0 ? `${completedCount}/${totalHighlights} complete` : "No threads yet";
+  const progressPercentage =
+    totalHighlights > 0
+      ? Math.round((completedCount / totalHighlights) * 100)
+      : 0;
+  const highlightStatus =
+    totalHighlights > 0
+      ? `${completedCount}/${totalHighlights} complete`
+      : "No threads yet";
   const highlightEncouragement =
-    totalHighlights === 0 ? "Capture new focus points to start progress." : "Keep collaborating to mark threads done.";
+    totalHighlights === 0
+      ? "Capture new focus points to start progress."
+      : "Keep collaborating to mark threads done.";
 
   const handleAddHighlight = () => {
     const value = newHighlight.trim();
@@ -2181,11 +2782,17 @@ const DialogueDocCard = ({
     <div
       className={chatCardClass(
         "relative w-full max-w-[720px] overflow-hidden border border-white/60 bg-white/80 backdrop-blur-2xl shadow-[0_46px_120px_-70px_rgba(8,57,57,0.38)]",
-        "rounded-[36px]"
+        "rounded-[36px]",
       )}
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,118,110,0.12),transparent_55%)]" aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(8,57,57,0.08),transparent_60%)]" aria-hidden="true" />
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,118,110,0.12),transparent_55%)]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(8,57,57,0.08),transparent_60%)]"
+        aria-hidden="true"
+      />
       <div className="relative flex flex-col gap-10 p-6 sm:p-8 lg:p-10">
         <header className="flex flex-col gap-6">
           <div className="flex flex-wrap items-start justify-between gap-6">
@@ -2194,20 +2801,28 @@ const DialogueDocCard = ({
                 Dialogue workspace
               </Badge>
               <div className="space-y-3">
-                <h3 className="text-2xl font-semibold leading-tight text-slate-900 sm:text-3xl">{title}</h3>
+                <h3 className="text-2xl font-semibold leading-tight text-slate-900 sm:text-3xl">
+                  {title}
+                </h3>
                 {summary ? (
-                  <p className="text-sm leading-relaxed text-slate-600 sm:text-base">{summary}</p>
+                  <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
+                    {summary}
+                  </p>
                 ) : null}
               </div>
             </div>
             <div className="flex w-full max-w-[240px] flex-col items-start gap-3 rounded-[28px] border border-white/70 bg-white/70 px-5 py-4 shadow-[0_18px_40px_-28px_rgba(8,57,57,0.22)] sm:max-w-[260px]">
-              <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-slate-400">Live progress</span>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-slate-400">
+                Live progress
+              </span>
               <div className="flex items-center gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0E766E]/15 text-lg font-semibold text-[#0E766E]">
                   {progressPercentage}%
                 </div>
                 <div className="text-xs text-slate-500 sm:text-sm">
-                  <div className="font-semibold text-slate-900">{highlightStatus}</div>
+                  <div className="font-semibold text-slate-900">
+                    {highlightStatus}
+                  </div>
                   <div>{highlightEncouragement}</div>
                 </div>
               </div>
@@ -2220,14 +2835,18 @@ const DialogueDocCard = ({
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.26em] text-slate-400">
-            <span className="rounded-full border border-white/60 bg-white/70 px-3 py-1 text-[#0E766E]">Shared with AI advisor</span>
+            <span className="rounded-full border border-white/60 bg-white/70 px-3 py-1 text-[#0E766E]">
+              Shared with AI advisor
+            </span>
             <span>Investor dialogue</span>
           </div>
         </header>
         <div className="grid gap-8 lg:grid-cols-[minmax(0,0.52fr)_minmax(0,0.48fr)]">
           <section className="space-y-4">
             <div className="flex items-center justify-between gap-2">
-              <h4 className="text-xs font-semibold uppercase tracking-[0.26em] text-[#0E766E]">Focus threads</h4>
+              <h4 className="text-xs font-semibold uppercase tracking-[0.26em] text-[#0E766E]">
+                Focus threads
+              </h4>
               <span className="text-xs text-slate-400">{highlightStatus}</span>
             </div>
             <ul className="space-y-3">
@@ -2243,7 +2862,8 @@ const DialogueDocCard = ({
               ))}
               {highlights.length === 0 && (
                 <li className="rounded-[28px] border border-dashed border-slate-200 bg-white/70 px-4 py-5 text-sm text-slate-500">
-                  Add focus threads to capture priorities and questions as they emerge.
+                  Add focus threads to capture priorities and questions as they
+                  emerge.
                 </li>
               )}
             </ul>
@@ -2274,8 +2894,12 @@ const DialogueDocCard = ({
           </section>
           <section className="space-y-4">
             <div className="flex items-center justify-between gap-2">
-              <h4 className="text-xs font-semibold uppercase tracking-[0.26em] text-[#0E766E]">Working notes</h4>
-              <span className="text-xs text-slate-400">{notes.length} characters</span>
+              <h4 className="text-xs font-semibold uppercase tracking-[0.26em] text-[#0E766E]">
+                Working notes
+              </h4>
+              <span className="text-xs text-slate-400">
+                {notes.length} characters
+              </span>
             </div>
             <div className="rounded-[32px] border border-slate-200/80 bg-white/85 px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
               <textarea
@@ -2286,7 +2910,8 @@ const DialogueDocCard = ({
               />
             </div>
             <div className="rounded-2xl border border-[#0E766E]/20 bg-[#0E766E]/5 px-4 py-3 text-xs leading-relaxed text-[#0A4A46]">
-              Invite collaborators or export highlights into your investor journey workspace when you are ready to share outcomes.
+              Invite collaborators or export highlights into your investor
+              journey workspace when you are ready to share outcomes.
             </div>
           </section>
         </div>
@@ -2295,11 +2920,17 @@ const DialogueDocCard = ({
   );
 };
 
-const SetupBusinessCTA = ({ onSetup, onExplore }: { onSetup?: () => void; onExplore?: () => void }) => (
+const SetupBusinessCTA = ({
+  onSetup,
+  onExplore,
+}: {
+  onSetup?: () => void;
+  onExplore?: () => void;
+}) => (
   <div
     className={chatCardClass(
       "relative w-full max-w-[593px] overflow-hidden border border-black bg-white/14 backdrop-blur-sm",
-      "rounded-[24px]"
+      "rounded-[24px]",
     )}
   >
     {/* Header Image Section */}
@@ -2327,7 +2958,8 @@ const SetupBusinessCTA = ({ onSetup, onExplore }: { onSetup?: () => void; onExpl
           Investor Journey
         </div>
         <div className="text-black text-lg leading-[140%] tracking-[0.058px]">
-          <span className="font-bold">Khalid</span> <span className="font-normal">Entrepreneur</span>
+          <span className="font-bold">Khalid</span>{" "}
+          <span className="font-normal">Entrepreneur</span>
         </div>
       </div>
     </div>
@@ -2339,7 +2971,10 @@ const SetupBusinessCTA = ({ onSetup, onExplore }: { onSetup?: () => void; onExpl
           Your journey, powered by AI
         </h3>
         <p className="text-black text-base leading-[120%] tracking-[0.051px] font-normal">
-          Discover a clear path for investors to plan, apply for, and successfully open a restaurant. In just four seamless stages, watch Khalid, an F&B entrepreneur, go from a business idea to a thriving restaurant.
+          Discover a clear path for investors to plan, apply for, and
+          successfully open a restaurant. In just four seamless stages, watch
+          Khalid, an F&B entrepreneur, go from a business idea to a thriving
+          restaurant.
         </p>
       </div>
 
@@ -2395,8 +3030,12 @@ const MessageBubble = ({
   }
 
   if (message.type === "setup-cta") {
-    const setupAction = message.actions?.find(action => action.label === "Set up business");
-    const exploreAction = message.actions?.find(action => action.label === "Explore more options");
+    const setupAction = message.actions?.find(
+      (action) => action.label === "Set up business",
+    );
+    const exploreAction = message.actions?.find(
+      (action) => action.label === "Explore more options",
+    );
     return (
       <div className="mb-6 flex w-full justify-center">
         <SetupBusinessCTA
@@ -2486,7 +3125,10 @@ const MessageBubble = ({
             <>
               <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                 {PROPERTY_OPPORTUNITIES.map((opportunity) => (
-                  <PropertyOpportunityCard key={opportunity.id} opportunity={opportunity} />
+                  <PropertyOpportunityCard
+                    key={opportunity.id}
+                    opportunity={opportunity}
+                  />
                 ))}
               </div>
               <PropertyCollaborators />
@@ -2522,7 +3164,10 @@ const MessageBubble = ({
             <div className="mt-4 space-y-4">
               <BudgetRanges
                 onClick={onBudgetRangesOpen}
-                className={cn("self-start", !onBudgetRangesOpen && "pointer-events-none")}
+                className={cn(
+                  "self-start",
+                  !onBudgetRangesOpen && "pointer-events-none",
+                )}
               />
               <div className="overflow-hidden rounded-2xl border border-[#d8e4df] bg-white/70">
                 <div className="grid gap-0 text-sm text-slate-600">
@@ -2541,17 +3186,25 @@ const MessageBubble = ({
                       className="grid items-center gap-3 border-b border-[#d8e4df]/40 px-4 py-3 last:border-none md:grid-cols-[1.6fr,1fr,1fr]"
                     >
                       <div className="space-y-1">
-                        <span className="text-sm font-semibold text-slate-900">{row.area}</span>
+                        <span className="text-sm font-semibold text-slate-900">
+                          {row.area}
+                        </span>
                         <p className="text-xs text-slate-500">
-                          {row.boutiqueRange !== "–" ? "High street or lifestyle hub positioning" : "Premium district suited to flagship scale"}
+                          {row.boutiqueRange !== "–"
+                            ? "High street or lifestyle hub positioning"
+                            : "Premium district suited to flagship scale"}
                         </p>
                       </div>
                       <div className="flex items-center justify-between gap-2 text-xs md:block">
-                        <span className="font-semibold text-slate-800">{row.boutiqueRange}</span>
+                        <span className="font-semibold text-slate-800">
+                          {row.boutiqueRange}
+                        </span>
                         <span className="md:hidden">Boutique</span>
                       </div>
                       <div className="flex items-center justify-between gap-2 text-xs md:block">
-                        <span className="font-semibold text-slate-800">{row.flagshipRange}</span>
+                        <span className="font-semibold text-slate-800">
+                          {row.flagshipRange}
+                        </span>
                         <span className="md:hidden">Flagship</span>
                       </div>
                     </div>
@@ -2559,7 +3212,9 @@ const MessageBubble = ({
                 </div>
               </div>
               <p className="text-xs text-slate-500">
-                Tap the budget ranges pill to open an interactive view with detailed breakdowns, timelines, and recommended next steps for each district.
+                Tap the budget ranges pill to open an interactive view with
+                detailed breakdowns, timelines, and recommended next steps for
+                each district.
               </p>
             </div>
           )}
@@ -2701,32 +3356,56 @@ const DISCOVER_EXPERIENCE_BACKGROUND =
   "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F9b0dc1e702cd47b081613f3972914c00?format=webp&width=800";
 
 // Budget Ranges Modal Component
-const BudgetRangesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+const BudgetRangesModal = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
   const budgetRanges = [
     {
       range: "AED 10,000 - 30,000",
       title: "Basic Trade License",
       description: "Standard commercial license for restaurant operations",
-      includes: ["Trade license registration", "Initial permits", "Basic approvals"]
+      includes: [
+        "Trade license registration",
+        "Initial permits",
+        "Basic approvals",
+      ],
     },
     {
       range: "AED 790 - 5,000",
       title: "Tajer/E-commerce License",
       description: "Limited operations license (no full restaurant service)",
-      includes: ["Online sales permit", "Delivery operations", "Takeaway service"]
+      includes: [
+        "Online sales permit",
+        "Delivery operations",
+        "Takeaway service",
+      ],
     },
     {
       range: "AED 50,000 - 150,000",
       title: "Premium Location License",
       description: "High-end areas with additional requirements",
-      includes: ["Premium location fees", "Enhanced permits", "Tourism board approvals"]
+      includes: [
+        "Premium location fees",
+        "Enhanced permits",
+        "Tourism board approvals",
+      ],
     },
     {
       range: "AED 200,000 - 500,000",
       title: "Comprehensive Setup",
       description: "Full restaurant setup with all permits and approvals",
-      includes: ["All licenses", "Health permits", "Fire safety", "Municipality approvals", "Tourism licenses"]
-    }
+      includes: [
+        "All licenses",
+        "Health permits",
+        "Fire safety",
+        "Municipality approvals",
+        "Tourism licenses",
+      ],
+    },
   ];
 
   if (!isOpen) return null;
@@ -2741,7 +3420,11 @@ const BudgetRangesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =
         className="relative z-10 w-full max-w-4xl"
         style={MODAL_MIN_DIMENSIONS}
       >
-        <div className={chatCardClass("max-h-[85vh] min-h-[556px] overflow-hidden border border-[#e2ede8] bg-white shadow-[0_24px_48px_-32px_rgba(11,64,55,0.25)] ring-4 ring-[#0E766E]/18 ring-offset-2 ring-offset-white")}>
+        <div
+          className={chatCardClass(
+            "max-h-[85vh] min-h-[556px] overflow-hidden border border-[#e2ede8] bg-white shadow-[0_24px_48px_-32px_rgba(11,64,55,0.25)] ring-4 ring-[#0E766E]/18 ring-offset-2 ring-offset-white",
+          )}
+        >
           <div className="border-b border-[#e2ede8] bg-[#f6faf8] px-6 py-7 lg:px-8">
             <div className="flex flex-col gap-5">
               <div className="flex flex-wrap items-center justify-between gap-3">
@@ -2766,7 +3449,8 @@ const BudgetRangesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                   Restaurant License Budget Ranges
                 </h3>
                 <p className="max-w-2xl text-base text-slate-600">
-                  Comprehensive breakdown of licensing costs and requirements for different restaurant types in Abu Dhabi.
+                  Comprehensive breakdown of licensing costs and requirements
+                  for different restaurant types in Abu Dhabi.
                 </p>
               </div>
             </div>
@@ -2778,20 +3462,31 @@ const BudgetRangesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                 <div
                   key={index}
                   className={chatCardClass(
-                    "border border-[#dbe9e3] bg-white p-6 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)] transition hover:shadow-[0_22px_48px_-28px_rgba(15,118,110,0.25)]"
+                    "border border-[#dbe9e3] bg-white p-6 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)] transition hover:shadow-[0_22px_48px_-28px_rgba(15,118,110,0.25)]",
                   )}
                 >
                   <div className="mb-4">
-                    <span className="text-2xl font-bold text-[#0E766E]">{budget.range}</span>
-                    <h4 className="mt-1 text-lg font-semibold text-slate-900">{budget.title}</h4>
-                    <p className="mt-2 text-sm text-slate-600">{budget.description}</p>
+                    <span className="text-2xl font-bold text-[#0E766E]">
+                      {budget.range}
+                    </span>
+                    <h4 className="mt-1 text-lg font-semibold text-slate-900">
+                      {budget.title}
+                    </h4>
+                    <p className="mt-2 text-sm text-slate-600">
+                      {budget.description}
+                    </p>
                   </div>
 
                   <div className="space-y-2">
-                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Includes</span>
+                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+                      Includes
+                    </span>
                     <ul className="space-y-1">
                       {budget.includes.map((item, i) => (
-                        <li key={i} className="flex items-center gap-2 text-sm text-slate-700">
+                        <li
+                          key={i}
+                          className="flex items-center gap-2 text-sm text-slate-700"
+                        >
                           <span className="h-1.5 w-1.5 rounded-full bg-[#0E766E]"></span>
                           {item}
                         </li>
@@ -2808,7 +3503,13 @@ const BudgetRangesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =
   );
 };
 
-const CompetitorBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+const CompetitorBreakoutModal = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
   if (!isOpen) return null;
 
   const competitorHighlights = [
@@ -2816,27 +3517,40 @@ const CompetitorBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose
       name: "Shurfa Bay",
       rating: "4.8���",
       tier: "Premium waterfront",
-      insight: "Sunset terrace has maintained 98% capacity across the past four evenings.",
+      insight:
+        "Sunset terrace has maintained 98% capacity across the past four evenings.",
     },
     {
       name: "Villa Toscana",
       rating: "4.7★",
       tier: "Luxury hotel dining",
-      insight: "Private dining conversions rose 28% with bespoke tasting menus.",
+      insight:
+        "Private dining conversions rose 28% with bespoke tasting menus.",
     },
     {
       name: "Palms & Pearls",
       rating: "4.3★",
       tier: "Elevated casual",
-      insight: "Experiential tasting flights outperform à la carte by 1.6x revenue.",
+      insight:
+        "Experiential tasting flights outperform à la carte by 1.6x revenue.",
     },
   ];
 
   return (
     <div className="fixed inset-0 z-[80] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative z-10 w-full max-w-[920px]" style={MODAL_MIN_DIMENSIONS}>
-        <div className={chatCardClass("overflow-hidden border border-white/15 bg-slate-900/85 shadow-[0_45px_85px_-40px_rgba(15,23,42,0.9)] backdrop-blur-2xl ring-4 ring-[#0E766E]/18 ring-offset-2 ring-offset-slate-900")}>
+      <div
+        className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div
+        className="relative z-10 w-full max-w-[920px]"
+        style={MODAL_MIN_DIMENSIONS}
+      >
+        <div
+          className={chatCardClass(
+            "overflow-hidden border border-white/15 bg-slate-900/85 shadow-[0_45px_85px_-40px_rgba(15,23,42,0.9)] backdrop-blur-2xl ring-4 ring-[#0E766E]/18 ring-offset-2 ring-offset-slate-900",
+          )}
+        >
           <div className="border-b border-white/15 bg-white/12 px-6 py-5">
             <div className="flex flex-col gap-4">
               <div className="flex flex-wrap items-center justify-between gap-3">
@@ -2854,16 +3568,26 @@ const CompetitorBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose
                   className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-[#0E766E] hover:text-[#0E766E]"
                   aria-label="Close competitor breakout"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <line x1="18" y1="6" x2="6" y2="18" />
                     <line x1="6" y1="6" x2="18" y2="18" />
                   </svg>
                 </button>
               </div>
               <div className="space-y-2 text-white">
-                <h3 className="text-xl font-semibold">Premium waterfront benchmarks</h3>
+                <h3 className="text-xl font-semibold">
+                  Premium waterfront benchmarks
+                </h3>
                 <p className="text-sm text-white/70">
-                  Benchmark high-performing venues to position your concept with differentiated premium rituals.
+                  Benchmark high-performing venues to position your concept with
+                  differentiated premium rituals.
                 </p>
               </div>
             </div>
@@ -2876,7 +3600,9 @@ const CompetitorBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose
                   className="rounded-2xl border border-white/12 bg-white/8 p-4 text-white"
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <p className="text-sm font-semibold text-white">{item.name}</p>
+                    <p className="text-sm font-semibold text-white">
+                      {item.name}
+                    </p>
                     <Badge
                       variant="outline"
                       className="border-emerald-300/50 bg-emerald-400/10 px-2 py-0.5 text-[10px] uppercase tracking-wide text-emerald-100"
@@ -2887,13 +3613,18 @@ const CompetitorBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose
                   <div className="mt-3 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[10px] uppercase tracking-wide text-white/80">
                     {item.tier}
                   </div>
-                  <p className="mt-3 text-xs text-white/70 leading-relaxed">{item.insight}</p>
+                  <p className="mt-3 text-xs text-white/70 leading-relaxed">
+                    {item.insight}
+                  </p>
                 </div>
               ))}
             </div>
             <div className="rounded-2xl border border-white/12 bg-white/7 p-5 text-sm text-white/75">
               <p>
-                Corniche venues continue to command the highest experiential spend. Positioning your concept with curated terrace rituals and signature tasting moments keeps you competitive while protecting premium price points.
+                Corniche venues continue to command the highest experiential
+                spend. Positioning your concept with curated terrace rituals and
+                signature tasting moments keeps you competitive while protecting
+                premium price points.
               </p>
             </div>
           </div>
@@ -2903,7 +3634,13 @@ const CompetitorBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose
   );
 };
 
-const GapBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+const GapBreakoutModal = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
   if (!isOpen) return null;
 
   const opportunitySignals: Array<{
@@ -2914,17 +3651,20 @@ const GapBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
     {
       title: "Emirati fusion brunch",
       urgency: "High",
-      detail: "Weekday premium casual format missing along Corniche with resident demand rising 18% year-on-year.",
+      detail:
+        "Weekday premium casual format missing along Corniche with resident demand rising 18% year-on-year.",
     },
     {
       title: "Family coastal lounge",
       urgency: "Medium",
-      detail: "Blend kids programming with curated sundowner menus to capture mixed visitor cohorts.",
+      detail:
+        "Blend kids programming with curated sundowner menus to capture mixed visitor cohorts.",
     },
     {
       title: "Wellness-forward café",
       urgency: "Emerging",
-      detail: "Morning boardwalk activity up 14% quarter-on-quarter; healthy grab-and-go remains underserved.",
+      detail:
+        "Morning boardwalk activity up 14% quarter-on-quarter; healthy grab-and-go remains underserved.",
     },
   ];
 
@@ -2942,9 +3682,19 @@ const GapBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
 
   return (
     <div className="fixed inset-0 z-[82] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative z-10 w-full max-w-[880px]" style={MODAL_MIN_DIMENSIONS}>
-        <div className={chatCardClass("overflow-hidden border border-white/15 bg-slate-900/80 shadow-[0_45px_85px_-40px_rgba(15,23,42,0.8)] backdrop-blur-2xl ring-4 ring-[#0E766E]/18 ring-offset-2 ring-offset-slate-900")}>
+      <div
+        className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div
+        className="relative z-10 w-full max-w-[880px]"
+        style={MODAL_MIN_DIMENSIONS}
+      >
+        <div
+          className={chatCardClass(
+            "overflow-hidden border border-white/15 bg-slate-900/80 shadow-[0_45px_85px_-40px_rgba(15,23,42,0.8)] backdrop-blur-2xl ring-4 ring-[#0E766E]/18 ring-offset-2 ring-offset-slate-900",
+          )}
+        >
           <div className="border-b border-white/12 bg-white/12 px-6 py-5">
             <div className="flex flex-col gap-4">
               <div className="flex flex-wrap items-center justify-between gap-3">
@@ -2962,7 +3712,14 @@ const GapBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                   className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-[#0E766E] hover:text-[#0E766E]"
                   aria-label="Close opportunity breakout"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <line x1="18" y1="6" x2="6" y2="18" />
                     <line x1="6" y1="6" x2="18" y2="18" />
                   </svg>
@@ -2971,7 +3728,8 @@ const GapBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
               <div className="space-y-2 text-white">
                 <h3 className="text-xl font-semibold">Corniche demand map</h3>
                 <p className="text-sm text-white/70">
-                  Surface emerging experience gaps by urgency to inform concept prioritisation across the Corniche.
+                  Surface emerging experience gaps by urgency to inform concept
+                  prioritisation across the Corniche.
                 </p>
               </div>
             </div>
@@ -2984,7 +3742,9 @@ const GapBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                   className="rounded-2xl border border-white/12 bg-white/7 p-4"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <p className="text-sm font-semibold text-white">{signal.title}</p>
+                    <p className="text-sm font-semibold text-white">
+                      {signal.title}
+                    </p>
                     <Badge
                       variant="outline"
                       className={cn(
@@ -2995,13 +3755,17 @@ const GapBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                       {signal.urgency}
                     </Badge>
                   </div>
-                  <p className="mt-3 text-xs text-white/70 leading-relaxed">{signal.detail}</p>
+                  <p className="mt-3 text-xs text-white/70 leading-relaxed">
+                    {signal.detail}
+                  </p>
                 </div>
               ))}
             </div>
             <div className="rounded-2xl border border-white/12 bg-white/8 p-5 text-sm text-white/75">
               <p>
-                Sync these opportunities with the investor journey: surface after sign-in, attach licensing requirements, and auto-create reviewer follow-up tasks inside the portal.
+                Sync these opportunities with the investor journey: surface
+                after sign-in, attach licensing requirements, and auto-create
+                reviewer follow-up tasks inside the portal.
               </p>
             </div>
           </div>
@@ -3478,7 +4242,11 @@ const DiscoverExperienceView = ({
             className="relative z-10 w-full max-w-4xl"
             style={MODAL_MIN_DIMENSIONS}
           >
-            <div className={chatCardClass("max-h-[85vh] min-h-[556px] overflow-hidden border border-[#e2ede8] bg-white shadow-[0_24px_48px_-32px_rgba(11,64,55,0.25)] ring-4 ring-[#0E766E]/18 ring-offset-2 ring-offset-white")}>
+            <div
+              className={chatCardClass(
+                "max-h-[85vh] min-h-[556px] overflow-hidden border border-[#e2ede8] bg-white shadow-[0_24px_48px_-32px_rgba(11,64,55,0.25)] ring-4 ring-[#0E766E]/18 ring-offset-2 ring-offset-white",
+              )}
+            >
               <div className="border-b border-[#e2ede8] bg-[#f6faf8] px-6 py-7 lg:px-8">
                 <div className="flex flex-col gap-5">
                   <div className="flex flex-wrap items-center justify-between gap-3">
@@ -3507,7 +4275,8 @@ const DiscoverExperienceView = ({
                       Abu Dhabi F&B Hotspot Density
                     </h3>
                     <p className="max-w-2xl text-base text-slate-600">
-                      Compare licensing concentration and live footfall signals across the city&apos;s restaurant districts.
+                      Compare licensing concentration and live footfall signals
+                      across the city&apos;s restaurant districts.
                     </p>
                   </div>
                 </div>
@@ -3518,7 +4287,7 @@ const DiscoverExperienceView = ({
                   <div className="grid gap-6 lg:grid-cols-2">
                     <div
                       className={chatCardClass(
-                        "relative flex h-full flex-col gap-5 border border-[#dbe9e3] bg-white p-6 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]"
+                        "relative flex h-full flex-col gap-5 border border-[#dbe9e3] bg-white p-6 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]",
                       )}
                     >
                       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -3554,7 +4323,11 @@ const DiscoverExperienceView = ({
                           ))}
                         </div>
                       </div>
-                      <div className={chatCardClass("relative flex-1 overflow-hidden border border-[#dbe9e3] bg-white")}>
+                      <div
+                        className={chatCardClass(
+                          "relative flex-1 overflow-hidden border border-[#dbe9e3] bg-white",
+                        )}
+                      >
                         <img
                           src="https://api.builder.io/api/v1/image/assets/TEMP/df351a3a49f1c6b9b74765965e6ddb3ecf6799d7?width=1600"
                           alt="Abu Dhabi Map"
@@ -3865,19 +4638,28 @@ const DiscoverExperienceView = ({
                       <div className="mt-5 flex flex-wrap items-center gap-3">
                         <button
                           type="button"
-                          className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "justify-center")}
+                          className={cn(
+                            ARTIFACT_ACTION_BUTTON_CLASSES,
+                            "justify-center",
+                          )}
                         >
                           Export insights
                         </button>
                         <button
                           type="button"
-                          className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "justify-center")}
+                          className={cn(
+                            ARTIFACT_ACTION_BUTTON_CLASSES,
+                            "justify-center",
+                          )}
                         >
                           Download CSV
                         </button>
                         <button
                           type="button"
-                          className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "justify-center")}
+                          className={cn(
+                            ARTIFACT_ACTION_BUTTON_CLASSES,
+                            "justify-center",
+                          )}
                         >
                           Share view
                         </button>
@@ -3886,10 +4668,14 @@ const DiscoverExperienceView = ({
 
                     <div
                       className={chatCardClass(
-                        "flex h-full flex-col gap-4 border border-[#dbe9e3] bg-white p-6 text-slate-900 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]"
+                        "flex h-full flex-col gap-4 border border-[#dbe9e3] bg-white p-6 text-slate-900 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]",
                       )}
                     >
-                      <div className={chatCardClass("relative overflow-hidden border border-[#dbe9e3] bg-white p-5 shadow-[0_18px_36px_-28px_rgba(15,118,110,0.25)]")}>
+                      <div
+                        className={chatCardClass(
+                          "relative overflow-hidden border border-[#dbe9e3] bg-white p-5 shadow-[0_18px_36px_-28px_rgba(15,118,110,0.25)]",
+                        )}
+                      >
                         <span className="absolute left-0 top-5 bottom-5 w-1.5 rounded-full bg-gradient-to-b from-[#0E766E] via-[#34d399] to-transparent" />
                         <div className="pl-4">
                           <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
@@ -3938,7 +4724,11 @@ const DiscoverExperienceView = ({
                         </div>
                       </div>
 
-                      <div className={chatCardClass("flex-1 overflow-y-auto border border-[#dbe9e3] bg-white/70 p-4")}>
+                      <div
+                        className={chatCardClass(
+                          "flex-1 overflow-y-auto border border-[#dbe9e3] bg-white/70 p-4",
+                        )}
+                      >
                         <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
                           Other hotspots
                         </p>
@@ -3951,7 +4741,7 @@ const DiscoverExperienceView = ({
                                 key={spot.id}
                                 className={cn(
                                   chatCardClass(
-                                    "relative overflow-hidden border border-[#dbe9e3] bg-white px-4 py-3 transition hover:border-[#0E766E]/50 hover:shadow-[0_16px_30px_-24px_rgba(15,118,110,0.3)]"
+                                    "relative overflow-hidden border border-[#dbe9e3] bg-white px-4 py-3 transition hover:border-[#0E766E]/50 hover:shadow-[0_16px_30px_-24px_rgba(15,118,110,0.3)]",
                                   ),
                                   isHighlighted &&
                                     "border-[#0E766E] shadow-[0_22px_48px_-26px_rgba(15,118,110,0.32)]",
@@ -3986,7 +4776,11 @@ const DiscoverExperienceView = ({
                         </ul>
                       </div>
 
-                      <div className={chatCardClass("border border-[#dbe9e3] bg-[#f6faf8] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500")}>
+                      <div
+                        className={chatCardClass(
+                          "border border-[#dbe9e3] bg-[#f6faf8] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500",
+                        )}
+                      >
                         Powered by aggregated licensing &amp; mobility data
                         (updated weekly)
                       </div>
@@ -3995,7 +4789,7 @@ const DiscoverExperienceView = ({
                 ) : (
                   <div
                     className={chatCardClass(
-                      "space-y-6 border border-[#dbe9e3] bg-white p-6"
+                      "space-y-6 border border-[#dbe9e3] bg-white p-6",
                     )}
                   >
                     <div className="flex flex-wrap items-center justify-between gap-3">
@@ -4052,7 +4846,7 @@ const DiscoverExperienceView = ({
                             key={spot.id}
                             className={cn(
                               chatCardClass(
-                                "relative flex gap-4 border border-[#dbe9e3] bg-white px-5 py-4 transition hover:border-[#0E766E]/50 hover:shadow-[0_18px_36px_-28px_rgba(15,118,110,0.28)]"
+                                "relative flex gap-4 border border-[#dbe9e3] bg-white px-5 py-4 transition hover:border-[#0E766E]/50 hover:shadow-[0_18px_36px_-28px_rgba(15,118,110,0.28)]",
                               ),
                               isHighlighted &&
                                 "border-[#0E766E] shadow-[0_22px_48px_-28px_rgba(15,118,110,0.35)]",
@@ -4120,19 +4914,28 @@ const DiscoverExperienceView = ({
                     <div className="flex flex-wrap items-center gap-3 pt-2">
                       <button
                         type="button"
-                        className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "justify-center")}
+                        className={cn(
+                          ARTIFACT_ACTION_BUTTON_CLASSES,
+                          "justify-center",
+                        )}
                       >
                         Export timeline
                       </button>
                       <button
                         type="button"
-                        className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "justify-center")}
+                        className={cn(
+                          ARTIFACT_ACTION_BUTTON_CLASSES,
+                          "justify-center",
+                        )}
                       >
                         Download CSV
                       </button>
                       <button
                         type="button"
-                        className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "justify-center")}
+                        className={cn(
+                          ARTIFACT_ACTION_BUTTON_CLASSES,
+                          "justify-center",
+                        )}
                       >
                         Share view
                       </button>
@@ -4165,7 +4968,9 @@ export function BusinessChatUI({
   const [isCuisineBreakoutOpen, setCuisineBreakoutOpen] = useState(false);
   const [isCompetitorBreakoutOpen, setCompetitorBreakoutOpen] = useState(false);
   const [isGapBreakoutOpen, setGapBreakoutOpen] = useState(false);
-  const [dialogueDocState, setDialogueDocState] = useState<DialogueDocState>(createInitialDialogueDocState);
+  const [dialogueDocState, setDialogueDocState] = useState<DialogueDocState>(
+    createInitialDialogueDocState,
+  );
   const [inputValue, setInputValue] = useState("");
   const loginTriggerRef = useRef<HTMLElement | null>(null);
   const [shouldPromptLogin, setShouldPromptLogin] = useState(false);
@@ -4182,7 +4987,11 @@ export function BusinessChatUI({
   }, [shouldPromptLogin, isInvestorLoginPending, isOpen]);
 
   const buildMessage = useCallback(
-    (content: string, isAI: boolean, extra?: Partial<BusinessMessage>): BusinessMessage => ({
+    (
+      content: string,
+      isAI: boolean,
+      extra?: Partial<BusinessMessage>,
+    ): BusinessMessage => ({
       id: `${isAI ? "ai" : "user"}-${Date.now()}-${Math.random().toString(36).slice(2)}`,
       content,
       isAI,
@@ -4220,14 +5029,17 @@ export function BusinessChatUI({
     }));
   }, []);
 
-  const handleDialogueDocHighlightChange = useCallback((id: string, value: string) => {
-    setDialogueDocState((prev) => ({
-      ...prev,
-      highlights: prev.highlights.map((item) =>
-        item.id === id ? { ...item, text: value } : item,
-      ),
-    }));
-  }, []);
+  const handleDialogueDocHighlightChange = useCallback(
+    (id: string, value: string) => {
+      setDialogueDocState((prev) => ({
+        ...prev,
+        highlights: prev.highlights.map((item) =>
+          item.id === id ? { ...item, text: value } : item,
+        ),
+      }));
+    },
+    [],
+  );
 
   const handleDialogueDocHighlightRemove = useCallback((id: string) => {
     setDialogueDocState((prev) => ({
@@ -4273,7 +5085,8 @@ export function BusinessChatUI({
       const mentionsHeatMap =
         lower.includes("heat map") ||
         lower.includes("heatmap") ||
-        (lower.includes("map") && (lower.includes("existing") || lower.includes("establishment")));
+        (lower.includes("map") &&
+          (lower.includes("existing") || lower.includes("establishment")));
       const mentionsCorniche = lower.includes("cornich");
       const mentionsCost =
         lower.includes("cost") ||
@@ -4281,11 +5094,13 @@ export function BusinessChatUI({
         lower.includes("budget") ||
         lower.includes("how much") ||
         (lower.includes("money") && lower.includes("open")) ||
-        (lower.includes("expensive") || lower.includes("cheap"));
+        lower.includes("expensive") ||
+        lower.includes("cheap");
       const mentionsDemographics =
         lower.includes("demographic") ||
         lower.includes("population") ||
-        (lower.includes("data") && (lower.includes("area") || lower.includes("zone"))) ||
+        (lower.includes("data") &&
+          (lower.includes("area") || lower.includes("zone"))) ||
         lower.includes("residents") ||
         lower.includes("visitors") ||
         lower.includes("people");
@@ -4295,19 +5110,19 @@ export function BusinessChatUI({
         lower.includes("high-end") ||
         lower.includes("luxury") ||
         lower.includes("premium") ||
-        (lower.includes("who") && (lower.includes("target") || lower.includes("market"))) ||
-        (lower.includes("fine dining") || lower.includes("upscale"));
+        (lower.includes("who") &&
+          (lower.includes("target") || lower.includes("market"))) ||
+        lower.includes("fine dining") ||
+        lower.includes("upscale");
       const mentionsCornicheDetails =
         mentionsCorniche &&
-        (
-          lower.includes("detail") ||
+        (lower.includes("detail") ||
           lower.includes("more detail") ||
           lower.includes("more details") ||
           lower.includes("tell me") ||
           lower.includes("info") ||
           lower.includes("information") ||
-          lower.includes("about")
-        );
+          lower.includes("about"));
       const mentionsReports =
         lower.includes("report") ||
         lower.includes("reports") ||
@@ -4325,8 +5140,8 @@ export function BusinessChatUI({
             true,
             {
               type: "budget-ranges",
-            }
-          )
+            },
+          ),
         );
       } else if (mentionsDemographics) {
         responses.push(
@@ -4335,22 +5150,22 @@ export function BusinessChatUI({
             true,
             {
               type: "demographics",
-            }
-          )
+            },
+          ),
         );
       } else if (mentionsCornicheDetails) {
         responses.push(
           buildMessage(
             "The Corniche is a popular choice due to its high foot traffic and scenic views. It attracts both tourists and locals, especially during the cooler months. The area is known for its diverse range of dining options, from casual cafes to upscale restaurants, catering to a wide range of tastes and budgets.",
-            true
-          )
+            true,
+          ),
         );
       } else if (mentionsTargetMarket) {
         responses.push(
           buildMessage(
             "For high-end restaurants, your primary targets are: Al Maryah Island (luxury business dining, high-income professionals), Yas Island (affluent tourists and event visitors), Saadiyat Island (cultural tourists and art patrons), Corniche (premium leisure diners and scenic dining seekers), and Al Zahiyah (hotel guests and nightlife crowd). These zones offer the highest spending power, with average dining budgets of AED 200-500 per person for premium experiences. Focus on locations with business districts, luxury hotels, or cultural attractions.",
-            true
-          )
+            true,
+          ),
         );
       } else if (mentionsReports) {
         responses.push(
@@ -4359,8 +5174,8 @@ export function BusinessChatUI({
             true,
             {
               type: "comprehensive-report",
-            }
-          )
+            },
+          ),
         );
       } else if (mentionsCorniche) {
         appendHeatMapResponse(
@@ -4436,7 +5251,10 @@ export function BusinessChatUI({
         if (action === "confirm-retail-automation") {
           setIsInvestorLoginPending(true);
           setShouldPromptLogin(true);
-          const approvalMessage = buildMessage("Let’s get you logged in with UAE Pass.", true);
+          const approvalMessage = buildMessage(
+            "Let’s get you logged in with UAE Pass.",
+            true,
+          );
           return [...updated, approvalMessage];
         }
 
@@ -4467,7 +5285,8 @@ export function BusinessChatUI({
         typeof userData?.name === "string" && userData.name.length > 0
           ? userData.name
           : ENTREPRENEUR_PROFILE.name;
-      const roleDescriptor = userType === "reviewer" ? "reviewer access" : "business account";
+      const roleDescriptor =
+        userType === "reviewer" ? "reviewer access" : "business account";
 
       setMessages((prev) => {
         const sanitized = prev.map((message) =>
@@ -4532,40 +5351,25 @@ export function BusinessChatUI({
     conversation.push(openingUserMessage);
 
     conversation.push(
-      buildMessage(
-        "Your journey, powered by AI.",
-        true,
-        {
-          type: "setup-cta",
-          actions: [
-            {
-              id: "explore-options",
-              label: "Explore more options",
-              action: "show-summary",
-            },
-            {
-              id: "setup-business-primary",
-              label: "Set up business",
-              action: "open-investor-journey",
-            },
-          ],
-        },
-      ),
+      buildMessage("Your journey, powered by AI.", true, {
+        type: "setup-cta",
+        actions: [
+          {
+            id: "explore-options",
+            label: "Explore more options",
+            action: "show-summary",
+          },
+          {
+            id: "setup-business-primary",
+            label: "Set up business",
+            action: "open-investor-journey",
+          },
+        ],
+      }),
     );
 
-
-
-
-
-
-
-
     setMessages(conversation);
-  }, [
-    isOpen,
-    buildMessage,
-    initialMessage,
-  ]);
+  }, [isOpen, buildMessage, initialMessage]);
 
   useEffect(() => {
     const handleRetailLocationSelected = (event: Event) => {
@@ -4599,12 +5403,23 @@ export function BusinessChatUI({
       });
     };
 
-    window.addEventListener("retailLocationSelected", handleRetailLocationSelected);
+    window.addEventListener(
+      "retailLocationSelected",
+      handleRetailLocationSelected,
+    );
 
     return () => {
-      window.removeEventListener("retailLocationSelected", handleRetailLocationSelected);
+      window.removeEventListener(
+        "retailLocationSelected",
+        handleRetailLocationSelected,
+      );
     };
-  }, [buildMessage, setModalView, setIsInvestorLoginPending, setShouldPromptLogin]);
+  }, [
+    buildMessage,
+    setModalView,
+    setIsInvestorLoginPending,
+    setShouldPromptLogin,
+  ]);
 
   useEffect(() => {
     const handleCuisineBreakout = () => setCuisineBreakoutOpen(true);
@@ -4621,7 +5436,10 @@ export function BusinessChatUI({
 
     return () => {
       window.removeEventListener("openCuisineBreakout", handleCuisineBreakout);
-      window.removeEventListener("openCompetitorBreakout", handleCompetitorBreakout);
+      window.removeEventListener(
+        "openCompetitorBreakout",
+        handleCompetitorBreakout,
+      );
       window.removeEventListener("openGapAnalysisBreakout", handleGapBreakout);
       window.removeEventListener("openGapAnalysis", handleGapAnalysis);
       window.removeEventListener("openRetailLocations", handleRetailLocations);
@@ -4737,7 +5555,6 @@ export function BusinessChatUI({
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(22,159,159,0.18),transparent_55%)]" />
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(79,70,229,0.08),transparent_60%)]" />
 
-
               {/* Header */}
               <div className="hidden">
                 <div className="mx-auto flex h-full w-full max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 sm:py-5 lg:px-10">
@@ -4831,7 +5648,9 @@ export function BusinessChatUI({
                   </div>
 
                   <div className="hidden sm:flex items-center gap-2 text-slate-500">
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.22em]">Status</span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.22em]">
+                      Status
+                    </span>
                     <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
                       Live
                     </span>
@@ -4844,7 +5663,7 @@ export function BusinessChatUI({
                 <div
                   className={chatCardClass(
                     "mx-auto w-full max-w-6xl border border-white/25 bg-white/15 backdrop-blur-3xl shadow-[0_55px_140px_-65px_rgba(15,23,42,0.45)] ring-1 ring-white/10",
-                    "sm:rounded-[28px]"
+                    "sm:rounded-[28px]",
                   )}
                 >
                   {/* Chat Header */}
@@ -4863,7 +5682,9 @@ export function BusinessChatUI({
                       </div>
                       <div className="flex items-center gap-3">
                         <div className="hidden sm:flex items-center gap-2 text-slate-500">
-                          <span className="text-[11px] font-semibold uppercase tracking-[0.22em]">Status</span>
+                          <span className="text-[11px] font-semibold uppercase tracking-[0.22em]">
+                            Status
+                          </span>
                           <span className="inline-flex items-center rounded-full border border-emerald-200/70 bg-emerald-100/40 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
                             Live
                           </span>
@@ -4907,7 +5728,9 @@ export function BusinessChatUI({
                         <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
                           AI Business
                         </h3>
-                        <p className="text-xs text-slate-500">Guiding your Abu Dhabi investment journey</p>
+                        <p className="text-xs text-slate-500">
+                          Guiding your Abu Dhabi investment journey
+                        </p>
                       </div>
                       <div className="hidden sm:block">
                         <SoundVisualization />
@@ -4927,15 +5750,22 @@ export function BusinessChatUI({
                               dialogueDocProps={
                                 message.type === "dialogue-doc"
                                   ? {
-                                      title: message.docTitle ?? "Investor dialogue workspace",
+                                      title:
+                                        message.docTitle ??
+                                        "Investor dialogue workspace",
                                       summary: message.content,
                                       notes: dialogueDocState.notes,
                                       highlights: dialogueDocState.highlights,
-                                      onNotesChange: handleDialogueDocNotesChange,
-                                      onToggleHighlight: handleDialogueDocToggleHighlight,
-                                      onHighlightChange: handleDialogueDocHighlightChange,
-                                      onHighlightRemove: handleDialogueDocHighlightRemove,
-                                      onAddHighlight: handleDialogueDocHighlightAdd,
+                                      onNotesChange:
+                                        handleDialogueDocNotesChange,
+                                      onToggleHighlight:
+                                        handleDialogueDocToggleHighlight,
+                                      onHighlightChange:
+                                        handleDialogueDocHighlightChange,
+                                      onHighlightRemove:
+                                        handleDialogueDocHighlightRemove,
+                                      onAddHighlight:
+                                        handleDialogueDocHighlightAdd,
                                     }
                                   : undefined
                               }
@@ -4956,7 +5786,8 @@ export function BusinessChatUI({
                         )}
 
                         <div className="mt-4 rounded-[24px] border border-white/20 bg-white/14 px-4 py-3 text-xs text-slate-600 backdrop-blur-xl">
-                          Use the highlighted action above to move forward. We’ll open the next workspace once you confirm.
+                          Use the highlighted action above to move forward.
+                          We’ll open the next workspace once you confirm.
                         </div>
 
                         <div className="mt-6 border-t border-white/15 pt-6">
@@ -4976,7 +5807,6 @@ export function BusinessChatUI({
             </motion.div>
           </div>
         )}
-
 
         {/* Budget Ranges Modal */}
         <BudgetRangesModal
@@ -4999,7 +5829,6 @@ export function BusinessChatUI({
           isOpen={isGapBreakoutOpen}
           onClose={() => setGapBreakoutOpen(false)}
         />
-
       </AnimatePresence>
     </QueryClientProvider>
   );

@@ -12,7 +12,10 @@ export type BudgetBand = {
   desirabilityIndex: number;
 };
 
-export const conceptMeta: Record<ConceptKey, { label: string; description: string }> = {
+export const conceptMeta: Record<
+  ConceptKey,
+  { label: string; description: string }
+> = {
   boutique: {
     label: "Boutique concept",
     description: "1,800 – 2,400 sq ft, 70 – 90 covers",
@@ -33,7 +36,8 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
       staffing: "AED 150K – 185K",
       marketing: "AED 65K – 90K",
       timeframe: "16 – 20 weeks",
-      insight: "Scenic strip with premium leisure visitors seeking sunset dining.",
+      insight:
+        "Scenic strip with premium leisure visitors seeking sunset dining.",
       desirabilityIndex: 88,
     },
     {
@@ -44,7 +48,8 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
       staffing: "AED 165K – 210K",
       marketing: "AED 75K – 95K",
       timeframe: "18 – 22 weeks",
-      insight: "Financial district lunch and executive dining with corporate events.",
+      insight:
+        "Financial district lunch and executive dining with corporate events.",
       desirabilityIndex: 84,
     },
     {
@@ -55,7 +60,8 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
       staffing: "AED 130K – 170K",
       marketing: "AED 55K – 75K",
       timeframe: "14 – 18 weeks",
-      insight: "High-density residential demand with strong evening family trade.",
+      insight:
+        "High-density residential demand with strong evening family trade.",
       desirabilityIndex: 79,
     },
     {
@@ -112,7 +118,8 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
       staffing: "AED 280K – 340K",
       marketing: "AED 125K – 165K",
       timeframe: "26 – 32 weeks",
-      insight: "Luxury hotels and business towers with weekday corporate spend.",
+      insight:
+        "Luxury hotels and business towers with weekday corporate spend.",
       desirabilityIndex: 90,
     },
     {
@@ -134,7 +141,8 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
       staffing: "AED 250K – 320K",
       marketing: "AED 110K – 150K",
       timeframe: "24 – 30 weeks",
-      insight: "Mega events and theme park traffic sustain premium visitor flow.",
+      insight:
+        "Mega events and theme park traffic sustain premium visitor flow.",
       desirabilityIndex: 89,
     },
     {
@@ -145,25 +153,33 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
       staffing: "AED 220K – 280K",
       marketing: "AED 95K – 135K",
       timeframe: "22 – 28 weeks",
-      insight: "Hotel cluster nightlife with high check averages for premium dining.",
+      insight:
+        "Hotel cluster nightlife with high check averages for premium dining.",
       desirabilityIndex: 87,
     },
   ],
 };
 
-export const budgetSummaryRows = conceptBudgets.boutique.map((band) => {
-  const flagshipBand = conceptBudgets.flagship.find((item) => item.area === band.area);
-  return {
-    area: band.area,
-    boutiqueRange: band.totalRange,
-    flagshipRange: flagshipBand?.totalRange ?? "–",
-  };
-}).concat(
-  conceptBudgets.flagship
-    .filter((band) => !conceptBudgets.boutique.some((item) => item.area === band.area))
-    .map((band) => ({
+export const budgetSummaryRows = conceptBudgets.boutique
+  .map((band) => {
+    const flagshipBand = conceptBudgets.flagship.find(
+      (item) => item.area === band.area,
+    );
+    return {
       area: band.area,
-      boutiqueRange: "–",
-      flagshipRange: band.totalRange,
-    }))
-);
+      boutiqueRange: band.totalRange,
+      flagshipRange: flagshipBand?.totalRange ?? "–",
+    };
+  })
+  .concat(
+    conceptBudgets.flagship
+      .filter(
+        (band) =>
+          !conceptBudgets.boutique.some((item) => item.area === band.area),
+      )
+      .map((band) => ({
+        area: band.area,
+        boutiqueRange: "–",
+        flagshipRange: band.totalRange,
+      })),
+  );

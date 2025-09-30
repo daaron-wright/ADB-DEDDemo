@@ -1,4 +1,10 @@
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { DialogClose } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +22,12 @@ interface ChatPromptDialogProps {
   onSelect: (option: ChatPromptOption) => void;
 }
 
-export function ChatPromptDialog({ open, onOpenChange, options, onSelect }: ChatPromptDialogProps) {
+export function ChatPromptDialog({
+  open,
+  onOpenChange,
+  options,
+  onSelect,
+}: ChatPromptDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg rounded-3xl border border-white/60 bg-white/95 p-8 shadow-[0_30px_80px_-60px_rgba(24,32,63,0.55)] backdrop-blur-xl">
@@ -25,7 +36,8 @@ export function ChatPromptDialog({ open, onOpenChange, options, onSelect }: Chat
             Start a conversation
           </DialogTitle>
           <DialogDescription className="text-sm text-slate-600">
-            Choose a quick question to jump into the investor journey, or craft your own once the chat opens.
+            Choose a quick question to jump into the investor journey, or craft
+            your own once the chat opens.
           </DialogDescription>
         </DialogHeader>
 
@@ -44,10 +56,14 @@ export function ChatPromptDialog({ open, onOpenChange, options, onSelect }: Chat
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <div className="space-y-1">
-                  <p className="text-sm font-semibold text-slate-900">{option.title}</p>
+                  <p className="text-sm font-semibold text-slate-900">
+                    {option.title}
+                  </p>
                   <p className="text-sm text-slate-600">{option.prompt}</p>
                   {option.description ? (
-                    <p className="text-xs text-slate-400">{option.description}</p>
+                    <p className="text-xs text-slate-400">
+                      {option.description}
+                    </p>
                   ) : null}
                 </div>
               </div>

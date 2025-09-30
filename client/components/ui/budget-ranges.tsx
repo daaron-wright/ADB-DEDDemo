@@ -14,7 +14,9 @@ const BudgetRanges: React.FC<BudgetRangesProps> = ({ className, onClick }) => {
       disabled={!onClick}
       className={cn(
         "inline-flex items-center gap-2 rounded-full border border-[#0E766E]/25 bg-white px-4 py-2 text-sm font-semibold text-[#0F766E] shadow-[0_8px_22px_-16px_rgba(14,118,110,0.6)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E]/40 focus-visible:ring-offset-2",
-        onClick ? "hover:bg-[#0F766E]/5 active:bg-[#0F766E]/10" : "cursor-default opacity-80",
+        onClick
+          ? "hover:bg-[#0F766E]/5 active:bg-[#0F766E]/10"
+          : "cursor-default opacity-80",
         className,
       )}
       aria-label="View detailed budget ranges"

@@ -15,8 +15,16 @@ const VisitorTasteTrendsChart: React.FC = () => {
   }, []);
 
   const chartData = [
-    { label: "Tourists lean toward Emirati + Asian", value: 25, color: "#E29F37" },
-    { label: "Locals prefer Emirati + Mediterranean", value: 45, color: "#429195" },
+    {
+      label: "Tourists lean toward Emirati + Asian",
+      value: 25,
+      color: "#E29F37",
+    },
+    {
+      label: "Locals prefer Emirati + Mediterranean",
+      value: 45,
+      color: "#429195",
+    },
     { label: "Expats like Emirati + Indian", value: 18, color: "#A02E1F" },
   ];
 
@@ -24,14 +32,28 @@ const VisitorTasteTrendsChart: React.FC = () => {
     <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-lg">
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <h3 className="text-sm font-semibold text-gray-900">Visitor Taste Trends</h3>
+          <h3 className="text-sm font-semibold text-gray-900">
+            Visitor Taste Trends
+          </h3>
           <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-400">
             <span className="text-xs text-white">?</span>
           </div>
         </div>
         <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 text-xs shadow-sm">
-          <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5.7594 11.176H2.94824V8.36481M8.00833 3.30472H10.8195V6.11588" stroke="#888888" strokeWidth="0.843348" strokeLinecap="round" strokeLinejoin="round" />
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 14 14"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5.7594 11.176H2.94824V8.36481M8.00833 3.30472H10.8195V6.11588"
+              stroke="#888888"
+              strokeWidth="0.843348"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </div>
       </div>
@@ -41,8 +63,17 @@ const VisitorTasteTrendsChart: React.FC = () => {
         <div className="text-2xl font-bold text-gray-900">1230</div>
         <div className="mt-1 flex items-center gap-2 text-xs text-gray-500">
           <div className="flex items-center gap-1 rounded-full border border-gray-200 bg-gray-100 px-2 py-0.5">
-            <svg width="8" height="8" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4.86888 3.02015V7.58232H4.11923V3.02015L2.10869 5.03068L1.57861 4.50061L4.49406 1.58517L7.40945 4.50061L6.87938 5.03068L4.86888 3.02015Z" fill="#434343" />
+            <svg
+              width="8"
+              height="8"
+              viewBox="0 0 9 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.86888 3.02015V7.58232H4.11923V3.02015L2.10869 5.03068L1.57861 4.50061L4.49406 1.58517L7.40945 4.50061L6.87938 5.03068L4.86888 3.02015Z"
+                fill="#434343"
+              />
             </svg>
             <span className="text-xs font-medium text-gray-700">12%</span>
           </div>
@@ -99,12 +130,14 @@ const CuisinePopularityCard: React.FC = () => {
     {
       name: "Middle Eastern",
       popularity: "30-35%",
-      context: "Cultural resonance and strong appeal with both residents and regional tourists",
+      context:
+        "Cultural resonance and strong appeal with both residents and regional tourists",
     },
     {
       name: "American",
       popularity: "20-25%",
-      context: "International familiarity and presence of quick-service dining footprints",
+      context:
+        "International familiarity and presence of quick-service dining footprints",
     },
     {
       name: "Indian",
@@ -116,16 +149,23 @@ const CuisinePopularityCard: React.FC = () => {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
-      animate={showContent ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+      animate={
+        showContent ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }
+      }
       transition={{ duration: 0.6 }}
       className="rounded-3xl border border-[#d7e3df] bg-white/95 p-6 shadow-[0_24px_60px_-38px_rgba(11,64,55,0.22)]"
     >
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">AI Business summary</span>
-          <h2 className="mt-2 text-2xl font-semibold text-slate-900">Popularity of cuisines in Abu Dhabi</h2>
+          <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
+            AI Business summary
+          </span>
+          <h2 className="mt-2 text-2xl font-semibold text-slate-900">
+            Popularity of cuisines in Abu Dhabi
+          </h2>
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate-600">
-            Demand clustering across the Corniche showcases which cuisine profiles are primed for a differentiated launch.
+            Demand clustering across the Corniche showcases which cuisine
+            profiles are primed for a differentiated launch.
           </p>
         </div>
         <div className="inline-flex items-center gap-3 rounded-2xl border border-[#d7e3df] bg-slate-50/80 px-4 py-3">
@@ -135,8 +175,12 @@ const CuisinePopularityCard: React.FC = () => {
             className="h-12 w-12 rounded-full border border-[#0E766E]/40"
           />
           <div>
-            <div className="text-sm font-semibold text-slate-900">AI Business</div>
-            <div className="text-xs uppercase tracking-[0.2em] text-slate-400">Insight engine</div>
+            <div className="text-sm font-semibold text-slate-900">
+              AI Business
+            </div>
+            <div className="text-xs uppercase tracking-[0.2em] text-slate-400">
+              Insight engine
+            </div>
           </div>
         </div>
       </div>
@@ -157,8 +201,12 @@ const CuisinePopularityCard: React.FC = () => {
               index > 0 ? "border-t border-[#e4ede9]" : ""
             }`}
           >
-            <div className="text-base font-semibold text-slate-900">{cuisine.name}</div>
-            <div className="text-sm font-semibold text-slate-900">{cuisine.popularity}</div>
+            <div className="text-base font-semibold text-slate-900">
+              {cuisine.name}
+            </div>
+            <div className="text-sm font-semibold text-slate-900">
+              {cuisine.popularity}
+            </div>
             <div>{cuisine.context}</div>
           </motion.div>
         ))}
@@ -202,7 +250,9 @@ const DemographicsHighlight: React.FC = () => {
   );
 };
 
-const ComprehensiveReport: React.FC<ComprehensiveReportProps> = ({ className }) => {
+const ComprehensiveReport: React.FC<ComprehensiveReportProps> = ({
+  className,
+}) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [showCompetitorData, setShowCompetitorData] = useState(false);
 
@@ -227,9 +277,12 @@ const ComprehensiveReport: React.FC<ComprehensiveReportProps> = ({ className }) 
         transition={{ duration: 0.6 }}
         className="rounded-2xl border border-[#0E766E]/20 bg-[#0E766E]/5 p-6"
       >
-        <h2 className="text-lg font-semibold text-[#0E766E]">Comprehensive Market Analysis</h2>
+        <h2 className="text-lg font-semibold text-[#0E766E]">
+          Comprehensive Market Analysis
+        </h2>
         <p className="mt-2 text-sm text-gray-600">
-          Synthesizing location data, demographic patterns, budget requirements, and taste preferences
+          Synthesizing location data, demographic patterns, budget requirements,
+          and taste preferences
         </p>
         <div className="mt-4 flex items-center gap-2">
           <div className="h-2 flex-1 rounded-full bg-gray-200">
@@ -240,7 +293,9 @@ const ComprehensiveReport: React.FC<ComprehensiveReportProps> = ({ className }) 
               transition={{ duration: 0.5 }}
             />
           </div>
-          <span className="text-xs text-gray-500">{Math.min(currentStep * 25, 100)}%</span>
+          <span className="text-xs text-gray-500">
+            {Math.min(currentStep * 25, 100)}%
+          </span>
         </div>
       </motion.div>
 
@@ -281,19 +336,30 @@ const ComprehensiveReport: React.FC<ComprehensiveReportProps> = ({ className }) 
           >
             <DemographicsHighlight />
             <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-lg">
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">Key Insights Summary</h3>
+              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+                Key Insights Summary
+              </h3>
               <div className="space-y-3 text-sm text-gray-600">
                 <div className="rounded-lg bg-gray-50 p-3">
-                  <div className="font-medium text-gray-900">Prime Location</div>
-                  <div>Corniche waterfront offers premium positioning for high-end dining</div>
+                  <div className="font-medium text-gray-900">
+                    Prime Location
+                  </div>
+                  <div>
+                    Corniche waterfront offers premium positioning for high-end
+                    dining
+                  </div>
                 </div>
                 <div className="rounded-lg bg-gray-50 p-3">
-                  <div className="font-medium text-gray-900">Investment Range</div>
+                  <div className="font-medium text-gray-900">
+                    Investment Range
+                  </div>
                   <div>Boutique concepts: AED 780K - 1.48M</div>
                 </div>
                 <div className="rounded-lg bg-gray-50 p-3">
                   <div className="font-medium text-gray-900">Target Market</div>
-                  <div>Locals prefer Middle Eastern + Mediterranean cuisines</div>
+                  <div>
+                    Locals prefer Middle Eastern + Mediterranean cuisines
+                  </div>
                 </div>
               </div>
             </div>

@@ -21,15 +21,28 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             onClick={onBack}
             className="inline-flex items-center gap-2 rounded-full border border-[#d8e4df] bg-white px-4 py-2 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55]"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="m12 19-7-7 7-7" />
               <path d="M19 12H5" />
             </svg>
             Back to dialogue
           </button>
           <div className="flex flex-col items-end text-right">
-            <span className="text-xs font-semibold uppercase tracking-[0.24em] text-[#0F766E]">Abu Dhabi Business Signals</span>
-            <span className="text-sm text-slate-500">Live location density view</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+              Abu Dhabi Business Signals
+            </span>
+            <span className="text-sm text-slate-500">
+              Live location density view
+            </span>
           </div>
         </div>
       </div>
@@ -69,7 +82,13 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               <svg className="h-full w-full" viewBox="0 0 212 212" fill="none">
                 <circle cx="106" cy="106" r="105" fill="url(#redGradient1)" />
                 <defs>
-                  <radialGradient id="redGradient1" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
+                  <radialGradient
+                    id="redGradient1"
+                    cx="0"
+                    cy="0"
+                    r="1"
+                    gradientUnits="objectBoundingBox"
+                  >
                     <stop stopColor="#FF0000" stopOpacity="0.4" />
                     <stop offset="1" stopColor="#FF0000" stopOpacity="0" />
                   </radialGradient>
@@ -94,7 +113,13 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               <svg className="h-full w-full" viewBox="0 0 190 190" fill="none">
                 <circle cx="95" cy="95" r="94" fill="url(#redGradient2)" />
                 <defs>
-                  <radialGradient id="redGradient2" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
+                  <radialGradient
+                    id="redGradient2"
+                    cx="0"
+                    cy="0"
+                    r="1"
+                    gradientUnits="objectBoundingBox"
+                  >
                     <stop stopColor="#FF0000" stopOpacity="0.4" />
                     <stop offset="1" stopColor="#FF0000" stopOpacity="0" />
                   </radialGradient>
@@ -119,7 +144,13 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               <svg className="h-full w-full" viewBox="0 0 177 177" fill="none">
                 <circle cx="88" cy="88" r="88" fill="url(#orangeGradient1)" />
                 <defs>
-                  <radialGradient id="orangeGradient1" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
+                  <radialGradient
+                    id="orangeGradient1"
+                    cx="0"
+                    cy="0"
+                    r="1"
+                    gradientUnits="objectBoundingBox"
+                  >
                     <stop stopColor="#FF9500" stopOpacity="0.4" />
                     <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
                   </radialGradient>
@@ -144,7 +175,13 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               <svg className="h-full w-full" viewBox="0 0 177 177" fill="none">
                 <circle cx="88" cy="88" r="88" fill="url(#orangeGradient2)" />
                 <defs>
-                  <radialGradient id="orangeGradient2" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
+                  <radialGradient
+                    id="orangeGradient2"
+                    cx="0"
+                    cy="0"
+                    r="1"
+                    gradientUnits="objectBoundingBox"
+                  >
                     <stop stopColor="#FF9500" stopOpacity="0.4" />
                     <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
                   </radialGradient>
@@ -167,9 +204,20 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               }}
             >
               <svg className="h-full w-full" viewBox="0 0 249 249" fill="none">
-                <circle cx="124" cy="124" r="124" fill="url(#orangeGradient3)" />
+                <circle
+                  cx="124"
+                  cy="124"
+                  r="124"
+                  fill="url(#orangeGradient3)"
+                />
                 <defs>
-                  <radialGradient id="orangeGradient3" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
+                  <radialGradient
+                    id="orangeGradient3"
+                    cx="0"
+                    cy="0"
+                    r="1"
+                    gradientUnits="objectBoundingBox"
+                  >
                     <stop stopColor="#FF9500" stopOpacity="0.4" />
                     <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
                   </radialGradient>
@@ -194,7 +242,13 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               <svg className="h-full w-full" viewBox="0 0 203 177" fill="none">
                 <circle cx="101" cy="75" r="101" fill="url(#yellowGradient)" />
                 <defs>
-                  <radialGradient id="yellowGradient" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
+                  <radialGradient
+                    id="yellowGradient"
+                    cx="0"
+                    cy="0"
+                    r="1"
+                    gradientUnits="objectBoundingBox"
+                  >
                     <stop stopColor="#FBFF00" stopOpacity="0.4" />
                     <stop offset="1" stopColor="#F7FF00" stopOpacity="0" />
                   </radialGradient>
@@ -219,7 +273,9 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             >
               <div className="rounded-xl bg-black/20 backdrop-blur-sm border border-white/20 p-3 text-white">
                 <div className="text-center">
-                  <div className="text-xs font-semibold leading-tight">Average visitors</div>
+                  <div className="text-xs font-semibold leading-tight">
+                    Average visitors
+                  </div>
                   <div className="text-xs font-bold">200-300</div>
                 </div>
               </div>
@@ -239,7 +295,9 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             >
               <div className="rounded-xl bg-black/20 backdrop-blur-sm border border-white/20 p-3 text-white">
                 <div className="text-center">
-                  <div className="text-xs font-semibold leading-tight">Average visitors</div>
+                  <div className="text-xs font-semibold leading-tight">
+                    Average visitors
+                  </div>
                   <div className="text-xs font-bold">450-700</div>
                 </div>
               </div>
@@ -260,7 +318,9 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             >
               <div className="rounded-xl bg-black/20 backdrop-blur-sm border border-white/20 p-3 text-white">
                 <div className="text-center">
-                  <div className="text-xs font-semibold leading-tight">Average visitors</div>
+                  <div className="text-xs font-semibold leading-tight">
+                    Average visitors
+                  </div>
                   <div className="text-xs font-bold">900-1500</div>
                 </div>
               </div>
@@ -280,7 +340,9 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             >
               <div className="rounded-xl bg-black/20 backdrop-blur-sm border border-white/20 p-3 text-white">
                 <div className="text-center">
-                  <div className="text-xs font-semibold leading-tight">Average visitors</div>
+                  <div className="text-xs font-semibold leading-tight">
+                    Average visitors
+                  </div>
                   <div className="text-xs font-bold">1800-2500</div>
                 </div>
               </div>
@@ -296,17 +358,21 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
           >
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
-                <h3 className="text-base font-semibold text-white md:text-lg">The Corniche</h3>
+                <h3 className="text-base font-semibold text-white md:text-lg">
+                  The Corniche
+                </h3>
                 <p className="text-xs text-white/90">Average weekly footfall</p>
               </div>
-              
+
               <div className="flex flex-wrap gap-4 text-white">
                 <div className="flex flex-col">
                   <span className="text-xs text-white/90">Khalifa City</span>
                   <span className="text-lg font-bold md:text-2xl">25-35K</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-xs text-white/90">Abu Dhabi Marina</span>
+                  <span className="text-xs text-white/90">
+                    Abu Dhabi Marina
+                  </span>
                   <span className="text-lg font-bold md:text-2xl">40-55K</span>
                 </div>
                 <div className="flex flex-col">
@@ -328,21 +394,35 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
           className="grid gap-4 lg:grid-cols-3"
         >
           <div className="rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_24px_60px_-38px_rgba(11,64,55,0.25)]">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0F766E]">Key Insights</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0F766E]">
+              Key Insights
+            </h3>
             <div className="mt-4 space-y-3 text-sm text-slate-600">
               <div>
-                <p className="font-semibold text-slate-900">Marina Royal Complex</p>
-                <p className="mt-1 leading-relaxed">Highest concentration of premium venues with consistent evening footfall.</p>
+                <p className="font-semibold text-slate-900">
+                  Marina Royal Complex
+                </p>
+                <p className="mt-1 leading-relaxed">
+                  Highest concentration of premium venues with consistent
+                  evening footfall.
+                </p>
               </div>
               <div>
-                <p className="font-semibold text-slate-900">Corniche Eastern Strip</p>
-                <p className="mt-1 leading-relaxed">Hybrid resident-tourist mix supports premium pricing with reliable traffic.</p>
+                <p className="font-semibold text-slate-900">
+                  Corniche Eastern Strip
+                </p>
+                <p className="mt-1 leading-relaxed">
+                  Hybrid resident-tourist mix supports premium pricing with
+                  reliable traffic.
+                </p>
               </div>
             </div>
           </div>
 
           <div className="rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_24px_60px_-38px_rgba(11,64,55,0.25)]">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0F766E]">Density Legend</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0F766E]">
+              Density Legend
+            </h3>
             <div className="mt-4 space-y-3 text-sm text-slate-600">
               <div className="flex items-center gap-3">
                 <span className="inline-flex h-4 w-4 rounded-full bg-red-500" />
@@ -360,7 +440,9 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
           </div>
 
           <div className="rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_24px_60px_-38px_rgba(11,64,55,0.25)]">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0F766E]">Next Actions</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0F766E]">
+              Next Actions
+            </h3>
             <ul className="mt-4 space-y-3 text-sm text-slate-600">
               <li className="flex items-center gap-2">
                 <span className="inline-flex h-1.5 w-1.5 rounded-full bg-[#0F766E]" />

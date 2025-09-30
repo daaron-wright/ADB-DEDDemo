@@ -102,7 +102,8 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
           Choose your workspace
         </h3>
         <p className="text-sm text-slate-600">
-          Select the experience you need to demonstrate either the applicant journey or the reviewer console.
+          Select the experience you need to demonstrate either the applicant
+          journey or the reviewer console.
         </p>
       </div>
     </div>
@@ -116,7 +117,7 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
             type="button"
             onClick={() => onSelect(type)}
             className={chatCardClass(
-              "group flex h-full flex-col justify-between border border-slate-200 bg-white p-6 text-left shadow-sm transition-all duration-200 hover:border-slate-400 hover:shadow-[0_18px_40px_-26px_rgba(15,23,42,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+              "group flex h-full flex-col justify-between border border-slate-200 bg-white p-6 text-left shadow-sm transition-all duration-200 hover:border-slate-400 hover:shadow-[0_18px_40px_-26px_rgba(15,23,42,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2",
             )}
             aria-label={`Continue as ${detail.label}`}
             style={{
@@ -124,13 +125,18 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
             }}
           >
             <div className="space-y-4">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full text-base font-semibold text-white shadow-sm"
-                style={{ background: `linear-gradient(140deg, ${detail.accent} 0%, ${detail.accent}cc 100%)` }}
+              <div
+                className="inline-flex h-12 w-12 items-center justify-center rounded-full text-base font-semibold text-white shadow-sm"
+                style={{
+                  background: `linear-gradient(140deg, ${detail.accent} 0%, ${detail.accent}cc 100%)`,
+                }}
               >
                 {detail.badge}
               </div>
               <div className="space-y-2">
-                <h4 className="text-lg font-semibold text-slate-900">{detail.label}</h4>
+                <h4 className="text-lg font-semibold text-slate-900">
+                  {detail.label}
+                </h4>
                 <p className="text-sm text-slate-600 leading-relaxed">
                   {detail.description}
                 </p>
@@ -181,7 +187,11 @@ interface LoginStepViewProps {
   onLogin: () => void;
 }
 
-const LoginStepView: React.FC<LoginStepViewProps> = ({ detail, isLoggingIn, onLogin }) => (
+const LoginStepView: React.FC<LoginStepViewProps> = ({
+  detail,
+  isLoggingIn,
+  onLogin,
+}) => (
   <motion.div
     key="login"
     initial={{ opacity: 0, y: 12 }}
@@ -214,7 +224,8 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({ detail, isLoggingIn, onLo
           Sign in with UAE PASS
         </h3>
         <p className="text-sm text-slate-500">
-          You're continuing as <span className="font-semibold text-slate-900">{detail.label}</span>
+          You're continuing as{" "}
+          <span className="font-semibold text-slate-900">{detail.label}</span>
         </p>
       </div>
     </div>
@@ -231,7 +242,9 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({ detail, isLoggingIn, onLo
         </div>
         <div className="space-y-1 text-left">
           <p className="text-sm font-semibold text-slate-900">{detail.label}</p>
-          <p className="text-sm text-slate-600 leading-relaxed">{detail.description}</p>
+          <p className="text-sm text-slate-600 leading-relaxed">
+            {detail.description}
+          </p>
           <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
             {detail.secondary}
           </p>
@@ -283,18 +296,20 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({ detail, isLoggingIn, onLo
 
         <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50/60 px-4 py-3 text-sm text-slate-600">
           <p>
-            You'll be redirected to the official UAE PASS experience to verify your identity securely.
+            You'll be redirected to the official UAE PASS experience to verify
+            your identity securely.
           </p>
         </div>
       </div>
     </div>
 
     <p className="text-sm text-slate-500 text-center">
-      A single trusted digital identity for all citizens, residents and visitors.
+      A single trusted digital identity for all citizens, residents and
+      visitors.
     </p>
 
     <div className="text-center text-sm text-slate-600">
-      Need a UAE PASS account?{' '}
+      Need a UAE PASS account?{" "}
       <a
         href="https://uaepass.ae/signup"
         target="_blank"
@@ -326,10 +341,13 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const timeouts = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  const cancelTimeout = useCallback((timeoutId: ReturnType<typeof setTimeout>) => {
-    clearTimeout(timeoutId);
-    timeouts.current = timeouts.current.filter((id) => id !== timeoutId);
-  }, []);
+  const cancelTimeout = useCallback(
+    (timeoutId: ReturnType<typeof setTimeout>) => {
+      clearTimeout(timeoutId);
+      timeouts.current = timeouts.current.filter((id) => id !== timeoutId);
+    },
+    [],
+  );
 
   const clearAllTimeouts = useCallback(() => {
     timeouts.current.forEach((timeoutId) => clearTimeout(timeoutId));

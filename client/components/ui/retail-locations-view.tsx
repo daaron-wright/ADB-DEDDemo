@@ -23,11 +23,16 @@ const cardPositions: CSSProperties[] = [
 
 type ModalState = "locations" | "automation-prompt";
 
-const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({ onBack }) => {
+const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
+  onBack,
+}) => {
   const [showContent, setShowContent] = useState(false);
-  const [selectedLocationId, setSelectedLocationId] = useState<number | null>(null);
+  const [selectedLocationId, setSelectedLocationId] = useState<number | null>(
+    null,
+  );
   const [modalState, setModalState] = useState<ModalState>("locations");
-  const [selectedLocation, setSelectedLocation] = useState<RetailLocation | null>(null);
+  const [selectedLocation, setSelectedLocation] =
+    useState<RetailLocation | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowContent(true), 250);
@@ -37,7 +42,8 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({ onBack }) => 
   const retailLocations: RetailLocation[] = [
     {
       id: 1,
-      image: "https://api.builder.io/api/v1/image/assets/TEMP/321de87c306c0308a02c60a25803d7fd29f66f22?width=600",
+      image:
+        "https://api.builder.io/api/v1/image/assets/TEMP/321de87c306c0308a02c60a25803d7fd29f66f22?width=600",
       rating: 4.9,
       title: "Retail Opportunity | Abu Dhabi Corniche | Ready Nov 2025",
       price: "640,000 / year",
@@ -45,7 +51,8 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({ onBack }) => 
     },
     {
       id: 2,
-      image: "https://api.builder.io/api/v1/image/assets/TEMP/90b42e755964109a96d26e28153d3260c27dab3c?width=600",
+      image:
+        "https://api.builder.io/api/v1/image/assets/TEMP/90b42e755964109a96d26e28153d3260c27dab3c?width=600",
       rating: 4.7,
       title: "Retail Opportunity | Canal View | Ready to Move",
       price: "580,000 / year",
@@ -53,7 +60,8 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({ onBack }) => 
     },
     {
       id: 3,
-      image: "https://api.builder.io/api/v1/image/assets/TEMP/a9f0bf6d758ce0797379785bd5ae18dfc4113f43?width=600",
+      image:
+        "https://api.builder.io/api/v1/image/assets/TEMP/a9f0bf6d758ce0797379785bd5ae18dfc4113f43?width=600",
       rating: 4.3,
       title: "Retail Space | Corniche Beach, Abu Dhabi",
       price: "495,000 / year",
@@ -68,15 +76,19 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({ onBack }) => 
   };
 
   const handleAutomationConfirm = () => {
-    window.dispatchEvent(new CustomEvent("retailLocationSelected", {
-      detail: { ...selectedLocation, automationConfirmed: true }
-    }));
+    window.dispatchEvent(
+      new CustomEvent("retailLocationSelected", {
+        detail: { ...selectedLocation, automationConfirmed: true },
+      }),
+    );
   };
 
   const handleAutomationDecline = () => {
-    window.dispatchEvent(new CustomEvent("retailLocationSelected", {
-      detail: { ...selectedLocation, automationConfirmed: false }
-    }));
+    window.dispatchEvent(
+      new CustomEvent("retailLocationSelected", {
+        detail: { ...selectedLocation, automationConfirmed: false },
+      }),
+    );
   };
 
   if (modalState === "automation-prompt") {
@@ -95,15 +107,28 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({ onBack }) => 
               onClick={() => setModalState("locations")}
               className="inline-flex items-center gap-2 rounded-full border border-[#d8e4df] bg-white px-4 py-2 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55]"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="m12 19-7-7 7-7" />
                 <path d="M19 12H5" />
               </svg>
               Back to locations
             </button>
             <div className="flex flex-col text-right">
-              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-[#0F766E]">Application automation</span>
-              <span className="text-sm text-slate-500">Pre-fill your information</span>
+              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+                Application automation
+              </span>
+              <span className="text-sm text-slate-500">
+                Pre-fill your information
+              </span>
             </div>
           </div>
 
@@ -133,10 +158,14 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({ onBack }) => 
             >
               <div className="text-center lg:text-left">
                 <h2 className="text-2xl font-bold text-slate-900 mb-4">
-                  Interested? Would you like me to automate the application process and pre-fill all your information based on your exploration?
+                  Interested? Would you like me to automate the application
+                  process and pre-fill all your information based on your
+                  exploration?
                 </h2>
                 <p className="text-slate-600 mb-8">
-                  Save time by letting our AI assistant handle the paperwork and pre-fill your application with the information from your exploration.
+                  Save time by letting our AI assistant handle the paperwork and
+                  pre-fill your application with the information from your
+                  exploration.
                 </p>
               </div>
 
@@ -146,7 +175,16 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({ onBack }) => 
                   onClick={handleAutomationConfirm}
                   className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#0F766E] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0a5a55] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                   Yes, automate it
@@ -181,15 +219,28 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({ onBack }) => 
             onClick={onBack}
             className="inline-flex items-center gap-2 rounded-full border border-[#d8e4df] bg-white px-4 py-2 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55]"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="m12 19-7-7 7-7" />
               <path d="M19 12H5" />
             </svg>
             Back to dialogue
           </button>
           <div className="flex flex-col text-right">
-            <span className="text-xs font-semibold uppercase tracking-[0.24em] text-[#0F766E]">Available retail spaces</span>
-            <span className="text-sm text-slate-500">Abu Dhabi premium locations</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+              Available retail spaces
+            </span>
+            <span className="text-sm text-slate-500">
+              Abu Dhabi premium locations
+            </span>
           </div>
         </div>
       </div>
@@ -214,15 +265,24 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({ onBack }) => 
                 key={location.id}
                 type="button"
                 initial={{ opacity: 0, scale: 0.85, y: 24 }}
-                animate={showContent ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.85, y: 24 }}
-                transition={{ duration: 0.6, delay: location.delay, type: "spring", stiffness: 120 }}
+                animate={
+                  showContent
+                    ? { opacity: 1, scale: 1, y: 0 }
+                    : { opacity: 0, scale: 0.85, y: 24 }
+                }
+                transition={{
+                  duration: 0.6,
+                  delay: location.delay,
+                  type: "spring",
+                  stiffness: 120,
+                }}
                 onClick={() => handleLocationClick(location)}
                 aria-pressed={selectedLocationId === location.id}
                 className={cn(
                   "group absolute block overflow-hidden rounded-3xl border border-white/20 bg-white/10 text-left backdrop-blur-[40px] shadow-[0_24px_60px_-38px_rgba(0,0,0,0.4)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#54FFD4]/70",
                   selectedLocationId === location.id
                     ? "border-[#54FFD4] shadow-[0_28px_70px_-38px_rgba(84,255,212,0.45)]"
-                    : "hover:border-[#54FFD4]/60"
+                    : "hover:border-[#54FFD4]/60",
                 )}
                 style={{
                   width: "clamp(280px, 25%, 300px)",
@@ -241,7 +301,9 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({ onBack }) => 
                     <svg className="h-4 w-4 fill-[#FFE100]" viewBox="0 0 16 16">
                       <path d="M7.99965 1L5.72465 5.61L0.639648 6.345L4.31965 9.935L3.44965 15L7.99965 12.61L12.5496 15L11.6796 9.935L15.3596 6.35L10.2746 5.61L7.99965 1Z" />
                     </svg>
-                    <span className="text-lg font-medium text-white/80">{location.rating}</span>
+                    <span className="text-lg font-medium text-white/80">
+                      {location.rating}
+                    </span>
                   </div>
                   <h3 className="mb-4 text-base font-medium leading-tight text-white">
                     {location.title}
@@ -249,15 +311,25 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({ onBack }) => 
                   <div className="flex items-center gap-2">
                     <svg className="h-5 w-5 fill-white" viewBox="0 0 20 18">
                       <g clipPath="url(#clip0_1_314)">
-                        <path d="M19.8428 8.49013L19.9994 8.63411V8.19651C19.9994 7.23289 19.3081 6.44838 18.459 6.44838H17.1013C16.1513 2.58029 12.915 0.5 8.10057 0.5C5.0348 0.5 4.64099 0.5 1.73762 0.5C1.73762 0.5 2.60933 1.21591 2.60933 3.47022V6.45065H1.00394C0.691915 6.45065 0.399026 6.33275 0.156594 6.10998L0 5.96601V6.4036C0 7.36779 0.691335 8.15173 1.54042 8.15173H2.60991V9.85167H1.00452C0.692495 9.85167 0.399606 9.73434 0.157174 9.511L0.000579979 9.36703V9.80406C0.000579979 10.7677 0.691915 11.551 1.541 11.551H2.61049V14.6624C2.61049 16.8532 1.73878 17.5 1.73878 17.5H8.10173C13.0675 17.5 16.2006 15.405 17.1134 11.5493H18.9961C19.3081 11.5493 19.601 11.6667 19.8434 11.8894L20 12.0334V11.5964C20 10.6328 19.3087 9.84884 18.4596 9.84884H17.3634C17.382 9.57222 17.3918 9.28937 17.3918 8.99858C17.3918 8.7078 17.3814 8.42551 17.3623 8.14889H18.9961C19.3075 8.14889 19.601 8.26623 19.8434 8.48956L19.8428 8.49013ZM5.21691 1.35082H7.8767C11.4552 1.35082 13.528 2.89999 14.1463 6.44895L5.21691 6.45009V1.35082ZM7.89932 16.6509H5.21633V11.5505L14.1405 11.5493C13.5622 14.761 11.7005 16.559 7.89932 16.6509ZM14.3446 9.00028C14.3446 9.29107 14.3382 9.57449 14.3249 9.84997L5.21691 9.85111V8.15116L14.3255 8.15003C14.3382 8.42438 14.3446 8.70723 14.3446 9.00028Z" fill="white" />
+                        <path
+                          d="M19.8428 8.49013L19.9994 8.63411V8.19651C19.9994 7.23289 19.3081 6.44838 18.459 6.44838H17.1013C16.1513 2.58029 12.915 0.5 8.10057 0.5C5.0348 0.5 4.64099 0.5 1.73762 0.5C1.73762 0.5 2.60933 1.21591 2.60933 3.47022V6.45065H1.00394C0.691915 6.45065 0.399026 6.33275 0.156594 6.10998L0 5.96601V6.4036C0 7.36779 0.691335 8.15173 1.54042 8.15173H2.60991V9.85167H1.00452C0.692495 9.85167 0.399606 9.73434 0.157174 9.511L0.000579979 9.36703V9.80406C0.000579979 10.7677 0.691915 11.551 1.541 11.551H2.61049V14.6624C2.61049 16.8532 1.73878 17.5 1.73878 17.5H8.10173C13.0675 17.5 16.2006 15.405 17.1134 11.5493H18.9961C19.3081 11.5493 19.601 11.6667 19.8434 11.8894L20 12.0334V11.5964C20 10.6328 19.3087 9.84884 18.4596 9.84884H17.3634C17.382 9.57222 17.3918 9.28937 17.3918 8.99858C17.3918 8.7078 17.3814 8.42551 17.3623 8.14889H18.9961C19.3075 8.14889 19.601 8.26623 19.8434 8.48956L19.8428 8.49013ZM5.21691 1.35082H7.8767C11.4552 1.35082 13.528 2.89999 14.1463 6.44895L5.21691 6.45009V1.35082ZM7.89932 16.6509H5.21633V11.5505L14.1405 11.5493C13.5622 14.761 11.7005 16.559 7.89932 16.6509ZM14.3446 9.00028C14.3446 9.29107 14.3382 9.57449 14.3249 9.84997L5.21691 9.85111V8.15116L14.3255 8.15003C14.3382 8.42438 14.3446 8.70723 14.3446 9.00028Z"
+                          fill="white"
+                        />
                       </g>
                       <defs>
                         <clipPath id="clip0_1_314">
-                          <rect width="20" height="17" fill="white" transform="translate(0 0.5)" />
+                          <rect
+                            width="20"
+                            height="17"
+                            fill="white"
+                            transform="translate(0 0.5)"
+                          />
                         </clipPath>
                       </defs>
                     </svg>
-                    <span className="text-lg font-bold text-white">{location.price}</span>
+                    <span className="text-lg font-bold text-white">
+                      {location.price}
+                    </span>
                   </div>
                 </div>
               </motion.button>
@@ -265,7 +337,9 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({ onBack }) => 
 
             <motion.div
               initial={{ opacity: 0, y: 16 }}
-              animate={showContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+              animate={
+                showContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }
+              }
               transition={{ duration: 0.6, delay: 1.3 }}
               className="absolute bottom-6 left-6 flex flex-wrap items-center gap-6 rounded-2xl border border-white/25 bg-black/40 px-6 py-4 text-white backdrop-blur-xl"
             >

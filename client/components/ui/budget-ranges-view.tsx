@@ -1,7 +1,11 @@
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import BudgetRanges from "@/components/ui/budget-ranges";
-import { conceptBudgets, conceptMeta, ConceptKey } from "@/components/ui/budget-ranges-data";
+import {
+  conceptBudgets,
+  conceptMeta,
+  ConceptKey,
+} from "@/components/ui/budget-ranges-data";
 
 interface BudgetRangesViewProps {
   onBack: () => void;
@@ -13,7 +17,9 @@ const BudgetRangesView: React.FC<BudgetRangesViewProps> = ({ onBack }) => {
   const bands = useMemo(() => conceptBudgets[concept], [concept]);
 
   const averageLicensingRange = useMemo(() => {
-    const amounts = bands.map((band) => band.licensing.match(/\d+/g)?.map(Number) ?? []);
+    const amounts = bands.map(
+      (band) => band.licensing.match(/\d+/g)?.map(Number) ?? [],
+    );
     const flattened = amounts.flat();
     if (flattened.length === 0) return "AED 0";
     const min = Math.min(...flattened);
@@ -36,7 +42,16 @@ const BudgetRangesView: React.FC<BudgetRangesViewProps> = ({ onBack }) => {
             onClick={onBack}
             className="inline-flex items-center gap-2 rounded-full border border-[#d8e4df] bg-white px-4 py-2 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55]"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="m12 19-7-7 7-7" />
               <path d="M19 12H5" />
             </svg>
@@ -57,14 +72,21 @@ const BudgetRangesView: React.FC<BudgetRangesViewProps> = ({ onBack }) => {
             <div className="space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <h1 className="text-2xl font-semibold text-slate-900 sm:text-3xl">Investment focus by dining concept</h1>
+                  <h1 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+                    Investment focus by dining concept
+                  </h1>
                   <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
-                    Compare licensing, fit-out, and operating budgets across Abu Dhabi's top-performing dining districts.
-                    Adjust the concept profile to align with your restaurant footprint and seating ambition.
+                    Compare licensing, fit-out, and operating budgets across Abu
+                    Dhabi's top-performing dining districts. Adjust the concept
+                    profile to align with your restaurant footprint and seating
+                    ambition.
                   </p>
                 </div>
                 <div className="rounded-2xl border border-[#0E766E]/15 bg-[#0E766E]/8 px-4 py-3 text-sm font-semibold text-[#0E766E] shadow-[0_12px_26px_-20px_rgba(14,118,110,0.52)]">
-                  Avg. licensing envelope: <span className="ml-1 font-bold">{averageLicensingRange}</span>
+                  Avg. licensing envelope:{" "}
+                  <span className="ml-1 font-bold">
+                    {averageLicensingRange}
+                  </span>
                 </div>
               </div>
               <div className="flex flex-wrap gap-3">
@@ -75,12 +97,19 @@ const BudgetRangesView: React.FC<BudgetRangesViewProps> = ({ onBack }) => {
                       key={key}
                       type="button"
                       onClick={() => setConcept(key)}
-                      className={"group inline-flex flex-col rounded-2xl border px-5 py-4 text-left shadow-sm transition" + (active
-                        ? " border-[#0E766E] bg-[#0E766E]/10 text-[#0E766E] shadow-[0_16px_32px_-28px_rgba(14,118,110,0.6)]"
-                        : " border-[#d7e3df] bg-white text-slate-600 hover:border-[#0E766E]/40 hover:text-[#0E766E]")}
+                      className={
+                        "group inline-flex flex-col rounded-2xl border px-5 py-4 text-left shadow-sm transition" +
+                        (active
+                          ? " border-[#0E766E] bg-[#0E766E]/10 text-[#0E766E] shadow-[0_16px_32px_-28px_rgba(14,118,110,0.6)]"
+                          : " border-[#d7e3df] bg-white text-slate-600 hover:border-[#0E766E]/40 hover:text-[#0E766E]")
+                      }
                     >
-                      <span className="text-sm font-semibold">{conceptMeta[key].label}</span>
-                      <span className="mt-1 text-xs text-slate-500">{conceptMeta[key].description}</span>
+                      <span className="text-sm font-semibold">
+                        {conceptMeta[key].label}
+                      </span>
+                      <span className="mt-1 text-xs text-slate-500">
+                        {conceptMeta[key].description}
+                      </span>
                     </button>
                   );
                 })}
@@ -88,16 +117,26 @@ const BudgetRangesView: React.FC<BudgetRangesViewProps> = ({ onBack }) => {
             </div>
             <div className="flex flex-col justify-between gap-4 rounded-2xl border border-[#d7e3df] bg-slate-50/80 p-5">
               <div>
-                <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">Timeline guidance</span>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
+                  Timeline guidance
+                </span>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Concepts move from licensing to soft opening in <span className="font-semibold text-slate-900">{concept === "boutique" ? "16-22 weeks" : "22-32 weeks"}</span>.
-                  Fast-track options exist for shell-and-core venues and fit-out partners pre-approved by DCT.
+                  Concepts move from licensing to soft opening in{" "}
+                  <span className="font-semibold text-slate-900">
+                    {concept === "boutique" ? "16-22 weeks" : "22-32 weeks"}
+                  </span>
+                  . Fast-track options exist for shell-and-core venues and
+                  fit-out partners pre-approved by DCT.
                 </p>
               </div>
               <div className="rounded-2xl bg-white/95 p-4 shadow-inner">
                 <div className="flex items-center justify-between text-sm text-slate-500">
                   <span>Capital intensity</span>
-                  <span>{concept === "boutique" ? "AED 780K – 1.48M" : "AED 1.55M – 2.4M"}</span>
+                  <span>
+                    {concept === "boutique"
+                      ? "AED 780K – 1.48M"
+                      : "AED 1.55M – 2.4M"}
+                  </span>
                 </div>
                 <div className="mt-3 h-2 rounded-full bg-slate-200">
                   <div
@@ -106,7 +145,8 @@ const BudgetRangesView: React.FC<BudgetRangesViewProps> = ({ onBack }) => {
                   />
                 </div>
                 <p className="mt-3 text-xs text-slate-500">
-                  Gauge the overall capital required for launch, factoring in deposits, brand development, and contingency.
+                  Gauge the overall capital required for launch, factoring in
+                  deposits, brand development, and contingency.
                 </p>
               </div>
             </div>
@@ -125,30 +165,46 @@ const BudgetRangesView: React.FC<BudgetRangesViewProps> = ({ onBack }) => {
               >
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <h2 className="text-lg font-semibold text-slate-900">{band.area}</h2>
-                    <p className="text-xs tracking-[0.22em] uppercase text-[#0E766E]/80">{conceptMeta[concept].label}</p>
+                    <h2 className="text-lg font-semibold text-slate-900">
+                      {band.area}
+                    </h2>
+                    <p className="text-xs tracking-[0.22em] uppercase text-[#0E766E]/80">
+                      {conceptMeta[concept].label}
+                    </p>
                   </div>
                   <div className="flex flex-col items-end">
-                    <span className="text-[11px] uppercase tracking-[0.26em] text-slate-400">Total investment</span>
-                    <span className="text-base font-semibold text-[#0E766E]">{band.totalRange}</span>
+                    <span className="text-[11px] uppercase tracking-[0.26em] text-slate-400">
+                      Total investment
+                    </span>
+                    <span className="text-base font-semibold text-[#0E766E]">
+                      {band.totalRange}
+                    </span>
                   </div>
                 </div>
 
                 <dl className="mt-4 grid grid-cols-2 gap-4 text-sm text-slate-600">
                   <div>
-                    <dt className="font-semibold text-slate-900">Licensing & permits</dt>
+                    <dt className="font-semibold text-slate-900">
+                      Licensing & permits
+                    </dt>
                     <dd>{band.licensing}</dd>
                   </div>
                   <div>
-                    <dt className="font-semibold text-slate-900">Fit-out & FF&E</dt>
+                    <dt className="font-semibold text-slate-900">
+                      Fit-out & FF&E
+                    </dt>
                     <dd>{band.fitOut}</dd>
                   </div>
                   <div>
-                    <dt className="font-semibold text-slate-900">Pre-opening staffing</dt>
+                    <dt className="font-semibold text-slate-900">
+                      Pre-opening staffing
+                    </dt>
                     <dd>{band.staffing}</dd>
                   </div>
                   <div>
-                    <dt className="font-semibold text-slate-900">Launch marketing</dt>
+                    <dt className="font-semibold text-slate-900">
+                      Launch marketing
+                    </dt>
                     <dd>{band.marketing}</dd>
                   </div>
                 </dl>
@@ -156,12 +212,18 @@ const BudgetRangesView: React.FC<BudgetRangesViewProps> = ({ onBack }) => {
                 <div className="mt-4 grid gap-3 rounded-2xl bg-slate-50/80 p-4 text-sm text-slate-600">
                   <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-slate-400">
                     <span>Opening timeframe</span>
-                    <span className="font-semibold text-slate-700">{band.timeframe}</span>
+                    <span className="font-semibold text-slate-700">
+                      {band.timeframe}
+                    </span>
                   </div>
-                  <p className="leading-relaxed text-slate-600">{band.insight}</p>
+                  <p className="leading-relaxed text-slate-600">
+                    {band.insight}
+                  </p>
                   <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-slate-400">
                     <span>Desirability index</span>
-                    <span className="font-semibold text-[#0E766E]">{band.desirabilityIndex}/100</span>
+                    <span className="font-semibold text-[#0E766E]">
+                      {band.desirabilityIndex}/100
+                    </span>
                   </div>
                   <div className="h-1.5 rounded-full bg-slate-200">
                     <div
@@ -182,15 +244,24 @@ const BudgetRangesView: React.FC<BudgetRangesViewProps> = ({ onBack }) => {
           >
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div className="max-w-3xl space-y-2">
-                <h3 className="text-base font-semibold text-slate-900">Next steps to secure your preferred zone</h3>
+                <h3 className="text-base font-semibold text-slate-900">
+                  Next steps to secure your preferred zone
+                </h3>
                 <p>
-                  Engage with the property desk for shell-and-core availability, then align with Abu Dhabi Department of
-                  Economic Development (ADDED) on licensing class. Our concierge can prepare tailored pro-forma budgets and
-                  connect you with fit-out partners experienced in {concept === "boutique" ? "intimate dining concepts." : "flagship culinary destinations."}
+                  Engage with the property desk for shell-and-core availability,
+                  then align with Abu Dhabi Department of Economic Development
+                  (ADDED) on licensing class. Our concierge can prepare tailored
+                  pro-forma budgets and connect you with fit-out partners
+                  experienced in{" "}
+                  {concept === "boutique"
+                    ? "intimate dining concepts."
+                    : "flagship culinary destinations."}
                 </p>
               </div>
               <div className="flex flex-col gap-3 text-xs text-slate-500">
-                <span className="font-semibold uppercase tracking-[0.24em] text-[#0E766E]">Support actions</span>
+                <span className="font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
+                  Support actions
+                </span>
                 <ul className="space-y-1">
                   <li>• Schedule cost workshop with AI Business concierge</li>
                   <li>• Receive landlord shortlist with rent benchmarks</li>
