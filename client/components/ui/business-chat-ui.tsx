@@ -3058,7 +3058,7 @@ const DiscoverExperienceView = ({
 
                     <div className="flex h-full flex-col gap-4 rounded-[26px] border border-[#dbe9e3] bg-white p-5 text-slate-900 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]">
                       <div className="relative overflow-hidden rounded-[26px] border border-[#dbe9e3] bg-white p-5 shadow-[0_18px_36px_-28px_rgba(15,118,110,0.25)]">
-                        <span className="absolute left-0 top-5 bottom-5 w-1.5 rounded-full bg-gradient-to-b from-[#0f766e] via-[#34d399] to-transparent" />
+                        <span className="absolute left-0 top-5 bottom-5 w-1.5 rounded-full bg-gradient-to-b from-[#0E766E] via-[#34d399] to-transparent" />
                         <div className="pl-4">
                           <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
                             Focused district
@@ -3125,7 +3125,7 @@ const DiscoverExperienceView = ({
                                 onMouseEnter={() => setHoveredLocation(spot.id)}
                                 onMouseLeave={() => setHoveredLocation(null)}
                               >
-                                <span className="absolute left-0 top-2 bottom-2 w-1 rounded-full bg-gradient-to-b from-[#0f766e] via-[#34d399] to-transparent" />
+                                <span className="absolute left-0 top-2 bottom-2 w-1 rounded-full bg-gradient-to-b from-[#0E766E] via-[#34d399] to-transparent" />
                                 <div className="pl-3">
                                   <div className="flex items-center justify-between text-sm font-semibold text-slate-900">
                                     <span>{spot.name}</span>
@@ -3191,7 +3191,7 @@ const DiscoverExperienceView = ({
                               <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
                                 {String(index + 1).padStart(2, "0")}
                               </span>
-                              <span className="mt-2 h-full w-0.5 bg-gradient-to-b from-[#0f766e] via-[#34d399] to-transparent" />
+                              <span className="mt-2 h-full w-0.5 bg-gradient-to-b from-[#0E766E] via-[#34d399] to-transparent" />
                             </div>
                             <div className="flex-1">
                               <div className="flex flex-wrap items-baseline justify-between gap-3">
