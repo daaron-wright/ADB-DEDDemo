@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import ApplicantPortal from "./pages/ApplicantPortal";
 import ReviewerPortal from "./pages/ReviewerPortal";
 import InvestorJourney from "./pages/InvestorJourney";
+import StateMachineViewerPage from "./pages/StateMachineViewer";
 import NotFound from "./pages/NotFound";
 import CompilationDashboard from "./components/ui/compilation-dashboard";
 
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/portal/applicant" element={<ApplicantPortal />} />
           <Route path="/portal/reviewer" element={<ReviewerPortal />} />
           <Route path="/journey" element={<InvestorJourney />} />
+          <Route path="/timeline" element={<StateMachineViewerPage />} />
           <Route path="/compilation" element={<CompilationDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
