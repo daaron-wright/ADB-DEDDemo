@@ -64,6 +64,7 @@ interface BusinessMessage {
   docId?: string;
   docTitle?: string;
   imageUrl?: string;
+  stepId?: ConversationStep;
 }
 
 interface DialogueDocHighlight {
