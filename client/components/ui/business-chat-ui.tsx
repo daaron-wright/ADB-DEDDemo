@@ -4047,6 +4047,19 @@ export function BusinessChatUI({
     }));
   }, []);
 
+  const handleSendMessage = useCallback(
+    (message: string) => {
+      const userMessage = buildMessage(message, false);
+      const aiResponse = buildMessage(
+        "Thank you for your question. I'm analyzing the business landscape to provide you with the most relevant insights.",
+        true
+      );
+      setMessages((prev) => [...prev, userMessage, aiResponse]);
+      setInputValue("");
+    },
+    [buildMessage]
+  );
+
   const handleAction = useCallback(
     (action: ConversationAction, label: string) => {
       setMessages((prev) => {
