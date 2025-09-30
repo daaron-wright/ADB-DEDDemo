@@ -18,7 +18,7 @@ interface PropertyMapModalProps {
 }
 
 const MODAL_MIN_DIMENSIONS: React.CSSProperties = {
-  minWidth: "min(100%, 800px)",
+  minWidth: 'min(100%, 800px)',
   minHeight: 556,
 };
 
