@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
-import { ChevronDown, LogOut, Settings, User } from 'lucide-react';
+import { useMemo } from "react";
+import { ChevronDown, LogOut, Settings, User } from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,35 +9,38 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
 interface PortalProfileMenuProps {
   name: string;
   email: string;
   avatarUrl: string;
-  status?: 'online' | 'offline' | 'none';
+  status?: "online" | "offline" | "none";
   onSignOut?: () => void;
 }
 
-const statusStyles: Record<Exclude<PortalProfileMenuProps['status'], undefined>, string> = {
-  online: 'bg-[#0f766e]',
-  offline: 'bg-[#a6bbb1]',
-  none: 'hidden',
+const statusStyles: Record<
+  Exclude<PortalProfileMenuProps["status"], undefined>,
+  string
+> = {
+  online: "bg-[#0f766e]",
+  offline: "bg-[#a6bbb1]",
+  none: "hidden",
 };
 
 export function PortalProfileMenu({
   name,
   email,
   avatarUrl,
-  status = 'none',
+  status = "none",
   onSignOut,
 }: PortalProfileMenuProps) {
   const initials = useMemo(() => {
-    const segments = name.trim().split(' ');
+    const segments = name.trim().split(" ");
     return segments
       .slice(0, 2)
       .map((segment) => segment.charAt(0).toUpperCase())
-      .join('');
+      .join("");
   }, [name]);
 
   return (
@@ -47,7 +50,7 @@ export function PortalProfileMenu({
           <Avatar className="h-9 w-9 rounded-xl">
             <AvatarImage src={avatarUrl} alt={name} className="object-cover" />
             <AvatarFallback className="rounded-xl bg-neutral-100 text-sm font-semibold text-neutral-600">
-              {initials || 'NA'}
+              {initials || "NA"}
             </AvatarFallback>
           </Avatar>
           <span
@@ -60,8 +63,13 @@ export function PortalProfileMenu({
         </span>
         <ChevronDown className="ml-1 h-4 w-4 shrink-0 text-neutral-400 transition group-hover:text-neutral-600" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56 rounded-xl border border-[#d8e4df] bg-white shadow-[0_20px_40px_-28px_rgba(11,64,55,0.2)]">
-        <DropdownMenuLabel className="text-xs uppercase tracking-[0.18em] text-[#0f766e]">Account</DropdownMenuLabel>
+      <DropdownMenuContent
+        align="end"
+        className="w-56 rounded-xl border border-[#d8e4df] bg-white shadow-[0_20px_40px_-28px_rgba(11,64,55,0.2)]"
+      >
+        <DropdownMenuLabel className="text-xs uppercase tracking-[0.18em] text-[#0f766e]">
+          Account
+        </DropdownMenuLabel>
         <DropdownMenuSeparator className="bg-[#d8e4df]" />
         <DropdownMenuItem className="rounded-lg text-slate-700 hover:bg-[#eaf7f3]">
           <User className="h-4 w-4 text-neutral-500" />

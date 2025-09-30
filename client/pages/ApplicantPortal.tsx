@@ -698,7 +698,8 @@ export default function ApplicantPortal() {
                       : null;
                   const library = documentLibraries[task.id];
                   const showFitOutLibrary =
-                    activeStage.id === "pre-operational-inspection" && Boolean(library);
+                    activeStage.id === "pre-operational-inspection" &&
+                    Boolean(library);
 
                   return (
                     <div
@@ -769,13 +770,19 @@ export default function ApplicantPortal() {
                                   key={item.id}
                                   className="flex items-start gap-2 rounded-xl border border-[#dbe7e1] bg-white px-3 py-2"
                                 >
-                                  <span className="mt-0.5 h-2 w-2 rounded-full bg-[#0f766e]" aria-hidden="true" />
+                                  <span
+                                    className="mt-0.5 h-2 w-2 rounded-full bg-[#0f766e]"
+                                    aria-hidden="true"
+                                  />
                                   <div>
                                     <p className="font-medium text-slate-900">
                                       {item.name}
                                     </p>
                                     <p className="text-[11px] text-slate-500">
-                                      {item.type} • Updated {dateFormatter.format(new Date(item.updatedAt))}
+                                      {item.type} • Updated{" "}
+                                      {dateFormatter.format(
+                                        new Date(item.updatedAt),
+                                      )}
                                     </p>
                                   </div>
                                 </li>
