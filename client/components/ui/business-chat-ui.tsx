@@ -3662,6 +3662,7 @@ export function BusinessChatUI({
         content: "Here are the top 4 restaurants in Abu Dhabi Corniche.",
         isAI: true,
         timestamp: new Date(),
+        type: "text",
       };
 
       if (activeThread) {
