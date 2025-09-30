@@ -31,6 +31,7 @@ interface BusinessChatUIProps {
 }
 
 type ChatView = "basic" | "investor-journey";
+type BreakoutType = "cuisine" | "competitor" | "gap";
 
 interface ChatThread {
   id: string;
