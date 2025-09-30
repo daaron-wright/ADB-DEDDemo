@@ -1254,7 +1254,9 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="bg-white rounded-[33px] p-4 shadow-lg border border-[#EFEFEF]"
+            className={chatCardClass(
+              "bg-white p-4 shadow-lg border border-[#EFEFEF]"
+            )}
           >
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
@@ -3719,7 +3721,11 @@ export function BusinessChatUI({
                           </div>
                         )}
 
-                        <div className="mt-4 rounded-[18px] border border-white/30 bg-white/60 px-4 py-3 text-xs text-slate-600">
+                        <div
+                          className={chatCardClass(
+                            "mt-4 border border-white/30 bg-white/60 px-4 py-3 text-xs text-slate-600"
+                          )}
+                        >
                           Use the highlighted action above to move forward. We’ll open the next workspace once you confirm.
                         </div>
                       </div>
