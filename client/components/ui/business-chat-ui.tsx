@@ -3996,11 +3996,13 @@ export function BusinessChatUI({
       setCuisineBreakoutOpen(false);
       setCompetitorBreakoutOpen(false);
       setGapBreakoutOpen(false);
+      setDialogueDocState(createInitialDialogueDocState());
       return;
     }
 
     setView("basic");
     setCurrentStep("intro");
+    setDialogueDocState(createInitialDialogueDocState());
 
     const introMessage = buildStepMessage("intro");
     const conversation: BusinessMessage[] = [];
@@ -4027,6 +4029,18 @@ export function BusinessChatUI({
               action: "open-investor-journey",
             },
           ],
+        },
+      ),
+    );
+
+    conversation.push(
+      buildMessage(
+        "Use this dialogue workspace to capture questions, decisions, and next steps as we collaborate.",
+        true,
+        {
+          type: "dialogue-doc",
+          docId: "investor-dialogue",
+          docTitle: "Investor dialogue workspace",
         },
       ),
     );
