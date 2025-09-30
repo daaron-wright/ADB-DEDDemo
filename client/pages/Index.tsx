@@ -283,14 +283,6 @@ export default function Index() {
     });
   };
 
-  const resetOpenChatState = () => {
-    setOpenChatState({
-      isOpen: false,
-      mode: "general",
-      category: null,
-      categoryTitle: null,
-    });
-  };
 
   const handleOpenGeneralChat = () => {
     setOpenChatState({
