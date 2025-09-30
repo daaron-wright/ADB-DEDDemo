@@ -3566,8 +3566,8 @@ export function BusinessChatUI({
           return prev;
         }
 
-        const withoutActions = prev.map((message, index) =>
-          index === prev.length - 1 ? { ...message, actions: undefined } : message,
+        const withoutActions = prev.map((message) =>
+          message.actions ? { ...message, actions: undefined } : message,
         );
 
         const updated = [...withoutActions, buildMessage(label, false)];
