@@ -413,6 +413,28 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
     onLogin,
   ]);
 
+  useEffect(() => {
+    if (!autoLogin) {
+      return;
+    }
+
+    if (loginStep !== "login") {
+      return;
+    }
+
+    if (isLoggingIn) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      handleDirectLogin();
+    }, 0);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [autoLogin, loginStep, isLoggingIn, handleDirectLogin]);
+
   const enhancedTrigger = React.cloneElement(trigger, {
     onClick: (event: React.MouseEvent<HTMLElement>) => {
       resetFlow();
