@@ -32,6 +32,7 @@ export default function Index() {
   });
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const fallbackFocus = { x: 640, y: 360 };
   const [focusPoint, setFocusPoint] = useState<{ x: number; y: number }>(
