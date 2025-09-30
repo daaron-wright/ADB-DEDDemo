@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import { Modal, Close } from "@aegov/design-system-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
 
 interface UAEPassLoginProps {
   trigger: React.ReactElement;
@@ -16,11 +17,12 @@ type LoginStep = "userType" | "login" | "success" | "fingerprint";
 
 const MOCK_USER_PROFILES = {
   applicant: {
-    name: "Ahmed Al Mansoori",
-    email: "ahmed.almansoori@email.ae",
+    name: ENTREPRENEUR_PROFILE.name,
+    email: "khalid.entrepreneur@email.ae",
     emiratesId: "784-1985-1234567-8",
     userType: "applicant" as const,
     role: "Business Applicant",
+    avatarUrl: ENTREPRENEUR_PROFILE.avatar,
   },
   reviewer: {
     name: "Sarah Al Zaabi",
