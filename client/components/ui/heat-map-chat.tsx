@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 
 interface HeatMapChatProps {
   isOpen: boolean;
@@ -26,8 +27,8 @@ const AccessibleMessageBubble = ({ message }: { message: Message }) => {
       {message.isAI && (
         <div className="relative">
           <img
-            src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-            alt="AI Business Assistant"
+            src={AI_ASSISTANT_PROFILE.avatar}
+            alt={AI_ASSISTANT_PROFILE.name}
             className="w-12 h-12 rounded-full border-2 border-[#54FFD4] object-cover"
           />
           <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-[#54FFD4] rounded-full border-2 border-white"></div>
@@ -389,8 +390,8 @@ export const HeatMapChat: React.FC<HeatMapChatProps> = ({
             <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gray-50">
               <div className="flex items-center gap-3">
                 <img
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-                  alt="AI Business Assistant"
+                  src={AI_ASSISTANT_PROFILE.avatar}
+                  alt={AI_ASSISTANT_PROFILE.name}
                   className="w-10 h-10 rounded-full border-2 border-[#54FFD4]"
                 />
                 <div>
