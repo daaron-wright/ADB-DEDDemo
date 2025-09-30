@@ -1681,7 +1681,7 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
             <button
               type="button"
               onClick={handleOpenDashboard}
-              className="inline-flex items-center gap-2 rounded-full bg-[#169F9F] px-4 py-2 text-sm font-semibold text-[#042B28] shadow-md shadow-[#169F9F]/40 transition hover:bg-[#128787]"
+              className="inline-flex items-center gap-2 rounded-full bg-[#169F9F] px-4 py-2 text-sm font-semibold text-white shadow-md shadow-[#169F9F]/40 transition hover:bg-[#128787]"
             >
               View complete analysis
               <svg
