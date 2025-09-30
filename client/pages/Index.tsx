@@ -488,11 +488,24 @@ export default function Index() {
           </h1>
 
           {/* Description */}
-          <p className="text-tamm-gray-medium text-base font-medium text-center max-w-lg leading-relaxed mb-16">
+          <p className="text-tamm-gray-medium text-base font-medium text-center max-w-lg leading-relaxed mb-8">
             Welcome to the future of government services. Experience how Abu
             Dhabi is building an AI Native Government to empower entrepreneurs
             and simplify business setup.
           </p>
+
+          {/* Business Consultation CTA */}
+          <div className="mb-16">
+            <button
+              onClick={() => setConsultationChatOpen(true)}
+              className="bg-gradient-to-r from-teal-600 to-teal-800 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg transition-all hover:shadow-xl hover:scale-105 active:scale-95"
+            >
+              Start Business Consultation
+            </button>
+            <p className="text-tamm-gray-medium text-sm text-center mt-3">
+              Get AI-powered insights for restaurant business setup in Abu Dhabi
+            </p>
+          </div>
 
           {/* Business Categories Section */}
           <div className="w-full">
