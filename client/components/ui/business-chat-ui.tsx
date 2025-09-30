@@ -4210,13 +4210,18 @@ export function BusinessChatUI({
   );
 
   const handleAutoLoginComplete = useCallback(
-    (_userType: "applicant" | "reviewer", _userData: any) => {
+    (userType: "applicant" | "reviewer", userData: any) => {
       if (!isInvestorLoginPending) {
         return;
       }
 
       setIsInvestorLoginPending(false);
       setShouldPromptLogin(false);
+
+      const authenticatedName =
+        typeof userData?.name === "string" && userData.name.length > 0
+          ? userData.name
+          : ENTREPRENEUR_PROFILE.name;
 
       setMessages((prev) => {
         const sanitized = prev.map((message) =>
@@ -4236,7 +4241,7 @@ export function BusinessChatUI({
 
         nextMessages.push(
           buildMessage(
-            "Khalid Entrepreneur is now signed in via UAE PASS. Opening your investor journey workspace with live market heat maps.",
+            `${authenticatedName} is now signed in via UAE PASS. Opening your investor journey workspace with live market heat maps.`,
             true,
           ),
         );
