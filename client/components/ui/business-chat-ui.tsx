@@ -2021,6 +2021,102 @@ const ChatInputField = ({
   );
 };
 
+interface DialogueHighlightItemProps {
+  highlight: DialogueDocHighlight;
+  index: number;
+  onToggle: (id: string) => void;
+  onChange: (id: string, value: string) => void;
+  onRemove: (id: string) => void;
+}
+
+const DialogueHighlightItem = ({
+  highlight,
+  index,
+  onToggle,
+  onChange,
+  onRemove,
+}: DialogueHighlightItemProps) => {
+  return (
+    <li
+      className={cn(
+        "group flex items-center gap-4 rounded-[28px] border border-slate-200/80 bg-white/85 px-4 py-3 shadow-[0_24px_60px_-34px_rgba(8,57,57,0.25)] transition",
+        highlight.completed
+          ? "border-[#0E766E]/50 bg-[#0E766E]/6 shadow-[0_26px_62px_-36px_rgba(8,57,57,0.32)]"
+          : "hover:border-[#0E766E]/50 hover:shadow-[0_28px_64px_-30px_rgba(8,57,57,0.28)]",
+      )}
+    >
+      <button
+        type="button"
+        onClick={() => onToggle(highlight.id)}
+        className={cn(
+          "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border-2 transition",
+          highlight.completed
+            ? "border-[#0E766E] bg-[#0E766E] text-white"
+            : "border-slate-200 bg-white text-slate-400 group-hover:border-[#0E766E]/50",
+        )}
+        aria-label=
+          {highlight.completed
+            ? `Mark thread ${index + 1} as in progress`
+            : `Mark thread ${index + 1} as complete`}
+      >
+        {highlight.completed && (
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M13.3334 4.66675L6.00008 12.0001L2.66675 8.66675"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        )}
+      </button>
+      <div className="flex flex-1 flex-col gap-1">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.26em] text-slate-400">
+          Thread {String(index + 1).padStart(2, "0")}
+        </span>
+        <input
+          type="text"
+          value={highlight.text}
+          onChange={(event) => onChange(highlight.id, event.target.value)}
+          className={cn(
+            "w-full border-none bg-transparent text-sm font-medium leading-relaxed text-slate-700 outline-none transition",
+            highlight.completed && "text-[#0E766E]",
+          )}
+        />
+      </div>
+      <button
+        type="button"
+        onClick={() => onRemove(highlight.id)}
+        className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-slate-300 transition hover:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E766E]/40 focus-visible:ring-offset-2"
+        aria-label={`Remove thread ${index + 1}`}
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 4L4 12M4 4L12 12"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+    </li>
+  );
+};
+
 const DialogueDocCard = ({
   title,
   summary,
@@ -2034,6 +2130,11 @@ const DialogueDocCard = ({
 }: DialogueDocProps) => {
   const [newHighlight, setNewHighlight] = useState("");
   const completedCount = highlights.filter((item) => item.completed).length;
+  const totalHighlights = highlights.length;
+  const progressPercentage = totalHighlights > 0 ? Math.round((completedCount / totalHighlights) * 100) : 0;
+  const highlightStatus = totalHighlights > 0 ? `${completedCount}/${totalHighlights} complete` : "No threads yet";
+  const highlightEncouragement =
+    totalHighlights === 0 ? "Capture new focus points to start progress." : "Keep collaborating to mark threads done.";
 
   const handleAddHighlight = () => {
     const value = newHighlight.trim();
@@ -2048,144 +2149,115 @@ const DialogueDocCard = ({
   return (
     <div
       className={chatCardClass(
-        "w-full max-w-[680px] overflow-hidden border border-slate-200 bg-white/95 backdrop-blur-2xl shadow-[0_45px_120px_-70px_rgba(15,23,42,0.38)]",
-        "rounded-[32px]"
+        "relative w-full max-w-[720px] overflow-hidden border border-white/60 bg-white/80 backdrop-blur-2xl shadow-[0_46px_120px_-70px_rgba(8,57,57,0.38)]",
+        "rounded-[36px]"
       )}
     >
-      <div className="flex flex-col gap-6 p-6 sm:p-8">
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <Badge className="rounded-full border border-[#0E766E]/30 bg-[#0E766E]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-[#0E766E]">
-                Dialogue doc
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,118,110,0.12),transparent_55%)]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(8,57,57,0.08),transparent_60%)]" aria-hidden="true" />
+      <div className="relative flex flex-col gap-10 p-6 sm:p-8 lg:p-10">
+        <header className="flex flex-col gap-6">
+          <div className="flex flex-wrap items-start justify-between gap-6">
+            <div className="max-w-xl space-y-4">
+              <Badge className="w-fit rounded-full border border-[#0E766E]/30 bg-[#0E766E]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-[#0E766E]">
+                Dialogue workspace
               </Badge>
-              <h3 className="mt-3 text-2xl font-semibold leading-tight text-slate-900">{title}</h3>
+              <div className="space-y-3">
+                <h3 className="text-2xl font-semibold leading-tight text-slate-900 sm:text-3xl">{title}</h3>
+                {summary ? (
+                  <p className="text-sm leading-relaxed text-slate-600 sm:text-base">{summary}</p>
+                ) : null}
+              </div>
             </div>
-            <div className="text-xs font-medium uppercase tracking-[0.26em] text-slate-400">
-              Open collaboration
-            </div>
-          </div>
-          <p className="text-sm leading-relaxed text-slate-600">{summary}</p>
-        </div>
-
-        <div className="space-y-3">
-          <div className="flex items-center justify-between gap-2">
-            <h4 className="text-xs font-semibold uppercase tracking-[0.26em] text-[#0E766E]">
-              Focus threads
-            </h4>
-            <span className="text-xs text-slate-400">
-              {completedCount}/{highlights.length} complete
-            </span>
-          </div>
-          <ul className="space-y-2">
-            {highlights.map((item) => (
-              <li
-                key={item.id}
-                className={cn(
-                  "flex items-center gap-3 rounded-2xl border bg-white/90 px-4 py-3 shadow-[0_22px_54px_-36px_rgba(15,23,42,0.3)] transition",
-                  item.completed
-                    ? "border-[#0E766E] shadow-[0_26px_60px_-34px_rgba(14,118,110,0.35)]"
-                    : "border-slate-200 hover:border-[#0E766E]/40",
-                )}
-              >
-                <button
-                  type="button"
-                  onClick={() => onToggleHighlight(item.id)}
-                  className={cn(
-                    "flex h-6 w-6 items-center justify-center rounded-full border transition",
-                    item.completed
-                      ? "border-[#0E766E] bg-[#0E766E] text-white"
-                      : "border-slate-300 bg-white text-slate-400 hover:border-[#0E766E]/50",
-                  )}
-                >
-                  {item.completed && (
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13.3334 4.66675L6.00008 12.0001L2.66675 8.66675"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  )}
-                </button>
-                <input
-                  value={item.text}
-                  onChange={(event) => onHighlightChange(item.id, event.target.value)}
-                  className="flex-1 border-none bg-transparent text-sm font-medium text-slate-700 outline-none focus:ring-0"
+            <div className="flex w-full max-w-[240px] flex-col items-start gap-3 rounded-[28px] border border-white/70 bg-white/70 px-5 py-4 shadow-[0_18px_40px_-28px_rgba(8,57,57,0.22)] sm:max-w-[260px]">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-slate-400">Live progress</span>
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0E766E]/15 text-lg font-semibold text-[#0E766E]">
+                  {progressPercentage}%
+                </div>
+                <div className="text-xs text-slate-500 sm:text-sm">
+                  <div className="font-semibold text-slate-900">{highlightStatus}</div>
+                  <div>{highlightEncouragement}</div>
+                </div>
+              </div>
+              <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#dbe9e3]">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-[#0E766E] via-[#2fc4a8] to-[#6ee7b7]"
+                  style={{ width: `${progressPercentage}%` }}
                 />
-                <button
-                  type="button"
-                  onClick={() => onHighlightRemove(item.id)}
-                  className="rounded-full p-1 text-slate-300 transition hover:text-slate-500"
-                >
-                  <span className="sr-only">Remove highlight</span>
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12 4L4 12M4 4L12 12"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-              </li>
-            ))}
-          </ul>
-          <div className="flex flex-wrap gap-2 pt-1">
-            <input
-              value={newHighlight}
-              onChange={(event) => setNewHighlight(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  event.preventDefault();
-                  handleAddHighlight();
-                }
-              }}
-              placeholder="Add a focus point..."
-              className="min-w-[160px] flex-1 rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-sm text-slate-600 placeholder-slate-400 focus:border-[#0E766E] focus:outline-none focus:ring-2 focus:ring-[#0E766E]/30"
-            />
-            <button
-              type="button"
-              onClick={handleAddHighlight}
-              className="rounded-full bg-gradient-to-r from-[#0E766E] to-[#0A4A46] px-4 py-2 text-sm font-semibold text-white shadow-[0_16px_30px_-18px_rgba(14,118,110,0.45)] transition hover:shadow-[0_22px_44px_-24px_rgba(14,118,110,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E766E]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white/10"
-            >
-              Add
-            </button>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div className="space-y-3">
-          <div className="flex items-center justify-between gap-2">
-            <h4 className="text-xs font-semibold uppercase tracking-[0.26em] text-[#0E766E]">
-              Working notes
-            </h4>
-            <span className="text-xs text-slate-400">{notes.length} characters</span>
+          <div className="flex flex-wrap items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.26em] text-slate-400">
+            <span className="rounded-full border border-white/60 bg-white/70 px-3 py-1 text-[#0E766E]">Shared with AI advisor</span>
+            <span>Investor dialogue</span>
           </div>
-          <textarea
-            value={notes}
-            onChange={(event) => onNotesChange(event.target.value)}
-            rows={6}
-            className="min-h-[140px] w-full resize-y rounded-[28px] border border-slate-200 bg-white/90 px-4 py-3 text-sm leading-relaxed text-slate-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] focus:border-[#0E766E] focus:outline-none focus:ring-2 focus:ring-[#0E766E]/30"
-          />
-        </div>
-
-        <div className="rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-xs leading-relaxed text-slate-500">
-          Invite collaborators to co-edit this doc or export highlights into your investor journey workspace.
+        </header>
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.52fr)_minmax(0,0.48fr)]">
+          <section className="space-y-4">
+            <div className="flex items-center justify-between gap-2">
+              <h4 className="text-xs font-semibold uppercase tracking-[0.26em] text-[#0E766E]">Focus threads</h4>
+              <span className="text-xs text-slate-400">{highlightStatus}</span>
+            </div>
+            <ul className="space-y-3">
+              {highlights.map((highlight, index) => (
+                <DialogueHighlightItem
+                  key={highlight.id}
+                  highlight={highlight}
+                  index={index}
+                  onToggle={onToggleHighlight}
+                  onChange={onHighlightChange}
+                  onRemove={onHighlightRemove}
+                />
+              ))}
+              {highlights.length === 0 && (
+                <li className="rounded-[28px] border border-dashed border-slate-200 bg-white/70 px-4 py-5 text-sm text-slate-500">
+                  Add focus threads to capture priorities and questions as they emerge.
+                </li>
+              )}
+            </ul>
+            <div className="flex flex-wrap gap-3">
+              <div className="flex min-w-[220px] flex-1 items-center overflow-hidden rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-sm text-slate-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] focus-within:border-[#0E766E] focus-within:ring-2 focus-within:ring-[#0E766E]/25">
+                <input
+                  value={newHighlight}
+                  onChange={(event) => setNewHighlight(event.target.value)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      event.preventDefault();
+                      handleAddHighlight();
+                    }
+                  }}
+                  placeholder="Add a focus point..."
+                  className="flex-1 border-none bg-transparent text-sm text-slate-700 placeholder-slate-400 outline-none"
+                  aria-label="New focus thread"
+                />
+              </div>
+              <button
+                type="button"
+                onClick={handleAddHighlight}
+                className="inline-flex items-center justify-center rounded-full bg-[#083939] px-5 py-2 text-sm font-semibold text-white shadow-[0_16px_32px_-18px_rgba(8,57,57,0.5)] transition hover:shadow-[0_22px_44px_-24px_rgba(8,57,57,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E766E]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white/10"
+              >
+                Add
+              </button>
+            </div>
+          </section>
+          <section className="space-y-4">
+            <div className="flex items-center justify-between gap-2">
+              <h4 className="text-xs font-semibold uppercase tracking-[0.26em] text-[#0E766E]">Working notes</h4>
+              <span className="text-xs text-slate-400">{notes.length} characters</span>
+            </div>
+            <div className="rounded-[32px] border border-slate-200/80 bg-white/85 px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
+              <textarea
+                value={notes}
+                onChange={(event) => onNotesChange(event.target.value)}
+                rows={6}
+                className="min-h-[160px] w-full resize-y border-none bg-transparent text-sm leading-relaxed text-slate-700 outline-none focus:ring-0"
+              />
+            </div>
+            <div className="rounded-2xl border border-[#0E766E]/20 bg-[#0E766E]/5 px-4 py-3 text-xs leading-relaxed text-[#0A4A46]">
+              Invite collaborators or export highlights into your investor journey workspace when you are ready to share outcomes.
+            </div>
+          </section>
         </div>
       </div>
     </div>
