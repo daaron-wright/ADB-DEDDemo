@@ -406,9 +406,7 @@ export default function ApplicantPortal() {
     },
   ];
 
-  const discoveryGuideAvatar =
-    "https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?auto=format&fit=crop&w=160&h=160&q=80";
-  const discoveryGeneralChatLink = "/?chat=open";
+   const discoveryGeneralChatLink = "/?chat=open";
   const discoverySetupChatLink = `/?chat=open&category=restaurants&message=${encodeURIComponent(
     "I'm ready to set up my restaurant in Abu Dhabi. Can you guide me through the next steps?",
   )}`;
