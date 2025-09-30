@@ -3357,88 +3357,35 @@ export function BusinessChatUI({
   title = "AI Business",
   initialMessage,
 }: BusinessChatUIProps) {
-  const [threads, setThreads] = useState<ChatThread[]>([]);
-  const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
-  const [showBudgetModal, setShowBudgetModal] = useState(false);
-  const [showCuisineCard, setShowCuisineCard] = useState(false);
-  const [showCompetitorCard, setShowCompetitorCard] = useState(false);
-  const [showGapAnalysisCard, setShowGapAnalysisCard] = useState(false);
-  const [showPreloadedPrompts, setShowPreloadedPrompts] = useState(true);
-  const [currentInput, setCurrentInput] = useState("");
-  const [isCuisineBreakoutOpen, setCuisineBreakoutOpen] = useState(false);
-  const [isCompetitorBreakoutOpen, setCompetitorBreakoutOpen] = useState(false);
-  const [isGapBreakoutOpen, setGapBreakoutOpen] = useState(false);
+  const [messages, setMessages] = useState<BusinessMessage[]>([]);
+  const [view, setView] = useState<ChatView>("basic");
+  const [currentStep, setCurrentStep] = useState<ConversationStep>("intro");
 
-  const { toast } = useToast();
-
-  const openBreakout = useCallback(
-    (type: BreakoutType, options: { withToast?: boolean } = {}) => {
-      const { withToast = true } = options;
-
-      if (type === "cuisine") {
-        setShowCuisineCard(true);
-        setCuisineBreakoutOpen(true);
-        if (withToast) {
-          toast({
-            title: "Cuisine popularity breakout",
-            description: "Review live cuisine share, spend behaviour, and actionable recommendations.",
-          });
-        }
-      }
-
-      if (type === "competitor") {
-        setShowCompetitorCard(true);
-        setCompetitorBreakoutOpen(true);
-        if (withToast) {
-          toast({
-            title: "Competitor radar",
-            description: "Comparing waterfront benchmarks and positioning cues for Corniche concepts.",
-          });
-        }
-      }
-
-      if (type === "gap") {
-        setShowGapAnalysisCard(true);
-        setGapBreakoutOpen(true);
-        if (withToast) {
-          toast({
-            title: "Gap opportunity brief",
-            description: "Highlighting unmet demand segments and launch readiness tasks.",
-          });
-        }
-      }
-    },
-    [toast],
+  const buildMessage = useCallback(
+    (content: string, isAI: boolean, extra?: Partial<BusinessMessage>): BusinessMessage => ({
+      id: `${isAI ? "ai" : "user"}-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+      content,
+      isAI,
+      timestamp: new Date(),
+      type: "text",
+      ...extra,
+    }),
+    [],
   );
 
-  // Event listeners for breakout cards
-  useEffect(() => {
-    const handleOpenCuisineBreakout = () => openBreakout("cuisine");
-    const handleOpenCompetitorBreakout = () => openBreakout("competitor");
-    const handleOpenGapAnalysisBreakout = () => openBreakout("gap");
-
-    window.addEventListener('openCuisineBreakout', handleOpenCuisineBreakout);
-    window.addEventListener('openCompetitorBreakout', handleOpenCompetitorBreakout);
-    window.addEventListener('openGapAnalysisBreakout', handleOpenGapAnalysisBreakout);
-
-    return () => {
-      window.removeEventListener('openCuisineBreakout', handleOpenCuisineBreakout);
-      window.removeEventListener('openCompetitorBreakout', handleOpenCompetitorBreakout);
-      window.removeEventListener('openGapAnalysisBreakout', handleOpenGapAnalysisBreakout);
-    };
-  }, [openBreakout]);
-
-  // Function to handle preloaded prompt selection
-  const handlePromptSelect = (prompt: string) => {
-    setCurrentInput(prompt);
-    setShowPreloadedPrompts(false);
-    toast({
-      title: "Prompt submitted",
-      description: "AI Business is preparing tailored insights for your query.",
-    });
-    // Optionally auto-send the message
-    handleSendMessage(prompt);
-  };
+  const buildStepMessage = useCallback(
+    (step: ConversationStep) => {
+      const blueprint = CONVERSATION_BLUEPRINT[step];
+      return buildMessage(blueprint.message, true, {
+        actions: blueprint.actions?.map((action, index) => ({
+          id: `${action.action}-${index}`,
+          label: action.label,
+          action: action.action,
+        })),
+      });
+    },
+    [buildMessage],
+  );
 
 
   useEffect(() => {
