@@ -4522,7 +4522,6 @@ export function BusinessChatUI({
     setIsInvestorLoginPending(false);
     setShouldPromptLogin(false);
 
-    const introMessage = buildStepMessage("intro");
     const conversation: BusinessMessage[] = [];
 
     const openingUserMessage = buildMessage(
