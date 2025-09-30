@@ -167,7 +167,10 @@ const CONVERSATION_BLUEPRINT = {
     message:
       "Loading your investor journey dashboard now. You'll land on the tailored checklist with milestones, documents, and submission guidance.",
   },
-} satisfies Record<string, { message: string; actions?: Array<{ label: string; action: ConversationAction }> }> as const;
+} as const satisfies Record<
+  "intro" | "summary" | "handoff",
+  { message: string; actions?: ReadonlyArray<{ label: string; action: ConversationAction }> }
+>;
 
 type ConversationStep = keyof typeof CONVERSATION_BLUEPRINT;
 
