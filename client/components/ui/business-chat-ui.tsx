@@ -4224,6 +4224,13 @@ export function BusinessChatUI({
         lower.includes("how much") ||
         (lower.includes("money") && lower.includes("open")) ||
         (lower.includes("expensive") || lower.includes("cheap"));
+      const mentionsDemographics =
+        lower.includes("demographic") ||
+        lower.includes("population") ||
+        (lower.includes("data") && (lower.includes("area") || lower.includes("zone"))) ||
+        lower.includes("residents") ||
+        lower.includes("visitors") ||
+        lower.includes("people");
 
       if (mentionsCost) {
         responses.push(
