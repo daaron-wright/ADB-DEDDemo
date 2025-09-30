@@ -3432,27 +3432,6 @@ export function BusinessChatUI({
     handleSendMessage(prompt);
   };
 
-  // Simple AI response generator (can be enhanced with actual AI integration)
-  const generateAIResponse = (userMessage: string): string => {
-    const lowerMessage = userMessage.toLowerCase();
-
-    if (lowerMessage.includes('competitor') || lowerMessage.includes('competition')) {
-      setShowCompetitorCard(true);
-      return "I've analyzed the competitive landscape for restaurants in Abu Dhabi. Based on our research, here are the top competitors and market positioning insights. You can view the detailed analysis in the card below.";
-    }
-
-    if (lowerMessage.includes('cuisine') || lowerMessage.includes('popular') || lowerMessage.includes('food')) {
-      setShowCuisineCard(true);
-      return "Here's a comprehensive analysis of cuisine popularity in Abu Dhabi. Middle Eastern cuisine leads with 35% market share, followed by American and Indian cuisines. See the detailed breakdown in the analysis card.";
-    }
-
-    if (lowerMessage.includes('gap') || lowerMessage.includes('opportunity') || lowerMessage.includes('corniche')) {
-      setShowGapAnalysisCard(true);
-      return "I've identified several market gaps and opportunities in Abu Dhabi, particularly in the Corniche area. There's strong potential for Emirati fusion cuisine and formal evening dining experiences. Check out the detailed gap analysis below.";
-    }
-
-    return "Thank you for your question. I'm analyzing the Abu Dhabi restaurant market to provide you with comprehensive insights. Let me know if you'd like to explore specific areas like competitor analysis, cuisine trends, or market opportunities.";
-  };
 
   useEffect(() => {
     if (!isOpen) {
