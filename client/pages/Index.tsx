@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Tooltip } from "@aegov/design-system-react";
 import { BusinessChatUI } from "@/components/ui/business-chat-ui";
+import BusinessConsultationChat from "@/components/ui/business-consultation-chat";
 import { UAEPassLogin } from "@/components/ui/uae-pass-login";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +17,8 @@ export default function Index() {
     category: null,
     initialMessage: null,
   });
+
+  const [consultationChatOpen, setConsultationChatOpen] = useState(false);
 
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -453,6 +456,12 @@ export default function Index() {
             >
               Chat with AI
             </button>
+            <button
+              onClick={() => setConsultationChatOpen(true)}
+              className="bg-gradient-to-r from-teal-600 to-teal-800 text-white px-5 py-2.5 rounded-full font-semibold text-sm shadow-sm transition-opacity hover:opacity-90"
+            >
+              Business Consultation
+            </button>
             <UAEPassLogin
               mode="full"
               defaultUserType="applicant"
@@ -605,6 +614,11 @@ export default function Index() {
         category={chatState.category || "general"}
         title={getChatTitle()}
         initialMessage={chatState.initialMessage || undefined}
+      />
+
+      <BusinessConsultationChat
+        isOpen={consultationChatOpen}
+        onClose={() => setConsultationChatOpen(false)}
       />
 
     </div>
