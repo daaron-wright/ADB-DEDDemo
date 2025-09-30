@@ -146,7 +146,7 @@ const InvestorMessageBubble = ({ message }: { message: InvestorMessage }) => {
               <p className="font-bold text-lg mb-2 text-white">Your journey, powered by AI</p>
               <p className="text-sm leading-relaxed text-white/90">
                 Discover a clear path for investors to plan, apply for, and successfully open a restaurant.
-                In just four seamless stages, watch Khalid, an F&B entrepreneur, go from a business idea to a thriving restaurant.
+                In just four seamless stages, watch {ENTREPRENEUR_PROFILE.name}, an F&B entrepreneur, go from a business idea to a thriving restaurant.
               </p>
             </div>
           </div>
