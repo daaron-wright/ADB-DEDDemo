@@ -76,6 +76,9 @@ const PRELOADED_PROMPTS = {
   ],
 };
 
+const ARTIFACT_ACTION_BUTTON_CLASSES =
+  "inline-flex items-center gap-2 rounded-full border border-[#0E766E]/45 bg-white/80 px-4 py-2 text-sm font-semibold text-[#0A4A46] shadow-sm transition hover:bg-white hover:text-[#073F3B]";
+
 // Cuisine Popularity Card Component
 const CuisinePopularityCard = ({ className = "" }: { className?: string }) => {
   return (
