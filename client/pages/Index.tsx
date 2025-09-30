@@ -17,6 +17,7 @@ export default function Index() {
     category: null,
     initialMessage: null,
   });
+  const [isPromptModalOpen, setPromptModalOpen] = useState(false);
 
 
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
