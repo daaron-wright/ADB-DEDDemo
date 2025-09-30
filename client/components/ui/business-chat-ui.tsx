@@ -4917,8 +4917,8 @@ export function BusinessChatUI({
 
                   <div className="px-3 sm:px-4 lg:px-6 pb-4 sm:pb-6 lg:pb-8">
                     <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8">
-                      <div className={chatCardClass("flex flex-col border border-white/20 bg-white/12 p-4 sm:p-6 lg:p-7 shadow-[0_35px_95px_-55px_rgba(15,23,42,0.4)] backdrop-blur-2xl min-h-[360px]")}>
-                        <div className="flex-1 overflow-y-auto space-y-3 sm:space-y-4 pr-1 sm:pr-2 lg:pr-3 max-h-[52vh] sm:max-h-[58vh]">
+                      <div className="flex min-h-[360px] flex-col">
+                        <div className="flex-1 overflow-y-auto space-y-3 pr-1 sm:space-y-4 sm:pr-2 lg:pr-3 max-h-[52vh] sm:max-h-[58vh]">
                           {messages.map((message) => (
                             <MessageBubble
                               key={message.id}
@@ -4946,11 +4946,7 @@ export function BusinessChatUI({
                         </div>
 
                         {view === "investor-journey" && (
-                          <div
-                            className={chatCardClass(
-                              "mt-6 border border-white/25 bg-white/18 p-4 shadow-[0_35px_90px_-60px_rgba(15,23,42,0.35)] backdrop-blur-xl"
-                            )}
-                          >
+                          <div className="mt-6 rounded-[28px] border border-white/20 bg-white/16 p-4 backdrop-blur-xl shadow-[0_35px_90px_-60px_rgba(15,23,42,0.28)]">
                             <DiscoverExperienceView
                               category={category}
                               onSendMessage={() => {}}
@@ -4959,11 +4955,7 @@ export function BusinessChatUI({
                           </div>
                         )}
 
-                        <div
-                          className={chatCardClass(
-                            "mt-4 border border-white/25 bg-white/16 px-4 py-3 text-xs text-slate-600 backdrop-blur-xl"
-                          )}
-                        >
+                        <div className="mt-4 rounded-[24px] border border-white/20 bg-white/14 px-4 py-3 text-xs text-slate-600 backdrop-blur-xl">
                           Use the highlighted action above to move forward. We’ll open the next workspace once you confirm.
                         </div>
 
@@ -4973,7 +4965,7 @@ export function BusinessChatUI({
                             onChange={setInputValue}
                             onSubmit={handleSendMessage}
                             placeholder="Of these who are the target market for a high end restaurants?"
-                            className="max-w-full"
+                            className="w-full"
                           />
                         </div>
                       </div>
