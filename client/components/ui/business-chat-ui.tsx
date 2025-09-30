@@ -3741,7 +3741,7 @@ export function BusinessChatUI({
 
 
               {/* Header */}
-              <div className="relative z-10 w-full border-b border-white/50 bg-white/70 backdrop-blur-2xl">
+              <div className="hidden">
                 <div className="mx-auto flex h-full w-full max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 sm:py-5 lg:px-10">
                   <div className="flex items-center gap-2 sm:gap-3">
                     {/* Tamm Logo */}
