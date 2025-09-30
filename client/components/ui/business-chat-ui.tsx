@@ -724,7 +724,7 @@ const PreloadedPrompts = ({
 
   return (
     <div className="space-y-3">
-      <h4 className="text-sm font-medium text-slate-300 mb-3">Suggested questions to get you started:</h4>
+      <h4 className="mb-3 text-sm font-medium text-white/70">Suggested questions to get you started:</h4>
       <div className="grid gap-2">
         {prompts.map((prompt, index) => (
           <button
