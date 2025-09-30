@@ -194,7 +194,7 @@ export default function Index() {
         tooltip:
           "Ideal for full-service dining concepts. AI prepares food safety approvals, staffing plans, and timeline estimates so you can open faster.",
         prompt:
-          "I'm interested in opening a fine dining restaurant in Abu Dhabi. What are the specific requirements and what should I consider?",
+          "I want to understand the competitor landscape for restaurants in Abu Dhabi. Can you provide detailed analysis of the market opportunities and licensing requirements?",
       },
       {
         id: "fast-food",
@@ -205,7 +205,7 @@ export default function Index() {
         tooltip:
           "Best for quick-service launches with delivery or drive-thru. Get prebuilt SOPs, supplier rosters, and marketing permits in one flow.",
         prompt:
-          "I want to start a fast-food chain. What are the key differences in licensing compared to a regular restaurant?",
+          "What's the market demand for fast-food chains in Abu Dhabi and what are the best locations for a quick-service restaurant?",
       },
       {
         id: "branch",
@@ -216,7 +216,7 @@ export default function Index() {
         tooltip:
           "Expanding an existing brand? Receive instant zoning checks, dual-license compliance, and performance benchmarks for new locations.",
         prompt:
-          "My company wants to open a new branch office in Abu Dhabi. What are the requirements for a foreign company?",
+          "What are the requirements for opening a branch office of an existing company and how does the dual-license structure work?",
       },
       {
         id: "retail-store",
@@ -227,7 +227,7 @@ export default function Index() {
         tooltip:
           "Perfect for physical retail. AI recommends fit-out standards, merchandising approvals, and logistics partners tailored to your concept.",
         prompt:
-          "I'm planning to open a luxury retail store. What are the prime locations and what licenses do I need?",
+          "What are the prime retail locations in Abu Dhabi and what are the fit-out standards and merchandising requirements for retail stores?",
       },
     ],
     [],
