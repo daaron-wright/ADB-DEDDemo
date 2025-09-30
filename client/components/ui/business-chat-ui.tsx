@@ -1845,7 +1845,7 @@ const InvestorJourneyCard = ({
   onSetupBusiness: () => void;
 }) => {
   return (
-    <div className="bg-white/14 rounded-3xl p-6 mt-4">
+    <div className={chatCardClass("bg-white/14 p-6 mt-4")}>
       {/* Header image */}
       <div className="relative mb-4">
         <img
