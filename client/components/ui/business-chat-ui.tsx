@@ -3680,6 +3680,7 @@ export function BusinessChatUI({
         content: "I'm analyzing the competitive gaps and opportunities. Here's the comprehensive final compilation.",
         isAI: true,
         timestamp: new Date(),
+        type: "text",
       };
 
       if (activeThread) {
