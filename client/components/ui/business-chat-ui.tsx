@@ -4256,7 +4256,6 @@ export function BusinessChatUI({
   const [isCuisineBreakoutOpen, setCuisineBreakoutOpen] = useState(false);
   const [isCompetitorBreakoutOpen, setCompetitorBreakoutOpen] = useState(false);
   const [isGapBreakoutOpen, setGapBreakoutOpen] = useState(false);
-  const [isHeatMapBreakoutOpen, setHeatMapBreakoutOpen] = useState(false);
   const [dialogueDocState, setDialogueDocState] = useState<DialogueDocState>(createInitialDialogueDocState);
   const [inputValue, setInputValue] = useState("");
   const loginTriggerRef = useRef<HTMLElement | null>(null);
@@ -4395,10 +4394,6 @@ export function BusinessChatUI({
     [buildMessage],
   );
 
-  const handleOpenHeatMapBreakout = useCallback(() => {
-    setHeatMapBreakoutOpen(true);
-  }, []);
-
   const openHeatMapFullView = useCallback(() => {
     setModalView("heat-map");
   }, []);
@@ -4492,7 +4487,6 @@ export function BusinessChatUI({
       setCuisineBreakoutOpen(false);
       setCompetitorBreakoutOpen(false);
       setGapBreakoutOpen(false);
-      setHeatMapBreakoutOpen(false);
       setDialogueDocState(createInitialDialogueDocState());
       setIsInvestorLoginPending(false);
       setShouldPromptLogin(false);
@@ -4505,7 +4499,6 @@ export function BusinessChatUI({
     setDialogueDocState(createInitialDialogueDocState());
     setIsInvestorLoginPending(false);
     setShouldPromptLogin(false);
-    setHeatMapBreakoutOpen(false);
 
     const introMessage = buildStepMessage("intro");
     const conversation: BusinessMessage[] = [];
@@ -4838,7 +4831,7 @@ export function BusinessChatUI({
                                     }
                                   : undefined
                               }
-                              onHeatMapOpen={handleOpenHeatMapBreakout}
+                              onHeatMapOpen={openHeatMapFullView}
                             />
                           ))}
                         </div>
