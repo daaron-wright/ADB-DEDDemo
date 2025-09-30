@@ -3610,38 +3610,6 @@ export function BusinessChatUI({
                         </button>
                       </div>
                     </div>
-                    <div className="mb-4 flex items-center gap-1 sm:gap-2 -mx-1 sm:-mx-2 overflow-x-auto">
-                      {threads.map((thread) => (
-                        <button
-                          key={thread.id}
-                          onClick={() => setActiveThreadId(thread.id)}
-                          className={cn(
-                            "flex-shrink-0 whitespace-nowrap rounded-full border px-2 py-1.5 text-xs font-medium transition-all sm:px-4 sm:py-2 sm:text-sm",
-                            activeThreadId === thread.id
-                              ? "border-[#0E766E] bg-[#0E766E]/90 text-slate-900 shadow-[0_12px_32px_-18px_rgba(14,118,110,0.45)]"
-                              : "border-white/30 bg-white/40 text-slate-600 hover:border-[#0E766E]/60 hover:text-slate-900",
-                          )}
-                        >
-                          {thread.title}
-                        </button>
-                      ))}
-                      <button
-                        onClick={handleNewTab}
-                        className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/30 bg-white/50 text-slate-600 transition hover:border-[#0E766E]/60 hover:text-[#0A4A46] sm:ml-4"
-                        aria-label="New Chat"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="14"
-                          height="14"
-                          className="h-3.5 w-3.5 sm:h-4 sm:w-4"
-                          fill="currentColor"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                        </svg>
-                      </button>
-                    </div>
                     <div className="flex items-center gap-3 sm:gap-4">
                       <img
                         src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
@@ -3662,119 +3630,31 @@ export function BusinessChatUI({
 
                   <div className="px-3 sm:px-4 lg:px-6 pb-4 sm:pb-6 lg:pb-8">
                     <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8">
-                      <div className="flex flex-col rounded-[24px] border border-white/30 bg-white/30 backdrop-blur-[32px] p-3 sm:p-5 lg:p-6 shadow-[0_45px_120px_-70px_rgba(15,23,42,0.35)] min-h-[420px]">
+                      <div className="flex flex-col rounded-[24px] border border-white/30 bg-white/30 backdrop-blur-[32px] p-3 sm:p-5 lg:p-6 shadow-[0_45px_120px_-70px_rgba(15,23,42,0.35)] min-h-[360px]">
                         <div className="flex-1 overflow-y-auto space-y-3 sm:space-y-4 pr-1 sm:pr-2 lg:pr-3 max-h-[52vh] sm:max-h-[58vh]">
-                          {activeThread?.messages.map((message) => {
-                            const isJourneyIntro = Boolean(message.hasActions);
-                            const displayContent = isJourneyIntro
-                              ? "I have generated an investor journey below that will assist you. Your journey, powered by AI."
-                              : message.content;
-                            const enrichedMessage =
-                              displayContent === message.content
-                                ? message
-                                : { ...message, content: displayContent };
-
-                            return (
-                              <MessageBubble
-                                key={`${activeThread.id}-${message.id}`}
-                                message={enrichedMessage}
-                                onActionClick={(action) => {
-                                  if (action === "budget-ranges") {
-                                    setShowBudgetModal(true);
-                                  }
-                                }}
-                              />
-                            );
-                          })}
-
-                          {showCuisineCard && (
-                            <div className="flex justify-start">
-                              <CuisinePopularityCard className="max-w-lg" />
-                            </div>
-                          )}
-
-                          {showCompetitorCard && (
-                            <div className="flex justify-start">
-                              <CompetitorAnalysisCard className="max-w-lg" />
-                            </div>
-                          )}
-
-                          {showGapAnalysisCard && (
-                            <div className="flex justify-start">
-                              <GapAnalysisCard className="max-w-lg" />
-                            </div>
-                          )}
-
-                          {activeThread?.view === "basic" &&
-                            activeThread?.messages.length >= 4 &&
-                            activeThread?.messages.some((msg) => msg.hasActions) && (
-                              <InvestorJourneyCard
-                                onClose={onClose}
-                                onSetupBusiness={handleSetupBusiness}
-                              />
-                            )}
-
-                          {activeThread?.view === "investor-journey" && (
-                            <div className="p-6">
-                              <DiscoverExperienceView
-                                category={category}
-                                onSendMessage={handleSendMessage}
-                                isStandalone={false}
-                              />
-                            </div>
-                          )}
-
-                          {showPreloadedPrompts && activeThread && activeThread.messages.length <= 3 && (
-                            <div className="mt-6">
-                              <PreloadedPrompts
-                                category={category}
-                                onPromptSelect={handlePromptSelect}
-                              />
-                            </div>
-                          )}
+                          {messages.map((message) => (
+                            <MessageBubble
+                              key={message.id}
+                              message={message}
+                              onActionClick={handleAction}
+                            />
+                          ))}
                         </div>
 
-                        <div className="mt-4 border-t border-white/40 pt-3 sm:pt-4">
-                          <div className="flex items-center gap-2 rounded-[18px] border border-white/30 bg-white/40 p-2 shadow-[0_24px_55px_-38px_rgba(15,23,42,0.35)] sm:gap-3 sm:p-3">
-                            <input
-                              type="text"
-                              value={currentInput}
-                              onChange={(e) => setCurrentInput(e.target.value)}
-                              placeholder="Ask about market opportunities, competitors, licensing requirements..."
-                              className="flex-1 bg-transparent px-2 text-sm text-slate-900 placeholder-slate-400 outline-none transition sm:px-3 sm:text-base"
-                              onKeyPress={(e) => {
-                                if (e.key === "Enter" && currentInput.trim()) {
-                                  handleSendMessage(currentInput);
-                                }
-                              }}
+                        {view === "investor-journey" && (
+                          <div className="mt-6 rounded-[24px] border border-white/40 bg-white/70 p-4 shadow-[0_35px_90px_-60px_rgba(15,23,42,0.32)]">
+                            <DiscoverExperienceView
+                              category={category}
+                              onSendMessage={() => {}}
+                              isStandalone={false}
                             />
-                            <button
-                              onClick={() => {
-                                if (currentInput.trim()) {
-                                  handleSendMessage(currentInput);
-                                }
-                              }}
-                              disabled={!currentInput.trim()}
-                              className="inline-flex h-10 min-w-[3rem] items-center justify-center rounded-[14px] bg-[#0E766E] px-4 text-sm font-semibold text-white transition hover:bg-[#0a5a55] hover:shadow-[0_12px_24px_-12px_rgba(15,23,42,0.4)] disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 sm:h-11 sm:px-6"
-                            >
-                              <svg
-                                width="20"
-                                height="20"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              >
-                                <path d="m22 2-7 20-4-9-9-4Z" />
-                                <path d="M22 2 11 13" />
-                              </svg>
-                            </button>
                           </div>
+                        )}
+
+                        <div className="mt-4 rounded-[18px] border border-white/30 bg-white/60 px-4 py-3 text-xs text-slate-600">
+                          Use the highlighted action above to move forward. We’ll open the next workspace once you confirm.
                         </div>
                       </div>
-
                     </div>
                   </div>
                 </div>
