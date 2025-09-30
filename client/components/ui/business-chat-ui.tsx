@@ -4470,6 +4470,11 @@ export function BusinessChatUI({
                         </button>
                       </div>
                     </div>
+                    <JourneyBreadcrumb
+                      steps={CONVERSATION_STEPS}
+                      currentStepId={currentStep}
+                      className="mb-4 w-full"
+                    />
                     <div className="flex items-center gap-3 sm:gap-4">
                       <img
                         src={AI_ASSISTANT_PROFILE.avatar}
