@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 
 interface AIAssistantPanelProps {
   assistantName?: string;
@@ -12,8 +13,8 @@ interface AIAssistantPanelProps {
 }
 
 export function AIAssistantPanel({
-  assistantName = "AI Business",
-  avatarUrl = "https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128",
+  assistantName = AI_ASSISTANT_PROFILE.name,
+  avatarUrl = AI_ASSISTANT_PROFILE.avatar,
   status,
   statusMessage,
   progressPercentage,
