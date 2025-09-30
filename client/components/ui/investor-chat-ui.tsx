@@ -202,10 +202,10 @@ export function InvestorChatUI({ isOpen, onClose, category, title = "AI Business
         businessType: 'Restaurant',
         licenseType: 'Commercial License for F&B',
         entrepreneur: {
-          name: 'Khalid',
-          title: 'Entrepreneur',
-          avatar: 'https://api.builder.io/api/v1/image/assets/TEMP/0142e541255ee20520b15f139d595835c00ea132?width=131'
-        }
+          name: ENTREPRENEUR_PROFILE.name,
+          title: ENTREPRENEUR_PROFILE.title,
+          avatar: ENTREPRENEUR_PROFILE.avatar,
+        },
       },
       actions: [
         { label: 'Explore more options', type: 'secondary', action: 'explore' },
