@@ -3388,52 +3388,6 @@ export function BusinessChatUI({
   );
 
 
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
-    const baseMessages =
-      conversationFlows[category as keyof typeof conversationFlows] ||
-      conversationFlows.general;
-    const clonedMessages = baseMessages.map((message) => ({
-      ...message,
-      timestamp: new Date(message.timestamp),
-      type: (message as any).type || "text",
-    }));
-
-    let seededMessages = clonedMessages;
-    const trimmedInitial = initialMessage?.trim();
-
-    if (trimmedInitial) {
-      const userMessage = {
-        id: `user-initial-${Date.now()}`,
-        content: trimmedInitial,
-        isAI: false,
-        timestamp: new Date(),
-        type: "text",
-      } satisfies BusinessMessage;
-
-      if (seededMessages.length > 0 && seededMessages[0].isAI === false) {
-        const [, ...rest] = seededMessages;
-        seededMessages = [userMessage, ...rest];
-      } else {
-        seededMessages = [userMessage, ...seededMessages];
-      }
-    }
-
-    const newThread: ChatThread = {
-      id: `thread-${Date.now()}-${Math.random()}`,
-      title: getCategoryTitle(category),
-      messages: seededMessages,
-      view: "basic",
-    };
-
-    setThreads([newThread]);
-    setActiveThreadId(newThread.id);
-  }, [isOpen, category, initialMessage]);
-
-
   const handleAction = useCallback(
     (action: ConversationAction, label: string) => {
       setMessages((prev) => {
