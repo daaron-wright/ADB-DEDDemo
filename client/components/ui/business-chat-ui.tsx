@@ -4083,6 +4083,16 @@ export function BusinessChatUI({
   const [shouldPromptLogin, setShouldPromptLogin] = useState(false);
   const [isInvestorLoginPending, setIsInvestorLoginPending] = useState(false);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    if (!shouldPromptLogin) return;
+    if (!isInvestorLoginPending) return;
+    const trigger = loginTriggerRef.current;
+    if (!trigger) return;
+    trigger.click();
+    setShouldPromptLogin(false);
+  }, [shouldPromptLogin, isInvestorLoginPending, isOpen]);
+
   const buildMessage = useCallback(
     (content: string, isAI: boolean, extra?: Partial<BusinessMessage>): BusinessMessage => ({
       id: `${isAI ? "ai" : "user"}-${Date.now()}-${Math.random().toString(36).slice(2)}`,
