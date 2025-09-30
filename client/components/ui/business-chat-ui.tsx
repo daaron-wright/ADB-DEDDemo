@@ -1935,7 +1935,7 @@ const BudgetRangesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =
           <div className="border-b border-[#e2ede8] bg-[#f6faf8] px-6 py-7 lg:px-8">
             <div className="flex items-start justify-between">
               <div>
-                <span className="inline-flex items-center rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0f766e]">
+                <span className="inline-flex items-center rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
                   Budget Analysis
                 </span>
                 <h3 className="mt-3 text-3xl font-semibold leading-tight text-slate-900">
@@ -1963,7 +1963,7 @@ const BudgetRangesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                   className="rounded-[26px] border border-[#dbe9e3] bg-white p-6 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)] transition hover:shadow-[0_22px_48px_-28px_rgba(15,118,110,0.25)]"
                 >
                   <div className="mb-4">
-                    <span className="text-2xl font-bold text-[#0f766e]">{budget.range}</span>
+                    <span className="text-2xl font-bold text-[#0E766E]">{budget.range}</span>
                     <h4 className="mt-1 text-lg font-semibold text-slate-900">{budget.title}</h4>
                     <p className="mt-2 text-sm text-slate-600">{budget.description}</p>
                   </div>
@@ -2642,10 +2642,10 @@ const DiscoverExperienceView = ({
                         className="h-12 w-12 rounded-full border border-[#dbe9e3] object-cover"
                       />
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="inline-flex items-center rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0f766e]">
+                        <span className="inline-flex items-center rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
                           Heat map
                         </span>
-                        <span className="inline-flex items-center rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e]">
+                        <span className="inline-flex items-center rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
                           Commercial licenses
                         </span>
                       </div>
@@ -2668,7 +2668,7 @@ const DiscoverExperienceView = ({
                         className="h-9 w-9 rounded-full border border-[#dbe9e3] object-cover"
                       />
                       <div className="flex flex-col text-left lg:text-right">
-                        <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e]">
+                        <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
                           Reviewer
                         </span>
                         <span className="text-sm font-semibold text-slate-700">
@@ -2677,7 +2677,7 @@ const DiscoverExperienceView = ({
                       </div>
                     </div>
                     <div className="flex items-center gap-3 rounded-full border border-[#dbe9e3] bg-white px-4 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)]">
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e]">
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
                         Progress
                       </span>
                       <div className="relative h-2.5 w-28 overflow-hidden rounded-full bg-[#e2ede8]">
@@ -2773,7 +2773,7 @@ const DiscoverExperienceView = ({
                                 <p className="text-sm font-semibold text-slate-900">
                                   {insightById["khalifa-city"]?.name}
                                 </p>
-                                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0E766E]">
                                   {insightById["khalifa-city"]?.trend}
                                 </p>
                                 <p className="text-xs text-slate-600">
@@ -2820,7 +2820,7 @@ const DiscoverExperienceView = ({
                                 <p className="text-sm font-semibold text-slate-900">
                                   {insightById["marina"]?.name}
                                 </p>
-                                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0E766E]">
                                   {insightById["marina"]?.trend}
                                 </p>
                                 <p className="text-xs text-slate-600">
@@ -2867,7 +2867,7 @@ const DiscoverExperienceView = ({
                                 <p className="text-sm font-semibold text-slate-900">
                                   {insightById["central"]?.name}
                                 </p>
-                                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0E766E]">
                                   {insightById["central"]?.trend}
                                 </p>
                                 <p className="text-xs text-slate-600">
@@ -2914,7 +2914,7 @@ const DiscoverExperienceView = ({
                                 <p className="text-sm font-semibold text-slate-900">
                                   {insightById["baniyas"]?.name}
                                 </p>
-                                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0E766E]">
                                   {insightById["baniyas"]?.trend}
                                 </p>
                                 <p className="text-xs text-slate-600">
@@ -2961,7 +2961,7 @@ const DiscoverExperienceView = ({
                                 <p className="text-sm font-semibold text-slate-900">
                                   {insightById["corniche"]?.name}
                                 </p>
-                                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0E766E]">
                                   {insightById["corniche"]?.trend}
                                 </p>
                                 <p className="text-xs text-slate-600">
@@ -3008,7 +3008,7 @@ const DiscoverExperienceView = ({
                                 <p className="text-sm font-semibold text-slate-900">
                                   {insightById["coastal"]?.name}
                                 </p>
-                                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0E766E]">
                                   {insightById["coastal"]?.trend}
                                 </p>
                                 <p className="text-xs text-slate-600">
@@ -3043,7 +3043,7 @@ const DiscoverExperienceView = ({
                         </button>
                         <button
                           type="button"
-                          className="rounded-full border border-[#0E766E] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e] transition hover:bg-[#0E766E]/10"
+                          className="rounded-full border border-[#0E766E] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E] transition hover:bg-[#0E766E]/10"
                         >
                           Download CSV
                         </button>
@@ -3060,7 +3060,7 @@ const DiscoverExperienceView = ({
                       <div className="relative overflow-hidden rounded-[26px] border border-[#dbe9e3] bg-white p-5 shadow-[0_18px_36px_-28px_rgba(15,118,110,0.25)]">
                         <span className="absolute left-0 top-5 bottom-5 w-1.5 rounded-full bg-gradient-to-b from-[#0f766e] via-[#34d399] to-transparent" />
                         <div className="pl-4">
-                          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e]">
+                          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
                             Focused district
                           </p>
                           <h4 className="mt-2 text-xl font-semibold text-slate-900">
@@ -3107,7 +3107,7 @@ const DiscoverExperienceView = ({
                       </div>
 
                       <div className="flex-1 overflow-y-auto rounded-[26px] border border-[#dbe9e3] bg-white/70 p-4">
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e]">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
                           Other hotspots
                         </p>
                         <ul className="mt-4 space-y-3 text-sm">
@@ -3135,7 +3135,7 @@ const DiscoverExperienceView = ({
                                   </div>
                                   <div className="mt-1 flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-slate-500">
                                     <span>{spot.density}</span>
-                                    <span className="rounded-full bg-[#f6faf8] px-2 py-0.5 text-[10px] text-[#0f766e]">
+                                    <span className="rounded-full bg-[#f6faf8] px-2 py-0.5 text-[10px] text-[#0E766E]">
                                       {spot.trend}
                                     </span>
                                   </div>
@@ -3161,7 +3161,7 @@ const DiscoverExperienceView = ({
                 ) : (
                   <div className="space-y-6 rounded-[28px] border border-[#dbe9e3] bg-[#f6faf8] p-6">
                     <div className="flex flex-col gap-2">
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e]">
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
                         Hotspot rollout timeline
                       </span>
                       <h4 className="text-2xl font-semibold leading-tight text-slate-900">
@@ -3188,7 +3188,7 @@ const DiscoverExperienceView = ({
                             onMouseLeave={() => setHoveredLocation(null)}
                           >
                             <div className="relative flex w-12 flex-col items-center">
-                              <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#0f766e]">
+                              <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
                                 {String(index + 1).padStart(2, "0")}
                               </span>
                               <span className="mt-2 h-full w-0.5 bg-gradient-to-b from-[#0f766e] via-[#34d399] to-transparent" />
@@ -3203,7 +3203,7 @@ const DiscoverExperienceView = ({
                                     {spot.summary}
                                   </p>
                                 </div>
-                                <span className="rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e]">
+                                <span className="rounded-full border border-[#dbe9e3] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
                                   {spot.density}
                                 </span>
                               </div>
@@ -3253,7 +3253,7 @@ const DiscoverExperienceView = ({
                       </button>
                       <button
                         type="button"
-                        className="rounded-full border border-[#0E766E] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e] transition hover:bg-[#0E766E]/10"
+                        className="rounded-full border border-[#0E766E] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E] transition hover:bg-[#0E766E]/10"
                       >
                         Download CSV
                       </button>
