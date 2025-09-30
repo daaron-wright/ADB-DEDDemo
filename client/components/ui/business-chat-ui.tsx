@@ -260,7 +260,7 @@ const DiscoveryCompilationCard = () => {
 
   return (
     <div className="w-full max-w-[471px] mx-auto">
-      <div className="rounded-[24px] bg-white/14 backdrop-blur-md border border-white/20 overflow-hidden">
+      <div className="rounded-[24px] bg-gradient-to-br from-[#0B0F2C]/90 via-[#101a43]/85 to-[#152d63]/80 backdrop-blur-xl border border-white/15 shadow-[0_24px_60px_rgba(7,12,32,0.45)] overflow-hidden">
         {/* AI Business Header */}
         <div className="flex flex-col p-6 pb-8">
           <div className="flex items-center gap-2 mb-8">
