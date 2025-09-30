@@ -730,7 +730,7 @@ const PreloadedPrompts = ({
           <button
             key={index}
             onClick={() => onPromptSelect(prompt)}
-            className="text-left p-3 text-sm bg-slate-700/60 border border-slate-600/50 text-slate-200 rounded-xl hover:border-slate-500/70 hover:bg-slate-700/80 hover:shadow-sm transition-all"
+            className="text-left p-3 text-sm rounded-xl border border-white/12 bg-white/10 text-white/80 transition-all hover:border-[#54FFD4]/70 hover:bg-white/15 hover:text-white"
           >
             {prompt}
           </button>
