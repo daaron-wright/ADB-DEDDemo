@@ -4195,13 +4195,16 @@ export function BusinessChatUI({
     const introMessage = buildStepMessage("intro");
     const conversation: BusinessMessage[] = [];
 
-    if (initialMessage) {
-      conversation.push(buildMessage(initialMessage, false));
-    }
+    const openingUserMessage = buildMessage(
+      initialMessage ??
+        "I want to invest my money and open a restaurant business in Abu Dhabi. What commercial activities align with my business type and can you help me set up?",
+      false,
+    );
+    conversation.push(openingUserMessage);
 
     conversation.push(
       buildMessage(
-        "Let's launch your investor workspace with a tailored setup journey.",
+        "Your journey, powered by AI.",
         true,
         {
           type: "setup-cta",
@@ -4218,6 +4221,46 @@ export function BusinessChatUI({
             },
           ],
         },
+      ),
+    );
+
+    conversation.push(
+      buildMessage(
+        "Where are existing establishments located for specific activities (on a heat map)?",
+        false,
+      ),
+    );
+
+    conversation.push(
+      buildMessage(
+        "I have created a heat map for the top areas and existing businesses",
+        true,
+        {
+          type: "heat-map",
+          imageUrl: "https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=386",
+        },
+      ),
+    );
+
+    conversation.push(buildMessage("Interesting looking at this in a map", false));
+
+    conversation.push(buildMessage("How much would it cost to open a restaurant", false));
+
+    conversation.push(
+      buildMessage(
+        "Estimated set up costs could range from: There isn't a single fixed price, but rather a range that can vary from approximately AED 10,000 to AED 30,000 for the trade license itself. Type of License: The cost can differ based on the type of license you get. A Tajer/e-commerce license that don’t allow full restaurant operations start at AED 790.",
+        true,
+      ),
+    );
+
+    conversation.push(
+      buildMessage("Can you give me any demographic data you have for this area.", false),
+    );
+
+    conversation.push(
+      buildMessage(
+        "Abu Dhabi’s dining potential varies by zone, each offering unique demographics and footfall drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).",
+        true,
       ),
     );
 
