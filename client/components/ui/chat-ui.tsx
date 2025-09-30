@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
+import { chatCardClass } from '@/lib/chat-style';
 import { AI_ASSISTANT_PROFILE } from '@/lib/profile';
 
 interface Message {
@@ -146,12 +147,18 @@ export function ChatUI({ isOpen, onClose, title = "AI Business" }: ChatUIProps) 
               >
                 {/* Chat Container */}
                 <div
-                  className="flex w-full h-[450px] sm:h-[500px] p-3 rounded-3xl shadow-2xl"
+                  className={chatCardClass(
+                    "flex w-full h-[450px] sm:h-[500px] p-3 shadow-2xl"
+                  )}
                   style={{
                     background: 'linear-gradient(213deg, rgba(0, 0, 0, 0.23) 23.21%, rgba(102, 102, 102, 0.23) 102.41%)',
                   }}
                 >
-                  <div className="flex flex-col w-full h-full rounded-2xl bg-transparent backdrop-blur-sm">
+                  <div
+                    className={chatCardClass(
+                      "flex flex-col w-full h-full bg-transparent backdrop-blur-sm"
+                    )}
+                  >
                     {/* App Bar */}
                     <div className="drag-handle flex items-center gap-2 sm:gap-3 p-3 sm:p-4 cursor-move">
                       {/* Avatar */}
