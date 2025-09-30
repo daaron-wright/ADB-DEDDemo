@@ -321,15 +321,11 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             </div>
           </motion.div>
         </motion.div>
-      </div>
-
-      {/* Insights Panel - Secondary to Map */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-6 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.6 }}
-          className="grid gap-6 lg:grid-cols-3"
+          className="grid gap-5 lg:grid-cols-3"
         >
           <div className="rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_24px_60px_-38px_rgba(11,64,55,0.25)]">
             <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0F766E]">Key Insights</h3>
