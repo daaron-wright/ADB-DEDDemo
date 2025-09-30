@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { InvestmentReportDocument } from "./investment-report-document";
-import { UAEPassLogin } from "./uae-pass-login";
 import { BusinessLicensePortal } from "./business-license-portal";
 
 interface ReportSummaryPageProps {
@@ -51,21 +50,6 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({
   onClose,
   onExploreAnother,
 }) => {
-  const [showBusinessPortal, setShowBusinessPortal] = useState(false);
-  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
-
-  const handleUAEPassLogin = (
-    userType: "applicant" | "reviewer",
-    userData: User,
-  ) => {
-    setLoggedInUser(userData);
-    setShowBusinessPortal(true);
-  };
-
-  const handleClosePortal = () => {
-    setShowBusinessPortal(false);
-    setLoggedInUser(null);
-  };
 
   if (!isOpen) return null;
 
@@ -253,32 +237,21 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({
                   </p>
                 </div>
 
-                {/* UAE Pass Login */}
+                {/* Direct Portal Access */}
                 <div className="flex justify-center py-4">
-                  <UAEPassLogin
-                    onLogin={handleUAEPassLogin}
-                    mode="quick"
-                    defaultUserType="applicant"
-                    trigger={
-                      <span
-                        role="button"
-                        tabIndex={0}
-                        onKeyDown={(event) => {
-                          if (event.key === "Enter" || event.key === " ") {
-                            event.preventDefault();
-                            event.currentTarget.click();
-                          }
-                        }}
-                        className="inline-flex cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0f766e] transform transition-transform duration-200 hover:scale-105"
-                      >
-                        <img
-                          src="https://api.builder.io/api/v1/image/assets/TEMP/6af0c42146feff37d8c56f7d5b67c0ce1e2c12e1?width=348"
-                          alt="UAE Pass Login"
-                          className="h-21 rounded-full shadow-lg transition-shadow duration-200 hover:shadow-xl"
-                        />
-                      </span>
-                    }
-                  />
+                  <button
+                    onClick={() => {
+                      // Navigate to applicant portal
+                      window.location.href = '/portal/applicant';
+                    }}
+                    className="inline-flex cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0f766e] transform transition-transform duration-200 hover:scale-105"
+                  >
+                    <img
+                      src="https://api.builder.io/api/v1/image/assets/TEMP/6af0c42146feff37d8c56f7d5b67c0ce1e2c12e1?width=348"
+                      alt="Access Business Portal"
+                      className="h-21 rounded-full shadow-lg transition-shadow duration-200 hover:shadow-xl"
+                    />
+                  </button>
                 </div>
               </div>
             </div>
