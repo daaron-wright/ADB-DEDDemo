@@ -3923,6 +3923,13 @@ export function BusinessChatUI({
           isOpen={showCompetitorBreakout}
           onClose={() => setShowCompetitorBreakout(false)}
         />
+
+        {/* Gap Analysis Breakout */}
+        <GapAnalysisBreakout
+          key="gap-analysis-breakout"
+          isOpen={showGapAnalysisBreakout}
+          onClose={() => setShowGapAnalysisBreakout(false)}
+        />
       </AnimatePresence>
     </QueryClientProvider>
   );
