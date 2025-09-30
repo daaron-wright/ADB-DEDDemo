@@ -108,6 +108,15 @@ const SimpleChatBubble = ({ message }: { message: SimpleChatMessage }) => {
         <div className="flex flex-col max-w-[75%]">
           <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 text-white text-sm leading-relaxed">
             {message.content}
+            {message.type === "heat-map" && message.imageUrl && (
+              <div className="mt-3">
+                <img
+                  src={message.imageUrl}
+                  alt="Heat map showing business locations"
+                  className="rounded-xl w-full max-w-[200px] shadow-lg"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
