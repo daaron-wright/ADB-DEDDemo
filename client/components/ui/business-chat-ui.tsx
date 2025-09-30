@@ -27,7 +27,11 @@ import { useToast } from "@/hooks/use-toast";
 import { Map as MapIcon } from "lucide-react";
 import { ENTREPRENEUR_PROFILE, AI_ASSISTANT_PROFILE } from "@/lib/profile";
 
-type ConversationAction = "show-summary" | "open-investor-journey";
+type ConversationAction =
+  | "show-summary"
+  | "open-investor-journey"
+  | "confirm-retail-automation"
+  | "decline-retail-automation";
 
 interface MessageAction {
   id: string;
