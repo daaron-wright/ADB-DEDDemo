@@ -2766,6 +2766,7 @@ export function BusinessChatUI({
                                   setShowBudgetModal(true);
                                 }
                               }}
+                              isOnLightBackground={activeThread?.view === "compilation" || activeThread?.view === "dashboard"}
                             />
 
                             <UAEPassLogin
