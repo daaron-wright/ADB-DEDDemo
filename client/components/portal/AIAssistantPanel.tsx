@@ -66,7 +66,7 @@ export function AIAssistantPanel({
       className={cn(
         "relative rounded-3xl overflow-hidden",
         "bg-white/20 backdrop-blur-xl",
-        "shadow-[0_4px_44px_0_#169F9F]", // Cyan glow
+        "shadow-[0_4px_44px_0_#0E766E]", // Cyan glow
         "border border-white/20",
         "w-[446px] h-[426px]",
         className,
@@ -80,7 +80,7 @@ export function AIAssistantPanel({
             <img
               src={avatarUrl}
               alt={assistantName}
-              className="w-16 h-16 rounded-full border-2 border-[#54FFD4] object-cover"
+              className="w-16 h-16 rounded-full border-2 border-[#0E766E] object-cover"
             />
           </div>
 
@@ -106,7 +106,7 @@ export function AIAssistantPanel({
         <div className="mb-4">
           <div className="w-full bg-white/20 rounded-full h-2 overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-[#54FFD4] to-[#169F9F] transition-all duration-500 ease-out"
+              className="h-full bg-gradient-to-r from-[#38e2c8] to-[#0E766E] transition-all duration-500 ease-out"
               style={{ width: `${progressPercentage}%` }}
             />
           </div>
