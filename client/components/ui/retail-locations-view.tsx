@@ -15,7 +15,7 @@ interface RetailLocation {
   delay: number;
 }
 
-const cardPositions: Array<Partial<CSSStyleDeclaration>> = [
+const cardPositions: CSSProperties[] = [
   { top: "12%", right: "7%" },
   { bottom: "30%", left: "37%" },
   { top: "13%", left: "10%" },
