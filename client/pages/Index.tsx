@@ -453,17 +453,6 @@ export default function Index() {
             >
               Chat with AI
             </button>
-            <button
-              onClick={() =>
-                startBusinessChat(
-                  "restaurants",
-                  "I want to invest my money and open a restaurant business in Abu Dhabi. What commercial activities align with my business type and can you help me set up?",
-                )
-              }
-              className="bg-gradient-to-r from-teal-600 to-teal-800 text-white px-5 py-2.5 rounded-full font-semibold text-sm shadow-sm transition-opacity hover:opacity-90"
-            >
-              Business Consultation
-            </button>
             <UAEPassLogin
               mode="full"
               defaultUserType="applicant"
@@ -496,33 +485,11 @@ export default function Index() {
             and simplify business setup.
           </p>
 
-          {/* Business Consultation CTA */}
-          <div className="mb-16">
-            <button
-              onClick={() =>
-                startBusinessChat(
-                  "restaurants",
-                  "I want to invest my money and open a restaurant business in Abu Dhabi. What commercial activities align with my business type and can you help me set up?",
-                )
-              }
-              className="bg-gradient-to-r from-teal-600 to-teal-800 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg transition-all hover:shadow-xl hover:scale-105 active:scale-95"
-            >
-              Start Business Consultation
-            </button>
-            <p className="text-tamm-gray-medium text-sm text-center mt-3">
-              Get AI-powered insights for restaurant business setup in Abu Dhabi
-            </p>
-          </div>
-
           {/* Business Categories Section */}
           <div className="w-full">
             <h2 className="text-black text-2xl font-bold text-center mb-12 tracking-tight">
-              Explore Business Opportunities
+              You may be interested in
             </h2>
-            <p className="text-tamm-gray-medium text-base text-center mb-12 max-w-2xl mx-auto">
-              Discover AI-powered insights for different business sectors in Abu Dhabi
-            </p>
-
             {/* Business Category Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto justify-items-center">
               {businessCategories.map((category) => {
