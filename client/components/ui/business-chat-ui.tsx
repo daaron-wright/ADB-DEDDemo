@@ -470,8 +470,8 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <img
-                      src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
-                      alt="AI Business"
+                      src={AI_ASSISTANT_PROFILE.avatar}
+                      alt={AI_ASSISTANT_PROFILE.name}
                       className="w-16 h-16 rounded-full border border-[#0E766E]"
                     />
                     <div>
@@ -627,8 +627,8 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <img
-                      src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
-                      alt="AI Business"
+                      src={AI_ASSISTANT_PROFILE.avatar}
+                      alt={AI_ASSISTANT_PROFILE.name}
                       className="w-16 h-16 rounded-full border border-[#0E766E]"
                     />
                     <div>
@@ -801,8 +801,8 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <img
-                      src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
-                      alt="AI Business"
+                      src={AI_ASSISTANT_PROFILE.avatar}
+                      alt={AI_ASSISTANT_PROFILE.name}
                       className="w-16 h-16 rounded-full border border-[#0E766E]"
                     />
                     <div>
@@ -1176,8 +1176,8 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
           >
             <div className="flex items-center gap-4 mb-6">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
-                alt="AI Assistant"
+                src={AI_ASSISTANT_PROFILE.avatar}
+                alt={AI_ASSISTANT_PROFILE.name}
                 className="w-16 h-16 rounded-full border border-[#0E766E]"
               />
               <div>
@@ -1586,8 +1586,8 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
         <div className="flex flex-col p-6 pb-8">
           <div className="flex items-center gap-2 mb-8">
             <img
-              src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
-              alt="AI Assistant"
+              src={AI_ASSISTANT_PROFILE.avatar}
+              alt={AI_ASSISTANT_PROFILE.name}
               className="w-16 h-16 rounded-full border border-[#0E766E]"
             />
             <div className="flex-1">
@@ -2456,8 +2456,8 @@ const DiscoverExperienceView = ({
         {/* AI Response */}
         <div className="flex justify-start gap-3">
           <img
-            src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
-            alt="AI Assistant"
+            src={AI_ASSISTANT_PROFILE.avatar}
+            alt={AI_ASSISTANT_PROFILE.name}
             className="w-8 h-8 rounded-full border border-[#0E766E] object-cover flex-shrink-0"
           />
           <div className="max-w-[70%] px-4 py-3 rounded-2xl rounded-bl-sm bg-white border border-slate-200 shadow-sm">
@@ -3630,8 +3630,8 @@ export function BusinessChatUI({
                     </div>
                     <div className="flex items-center gap-3 sm:gap-4">
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3b9d0a4072bc46a08a41458307d296ac?format=webp&width=800"
-                        alt="AI Assistant"
+                        src={AI_ASSISTANT_PROFILE.avatar}
+                        alt={AI_ASSISTANT_PROFILE.name}
                         className="h-12 w-12 rounded-full border border-[#0E766E] object-cover sm:h-16 sm:w-16"
                       />
                       <div className="min-w-0 flex-1 text-left">
