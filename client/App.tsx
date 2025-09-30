@@ -11,6 +11,7 @@ import ApplicantPortal from "./pages/ApplicantPortal";
 import ReviewerPortal from "./pages/ReviewerPortal";
 import InvestorJourney from "./pages/InvestorJourney";
 import NotFound from "./pages/NotFound";
+import CompilationDashboard from "./components/ui/compilation-dashboard";
 
 const queryClient = new QueryClient();
 
