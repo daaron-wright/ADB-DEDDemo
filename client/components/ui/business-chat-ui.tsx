@@ -3758,7 +3758,7 @@ export function BusinessChatUI({
           timestamp: new Date(),
         },
       ],
-      view: "corniche-detail",
+      view: "basic",
     };
     setThreads([...threads, newThread]);
     setActiveThreadId(newThread.id);
