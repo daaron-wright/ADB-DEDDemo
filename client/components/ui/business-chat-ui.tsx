@@ -1681,7 +1681,7 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
             <button
               type="button"
               onClick={handleOpenDashboard}
-              className="inline-flex items-center gap-2 rounded-full bg-[#169F9F] px-4 py-2 text-sm font-semibold text-[#042B28] shadow-md shadow-[#169F9F]/40 transition hover:bg-[#42f6c9]"
+              className="inline-flex items-center gap-2 rounded-full bg-[#169F9F] px-4 py-2 text-sm font-semibold text-[#042B28] shadow-md shadow-[#169F9F]/40 transition hover:bg-[#128787]"
             >
               View complete analysis
               <svg
@@ -2342,7 +2342,7 @@ const DiscoverExperienceView = ({
                 {/* Send button */}
                 <button
                   type="submit"
-                  className="p-2 rounded-md bg-[#169F9F] text-slate-900 transition-colors hover:bg-[#3dd9b5]"
+                  className="p-2 rounded-md bg-[#169F9F] text-slate-900 transition-colors hover:bg-[#128787]"
                 >
                   <svg
                     width="16"
@@ -2579,7 +2579,7 @@ const DiscoverExperienceView = ({
               {/* Send button */}
               <button
                 type="submit"
-                className="p-2 rounded-md bg-[#169F9F] text-slate-900 transition-colors hover:bg-[#3dd9b5]"
+                className="p-2 rounded-md bg-[#169F9F] text-slate-900 transition-colors hover:bg-[#128787]"
               >
                 <svg
                   width="16"
@@ -4035,7 +4035,7 @@ export function BusinessChatUI({
                                 }
                               }}
                               disabled={!currentInput.trim()}
-                              className="inline-flex h-10 min-w-[3rem] items-center justify-center rounded-[14px] bg-[#169F9F] px-4 text-sm font-semibold text-slate-900 transition hover:bg-[#42f6c9] hover:shadow-[0_12px_24px_-12px_rgba(15,23,42,0.4)] disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 sm:h-11 sm:px-6"
+                              className="inline-flex h-10 min-w-[3rem] items-center justify-center rounded-[14px] bg-[#169F9F] px-4 text-sm font-semibold text-slate-900 transition hover:bg-[#128787] hover:shadow-[0_12px_24px_-12px_rgba(15,23,42,0.4)] disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 sm:h-11 sm:px-6"
                             >
                               <svg
                                 width="20"
