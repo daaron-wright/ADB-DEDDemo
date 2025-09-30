@@ -4258,7 +4258,6 @@ export function BusinessChatUI({
       ),
     );
 
-    conversation.push(introMessage);
 
     setMessages(conversation);
   }, [
