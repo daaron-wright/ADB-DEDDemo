@@ -28,7 +28,7 @@ interface BusinessChatUIProps {
   initialMessage?: string;
 }
 
-type ChatView = "journey" | "discover-experience" | "corniche-detail" | "compilation";
+type ChatView = "journey" | "discover-experience" | "corniche-detail" | "compilation" | "dashboard";
 
 interface ChatThread {
   id: string;
@@ -823,7 +823,7 @@ const DiscoverExperienceView = ({
       name: "Coastal district",
       summary:
         "Lifestyle beachfront with active tourism calendar and family day-trip itineraries.",
-      footfall: "35��50K weekly visits",
+      footfall: "35–50K weekly visits",
       density: "Seasonal peaks",
       trend: "+5% holiday uplift",
       focus: "Beach clubs, ice cream bars, casual dining",
