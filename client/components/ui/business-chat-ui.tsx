@@ -110,7 +110,12 @@ const ARTIFACT_ACTION_BUTTON_CLASSES =
 // Cuisine Popularity Card Component
 const CuisinePopularityCard = ({ className = "" }: { className?: string }) => {
   return (
-    <div className={cn("w-full max-w-lg bg-white rounded-3xl border border-slate-200/50 shadow-lg overflow-hidden", className)}>
+    <div
+      className={chatCardClass(
+        "w-full max-w-lg bg-white border border-slate-200/50 shadow-lg overflow-hidden",
+        className
+      )}
+    >
       {/* Header */}
       <div className="bg-gradient-to-r from-purple-50 to-indigo-50 px-6 py-4 border-b border-slate-200/50">
         <div className="flex items-center gap-3">
@@ -180,7 +185,12 @@ const CuisinePopularityCard = ({ className = "" }: { className?: string }) => {
 // Competitor Analysis Card Component
 const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
   return (
-    <div className={cn("w-full max-w-lg bg-white rounded-3xl border border-slate-200/50 shadow-lg overflow-hidden", className)}>
+    <div
+      className={chatCardClass(
+        "w-full max-w-lg bg-white border border-slate-200/50 shadow-lg overflow-hidden",
+        className
+      )}
+    >
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-50 to-cyan-50 px-6 py-4 border-b border-slate-200/50">
         <div className="flex items-center gap-3">
