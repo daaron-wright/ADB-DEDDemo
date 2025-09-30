@@ -3157,7 +3157,7 @@ const DiscoverExperienceView = ({
                     </div>
                   </div>
                 ) : (
-                  <div className="space-y-6 rounded-[28px] border border-[#dbe9e3] bg-[#f6faf8] p-6">
+                  <div className="space-y-6 rounded-[26px] border border-[#dbe9e3] bg-white p-6">
                     <div className="flex flex-col gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
                         Hotspot rollout timeline
