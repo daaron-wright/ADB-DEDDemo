@@ -4422,6 +4422,17 @@ export function BusinessChatUI({
                           Use the highlighted action above to move forward. We’ll open the next workspace once you confirm.
                         </div>
                       </div>
+
+                      {/* Chat Input */}
+                      <div className="mt-6 flex justify-center px-4">
+                        <ChatInputField
+                          value={inputValue}
+                          onChange={setInputValue}
+                          onSubmit={handleSendMessage}
+                          placeholder="Of these who are the target market for a high end restaurants?"
+                          className="mx-auto"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
