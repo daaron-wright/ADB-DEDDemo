@@ -187,6 +187,58 @@ const CONVERSATION_STEPS: Array<{ id: ConversationStep; label: string }> = [
 const HEAT_MAP_THUMBNAIL_URL =
   "https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=386";
 
+const HEAT_MAP_BREAKOUT_HOTSPOTS: Array<{
+  id: string;
+  name: string;
+  metric: string;
+  descriptor: string;
+}> = [
+  {
+    id: "corniche",
+    name: "Corniche Waterfront",
+    metric: "96% evening footfall",
+    descriptor: "Premium dining strip with high spend social rituals",
+  },
+  {
+    id: "louvre",
+    name: "Saadiyat Cultural District",
+    metric: "+22% weekend uplift",
+    descriptor: "Museum traffic spills over into experiential dining requests",
+  },
+  {
+    id: "yas",
+    name: "Yas Marina",
+    metric: "4.3★ visitor satisfaction",
+    descriptor: "Events calendar drives spikes in waterfront lounge demand",
+  },
+];
+
+const HEAT_MAP_BREAKOUT_SIGNALS: Array<{
+  id: string;
+  label: string;
+  value: string;
+  description: string;
+}> = [
+  {
+    id: "conversion",
+    label: "Group conversion",
+    value: "+18%",
+    description: "Bookings convert faster when map hotspots are paired with curated itineraries.",
+  },
+  {
+    id: "approval",
+    label: "Approval readiness",
+    value: "72 hrs",
+    description: "Average time to compile zoning evidence once hotspot dossier is attached.",
+  },
+  {
+    id: "premium",
+    label: "Premium spend lift",
+    value: "+21%",
+    description: "Corniche heat signatures correlate with higher tasting menu adoption.",
+  },
+];
+
 const ARTIFACT_ACTION_BUTTON_CLASSES =
   "inline-flex items-center gap-2 rounded-full border border-[#0E766E]/45 bg-white/80 px-4 py-2 text-sm font-semibold text-[#0A4A46] shadow-sm transition hover:bg-white hover:text-[#073F3B]";
 
@@ -2991,7 +3043,7 @@ const DiscoverExperienceView = ({
       name: "Baniyas community spine",
       summary:
         "Established residential corridor seeing strong family traffic and quick-service demand spikes.",
-      footfall: "60��75K weekly visits",
+      footfall: "60���75K weekly visits",
       density: "Growing density",
       trend: "+11% midday demand",
       focus: "Family restaurants, fast casual, bakeries",
