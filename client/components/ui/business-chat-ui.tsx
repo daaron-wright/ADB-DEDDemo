@@ -1059,43 +1059,6 @@ const AccessibleHeatMap = () => {
   );
 };
 
-const ResearchSynthesisView = ({ onBack, onViewDashboard }: { onBack: () => void; onViewDashboard: () => void }) => (
-  <div className="relative w-full rounded-2xl sm:rounded-[36px] overflow-hidden border border-white/20 bg-gradient-to-br from-white via-[#efeaff] to-[#dcd9ff] shadow-[0_35px_80px_rgba(17,20,45,0.35)]">
-    <div className="flex items-center justify-between px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
-      <div className="flex items-center gap-2 sm:gap-4">
-        <TammLogo className="w-16 sm:w-20 lg:w-[84px] text-[#0B0C28]" color="#0B0C28" />
-        <button
-          type="button"
-          onClick={onBack}
-          className="inline-flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-[#0B0C28]/15 bg-white/70 text-[#0B0C28] transition hover:bg-white"
-          aria-label="Back"
-        >
-          <svg
-            width="16"
-            height="16"
-            className="sm:w-5 sm:h-5"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M15 19L8 12L15 5" stroke="#0B0C28" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-      </div>
-      <h3 className="text-xs sm:text-sm font-medium tracking-wide text-[#0B0C28] text-center flex-1 mx-2">
-        Investor Journey for a Restaurant
-      </h3>
-      <div className="w-16 sm:w-20 lg:w-[84px]" aria-hidden="true" />
-    </div>
-
-    <div className="relative px-2 sm:px-4 lg:px-10 pb-6 sm:pb-10">
-      <div className="absolute inset-x-2 sm:inset-x-4 lg:inset-x-10 top-0 h-20 sm:h-40 rounded-full bg-white/60 blur-3xl" aria-hidden="true" />
-      <div className="relative py-4 sm:py-10 flex justify-center">
-        <DiscoveryCompilationCard onViewDashboard={onViewDashboard} />
-      </div>
-    </div>
-  </div>
-);
 
 const CompetitorAnalysisView = ({ onBack, onGapAnalysis, onSendMessage }: { onBack: () => void; onGapAnalysis: () => void; onSendMessage?: (message: string) => void }) => (
   <div className="relative w-full min-h-screen bg-[#0B0C28] overflow-hidden">
@@ -3755,7 +3718,7 @@ export function BusinessChatUI({
       lowerMessage.includes("target") ||
       lowerMessage.includes("market")
     ) {
-      return "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island �� 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).";
+      return "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).";
     }
 
     return "I can help you with restaurant licensing, location analysis, cost estimates, and demographic data for Abu Dhabi. What specific information would you like to know?";
