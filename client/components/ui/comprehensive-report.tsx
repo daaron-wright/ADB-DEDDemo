@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface ComprehensiveReportProps {
@@ -30,7 +30,7 @@ const VisitorTasteTrendsChart: React.FC = () => {
         </div>
         <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 text-xs shadow-sm">
           <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5.7594 11.176H2.94824V8.36481M8.00833 3.30472H10.8195V6.11588" stroke="#888888" strokeWidth="0.843348" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M5.7594 11.176H2.94824V8.36481M8.00833 3.30472H10.8195V6.11588" stroke="#888888" strokeWidth="0.843348" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
       </div>
@@ -41,7 +41,7 @@ const VisitorTasteTrendsChart: React.FC = () => {
         <div className="mt-1 flex items-center gap-2 text-xs text-gray-500">
           <div className="flex items-center gap-1 rounded-full border border-gray-200 bg-gray-100 px-2 py-0.5">
             <svg width="8" height="8" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4.86888 3.02015V7.58232H4.11923V3.02015L2.10869 5.03068L1.57861 4.50061L4.49406 1.58517L7.40945 4.50061L6.87938 5.03068L4.86888 3.02015Z" fill="#434343"/>
+              <path d="M4.86888 3.02015V7.58232H4.11923V3.02015L2.10869 5.03068L1.57861 4.50061L4.49406 1.58517L7.40945 4.50061L6.87938 5.03068L4.86888 3.02015Z" fill="#434343" />
             </svg>
             <span className="text-xs font-medium text-gray-700">12%</span>
           </div>
@@ -50,17 +50,15 @@ const VisitorTasteTrendsChart: React.FC = () => {
       </div>
 
       <div className="relative">
-        {/* Grid lines */}
         <div className="absolute inset-0 flex justify-between">
           {Array.from({ length: 11 }).map((_, i) => (
             <div key={i} className="h-32 w-px bg-gray-100" />
           ))}
         </div>
 
-        {/* Chart bars */}
         <div className="relative space-y-4 py-4">
           {chartData.map((item, index) => (
-            <div key={index} className="relative">
+            <div key={item.label} className="relative">
               <div className="mb-1 text-xs text-gray-500">{item.label}</div>
               <div className="relative h-5 rounded bg-gray-100">
                 <motion.div
@@ -75,7 +73,6 @@ const VisitorTasteTrendsChart: React.FC = () => {
           ))}
         </div>
 
-        {/* X-axis labels */}
         <div className="mt-2 flex justify-between text-xs text-gray-500">
           <span>0</span>
           <span>10%</span>
@@ -101,17 +98,17 @@ const CuisinePopularityCard: React.FC = () => {
     {
       name: "Middle Eastern",
       popularity: "30-35%",
-      context: "Cultural resonance, traditional appeal",
+      context: "Cultural resonance and strong appeal with both residents and regional tourists",
     },
     {
-      name: "American", 
+      name: "American",
       popularity: "20-25%",
-      context: "Fast-food dominance, familiarity, chain presence",
+      context: "International familiarity and presence of quick-service dining footprints",
     },
     {
       name: "Indian",
       popularity: "15-20%",
-      context: "Large expat community, flavor alignment with local preferences",
+      context: "Large expat communities with high frequency dining preferences",
     },
   ];
 
@@ -120,54 +117,48 @@ const CuisinePopularityCard: React.FC = () => {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={showContent ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.6 }}
-      className="rounded-3xl bg-white/20 backdrop-blur-sm border border-white/30 p-6 text-white"
-      style={{
-        background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.08) 100%)",
-      }}
+      className="rounded-3xl border border-[#d7e3df] bg-white/95 p-6 shadow-[0_24px_60px_-38px_rgba(11,64,55,0.22)]"
     >
-      <div className="mb-6 flex items-center justify-between">
-        <img
-          src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-          alt="AI Business"
-          className="h-16 w-16 rounded-full border border-[#54FFD4]"
-        />
-        <div className="flex-1 px-4">
-          <h3 className="text-lg font-semibold">AI Business</h3>
-          <div className="mt-2 flex items-center gap-1">
-            {Array.from({ length: 9 }).map((_, i) => (
-              <motion.div
-                key={i}
-                className="h-1 rounded-full bg-[#54FFD4]"
-                style={{ width: `${Math.random() * 20 + 8}px` }}
-                initial={{ opacity: 0, scaleX: 0 }}
-                animate={showContent ? { opacity: 1, scaleX: 1 } : { opacity: 0, scaleX: 0 }}
-                transition={{ duration: 0.3, delay: 0.1 * i }}
-              />
-            ))}
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">AI Business summary</span>
+          <h2 className="mt-2 text-2xl font-semibold text-slate-900">Popularity of cuisines in Abu Dhabi</h2>
+          <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate-600">
+            Demand clustering across the Corniche showcases which cuisine profiles are primed for a differentiated launch.
+          </p>
+        </div>
+        <div className="inline-flex items-center gap-3 rounded-2xl border border-[#d7e3df] bg-slate-50/80 px-4 py-3">
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+            alt="AI Business"
+            className="h-12 w-12 rounded-full border border-[#0E766E]/40"
+          />
+          <div>
+            <div className="text-sm font-semibold text-slate-900">AI Business</div>
+            <div className="text-xs uppercase tracking-[0.2em] text-slate-400">Insight engine</div>
           </div>
         </div>
       </div>
 
-      <h2 className="mb-6 text-xl font-semibold">Popularity of cuisines in Abu Dhabi</h2>
-
-      <div className="space-y-4">
+      <div className="mt-6 overflow-hidden rounded-2xl border border-[#d7e3df] bg-white/98">
+        <div className="grid grid-cols-[1.1fr,0.9fr,1.4fr] gap-4 bg-[#f3f7f5] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">
+          <span>Cuisine</span>
+          <span>Popularity</span>
+          <span>Supporting context</span>
+        </div>
         {cuisines.map((cuisine, index) => (
           <motion.div
-            key={index}
-            initial={{ opacity: 0, x: -20 }}
-            animate={showContent ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-            transition={{ duration: 0.6, delay: 0.4 + index * 0.2 }}
-            className="grid grid-cols-[120px,1fr,1fr] gap-4 border-b border-white/20 pb-4"
+            key={cuisine.name}
+            initial={{ opacity: 0, y: 12 }}
+            animate={showContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+            transition={{ duration: 0.5, delay: 0.35 + index * 0.18 }}
+            className={`grid grid-cols-[1.1fr,0.9fr,1.4fr] gap-4 px-6 py-4 text-sm leading-relaxed text-slate-600 ${
+              index > 0 ? "border-t border-[#e4ede9]" : ""
+            }`}
           >
-            <div className="font-semibold">{cuisine.name}</div>
-            <div>
-              <div className="font-semibold">Popularity</div>
-              <div className="text-sm opacity-90">{cuisine.popularity}</div>
-            </div>
-            <div>
-              <div className="font-semibold">Supporting Context</div>
-              <div className="text-sm opacity-90">{cuisine.context}</div>
-            </div>
+            <div className="text-base font-semibold text-slate-900">{cuisine.name}</div>
+            <div className="text-sm font-semibold text-slate-900">{cuisine.popularity}</div>
+            <div>{cuisine.context}</div>
           </motion.div>
         ))}
       </div>
@@ -234,9 +225,7 @@ const ComprehensiveReport: React.FC<ComprehensiveReportProps> = ({ className }) 
         transition={{ duration: 0.6 }}
         className="rounded-2xl border border-[#0E766E]/20 bg-[#0E766E]/5 p-6"
       >
-        <h2 className="text-lg font-semibold text-[#0E766E]">
-          Comprehensive Market Analysis
-        </h2>
+        <h2 className="text-lg font-semibold text-[#0E766E]">Comprehensive Market Analysis</h2>
         <p className="mt-2 text-sm text-gray-600">
           Synthesizing location data, demographic patterns, budget requirements, and taste preferences
         </p>
@@ -312,17 +301,25 @@ const ComprehensiveReport: React.FC<ComprehensiveReportProps> = ({ className }) 
 
       <AnimatePresence>
         {currentStep >= 4 && (
-          <motion.div
+          <motion.button
+            type="button"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.6 }}
-            className="rounded-2xl border border-[#0E766E]/20 bg-[#0E766E]/5 p-6 text-center"
+            className="group w-full rounded-3xl border border-[#0E766E]/25 bg-white px-6 py-6 text-left shadow-[0_24px_60px_-38px_rgba(11,64,55,0.28)] transition-transform hover:-translate-y-0.5 hover:border-[#0E766E]/35 hover:shadow-[0_30px_70px_-36px_rgba(14,118,110,0.32)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E766E]/40 focus-visible:ring-offset-2"
           >
-            <div className="text-lg font-semibold text-[#0E766E]">Analysis Complete</div>
-            <div className="mt-2 text-sm text-gray-600">
-              All market data synthesized. Ready to proceed with business setup recommendations.
-            </div>
-          </motion.div>
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#0E766E]/25 bg-[#0E766E]/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#0E766E]">
+              <span className="h-2 w-2 rounded-full bg-[#0E766E]" />
+              Analysis Complete
+            </span>
+            <span className="mt-3 block text-base font-semibold text-slate-900">
+              Want to know the top competitors in the area?
+            </span>
+            <span className="mt-1 block text-sm leading-relaxed text-slate-600">
+              Here are the top 4 restaurants in Abu Dhabi Corniche.
+            </span>
+          </motion.button>
         )}
       </AnimatePresence>
     </div>
