@@ -4604,7 +4604,7 @@ export function BusinessChatUI({
     return () => {
       window.removeEventListener("retailLocationSelected", handleRetailLocationSelected);
     };
-  }, [buildMessage]);
+  }, [buildMessage, setModalView]);
 
   useEffect(() => {
     const handleCuisineBreakout = () => setCuisineBreakoutOpen(true);
