@@ -42,7 +42,7 @@ export function PortalProfileMenu({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="group inline-flex items-center gap-3 rounded-full border border-[#d8e4df] bg-[#f9fbfa] px-3 py-1.5 text-left shadow-[0_8px_24px_-20px_rgba(11,64,55,0.18)] transition hover:bg-[#eaf7f3] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
+      <DropdownMenuTrigger className="group inline-flex items-center gap-3 rounded-full border border-[#d8e4df] bg-[#f9fbfa] px-3 py-1.5 text-left shadow-[0_8px_24px_-20px_rgba(11,64,55,0.18)] transition hover:bg-white hover:shadow-[0_12px_28px_-24px_rgba(11,64,55,0.28)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
         <span className="relative flex items-center gap-2">
           <Avatar className="h-9 w-9 rounded-xl">
             <AvatarImage src={avatarUrl} alt={name} className="object-cover" />
