@@ -4164,15 +4164,63 @@ export function BusinessChatUI({
 
   const handleSendMessage = useCallback(
     (message: string) => {
-      const userMessage = buildMessage(message, false);
-      const aiResponse = buildMessage(
-        "Thank you for your question. I'm analyzing the business landscape to provide you with the most relevant insights.",
-        true
-      );
-      setMessages((prev) => [...prev, userMessage, aiResponse]);
+      const trimmed = message.trim();
+      if (!trimmed) {
+        return;
+      }
+
+      const lower = trimmed.toLowerCase();
+      const userMessage = buildMessage(trimmed, false);
+      const responses: BusinessMessage[] = [];
+      let shouldOpenHeatMap = false;
+
+      const mentionsHeatMap =
+        lower.includes("heat map") ||
+        lower.includes("heatmap") ||
+        (lower.includes("map") && (lower.includes("existing") || lower.includes("establishment")));
+      const mentionsCorniche = lower.includes("cornich");
+
+      if (mentionsCorniche) {
+        shouldOpenHeatMap = true;
+        responses.push(
+          buildMessage(
+            "Zooming into the Corniche waterfront cluster. Footfall intensity is at 96% for premium dining, highlighted on the heat map now.",
+            true,
+          ),
+        );
+      } else if (mentionsHeatMap) {
+        shouldOpenHeatMap = true;
+        responses.push(
+          buildMessage(
+            "I have created a heat map for the top areas and existing businesses. Compare the highlighted districts to see where activity concentrates.",
+            true,
+          ),
+        );
+      } else if (lower.includes("map")) {
+        shouldOpenHeatMap = true;
+        responses.push(
+          buildMessage(
+            "Here's a map-based view so you can explore each neighbourhood visually. Tell me which district you'd like to dive into.",
+            true,
+          ),
+        );
+      } else {
+        responses.push(
+          buildMessage(
+            "Thank you for your question. I'm analyzing the business landscape to provide you with the most relevant insights.",
+            true,
+          ),
+        );
+      }
+
+      setMessages((prev) => [...prev, userMessage, ...responses]);
       setInputValue("");
+
+      if (shouldOpenHeatMap) {
+        setModalView("heat-map");
+      }
     },
-    [buildMessage]
+    [buildMessage],
   );
 
   const handleAction = useCallback(
