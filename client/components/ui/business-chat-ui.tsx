@@ -4396,6 +4396,7 @@ export function BusinessChatUI({
     setDialogueDocState(createInitialDialogueDocState());
     setIsInvestorLoginPending(false);
     setShouldPromptLogin(false);
+    setHeatMapBreakoutOpen(false);
 
     const introMessage = buildStepMessage("intro");
     const conversation: BusinessMessage[] = [];
