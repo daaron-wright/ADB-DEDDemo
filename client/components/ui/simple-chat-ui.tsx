@@ -213,17 +213,17 @@ export function SimpleChatUI({ isOpen, onClose, title = "AI Business" }: SimpleC
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
       <Draggable handle=".drag-handle" bounds="parent">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
-          className="relative w-full max-w-md mx-4"
+          className="relative w-full max-w-sm mx-4"
         >
-          <div className="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl">
+          <div className="bg-white/14 backdrop-blur-2xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl">
             {/* Header */}
-            <div className="drag-handle flex items-center justify-between p-4 border-b border-white/10 cursor-move">
+            <div className="drag-handle flex items-center justify-between p-4 cursor-move">
               <div className="flex items-center gap-3">
                 <img
                   src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
@@ -251,16 +251,16 @@ export function SimpleChatUI({ isOpen, onClose, title = "AI Business" }: SimpleC
               </div>
               <button
                 onClick={onClose}
-                className="text-white/70 hover:text-white transition-colors"
+                className="text-white/70 hover:text-white transition-colors rounded-full p-1 hover:bg-white/10"
               >
-                <X size={20} />
+                <X size={18} />
               </button>
             </div>
 
             {/* Messages */}
-            <div className="h-96 overflow-y-auto p-4 space-y-4">
+            <div className="h-[500px] overflow-y-auto p-4">
               {showBudgetCard && <BudgetRangesCard />}
-              
+
               {messages.map((message) => (
                 <SimpleChatBubble key={message.id} message={message} />
               ))}
