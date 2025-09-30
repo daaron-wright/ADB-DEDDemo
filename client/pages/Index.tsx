@@ -472,75 +472,11 @@ export default function Index() {
           </h1>
 
           {/* Description */}
-          <p className="text-tamm-gray-medium text-base font-medium text-center max-w-lg leading-relaxed mb-12">
+          <p className="text-tamm-gray-medium text-base font-medium text-center max-w-lg leading-relaxed mb-16">
             Welcome to the future of government services. Experience how Abu
             Dhabi is building an AI Native Government to empower entrepreneurs
             and simplify business setup.
           </p>
-
-          {/* Login Portal Section */}
-          <div className="w-full max-w-2xl mx-auto mb-16">
-            <h2 className="text-black text-xl font-semibold text-center mb-8">
-              Get Started
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Business Applicant Login */}
-              <UAEPassLogin
-                mode="full"
-                defaultUserType="applicant"
-                trigger={
-                  <div className="group cursor-pointer bg-white rounded-2xl border border-slate-200/80 p-6 text-center transition-all duration-200 hover:border-teal-500 hover:shadow-[0_12px_32px_-20px_rgba(15,118,110,0.35)]">
-                    <div className="flex justify-center mb-4">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white font-bold text-xl transition group-hover:scale-105">
-                        BA
-                      </div>
-                    </div>
-                    <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                      Business Applicant
-                    </h3>
-                    <p className="text-sm text-slate-600 mb-4">
-                      Apply for new business licenses or renew existing ones using UAE Pass.
-                    </p>
-                    <div className="inline-flex items-center gap-2 text-teal-600 text-sm font-medium group-hover:text-teal-700">
-                      <span>Sign in with UAE Pass</span>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M9 18l6-6-6-6"/>
-                      </svg>
-                    </div>
-                  </div>
-                }
-                onLogin={handleUAEPassLogin}
-              />
-
-              {/* License Reviewer Login */}
-              <UAEPassLogin
-                mode="full"
-                defaultUserType="reviewer"
-                trigger={
-                  <div className="group cursor-pointer bg-white rounded-2xl border border-slate-200/80 p-6 text-center transition-all duration-200 hover:border-blue-500 hover:shadow-[0_12px_32px_-20px_rgba(59,130,246,0.35)]">
-                    <div className="flex justify-center mb-4">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-xl transition group-hover:scale-105">
-                        LR
-                      </div>
-                    </div>
-                    <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                      License Reviewer
-                    </h3>
-                    <p className="text-sm text-slate-600 mb-4">
-                      Review and approve business license applications as a government official.
-                    </p>
-                    <div className="inline-flex items-center gap-2 text-blue-600 text-sm font-medium group-hover:text-blue-700">
-                      <span>Sign in with UAE Pass</span>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M9 18l6-6-6-6"/>
-                      </svg>
-                    </div>
-                  </div>
-                }
-                onLogin={handleUAEPassLogin}
-              />
-            </div>
-          </div>
 
           {/* Business Categories Section */}
           <div className="w-full">
