@@ -32,8 +32,8 @@ const applications: ApplicationRecord[] = [
     status: "In Review",
     licenseType: "Commercial License",
     progress: 68,
-    submissionDate: "2024-03-14",
-    lastUpdated: "2024-03-18",
+    submissionDate: isoDate(daysFromToday(-14)),
+    lastUpdated: isoDate(daysFromToday(-2)),
     nextAction:
       "Upload signed tenancy contract for the Corniche location fit-out.",
     summary:
