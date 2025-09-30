@@ -35,7 +35,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
       </div>
 
       {/* Main Map Container - Now Predominant */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl flex-1 px-6 lg:px-12">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col gap-4 px-6 pb-10 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
