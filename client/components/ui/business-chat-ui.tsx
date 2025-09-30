@@ -3783,7 +3783,7 @@ export function BusinessChatUI({
                     {/* Back button */}
                     <button
                       onClick={onClose}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:border-[#169F9F]/70 hover:text-[#0c5252] sm:h-10 sm:w-10 lg:h-11 lg:w-11"
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-white/60 text-slate-600 transition hover:border-[#169F9F]/70 hover:text-[#0c5252] sm:h-10 sm:w-10 lg:h-11 lg:w-11"
                       aria-label="Close chat"
                     >
                       <svg
@@ -3852,7 +3852,7 @@ export function BusinessChatUI({
                         </div>
                         <button
                           onClick={onClose}
-                          className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:border-[#169F9F]/70 hover:text-[#0c5252] sm:h-10 sm:w-10"
+                          className="flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-white/60 text-slate-600 transition hover:border-[#169F9F]/70 hover:text-[#0c5252] sm:h-10 sm:w-10"
                           aria-label="Close chat"
                         >
                           <svg
