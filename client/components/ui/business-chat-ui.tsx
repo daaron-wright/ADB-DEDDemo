@@ -3104,7 +3104,7 @@ const DiscoverExperienceView = ({
                         </div>
                       </div>
 
-                      <div className="flex-1 overflow-y-auto rounded-[26px] border border-[#dbe9e3] bg-white/70 p-4">
+                      <div className="flex-1 overflow-y-auto rounded-[24px] border border-[#dbe9e3] bg-white/70 p-4">
                         <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
                           Other hotspots
                         </p>
