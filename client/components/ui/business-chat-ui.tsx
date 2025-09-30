@@ -3110,13 +3110,16 @@ export function BusinessChatUI({
   useEffect(() => {
     const handleOpenCuisineBreakout = () => setShowCuisineBreakout(true);
     const handleOpenCompetitorBreakout = () => setShowCompetitorBreakout(true);
+    const handleOpenGapAnalysisBreakout = () => setShowGapAnalysisBreakout(true);
 
     window.addEventListener('openCuisineBreakout', handleOpenCuisineBreakout);
     window.addEventListener('openCompetitorBreakout', handleOpenCompetitorBreakout);
+    window.addEventListener('openGapAnalysisBreakout', handleOpenGapAnalysisBreakout);
 
     return () => {
       window.removeEventListener('openCuisineBreakout', handleOpenCuisineBreakout);
       window.removeEventListener('openCompetitorBreakout', handleOpenCompetitorBreakout);
+      window.removeEventListener('openGapAnalysisBreakout', handleOpenGapAnalysisBreakout);
     };
   }, []);
 
