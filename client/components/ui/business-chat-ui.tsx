@@ -2364,6 +2364,7 @@ interface MessageBubbleProps {
   onActionClick?: (action: ConversationAction, label: string) => void;
   dialogueDocProps?: DialogueDocProps;
   onHeatMapOpen?: () => void;
+  onBudgetRangesOpen?: () => void;
 }
 
 const MessageBubble = ({
@@ -2371,6 +2372,7 @@ const MessageBubble = ({
   onActionClick,
   dialogueDocProps,
   onHeatMapOpen,
+  onBudgetRangesOpen,
 }: MessageBubbleProps) => {
   const bubbleContainerClasses = message.isAI
     ? "bg-[#E5E5E5] text-slate-900"
