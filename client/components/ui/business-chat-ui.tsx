@@ -25,6 +25,15 @@ interface MessageAction {
   action: ConversationAction;
 }
 
+type BusinessMessageType =
+  | "text"
+  | "heat-map"
+  | "property-cards"
+  | "cuisine-analysis"
+  | "competitor-analysis"
+  | "demographics"
+  | "location-analysis";
+
 interface BusinessMessage {
   id: string;
   content: string;
@@ -32,7 +41,7 @@ interface BusinessMessage {
   timestamp: Date;
   rating?: number;
   hasActions?: boolean;
-  type?: "text" | "heat-map";
+  type?: BusinessMessageType;
   actions?: MessageAction[];
 }
 
