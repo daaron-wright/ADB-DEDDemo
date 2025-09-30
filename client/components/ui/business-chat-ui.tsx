@@ -2519,13 +2519,13 @@ export function BusinessChatUI({
     <QueryClientProvider client={queryClient}>
       <AnimatePresence>
         {isOpen && (
-          <div key="chat-ui" className="fixed inset-0 z-50">
+          <div key="chat-ui" className="fixed inset-0 z-50 overflow-hidden">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="w-full h-full"
+              className="w-full h-full relative"
               style={{
                 backgroundImage: isLoggedIn
                   ? "none"
