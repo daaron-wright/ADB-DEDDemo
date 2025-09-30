@@ -1866,13 +1866,13 @@ export function BusinessChatUI({
       messages: [
         {
           id: `user-${Date.now()}`,
-          content: "How much would it cost to open a restaurant",
+          content: "What would the set up and running costs be to open a F&B Restaurant, with 300 covers?",
           isAI: false,
           timestamp: new Date(),
         },
         {
           id: `ai-${Date.now()}-1`,
-          content: "Estimated set up costs could range from: There isn't a single fixed price, but rather a range that can vary from approximately AED 10,000 to AED 30,000 for the trade license itself.\nType of License: The cost can differ based on the type of license you get. A Tajer/e-commerce license that don't allow full restaurant operations start at AED 790.",
+          content: "Estimated set up costs could range from: Rough Estimate for Total Set-Up Costs: AED 6,500,000 to AED 14,000,000+ Average monthly running costs: AED 545,000 to AED 1,355,000+ all depending on location, level of service offering, staffing and finishing. Here is a breakdown of the estimated set up and national average running costs",
           isAI: true,
           timestamp: new Date(),
         },
@@ -1891,8 +1891,14 @@ export function BusinessChatUI({
         },
         {
           id: `user-${Date.now()}-4`,
-          content: "Of these who are the target market for a high end restaurants?",
+          content: "Great can you give me more details on The Corniche",
           isAI: false,
+          timestamp: new Date(),
+        },
+        {
+          id: `ai-${Date.now()}-5`,
+          content: "The Corniche is a popular choice due to its high foot traffic and scenic views. It attracts both tourists and locals, especially during the cooler months. The area is known for its diverse range of dining options, from casual cafes to upscale restaurants, catering to a wide range of tastes and budgets.",
+          isAI: true,
           timestamp: new Date(),
         },
       ],
