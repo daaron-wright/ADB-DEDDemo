@@ -28,7 +28,7 @@ interface BusinessChatUIProps {
   initialMessage?: string;
 }
 
-type ChatView = "journey" | "discover-experience";
+type ChatView = "journey" | "discover-experience" | "corniche-detail";
 
 interface ChatThread {
   id: string;
