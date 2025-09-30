@@ -1597,7 +1597,12 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
 
   return (
     <div className="w-full max-w-[471px] mx-auto">
-      <div className="rounded-[20px] sm:rounded-[24px] bg-gradient-to-br from-[#0B0F2C]/95 via-[#101a43]/90 to-[#152d63]/85 backdrop-blur-xl border border-[#0B0C28]/20 shadow-[0_20px_50px_rgba(7,12,32,0.5)] overflow-hidden">
+      <div
+        className={chatCardClass(
+          "bg-gradient-to-br from-[#0B0F2C]/95 via-[#101a43]/90 to-[#152d63]/85 backdrop-blur-xl border border-[#0B0C28]/20 shadow-[0_20px_50px_rgba(7,12,32,0.5)] overflow-hidden",
+          "sm:rounded-3xl"
+        )}
+      >
         {/* AI Business Header */}
         <div className="flex flex-col p-6 pb-8">
           <div className="flex items-center gap-2 mb-8">
