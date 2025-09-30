@@ -20,7 +20,7 @@ interface SimpleChatUIProps {
 
 const INITIAL_MESSAGES: SimpleChatMessage[] = [
   {
-    id: "welcome-1",
+    id: "user-1",
     content: "I want to invest my money and open a restaurant business in Abu Dhabi. What commercial activities align with my business type and can you help me set up?",
     isAI: false,
     timestamp: new Date(),
@@ -42,14 +42,49 @@ const INITIAL_MESSAGES: SimpleChatMessage[] = [
   },
   {
     id: "user-2",
-    content: "How much would it cost to open a restaurant",
+    content: "Where are existing establishments located for specific activities (on a heat map)?",
     isAI: false,
     timestamp: new Date(),
     type: "text",
   },
   {
     id: "ai-3",
+    content: "I have created a heat map for the top areas and existing businesses",
+    isAI: true,
+    timestamp: new Date(),
+    type: "text",
+  },
+  {
+    id: "user-3",
+    content: "Interesting looking at this in a map",
+    isAI: false,
+    timestamp: new Date(),
+    type: "text",
+  },
+  {
+    id: "user-4",
+    content: "How much would it cost to open a restaurant",
+    isAI: false,
+    timestamp: new Date(),
+    type: "text",
+  },
+  {
+    id: "ai-4",
     content: "Estimated set up costs could range from: There isn't a single fixed price, but rather a range that can vary from approximately AED 10,000 to AED 30,000 for the trade license itself. Type of License: The cost can differ based on the type of license you get. A Tajer/e-commerce license that don't allow full restaurant operations start at AED 790.",
+    isAI: true,
+    timestamp: new Date(),
+    type: "text",
+  },
+  {
+    id: "user-5",
+    content: "Can you give me any demographic data you have for this area.",
+    isAI: false,
+    timestamp: new Date(),
+    type: "text",
+  },
+  {
+    id: "ai-5",
+    content: "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).",
     isAI: true,
     timestamp: new Date(),
     type: "text",
