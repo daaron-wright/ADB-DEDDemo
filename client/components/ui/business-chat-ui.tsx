@@ -3043,7 +3043,7 @@ const DiscoverExperienceView = ({
       name: "Baniyas community spine",
       summary:
         "Established residential corridor seeing strong family traffic and quick-service demand spikes.",
-      footfall: "60���75K weekly visits",
+      footfall: "60��75K weekly visits",
       density: "Growing density",
       trend: "+11% midday demand",
       focus: "Family restaurants, fast casual, bakeries",
@@ -4151,6 +4151,7 @@ export function BusinessChatUI({
   const [isCuisineBreakoutOpen, setCuisineBreakoutOpen] = useState(false);
   const [isCompetitorBreakoutOpen, setCompetitorBreakoutOpen] = useState(false);
   const [isGapBreakoutOpen, setGapBreakoutOpen] = useState(false);
+  const [isHeatMapBreakoutOpen, setHeatMapBreakoutOpen] = useState(false);
   const [dialogueDocState, setDialogueDocState] = useState<DialogueDocState>(createInitialDialogueDocState);
   const [inputValue, setInputValue] = useState("");
   const loginTriggerRef = useRef<HTMLElement | null>(null);
