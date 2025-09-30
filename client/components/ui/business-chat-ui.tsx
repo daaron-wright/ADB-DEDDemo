@@ -37,6 +37,335 @@ interface ChatThread {
   view: ChatView;
 }
 
+// Cuisine Popularity Breakout Modal
+const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[80] flex items-center justify-center p-4">
+      <div
+        className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-hidden">
+        <div className="rounded-[32px] border border-white/20 bg-gradient-to-br from-[#0B0F2C]/95 via-[#101a43]/90 to-[#152d63]/85 backdrop-blur-xl shadow-[0_24px_48px_rgba(7,12,32,0.5)]">
+          {/* Header */}
+          <div className="flex items-center justify-between p-6 border-b border-white/20">
+            <div className="flex items-center gap-4">
+              <img
+                src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+                alt="AI Assistant"
+                className="w-12 h-12 rounded-full border border-[#54FFD4]"
+              />
+              <div>
+                <h3 className="text-white text-xl font-semibold">Cuisine Popularity Analysis</h3>
+                <p className="text-white/70 text-sm">Detailed breakdown of cuisine preferences in Abu Dhabi</p>
+              </div>
+            </div>
+            <button
+              onClick={onClose}
+              className="w-10 h-10 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Content */}
+          <div className="p-6 max-h-[70vh] overflow-y-auto">
+            <div className="space-y-8">
+              <h2 className="text-white text-2xl font-semibold mb-8">
+                Popularity of cuisines in Abu Dhabi
+              </h2>
+
+              {/* Enhanced Cuisine Data */}
+              <div className="space-y-6">
+                {/* Middle Eastern */}
+                <div className="p-6 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-sm">
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div>
+                      <h3 className="text-white font-bold text-lg mb-2">Middle Eastern</h3>
+                      <div className="w-full bg-white/20 rounded-full h-3 mb-2">
+                        <div className="bg-gradient-to-r from-[#54FFD4] to-[#169F9F] h-3 rounded-full" style={{width: "35%"}}></div>
+                      </div>
+                      <span className="text-white/80 text-sm">35% market share</span>
+                    </div>
+                    <div>
+                      <span className="text-white font-bold text-sm block mb-2">Key Insights</span>
+                      <ul className="text-white/80 text-sm space-y-1">
+                        <li>• Cultural resonance with locals</li>
+                        <li>• Traditional appeal for tourists</li>
+                        <li>• High authenticity demand</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <span className="text-white font-bold text-sm block mb-2">Restaurant Types</span>
+                      <div className="text-white/80 text-sm space-y-1">
+                        <div>Fine dining: 40%</div>
+                        <div>Casual dining: 45%</div>
+                        <div>Fast casual: 15%</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* American */}
+                <div className="p-6 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-sm">
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div>
+                      <h3 className="text-white font-bold text-lg mb-2">American</h3>
+                      <div className="w-full bg-white/20 rounded-full h-3 mb-2">
+                        <div className="bg-gradient-to-r from-[#54FFD4] to-[#169F9F] h-3 rounded-full" style={{width: "25%"}}></div>
+                      </div>
+                      <span className="text-white/80 text-sm">25% market share</span>
+                    </div>
+                    <div>
+                      <span className="text-white font-bold text-sm block mb-2">Key Insights</span>
+                      <ul className="text-white/80 text-sm space-y-1">
+                        <li>• Fast-food dominance</li>
+                        <li>• Familiar brand recognition</li>
+                        <li>• Strong chain presence</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <span className="text-white font-bold text-sm block mb-2">Restaurant Types</span>
+                      <div className="text-white/80 text-sm space-y-1">
+                        <div>Fast food: 60%</div>
+                        <div>Casual dining: 30%</div>
+                        <div>Fine dining: 10%</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Indian */}
+                <div className="p-6 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-sm">
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div>
+                      <h3 className="text-white font-bold text-lg mb-2">Indian</h3>
+                      <div className="w-full bg-white/20 rounded-full h-3 mb-2">
+                        <div className="bg-gradient-to-r from-[#54FFD4] to-[#169F9F] h-3 rounded-full" style={{width: "20%"}}></div>
+                      </div>
+                      <span className="text-white/80 text-sm">20% market share</span>
+                    </div>
+                    <div>
+                      <span className="text-white font-bold text-sm block mb-2">Key Insights</span>
+                      <ul className="text-white/80 text-sm space-y-1">
+                        <li>• Large expat community support</li>
+                        <li>• Spice preference alignment</li>
+                        <li>• Growing local acceptance</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <span className="text-white font-bold text-sm block mb-2">Restaurant Types</span>
+                      <div className="text-white/80 text-sm space-y-1">
+                        <div>Casual dining: 50%</div>
+                        <div>Fine dining: 30%</div>
+                        <div>Fast casual: 20%</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-4 pt-6 border-t border-white/20">
+                <button className="px-6 py-3 bg-[#54FFD4] text-[#042B28] rounded-full font-semibold hover:bg-[#42f6c9] transition-colors">
+                  Export Data
+                </button>
+                <button className="px-6 py-3 border border-white/40 text-white rounded-full font-semibold hover:bg-white/10 transition-colors">
+                  Download Report
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Competitor Analysis Breakout Modal
+const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  if (!isOpen) return null;
+
+  const competitors = [
+    {
+      name: "Shurfa Bay",
+      location: "Al Bateen, Abu Dhabi",
+      image: "https://api.builder.io/api/v1/image/assets/TEMP/3e6d5f6b9acc69a87e4bcc76536ec7140340c252?width=680",
+      cuisine: "Seafood, Mediterranean",
+      priceRange: "$$$$",
+      rating: 4.5,
+      strengths: ["Waterfront location", "Premium dining experience", "High-quality seafood"]
+    },
+    {
+      name: "Villa Toscana",
+      location: "The St Regis Abu Dhabi",
+      image: "https://api.builder.io/api/v1/image/assets/TEMP/df1e40725eb1f230e3df15cd8d949ee274a1c9dd?width=496",
+      cuisine: "Italian, Fine Dining",
+      priceRange: "$$$$",
+      rating: 4.7,
+      strengths: ["Hotel location", "Authentic Italian cuisine", "Luxury ambiance"]
+    },
+    {
+      name: "Palms & Pearls",
+      location: "Corniche, Abu Dhabi",
+      image: "https://api.builder.io/api/v1/image/assets/TEMP/9c0a40e0fbebae5a6bba8355f1193760feb2d391?width=472",
+      cuisine: "Middle Eastern, Modern",
+      priceRange: "$$$",
+      rating: 4.3,
+      strengths: ["Corniche location", "Modern Middle Eastern", "Tourist appeal"]
+    }
+  ];
+
+  return (
+    <div className="fixed inset-0 z-[80] flex items-center justify-center p-4">
+      <div
+        className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="relative z-10 w-full max-w-5xl max-h-[90vh] overflow-hidden">
+        <div className="rounded-[32px] border border-white/20 bg-gradient-to-br from-[#0B0F2C]/95 via-[#101a43]/90 to-[#152d63]/85 backdrop-blur-xl shadow-[0_24px_48px_rgba(7,12,32,0.5)]">
+          {/* Header */}
+          <div className="flex items-center justify-between p-6 border-b border-white/20">
+            <div className="flex items-center gap-4">
+              <img
+                src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+                alt="AI Assistant"
+                className="w-12 h-12 rounded-full border border-[#54FFD4]"
+              />
+              <div>
+                <h3 className="text-white text-xl font-semibold">Competitor Analysis</h3>
+                <p className="text-white/70 text-sm">Top competitors in Abu Dhabi's restaurant market</p>
+              </div>
+            </div>
+            <button
+              onClick={onClose}
+              className="w-10 h-10 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Content */}
+          <div className="p-6 max-h-[70vh] overflow-y-auto">
+            <div className="space-y-6">
+              <h2 className="text-white text-2xl font-semibold mb-6">
+                Key Competitors in Abu Dhabi
+              </h2>
+
+              <div className="grid gap-6">
+                {competitors.map((competitor, index) => (
+                  <div key={index} className="p-6 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-sm">
+                    <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                      {/* Image */}
+                      <div className="lg:col-span-1">
+                        <img
+                          src={competitor.image}
+                          alt={competitor.name}
+                          className="w-full h-48 lg:h-32 object-cover rounded-xl"
+                        />
+                      </div>
+
+                      {/* Details */}
+                      <div className="lg:col-span-3 space-y-4">
+                        <div>
+                          <h3 className="text-white text-xl font-semibold mb-1">{competitor.name}</h3>
+                          <p className="text-white/70 text-sm">{competitor.location}</p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          <div>
+                            <span className="text-white/60 text-xs uppercase tracking-wider">Cuisine Type</span>
+                            <p className="text-white text-sm font-medium">{competitor.cuisine}</p>
+                          </div>
+                          <div>
+                            <span className="text-white/60 text-xs uppercase tracking-wider">Price Range</span>
+                            <p className="text-white text-sm font-medium">{competitor.priceRange}</p>
+                          </div>
+                          <div>
+                            <span className="text-white/60 text-xs uppercase tracking-wider">Rating</span>
+                            <div className="flex items-center gap-2">
+                              <span className="text-white text-sm font-medium">{competitor.rating}</span>
+                              <div className="flex">
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                  <svg
+                                    key={star}
+                                    width="14"
+                                    height="14"
+                                    viewBox="0 0 16 16"
+                                    fill={star <= competitor.rating ? "#FFD700" : "none"}
+                                    stroke={star <= competitor.rating ? "#FFD700" : "#666"}
+                                    strokeWidth="1"
+                                  >
+                                    <polygon points="8,1 10,6 15,6 11,9 13,14 8,11 3,14 5,9 1,6 6,6" />
+                                  </svg>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div>
+                          <span className="text-white/60 text-xs uppercase tracking-wider block mb-2">Key Strengths</span>
+                          <div className="flex flex-wrap gap-2">
+                            {competitor.strengths.map((strength, i) => (
+                              <span key={i} className="px-3 py-1 bg-[#54FFD4]/20 text-[#54FFD4] text-xs rounded-full">
+                                {strength}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Summary Insights */}
+              <div className="p-6 rounded-2xl bg-gradient-to-r from-[#54FFD4]/10 to-[#169F9F]/10 border border-[#54FFD4]/30">
+                <h3 className="text-white text-lg font-semibold mb-4">Market Analysis Summary</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <span className="text-[#54FFD4] font-medium">Market Gaps Identified:</span>
+                    <ul className="text-white/80 mt-1 space-y-1">
+                      <li>• Affordable luxury dining options</li>
+                      <li>• Family-friendly fine dining</li>
+                      <li>• Fusion cuisine concepts</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <span className="text-[#54FFD4] font-medium">Competitive Advantages:</span>
+                    <ul className="text-white/80 mt-1 space-y-1">
+                      <li>• Prime location selection critical</li>
+                      <li>• Differentiated cuisine positioning</li>
+                      <li>• Superior service experience</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-4 pt-6 border-t border-white/20">
+                <button className="px-6 py-3 bg-[#54FFD4] text-[#042B28] rounded-full font-semibold hover:bg-[#42f6c9] transition-colors">
+                  Generate Gap Analysis
+                </button>
+                <button className="px-6 py-3 border border-white/40 text-white rounded-full font-semibold hover:bg-white/10 transition-colors">
+                  Export Competitor Data
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // Chat icon component with animation based on Figma design
 const ChatIcon = ({ isAnimated = false, isDark = false }: { isAnimated?: boolean; isDark?: boolean }) => {
   const bars = [
