@@ -4569,6 +4569,44 @@ export function BusinessChatUI({
   ]);
 
   useEffect(() => {
+    const handleRetailLocationSelected = (_event: Event) => {
+      setModalView("chat");
+      setMessages((prev) => {
+        const sanitized = prev.map((message) =>
+          message.actions ? { ...message, actions: undefined } : message,
+        );
+        return [
+          ...sanitized,
+          buildMessage(
+            "Interested? Would you like me to automate the application process and pre-fill all your information based on your exploration?",
+            true,
+            {
+              actions: [
+                {
+                  id: "retail-automation-yes",
+                  label: "Yes, automate it",
+                  action: "confirm-retail-automation",
+                },
+                {
+                  id: "retail-automation-no",
+                  label: "Not right now",
+                  action: "decline-retail-automation",
+                },
+              ],
+            },
+          ),
+        ];
+      });
+    };
+
+    window.addEventListener("retailLocationSelected", handleRetailLocationSelected);
+
+    return () => {
+      window.removeEventListener("retailLocationSelected", handleRetailLocationSelected);
+    };
+  }, [buildMessage]);
+
+  useEffect(() => {
     const handleCuisineBreakout = () => setCuisineBreakoutOpen(true);
     const handleCompetitorBreakout = () => setCompetitorBreakoutOpen(true);
     const handleGapBreakout = () => setGapBreakoutOpen(true);
