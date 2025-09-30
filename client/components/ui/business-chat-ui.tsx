@@ -19,6 +19,7 @@ import HeatMapView from "@/components/ui/heat-map-view";
 import BudgetRanges from "@/components/ui/budget-ranges";
 import BudgetRangesView from "@/components/ui/budget-ranges-view";
 import GapAnalysisView from "@/components/ui/gap-analysis-view";
+import RetailLocationsView from "@/components/ui/retail-locations-view";
 import ComprehensiveReport from "@/components/ui/comprehensive-report";
 import { budgetSummaryRows } from "@/components/ui/budget-ranges-data";
 import { usePersistentState } from "@/hooks/use-persistent-state";
