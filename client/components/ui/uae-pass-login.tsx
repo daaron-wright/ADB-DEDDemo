@@ -177,7 +177,7 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
       title="Sign in with UAE PASS"
       className="rounded-3xl border border-white/25 bg-white/90 shadow-[0_24px_60px_-20px_rgba(24,32,63,0.28)] backdrop-blur-xl sm:max-w-md [&>div:first-child]:sr-only [&>div:first-child]:m-0 [&>div:first-child]:h-0 [&>div:first-child]:p-0 [&>div:first-child>button]:hidden"
     >
-      <div className="w-full sm:w-[26rem] mx-auto p-6 text-center space-y-10 border border-primary-400 rounded-md min-h-[32rem] xl:min-h-[35rem] flex flex-wrap justify-between flex-col content-between [&>*]:w-full">
+      <div className="w-full sm:w-[26rem] mx-auto p-6 text-center space-y-10 border border-[#d8e4df] rounded-md min-h-[32rem] xl:min-h-[35rem] flex flex-wrap justify-between flex-col content-between [&>*]:w-full">
         {/* Close Button */}
         <Close asChild>
           <button
