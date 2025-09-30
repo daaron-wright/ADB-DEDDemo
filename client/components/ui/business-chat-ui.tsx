@@ -3754,6 +3754,13 @@ export function BusinessChatUI({
     };
   }, [openBreakout]);
 
+  const handleDownloadDigest = () => {
+    toast({
+      title: "Digest queued",
+      description: "Exporting the latest conversation, analysis cards, and workflow snapshot.",
+    });
+  };
+
   // Function to handle preloaded prompt selection
   const handlePromptSelect = (prompt: string) => {
     setCurrentInput(prompt);
