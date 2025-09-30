@@ -2066,7 +2066,7 @@ export function BusinessChatUI({
       const compilationResponse: BusinessMessage = {
         id: `ai-${Date.now()}-compilation`,
         content:
-          "I've synthesised the discovery research across the shortlisted zones. Review the summary below and let me know which area you want to model in detail next.",
+          "I've synthesised the discovery research across the shortlisted zones. Review the summary below and tell me where you'd like to dive deeper.",
         isAI: true,
         timestamp: new Date(),
         type: "compilation",
@@ -2075,6 +2075,7 @@ export function BusinessChatUI({
       if (activeThread) {
         updateThread(activeThreadId, {
           messages: [...activeThread.messages, userMessage, compilationResponse],
+          view: "compilation",
         });
       }
       return;
