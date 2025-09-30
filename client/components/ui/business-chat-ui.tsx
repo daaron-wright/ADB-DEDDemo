@@ -3295,6 +3295,20 @@ export function BusinessChatUI({
                     {activeThread?.view === "dashboard" && activeThreadId && (
                       <DashboardView
                         onBack={() => updateThread(activeThreadId, { view: "compilation" })}
+                        onSendMessage={handleSendMessage}
+                      />
+                    )}
+
+                    {activeThread?.view === "competitors" && activeThreadId && (
+                      <CompetitorAnalysisView
+                        onBack={() => updateThread(activeThreadId, { view: "dashboard" })}
+                        onGapAnalysis={() => updateThread(activeThreadId, { view: "final-compilation" })}
+                      />
+                    )}
+
+                    {activeThread?.view === "final-compilation" && activeThreadId && (
+                      <FinalCompilationView
+                        onBack={() => updateThread(activeThreadId, { view: "competitors" })}
                       />
                     )}
 
