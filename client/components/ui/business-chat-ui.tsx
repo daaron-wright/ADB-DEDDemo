@@ -1194,7 +1194,7 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/20"
+            className={chatCardClass("bg-white/10 backdrop-blur-md p-6 border border-white/20")}
           >
             <div className="flex items-center gap-4 mb-6">
               <img
