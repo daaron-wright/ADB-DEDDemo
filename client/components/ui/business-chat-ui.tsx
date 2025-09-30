@@ -2054,10 +2054,11 @@ const DialogueHighlightItem = ({
             ? "border-[#0E766E] bg-[#0E766E] text-white"
             : "border-slate-200 bg-white text-slate-400 group-hover:border-[#0E766E]/50",
         )}
-        aria-label=
-          {highlight.completed
+        aria-label={
+          highlight.completed
             ? `Mark thread ${index + 1} as in progress`
-            : `Mark thread ${index + 1} as complete`}
+            : `Mark thread ${index + 1} as complete`
+        }
       >
         {highlight.completed && (
           <svg
