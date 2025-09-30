@@ -3047,7 +3047,7 @@ const DiscoverExperienceView = ({
                         </button>
                         <button
                           type="button"
-                          className="rounded-full border border-[#dbe9e3] bg-white px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-600 transition hover:text-[#0E766E]"
+                          className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "justify-center uppercase tracking-[0.18em]")}
                         >
                           Share view
                         </button>
