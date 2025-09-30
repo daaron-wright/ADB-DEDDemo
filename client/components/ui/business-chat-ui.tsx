@@ -4843,12 +4843,12 @@ export function BusinessChatUI({
               <div className="relative z-10 flex w-full justify-center px-3 py-6 sm:px-6 sm:py-8 lg:px-12 lg:py-10">
                 <div
                   className={chatCardClass(
-                    "mx-auto w-full max-w-6xl border border-black/10 bg-white shadow-[0_45px_120px_-70px_rgba(15,23,42,0.35)]",
+                    "mx-auto w-full max-w-6xl border border-white/25 bg-white/15 backdrop-blur-3xl shadow-[0_55px_140px_-65px_rgba(15,23,42,0.45)] ring-1 ring-white/10",
                     "sm:rounded-[28px]"
                   )}
                 >
                   {/* Chat Header */}
-                  <div className="border-b border-black/10 bg-white p-4 sm:p-5 lg:p-6">
+                  <div className="border-b border-white/20 bg-white/20 backdrop-blur-2xl p-4 sm:p-5 lg:p-6">
                     <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                       <div className="flex flex-col gap-1 text-left">
                         <span className="inline-flex w-fit items-center rounded-full border border-slate-200/70 bg-white/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
@@ -4864,13 +4864,13 @@ export function BusinessChatUI({
                       <div className="flex items-center gap-3">
                         <div className="hidden sm:flex items-center gap-2 text-slate-500">
                           <span className="text-[11px] font-semibold uppercase tracking-[0.22em]">Status</span>
-                          <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
+                          <span className="inline-flex items-center rounded-full border border-emerald-200/70 bg-emerald-100/40 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
                             Live
                           </span>
                         </div>
                         <button
                           onClick={onClose}
-                          className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white text-slate-500 transition hover:border-[#0E766E] hover:text-[#0A4A46] sm:h-10 sm:w-10"
+                          className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/40 text-slate-500 transition hover:border-[#0E766E]/70 hover:text-[#0A4A46] sm:h-10 sm:w-10 backdrop-blur-xl"
                           aria-label="Close chat"
                         >
                           <svg
@@ -4917,7 +4917,7 @@ export function BusinessChatUI({
 
                   <div className="px-3 sm:px-4 lg:px-6 pb-4 sm:pb-6 lg:pb-8">
                     <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8">
-                      <div className={chatCardClass("flex flex-col border border-black/10 bg-white p-4 sm:p-6 lg:p-7 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.2)] min-h-[360px]")}>
+                      <div className={chatCardClass("flex flex-col border border-white/20 bg-white/12 p-4 sm:p-6 lg:p-7 shadow-[0_35px_95px_-55px_rgba(15,23,42,0.4)] backdrop-blur-2xl min-h-[360px]")}>
                         <div className="flex-1 overflow-y-auto space-y-3 sm:space-y-4 pr-1 sm:pr-2 lg:pr-3 max-h-[52vh] sm:max-h-[58vh]">
                           {messages.map((message) => (
                             <MessageBubble
@@ -4946,7 +4946,8 @@ export function BusinessChatUI({
                         </div>
 
                         {view === "investor-journey" && (
-                          <div className={chatCardClass("mt-6 border border-white/40 bg-white/70 p-4 shadow-[0_35px_90px_-60px_rgba(15,23,42,0.32)]")}>
+                          <div className={chatCardClass("mt-6 border border-white/25 bg-white/18 p-4 shadow-[0_35px_90px_-60px_rgba(15,23,42,0.35)] backdrop-blur-xl")}
+                          >
                             <DiscoverExperienceView
                               category={category}
                               onSendMessage={() => {}}
@@ -4957,7 +4958,7 @@ export function BusinessChatUI({
 
                         <div
                           className={chatCardClass(
-                            "mt-4 border border-white/30 bg-white/60 px-4 py-3 text-xs text-slate-600"
+                            "mt-4 border border-white/25 bg-white/16 px-4 py-3 text-xs text-slate-600 backdrop-blur-xl"
                           )}
                         >
                           Use the highlighted action above to move forward. We’ll open the next workspace once you confirm.
