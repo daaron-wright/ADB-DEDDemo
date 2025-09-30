@@ -3397,9 +3397,11 @@ export function BusinessChatUI({
   const [threads, setThreads] = useState<ChatThread[]>([]);
   const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
   const [showBudgetModal, setShowBudgetModal] = useState(false);
-  const [showCuisineBreakout, setShowCuisineBreakout] = useState(false);
-  const [showCompetitorBreakout, setShowCompetitorBreakout] = useState(false);
-  const [showGapAnalysisBreakout, setShowGapAnalysisBreakout] = useState(false);
+  const [showCuisineCard, setShowCuisineCard] = useState(false);
+  const [showCompetitorCard, setShowCompetitorCard] = useState(false);
+  const [showGapAnalysisCard, setShowGapAnalysisCard] = useState(false);
+  const [showPreloadedPrompts, setShowPreloadedPrompts] = useState(true);
+  const [currentInput, setCurrentInput] = useState("");
 
   const [loggedInUser, setLoggedInUser] = useState<any>(null);
   const [showBusinessPortal, setShowBusinessPortal] = useState(false);
