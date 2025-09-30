@@ -3621,77 +3621,7 @@ export function BusinessChatUI({
       type: "text",
     };
 
-    const isCompilationRequest =
-      lowerMessage.includes("go deeper") ||
-      (lowerMessage.includes("report") && lowerMessage.includes("generate")) ||
-      lowerMessage.includes("compiled research") ||
-      lowerMessage.includes("compilation");
-
-    const isCompetitorRequest =
-      lowerMessage.includes("competitor") ||
-      lowerMessage.includes("competition") ||
-      (lowerMessage.includes("top") && lowerMessage.includes("area"));
-
-    const isGapAnalysisRequest =
-      lowerMessage.includes("gap analysis") ||
-      (lowerMessage.includes("gap") && lowerMessage.includes("analysis"));
-
     const activeThread = threads.find((t) => t.id === activeThreadId);
-
-    if (isCompilationRequest) {
-      const compilationResponse: BusinessMessage = {
-        id: `ai-${Date.now()}-compilation`,
-        content:
-          "I've synthesised the discovery research across the shortlisted zones. Review the summary below and tell me where you'd like to dive deeper.",
-        isAI: true,
-        timestamp: new Date(),
-        type: "compilation",
-      };
-
-      if (activeThread) {
-        updateThread(activeThreadId, {
-          messages: [...activeThread.messages, userMessage, compilationResponse],
-          view: "compilation",
-        });
-      }
-      return;
-    }
-
-    if (isCompetitorRequest && activeThread?.view === "dashboard") {
-      const competitorResponse: BusinessMessage = {
-        id: `ai-${Date.now()}-competitors`,
-        content: "Here are the top 4 restaurants in Abu Dhabi Corniche.",
-        isAI: true,
-        timestamp: new Date(),
-        type: "text",
-      };
-
-      if (activeThread) {
-        updateThread(activeThreadId, {
-          messages: [...activeThread.messages, userMessage, competitorResponse],
-          view: "competitors",
-        });
-      }
-      return;
-    }
-
-    if (isGapAnalysisRequest && activeThread?.view === "competitors") {
-      const gapAnalysisResponse: BusinessMessage = {
-        id: `ai-${Date.now()}-gap-analysis`,
-        content: "I'm analyzing the competitive gaps and opportunities. Here's the comprehensive final compilation.",
-        isAI: true,
-        timestamp: new Date(),
-        type: "text",
-      };
-
-      if (activeThread) {
-        updateThread(activeThreadId, {
-          messages: [...activeThread.messages, userMessage, gapAnalysisResponse],
-          view: "final-compilation",
-        });
-      }
-      return;
-    }
 
     const aiResponse: BusinessMessage = {
       id: `ai-${Date.now()}`,
@@ -3825,7 +3755,7 @@ export function BusinessChatUI({
       lowerMessage.includes("target") ||
       lowerMessage.includes("market")
     ) {
-      return "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).";
+      return "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island �� 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).";
     }
 
     return "I can help you with restaurant licensing, location analysis, cost estimates, and demographic data for Abu Dhabi. What specific information would you like to know?";
