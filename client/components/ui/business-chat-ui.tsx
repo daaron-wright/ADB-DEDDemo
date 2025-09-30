@@ -3743,6 +3743,11 @@ export function BusinessChatUI({
           type: "setup-cta",
           actions: [
             {
+              id: "explore-options",
+              label: "Explore more options",
+              action: "show-summary",
+            },
+            {
               id: "setup-business-primary",
               label: "Set up business",
               action: "open-investor-journey",
