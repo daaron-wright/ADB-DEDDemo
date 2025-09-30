@@ -45,11 +45,11 @@ export function PortalProfileMenu({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="group inline-flex items-center gap-3 rounded-full border border-[#d8e4df] bg-[#f9fbfa] px-3 py-1.5 text-left shadow-[0_8px_24px_-20px_rgba(11,64,55,0.18)] transition hover:bg-white hover:shadow-[0_12px_28px_-24px_rgba(11,64,55,0.28)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
-        <span className="relative flex items-center gap-2">
-          <Avatar className="h-9 w-9 rounded-xl">
+      <DropdownMenuTrigger className="group inline-flex items-center gap-3 rounded-full border border-[#d4e4df] bg-white px-4 py-2 text-left shadow-[0_8px_24px_-20px_rgba(7,32,28,0.18)] transition hover:shadow-[0_12px_24px_-20px_rgba(7,32,28,0.22)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
+        <span className="relative flex items-center">
+          <Avatar className="h-10 w-10 rounded-full shadow-[0_4px_12px_-6px_rgba(7,32,28,0.35)]">
             <AvatarImage src={avatarUrl} alt={name} className="object-cover" />
-            <AvatarFallback className="rounded-xl bg-neutral-100 text-sm font-semibold text-neutral-600">
+            <AvatarFallback className="rounded-full bg-neutral-100 text-sm font-semibold text-neutral-600">
               {initials || "NA"}
             </AvatarFallback>
           </Avatar>
@@ -57,11 +57,11 @@ export function PortalProfileMenu({
             className={`absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border border-white ${statusStyles[status]}`}
           />
         </span>
-        <span className="flex flex-col items-start">
-          <span className="text-sm font-semibold text-neutral-900">{name}</span>
-          <span className="text-xs text-neutral-500">{email}</span>
+        <span className="flex flex-col items-start leading-tight">
+          <span className="text-sm font-semibold text-slate-900">{name}</span>
+          <span className="text-xs font-medium text-[#6c7a74]">{email}</span>
         </span>
-        <ChevronDown className="ml-1 h-4 w-4 shrink-0 text-neutral-400 transition group-hover:text-neutral-600" />
+        <ChevronDown className="ml-1 h-4 w-4 shrink-0 text-[#7a8a85] transition group-hover:text-[#0f766e]" />
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
