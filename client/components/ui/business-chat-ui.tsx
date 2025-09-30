@@ -3035,19 +3035,19 @@ const DiscoverExperienceView = ({
                       <div className="mt-5 flex flex-wrap items-center gap-3">
                         <button
                           type="button"
-                          className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "justify-center uppercase tracking-[0.18em]")}
+                          className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "justify-center")}
                         >
                           Export insights
                         </button>
                         <button
                           type="button"
-                          className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "justify-center uppercase tracking-[0.18em]")}
+                          className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "justify-center")}
                         >
                           Download CSV
                         </button>
                         <button
                           type="button"
-                          className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "justify-center uppercase tracking-[0.18em]")}
+                          className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "justify-center")}
                         >
                           Share view
                         </button>
