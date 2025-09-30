@@ -2668,7 +2668,7 @@ export function BusinessChatUI({
 
                   {/* Right side - Sign in button (only for non-logged-in users) */}
                   {!isLoggedIn && (
-                    <div className="absolute right-10 flex items-center">
+                    <div className="absolute right-4 sm:right-6 lg:right-10 flex items-center">
                       <UAEPassLogin
                         onLogin={handleUAEPassLogin}
                         mode="quick"
@@ -2678,7 +2678,7 @@ export function BusinessChatUI({
                             <img
                               src="https://api.builder.io/api/v1/image/assets/TEMP/f35ba5a02338a961dd18f58928489d9e87ec7dc3?width=442"
                               alt="Sign in with UAE PASS"
-                              className="h-8 rounded-full"
+                              className="h-6 sm:h-8 rounded-full"
                             />
                           </span>
                         }
