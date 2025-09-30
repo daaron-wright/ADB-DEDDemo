@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
+import { AI_ASSISTANT_PROFILE } from '@/lib/profile';
 
 interface Message {
   id: string;
@@ -156,8 +157,8 @@ export function ChatUI({ isOpen, onClose, title = "AI Business" }: ChatUIProps) 
                       {/* Avatar */}
                       <div className="relative flex-shrink-0">
                         <img
-                          src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-                          alt="AI Assistant"
+                          src={AI_ASSISTANT_PROFILE.avatar}
+                          alt={AI_ASSISTANT_PROFILE.name}
                           className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#54FFD4] object-cover"
                         />
                       </div>
