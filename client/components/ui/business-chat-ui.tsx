@@ -1935,6 +1935,177 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
   );
 };
 
+const DialogueDocCard = ({
+  title,
+  summary,
+  notes,
+  highlights,
+  onNotesChange,
+  onToggleHighlight,
+  onHighlightChange,
+  onHighlightRemove,
+  onAddHighlight,
+}: DialogueDocProps) => {
+  const [newHighlight, setNewHighlight] = useState("");
+  const completedCount = highlights.filter((item) => item.completed).length;
+
+  const handleAddHighlight = () => {
+    const value = newHighlight.trim();
+    if (!value) {
+      return;
+    }
+
+    onAddHighlight(value);
+    setNewHighlight("");
+  };
+
+  return (
+    <div
+      className={chatCardClass(
+        "w-full max-w-[680px] overflow-hidden border border-slate-200 bg-white/95 backdrop-blur-2xl shadow-[0_45px_120px_-70px_rgba(15,23,42,0.38)]",
+        "rounded-[32px]"
+      )}
+    >
+      <div className="flex flex-col gap-6 p-6 sm:p-8">
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <Badge className="rounded-full border border-[#0E766E]/30 bg-[#0E766E]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-[#0E766E]">
+                Dialogue doc
+              </Badge>
+              <h3 className="mt-3 text-2xl font-semibold leading-tight text-slate-900">{title}</h3>
+            </div>
+            <div className="text-xs font-medium uppercase tracking-[0.26em] text-slate-400">
+              Open collaboration
+            </div>
+          </div>
+          <p className="text-sm leading-relaxed text-slate-600">{summary}</p>
+        </div>
+
+        <div className="space-y-3">
+          <div className="flex items-center justify-between gap-2">
+            <h4 className="text-xs font-semibold uppercase tracking-[0.26em] text-[#0E766E]">
+              Focus threads
+            </h4>
+            <span className="text-xs text-slate-400">
+              {completedCount}/{highlights.length} complete
+            </span>
+          </div>
+          <ul className="space-y-2">
+            {highlights.map((item) => (
+              <li
+                key={item.id}
+                className={cn(
+                  "flex items-center gap-3 rounded-2xl border bg-white/90 px-4 py-3 shadow-[0_22px_54px_-36px_rgba(15,23,42,0.3)] transition",
+                  item.completed
+                    ? "border-[#0E766E] shadow-[0_26px_60px_-34px_rgba(14,118,110,0.35)]"
+                    : "border-slate-200 hover:border-[#0E766E]/40",
+                )}
+              >
+                <button
+                  type="button"
+                  onClick={() => onToggleHighlight(item.id)}
+                  className={cn(
+                    "flex h-6 w-6 items-center justify-center rounded-full border transition",
+                    item.completed
+                      ? "border-[#0E766E] bg-[#0E766E] text-white"
+                      : "border-slate-300 bg-white text-slate-400 hover:border-[#0E766E]/50",
+                  )}
+                >
+                  {item.completed && (
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13.3334 4.66675L6.00008 12.0001L2.66675 8.66675"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  )}
+                </button>
+                <input
+                  value={item.text}
+                  onChange={(event) => onHighlightChange(item.id, event.target.value)}
+                  className="flex-1 border-none bg-transparent text-sm font-medium text-slate-700 outline-none focus:ring-0"
+                />
+                <button
+                  type="button"
+                  onClick={() => onHighlightRemove(item.id)}
+                  className="rounded-full p-1 text-slate-300 transition hover:text-slate-500"
+                >
+                  <span className="sr-only">Remove highlight</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 4L4 12M4 4L12 12"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-wrap gap-2 pt-1">
+            <input
+              value={newHighlight}
+              onChange={(event) => setNewHighlight(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  handleAddHighlight();
+                }
+              }}
+              placeholder="Add a focus point..."
+              className="min-w-[160px] flex-1 rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-sm text-slate-600 placeholder-slate-400 focus:border-[#0E766E] focus:outline-none focus:ring-2 focus:ring-[#0E766E]/30"
+            />
+            <button
+              type="button"
+              onClick={handleAddHighlight}
+              className="rounded-full bg-gradient-to-r from-[#0E766E] to-[#0A4A46] px-4 py-2 text-sm font-semibold text-white shadow-[0_16px_30px_-18px_rgba(14,118,110,0.45)] transition hover:shadow-[0_22px_44px_-24px_rgba(14,118,110,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E766E]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white/10"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <div className="flex items-center justify-between gap-2">
+            <h4 className="text-xs font-semibold uppercase tracking-[0.26em] text-[#0E766E]">
+              Working notes
+            </h4>
+            <span className="text-xs text-slate-400">{notes.length} characters</span>
+          </div>
+          <textarea
+            value={notes}
+            onChange={(event) => onNotesChange(event.target.value)}
+            rows={6}
+            className="min-h-[140px] w-full resize-y rounded-[28px] border border-slate-200 bg-white/90 px-4 py-3 text-sm leading-relaxed text-slate-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] focus:border-[#0E766E] focus:outline-none focus:ring-2 focus:ring-[#0E766E]/30"
+          />
+        </div>
+
+        <div className="rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-xs leading-relaxed text-slate-500">
+          Invite collaborators to co-edit this doc or export highlights into your investor journey workspace.
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const SetupBusinessCTA = ({ onSetup, onExplore }: { onSetup?: () => void; onExplore?: () => void }) => (
   <div
     className={chatCardClass(
