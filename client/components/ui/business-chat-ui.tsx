@@ -4295,6 +4295,15 @@ export function BusinessChatUI({
           lower.includes("information") ||
           lower.includes("about")
         );
+      const mentionsReports =
+        lower.includes("report") ||
+        lower.includes("reports") ||
+        (lower.includes("go") && lower.includes("deeper")) ||
+        lower.includes("generate") ||
+        lower.includes("comprehensive") ||
+        lower.includes("analysis") ||
+        lower.includes("summary") ||
+        lower.includes("culmination");
 
       if (mentionsCost) {
         responses.push(
