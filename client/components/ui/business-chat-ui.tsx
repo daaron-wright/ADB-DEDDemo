@@ -2592,7 +2592,7 @@ export function BusinessChatUI({
                       viewBox="0 0 111 50"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-12 w-auto"
+                      className="h-8 sm:h-10 lg:h-12 w-auto"
                     >
                       <path
                         d="M65.7294 29.4798V38.9241H63.8521V29.4798H60.2383V27.6816H69.3588V29.4798H65.7294Z"
