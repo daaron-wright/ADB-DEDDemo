@@ -4242,7 +4242,7 @@ export function BusinessChatUI({
 
         nextMessages.push(
           buildMessage(
-            `${authenticatedName} is now signed in via UAE PASS. Opening your investor journey workspace with live market heat maps.`,
+            `${authenticatedName} is now signed in via UAE PASS with ${roleDescriptor}. Opening your investor journey workspace with live market heat maps.`,
             true,
           ),
         );
