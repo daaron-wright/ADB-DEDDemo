@@ -579,7 +579,7 @@ const DiscoverExperienceView = ({
       name: "Baniyas community spine",
       summary:
         "Established residential corridor seeing strong family traffic and quick-service demand spikes.",
-      footfall: "60–75K weekly visits",
+      footfall: "60��75K weekly visits",
       density: "Growing density",
       trend: "+11% midday demand",
       focus: "Family restaurants, fast casual, bakeries",
@@ -2286,6 +2286,26 @@ export function BusinessChatUI({
                           onSendMessage={handleSendMessage}
                           isStandalone={false}
                         />
+                      </div>
+                    )}
+
+                    {/* Show corniche detail view content */}
+                    {activeThread?.view === "corniche-detail" && (
+                      <div className="space-y-4">
+                        {/* Continue conversation input */}
+                        <div className="px-4 py-3 rounded-full bg-white/20 border border-white/10">
+                          <input
+                            type="text"
+                            placeholder="Of these who are the target market for a high end restaurants?"
+                            className="w-full bg-transparent text-white placeholder-white/70 outline-none text-sm"
+                            onKeyPress={(e) => {
+                              if (e.key === 'Enter' && e.currentTarget.value.trim()) {
+                                handleSendMessage(e.currentTarget.value.trim());
+                                e.currentTarget.value = '';
+                              }
+                            }}
+                          />
+                        </div>
                       </div>
                     )}
                   </div>
