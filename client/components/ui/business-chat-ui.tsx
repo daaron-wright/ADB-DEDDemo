@@ -37,6 +37,321 @@ interface ChatThread {
   view: ChatView;
 }
 
+// Preloaded prompts for different business categories
+const PRELOADED_PROMPTS = {
+  restaurants: [
+    "I want to understand the competitor landscape for restaurants in Abu Dhabi. Can you provide detailed analysis?",
+    "What are the most popular cuisines in Abu Dhabi and what gaps exist in the market?",
+    "Can you analyze the footfall and customer behavior patterns in the Corniche area?",
+    "What are the licensing requirements and estimated timeline for opening a restaurant?",
+  ],
+  "fast-food": [
+    "What's the market demand for fast-food chains in Abu Dhabi compared to traditional restaurants?",
+    "Can you analyze the best locations for a quick-service restaurant?",
+    "What are the delivery and drive-thru market opportunities in Abu Dhabi?",
+    "How do licensing requirements differ for fast-food vs. full-service restaurants?",
+  ],
+  branch: [
+    "What are the requirements for opening a branch office of an existing company?",
+    "Can you explain the dual-license structure and compliance requirements?",
+    "What are the zoning regulations for commercial branch offices in Abu Dhabi?",
+    "How does the approval process differ for foreign companies vs. local businesses?",
+  ],
+  "retail-store": [
+    "What are the prime retail locations in Abu Dhabi and their rental costs?",
+    "Can you analyze foot traffic patterns for different retail districts?",
+    "What are the fit-out standards and merchandising requirements for retail stores?",
+    "How long does the licensing process typically take for retail establishments?",
+  ],
+  general: [
+    "I'd like to explore business opportunities in Abu Dhabi. Where should I start?",
+    "Can you help me understand the overall business climate and regulations in Abu Dhabi?",
+    "What are the most promising sectors for new business investment right now?",
+    "How does the government support entrepreneurship and business setup?",
+  ],
+};
+
+// Cuisine Popularity Card Component
+const CuisinePopularityCard = ({ className = "" }: { className?: string }) => {
+  return (
+    <div className={cn("w-full max-w-lg bg-white rounded-3xl border border-slate-200/50 shadow-lg overflow-hidden", className)}>
+      {/* Header */}
+      <div className="bg-gradient-to-r from-purple-50 to-indigo-50 px-6 py-4 border-b border-slate-200/50">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold text-slate-900">Cuisine Popularity Analysis</h3>
+            <p className="text-sm text-slate-600">Market share breakdown</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-6">
+        {/* Main Statistic */}
+        <div className="text-center mb-6">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <span className="text-4xl font-bold text-slate-900">35%</span>
+            <svg width="16" height="16" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#10b981"/>
+            </svg>
+          </div>
+          <p className="text-sm text-slate-600">Middle Eastern cuisine market share</p>
+        </div>
+
+        {/* Cuisine Breakdown */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+            <div>
+              <div className="font-semibold text-slate-900">Middle Eastern</div>
+              <div className="text-sm text-slate-600">Cultural resonance, traditional appeal</div>
+            </div>
+            <div className="text-xl font-bold text-emerald-600">35%</div>
+          </div>
+
+          <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+            <div>
+              <div className="font-semibold text-slate-900">American</div>
+              <div className="text-sm text-slate-600">Fast-food dominance, brand recognition</div>
+            </div>
+            <div className="text-xl font-bold text-blue-600">25%</div>
+          </div>
+
+          <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+            <div>
+              <div className="font-semibold text-slate-900">Indian</div>
+              <div className="text-sm text-slate-600">Expat community support, spice alignment</div>
+            </div>
+            <div className="text-xl font-bold text-orange-600">20%</div>
+          </div>
+        </div>
+
+        {/* Action Button */}
+        <button className="w-full mt-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 px-4 rounded-xl font-semibold hover:shadow-lg transition-all">
+          View Detailed Analysis
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// Competitor Analysis Card Component
+const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
+  return (
+    <div className={cn("w-full max-w-lg bg-white rounded-3xl border border-slate-200/50 shadow-lg overflow-hidden", className)}>
+      {/* Header */}
+      <div className="bg-gradient-to-r from-blue-50 to-cyan-50 px-6 py-4 border-b border-slate-200/50">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+              <path d="M18 20V10"/>
+              <path d="M12 20V4"/>
+              <path d="M6 20v-6"/>
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold text-slate-900">Competitor Analysis</h3>
+            <p className="text-sm text-slate-600">Market leaders overview</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-6">
+        {/* Main Statistic */}
+        <div className="text-center mb-6">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <span className="text-4xl font-bold text-slate-900">4.6</span>
+            <div className="flex text-yellow-400">
+              {Array.from({ length: 5 }, (_, i) => (
+                <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              ))}
+            </div>
+          </div>
+          <p className="text-sm text-slate-600">Average competitor rating</p>
+        </div>
+
+        {/* Competitor Breakdown */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+            <div>
+              <div className="font-semibold text-slate-900">Shurfa Bay</div>
+              <div className="text-sm text-slate-600">Waterfront premium seafood experience</div>
+            </div>
+            <div className="text-right">
+              <div className="text-sm font-semibold text-blue-600">4.8★</div>
+              <div className="text-xs text-slate-500">$$$$</div>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+            <div>
+              <div className="font-semibold text-slate-900">Villa Toscana</div>
+              <div className="text-sm text-slate-600">Luxury hotel-based Italian dining</div>
+            </div>
+            <div className="text-right">
+              <div className="text-sm font-semibold text-blue-600">4.7★</div>
+              <div className="text-xs text-slate-500">$$$$</div>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+            <div>
+              <div className="font-semibold text-slate-900">Palms & Pearls</div>
+              <div className="text-sm text-slate-600">Modern Middle Eastern on Corniche</div>
+            </div>
+            <div className="text-right">
+              <div className="text-sm font-semibold text-blue-600">4.3★</div>
+              <div className="text-xs text-slate-500">$$$</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Insights */}
+        <div className="mt-6 p-4 bg-blue-50 rounded-xl">
+          <h4 className="font-semibold text-slate-900 mb-2">Key Insights</h4>
+          <div className="grid grid-cols-3 gap-3 text-center">
+            <div>
+              <div className="text-lg font-bold text-blue-600">3</div>
+              <div className="text-xs text-slate-600">Market gaps</div>
+            </div>
+            <div>
+              <div className="text-lg font-bold text-blue-600">4.5★</div>
+              <div className="text-xs text-slate-600">Avg rating</div>
+            </div>
+            <div>
+              <div className="text-lg font-bold text-blue-600">$$$$</div>
+              <div className="text-xs text-slate-600">Price range</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Action Button */}
+        <button className="w-full mt-6 bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-3 px-4 rounded-xl font-semibold hover:shadow-lg transition-all">
+          View Detailed Analysis
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// Gap Analysis Card Component
+const GapAnalysisCard = ({ className = "" }: { className?: string }) => {
+  return (
+    <div className={cn("w-full max-w-lg bg-white rounded-3xl border border-slate-200/50 shadow-lg overflow-hidden", className)}>
+      {/* Header */}
+      <div className="bg-gradient-to-r from-emerald-50 to-teal-50 px-6 py-4 border-b border-slate-200/50">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold text-slate-900">Gap Analysis</h3>
+            <p className="text-sm text-slate-600">Market opportunities identified</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-6">
+        {/* Main Statistic */}
+        <div className="text-center mb-6">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <span className="text-4xl font-bold text-slate-900">6.3%</span>
+            <svg width="16" height="16" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" fill="#10b981"/>
+            </svg>
+          </div>
+          <p className="text-sm text-slate-600">Footfall growth potential in Corniche area</p>
+        </div>
+
+        {/* Gap Opportunities */}
+        <div className="space-y-4">
+          <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-200">
+            <div className="font-semibold text-slate-900 mb-2">Emirati Fusion Cuisine</div>
+            <div className="text-sm text-slate-600 mb-2">Japanese influences creating new trend</div>
+            <div className="text-xs font-semibold text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full inline-block">High Opportunity</div>
+          </div>
+
+          <div className="p-4 bg-blue-50 rounded-xl border border-blue-200">
+            <div className="font-semibold text-slate-900 mb-2">Formal Evening Dining</div>
+            <div className="text-sm text-slate-600 mb-2">Waterfront locations with luxury experience</div>
+            <div className="text-xs font-semibold text-blue-600 bg-blue-100 px-2 py-1 rounded-full inline-block">Medium Opportunity</div>
+          </div>
+
+          <div className="p-4 bg-yellow-50 rounded-xl border border-yellow-200">
+            <div className="font-semibold text-slate-900 mb-2">Family-Friendly Dining</div>
+            <div className="text-sm text-slate-600 mb-2">Gap in affordable luxury segment</div>
+            <div className="text-xs font-semibold text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full inline-block">Emerging</div>
+          </div>
+        </div>
+
+        {/* Area Demographics */}
+        <div className="mt-6 p-4 bg-slate-50 rounded-xl">
+          <h4 className="font-semibold text-slate-900 mb-3">Abu Dhabi Corniche Demographics</h4>
+          <div className="grid grid-cols-3 gap-3 text-center">
+            <div>
+              <div className="text-lg font-bold text-emerald-600">85-90%</div>
+              <div className="text-xs text-slate-600">Expats in area</div>
+            </div>
+            <div>
+              <div className="text-lg font-bold text-emerald-600">2.5x</div>
+              <div className="text-xs text-slate-600">Eat out weekly</div>
+            </div>
+            <div>
+              <div className="text-lg font-bold text-emerald-600">78%</div>
+              <div className="text-xs text-slate-600">Who dine out</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Action Button */}
+        <button className="w-full mt-6 bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-3 px-4 rounded-xl font-semibold hover:shadow-lg transition-all">
+          View Detailed Opportunities
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// Preloaded Prompt Selector Component
+const PreloadedPrompts = ({
+  category,
+  onPromptSelect
+}: {
+  category: string;
+  onPromptSelect: (prompt: string) => void;
+}) => {
+  const prompts = PRELOADED_PROMPTS[category as keyof typeof PRELOADED_PROMPTS] || PRELOADED_PROMPTS.general;
+
+  return (
+    <div className="space-y-3">
+      <h4 className="text-sm font-medium text-slate-700 mb-3">Suggested questions to get you started:</h4>
+      <div className="grid gap-2">
+        {prompts.map((prompt, index) => (
+          <button
+            key={index}
+            onClick={() => onPromptSelect(prompt)}
+            className="text-left p-3 text-sm bg-white border border-slate-200 rounded-xl hover:border-slate-300 hover:shadow-sm transition-all"
+          >
+            {prompt}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 // Cuisine Popularity Breakout Modal
 const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   if (!isOpen) return null;
