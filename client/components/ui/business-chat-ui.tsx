@@ -3041,7 +3041,7 @@ const DiscoverExperienceView = ({
                         </button>
                         <button
                           type="button"
-                          className="rounded-full border border-[#0E766E] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E] transition hover:bg-[#0E766E]/10"
+                          className={cn(ARTIFACT_ACTION_BUTTON_CLASSES, "justify-center uppercase tracking-[0.18em]")}
                         >
                           Download CSV
                         </button>
