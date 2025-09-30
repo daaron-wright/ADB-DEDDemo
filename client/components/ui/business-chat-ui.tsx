@@ -1799,8 +1799,8 @@ const MessageBubble = ({
       </div>
       {!message.isAI && (
         <img
-          src={KHALID_AVATAR}
-          alt="Khalid"
+          src={ENTREPRENEUR_PROFILE.avatar}
+          alt={ENTREPRENEUR_PROFILE.name}
           className="h-8 w-8 flex-shrink-0 rounded-full border-2 border-white/60 object-cover sm:h-10 sm:w-10"
         />
       )}
