@@ -4409,7 +4409,7 @@ export function BusinessChatUI({
                         </div>
                         <button
                           onClick={onClose}
-                          className="flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-white/60 text-slate-600 transition hover:border-[#0E766E]/70 hover:text-[#0A4A46] sm:h-10 sm:w-10"
+                          className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white text-slate-500 transition hover:border-[#0E766E] hover:text-[#0A4A46] sm:h-10 sm:w-10"
                           aria-label="Close chat"
                         >
                           <svg
