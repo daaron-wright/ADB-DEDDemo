@@ -17,7 +17,6 @@ interface AnimatedConversationProps {
   className?: string;
 }
 
-const KHALID_AVATAR = 'https://api.builder.io/api/v1/image/assets/TEMP/0142e541255ee20520b15f139d595835c00ea132?width=131';
 const AI_AVATAR = 'https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128';
 
 export function AnimatedConversation({ messages, className }: AnimatedConversationProps) {
