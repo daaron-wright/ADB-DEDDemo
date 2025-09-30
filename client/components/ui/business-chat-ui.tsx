@@ -1971,13 +1971,19 @@ const MessageBubble = ({
     : "bg-[#0E766E]/15 border border-[#0E766E]/35 text-[#043A36] shadow-[0_20px_44px_-28px_rgba(14,118,110,0.55)]";
 
   if (message.type === "setup-cta") {
-    const primaryAction = message.actions?.[0];
+    const setupAction = message.actions?.find(action => action.label === "Set up business");
+    const exploreAction = message.actions?.find(action => action.label === "Explore more options");
     return (
       <div className="mb-6 flex w-full justify-center">
         <SetupBusinessCTA
           onSetup={
-            primaryAction && onActionClick
-              ? () => onActionClick(primaryAction.action, primaryAction.label)
+            setupAction && onActionClick
+              ? () => onActionClick(setupAction.action, setupAction.label)
+              : undefined
+          }
+          onExplore={
+            exploreAction && onActionClick
+              ? () => onActionClick(exploreAction.action, exploreAction.label)
               : undefined
           }
         />
