@@ -4560,6 +4560,7 @@ export function BusinessChatUI({
     window.addEventListener("openCompetitorBreakout", handleCompetitorBreakout);
     window.addEventListener("openGapAnalysisBreakout", handleGapBreakout);
     window.addEventListener("openGapAnalysis", handleGapAnalysis);
+    window.addEventListener("openRetailLocations", handleRetailLocations);
 
     return () => {
       window.removeEventListener("openCuisineBreakout", handleCuisineBreakout);
