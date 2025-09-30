@@ -9,6 +9,14 @@ import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
 import { conversationFlows } from "@/lib/conversations";
 
+type ConversationAction = "show-summary" | "open-investor-journey";
+
+interface MessageAction {
+  id: string;
+  label: string;
+  action: ConversationAction;
+}
+
 interface BusinessMessage {
   id: string;
   content: string;
@@ -17,6 +25,7 @@ interface BusinessMessage {
   rating?: number;
   hasActions?: boolean;
   type?: "text" | "heat-map";
+  actions?: MessageAction[];
 }
 
 interface BusinessChatUIProps {
