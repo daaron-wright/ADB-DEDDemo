@@ -1747,7 +1747,11 @@ const MessageBubble = ({
           )}
         >
           {message.rating && (
-            <div className={cn("mb-2 flex", message.isAI ? "justify-start" : "justify-end")}
+            <div
+              className={cn(
+                "mb-2 flex",
+                message.isAI ? "justify-start" : "justify-end",
+              )}
             >
               <StarRating rating={message.rating} />
             </div>
