@@ -4062,7 +4062,8 @@ export function BusinessChatUI({
   initialMessage,
 }: BusinessChatUIProps) {
   const [messages, setMessages] = useState<BusinessMessage[]>([]);
-  const [view, setView] = useState<ChatView>("basic");  const [modalView, setModalView] = useState<ChatView>("basic");
+  const [view, setView] = useState<ChatView>("basic");
+  const [modalView, setModalView] = useState<ModalView>("chat");
   const [currentStep, setCurrentStep] = useState<ConversationStep>("intro");
   const [showBudgetModal, setShowBudgetModal] = useState(false);
   const [isCuisineBreakoutOpen, setCuisineBreakoutOpen] = useState(false);
