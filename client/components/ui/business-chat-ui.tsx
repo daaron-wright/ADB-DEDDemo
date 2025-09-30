@@ -2386,6 +2386,181 @@ const BudgetRangesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =
   );
 };
 
+const CompetitorBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  if (!isOpen) return null;
+
+  const competitorHighlights = [
+    {
+      name: "Shurfa Bay",
+      rating: "4.8★",
+      tier: "Premium waterfront",
+      insight: "Sunset terrace has maintained 98% capacity across the past four evenings.",
+    },
+    {
+      name: "Villa Toscana",
+      rating: "4.7★",
+      tier: "Luxury hotel dining",
+      insight: "Private dining conversions rose 28% with bespoke tasting menus.",
+    },
+    {
+      name: "Palms & Pearls",
+      rating: "4.3★",
+      tier: "Elevated casual",
+      insight: "Experiential tasting flights outperform à la carte by 1.6x revenue.",
+    },
+  ];
+
+  return (
+    <div className="fixed inset-0 z-[80] flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative z-10 w-full max-w-[920px]" style={MODAL_MIN_DIMENSIONS}>
+        <div className="overflow-hidden rounded-3xl border border-white/15 bg-slate-900/85 shadow-[0_45px_85px_-40px_rgba(15,23,42,0.9)] backdrop-blur-2xl">
+          <div className="flex items-center justify-between border-b border-white/15 bg-white/12 px-6 py-4">
+            <div>
+              <p className="text-xs uppercase tracking-[0.22em] text-white/60">Competitor landscape</p>
+              <h3 className="text-xl font-semibold text-white">Premium waterfront benchmarks</h3>
+            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-[#54FFD4] hover:text-[#54FFD4]"
+              aria-label="Close competitor breakout"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+          <div className="grid gap-6 p-6 sm:p-8">
+            <div className="grid gap-4 sm:grid-cols-3">
+              {competitorHighlights.map((item) => (
+                <div
+                  key={item.name}
+                  className="rounded-2xl border border-white/12 bg-white/8 p-4 text-white"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-sm font-semibold text-white">{item.name}</p>
+                    <Badge
+                      variant="outline"
+                      className="border-emerald-300/50 bg-emerald-400/10 px-2 py-0.5 text-[10px] uppercase tracking-wide text-emerald-100"
+                    >
+                      {item.rating}
+                    </Badge>
+                  </div>
+                  <div className="mt-3 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[10px] uppercase tracking-wide text-white/80">
+                    {item.tier}
+                  </div>
+                  <p className="mt-3 text-xs text-white/70 leading-relaxed">{item.insight}</p>
+                </div>
+              ))}
+            </div>
+            <div className="rounded-2xl border border-white/12 bg-white/7 p-5 text-sm text-white/75">
+              <p>
+                Corniche venues continue to command the highest experiential spend. Positioning your concept with curated terrace rituals and signature tasting moments keeps you competitive while protecting premium price points.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const GapBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  if (!isOpen) return null;
+
+  const opportunitySignals: Array<{
+    title: string;
+    urgency: "High" | "Medium" | "Emerging";
+    detail: string;
+  }> = [
+    {
+      title: "Emirati fusion brunch",
+      urgency: "High",
+      detail: "Weekday premium casual format missing along Corniche with resident demand rising 18% year-on-year.",
+    },
+    {
+      title: "Family coastal lounge",
+      urgency: "Medium",
+      detail: "Blend kids programming with curated sundowner menus to capture mixed visitor cohorts.",
+    },
+    {
+      title: "Wellness-forward café",
+      urgency: "Emerging",
+      detail: "Morning boardwalk activity up 14% quarter-on-quarter; healthy grab-and-go remains underserved.",
+    },
+  ];
+
+  const getUrgencyBadgeClass = (urgency: "High" | "Medium" | "Emerging") => {
+    switch (urgency) {
+      case "High":
+        return "border-emerald-300/60 bg-emerald-400/15 text-emerald-100";
+      case "Medium":
+        return "border-amber-300/60 bg-amber-300/15 text-amber-100";
+      case "Emerging":
+      default:
+        return "border-sky-300/60 bg-sky-300/15 text-sky-100";
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-[82] flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative z-10 w-full max-w-[880px]" style={MODAL_MIN_DIMENSIONS}>
+        <div className="overflow-hidden rounded-3xl border border-white/15 bg-slate-900/80 shadow-[0_45px_85px_-40px_rgba(15,23,42,0.8)] backdrop-blur-2xl">
+          <div className="flex items-center justify-between border-b border-white/12 bg-white/12 px-6 py-4">
+            <div>
+              <p className="text-xs uppercase tracking-[0.22em] text-white/60">Gap opportunities</p>
+              <h3 className="text-xl font-semibold text-white">Corniche demand map</h3>
+            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-[#54FFD4] hover:text-[#54FFD4]"
+              aria-label="Close opportunity breakout"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+          <div className="grid gap-5 p-6 sm:p-8 text-white">
+            <div className="grid gap-4">
+              {opportunitySignals.map((signal) => (
+                <div
+                  key={signal.title}
+                  className="rounded-2xl border border-white/12 bg-white/7 p-4"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <p className="text-sm font-semibold text-white">{signal.title}</p>
+                    <Badge
+                      variant="outline"
+                      className={cn(
+                        "border-white/20 px-2 py-0.5 text-[10px] uppercase tracking-wide",
+                        getUrgencyBadgeClass(signal.urgency),
+                      )}
+                    >
+                      {signal.urgency}
+                    </Badge>
+                  </div>
+                  <p className="mt-3 text-xs text-white/70 leading-relaxed">{signal.detail}</p>
+                </div>
+              ))}
+            </div>
+            <div className="rounded-2xl border border-white/12 bg-white/8 p-5 text-sm text-white/75">
+              <p>
+                Sync these opportunities with the investor journey: surface after sign-in, attach licensing requirements, and auto-create reviewer follow-up tasks inside the portal.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const DiscoverExperienceView = ({
   category,
   onSendMessage,
