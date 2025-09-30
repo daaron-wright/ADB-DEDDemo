@@ -453,6 +453,61 @@ export default function ApplicantPortal() {
       filters={filters}
       headerActions={headerActions}
     >
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0d3f43] via-[#0f5f66] to-[#0f766e] p-6 text-white shadow-[0_24px_48px_-32px_rgba(11,64,55,0.35)] sm:p-8">
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.22),transparent_58%),radial-gradient(circle_at_bottom_right,rgba(15,118,110,0.6),rgba(4,32,36,0.2))]"
+          aria-hidden="true"
+        />
+        <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex flex-col gap-5">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <img
+                  src={discoveryGuideAvatar}
+                  alt="Khalid Entrepreneur"
+                  className="h-14 w-14 rounded-2xl border border-white/50 object-cover shadow-[0_14px_28px_-20px_rgba(0,0,0,0.55)]"
+                />
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/70">
+                    Investor Journey
+                  </p>
+                  <p className="text-sm font-semibold text-white">Khalid Entrepreneur</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/60">
+                  AI Discovery
+                </p>
+                <p className="text-sm font-semibold text-white">Research with Business Chat</p>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <h2 className="text-2xl font-semibold leading-snug sm:text-3xl">
+                Your journey, powered by AI
+              </h2>
+              <p className="max-w-xl text-sm leading-relaxed text-white/80">
+                Discover a clear path to research market potential, plan key approvals, and prepare your
+                business case with AI guidance. In just a few stages, explore how Khalid and other investors turn
+                ideas into thriving restaurants across Abu Dhabi.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+            <Link
+              to={discoveryGeneralChatLink}
+              className="inline-flex items-center justify-center rounded-full border border-white/70 px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_-22px_rgba(0,0,0,0.35)] transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+            >
+              Explore more options
+            </Link>
+            <Link
+              to={discoverySetupChatLink}
+              className="inline-flex items-center justify-center rounded-full bg-[#18b4a6] px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_36px_-28px_rgba(0,0,0,0.45)] transition hover:bg-[#139a91] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+            >
+              Set up business
+            </Link>
+          </div>
+        </div>
+      </section>
       <section className="rounded-3xl border border-[#d8e4df] bg-white p-8 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)]">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="space-y-2 text-slate-900">
