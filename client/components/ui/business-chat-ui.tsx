@@ -104,7 +104,7 @@ interface BusinessChatUIProps {
   initialMessage?: string;
 }
 
-type ChatView = "basic" | "investor-journey";
+type ChatView = "basic" | "investor-journey" | "heat-map";
 
 interface ChatThread {
   id: string;
