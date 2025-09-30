@@ -111,6 +111,36 @@ export default function Index() {
     [],
   );
 
+  const chatPromptOptions = useMemo<ChatPromptOption[]>(
+    () => [
+      {
+        id: "market-overview",
+        title: "Understand market demand",
+        prompt: "What are the strongest market signals for launching a restaurant in Abu Dhabi right now?",
+        description: "Get a quick snapshot of demand, customer trends, and emerging concepts.",
+      },
+      {
+        id: "licensing-steps",
+        title: "Map my licensing steps",
+        prompt: "Can you walk me through the key steps and documents needed to set up my restaurant license?",
+        description: "See the end-to-end journey so you know what to prepare first.",
+      },
+      {
+        id: "location-insights",
+        title: "Compare neighbourhoods",
+        prompt: "Which Abu Dhabi districts are the best fit for a premium dining concept and why?",
+        description: "Explore location heat maps and focus areas side by side.",
+      },
+      {
+        id: "financials",
+        title: "Estimate investment requirements",
+        prompt: "What budget range should I plan for to open a mid-sized restaurant, including fit-out and staffing?",
+        description: "Understand the upfront investment and ongoing costs before you commit.",
+      },
+    ],
+    [],
+  );
+
   const queueFocusPoint = (point: { x: number; y: number }) => {
     if (typeof window === "undefined") {
       setFocusPoint(point);
