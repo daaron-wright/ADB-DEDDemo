@@ -447,7 +447,7 @@ export default function Index() {
               Chat with AI
             </button>
             <UAEPassLogin
-              mode="quick"
+              mode="full"
               defaultUserType="applicant"
               trigger={
                 <span className="inline-flex items-center justify-center rounded-full bg-teal-gradient px-6 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
