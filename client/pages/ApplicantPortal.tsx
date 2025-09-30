@@ -23,6 +23,22 @@ interface ApplicationRecord {
   summary: string;
 }
 
+const dateFormatter = new Intl.DateTimeFormat("en-GB", {
+  day: "2-digit",
+  month: "short",
+  year: "numeric",
+});
+
+const formatDisplayDate = (date: Date) => dateFormatter.format(date);
+
+const isoDate = (date: Date) => date.toISOString();
+
+const daysFromToday = (offset: number) => {
+  const result = new Date();
+  result.setDate(result.getDate() + offset);
+  return result;
+};
+
 const applications: ApplicationRecord[] = [
   {
     id: "APP-48291",
@@ -70,22 +86,6 @@ type JourneyStage = {
   state: JourneyHighlightState;
   statusDetail?: string;
   tasks: JourneyTask[];
-};
-
-const dateFormatter = new Intl.DateTimeFormat("en-GB", {
-  day: "2-digit",
-  month: "short",
-  year: "numeric",
-});
-
-const formatDisplayDate = (date: Date) => dateFormatter.format(date);
-
-const isoDate = (date: Date) => date.toISOString();
-
-const daysFromToday = (offset: number) => {
-  const result = new Date();
-  result.setDate(result.getDate() + offset);
-  return result;
 };
 
 const journeyStages: JourneyStage[] = [
