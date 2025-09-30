@@ -337,7 +337,7 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="flex flex-col justify-between h-full"
+              className="space-y-6"
             >
               {/* Ministry Logo */}
               <div>
