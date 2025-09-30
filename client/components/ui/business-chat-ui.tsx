@@ -3883,7 +3883,7 @@ export function BusinessChatUI({
                             "flex-shrink-0 whitespace-nowrap rounded-full border px-2 py-1.5 text-xs font-medium transition-all sm:px-4 sm:py-2 sm:text-sm",
                             activeThreadId === thread.id
                               ? "border-[#169F9F] bg-[#169F9F]/90 text-slate-900 shadow-[0_12px_32px_-18px_rgba(22,159,159,0.45)]"
-                              : "border-slate-300 bg-white/70 text-slate-600 hover:border-[#169F9F]/60 hover:text-slate-900",
+                              : "border-white/30 bg-white/40 text-slate-600 hover:border-[#169F9F]/60 hover:text-slate-900",
                           )}
                         >
                           {thread.title}
