@@ -1887,44 +1887,71 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
   );
 };
 
-const SetupBusinessCTA = ({ onSetup }: { onSetup?: () => void }) => (
+const SetupBusinessCTA = ({ onSetup, onExplore }: { onSetup?: () => void; onExplore?: () => void }) => (
   <div
     className={chatCardClass(
-      "relative w-full max-w-xl overflow-hidden border border-white/45 bg-white/30 backdrop-blur-3xl shadow-[0_35px_80px_-48px_rgba(15,23,42,0.45)]",
-      "rounded-[32px]"
+      "relative w-full max-w-[593px] overflow-hidden border border-black bg-white/14 backdrop-blur-sm",
+      "rounded-[24px]"
     )}
   >
-    <div className="relative h-44 w-full">
+    {/* Header Image Section */}
+    <div className="relative h-[101px] w-full">
       <img
-        src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fde779785c6e84d7a98704dd7126a5e07?format=webp&width=1200"
-        alt="Abu Dhabi investor journey map"
+        src="https://api.builder.io/api/v1/image/assets/TEMP/e427a550c226e9eefd36bf66ddc6123d30377808?width=1186"
+        alt="Abu Dhabi header"
         className="h-full w-full object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/15 to-black/40" />
-      <div className="absolute left-6 top-6 flex items-center gap-3">
-        <img
-          src={ENTREPRENEUR_PROFILE.avatar}
-          alt={ENTREPRENEUR_PROFILE.name}
-          className="h-12 w-12 rounded-full border-2 border-white object-cover"
-        />
-        <div className="text-left">
-          <p className="text-white text-sm font-semibold leading-tight">Investor Journey</p>
-          <p className="text-white/80 text-xs font-medium">{ENTREPRENEUR_PROFILE.name}</p>
+
+      {/* Avatar positioned over header */}
+      <div className="absolute left-[26px] top-[18px] h-[63px] w-[63px]">
+        <div className="h-full w-full rounded-full bg-[#D9D9D9] overflow-hidden">
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/0142e541255ee20520b15f139d595835c00ea132?width=131"
+            alt="Profile avatar"
+            className="h-[66px] w-[66px] object-cover -ml-[1px]"
+          />
+        </div>
+      </div>
+
+      {/* Header Text */}
+      <div className="absolute right-[20px] top-[30px] text-right">
+        <div className="text-black font-bold text-lg leading-[160%] tracking-[0.058px] mb-1">
+          Investor Journey
+        </div>
+        <div className="text-black text-lg leading-[140%] tracking-[0.058px]">
+          <span className="font-bold">Khalid</span> <span className="font-normal">Entrepreneur</span>
         </div>
       </div>
     </div>
 
-    <div className="flex flex-col items-center gap-6 bg-white/85 px-8 pb-8 pt-10 text-center backdrop-blur-2xl">
-      <p className="text-sm font-medium text-slate-600">
-        Launch a tailored setup flow with the exact steps to open your business in Abu Dhabi.
-      </p>
-      <button
-        type="button"
-        onClick={onSetup}
-        className="rounded-full bg-gradient-to-r from-[#0E766E] to-[#0A4A46] px-8 py-3 text-sm font-semibold text-white shadow-[0_24px_52px_-24px_rgba(14,118,110,0.55)] transition-transform duration-200 hover:scale-[1.02] hover:shadow-[0_36px_74px_-30px_rgba(14,118,110,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E766E]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white/40"
-      >
-        Set up business
-      </button>
+    {/* Content Section */}
+    <div className="px-[39px] pt-[20px] pb-[20px]">
+      <div className="mb-6">
+        <h3 className="text-black font-bold text-xl leading-[120%] tracking-[0.051px] mb-2">
+          Your journey, powered by AI
+        </h3>
+        <p className="text-black text-base leading-[120%] tracking-[0.051px] font-normal">
+          Discover a clear path for investors to plan, apply for, and successfully open a restaurant. In just four seamless stages, watch Khalid, an F&B entrepreneur, go from a business idea to a thriving restaurant.
+        </p>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex gap-4 flex-wrap">
+        <button
+          type="button"
+          onClick={onExplore}
+          className="flex h-[47px] items-center justify-center gap-2.5 rounded-[72px] border-2 border-black bg-transparent px-4 text-center text-base font-bold leading-[120%] text-black transition-colors hover:bg-black/5"
+        >
+          Explore more options
+        </button>
+        <button
+          type="button"
+          onClick={onSetup}
+          className="flex h-[47px] items-center justify-center gap-2.5 rounded-[72px] bg-gradient-to-r from-[#169F9F] to-[#083939] px-4 text-center text-base font-bold leading-[120%] text-white transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#169F9F]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white/40"
+        >
+          Set up business
+        </button>
+      </div>
     </div>
   </div>
 );
