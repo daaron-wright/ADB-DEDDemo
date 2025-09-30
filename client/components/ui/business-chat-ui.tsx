@@ -3842,8 +3842,8 @@ export function BusinessChatUI({
               </div>
 
               {/* Chat Container */}
-              <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-87px)] p-2 sm:p-4 lg:p-8">
-                <div className="w-full max-w-6xl mx-auto rounded-2xl sm:rounded-3xl border border-white/15 bg-white/10 backdrop-blur-2xl shadow-[0_45px_85px_-40px_rgba(15,23,42,0.8)]">
+              <div className="relative z-10 flex min-h-[calc(100vh-88px)] items-center justify-center px-3 py-6 sm:px-6 sm:py-8 lg:px-12 lg:py-10">
+                <div className="mx-auto w-full max-w-6xl rounded-[28px] sm:rounded-[32px] border border-white/60 bg-white/75 backdrop-blur-2xl shadow-[0_48px_120px_-52px_rgba(15,23,42,0.45)]">
                   {/* Chat Header with Tabs */}
                   <div className="p-3 sm:p-4 lg:p-6 border-b border-slate-200 bg-white/80 backdrop-blur-xl">
                     <div className="mb-4 flex items-center gap-1 sm:gap-2 -mx-1 sm:-mx-2 overflow-x-auto">
@@ -3898,7 +3898,7 @@ export function BusinessChatUI({
 
                   <div className="px-3 sm:px-4 lg:px-6 pb-4 sm:pb-6 lg:pb-8">
                     <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8">
-                      <div className="flex flex-col rounded-2xl sm:rounded-3xl border border-slate-200 bg-white/80 backdrop-blur-xl p-3 sm:p-4 lg:p-6 min-h-[420px]">
+                      <div className="flex flex-col rounded-[24px] border border-white/60 bg-white/70 backdrop-blur-xl p-3 sm:p-5 lg:p-6 shadow-[0_30px_80px_-55px_rgba(15,23,42,0.4)] min-h-[420px]">
                         <div className="flex-1 overflow-y-auto space-y-3 sm:space-y-4 pr-1 sm:pr-2 lg:pr-3 max-h-[52vh] sm:max-h-[58vh]">
                           {activeThread?.messages.map((message) => {
                             const isJourneyIntro = Boolean(message.hasActions);
@@ -3972,13 +3972,13 @@ export function BusinessChatUI({
                         </div>
 
                         <div className="mt-4 border-t border-slate-200 pt-3 sm:pt-4">
-                          <div className="flex gap-2 sm:gap-3">
+                          <div className="flex items-center gap-2 rounded-[18px] border border-white/60 bg-white/80 p-2 shadow-[0_20px_45px_-32px_rgba(15,23,42,0.35)] sm:gap-3 sm:p-3">
                             <input
                               type="text"
                               value={currentInput}
                               onChange={(e) => setCurrentInput(e.target.value)}
                               placeholder="Ask about market opportunities, competitors, licensing requirements..."
-                              className="flex-1 rounded-xl border border-slate-300 bg-white px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder-slate-400 outline-none transition focus:border-[#54FFD4] focus:bg-white"
+                              className="flex-1 bg-transparent px-2 text-sm text-slate-900 placeholder-slate-400 outline-none transition sm:px-3 sm:text-base"
                               onKeyPress={(e) => {
                                 if (e.key === "Enter" && currentInput.trim()) {
                                   handleSendMessage(currentInput);
@@ -3992,7 +3992,7 @@ export function BusinessChatUI({
                                 }
                               }}
                               disabled={!currentInput.trim()}
-                              className="inline-flex items-center justify-center rounded-xl bg-[#54FFD4] px-4 sm:px-6 py-2.5 sm:py-3 text-sm font-semibold text-slate-900 transition hover:bg-[#42f6c9] disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
+                              className="inline-flex h-10 min-w-[3rem] items-center justify-center rounded-[14px] bg-[#54FFD4] px-4 text-sm font-semibold text-slate-900 transition hover:bg-[#42f6c9] hover:shadow-[0_12px_24px_-12px_rgba(15,23,42,0.4)] disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 sm:h-11 sm:px-6"
                             >
                               <svg
                                 width="20"
