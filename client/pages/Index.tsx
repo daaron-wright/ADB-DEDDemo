@@ -371,8 +371,8 @@ export default function Index() {
         ))}
 
         <motion.div
-        className="pointer-events-none absolute inset-0"
-        animate={{
+          className="pointer-events-none absolute inset-0"
+          animate={{
           background: [
             `radial-gradient(520px circle at ${focusPoint.x}px ${focusPoint.y}px, rgba(152, 103, 255, ${focusIntensity}) 0%, rgba(255, 255, 255, 0.38) 55%, transparent 82%)`,
             `radial-gradient(640px circle at ${focusPoint.x + 260}px ${focusPoint.y - 220}px, rgba(222, 206, 255, ${haloIntensity}) 0%, transparent 78%)`,
@@ -380,11 +380,11 @@ export default function Index() {
           ].join(","),
           opacity: hasCategoryFocus ? 0.92 : 0.7,
         }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
           background:
             "radial-gradient(860px circle at 15% 12%, rgba(233, 225, 255, 0.28), transparent 68%), radial-gradient(720px circle at 80% 18%, rgba(220, 207, 255, 0.22), transparent 72%), radial-gradient(960px circle at 55% 95%, rgba(248, 245, 255, 0.4), transparent 80%)",
         }}
