@@ -3432,32 +3432,6 @@ export function BusinessChatUI({
     handleSendMessage(prompt);
   };
 
-  // Function to handle sending messages
-  const handleSendMessage = (message: string) => {
-    if (!activeThreadId || !message.trim()) return;
-
-    const userMessage: BusinessMessage = {
-      id: `user-${Date.now()}`,
-      content: message.trim(),
-      isAI: false,
-      timestamp: new Date(),
-    };
-
-    const aiResponse: BusinessMessage = {
-      id: `ai-${Date.now()}`,
-      content: generateAIResponse(message.trim()),
-      isAI: true,
-      timestamp: new Date(),
-    };
-
-    updateThread(activeThreadId, {
-      messages: [...(activeThread?.messages || []), userMessage, aiResponse],
-    });
-
-    setCurrentInput("");
-    setShowPreloadedPrompts(false);
-  };
-
   // Simple AI response generator (can be enhanced with actual AI integration)
   const generateAIResponse = (userMessage: string): string => {
     const lowerMessage = userMessage.toLowerCase();
