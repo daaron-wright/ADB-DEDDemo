@@ -4451,7 +4451,7 @@ export function BusinessChatUI({
 
                   <div className="px-3 sm:px-4 lg:px-6 pb-4 sm:pb-6 lg:pb-8">
                     <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8">
-                      <div className={chatCardClass("flex flex-col border border-white/30 bg-white/30 backdrop-blur-[32px] p-3 sm:p-5 lg:p-6 shadow-[0_45px_120px_-70px_rgba(15,23,42,0.35)] min-h-[360px]")}>
+                      <div className={chatCardClass("flex flex-col border border-black/10 bg-white p-4 sm:p-6 lg:p-7 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.2)] min-h-[360px]")}>
                         <div className="flex-1 overflow-y-auto space-y-3 sm:space-y-4 pr-1 sm:pr-2 lg:pr-3 max-h-[52vh] sm:max-h-[58vh]">
                           {messages.map((message) => (
                             <MessageBubble
