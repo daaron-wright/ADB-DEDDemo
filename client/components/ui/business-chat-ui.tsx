@@ -4225,16 +4225,6 @@ export function BusinessChatUI({
     );
 
 
-    conversation.push(
-      buildMessage(
-        "I have created a heat map for the top areas and existing businesses",
-        true,
-        {
-          type: "heat-map",
-          imageUrl: "https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=386",
-        },
-      ),
-    );
 
     conversation.push(buildMessage("Interesting looking at this in a map", false));
 
