@@ -78,8 +78,8 @@ const WORKFLOW_ACTIONS: WorkflowAction[] = [
     ),
   },
   {
-    id: "start-walkthrough",
-    label: "Start walkthrough",
+    id: "expand-graph",
+    label: "Expand graph",
     icon: (
       <svg
         className="h-4 w-4"
@@ -87,7 +87,10 @@ const WORKFLOW_ACTIONS: WorkflowAction[] = [
         fill="none"
         stroke="currentColor"
       >
-        <path d="M5 4h6l1 4-1 4H5l-1-4 1-4Z" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M5 13V3" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M10.5 13V6.5" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M15 13V8" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M5 13h10" strokeWidth="1.6" strokeLinecap="round" />
       </svg>
     ),
   },
