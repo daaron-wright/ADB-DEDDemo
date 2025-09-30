@@ -515,6 +515,12 @@ export default function Index() {
             >
               Chat with AI
             </button>
+            <button
+              onClick={() => navigate('/compilation')}
+              className="bg-gradient-to-b from-[#5B6DDE] to-[#273489] text-white px-5 py-2.5 rounded-full font-semibold text-sm shadow-sm transition-shadow hover:shadow-md"
+            >
+              View Dashboard
+            </button>
             <UAEPassLogin
               mode="quick"
               defaultUserType="applicant"
