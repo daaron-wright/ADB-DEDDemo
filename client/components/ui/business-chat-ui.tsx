@@ -4339,6 +4339,16 @@ export function BusinessChatUI({
             true
           )
         );
+      } else if (mentionsReports) {
+        responses.push(
+          buildMessage(
+            "Generating comprehensive market analysis combining all previous insights. This report synthesizes location data, demographic patterns, budget requirements, and taste preferences into actionable business intelligence.",
+            true,
+            {
+              type: "comprehensive-report",
+            }
+          )
+        );
       } else if (mentionsCorniche) {
         appendHeatMapResponse(
           "Zooming into the Corniche waterfront cluster. Footfall intensity is at 96% for premium dining, highlighted on the heat map now.",
