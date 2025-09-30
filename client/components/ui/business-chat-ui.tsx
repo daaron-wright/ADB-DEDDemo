@@ -36,6 +36,11 @@ interface ChatThread {
   view: ChatView;
 }
 
+const MODAL_MIN_DIMENSIONS: React.CSSProperties = {
+  minWidth: "min(100%, 800px)",
+  minHeight: 556,
+};
+
 // Preloaded prompts for different business categories
 const PRELOADED_PROMPTS = {
   restaurants: [
@@ -361,7 +366,10 @@ const CuisinePopularityBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClo
         className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
         onClick={onClose}
       />
-      <div className="relative z-10 w-full max-w-[1194px] max-h-[90vh] overflow-hidden">
+      <div
+        className="relative z-10 w-full max-w-[1194px] max-h-[90vh] overflow-hidden"
+        style={MODAL_MIN_DIMENSIONS}
+      >
         <div className="relative w-full h-[834px] bg-black shadow-[0_4px_4px_0_rgba(0,0,0,0.25),0_4px_4px_0_rgba(0,0,0,0.25)]">
           {/* Background Overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/30" />
@@ -515,7 +523,10 @@ const CompetitorAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onCl
         className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
         onClick={onClose}
       />
-      <div className="relative z-10 w-full max-w-[1194px] max-h-[90vh] overflow-hidden">
+      <div
+        className="relative z-10 w-full max-w-[1194px] max-h-[90vh] overflow-hidden"
+        style={MODAL_MIN_DIMENSIONS}
+      >
         <div className="relative w-full h-[834px] bg-black shadow-[0_4px_4px_0_rgba(0,0,0,0.25),0_4px_4px_0_rgba(0,0,0,0.25)]">
           {/* Background Overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/30" />
@@ -669,7 +680,10 @@ const GapAnalysisBreakout = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
         className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
         onClick={onClose}
       />
-      <div className="relative z-10 w-full max-w-[1194px] max-h-[90vh] overflow-hidden">
+      <div
+        className="relative z-10 w-full max-w-[1194px] max-h-[90vh] overflow-hidden"
+        style={MODAL_MIN_DIMENSIONS}
+      >
         <div className="relative w-full h-[834px] bg-black shadow-[0_4px_4px_0_rgba(0,0,0,0.25),0_4px_4px_0_rgba(0,0,0,0.25)]">
           {/* Background Overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/30" />
@@ -2449,8 +2463,11 @@ const DiscoverExperienceView = ({
               setHoveredLocation(null);
             }}
           />
-          <div className="relative z-10 w-full max-w-6xl">
-            <div className="max-h-[85vh] overflow-hidden rounded-[32px] border border-[#e2ede8] bg-white shadow-[0_24px_48px_-32px_rgba(11,64,55,0.25)]">
+          <div
+            className="relative z-10 w-full max-w-6xl"
+            style={MODAL_MIN_DIMENSIONS}
+          >
+            <div className="max-h-[85vh] min-h-[556px] overflow-hidden rounded-[32px] border border-[#e2ede8] bg-white shadow-[0_24px_48px_-32px_rgba(11,64,55,0.25)]">
               <div className="border-b border-[#e2ede8] bg-[#f6faf8] px-6 py-7 lg:px-8">
                 <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
                   <div className="flex flex-col gap-5">
