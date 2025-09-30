@@ -2303,6 +2303,12 @@ export function BusinessChatUI({
             onClose={() => setShowBusinessPortal(false)}
           />
         )}
+
+        {/* Budget Ranges Modal */}
+        <BudgetRangesModal
+          isOpen={showBudgetModal}
+          onClose={() => setShowBudgetModal(false)}
+        />
       </AnimatePresence>
     </QueryClientProvider>
   );
