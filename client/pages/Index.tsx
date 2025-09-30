@@ -348,7 +348,7 @@ export default function Index() {
         }}
       >
         {ambientOrbs.map((orb) => (
-        <motion.div
+          <motion.div
           key={orb.id}
           className="pointer-events-none absolute rounded-full"
           style={{
@@ -368,9 +368,9 @@ export default function Index() {
             repeatType: "mirror",
           }}
         />
-      ))}
+        ))}
 
-      <motion.div
+        <motion.div
         className="pointer-events-none absolute inset-0"
         animate={{
           background: [
