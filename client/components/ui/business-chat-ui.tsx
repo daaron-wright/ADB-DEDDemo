@@ -4733,7 +4733,7 @@ export function BusinessChatUI({
                                     }
                                   : undefined
                               }
-                              onHeatMapOpen={openHeatMapModal}
+                              onHeatMapOpen={handleOpenHeatMapBreakout}
                             />
                           ))}
                         </div>
