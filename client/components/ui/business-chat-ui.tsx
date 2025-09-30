@@ -1739,7 +1739,7 @@ const MessageBubble = ({
         <div
           className={cn(
             "whitespace-pre-wrap text-sm leading-relaxed sm:text-base",
-            message.isAI ? "text-slate-900" : "text-[#0c5252] font-semibold",
+            message.isAI ? "text-slate-900" : "text-[#0A4A46] font-semibold",
           )}
         >
           {message.content}
@@ -1754,7 +1754,7 @@ const MessageBubble = ({
         {shouldShowBudgetButton && onActionClick && (
           <button
             onClick={() => onActionClick("budget-ranges")}
-            className="inline-flex items-center gap-2 rounded-full border border-[#0E766E]/40 bg-white/40 px-3 py-2 text-sm font-semibold text-[#0c5252] shadow-sm backdrop-blur-xl transition hover:bg-white/60 hover:text-[#094646] sm:px-4"
+            className="inline-flex items-center gap-2 rounded-full border border-[#0E766E]/40 bg-white/40 px-3 py-2 text-sm font-semibold text-[#0A4A46] shadow-sm backdrop-blur-xl transition hover:bg-white/60 hover:text-[#073F3B] sm:px-4"
           >
             <div className="flex h-6 w-6 items-center justify-center sm:h-8 sm:w-8">
               <svg
@@ -1973,7 +1973,7 @@ const BudgetRangesModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                     <ul className="space-y-1">
                       {budget.includes.map((item, i) => (
                         <li key={i} className="flex items-center gap-2 text-sm text-slate-700">
-                          <span className="h-1.5 w-1.5 rounded-full bg-[#0f766e]"></span>
+                          <span className="h-1.5 w-1.5 rounded-full bg-[#0E766E]"></span>
                           {item}
                         </li>
                       ))}
@@ -2699,8 +2699,8 @@ const DiscoverExperienceView = ({
                           className={cn(
                             "rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] transition",
                             mapViewMode === mode
-                              ? "bg-[#0f766e] text-white shadow-[0_12px_24px_-18px_rgba(15,118,110,0.45)]"
-                              : "text-slate-600 hover:text-[#0f766e]",
+                              ? "bg-[#0E766E] text-white shadow-[0_12px_24px_-18px_rgba(14,118,110,0.45)]"
+                              : "text-slate-600 hover:text-[#0E766E]",
                           )}
                         >
                           {mode === "heatmap" ? "Map view" : "Timeline"}
@@ -3021,7 +3021,7 @@ const DiscoverExperienceView = ({
 
                         <div className="pointer-events-none absolute inset-x-6 bottom-5 flex flex-wrap items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500">
                           <span className="flex items-center gap-2">
-                            <span className="h-2 w-8 rounded-full bg-[#0f766e]" />
+                            <span className="h-2 w-8 rounded-full bg-[#0E766E]" />
                             High density
                           </span>
                           <span className="flex items-center gap-2">
@@ -3037,19 +3037,19 @@ const DiscoverExperienceView = ({
                       <div className="mt-5 flex flex-wrap items-center gap-3">
                         <button
                           type="button"
-                          className="rounded-full bg-[#0f766e] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-white shadow-[0_16px_30px_-22px_rgba(15,118,110,0.5)] transition hover:bg-[#0c5f58]"
+                          className="rounded-full bg-[#0E766E] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-white shadow-[0_16px_30px_-22px_rgba(15,118,110,0.5)] transition hover:bg-[#0c5f58]"
                         >
                           Export insights
                         </button>
                         <button
                           type="button"
-                          className="rounded-full border border-[#0f766e] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e] transition hover:bg-[#0f766e]/10"
+                          className="rounded-full border border-[#0f766e] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e] transition hover:bg-[#0E766E]/10"
                         >
                           Download CSV
                         </button>
                         <button
                           type="button"
-                          className="rounded-full border border-[#dbe9e3] bg-white px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-600 transition hover:text-[#0f766e]"
+                          className="rounded-full border border-[#dbe9e3] bg-white px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-600 transition hover:text-[#0E766E]"
                         >
                           Share view
                         </button>
@@ -3247,19 +3247,19 @@ const DiscoverExperienceView = ({
                     <div className="flex flex-wrap items-center gap-3 pt-2">
                       <button
                         type="button"
-                        className="rounded-full bg-[#0f766e] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-white shadow-[0_16px_30px_-22px_rgba(15,118,110,0.5)] transition hover:bg-[#0c5f58]"
+                        className="rounded-full bg-[#0E766E] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-white shadow-[0_16px_30px_-22px_rgba(15,118,110,0.5)] transition hover:bg-[#0c5f58]"
                       >
                         Export timeline
                       </button>
                       <button
                         type="button"
-                        className="rounded-full border border-[#0f766e] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e] transition hover:bg-[#0f766e]/10"
+                        className="rounded-full border border-[#0f766e] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e] transition hover:bg-[#0E766E]/10"
                       >
                         Download CSV
                       </button>
                       <button
                         type="button"
-                        className="rounded-full border border-[#dbe9e3] bg-white px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-600 transition hover:text-[#0f766e]"
+                        className="rounded-full border border-[#dbe9e3] bg-white px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-600 transition hover:text-[#0E766E]"
                       >
                         Share view
                       </button>
