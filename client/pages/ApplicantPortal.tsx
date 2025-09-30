@@ -462,15 +462,15 @@ export default function ApplicantPortal() {
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <img
-                  src={discoveryGuideAvatar}
-                  alt="Khalid Entrepreneur"
+                  src={ENTREPRENEUR_PROFILE.avatar}
+                  alt={ENTREPRENEUR_PROFILE.name}
                   className="h-14 w-14 rounded-2xl border border-white/50 object-cover shadow-[0_14px_28px_-20px_rgba(0,0,0,0.55)]"
                 />
                 <div>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/70">
                     Investor Journey
                   </p>
-                  <p className="text-sm font-semibold text-white">Khalid Entrepreneur</p>
+                  <p className="text-sm font-semibold text-white">{ENTREPRENEUR_PROFILE.name}</p>
                 </div>
               </div>
               <div className="text-right">
