@@ -4174,6 +4174,25 @@ export function BusinessChatUI({
                       );
                     })}
 
+                    {/* Show analysis cards */}
+                    {showCuisineCard && (
+                      <div className="flex justify-start">
+                        <CuisinePopularityCard className="max-w-lg" />
+                      </div>
+                    )}
+
+                    {showCompetitorCard && (
+                      <div className="flex justify-start">
+                        <CompetitorAnalysisCard className="max-w-lg" />
+                      </div>
+                    )}
+
+                    {showGapAnalysisCard && (
+                      <div className="flex justify-start">
+                        <GapAnalysisCard className="max-w-lg" />
+                      </div>
+                    )}
+
                     {/* Show investor journey card after the last AI message */}
                     {isLoggedIn &&
                       activeThread?.view === "journey" &&
