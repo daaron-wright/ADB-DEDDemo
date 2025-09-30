@@ -30,6 +30,7 @@ type BusinessMessageType =
   | "heat-map"
   | "property-cards"
   | "setup-cta"
+  | "dialogue-doc"
   | "cuisine-analysis"
   | "competitor-analysis"
   | "demographics"
@@ -44,6 +45,31 @@ interface BusinessMessage {
   hasActions?: boolean;
   type?: BusinessMessageType;
   actions?: MessageAction[];
+  docId?: string;
+  docTitle?: string;
+}
+
+interface DialogueDocHighlight {
+  id: string;
+  text: string;
+  completed: boolean;
+}
+
+interface DialogueDocState {
+  notes: string;
+  highlights: DialogueDocHighlight[];
+}
+
+interface DialogueDocProps {
+  title: string;
+  summary: string;
+  notes: string;
+  highlights: DialogueDocHighlight[];
+  onNotesChange: (value: string) => void;
+  onToggleHighlight: (id: string) => void;
+  onHighlightChange: (id: string, value: string) => void;
+  onHighlightRemove: (id: string) => void;
+  onAddHighlight: (value: string) => void;
 }
 
 interface BusinessChatUIProps {
