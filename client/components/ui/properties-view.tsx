@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 
 interface PropertiesViewProps {
   isOpen: boolean;
@@ -130,10 +131,10 @@ const ChatInterface = () => {
         {/* AI Business Header */}
         <div className="flex items-center gap-2 mb-4">
           <img
-            src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-            alt="AI Assistant"
-            className="w-16 h-16 rounded-full border border-[#54FFD4] object-cover"
-          />
+          src={AI_ASSISTANT_PROFILE.avatar}
+          alt={AI_ASSISTANT_PROFILE.name}
+          className="w-16 h-16 rounded-full border border-[#54FFD4] object-cover"
+        />
           <div className="flex-1">
             <h3 className="text-white text-lg font-bold">AI Business</h3>
           </div>
