@@ -42,7 +42,8 @@ type BusinessMessageType =
   | "competitor-analysis"
   | "demographics"
   | "location-analysis"
-  | "budget-ranges";
+  | "budget-ranges"
+  | "comprehensive-report";
 
 interface BusinessMessage {
   id: string;
