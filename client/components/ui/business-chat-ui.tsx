@@ -2178,13 +2178,17 @@ const SetupBusinessCTA = ({ onSetup, onExplore }: { onSetup?: () => void; onExpl
 const CHAT_ACTION_BUTTON_CLASSES =
   "inline-flex items-center gap-2 rounded-full bg-[#0E766E] px-4 py-2 text-sm font-semibold text-white shadow-[0_16px_30px_-18px_rgba(14,118,110,0.45)] transition hover:bg-[#0a5a55]";
 
+interface MessageBubbleProps {
+  message: BusinessMessage;
+  onActionClick?: (action: ConversationAction, label: string) => void;
+  dialogueDocProps?: DialogueDocProps;
+}
+
 const MessageBubble = ({
   message,
   onActionClick,
-}: {
-  message: BusinessMessage;
-  onActionClick?: (action: ConversationAction, label: string) => void;
-}) => {
+  dialogueDocProps,
+}: MessageBubbleProps) => {
   const bubbleContainerClasses = message.isAI
     ? "bg-white/90 border border-slate-200 text-slate-900 shadow-[0_22px_48px_-28px_rgba(15,23,42,0.45)]"
     : "bg-[#0E766E]/15 border border-[#0E766E]/35 text-[#043A36] shadow-[0_20px_44px_-28px_rgba(14,118,110,0.55)]";
