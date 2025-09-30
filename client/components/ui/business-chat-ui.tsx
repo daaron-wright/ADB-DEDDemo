@@ -3434,293 +3434,55 @@ export function BusinessChatUI({
   }, [isOpen, category, initialMessage]);
 
 
-  const activeThread = threads.find((t) => t.id === activeThreadId);
+  const handleAction = useCallback(
+    (action: ConversationAction, label: string) => {
+      setMessages((prev) => {
+        if (prev.length === 0) {
+          return prev;
+        }
 
-  const updateThread = (
-    threadId: string,
-    updates: Partial<Omit<ChatThread, "id">>,
-  ) => {
-    setThreads(
-      threads.map((t) => (t.id === threadId ? { ...t, ...updates } : t)),
-    );
-  };
+        const withoutActions = prev.map((message, index) =>
+          index === prev.length - 1 ? { ...message, actions: undefined } : message,
+        );
 
-  const handleSetupBusiness = () => {
-    if (activeThreadId) {
-      updateThread(activeThreadId, { view: "investor-journey" });
-    }
-  };
+        const updated = [...withoutActions, buildMessage(label, false)];
 
-  const handleNewTab = () => {
-    const isExtendedFlow = threads.length % 2 === 1;
+        if (action === "show-summary" && currentStep === "intro") {
+          setCurrentStep("summary");
+          return [...updated, buildStepMessage("summary")];
+        }
 
-    let newThread: ChatThread;
+        if (action === "open-investor-journey" && currentStep !== "handoff") {
+          setCurrentStep("handoff");
+          setView("investor-journey");
+          return [...updated, buildStepMessage("handoff")];
+        }
 
-    if (isExtendedFlow) {
-      newThread = {
-        id: `thread-${Date.now()}-${Math.random()}`,
-        title: "Detailed Restaurant Analysis",
-        messages: [
-          {
-            id: "user-detailed-cost-question",
-            content:
-              "What would the set up and running costs be to open a F&B Restaurant, with 300 covers?",
-            isAI: false,
-            timestamp: new Date(),
-          },
-          {
-            id: "ai-detailed-cost-response",
-            content:
-              "Estimated set up costs could range from: Rough Estimate for Total Set-Up Costs: AED 6,500,000 to AED 14,000,000+ Average monthly running costs: AED 545,000 to AED 1,355,000+ all depending on location, level of service offering, staffing and finishing. Here is a breakdown of the estimated set up and national average running costs",
-            isAI: true,
-            timestamp: new Date(),
-          },
-          {
-            id: "user-demographic-question-2",
-            content:
-              "Can you give me any demographic data you have for this area.",
-            isAI: false,
-            timestamp: new Date(),
-          },
-          {
-            id: "ai-demographic-response-2",
-            content:
-              "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers:\nYas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10).\nAl Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10).\nSaadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10).\nAl Reem Island – 30k residents, 35k daytime; dense community market (7/10).\nAl Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10).\nCorniche �� ~20k daily leisure visitors; scenic high-traffic zone (8/10).\nAl Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).",
-            isAI: true,
-            timestamp: new Date(),
-          },
-          {
-            id: "user-corniche-question",
-            content: "Great can you give me more details on The Corniche",
-            isAI: false,
-            timestamp: new Date(),
-          },
-          {
-            id: "ai-corniche-response",
-            content:
-              "The Corniche is a popular choice due to its high foot traffic and scenic views. It attracts both tourists and locals, especially during the cooler months. The area is known for its diverse range of dining options, from casual cafes to upscale restaurants, catering to a wide range of tastes and budgets.",
-            isAI: true,
-            timestamp: new Date(),
-          },
-        ],
-        view: "basic",
-      };
-    } else {
-      newThread = {
-        id: `thread-${Date.now()}-${Math.random()}`,
-        title: "Cost & Demographics",
-        messages: [
-          {
-            id: "user-cost-question",
-            content: "How much would it cost to open a restaurant",
-            isAI: false,
-            timestamp: new Date(),
-          },
-          {
-            id: "ai-cost-response",
-            content:
-              "Estimated set up costs could range from: There isn't a single fixed price, but rather a range that can vary from approximately AED 10,000 to AED 30,000 for the trade license itself. Type of License: The cost can differ based on the type of license you get. A Tajer/e-commerce license that don't allow full restaurant operations start at AED 790.",
-            isAI: true,
-            timestamp: new Date(),
-          },
-          {
-            id: "user-demographic-question",
-            content:
-              "Can you give me any demographic data you have for this area.",
-            isAI: false,
-            timestamp: new Date(),
-          },
-          {
-            id: "ai-demographic-response",
-            content:
-              "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers:\nYas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10).\nAl Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10).\nSaadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10).\nAl Reem Island – 30k residents, 35k daytime; dense community market (7/10).\nAl Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10).\nCorniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10).\nAl Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).",
-            isAI: true,
-            timestamp: new Date(),
-          },
-        ],
-        view: "basic",
-      };
-    }
+        return updated;
+      });
+    },
+    [buildMessage, buildStepMessage, currentStep],
+  );
 
-    setThreads([...threads, newThread]);
-    setActiveThreadId(newThread.id);
-    toast({
-      title: "New conversation ready",
-      description: `${newThread.title} is now active with curated prompts and insights.`,
-    });
-  };
-
-  const handleSendMessage = (message: string) => {
-    if (!activeThreadId || !message.trim()) return;
-
-    // Trim the message for consistency
-    const trimmedMessage = message.trim();
-
-    const lowerMessage = trimmedMessage.toLowerCase();
-
-    // Check if this should trigger the Corniche detail view
-    if (lowerMessage.includes("corniche") || lowerMessage.includes("cornich")) {
-      createCorniceDetailThread(trimmedMessage);
+  useEffect(() => {
+    if (!isOpen) {
       return;
     }
 
-    const userMessage: BusinessMessage = {
-      id: `user-${Date.now()}`,
-      content: trimmedMessage,
-      isAI: false,
-      timestamp: new Date(),
-      type: "text",
-    };
-
-    const activeThread = threads.find((t) => t.id === activeThreadId);
-
-    const aiResponse: BusinessMessage = {
-      id: `ai-${Date.now()}`,
-      content: generateAIResponse(trimmedMessage),
-      isAI: true,
-      timestamp: new Date(),
-      type: "text",
-    };
-
-    if (activeThread) {
-      const updatedMessages = [
-        ...activeThread.messages,
-        userMessage,
-        aiResponse,
-      ];
-      updateThread(activeThreadId, { messages: updatedMessages });
-    }
-
-    // Clear input and hide preloaded prompts after sending message
-    setCurrentInput("");
-    setShowPreloadedPrompts(false);
-  };
-
-  const createCorniceDetailThread = (userMessage: string) => {
-    const newThread: ChatThread = {
-      id: `corniche-detail-${Date.now()}`,
-      title: "Corniche Area Analysis",
-      messages: [
-        {
-          id: `user-${Date.now()}`,
-          content: "What would the set up and running costs be to open a F&B Restaurant, with 300 covers?",
-          isAI: false,
-          timestamp: new Date(),
-        },
-        {
-          id: `ai-${Date.now()}-1`,
-          content: "Estimated set up costs could range from: Rough Estimate for Total Set-Up Costs: AED 6,500,000 to AED 14,000,000+ Average monthly running costs: AED 545,000 to AED 1,355,000+ all depending on location, level of service offering, staffing and finishing. Here is a breakdown of the estimated set up and national average running costs",
-          isAI: true,
-          timestamp: new Date(),
-        },
-        {
-          id: `user-${Date.now()}-2`,
-          content: "Can you give me any demographic data you have for this area.",
-          isAI: false,
-          timestamp: new Date(),
-        },
-        {
-          id: `ai-${Date.now()}-3`,
-          content: "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers:\nYas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10).\nAl Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10).\nSaadiyat Island �� 5k residents, 15k visitors; cultural/tourist draw (6/10).\nAl Reem Island – 30k residents, 35k daytime; dense community market (7/10).\nAl Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10).\nCorniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10).\nAl Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).",
-          isAI: true,
-          timestamp: new Date(),
-          type: "corniche-detail",
-        },
-        {
-          id: `user-${Date.now()}-4`,
-          content: "Great can you give me more details on The Corniche",
-          isAI: false,
-          timestamp: new Date(),
-        },
-        {
-          id: `ai-${Date.now()}-5`,
-          content: "The Corniche is a popular choice due to its high foot traffic and scenic views. It attracts both tourists and locals, especially during the cooler months. The area is known for its diverse range of dining options, from casual cafes to upscale restaurants, catering to a wide range of tastes and budgets.",
-          isAI: true,
-          timestamp: new Date(),
-        },
-      ],
-      view: "basic",
-    };
-    setThreads([...threads, newThread]);
-    setActiveThreadId(newThread.id);
-  };
-
-  const generateAIResponse = (userMessage: string): string => {
-    const lowerMessage = userMessage.toLowerCase();
-
-    // Check for competitor-related queries and show competitor card
-    if (lowerMessage.includes('competitor') || lowerMessage.includes('competition')) {
-      setShowCompetitorCard(true);
-      return "I've analyzed the competitive landscape for restaurants in Abu Dhabi. Based on our research, here are the top competitors and market positioning insights. You can view the detailed analysis in the card below.";
-    }
-
-    // Check for cuisine-related queries and show cuisine card
-    if (lowerMessage.includes('cuisine') || lowerMessage.includes('popular') || lowerMessage.includes('food')) {
-      openBreakout("cuisine", { withToast: false });
-      return "Here's a comprehensive analysis of cuisine popularity in Abu Dhabi. Middle Eastern cuisine leads with 35% market share, followed by American and Indian cuisines. See the detailed breakdown in the analysis card.";
-    }
-
-    // Check for gap analysis queries and show gap analysis card
-    if (lowerMessage.includes('gap') || lowerMessage.includes('opportunity')) {
-      setShowGapAnalysisCard(true);
-      return "I've identified several market gaps and opportunities in Abu Dhabi, particularly in the Corniche area. There's strong potential for Emirati fusion cuisine and formal evening dining experiences. Check out the detailed gap analysis below.";
-    }
-
-    if (
-      lowerMessage.includes("corniche") &&
-      (lowerMessage.includes("details") || lowerMessage.includes("more"))
-    ) {
-      return "The Corniche is a popular choice due to its high foot traffic and scenic views. It attracts both tourists and locals, especially during the cooler months. The area is known for its diverse range of dining options, from casual cafes to upscale restaurants, catering to a wide range of tastes and budgets.";
-    }
-
-    if (lowerMessage.includes("corniche") || lowerMessage.includes("cornich")) {
-      setShowGapAnalysisCard(true);
-      return "Abu Dhabi's Corniche is one of the most prestigious dining locations with ~20k daily leisure visitors and a scenic high-traffic zone rating of 8/10. The area attracts both tourists and locals, making it ideal for upscale restaurants. You can see detailed gap analysis and opportunities for this area in the card below.";
-    }
-
-    if (
-      lowerMessage.includes("reports") ||
-      lowerMessage.includes("deeper") ||
-      lowerMessage.includes("generate")
-    ) {
-      return "I can generate detailed reports covering market analysis, competitor landscape, foot traffic patterns, seasonal variations, target demographics, pricing strategies, and location-specific recommendations for each area. What specific type of report would you like me to focus on?";
-    }
-
-    if (
-      lowerMessage.includes("300 covers") ||
-      lowerMessage.includes("f&b restaurant")
-    ) {
-      return "Estimated set up costs could range from: Rough Estimate for Total Set-Up Costs: AED 6,500,000 to AED 14,000,000+ Average monthly running costs: AED 545,000 to AED 1,355,000+ all depending on location, level of service offering, staffing and finishing. Here is a breakdown of the estimated set up and national average running costs";
-    }
-
-    if (
-      lowerMessage.includes("cost") ||
-      lowerMessage.includes("price") ||
-      lowerMessage.includes("budget")
-    ) {
-      return "Estimated set up costs could range from: There isn't a single fixed price, but rather a range that can vary from approximately AED 10,000 to AED 30,000 for the trade license itself. Type of License: The cost can differ based on the type of license you get. A Tajer/e-commerce license that don't allow full restaurant operations start at AED 790.";
-    }
-
-    if (
-      lowerMessage.includes("demographic") ||
-      lowerMessage.includes("target") ||
-      lowerMessage.includes("market")
-    ) {
-      return "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).";
-    }
-
-    return "I can help you with restaurant licensing, location analysis, cost estimates, and demographic data for Abu Dhabi. What specific information would you like to know?";
-  };
+    setView("basic");
+    setCurrentStep("intro");
+    setMessages([buildStepMessage("intro")]);
+  }, [isOpen, buildStepMessage]);
 
   if (!isOpen) return null;
 
   const backgroundImage =
-    activeThread?.view === "discover-experience"
+    view === "discover-experience"
       ? DISCOVER_EXPERIENCE_BACKGROUND
       : getCategoryBackground(category);
   const categoryName = getCategoryName(category);
   const headerTitle =
-    activeThread?.view === "discover-experience"
+    view === "discover-experience"
       ? `Your Investment Journey for ${categoryName}`
       : getCategoryTitle(category);
 
