@@ -4211,8 +4211,25 @@ export function BusinessChatUI({
         lower.includes("heatmap") ||
         (lower.includes("map") && (lower.includes("existing") || lower.includes("establishment")));
       const mentionsCorniche = lower.includes("cornich");
+      const mentionsCost =
+        lower.includes("cost") ||
+        lower.includes("price") ||
+        lower.includes("budget") ||
+        lower.includes("how much") ||
+        (lower.includes("money") && lower.includes("open")) ||
+        (lower.includes("expensive") || lower.includes("cheap"));
 
-      if (mentionsCorniche) {
+      if (mentionsCost) {
+        responses.push(
+          buildMessage(
+            "Estimated set up costs could range from: There isn't a single fixed price, but rather a range that can vary from approximately AED 10,000 to AED 30,000 for the trade license itself. Type of License: The cost can differ based on the type of license you get. A Tajer/e-commerce license that don't allow full restaurant operations start at AED 790.",
+            true,
+            {
+              type: "budget-ranges",
+            }
+          )
+        );
+      } else if (mentionsCorniche) {
         appendHeatMapResponse(
           "Zooming into the Corniche waterfront cluster. Footfall intensity is at 96% for premium dining, highlighted on the heat map now.",
         );
