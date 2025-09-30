@@ -53,7 +53,8 @@ const INITIAL_MESSAGES: SimpleChatMessage[] = [
     content: "I have created a heat map for the top areas and existing businesses",
     isAI: true,
     timestamp: new Date(),
-    type: "text",
+    type: "heat-map",
+    imageUrl: "https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=386",
   },
   {
     id: "user-3",
