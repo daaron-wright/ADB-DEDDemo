@@ -260,6 +260,12 @@ export default function Index() {
       applyFocusPoint();
     }
 
+    // Open BusinessChatUI directly
+    setChatState({
+      isOpen: true,
+      category: categoryId,
+      initialMessage: null,
+    });
   };
 
   const handleCloseChat = () => {
