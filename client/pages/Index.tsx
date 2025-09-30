@@ -593,6 +593,10 @@ export default function Index() {
       </div>
 
       {/* Business Chat UI */}
+      {chatState.isOpen && (
+        <div className="pointer-events-none fixed inset-0 z-40 bg-black/10 backdrop-blur-xl transition-opacity duration-300" />
+      )}
+
       <BusinessChatUI
         isOpen={chatState.isOpen}
         onClose={handleCloseChat}
