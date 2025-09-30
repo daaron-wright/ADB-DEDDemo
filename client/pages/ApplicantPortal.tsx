@@ -338,12 +338,6 @@ const taskStatusTokens: Record<
   },
 };
 
-const dateFormatter = new Intl.DateTimeFormat("en-GB", {
-  day: "2-digit",
-  month: "short",
-  year: "numeric",
-});
-
 export default function ApplicantPortal() {
   const location = useLocation();
   const portalUser = (
