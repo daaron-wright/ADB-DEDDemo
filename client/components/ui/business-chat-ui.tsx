@@ -2639,11 +2639,12 @@ export function BusinessChatUI({
                     {/* Back button */}
                     <button
                       onClick={onClose}
-                      className="w-11 h-11 rounded-full border border-black/18 bg-transparent flex items-center justify-center hover:bg-black/5 transition-colors"
+                      className="w-8 h-8 sm:w-10 sm:h-10 lg:w-11 lg:h-11 rounded-full border border-black/18 bg-transparent flex items-center justify-center hover:bg-black/5 transition-colors"
                     >
                       <svg
-                        width="24"
-                        height="24"
+                        width="18"
+                        height="18"
+                        className="sm:w-5 sm:h-5 lg:w-6 lg:h-6"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
