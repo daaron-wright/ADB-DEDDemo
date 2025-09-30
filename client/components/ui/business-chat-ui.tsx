@@ -3721,7 +3721,7 @@ export function BusinessChatUI({
                 backgroundPosition: "center",
               }}
             >
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(84,255,212,0.18),transparent_55%)]" />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(22,159,159,0.18),transparent_55%)]" />
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(79,70,229,0.08),transparent_60%)]" />
 
 
@@ -3882,7 +3882,7 @@ export function BusinessChatUI({
                           className={cn(
                             "flex-shrink-0 whitespace-nowrap rounded-full border px-2 py-1.5 text-xs font-medium transition-all sm:px-4 sm:py-2 sm:text-sm",
                             activeThreadId === thread.id
-                              ? "border-[#169F9F] bg-[#169F9F]/90 text-slate-900 shadow-[0_12px_32px_-18px_rgba(84,255,212,0.6)]"
+                              ? "border-[#169F9F] bg-[#169F9F]/90 text-slate-900 shadow-[0_12px_32px_-18px_rgba(22,159,159,0.45)]"
                               : "border-slate-300 bg-white/70 text-slate-600 hover:border-[#169F9F]/60 hover:text-slate-900",
                           )}
                         >
