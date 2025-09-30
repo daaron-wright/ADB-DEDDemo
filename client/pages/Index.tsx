@@ -374,10 +374,10 @@ export default function Index() {
           className="pointer-events-none absolute inset-0"
           animate={{
             background: [
-            `radial-gradient(520px circle at ${focusPoint.x}px ${focusPoint.y}px, rgba(152, 103, 255, ${focusIntensity}) 0%, rgba(255, 255, 255, 0.38) 55%, transparent 82%)`,
-            `radial-gradient(640px circle at ${focusPoint.x + 260}px ${focusPoint.y - 220}px, rgba(222, 206, 255, ${haloIntensity}) 0%, transparent 78%)`,
-            `radial-gradient(700px circle at ${focusPoint.x - 280}px ${focusPoint.y + 240}px, rgba(237, 233, 255, ${haloIntensity * 0.9}) 0%, transparent 84%)`,
-          ].join(","),
+              `radial-gradient(520px circle at ${focusPoint.x}px ${focusPoint.y}px, rgba(152, 103, 255, ${focusIntensity}) 0%, rgba(255, 255, 255, 0.38) 55%, transparent 82%)`,
+              `radial-gradient(640px circle at ${focusPoint.x + 260}px ${focusPoint.y - 220}px, rgba(222, 206, 255, ${haloIntensity}) 0%, transparent 78%)`,
+              `radial-gradient(700px circle at ${focusPoint.x - 280}px ${focusPoint.y + 240}px, rgba(237, 233, 255, ${haloIntensity * 0.9}) 0%, transparent 84%)`,
+            ].join(","),
             opacity: hasCategoryFocus ? 0.92 : 0.7,
           }}
           transition={{ duration: 0.7, ease: "easeOut" }}
