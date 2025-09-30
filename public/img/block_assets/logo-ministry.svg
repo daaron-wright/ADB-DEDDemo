@@ -1,0 +1,13 @@
+<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="60" rx="8" fill="#0F766E"/>
+  <text x="100" y="25" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">
+    MINISTRY OF
+  </text>
+  <text x="100" y="42" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">
+    ECONOMY
+  </text>
+  <circle cx="25" cy="30" r="12" stroke="white" stroke-width="2" fill="none"/>
+  <circle cx="175" cy="30" r="12" stroke="white" stroke-width="2" fill="none"/>
+  <path d="M19 30L23 34L31 26" stroke="white" stroke-width="2" fill="none"/>
+  <path d="M169 30L173 34L181 26" stroke="white" stroke-width="2" fill="none"/>
+</svg>
