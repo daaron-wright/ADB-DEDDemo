@@ -223,7 +223,7 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
               <div className="text-xs text-slate-600">Market gaps</div>
             </div>
             <div>
-              <div className="text-lg font-bold text-blue-600">4.5★</div>
+              <div className="text-lg font-bold text-blue-600">4.5���</div>
               <div className="text-xs text-slate-600">Avg rating</div>
             </div>
             <div>
@@ -3669,8 +3669,8 @@ export function BusinessChatUI({
                           className={cn(
                             "px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium border-b-2 transition-all whitespace-nowrap flex-shrink-0",
                             activeThreadId === thread.id
-                              ? "border-white text-white"
-                              : "border-transparent text-white/60 hover:text-white hover:border-white/30",
+                              ? "border-[#54FFD4] text-white bg-slate-800/50"
+                              : "border-transparent text-slate-300 hover:text-white hover:border-slate-400/50 hover:bg-slate-800/30",
                           )}
                         >
                           {thread.title}
