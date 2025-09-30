@@ -4226,7 +4226,6 @@ export function BusinessChatUI({
 
 
 
-    conversation.push(buildMessage("Interesting looking at this in a map", false));
 
     conversation.push(buildMessage("How much would it cost to open a restaurant", false));
 
