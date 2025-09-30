@@ -3722,6 +3722,10 @@ export function BusinessChatUI({
       ];
       updateThread(activeThreadId, { messages: updatedMessages });
     }
+
+    // Clear input and hide preloaded prompts after sending message
+    setCurrentInput("");
+    setShowPreloadedPrompts(false);
   };
 
   const createCorniceDetailThread = (userMessage: string) => {
