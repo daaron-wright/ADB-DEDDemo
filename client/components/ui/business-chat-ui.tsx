@@ -2722,7 +2722,7 @@ const DiscoverExperienceView = ({
 
               <div className="px-6 py-6 lg:px-8 lg:py-7 space-y-6">
                 {mapViewMode === "heatmap" ? (
-                  <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
+                  <div className="grid gap-6 lg:grid-cols-2">
                     <div className="relative flex h-full flex-col gap-5 rounded-[26px] border border-[#dbe9e3] bg-white p-6 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]">
                       <div className="relative flex-1 overflow-hidden rounded-[24px] border border-[#dbe9e3] bg-white">
                         <img
