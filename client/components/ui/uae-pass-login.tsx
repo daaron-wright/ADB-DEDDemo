@@ -37,7 +37,37 @@ const createMockUserData = (type: "applicant" | "reviewer") => ({
   ...MOCK_USER_PROFILES[type],
 });
 
+const USER_TYPE_DETAILS: Record<"applicant" | "reviewer", {
+  label: string;
+  description: string;
+  secondary: string;
+  accent: string;
+  gradientFrom: string;
+  gradientTo: string;
+  badge: string;
+}> = {
+  applicant: {
+    label: "Business applicant",
+    description: "Start a new license, renew an existing one, and manage submissions for your venture.",
+    secondary: "Ideal for entrepreneurs and business owners",
+    accent: "#0f766e",
+    gradientFrom: "from-emerald-500/15",
+    gradientTo: "to-teal-500/10",
+    badge: "BA",
+  },
+  reviewer: {
+    label: "License reviewer",
+    description: "Monitor application queues, collaborate with teams, and approve or return submissions.",
+    secondary: "For municipal officers and reviewers",
+    accent: "#2563eb",
+    gradientFrom: "from-blue-500/15",
+    gradientTo: "to-sky-500/10",
+    badge: "LR",
+  },
+};
+
 export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
+  trigger,
   trigger,
   onLogin,
   onClose,
