@@ -2473,7 +2473,7 @@ const MessageBubble = ({
                 <button
                   type="button"
                   onClick={onHeatMapOpen}
-                  className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-[#0E766E] shadow-sm ring-1 ring-[#0E766E]/15 transition hover:bg-white"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/35 px-4 py-2 text-sm font-semibold text-[#0E766E] shadow-sm backdrop-blur-xl transition hover:bg-white/55"
                 >
                   <MapIcon className="h-4 w-4" aria-hidden="true" />
                   <span>Open interactive heat map</span>
