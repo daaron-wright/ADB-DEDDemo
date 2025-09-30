@@ -4498,6 +4498,18 @@ export function BusinessChatUI({
           isOpen={showBudgetModal}
           onClose={() => setShowBudgetModal(false)}
         />
+        <CuisinePopularityBreakout
+          isOpen={isCuisineBreakoutOpen}
+          onClose={() => setCuisineBreakoutOpen(false)}
+        />
+        <CompetitorBreakoutModal
+          isOpen={isCompetitorBreakoutOpen}
+          onClose={() => setCompetitorBreakoutOpen(false)}
+        />
+        <GapBreakoutModal
+          isOpen={isGapBreakoutOpen}
+          onClose={() => setGapBreakoutOpen(false)}
+        />
 
       </AnimatePresence>
     </QueryClientProvider>
