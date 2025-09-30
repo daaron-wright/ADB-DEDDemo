@@ -1318,7 +1318,7 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="bg-white/14 backdrop-blur-md rounded-3xl p-8 h-full"
+            className={chatCardClass("bg-white/14 backdrop-blur-md p-8 h-full")}
           >
             <h2 className="text-white text-xl font-semibold mb-8">
               Popularity of cuisines in Abu Dhabi
