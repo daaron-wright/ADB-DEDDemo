@@ -18,6 +18,7 @@ import LocationHeatMap from "@/components/ui/location-heat-map";
 import HeatMapView from "@/components/ui/heat-map-view";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
+import { Map as MapIcon } from "lucide-react";
 import { ENTREPRENEUR_PROFILE, AI_ASSISTANT_PROFILE } from "@/lib/profile";
 
 type ConversationAction = "show-summary" | "open-investor-journey";
@@ -182,6 +183,9 @@ const CONVERSATION_STEPS: Array<{ id: ConversationStep; label: string }> = [
   { id: "summary", label: "Market Summary" },
   { id: "handoff", label: "Investor Workspace" },
 ];
+
+const HEAT_MAP_THUMBNAIL_URL =
+  "https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=386";
 
 const ARTIFACT_ACTION_BUTTON_CLASSES =
   "inline-flex items-center gap-2 rounded-full border border-[#0E766E]/45 bg-white/80 px-4 py-2 text-sm font-semibold text-[#0A4A46] shadow-sm transition hover:bg-white hover:text-[#073F3B]";
@@ -2355,12 +2359,14 @@ interface MessageBubbleProps {
   message: BusinessMessage;
   onActionClick?: (action: ConversationAction, label: string) => void;
   dialogueDocProps?: DialogueDocProps;
+  onHeatMapOpen?: () => void;
 }
 
 const MessageBubble = ({
   message,
   onActionClick,
   dialogueDocProps,
+  onHeatMapOpen,
 }: MessageBubbleProps) => {
   const bubbleContainerClasses = message.isAI
     ? "bg-[#E5E5E5] text-slate-900"
@@ -2432,17 +2438,33 @@ const MessageBubble = ({
           )}
           <div className="whitespace-pre-wrap">{message.content}</div>
 
-          {message.type === "heat-map" && message.imageUrl && (
-            <div className={cn("mt-3", message.isAI ? "text-left" : "text-right")}
+          {message.type === "heat-map" && (
+            <div
+              className={cn(
+                "mt-3 flex flex-col gap-3",
+                message.isAI ? "items-start" : "items-end",
+              )}
             >
-              <img
-                src={message.imageUrl}
-                alt="AI generated map insight"
-                className={cn(
-                  "inline-block rounded-2xl border border-black/10 shadow-sm",
-                  message.isAI ? "max-w-[220px]" : "max-w-[180px]"
-                )}
-              />
+              {message.imageUrl && (
+                <img
+                  src={message.imageUrl}
+                  alt="AI generated map insight"
+                  className={cn(
+                    "inline-block rounded-2xl border border-black/10 shadow-sm",
+                    message.isAI ? "max-w-[220px]" : "max-w-[180px]",
+                  )}
+                />
+              )}
+              {onHeatMapOpen && (
+                <button
+                  type="button"
+                  onClick={onHeatMapOpen}
+                  className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-[#0E766E] shadow-sm ring-1 ring-[#0E766E]/15 transition hover:bg-white"
+                >
+                  <MapIcon className="h-4 w-4" aria-hidden="true" />
+                  <span>Open interactive heat map</span>
+                </button>
+              )}
             </div>
           )}
 
@@ -4172,7 +4194,15 @@ export function BusinessChatUI({
       const lower = trimmed.toLowerCase();
       const userMessage = buildMessage(trimmed, false);
       const responses: BusinessMessage[] = [];
-      let shouldOpenHeatMap = false;
+
+      const appendHeatMapResponse = (content: string) => {
+        responses.push(
+          buildMessage(content, true, {
+            type: "heat-map",
+            imageUrl: HEAT_MAP_THUMBNAIL_URL,
+          }),
+        );
+      };
 
       const mentionsHeatMap =
         lower.includes("heat map") ||
@@ -4181,28 +4211,16 @@ export function BusinessChatUI({
       const mentionsCorniche = lower.includes("cornich");
 
       if (mentionsCorniche) {
-        shouldOpenHeatMap = true;
-        responses.push(
-          buildMessage(
-            "Zooming into the Corniche waterfront cluster. Footfall intensity is at 96% for premium dining, highlighted on the heat map now.",
-            true,
-          ),
+        appendHeatMapResponse(
+          "Zooming into the Corniche waterfront cluster. Footfall intensity is at 96% for premium dining, highlighted on the heat map now.",
         );
       } else if (mentionsHeatMap) {
-        shouldOpenHeatMap = true;
-        responses.push(
-          buildMessage(
-            "I have created a heat map for the top areas and existing businesses. Compare the highlighted districts to see where activity concentrates.",
-            true,
-          ),
+        appendHeatMapResponse(
+          "I have created a heat map for the top areas and existing businesses. Compare the highlighted districts to see where activity concentrates.",
         );
       } else if (lower.includes("map")) {
-        shouldOpenHeatMap = true;
-        responses.push(
-          buildMessage(
-            "Here's a map-based view so you can explore each neighbourhood visually. Tell me which district you'd like to dive into.",
-            true,
-          ),
+        appendHeatMapResponse(
+          "Here's a map-based view so you can explore each neighbourhood visually. Tell me which district you'd like to dive into.",
         );
       } else {
         responses.push(
@@ -4215,13 +4233,13 @@ export function BusinessChatUI({
 
       setMessages((prev) => [...prev, userMessage, ...responses]);
       setInputValue("");
-
-      if (shouldOpenHeatMap) {
-        setModalView("heat-map");
-      }
     },
     [buildMessage],
   );
+
+  const openHeatMapModal = useCallback(() => {
+    setModalView("heat-map");
+  }, [setModalView]);
 
   const handleAction = useCallback(
     (action: ConversationAction, label: string) => {
@@ -4656,6 +4674,7 @@ export function BusinessChatUI({
                                     }
                                   : undefined
                               }
+                              onHeatMapOpen={openHeatMapModal}
                             />
                           ))}
                         </div>
