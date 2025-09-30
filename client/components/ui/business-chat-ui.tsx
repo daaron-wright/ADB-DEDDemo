@@ -4209,6 +4209,49 @@ export function BusinessChatUI({
     [buildMessage, buildStepMessage, currentStep],
   );
 
+  const handleAutoLoginComplete = useCallback(
+    (_userType: "applicant" | "reviewer", _userData: any) => {
+      if (!isInvestorLoginPending) {
+        return;
+      }
+
+      setIsInvestorLoginPending(false);
+      setShouldPromptLogin(false);
+
+      setMessages((prev) => {
+        const sanitized = prev.map((message) =>
+          message.actions ? { ...message, actions: undefined } : message,
+        );
+
+        const summaryText = CONVERSATION_BLUEPRINT.summary.message;
+        const hasSummaryMessage = sanitized.some(
+          (message) => message.isAI && message.content === summaryText,
+        );
+
+        const nextMessages = [...sanitized];
+
+        if (!hasSummaryMessage) {
+          nextMessages.push(buildMessage(summaryText, true));
+        }
+
+        nextMessages.push(
+          buildMessage(
+            "Khalid Entrepreneur is now signed in via UAE PASS. Opening your investor journey workspace with live market heat maps.",
+            true,
+          ),
+        );
+
+        nextMessages.push(buildStepMessage("handoff"));
+
+        return nextMessages;
+      });
+
+      setCurrentStep("handoff");
+      setModalView("heat-map");
+    },
+    [isInvestorLoginPending, buildMessage, buildStepMessage],
+  );
+
   useEffect(() => {
     if (!isOpen) {
       setShowBudgetModal(false);
