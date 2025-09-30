@@ -123,6 +123,116 @@ type ConversationStep = keyof typeof CONVERSATION_BLUEPRINT;
 const ARTIFACT_ACTION_BUTTON_CLASSES =
   "inline-flex items-center gap-2 rounded-full border border-[#0E766E]/45 bg-white/80 px-4 py-2 text-sm font-semibold text-[#0A4A46] shadow-sm transition hover:bg-white hover:text-[#073F3B]";
 
+interface PropertyOpportunity {
+  id: string;
+  title: string;
+  price: string;
+  currency: string;
+  rating: number;
+  image: string;
+}
+
+const PROPERTY_OPPORTUNITIES: PropertyOpportunity[] = [
+  {
+    id: "corniche-retail",
+    title: "Retail Opportunity | Abu Dhabi Corniche | Ready Nov 2025",
+    price: "640,000 / year",
+    currency: "AED",
+    rating: 4.9,
+    image: "https://api.builder.io/api/v1/image/assets/TEMP/321de87c306c0308a02c60a25803d7fd29f66f22?width=600",
+  },
+  {
+    id: "canal-view",
+    title: "Retail Opportunity | Canal View | Ready to Move",
+    price: "580,000 / year",
+    currency: "AED",
+    rating: 4.7,
+    image: "https://api.builder.io/api/v1/image/assets/TEMP/90b42e755964109a96d26e28153d3260c27dab3c?width=600",
+  },
+  {
+    id: "corniche-beach",
+    title: "Retail Space | Corniche Beach, Abu Dhabi",
+    price: "495,000 / year",
+    currency: "AED",
+    rating: 4.3,
+    image: "https://api.builder.io/api/v1/image/assets/TEMP/a9f0bf6d758ce0797379785bd5ae18dfc4113f43?width=600",
+  },
+];
+
+const COLLABORATOR_LOGOS = [
+  {
+    id: "property-finder",
+    src: "https://api.builder.io/api/v1/image/assets/TEMP/9bfd38d325da645cc4c8e1a2aef3b5d4c8eae662?width=242",
+    alt: "Property Finder logo",
+  },
+  {
+    id: "bayut",
+    src: "https://api.builder.io/api/v1/image/assets/TEMP/09683a0d837e39637290f853f491ffdcb14d48c7?width=242",
+    alt: "Bayut logo",
+  },
+];
+
+const PropertyOpportunityCard = ({ opportunity }: { opportunity: PropertyOpportunity }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
+    className={chatCardClass(
+      "overflow-hidden border border-white/35 bg-white/20 backdrop-blur-xl shadow-[0_30px_80px_-60px_rgba(15,23,42,0.45)]",
+      "rounded-3xl"
+    )}
+  >
+    <div className="relative">
+      <img
+        src={opportunity.image}
+        alt={opportunity.title}
+        className="h-44 w-full object-cover"
+      />
+      <div className="absolute left-4 top-4 flex items-center gap-1 rounded-full bg-black/55 px-2 py-1 text-white">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <path
+            d="M7.99965 1L5.72465 5.61L0.639648 6.345L4.31965 9.935L3.44965 15L7.99965 12.61L12.5496 15L11.6796 9.935L15.3596 6.35L10.2746 5.61L7.99965 1Z"
+            fill="#FFE100"
+          />
+        </svg>
+        <span className="text-sm font-medium opacity-90">{opportunity.rating.toFixed(1)}</span>
+      </div>
+    </div>
+    <div className="space-y-4 p-5">
+      <p className="text-base font-medium leading-snug text-white">
+        {opportunity.title}
+      </p>
+      <div className="flex items-center gap-2 text-white">
+        <svg width="20" height="18" viewBox="0 0 20 18" fill="none">
+          <path
+            d="M19.8428 8.49013L19.9994 8.63411V8.19651C19.9994 7.23289 19.3081 6.44838 18.459 6.44838H17.1013C16.1513 2.58029 12.915 0.5 8.10057 0.5C5.0348 0.5 4.64099 0.5 1.73762 0.5C1.73762 0.5 2.60933 1.21591 2.60933 3.47022V6.45065H1.00394C0.691915 6.45065 0.399026 6.33275 0.156594 6.10998L0 5.96601V6.4036C0 7.36779 0.691335 8.15173 1.54042 8.15173H2.60991V9.85167H1.00452C0.692495 9.85167 0.399606 9.73434 0.157174 9.511L0.000579979 9.36703V9.80406C0.000579979 10.7677 0.691915 11.551 1.541 11.551H2.61049V14.6624C2.61049 16.8532 1.73878 17.5 1.73878 17.5H8.10173C13.0675 17.5 16.2006 15.405 17.1134 11.5493H18.9961C19.3081 11.5493 19.601 11.6667 19.8434 11.8894L20 12.0334V11.5964C20 10.6328 19.3087 9.84884 18.4596 9.84884H17.3634C17.382 9.57222 17.3918 9.28937 17.3918 8.99858C17.3918 8.7078 17.3814 8.42551 17.3623 8.14889H18.9961C19.3075 8.14889 19.601 8.26623 19.8434 8.48956L19.8428 8.49013ZM5.21691 1.35082H7.8767C11.4552 1.35082 13.528 2.89999 14.1463 6.44895L5.21691 6.45009V1.35082ZM7.89932 16.6509H5.21633V11.5505L14.1405 11.5493C13.5622 14.761 11.7005 16.559 7.89932 16.6509ZM14.3446 9.00028C14.3446 9.29107 14.3382 9.57449 14.3249 9.84997L5.21691 9.85111V8.15116L14.3255 8.15003C14.3382 8.42438 14.3446 8.70723 14.3446 9.00028Z"
+            fill="white"
+          />
+        </svg>
+        <span className="text-lg font-semibold">{opportunity.price}</span>
+      </div>
+    </div>
+  </motion.div>
+);
+
+const PropertyCollaborators = () => (
+  <div className={chatCardClass("mt-5 flex flex-col gap-3 border border-white/25 bg-white/20 px-4 py-3 text-white backdrop-blur-xl", "rounded-3xl")}
+  >
+    <span className="text-sm font-medium uppercase tracking-[0.14em] text-white/80">
+      In collaboration with
+    </span>
+    <div className="flex flex-wrap items-center gap-5">
+      {COLLABORATOR_LOGOS.map((logo) => (
+        <img
+          key={logo.id}
+          src={logo.src}
+          alt={logo.alt}
+          className="h-8 w-auto opacity-80"
+        />
+      ))}
+    </div>
+  </div>
+);
+
 // Cuisine Popularity Card Component
 const CuisinePopularityCard = ({ className = "" }: { className?: string }) => {
   return (
