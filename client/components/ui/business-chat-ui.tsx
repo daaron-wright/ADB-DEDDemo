@@ -3891,7 +3891,7 @@ export function BusinessChatUI({
                       ))}
                       <button
                         onClick={handleNewTab}
-                        className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-600 transition hover:border-[#169F9F]/60 hover:text-[#0c5252] sm:ml-4"
+                        className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/30 bg-white/50 text-slate-600 transition hover:border-[#169F9F]/60 hover:text-[#0c5252] sm:ml-4"
                         aria-label="New Chat"
                       >
                         <svg
