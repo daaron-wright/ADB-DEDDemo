@@ -5374,6 +5374,20 @@ export function BusinessChatUI({
   }, [isOpen, buildMessage, initialMessage]);
 
   useEffect(() => {
+    if (messages.length === 0) {
+      return;
+    }
+
+    const latestStepMessage = [...messages]
+      .reverse()
+      .find((message) => message.stepId !== undefined);
+
+    if (latestStepMessage?.stepId && latestStepMessage.stepId !== currentStep) {
+      setCurrentStep(latestStepMessage.stepId);
+    }
+  }, [messages, currentStep]);
+
+  useEffect(() => {
     const handleRetailLocationSelected = (event: Event) => {
       const customEvent = event as CustomEvent;
       const { automationConfirmed } = customEvent.detail || {};
