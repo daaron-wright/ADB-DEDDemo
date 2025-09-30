@@ -4260,6 +4260,13 @@ export function BusinessChatUI({
             }
           )
         );
+      } else if (mentionsTargetMarket) {
+        responses.push(
+          buildMessage(
+            "For high-end restaurants, your primary targets are: Al Maryah Island (luxury business dining, high-income professionals), Yas Island (affluent tourists and event visitors), Saadiyat Island (cultural tourists and art patrons), Corniche (premium leisure diners and scenic dining seekers), and Al Zahiyah (hotel guests and nightlife crowd). These zones offer the highest spending power, with average dining budgets of AED 200-500 per person for premium experiences. Focus on locations with business districts, luxury hotels, or cultural attractions.",
+            true
+          )
+        );
       } else if (mentionsCorniche) {
         appendHeatMapResponse(
           "Zooming into the Corniche waterfront cluster. Footfall intensity is at 96% for premium dining, highlighted on the heat map now.",
