@@ -4362,6 +4362,27 @@ export function BusinessChatUI({
 
   return (
     <QueryClientProvider client={queryClient}>
+      <UAEPassLogin
+        trigger={
+          <button
+            type="button"
+            ref={loginTriggerRef}
+            tabIndex={-1}
+            aria-hidden="true"
+            className="sr-only"
+          >
+            Launch UAE PASS
+          </button>
+        }
+        mode="quick"
+        autoLogin
+        defaultUserType="applicant"
+        onLogin={handleAutoLoginComplete}
+        onClose={() => {
+          setIsInvestorLoginPending(false);
+          setShouldPromptLogin(false);
+        }}
+      />
       <AnimatePresence>
         {isOpen && (
           <div key="chat-ui" className="fixed inset-0 z-50 overflow-hidden">
