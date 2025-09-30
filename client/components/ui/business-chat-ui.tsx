@@ -72,6 +72,28 @@ interface DialogueDocProps {
   onAddHighlight: (value: string) => void;
 }
 
+const createInitialDialogueDocState = (): DialogueDocState => ({
+  notes:
+    "Capture next steps, decisions, and follow-ups here.\n• Define target district and audience\n• Outline licensing documents\n• Track stakeholder approvals",
+  highlights: [
+    {
+      id: "dialogue-highlight-1",
+      text: "Clarify the preferred launch district and customer segment",
+      completed: false,
+    },
+    {
+      id: "dialogue-highlight-2",
+      text: "List documents needed before licensing submission",
+      completed: false,
+    },
+    {
+      id: "dialogue-highlight-3",
+      text: "Identify strategic partners to support setup and growth",
+      completed: false,
+    },
+  ],
+});
+
 interface BusinessChatUIProps {
   isOpen: boolean;
   onClose: () => void;
