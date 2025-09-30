@@ -823,7 +823,7 @@ const DiscoverExperienceView = ({
       name: "Coastal district",
       summary:
         "Lifestyle beachfront with active tourism calendar and family day-trip itineraries.",
-      footfall: "35–50K weekly visits",
+      footfall: "35��50K weekly visits",
       density: "Seasonal peaks",
       trend: "+5% holiday uplift",
       focus: "Beach clubs, ice cream bars, casual dining",
@@ -2534,6 +2534,12 @@ export function BusinessChatUI({
                           isStandalone={false}
                         />
                       </div>
+                    )}
+
+                    {activeThread?.view === "compilation" && activeThreadId && (
+                      <ResearchSynthesisView
+                        onBack={() => updateThread(activeThreadId, { view: "corniche-detail" })}
+                      />
                     )}
 
                     {/* Show corniche detail view content */}
