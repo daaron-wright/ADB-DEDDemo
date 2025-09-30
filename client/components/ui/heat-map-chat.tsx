@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { chatCardClass } from "@/lib/chat-style";
 import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 
 interface HeatMapChatProps {
@@ -155,7 +156,9 @@ const AccessibleHeatMap = () => {
     <div className="relative">
       {/* Heat map container */}
       <div
-        className="relative w-full max-w-md mx-auto bg-white rounded-3xl p-4 shadow-xl border border-gray-200"
+        className={chatCardClass(
+          "relative w-full max-w-md mx-auto bg-white p-4 shadow-xl border border-gray-200"
+        )}
         role="img"
         aria-label="Heat map showing restaurant density across Abu Dhabi districts"
       >
@@ -381,7 +384,9 @@ export const HeatMapChat: React.FC<HeatMapChatProps> = ({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="w-full max-w-md bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden"
+            className={chatCardClass(
+              "w-full max-w-md bg-white shadow-2xl border border-gray-200 overflow-hidden"
+            )}
             role="dialog"
             aria-labelledby="heat-map-chat-title"
             aria-modal="true"
