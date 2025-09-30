@@ -187,62 +187,6 @@ const CONVERSATION_STEPS: Array<{ id: ConversationStep; label: string }> = [
 const HEAT_MAP_THUMBNAIL_URL =
   "https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=386";
 
-const HEAT_MAP_BREAKOUT_HOTSPOTS: Array<{
-  id: string;
-  name: string;
-  metric: string;
-  descriptor: string;
-  position: { top: string; left: string };
-}> = [
-  {
-    id: "corniche",
-    name: "Corniche Waterfront",
-    metric: "96% evening footfall",
-    descriptor: "Premium dining strip with high spend social rituals",
-    position: { top: "38%", left: "32%" },
-  },
-  {
-    id: "louvre",
-    name: "Saadiyat Cultural District",
-    metric: "+22% weekend uplift",
-    descriptor: "Museum traffic spills over into experiential dining requests",
-    position: { top: "24%", left: "62%" },
-  },
-  {
-    id: "yas",
-    name: "Yas Marina",
-    metric: "4.3★ visitor satisfaction",
-    descriptor: "Events calendar drives spikes in waterfront lounge demand",
-    position: { top: "60%", left: "70%" },
-  },
-];
-
-const HEAT_MAP_BREAKOUT_SIGNALS: Array<{
-  id: string;
-  label: string;
-  value: string;
-  description: string;
-}> = [
-  {
-    id: "conversion",
-    label: "Group conversion",
-    value: "+18%",
-    description: "Bookings convert faster when map hotspots are paired with curated itineraries.",
-  },
-  {
-    id: "approval",
-    label: "Approval readiness",
-    value: "72 hrs",
-    description: "Average time to compile zoning evidence once hotspot dossier is attached.",
-  },
-  {
-    id: "premium",
-    label: "Premium spend lift",
-    value: "+21%",
-    description: "Corniche heat signatures correlate with higher tasting menu adoption.",
-  },
-];
-
 const ARTIFACT_ACTION_BUTTON_CLASSES =
   "inline-flex items-center gap-2 rounded-full border border-[#0E766E]/45 bg-white/80 px-4 py-2 text-sm font-semibold text-[#0A4A46] shadow-sm transition hover:bg-white hover:text-[#073F3B]";
 
