@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { conversationFlows } from "@/lib/conversations";
 import { Button } from "@/components/ui/button";
-import { UAEPassLogin } from "./uae-pass-login";
 import BusinessLicensePortalSimplified from "./business-license-portal-simplified";
 
 interface BusinessMessage {
@@ -3113,9 +3112,6 @@ export function BusinessChatUI({
   const [showPreloadedPrompts, setShowPreloadedPrompts] = useState(true);
   const [currentInput, setCurrentInput] = useState("");
 
-  const [loggedInUser, setLoggedInUser] = useState<any>(null);
-  const [showBusinessPortal, setShowBusinessPortal] = useState(false);
-  const isLoggedIn = Boolean(loggedInUser);
 
   // Event listeners for breakout cards
   useEffect(() => {
@@ -3188,14 +3184,6 @@ export function BusinessChatUI({
     setActiveThreadId(newThread.id);
   }, [isOpen, category, initialMessage]);
 
-  // UAE PASS Login Handler
-  const handleUAEPassLogin = (
-    userType: "applicant" | "reviewer",
-    userData: any,
-  ) => {
-    setLoggedInUser(userData);
-    setShowBusinessPortal(false);
-  };
 
   const activeThread = threads.find((t) => t.id === activeThreadId);
 
