@@ -4290,9 +4290,13 @@ export function BusinessChatUI({
     [buildMessage],
   );
 
-  const openHeatMapModal = useCallback(() => {
+  const handleOpenHeatMapBreakout = useCallback(() => {
+    setHeatMapBreakoutOpen(true);
+  }, []);
+
+  const openHeatMapFullView = useCallback(() => {
     setModalView("heat-map");
-  }, [setModalView]);
+  }, []);
 
   const handleAction = useCallback(
     (action: ConversationAction, label: string) => {
