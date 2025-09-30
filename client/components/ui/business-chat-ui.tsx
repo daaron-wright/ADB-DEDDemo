@@ -1707,11 +1707,9 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
 const MessageBubble = ({
   message,
   onActionClick,
-  isOnLightBackground = false,
 }: {
   message: BusinessMessage;
   onActionClick?: (action: string) => void;
-  isOnLightBackground?: boolean;
 }) => {
   const shouldShowBudgetButton =
     message.isAI &&
@@ -3949,7 +3947,6 @@ export function BusinessChatUI({
                                     setShowBudgetModal(true);
                                   }
                                 }}
-                                isOnLightBackground={activeThread?.view === "investor-journey"}
                               />
                             );
                           })}
