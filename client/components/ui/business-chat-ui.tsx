@@ -260,99 +260,6 @@ const AccessibleHeatMap = () => {
 };
 
 const DiscoveryCompilationCard = () => {
-  const generatedDate = new Intl.DateTimeFormat("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(new Date());
-
-  const areas: CompilationAreaInsight[] = [
-    {
-      name: "Corniche Waterfront",
-      priority: "Primary",
-      audience: "20k daily leisure visitors, mixed resident/tourist footfall",
-      opportunity:
-        "Capture premium sunset dining, wellness brunches and nighttime lounge activations with a 78% weekly dining frequency.",
-      nextStep:
-        "Secure a waterfront shell-and-core unit; align with DMT public realm guidelines and fast-track fit-out approvals (12-14 weeks).",
-      concept:
-        "Position a signature Emirati-Mediterranean kitchen with experiential terrace seating and smart reservation funnels.",
-    },
-    {
-      name: "Yas Island",
-      priority: "Growth",
-      audience: "25k+ daily thrill & events traffic, family/weekender mix",
-      opportunity:
-        "Program pre/post theme-park dining, immersive F&B experiences, and branded pop-up collaborations for event calendars.",
-      nextStep:
-        "Engage Miral tenant team for activation windows and co-marketing support; model dual-shift staffing to cover peaks.",
-      concept:
-        "Hybrid gastro lounge with live culinary theatre and limited-time menus tied to entertainment seasons.",
-    },
-    {
-      name: "Al Maryah Island",
-      priority: "Premium",
-      audience: "7k residents and 20k weekday professionals",
-      opportunity:
-        "Curate executive lunch clubs, private dining suites, and high-margin corporate tasting menus within the financial district.",
-      nextStep:
-        "Partner with ADGM concierge networks, secure lunchtime valet agreements, and set up B2B loyalty tiers.",
-      concept:
-        "Refined business dining with chef-led tasting journeys and boardroom-ready service choreography.",
-    },
-    {
-      name: "Saadiyat Cultural District",
-      priority: "Emerging",
-      audience: "Cultural tourists and boutique resort guests",
-      opportunity:
-        "Translate museum footfall into evening art-and-dine programming and destination brunch formats.",
-      nextStep:
-        "Coordinate with DCT Saadiyat programming teams; stage soft-launch pop-ups during cultural festivals to build audience equity.",
-      concept:
-        "Artisanal concept pairing Emirati heritage plates with contemporary art collaborations and curated retail.",
-    },
-    {
-      name: "Al Reem Island",
-      priority: "Community",
-      audience: "30k residents and 35k daytime population",
-      opportunity:
-        "Anchor a neighbourhood flagship focused on family dining, delivery optimisation, and loyalty-led retention.",
-      nextStep:
-        "Map residential developer partnerships, bundle omni-channel ordering, and phase rollout with residential cluster openings.",
-      concept:
-        "Family-forward smart casual dining with cloud kitchen integration and curated kids programming.",
-    },
-    {
-      name: "Al Zahiyah",
-      priority: "Nightlife",
-      audience: "20k+ hotel corridor visitors, late-night traffic",
-      opportunity:
-        "Extend the urban nightlife offer with elevated street food, mixology labs, and live entertainment rotations.",
-      nextStep:
-        "Align on tourism sector permits, secure extended trading hours, and plug into seasonal citywide campaigns.",
-      concept:
-        "High-energy street food lab with mixology residency programme and dynamic entertainment slate.",
-    },
-  ];
-
-  const metrics = [
-    {
-      label: "Average dining frequency",
-      value: "78%",
-      context: "Residents dining out twice weekly across the shortlisted zones",
-    },
-    {
-      label: "Primary cuisine demand",
-      value: "Middle Eastern 30-35%",
-      context: "Baseline preference to anchor menus while layering fusion experiences",
-    },
-    {
-      label: "Projected ramp-up",
-      value: "16-20 weeks",
-      context: "Inclusive of licensing, fit-out, and talent mobilisation across zones",
-    },
-  ];
-
   const handleOpenDashboard = () => {
     if (typeof window !== "undefined") {
       window.open("/compilation", "_blank", "noopener,noreferrer");
@@ -360,111 +267,141 @@ const DiscoveryCompilationCard = () => {
   };
 
   return (
-    <div className="w-full">
-      <div className="rounded-[28px] bg-gradient-to-br from-white/16 via-white/10 to-white/6 border border-white/20 backdrop-blur-xl p-6 text-white space-y-6">
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="space-y-2">
-            <p className="text-xs uppercase tracking-[0.28em] text-white/60">
-              Discovery synthesis
-            </p>
-            <h4 className="text-2xl font-semibold">F&amp;B Opportunity Pulse</h4>
-            <p className="text-sm text-white/70 max-w-xl">
-              Consolidated market, audience, and execution signals to steer investment prioritisation across Abu Dhabi's key districts.
-            </p>
-          </div>
-          <div className="px-4 py-2 rounded-2xl border border-white/20 bg-white/10 text-sm font-medium text-white/80">
-            Generated {generatedDate}
-          </div>
-        </div>
-
-        <div className="grid gap-3 md:grid-cols-3">
-          {metrics.map((metric) => (
-            <div
-              key={metric.label}
-              className="rounded-2xl border border-white/15 bg-white/8 p-4"
-            >
-              <p className="text-xs uppercase tracking-[0.2em] text-white/60 mb-2">
-                {metric.label}
-              </p>
-              <div className="text-xl font-semibold text-white">{metric.value}</div>
-              <p className="text-xs text-white/70 mt-2 leading-relaxed">
-                {metric.context}
-              </p>
+    <div className="w-full max-w-[471px] mx-auto">
+      <div className="rounded-[24px] bg-white/14 backdrop-blur-md border border-white/20 overflow-hidden">
+        {/* AI Business Header */}
+        <div className="flex flex-col p-6 pb-8">
+          <div className="flex items-center gap-2 mb-8">
+            <img
+              src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+              alt="AI Assistant"
+              className="w-16 h-16 rounded-full border border-[#54FFD4]"
+            />
+            <div className="flex-1">
+              <h3 className="text-white text-lg font-semibold mb-2">AI Business</h3>
+              <motion.div
+                className="flex items-center gap-1"
+                animate={{
+                  opacity: [0.6, 1, 0.6],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                {[5.77, 11.95, 19.78, 13.19, 8.66, 23.08, 30.5, 16.9, 4.53].map((height, index) => (
+                  <motion.div
+                    key={index}
+                    className="bg-[#54FFD4] rounded-full"
+                    style={{
+                      width: '3px',
+                      height: `${Math.max(3, height * 0.8)}px`,
+                      transform: 'rotate(-90deg)'
+                    }}
+                    animate={{
+                      height: [`${Math.max(3, height * 0.5)}px`, `${height}px`, `${Math.max(3, height * 0.7)}px`],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: index * 0.1,
+                    }}
+                  />
+                ))}
+              </motion.div>
             </div>
-          ))}
-        </div>
+          </div>
 
-        <div className="space-y-4">
-          {areas.map((area) => (
-            <div
-              key={area.name}
-              className="rounded-[24px] border border-white/15 bg-white/8 p-5 space-y-4"
-            >
-              <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+          <h2 className="text-white text-xl font-semibold mb-8">
+            Popularity of cuisines in Abu Dhabi
+          </h2>
+
+          {/* Cuisine Data */}
+          <div className="space-y-6">
+            {/* Middle Eastern */}
+            <div className="pb-6 border-b border-white/18">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <h5 className="text-lg font-semibold">{area.name}</h5>
-                  <p className="text-sm text-white/70 leading-relaxed">
-                    {area.audience}
-                  </p>
+                  <h3 className="text-white font-bold text-sm leading-[19.6px] tracking-[0.045px]">
+                    Middle Eastern
+                  </h3>
                 </div>
-                <span className="inline-flex items-center rounded-full border border-white/20 bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/80">
-                  {area.priority}
-                </span>
-              </div>
-
-              <div className="grid gap-3 md:grid-cols-3">
-                <div className="rounded-2xl border border-white/15 bg-white/6 p-4">
-                  <p className="text-xs uppercase tracking-[0.2em] text-white/60 mb-2">
-                    Opportunity
-                  </p>
-                  <p className="text-sm text-white/80 leading-relaxed">
-                    {area.opportunity}
-                  </p>
+                <div>
+                  <p className="text-white font-bold text-sm mb-1">Popularity</p>
+                  <p className="text-white text-sm leading-[120%]">30-35%</p>
                 </div>
-                <div className="rounded-2xl border border-white/15 bg-white/6 p-4">
-                  <p className="text-xs uppercase tracking-[0.2em] text-white/60 mb-2">
-                    Recommended move
-                  </p>
-                  <p className="text-sm text-white/80 leading-relaxed">
-                    {area.nextStep}
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-white/15 bg-[#54FFD4]/10 p-4">
-                  <p className="text-xs uppercase tracking-[0.2em] text-[#54FFD4]/80 mb-2">
-                    Signature concept
-                  </p>
-                  <p className="text-sm text-white leading-relaxed">
-                    {area.concept}
+                <div>
+                  <p className="text-white font-bold text-sm mb-1">Supporting Context</p>
+                  <p className="text-white text-sm leading-[120%]">
+                    Cultural resonance, traditional appeal
                   </p>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
 
-        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between pt-4 border-t border-white/10">
-          <p className="text-sm text-white/75 leading-relaxed">
-            Next we can model financial sensitivities or licensing critical path milestones for your preferred location. Let me know what you would like to drill into.
-          </p>
-          <button
-            type="button"
-            onClick={handleOpenDashboard}
-            className="inline-flex items-center gap-2 rounded-full bg-[#54FFD4] px-4 py-2 text-sm font-semibold text-[#042B28] shadow-md shadow-[#54FFD4]/40 transition hover:bg-[#42f6c9]"
-          >
-            View synthesis dashboard
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+            {/* American */}
+            <div className="pb-6 border-b border-white/18">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <h3 className="text-white font-bold text-sm leading-[19.6px] tracking-[0.045px]">
+                    American
+                  </h3>
+                </div>
+                <div>
+                  <p className="text-white text-sm leading-[120%]">20-25%</p>
+                </div>
+                <div>
+                  <p className="text-white text-sm leading-[120%]">
+                    Fast-food dominance, familiarity, chain presence
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Indian */}
+            <div className="pb-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <h3 className="text-white font-bold text-sm leading-[19.6px] tracking-[0.045px]">
+                    Indian
+                  </h3>
+                </div>
+                <div>
+                  <p className="text-white text-sm leading-[120%]">15-20%</p>
+                </div>
+                <div>
+                  <p className="text-white text-sm leading-[120%]">
+                    Large expat community, flavor alignment with local preferences
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Action Button */}
+          <div className="flex justify-end pt-6 border-t border-white/10">
+            <button
+              type="button"
+              onClick={handleOpenDashboard}
+              className="inline-flex items-center gap-2 rounded-full bg-[#54FFD4] px-4 py-2 text-sm font-semibold text-[#042B28] shadow-md shadow-[#54FFD4]/40 transition hover:bg-[#42f6c9]"
             >
-              <path
-                d="M8 3.33337L7.05719 4.27618L10.3905 7.61951H3.33331V8.95284H10.3905L7.05719 12.2762L8 13.2189L12.6666 8.55228L8 3.33337Z"
-                fill="#042B28"
-              />
-            </svg>
-          </button>
+              View full dashboard
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8 3.33337L7.05719 4.27618L10.3905 7.61951H3.33331V8.95284H10.3905L7.05719 12.2762L8 13.2189L12.6666 8.55228L8 3.33337Z"
+                  fill="#042B28"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
