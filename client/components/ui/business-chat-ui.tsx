@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
-import { conversationFlows } from "@/lib/conversations";
 
 type ConversationAction = "show-summary" | "open-investor-journey";
 
@@ -84,6 +83,25 @@ const PRELOADED_PROMPTS = {
     "How does the government support entrepreneurship and business setup?",
   ],
 };
+
+const CONVERSATION_BLUEPRINT = {
+  intro: {
+    message:
+      "Welcome to the Abu Dhabi business assistant. I'll keep this focused so you know exactly what to do next. Ready for the snapshot that matters most?",
+    actions: [{ label: "Show market highlights", action: "show-summary" }],
+  },
+  summary: {
+    message:
+      "Here is the market signal summary you need to decide fast:\n• Corniche waterfront is running at 96% footfall intensity with premium dining demand.\n• Emirati fusion and coastal casual concepts are the fastest growing cuisine segments.\n• Licensing turnaround averages 14 days once documents are pre-validated.\nWhen you're ready, I'll take you straight into the investor journey workspace.",
+    actions: [{ label: "Open my investor journey", action: "open-investor-journey" }],
+  },
+  handoff: {
+    message:
+      "Loading your investor journey dashboard now. You'll land on the tailored checklist with milestones, documents, and submission guidance.",
+  },
+} satisfies Record<string, { message: string; actions?: Array<{ label: string; action: ConversationAction }> }> as const;
+
+type ConversationStep = keyof typeof CONVERSATION_BLUEPRINT;
 
 const ARTIFACT_ACTION_BUTTON_CLASSES =
   "inline-flex items-center gap-2 rounded-full border border-[#0E766E]/45 bg-white/80 px-4 py-2 text-sm font-semibold text-[#0A4A46] shadow-sm transition hover:bg-white hover:text-[#073F3B]";
@@ -2009,7 +2027,7 @@ const CompetitorBreakoutModal = ({ isOpen, onClose }: { isOpen: boolean; onClose
   const competitorHighlights = [
     {
       name: "Shurfa Bay",
-      rating: "4.8★",
+      rating: "4.8���",
       tier: "Premium waterfront",
       insight: "Sunset terrace has maintained 98% capacity across the past four evenings.",
     },
@@ -3339,6 +3357,10 @@ export function BusinessChatUI({
   const [messages, setMessages] = useState<BusinessMessage[]>([]);
   const [view, setView] = useState<ChatView>("basic");
   const [currentStep, setCurrentStep] = useState<ConversationStep>("intro");
+  const [showBudgetModal, setShowBudgetModal] = useState(false);
+  const [isCuisineBreakoutOpen, setCuisineBreakoutOpen] = useState(false);
+  const [isCompetitorBreakoutOpen, setCompetitorBreakoutOpen] = useState(false);
+  const [isGapBreakoutOpen, setGapBreakoutOpen] = useState(false);
 
   const buildMessage = useCallback(
     (content: string, isAI: boolean, extra?: Partial<BusinessMessage>): BusinessMessage => ({
