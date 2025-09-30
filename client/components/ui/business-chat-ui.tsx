@@ -3572,7 +3572,7 @@ export function BusinessChatUI({
 
                         return (
                           <div
-                            key={`${activeThread.id}-${message.id}`}
+                            key={`${activeThread.id}-${message.id}-login-prompt`}
                             className="space-y-4"
                           >
                             <MessageBubble
