@@ -21,9 +21,13 @@ const cardPositions: CSSProperties[] = [
   { top: "13%", left: "10%" },
 ];
 
+type ModalState = "locations" | "automation-prompt";
+
 const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({ onBack }) => {
   const [showContent, setShowContent] = useState(false);
   const [selectedLocationId, setSelectedLocationId] = useState<number | null>(null);
+  const [modalState, setModalState] = useState<ModalState>("locations");
+  const [selectedLocation, setSelectedLocation] = useState<RetailLocation | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowContent(true), 250);
