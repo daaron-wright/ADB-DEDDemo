@@ -756,9 +756,11 @@ const DiscoveryCompilationCard = ({ onViewDashboard }: { onViewDashboard?: () =>
 const MessageBubble = ({
   message,
   onActionClick,
+  isOnLightBackground = false,
 }: {
   message: BusinessMessage;
   onActionClick?: (action: string) => void;
+  isOnLightBackground?: boolean;
 }) => {
   const shouldShowBudgetButton =
     message.isAI &&
@@ -769,31 +771,35 @@ const MessageBubble = ({
   return (
     <div
       className={cn(
-        "flex mb-4 gap-3 items-end",
+        "flex mb-3 sm:mb-4 gap-2 sm:gap-3 items-end",
         message.isAI ? "justify-start" : "justify-end",
       )}
     >
       {message.isAI && (
-        <div className="w-10 h-10 rounded-full border border-[#54FFD4] bg-white flex items-center justify-center">
+        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-[#54FFD4] bg-white flex items-center justify-center flex-shrink-0">
           <ChatIcon isAnimated={false} isDark={true} />
         </div>
       )}
       <div
         className={cn(
-          "max-w-[80%] flex flex-col gap-3",
+          "max-w-[85%] sm:max-w-[80%] flex flex-col gap-2 sm:gap-3",
           message.isAI ? "items-start" : "items-end",
         )}
       >
         <div
           className={cn(
-            "px-4 py-4 rounded-2xl text-base leading-relaxed shadow-sm border text-slate-900",
+            "px-3 sm:px-4 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-sm sm:text-base leading-relaxed shadow-sm border",
             message.isAI
-              ? "bg-white border-slate-200 rounded-bl-sm"
-              : "bg-[#E6F7F3] border-[#54FFD4]/60 rounded-br-sm",
+              ? isOnLightBackground
+                ? "bg-white border-slate-300 text-slate-900 rounded-bl-sm"
+                : "bg-white border-slate-200 text-slate-900 rounded-bl-sm"
+              : isOnLightBackground
+                ? "bg-slate-100 border-slate-300 text-slate-900 rounded-br-sm"
+                : "bg-[#E6F7F3] border-[#54FFD4]/60 text-slate-900 rounded-br-sm",
           )}
         >
           {message.rating && <StarRating rating={message.rating} />}
-          <div className="text-inherit whitespace-pre-wrap">
+          <div className="text-inherit whitespace-pre-wrap break-words">
             {message.content}
           </div>
         </div>
@@ -805,12 +811,18 @@ const MessageBubble = ({
         {shouldShowBudgetButton && onActionClick && (
           <button
             onClick={() => onActionClick("budget-ranges")}
-            className="flex items-center gap-3 px-4 py-3 bg-white rounded-md hover:bg-white/90 transition-colors shadow-lg"
+            className={cn(
+              "flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl transition-colors shadow-lg text-sm sm:text-base",
+              isOnLightBackground
+                ? "bg-white border border-slate-300 hover:bg-slate-50 text-slate-900"
+                : "bg-white hover:bg-white/90 text-slate-900"
+            )}
           >
-            <div className="w-8 h-8 flex items-center justify-center">
+            <div className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center">
               <svg
-                width="32"
-                height="32"
+                width="24"
+                height="24"
+                className="sm:w-8 sm:h-8"
                 viewBox="0 0 32 32"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -821,7 +833,7 @@ const MessageBubble = ({
                 />
               </svg>
             </div>
-            <span className="text-black text-sm font-semibold">
+            <span className="font-semibold">
               Budget ranges
             </span>
           </button>
@@ -831,7 +843,7 @@ const MessageBubble = ({
         <img
           src={KHALID_AVATAR}
           alt="Khalid"
-          className="w-10 h-10 rounded-full border-2 border-white/50"
+          className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white/50 flex-shrink-0"
         />
       )}
     </div>
