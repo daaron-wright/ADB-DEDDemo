@@ -36,7 +36,6 @@ interface BusinessChatUIProps {
 }
 
 type ChatView = "basic" | "investor-journey";
-type BreakoutType = "cuisine" | "competitor" | "gap";
 
 interface ChatThread {
   id: string;
@@ -3421,6 +3420,10 @@ export function BusinessChatUI({
 
   useEffect(() => {
     if (!isOpen) {
+      setShowBudgetModal(false);
+      setCuisineBreakoutOpen(false);
+      setCompetitorBreakoutOpen(false);
+      setGapBreakoutOpen(false);
       return;
     }
 
@@ -3428,6 +3431,22 @@ export function BusinessChatUI({
     setCurrentStep("intro");
     setMessages([buildStepMessage("intro")]);
   }, [isOpen, buildStepMessage]);
+
+  useEffect(() => {
+    const handleCuisineBreakout = () => setCuisineBreakoutOpen(true);
+    const handleCompetitorBreakout = () => setCompetitorBreakoutOpen(true);
+    const handleGapBreakout = () => setGapBreakoutOpen(true);
+
+    window.addEventListener("openCuisineBreakout", handleCuisineBreakout);
+    window.addEventListener("openCompetitorBreakout", handleCompetitorBreakout);
+    window.addEventListener("openGapAnalysisBreakout", handleGapBreakout);
+
+    return () => {
+      window.removeEventListener("openCuisineBreakout", handleCuisineBreakout);
+      window.removeEventListener("openCompetitorBreakout", handleCompetitorBreakout);
+      window.removeEventListener("openGapAnalysisBreakout", handleGapBreakout);
+    };
+  }, []);
 
   if (!isOpen) return null;
 
