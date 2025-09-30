@@ -4383,6 +4383,7 @@ export function BusinessChatUI({
       setCuisineBreakoutOpen(false);
       setCompetitorBreakoutOpen(false);
       setGapBreakoutOpen(false);
+      setHeatMapBreakoutOpen(false);
       setDialogueDocState(createInitialDialogueDocState());
       setIsInvestorLoginPending(false);
       setShouldPromptLogin(false);
