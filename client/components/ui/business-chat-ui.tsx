@@ -13,6 +13,7 @@ import {
   VisitorTasteTrendsChart,
 } from "@/components/ui/data-visualizations";
 import LocationHeatMap from "@/components/ui/location-heat-map";
+import HeatMapView from "@/components/ui/heat-map-view";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
 import { ENTREPRENEUR_PROFILE, AI_ASSISTANT_PROFILE } from "@/lib/profile";
