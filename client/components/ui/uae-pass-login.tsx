@@ -313,6 +313,7 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
   onClose,
   mode = "full",
   defaultUserType = "applicant",
+  autoLogin = false,
 }) => {
   const [selectedUserType, setSelectedUserType] = useState<UserType>(
     mode === "quick" ? defaultUserType : null,
