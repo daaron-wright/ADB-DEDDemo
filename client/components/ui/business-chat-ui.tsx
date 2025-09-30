@@ -4569,7 +4569,7 @@ export function BusinessChatUI({
       window.removeEventListener("openGapAnalysis", handleGapAnalysis);
       window.removeEventListener("openRetailLocations", handleRetailLocations);
     };
-  }, [openGapAnalysis]);
+  }, [openGapAnalysis, openRetailLocations]);
 
   if (!isOpen) return null;
 
