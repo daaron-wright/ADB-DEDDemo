@@ -26,6 +26,7 @@ const App = () => (
           <Route path="/portal/applicant" element={<ApplicantPortal />} />
           <Route path="/portal/reviewer" element={<ReviewerPortal />} />
           <Route path="/journey" element={<InvestorJourney />} />
+          <Route path="/compilation" element={<CompilationDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
