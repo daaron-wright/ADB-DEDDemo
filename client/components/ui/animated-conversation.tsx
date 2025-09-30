@@ -17,7 +17,7 @@ interface AnimatedConversationProps {
   className?: string;
 }
 
-const AI_AVATAR = 'https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128';
+const AI_AVATAR = AI_ASSISTANT_PROFILE.avatar;
 
 export function AnimatedConversation({ messages, className }: AnimatedConversationProps) {
   const [visibleMessages, setVisibleMessages] = useState<Message[]>([]);
