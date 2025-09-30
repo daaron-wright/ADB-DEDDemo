@@ -9,7 +9,8 @@ interface SimpleChatMessage {
   content: string;
   isAI: boolean;
   timestamp: Date;
-  type?: "text" | "budget-card" | "info-card";
+  type?: "text" | "budget-card" | "info-card" | "heat-map";
+  imageUrl?: string;
 }
 
 interface SimpleChatUIProps {
