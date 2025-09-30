@@ -3307,6 +3307,7 @@ export function BusinessChatUI({
                       <CompetitorAnalysisView
                         onBack={() => updateThread(activeThreadId, { view: "dashboard" })}
                         onGapAnalysis={() => updateThread(activeThreadId, { view: "final-compilation" })}
+                        onSendMessage={handleSendMessage}
                       />
                     )}
 
