@@ -3832,11 +3832,12 @@ export function BusinessChatUI({
   };
 
   const handleNewTab = () => {
-    // Alternate between different conversation flows
     const isExtendedFlow = threads.length % 2 === 1;
 
+    let newThread: ChatThread;
+
     if (isExtendedFlow) {
-      const newThread: ChatThread = {
+      newThread = {
         id: `thread-${Date.now()}-${Math.random()}`,
         title: "Detailed Restaurant Analysis",
         messages: [
@@ -3884,10 +3885,8 @@ export function BusinessChatUI({
         ],
         view: "basic",
       };
-      setThreads([...threads, newThread]);
-      setActiveThreadId(newThread.id);
     } else {
-      const newThread: ChatThread = {
+      newThread = {
         id: `thread-${Date.now()}-${Math.random()}`,
         title: "Cost & Demographics",
         messages: [
@@ -3921,9 +3920,14 @@ export function BusinessChatUI({
         ],
         view: "basic",
       };
-      setThreads([...threads, newThread]);
-      setActiveThreadId(newThread.id);
     }
+
+    setThreads([...threads, newThread]);
+    setActiveThreadId(newThread.id);
+    toast({
+      title: "New conversation ready",
+      description: `${newThread.title} is now active with curated prompts and insights.`,
+    });
   };
 
   const handleSendMessage = (message: string) => {
