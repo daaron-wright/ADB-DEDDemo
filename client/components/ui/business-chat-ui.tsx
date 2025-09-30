@@ -847,12 +847,8 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
           placeholder="Who are the top competitors in the area?"
           className="w-full bg-transparent text-white placeholder-white/70 outline-none text-sm"
           onKeyPress={(e) => {
-            if (e.key === 'Enter' && e.currentTarget.value.trim()) {
-              // This will be handled by the parent component's handleSendMessage
-              const event = new CustomEvent('sendMessage', {
-                detail: { message: e.currentTarget.value.trim() }
-              });
-              window.dispatchEvent(event);
+            if (e.key === 'Enter' && e.currentTarget.value.trim() && onSendMessage) {
+              onSendMessage(e.currentTarget.value.trim());
               e.currentTarget.value = '';
             }
           }}
