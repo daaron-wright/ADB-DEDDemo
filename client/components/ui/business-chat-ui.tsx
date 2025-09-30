@@ -4224,12 +4224,6 @@ export function BusinessChatUI({
       ),
     );
 
-    conversation.push(
-      buildMessage(
-        "Where are existing establishments located for specific activities (on a heat map)?",
-        false,
-      ),
-    );
 
     conversation.push(
       buildMessage(
