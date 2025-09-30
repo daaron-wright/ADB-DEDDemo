@@ -2833,6 +2833,13 @@ export function BusinessChatUI({
                     {activeThread?.view === "compilation" && activeThreadId && (
                       <ResearchSynthesisView
                         onBack={() => updateThread(activeThreadId, { view: "corniche-detail" })}
+                        onViewDashboard={() => updateThread(activeThreadId, { view: "dashboard" })}
+                      />
+                    )}
+
+                    {activeThread?.view === "dashboard" && activeThreadId && (
+                      <DashboardView
+                        onBack={() => updateThread(activeThreadId, { view: "compilation" })}
                       />
                     )}
 
