@@ -2937,6 +2937,7 @@ export function BusinessChatUI({
   const [showBudgetModal, setShowBudgetModal] = useState(false);
   const [showCuisineBreakout, setShowCuisineBreakout] = useState(false);
   const [showCompetitorBreakout, setShowCompetitorBreakout] = useState(false);
+  const [showGapAnalysisBreakout, setShowGapAnalysisBreakout] = useState(false);
 
   const [loggedInUser, setLoggedInUser] = useState<any>(null);
   const [showBusinessPortal, setShowBusinessPortal] = useState(false);
