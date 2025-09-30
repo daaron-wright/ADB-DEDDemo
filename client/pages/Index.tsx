@@ -389,7 +389,7 @@ export default function Index() {
               "radial-gradient(860px circle at 15% 12%, rgba(233, 225, 255, 0.28), transparent 68%), radial-gradient(720px circle at 80% 18%, rgba(220, 207, 255, 0.22), transparent 72%), radial-gradient(960px circle at 55% 95%, rgba(248, 245, 255, 0.4), transparent 80%)",
           }}
         />
-      <div className="relative z-10 transition-[filter] duration-300 ease-out">
+        <div className="relative z-10 transition-[filter] duration-300 ease-out">
         {/* Navigation Header */}
         <header className="flex justify-between items-center px-8 py-6 border-b border-gray-100/50">
           {/* Tamm Logo */}
