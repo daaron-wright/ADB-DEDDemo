@@ -1398,7 +1398,7 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/6217a05a0af8f9420e0485cc166613634d45f299?width=634"
               alt="Abu Dhabi Map with Demographics"
-              className="w-full h-auto rounded-3xl"
+              className={chatCardClass("w-full h-auto")}
             />
           </motion.div>
 
@@ -1412,7 +1412,7 @@ const DashboardView = ({ onBack, onSendMessage }: { onBack: () => void; onSendMe
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/eade8edabdbb717ecdef1b65c3b40e5d1928605a?width=418"
               alt="Market Analysis Chart"
-              className="w-full h-auto rounded-3xl"
+              className={chatCardClass("w-full h-auto")}
             />
           </motion.div>
         </div>
