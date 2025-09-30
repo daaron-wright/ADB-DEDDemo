@@ -480,8 +480,8 @@ export default function ApplicantPortal() {
               </h2>
               <p className="max-w-xl text-sm leading-relaxed text-white/80">
                 Discover a clear path to research market potential, plan key approvals, and prepare your
-                business case with AI guidance. In just a few stages, explore how Khalid and other investors turn
-                ideas into thriving restaurants across Abu Dhabi.
+                business case with AI guidance. In just a few stages, explore how {ENTREPRENEUR_PROFILE.name} and
+                other investors turn ideas into thriving restaurants across Abu Dhabi.
               </p>
             </div>
           </div>
