@@ -3054,8 +3054,8 @@ const DiscoverExperienceView = ({
                       </div>
                     </div>
 
-                    <div className="flex h-full flex-col gap-4 rounded-[26px] border border-[#dbe9e3] bg-white p-5 text-slate-900 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]">
-                      <div className="relative overflow-hidden rounded-[26px] border border-[#dbe9e3] bg-white p-5 shadow-[0_18px_36px_-28px_rgba(15,118,110,0.25)]">
+                    <div className="flex h-full flex-col gap-4 rounded-[26px] border border-[#dbe9e3] bg-white p-6 text-slate-900 shadow-[0_18px_40px_-28px_rgba(15,118,110,0.18)]">
+                      <div className="relative overflow-hidden rounded-[24px] border border-[#dbe9e3] bg-white p-5 shadow-[0_18px_36px_-28px_rgba(15,118,110,0.25)]">
                         <span className="absolute left-0 top-5 bottom-5 w-1.5 rounded-full bg-gradient-to-b from-[#0E766E] via-[#34d399] to-transparent" />
                         <div className="pl-4">
                           <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
