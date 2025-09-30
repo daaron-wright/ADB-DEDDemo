@@ -2558,6 +2558,12 @@ const MessageBubble = ({
             </div>
           )}
 
+          {message.type === "comprehensive-report" && (
+            <div className="mt-4">
+              <ComprehensiveReport />
+            </div>
+          )}
+
           {message.actions && message.actions.length > 0 && onActionClick && (
             <div className="mt-3 flex flex-wrap gap-2">
               {message.actions.map((action) => (
