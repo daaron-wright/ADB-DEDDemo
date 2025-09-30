@@ -2952,7 +2952,7 @@ const DiscoverExperienceView = ({
       name: "Khalifa City",
       summary:
         "Expanding suburb with new schools, villas, and lifestyle centers attracting higher disposable income.",
-      footfall: "25��35K weekly visits",
+      footfall: "25–35K weekly visits",
       density: "Emerging density",
       trend: "+6% new households",
       focus: "Community casual dining, specialty coffee",
@@ -4387,7 +4387,7 @@ export function BusinessChatUI({
                   )}
                 >
                   {/* Chat Header */}
-                  <div className="border-b border-white/40 bg-white/60 p-3 backdrop-blur-2xl sm:p-4 lg:p-6">
+                  <div className="border-b border-black/10 bg-white p-4 sm:p-5 lg:p-6">
                     <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                       <div className="flex flex-col gap-1 text-left">
                         <span className="inline-flex w-fit items-center rounded-full border border-slate-200/70 bg-white/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
