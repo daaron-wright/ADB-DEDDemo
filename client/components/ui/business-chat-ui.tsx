@@ -3456,6 +3456,7 @@ export function BusinessChatUI({
         content: trimmedInitial,
         isAI: false,
         timestamp: new Date(),
+        type: "text",
       } satisfies BusinessMessage;
 
       if (seededMessages.length > 0 && seededMessages[0].isAI === false) {
