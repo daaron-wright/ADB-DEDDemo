@@ -7,7 +7,7 @@ interface HeatMapViewProps {
 
 const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
   return (
-    <div className="relative flex h-full min-h-screen flex-col overflow-hidden bg-[#f5f8f6]">
+    <div className="relative flex h-full min-h-[640px] flex-col overflow-x-hidden overflow-y-auto bg-[#f5f8f6]">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-20 top-[-160px] h-[380px] w-[380px] rounded-full bg-[#0E766E]/15 blur-3xl" />
         <div className="absolute right-[-120px] bottom-[-160px] h-[420px] w-[420px] rounded-full bg-[#0E766E]/10 blur-3xl" />
