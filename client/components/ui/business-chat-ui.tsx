@@ -2260,7 +2260,7 @@ export function BusinessChatUI({
                           message={enrichedMessage}
                           onActionClick={(action) => {
                             if (action === "budget-ranges") {
-                              console.log("Budget ranges clicked");
+                              setShowBudgetModal(true);
                             }
                           }}
                         />
