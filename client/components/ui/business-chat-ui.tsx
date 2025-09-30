@@ -2682,7 +2682,7 @@ const DiscoverExperienceView = ({
             }}
           />
           <div
-            className="relative z-10 w-full max-w-6xl"
+            className="relative z-10 w-full max-w-4xl"
             style={MODAL_MIN_DIMENSIONS}
           >
             <div className="max-h-[85vh] min-h-[556px] overflow-hidden rounded-[32px] border border-[#e2ede8] bg-white shadow-[0_24px_48px_-32px_rgba(11,64,55,0.25)] ring-4 ring-[#0E766E]/15 ring-offset-2 ring-offset-white">
