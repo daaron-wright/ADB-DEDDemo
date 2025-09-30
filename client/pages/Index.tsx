@@ -241,13 +241,6 @@ export default function Index() {
     });
 
     setActiveCategory(matchedCategory ? matchedCategory.id : null);
-    setOpenChatState((prev) => ({
-      ...prev,
-      isOpen: false,
-      mode: "general",
-      category: matchedCategory ? matchedCategory.id : null,
-      categoryTitle: matchedCategory ? matchedCategory.title : null,
-    }));
   }, [location.search, businessCategories]);
 
   const handleTileClick = (
