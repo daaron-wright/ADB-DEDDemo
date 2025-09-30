@@ -4311,7 +4311,7 @@ export function BusinessChatUI({
                   </div>
 
                   <div className="px-3 sm:px-4 lg:px-6 pb-4 sm:pb-6 lg:pb-8">
-                    <div className="grid gap-4 sm:gap-6 lg:gap-8 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+                    <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8">
                       <div className="flex flex-col rounded-2xl sm:rounded-3xl border border-white/12 bg-slate-900/55 backdrop-blur-xl p-3 sm:p-4 lg:p-6 min-h-[420px]">
                         <div className="flex-1 overflow-y-auto space-y-3 sm:space-y-4 pr-1 sm:pr-2 lg:pr-3 max-h-[52vh] sm:max-h-[58vh]">
                           {activeThread?.messages.map((message) => {
@@ -4426,7 +4426,7 @@ export function BusinessChatUI({
                         </div>
                       </div>
 
-                      <aside className="flex flex-col rounded-2xl sm:rounded-3xl border border-white/12 bg-white/10 backdrop-blur-xl p-3 sm:p-4 lg:p-6">
+                      <div className="flex flex-col rounded-2xl sm:rounded-3xl border border-white/12 bg-white/10 backdrop-blur-xl p-3 sm:p-4 lg:p-6">
                         <div className="space-y-4">
                           <div>
                             <div className="flex items-center justify-between gap-3">
@@ -4464,7 +4464,7 @@ export function BusinessChatUI({
                             ))}
                           </div>
 
-                          <div className="flex-1 overflow-y-auto space-y-4 pr-1 sm:pr-2 lg:pr-3 max-h-[360px]">
+                          <div className="overflow-y-auto space-y-4 pr-1 sm:pr-2 lg:pr-3 max-h-[360px]">
                             {activeContextTab === "insights" && (
                               <>
                                 <InsightsSummary />
@@ -4482,7 +4482,7 @@ export function BusinessChatUI({
                             )}
                           </div>
                         </div>
-                      </aside>
+                      </div>
                     </div>
                   </div>
                 </div>
