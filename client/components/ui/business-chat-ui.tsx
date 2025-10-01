@@ -5377,7 +5377,6 @@ export function BusinessChatUI({
       });
 
       setCurrentStep("handoff");
-      setModalView("heat-map");
     },
     [isInvestorLoginPending, buildMessage, buildStepMessage],
   );
