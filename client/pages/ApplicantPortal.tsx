@@ -952,7 +952,19 @@ export default function ApplicantPortal() {
                       <div className="flex flex-wrap items-start justify-between gap-3">
                         <button
                           type="button"
-                          onClick={() => setActiveStageId(stage.id)}
+                          onClick={() => {
+                            setIsStageManuallySelected(true);
+                            setActiveStageId(stage.id);
+                            const timelineIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
+                              (phase) => phase.stageId === stage.id,
+                            );
+                            if (timelineIndex >= 0) {
+                              setJourneyAnimationIndex(timelineIndex);
+                              setJourneyProgressPercent(
+                                JOURNEY_ANIMATION_TIMELINE[timelineIndex]?.percent ?? 0,
+                              );
+                            }
+                          }}
                           className="flex-1 w-full rounded-none border-none bg-transparent p-0 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
                         >
                           <div className="flex items-start justify-between gap-3">
