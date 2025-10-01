@@ -589,7 +589,7 @@ export default function ApplicantPortal() {
   }, []);
 
   useEffect(() => {
-    if (portalView !== "overview") {
+    if (portalView !== "overview" || isStageManuallySelected) {
       return;
     }
 
@@ -605,7 +605,7 @@ export default function ApplicantPortal() {
     return () => {
       window.clearInterval(interval);
     };
-  }, [portalView]);
+  }, [portalView, isStageManuallySelected]);
 
   useEffect(() => {
     const phase =
