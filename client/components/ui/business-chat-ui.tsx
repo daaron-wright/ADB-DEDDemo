@@ -5938,6 +5938,8 @@ export function BusinessChatUI({
           </div>
         )}
 
+        {modalOverlay}
+
         {/* Budget Ranges Modal */}
         <BudgetRangesModal
           key="budget-ranges-modal"
