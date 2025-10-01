@@ -85,7 +85,7 @@ const reviewQueue: ReviewQueueItem[] = [
     dueAt: "2024-03-22",
     slaStatus: "At Risk",
     daysRemaining: 3,
-    assignedTo: "Sarah Al Zaabi",
+    assignedTo: "Reviewer ID RV-45812",
     attachments: 5,
     documents: [
       {
