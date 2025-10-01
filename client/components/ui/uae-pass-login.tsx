@@ -27,8 +27,9 @@ const MOCK_USER_PROFILES = {
     avatarUrl: ENTREPRENEUR_PROFILE.avatar,
   },
   reviewer: {
-    name: "Sarah Al Zaabi",
-    email: "sarah.alzaabi@adm.ae",
+    reviewerId: "Reviewer ID RV-45812",
+    name: "Reviewer ID RV-45812",
+    email: "rv-45812@adm.ae",
     emiratesId: "784-1982-7654321-2",
     userType: "reviewer" as const,
     role: "License Reviewer",
