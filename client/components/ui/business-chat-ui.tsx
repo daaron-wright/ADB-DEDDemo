@@ -5244,7 +5244,7 @@ export function BusinessChatUI({
           setIsInvestorLoginPending(true);
           setShouldPromptLogin(true);
           const loginPromptMessage = buildMessage(
-            "I'll connect you to UAE PASS and sign in Khalid Entrepreneur now so we can continue with your setup.",
+            "Let's get you logged in with UAE Pass to continue with your personalized business setup.",
             true,
           );
           return [...updated, loginPromptMessage];
