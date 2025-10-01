@@ -5561,13 +5561,7 @@ export function BusinessChatUI({
         handleRetailLocationSelected,
       );
     };
-  }, [
-    buildMessage,
-    setModalView,
-    setIsInvestorLoginPending,
-    setShouldPromptLogin,
-    setIsInvestorAuthenticated,
-  ]);
+  }, [buildMessage, openApplicantPortal, setModalView]);
 
   useEffect(() => {
     const handleCuisineBreakout = () => setCuisineBreakoutOpen(true);
