@@ -5494,6 +5494,7 @@ export function BusinessChatUI({
     setModalView,
     setIsInvestorLoginPending,
     setShouldPromptLogin,
+    setIsInvestorAuthenticated,
   ]);
 
   useEffect(() => {
