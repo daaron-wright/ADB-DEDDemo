@@ -420,8 +420,7 @@ export default function ReviewerPortal() {
   const avatarCandidate = sanitize(portalUser?.avatarUrl);
   const profileName = reviewerIdentifier;
   const profileEmail = "Credentialed reviewer";
-  const profileAvatar =
-    avatarCandidate.length > 0 ? avatarCandidate : ENTREPRENEUR_PROFILE.avatar;
+  const profileAvatar = avatarCandidate.length > 0 ? avatarCandidate : "";
   const profileStatus: "online" | "offline" | "none" = "online";
 
   const handleSignOut = () => {
