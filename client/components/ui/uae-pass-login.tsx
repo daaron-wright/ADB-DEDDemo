@@ -126,10 +126,7 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
             type="button"
             onClick={() => onSelect(type)}
             className={chatCardClass(
-              "group flex h-full flex-col justify-between p-6 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
-              isReviewer
-                ? "border-2 border-[#0f766e] bg-white shadow-[0_18px_40px_-28px_rgba(15,118,110,0.32)] hover:border-[#0f766e] hover:shadow-[0_22px_46px_-30px_rgba(15,118,110,0.38)] focus-visible:ring-[#0f766e]"
-                : "border border-slate-200 bg-white shadow-sm hover:border-slate-400 hover:shadow-[0_18px_40px_-26px_rgba(15,23,42,0.35)] focus-visible:ring-emerald-500",
+              "group flex h-full flex-col justify-between border border-slate-200 bg-white p-6 text-left shadow-sm transition-all duration-200 hover:border-slate-400 hover:shadow-[0_18px_40px_-26px_rgba(15,23,42,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2",
             )}
             aria-label={`Continue as ${detail.label}`}
             style={{
