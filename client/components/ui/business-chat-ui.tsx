@@ -5280,9 +5280,19 @@ export function BusinessChatUI({
         }
 
         if (action === "confirm-retail-automation") {
+          if (isInvestorAuthenticated) {
+            setView("investor-journey");
+            const acknowledgement = buildMessage(
+              "I'll automate the application and have opened your applicant portal timeline.",
+              true,
+            );
+            return [...updated, acknowledgement];
+          }
+
           setIsInvestorAuthenticated(false);
           setIsInvestorLoginPending(true);
           setShouldPromptLogin(true);
+          setShouldOpenInvestorView(true);
           const approvalMessage = buildMessage(
             "Let’s get you logged in with UAE Pass.",
             true,
