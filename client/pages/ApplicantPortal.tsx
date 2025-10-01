@@ -1063,11 +1063,15 @@ export default function ApplicantPortal() {
                         Journey engine
                       </p>
                       <p className="mt-1 text-sm font-semibold text-slate-900">
-                        {currentAnimationPhase.message}
+                        {currentAnimationPhase.message}{" "}
+                        <span className="text-[#0f766e]">
+                          {clampedJourneyProgress}% complete
+                        </span>
                       </p>
                     </div>
-                    <span className="text-sm font-semibold text-[#0f766e]">
-                      {Math.min(Math.max(journeyProgressPercent, 0), 100)}% complete
+                    <span className="inline-flex items-center gap-2 rounded-full bg-[#eaf7f3] px-3 py-1 text-xs font-semibold text-[#0b7d6f]">
+                      <span className="h-2 w-2 rounded-full bg-[#0f766e] animate-pulse" />
+                      Live sync
                     </span>
                   </div>
                   <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-[#e6f2ed]">
