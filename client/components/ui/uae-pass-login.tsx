@@ -334,14 +334,7 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({
             )}
           </button>
 
-          <div
-            className={cn(
-              "rounded-xl border border-dashed px-4 py-3 text-sm",
-              isReviewer
-                ? "border-[#0f766e]/60 bg-white text-slate-600"
-                : "border-slate-200 bg-slate-50/60 text-slate-600",
-            )}
-          >
+          <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50/60 px-4 py-3 text-sm text-slate-600">
             <p>
               You'll be redirected to the official UAE PASS experience to verify
               your identity securely.
