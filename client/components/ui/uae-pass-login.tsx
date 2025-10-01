@@ -477,31 +477,33 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
         className="relative mx-auto flex w-full max-w-[840px] flex-col justify-between gap-10 rounded-md border border-[#d8e4df] p-6 text-center [&>*]:w-full"
         style={MODAL_MIN_DIMENSIONS}
       >
-        <Close asChild>
-          <button
-            ref={closeButtonRef}
-            type="button"
-            onClick={resetFlow}
-            className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition-colors duration-150 hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300"
-            aria-label="Close"
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+        <div className="flex w-full justify-end">
+          <Close asChild>
+            <button
+              ref={closeButtonRef}
+              type="button"
+              onClick={resetFlow}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-[0_12px_32px_-18px_rgba(15,23,42,0.35)] transition-colors duration-150 hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300"
+              aria-label="Close"
             >
-              <path
-                d="M12.667 3.33301L3.33366 12.6663M3.33366 3.33301L12.667 12.6663"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </Close>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12.667 3.33301L3.33366 12.6663M3.33366 3.33301L12.667 12.6663"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </Close>
+        </div>
 
         <div className="flex justify-center">
           <img
