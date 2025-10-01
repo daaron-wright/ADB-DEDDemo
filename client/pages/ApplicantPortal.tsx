@@ -1106,7 +1106,20 @@ export default function ApplicantPortal() {
                   {isStageManuallySelected ? (
                     <button
                       type="button"
-                      onClick={() => setIsStageManuallySelected(false)}
+                      onClick={() => {
+                        setIsStageManuallySelected(false);
+                        const timelineIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
+                          (phase) => phase.stageId === activeStageId,
+                        );
+                        setJourneyAnimationIndex(
+                          timelineIndex >= 0 ? timelineIndex : 0,
+                        );
+                        if (timelineIndex >= 0) {
+                          setJourneyProgressPercent(
+                            JOURNEY_ANIMATION_TIMELINE[timelineIndex]?.percent ?? 0,
+                          );
+                        }
+                      }}
                       className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
                     >
                       Resume animation
