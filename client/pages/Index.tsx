@@ -646,6 +646,7 @@ export default function Index() {
         onOpenChange={setPromptModalOpen}
         options={chatPromptOptions}
         onSelect={handlePromptSelect}
+        onSkip={handlePromptSkip}
       />
 
       <BusinessChatUI
