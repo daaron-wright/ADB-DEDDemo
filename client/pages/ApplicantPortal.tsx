@@ -782,18 +782,15 @@ export default function ApplicantPortal() {
               </p>
             </div>
           </div>
-          <div className="flex flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+          <div className="flex sm:w-auto sm:items-center">
             <Link
               to={discoveryGeneralChatLink}
-              className="inline-flex items-center justify-center rounded-full border border-white/70 px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_-22px_rgba(0,0,0,0.35)] transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/70 px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_-22px_rgba(0,0,0,0.35)] transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
             >
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/15">
+                <Plus className="h-4 w-4" aria-hidden="true" />
+              </span>
               Explore more options
-            </Link>
-            <Link
-              to={discoverySetupChatLink}
-              className="inline-flex items-center justify-center rounded-full bg-[#18b4a6] px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_36px_-28px_rgba(0,0,0,0.45)] transition hover:bg-[#139a91] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-            >
-              Set up business
             </Link>
           </div>
         </div>
