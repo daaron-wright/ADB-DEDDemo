@@ -1077,9 +1077,7 @@ export default function ApplicantPortal() {
                   <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-[#e6f2ed]">
                     <div
                       className="h-full rounded-full bg-[#0f766e] transition-all duration-700"
-                      style={{
-                        width: `${Math.min(Math.max(journeyProgressPercent, 0), 100)}%`,
-                      }}
+                      style={{ width: `${clampedJourneyProgress}%` }}
                     />
                   </div>
                   <div className="mt-4 space-y-3">
