@@ -152,13 +152,13 @@ const LoadingCard = ({ delay = 0 }: { delay?: number }) => {
     const timer = setTimeout(() => {
       const interval = setInterval(() => {
         setProgress((prev) => {
-          if (prev >= 76) {
+          if (prev >= 82) {
             clearInterval(interval);
-            return 76;
+            return 82;
           }
-          return prev + 2;
+          return prev + 1;
         });
-      }, 50);
+      }, 80);
       return () => clearInterval(interval);
     }, delay * 1000);
 
@@ -167,16 +167,52 @@ const LoadingCard = ({ delay = 0 }: { delay?: number }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9, y: 20 }}
+      initial={{ opacity: 0, scale: 0.92, y: 18 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.6, delay }}
       className="relative"
     >
-      <div className="w-full h-64 md:h-80 bg-gradient-to-br from-teal-500 to-teal-700 rounded-3xl flex items-center justify-center shadow-lg shadow-teal-500/50">
-        <div className="text-center">
-          <div className="text-6xl font-bold text-white mb-2">{progress}%</div>
-          <div className="text-white text-sm">Gathering Competitor Data</div>
-        </div>
+      <div className="relative flex h-64 w-full items-center justify-center overflow-hidden rounded-3xl bg-[#0B3A38] shadow-[0_28px_70px_-40px_rgba(10,64,60,0.55)] md:h-80">
+        <motion.div
+          className="absolute inset-0 rounded-3xl bg-[radial-gradient(circle_at_top,rgba(84,255,212,0.25),transparent_65%)]"
+          animate={{ opacity: [0.35, 0.55, 0.35] }}
+          transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute inset-0 rounded-3xl border border-white/8"
+          animate={{ opacity: [0.25, 0.4, 0.25] }}
+          transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="relative flex flex-col items-center gap-4 text-center"
+          animate={{ scale: [1, 1.02, 1] }}
+          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#54FFD4]" />
+            Gathering
+          </div>
+          <motion.span
+            key={progress}
+            initial={{ opacity: 0.6 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className="text-4xl font-semibold text-white md:text-5xl"
+          >
+            {progress}%
+          </motion.span>
+          <p className="text-sm text-white/80 md:text-base">Gathering Competitor Data</p>
+          <div className="mt-2 w-40 max-w-[70%]">
+            <div className="h-1.5 overflow-hidden rounded-full bg-white/15">
+              <motion.div
+                className="h-full rounded-full bg-gradient-to-r from-[#54FFD4] via-[#14A39A] to-[#0E766E]"
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
+        </motion.div>
       </div>
     </motion.div>
   );
