@@ -5,6 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
 
 export interface ChatPromptOption {
@@ -50,8 +51,8 @@ export function ChatPromptDialog({
               key={option.id}
               type="button"
               onClick={() => onSelect(option)}
-              className={cn(
-                "group h-full w-full rounded-3xl border border-white/60 bg-white/70 px-6 py-6 text-left shadow-[0_26px_60px_-42px_rgba(24,32,63,0.45)] transition hover:-translate-y-0.5 hover:border-emerald-200/70 hover:shadow-[0_30px_68px_-40px_rgba(24,32,63,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60 backdrop-blur-xl",
+              className={chatCardClass(
+                "group flex h-full w-full flex-col justify-between gap-5 border border-white/20 bg-white/18 px-6 py-6 text-left shadow-[0_30px_78px_-42px_rgba(15,23,42,0.48)] transition hover:-translate-y-0.5 hover:border-emerald-200/70 hover:shadow-[0_34px_90px_-44px_rgba(15,23,42,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 backdrop-blur-2xl",
               )}
             >
               <div className="flex h-full flex-col justify-between gap-5">
@@ -95,7 +96,11 @@ export function ChatPromptDialog({
           ))}
         </div>
 
-        <div className="mt-9 flex flex-col gap-3 rounded-3xl border border-white/60 bg-white/75 px-5 py-4 text-sm text-slate-600 backdrop-blur-xl shadow-[0_20px_55px_-40px_rgba(24,32,63,0.35)] sm:flex-row sm:items-center sm:justify-between">
+        <div
+          className={chatCardClass(
+            "mt-9 flex flex-col gap-3 border border-white/25 bg-white/18 px-5 py-4 text-sm text-slate-600 backdrop-blur-2xl shadow-[0_28px_70px_-48px_rgba(15,23,42,0.42)] sm:flex-row sm:items-center sm:justify-between",
+          )}
+        >
           <p className="sm:max-w-md">
             Prefer to write your own? Skip the presets and I’ll start with a quick
             orientation covering all four opportunities.
@@ -103,7 +108,7 @@ export function ChatPromptDialog({
           <button
             type="button"
             onClick={onSkip}
-            className="inline-flex items-center gap-2 rounded-full border border-slate-300/70 bg-white/80 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-emerald-200 hover:text-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/60 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-emerald-200 hover:text-emerald-700 backdrop-blur-xl"
           >
             Start without a starter
           </button>
