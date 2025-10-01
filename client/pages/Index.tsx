@@ -113,7 +113,6 @@ export default function Index() {
     [],
   );
 
-
   const queueFocusPoint = (point: { x: number; y: number }) => {
     if (typeof window === "undefined") {
       setFocusPoint(point);
@@ -446,23 +445,23 @@ export default function Index() {
             </div>
 
             {/* Welcome heading */}
-          <div className="flex items-center justify-center">
-            <span className="text-black text-base font-medium">Welcome</span>
-          </div>
+            <div className="flex items-center justify-center">
+              <span className="text-black text-base font-medium">Welcome</span>
+            </div>
 
-          {/* Sign in button */}
-          <div className="flex justify-end">
-            <UAEPassLogin
-              mode="full"
-              defaultUserType="applicant"
-              trigger={
-                <span className="inline-flex items-center justify-center rounded-full bg-teal-gradient px-6 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
-                  Sign in
-                </span>
-              }
-              onLogin={handleUAEPassLogin}
-            />
-          </div>
+            {/* Sign in button */}
+            <div className="flex justify-end">
+              <UAEPassLogin
+                mode="full"
+                defaultUserType="applicant"
+                trigger={
+                  <span className="inline-flex items-center justify-center rounded-full bg-teal-gradient px-6 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
+                    Sign in
+                  </span>
+                }
+                onLogin={handleUAEPassLogin}
+              />
+            </div>
           </header>
 
           {/* Hero Section */}

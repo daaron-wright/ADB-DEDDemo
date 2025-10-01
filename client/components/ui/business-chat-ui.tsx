@@ -141,7 +141,8 @@ const MODAL_MIN_DIMENSIONS: React.CSSProperties = {
   minHeight: 556,
 };
 
-const ACKNOWLEDGEMENT_MESSAGE = "Acknowledged. Opening BUSINESS LICENSE PORTAL Khalid's workspace now.";
+const ACKNOWLEDGEMENT_MESSAGE =
+  "Acknowledged. Opening BUSINESS LICENSE PORTAL Khalid's workspace now.";
 
 // Preloaded prompts for different business categories
 const PRELOADED_PROMPTS = {
@@ -5299,21 +5300,25 @@ export function BusinessChatUI({
             "Let's get you logged in with UAE Pass to continue with your personalized business setup.",
             true,
           );
-          const journeyCardMessage = buildMessage("Your journey, powered by AI.", true, {
-            type: "setup-cta",
-            actions: [
-              {
-                id: "explore-options",
-                label: "Explore more options",
-                action: "show-summary",
-              },
-              {
-                id: "setup-business-primary",
-                label: "Set up business",
-                action: "open-investor-journey",
-              },
-            ],
-          });
+          const journeyCardMessage = buildMessage(
+            "Your journey, powered by AI.",
+            true,
+            {
+              type: "setup-cta",
+              actions: [
+                {
+                  id: "explore-options",
+                  label: "Explore more options",
+                  action: "show-summary",
+                },
+                {
+                  id: "setup-business-primary",
+                  label: "Set up business",
+                  action: "open-investor-journey",
+                },
+              ],
+            },
+          );
           return [...updated, loginPromptMessage, journeyCardMessage];
         }
 
@@ -5498,7 +5503,7 @@ export function BusinessChatUI({
               action: "open-investor-journey",
             },
           ],
-        }
+        },
       ),
     );
 

@@ -38,9 +38,9 @@ export function ChatPromptDialog({
             Start a conversation
           </DialogTitle>
           <DialogDescription className="text-sm text-slate-600">
-            Choose a guided starter based on what you explored. Each path mirrors
-            the AI tips you saw on the tiles, so you can pick up the same flow
-            inside the chat.
+            Choose a guided starter based on what you explored. Each path
+            mirrors the AI tips you saw on the tiles, so you can pick up the
+            same flow inside the chat.
           </DialogDescription>
         </DialogHeader>
 
@@ -101,8 +101,8 @@ export function ChatPromptDialog({
           )}
         >
           <p className="sm:max-w-md">
-            Prefer to write your own? Skip the presets and I’ll start with a quick
-            orientation covering all four opportunities.
+            Prefer to write your own? Skip the presets and I’ll start with a
+            quick orientation covering all four opportunities.
           </p>
           <button
             type="button"

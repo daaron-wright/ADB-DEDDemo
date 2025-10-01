@@ -58,7 +58,9 @@ export function PortalProfileMenu({
               />
             ) : null}
             <AvatarFallback className="flex items-center justify-center rounded-full bg-neutral-100 text-sm font-semibold text-neutral-600">
-              {hasAvatarImage ? initials || "NA" : (
+              {hasAvatarImage ? (
+                initials || "NA"
+              ) : (
                 <User className="h-4 w-4 text-neutral-400" aria-hidden="true" />
               )}
             </AvatarFallback>

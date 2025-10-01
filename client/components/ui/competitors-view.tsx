@@ -201,7 +201,9 @@ const LoadingCard = ({ delay = 0 }: { delay?: number }) => {
           >
             {progress}%
           </motion.span>
-          <p className="text-sm text-white/80 md:text-base">Gathering Competitor Data</p>
+          <p className="text-sm text-white/80 md:text-base">
+            Gathering Competitor Data
+          </p>
           <div className="mt-2 w-40 max-w-[70%]">
             <div className="h-1.5 overflow-hidden rounded-full bg-white/15">
               <motion.div
