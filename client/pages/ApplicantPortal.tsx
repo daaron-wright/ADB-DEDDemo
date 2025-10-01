@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { PortalPageLayout } from "@/components/portal/PortalPageLayout";
 import { PortalProfileMenu } from "@/components/portal/PortalProfileMenu";
+import { JourneyView } from "@/components/portal/JourneyView";
+import type { JourneyStep } from "@/components/portal/JourneyStepper";
+import type {
+  ActorOption,
+  BusinessActivity,
+} from "@/components/portal/BusinessActivitiesSelection";
 import { cn } from "@/lib/utils";
 import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
 
@@ -339,8 +345,106 @@ const taskStatusTokens: Record<
   },
 };
 
+type PortalView = "overview" | "journey";
+
+const JOURNEY_NUMBER = "0987654321";
+
+const ACTOR_OPTIONS: ActorOption[] = [
+  { id: "ded", label: "Department of Economic Development" },
+  { id: "adafsa", label: "Abu Dhabi Agriculture & Food Safety Authority" },
+  { id: "adm", label: "Abu Dhabi Municipality" },
+  { id: "tamm", label: "TAMM" },
+];
+
+const JOURNEY_STEPS_CONFIG: JourneyStep[] = [
+  { id: "questionnaire", label: "Questionnaire", state: "completed" },
+  {
+    id: "business-registration",
+    label: "Business Registration",
+    state: "completed",
+  },
+  { id: "submit-documents", label: "Submit Documents", state: "completed" },
+  { id: "business-licensing", label: "Business Licensing", state: "current" },
+  {
+    id: "pre-operational-inspection",
+    label: "Pre-Operational Inspection",
+    state: "upcoming",
+  },
+];
+
+const RECOMMENDED_ACTIVITIES: BusinessActivity[] = [
+  {
+    id: "full-service-restaurant",
+    label: "Full-service restaurant",
+    description: "Operate a dine-in restaurant with full kitchen facilities.",
+    isRecommended: true,
+    actors: ["ded", "adafsa"],
+  },
+  {
+    id: "charcoal-bbq",
+    label: "Charcoal/coal BBQ services",
+    description: "Indoor and outdoor charcoal grilling operations.",
+    isRecommended: true,
+    actors: ["adafsa"],
+  },
+  {
+    id: "hospitality-catering",
+    label: "Hospitality and catering services",
+    description: "Provide event catering and hospitality staffing support.",
+    actors: ["adm"],
+  },
+];
+
+const ADDITIONAL_ACTIVITIES: BusinessActivity[] = [
+  {
+    id: "delivery-kitchen",
+    label: "Delivery-only kitchen",
+    description: "Virtual kitchen focused on delivery-only operations.",
+    actors: ["ded"],
+  },
+  {
+    id: "food-truck",
+    label: "Mobile food truck operations",
+    description: "Serve food from licensed mobile units across Abu Dhabi.",
+    actors: ["adm"],
+  },
+  {
+    id: "pastry-production",
+    label: "Central bakery and pastry production",
+    description: "Produce baked goods for wholesale and retail distribution.",
+    actors: ["adafsa"],
+  },
+];
+
+const INITIAL_SELECTED_ACTIVITY_IDS = [
+  "full-service-restaurant",
+  "charcoal-bbq",
+];
+
+const computeSteps = (activeStepId: string): JourneyStep[] => {
+  const targetIndex = JOURNEY_STEPS_CONFIG.findIndex(
+    (step) => step.id === activeStepId,
+  );
+
+  return JOURNEY_STEPS_CONFIG.map((step, index) => {
+    if (targetIndex === -1) {
+      return { ...step };
+    }
+
+    const state =
+      index < targetIndex
+        ? "completed"
+        : index === targetIndex
+          ? "current"
+          : "upcoming";
+
+    return { ...step, state };
+  });
+};
+
 export default function ApplicantPortal() {
   const location = useLocation();
+  const [portalView, setPortalView] = useState<PortalView>("overview");
   const portalUser = (
     location.state as
       | {
@@ -368,6 +472,77 @@ export default function ApplicantPortal() {
     journeyStages[0].id;
 
   const [activeStageId, setActiveStageId] = useState<string>(initialStageId);
+
+  const defaultJourneyStepId =
+    JOURNEY_STEPS_CONFIG.find((step) => step.state === "current")?.id ??
+    JOURNEY_STEPS_CONFIG[0].id;
+
+  const [journeySteps, setJourneySteps] = useState<JourneyStep[]>(() =>
+    computeSteps(defaultJourneyStepId),
+  );
+  const [currentJourneyStepId, setCurrentJourneyStepId] =
+    useState<string>(defaultJourneyStepId);
+  const [journeyActivities, setJourneyActivities] = useState<
+    BusinessActivity[]
+  >(RECOMMENDED_ACTIVITIES);
+  const [selectedJourneyActivityIds, setSelectedJourneyActivityIds] = useState<
+    string[]
+  >(INITIAL_SELECTED_ACTIVITY_IDS);
+  const [availableJourneyActivities, setAvailableJourneyActivities] = useState<
+    BusinessActivity[]
+  >(ADDITIONAL_ACTIVITIES);
+
+  const updateCurrentJourneyStep = useCallback(
+    (stepId: string) => {
+      if (!JOURNEY_STEPS_CONFIG.some((step) => step.id === stepId)) {
+        return;
+      }
+
+      setJourneySteps(computeSteps(stepId));
+      setCurrentJourneyStepId(stepId);
+    },
+    [],
+  );
+
+  const handleJourneyStepChange = useCallback(
+    (stepId: string) => {
+      updateCurrentJourneyStep(stepId);
+    },
+    [updateCurrentJourneyStep],
+  );
+
+  const handleJourneyActivityToggle = useCallback((activityId: string) => {
+    setSelectedJourneyActivityIds((prev) =>
+      prev.includes(activityId)
+        ? prev.filter((id) => id !== activityId)
+        : [...prev, activityId],
+    );
+  }, []);
+
+  const handleAddJourneyActivity = useCallback((activityId: string) => {
+    setAvailableJourneyActivities((prev) => {
+      const activity = prev.find((item) => item.id === activityId);
+      if (!activity) {
+        return prev;
+      }
+
+      setJourneyActivities((current) =>
+        current.some((item) => item.id === activityId)
+          ? current
+          : [...current, activity],
+      );
+      setSelectedJourneyActivityIds((current) =>
+        current.includes(activityId) ? current : [...current, activityId],
+      );
+
+      return prev.filter((item) => item.id !== activityId);
+    });
+  }, []);
+
+  const completedJourneySteps = useMemo(
+    () => journeySteps.filter((step) => step.state === "completed").length,
+    [journeySteps],
+  );
 
   const activeStage =
     journeyStages.find((stage) => stage.id === activeStageId) ??
@@ -405,6 +580,14 @@ export default function ApplicantPortal() {
     "I'm ready to set up my restaurant in Abu Dhabi. Can you guide me through the next steps?",
   )}`;
 
+  const handleViewJourney = (stageId: string) => {
+    setPortalView("journey");
+    const matchingStep = JOURNEY_STEPS_CONFIG.find((step) => step.id === stageId);
+    if (matchingStep) {
+      updateCurrentJourneyStep(stageId);
+    }
+  };
+
   const filters = (
     <div className="space-y-6 text-sm text-slate-700">
       <div>
@@ -437,6 +620,28 @@ export default function ApplicantPortal() {
       </div>
     </div>
   );
+
+  if (portalView === "journey") {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        <JourneyView
+          journeyNumber={JOURNEY_NUMBER}
+          completedSteps={completedJourneySteps}
+          totalSteps={journeySteps.length}
+          currentStepId={currentJourneyStepId}
+          steps={journeySteps}
+          activities={journeyActivities}
+          selectedActivityIds={selectedJourneyActivityIds}
+          availableActivities={availableJourneyActivities}
+          actorOptions={ACTOR_OPTIONS}
+          onStepChange={handleJourneyStepChange}
+          onActivityToggle={handleJourneyActivityToggle}
+          onAddActivity={handleAddJourneyActivity}
+          onClose={() => setPortalView("overview")}
+        />
+      </div>
+    );
+  }
 
   return (
     <PortalPageLayout
@@ -701,13 +906,14 @@ export default function ApplicantPortal() {
                             </span>
                           ) : null}
                         </button>
-                        <Link
-                          to={`/journey?stage=${stage.id}`}
+                        <button
+                          type="button"
+                          onClick={() => handleViewJourney(stage.id)}
                           className="inline-flex items-center rounded-full border border-[#0f766e] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-white hover:text-[#0f766e] hover:shadow-[0_14px_28px_-22px_rgba(11,64,55,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
                           aria-label={`Open ${stage.title} in the Investor Journey`}
                         >
                           Journey
-                        </Link>
+                        </button>
                       </div>
                     </div>
                   </li>
