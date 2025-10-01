@@ -228,26 +228,6 @@ export default function Index() {
     [],
   );
 
-  const chatPromptOptions = useMemo<ChatPromptOption[]>(
-    () =>
-      businessCategories.map((category) => ({
-        id: category.id,
-        title: category.title,
-        prompt: category.prompt,
-        description: category.tooltip,
-        tag: category.subtitle,
-      })),
-    [businessCategories],
-  );
-
-  const defaultIntroPrompt = useMemo(() => {
-    const overview = businessCategories
-      .map((category) => `${category.title}: ${category.tooltip}`)
-      .join("\n- ");
-
-    return `I want a guided overview of the setup opportunities I just reviewed. Use these highlights to introduce the journey and recommend where I should begin:\n- ${overview}`;
-  }, [businessCategories]);
-
   useEffect(() => {
     const params = new URLSearchParams(location.search);
 
