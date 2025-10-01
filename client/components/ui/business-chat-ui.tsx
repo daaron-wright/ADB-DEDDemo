@@ -5531,14 +5531,11 @@ export function BusinessChatUI({
         );
 
         if (automationConfirmed === true) {
-          setIsInvestorAuthenticated(false);
-          setIsInvestorLoginPending(true);
-          setShouldPromptLogin(true);
-          setShouldOpenInvestorView(true);
-          return [
-            ...sanitized,
-            buildMessage("Let's get you logged in with UAE Pass.", true),
-          ];
+          const acknowledgement = buildMessage(ACKNOWLEDGEMENT_MESSAGE, true);
+          setTimeout(() => {
+            openApplicantPortal();
+          }, 100);
+          return [...sanitized, acknowledgement];
         } else if (automationConfirmed === false) {
           return [
             ...sanitized,
