@@ -451,7 +451,7 @@ const JOURNEY_ANIMATION_TIMELINE: Array<{
 }> = [
   {
     stageId: "questionnaire",
-    message: "Generating application intake...",
+    message: "Generating application...",
     percent: 15,
     keyConsiderations: ["Legal structure", "Applicant identity"],
     dataTags: ["UAE PASS profile", "Emirates ID", "Digital signature"],
