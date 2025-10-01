@@ -5242,17 +5242,18 @@ export function BusinessChatUI({
         }
 
         if (action === "open-investor-journey") {
-          if (isInvestorLoginPending) {
+          if (isInvestorAuthenticated) {
             setModalView("heat-map");
             return [
               ...updated,
               buildMessage(
-                "Opening the interactive market heat map. Where are existing establishments located for specific activities?",
+                "Where are existing establishments located for specific activities (on a heat map)?",
                 true,
               ),
             ];
           }
 
+          setIsInvestorAuthenticated(false);
           setIsInvestorLoginPending(true);
           setShouldPromptLogin(true);
           const loginPromptMessage = buildMessage(
