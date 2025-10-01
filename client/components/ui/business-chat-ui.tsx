@@ -5376,9 +5376,16 @@ export function BusinessChatUI({
         return nextMessages;
       });
 
+      setIsInvestorAuthenticated(true);
       setCurrentStep("handoff");
     },
-    [isInvestorLoginPending, buildMessage, buildStepMessage],
+    [
+      isInvestorLoginPending,
+      buildMessage,
+      buildStepMessage,
+      setCurrentStep,
+      setIsInvestorAuthenticated,
+    ],
   );
 
   useEffect(() => {
