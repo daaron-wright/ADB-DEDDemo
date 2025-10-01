@@ -255,13 +255,7 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({
         </div>
       </div>
 
-      <div
-        className={cn(
-          "rounded-3xl border border-slate-200 bg-white/90 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.45)]",
-          isReviewer &&
-            "border-2 border-[#0f766e] bg-white shadow-[0_20px_48px_-30px_rgba(15,118,110,0.35)]",
-        )}
-      >
+      <div className="rounded-3xl border border-slate-200 bg-white/90 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.45)]">
         <div className="flex items-start gap-4 px-6 pt-6">
           <div
             className={cn(
