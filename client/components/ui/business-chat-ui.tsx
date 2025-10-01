@@ -5300,7 +5300,13 @@ export function BusinessChatUI({
         return updated;
       });
     },
-    [buildMessage, buildStepMessage, currentStep],
+    [
+      buildMessage,
+      buildStepMessage,
+      currentStep,
+      isInvestorAuthenticated,
+      setModalView,
+    ],
   );
 
   const handleAutoLoginComplete = useCallback(
