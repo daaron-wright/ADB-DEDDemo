@@ -442,6 +442,50 @@ const computeSteps = (activeStepId: string): JourneyStep[] => {
   });
 };
 
+const JOURNEY_ANIMATION_TIMELINE: Array<{
+  stageId: string;
+  message: string;
+  percent: number;
+  keyConsiderations: string[];
+  dataTags: string[];
+}> = [
+  {
+    stageId: "questionnaire",
+    message: "Generating application intake...",
+    percent: 15,
+    keyConsiderations: ["Legal structure", "Applicant identity"],
+    dataTags: ["UAE PASS profile", "Emirates ID", "Digital signature"],
+  },
+  {
+    stageId: "business-registration",
+    message: "Validating trade name and ownership...",
+    percent: 42,
+    keyConsiderations: ["Legal structure", "Ownership model"],
+    dataTags: ["Trade name reservation", "Shareholder IDs", "Economic directory"],
+  },
+  {
+    stageId: "submit-documents",
+    message: "Reviewing supporting documents...",
+    percent: 63,
+    keyConsiderations: ["Business activities", "Compliance attachments"],
+    dataTags: ["Tenancy contract", "Financial statements", "Food safety certificates"],
+  },
+  {
+    stageId: "business-licensing",
+    message: "Aligning approvals across directorates...",
+    percent: 78,
+    keyConsiderations: ["Business activities", "Financial readiness"],
+    dataTags: ["Fee schedule", "Payment verification", "Compliance analyst notes"],
+  },
+  {
+    stageId: "pre-operational-inspection",
+    message: "Scheduling inspection windows...",
+    percent: 92,
+    keyConsiderations: ["Physical space", "Fit-out readiness"],
+    dataTags: ["Inspection availability", "Fit-out checklist", "Team contacts"],
+  },
+];
+
 export default function ApplicantPortal() {
   const location = useLocation();
   const [portalView, setPortalView] = useState<PortalView>("overview");
