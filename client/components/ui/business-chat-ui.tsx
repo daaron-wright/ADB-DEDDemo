@@ -5450,6 +5450,7 @@ export function BusinessChatUI({
         );
 
         if (automationConfirmed === true) {
+          setIsInvestorAuthenticated(false);
           setIsInvestorLoginPending(true);
           setShouldPromptLogin(true);
           return [
