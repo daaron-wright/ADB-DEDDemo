@@ -141,6 +141,8 @@ const MODAL_MIN_DIMENSIONS: React.CSSProperties = {
   minHeight: 556,
 };
 
+const ACKNOWLEDGEMENT_MESSAGE = "Acknowledged. Opening BUSINESS LICENSE PORTAL Khalid's workspace now.";
+
 // Preloaded prompts for different business categories
 const PRELOADED_PROMPTS = {
   restaurants: [
