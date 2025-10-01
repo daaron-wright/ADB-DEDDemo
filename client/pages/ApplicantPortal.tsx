@@ -640,6 +640,10 @@ export default function ApplicantPortal() {
     JOURNEY_ANIMATION_TIMELINE.find(
       (phase) => phase.stageId === activeStageId,
     ) ?? JOURNEY_ANIMATION_TIMELINE[journeyAnimationIndex];
+  const clampedJourneyProgress = Math.min(
+    Math.max(journeyProgressPercent, 0),
+    100,
+  );
 
   const headerActions = (
     <PortalProfileMenu
