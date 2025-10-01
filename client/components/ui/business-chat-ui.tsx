@@ -190,7 +190,7 @@ const CONVERSATION_BLUEPRINT: Record<
   },
   summary: {
     message:
-      "Here is the market signal summary you need to decide fast:\n• Corniche waterfront is running at 96% footfall intensity with premium dining demand.\n• Emirati fusion and coastal casual concepts are the fastest growing cuisine segments.\n• Licensing turnaround averages 14 days once documents are pre-validated.\nWhen you're ready, I'll take you straight into the investor journey workspace.",
+      "Here is the market signal summary you need to decide fast:\n�� Corniche waterfront is running at 96% footfall intensity with premium dining demand.\n• Emirati fusion and coastal casual concepts are the fastest growing cuisine segments.\n• Licensing turnaround averages 14 days once documents are pre-validated.\nWhen you're ready, I'll take you straight into the investor journey workspace.",
     actions: [
       { label: "Open my investor journey", action: "open-investor-journey" },
     ],
@@ -5382,6 +5382,7 @@ export function BusinessChatUI({
       setDialogueDocState(createInitialDialogueDocState());
       setIsInvestorLoginPending(false);
       setShouldPromptLogin(false);
+      setIsInvestorAuthenticated(false);
       return;
     }
 
