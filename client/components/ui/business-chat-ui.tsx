@@ -2586,7 +2586,7 @@ const ChatInputField = ({
       onSubmit={handleSubmit}
       className={cn("w-full max-w-[691px]", className)}
     >
-      <div className="flex min-h-[48px] w-full items-center gap-3 rounded-full border border-black bg-black px-4 py-3 shadow-[0_16px_40px_-26px_rgba(0,0,0,0.45)]">
+      <div className="flex min-h-[48px] w-full items-center gap-3 rounded-full border border-black/15 bg-white px-4 py-3 shadow-[0_16px_40px_-26px_rgba(0,0,0,0.18)]">
         <input
           type="text"
           value={value}
@@ -2602,7 +2602,7 @@ const ChatInputField = ({
         {/* Microphone Icon */}
         <button
           type="button"
-          className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white text-black transition-colors hover:bg-gray-100"
+          className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-black/10 bg-white text-black transition-colors hover:bg-gray-100"
           aria-label="Voice input"
         >
           <svg
@@ -2623,7 +2623,7 @@ const ChatInputField = ({
         {/* Keyboard Icon */}
         <button
           type="button"
-          className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white text-black transition-colors hover:bg-gray-100"
+          className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-black/10 bg-white text-black transition-colors hover:bg-gray-100"
           aria-label="Keyboard input"
         >
           <svg
