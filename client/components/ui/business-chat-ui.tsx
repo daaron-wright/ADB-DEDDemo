@@ -5294,7 +5294,7 @@ export function BusinessChatUI({
           setShouldPromptLogin(true);
           setShouldOpenInvestorView(true);
           const approvalMessage = buildMessage(
-            "Let’s get you logged in with UAE Pass.",
+            "Let's get you logged in with UAE Pass.",
             true,
           );
           return [...updated, approvalMessage];
