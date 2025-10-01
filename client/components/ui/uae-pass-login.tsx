@@ -70,9 +70,9 @@ const USER_TYPE_DETAILS: Record<
     description:
       "Monitor queues, collaborate with colleagues, and approve or return applications.",
     secondary: "For municipal officers and reviewers",
-    accent: "#3b60d4",
-    gradientFrom: "from-blue-400/12",
-    gradientTo: "to-indigo-400/10",
+    accent: "#0f766e",
+    gradientFrom: "from-emerald-500/10",
+    gradientTo: "to-emerald-400/10",
     badge: "LR",
   },
 };
