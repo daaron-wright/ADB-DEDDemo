@@ -4977,6 +4977,7 @@ export function BusinessChatUI({
   const [shouldPromptLogin, setShouldPromptLogin] = useState(false);
   const [isInvestorLoginPending, setIsInvestorLoginPending] = useState(false);
   const [isInvestorAuthenticated, setIsInvestorAuthenticated] = useState(false);
+  const [shouldOpenInvestorView, setShouldOpenInvestorView] = useState(false);
 
   useEffect(() => {
     if (!isOpen) return;
