@@ -503,6 +503,14 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
           </button>
         </Close>
 
+        <div className="flex justify-center">
+          <img
+            src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fe6de6e62cbb84e44b95343a7667af213?format=webp&width=320"
+            alt="UAE PASS logo"
+            className="h-12 w-auto"
+          />
+        </div>
+
         <AnimatePresence mode="wait">
           {mode === "full" && loginStep === "userType" && (
             <UserTypeSelection onSelect={handleUserTypeSelect} />
