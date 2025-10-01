@@ -3833,7 +3833,7 @@ const DiscoverExperienceView = ({
       name: "Khalifa City",
       summary:
         "Expanding suburb with new schools, villas, and lifestyle centers attracting higher disposable income.",
-      footfall: "25–35K weekly visits",
+      footfall: "25��35K weekly visits",
       density: "Emerging density",
       trend: "+6% new households",
       focus: "Community casual dining, specialty coffee",
@@ -5241,6 +5241,17 @@ export function BusinessChatUI({
         }
 
         if (action === "open-investor-journey") {
+          if (isInvestorLoginPending) {
+            setModalView("heat-map");
+            return [
+              ...updated,
+              buildMessage(
+                "Opening the interactive market heat map. Where are existing establishments located for specific activities?",
+                true,
+              ),
+            ];
+          }
+
           setIsInvestorLoginPending(true);
           setShouldPromptLogin(true);
           const loginPromptMessage = buildMessage(
