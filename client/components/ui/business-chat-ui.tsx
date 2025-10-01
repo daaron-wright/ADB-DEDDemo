@@ -5308,9 +5308,27 @@ export function BusinessChatUI({
 
         nextMessages.push(
           buildMessage(
-            `${authenticatedName} is now signed in via UAE PASS with ${roleDescriptor}. Opening your investor journey workspace with live market heat maps.`,
+            `${authenticatedName} is now signed in via UAE PASS with ${roleDescriptor}.`,
             true,
           ),
+        );
+
+        nextMessages.push(
+          buildMessage("Your journey, powered by AI.", true, {
+            type: "setup-cta",
+            actions: [
+              {
+                id: "explore-options",
+                label: "Explore more options",
+                action: "show-summary",
+              },
+              {
+                id: "setup-business-primary",
+                label: "Set up business",
+                action: "show-summary",
+              },
+            ],
+          }),
         );
 
         nextMessages.push(buildStepMessage("handoff"));
