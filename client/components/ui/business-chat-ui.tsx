@@ -5378,7 +5378,7 @@ export function BusinessChatUI({
           actions: [
             {
               id: "start-login",
-              label: "Continue with UAE Pass",
+              label: "Sign in with UAE Pass",
               action: "open-investor-journey",
             },
           ],
