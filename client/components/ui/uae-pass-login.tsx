@@ -482,20 +482,20 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
             ref={closeButtonRef}
             type="button"
             onClick={resetFlow}
-            className="absolute top-4 right-4 rounded-full p-2 text-slate-400 transition-colors duration-150 hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300"
+            className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition-colors duration-150 hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300"
             aria-label="Close"
           >
             <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M18 6L6 18M6 6L18 18"
+                d="M12.667 3.33301L3.33366 12.6663M3.33366 3.33301L12.667 12.6663"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="1.6"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
