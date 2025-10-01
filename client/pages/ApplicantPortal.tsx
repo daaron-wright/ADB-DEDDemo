@@ -588,6 +588,40 @@ export default function ApplicantPortal() {
     });
   }, []);
 
+  useEffect(() => {
+    if (portalView !== "overview") {
+      return;
+    }
+
+    const timelineLength = JOURNEY_ANIMATION_TIMELINE.length;
+    if (timelineLength <= 1) {
+      return;
+    }
+
+    const interval = window.setInterval(() => {
+      setJourneyAnimationIndex((prev) => (prev + 1) % timelineLength);
+    }, 5500);
+
+    return () => {
+      window.clearInterval(interval);
+    };
+  }, [portalView]);
+
+  useEffect(() => {
+    const phase =
+      JOURNEY_ANIMATION_TIMELINE[journeyAnimationIndex] ??
+      JOURNEY_ANIMATION_TIMELINE[0];
+    if (!phase) {
+      return;
+    }
+
+    setJourneyProgressPercent(phase.percent);
+
+    if (!isStageManuallySelected) {
+      setActiveStageId(phase.stageId);
+    }
+  }, [journeyAnimationIndex, isStageManuallySelected]);
+
   const completedJourneySteps = useMemo(
     () => journeySteps.filter((step) => step.state === "completed").length,
     [journeySteps],
