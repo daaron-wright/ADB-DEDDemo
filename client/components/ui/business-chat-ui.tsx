@@ -5105,12 +5105,7 @@ export function BusinessChatUI({
           normalizedAcknowledgement.includes("acknowledge"));
 
       if (acknowledgesHandoff) {
-        responses.push(
-          buildMessage(
-            "Acknowledged. Opening BUSINESS LICENSE PORTAL Khalid's workspace now.",
-            true,
-          ),
-        );
+        responses.push(buildMessage(ACKNOWLEDGEMENT_MESSAGE, true));
 
         setMessages((prev) => [...prev, userMessage, ...responses]);
         setInputValue("");
