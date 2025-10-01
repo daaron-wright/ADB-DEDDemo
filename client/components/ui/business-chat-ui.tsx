@@ -5350,7 +5350,7 @@ export function BusinessChatUI({
               {
                 id: "setup-business-primary",
                 label: "Set up business",
-                action: "show-summary",
+                action: "open-investor-journey",
               },
             ],
           }),
