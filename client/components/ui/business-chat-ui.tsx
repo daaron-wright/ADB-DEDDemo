@@ -5311,6 +5311,7 @@ export function BusinessChatUI({
 
       setIsInvestorLoginPending(false);
       setShouldPromptLogin(false);
+      setIsInvestorAuthenticated(true);
 
       const authenticatedName =
         typeof userData?.name === "string" && userData.name.length > 0
