@@ -58,9 +58,9 @@ const USER_TYPE_DETAILS: Record<
     description:
       "Start a new license, renew an existing one, and manage submissions for your venture.",
     secondary: "Ideal for entrepreneurs and business owners",
-    accent: "#0f766e",
-    gradientFrom: "from-emerald-500/15",
-    gradientTo: "to-teal-500/10",
+    accent: "#1f8a83",
+    gradientFrom: "from-emerald-400/12",
+    gradientTo: "to-teal-400/10",
     badge: "BA",
   },
   reviewer: {
@@ -68,9 +68,9 @@ const USER_TYPE_DETAILS: Record<
     description:
       "Monitor queues, collaborate with colleagues, and approve or return applications.",
     secondary: "For municipal officers and reviewers",
-    accent: "#2563eb",
-    gradientFrom: "from-blue-500/15",
-    gradientTo: "to-sky-500/10",
+    accent: "#3b60d4",
+    gradientFrom: "from-blue-400/12",
+    gradientTo: "to-indigo-400/10",
     badge: "LR",
   },
 };
