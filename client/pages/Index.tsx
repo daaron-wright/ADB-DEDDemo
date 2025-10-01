@@ -448,12 +448,6 @@ export default function Index() {
             {/* Welcome text and buttons */}
             <div className="flex items-center gap-4">
               <span className="text-black text-base font-medium">Welcome</span>
-              <button
-                onClick={() => setPromptModalOpen(true)}
-                className="inline-flex items-center justify-center rounded-full border border-white/50 bg-white/70 px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-[0_18px_40px_-28px_rgba(24,32,63,0.42)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:shadow-[0_24px_55px_-28px_rgba(24,32,63,0.5)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-200"
-              >
-                Chat with AI
-              </button>
               <UAEPassLogin
                 mode="full"
                 defaultUserType="applicant"
