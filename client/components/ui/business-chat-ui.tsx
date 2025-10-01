@@ -5611,6 +5611,7 @@ export function BusinessChatUI({
         onClose={() => {
           setIsInvestorLoginPending(false);
           setShouldPromptLogin(false);
+          setIsInvestorAuthenticated(false);
         }}
       />
       <AnimatePresence>
