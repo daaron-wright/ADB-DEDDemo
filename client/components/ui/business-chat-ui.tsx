@@ -5649,6 +5649,7 @@ export function BusinessChatUI({
           setIsInvestorLoginPending(false);
           setShouldPromptLogin(false);
           setIsInvestorAuthenticated(false);
+          setShouldOpenInvestorView(false);
         }}
       />
       <AnimatePresence>
