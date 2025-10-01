@@ -5480,6 +5480,7 @@ export function BusinessChatUI({
           setIsInvestorAuthenticated(false);
           setIsInvestorLoginPending(true);
           setShouldPromptLogin(true);
+          setShouldOpenInvestorView(true);
           return [
             ...sanitized,
             buildMessage("Let's get you logged in with UAE Pass.", true),
