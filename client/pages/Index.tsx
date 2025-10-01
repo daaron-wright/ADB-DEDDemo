@@ -601,14 +601,6 @@ export default function Index() {
         <div className="pointer-events-none fixed inset-0 z-40 bg-black/10 backdrop-blur-xl transition-opacity duration-300" />
       )}
 
-      <ChatPromptDialog
-        open={isPromptModalOpen}
-        onOpenChange={setPromptModalOpen}
-        options={chatPromptOptions}
-        onSelect={handlePromptSelect}
-        onSkip={handlePromptSkip}
-      />
-
       <BusinessChatUI
         isOpen={chatState.isOpen}
         onClose={handleCloseChat}
