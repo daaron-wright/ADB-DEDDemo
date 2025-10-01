@@ -392,7 +392,7 @@ export default function Index() {
         />
         <div className="relative z-10 transition-[filter] duration-300 ease-out">
           {/* Navigation Header */}
-          <header className="flex justify-between items-center px-8 py-6 border-b border-gray-100/50">
+          <header className="grid grid-cols-[auto_1fr_auto] items-center px-8 py-6 border-b border-gray-100/50 gap-6">
             {/* Tamm Logo */}
             <div className="flex items-center">
               <svg
