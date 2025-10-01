@@ -983,11 +983,14 @@ export default function ApplicantPortal() {
                               </div>
                             </div>
                             <Badge
-                              className={cn(
-                                "border px-2.5 py-1 text-xs font-semibold uppercase tracking-wide",
-                                tokens.badgeClass,
-                              )}
-                            >
+                            className={cn(
+                              "border px-2.5 py-1 text-xs font-semibold uppercase tracking-wide",
+                              tokens.badgeClass,
+                              isActive && !isStageManuallySelected
+                                ? "shadow-[0_12px_28px_-20px_rgba(11,64,55,0.32)]"
+                                : null,
+                            )}
+                          >
                               {tokens.stateLabel}
                             </Badge>
                           </div>
