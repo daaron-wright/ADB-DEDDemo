@@ -535,6 +535,11 @@ export default function ApplicantPortal() {
   const [availableJourneyActivities, setAvailableJourneyActivities] = useState<
     BusinessActivity[]
   >(ADDITIONAL_ACTIVITIES);
+  const [journeyAnimationIndex, setJourneyAnimationIndex] = useState(0);
+  const [journeyProgressPercent, setJourneyProgressPercent] = useState(
+    JOURNEY_ANIMATION_TIMELINE[0]?.percent ?? 0,
+  );
+  const [isStageManuallySelected, setIsStageManuallySelected] = useState(false);
 
   const updateCurrentJourneyStep = useCallback(
     (stepId: string) => {
