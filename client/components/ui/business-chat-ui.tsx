@@ -5792,7 +5792,7 @@ export function BusinessChatUI({
               <div className="relative z-10 flex w-full justify-center px-3 py-6 sm:px-6 sm:py-8 lg:px-12 lg:py-10">
                 <div
                   className={chatCardClass(
-                    "mx-auto w-full max-w-6xl border border-white/25 bg-white/15 backdrop-blur-3xl shadow-[0_55px_140px_-65px_rgba(15,23,42,0.45)] ring-1 ring-white/10",
+                    "mx-auto w-full max-w-6xl overflow-hidden border border-white/25 bg-white/15 backdrop-blur-3xl shadow-[0_55px_140px_-65px_rgba(15,23,42,0.45)] ring-1 ring-white/10",
                     "sm:rounded-[28px]",
                   )}
                 >
