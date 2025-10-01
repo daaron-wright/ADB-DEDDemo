@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from "react";
 import { Modal, Close } from "@aegov/design-system-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { chatCardClass } from "@/lib/chat-style";
+import { cn } from "@/lib/utils";
 import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
 
 interface UAEPassLoginProps {
