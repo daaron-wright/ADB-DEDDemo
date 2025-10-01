@@ -6,7 +6,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { chatCardClass } from "@/lib/chat-style";
-import { cn } from "@/lib/utils";
 
 export interface ChatPromptOption {
   id: string;
