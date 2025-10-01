@@ -490,22 +490,8 @@ export default function Index() {
               <span className="text-black text-base font-medium">Welcome</span>
               <button
                 onClick={() => setPromptModalOpen(true)}
-                className="inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/70 px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-[0_18px_40px_-28px_rgba(24,32,63,0.42)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:shadow-[0_24px_55px_-28px_rgba(24,32,63,0.5)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-200"
+                className="inline-flex items-center justify-center rounded-full border border-white/50 bg-white/70 px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-[0_18px_40px_-28px_rgba(24,32,63,0.42)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:shadow-[0_24px_55px_-28px_rgba(24,32,63,0.5)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-200"
               >
-                <svg
-                  className="h-4 w-4 text-emerald-500"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12 2L13.09 8.26L18 9.27L14.5 13.14L15.18 18.02L12 15.77L8.82 18.02L9.5 13.14L6 9.27L10.91 8.26L12 2Z"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
                 Chat with AI
               </button>
               <UAEPassLogin
