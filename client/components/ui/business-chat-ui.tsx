@@ -5332,7 +5332,7 @@ export function BusinessChatUI({
         );
 
         const sanitizedWithoutJourneyCard = sanitized.filter(
-          (message) => !(message.isAI && message.content === "Your journey, powered by AI."),
+          (message) => !(message.isAI && message.type === "setup-cta"),
         );
 
         const summaryText = CONVERSATION_BLUEPRINT.summary.message;
