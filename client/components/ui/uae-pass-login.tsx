@@ -211,136 +211,173 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({
   detail,
   isLoggingIn,
   onLogin,
-}) => (
-  <motion.div
-    key="login"
-    initial={{ opacity: 0, y: 12 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -12 }}
-    transition={{ duration: 0.2, ease: "easeOut" }}
-    className="space-y-6"
-  >
-    <div className="space-y-3 text-center">
-      <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700">
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M9 12l2 2 4-4"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-        Abu Dhabi Government Services
-      </div>
-      <div className="space-y-1">
-        <h3 className="text-base font-semibold text-slate-900">
-          Sign in with UAE PASS
-        </h3>
-        <p className="text-sm text-slate-500">
-          You're continuing as{" "}
-          <span className="font-semibold text-slate-900">{detail.label}</span>
-        </p>
-      </div>
-    </div>
+}) => {
+  const isReviewer = detail.badge === "LR";
+  const badgeStyle = isReviewer
+    ? undefined
+    : {
+        background: `linear-gradient(140deg, ${detail.accent} 0%, ${detail.accent}CC 100%)`,
+      };
 
-    <div className="rounded-3xl border border-slate-200 bg-white/90 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.45)]">
-      <div className="flex items-start gap-4 px-6 pt-6">
-        <div
-          className="flex h-12 w-12 items-center justify-center rounded-2xl text-base font-semibold text-white shadow-md"
-          style={{
-            background: `linear-gradient(140deg, ${detail.accent} 0%, ${detail.accent}CC 100%)`,
-          }}
-        >
-          {detail.badge}
+  return (
+    <motion.div
+      key="login"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -12 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      className="space-y-6"
+    >
+      <div className="space-y-3 text-center">
+        <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9 12l2 2 4-4"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          Abu Dhabi Government Services
         </div>
-        <div className="space-y-1 text-left">
-          <p className="text-sm font-semibold text-slate-900">{detail.label}</p>
-          <p className="text-sm text-slate-600 leading-relaxed">
-            {detail.description}
-          </p>
-          <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
-            {detail.secondary}
+        <div className="space-y-1">
+          <h3 className="text-base font-semibold text-slate-900">
+            Sign in with UAE PASS
+          </h3>
+          <p className="text-sm text-slate-500">
+            You're continuing as{" "}
+            <span className="font-semibold text-slate-900">{detail.label}</span>
           </p>
         </div>
       </div>
 
-      <div className="px-6 pb-6 pt-4 space-y-4">
-        <button
-          className="w-full flex items-center justify-center gap-3 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_-15px_rgba(15,118,110,0.6)] transition-all duration-200 hover:shadow-[0_18px_40px_-20px_rgba(15,23,42,0.4)] disabled:cursor-not-allowed disabled:opacity-60"
-          type="button"
-          onClick={onLogin}
-          disabled={isLoggingIn}
-          style={{ backgroundColor: detail.accent }}
-        >
-          {isLoggingIn ? (
-            <>
-              <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/80 border-t-transparent" />
-              Connecting to UAE PASS…
-            </>
-          ) : (
-            <>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                className="-ml-1"
-              >
-                <path
-                  d="M3.5 10h13"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M12 5l4.5 5L12 15"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              Sign in with UAE PASS
-            </>
-          )}
-        </button>
-
-        <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50/60 px-4 py-3 text-sm text-slate-600">
-          <p>
-            You'll be redirected to the official UAE PASS experience to verify
-            your identity securely.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <p className="text-sm text-slate-500 text-center">
-      A single trusted digital identity for all citizens, residents and
-      visitors.
-    </p>
-
-    <div className="text-center text-sm text-slate-600">
-      Need a UAE PASS account?{" "}
-      <a
-        href="https://uaepass.ae/signup"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-semibold text-emerald-700 transition-colors duration-200 hover:text-emerald-800"
+      <div
+        className={cn(
+          "rounded-3xl border border-slate-200 bg-white/90 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.45)]",
+          isReviewer &&
+            "border-2 border-[#0f766e] bg-white shadow-[0_20px_48px_-30px_rgba(15,118,110,0.35)]",
+        )}
       >
-        Create an account
-      </a>
-    </div>
-  </motion.div>
-);
+        <div className="flex items-start gap-4 px-6 pt-6">
+          <div
+            className={cn(
+              "flex h-12 w-12 items-center justify-center rounded-2xl text-base font-semibold shadow-md",
+              isReviewer
+                ? "border-2 border-[#0f766e] bg-white text-[#0f766e]"
+                : "text-white",
+            )}
+            style={badgeStyle}
+          >
+            {detail.badge}
+          </div>
+          <div className="space-y-1 text-left">
+            <p className="text-sm font-semibold text-slate-900">
+              {detail.label}
+            </p>
+            <p className="text-sm text-slate-600 leading-relaxed">
+              {detail.description}
+            </p>
+            <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+              {detail.secondary}
+            </p>
+          </div>
+        </div>
+
+        <div className="px-6 pb-6 pt-4 space-y-4">
+          <button
+            className={cn(
+              "w-full flex items-center justify-center gap-3 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-60",
+              isReviewer
+                ? "border border-[#0f766e] bg-white text-[#0f766e] shadow-[0_14px_36px_-24px_rgba(15,118,110,0.28)] hover:shadow-[0_18px_42px_-26px_rgba(15,118,110,0.32)]"
+                : "text-white shadow-[0_10px_30px_-15px_rgba(15,118,110,0.6)] hover:shadow-[0_18px_40px_-20px_rgba(15,23,42,0.4)]",
+            )}
+            type="button"
+            onClick={onLogin}
+            disabled={isLoggingIn}
+            style={isReviewer ? undefined : { backgroundColor: detail.accent }}
+          >
+            {isLoggingIn ? (
+              <>
+                <div
+                  className={cn(
+                    "h-4 w-4 animate-spin rounded-full border-2 border-t-transparent",
+                    isReviewer ? "border-[#0f766e]/70" : "border-white/80",
+                  )}
+                />
+                Connecting to UAE PASS…
+              </>
+            ) : (
+              <>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  className={cn("-ml-1", isReviewer ? "text-[#0f766e]" : undefined)}
+                >
+                  <path
+                    d="M3.5 10h13"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M12 5l4.5 5L12 15"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                Sign in with UAE PASS
+              </>
+            )}
+          </button>
+
+          <div
+            className={cn(
+              "rounded-xl border border-dashed px-4 py-3 text-sm",
+              isReviewer
+                ? "border-[#0f766e]/60 bg-white text-slate-600"
+                : "border-slate-200 bg-slate-50/60 text-slate-600",
+            )}
+          >
+            <p>
+              You'll be redirected to the official UAE PASS experience to verify
+              your identity securely.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p className="text-sm text-slate-500 text-center">
+        A single trusted digital identity for all citizens, residents and
+        visitors.
+      </p>
+
+      <div className="text-center text-sm text-slate-600">
+        Need a UAE PASS account?{" "}
+        <a
+          href="https://uaepass.ae/signup"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold text-emerald-700 transition-colors duration-200 hover:text-emerald-800"
+        >
+          Create an account
+        </a>
+      </div>
+    </motion.div>
+  );
+};
 
 export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
   trigger,
