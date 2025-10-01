@@ -153,9 +153,9 @@ export function JourneyView({
         />
 
         {/* Main Content Area */}
-        <div className="flex gap-8 p-11 pt-8">
+        <div className="flex justify-center gap-8 px-11 py-8">
           {/* Left Panel - Business Activities */}
-          <div className="flex-1 max-w-[633px]">
+          <div className="flex-shrink-0">
             <BusinessActivitiesSelection
               journeyNumber={journeyNumber}
               completedSteps={completedSteps}
