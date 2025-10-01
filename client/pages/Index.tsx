@@ -445,20 +445,24 @@ export default function Index() {
               </svg>
             </div>
 
-            {/* Welcome text and buttons */}
-            <div className="flex items-center gap-4">
-              <span className="text-black text-base font-medium">Welcome</span>
-              <UAEPassLogin
-                mode="full"
-                defaultUserType="applicant"
-                trigger={
-                  <span className="inline-flex items-center justify-center rounded-full bg-teal-gradient px-6 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
-                    Sign in
-                  </span>
-                }
-                onLogin={handleUAEPassLogin}
-              />
-            </div>
+            {/* Welcome heading */}
+          <div className="flex items-center justify-center">
+            <span className="text-black text-base font-medium">Welcome</span>
+          </div>
+
+          {/* Sign in button */}
+          <div className="flex justify-end">
+            <UAEPassLogin
+              mode="full"
+              defaultUserType="applicant"
+              trigger={
+                <span className="inline-flex items-center justify-center rounded-full bg-teal-gradient px-6 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
+                  Sign in
+                </span>
+              }
+              onLogin={handleUAEPassLogin}
+            />
+          </div>
           </header>
 
           {/* Hero Section */}
