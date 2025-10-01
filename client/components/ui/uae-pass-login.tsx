@@ -113,13 +113,23 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
     <div className="grid gap-4 sm:grid-cols-2">
       {(["applicant", "reviewer"] as const).map((type) => {
         const detail = USER_TYPE_DETAILS[type];
+        const isReviewer = type === "reviewer";
+        const badgeStyle = isReviewer
+          ? undefined
+          : {
+              background: `linear-gradient(140deg, ${detail.accent} 0%, ${detail.accent}cc 100%)`,
+            };
+
         return (
           <button
             key={type}
             type="button"
             onClick={() => onSelect(type)}
             className={chatCardClass(
-              "group flex h-full flex-col justify-between border border-slate-200 bg-white p-6 text-left shadow-sm transition-all duration-200 hover:border-slate-400 hover:shadow-[0_18px_40px_-26px_rgba(15,23,42,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2",
+              "group flex h-full flex-col justify-between p-6 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+              isReviewer
+                ? "border-2 border-[#0f766e] bg-white shadow-[0_18px_40px_-28px_rgba(15,118,110,0.32)] hover:border-[#0f766e] hover:shadow-[0_22px_46px_-30px_rgba(15,118,110,0.38)] focus-visible:ring-[#0f766e]"
+                : "border border-slate-200 bg-white shadow-sm hover:border-slate-400 hover:shadow-[0_18px_40px_-26px_rgba(15,23,42,0.35)] focus-visible:ring-emerald-500",
             )}
             aria-label={`Continue as ${detail.label}`}
             style={{
@@ -128,10 +138,13 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
           >
             <div className="space-y-4">
               <div
-                className="inline-flex h-12 w-12 items-center justify-center rounded-full text-base font-semibold text-white shadow-sm"
-                style={{
-                  background: `linear-gradient(140deg, ${detail.accent} 0%, ${detail.accent}cc 100%)`,
-                }}
+                className={cn(
+                  "inline-flex h-12 w-12 items-center justify-center rounded-full text-base font-semibold shadow-sm",
+                  isReviewer
+                    ? "border-2 border-[#0f766e] bg-white text-[#0f766e]"
+                    : "text-white",
+                )}
+                style={badgeStyle}
               >
                 {detail.badge}
               </div>
@@ -148,8 +161,13 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
               </div>
             </div>
             <span
-              className="mt-6 inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white transition group-hover:translate-x-0.5"
-              style={{ backgroundColor: detail.accent }}
+              className={cn(
+                "mt-6 inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition group-hover:translate-x-0.5",
+                isReviewer
+                  ? "border border-[#0f766e] bg-white text-[#0f766e]"
+                  : "text-white",
+              )}
+              style={isReviewer ? undefined : { backgroundColor: detail.accent }}
             >
               Continue
               <svg
@@ -158,7 +176,7 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
                 viewBox="0 0 16 16"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="text-white/90"
+                className={cn(isReviewer ? "text-[#0f766e]" : "text-white/90")}
               >
                 <path
                   d="M3.5 8h9"
