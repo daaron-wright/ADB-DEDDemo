@@ -5399,6 +5399,7 @@ export function BusinessChatUI({
       setIsInvestorLoginPending(false);
       setShouldPromptLogin(false);
       setIsInvestorAuthenticated(false);
+      setShouldOpenInvestorView(false);
       setModalView("chat");
       return;
     }
@@ -5410,6 +5411,7 @@ export function BusinessChatUI({
     setIsInvestorLoginPending(false);
     setShouldPromptLogin(false);
     setIsInvestorAuthenticated(false);
+    setShouldOpenInvestorView(false);
 
     const conversation: BusinessMessage[] = [];
 
