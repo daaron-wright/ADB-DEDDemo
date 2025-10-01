@@ -3833,7 +3833,7 @@ const DiscoverExperienceView = ({
       name: "Khalifa City",
       summary:
         "Expanding suburb with new schools, villas, and lifestyle centers attracting higher disposable income.",
-      footfall: "25��35K weekly visits",
+      footfall: "25–35K weekly visits",
       density: "Emerging density",
       trend: "+6% new households",
       focus: "Community casual dining, specialty coffee",
@@ -4976,6 +4976,7 @@ export function BusinessChatUI({
   const loginTriggerRef = useRef<HTMLElement | null>(null);
   const [shouldPromptLogin, setShouldPromptLogin] = useState(false);
   const [isInvestorLoginPending, setIsInvestorLoginPending] = useState(false);
+  const [isInvestorAuthenticated, setIsInvestorAuthenticated] = useState(false);
 
   useEffect(() => {
     if (!isOpen) return;
