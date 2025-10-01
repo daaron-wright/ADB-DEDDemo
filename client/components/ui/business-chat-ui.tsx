@@ -5279,6 +5279,7 @@ export function BusinessChatUI({
         }
 
         if (action === "confirm-retail-automation") {
+          setIsInvestorAuthenticated(false);
           setIsInvestorLoginPending(true);
           setShouldPromptLogin(true);
           const approvalMessage = buildMessage(
