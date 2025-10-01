@@ -5391,6 +5391,7 @@ export function BusinessChatUI({
       setIsInvestorLoginPending(false);
       setShouldPromptLogin(false);
       setIsInvestorAuthenticated(false);
+      setModalView("chat");
       return;
     }
 
