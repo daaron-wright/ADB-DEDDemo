@@ -51,7 +51,7 @@ export function ChatPromptDialog({
               type="button"
               onClick={() => onSelect(option)}
               className={cn(
-                "group h-full w-full rounded-3xl border border-white/60 bg-white/65 px-6 py-6 text-left shadow-[0_26px_60px_-42px_rgba(24,32,63,0.45)] transition hover:-translate-y-0.5 hover:border-emerald-200/70 hover:shadow-[0_30px_68px_-40px_rgba(24,32,63,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60 backdrop-blur-xl",
+                "group h-full w-full rounded-3xl border border-white/60 bg-white/70 px-6 py-6 text-left shadow-[0_26px_60px_-42px_rgba(24,32,63,0.45)] transition hover:-translate-y-0.5 hover:border-emerald-200/70 hover:shadow-[0_30px_68px_-40px_rgba(24,32,63,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60 backdrop-blur-xl",
               )}
             >
               <div className="flex h-full flex-col justify-between gap-5">
