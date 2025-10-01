@@ -5310,12 +5310,16 @@ export function BusinessChatUI({
           message.actions ? { ...message, actions: undefined } : message,
         );
 
+        const sanitizedWithoutJourneyCard = sanitized.filter(
+          (message) => !(message.isAI && message.content === "Your journey, powered by AI."),
+        );
+
         const summaryText = CONVERSATION_BLUEPRINT.summary.message;
-        const hasSummaryMessage = sanitized.some(
+        const hasSummaryMessage = sanitizedWithoutJourneyCard.some(
           (message) => message.isAI && message.content === summaryText,
         );
 
-        const nextMessages = [...sanitized];
+        const nextMessages = [...sanitizedWithoutJourneyCard];
 
         if (!hasSummaryMessage) {
           nextMessages.push(buildMessage(summaryText, true));
