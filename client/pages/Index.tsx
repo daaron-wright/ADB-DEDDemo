@@ -323,19 +323,6 @@ export default function Index() {
     [],
   );
 
-  const handlePromptSelect = useCallback(
-    (option: ChatPromptOption) => {
-      setPromptModalOpen(false);
-      startBusinessChat("general", option.prompt);
-    },
-    [startBusinessChat],
-  );
-
-  const handlePromptSkip = useCallback(() => {
-    setPromptModalOpen(false);
-    startBusinessChat("general", defaultIntroPrompt);
-  }, [startBusinessChat, defaultIntroPrompt]);
-
   const handlePointerMove = (event: React.MouseEvent<HTMLDivElement>) => {
     queueFocusPoint({ x: event.clientX, y: event.clientY });
   };
