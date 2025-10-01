@@ -5382,20 +5382,33 @@ export function BusinessChatUI({
           }),
         );
 
+        if (shouldOpenInvestorView) {
+          nextMessages.push(
+            buildMessage(
+              "Automation is underway. I've opened your applicant portal workspace with the journey timeline.",
+              true,
+            ),
+          );
+        }
+
         nextMessages.push(buildStepMessage("handoff"));
 
         return nextMessages;
       });
 
       setIsInvestorAuthenticated(true);
+      if (shouldOpenInvestorView) {
+        setView("investor-journey");
+        setShouldOpenInvestorView(false);
+      }
       setCurrentStep("handoff");
     },
     [
       isInvestorLoginPending,
+      shouldOpenInvestorView,
       buildMessage,
       buildStepMessage,
-      setCurrentStep,
-      setIsInvestorAuthenticated,
+      setView,
     ],
   );
 
