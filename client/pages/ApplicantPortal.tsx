@@ -668,9 +668,6 @@ export default function ApplicantPortal() {
   ];
 
   const discoveryGeneralChatLink = "/?chat=open";
-  const discoverySetupChatLink = `/?chat=open&category=restaurants&message=${encodeURIComponent(
-    "I'm ready to set up my restaurant in Abu Dhabi. Can you guide me through the next steps?",
-  )}`;
 
   const handleViewJourney = (stageId: string) => {
     setPortalView("journey");
