@@ -5247,7 +5247,22 @@ export function BusinessChatUI({
             "Let's get you logged in with UAE Pass to continue with your personalized business setup.",
             true,
           );
-          return [...updated, loginPromptMessage];
+          const journeyCardMessage = buildMessage("Your journey, powered by AI.", true, {
+            type: "setup-cta",
+            actions: [
+              {
+                id: "explore-options",
+                label: "Explore more options",
+                action: "show-summary",
+              },
+              {
+                id: "setup-business-primary",
+                label: "Set up business",
+                action: "open-investor-journey",
+              },
+            ],
+          });
+          return [...updated, loginPromptMessage, journeyCardMessage];
         }
 
         if (action === "confirm-retail-automation") {
