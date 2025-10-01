@@ -636,6 +636,10 @@ export default function ApplicantPortal() {
     detail: stage.highlight.detail,
     state: stage.state,
   }));
+  const currentAnimationPhase =
+    JOURNEY_ANIMATION_TIMELINE.find(
+      (phase) => phase.stageId === activeStageId,
+    ) ?? JOURNEY_ANIMATION_TIMELINE[journeyAnimationIndex];
 
   const headerActions = (
     <PortalProfileMenu
