@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import Draggable from "react-draggable";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
@@ -4978,6 +4979,20 @@ export function BusinessChatUI({
   const [isInvestorLoginPending, setIsInvestorLoginPending] = useState(false);
   const [isInvestorAuthenticated, setIsInvestorAuthenticated] = useState(false);
   const [shouldOpenInvestorView, setShouldOpenInvestorView] = useState(false);
+  const navigate = useNavigate();
+
+  const openApplicantPortal = useCallback(() => {
+    navigate("/portal/applicant", {
+      state: {
+        user: {
+          name: ENTREPRENEUR_PROFILE.name,
+          role: ENTREPRENEUR_PROFILE.title,
+          email: "khalid.entrepreneur@email.ae",
+          avatarUrl: ENTREPRENEUR_PROFILE.avatar,
+        },
+      },
+    });
+  }, [navigate]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -5076,6 +5091,32 @@ export function BusinessChatUI({
       const lower = trimmed.toLowerCase();
       const userMessage = buildMessage(trimmed, false);
       const responses: BusinessMessage[] = [];
+
+      const normalizedAcknowledgement = lower
+        .replace(/[.,!?]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+      const acknowledgesHandoff =
+        normalizedAcknowledgement === "yes i acknowledge" ||
+        normalizedAcknowledgement === "i acknowledge" ||
+        (normalizedAcknowledgement.startsWith("yes") &&
+          normalizedAcknowledgement.includes("acknowledge"));
+
+      if (acknowledgesHandoff) {
+        responses.push(
+          buildMessage(
+            "Acknowledged. Opening BUSINESS LICENSE PORTAL Khalid's workspace now.",
+            true,
+          ),
+        );
+
+        setMessages((prev) => [...prev, userMessage, ...responses]);
+        setInputValue("");
+        setTimeout(() => {
+          openApplicantPortal();
+        }, 100);
+        return;
+      }
 
       const appendHeatMapResponse = (content: string) => {
         responses.push(
@@ -5205,7 +5246,7 @@ export function BusinessChatUI({
       setMessages((prev) => [...prev, userMessage, ...responses]);
       setInputValue("");
     },
-    [buildMessage],
+    [buildMessage, openApplicantPortal],
   );
 
   const openHeatMapFullView = useCallback(() => {
