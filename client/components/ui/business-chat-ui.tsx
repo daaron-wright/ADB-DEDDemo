@@ -5353,21 +5353,19 @@ export function BusinessChatUI({
     conversation.push(openingUserMessage);
 
     conversation.push(
-      buildMessage("Your journey, powered by AI.", true, {
-        type: "setup-cta",
-        actions: [
-          {
-            id: "explore-options",
-            label: "Explore more options",
-            action: "show-summary",
-          },
-          {
-            id: "setup-business-primary",
-            label: "Set up business",
-            action: "open-investor-journey",
-          },
-        ],
-      }),
+      buildMessage(
+        "I can help you explore business opportunities in Abu Dhabi and guide you through the setup process. To provide personalized insights and access government services, I'll need to verify your identity first.",
+        true,
+        {
+          actions: [
+            {
+              id: "start-login",
+              label: "Continue with UAE Pass",
+              action: "open-investor-journey",
+            },
+          ],
+        }
+      ),
     );
 
     setMessages(conversation);
