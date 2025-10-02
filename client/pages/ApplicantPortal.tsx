@@ -754,7 +754,8 @@ export default function ApplicantPortal() {
   }
 
   return (
-    <PortalPageLayout
+    <>
+      <PortalPageLayout
       title={workspaceTitle}
       subtitle="Business license portal"
       description={workspaceDescription}
@@ -1332,5 +1333,15 @@ export default function ApplicantPortal() {
         </div>
       </section>
     </PortalPageLayout>
+      <BusinessChatUI
+        isOpen={isChatOpen}
+        mode={isSidePanelView ? "side-panel" : "modal"}
+        onClose={handleCloseChat}
+        onMinimize={handleCloseChat}
+        category="restaurants"
+        title="Business AI"
+        initialMessage={BUSINESS_AI_INTRO_MESSAGE}
+      />
+    </>
   );
 }
