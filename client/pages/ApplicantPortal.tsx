@@ -678,6 +678,18 @@ export default function ApplicantPortal() {
 
   const discoveryGeneralChatLink = "/?chat=open";
 
+  const [businessAIView, setBusinessAIView] = usePersistentState<
+    "closed" | "side-panel" | "focus"
+  >("portal-business-ai-view", "closed");
+
+  const isSidePanelView = businessAIView === "side-panel";
+  const isFocusView = businessAIView === "focus";
+  const isChatOpen = businessAIView !== "closed";
+
+  const handleOpenSidePanel = () => setBusinessAIView("side-panel");
+  const handleOpenFocus = () => setBusinessAIView("focus");
+  const handleCloseChat = () => setBusinessAIView("closed");
+
   const handleViewJourney = (stageId: string) => {
     setPortalView("journey");
     const matchingStep = JOURNEY_STEPS_CONFIG.find((step) => step.id === stageId);
