@@ -119,6 +119,7 @@ interface BusinessChatUIProps {
   category: string;
   title?: string;
   initialMessage?: string;
+  onMinimize?: () => void;
 }
 
 type ChatView = "basic" | "investor-journey" | "discover-experience";
@@ -3067,9 +3068,11 @@ const MessageBubble = ({
       )}
     >
       {message.isAI && (
-        <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-full border border-[#0E766E] bg-white/70 shadow-sm backdrop-blur-xl sm:h-10 sm:w-10">
-          <ChatIcon isAnimated={false} isDark={true} />
-        </div>
+        <img
+          src={AI_ASSISTANT_PROFILE.avatar}
+          alt={AI_ASSISTANT_PROFILE.name}
+          className="mt-1 h-8 w-8 flex-shrink-0 rounded-full border border-[#0E766E]/60 object-cover shadow-sm sm:h-10 sm:w-10"
+        />
       )}
       <div
         className={cn(
@@ -4964,6 +4967,7 @@ export function BusinessChatUI({
   category,
   title = "AI Business",
   initialMessage,
+  onMinimize,
 }: BusinessChatUIProps) {
   const [messages, setMessages] = useState<BusinessMessage[]>([]);
   const [view, setView] = useState<ChatView>("basic");
@@ -5853,7 +5857,33 @@ export function BusinessChatUI({
                             Live
                           </span>
                         </div>
+                        {onMinimize && (
+                          <button
+                            type="button"
+                            onClick={onMinimize}
+                            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/40 text-slate-500 transition hover:border-[#0E766E]/70 hover:text-[#0A4A46] sm:h-10 sm:w-10 backdrop-blur-xl"
+                            aria-label="Minimize chat"
+                          >
+                            <svg
+                              width="18"
+                              height="18"
+                              className="h-4 w-4 sm:h-5 sm:w-5"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M5 12H19"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </button>
+                        )}
                         <button
+                          type="button"
                           onClick={onClose}
                           className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/40 text-slate-500 transition hover:border-[#0E766E]/70 hover:text-[#0A4A46] sm:h-10 sm:w-10 backdrop-blur-xl"
                           aria-label="Close chat"
