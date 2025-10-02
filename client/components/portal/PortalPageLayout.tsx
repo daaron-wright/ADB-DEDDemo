@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { PortalAIDock } from "./PortalAIDock";
 
 interface PortalPageLayoutProps {
   title: string;
@@ -20,7 +19,6 @@ export function PortalPageLayout({
 }: PortalPageLayoutProps) {
   return (
     <div className="relative min-h-screen bg-[#f5f8f6]">
-      <PortalAIDock />
       <div className="mx-auto w-full max-w-6xl px-6 pb-16 pt-12 lg:px-12">
         <header className="rounded-3xl border border-[#d8e4df] bg-white/95 px-8 py-10 shadow-[0_16px_40px_-32px_rgba(11,64,55,0.28)] backdrop-blur-sm lg:px-10">
           <div className="flex flex-col gap-6">
