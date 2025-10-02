@@ -1356,33 +1356,6 @@ export default function ApplicantPortal() {
                     </ol>
                   </div>
                 ) : null}
-                <div className="space-y-3">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                    Journey highlights
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    {journeyHighlights.map((highlight) => {
-                      const tokens = journeyHighlightTokens[highlight.state];
-                      return (
-                        <div key={highlight.id} className="space-y-1">
-                          <Badge
-                            className={cn(
-                              "border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide",
-                              tokens.badgeClass,
-                            )}
-                          >
-                            {highlight.label}
-                          </Badge>
-                          {highlight.detail ? (
-                            <p className={cn("text-xs", tokens.detailClass)}>
-                              {highlight.detail}
-                            </p>
-                          ) : null}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
                 <div className="space-y-4">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                     Journey stages
