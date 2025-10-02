@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { BusinessChatUI } from "@/components/ui/business-chat-ui";
 import { PortalPageLayout } from "@/components/portal/PortalPageLayout";
 import { PortalProfileMenu } from "@/components/portal/PortalProfileMenu";
 import { JourneyView } from "@/components/portal/JourneyView";
@@ -11,6 +12,7 @@ import type {
   ActorOption,
   BusinessActivity,
 } from "@/components/portal/BusinessActivitiesSelection";
+import { usePersistentState } from "@/hooks/use-persistent-state";
 import { cn } from "@/lib/utils";
 import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
 import { MessageCircle, Plus } from "lucide-react";
