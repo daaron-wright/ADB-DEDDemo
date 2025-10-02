@@ -722,9 +722,21 @@ export default function ApplicantPortal() {
   const isFocusView = businessAIView === "focus";
   const isChatOpen = businessAIView !== "closed";
 
-  const handleOpenSidePanel = () => setBusinessAIView("side-panel");
-  const handleOpenFocus = () => setBusinessAIView("focus");
-  const handleCloseChat = () => setBusinessAIView("closed");
+  const [focusedNextActionId, setFocusedNextActionId] = useState<string | null>(
+    null,
+  );
+  const nextActionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  const handleOpenSidePanel = useCallback(() => {
+    setBusinessAIView("side-panel");
+  }, [setBusinessAIView]);
+  const handleOpenFocus = useCallback(() => {
+    setBusinessAIView("focus");
+  }, [setBusinessAIView]);
+  const handleCloseChat = useCallback(() => {
+    setBusinessAIView("closed");
+    setFocusedNextActionId(null);
+  }, [setBusinessAIView]);
 
   const handleViewJourney = (stageId: string) => {
     setPortalView("journey");
