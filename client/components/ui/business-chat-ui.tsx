@@ -5742,25 +5742,57 @@ export function BusinessChatUI({
       />
       <AnimatePresence>
         {isOpen && (
-          <div key="chat-ui" className="fixed inset-0 z-50 overflow-hidden">
+          <div key="chat-ui-root" className="fixed inset-0 z-50 overflow-hidden">
+            {isSidePanel && (
+              <motion.button
+                type="button"
+                aria-label="Close Business AI chat"
+                onClick={onClose}
+                className="absolute inset-0 z-40 bg-slate-950/40"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              />
+            )}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              key={`chat-ui-${mode}`}
+              initial={
+                isSidePanel ? { x: "100%" } : { opacity: 0, scale: 0.98 }
+              }
+              animate={
+                isSidePanel ? { x: 0 } : { opacity: 1, scale: 1 }
+              }
+              exit={
+                isSidePanel ? { x: "100%" } : { opacity: 0, scale: 0.98 }
+              }
+              transition={{
+                duration: isSidePanel ? 0.25 : 0.3,
+                ease: isSidePanel ? "easeOut" : "easeInOut",
+              }}
               aria-hidden={modalView !== "chat"}
               className={cn(
-                "relative flex min-h-screen w-full items-center justify-center bg-gradient-to-br from-slate-100 via-white to-slate-50",
+                isSidePanel
+                  ? "relative z-50 ml-auto flex h-full w-full max-w-[540px]"
+                  : "relative flex min-h-screen w-full items-center justify-center bg-gradient-to-br from-slate-100 via-white to-slate-50",
                 modalView !== "chat" ? "pointer-events-none" : undefined,
               )}
-              style={{
-                backgroundImage: "none",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
+              style={
+                isSidePanel
+                  ? undefined
+                  : {
+                      backgroundImage: "none",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }
+              }
             >
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(22,159,159,0.18),transparent_55%)]" />
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(79,70,229,0.08),transparent_60%)]" />
+              {!isSidePanel && (
+                <>
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(22,159,159,0.18),transparent_55%)]" />
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(79,70,229,0.08),transparent_60%)]" />
+                </>
+              )}
 
               {/* Header */}
               <div className="hidden">
