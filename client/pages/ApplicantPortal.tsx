@@ -77,6 +77,9 @@ const statusStyles: Record<ApplicationRecord["status"], string> = {
 const BUSINESS_AI_INTRO_MESSAGE =
   "Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require more clarification to ensure the right decisions are made.";
 
+const BUSINESS_ACTIVITY_GUIDANCE_MESSAGE =
+  "You can select multiple business activities for a restaurant, provided they fall under the same business group. You can list a maximum of 10 activities on a single trade license.";
+
 type JourneyTaskStatus = "completed" | "in_progress" | "pending";
 
 type JourneyTask = {
