@@ -5142,6 +5142,65 @@ export function BusinessChatUI({
     });
   }, [navigate]);
 
+  const selectedActivities = useMemo(
+    () =>
+      activityOptions.filter((activity) =>
+        selectedActivityIds.includes(activity.id),
+      ),
+    [activityOptions, selectedActivityIds],
+  );
+
+  const physicalSpacePlan = useMemo<PhysicalSpacePlan | null>(() => {
+    if (selectedActivities.length === 0) {
+      return null;
+    }
+
+    const totalArea = selectedActivities.reduce(
+      (sum, activity) => sum + activity.spatial.minArea,
+      0,
+    );
+    const kitchenArea = selectedActivities.reduce(
+      (sum, activity) => sum + activity.spatial.kitchenArea,
+      0,
+    );
+    const seatingCapacity = selectedActivities.reduce(
+      (sum, activity) => sum + activity.spatial.seatingCapacity,
+      0,
+    );
+
+    const complianceNotes = Array.from(
+      new Set(
+        selectedActivities.flatMap((activity) => activity.spatial.notes),
+      ),
+    );
+    const utilities = Array.from(
+      new Set(
+        selectedActivities.flatMap((activity) => activity.spatial.utilities),
+      ),
+    );
+    const timelineWeeks = 6 + selectedActivities.length * 2;
+
+    return {
+      summary: {
+        totalArea: Math.round(totalArea),
+        seatingCapacity: Math.round(seatingCapacity),
+        kitchenArea: Math.round(kitchenArea),
+        complianceNotes,
+        timelineWeeks,
+        utilities,
+      },
+      activities: selectedActivities.map((activity) => ({
+        id: activity.id,
+        label: activity.label,
+        minArea: Math.round(activity.spatial.minArea),
+        seatingCapacity: Math.round(activity.spatial.seatingCapacity),
+        kitchenArea: Math.round(activity.spatial.kitchenArea),
+        ventilation: activity.spatial.ventilation,
+        notes: activity.spatial.notes,
+      })),
+    };
+  }, [selectedActivities]);
+
   useEffect(() => {
     if (!isOpen) return;
     if (!shouldPromptLogin) return;
