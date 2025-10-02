@@ -3120,6 +3120,17 @@ interface MessageBubbleProps {
   dialogueDocProps?: DialogueDocProps;
   onHeatMapOpen?: () => void;
   onBudgetRangesOpen?: () => void;
+  businessActivitiesProps?: {
+    activities: ChatActivityOption[];
+    selectedActivityIds: string[];
+    onToggleActivity: (activityId: string) => void;
+    onAddActivity: (name: string, description?: string) => void;
+    maxSelection: number;
+    physicalPlan: PhysicalSpacePlan | null;
+  };
+  applicationProgressProps?: {
+    message: string;
+  };
 }
 
 const MessageBubble = ({
@@ -3128,10 +3139,28 @@ const MessageBubble = ({
   dialogueDocProps,
   onHeatMapOpen,
   onBudgetRangesOpen,
+  businessActivitiesProps,
+  applicationProgressProps,
 }: MessageBubbleProps) => {
   const bubbleContainerClasses = message.isAI
     ? "border border-white/30 bg-white/18 text-slate-900 backdrop-blur-xl"
     : "border border-[#0E766E]/45 bg-[#0E766E]/30 text-white backdrop-blur-xl";
+
+  if (message.type === "application-progress" && applicationProgressProps) {
+    return (
+      <div className="mb-6 flex w-full justify-start">
+        <ApplicationProgressCard message={applicationProgressProps.message} />
+      </div>
+    );
+  }
+
+  if (message.type === "business-activities" && businessActivitiesProps) {
+    return (
+      <div className="mb-6 flex w-full justify-start">
+        <BusinessActivitiesChatCard {...businessActivitiesProps} />
+      </div>
+    );
+  }
 
   if (message.type === "dialogue-doc" && dialogueDocProps) {
     return (
