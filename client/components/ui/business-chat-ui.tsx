@@ -6080,7 +6080,12 @@ export function BusinessChatUI({
                           We’ll open the next workspace once you confirm.
                         </div>
 
-                        <div className="mt-6 border-t border-white/15 pt-6">
+                        <div
+                          className={cn(
+                            "mt-6 border-t border-white/15 pt-6",
+                            isSidePanel && "border-slate-200",
+                          )}
+                        >
                           <ChatInputField
                             value={inputValue}
                             onChange={setInputValue}
