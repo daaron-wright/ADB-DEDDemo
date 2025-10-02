@@ -5932,7 +5932,11 @@ export function BusinessChatUI({
                           <button
                             type="button"
                             onClick={onMinimize}
-                            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/40 text-slate-500 transition hover:border-[#0E766E]/70 hover:text-[#0A4A46] sm:h-10 sm:w-10 backdrop-blur-xl"
+                            className={cn(
+                              "flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/40 text-slate-500 transition hover:border-[#0E766E]/70 hover:text-[#0A4A46] sm:h-10 sm:w-10 backdrop-blur-xl",
+                              isSidePanel &&
+                                "border-slate-200 bg-white/90 backdrop-blur-none hover:border-[#0E766E]/60",
+                            )}
                             aria-label="Minimize chat"
                           >
                             <svg
