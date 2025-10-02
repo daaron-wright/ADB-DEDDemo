@@ -645,6 +645,10 @@ export default function ApplicantPortal() {
     Math.max(journeyProgressPercent, 0),
     100,
   );
+  const chatPhase = currentAnimationPhase ?? JOURNEY_ANIMATION_TIMELINE[0];
+  const chatProgress = currentAnimationPhase
+    ? clampedJourneyProgress
+    : Math.min(Math.max(chatPhase?.percent ?? 0, 0), 100);
 
   const headerActions = (
     <PortalProfileMenu
