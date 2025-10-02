@@ -58,10 +58,10 @@ export function PortalAIDock() {
                   <span className="inline-flex items-center gap-2 rounded-full bg-[#eaf7f3] px-3 py-1 uppercase tracking-[0.2em]">
                     {statusPill}
                   </span>
-                  <span className="text-[#0f766e]">
-                    {PERSISTENT_PHASE.percent}% complete
-                  </span>
                 </div>
+                <p className="text-xs font-semibold text-[#0f766e]">
+                  {PERSISTENT_PHASE.message} <span>{PERSISTENT_PHASE.percent}% complete</span>
+                </p>
                 <div className="h-1.5 overflow-hidden rounded-full bg-[#e6f2ed]">
                   <div
                     className="h-full rounded-full bg-[#0f766e]"
