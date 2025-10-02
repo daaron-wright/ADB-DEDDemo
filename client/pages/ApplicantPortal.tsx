@@ -822,6 +822,29 @@ export default function ApplicantPortal() {
   }, [primaryApplication.nextAction]);
 
   useEffect(() => {
+    setTodoCompletionState((prev) => {
+      let hasChange = false;
+      const nextState: Record<string, boolean> = { ...prev };
+
+      todoBankItems.forEach((item) => {
+        if (!(item.id in nextState)) {
+          nextState[item.id] = false;
+          hasChange = true;
+        }
+      });
+
+      Object.keys(nextState).forEach((key) => {
+        if (!todoBankItems.some((item) => item.id === key)) {
+          delete nextState[key];
+          hasChange = true;
+        }
+      });
+
+      return hasChange ? nextState : prev;
+    });
+  }, [todoBankItems]);
+
+  useEffect(() => {
     if (!focusedNextActionId) {
       return;
     }
