@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -86,6 +86,17 @@ type JourneyTask = {
   owner: string;
   dueDate?: string;
   completedOn?: string;
+};
+
+type NextActionStatus = JourneyTaskStatus | "guidance" | "workflow";
+
+type NextActionItem = {
+  id: string;
+  label: string;
+  status: NextActionStatus;
+  stageTitle?: string;
+  description?: string;
+  dueDate?: string;
 };
 
 type JourneyStage = {
