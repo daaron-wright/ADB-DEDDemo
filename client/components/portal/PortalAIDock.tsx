@@ -72,7 +72,7 @@ export function PortalAIDock() {
         onClose={() => setIsOpen(false)}
         category="restaurants"
         title="Business AI"
-        initialMessage="How can I help you move your business license journey forward?"
+        initialMessage="Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require some more clarification to ensure the right decisions are made."
       />
     </>
   );
