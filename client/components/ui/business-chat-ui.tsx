@@ -279,6 +279,103 @@ const COLLABORATOR_LOGOS = [
   },
 ];
 
+const MAX_LICENSE_ACTIVITIES = 10;
+
+const BASE_ACTIVITY_LIBRARY: ChatActivityOption[] = [
+  {
+    id: "full-service-restaurant",
+    label: "Full-service restaurant",
+    description:
+      "Table service dining with full kitchen operations and a bar programme.",
+    group: "restaurant",
+    isRecommended: true,
+    spatial: {
+      minArea: 3600,
+      seatingCapacity: 120,
+      kitchenArea: 950,
+      ventilation: "Type-1 hood, UV filtration, make-up air",
+      utilities: ["3-phase power", "Grease trap", "Black water line"],
+      notes: [
+        "Allocate 180 sq ft combined dry and cold storage to meet food safety requirements.",
+        "Provide a 1.2m minimum corridor for staff circulation and fire egress compliance.",
+      ],
+    },
+  },
+  {
+    id: "charcoal-coal-bbq-services",
+    label: "Charcoal/coal BBQ services",
+    description:
+      "Live-fire grilling with dedicated preparation and exhaust handling.",
+    group: "restaurant",
+    isRecommended: true,
+    spatial: {
+      minArea: 1800,
+      seatingCapacity: 60,
+      kitchenArea: 520,
+      ventilation: "High-temperature hood with spark arrestor",
+      utilities: ["Charcoal filtration", "Make-up air", "Fire suppression"],
+      notes: [
+        "Install dual-stage filtration to control smoke and particulate output.",
+        "Separate marination zone with washable surfaces for HACCP controls.",
+      ],
+    },
+  },
+  {
+    id: "hospitality-and-catering-services",
+    label: "Hospitality and catering services",
+    description:
+      "Off-site catering production and event support for hospitality venues.",
+    group: "restaurant",
+    isRecommended: true,
+    spatial: {
+      minArea: 2400,
+      seatingCapacity: 80,
+      kitchenArea: 780,
+      ventilation: "Type-2 hood for bulk preparation lines",
+      utilities: ["Blast chiller connection", "Service elevators", "3-phase power"],
+      notes: [
+        "Provide loading dock access with insulated holding area for dispatch.",
+        "Dedicated warewashing bay with grease interceptor and backflow prevention.",
+      ],
+    },
+  },
+  {
+    id: "pastry-and-dessert-production",
+    label: "Pastry and dessert production",
+    description:
+      "Specialised dessert and bakery production supporting dine-in service.",
+    group: "restaurant",
+    spatial: {
+      minArea: 1400,
+      seatingCapacity: 36,
+      kitchenArea: 360,
+      ventilation: "Confectionery hood with humidity control",
+      utilities: ["Temperature-controlled storage", "3-phase power"],
+      notes: [
+        "Maintain 18°C cold room for pastry ingredients and finished goods.",
+        "Install food-grade flooring with coved skirting for easy wash-down.",
+      ],
+    },
+  },
+  {
+    id: "culinary-training-workshops",
+    label: "Culinary training workshops",
+    description: "Interactive chef-led sessions for guests and staff upskilling.",
+    group: "restaurant",
+    spatial: {
+      minArea: 1600,
+      seatingCapacity: 28,
+      kitchenArea: 420,
+      ventilation: "Type-1 hood with acoustic dampening",
+      utilities: ["Demonstration cooking line", "Audio-visual cabling"],
+      notes: [
+        "Provide dual-purpose stations with induction tops and chilled undercounters.",
+        "Integrate spectator seating with clear sightlines and fire-rated finishes.",
+      ],
+    },
+  },
+];
+
 const PropertyOpportunityCard = ({
   opportunity,
 }: {
