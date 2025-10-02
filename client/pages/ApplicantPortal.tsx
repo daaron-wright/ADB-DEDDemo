@@ -1180,9 +1180,14 @@ export default function ApplicantPortal() {
                 </div>
                 {todoBankItems.length > 0 ? (
                   <div className="space-y-4">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                      Next actions
-                    </p>
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                        To-do bank
+                      </p>
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                        {remainingTodoCount} of {todoBankItems.length} remaining
+                      </span>
+                    </div>
                     <ol className="space-y-3">
                       {todoBankItems.map((action) => {
                         const token = getNextActionToken(action.status);
