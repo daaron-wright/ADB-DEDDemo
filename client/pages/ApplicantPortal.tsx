@@ -681,15 +681,6 @@ export default function ApplicantPortal() {
     [journeySteps],
   );
 
-  const activeStage =
-    journeyStages.find((stage) => stage.id === activeStageId) ??
-    journeyStages[0];
-  const journeyHighlights = journeyStages.map((stage) => ({
-    id: stage.id,
-    label: stage.highlight.label,
-    detail: stage.highlight.detail,
-    state: stage.state,
-  }));
   const currentAnimationPhase =
     JOURNEY_ANIMATION_TIMELINE.find(
       (phase) => phase.stageId === activeStageId,
