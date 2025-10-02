@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { PortalAIDock } from "./PortalAIDock";
 
 interface PortalPageLayoutProps {
   title: string;
