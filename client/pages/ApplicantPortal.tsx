@@ -821,6 +821,12 @@ export default function ApplicantPortal() {
     ];
   }, [primaryApplication.nextAction]);
 
+  const remainingTodoCount = useMemo(() => {
+    return todoBankItems.reduce((count, item) => {
+      return todoCompletionState[item.id] ? count : count + 1;
+    }, 0);
+  }, [todoBankItems, todoCompletionState]);
+
   useEffect(() => {
     setTodoCompletionState((prev) => {
       let hasChange = false;
