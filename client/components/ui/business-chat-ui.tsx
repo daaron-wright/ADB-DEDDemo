@@ -6054,7 +6054,13 @@ export function BusinessChatUI({
                         </div>
 
                         {view === "investor-journey" && (
-                          <div className="mt-6 rounded-[28px] border border-white/20 bg-white/16 p-4 backdrop-blur-xl shadow-[0_35px_90px_-60px_rgba(15,23,42,0.28)]">
+                          <div
+                            className={cn(
+                              "mt-6 rounded-[28px] border border-white/20 bg-white/16 p-4 backdrop-blur-xl shadow-[0_35px_90px_-60px_rgba(15,23,42,0.28)]",
+                              isSidePanel &&
+                                "border-slate-200 bg-slate-50/90 backdrop-blur-none shadow-[0_24px_60px_-48px_rgba(15,23,42,0.22)]",
+                            )}
+                          >
                             <DiscoverExperienceView
                               category={category}
                               onSendMessage={() => {}}
