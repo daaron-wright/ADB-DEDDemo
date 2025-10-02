@@ -829,6 +829,15 @@ export default function ApplicantPortal() {
     }
   }, [focusedNextActionId]);
 
+  useEffect(() => {
+    if (
+      focusedNextActionId &&
+      !nextActions.some((item) => item.id === focusedNextActionId)
+    ) {
+      setFocusedNextActionId(null);
+    }
+  }, [focusedNextActionId, nextActions, setFocusedNextActionId]);
+
   const handleContinueToNextAction = useCallback(() => {
     const firstNextActionId = nextActions[0]?.id ?? null;
     setFocusedNextActionId(firstNextActionId);
