@@ -1356,6 +1356,125 @@ export default function ApplicantPortal() {
                     </ol>
                   </div>
                 ) : null}
+                {journeyTimelineItems.length > 0 ? (
+                  <div className="space-y-4">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                        Journey timeline
+                      </p>
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                        Active: {currentStageLabel}
+                      </span>
+                    </div>
+                    <ol className="space-y-3">
+                      {journeyTimelineItems.map((item, index) => {
+                        const isAutomation = item.id === "generating-application";
+                        const isStage = !isAutomation;
+                        return (
+                          <li key={item.id}>
+                            <div
+                              className={cn(
+                                "rounded-2xl border px-4 py-3 transition focus-within:outline-none focus-within:ring-2 focus-within:ring-[#0f766e]/40",
+                                item.isCurrent
+                                  ? "border-[#0f766e] bg-[#eaf7f3] shadow-[0_16px_32px_-28px_rgba(11,64,55,0.32)]"
+                                  : "border-[#d8e4df] bg-white hover:border-[#0f766e]/60 hover:bg-[#f4faf8]",
+                              )}
+                            >
+                              <div className="flex items-start gap-3">
+                                <span
+                                  className={cn(
+                                    "mt-1 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-semibold",
+                                    item.isCurrent
+                                      ? "bg-[#0f766e] text-white"
+                                      : "bg-[#f4faf8] text-[#0f766e]",
+                                  )}
+                                >
+                                  {index + 1}
+                                </span>
+                                <div className="flex-1 space-y-3">
+                                  <div className="flex flex-wrap items-center justify-between gap-2">
+                                    <p className="text-sm font-semibold text-slate-900">
+                                      {item.title}
+                                    </p>
+                                    <span
+                                      className={cn(
+                                        "inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]",
+                                        item.statusBadgeClass,
+                                      )}
+                                    >
+                                      {item.statusLabel}
+                                    </span>
+                                  </div>
+                                  <p className="text-xs leading-relaxed text-slate-600">
+                                    {item.description}
+                                  </p>
+                                  {item.meta ? (
+                                    <p
+                                      className={cn(
+                                        "text-[11px] font-semibold uppercase tracking-[0.18em]",
+                                        item.statusHelperClass,
+                                      )}
+                                    >
+                                      {item.meta}
+                                    </p>
+                                  ) : null}
+                                  {item.showProgress ? (
+                                    <div className="space-y-2">
+                                      <div className="h-2 w-full overflow-hidden rounded-full bg-[#e6f2ed]">
+                                        <div
+                                          className="h-full rounded-full bg-[#0f766e] transition-all duration-700"
+                                          style={{ width: `${chatProgress}%` }}
+                                        />
+                                      </div>
+                                      {chatPhase?.keyConsiderations?.length ? (
+                                        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                                          {chatPhase.keyConsiderations[0]}
+                                        </p>
+                                      ) : null}
+                                      {isStageManuallySelected ? (
+                                        <button
+                                          type="button"
+                                          onClick={() => {
+                                            setIsStageManuallySelected(false);
+                                            const timelineIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
+                                              (phase) => phase.stageId === activeStageId,
+                                            );
+                                            setJourneyAnimationIndex(
+                                              timelineIndex >= 0 ? timelineIndex : 0,
+                                            );
+                                            if (timelineIndex >= 0) {
+                                              setJourneyProgressPercent(
+                                                JOURNEY_ANIMATION_TIMELINE[timelineIndex]?.percent ?? 0,
+                                              );
+                                            }
+                                          }}
+                                          className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                                        >
+                                          Resume automation
+                                        </button>
+                                      ) : null}
+                                    </div>
+                                  ) : null}
+                                  {isStage ? (
+                                    <div className="flex flex-wrap items-center gap-2">
+                                      <button
+                                        type="button"
+                                        onClick={() => handleViewJourney(item.id)}
+                                        className="inline-flex items-center gap-1 rounded-full border border-[#0f766e] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-white hover:text-[#0f766e] hover:shadow-[0_14px_28px_-22px_rgba(11,64,55,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                                      >
+                                        Open stage
+                                      </button>
+                                    </div>
+                                  ) : null}
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ol>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
