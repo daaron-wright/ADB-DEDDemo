@@ -836,6 +836,45 @@ export default function ApplicantPortal() {
                 {primaryApplication.id}
               </span>
             </div>
+            <div className="mt-6 space-y-3">
+              <Button
+                type="button"
+                onClick={handleOpenSidePanel}
+                className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+              >
+                <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                Chat with AI
+              </Button>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={handleOpenFocus}
+                  className={cn(
+                    "inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
+                    isFocusView
+                      ? "border-[#0f766e] bg-[#eaf7f3] text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] hover:bg-[#d9efe7]"
+                      : "border-[#d8e4df] bg-white text-slate-600 hover:bg-[#f4faf8]",
+                  )}
+                >
+                  Focus modal
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCloseChat}
+                  className={cn(
+                    "inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
+                    isChatOpen
+                      ? "border-[#0f766e] bg-white shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] hover:bg-[#eaf7f3]"
+                      : "border-[#d8e4df] bg-white text-slate-500",
+                  )}
+                >
+                  Close chat
+                </button>
+              </div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]/70">
+                Current view: {isSidePanelView ? "Side panel" : isFocusView ? "Focus modal" : "Closed"}
+              </p>
+            </div>
           </div>
           <div className="w-full max-w-xs rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] p-4">
             <div className="flex items-center justify-between text-sm font-medium text-slate-700">
