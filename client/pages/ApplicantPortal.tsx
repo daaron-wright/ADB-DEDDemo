@@ -1177,6 +1177,11 @@ export default function ApplicantPortal() {
                                   {action.description}
                                 </p>
                               ) : null}
+                              {action.id === "business-activity-guidance" ? (
+                                <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#3645b0]">
+                                  Tap to open the business activities questionnaire.
+                                </p>
+                              ) : null}
                               {(action.stageTitle || dueLabel) && (
                                 <p
                                   className={cn(
