@@ -968,67 +968,18 @@ export default function ApplicantPortal() {
           <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
             Journey overview
           </h3>
-          <div className="mt-4 rounded-3xl border border-white/60 bg-white/70 p-6 shadow-[0_18px_48px_-32px_rgba(11,64,55,0.28)] backdrop-blur-xl">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-              <div className="flex flex-col gap-4 lg:max-w-xl">
-                <span className="inline-flex items-center gap-2 self-start rounded-full bg-[#0f766e]/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#0b7d6f]">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#0f766e] text-white shadow-[0_10px_20px_-14px_rgba(11,64,55,0.4)]">
-                    <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
-                  </span>
-                  Chat with AI
-                </span>
-                <h4 className="text-lg font-semibold text-slate-900">
-                  Before you begin
-                </h4>
-                <p className="text-sm leading-relaxed text-slate-700">
-                  {BUSINESS_AI_INTRO_MESSAGE}
-                </p>
-                <div className="space-y-2">
-                  <div className="flex flex-wrap gap-2">
-                    <button
-                      type="button"
-                      onClick={handleOpenSidePanel}
-                      className={cn(
-                        "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
-                        isSidePanelView
-                          ? "border-[#0f766e] bg-[#0f766e] text-white hover:bg-[#0c6059]"
-                          : "border-[#0f766e] bg-white text-[#0f766e] hover:bg-[#eaf7f3]",
-                      )}
-                    >
-                      Side panel view
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleOpenFocus}
-                      className={cn(
-                        "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
-                        isFocusView
-                          ? "border-[#0f766e] bg-[#0f766e] text-white hover:bg-[#0c6059]"
-                          : "border-[#0f766e] bg-white text-[#0f766e] hover:bg-[#eaf7f3]",
-                      )}
-                    >
-                      Focus modal
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleCloseChat}
-                      className={cn(
-                        "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
-                        isChatOpen
-                          ? "border-[#0f766e] bg-white shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] hover:bg-[#eaf7f3]"
-                          : "border-[#d8e4df] bg-white text-slate-500",
-                      )}
-                    >
-                      Close chat
-                    </button>
-                  </div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]/70">
-                    Current view: {isSidePanelView ? "Side panel" : isFocusView ? "Focus modal" : "Closed"}
+          <div className="mt-4 flex w-full flex-col items-stretch gap-6 lg:flex-row">
+            <div className="w-full max-w-3xl rounded-3xl border border-white/60 bg-white/80 p-6 shadow-[0_18px_48px_-32px_rgba(11,64,55,0.28)] backdrop-blur-xl">
+              <div className="flex flex-col gap-6">
+                <div className="space-y-3">
+                  <h4 className="text-lg font-semibold text-slate-900">
+                    Before you begin
+                  </h4>
+                  <p className="text-sm leading-relaxed text-slate-700">
+                    {BUSINESS_AI_INTRO_MESSAGE}
                   </p>
                 </div>
-              </div>
-              {chatPhase ? (
-                <div className="lg:max-w-sm">
+                {chatPhase ? (
                   <div className="rounded-2xl border border-[#d4e4df] bg-white p-5 shadow-[0_16px_32px_-28px_rgba(11,64,55,0.22)]">
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <div>
@@ -1090,9 +1041,7 @@ export default function ApplicantPortal() {
                             const timelineIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
                               (phase) => phase.stageId === activeStageId,
                             );
-                            setJourneyAnimationIndex(
-                              timelineIndex >= 0 ? timelineIndex : 0,
-                            );
+                            setJourneyAnimationIndex(timelineIndex >= 0 ? timelineIndex : 0);
                             if (timelineIndex >= 0) {
                               setJourneyProgressPercent(
                                 JOURNEY_ANIMATION_TIMELINE[timelineIndex]?.percent ?? 0,
@@ -1106,259 +1055,253 @@ export default function ApplicantPortal() {
                       ) : null}
                     </div>
                   </div>
-                </div>
-              ) : null}
-            </div>
-          </div>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {journeyHighlights.map((highlight) => {
-              const tokens = journeyHighlightTokens[highlight.state];
-              return (
-                <div key={highlight.id} className="space-y-1">
-                  <Badge
-                    className={cn(
-                      "border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide",
-                      tokens.badgeClass,
-                    )}
-                  >
-                    {highlight.label}
-                  </Badge>
-                  {highlight.detail ? (
-                    <p className={cn("text-xs", tokens.detailClass)}>
-                      {highlight.detail}
-                    </p>
-                  ) : null}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_16px_32px_-28px_rgba(11,64,55,0.2)]">
-          <div className="flex flex-col gap-6 lg:flex-row lg:gap-10">
-            <ol className="space-y-4 lg:w-72">
-              {journeyStages.map((stage) => {
-                const tokens = journeyHighlightTokens[stage.state];
-                const isActive = stage.id === activeStageId;
-
-                return (
-                  <li key={stage.id}>
-                    <div
-                      className={cn(
-                        "rounded-2xl border px-4 py-3 transition-all duration-200",
-                        isActive
-                          ? "border-[#0f766e] bg-[#eaf7f3] shadow-[0_16px_32px_-28px_rgba(11,64,55,0.32)]"
-                          : "border-[#d8e4df] bg-white hover:border-[#0f766e] hover:bg-[#f4faf8]",
-                      )}
-                    >
-                      <div className="flex flex-wrap items-start justify-between gap-3">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setIsStageManuallySelected(true);
-                            setActiveStageId(stage.id);
-                            const timelineIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
-                              (phase) => phase.stageId === stage.id,
-                            );
-                            if (timelineIndex >= 0) {
-                              setJourneyAnimationIndex(timelineIndex);
-                              setJourneyProgressPercent(
-                                JOURNEY_ANIMATION_TIMELINE[timelineIndex]?.percent ?? 0,
-                              );
-                            }
-                          }}
-                          className="flex-1 w-full rounded-none border-none bg-transparent p-0 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-                        >
-                          <div className="flex items-start justify-between gap-3">
-                            <div className="flex items-start gap-3">
-                              <span
-                                className={cn(
-                                  "mt-1 h-2.5 w-2.5 rounded-full",
-                                  tokens.dotClass,
-                                )}
-                                aria-hidden="true"
-                              />
-                              <div>
-                                <p className="text-sm font-semibold text-slate-900">
-                                  {stage.title}
-                                </p>
-                              </div>
-                            </div>
-                            <Badge
+                ) : null}
+                <div className="space-y-3">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    Journey highlights
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {journeyHighlights.map((highlight) => {
+                      const tokens = journeyHighlightTokens[highlight.state];
+                      return (
+                        <div key={highlight.id} className="space-y-1">
+                          <Badge
                             className={cn(
-                              "border px-2.5 py-1 text-xs font-semibold uppercase tracking-wide",
+                              "border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide",
                               tokens.badgeClass,
-                              isActive && !isStageManuallySelected
-                                ? "shadow-[0_12px_28px_-20px_rgba(11,64,55,0.32)]"
-                                : null,
                             )}
                           >
-                              {tokens.stateLabel}
-                            </Badge>
-                          </div>
-                          <p className="mt-2 text-xs leading-relaxed text-slate-600">
-                            {stage.description}
-                          </p>
-                          {stage.statusDetail ? (
-                            <p className="mt-2 text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
-                              {stage.statusDetail}
+                            {highlight.label}
+                          </Badge>
+                          {highlight.detail ? (
+                            <p className={cn("text-xs", tokens.detailClass)}>
+                              {highlight.detail}
                             </p>
                           ) : null}
-                          {isActive ? (
-                            <span className="mt-3 inline-flex items-center rounded-full bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                              Viewing tasks
-                            </span>
-                          ) : null}
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleViewJourney(stage.id)}
-                          className="inline-flex items-center rounded-full border border-[#0f766e] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-white hover:text-[#0f766e] hover:shadow-[0_14px_28px_-22px_rgba(11,64,55,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-                          aria-label={`Open ${stage.title} in the Investor Journey`}
-                        >
-                          Journey
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                );
-              })}
-            </ol>
-
-            <div className="flex-1 rounded-3xl border border-[#d8e4df] bg-[#f9fbfa] p-6">
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div className="max-w-xl space-y-3">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                    {journeyHighlightTokens[activeStage.state].stateLabel}
-                  </p>
-                  <h4 className="text-xl font-semibold text-slate-900">
-                    {activeStage.title}
-                  </h4>
-                  <p className="text-sm leading-relaxed text-slate-600">
-                    {activeStage.description}
-                  </p>
-                  {activeStage.statusDetail ? (
-                    <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
-                      {activeStage.statusDetail}
-                    </p>
-                  ) : null}
-                </div>
-                <Badge
-                  className={cn(
-                    "border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide",
-                    journeyHighlightTokens[activeStage.state].badgeClass,
-                  )}
-                >
-                  {journeyHighlightTokens[activeStage.state].stateLabel}
-                </Badge>
-              </div>
-
-              <div className="mt-6 space-y-3">
-                {activeStage.tasks.map((task) => {
-                  const tokens = taskStatusTokens[task.status];
-                  const meta = task.completedOn
-                    ? `Completed ${dateFormatter.format(new Date(task.completedOn))}`
-                    : task.dueDate
-                      ? `Due ${dateFormatter.format(new Date(task.dueDate))}`
-                      : null;
-                  const library = documentLibraries[task.id];
-                  const showFitOutLibrary =
-                    activeStage.id === "pre-operational-inspection" &&
-                    Boolean(library);
-
-                  return (
-                    <div
-                      key={task.id}
-                      className="rounded-2xl border border-[#d8e4df] bg-white p-4 shadow-[0_12px_24px_-20px_rgba(11,64,55,0.16)]"
-                    >
-                      <div className="flex flex-wrap items-center justify-between gap-3">
-                        <p className="text-sm font-semibold text-slate-900">
-                          {task.label}
-                        </p>
-                        <Badge
-                          className={cn(
-                            "border px-2.5 py-1 text-xs font-semibold uppercase tracking-wide",
-                            tokens.badgeClass,
-                          )}
-                        >
-                          {tokens.label}
-                        </Badge>
-                      </div>
-                      <p className={cn("mt-2 text-xs", tokens.helperClass)}>
-                        Owner:{" "}
-                        <span className="font-semibold text-slate-900">
-                          {task.owner}
-                        </span>
-                        {meta ? ` • ${meta}` : null}
-                      </p>
-                      {showFitOutLibrary && library ? (
-                        <div className="mt-4 space-y-3 rounded-2xl border border-dashed border-[#c9e1d7] bg-[#f4faf8] p-4">
-                          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-                            <div>
-                              <p className="text-sm font-semibold text-slate-900">
-                                {library.title}
-                              </p>
-                              <p className="mt-1 text-xs leading-relaxed text-slate-600">
-                                {library.description}
-                              </p>
-                            </div>
-                            <Button
-                              type="button"
-                              variant="outline"
-                              className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold text-[#0f766e] shadow-[0_10px_20px_-18px_rgba(11,64,55,0.35)] transition hover:bg-white hover:shadow-[0_14px_28px_-22px_rgba(11,64,55,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-                            >
-                              <svg
-                                className="h-4 w-4"
-                                viewBox="0 0 20 20"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                                aria-hidden="true"
-                              >
-                                <path
-                                  d="M10 4v8m0 0 3-3m-3 3-3-3M4 14h12"
-                                  stroke="currentColor"
-                                  strokeWidth="1.6"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </svg>
-                              Upload fit-out readiness artifacts
-                            </Button>
-                          </div>
-                          <div>
-                            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
-                              Document library
-                            </p>
-                            <ul className="mt-2 grid gap-2 text-xs text-slate-600 sm:grid-cols-2">
-                              {library.items.map((item) => (
-                                <li
-                                  key={item.id}
-                                  className="flex items-start gap-2 rounded-xl border border-[#dbe7e1] bg-white px-3 py-2"
-                                >
-                                  <span
-                                    className="mt-0.5 h-2 w-2 rounded-full bg-[#0f766e]"
-                                    aria-hidden="true"
-                                  />
-                                  <div>
-                                    <p className="font-medium text-slate-900">
-                                      {item.name}
-                                    </p>
-                                    <p className="text-[11px] text-slate-500">
-                                      {item.type} • Updated{" "}
-                                      {dateFormatter.format(
-                                        new Date(item.updatedAt),
-                                      )}
-                                    </p>
-                                  </div>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
                         </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    Journey stages
+                  </p>
+                  <ol className="space-y-3">
+                    {journeyStages.map((stage) => {
+                      const tokens = journeyHighlightTokens[stage.state];
+                      const isActive = stage.id === activeStageId;
+
+                      return (
+                        <li key={stage.id}>
+                          <div
+                            className={cn(
+                              "rounded-2xl border px-4 py-3 transition-all duration-200",
+                              isActive
+                                ? "border-[#0f766e] bg-[#eaf7f3] shadow-[0_16px_32px_-28px_rgba(11,64,55,0.32)]"
+                                : "border-[#d8e4df] bg-white hover:border-[#0f766e] hover:bg-[#f4faf8]",
+                            )}
+                          >
+                            <div className="flex flex-col gap-3">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setIsStageManuallySelected(true);
+                                  setActiveStageId(stage.id);
+                                  const timelineIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
+                                    (phase) => phase.stageId === stage.id,
+                                  );
+                                  if (timelineIndex >= 0) {
+                                    setJourneyAnimationIndex(timelineIndex);
+                                    setJourneyProgressPercent(
+                                      JOURNEY_ANIMATION_TIMELINE[timelineIndex]?.percent ?? 0,
+                                    );
+                                  }
+                                }}
+                                className="flex w-full items-start gap-3 rounded-none border-none bg-transparent p-0 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                              >
+                                <span
+                                  className={cn(
+                                    "mt-1 h-2.5 w-2.5 flex-shrink-0 rounded-full",
+                                    tokens.dotClass,
+                                  )}
+                                  aria-hidden="true"
+                                />
+                                <div className="flex-1 space-y-2">
+                                  <div className="flex flex-wrap items-center justify-between gap-2">
+                                    <p className="text-sm font-semibold text-slate-900">
+                                      {stage.title}
+                                    </p>
+                                    <Badge
+                                      className={cn(
+                                        "border px-2.5 py-1 text-xs font-semibold uppercase tracking-wide",
+                                        tokens.badgeClass,
+                                        isActive && !isStageManuallySelected
+                                          ? "shadow-[0_12px_24px_-20px_rgba(11,64,55,0.24)]"
+                                          : null,
+                                      )}
+                                    >
+                                      {tokens.stateLabel}
+                                    </Badge>
+                                  </div>
+                                  <p className="text-xs leading-relaxed text-slate-600">
+                                    {stage.description}
+                                  </p>
+                                  {stage.statusDetail ? (
+                                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                                      {stage.statusDetail}
+                                    </p>
+                                  ) : null}
+                                  {isActive ? (
+                                    <span className="inline-flex items-center rounded-full bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                                      Viewing tasks
+                                    </span>
+                                  ) : null}
+                                </div>
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleViewJourney(stage.id)}
+                                className="self-start rounded-full border border-[#0f766e] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-white hover:text-[#0f766e] hover:shadow-[0_14px_28px_-22px_rgba(11,64,55,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                                aria-label={`Open ${stage.title} in the Investor Journey`}
+                              >
+                                Journey
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </div>
+                <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] p-6">
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <div className="max-w-xl space-y-3">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                        {journeyHighlightTokens[activeStage.state].stateLabel}
+                      </p>
+                      <h4 className="text-xl font-semibold text-slate-900">
+                        {activeStage.title}
+                      </h4>
+                      <p className="text-sm leading-relaxed text-slate-600">
+                        {activeStage.description}
+                      </p>
+                      {activeStage.statusDetail ? (
+                        <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
+                          {activeStage.statusDetail}
+                        </p>
                       ) : null}
                     </div>
-                  );
-                })}
+                    <Badge
+                      className={cn(
+                        "border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide",
+                        journeyHighlightTokens[activeStage.state].badgeClass,
+                      )}
+                    >
+                      {journeyHighlightTokens[activeStage.state].stateLabel}
+                    </Badge>
+                  </div>
+                  <div className="mt-6 space-y-3">
+                    {activeStage.tasks.map((task) => {
+                      const tokens = taskStatusTokens[task.status];
+                      const meta = task.completedOn
+                        ? `Completed ${dateFormatter.format(new Date(task.completedOn))}`
+                        : task.dueDate
+                          ? `Due ${dateFormatter.format(new Date(task.dueDate))}`
+                          : null;
+                      const library = documentLibraries[task.id];
+                      const showFitOutLibrary =
+                        activeStage.id === "pre-operational-inspection" && Boolean(library);
+
+                      return (
+                        <div
+                          key={task.id}
+                          className="rounded-2xl border border-[#d8e4df] bg-white p-4 shadow-[0_12px_24px_-20px_rgba(11,64,55,0.16)]"
+                        >
+                          <div className="flex flex-wrap items-center justify-between gap-3">
+                            <p className="text-sm font-semibold text-slate-900">
+                              {task.label}
+                            </p>
+                            <Badge
+                              className={cn(
+                                "border px-2.5 py-1 text-xs font-semibold uppercase tracking-wide",
+                                tokens.badgeClass,
+                              )}
+                            >
+                              {tokens.label}
+                            </Badge>
+                          </div>
+                          <p className={cn("mt-2 text-xs", tokens.helperClass)}>
+                            Owner:{" "}
+                            <span className="font-semibold text-slate-900">{task.owner}</span>
+                            {meta ? ` • ${meta}` : null}
+                          </p>
+                          {showFitOutLibrary && library ? (
+                            <div className="mt-4 space-y-3 rounded-2xl border border-dashed border-[#c9e1d7] bg-[#f4faf8] p-4">
+                              <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                                <div>
+                                  <p className="text-sm font-semibold text-slate-900">
+                                    {library.title}
+                                  </p>
+                                  <p className="mt-1 text-xs leading-relaxed text-slate-600">
+                                    {library.description}
+                                  </p>
+                                </div>
+                                <Button
+                                  type="button"
+                                  variant="outline"
+                                  className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold text-[#0f766e] shadow-[0_10px_20px_-18px_rgba(11,64,55,0.35)] transition hover:bg-white hover:shadow-[0_14px_28px_-22px_rgba(11,64,55,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                                >
+                                  <svg
+                                    className="h-4 w-4"
+                                    viewBox="0 0 20 20"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true"
+                                  >
+                                    <path
+                                      d="M10 4v8m0 0 3-3m-3 3-3-3M4 14h12"
+                                      stroke="currentColor"
+                                      strokeWidth="1.6"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    />
+                                  </svg>
+                                  Upload fit-out readiness artifacts
+                                </Button>
+                              </div>
+                              <div>
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                                  Document library
+                                </p>
+                                <ul className="mt-2 grid gap-2 text-xs text-slate-600 sm:grid-cols-2">
+                                  {library.items.map((item) => (
+                                    <li
+                                      key={item.id}
+                                      className="flex items-start gap-2 rounded-xl border border-[#dbe7e1] bg-white px-3 py-2"
+                                    >
+                                      <span
+                                        className="mt-0.5 h-2 w-2 rounded-full bg-[#0f766e]"
+                                        aria-hidden="true"
+                                      />
+                                      <div>
+                                        <p className="font-medium text-slate-900">{item.name}</p>
+                                        <p className="text-[11px] text-slate-500">
+                                          {item.type} • Updated{" "}
+                                          {dateFormatter.format(new Date(item.updatedAt))}
+                                        </p>
+                                      </div>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </div>
+                          ) : null}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
