@@ -842,10 +842,18 @@ export default function ApplicantPortal() {
   }, [focusedNextActionId, todoBankItems, setFocusedNextActionId]);
 
   const handleContinueToNextAction = useCallback(() => {
-    const firstNextActionId = todoBankItems[0]?.id ?? null;
+    const firstNextAction =
+      todoBankItems.find((item) => !todoCompletionState[item.id]) ??
+      todoBankItems[0];
+    const firstNextActionId = firstNextAction?.id ?? null;
     setFocusedNextActionId(firstNextActionId);
     setBusinessAIView("side-panel");
-  }, [todoBankItems, setBusinessAIView, setFocusedNextActionId]);
+  }, [
+    todoBankItems,
+    todoCompletionState,
+    setBusinessAIView,
+    setFocusedNextActionId,
+  ]);
 
   const handleNextActionClick = useCallback(
     (action: NextActionItem) => {
