@@ -82,6 +82,21 @@ export function PortalAIDock() {
                   </span>
                 ))}
               </div>
+              <div className="space-y-1">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                  UAE PASS data points leveraged
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {PERSISTENT_PHASE.dataTags.map((item) => (
+                    <span
+                      key={item}
+                      className="inline-flex items-center rounded-full border border-[#d8e4df] bg-white px-3 py-1 text-[11px] font-medium text-slate-600"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
               <button
                 type="button"
                 onClick={handleOpen}
