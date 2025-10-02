@@ -22,6 +22,12 @@ import BudgetRangesView from "@/components/ui/budget-ranges-view";
 import GapAnalysisView from "@/components/ui/gap-analysis-view";
 import RetailLocationsView from "@/components/ui/retail-locations-view";
 import ComprehensiveReport from "@/components/ui/comprehensive-report";
+import { ApplicationProgressCard } from "@/components/ui/application-progress-card";
+import {
+  BusinessActivitiesChatCard,
+  ChatActivityOption,
+  PhysicalSpacePlan,
+} from "@/components/ui/business-activities-chat-card";
 import { budgetSummaryRows } from "@/components/ui/budget-ranges-data";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
