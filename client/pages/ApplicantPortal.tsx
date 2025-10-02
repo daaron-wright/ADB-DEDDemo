@@ -941,15 +941,51 @@ export default function ApplicantPortal() {
                   Before you begin
                 </h4>
                 <p className="text-sm leading-relaxed text-slate-700">
-                  Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require more clarification to ensure the right decisions are made.
+                  {BUSINESS_AI_INTRO_MESSAGE}
                 </p>
-                <Link
-                  to={discoveryGeneralChatLink}
-                  className="inline-flex w-fit items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] transition hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-                >
-                  <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
-                  Chat with AI
-                </Link>
+                <div className="space-y-2">
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={handleOpenSidePanel}
+                      className={cn(
+                        "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
+                        isSidePanelView
+                          ? "border-[#0f766e] bg-[#0f766e] text-white hover:bg-[#0c6059]"
+                          : "border-[#0f766e] bg-white text-[#0f766e] hover:bg-[#eaf7f3]",
+                      )}
+                    >
+                      Side panel view
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleOpenFocus}
+                      className={cn(
+                        "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
+                        isFocusView
+                          ? "border-[#0f766e] bg-[#0f766e] text-white hover:bg-[#0c6059]"
+                          : "border-[#0f766e] bg-white text-[#0f766e] hover:bg-[#eaf7f3]",
+                      )}
+                    >
+                      Focus modal
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleCloseChat}
+                      className={cn(
+                        "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
+                        isChatOpen
+                          ? "border-[#0f766e] bg-white shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] hover:bg-[#eaf7f3]"
+                          : "border-[#d8e4df] bg-white text-slate-500",
+                      )}
+                    >
+                      Close chat
+                    </button>
+                  </div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]/70">
+                    Current view: {isSidePanelView ? "Side panel" : isFocusView ? "Focus modal" : "Closed"}
+                  </p>
+                </div>
               </div>
               {chatPhase ? (
                 <div className="lg:max-w-sm">
