@@ -72,6 +72,9 @@ const statusStyles: Record<ApplicationRecord["status"], string> = {
   Draft: "border-[#d8e4df] bg-[#f4f8f6] text-slate-600",
 };
 
+const BUSINESS_AI_INTRO_MESSAGE =
+  "Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require more clarification to ensure the right decisions are made.";
+
 type JourneyTaskStatus = "completed" | "in_progress" | "pending";
 
 type JourneyTask = {
