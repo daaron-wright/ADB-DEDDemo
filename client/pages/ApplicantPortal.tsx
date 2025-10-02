@@ -291,42 +291,6 @@ const journeyStages: JourneyStage[] = [
   },
 ];
 
-const documentLibraries: Record<
-  JourneyTask["id"],
-  | {
-      title: string;
-      description: string;
-      items: { id: string; name: string; type: string; updatedAt: string }[];
-    }
-  | undefined
-> = {
-  "inspection-checklist": {
-    title: "Fit-out readiness artifacts",
-    description:
-      "Upload inspection-ready evidence, including mechanical, electrical, and safety clearances before your fit-out walkthrough.",
-    items: [
-      {
-        id: "fitout-fire-suppression",
-        name: "Fire suppression compliance certificate",
-        type: "Certificate",
-        updatedAt: isoDate(daysFromToday(-3)),
-      },
-      {
-        id: "fitout-floor-plan",
-        name: "Finalized kitchen and dining floor plan",
-        type: "AutoCAD export",
-        updatedAt: isoDate(daysFromToday(-4)),
-      },
-      {
-        id: "fitout-haccp",
-        name: "HACCP readiness checklist",
-        type: "Checklist",
-        updatedAt: isoDate(daysFromToday(-5)),
-      },
-    ],
-  },
-};
-
 const journeyHighlightTokens: Record<
   JourneyHighlightState,
   {
