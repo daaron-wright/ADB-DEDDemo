@@ -6183,6 +6183,23 @@ export function BusinessChatUI({
                               }
                               onHeatMapOpen={openHeatMapFullView}
                               onBudgetRangesOpen={openBudgetRangesFocus}
+                              businessActivitiesProps={
+                                message.type === "business-activities"
+                                  ? {
+                                      activities: activityOptions,
+                                      selectedActivityIds,
+                                      onToggleActivity: handleToggleActivity,
+                                      onAddActivity: handleAddActivity,
+                                      maxSelection: MAX_LICENSE_ACTIVITIES,
+                                      physicalPlan: physicalSpacePlan,
+                                    }
+                                  : undefined
+                              }
+                              applicationProgressProps={
+                                message.type === "application-progress"
+                                  ? { message: message.content }
+                                  : undefined
+                              }
                             />
                           ))}
                         </div>
