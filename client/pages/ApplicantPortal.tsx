@@ -28,8 +28,6 @@ import type {
   NextActionStatus,
 } from "@/components/portal/journey-types";
 
-type JourneyHighlightState = "done" | "current" | "upcoming";
-
 interface ApplicationRecord {
   id: string;
   title: string;
@@ -90,53 +88,6 @@ const BUSINESS_AI_INTRO_MESSAGE =
 
 const BUSINESS_ACTIVITY_GUIDANCE_MESSAGE =
   "You can select multiple business activities for a restaurant, provided they fall under the same business group. You can list a maximum of 10 activities on a single trade license.";
-
-type JourneyTaskStatus = "completed" | "in_progress" | "pending";
-
-type JourneyTask = {
-  id: string;
-  label: string;
-  status: JourneyTaskStatus;
-  owner: string;
-  dueDate?: string;
-  completedOn?: string;
-};
-
-type NextActionStatus = JourneyTaskStatus | "guidance" | "workflow";
-
-type NextActionItem = {
-  id: string;
-  label: string;
-  status: NextActionStatus;
-  stageTitle?: string;
-  description?: string;
-  dueDate?: string;
-};
-
-type JourneyTimelineItem = {
-  id: string;
-  title: string;
-  description: string;
-  statusLabel: string;
-  statusBadgeClass: string;
-  statusHelperClass: string;
-  meta?: string;
-  isCurrent: boolean;
-  showProgress?: boolean;
-};
-
-type JourneyStage = {
-  id: string;
-  title: string;
-  highlight: {
-    label: string;
-    detail?: string;
-  };
-  description: string;
-  state: JourneyHighlightState;
-  statusDetail?: string;
-  tasks: JourneyTask[];
-};
 
 const journeyStages: JourneyStage[] = [
   {
