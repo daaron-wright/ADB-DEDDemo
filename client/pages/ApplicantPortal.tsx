@@ -13,7 +13,7 @@ import type {
 } from "@/components/portal/BusinessActivitiesSelection";
 import { cn } from "@/lib/utils";
 import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
-import { Plus } from "lucide-react";
+import { MessageCircle, Plus } from "lucide-react";
 
 type JourneyHighlightState = "done" | "current" | "upcoming";
 
