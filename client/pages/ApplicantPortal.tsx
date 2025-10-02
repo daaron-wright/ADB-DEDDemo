@@ -1122,6 +1122,71 @@ export default function ApplicantPortal() {
                     {BUSINESS_AI_INTRO_MESSAGE}
                   </p>
                 </div>
+                {nextActions.length > 0 ? (
+                  <div className="space-y-4">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                      Next actions
+                    </p>
+                    <ol className="space-y-3">
+                      {nextActions.map((action) => {
+                        const token = getNextActionToken(action.status);
+                        const isFocused = focusedNextActionId === action.id;
+                        const dueLabel = action.dueDate
+                          ? dateFormatter.format(new Date(action.dueDate))
+                          : null;
+
+                        return (
+                          <li key={action.id}>
+                            <button
+                              type="button"
+                              ref={(node) => {
+                                nextActionRefs.current[action.id] = node;
+                              }}
+                              onClick={() => handleNextActionClick(action)}
+                              className={cn(
+                                "w-full rounded-2xl border px-4 py-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40",
+                                isFocused
+                                  ? "border-[#0f766e] bg-[#eaf7f3] shadow-[0_16px_32px_-28px_rgba(11,64,55,0.32)]"
+                                  : "border-[#d8e4df] bg-white hover:border-[#0f766e]/60 hover:bg-[#f4faf8]",
+                              )}
+                            >
+                              <div className="flex flex-wrap items-center justify-between gap-2">
+                                <p className="text-sm font-semibold text-slate-900">
+                                  {action.label}
+                                </p>
+                                <span
+                                  className={cn(
+                                    "inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]",
+                                    token.badgeClass,
+                                  )}
+                                >
+                                  {token.label}
+                                </span>
+                              </div>
+                              {action.description ? (
+                                <p className="mt-2 text-xs leading-relaxed text-slate-600">
+                                  {action.description}
+                                </p>
+                              ) : null}
+                              {(action.stageTitle || dueLabel) && (
+                                <p
+                                  className={cn(
+                                    "mt-3 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                                    token.helperClass,
+                                  )}
+                                >
+                                  {action.stageTitle ? `Stage: ${action.stageTitle}` : ""}
+                                  {action.stageTitle && dueLabel ? " • " : ""}
+                                  {dueLabel ? `Due ${dueLabel}` : ""}
+                                </p>
+                              )}
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ol>
+                  </div>
+                ) : null}
                 {chatPhase ? (
                   <div className="rounded-2xl border border-[#d4e4df] bg-white p-5 shadow-[0_16px_32px_-28px_rgba(11,64,55,0.22)]">
                     <div className="flex flex-wrap items-center justify-between gap-3">
