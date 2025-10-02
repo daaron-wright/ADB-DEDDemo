@@ -726,6 +726,9 @@ export default function ApplicantPortal() {
     null,
   );
   const nextActionRefs = useRef<Record<string, HTMLElement | null>>({});
+  const [todoCompletionState, setTodoCompletionState] = useState<
+    Record<string, boolean>
+  >({});
 
   const handleOpenSidePanel = useCallback(() => {
     setBusinessAIView("side-panel");
