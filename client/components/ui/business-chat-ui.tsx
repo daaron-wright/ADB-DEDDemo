@@ -5682,6 +5682,40 @@ export function BusinessChatUI({
   const isSidePanel = mode === "side-panel";
   const isModal = mode === "modal";
 
+  const outerContainerClass = cn(
+    "relative z-10 flex w-full justify-center px-3 py-6 sm:px-6 sm:py-8 lg:px-12 lg:py-10",
+    isSidePanel && "h-full justify-end px-0 py-0 sm:px-0 sm:py-0 lg:px-0 lg:py-0",
+  );
+
+  const chatShellClass = cn(
+    chatCardClass(
+      "mx-auto w-full max-w-6xl overflow-hidden border border-white/25 bg-white/15 backdrop-blur-3xl shadow-[0_55px_140px_-65px_rgba(15,23,42,0.45)] ring-1 ring-white/10",
+      "sm:rounded-[28px]",
+    ),
+    isSidePanel &&
+      "mx-0 flex h-full max-w-none flex-col rounded-none border-l border-slate-200 bg-white/95 shadow-[0_35px_90px_-45px_rgba(15,23,42,0.35)] backdrop-blur-none ring-0",
+  );
+
+  const headerContainerClass = cn(
+    "border-b border-white/20 bg-white/20 backdrop-blur-2xl p-4 sm:p-5 lg:p-6",
+    isSidePanel && "border-slate-200 bg-white/95",
+  );
+
+  const bodyWrapperClass = cn(
+    "px-3 sm:px-4 lg:px-6 pb-4 sm:pb-6 lg:pb-8",
+    isSidePanel && "flex h-full flex-col overflow-hidden px-4 pb-5 sm:px-5 lg:px-6",
+  );
+
+  const conversationContainerClass = cn(
+    "flex min-h-[360px] flex-col",
+    isSidePanel && "flex-1 min-h-0",
+  );
+
+  const messageListClass = cn(
+    "flex-1 overflow-y-auto space-y-3 pr-1 sm:space-y-4 sm:pr-2 lg:pr-3 max-h-[52vh] sm:max-h-[58vh]",
+    isSidePanel && "max-h-none",
+  );
+
   return (
     <QueryClientProvider client={queryClient}>
       <UAEPassLogin
