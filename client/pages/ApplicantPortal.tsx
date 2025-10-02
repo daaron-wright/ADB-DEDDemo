@@ -830,6 +830,46 @@ export default function ApplicantPortal() {
     }, 0);
   }, [todoBankItems, todoCompletionState]);
 
+  const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
+    const automationToken = chatPhase
+      ? taskStatusTokens.in_progress
+      : taskStatusTokens.completed;
+
+    const automationItem: JourneyTimelineItem = {
+      id: "generating-application",
+      title: "Generating application",
+      description: chatPhase
+        ? chatPhase.message
+        : "Application workspace has been generated with the latest requirements and synced checkpoints.",
+      statusLabel: chatPhase
+        ? `${automationToken.label} • ${chatProgress}%`
+        : automationToken.label,
+      statusBadgeClass: automationToken.badgeClass,
+      statusHelperClass: automationToken.helperClass,
+      meta: chatPhase
+        ? "Automation syncing requirements"
+        : "Automation finished",
+      isCurrent: Boolean(chatPhase),
+      showProgress: Boolean(chatPhase),
+    };
+
+    const stageItems = journeyStages.map<JourneyTimelineItem>((stage) => {
+      const tokens = journeyHighlightTokens[stage.state];
+      return {
+        id: stage.id,
+        title: stage.title,
+        description: stage.description,
+        statusLabel: tokens.stateLabel,
+        statusBadgeClass: tokens.badgeClass,
+        statusHelperClass: tokens.detailClass,
+        meta: stage.statusDetail,
+        isCurrent: stage.id === activeStageId && !chatPhase,
+      };
+    });
+
+    return [automationItem, ...stageItems];
+  }, [chatPhase, chatProgress, journeyStages, activeStageId]);
+
   useEffect(() => {
     setTodoCompletionState((prev) => {
       let hasChange = false;
