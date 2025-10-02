@@ -7,6 +7,13 @@ import { cn } from "@/lib/utils";
 const CHAT_STORAGE_KEY = "portal-business-ai-open";
 const CHAT_VISITED_KEY = "portal-business-ai-visited";
 
+const PERSISTENT_PHASE = {
+  message: "Generating application...",
+  percent: 15,
+  keyConsiderations: ["Legal Structure", "Business Activities", "Physical Space"],
+  dataTags: ["UAE PASS profile", "Business intentions", "Workspace readiness"],
+};
+
 export function PortalAIDock() {
   const [isOpen, setIsOpen] = usePersistentState<boolean>(CHAT_STORAGE_KEY, false);
   const [hasVisited, setHasVisited] = usePersistentState<boolean>(
