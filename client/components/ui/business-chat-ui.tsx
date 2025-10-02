@@ -5679,6 +5679,9 @@ export function BusinessChatUI({
       ? `Your Investment Journey for ${categoryName}`
       : getCategoryTitle(category);
 
+  const isSidePanel = mode === "side-panel";
+  const isModal = mode === "modal";
+
   return (
     <QueryClientProvider client={queryClient}>
       <UAEPassLogin
