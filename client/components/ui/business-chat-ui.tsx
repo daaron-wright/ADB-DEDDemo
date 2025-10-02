@@ -5904,7 +5904,12 @@ export function BusinessChatUI({
                   <div className={headerContainerClass}>
                     <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                       <div className="flex flex-col gap-1 text-left">
-                        <span className="inline-flex w-fit items-center rounded-full border border-white/30 bg-white/25 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500 backdrop-blur-xl">
+                        <span
+                          className={cn(
+                            "inline-flex w-fit items-center rounded-full border border-white/30 bg-white/25 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500 backdrop-blur-xl",
+                            isSidePanel && "border-slate-200 bg-white/80 backdrop-blur-none",
+                          )}
+                        >
                           Application Journey
                         </span>
                         <h2 className="max-w-[420px] text-base font-semibold leading-tight text-slate-900 sm:text-lg lg:text-xl">
