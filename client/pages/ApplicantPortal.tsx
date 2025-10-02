@@ -870,6 +870,27 @@ export default function ApplicantPortal() {
     return [automationItem, ...stageItems];
   }, [chatPhase, chatProgress, journeyStages, activeStageId]);
 
+  const currentStageLabel = useMemo(() => {
+    const prioritized = journeyTimelineItems.find(
+      (item) => item.isCurrent && item.id !== "generating-application",
+    );
+    if (prioritized) {
+      return prioritized.title;
+    }
+
+    const automationCurrent = journeyTimelineItems.find(
+      (item) => item.id === "generating-application" && item.isCurrent,
+    );
+    if (automationCurrent) {
+      return automationCurrent.title;
+    }
+
+    const fallbackStage = journeyStages.find(
+      (stage) => stage.id === activeStageId,
+    );
+    return fallbackStage?.title ?? "Journey stage";
+  }, [journeyTimelineItems, journeyStages, activeStageId]);
+
   useEffect(() => {
     setTodoCompletionState((prev) => {
       let hasChange = false;
