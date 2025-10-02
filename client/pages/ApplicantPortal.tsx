@@ -911,7 +911,91 @@ export default function ApplicantPortal() {
           <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
             Journey overview
           </h3>
-          <div className="mt-3 flex flex-wrap gap-3">
+          <div className="mt-4 rounded-3xl border border-white/60 bg-white/70 p-6 shadow-[0_18px_48px_-32px_rgba(11,64,55,0.28)] backdrop-blur-xl">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+              <div className="flex flex-col gap-4 lg:max-w-xl">
+                <span className="inline-flex items-center gap-2 self-start rounded-full bg-[#0f766e]/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#0b7d6f]">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#0f766e] text-white shadow-[0_10px_20px_-14px_rgba(11,64,55,0.4)]">
+                    <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                  </span>
+                  Chat with AI
+                </span>
+                <h4 className="text-lg font-semibold text-slate-900">
+                  Before you begin
+                </h4>
+                <p className="text-sm leading-relaxed text-slate-700">
+                  Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require more clarification to ensure the right decisions are made.
+                </p>
+                <Link
+                  to={discoveryGeneralChatLink}
+                  className="inline-flex w-fit items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] transition hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                >
+                  <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                  Chat with AI
+                </Link>
+              </div>
+              {chatPhase ? (
+                <div className="lg:max-w-sm">
+                  <div className="rounded-2xl border border-[#d4e4df] bg-white p-5 shadow-[0_16px_32px_-28px_rgba(11,64,55,0.22)]">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                          Generating application
+                        </p>
+                        <p className="mt-1 text-sm font-semibold text-slate-900">
+                          {chatPhase.message}{" "}
+                          <span className="text-[#0f766e]">{chatProgress}% complete</span>
+                        </p>
+                      </div>
+                      <span className="inline-flex items-center gap-2 rounded-full bg-[#eaf7f3] px-3 py-1 text-xs font-semibold text-[#0b7d6f]">
+                        <span className="h-2 w-2 rounded-full bg-[#0f766e] animate-pulse" />
+                        Live sync
+                      </span>
+                    </div>
+                    <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-[#e6f2ed]">
+                      <div
+                        className="h-full rounded-full bg-[#0f766e] transition-all duration-700"
+                        style={{ width: `${chatProgress}%` }}
+                      />
+                    </div>
+                    <div className="mt-4 space-y-3">
+                      <div>
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                          Key considerations
+                        </p>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {chatPhase.keyConsiderations.map((item) => (
+                            <span
+                              key={item}
+                              className="inline-flex items-center rounded-full bg-[#eaf7f3] px-3 py-1 text-xs font-medium text-[#0b7d6f]"
+                            >
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                          UAE PASS data points
+                        </p>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {chatPhase.dataTags.map((item) => (
+                            <span
+                              key={item}
+                              className="inline-flex items-center rounded-full border border-[#d8e4df] bg-white px-3 py-1 text-xs font-medium text-slate-600"
+                            >
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </div>
+          <div className="mt-6 flex flex-wrap gap-3">
             {journeyHighlights.map((highlight) => {
               const tokens = journeyHighlightTokens[highlight.state];
               return (
