@@ -120,6 +120,7 @@ interface BusinessChatUIProps {
   title?: string;
   initialMessage?: string;
   onMinimize?: () => void;
+  mode?: "modal" | "side-panel";
 }
 
 type ChatView = "basic" | "investor-journey" | "discover-experience";
@@ -4968,6 +4969,7 @@ export function BusinessChatUI({
   title = "AI Business",
   initialMessage,
   onMinimize,
+  mode = "modal",
 }: BusinessChatUIProps) {
   const [messages, setMessages] = useState<BusinessMessage[]>([]);
   const [view, setView] = useState<ChatView>("basic");
