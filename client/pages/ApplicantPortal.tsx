@@ -102,6 +102,18 @@ type NextActionItem = {
   dueDate?: string;
 };
 
+type JourneyTimelineItem = {
+  id: string;
+  title: string;
+  description: string;
+  statusLabel: string;
+  statusBadgeClass: string;
+  statusHelperClass: string;
+  meta?: string;
+  isCurrent: boolean;
+  showProgress?: boolean;
+};
+
 type JourneyStage = {
   id: string;
   title: string;
