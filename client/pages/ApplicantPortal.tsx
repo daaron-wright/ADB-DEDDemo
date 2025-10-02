@@ -1215,7 +1215,7 @@ export default function ApplicantPortal() {
               <div className="flex flex-col gap-6">
                 <div className="space-y-3">
                   <h4 className="text-lg font-semibold text-slate-900">
-                    Before you begin
+                    Journey orchestration
                   </h4>
                   <p className="text-sm leading-relaxed text-slate-700">
                     {BUSINESS_AI_INTRO_MESSAGE}
