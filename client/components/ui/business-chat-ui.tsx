@@ -57,7 +57,9 @@ type BusinessMessageType =
   | "demographics"
   | "location-analysis"
   | "budget-ranges"
-  | "comprehensive-report";
+  | "comprehensive-report"
+  | "business-activities"
+  | "application-progress";
 
 interface BusinessMessage {
   id: string;
