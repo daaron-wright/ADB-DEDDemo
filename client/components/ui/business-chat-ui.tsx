@@ -5898,15 +5898,10 @@ export function BusinessChatUI({
               </div>
 
               {/* Chat Container */}
-              <div className="relative z-10 flex w-full justify-center px-3 py-6 sm:px-6 sm:py-8 lg:px-12 lg:py-10">
-                <div
-                  className={chatCardClass(
-                    "mx-auto w-full max-w-6xl overflow-hidden border border-white/25 bg-white/15 backdrop-blur-3xl shadow-[0_55px_140px_-65px_rgba(15,23,42,0.45)] ring-1 ring-white/10",
-                    "sm:rounded-[28px]",
-                  )}
-                >
+              <div className={outerContainerClass}>
+                <div className={chatShellClass}>
                   {/* Chat Header */}
-                  <div className="border-b border-white/20 bg-white/20 backdrop-blur-2xl p-4 sm:p-5 lg:p-6">
+                  <div className={headerContainerClass}>
                     <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                       <div className="flex flex-col gap-1 text-left">
                         <span className="inline-flex w-fit items-center rounded-full border border-white/30 bg-white/25 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500 backdrop-blur-xl">
@@ -6003,10 +5998,10 @@ export function BusinessChatUI({
                     </div>
                   </div>
 
-                  <div className="px-3 sm:px-4 lg:px-6 pb-4 sm:pb-6 lg:pb-8">
+                  <div className={bodyWrapperClass}>
                     <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8">
-                      <div className="flex min-h-[360px] flex-col">
-                        <div className="flex-1 overflow-y-auto space-y-3 pr-1 sm:space-y-4 sm:pr-2 lg:pr-3 max-h-[52vh] sm:max-h-[58vh]">
+                      <div className={conversationContainerClass}>
+                        <div className={messageListClass}>
                           {messages.map((message) => (
                             <MessageBubble
                               key={message.id}
