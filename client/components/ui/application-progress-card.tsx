@@ -124,7 +124,7 @@ export function ApplicationProgressCard({
 
       <div className="mt-6 space-y-3">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
-          What were validating
+          What we're validating
         </p>
         <ul className="space-y-2 text-sm text-slate-700">
           {phaseItems.map((item) => (
