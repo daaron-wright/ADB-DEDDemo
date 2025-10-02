@@ -782,7 +782,7 @@ export default function ApplicantPortal() {
     </div>
   );
 
-  const nextActions = useMemo<NextActionItem[]>(() => {
+  const todoBankItems = useMemo<NextActionItem[]>(() => {
     const applicantTasks = journeyStages.flatMap((stage) =>
       stage.tasks
         .filter(
