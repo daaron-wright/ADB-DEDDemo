@@ -916,6 +916,13 @@ export default function ApplicantPortal() {
     ],
   );
 
+  const handleTodoToggle = useCallback((itemId: string) => {
+    setTodoCompletionState((prev) => ({
+      ...prev,
+      [itemId]: !prev[itemId],
+    }));
+  }, []);
+
   if (portalView === "journey") {
     return (
       <div className="min-h-screen bg-slate-50">
