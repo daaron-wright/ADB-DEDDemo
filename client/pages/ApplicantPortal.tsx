@@ -422,13 +422,7 @@ const computeSteps = (activeStepId: string): JourneyStep[] => {
   });
 };
 
-const JOURNEY_ANIMATION_TIMELINE: Array<{
-  stageId: string;
-  message: string;
-  percent: number;
-  keyConsiderations: string[];
-  dataTags: string[];
-}> = [
+const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
   {
     stageId: "questionnaire",
     message: "Generating application...",
