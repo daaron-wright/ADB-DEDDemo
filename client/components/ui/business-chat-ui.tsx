@@ -5123,6 +5123,11 @@ export function BusinessChatUI({
   const [isInvestorAuthenticated, setIsInvestorAuthenticated] = useState(false);
   const [shouldOpenInvestorView, setShouldOpenInvestorView] = useState(false);
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [activityOptions, setActivityOptions] = useState<ChatActivityOption[]>(
+    () => [...BASE_ACTIVITY_LIBRARY],
+  );
+  const [selectedActivityIds, setSelectedActivityIds] = useState<string[]>([]);
 
   const openApplicantPortal = useCallback(() => {
     navigate("/portal/applicant", {
