@@ -779,6 +779,100 @@ export default function ApplicantPortal() {
     </div>
   );
 
+  const nextActions = useMemo<NextActionItem[]>(() => {
+    const applicantTasks = journeyStages.flatMap((stage) =>
+      stage.tasks
+        .filter(
+          (task) =>
+            task.owner === "Applicant" && task.status !== "completed",
+        )
+        .map<NextActionItem>((task) => ({
+          id: task.id,
+          label: task.label,
+          status: task.status,
+          stageTitle: stage.title,
+          dueDate: task.dueDate,
+        })),
+    );
+
+    const uniqueApplicantTasks = applicantTasks.filter(
+      (task, index, array) =>
+        array.findIndex((candidate) => candidate.id === task.id) === index,
+    );
+
+    return [
+      {
+        id: "business-activity-guidance",
+        label: "Add licensing guidance to business activities questionnaire",
+        status: "guidance",
+        description: BUSINESS_ACTIVITY_GUIDANCE_MESSAGE,
+        stageTitle: "Questionnaire intake",
+      },
+      {
+        id: "primary-application-next",
+        label: primaryApplication.nextAction,
+        status: "workflow",
+        stageTitle: "Workspace overview",
+      },
+      ...uniqueApplicantTasks,
+    ];
+  }, [primaryApplication.nextAction]);
+
+  useEffect(() => {
+    if (!focusedNextActionId) {
+      return;
+    }
+
+    const node = nextActionRefs.current[focusedNextActionId];
+    if (node) {
+      node.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [focusedNextActionId]);
+
+  const handleContinueToNextAction = useCallback(() => {
+    const firstNextActionId = nextActions[0]?.id ?? null;
+    setFocusedNextActionId(firstNextActionId);
+    setBusinessAIView("side-panel");
+  }, [nextActions, setBusinessAIView, setFocusedNextActionId]);
+
+  const handleNextActionClick = useCallback(
+    (action: NextActionItem) => {
+      setFocusedNextActionId(action.id);
+
+      if (action.id === "business-activity-guidance") {
+        setBusinessAIView("focus");
+        return;
+      }
+
+      const stageMatch = journeyStages.find((stage) =>
+        stage.tasks.some((task) => task.id === action.id),
+      );
+
+      if (stageMatch) {
+        setBusinessAIView("side-panel");
+        setIsStageManuallySelected(true);
+        setActiveStageId(stageMatch.id);
+        const timelineIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
+          (phase) => phase.stageId === stageMatch.id,
+        );
+        if (timelineIndex >= 0) {
+          setJourneyAnimationIndex(timelineIndex);
+          setJourneyProgressPercent(
+            JOURNEY_ANIMATION_TIMELINE[timelineIndex]?.percent ?? 0,
+          );
+        }
+      }
+    },
+    [
+      setBusinessAIView,
+      setFocusedNextActionId,
+      setIsStageManuallySelected,
+      setActiveStageId,
+      setJourneyAnimationIndex,
+      setJourneyProgressPercent,
+    ],
+  );
+
   if (portalView === "journey") {
     return (
       <div className="min-h-screen bg-slate-50">
