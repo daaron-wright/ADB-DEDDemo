@@ -1,0 +1,79 @@
+import { useMemo } from "react";
+import { MessageCircle } from "lucide-react";
+import { BusinessChatUI } from "@/components/ui/business-chat-ui";
+import { usePersistentState } from "@/hooks/use-persistent-state";
+import { cn } from "@/lib/utils";
+
+const CHAT_STORAGE_KEY = "portal-business-ai-open";
+const CHAT_VISITED_KEY = "portal-business-ai-visited";
+
+export function PortalAIDock() {
+  const [isOpen, setIsOpen] = usePersistentState<boolean>(CHAT_STORAGE_KEY, false);
+  const [hasVisited, setHasVisited] = usePersistentState<boolean>(
+    CHAT_VISITED_KEY,
+    false,
+  );
+
+  const statusPill = useMemo(() => {
+    if (isOpen) {
+      return "Chat in progress";
+    }
+    if (hasVisited) {
+      return "Chat ready";
+    }
+    return "Business AI ready";
+  }, [hasVisited, isOpen]);
+
+  const handleOpen = () => {
+    setIsOpen(true);
+    setHasVisited(true);
+  };
+
+  return (
+    <>
+      <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
+        <div className="rounded-3xl border border-white/40 bg-white/80 px-5 py-4 shadow-[0_20px_48px_-28px_rgba(11,64,55,0.35)] backdrop-blur-2xl">
+          <div className="flex items-start gap-3">
+            <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0f766e] text-white shadow-[0_14px_30px_-20px_rgba(11,64,55,0.5)]">
+              <MessageCircle className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <div className="space-y-2">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e]">
+                  Business AI
+                </p>
+                <p className="text-sm font-medium text-slate-800">
+                  Guidance persists across your workspace.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <span className="inline-flex items-center rounded-full bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0b7d6f]">
+                  {statusPill}
+                </span>
+                <button
+                  type="button"
+                  onClick={handleOpen}
+                  className={cn(
+                    "inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-[0_12px_24px_-18px_rgba(11,64,55,0.28)] transition",
+                    "hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
+                  )}
+                >
+                  <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                  Chat with AI
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <BusinessChatUI
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        category="restaurants"
+        title="Business AI"
+        initialMessage="How can I help you move your business license journey forward?"
+      />
+    </>
+  );
+}
