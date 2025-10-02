@@ -15,7 +15,18 @@ import type {
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { cn } from "@/lib/utils";
 import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
-import { Check, MessageCircle, Plus } from "lucide-react";
+import { MessageCircle, Plus } from "lucide-react";
+import { JourneyOrchestrationPanel } from "@/components/portal/JourneyOrchestrationPanel";
+import type {
+  JourneyAnimationPhase,
+  JourneyHighlightState,
+  JourneyStage,
+  JourneyTimelineItem,
+  JourneyTask,
+  JourneyTaskStatus,
+  NextActionItem,
+  NextActionStatus,
+} from "@/components/portal/journey-types";
 
 type JourneyHighlightState = "done" | "current" | "upcoming";
 
