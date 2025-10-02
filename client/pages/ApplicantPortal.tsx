@@ -725,7 +725,7 @@ export default function ApplicantPortal() {
   const [focusedNextActionId, setFocusedNextActionId] = useState<string | null>(
     null,
   );
-  const nextActionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const nextActionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   const handleOpenSidePanel = useCallback(() => {
     setBusinessAIView("side-panel");
