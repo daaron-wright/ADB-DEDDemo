@@ -835,17 +835,17 @@ export default function ApplicantPortal() {
   useEffect(() => {
     if (
       focusedNextActionId &&
-      !nextActions.some((item) => item.id === focusedNextActionId)
+      !todoBankItems.some((item) => item.id === focusedNextActionId)
     ) {
       setFocusedNextActionId(null);
     }
-  }, [focusedNextActionId, nextActions, setFocusedNextActionId]);
+  }, [focusedNextActionId, todoBankItems, setFocusedNextActionId]);
 
   const handleContinueToNextAction = useCallback(() => {
-    const firstNextActionId = nextActions[0]?.id ?? null;
+    const firstNextActionId = todoBankItems[0]?.id ?? null;
     setFocusedNextActionId(firstNextActionId);
     setBusinessAIView("side-panel");
-  }, [nextActions, setBusinessAIView, setFocusedNextActionId]);
+  }, [todoBankItems, setBusinessAIView, setFocusedNextActionId]);
 
   const handleNextActionClick = useCallback(
     (action: NextActionItem) => {
@@ -1134,13 +1134,13 @@ export default function ApplicantPortal() {
                     {BUSINESS_AI_INTRO_MESSAGE}
                   </p>
                 </div>
-                {nextActions.length > 0 ? (
+                {todoBankItems.length > 0 ? (
                   <div className="space-y-4">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                       Next actions
                     </p>
                     <ol className="space-y-3">
-                      {nextActions.map((action) => {
+                      {todoBankItems.map((action) => {
                         const token = getNextActionToken(action.status);
                         const isFocused = focusedNextActionId === action.id;
                         const dueLabel = action.dueDate
