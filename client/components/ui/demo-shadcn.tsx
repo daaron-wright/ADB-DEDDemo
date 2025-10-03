@@ -4,9 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './car
 import { Input } from './input';
 import { Label } from './label';
 import { Badge } from './badge';
-import { Avatar, AvatarFallback, AvatarImage } from './avatar';
-import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 import { Separator } from './separator';
+import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { Progress } from './progress';
 import { Switch } from './switch';
 import { Checkbox } from './checkbox';
