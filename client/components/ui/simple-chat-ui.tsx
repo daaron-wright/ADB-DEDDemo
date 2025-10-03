@@ -103,8 +103,6 @@ const INITIAL_MESSAGES: SimpleChatMessage[] = [
 ];
 
 const SimpleChatBubble = ({ message }: { message: SimpleChatMessage }) => {
-  const aiAvatar =
-    "https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128";
   const userAvatar =
     "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F0328efd91dae40ce9ab77be8bf461f9a?format=webp&width=800";
 
