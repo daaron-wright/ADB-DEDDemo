@@ -1250,7 +1250,7 @@ export default function ApplicantPortal() {
                   </button>
                 </div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]/70">
-                  Current view: {isSidePanelView ? "Side panel" : "Closed"}
+                  Current view: {isSidePanelView ? "Side panel" : isFocusView ? "Focus modal" : "Closed"}
                 </p>
               </div>
             </div>
