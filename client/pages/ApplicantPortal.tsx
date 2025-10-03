@@ -1077,6 +1077,49 @@ export default function ApplicantPortal() {
     [],
   );
 
+  const focusViewContext = useMemo(() => {
+    if (!focusContext) {
+      return null;
+    }
+
+    if (focusContext.type === "automation") {
+      const timelineItem = journeyTimelineItems.find(
+        (item) => item.id === "generating-application",
+      );
+      return timelineItem ? { timelineItem } : null;
+    }
+
+    const stage = journeyStages.find(
+      (item) => item.id === focusContext.stageId,
+    );
+    if (!stage) {
+      return null;
+    }
+
+    const timelineItem = journeyTimelineItems.find(
+      (item) => item.id === focusContext.stageId,
+    );
+    if (!timelineItem) {
+      return null;
+    }
+
+    return { timelineItem, stage };
+  }, [focusContext, journeyTimelineItems]);
+
+  const journeyFocusViewProps = useMemo(() => {
+    if (!focusViewContext) {
+      return null;
+    }
+
+    return {
+      timelineItem: focusViewContext.timelineItem,
+      stage: focusViewContext.stage,
+      highlightTokens: journeyHighlightTokens,
+      taskTokens: taskStatusTokens,
+      formatDate: formatJourneyDueDate,
+    };
+  }, [focusViewContext, formatJourneyDueDate]);
+
   const filters = (
     <div className="space-y-8">
       <div className="space-y-3">
