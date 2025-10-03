@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import CompetitorDataSection from "@/components/ui/competitor-data";
+import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 
 interface ComprehensiveReportProps {
   className?: string;
