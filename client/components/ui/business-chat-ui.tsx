@@ -2494,11 +2494,7 @@ const DiscoveryCompilationCard = ({
         {/* AI Business Header */}
         <div className="flex flex-col p-6 pb-8">
           <div className="flex items-center gap-2 mb-8">
-            <img
-              src={AI_ASSISTANT_PROFILE.avatar}
-              alt={AI_ASSISTANT_PROFILE.name}
-              className="w-16 h-16 rounded-full border border-[#0E766E]"
-            />
+            <AIBusinessOrb className="h-16 w-16" />
             <div className="flex-1">
               <h3 className="text-white text-lg font-semibold mb-2">
                 AI Business
