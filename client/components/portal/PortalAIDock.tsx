@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { BusinessChatUI } from "@/components/ui/business-chat-ui";
+import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { usePersistentState } from "@/hooks/use-persistent-state";
-import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 import { cn } from "@/lib/utils";
 
 const CHAT_STORAGE_KEY = "portal-business-ai-open";
@@ -63,11 +63,7 @@ export function PortalAIDock() {
           <div className="w-[320px] rounded-3xl border border-white/50 bg-white/80 px-5 py-5 shadow-[0_22px_52px_-28px_rgba(11,64,55,0.38)] backdrop-blur-2xl">
             <div className="flex items-start gap-3">
               <div className="inline-flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/70 bg-white shadow-[0_14px_30px_-20px_rgba(11,64,55,0.5)]">
-                <img
-                  src={AI_ASSISTANT_PROFILE.avatar}
-                  alt={AI_ASSISTANT_PROFILE.name}
-                  className="h-full w-full object-cover"
-                />
+                <AIBusinessOrb className="h-10 w-10" />
               </div>
               <div className="space-y-3">
                 <div className="space-y-2">
@@ -131,11 +127,7 @@ export function PortalAIDock() {
                   )}
                 >
                   <span className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full border border-[#0f766e]/40 bg-white">
-                    <img
-                      src={AI_ASSISTANT_PROFILE.avatar}
-                      alt={AI_ASSISTANT_PROFILE.name}
-                      className="h-full w-full rounded-full object-cover"
-                    />
+                    <AIBusinessOrb className="h-5 w-5" />
                   </span>
                   Chat with AI
                 </button>
@@ -150,13 +142,9 @@ export function PortalAIDock() {
               "group inline-flex items-center gap-3 rounded-full border border-[#0f766e] bg-white/90 px-3 py-2 text-left shadow-[0_18px_36px_-20px_rgba(11,64,55,0.35)] backdrop-blur-xl transition",
               "hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
             )}
-          >
+>
             <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border border-[#0f766e]/40 bg-white">
-              <img
-                src={AI_ASSISTANT_PROFILE.avatar}
-                alt={AI_ASSISTANT_PROFILE.name}
-                className="h-full w-full object-cover"
-              />
+              <AIBusinessOrb className="h-8 w-8" />
             </span>
             <span className="flex flex-col items-start">
               <span className="text-sm font-semibold text-[#0f766e]">
