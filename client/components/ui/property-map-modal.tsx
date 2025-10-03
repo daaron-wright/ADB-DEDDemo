@@ -239,11 +239,7 @@ export const PropertyMapModal: React.FC<PropertyMapModalProps> = ({ isOpen, onCl
             <div className="absolute top-1/2 right-8 transform -translate-y-1/2 w-[380px] h-[280px]">
               <div className="bg-white/14 backdrop-blur-sm rounded-3xl p-6 h-full border border-white/20">
                 <div className="flex items-center gap-3 mb-4">
-                  <img
-                    src={AI_ASSISTANT_PROFILE.avatar}
-                    alt={AI_ASSISTANT_PROFILE.name}
-                    className="w-16 h-16 rounded-full border border-[#54FFD4]"
-                  />
+                  <AIBusinessOrb className="h-16 w-16" />
                   <div>
                     <h3 className="text-white text-lg font-semibold">AI Business</h3>
                     <div className="flex items-center gap-1 mt-1">
