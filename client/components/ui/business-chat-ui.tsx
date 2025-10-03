@@ -3076,7 +3076,7 @@ const SetupBusinessCTA = ({
         </h3>
         <p className="text-black text-base leading-[120%] tracking-[0.051px] font-normal">
           Discover a clear path for investors to plan, apply for, and
-          successfully open a restaurant. In just four seamless stages, watch
+          successfully open a restaurant. In nine coordinated steps, watch
           Layla, an F&B entrepreneur, go from a business idea to a thriving
           restaurant.
         </p>
