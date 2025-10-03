@@ -137,6 +137,7 @@ interface BusinessChatUIProps {
   initialMessage?: string;
   onMinimize?: () => void;
   mode?: "modal" | "side-panel";
+  journeyFocusView?: JourneyStageFocusViewProps | null;
 }
 
 type ChatView = "basic" | "investor-journey" | "discover-experience";
