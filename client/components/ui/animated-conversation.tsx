@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { ENTREPRENEUR_PROFILE, AI_ASSISTANT_PROFILE } from '@/lib/profile';
+import { AIBusinessOrb } from '@/components/ui/ai-business-orb';
+import { ENTREPRENEUR_PROFILE } from '@/lib/profile';
 
 interface Message {
   id: string;
@@ -16,8 +17,6 @@ interface AnimatedConversationProps {
   messages: Message[];
   className?: string;
 }
-
-const AI_AVATAR = AI_ASSISTANT_PROFILE.avatar;
 
 export function AnimatedConversation({ messages, className }: AnimatedConversationProps) {
   const [visibleMessages, setVisibleMessages] = useState<Message[]>([]);
@@ -55,11 +54,7 @@ export function AnimatedConversation({ messages, className }: AnimatedConversati
             )}
           >
             {message.isAI && (
-              <img
-                src={AI_AVATAR}
-                alt={AI_ASSISTANT_PROFILE.name}
-                className="w-6 h-6 rounded-full border border-[#54FFD4] object-cover"
-              />
+              <AIBusinessOrb className="h-6 w-6" />
             )}
             <div
               className={cn(
