@@ -212,7 +212,7 @@ export function JourneyOrchestrationPanel({
             </div>
             <div className="mt-3 flex flex-wrap gap-3 text-xs text-slate-600">
               <span className="font-semibold text-[#0f766e]">
-                {outstandingCount} remaining
+                {outstandingDisplayCount} remaining
               </span>
               <span>{completedCount} completed</span>
             </div>
@@ -229,7 +229,7 @@ export function JourneyOrchestrationPanel({
               <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
                 {outstandingCount === 0
                   ? "All caught up"
-                  : `${outstandingCount} remaining`}
+                  : `${outstandingDisplayCount} remaining`}
               </span>
             </div>
             {outstandingCount > 0 ? (
