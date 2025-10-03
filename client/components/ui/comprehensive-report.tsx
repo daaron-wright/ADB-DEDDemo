@@ -170,11 +170,7 @@ const CuisinePopularityCard: React.FC = () => {
           </p>
         </div>
         <div className="inline-flex items-center gap-3 rounded-2xl border border-[#d7e3df] bg-slate-50/80 px-4 py-3">
-          <img
-            src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-            alt="AI Business"
-            className="h-12 w-12 rounded-full border border-[#0E766E]/40"
-          />
+          <AIBusinessOrb className="h-12 w-12" />
           <div>
             <div className="text-sm font-semibold text-slate-900">
               AI Business
