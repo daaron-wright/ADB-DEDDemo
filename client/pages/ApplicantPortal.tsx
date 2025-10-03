@@ -1032,6 +1032,7 @@ export default function ApplicantPortal() {
     },
     [
       setBusinessAIView,
+      setFocusContext,
       setFocusedNextActionId,
       setIsStageManuallySelected,
       setActiveStageId,
