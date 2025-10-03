@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CompetitorsView } from "./competitors-view";
-import { GapAnalysisView } from "./gap-analysis-view";
+import GapAnalysisView from "./gap-analysis-view";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 
 interface SummaryDashboardProps {
