@@ -94,9 +94,7 @@ export function JourneyStageFocusView({
     setCustomItems((items) => items.filter((item) => item.id !== itemId));
   };
 
-  const handleFilesSelected: React.ChangeEventHandler<HTMLInputElement> = (
-    event,
-  ) => {
+  const handleFilesSelected = (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files ?? []).map((file) => file.name);
     setSelectedFiles(files);
   };
