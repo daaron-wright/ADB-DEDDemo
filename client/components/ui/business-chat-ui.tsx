@@ -35,6 +35,7 @@ import {
   ChatActivityOption,
   PhysicalSpacePlan,
 } from "@/components/ui/business-activities-chat-card";
+import { JourneyStageFocusView, type JourneyStageFocusViewProps } from "@/components/portal/JourneyStageFocusView";
 import { budgetSummaryRows } from "@/components/ui/budget-ranges-data";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
