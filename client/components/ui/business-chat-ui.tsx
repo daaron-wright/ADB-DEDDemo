@@ -1004,11 +1004,7 @@ const CuisinePopularityBreakout = ({
                 {/* AI Business Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
-                    <img
-                      src={AI_ASSISTANT_PROFILE.avatar}
-                      alt={AI_ASSISTANT_PROFILE.name}
-                      className="w-16 h-16 rounded-full border border-[#0E766E]"
-                    />
+                    <AIBusinessOrb className="h-16 w-16" />
                     <div>
                       <div className="text-white text-lg font-semibold">
                         AI Business
@@ -1259,11 +1255,7 @@ const CompetitorAnalysisBreakout = ({
                 {/* AI Business Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
-                    <img
-                      src={AI_ASSISTANT_PROFILE.avatar}
-                      alt={AI_ASSISTANT_PROFILE.name}
-                      className="w-16 h-16 rounded-full border border-[#0E766E]"
-                    />
+                    <AIBusinessOrb className="h-16 w-16" />
                     <div>
                       <div className="text-white text-lg font-semibold">
                         AI Business
@@ -1538,11 +1530,7 @@ const GapAnalysisBreakout = ({
                 {/* AI Business Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
-                    <img
-                      src={AI_ASSISTANT_PROFILE.avatar}
-                      alt={AI_ASSISTANT_PROFILE.name}
-                      className="w-16 h-16 rounded-full border border-[#0E766E]"
-                    />
+                    <AIBusinessOrb className="h-16 w-16" />
                     <div>
                       <div className="text-white text-lg font-semibold">
                         AI Business
