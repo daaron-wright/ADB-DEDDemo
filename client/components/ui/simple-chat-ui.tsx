@@ -262,11 +262,7 @@ export function SimpleChatUI({
             {/* Header */}
             <div className="drag-handle flex items-center justify-between p-4 cursor-move">
               <div className="flex items-center gap-3">
-                <img
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-                  alt="AI Business"
-                  className="w-10 h-10 rounded-full border border-[#54FFD4]"
-                />
+                <AIBusinessOrb className="h-10 w-10" />
                 <div>
                   <h3 className="text-white font-semibold text-lg">{title}</h3>
                   <div className="flex items-center gap-1">
