@@ -253,7 +253,7 @@ function ApplicantOverviewCard({ progress }: { progress: number }): JSX.Element 
           />
           <div className="space-y-1">
             <h3 className="text-lg font-semibold text-white">{APPLICANT_NAME}</h3>
-            <p className="text-sm text-white/70">khalid.entrepreneur@email.ae</p>
+            <p className="text-sm text-white/70">layla.almansoori@email.ae</p>
             <p className="text-xs uppercase tracking-[0.2em] text-emerald-300">License applicant</p>
           </div>
         </div>
