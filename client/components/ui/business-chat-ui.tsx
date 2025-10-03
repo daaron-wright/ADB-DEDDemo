@@ -5186,6 +5186,37 @@ export function BusinessChatUI({
     };
   }, [selectedActivities]);
 
+  const handleToggleActivity = useCallback(
+    (activityId: string) => {
+      setSelectedActivityIds((prev) =>
+        prev.includes(activityId)
+          ? prev.filter((id) => id !== activityId)
+          : [...prev, activityId],
+      );
+    },
+    [],
+  );
+
+  const handleAddActivity = useCallback(
+    (activityId: string) => {
+      setActivityOptions((prev) => {
+        if (prev.some((item) => item.id === activityId)) {
+          return prev;
+        }
+
+        const libraryItem = BASE_ACTIVITY_LIBRARY.find(
+          (item) => item.id === activityId,
+        );
+        return libraryItem ? [...prev, libraryItem] : prev;
+      });
+
+      setSelectedActivityIds((prev) =>
+        prev.includes(activityId) ? prev : [...prev, activityId],
+      );
+    },
+    [],
+  );
+
   useEffect(() => {
     if (!isOpen) return;
     if (!shouldPromptLogin) return;
