@@ -997,10 +997,12 @@ export default function ApplicantPortal() {
     const firstNextActionId = firstNextAction?.id ?? null;
     setFocusedNextActionId(firstNextActionId);
     setBusinessAIView("side-panel");
+    setFocusContext(null);
   }, [
     todoBankItems,
     todoCompletionState,
     setBusinessAIView,
+    setFocusContext,
     setFocusedNextActionId,
   ]);
 
