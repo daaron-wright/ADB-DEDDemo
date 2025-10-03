@@ -142,7 +142,7 @@ export function PortalAIDock() {
               "group inline-flex items-center gap-3 rounded-full border border-[#0f766e] bg-white/90 px-3 py-2 text-left shadow-[0_18px_36px_-20px_rgba(11,64,55,0.35)] backdrop-blur-xl transition",
               "hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
             )}
->
+          >
             <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border border-[#0f766e]/40 bg-white">
               <AIBusinessOrb className="h-8 w-8" />
             </span>
