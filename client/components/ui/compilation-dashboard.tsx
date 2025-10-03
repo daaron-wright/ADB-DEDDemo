@@ -1,7 +1,7 @@
 import React from "react";
 import { motion, type Variants } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
+import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 
 // Animation variants for the AI chat interface
 const barVariants: Variants = {
@@ -163,11 +163,7 @@ export default function CompilationDashboard() {
               className="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/20"
             >
               <div className="flex items-center gap-4 mb-6">
-                <img
-                  src={AI_ASSISTANT_PROFILE.avatar}
-                  alt={AI_ASSISTANT_PROFILE.name}
-                  className="w-16 h-16 rounded-full border border-[#54FFD4]"
-                />
+                <AIBusinessOrb className="h-16 w-16" />
                 <div>
                   <h3 className="text-white text-lg font-semibold">
                     AI Business
