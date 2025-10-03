@@ -1353,7 +1353,7 @@ export default function ApplicantPortal() {
       </PortalPageLayout>
       <BusinessChatUI
         isOpen={isChatOpen}
-        mode="side-panel"
+        mode={isSidePanelView ? "side-panel" : "modal"}
         onClose={handleCloseChat}
         onMinimize={handleCloseChat}
         category="restaurants"
