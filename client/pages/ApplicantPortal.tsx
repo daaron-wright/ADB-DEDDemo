@@ -796,11 +796,10 @@ export default function ApplicantPortal() {
   const discoveryGeneralChatLink = "/?chat=open";
 
   const [businessAIView, setBusinessAIView] = usePersistentState<
-    "closed" | "side-panel" | "focus"
+    "closed" | "side-panel"
   >("portal-business-ai-view", "closed");
 
   const isSidePanelView = businessAIView === "side-panel";
-  const isFocusView = businessAIView === "focus";
   const isChatOpen = businessAIView !== "closed";
 
   const [focusedNextActionId, setFocusedNextActionId] = useState<string | null>(
@@ -813,9 +812,6 @@ export default function ApplicantPortal() {
 
   const handleOpenSidePanel = useCallback(() => {
     setBusinessAIView("side-panel");
-  }, [setBusinessAIView]);
-  const handleOpenFocus = useCallback(() => {
-    setBusinessAIView("focus");
   }, [setBusinessAIView]);
   const handleCloseChat = useCallback(() => {
     setBusinessAIView("closed");
@@ -997,18 +993,13 @@ export default function ApplicantPortal() {
   const handleNextActionClick = useCallback(
     (action: NextActionItem) => {
       setFocusedNextActionId(action.id);
-
-      if (action.id === "business-activity-guidance") {
-        setBusinessAIView("focus");
-        return;
-      }
+      setBusinessAIView("side-panel");
 
       const stageMatch = journeyStages.find((stage) =>
         stage.tasks.some((task) => task.id === action.id),
       );
 
       if (stageMatch) {
-        setBusinessAIView("side-panel");
         setIsStageManuallySelected(true);
         setActiveStageId(stageMatch.id);
         const timelineIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
@@ -1242,18 +1233,6 @@ export default function ApplicantPortal() {
                 <div className="flex flex-wrap gap-2">
                   <button
                     type="button"
-                    onClick={handleOpenFocus}
-                    className={cn(
-                      "inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
-                      isFocusView
-                        ? "border-[#0f766e] bg-[#eaf7f3] text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] hover:bg-[#d9efe7]"
-                        : "border-[#d8e4df] bg-white text-slate-600 hover:bg-[#f4faf8]",
-                    )}
-                  >
-                    Focus modal
-                  </button>
-                  <button
-                    type="button"
                     onClick={handleCloseChat}
                     className={cn(
                       "inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
@@ -1266,12 +1245,7 @@ export default function ApplicantPortal() {
                   </button>
                 </div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]/70">
-                  Current view:{" "}
-                  {isSidePanelView
-                    ? "Side panel"
-                    : isFocusView
-                      ? "Focus modal"
-                      : "Closed"}
+                  Current view: {isSidePanelView ? "Side panel" : "Closed"}
                 </p>
               </div>
             </div>
@@ -1374,7 +1348,7 @@ export default function ApplicantPortal() {
       </PortalPageLayout>
       <BusinessChatUI
         isOpen={isChatOpen}
-        mode={isSidePanelView ? "side-panel" : "modal"}
+        mode="side-panel"
         onClose={handleCloseChat}
         onMinimize={handleCloseChat}
         category="restaurants"
