@@ -1,12 +1,20 @@
 import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 
 interface GapAnalysisViewProps {
-  onBack: () => void;
+  onBack?: () => void;
+  onClose?: () => void;
+  category?: string;
+  isOpen?: boolean;
 }
 
-const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({ onBack }) => {
+const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({
+  onBack,
+  onClose,
+  category,
+}) => {
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
