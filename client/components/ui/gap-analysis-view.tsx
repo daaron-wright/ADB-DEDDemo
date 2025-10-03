@@ -102,11 +102,7 @@ const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({ onBack }) => {
             <div className="flex h-full flex-col justify-between gap-6 p-6 sm:p-8">
               <div className="rounded-2xl border border-[#d8e4df] bg-white/90 p-6 shadow-[0_12px_32px_-26px_rgba(11,64,55,0.3)]">
                 <div className="flex items-center gap-4">
-                  <img
-                    src="https://api.builder.io/api/v1/image/assets/TEMP/613aa3868a1f461fc53f09303440118a5f5c5ca4?width=128"
-                    alt="AI Business"
-                    className="h-16 w-16 rounded-full border border-[#0E766E]/40"
-                  />
+                  <AIBusinessOrb className="h-16 w-16" />
                   <div>
                     <div className="text-sm font-semibold text-slate-900">
                       AI Business
