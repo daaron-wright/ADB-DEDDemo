@@ -4139,11 +4139,7 @@ const DiscoverExperienceView = ({
 
         {/* AI Response */}
         <div className="flex justify-start gap-3">
-          <img
-            src={AI_ASSISTANT_PROFILE.avatar}
-            alt={AI_ASSISTANT_PROFILE.name}
-            className="w-8 h-8 rounded-full border border-[#0E766E] object-cover flex-shrink-0"
-          />
+          <AIBusinessOrb className="h-8 w-8 flex-shrink-0" />
           <div className="max-w-[70%] px-4 py-3 rounded-2xl rounded-bl-sm bg-white border border-slate-200 shadow-sm">
             <div className="text-slate-900 text-sm leading-relaxed">
               {conversationMessages[1].content}
