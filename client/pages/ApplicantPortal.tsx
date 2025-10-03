@@ -829,7 +829,8 @@ export default function ApplicantPortal() {
   const handleCloseChat = useCallback(() => {
     setBusinessAIView("closed");
     setFocusedNextActionId(null);
-  }, [setBusinessAIView, setFocusedNextActionId]);
+    setFocusContext(null);
+  }, [setBusinessAIView, setFocusedNextActionId, setFocusContext]);
 
   const handleViewJourney = (stageId: string) => {
     setPortalView("journey");
