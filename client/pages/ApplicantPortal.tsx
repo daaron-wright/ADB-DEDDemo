@@ -1010,6 +1010,7 @@ export default function ApplicantPortal() {
     (action: NextActionItem) => {
       setFocusedNextActionId(action.id);
       setBusinessAIView("side-panel");
+      setFocusContext(null);
 
       const stageMatch = journeyStages.find((stage) =>
         stage.tasks.some((task) => task.id === action.id),
