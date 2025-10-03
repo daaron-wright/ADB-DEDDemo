@@ -820,7 +820,8 @@ export default function ApplicantPortal() {
 
   const handleOpenSidePanel = useCallback(() => {
     setBusinessAIView("side-panel");
-  }, [setBusinessAIView]);
+    setFocusContext(null);
+  }, [setBusinessAIView, setFocusContext]);
   const handleOpenAutomationFocus = useCallback(() => {
     setBusinessAIView("focus");
   }, [setBusinessAIView]);
