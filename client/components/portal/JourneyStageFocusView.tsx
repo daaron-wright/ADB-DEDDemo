@@ -46,6 +46,14 @@ export function JourneyStageFocusView({
   formatDate,
 }: JourneyStageFocusViewProps) {
   const highlightToken = stage ? highlightTokens[stage.state] : null;
+  const stagedTasks = stage?.tasks ?? [];
+
+  const [quickNotes, setQuickNotes] = useState("");
+  const [customItemLabel, setCustomItemLabel] = useState("");
+  const [customItems, setCustomItems] = useState<
+    Array<{ id: string; label: string; completed: boolean }>
+  >([]);
+  const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
 
   const renderTaskTimestamp = (task: JourneyStage["tasks"][number]) => {
     if (task.completedOn) {
