@@ -187,28 +187,16 @@ export function JourneyStageFocusView({
             })}
           </div>
         </div>
-      ) : (
+      ) : timelineItem.meta ? (
         <div
           className={chatCardClass(
             TASK_CARD_BASE,
-            "rounded-2xl p-5 text-sm text-slate-600",
+            "rounded-2xl p-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600",
           )}
         >
-          <p className="text-sm leading-relaxed text-slate-700">
-            {timelineItem.description}
-          </p>
-          {timelineItem.meta ? (
-            <p
-              className={cn(
-                "mt-3 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                timelineItem.statusHelperClass,
-              )}
-            >
-              {timelineItem.meta}
-            </p>
-          ) : null}
+          <p className={timelineItem.statusHelperClass}>{timelineItem.meta}</p>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
