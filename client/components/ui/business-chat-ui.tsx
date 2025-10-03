@@ -1997,11 +1997,7 @@ const DashboardView = ({
             )}
           >
             <div className="flex items-center gap-4 mb-6">
-              <img
-                src={AI_ASSISTANT_PROFILE.avatar}
-                alt={AI_ASSISTANT_PROFILE.name}
-                className="w-16 h-16 rounded-full border border-[#0E766E]"
-              />
+              <AIBusinessOrb className="h-16 w-16" />
               <div>
                 <h3 className="text-white text-lg font-semibold">
                   AI Business
