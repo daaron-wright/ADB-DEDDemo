@@ -31,8 +31,6 @@ export interface JourneyStageFocusViewProps {
 
 const TASK_CARD_BASE =
   "border border-white/25 bg-white/16 backdrop-blur-xl shadow-[0_30px_80px_-65px_rgba(15,23,42,0.4)]";
-const TASK_CARD_SIDE_PANEL =
-  "border-slate-200 bg-white/95 backdrop-blur-none shadow-[0_24px_60px_-48px_rgba(15,23,42,0.22)]";
 
 export function JourneyStageFocusView({
   timelineItem,
