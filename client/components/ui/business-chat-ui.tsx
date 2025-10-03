@@ -159,7 +159,7 @@ const MODAL_MIN_DIMENSIONS: React.CSSProperties = {
 };
 
 const ACKNOWLEDGEMENT_MESSAGE =
-  "Acknowledged. Opening BUSINESS LICENSE PORTAL Khalid's workspace now.";
+  "Acknowledged. Opening BUSINESS LICENSE PORTAL Layla's workspace now.";
 
 // Preloaded prompts for different business categories
 const PRELOADED_PROMPTS = {
@@ -3062,8 +3062,8 @@ const SetupBusinessCTA = ({
           Investor Journey
         </div>
         <div className="text-black text-lg leading-[140%] tracking-[0.058px]">
-          <span className="font-bold">Khalid</span>{" "}
-          <span className="font-normal">Entrepreneur</span>
+          <span className="font-bold">Layla</span>{" "}
+          <span className="font-normal">Al-Mansoori</span>
         </div>
       </div>
     </div>
@@ -3077,7 +3077,7 @@ const SetupBusinessCTA = ({
         <p className="text-black text-base leading-[120%] tracking-[0.051px] font-normal">
           Discover a clear path for investors to plan, apply for, and
           successfully open a restaurant. In just four seamless stages, watch
-          Khalid, an F&B entrepreneur, go from a business idea to a thriving
+          Layla, an F&B entrepreneur, go from a business idea to a thriving
           restaurant.
         </p>
       </div>
@@ -5119,7 +5119,7 @@ export function BusinessChatUI({
         user: {
           name: ENTREPRENEUR_PROFILE.name,
           role: ENTREPRENEUR_PROFILE.title,
-          email: "khalid.entrepreneur@email.ae",
+          email: "layla.almansoori@email.ae",
           avatarUrl: ENTREPRENEUR_PROFILE.avatar,
         },
       },
