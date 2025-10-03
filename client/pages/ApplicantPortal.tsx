@@ -1074,6 +1074,7 @@ export default function ApplicantPortal() {
           isStageManuallySelected={isStageManuallySelected}
           onResumeAutomation={handleResumeAutomation}
           onViewJourney={handleViewJourney}
+          onOpenAutomation={handleOpenAutomationFocus}
           formatDueDate={formatJourneyDueDate}
         />
       </div>
