@@ -390,11 +390,7 @@ export const HeatMapChat: React.FC<HeatMapChatProps> = ({
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gray-50">
               <div className="flex items-center gap-3">
-                <img
-                  src={AI_ASSISTANT_PROFILE.avatar}
-                  alt={AI_ASSISTANT_PROFILE.name}
-                  className="w-10 h-10 rounded-full border-2 border-[#54FFD4]"
-                />
+                <AIBusinessOrb className="h-10 w-10" />
                 <div>
                   <h2
                     id="heat-map-chat-title"
