@@ -3194,11 +3194,7 @@ const MessageBubble = ({
       )}
     >
       {message.isAI && (
-        <img
-          src={AI_ASSISTANT_PROFILE.avatar}
-          alt={AI_ASSISTANT_PROFILE.name}
-          className="mt-1 h-8 w-8 flex-shrink-0 rounded-full border border-[#0E766E]/60 object-cover shadow-sm sm:h-10 sm:w-10"
-        />
+        <AIBusinessOrb className="mt-1 h-8 w-8 flex-shrink-0 shadow-sm ring-[#0E766E]/60 sm:h-10 sm:w-10" />
       )}
       <div
         className={cn(
