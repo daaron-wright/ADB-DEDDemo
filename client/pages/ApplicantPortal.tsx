@@ -408,6 +408,10 @@ const taskStatusTokens: Record<
   },
 };
 
+type BusinessAIFocusContext =
+  | { type: "automation" }
+  | { type: "stage"; stageId: string };
+
 const getNextActionToken = (
   status: NextActionStatus,
 ): { label: string; badgeClass: string; helperClass: string } => {
