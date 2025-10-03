@@ -56,6 +56,133 @@ export function JourneyOrchestrationPanel({
   onOpenAutomation,
   formatDueDate,
 }: JourneyOrchestrationPanelProps) {
+  const completedActions = React.useMemo(
+    () =>
+      actions.filter((action) => (completionState[action.id] ?? false) === true),
+    [actions, completionState],
+  );
+  const outstandingActions = React.useMemo(
+    () =>
+      actions.filter((action) => !(completionState[action.id] ?? false)),
+    [actions, completionState],
+  );
+
+  const totalActions = actions.length;
+  const completedCount = completedActions.length;
+  const outstandingCount = outstandingActions.length;
+  const completionPercent =
+    totalActions === 0 ? 0 : Math.round((completedCount / totalActions) * 100);
+
+  const [showCompletedTasks, setShowCompletedTasks] = React.useState(false);
+
+  React.useEffect(() => {
+    if (completedCount === 0 && showCompletedTasks) {
+      setShowCompletedTasks(false);
+    }
+  }, [completedCount, showCompletedTasks]);
+
+  const renderActionRow = (action: NextActionItem) => {
+    const token = getNextActionToken(action.status);
+    const isFocused = focusedActionId === action.id;
+    const dueLabel =
+      action.dueDate && formatDueDate
+        ? formatDueDate(action.dueDate)
+        : null;
+    const isCompleted = completionState[action.id] ?? false;
+
+    return (
+      <li key={action.id}>
+        <div
+          ref={(node) => {
+            nextActionRefs.current[action.id] = node;
+          }}
+          className={cn(
+            "flex items-start gap-3 rounded-2xl border px-4 py-3 transition focus-within:outline-none focus-within:ring-2 focus-within:ring-[#0f766e]/40",
+            isFocused
+              ? "border-[#0f766e] bg-[#eaf7f3] shadow-[0_16px_32px_-28px_rgba(11,64,55,0.32)]"
+              : "border-[#d8e4df] bg-white hover:border-[#0f766e]/60 hover:bg-[#f4faf8]",
+            isCompleted && !isFocused
+              ? "border-[#d8e4df] bg-white/80"
+              : null,
+          )}
+        >
+          <button
+            type="button"
+            onClick={() => onToggleAction(action.id)}
+            className={cn(
+              "mt-1 flex h-8 w-8 items-center justify-center rounded-full border-2 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40",
+              isCompleted
+                ? "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_12px_24px_-18px_rgba(11,64,55,0.35)]"
+                : "border-[#cfe4dd] bg-white text-[#0f766e] hover:border-[#0f766e]",
+            )}
+            aria-pressed={isCompleted}
+            aria-label=
+              {isCompleted
+                ? `Mark ${action.label} as not done`
+                : `Mark ${action.label} as done`}
+          >
+            {isCompleted ? (
+              <Check className="h-4 w-4" aria-hidden="true" />
+            ) : (
+              <span className="h-3.5 w-3.5 rounded-full border-2 border-[#9dbbb1]" />
+            )}
+          </button>
+          <div className="flex-1 space-y-2">
+            <button
+              type="button"
+              onClick={() => onActionClick(action)}
+              className="w-full text-left"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p
+                  className={cn(
+                    "text-sm font-semibold text-slate-900",
+                    isCompleted &&
+                      "text-slate-500 line-through decoration-1 decoration-slate-400",
+                  )}
+                >
+                  {action.label}
+                </p>
+                <span
+                  className={cn(
+                    "inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]",
+                    token.badgeClass,
+                    isCompleted && "opacity-70",
+                  )}
+                >
+                  {token.label}
+                </span>
+              </div>
+              {action.description ? (
+                <p className="mt-2 text-xs leading-relaxed text-slate-600">
+                  {action.description}
+                </p>
+              ) : null}
+              {action.id === "business-activity-guidance" ? (
+                <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#3645b0]">
+                  Tap to open the business activities questionnaire.
+                </p>
+              ) : null}
+              {(action.stageTitle || dueLabel) && (
+                <p
+                  className={cn(
+                    "mt-3 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                    token.helperClass,
+                    isCompleted && "opacity-70",
+                  )}
+                >
+                  {action.stageTitle ? `Stage: ${action.stageTitle}` : ""}
+                  {action.stageTitle && dueLabel ? " • " : ""}
+                  {dueLabel ? `Due ${dueLabel}` : ""}
+                </p>
+              )}
+            </button>
+          </div>
+        </div>
+      </li>
+    );
+  };
+
   return (
     <div className="space-y-6 rounded-3xl border border-white/60 bg-white/80 p-6 shadow-[0_18px_48px_-32px_rgba(11,64,55,0.28)] backdrop-blur-xl">
       <div className="space-y-3">
