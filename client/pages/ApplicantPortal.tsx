@@ -66,13 +66,13 @@ const applications: ApplicationRecord[] = [
     beneficiary: "Citizen",
     status: "In Review",
     licenseType: "Commercial License",
-    progress: 68,
+    progress: 58,
     submissionDate: isoDate(daysFromToday(-14)),
-    lastUpdated: isoDate(daysFromToday(-2)),
+    lastUpdated: isoDate(daysFromToday(-1)),
     nextAction:
-      "Upload signed tenancy contract for the Corniche location fit-out.",
+      "Submit consolidated approvals package for ADAFSA and Abu Dhabi Municipality.",
     summary:
-      "Full-service restaurant launch covering trade name reservation, food safety clearance, and smart staffing approvals for the Abu Dhabi mainland.",
+      "Layla's AI-assisted application is sequencing trade name reservation, co-founder onboarding, property confirmation, and downstream approvals for a Corniche restaurant.",
   },
 ];
 
@@ -91,163 +91,268 @@ const BUSINESS_ACTIVITY_GUIDANCE_MESSAGE =
 
 const journeyStages: JourneyStage[] = [
   {
-    id: "questionnaire",
-    title: "Questionnaire intake",
+    id: "trade-name-activities",
+    title: "Trade name & activities",
     highlight: {
-      label: "Questionnaire completed",
-      detail: `Finished ${formatDisplayDate(daysFromToday(-12))}`,
+      label: "Trade name secured",
+      detail: `Approved ${formatDisplayDate(daysFromToday(-10))}`,
     },
     description:
-      "Smart intake responses now prefill every downstream form automatically.",
+      "Layla chose the Corniche Culinary Collective trade name and aligned restaurant activities.",
     state: "done",
-    statusDetail: `Completed ${formatDisplayDate(daysFromToday(-12))}`,
+    statusDetail: "Trade name approved",
     tasks: [
       {
-        id: "questionnaire-intake",
-        label: "Complete smart intake questionnaire",
-        status: "completed",
-        owner: "Applicant",
-        completedOn: isoDate(daysFromToday(-12)),
-      },
-      {
-        id: "questionnaire-profile",
-        label: "Review generated business profile",
+        id: "trade-name-select",
+        label: "Confirm preferred trade name",
         status: "completed",
         owner: "Applicant",
         completedOn: isoDate(daysFromToday(-11)),
       },
-    ],
-  },
-  {
-    id: "business-registration",
-    title: "Business registration",
-    highlight: {
-      label: "Trade name reserved",
-      detail: "Marwah approved",
-    },
-    description:
-      "Initial approvals secured, including trade name reservation and legal structure confirmation.",
-    state: "done",
-    statusDetail: "Initial approvals granted",
-    tasks: [
       {
-        id: "registration-trade-name",
-        label: "Reserve trade name",
+        id: "trade-name-activities",
+        label: "Align business activity groupings",
         status: "completed",
         owner: "Applicant",
         completedOn: isoDate(daysFromToday(-10)),
       },
+    ],
+  },
+  {
+    id: "owners",
+    title: "Owners",
+    highlight: {
+      label: "Co-founders added",
+      detail: `Verified ${formatDisplayDate(daysFromToday(-8))}`,
+    },
+    description:
+      "Co-founder details and ownership percentages are registered and verified.",
+    state: "done",
+    statusDetail: "Ownership structure confirmed",
+    tasks: [
       {
-        id: "registration-initial-approval",
-        label: "Initial approval (DED)",
+        id: "owners-add-partners",
+        label: "Add co-founder details",
         status: "completed",
-        owner: "Department of Economic Development",
+        owner: "Applicant",
         completedOn: isoDate(daysFromToday(-9)),
       },
       {
-        id: "registration-ownership",
-        label: "Confirm ownership structure",
+        id: "owners-verify-ids",
+        label: "Verify Emirates IDs for partners",
         status: "completed",
-        owner: "Applicant",
+        owner: "Department of Economic Development",
         completedOn: isoDate(daysFromToday(-8)),
       },
     ],
   },
   {
-    id: "submit-documents",
-    title: "Document submission",
+    id: "premises",
+    title: "Premises",
     highlight: {
-      label: "Documents verified",
-      detail: "All mandatory files cleared",
+      label: "Property confirmed",
+      detail: `Corniche lease uploaded ${formatDisplayDate(daysFromToday(-6))}`,
     },
     description:
-      "All mandatory documents are uploaded and validated, including Emirates ID and tenancy contract.",
+      "Property selection and tenancy documentation for the Corniche unit are confirmed.",
     state: "done",
-    statusDetail: "5 documents verified",
+    statusDetail: "Premises ready",
     tasks: [
       {
-        id: "documents-tenancy",
-        label: "Tenancy contract upload",
+        id: "premises-confirm-property",
+        label: "Confirm property selection",
         status: "completed",
         owner: "Applicant",
         completedOn: isoDate(daysFromToday(-7)),
       },
       {
-        id: "documents-shareholder",
-        label: "Shareholder Emirates IDs",
+        id: "premises-upload-lease",
+        label: "Upload signed tenancy contract",
         status: "completed",
         owner: "Applicant",
         completedOn: isoDate(daysFromToday(-6)),
       },
-      {
-        id: "documents-review",
-        label: "Compliance review (DED)",
-        status: "completed",
-        owner: "Department of Economic Development",
-        completedOn: isoDate(daysFromToday(-5)),
-      },
     ],
   },
   {
-    id: "business-licensing",
-    title: "Business licensing",
+    id: "approvals",
+    title: "Approvals",
     highlight: {
-      label: "Licensing in progress",
-      detail: "Specialists reviewing financial plan",
+      label: "Approvals in review",
+      detail: "Coordinating ADAFSA and municipality supports",
     },
     description:
-      "Licensing specialists are reviewing the financial plan, compliance attachments, and fee payments.",
+      "Layla is submitting sector approvals, food control clearance, and signage permits.",
     state: "current",
-    statusDetail: "In review now",
+    statusDetail: "2 approval packages compiling",
     tasks: [
       {
-        id: "licensing-financials",
-        label: "Upload revised financial projections",
+        id: "approvals-adafsa",
+        label: "Submit ADAFSA food control approval",
         status: "in_progress",
         owner: "Applicant",
-        dueDate: isoDate(daysFromToday(3)),
+        dueDate: isoDate(daysFromToday(2)),
       },
       {
-        id: "licensing-fee",
-        label: "Settle AED 2,500 licensing fee",
+        id: "approvals-signage",
+        label: "Request municipality signage clearance",
         status: "pending",
         owner: "Applicant",
         dueDate: isoDate(daysFromToday(4)),
       },
       {
-        id: "licensing-analyst",
-        label: "Compliance analyst review",
+        id: "approvals-ded-review",
+        label: "DED initial NOC review",
         status: "in_progress",
-        owner: "Licensing analyst",
-        dueDate: isoDate(daysFromToday(5)),
+        owner: "Department of Economic Development",
+        dueDate: isoDate(daysFromToday(3)),
       },
     ],
   },
   {
-    id: "pre-operational-inspection",
-    title: "Pre-operational inspection",
+    id: "license",
+    title: "License",
     highlight: {
-      label: "Inspection next",
-      detail: "Scheduling once licensing completes",
+      label: "License application next",
+      detail: "Waiting for approvals bundle",
     },
     description:
-      "Inspection will be scheduled once licensing is approved so you can activate utilities and begin fit-out.",
+      "Once approvals land, the unified license application will be compiled and submitted.",
     state: "upcoming",
-    statusDetail: "Awaiting scheduling",
+    statusDetail: "Preparing application artifacts",
     tasks: [
       {
-        id: "inspection-slots",
-        label: "Propose inspection time slots",
+        id: "license-compile-application",
+        label: "Compile unified license application",
         status: "pending",
         owner: "Applicant",
-        dueDate: isoDate(daysFromToday(8)),
+        dueDate: isoDate(daysFromToday(6)),
       },
       {
-        id: "inspection-checklist",
-        label: "Upload fit-out readiness checklist",
+        id: "license-financials",
+        label: "Upload financial statements",
+        status: "pending",
+        owner: "Applicant",
+        dueDate: isoDate(daysFromToday(7)),
+      },
+      {
+        id: "license-ded-analyst",
+        label: "DED license analyst review",
+        status: "pending",
+        owner: "Department of Economic Development",
+        dueDate: isoDate(daysFromToday(8)),
+      },
+    ],
+  },
+  {
+    id: "banking-extras",
+    title: "Banking & extras",
+    highlight: {
+      label: "Support services queued",
+      detail: "Banking and utilities discovery",
+    },
+    description:
+      "AI surfaces shortlisted banks, utilities, and telecom providers for onboarding.",
+    state: "upcoming",
+    statusDetail: "Discovery recommendations ready",
+    tasks: [
+      {
+        id: "banking-shortlist",
+        label: "Shortlist partner banks",
+        status: "pending",
+        owner: "Applicant",
+        dueDate: isoDate(daysFromToday(9)),
+      },
+      {
+        id: "extras-utilities",
+        label: "Request telecom & utilities setup",
         status: "pending",
         owner: "Applicant",
         dueDate: isoDate(daysFromToday(10)),
+      },
+    ],
+  },
+  {
+    id: "payment-issuance",
+    title: "Payment & issuance",
+    highlight: {
+      label: "Payments upcoming",
+      detail: "Consolidated voucher to be generated",
+    },
+    description:
+      "Once the license packet is approved, Layla will pay and receive the digital license instantly.",
+    state: "upcoming",
+    statusDetail: "Awaiting payment release",
+    tasks: [
+      {
+        id: "payment-generate-voucher",
+        label: "Generate consolidated payment voucher",
+        status: "pending",
+        owner: "Applicant",
+        dueDate: isoDate(daysFromToday(11)),
+      },
+      {
+        id: "payment-settle-fees",
+        label: "Pay issuance and licensing fees",
+        status: "pending",
+        owner: "Applicant",
+        dueDate: isoDate(daysFromToday(12)),
+      },
+    ],
+  },
+  {
+    id: "inspections",
+    title: "Inspections",
+    highlight: {
+      label: "Inspection scheduling",
+      detail: "Ready once license issued",
+    },
+    description:
+      "Food safety and fit-out inspections will be coordinated to clear operational readiness.",
+    state: "upcoming",
+    statusDetail: "Inspection prep underway",
+    tasks: [
+      {
+        id: "inspections-schedule",
+        label: "Schedule food safety inspection",
+        status: "pending",
+        owner: "Applicant",
+        dueDate: isoDate(daysFromToday(13)),
+      },
+      {
+        id: "inspections-checklist",
+        label: "Prepare inspection readiness checklist",
+        status: "pending",
+        owner: "Applicant",
+        dueDate: isoDate(daysFromToday(14)),
+      },
+    ],
+  },
+  {
+    id: "activation",
+    title: "Activation",
+    highlight: {
+      label: "Launch readiness",
+      detail: "Final countdown to opening",
+    },
+    description:
+      "With inspections cleared and services active, Layla prepares to open the restaurant doors.",
+    state: "upcoming",
+    statusDetail: "Go-live planning",
+    tasks: [
+      {
+        id: "activation-opening-date",
+        label: "Set opening date and soft launch plan",
+        status: "pending",
+        owner: "Applicant",
+        dueDate: isoDate(daysFromToday(16)),
+      },
+      {
+        id: "activation-go-live",
+        label: "Launch go-live checklist",
+        status: "pending",
+        owner: "Applicant",
+        dueDate: isoDate(daysFromToday(17)),
       },
     ],
   },
@@ -337,19 +442,19 @@ const ACTOR_OPTIONS: ActorOption[] = [
 ];
 
 const JOURNEY_STEPS_CONFIG: JourneyStep[] = [
-  { id: "questionnaire", label: "Questionnaire", state: "completed" },
   {
-    id: "business-registration",
-    label: "Business Registration",
+    id: "trade-name-activities",
+    label: "Trade name & activities",
     state: "completed",
   },
-  { id: "submit-documents", label: "Submit Documents", state: "completed" },
-  { id: "business-licensing", label: "Business Licensing", state: "current" },
-  {
-    id: "pre-operational-inspection",
-    label: "Pre-Operational Inspection",
-    state: "upcoming",
-  },
+  { id: "owners", label: "Owners", state: "completed" },
+  { id: "premises", label: "Premises", state: "completed" },
+  { id: "approvals", label: "Approvals", state: "current" },
+  { id: "license", label: "License", state: "upcoming" },
+  { id: "banking-extras", label: "Banking / Extras", state: "upcoming" },
+  { id: "payment-issuance", label: "Payment & Issuance", state: "upcoming" },
+  { id: "inspections", label: "Inspections", state: "upcoming" },
+  { id: "activation", label: "Activation", state: "upcoming" },
 ];
 
 const RECOMMENDED_ACTIVITIES: BusinessActivity[] = [
@@ -424,51 +529,95 @@ const computeSteps = (activeStepId: string): JourneyStep[] => {
 
 const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
   {
-    stageId: "questionnaire",
-    message: "Generating application...",
-    percent: 15,
-    keyConsiderations: ["Legal structure", "Applicant identity"],
-    dataTags: ["UAE PASS profile", "Emirates ID", "Digital signature"],
-  },
-  {
-    stageId: "business-registration",
-    message: "Validating trade name and ownership...",
-    percent: 42,
-    keyConsiderations: ["Legal structure", "Ownership model"],
+    stageId: "trade-name-activities",
+    message: "Selecting trade name and restaurant activities...",
+    percent: 18,
+    keyConsiderations: ["Trade name options", "Activity scope"],
     dataTags: [
-      "Trade name reservation",
-      "Shareholder IDs",
-      "Economic directory",
+      "Preferred trade name",
+      "Activity grouping",
+      "Legal structure",
     ],
   },
   {
-    stageId: "submit-documents",
-    message: "Reviewing supporting documents...",
-    percent: 63,
-    keyConsiderations: ["Business activities", "Compliance attachments"],
+    stageId: "owners",
+    message: "Capturing co-founders and ownership splits...",
+    percent: 28,
+    keyConsiderations: ["Shareholder IDs", "Equity splits"],
+    dataTags: [
+      "Co-founder records",
+      "Emirates ID",
+      "Ownership percentages",
+    ],
+  },
+  {
+    stageId: "premises",
+    message: "Confirming Corniche property selection...",
+    percent: 38,
+    keyConsiderations: ["Lease agreement", "Zoning compliance"],
     dataTags: [
       "Tenancy contract",
-      "Financial statements",
-      "Food safety certificates",
+      "Premises details",
+      "Location insights",
     ],
   },
   {
-    stageId: "business-licensing",
-    message: "Aligning approvals across directorates...",
-    percent: 78,
-    keyConsiderations: ["Business activities", "Financial readiness"],
+    stageId: "approvals",
+    message: "Coordinating sector approvals and permits...",
+    percent: 52,
+    keyConsiderations: ["Food control", "Municipal signage"],
     dataTags: [
-      "Fee schedule",
-      "Payment verification",
-      "Compliance analyst notes",
+      "ADAFSA package",
+      "Municipality request",
+      "DED clearance",
     ],
   },
   {
-    stageId: "pre-operational-inspection",
-    message: "Scheduling inspection windows...",
-    percent: 92,
-    keyConsiderations: ["Physical space", "Fit-out readiness"],
-    dataTags: ["Inspection availability", "Fit-out checklist", "Team contacts"],
+    stageId: "license",
+    message: "Compiling unified license application...",
+    percent: 66,
+    keyConsiderations: ["Financial readiness", "Required attachments"],
+    dataTags: [
+      "Application draft",
+      "Financial statements",
+      "Compliance docs",
+    ],
+  },
+  {
+    stageId: "banking-extras",
+    message: "Recommending banking and utility partners...",
+    percent: 76,
+    keyConsiderations: ["Working capital", "Utilities onboarding"],
+    dataTags: [
+      "Bank shortlist",
+      "Utility checklist",
+      "Telecom options",
+    ],
+  },
+  {
+    stageId: "payment-issuance",
+    message: "Generating payment voucher and issuance steps...",
+    percent: 86,
+    keyConsiderations: ["Fee schedule", "Payment channels"],
+    dataTags: ["Voucher", "Fee summary", "Receipt"],
+  },
+  {
+    stageId: "inspections",
+    message: "Scheduling inspections for operational readiness...",
+    percent: 94,
+    keyConsiderations: ["Inspection slots", "Fit-out readiness"],
+    dataTags: [
+      "Inspection calendar",
+      "Readiness checklist",
+      "Team contacts",
+    ],
+  },
+  {
+    stageId: "activation",
+    message: "Activating license and preparing opening...",
+    percent: 100,
+    keyConsiderations: ["Launch planning", "Support services"],
+    dataTags: ["Opening date", "Go-live tasks", "Support contacts"],
   },
 ];
 
@@ -492,7 +641,7 @@ export default function ApplicantPortal() {
   const firstName = profileName.split(" ")[0];
   const workspaceTitle = `${firstName}'s workspace`;
   const workspaceDescription = `Track your business license progress, ${firstName}, and know exactly what comes next.`;
-  const profileEmail = portalUser?.email ?? "khalid.entrepreneur@email.ae";
+  const profileEmail = portalUser?.email ?? "layla.almansoori@email.ae";
   const profileAvatar = portalUser?.avatarUrl ?? ENTREPRENEUR_PROFILE.avatar;
   const profileStatus: "online" | "offline" | "none" = "online";
 
