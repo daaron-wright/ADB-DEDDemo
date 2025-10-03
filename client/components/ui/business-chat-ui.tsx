@@ -6173,11 +6173,7 @@ export function BusinessChatUI({
                       className="mb-4 w-full"
                     />
                     <div className="flex items-center gap-3 sm:gap-4">
-                      <img
-                        src={AI_ASSISTANT_PROFILE.avatar}
-                        alt={AI_ASSISTANT_PROFILE.name}
-                        className="h-12 w-12 rounded-full border border-[#0E766E] object-cover sm:h-16 sm:w-16"
-                      />
+                      <AIBusinessOrb className="h-12 w-12 sm:h-16 sm:w-16" />
                       <div className="min-w-0 flex-1 text-left">
                         <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
                           AI Business
