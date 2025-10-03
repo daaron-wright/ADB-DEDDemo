@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GapAnalysisView } from "./gap-analysis-view";
-import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
+import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 
 interface CompetitorsViewProps {
   isOpen: boolean;
@@ -248,11 +248,7 @@ const ChatInterface = () => {
     >
       {/* Chat Header */}
       <div className="flex items-center gap-4 mb-6">
-        <img
-          src={AI_ASSISTANT_PROFILE.avatar}
-          alt={AI_ASSISTANT_PROFILE.name}
-          className="w-16 h-16 rounded-full border border-[#54FFD4] object-cover"
-        />
+        <AIBusinessOrb className="h-16 w-16" />
         <div className="flex-1">
           <h3 className="text-white text-lg font-semibold">AI Business</h3>
         </div>
