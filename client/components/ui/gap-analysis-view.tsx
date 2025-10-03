@@ -36,7 +36,7 @@ const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({
         <div className="flex flex-wrap items-center justify-between gap-4">
           <button
             type="button"
-            onClick={onBack}
+            onClick={handleDismiss}
             className="inline-flex items-center gap-2 rounded-full border border-[#d8e4df] bg-white px-4 py-2 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55]"
           >
             <svg
