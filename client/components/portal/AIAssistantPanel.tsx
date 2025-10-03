@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 
 interface AIAssistantPanelProps {
@@ -14,7 +15,7 @@ interface AIAssistantPanelProps {
 
 export function AIAssistantPanel({
   assistantName = AI_ASSISTANT_PROFILE.name,
-  avatarUrl = AI_ASSISTANT_PROFILE.avatar,
+  avatarUrl,
   status,
   statusMessage,
   progressPercentage,
@@ -78,11 +79,15 @@ export function AIAssistantPanel({
         <div className="flex items-center gap-4 mb-6">
           {/* Avatar */}
           <div className="relative">
-            <img
-              src={avatarUrl}
-              alt={assistantName}
-              className="w-16 h-16 rounded-full border-2 border-[#0E766E] object-cover"
-            />
+            {avatarUrl ? (
+              <img
+                src={avatarUrl}
+                alt={assistantName}
+                className="h-16 w-16 rounded-full border-2 border-[#0E766E] object-cover"
+              />
+            ) : (
+              <AIBusinessOrb className="h-16 w-16" />
+            )}
           </div>
 
           {/* Assistant Name */}
