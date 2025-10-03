@@ -8,6 +8,5 @@ export const ENTREPRENEUR_PROFILE = {
 export const AI_ASSISTANT_PROFILE = {
   name: "AI Business",
   title: "Guiding your Abu Dhabi investment journey",
-  avatar:
-    "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fdaf1f943266449c2bbaccac16958c1a1?format=webp&width=800",
+  avatar: "",
 } as const;
