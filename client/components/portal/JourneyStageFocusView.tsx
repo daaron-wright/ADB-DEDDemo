@@ -65,6 +65,46 @@ export function JourneyStageFocusView({
     return null;
   };
 
+  const handleAddCustomItem = () => {
+    const trimmed = customItemLabel.trim();
+    if (!trimmed) {
+      return;
+    }
+
+    setCustomItems((items) => [
+      ...items,
+      {
+        id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        label: trimmed,
+        completed: false,
+      },
+    ]);
+    setCustomItemLabel("");
+  };
+
+  const handleToggleCustomItem = (itemId: string) => {
+    setCustomItems((items) =>
+      items.map((item) =>
+        item.id === itemId ? { ...item, completed: !item.completed } : item,
+      ),
+    );
+  };
+
+  const handleRemoveCustomItem = (itemId: string) => {
+    setCustomItems((items) => items.filter((item) => item.id !== itemId));
+  };
+
+  const handleFilesSelected: React.ChangeEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
+    const files = Array.from(event.target.files ?? []).map((file) => file.name);
+    setSelectedFiles(files);
+  };
+
+  const handleClearFiles = () => {
+    setSelectedFiles([]);
+  };
+
   return (
     <div className="space-y-5 sm:space-y-6">
       <div
