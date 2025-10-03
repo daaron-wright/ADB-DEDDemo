@@ -59,7 +59,7 @@ const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({
               Gap analysis report
             </span>
             <span className="text-sm text-slate-500">
-              Abu Dhabi Corniche focus
+              {category ? `${category} focus` : "Abu Dhabi Corniche focus"}
             </span>
           </div>
         </div>
