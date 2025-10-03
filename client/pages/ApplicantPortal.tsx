@@ -824,7 +824,8 @@ export default function ApplicantPortal() {
   }, [setBusinessAIView, setFocusContext]);
   const handleOpenAutomationFocus = useCallback(() => {
     setBusinessAIView("focus");
-  }, [setBusinessAIView]);
+    setFocusContext({ type: "automation" });
+  }, [setBusinessAIView, setFocusContext]);
   const handleCloseChat = useCallback(() => {
     setBusinessAIView("closed");
     setFocusedNextActionId(null);
