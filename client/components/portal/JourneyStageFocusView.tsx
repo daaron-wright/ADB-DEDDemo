@@ -49,12 +49,12 @@ export function JourneyStageFocusView({
   const highlightToken = stage ? highlightTokens[stage.state] : null;
   const stagedTasks = stage?.tasks ?? [];
 
-  const [quickNotes, setQuickNotes] = useState("");
-  const [customItemLabel, setCustomItemLabel] = useState("");
-  const [customItems, setCustomItems] = useState<
+  const [quickNotes, setQuickNotes] = React.useState("");
+  const [customItemLabel, setCustomItemLabel] = React.useState("");
+  const [customItems, setCustomItems] = React.useState<
     Array<{ id: string; label: string; completed: boolean }>
   >([]);
-  const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
+  const [selectedFiles, setSelectedFiles] = React.useState<string[]>([]);
 
   const renderTaskTimestamp = (task: JourneyStage["tasks"][number]) => {
     if (task.completedOn) {
@@ -95,7 +95,9 @@ export function JourneyStageFocusView({
     setCustomItems((items) => items.filter((item) => item.id !== itemId));
   };
 
-  const handleFilesSelected = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleFilesSelected = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const files = Array.from(event.target.files ?? []).map((file) => file.name);
     setSelectedFiles(files);
   };
