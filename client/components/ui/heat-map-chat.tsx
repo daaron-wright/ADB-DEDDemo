@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { chatCardClass } from "@/lib/chat-style";
-import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
+import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 
 interface HeatMapChatProps {
   isOpen: boolean;
@@ -27,12 +27,8 @@ const AccessibleMessageBubble = ({ message }: { message: Message }) => {
     >
       {message.isAI && (
         <div className="relative">
-          <img
-            src={AI_ASSISTANT_PROFILE.avatar}
-            alt={AI_ASSISTANT_PROFILE.name}
-            className="w-12 h-12 rounded-full border-2 border-[#54FFD4] object-cover"
-          />
-          <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-[#54FFD4] rounded-full border-2 border-white"></div>
+          <AIBusinessOrb className="h-12 w-12" />
+          <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white bg-[#54FFD4]"></div>
         </div>
       )}
 
