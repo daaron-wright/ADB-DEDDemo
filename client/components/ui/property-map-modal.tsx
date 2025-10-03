@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
+import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 
 interface Property {
   id: string;
