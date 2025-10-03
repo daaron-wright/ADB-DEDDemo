@@ -6201,6 +6201,9 @@ export function BusinessChatUI({
                     >
                       <div className={conversationContainerClass}>
                         <div className={messageListClass}>
+                          {journeyFocusView ? (
+                            <JourneyStageFocusView {...journeyFocusView} />
+                          ) : null}
                           {messages.map((message) => (
                             <MessageBubble
                               key={message.id}
