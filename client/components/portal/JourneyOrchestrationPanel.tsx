@@ -70,6 +70,7 @@ export function JourneyOrchestrationPanel({
   const totalActions = actions.length;
   const completedCount = completedActions.length;
   const outstandingCount = outstandingActions.length;
+  const outstandingDisplayCount = remainingActionCount ?? outstandingCount;
   const completionPercent =
     totalActions === 0 ? 0 : Math.round((completedCount / totalActions) * 100);
 
