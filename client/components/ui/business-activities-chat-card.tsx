@@ -104,13 +104,19 @@ export function BusinessActivitiesChatCard({
       <header className="space-y-3">
         <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
           <span>License build</span>
-          <span className="h-1 w-1 rounded-full bg-[#0E766E]/60" aria-hidden="true" />
+          <span
+            className="h-1 w-1 rounded-full bg-[#0E766E]/60"
+            aria-hidden="true"
+          />
           <span>Step 2 · Activities</span>
         </div>
         <div className="space-y-1">
-          <h3 className="text-xl font-semibold leading-tight">Business Activities</h3>
+          <h3 className="text-xl font-semibold leading-tight">
+            Business Activities
+          </h3>
           <p className="text-sm text-slate-600">
-            Choose from the below AI recommended activities. Activities must fall within the same business group for a restaurant license.
+            Choose from the below AI recommended activities. Activities must
+            fall within the same business group for a restaurant license.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
@@ -148,7 +154,9 @@ export function BusinessActivitiesChatCard({
                   <span
                     className={cn(
                       "flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border-2",
-                      isSelected ? "border-[#0E766E] bg-[#0E766E] text-white" : "border-[#cbdad5] text-transparent",
+                      isSelected
+                        ? "border-[#0E766E] bg-[#0E766E] text-white"
+                        : "border-[#cbdad5] text-transparent",
                     )}
                     aria-hidden="true"
                   >
@@ -181,7 +189,9 @@ export function BusinessActivitiesChatCard({
                       )}
                     </div>
                     {activity.description && (
-                      <p className="mt-1 text-sm text-slate-600">{activity.description}</p>
+                      <p className="mt-1 text-sm text-slate-600">
+                        {activity.description}
+                      </p>
                     )}
                   </div>
                 </button>
@@ -273,14 +283,18 @@ export function BusinessActivitiesChatCard({
 
       <section className="space-y-4">
         <div className="space-y-2">
-          <h4 className="text-base font-semibold text-slate-900">Physical Space Requirements</h4>
+          <h4 className="text-base font-semibold text-slate-900">
+            Physical Space Requirements
+          </h4>
           {physicalPlan ? (
             <p className="text-sm text-slate-600">
-              Generated to cover the combined footprint, back-of-house provisions, and compliance for the selected activities.
+              Generated to cover the combined footprint, back-of-house
+              provisions, and compliance for the selected activities.
             </p>
           ) : (
             <p className="text-sm text-slate-500">
-              Physical space requirements will be generated once the above steps are complete.
+              Physical space requirements will be generated once the above steps
+              are complete.
             </p>
           )}
         </div>
@@ -288,9 +302,18 @@ export function BusinessActivitiesChatCard({
         {physicalPlan && (
           <div className="space-y-6">
             <div className="grid gap-3 sm:grid-cols-3">
-              <MetricCard title="Estimated total area" value={`${physicalPlan.summary.totalArea.toLocaleString()} sq ft`} />
-              <MetricCard title="Kitchen allocation" value={`${physicalPlan.summary.kitchenArea.toLocaleString()} sq ft`} />
-              <MetricCard title="Seat capacity" value={`${physicalPlan.summary.seatingCapacity} guests`} />
+              <MetricCard
+                title="Estimated total area"
+                value={`${physicalPlan.summary.totalArea.toLocaleString()} sq ft`}
+              />
+              <MetricCard
+                title="Kitchen allocation"
+                value={`${physicalPlan.summary.kitchenArea.toLocaleString()} sq ft`}
+              />
+              <MetricCard
+                title="Seat capacity"
+                value={`${physicalPlan.summary.seatingCapacity} guests`}
+              />
             </div>
 
             <div className="rounded-2xl border border-[#dbe9e3] bg-white/85 p-4 shadow-[0_22px_54px_-46px_rgba(15,23,42,0.45)]">
@@ -302,7 +325,10 @@ export function BusinessActivitiesChatCard({
                   <ul className="space-y-2">
                     {physicalPlan.summary.complianceNotes.map((note, index) => (
                       <li key={index} className="flex items-start gap-2">
-                        <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#0E766E]" aria-hidden="true" />
+                        <span
+                          className="mt-1 h-1.5 w-1.5 rounded-full bg-[#0E766E]"
+                          aria-hidden="true"
+                        />
                         <span>{note}</span>
                       </li>
                     ))}
@@ -310,10 +336,17 @@ export function BusinessActivitiesChatCard({
                 </div>
                 <div className="rounded-2xl border border-[#e4eeeb] bg-[#f6faf8] p-4 text-sm text-slate-600">
                   <p>
-                    <span className="font-semibold text-slate-800">Fit-out timeline:</span> {physicalPlan.summary.timelineWeeks} weeks with staged inspections.
+                    <span className="font-semibold text-slate-800">
+                      Fit-out timeline:
+                    </span>{" "}
+                    {physicalPlan.summary.timelineWeeks} weeks with staged
+                    inspections.
                   </p>
                   <p className="mt-3">
-                    <span className="font-semibold text-slate-800">Utilities:</span> {physicalPlan.summary.utilities.join(", ")}
+                    <span className="font-semibold text-slate-800">
+                      Utilities:
+                    </span>{" "}
+                    {physicalPlan.summary.utilities.join(", ")}
                   </p>
                 </div>
               </div>
@@ -330,7 +363,9 @@ export function BusinessActivitiesChatCard({
                     className="rounded-2xl border border-[#dbe9e3] bg-white/90 p-4 text-sm text-slate-600 shadow-[0_18px_48px_-40px_rgba(15,23,42,0.45)]"
                   >
                     <div className="flex flex-wrap items-center gap-2">
-                      <h6 className="text-sm font-semibold text-slate-900">{activity.label}</h6>
+                      <h6 className="text-sm font-semibold text-slate-900">
+                        {activity.label}
+                      </h6>
                       <span className="rounded-full bg-[#0E766E]/12 px-3 py-0.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
                         {activity.minArea} sq ft
                       </span>
@@ -338,21 +373,30 @@ export function BusinessActivitiesChatCard({
                     <dl className="mt-3 space-y-1 text-xs text-slate-500">
                       <div className="flex items-center justify-between">
                         <dt>Seating</dt>
-                        <dd className="font-medium text-slate-700">{activity.seatingCapacity} guests</dd>
+                        <dd className="font-medium text-slate-700">
+                          {activity.seatingCapacity} guests
+                        </dd>
                       </div>
                       <div className="flex items-center justify-between">
                         <dt>Kitchen</dt>
-                        <dd className="font-medium text-slate-700">{activity.kitchenArea} sq ft</dd>
+                        <dd className="font-medium text-slate-700">
+                          {activity.kitchenArea} sq ft
+                        </dd>
                       </div>
                       <div className="flex items-center justify-between">
                         <dt>Ventilation</dt>
-                        <dd className="font-medium text-slate-700">{activity.ventilation}</dd>
+                        <dd className="font-medium text-slate-700">
+                          {activity.ventilation}
+                        </dd>
                       </div>
                     </dl>
                     <ul className="mt-3 space-y-1 text-xs text-slate-500">
                       {activity.notes.map((note, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <span className="mt-1 h-1 w-1 rounded-full bg-[#0E766E]" aria-hidden="true" />
+                          <span
+                            className="mt-1 h-1 w-1 rounded-full bg-[#0E766E]"
+                            aria-hidden="true"
+                          />
                           <span>{note}</span>
                         </li>
                       ))}

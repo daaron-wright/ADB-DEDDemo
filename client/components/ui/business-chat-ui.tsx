@@ -1,4 +1,10 @@
-import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import Draggable from "react-draggable";
 import { motion, AnimatePresence } from "framer-motion";
@@ -332,7 +338,11 @@ const BASE_ACTIVITY_LIBRARY: ChatActivityOption[] = [
       seatingCapacity: 80,
       kitchenArea: 780,
       ventilation: "Type-2 hood for bulk preparation lines",
-      utilities: ["Blast chiller connection", "Service elevators", "3-phase power"],
+      utilities: [
+        "Blast chiller connection",
+        "Service elevators",
+        "3-phase power",
+      ],
       notes: [
         "Provide loading dock access with insulated holding area for dispatch.",
         "Dedicated warewashing bay with grease interceptor and backflow prevention.",
@@ -360,7 +370,8 @@ const BASE_ACTIVITY_LIBRARY: ChatActivityOption[] = [
   {
     id: "culinary-training-workshops",
     label: "Culinary training workshops",
-    description: "Interactive chef-led sessions for guests and staff upskilling.",
+    description:
+      "Interactive chef-led sessions for guests and staff upskilling.",
     group: "restaurant",
     spatial: {
       minArea: 1600,
@@ -5169,9 +5180,7 @@ export function BusinessChatUI({
     );
 
     const complianceNotes = Array.from(
-      new Set(
-        selectedActivities.flatMap((activity) => activity.spatial.notes),
-      ),
+      new Set(selectedActivities.flatMap((activity) => activity.spatial.notes)),
     );
     const utilities = Array.from(
       new Set(
@@ -5882,7 +5891,8 @@ export function BusinessChatUI({
 
   const outerContainerClass = cn(
     "relative z-10 flex w-full justify-center px-3 py-6 sm:px-6 sm:py-8 lg:px-12 lg:py-10",
-    isSidePanel && "h-full justify-end px-0 py-0 sm:px-0 sm:py-0 lg:px-0 lg:py-0",
+    isSidePanel &&
+      "h-full justify-end px-0 py-0 sm:px-0 sm:py-0 lg:px-0 lg:py-0",
   );
 
   const chatShellClass = cn(
@@ -5901,7 +5911,8 @@ export function BusinessChatUI({
 
   const bodyWrapperClass = cn(
     "px-3 sm:px-4 lg:px-6 pb-4 sm:pb-6 lg:pb-8",
-    isSidePanel && "flex h-full flex-col overflow-hidden px-4 pb-5 sm:px-5 lg:px-6",
+    isSidePanel &&
+      "flex h-full flex-col overflow-hidden px-4 pb-5 sm:px-5 lg:px-6",
   );
 
   const conversationContainerClass = cn(
@@ -5940,7 +5951,10 @@ export function BusinessChatUI({
       />
       <AnimatePresence>
         {isOpen && (
-          <div key="chat-ui-root" className="fixed inset-0 z-50 overflow-hidden">
+          <div
+            key="chat-ui-root"
+            className="fixed inset-0 z-50 overflow-hidden"
+          >
             {isSidePanel && (
               <motion.button
                 type="button"
@@ -5958,12 +5972,8 @@ export function BusinessChatUI({
               initial={
                 isSidePanel ? { x: "100%" } : { opacity: 0, scale: 0.98 }
               }
-              animate={
-                isSidePanel ? { x: 0 } : { opacity: 1, scale: 1 }
-              }
-              exit={
-                isSidePanel ? { x: "100%" } : { opacity: 0, scale: 0.98 }
-              }
+              animate={isSidePanel ? { x: 0 } : { opacity: 1, scale: 1 }}
+              exit={isSidePanel ? { x: "100%" } : { opacity: 0, scale: 0.98 }}
               transition={{
                 duration: isSidePanel ? 0.25 : 0.3,
                 ease: isSidePanel ? "easeOut" : "easeInOut",
@@ -6105,7 +6115,8 @@ export function BusinessChatUI({
                         <span
                           className={cn(
                             "inline-flex w-fit items-center rounded-full border border-white/30 bg-white/25 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500 backdrop-blur-xl",
-                            isSidePanel && "border-slate-200 bg-white/80 backdrop-blur-none",
+                            isSidePanel &&
+                              "border-slate-200 bg-white/80 backdrop-blur-none",
                           )}
                         >
                           Application Journey

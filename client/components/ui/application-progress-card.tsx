@@ -96,14 +96,22 @@ export function ApplicationProgressCard({
               strokeLinecap="round"
               strokeLinejoin="round"
             />
-            <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
+            <circle
+              cx="12"
+              cy="12"
+              r="9"
+              stroke="currentColor"
+              strokeWidth="1.6"
+            />
           </svg>
         </div>
         <div className="flex-1">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
             Generating application
           </p>
-          <p className="mt-2 text-base leading-relaxed text-slate-800">{message}</p>
+          <p className="mt-2 text-base leading-relaxed text-slate-800">
+            {message}
+          </p>
         </div>
       </div>
 
@@ -150,7 +158,9 @@ export function ApplicationProgressCard({
             animate={{ opacity: isGenerating ? [1, 0.3, 1] : 1 }}
             transition={{ repeat: isGenerating ? Infinity : 0, duration: 1.4 }}
           />
-          <span>{isGenerating ? "Live review in progress" : "Checks complete"}</span>
+          <span>
+            {isGenerating ? "Live review in progress" : "Checks complete"}
+          </span>
         </div>
         <span className="font-medium text-slate-600">AI Business</span>
       </div>

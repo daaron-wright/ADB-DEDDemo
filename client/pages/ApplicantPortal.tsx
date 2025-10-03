@@ -435,21 +435,33 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
     message: "Validating trade name and ownership...",
     percent: 42,
     keyConsiderations: ["Legal structure", "Ownership model"],
-    dataTags: ["Trade name reservation", "Shareholder IDs", "Economic directory"],
+    dataTags: [
+      "Trade name reservation",
+      "Shareholder IDs",
+      "Economic directory",
+    ],
   },
   {
     stageId: "submit-documents",
     message: "Reviewing supporting documents...",
     percent: 63,
     keyConsiderations: ["Business activities", "Compliance attachments"],
-    dataTags: ["Tenancy contract", "Financial statements", "Food safety certificates"],
+    dataTags: [
+      "Tenancy contract",
+      "Financial statements",
+      "Food safety certificates",
+    ],
   },
   {
     stageId: "business-licensing",
     message: "Aligning approvals across directorates...",
     percent: 78,
     keyConsiderations: ["Business activities", "Financial readiness"],
-    dataTags: ["Fee schedule", "Payment verification", "Compliance analyst notes"],
+    dataTags: [
+      "Fee schedule",
+      "Payment verification",
+      "Compliance analyst notes",
+    ],
   },
   {
     stageId: "pre-operational-inspection",
@@ -515,17 +527,14 @@ export default function ApplicantPortal() {
   );
   const [isStageManuallySelected, setIsStageManuallySelected] = useState(false);
 
-  const updateCurrentJourneyStep = useCallback(
-    (stepId: string) => {
-      if (!JOURNEY_STEPS_CONFIG.some((step) => step.id === stepId)) {
-        return;
-      }
+  const updateCurrentJourneyStep = useCallback((stepId: string) => {
+    if (!JOURNEY_STEPS_CONFIG.some((step) => step.id === stepId)) {
+      return;
+    }
 
-      setJourneySteps(computeSteps(stepId));
-      setCurrentJourneyStepId(stepId);
-    },
-    [],
-  );
+    setJourneySteps(computeSteps(stepId));
+    setCurrentJourneyStepId(stepId);
+  }, []);
 
   const handleJourneyStepChange = useCallback(
     (stepId: string) => {
@@ -666,7 +675,9 @@ export default function ApplicantPortal() {
 
   const handleViewJourney = (stageId: string) => {
     setPortalView("journey");
-    const matchingStep = JOURNEY_STEPS_CONFIG.find((step) => step.id === stageId);
+    const matchingStep = JOURNEY_STEPS_CONFIG.find(
+      (step) => step.id === stageId,
+    );
     if (matchingStep) {
       updateCurrentJourneyStep(stageId);
     }
@@ -676,8 +687,7 @@ export default function ApplicantPortal() {
     const applicantTasks = journeyStages.flatMap((stage) =>
       stage.tasks
         .filter(
-          (task) =>
-            task.owner === "Applicant" && task.status !== "completed",
+          (task) => task.owner === "Applicant" && task.status !== "completed",
         )
         .map<NextActionItem>((task) => ({
           id: task.id,
@@ -925,7 +935,9 @@ export default function ApplicantPortal() {
       </div>
       <div className="space-y-6 text-sm text-slate-700">
         <div>
-          <h3 className="text-sm font-semibold text-slate-900">Need support?</h3>
+          <h3 className="text-sm font-semibold text-slate-900">
+            Need support?
+          </h3>
           <p className="mt-2 leading-relaxed">
             Our licensing team is available Sunday to Thursday, 8:00–18:00 GST.
             Reach out at{" "}
@@ -983,223 +995,234 @@ export default function ApplicantPortal() {
   return (
     <>
       <PortalPageLayout
-      title={workspaceTitle}
-      subtitle="Business license portal"
-      description={workspaceDescription}
-      filters={filters}
-      headerActions={headerActions}
-    >
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0d3f43] via-[#0f5f66] to-[#0f766e] p-6 text-white shadow-[0_24px_48px_-32px_rgba(11,64,55,0.35)] sm:p-8">
-        <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.22),transparent_58%),radial-gradient(circle_at_bottom_right,rgba(15,118,110,0.6),rgba(4,32,36,0.2))]"
-          aria-hidden="true"
-        />
-        <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex flex-col gap-5">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <img
-                  src={ENTREPRENEUR_PROFILE.avatar}
-                  alt={ENTREPRENEUR_PROFILE.name}
-                  className="h-14 w-14 rounded-2xl border border-white/50 object-cover shadow-[0_14px_28px_-20px_rgba(0,0,0,0.55)]"
-                />
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/70">
-                    Investor Journey
+        title={workspaceTitle}
+        subtitle="Business license portal"
+        description={workspaceDescription}
+        filters={filters}
+        headerActions={headerActions}
+      >
+        <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0d3f43] via-[#0f5f66] to-[#0f766e] p-6 text-white shadow-[0_24px_48px_-32px_rgba(11,64,55,0.35)] sm:p-8">
+          <div
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.22),transparent_58%),radial-gradient(circle_at_bottom_right,rgba(15,118,110,0.6),rgba(4,32,36,0.2))]"
+            aria-hidden="true"
+          />
+          <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={ENTREPRENEUR_PROFILE.avatar}
+                    alt={ENTREPRENEUR_PROFILE.name}
+                    className="h-14 w-14 rounded-2xl border border-white/50 object-cover shadow-[0_14px_28px_-20px_rgba(0,0,0,0.55)]"
+                  />
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/70">
+                      Investor Journey
+                    </p>
+                    <p className="text-sm font-semibold text-white">
+                      {ENTREPRENEUR_PROFILE.name}
+                    </p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/60">
+                    AI Discovery
                   </p>
-                  <p className="text-sm font-semibold text-white">{ENTREPRENEUR_PROFILE.name}</p>
+                  <p className="text-sm font-semibold text-white">
+                    Research with Business Chat
+                  </p>
                 </div>
               </div>
-              <div className="text-right">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/60">
-                  AI Discovery
+              <div className="space-y-3">
+                <h2 className="text-2xl font-semibold leading-snug sm:text-3xl">
+                  Your journey, powered by AI
+                </h2>
+                <p className="max-w-xl text-sm leading-relaxed text-white/80">
+                  Discover a clear path to research market potential, plan key
+                  approvals, and prepare your business case with AI guidance. In
+                  just a few stages, explore how {ENTREPRENEUR_PROFILE.name} and
+                  other investors turn ideas into thriving restaurants across
+                  Abu Dhabi.
                 </p>
-                <p className="text-sm font-semibold text-white">Research with Business Chat</p>
               </div>
             </div>
-            <div className="space-y-3">
-              <h2 className="text-2xl font-semibold leading-snug sm:text-3xl">
-                Your journey, powered by AI
+            <div className="flex sm:w-auto sm:items-center">
+              <Link
+                to={discoveryGeneralChatLink}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/70 px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_-22px_rgba(0,0,0,0.35)] transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+              >
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/15">
+                  <Plus className="h-4 w-4" aria-hidden="true" />
+                </span>
+                Explore more options
+              </Link>
+            </div>
+          </div>
+        </section>
+        <section className="rounded-3xl border border-[#d8e4df] bg-white p-8 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)]">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+            <div className="space-y-2 text-slate-900">
+              <h2 className="text-2xl font-semibold tracking-tight">
+                {primaryApplication.title}
               </h2>
-              <p className="max-w-xl text-sm leading-relaxed text-white/80">
-                Discover a clear path to research market potential, plan key approvals, and prepare your
-                business case with AI guidance. In just a few stages, explore how {ENTREPRENEUR_PROFILE.name} and
-                other investors turn ideas into thriving restaurants across Abu Dhabi.
+              <p className="text-sm text-slate-600">
+                {primaryApplication.directorate}
               </p>
-            </div>
-          </div>
-          <div className="flex sm:w-auto sm:items-center">
-            <Link
-              to={discoveryGeneralChatLink}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/70 px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_-22px_rgba(0,0,0,0.35)] transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-            >
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/15">
-                <Plus className="h-4 w-4" aria-hidden="true" />
-              </span>
-              Explore more options
-            </Link>
-          </div>
-        </div>
-      </section>
-      <section className="rounded-3xl border border-[#d8e4df] bg-white p-8 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)]">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-          <div className="space-y-2 text-slate-900">
-            <h2 className="text-2xl font-semibold tracking-tight">
-              {primaryApplication.title}
-            </h2>
-            <p className="text-sm text-slate-600">
-              {primaryApplication.directorate}
-            </p>
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              <Badge
-                className={cn(
-                  "border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide",
-                  statusStyles[primaryApplication.status],
-                )}
-              >
-                {primaryApplication.status}
-              </Badge>
-              <span className="text-xs text-slate-500">
-                {primaryApplication.id}
-              </span>
-            </div>
-            <div className="mt-6 space-y-3">
-              <Button
-                type="button"
-                onClick={handleOpenSidePanel}
-                className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-              >
-                <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
-                Chat with AI
-              </Button>
-              <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={handleOpenFocus}
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <Badge
                   className={cn(
-                    "inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
-                    isFocusView
-                      ? "border-[#0f766e] bg-[#eaf7f3] text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] hover:bg-[#d9efe7]"
-                      : "border-[#d8e4df] bg-white text-slate-600 hover:bg-[#f4faf8]",
+                    "border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide",
+                    statusStyles[primaryApplication.status],
                   )}
                 >
-                  Focus modal
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCloseChat}
-                  className={cn(
-                    "inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
-                    isChatOpen
-                      ? "border-[#0f766e] bg-white shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] hover:bg-[#eaf7f3]"
-                      : "border-[#d8e4df] bg-white text-slate-500",
-                  )}
-                >
-                  Close chat
-                </button>
+                  {primaryApplication.status}
+                </Badge>
+                <span className="text-xs text-slate-500">
+                  {primaryApplication.id}
+                </span>
               </div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]/70">
-                Current view: {isSidePanelView ? "Side panel" : isFocusView ? "Focus modal" : "Closed"}
+              <div className="mt-6 space-y-3">
+                <Button
+                  type="button"
+                  onClick={handleOpenSidePanel}
+                  className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                >
+                  <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                  Chat with AI
+                </Button>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={handleOpenFocus}
+                    className={cn(
+                      "inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
+                      isFocusView
+                        ? "border-[#0f766e] bg-[#eaf7f3] text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] hover:bg-[#d9efe7]"
+                        : "border-[#d8e4df] bg-white text-slate-600 hover:bg-[#f4faf8]",
+                    )}
+                  >
+                    Focus modal
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCloseChat}
+                    className={cn(
+                      "inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
+                      isChatOpen
+                        ? "border-[#0f766e] bg-white shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] hover:bg-[#eaf7f3]"
+                        : "border-[#d8e4df] bg-white text-slate-500",
+                    )}
+                  >
+                    Close chat
+                  </button>
+                </div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]/70">
+                  Current view:{" "}
+                  {isSidePanelView
+                    ? "Side panel"
+                    : isFocusView
+                      ? "Focus modal"
+                      : "Closed"}
+                </p>
+              </div>
+            </div>
+            <div className="w-full max-w-xs rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] p-4">
+              <div className="flex items-center justify-between text-sm font-medium text-slate-700">
+                <span>Overall progress</span>
+                <span className="text-slate-900">
+                  {primaryApplication.progress}%
+                </span>
+              </div>
+              <Progress
+                value={primaryApplication.progress}
+                className="mt-3 h-2"
+              />
+              <p className="mt-3 text-xs text-slate-500">
+                Stay on track by completing outstanding tasks before the SLA
+                threshold.
               </p>
             </div>
           </div>
-          <div className="w-full max-w-xs rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] p-4">
-            <div className="flex items-center justify-between text-sm font-medium text-slate-700">
-              <span>Overall progress</span>
-              <span className="text-slate-900">
-                {primaryApplication.progress}%
-              </span>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Beneficiary
+              </p>
+              <p className="mt-2 text-sm font-semibold text-slate-900">
+                {primaryApplication.beneficiary}
+              </p>
             </div>
-            <Progress
-              value={primaryApplication.progress}
-              className="mt-3 h-2"
-            />
-            <p className="mt-3 text-xs text-slate-500">
-              Stay on track by completing outstanding tasks before the SLA
-              threshold.
-            </p>
+            <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                License type
+              </p>
+              <p className="mt-2 text-sm font-semibold text-slate-900">
+                {primaryApplication.licenseType}
+              </p>
+            </div>
+            <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Submission ID
+              </p>
+              <p className="mt-2 text-sm font-semibold text-slate-900">
+                {primaryApplication.id}
+              </p>
+            </div>
+            <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Last update
+              </p>
+              <p className="mt-2 text-sm font-semibold text-slate-900">
+                {dateFormatter.format(new Date(primaryApplication.lastUpdated))}
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Beneficiary
-            </p>
-            <p className="mt-2 text-sm font-semibold text-slate-900">
-              {primaryApplication.beneficiary}
-            </p>
-          </div>
-          <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              License type
-            </p>
-            <p className="mt-2 text-sm font-semibold text-slate-900">
-              {primaryApplication.licenseType}
-            </p>
-          </div>
-          <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Submission ID
-            </p>
-            <p className="mt-2 text-sm font-semibold text-slate-900">
-              {primaryApplication.id}
-            </p>
-          </div>
-          <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Last update
-            </p>
-            <p className="mt-2 text-sm font-semibold text-slate-900">
-              {dateFormatter.format(new Date(primaryApplication.lastUpdated))}
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-8 space-y-4">
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Next action
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-700">
-              {primaryApplication.nextAction}
-            </p>
-          </div>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={handleContinueToNextAction}
-            className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] transition hover:bg-white hover:shadow-[0_16px_32px_-24px_rgba(11,64,55,0.32)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-          >
-            <svg
-              className="h-3.5 w-3.5"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
+          <div className="mt-8 space-y-4">
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Next action
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                {primaryApplication.nextAction}
+              </p>
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleContinueToNextAction}
+              className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] transition hover:bg-white hover:shadow-[0_16px_32px_-24px_rgba(11,64,55,0.32)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
             >
-              <path
-                d="M5 10h10m0 0-4-4m4 4-4 4"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            Continue to Your Next Action
-          </Button>
-        </div>
-      </section>
+              <svg
+                className="h-3.5 w-3.5"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M5 10h10m0 0-4-4m4 4-4 4"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              Continue to Your Next Action
+            </Button>
+          </div>
+        </section>
 
-      <section className="space-y-6">
-        <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 text-sm leading-relaxed text-slate-700">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-            Application summary
-          </h3>
-          <p className="mt-3">{primaryApplication.summary}</p>
-        </div>
-      </section>
-    </PortalPageLayout>
+        <section className="space-y-6">
+          <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 text-sm leading-relaxed text-slate-700">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+              Application summary
+            </h3>
+            <p className="mt-3">{primaryApplication.summary}</p>
+          </div>
+        </section>
+      </PortalPageLayout>
       <BusinessChatUI
         isOpen={isChatOpen}
         mode={isSidePanelView ? "side-panel" : "modal"}

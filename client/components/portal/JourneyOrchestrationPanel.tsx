@@ -19,9 +19,11 @@ interface JourneyOrchestrationPanelProps {
   onToggleAction: (id: string) => void;
   onActionClick: (action: NextActionItem) => void;
   nextActionRefs: MutableRefObject<Record<string, HTMLElement | null>>;
-  getNextActionToken: (
-    status: NextActionStatus,
-  ) => { label: string; badgeClass: string; helperClass: string };
+  getNextActionToken: (status: NextActionStatus) => {
+    label: string;
+    badgeClass: string;
+    helperClass: string;
+  };
   timelineItems: JourneyTimelineItem[];
   currentStageLabel: string;
   chatPhase: JourneyAnimationPhase | null;
@@ -54,7 +56,9 @@ export function JourneyOrchestrationPanel({
   return (
     <div className="space-y-6 rounded-3xl border border-white/60 bg-white/80 p-6 shadow-[0_18px_48px_-32px_rgba(11,64,55,0.28)] backdrop-blur-xl">
       <div className="space-y-3">
-        <h4 className="text-lg font-semibold text-slate-900">Journey orchestration</h4>
+        <h4 className="text-lg font-semibold text-slate-900">
+          Journey orchestration
+        </h4>
         <p className="text-sm leading-relaxed text-slate-700">{introMessage}</p>
       </div>
 
@@ -160,7 +164,9 @@ export function JourneyOrchestrationPanel({
                               isCompleted && "opacity-70",
                             )}
                           >
-                            {action.stageTitle ? `Stage: ${action.stageTitle}` : ""}
+                            {action.stageTitle
+                              ? `Stage: ${action.stageTitle}`
+                              : ""}
                             {action.stageTitle && dueLabel ? " • " : ""}
                             {dueLabel ? `Due ${dueLabel}` : ""}
                           </p>
