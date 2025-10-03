@@ -796,10 +796,11 @@ export default function ApplicantPortal() {
   const discoveryGeneralChatLink = "/?chat=open";
 
   const [businessAIView, setBusinessAIView] = usePersistentState<
-    "closed" | "side-panel"
+    "closed" | "side-panel" | "focus"
   >("portal-business-ai-view", "closed");
 
   const isSidePanelView = businessAIView === "side-panel";
+  const isFocusView = businessAIView === "focus";
   const isChatOpen = businessAIView !== "closed";
 
   const [focusedNextActionId, setFocusedNextActionId] = useState<string | null>(
