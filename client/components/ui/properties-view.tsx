@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
+import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 
 interface PropertiesViewProps {
   isOpen: boolean;
@@ -130,11 +130,7 @@ const ChatInterface = () => {
       <div className="bg-white/14 backdrop-blur-md rounded-3xl border border-white/20 p-4 h-full">
         {/* AI Business Header */}
         <div className="flex items-center gap-2 mb-4">
-          <img
-          src={AI_ASSISTANT_PROFILE.avatar}
-          alt={AI_ASSISTANT_PROFILE.name}
-          className="w-16 h-16 rounded-full border border-[#54FFD4] object-cover"
-        />
+          <AIBusinessOrb className="h-16 w-16" />
           <div className="flex-1">
             <h3 className="text-white text-lg font-bold">AI Business</h3>
           </div>
