@@ -109,11 +109,7 @@ const SimpleChatBubble = ({ message }: { message: SimpleChatMessage }) => {
   if (message.isAI) {
     return (
       <div className="flex items-start gap-3 mb-4">
-        <img
-          src={aiAvatar}
-          alt="AI Business"
-          className="w-10 h-10 rounded-full border border-[#54FFD4] flex-shrink-0 mt-1"
-        />
+        <AIBusinessOrb className="mt-1 h-10 w-10 flex-shrink-0" />
         <div className="flex flex-col max-w-[75%]">
           <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 text-white text-sm leading-relaxed">
             {message.content}
