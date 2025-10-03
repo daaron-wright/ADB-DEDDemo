@@ -114,10 +114,7 @@ export const ShadCNDemo = () => {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center space-x-4">
-              <Avatar>
-                <AvatarImage src={AI_ASSISTANT_PROFILE.avatar} alt={AI_ASSISTANT_PROFILE.name} />
-                <AvatarFallback>AI</AvatarFallback>
-              </Avatar>
+              <AIBusinessOrb className="h-12 w-12" />
               <div>
                 <p className="font-medium">AI Business Assistant</p>
                 <p className="text-sm text-muted-foreground">AI-powered business guide</p>
