@@ -192,122 +192,83 @@ export function JourneyOrchestrationPanel({
         <p className="text-sm leading-relaxed text-slate-700">{introMessage}</p>
       </div>
 
-      {actions.length > 0 ? (
-        <div className="space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              To-do bank
+      {totalActions > 0 ? (
+        <div className="space-y-5">
+          <div className="rounded-2xl border border-[#d8e4df] bg-white/90 p-4 shadow-[0_12px_28px_-24px_rgba(11,64,55,0.18)]">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Application progress
+              </p>
+              <span className="text-xs font-semibold text-slate-700">
+                {completedCount} of {totalActions} completed ({completionPercent}%)
+              </span>
+            </div>
+            <div className="mt-3 h-2 w-full rounded-full bg-[#e6f2ed]">
+              <div
+                className="h-full rounded-full bg-[#0f766e] transition-all duration-500"
+                style={{ width: `${completionPercent}%` }}
+              />
+            </div>
+            <div className="mt-3 flex flex-wrap gap-3 text-xs text-slate-600">
+              <span className="font-semibold text-[#0f766e]">
+                {outstandingCount} remaining
+              </span>
+              <span>{completedCount} completed</span>
+            </div>
+            <p className="mt-3 text-xs text-slate-500">
+              Focus on the outstanding actions to keep your workspace moving toward issuance.
             </p>
-            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-              {remainingActionCount} of {actions.length} remaining
-            </span>
           </div>
-          <ol className="space-y-3">
-            {actions.map((action) => {
-              const token = getNextActionToken(action.status);
-              const isFocused = focusedActionId === action.id;
-              const dueLabel =
-                action.dueDate && formatDueDate
-                  ? formatDueDate(action.dueDate)
-                  : null;
-              const isCompleted = completionState[action.id] ?? false;
 
-              return (
-                <li key={action.id}>
-                  <div
-                    ref={(node) => {
-                      nextActionRefs.current[action.id] = node;
-                    }}
+          <div className="space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Outstanding actions
+              </p>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                {outstandingCount === 0
+                  ? "All caught up"
+                  : `${outstandingCount} remaining`}
+              </span>
+            </div>
+            {outstandingCount > 0 ? (
+              <ol className="space-y-3">
+                {outstandingActions.map((action) => renderActionRow(action))}
+              </ol>
+            ) : (
+              <div className="rounded-2xl border border-[#d8e4df] bg-white/80 px-4 py-6 text-center text-sm text-slate-600">
+                You're up to date. Review completed items below or continue exploring stages.
+              </div>
+            )}
+          </div>
+
+          {completedCount > 0 ? (
+            <div className="space-y-2">
+              <button
+                type="button"
+                onClick={() => setShowCompletedTasks((prev) => !prev)}
+                className="flex w-full items-center justify-between rounded-2xl border border-[#d8e4df] bg-white/80 px-4 py-3 text-left text-sm font-semibold text-slate-700 transition hover:border-[#0f766e]/60 hover:text-[#0f766e]"
+              >
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">
+                  Completed actions
+                </span>
+                <span className="flex items-center gap-2 text-xs text-slate-500">
+                  {completedCount} {completedCount === 1 ? "item" : "items"}
+                  <ChevronDown
                     className={cn(
-                      "flex items-start gap-3 rounded-2xl border px-4 py-3 transition focus-within:outline-none focus-within:ring-2 focus-within:ring-[#0f766e]/40",
-                      isFocused
-                        ? "border-[#0f766e] bg-[#eaf7f3] shadow-[0_16px_32px_-28px_rgba(11,64,55,0.32)]"
-                        : "border-[#d8e4df] bg-white hover:border-[#0f766e]/60 hover:bg-[#f4faf8]",
-                      isCompleted && !isFocused
-                        ? "border-[#d8e4df] bg-white/80"
-                        : null,
+                      "h-4 w-4 transition-transform",
+                      showCompletedTasks ? "rotate-180" : "rotate-0",
                     )}
-                  >
-                    <button
-                      type="button"
-                      onClick={() => onToggleAction(action.id)}
-                      className={cn(
-                        "mt-1 flex h-8 w-8 items-center justify-center rounded-full border-2 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40",
-                        isCompleted
-                          ? "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_12px_24px_-18px_rgba(11,64,55,0.35)]"
-                          : "border-[#cfe4dd] bg-white text-[#0f766e] hover:border-[#0f766e]",
-                      )}
-                      aria-pressed={isCompleted}
-                      aria-label={
-                        isCompleted
-                          ? `Mark ${action.label} as not done`
-                          : `Mark ${action.label} as done`
-                      }
-                    >
-                      {isCompleted ? (
-                        <Check className="h-4 w-4" aria-hidden="true" />
-                      ) : (
-                        <span className="h-3.5 w-3.5 rounded-full border-2 border-[#9dbbb1]" />
-                      )}
-                    </button>
-                    <div className="flex-1 space-y-2">
-                      <button
-                        type="button"
-                        onClick={() => onActionClick(action)}
-                        className="w-full text-left"
-                      >
-                        <div className="flex flex-wrap items-center justify-between gap-2">
-                          <p
-                            className={cn(
-                              "text-sm font-semibold text-slate-900",
-                              isCompleted &&
-                                "text-slate-500 line-through decoration-1 decoration-slate-400",
-                            )}
-                          >
-                            {action.label}
-                          </p>
-                          <span
-                            className={cn(
-                              "inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]",
-                              token.badgeClass,
-                              isCompleted && "opacity-70",
-                            )}
-                          >
-                            {token.label}
-                          </span>
-                        </div>
-                        {action.description ? (
-                          <p className="mt-2 text-xs leading-relaxed text-slate-600">
-                            {action.description}
-                          </p>
-                        ) : null}
-                        {action.id === "business-activity-guidance" ? (
-                          <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#3645b0]">
-                            Tap to open the business activities questionnaire.
-                          </p>
-                        ) : null}
-                        {(action.stageTitle || dueLabel) && (
-                          <p
-                            className={cn(
-                              "mt-3 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                              token.helperClass,
-                              isCompleted && "opacity-70",
-                            )}
-                          >
-                            {action.stageTitle
-                              ? `Stage: ${action.stageTitle}`
-                              : ""}
-                            {action.stageTitle && dueLabel ? " • " : ""}
-                            {dueLabel ? `Due ${dueLabel}` : ""}
-                          </p>
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
+                  />
+                </span>
+              </button>
+              {showCompletedTasks ? (
+                <ol className="space-y-3">
+                  {completedActions.map((action) => renderActionRow(action))}
+                </ol>
+              ) : null}
+            </div>
+          ) : null}
         </div>
       ) : null}
 
