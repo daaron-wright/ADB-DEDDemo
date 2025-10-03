@@ -803,6 +803,9 @@ export default function ApplicantPortal() {
     "closed" | "side-panel" | "focus"
   >("portal-business-ai-view", "closed");
 
+  const [focusContext, setFocusContext] =
+    useState<BusinessAIFocusContext | null>(null);
+
   const isSidePanelView = businessAIView === "side-panel";
   const isFocusView = businessAIView === "focus";
   const isChatOpen = businessAIView !== "closed";
