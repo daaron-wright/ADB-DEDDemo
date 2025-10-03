@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
+import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 
 interface Property {
   id: string;
@@ -138,11 +138,7 @@ const AIBusinessChat = () => (
   <div className="absolute bottom-6 right-6 w-[351px] h-[206px] z-30">
     <div className="bg-white/14 backdrop-blur-sm rounded-3xl p-4 h-full border border-white/20">
       <div className="flex items-center gap-3 mb-4">
-        <img
-          src={AI_ASSISTANT_PROFILE.avatar}
-          alt={AI_ASSISTANT_PROFILE.name}
-          className="w-16 h-16 rounded-full border border-[#54FFD4]"
-        />
+        <AIBusinessOrb className="h-16 w-16" />
         <div>
           <h3 className="text-white text-lg font-semibold tracking-[0.058px]">AI Business</h3>
           <div className="flex items-center gap-1 mt-1">
