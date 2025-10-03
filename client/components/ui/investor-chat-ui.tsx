@@ -5,7 +5,8 @@ import axios from 'axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
 import { chatCardClass } from '@/lib/chat-style';
-import { ENTREPRENEUR_PROFILE, AI_ASSISTANT_PROFILE } from '@/lib/profile';
+import { AIBusinessOrb } from '@/components/ui/ai-business-orb';
+import { ENTREPRENEUR_PROFILE } from '@/lib/profile';
 
 interface InvestorMessage {
   id: string;
@@ -314,11 +315,7 @@ export function InvestorChatUI({ isOpen, onClose, category, title = "AI Business
                     {/* Header */}
                     <div className="drag-handle flex items-center justify-between p-6 border-b border-white/20 cursor-move">
                       <div className="flex items-center gap-4">
-                        <img
-                          src={AI_ASSISTANT_PROFILE.avatar}
-                          alt={AI_ASSISTANT_PROFILE.name}
-                          className="w-16 h-16 rounded-full border-2 border-[#54FFD4] object-cover"
-                        />
+                        <AIBusinessOrb className="h-16 w-16" />
                         <div>
                           <h2 className="text-white text-xl font-bold">
                             {title}
