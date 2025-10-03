@@ -1428,6 +1428,7 @@ export default function ApplicantPortal() {
         category="restaurants"
         title="Business AI"
         initialMessage={BUSINESS_AI_INTRO_MESSAGE}
+        journeyFocusView={journeyFocusViewProps}
       />
     </>
   );
