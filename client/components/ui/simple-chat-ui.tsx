@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import Draggable from "react-draggable";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { X, Mic, Keyboard } from "lucide-react";
 
 interface SimpleChatMessage {
