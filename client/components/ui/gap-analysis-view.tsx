@@ -16,6 +16,7 @@ const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({
   category,
 }) => {
   const [showContent, setShowContent] = useState(false);
+  const handleDismiss = onClose ?? onBack ?? (() => {});
 
   useEffect(() => {
     const timer = setTimeout(() => setShowContent(true), 250);
