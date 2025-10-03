@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 
 interface GapAnalysisViewProps {
   onBack: () => void;
