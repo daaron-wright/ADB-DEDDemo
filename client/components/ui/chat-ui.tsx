@@ -5,7 +5,7 @@ import axios from 'axios';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
 import { chatCardClass } from '@/lib/chat-style';
-import { AI_ASSISTANT_PROFILE } from '@/lib/profile';
+import { AIBusinessOrb } from '@/components/ui/ai-business-orb';
 
 interface Message {
   id: string;
@@ -163,11 +163,7 @@ export function ChatUI({ isOpen, onClose, title = "AI Business" }: ChatUIProps) 
                     <div className="drag-handle flex items-center gap-2 sm:gap-3 p-3 sm:p-4 cursor-move">
                       {/* Avatar */}
                       <div className="relative flex-shrink-0">
-                        <img
-                          src={AI_ASSISTANT_PROFILE.avatar}
-                          alt={AI_ASSISTANT_PROFILE.name}
-                          className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#54FFD4] object-cover"
-                        />
+                        <AIBusinessOrb className="h-14 w-14 sm:h-16 sm:w-16" />
                       </div>
 
                       {/* Title */}
