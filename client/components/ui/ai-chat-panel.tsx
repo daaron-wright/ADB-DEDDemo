@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
-import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
+
+import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 
 interface AIChatPanelProps {
   className?: string;
@@ -46,11 +47,7 @@ const AIChatPanel: React.FC<AIChatPanelProps> = ({ className = "" }) => {
       >
         <div className="flex w-full flex-col gap-2 px-6 pt-4 pb-2">
           <div className="flex w-full items-center gap-3">
-            <img
-              src={AI_ASSISTANT_PROFILE.avatar}
-              alt={AI_ASSISTANT_PROFILE.name}
-              className="h-16 w-16 flex-shrink-0 rounded-full border border-[#54FFD4]"
-            />
+            <AIBusinessOrb className="h-16 w-16 flex-shrink-0" />
             <div className="flex-1">
               <span className="font-['DM_Sans'] text-lg font-semibold leading-[160%] tracking-[0.058px] text-slate-900">
                 AI Business
