@@ -833,7 +833,19 @@ export default function ApplicantPortal() {
   }, [setBusinessAIView, setFocusedNextActionId, setFocusContext]);
 
   const handleViewJourney = (stageId: string) => {
-    setPortalView("journey");
+    setBusinessAIView("focus");
+    setFocusContext({ type: "stage", stageId });
+    setIsStageManuallySelected(true);
+    setActiveStageId(stageId);
+    const timelineIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
+      (phase) => phase.stageId === stageId,
+    );
+    if (timelineIndex >= 0) {
+      setJourneyAnimationIndex(timelineIndex);
+      setJourneyProgressPercent(
+        JOURNEY_ANIMATION_TIMELINE[timelineIndex]?.percent ?? 0,
+      );
+    }
     const matchingStep = JOURNEY_STEPS_CONFIG.find(
       (step) => step.id === stageId,
     );
