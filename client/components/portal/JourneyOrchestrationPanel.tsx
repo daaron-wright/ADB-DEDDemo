@@ -196,7 +196,7 @@ export function JourneyOrchestrationPanel({
       </div>
 
       {hasOutstandingSection || hasTimelineSection ? (
-        <div className="space-y-5">
+        <div className="space-y-6">
           {hasOutstandingSection ? (
             <div className="rounded-2xl border border-[#d8e4df] bg-white/90 p-4 shadow-[0_12px_28px_-24px_rgba(11,64,55,0.18)]">
               <div className="flex flex-wrap items-center justify-between gap-2">
