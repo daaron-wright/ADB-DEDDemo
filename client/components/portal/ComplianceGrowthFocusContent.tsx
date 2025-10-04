@@ -271,21 +271,25 @@ export function ComplianceGrowthFocusContent({
                 </span>
               </div>
 
-              <div className="grid gap-6 sm:grid-cols-[minmax(0,1fr)_auto]">
+              <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto]">
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
-                    <div className="h-1 w-1 rounded-full bg-[#FAB66C]" />
+                    <span className="inline-flex h-8 w-1.5 rounded-full bg-gradient-to-b from-[#f9c27e] to-[#f58b2e]" />
                     <div>
-                      <div className="text-lg font-medium text-white">9</div>
-                      <div className="text-xs text-white/70">New growth steps</div>
+                      <div className="text-[22px] font-semibold leading-6 text-white">9</div>
+                      <div className="text-xs uppercase tracking-[0.16em] text-white/70">
+                        New growth steps
+                      </div>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="h-1 w-1 rounded-full bg-white/40" />
+                    <span className="inline-flex h-8 w-1.5 rounded-full bg-white/50" />
                     <div>
-                      <div className="text-lg font-medium text-white">3</div>
-                      <div className="text-xs text-white/70">Actions to take</div>
+                      <div className="text-[22px] font-semibold leading-6 text-white">3</div>
+                      <div className="text-xs uppercase tracking-[0.16em] text-white/70">
+                        Actions to take
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -296,7 +300,7 @@ export function ComplianceGrowthFocusContent({
                       cx="48"
                       cy="48"
                       r="40"
-                      stroke="rgba(255, 255, 255, 0.3)"
+                      stroke="rgba(255, 255, 255, 0.24)"
                       strokeWidth="8"
                       fill="none"
                     />
@@ -304,7 +308,7 @@ export function ComplianceGrowthFocusContent({
                       cx="48"
                       cy="48"
                       r="40"
-                      stroke="#FAB66C"
+                      stroke="#fab66c"
                       strokeWidth="8"
                       fill="none"
                       strokeDasharray={`${(75 / 100) * 251.2} 251.2`}
@@ -314,9 +318,9 @@ export function ComplianceGrowthFocusContent({
                 </div>
               </div>
 
-              <div className="space-y-3 border-t border-white/20 pt-6">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-5 w-5 items-center justify-center">
+              <div className="space-y-3 border-t border-white/15 pt-6">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
                     <svg width="15" height="19" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M10.75 0.375C11.1147 0.375 11.4648 0.519481 11.7227 0.777344C11.9805 1.03521 12.125 1.38533 12.125 1.75V2.4375H14.1875C14.5522 2.4375 14.9023 2.58198 15.1602 2.83984C15.418 3.09771 15.5625 3.44783 15.5625 3.8125V18.25C15.5625 18.6147 15.418 18.9648 15.1602 19.2227C14.9023 19.4805 14.5522 19.625 14.1875 19.625H1.8125C1.44783 19.625 1.09771 19.4805 0.839844 19.2227C0.581981 18.9648 0.4375 18.6147 0.4375 18.25V3.8125C0.4375 3.44783 0.581981 3.09771 0.839844 2.83984C1.09771 2.58198 1.44783 2.4375 1.8125 2.4375H3.875V1.75C3.875 1.38533 4.01948 1.03521 4.27734 0.777344C4.53521 0.519481 4.88533 0.375 5.25 0.375H10.75ZM1.8125 3.8125V18.25H14.1875V3.8125H12.125V5.875H3.875V3.8125H1.8125ZM5.25 15.5H3.875V8.625H5.25V15.5ZM8.6875 15.5H7.3125V12.75H8.6875V15.5ZM12.125 15.5H10.75V11.375H12.125V15.5ZM5.25 1.75V4.5H10.75V1.75H5.25Z" fill="white"/>
                     </svg>
