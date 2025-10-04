@@ -118,11 +118,6 @@ export function JourneyStageFocusView({
           progressPercent={46}
         />
 
-        <MyTAMMDocuments
-          companyName="Marwah Emirati Fusion LLC"
-          isGenerating={true}
-        />
-
         <div
           className={chatCardClass(
             TASK_CARD_BASE,
