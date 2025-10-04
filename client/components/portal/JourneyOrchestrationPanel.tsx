@@ -278,7 +278,7 @@ export function JourneyOrchestrationPanel({
                       </span>
                     </button>
                     {showCompletedTasks ? (
-                      <ol className="space-y-3">
+                      <ol className="space-y-4">
                         {completedActions.map((action) => renderActionRow(action))}
                       </ol>
                     ) : null}
