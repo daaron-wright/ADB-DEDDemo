@@ -873,6 +873,7 @@ export default function ApplicantPortal() {
 
   const [focusContext, setFocusContext] =
     useState<BusinessAIFocusContext | null>(null);
+  const [isJourneyOverviewOpen, setIsJourneyOverviewOpen] = useState(false);
 
   const isSidePanelView = businessAIView === "side-panel";
   const isFocusView = businessAIView === "focus";
