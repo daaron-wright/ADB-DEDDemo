@@ -328,8 +328,8 @@ export function ComplianceGrowthFocusContent({
                   <div className="text-sm text-white">5 New economic trends</div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <div className="flex h-5 w-5 items-center justify-center">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M19.25 16.5034V15.1284C19.2469 13.0609 18.4682 11.0698 17.0679 9.5487C15.6677 8.02758 13.7477 7.08714 11.6875 6.91327V5.50342H13.75V4.12842H8.25V5.50342H10.3125V6.91327C8.25232 7.08714 6.33233 8.02758 4.93206 9.5487C3.53178 11.0698 2.75313 13.0609 2.75 15.1284V16.5034H1.375V17.8784H20.625V16.5034H19.25ZM11 8.25342C12.5841 8.2555 14.1191 8.80368 15.3462 9.80555C16.5733 10.8074 17.4175 12.2017 17.7364 13.7534H4.26353C4.58245 12.2017 5.42661 10.8074 6.65372 9.8055C7.88083 8.80362 9.41584 8.25546 11 8.25342ZM4.125 15.1284H17.875V16.5034H4.125V15.1284Z" fill="white"/>
                     </svg>
@@ -337,24 +337,24 @@ export function ComplianceGrowthFocusContent({
                   <div className="text-sm text-white">3 relevant services</div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <div className="flex h-5 w-5 items-center justify-center">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M6.875 20.625C7.63439 20.625 8.25 20.0094 8.25 19.25C8.25 18.4906 7.63439 17.875 6.875 17.875C6.11561 17.875 5.5 18.4906 5.5 19.25C5.5 20.0094 6.11561 20.625 6.875 20.625Z" fill="white"/>
                       <path d="M16.5 20.625C17.2594 20.625 17.875 20.0094 17.875 19.25C17.875 18.4906 17.2594 17.875 16.5 17.875C15.7406 17.875 15.125 18.4906 15.125 19.25C15.125 20.0094 15.7406 20.625 16.5 20.625Z" fill="white"/>
                       <path d="M19.25 4.81264H4.00125L3.4375 1.92514C3.40536 1.76751 3.31896 1.62615 3.19334 1.52565C3.06772 1.42516 2.91084 1.3719 2.75 1.37514H0V2.75014H2.18625L4.8125 15.9501C4.84464 16.1078 4.93104 16.2491 5.05666 16.3496C5.18228 16.4501 5.33916 16.5034 5.5 16.5001H17.875V15.1251H6.06375L5.5 12.3751H17.875C18.0339 12.379 18.1893 12.3277 18.3146 12.2299C18.44 12.1322 18.5276 11.994 18.5625 11.8389L19.9375 5.65139C19.9605 5.54938 19.96 5.44346 19.9359 5.34169C19.9119 5.23992 19.8649 5.14499 19.7986 5.06411C19.7323 4.98323 19.6484 4.91854 19.5534 4.87496C19.4583 4.83139 19.3545 4.81007 19.25 4.81264ZM17.325 11.0001H5.23875L4.27625 6.18764H18.3906L17.325 11.0001Z" fill="white"/>
                     </svg>
                   </div>
-                  <div className="text-sm text-white">17 new suppliers in Marketplace</div>
+                  <div className="text-sm text-white">17 new suppliers in marketplace</div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <div className="flex h-5 w-5 items-center justify-center">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M6.94151 10.175L10.2947 2.75C10.9617 2.75 11.6014 3.01076 12.073 3.47491C12.5447 3.93906 12.8096 4.56858 12.8096 5.22498V8.52496H17.5544C17.7974 8.52225 18.0382 8.57158 18.2599 8.66952C18.4816 8.76746 18.6791 8.91167 18.8386 9.09216C18.9981 9.27265 19.1158 9.48511 19.1835 9.71481C19.2513 9.94452 19.2675 10.186 19.231 10.4225L18.0742 17.8474C18.0135 18.2408 17.8105 18.5995 17.5024 18.8572C17.1943 19.1149 16.8019 19.2544 16.3976 19.2499H6.94151M6.94151 10.175V19.2499M6.94151 10.175H4.4266C3.98194 10.175 3.55549 10.3488 3.24107 10.6582C2.92664 10.9677 2.75 11.3873 2.75 11.8249V17.5999C2.75 18.0375 2.92664 18.4572 3.24107 18.7666C3.55549 19.0761 3.98194 19.2499 4.4266 19.2499H6.94151" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M6.94151 10.175L10.2947 2.75C10.9617 2.75 11.6014 3.01076 12.073 3.47491C12.5447 3.93906 12.8096 4.56858 12.8096 5.22498V8.52496H17.5544C17.7974 8.52225 18.0382 8.57158 18.2599 8.66952C18.4816 8.76746 18.6791 8.91167 18.8386 9.09216C18.9981 9.27265 19.1158 9.48511 19.1835 9.71481C19.2513 9.94452 19.2675 10.186 19.231 10.4225L18.0742 17.8474C18.0135 18.2408 17.8105 18.5995 17.5024 18.8572C17.1943 19.1149 16.8019 19.2544 16.3976 19.2499H6.94151M6.94151 10.175V19.2499M6.94151 10.175H4.4266C3.98194 10.175 3.55549 10.3488 3.24107 10.6582C2.92664 10.9677 2.75 11.3873 2.75 11.8249V17.5999C2.75 18.0375 2.92664 18.4572 3.24107 18.7666C3.55549 19.0761 3.98194 19.2499 4.4266 19.2499H6.94151" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <div className="text-sm text-white">1 Social Media Report</div>
+                  <div className="text-sm text-white">1 social media report</div>
                 </div>
               </div>
 
