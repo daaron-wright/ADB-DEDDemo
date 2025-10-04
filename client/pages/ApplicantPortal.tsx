@@ -122,13 +122,13 @@ const journeyStages: JourneyStage[] = [
     id: "document-submissions",
     title: "Submit Documents",
     highlight: {
-      label: "Document sync active",
-      detail: `Last synced ${formatDisplayDate(daysFromToday(-2))}`,
+      label: "Documents submitted",
+      detail: `Completed ${formatDisplayDate(daysFromToday(-4))}`,
     },
     description:
       "Gathering and submitting required documents from various authorities including ADJD, ADM, and ADAFSA.",
-    state: "current",
-    statusDetail: "Document collection underway",
+    state: "done",
+    statusDetail: "All documents submitted",
     tasks: [
       {
         id: "notarized-moa-adjd",
@@ -253,15 +253,15 @@ const journeyStages: JourneyStage[] = [
   },
   {
     id: "license",
-    title: "License",
+    title: "Business Licensing",
     highlight: {
-      label: "License application next",
-      detail: "Waiting for approvals bundle",
+      label: "License automation active",
+      detail: `Processing ${formatDisplayDate(daysFromToday(0))}`,
     },
     description:
-      "Once approvals land, the unified license application will be compiled and submitted.",
-    state: "upcoming",
-    statusDetail: "Preparing application artifacts",
+      "AI Business is automating the economic license issuance with the Department of Economic Development.",
+    state: "current",
+    statusDetail: "License generation in progress",
     tasks: [
       {
         id: "license-compile-application",
