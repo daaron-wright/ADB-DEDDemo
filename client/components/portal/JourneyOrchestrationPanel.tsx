@@ -297,7 +297,7 @@ export function JourneyOrchestrationPanel({
                     Active: {currentStageLabel}
                   </span>
                 </div>
-                <ol className="space-y-3">
+                <ol className="space-y-4">
                   {timelineItems.map((item, index) => {
                     const isAutomation = item.id === "generating-application";
                     const isStage = !isAutomation;
