@@ -130,7 +130,7 @@ export function JourneyOrchestrationPanel({
               <span className="h-3.5 w-3.5 rounded-full border-2 border-[#9dbbb1]" />
             )}
           </button>
-          <div className="flex-1 space-y-2">
+          <div className="flex-1 space-y-3">
             <button
               type="button"
               onClick={() => onActionClick(action)}
