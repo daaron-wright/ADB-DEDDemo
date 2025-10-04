@@ -586,9 +586,20 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
     ],
   },
   {
+    stageId: "document-submissions",
+    message: "Gathering and submitting required documents...",
+    percent: 24,
+    keyConsiderations: ["Document requirements", "Authority coordination"],
+    dataTags: [
+      "Notarized MOA",
+      "Tenancy confirmation",
+      "Site plan review",
+    ],
+  },
+  {
     stageId: "owners",
     message: "Capturing co-founders and ownership splits...",
-    percent: 28,
+    percent: 30,
     keyConsiderations: ["Shareholder IDs", "Equity splits"],
     dataTags: [
       "Co-founder records",
