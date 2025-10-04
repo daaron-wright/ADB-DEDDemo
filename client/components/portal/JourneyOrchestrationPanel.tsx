@@ -139,7 +139,7 @@ export function JourneyOrchestrationPanel({
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <p
                   className={cn(
-                    "text-sm font-semibold text-slate-900",
+                    "text-base font-semibold text-slate-900",
                     isCompleted &&
                       "text-slate-500 line-through decoration-1 decoration-slate-400",
                   )}
