@@ -234,8 +234,8 @@ export function JourneyOrchestrationPanel({
             )}
           >
             {hasOutstandingSection ? (
-              <section className="space-y-4">
-                <div className="space-y-3">
+              <section className="space-y-5">
+                <div className="space-y-4">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                       Outstanding actions
