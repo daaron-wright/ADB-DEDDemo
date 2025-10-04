@@ -16,6 +16,7 @@ import { BusinessRegistrationFocusContent } from "./BusinessRegistrationFocusCon
 import { DocumentSubmissionFocusContent } from "./DocumentSubmissionFocusContent";
 import { BusinessLicensingFocusContent } from "./BusinessLicensingFocusContent";
 import { PreOperationalInspectionFocusContent } from "./PreOperationalInspectionFocusContent";
+import { ComplianceGrowthFocusContent } from "./ComplianceGrowthFocusContent";
 
 interface StageTokens {
   badgeClass: string;
