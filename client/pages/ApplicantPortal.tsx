@@ -901,6 +901,18 @@ export default function ApplicantPortal() {
     setFocusedNextActionId(null);
     setFocusContext(null);
   }, [setBusinessAIView, setFocusedNextActionId, setFocusContext]);
+  const handleJourneyOverviewToggle = useCallback(() => {
+    setIsJourneyOverviewOpen((prev) => !prev);
+  }, []);
+  const handleJourneyOverviewKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        handleJourneyOverviewToggle();
+      }
+    },
+    [handleJourneyOverviewToggle],
+  );
 
   const handleViewJourney = (stageId: string) => {
     setBusinessAIView("focus");
