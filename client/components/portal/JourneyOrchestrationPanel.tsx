@@ -227,7 +227,7 @@ export function JourneyOrchestrationPanel({
 
           <div
             className={cn(
-              "grid gap-5",
+              "grid gap-6",
               hasOutstandingSection && hasTimelineSection
                 ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"
                 : "grid-cols-1",
