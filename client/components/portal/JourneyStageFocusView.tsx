@@ -107,6 +107,93 @@ export function JourneyStageFocusView({
   };
 
   const isBusinessRegistrationStage = stage?.id === "trade-name-activities";
+  const isDocumentSubmissionStage = stage?.id === "document-submissions" || stage?.id === "submissions";
+
+  if (isDocumentSubmissionStage) {
+    return (
+      <div className="space-y-5 sm:space-y-6">
+        <DocumentSubmissionFocusContent
+          journeyNumber="0987654321"
+          completionStatus="5 of 8 complete"
+          progressPercent={51}
+        />
+
+        <div
+          className={chatCardClass(
+            TASK_CARD_BASE,
+            "space-y-4 rounded-2xl p-5",
+          )}
+        >
+          <div className="space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Capture notes
+              </h4>
+              <span className="text-[11px] uppercase tracking-[0.18em] text-slate-400">
+                Private to you
+              </span>
+            </div>
+            <Textarea
+              value={quickNotes}
+              onChange={(event) => setQuickNotes(event.target.value)}
+              placeholder="Add context, decisions, or blockers for this stage."
+              className="min-h-[120px] rounded-2xl border-white/60 bg-white/70 text-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition focus-visible:ring-[#0f766e]/30"
+            />
+            {quickNotes.trim() ? (
+              <p className="text-xs text-[#0f766e]">
+                Saved locally for this session.
+              </p>
+            ) : null}
+          </div>
+
+          <div className="space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Attach supporting documents
+              </h4>
+              {selectedFiles.length > 0 ? (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleClearFiles}
+                  className="h-8 rounded-full px-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 hover:text-[#0f766e]"
+                >
+                  Clear selection
+                </Button>
+              ) : null}
+            </div>
+            <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-white/70 bg-white/70 px-6 py-6 text-center text-sm text-slate-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition hover:border-[#0f766e] hover:text-[#0f766e]">
+              <span className="font-semibold">Drop files here or browse</span>
+              <span className="text-xs text-slate-500">
+                PDF, DOCX, XLSX, and images up to 25 MB each
+              </span>
+              <Input
+                type="file"
+                multiple
+                onChange={handleFilesSelected}
+                className="hidden"
+              />
+            </label>
+            {selectedFiles.length > 0 ? (
+              <div className="space-y-2 rounded-2xl border border-white/70 bg-white/80 p-3 text-sm shadow-[0_12px_24px_-20px_rgba(11,64,55,0.18)]">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Selected files
+                </p>
+                <ul className="space-y-1 text-sm text-slate-700">
+                  {selectedFiles.map((file) => (
+                    <li key={file} className="truncate">
+                      {file}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (isBusinessRegistrationStage) {
     return (
