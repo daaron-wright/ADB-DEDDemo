@@ -14,6 +14,7 @@ import type {
 } from "./journey-types";
 import { BusinessRegistrationFocusContent } from "./BusinessRegistrationFocusContent";
 import { DocumentSubmissionFocusContent } from "./DocumentSubmissionFocusContent";
+import { BusinessLicensingFocusContent } from "./BusinessLicensingFocusContent";
 
 interface StageTokens {
   badgeClass: string;
