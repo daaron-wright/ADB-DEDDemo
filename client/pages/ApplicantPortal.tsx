@@ -1335,6 +1335,7 @@ export default function ApplicantPortal() {
             tabIndex={0}
             aria-expanded={isJourneyOverviewOpen}
             aria-controls="journey-overview-panel"
+            aria-label={`Toggle journey overview for ${primaryApplication.title}`}
             onClick={handleJourneyOverviewToggle}
             onKeyDown={handleJourneyOverviewKeyDown}
             className="space-y-8 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
