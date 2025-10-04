@@ -19,8 +19,8 @@ export function PortalPageLayout({
 }: PortalPageLayoutProps) {
   return (
     <div className="relative min-h-screen bg-[#f5f8f6]">
-      <div className="mx-auto w-full max-w-6xl px-6 pb-16 pt-12 lg:px-12">
-        <header className="rounded-3xl border border-[#d8e4df] bg-white/95 px-8 py-10 shadow-[0_16px_40px_-32px_rgba(11,64,55,0.28)] backdrop-blur-sm lg:px-10">
+      <div className="mx-auto w-full max-w-7xl px-6 pb-20 pt-14 lg:px-12 xl:px-16">
+        <header className="rounded-3xl border border-[#d8e4df] bg-white/95 px-8 py-10 shadow-[0_16px_40px_-32px_rgba(11,64,55,0.28)] backdrop-blur-sm lg:px-12 xl:px-14">
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <a
@@ -61,13 +61,13 @@ export function PortalPageLayout({
           </div>
         </header>
 
-        <div className="mt-10 grid gap-10 lg:grid-cols-[320px,1fr] xl:grid-cols-[360px,1fr]">
+        <div className="mt-12 grid gap-12 lg:grid-cols-[340px,minmax(0,1fr)] xl:grid-cols-[360px,minmax(0,1fr)] 2xl:grid-cols-[400px,minmax(0,1fr)]">
           <aside className="lg:sticky lg:top-32">
-            <div className="space-y-8 rounded-3xl border border-[#d8e4df] bg-white px-6 py-8 shadow-[0_12px_32px_-28px_rgba(11,64,55,0.18)] lg:max-h-[calc(100vh_-_10rem)] lg:overflow-y-auto">
+            <div className="space-y-8 rounded-3xl border border-[#d8e4df] bg-white px-7 py-8 shadow-[0_12px_32px_-28px_rgba(11,64,55,0.18)] lg:max-h-[calc(100vh_-_10rem)] lg:overflow-y-auto">
               {filters}
             </div>
           </aside>
-          <main className="flex-1 space-y-8 text-slate-900">{children}</main>
+          <main className="flex-1 space-y-10 text-slate-900 lg:space-y-12">{children}</main>
         </div>
       </div>
     </div>
