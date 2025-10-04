@@ -119,6 +119,48 @@ const journeyStages: JourneyStage[] = [
     ],
   },
   {
+    id: "document-submissions",
+    title: "Submit Documents",
+    highlight: {
+      label: "Documents in progress",
+      detail: `5 of 8 complete`,
+    },
+    description:
+      "Gathering and submitting required documents from various authorities including ADJD, ADM, and ADAFSA.",
+    state: "current",
+    statusDetail: "Document collection underway",
+    tasks: [
+      {
+        id: "notarized-moa-adjd",
+        label: "Submit Notarized MOA (ADJD)",
+        status: "completed",
+        owner: "Applicant",
+        completedOn: isoDate(daysFromToday(-5)),
+      },
+      {
+        id: "tenancy-confirmation-adm",
+        label: "Submit Tenancy Confirmation (ADM)",
+        status: "completed",
+        owner: "Applicant",
+        completedOn: isoDate(daysFromToday(-3)),
+      },
+      {
+        id: "site-plan-review-adafsa",
+        label: "Site Plan Review and Technical Consultation (ADAFSA)",
+        status: "in_progress",
+        owner: "Applicant",
+        dueDate: isoDate(daysFromToday(2)),
+      },
+      {
+        id: "convert-property-adm",
+        label: "Convert Residential to Commercial property (ADM)",
+        status: "pending",
+        owner: "Applicant",
+        dueDate: isoDate(daysFromToday(5)),
+      },
+    ],
+  },
+  {
     id: "owners",
     title: "Owners",
     highlight: {
