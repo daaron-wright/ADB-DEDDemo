@@ -349,7 +349,7 @@ export function JourneyOrchestrationPanel({
                             </p>
                           ) : null}
                           {item.showProgress && chatPhase ? (
-                            <div className="space-y-2">
+                            <div className="space-y-3">
                               <div className="h-2 w-full overflow-hidden rounded-full bg-[#e6f2ed]">
                                 <div
                                   className="h-full rounded-full bg-[#0f766e] transition-all duration-700"
