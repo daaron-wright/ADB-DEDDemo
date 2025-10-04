@@ -100,12 +100,12 @@ export function JourneyOrchestrationPanel({
             nextActionRefs.current[action.id] = node;
           }}
           className={cn(
-            "flex items-start gap-3 rounded-2xl border px-4 py-3 transition focus-within:outline-none focus-within:ring-2 focus-within:ring-[#0f766e]/40",
+            "flex items-start gap-4 rounded-2xl border px-5 py-4 transition focus-within:outline-none focus-within:ring-2 focus-within:ring-[#0f766e]/40",
             isFocused
-              ? "border-[#0f766e] bg-[#eaf7f3] shadow-[0_16px_32px_-28px_rgba(11,64,55,0.32)]"
+              ? "border-[#0f766e] bg-[#eaf7f3] shadow-[0_20px_36px_-26px_rgba(11,64,55,0.35)]"
               : "border-[#d8e4df] bg-white hover:border-[#0f766e]/60 hover:bg-[#f4faf8]",
             isCompleted && !isFocused
-              ? "border-[#d8e4df] bg-white/80"
+              ? "border-[#d8e4df] bg-white/75"
               : null,
           )}
         >
