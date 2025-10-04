@@ -511,10 +511,10 @@ const JOURNEY_STEPS_CONFIG: JourneyStep[] = [
   { id: "owners", label: "Owners", state: "completed" },
   { id: "premises", label: "Premises", state: "completed" },
   { id: "approvals", label: "Approvals", state: "completed" },
-  { id: "license", label: "Business Licensing", state: "current" },
+  { id: "license", label: "Business Licensing", state: "completed" },
   { id: "banking-extras", label: "Banking / Extras", state: "upcoming" },
   { id: "payment-issuance", label: "Payment & Issuance", state: "upcoming" },
-  { id: "inspections", label: "Inspections", state: "upcoming" },
+  { id: "inspections", label: "Pre-Operational Inspection", state: "current" },
   { id: "activation", label: "Activation", state: "upcoming" },
 ];
 
