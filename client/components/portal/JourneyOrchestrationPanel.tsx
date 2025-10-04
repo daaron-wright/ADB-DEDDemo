@@ -310,7 +310,7 @@ export function JourneyOrchestrationPanel({
                     );
 
                     const content = (
-                      <div className="flex items-start gap-3">
+                      <div className="flex items-start gap-4">
                         <span
                           className={cn(
                             "mt-1 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-semibold",
