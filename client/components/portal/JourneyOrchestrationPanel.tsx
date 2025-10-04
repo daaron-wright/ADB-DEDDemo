@@ -251,7 +251,7 @@ export function JourneyOrchestrationPanel({
                       {outstandingActions.map((action) => renderActionRow(action))}
                     </ol>
                   ) : (
-                    <div className="rounded-2xl border border-[#d8e4df] bg-white/80 px-4 py-6 text-center text-sm text-slate-600">
+                    <div className="rounded-2xl border border-[#d8e4df] bg-white/85 px-5 py-6 text-center text-sm leading-relaxed text-slate-600">
                       You're up to date. Review completed items below or continue exploring stages.
                     </div>
                   )}
