@@ -321,7 +321,7 @@ export function JourneyOrchestrationPanel({
                         >
                           {index + 1}
                         </span>
-                        <div className="flex-1 space-y-3">
+                        <div className="flex-1 space-y-4">
                           <div className="flex flex-wrap items-center justify-between gap-2">
                             <p className="text-sm font-semibold text-slate-900">
                               {item.title}
