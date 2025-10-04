@@ -73,6 +73,8 @@ export function JourneyOrchestrationPanel({
   const outstandingDisplayCount = remainingActionCount ?? outstandingCount;
   const completionPercent =
     totalActions === 0 ? 0 : Math.round((completedCount / totalActions) * 100);
+  const hasOutstandingSection = totalActions > 0;
+  const hasTimelineSection = timelineItems.length > 0;
 
   const [showCompletedTasks, setShowCompletedTasks] = React.useState(false);
 
@@ -193,213 +195,228 @@ export function JourneyOrchestrationPanel({
         <p className="text-sm leading-relaxed text-slate-700">{introMessage}</p>
       </div>
 
-      {totalActions > 0 ? (
+      {hasOutstandingSection || hasTimelineSection ? (
         <div className="space-y-5">
-          <div className="rounded-2xl border border-[#d8e4df] bg-white/90 p-4 shadow-[0_12px_28px_-24px_rgba(11,64,55,0.18)]">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Application progress
-              </p>
-              <span className="text-xs font-semibold text-slate-700">
-                {completedCount} of {totalActions} completed ({completionPercent}%)
-              </span>
-            </div>
-            <div className="mt-3 h-2 w-full rounded-full bg-[#e6f2ed]">
-              <div
-                className="h-full rounded-full bg-[#0f766e] transition-all duration-500"
-                style={{ width: `${completionPercent}%` }}
-              />
-            </div>
-            <div className="mt-3 flex flex-wrap gap-3 text-xs text-slate-600">
-              <span className="font-semibold text-[#0f766e]">
-                {outstandingDisplayCount} remaining
-              </span>
-              <span>{completedCount} completed</span>
-            </div>
-            <p className="mt-3 text-xs text-slate-500">
-              Focus on the outstanding actions to keep your workspace moving toward issuance.
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Outstanding actions
-              </p>
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-                {outstandingCount === 0
-                  ? "All caught up"
-                  : `${outstandingDisplayCount} remaining`}
-              </span>
-            </div>
-            {outstandingCount > 0 ? (
-              <ol className="space-y-3">
-                {outstandingActions.map((action) => renderActionRow(action))}
-              </ol>
-            ) : (
-              <div className="rounded-2xl border border-[#d8e4df] bg-white/80 px-4 py-6 text-center text-sm text-slate-600">
-                You're up to date. Review completed items below or continue exploring stages.
+          {hasOutstandingSection ? (
+            <div className="rounded-2xl border border-[#d8e4df] bg-white/90 p-4 shadow-[0_12px_28px_-24px_rgba(11,64,55,0.18)]">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Application progress
+                </p>
+                <span className="text-xs font-semibold text-slate-700">
+                  {completedCount} of {totalActions} completed ({completionPercent}%)
+                </span>
               </div>
-            )}
-          </div>
-
-          {completedCount > 0 ? (
-            <div className="space-y-2">
-              <button
-                type="button"
-                onClick={() => setShowCompletedTasks((prev) => !prev)}
-                className="flex w-full items-center justify-between rounded-2xl border border-[#d8e4df] bg-white/80 px-4 py-3 text-left text-sm font-semibold text-slate-700 transition hover:border-[#0f766e]/60 hover:text-[#0f766e]"
-              >
-                <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">
-                  Completed actions
+              <div className="mt-3 h-2 w-full rounded-full bg-[#e6f2ed]">
+                <div
+                  className="h-full rounded-full bg-[#0f766e] transition-all duration-500"
+                  style={{ width: `${completionPercent}%` }}
+                />
+              </div>
+              <div className="mt-3 flex flex-wrap gap-3 text-xs text-slate-600">
+                <span className="font-semibold text-[#0f766e]">
+                  {outstandingDisplayCount} remaining
                 </span>
-                <span className="flex items-center gap-2 text-xs text-slate-500">
-                  {completedCount} {completedCount === 1 ? "item" : "items"}
-                  <ChevronDown
-                    className={cn(
-                      "h-4 w-4 transition-transform",
-                      showCompletedTasks ? "rotate-180" : "rotate-0",
-                    )}
-                  />
-                </span>
-              </button>
-              {showCompletedTasks ? (
-                <ol className="space-y-3">
-                  {completedActions.map((action) => renderActionRow(action))}
-                </ol>
-              ) : null}
+                <span>{completedCount} completed</span>
+              </div>
+              <p className="mt-3 text-xs text-slate-500">
+                Focus on the outstanding actions to keep your workspace moving toward issuance.
+              </p>
             </div>
           ) : null}
-        </div>
-      ) : null}
 
-      {timelineItems.length > 0 ? (
-        <div className="space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Journey timeline
-            </p>
-            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-              Active: {currentStageLabel}
-            </span>
-          </div>
-          <ol className="space-y-3">
-            {timelineItems.map((item, index) => {
-              const isAutomation = item.id === "generating-application";
-              const isStage = !isAutomation;
-
-              const containerClasses = cn(
-                "rounded-2xl border px-4 py-3 transition focus-within:outline-none focus-within:ring-2 focus-within:ring-[#0f766e]/40",
-                item.isCurrent
-                  ? "border-[#0f766e] bg-[#eaf7f3] shadow-[0_16px_32px_-28px_rgba(11,64,55,0.32)]"
-                  : "border-[#d8e4df] bg-white hover:border-[#0f766e]/60 hover:bg-[#f4faf8]",
-              );
-
-              const content = (
-                <div className="flex items-start gap-3">
-                  <span
-                    className={cn(
-                      "mt-1 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-semibold",
-                      item.isCurrent
-                        ? "bg-[#0f766e] text-white"
-                        : "bg-[#f4faf8] text-[#0f766e]",
-                    )}
-                  >
-                    {index + 1}
-                  </span>
-                  <div className="flex-1 space-y-3">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <p className="text-sm font-semibold text-slate-900">
-                        {item.title}
-                      </p>
-                      <span
-                        className={cn(
-                          "inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]",
-                          item.statusBadgeClass,
-                        )}
-                      >
-                        {item.statusLabel}
-                      </span>
-                    </div>
-                    <p className="text-xs leading-relaxed text-slate-600">
-                      {item.description}
+          <div
+            className={cn(
+              "grid gap-5",
+              hasOutstandingSection && hasTimelineSection
+                ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"
+                : "grid-cols-1",
+            )}
+          >
+            {hasOutstandingSection ? (
+              <section className="space-y-4">
+                <div className="space-y-3">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                      Outstanding actions
                     </p>
-                    {item.meta ? (
-                      <p
-                        className={cn(
-                          "text-[11px] font-semibold uppercase tracking-[0.18em]",
-                          item.statusHelperClass,
-                        )}
-                      >
-                        {item.meta}
-                      </p>
-                    ) : null}
-                    {item.showProgress && chatPhase ? (
-                      <div className="space-y-2">
-                        <div className="h-2 w-full overflow-hidden rounded-full bg-[#e6f2ed]">
-                          <div
-                            className="h-full rounded-full bg-[#0f766e] transition-all duration-700"
-                            style={{ width: `${chatProgress}%` }}
-                          />
-                        </div>
-                        {chatPhase.keyConsiderations?.length ? (
-                          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                            {chatPhase.keyConsiderations[0]}
-                          </p>
-                        ) : null}
-                        {isStageManuallySelected ? (
-                          <button
-                            type="button"
-                            onClick={onResumeAutomation}
-                            className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-                          >
-                            Resume automation
-                          </button>
-                        ) : null}
-                      </div>
-                    ) : null}
-                    {isStage ? (
-                      <div className="flex flex-wrap items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={() => onViewJourney(item.id)}
-                          className="inline-flex items-center gap-1 rounded-full border border-[#0f766e] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-white hover:text-[#0f766e] hover:shadow-[0_14px_28px_-22px_rgba(11,64,55,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-                        >
-                          Open stage
-                        </button>
-                      </div>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                      {outstandingCount === 0
+                        ? "All caught up"
+                        : `${outstandingDisplayCount} remaining`}
+                    </span>
+                  </div>
+                  {outstandingCount > 0 ? (
+                    <ol className="space-y-3">
+                      {outstandingActions.map((action) => renderActionRow(action))}
+                    </ol>
+                  ) : (
+                    <div className="rounded-2xl border border-[#d8e4df] bg-white/80 px-4 py-6 text-center text-sm text-slate-600">
+                      You're up to date. Review completed items below or continue exploring stages.
+                    </div>
+                  )}
+                </div>
+
+                {completedCount > 0 ? (
+                  <div className="space-y-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowCompletedTasks((prev) => !prev)}
+                      className="flex w-full items-center justify-between rounded-2xl border border-[#d8e4df] bg-white/80 px-4 py-3 text-left text-sm font-semibold text-slate-700 transition hover:border-[#0f766e]/60 hover:text-[#0f766e]"
+                    >
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">
+                        Completed actions
+                      </span>
+                      <span className="flex items-center gap-2 text-xs text-slate-500">
+                        {completedCount} {completedCount === 1 ? "item" : "items"}
+                        <ChevronDown
+                          className={cn(
+                            "h-4 w-4 transition-transform",
+                            showCompletedTasks ? "rotate-180" : "rotate-0",
+                          )}
+                        />
+                      </span>
+                    </button>
+                    {showCompletedTasks ? (
+                      <ol className="space-y-3">
+                        {completedActions.map((action) => renderActionRow(action))}
+                      </ol>
                     ) : null}
                   </div>
-                </div>
-              );
+                ) : null}
+              </section>
+            ) : null}
 
-              return (
-                <li key={item.id}>
-                  {isAutomation ? (
-                    <div
-                      role="button"
-                      tabIndex={0}
-                      onClick={onOpenAutomation}
-                      onKeyDown={(event) => {
-                        if (event.key === "Enter" || event.key === " ") {
-                          event.preventDefault();
-                          onOpenAutomation();
-                        }
-                      }}
-                      className={cn(
-                        containerClasses,
-                        "w-full cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40",
-                      )}
-                    >
-                      {content}
-                    </div>
-                  ) : (
-                    <div className={containerClasses}>{content}</div>
-                  )}
-                </li>
-              );
-            })}
-          </ol>
+            {hasTimelineSection ? (
+              <section className="space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    Journey timeline
+                  </p>
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                    Active: {currentStageLabel}
+                  </span>
+                </div>
+                <ol className="space-y-3">
+                  {timelineItems.map((item, index) => {
+                    const isAutomation = item.id === "generating-application";
+                    const isStage = !isAutomation;
+
+                    const containerClasses = cn(
+                      "rounded-2xl border px-4 py-3 transition focus-within:outline-none focus-within:ring-2 focus-within:ring-[#0f766e]/40",
+                      item.isCurrent
+                        ? "border-[#0f766e] bg-[#eaf7f3] shadow-[0_16px_32px_-28px_rgba(11,64,55,0.32)]"
+                        : "border-[#d8e4df] bg-white hover:border-[#0f766e]/60 hover:bg-[#f4faf8]",
+                    );
+
+                    const content = (
+                      <div className="flex items-start gap-3">
+                        <span
+                          className={cn(
+                            "mt-1 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-semibold",
+                            item.isCurrent
+                              ? "bg-[#0f766e] text-white"
+                              : "bg-[#f4faf8] text-[#0f766e]",
+                          )}
+                        >
+                          {index + 1}
+                        </span>
+                        <div className="flex-1 space-y-3">
+                          <div className="flex flex-wrap items-center justify-between gap-2">
+                            <p className="text-sm font-semibold text-slate-900">
+                              {item.title}
+                            </p>
+                            <span
+                              className={cn(
+                                "inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]",
+                                item.statusBadgeClass,
+                              )}
+                            >
+                              {item.statusLabel}
+                            </span>
+                          </div>
+                          <p className="text-xs leading-relaxed text-slate-600">
+                            {item.description}
+                          </p>
+                          {item.meta ? (
+                            <p
+                              className={cn(
+                                "text-[11px] font-semibold uppercase tracking-[0.18em]",
+                                item.statusHelperClass,
+                              )}
+                            >
+                              {item.meta}
+                            </p>
+                          ) : null}
+                          {item.showProgress && chatPhase ? (
+                            <div className="space-y-2">
+                              <div className="h-2 w-full overflow-hidden rounded-full bg-[#e6f2ed]">
+                                <div
+                                  className="h-full rounded-full bg-[#0f766e] transition-all duration-700"
+                                  style={{ width: `${chatProgress}%` }}
+                                />
+                              </div>
+                              {chatPhase.keyConsiderations?.length ? (
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                                  {chatPhase.keyConsiderations[0]}
+                                </p>
+                              ) : null}
+                              {isStageManuallySelected ? (
+                                <button
+                                  type="button"
+                                  onClick={onResumeAutomation}
+                                  className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                                >
+                                  Resume automation
+                                </button>
+                              ) : null}
+                            </div>
+                          ) : null}
+                          {isStage ? (
+                            <div className="flex flex-wrap items-center gap-2">
+                              <button
+                                type="button"
+                                onClick={() => onViewJourney(item.id)}
+                                className="inline-flex items-center gap-1 rounded-full border border-[#0f766e] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-white hover:text-[#0f766e] hover:shadow-[0_14px_28px_-22px_rgba(11,64,55,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                              >
+                                Open stage
+                              </button>
+                            </div>
+                          ) : null}
+                        </div>
+                      </div>
+                    );
+
+                    return (
+                      <li key={item.id}>
+                        {isAutomation ? (
+                          <div
+                            role="button"
+                            tabIndex={0}
+                            onClick={onOpenAutomation}
+                            onKeyDown={(event) => {
+                              if (event.key === "Enter" || event.key === " ") {
+                                event.preventDefault();
+                                onOpenAutomation();
+                              }
+                            }}
+                            className={cn(
+                              containerClasses,
+                              "w-full cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40",
+                            )}
+                          >
+                            {content}
+                          </div>
+                        ) : (
+                          <div className={containerClasses}>{content}</div>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ol>
+              </section>
+            ) : null}
+          </div>
         </div>
       ) : null}
     </div>
