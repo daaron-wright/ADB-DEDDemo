@@ -728,6 +728,13 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
     keyConsiderations: ["Launch planning", "Support services"],
     dataTags: ["Opening date", "Go-live tasks", "Support contacts"],
   },
+  {
+    stageId: "compliance-growth",
+    message: "Monitoring compliance and exploring growth opportunities...",
+    percent: 95,
+    keyConsiderations: ["Compliance tracking", "License renewals", "Expansion planning"],
+    dataTags: ["Compliance status", "Growth opportunities", "Renewal dates"],
+  },
 ];
 
 export default function ApplicantPortal() {
