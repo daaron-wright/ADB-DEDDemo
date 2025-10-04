@@ -632,13 +632,13 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
   },
   {
     stageId: "license",
-    message: "Compiling unified license application...",
-    percent: 68,
-    keyConsiderations: ["Financial readiness", "Required attachments"],
+    message: "Automating economic license issuance...",
+    percent: 64,
+    keyConsiderations: ["Regulatory approvals", "License generation"],
     dataTags: [
-      "Application draft",
-      "Financial statements",
-      "Compliance docs",
+      "Economic license",
+      "DED coordination",
+      "Application automation",
     ],
   },
   {
