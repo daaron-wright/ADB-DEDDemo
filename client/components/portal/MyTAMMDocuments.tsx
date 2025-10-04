@@ -1,0 +1,110 @@
+import * as React from "react";
+
+import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
+import { chatCardClass } from "@/lib/chat-style";
+import { cn } from "@/lib/utils";
+import { Loader2 } from "lucide-react";
+
+interface MyTAMMDocumentsProps {
+  companyName?: string;
+  isGenerating?: boolean;
+}
+
+export function MyTAMMDocuments({
+  companyName = "Marwah Emirati Fusion LLC",
+  isGenerating = true,
+}: MyTAMMDocumentsProps) {
+  return (
+    <div
+      className={chatCardClass(
+        "space-y-6 border border-white/60 bg-gradient-to-br from-[#54ffd4]/30 via-[#54ffd4]/20 to-[#54ffd4]/25 p-6 backdrop-blur-xl shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)] sm:p-8",
+      )}
+    >
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h3 className="text-base font-semibold text-white">My TAMM Documents</h3>
+        <button
+          type="button"
+          className="flex h-6 w-6 items-center justify-center rounded-lg text-white transition hover:bg-white/20"
+        >
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-[200px_minmax(0,1fr)]">
+        <div className="flex gap-3 lg:flex-col">
+          <div className="relative flex-shrink-0">
+            <img
+              src="https://api.builder.io/api/v1/image/assets/TEMP/6874f52d79db5dff4a42886b0395ffbe0cf14b5d?width=174"
+              alt="Document 1"
+              className="h-28 w-20 rounded-lg border border-white/40 object-cover shadow-[0_8px_24px_-12px_rgba(0,0,0,0.3)]"
+            />
+          </div>
+          <div className="relative flex-shrink-0">
+            <img
+              src="https://api.builder.io/api/v1/image/assets/TEMP/f4db5140ddd80fde530b18c48457b833a2fdbdfc?width=164"
+              alt="Document 2"
+              className="h-28 w-20 rounded-lg border border-white/40 object-cover shadow-[0_8px_24px_-12px_rgba(0,0,0,0.3)]"
+            />
+          </div>
+          <div className="relative flex-shrink-0">
+            <img
+              src="https://api.builder.io/api/v1/image/assets/TEMP/170ef7e3e49b30637afc0c58c2de19a1200601c3?width=164"
+              alt="Document 3"
+              className="h-28 w-20 rounded-lg border border-white/40 object-cover opacity-60 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.3)]"
+            />
+            {isGenerating ? (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Loader2 className="h-8 w-8 animate-spin text-[#54ffd4]" />
+              </div>
+            ) : null}
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <div className="relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border-2 border-[#54ffd4] bg-white shadow-[0_12px_22px_-14px_rgba(84,255,212,0.45)]">
+              <AIBusinessOrb className="h-11 w-11" />
+            </div>
+            <p className="text-base font-normal text-white">
+              Helping you generate your MOA...
+            </p>
+          </div>
+
+          <div className="relative overflow-hidden rounded-2xl border border-white/40 bg-white shadow-[0_24px_56px_-32px_rgba(0,0,0,0.3)]">
+            <img
+              src="https://api.builder.io/api/v1/image/assets/TEMP/f98d23b4e255bb8e215c7cdca82a59e914647937?width=1256"
+              alt="Memorandum of Association preview"
+              className="h-auto w-full"
+            />
+            <div className="absolute left-[14%] top-[8.6%] w-[39%]">
+              <div className="h-5 bg-[#a6ffe8]/60" />
+            </div>
+            <div className="absolute left-[13.5%] top-[41.2%] w-[27.5%]">
+              <div className="h-[18px] bg-[#a6ffe8]/60" />
+            </div>
+            <div className="absolute left-[27%] top-[41.2%] flex w-[31%] items-center gap-1">
+              <Loader2 className="h-2.5 w-2.5 flex-shrink-0 animate-spin text-[#169f9f]" />
+              <div className="h-[18px] flex-1 bg-[#a6ffe8]/60" />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between rounded-xl bg-white/20 px-4 py-2 backdrop-blur-sm">
+            <p className="text-xs text-slate-900">{companyName}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
