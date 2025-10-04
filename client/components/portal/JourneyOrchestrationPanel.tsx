@@ -247,7 +247,7 @@ export function JourneyOrchestrationPanel({
                     </span>
                   </div>
                   {outstandingCount > 0 ? (
-                    <ol className="space-y-3">
+                    <ol className="space-y-4">
                       {outstandingActions.map((action) => renderActionRow(action))}
                     </ol>
                   ) : (
