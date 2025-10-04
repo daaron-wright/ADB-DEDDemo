@@ -325,9 +325,8 @@ export function ComplianceGrowthFocusContent({
                       <path d="M10.75 0.375C11.1147 0.375 11.4648 0.519481 11.7227 0.777344C11.9805 1.03521 12.125 1.38533 12.125 1.75V2.4375H14.1875C14.5522 2.4375 14.9023 2.58198 15.1602 2.83984C15.418 3.09771 15.5625 3.44783 15.5625 3.8125V18.25C15.5625 18.6147 15.418 18.9648 15.1602 19.2227C14.9023 19.4805 14.5522 19.625 14.1875 19.625H1.8125C1.44783 19.625 1.09771 19.4805 0.839844 19.2227C0.581981 18.9648 0.4375 18.6147 0.4375 18.25V3.8125C0.4375 3.44783 0.581981 3.09771 0.839844 2.83984C1.09771 2.58198 1.44783 2.4375 1.8125 2.4375H3.875V1.75C3.875 1.38533 4.01948 1.03521 4.27734 0.777344C4.53521 0.519481 4.88533 0.375 5.25 0.375H10.75ZM1.8125 3.8125V18.25H14.1875V3.8125H12.125V5.875H3.875V3.8125H1.8125ZM5.25 15.5H3.875V8.625H5.25V15.5ZM8.6875 15.5H7.3125V12.75H8.6875V15.5ZM12.125 15.5H10.75V11.375H12.125V15.5ZM5.25 1.75V4.5H10.75V1.75H5.25Z" fill="white"/>
                     </svg>
                   </div>
-                  <div className="text-sm text-white">5 New economic trends</div>
+                  <div className="text-sm text-white">5 new economic trends</div>
                 </div>
-
                 <div className="flex items-start gap-3">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -336,7 +335,6 @@ export function ComplianceGrowthFocusContent({
                   </div>
                   <div className="text-sm text-white">3 relevant services</div>
                 </div>
-
                 <div className="flex items-start gap-3">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -347,7 +345,6 @@ export function ComplianceGrowthFocusContent({
                   </div>
                   <div className="text-sm text-white">17 new suppliers in marketplace</div>
                 </div>
-
                 <div className="flex items-start gap-3">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -358,7 +355,7 @@ export function ComplianceGrowthFocusContent({
                 </div>
               </div>
 
-              <div className="flex items-center justify-between gap-4 border-t border-white/20 pt-6">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/15 pt-6">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -366,9 +363,8 @@ export function ComplianceGrowthFocusContent({
                 >
                   <ArrowLeft className="h-5 w-5" />
                 </Button>
-
                 <Button
-                  className="rounded-full bg-[#169F9F] px-8 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-[#128080]"
+                  className="rounded-full bg-[#169F9F] px-8 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-24px_rgba(23,135,126,0.45)] transition hover:bg-[#128080]"
                 >
                   Follow up
                 </Button>
@@ -379,7 +375,7 @@ export function ComplianceGrowthFocusContent({
           <div className="grid gap-5 lg:grid-cols-2">
             <div
               className={chatCardClass(
-                "overflow-hidden rounded-3xl border border-white/25 bg-white/14 p-6 backdrop-blur-xl",
+                "overflow-hidden rounded-3xl border border-white/20 bg-white/12 p-6 backdrop-blur-xl",
               )}
             >
               <div className="space-y-4">
