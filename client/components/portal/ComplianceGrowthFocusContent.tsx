@@ -258,13 +258,18 @@ export function ComplianceGrowthFocusContent({
         <div className="space-y-5">
           <div
             className={chatCardClass(
-              "overflow-hidden rounded-3xl border border-white/25 bg-white/14 p-6 backdrop-blur-xl",
+              "overflow-hidden rounded-3xl border border-white/20 bg-white/12 p-6 text-left backdrop-blur-xl shadow-[0_30px_80px_-65px_rgba(15,23,42,0.4)]",
             )}
           >
             <div className="space-y-6">
-              <h3 className="text-sm font-medium uppercase tracking-widest text-white">
-                Growth Status
-              </h3>
+              <div className="flex items-center justify-between gap-4">
+                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-white">
+                  Growth Status
+                </h3>
+                <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/80">
+                  Live feed
+                </span>
+              </div>
 
               <div className="grid gap-6 sm:grid-cols-[minmax(0,1fr)_auto]">
                 <div className="space-y-4">
