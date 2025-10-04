@@ -113,7 +113,7 @@ export function JourneyOrchestrationPanel({
             type="button"
             onClick={() => onToggleAction(action.id)}
             className={cn(
-              "mt-1 flex h-8 w-8 items-center justify-center rounded-full border-2 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40",
+              "mt-1 flex h-9 w-9 items-center justify-center rounded-full border-2 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40",
               isCompleted
                 ? "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_12px_24px_-18px_rgba(11,64,55,0.35)]"
                 : "border-[#cfe4dd] bg-white text-[#0f766e] hover:border-[#0f766e]",
