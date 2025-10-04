@@ -236,21 +236,29 @@ export function JourneyOrchestrationPanel({
           >
             {hasOutstandingSection ? (
               <section className="space-y-5">
-                <div className="space-y-4">
+                <div className="space-y-4 rounded-2xl border border-[#d8e4df] bg-white/95 p-6">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                      Outstanding actions
+                      Outstanding action
                     </p>
                     <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-                      {outstandingCount === 0
-                        ? "All caught up"
-                        : `${outstandingDisplayCount} remaining`}
+                      {outstandingCount > 1
+                        ? `${outstandingDisplayCount - 1} queued`
+                        : "On track"}
                     </span>
                   </div>
-                  {outstandingCount > 0 ? (
-                    <ol className="space-y-4">
-                      {outstandingActions.map((action) => renderActionRow(action))}
-                    </ol>
+                  {primaryOutstandingAction ? (
+                    <div className="space-y-4">
+                      {renderActionRow(primaryOutstandingAction)}
+                      <div className="rounded-2xl border border-[#d8e4df] bg-[#f5f8f7] px-5 py-4 text-sm leading-relaxed text-slate-600">
+                        <p className="font-semibold text-slate-900">
+                          Related artifact
+                        </p>
+                        <p>
+                          Access the reference package uploaded under "{primaryOutstandingAction.stageTitle}" to review supporting documents already provided.
+                        </p>
+                      </div>
+                    </div>
                   ) : (
                     <div className="rounded-2xl border border-[#d8e4df] bg-white/85 px-5 py-6 text-center text-sm leading-relaxed text-slate-600">
                       You're up to date. Review completed items below or continue exploring stages.
