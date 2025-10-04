@@ -675,13 +675,13 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
   },
   {
     stageId: "inspections",
-    message: "Scheduling inspections for operational readiness...",
-    percent: 96,
-    keyConsiderations: ["Inspection slots", "Fit-out readiness"],
+    message: "Retrieving certifications and coordinating inspections...",
+    percent: 83,
+    keyConsiderations: ["Certifications", "Banking setup"],
     dataTags: [
-      "Inspection calendar",
-      "Readiness checklist",
-      "Team contacts",
+      "Conformity certificate",
+      "Food safety cert",
+      "Bank account",
     ],
   },
   {
