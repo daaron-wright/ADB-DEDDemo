@@ -335,7 +335,7 @@ export function JourneyOrchestrationPanel({
                               {item.statusLabel}
                             </span>
                           </div>
-                          <p className="text-xs leading-relaxed text-slate-600">
+                          <p className="text-sm leading-relaxed text-slate-600">
                             {item.description}
                           </p>
                           {item.meta ? (
