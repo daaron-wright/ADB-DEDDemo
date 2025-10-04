@@ -157,7 +157,7 @@ export function JourneyOrchestrationPanel({
                 </span>
               </div>
               {action.description ? (
-                <p className="mt-2 text-xs leading-relaxed text-slate-600">
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">
                   {action.description}
                 </p>
               ) : null}
