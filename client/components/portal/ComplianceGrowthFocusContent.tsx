@@ -439,7 +439,7 @@ export function ComplianceGrowthFocusContent({
 
             <div
               className={chatCardClass(
-                "overflow-hidden rounded-3xl border border-white/25 bg-white/14 p-5 backdrop-blur-xl",
+                "overflow-hidden rounded-3xl border border-white/20 bg-white/12 p-5 backdrop-blur-xl",
               )}
             >
               <div className="space-y-4">
