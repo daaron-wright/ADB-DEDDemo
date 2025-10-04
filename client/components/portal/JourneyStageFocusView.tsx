@@ -15,6 +15,7 @@ import type {
 import { BusinessRegistrationFocusContent } from "./BusinessRegistrationFocusContent";
 import { DocumentSubmissionFocusContent } from "./DocumentSubmissionFocusContent";
 import { BusinessLicensingFocusContent } from "./BusinessLicensingFocusContent";
+import { PreOperationalInspectionFocusContent } from "./PreOperationalInspectionFocusContent";
 
 interface StageTokens {
   badgeClass: string;
