@@ -106,21 +106,24 @@ const STEP_STATUS_TOKENS: Record<StepStatus, { indicatorClass: string; helper: s
   },
 };
 
-const SUB_STEP_TOKENS: Record<SubStepStatus, { label: string; badgeClass: string; iconClass: string }> = {
+const SUB_STEP_TOKENS: Record<SubStepStatus, { label: string; badgeClass: string; iconClass: string; dotClass: string }> = {
   completed: {
     label: "Completed",
     badgeClass: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
     iconClass: "text-[#0f766e]",
+    dotClass: "bg-[#0f766e]",
   },
   in_progress: {
     label: "In progress",
     badgeClass: "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
     iconClass: "text-[#0b7d6f]",
+    dotClass: "bg-[#0b7d6f]",
   },
   pending: {
     label: "Pending",
     badgeClass: "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
     iconClass: "text-[#b97324]",
+    dotClass: "bg-[#b97324]",
   },
 };
 
@@ -223,7 +226,7 @@ export function DocumentSubmissionFocusContent({
                             ) : subStep.status === "in_progress" ? (
                               <Loader2 className={cn("h-4 w-4 animate-spin", token.iconClass)} />
                             ) : (
-                              <span className={cn("block h-2.5 w-2.5 rounded-full", token.iconClass)} />
+                              <span className={cn("block h-2.5 w-2.5 rounded-full", token.dotClass)} />
                             )}
                           </span>
                           <div className="space-y-1">
