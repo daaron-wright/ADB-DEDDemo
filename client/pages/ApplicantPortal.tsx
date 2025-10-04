@@ -1192,61 +1192,35 @@ export default function ApplicantPortal() {
     <div className="space-y-8">
       <div className="space-y-3">
         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-          Journey overview
+          Workspace support
         </p>
-        <JourneyOrchestrationPanel
-          introMessage={BUSINESS_AI_INTRO_MESSAGE}
-          actions={todoBankItems}
-          remainingActionCount={remainingTodoCount}
-          focusedActionId={focusedNextActionId}
-          completionState={todoCompletionState}
-          onToggleAction={handleTodoToggle}
-          onActionClick={handleNextActionClick}
-          nextActionRefs={nextActionRefs}
-          getNextActionToken={getNextActionToken}
-          timelineItems={journeyTimelineItems}
-          currentStageLabel={currentStageLabel}
-          chatPhase={chatPhase ?? null}
-          chatProgress={chatProgress}
-          isStageManuallySelected={isStageManuallySelected}
-          onResumeAutomation={handleResumeAutomation}
-          onViewJourney={handleViewJourney}
-          onOpenAutomation={handleOpenAutomationFocus}
-          formatDueDate={formatJourneyDueDate}
-        />
-      </div>
-      <div className="space-y-6 text-sm text-slate-700">
-        <div>
-          <h3 className="text-sm font-semibold text-slate-900">
-            Need support?
-          </h3>
-          <p className="mt-2 leading-relaxed">
-            Our licensing team is available Sunday to Thursday, 8:00–18:00 GST.
-            Reach out at{" "}
-            <span className="font-medium text-[#0f766e]">licensing@adm.ae</span>
-            or call{" "}
-            <span className="font-medium text-[#0f766e]">800-555-0134</span>.
-          </p>
-        </div>
-        <div>
-          <h3 className="text-sm font-semibold text-slate-900">Key dates</h3>
-          <dl className="mt-3 space-y-2">
-            {keyDates.map((item) => (
-              <div
-                key={item.label}
-                className="flex items-center justify-between text-slate-600"
-              >
-                <dt>{item.label}</dt>
-                <dd className="font-medium text-slate-900">{item.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-        <div>
-          <h3 className="text-sm font-semibold text-slate-900">Next action</h3>
-          <p className="mt-2 leading-relaxed">
-            {primaryApplication.nextAction}
-          </p>
+        <div className="space-y-6 text-sm text-slate-700">
+          <div>
+            <h3 className="text-sm font-semibold text-slate-900">Need support?</h3>
+            <p className="mt-2 leading-relaxed">
+              Our licensing team is available Sunday to Thursday, 8:00–18:00 GST. Reach out at{" "}
+              <span className="font-medium text-[#0f766e]">licensing@adm.ae</span> or call{" "}
+              <span className="font-medium text-[#0f766e]">800-555-0134</span>.
+            </p>
+          </div>
+          <div>
+            <h3 className="text-sm font-semibold text-slate-900">Key dates</h3>
+            <dl className="mt-3 space-y-2">
+              {keyDates.map((item) => (
+                <div
+                  key={item.label}
+                  className="flex items-center justify-between text-slate-600"
+                >
+                  <dt>{item.label}</dt>
+                  <dd className="font-medium text-slate-900">{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <div>
+            <h3 className="text-sm font-semibold text-slate-900">Next action</h3>
+            <p className="mt-2 leading-relaxed">{primaryApplication.nextAction}</p>
+          </div>
         </div>
       </div>
     </div>
