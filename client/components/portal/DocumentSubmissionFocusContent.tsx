@@ -220,9 +220,10 @@ export function DocumentSubmissionFocusContent({
                           >
                             {subStep.status === "completed" ? (
                               <Check className={cn("h-4 w-4", token.iconClass)} strokeWidth={3} />
+                            ) : subStep.status === "in_progress" ? (
+                              <Loader2 className={cn("h-4 w-4 animate-spin", token.iconClass)} />
                             ) : (
-                              <Loader2 className={cn("h-4 w-4", token.iconClass, subStep.status === "in_progress" ? "animate-spin" : "")}
-                              />
+                              <span className={cn("block h-2.5 w-2.5 rounded-full", token.iconClass)} />
                             )}
                           </span>
                           <div className="space-y-1">
