@@ -376,16 +376,23 @@ export function JourneyOrchestrationPanel({
               return (
                 <li key={item.id}>
                   {isAutomation ? (
-                    <button
-                      type="button"
+                    <div
+                      role="button"
+                      tabIndex={0}
                       onClick={onOpenAutomation}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          onOpenAutomation();
+                        }
+                      }}
                       className={cn(
                         containerClasses,
-                        "w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40",
+                        "w-full cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40",
                       )}
                     >
                       {content}
-                    </button>
+                    </div>
                   ) : (
                     <div className={containerClasses}>{content}</div>
                   )}
