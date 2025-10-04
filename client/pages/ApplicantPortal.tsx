@@ -552,6 +552,7 @@ const JOURNEY_STEPS_CONFIG: JourneyStep[] = [
   { id: "payment-issuance", label: "Payment & Issuance", state: "upcoming" },
   { id: "inspections", label: "Pre-Operational Inspection", state: "current" },
   { id: "activation", label: "Activation", state: "upcoming" },
+  { id: "compliance-growth", label: "Compliance / Growth", state: "upcoming" },
 ];
 
 const RECOMMENDED_ACTIVITIES: BusinessActivity[] = [
