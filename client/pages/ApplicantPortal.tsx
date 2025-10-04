@@ -225,7 +225,7 @@ const journeyStages: JourneyStage[] = [
     },
     description:
       "Layla is submitting sector approvals, food control clearance, and signage permits.",
-    state: "current",
+    state: "upcoming",
     statusDetail: "2 approval packages compiling",
     tasks: [
       {
