@@ -258,11 +258,11 @@ export function JourneyOrchestrationPanel({
                 </div>
 
                 {completedCount > 0 ? (
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <button
                       type="button"
                       onClick={() => setShowCompletedTasks((prev) => !prev)}
-                      className="flex w-full items-center justify-between rounded-2xl border border-[#d8e4df] bg-white/80 px-4 py-3 text-left text-sm font-semibold text-slate-700 transition hover:border-[#0f766e]/60 hover:text-[#0f766e]"
+                      className="flex w-full items-center justify-between rounded-2xl border border-[#d8e4df] bg-white/85 px-5 py-4 text-left text-sm font-semibold text-slate-700 transition hover:border-[#0f766e]/60 hover:text-[#0f766e]"
                     >
                       <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">
                         Completed actions
