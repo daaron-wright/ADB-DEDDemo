@@ -13,6 +13,7 @@ import type {
   JourneyTimelineItem,
 } from "./journey-types";
 import { BusinessRegistrationFocusContent } from "./BusinessRegistrationFocusContent";
+import { DocumentSubmissionFocusContent } from "./DocumentSubmissionFocusContent";
 
 interface StageTokens {
   badgeClass: string;
