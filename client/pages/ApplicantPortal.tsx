@@ -1330,141 +1330,196 @@ export default function ApplicantPortal() {
           </div>
         </section>
         <section className="rounded-3xl border border-[#d8e4df] bg-white p-8 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)]">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-            <div className="space-y-2 text-slate-900">
-              <h2 className="text-2xl font-semibold tracking-tight">
-                {primaryApplication.title}
-              </h2>
-              <p className="text-sm text-slate-600">
-                {primaryApplication.directorate}
-              </p>
-              <div className="flex flex-wrap items-center gap-3 pt-2">
-                <Badge
-                  className={cn(
-                    "border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide",
-                    statusStyles[primaryApplication.status],
-                  )}
-                >
-                  {primaryApplication.status}
-                </Badge>
-                <span className="text-xs text-slate-500">
-                  {primaryApplication.id}
-                </span>
-              </div>
-              <div className="mt-6 space-y-3">
-                <Button
-                  type="button"
-                  onClick={handleOpenSidePanel}
-                  className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-                >
-                  <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
-                  Chat with AI
-                </Button>
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    onClick={handleCloseChat}
-                    className={cn(
-                      "inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
-                      isChatOpen
-                        ? "border-[#0f766e] bg-white shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] hover:bg-[#eaf7f3]"
-                        : "border-[#d8e4df] bg-white text-slate-500",
-                    )}
-                  >
-                    Close chat
-                  </button>
+          <div
+            role="button"
+            tabIndex={0}
+            aria-expanded={isJourneyOverviewOpen}
+            aria-controls="journey-overview-panel"
+            onClick={handleJourneyOverviewToggle}
+            onKeyDown={handleJourneyOverviewKeyDown}
+            className="space-y-8 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+          >
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+              <div className="space-y-6 text-slate-900">
+                <div className="space-y-2">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h2 className="text-2xl font-semibold tracking-tight">
+                        {primaryApplication.title}
+                      </h2>
+                      <p className="text-sm text-slate-600">
+                        {primaryApplication.directorate}
+                      </p>
+                      <div className="flex flex-wrap items-center gap-3 pt-2">
+                        <Badge
+                          className={cn(
+                            "border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide",
+                            statusStyles[primaryApplication.status],
+                          )}
+                        >
+                          {primaryApplication.status}
+                        </Badge>
+                        <span className="text-xs text-slate-500">
+                          {primaryApplication.id}
+                        </span>
+                      </div>
+                    </div>
+                    <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#d8e4df] bg-white text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)]">
+                      <ChevronDown
+                        className={cn(
+                          "h-5 w-5 transition-transform duration-300",
+                          isJourneyOverviewOpen ? "rotate-180" : "rotate-0",
+                        )}
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </div>
                 </div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]/70">
-                  Current view: {isSidePanelView ? "Side panel" : isFocusView ? "Focus modal" : "Closed"}
+                <div className="space-y-3">
+                  <Button
+                    type="button"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handleOpenSidePanel();
+                    }}
+                    className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                  >
+                    <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                    Chat with AI
+                  </Button>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleCloseChat();
+                      }}
+                      className={cn(
+                        "inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
+                        isChatOpen
+                          ? "border-[#0f766e] bg-white shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] hover:bg-[#eaf7f3]"
+                          : "border-[#d8e4df] bg-white text-slate-500",
+                      )}
+                    >
+                      Close chat
+                    </button>
+                  </div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]/70">
+                    Current view: {isSidePanelView ? "Side panel" : isFocusView ? "Focus modal" : "Closed"}
+                  </p>
+                </div>
+              </div>
+              <div className="w-full max-w-xs rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] p-4">
+                <div className="flex items-center justify-between text-sm font-medium text-slate-700">
+                  <span>Overall progress</span>
+                  <span className="text-slate-900">
+                    {primaryApplication.progress}%
+                  </span>
+                </div>
+                <Progress value={primaryApplication.progress} className="mt-3 h-2" />
+                <p className="mt-3 text-xs text-slate-500">
+                  Stay on track by completing outstanding tasks before the SLA threshold.
                 </p>
               </div>
             </div>
-            <div className="w-full max-w-xs rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] p-4">
-              <div className="flex items-center justify-between text-sm font-medium text-slate-700">
-                <span>Overall progress</span>
-                <span className="text-slate-900">
-                  {primaryApplication.progress}%
-                </span>
+            <div className="grid gap-4 text-sm text-slate-600 sm:grid-cols-2">
+              <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Beneficiary
+                </p>
+                <p className="mt-2 text-sm font-semibold text-slate-900">
+                  {primaryApplication.beneficiary}
+                </p>
               </div>
-              <Progress
-                value={primaryApplication.progress}
-                className="mt-3 h-2"
-              />
-              <p className="mt-3 text-xs text-slate-500">
-                Stay on track by completing outstanding tasks before the SLA
-                threshold.
-              </p>
+              <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  License type
+                </p>
+                <p className="mt-2 text-sm font-semibold text-slate-900">
+                  {primaryApplication.licenseType}
+                </p>
+              </div>
+              <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Submission ID
+                </p>
+                <p className="mt-2 text-sm font-semibold text-slate-900">
+                  {primaryApplication.id}
+                </p>
+              </div>
+              <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Last update
+                </p>
+                <p className="mt-2 text-sm font-semibold text-slate-900">
+                  {dateFormatter.format(new Date(primaryApplication.lastUpdated))}
+                </p>
+              </div>
             </div>
-          </div>
-
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Beneficiary
-              </p>
-              <p className="mt-2 text-sm font-semibold text-slate-900">
-                {primaryApplication.beneficiary}
-              </p>
-            </div>
-            <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                License type
-              </p>
-              <p className="mt-2 text-sm font-semibold text-slate-900">
-                {primaryApplication.licenseType}
-              </p>
-            </div>
-            <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Submission ID
-              </p>
-              <p className="mt-2 text-sm font-semibold text-slate-900">
-                {primaryApplication.id}
-              </p>
-            </div>
-            <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Last update
-              </p>
-              <p className="mt-2 text-sm font-semibold text-slate-900">
-                {dateFormatter.format(new Date(primaryApplication.lastUpdated))}
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-8 space-y-4">
-            <div>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Next action
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-700">
-                {primaryApplication.nextAction}
-              </p>
-            </div>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleContinueToNextAction}
-              className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] transition hover:bg-white hover:shadow-[0_16px_32px_-24px_rgba(11,64,55,0.32)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-            >
-              <svg
-                className="h-3.5 w-3.5"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Next action
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                  {primaryApplication.nextAction}
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleContinueToNextAction();
+                }}
+                className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] transition hover:bg-white hover:shadow-[0_16px_32px_-24px_rgba(11,64,55,0.32)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
               >
-                <path
-                  d="M5 10h10m0 0-4-4m4 4-4 4"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              Continue to Your Next Action
-            </Button>
+                <svg
+                  className="h-3.5 w-3.5"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 10h10m0 0-4-4m4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                Continue to Your Next Action
+              </Button>
+            </div>
           </div>
+          {isJourneyOverviewOpen ? (
+            <div
+              id="journey-overview-panel"
+              className="mt-6 rounded-3xl border border-[#d8e4df] bg-white/95 p-6 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)] sm:p-7"
+            >
+              <JourneyOrchestrationPanel
+                introMessage={BUSINESS_AI_INTRO_MESSAGE}
+                actions={todoBankItems}
+                remainingActionCount={remainingTodoCount}
+                focusedActionId={focusedNextActionId}
+                completionState={todoCompletionState}
+                onToggleAction={handleTodoToggle}
+                onActionClick={handleNextActionClick}
+                nextActionRefs={nextActionRefs}
+                getNextActionToken={getNextActionToken}
+                timelineItems={journeyTimelineItems}
+                currentStageLabel={currentStageLabel}
+                chatPhase={chatPhase ?? null}
+                chatProgress={chatProgress}
+                isStageManuallySelected={isStageManuallySelected}
+                onResumeAutomation={handleResumeAutomation}
+                onViewJourney={handleViewJourney}
+                onOpenAutomation={handleOpenAutomationFocus}
+                formatDueDate={formatJourneyDueDate}
+              />
+            </div>
+          ) : null}
         </section>
 
         <section className="space-y-6">
