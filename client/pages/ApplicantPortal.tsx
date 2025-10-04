@@ -610,7 +610,7 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
   {
     stageId: "premises",
     message: "Confirming Corniche property selection...",
-    percent: 38,
+    percent: 40,
     keyConsiderations: ["Lease agreement", "Zoning compliance"],
     dataTags: [
       "Tenancy contract",
@@ -621,7 +621,7 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
   {
     stageId: "approvals",
     message: "Coordinating sector approvals and permits...",
-    percent: 52,
+    percent: 54,
     keyConsiderations: ["Food control", "Municipal signage"],
     dataTags: [
       "ADAFSA package",
@@ -632,7 +632,7 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
   {
     stageId: "license",
     message: "Compiling unified license application...",
-    percent: 66,
+    percent: 68,
     keyConsiderations: ["Financial readiness", "Required attachments"],
     dataTags: [
       "Application draft",
@@ -643,7 +643,7 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
   {
     stageId: "banking-extras",
     message: "Recommending banking and utility partners...",
-    percent: 76,
+    percent: 78,
     keyConsiderations: ["Working capital", "Utilities onboarding"],
     dataTags: [
       "Bank shortlist",
@@ -654,14 +654,14 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
   {
     stageId: "payment-issuance",
     message: "Generating payment voucher and issuance steps...",
-    percent: 86,
+    percent: 88,
     keyConsiderations: ["Fee schedule", "Payment channels"],
     dataTags: ["Voucher", "Fee summary", "Receipt"],
   },
   {
     stageId: "inspections",
     message: "Scheduling inspections for operational readiness...",
-    percent: 94,
+    percent: 96,
     keyConsiderations: ["Inspection slots", "Fit-out readiness"],
     dataTags: [
       "Inspection calendar",
