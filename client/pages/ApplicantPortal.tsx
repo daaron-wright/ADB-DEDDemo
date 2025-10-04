@@ -122,8 +122,8 @@ const journeyStages: JourneyStage[] = [
     id: "document-submissions",
     title: "Submit Documents",
     highlight: {
-      label: "Documents in progress",
-      detail: `5 of 8 complete`,
+      label: "Document sync active",
+      detail: `Last synced ${formatDisplayDate(daysFromToday(-2))}`,
     },
     description:
       "Gathering and submitting required documents from various authorities including ADJD, ADM, and ADAFSA.",
