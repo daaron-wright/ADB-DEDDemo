@@ -380,7 +380,9 @@ export function ComplianceGrowthFocusContent({
             >
               <div className="space-y-4">
                 <div className="flex items-start justify-between">
-                  <h3 className="text-lg font-medium text-white">Visitors to Abu Dhabi</h3>
+                  <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-white/80">
+                    Visitors to Abu Dhabi
+                  </h3>
                   <div className="flex items-center gap-2">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 16L18 10L6 10L12 16Z" fill="#14E544"/>
