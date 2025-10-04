@@ -152,66 +152,93 @@ export function BusinessRegistrationFocusContent({
 
       <section
         className={chatCardClass(
-          "flex flex-col gap-6 border border-white/20 bg-gradient-to-br from-[#0a2d42] via-[#0d3a52] to-[#11455c] p-6 text-white/90 shadow-[0_42px_96px_-58px_rgba(10,45,66,0.65)]",
+          "space-y-6 border border-white/60 bg-white/90 p-6 text-slate-800 shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
         )}
       >
         <div className="flex flex-wrap items-center gap-4">
           <div className="relative">
             <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
+              src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=160"
               alt="AI Business assistant"
-              className="h-16 w-16 rounded-full border-2 border-[#54ffd4]"
+              className="h-16 w-16 rounded-full border-2 border-[#0f766e]/30 object-cover shadow-[0_12px_22px_-14px_rgba(15,118,110,0.45)]"
             />
-            <span className="absolute -right-1 -bottom-1 flex h-6 w-6 items-center justify-center rounded-full bg-[#54ffd4] text-xs font-semibold text-[#0a2d42]">
+            <span className="absolute -right-1 -bottom-1 flex h-6 w-6 items-center justify-center rounded-full border border-white bg-[#0f766e] text-xs font-semibold uppercase tracking-[0.18em] text-white">
               AI
             </span>
           </div>
           <div className="min-w-[180px] space-y-1">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#54ffd4]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
               Business AI assistant
             </p>
-            <p className="text-lg font-semibold text-white">Generating your application</p>
+            <p className="text-lg font-semibold text-slate-900">Generating your application</p>
           </div>
-          <div className="ml-auto flex items-end gap-1 text-[#54ffd4]">
+          <div className="ml-auto flex items-end gap-1 text-[#0f766e]">
             {[18, 28, 16, 22, 12, 26, 20, 32, 14].map((height, index) => (
               <span
                 key={index}
-                className="w-[3px] rounded-full bg-current opacity-80 transition"
+                className="w-[3px] rounded-full bg-current/80"
                 style={{ height: `${height}px` }}
               />
             ))}
           </div>
         </div>
 
-        <div className="space-y-3">
-          <p className="text-sm text-white/80">Preparing documentation and coordinating checks with local authorities.</p>
+        <div className="space-y-3 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="space-y-1">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Live automation
+              </p>
+              <p className="text-base font-semibold text-slate-900">
+                Preparing documentation with local authorities
+              </p>
+            </div>
+            <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+              {progressPercent}% complete
+            </Badge>
+          </div>
+          <p className="text-sm leading-relaxed text-slate-600">
+            The assistant is completing your trade name checks and generating the application package for submission.
+          </p>
           <div className="space-y-2">
-            <div className="relative h-2 overflow-hidden rounded-full bg-white/20">
+            <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
               <div
-                className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#54ffd4] via-[#7ff6e4] to-[#54ffd4]/70 shadow-[0_1px_6px_rgba(84,255,212,0.45)]"
+                className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] shadow-[0_1px_6px_rgba(15,118,110,0.35)] transition-all"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
-            <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-white/60">
-              <span>Progress</span>
-              <span>{progressPercent}% complete</span>
+            <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+              <span>Automation progress</span>
+              <span>{progressPercent}%</span>
             </div>
           </div>
         </div>
 
-        <div className="space-y-3 rounded-2xl border border-white/25 bg-white/10 p-4">
-          <p className="text-sm font-semibold text-white">Trade name check</p>
-          <p className="text-sm text-white/75">
-            Confirming availability with the Department of Economic Development before submitting the final application.
+        <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Trade name check
+              </p>
+              <p className="text-base font-semibold text-slate-900">
+                Connected to Department of Economic Development
+              </p>
+            </div>
+            <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+              In progress
+            </Badge>
+          </div>
+          <p className="text-sm text-slate-600">
+            We’re confirming availability and reserving your trade name before moving to licensing.
           </p>
-          <div className="flex flex-wrap items-center gap-3 rounded-2xl bg-white px-4 py-4 shadow-[0_24px_48px_-48px_rgba(255,255,255,0.6)]">
+          <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-[#e6f2ed] bg-white px-4 py-4 shadow-[0_18px_42px_-40px_rgba(15,118,110,0.25)]">
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/aedca84491987116f058410105f4a516ff1a5477?width=424"
               alt="Department of Economic Development"
               className="h-12 w-auto"
             />
-            <p className="text-sm font-medium text-slate-800">
-              Connected to the Department of Economic Development
+            <p className="text-sm font-medium text-slate-700">
+              Status: verification synced with the Department of Economic Development
             </p>
           </div>
         </div>
