@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
@@ -66,10 +67,10 @@ export function BusinessRegistrationFocusContent({
                 </p>
                 <p className="text-2xl font-semibold text-slate-900">{tradeName}</p>
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#54ffd4]/40 bg-white px-3 py-1.5 text-sm font-semibold text-[#0f766e] shadow-sm">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#54ffd4]"><Check className="h-3.5 w-3.5 text-white" strokeWidth={3} /></span>
+              <Badge className="inline-flex items-center gap-1.5 border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f] shadow-sm">
+                <Check className="h-3.5 w-3.5" strokeWidth={3} />
                 {isTradeNameAvailable ? "Available" : "Pending review"}
-              </div>
+              </Badge>
             </div>
           </div>
 
@@ -156,12 +157,8 @@ export function BusinessRegistrationFocusContent({
         )}
       >
         <div className="flex flex-wrap items-center gap-4">
-          <div className="relative">
-            <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=160"
-              alt="AI Business assistant"
-              className="h-16 w-16 rounded-full border-2 border-[#0f766e]/30 object-cover shadow-[0_12px_22px_-14px_rgba(15,118,110,0.45)]"
-            />
+          <div className="relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border-2 border-[#0f766e]/20 bg-white shadow-[0_12px_22px_-14px_rgba(15,118,110,0.45)]">
+            <AIBusinessOrb className="h-11 w-11" />
             <span className="absolute -right-1 -bottom-1 flex h-6 w-6 items-center justify-center rounded-full border border-white bg-[#0f766e] text-xs font-semibold uppercase tracking-[0.18em] text-white">
               AI
             </span>
