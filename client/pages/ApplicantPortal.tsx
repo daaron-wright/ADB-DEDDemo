@@ -413,6 +413,41 @@ const journeyStages: JourneyStage[] = [
       },
     ],
   },
+  {
+    id: "compliance-growth",
+    title: "Compliance / Growth",
+    highlight: {
+      label: "Ongoing compliance",
+      detail: "78% compliant",
+    },
+    description:
+      "Monitor compliance status, manage renewals, and explore growth opportunities for your business.",
+    state: "upcoming",
+    statusDetail: "Compliance tracking active",
+    tasks: [
+      {
+        id: "compliance-civil-defence",
+        label: "Resolve Civil Defence issues",
+        status: "pending",
+        owner: "Applicant",
+        dueDate: isoDate(daysFromToday(5)),
+      },
+      {
+        id: "compliance-ded-inspection",
+        label: "DED inspection renewal",
+        status: "in_progress",
+        owner: "Department of Economic Development",
+        dueDate: isoDate(daysFromToday(29)),
+      },
+      {
+        id: "compliance-visa-renewal",
+        label: "Employment visa renewals",
+        status: "completed",
+        owner: "Applicant",
+        completedOn: isoDate(daysFromToday(-5)),
+      },
+    ],
+  },
 ];
 
 const journeyHighlightTokens: Record<
