@@ -37,10 +37,31 @@ const DOCUMENT_SUBMISSION_STEPS: Step[] = [
     label: "Submission of Documents",
     status: "current",
     subSteps: [
-      { id: "notarized-moa", label: "Notarized MOA", authority: "ADJD", status: "completed" },
-      { id: "tenancy-confirmation", label: "Tenancy Confirmation", authority: "ADM", status: "completed" },
-      { id: "site-plan-review", label: "Site Plan Review and Technical Consultation", authority: "ADAFSA", status: "in_progress" },
-      { id: "convert-property", label: "Convert Residential to Commercial property", authority: "ADM", status: "pending", isOptional: true },
+      {
+        id: "notarized-moa",
+        label: "Notarized MOA",
+        authority: "ADJD",
+        status: "completed",
+      },
+      {
+        id: "tenancy-confirmation",
+        label: "Tenancy Confirmation",
+        authority: "ADM",
+        status: "completed",
+      },
+      {
+        id: "site-plan-review",
+        label: "Site Plan Review and Technical Consultation",
+        authority: "ADAFSA",
+        status: "in_progress",
+      },
+      {
+        id: "convert-property",
+        label: "Convert Residential to Commercial property",
+        authority: "ADM",
+        status: "pending",
+        isOptional: true,
+      },
     ],
   },
   { id: 3, label: "Business Licensing", status: "pending" },
@@ -70,6 +91,39 @@ const AUTHORITIES = [
   },
 ];
 
+const STEP_STATUS_TOKENS: Record<StepStatus, { indicatorClass: string; helper: string }> = {
+  completed: {
+    indicatorClass: "border-[#0f766e] bg-[#0f766e] text-white",
+    helper: "Completed",
+  },
+  current: {
+    indicatorClass: "border-[#0f766e] bg-[#0f766e]/10 text-[#0f766e]",
+    helper: "In progress",
+  },
+  pending: {
+    indicatorClass: "border-slate-200 bg-white text-slate-500",
+    helper: "Pending",
+  },
+};
+
+const SUB_STEP_TOKENS: Record<SubStepStatus, { label: string; badgeClass: string; iconClass: string }> = {
+  completed: {
+    label: "Completed",
+    badgeClass: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
+    iconClass: "text-[#0f766e]",
+  },
+  in_progress: {
+    label: "In progress",
+    badgeClass: "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
+    iconClass: "text-[#0b7d6f]",
+  },
+  pending: {
+    label: "Pending",
+    badgeClass: "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
+    iconClass: "text-[#b97324]",
+  },
+};
+
 export function DocumentSubmissionFocusContent({
   journeyNumber = "0987654321",
   completionStatus = "5 of 8 complete",
@@ -79,81 +133,156 @@ export function DocumentSubmissionFocusContent({
   const steps = React.useMemo(() => DOCUMENT_SUBMISSION_STEPS, []);
 
   return (
-    <div className="grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+    <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
       <section
         className={chatCardClass(
-          "border border-white/25 bg-white/70 p-6 backdrop-blur-2xl shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
+          "border border-white/25 bg-white/90 p-6 backdrop-blur-2xl shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
         )}
       >
         <div className="space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <p className="text-lg font-semibold text-white">Journey Number: {journeyNumber}</p>
+            <div className="space-y-1">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Journey number
+              </p>
+              <p className="text-lg font-semibold text-slate-900">{journeyNumber}</p>
             </div>
-            <p className="text-base font-normal text-[#54ffd4]">{completionStatus}</p>
+            <Badge className="border-white/60 bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-700 shadow-sm">
+              {completionStatus}
+            </Badge>
           </div>
 
-          <div className="h-px bg-white/20" />
+          <div className="space-y-4 rounded-[32px] border border-[#0f766e]/30 bg-[#0f766e]/5 px-5 py-4">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="space-y-1">
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Step 2 in progress
+                </p>
+                <p className="text-2xl font-semibold text-slate-900">Submission of Documents</p>
+              </div>
+              <Badge className="inline-flex items-center gap-2 border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
+                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                Automation syncing
+              </Badge>
+            </div>
+            <div className="space-y-2">
+              <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
+                <div
+                  className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] shadow-[0_1px_6px_rgba(15,118,110,0.35)] transition-all"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                <span>Document compilation</span>
+                <span>{progressPercent}%</span>
+              </div>
+            </div>
+          </div>
 
-          <ol className="space-y-5">
-            {steps.map((step) => (
-              <li key={step.id} className="space-y-4">
-                <div className="flex items-start gap-10">
-                  <span
-                    className={cn(
-                      "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-sm font-semibold transition",
-                      step.status === "completed" && "bg-[#54ffd4] text-white",
-                      step.status === "current" && "animate-spin text-[#54ffd4]",
-                      step.status === "pending" && "border-2 border-white bg-transparent text-white",
-                    )}
-                  >
-                    {step.status === "completed" ? (
-                      <Check className="h-5 w-5" strokeWidth={3} />
-                    ) : step.status === "current" ? (
-                      <Loader2 className="h-5 w-5" />
-                    ) : (
-                      ""
-                    )}
-                  </span>
-                  <p className="text-lg font-normal leading-tight text-white">
-                    Step {step.id}: {step.label}
-                  </p>
+          {steps
+            .filter((step) => step.subSteps && step.status === "current")
+            .map((step) => (
+              <div
+                key={step.id}
+                className="space-y-4 rounded-3xl border border-white/60 bg-white p-5 shadow-[0_28px_60px_-54px_rgba(15,23,42,0.4)]"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="space-y-1">
+                    <p className="text-sm font-semibold text-slate-900">
+                      Active sub-steps
+                    </p>
+                    <p className="text-sm text-slate-600">
+                      Track each requirement before moving to the next stage.
+                    </p>
+                  </div>
+                  <Badge className="border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
+                    {step.subSteps?.filter((item) => item.status === "completed").length} of {step.subSteps?.length} complete
+                  </Badge>
                 </div>
 
-                {step.subSteps && step.status === "current" ? (
-                  <div className="ml-14 space-y-3 rounded-2xl border border-white/30 bg-white/10 p-4">
-                    {step.subSteps.map((subStep) => (
-                      <div key={subStep.id} className="flex items-start gap-5">
-                        <span
-                          className={cn(
-                            "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full",
-                            subStep.status === "completed" && "bg-[#54ffd4]",
-                            subStep.status === "in_progress" && "animate-spin text-[#54ffd4]",
-                            subStep.status === "pending" && "border-2 border-white",
-                          )}
-                        >
-                          {subStep.status === "completed" ? (
-                            <Check className="h-5 w-5 text-white" strokeWidth={3} />
-                          ) : subStep.status === "in_progress" ? (
-                            <Loader2 className="h-5 w-5" />
-                          ) : null}
-                        </span>
-                        <div className="flex-1 space-y-1">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <p className="text-lg font-normal text-white">
+                <div className="space-y-3">
+                  {step.subSteps?.map((subStep) => {
+                    const token = SUB_STEP_TOKENS[subStep.status];
+
+                    return (
+                      <div
+                        key={subStep.id}
+                        className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:flex-row sm:items-center sm:justify-between"
+                      >
+                        <div className="flex items-start gap-3">
+                          <span
+                            className={cn(
+                              "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border",
+                              subStep.status === "completed" && "border-[#0f766e]/20 bg-[#0f766e]/10",
+                              subStep.status === "in_progress" && "border-[#94d2c2] bg-[#dff2ec]/70",
+                              subStep.status === "pending" && "border-slate-200 bg-white",
+                            )}
+                          >
+                            {subStep.status === "completed" ? (
+                              <Check className={cn("h-4 w-4", token.iconClass)} strokeWidth={3} />
+                            ) : (
+                              <Loader2 className={cn("h-4 w-4", token.iconClass, subStep.status === "in_progress" ? "animate-spin" : "")}
+                              />
+                            )}
+                          </span>
+                          <div className="space-y-1">
+                            <p className="text-base font-semibold text-slate-900">
                               {subStep.label} {subStep.authority ? `(${subStep.authority})` : ""}
                             </p>
-                            {subStep.isOptional ? (
-                              <span className="text-sm font-light text-white">optional</span>
-                            ) : null}
+                            <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
+                              <span>{token.label}</span>
+                              {subStep.isOptional ? (
+                                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                                  Optional
+                                </span>
+                              ) : null}
+                            </div>
                           </div>
                         </div>
+                        <Badge
+                          className={cn(
+                            "self-start border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                            token.badgeClass,
+                          )}
+                        >
+                          {token.label}
+                        </Badge>
                       </div>
-                    ))}
-                  </div>
-                ) : null}
-              </li>
+                    );
+                  })}
+                </div>
+              </div>
             ))}
+
+          <ol className="space-y-4">
+            {steps.map((step) => {
+              const token = STEP_STATUS_TOKENS[step.status];
+
+              return (
+                <li key={step.id} className="flex items-start gap-4">
+                  <span
+                    className={cn(
+                      "flex h-10 w-10 items-center justify-center rounded-full border text-sm font-semibold",
+                      token.indicatorClass,
+                    )}
+                  >
+                    {step.status === "completed" ? <Check className="h-4 w-4" strokeWidth={3} /> : step.id}
+                  </span>
+                  <div className="space-y-1">
+                    <p className="text-base font-semibold text-slate-900">
+                      Step {step.id}: {step.label}
+                    </p>
+                    <p className="text-sm text-slate-600">
+                      {token.helper === "Completed"
+                        ? "Finished and synced with your workspace."
+                        : token.helper === "In progress"
+                          ? "Currently compiling documentation and coordinating with authorities."
+                          : "Queued until the current documentation is submitted."}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
           </ol>
         </div>
       </section>
@@ -161,56 +290,81 @@ export function DocumentSubmissionFocusContent({
       <div className="space-y-5">
         <section
           className={chatCardClass(
-            "space-y-6 border border-white/40 bg-white/80 p-6 text-slate-800 shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
+            "space-y-6 border border-white/60 bg-white/90 p-6 text-slate-800 shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
           )}
         >
           <div className="flex flex-wrap items-center gap-4">
-            <div className="relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border-2 border-[#54ffd4] bg-white shadow-[0_12px_22px_-14px_rgba(84,255,212,0.45)]">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/af7a85c3abd1e9919038804c2289238af996c940?width=128"
-                alt="AI Business"
-                className="h-full w-full object-cover"
-              />
+            <div className="relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border-2 border-[#0f766e]/20 bg-white shadow-[0_12px_22px_-14px_rgba(15,118,110,0.45)]">
+              <AIBusinessOrb className="h-11 w-11" />
+              <span className="absolute -right-1 -bottom-1 flex h-6 w-6 items-center justify-center rounded-full border border-white bg-[#0f766e] text-xs font-semibold uppercase tracking-[0.18em] text-white">
+                AI
+              </span>
             </div>
             <div className="min-w-[180px] space-y-1">
-              <p className="text-lg font-semibold text-slate-900">AI Business</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Business AI assistant
+              </p>
+              <p className="text-lg font-semibold text-slate-900">Gathering your documents</p>
             </div>
-            <div className="ml-auto flex items-end gap-1 text-[#54ffd4]">
+            <div className="ml-auto flex items-end gap-1 text-[#0f766e]">
               {[18, 28, 16, 22, 12, 26, 20, 32, 14].map((height, index) => (
-                <span
-                  key={index}
-                  className="w-[3px] rounded-full bg-current/80"
-                  style={{ height: `${height}px` }}
-                />
+                <span key={index} className="w-[3px] rounded-full bg-current/80" style={{ height: `${height}px` }} />
               ))}
             </div>
           </div>
 
-          <div className="space-y-3">
-            <p className="text-base font-normal text-white">Generating application...</p>
-            <div className="relative h-5 overflow-hidden rounded-full bg-slate-300">
-              <div
-                className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#54ffd4] via-[#7ff6e4] to-[#54ffd4]/70 shadow-[0_1px_6px_rgba(84,255,212,0.45)] transition-all"
-                style={{ width: `${progressPercent}%` }}
-              />
+          <div className="space-y-3 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="space-y-1">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Live automation
+                </p>
+                <p className="text-base font-semibold text-slate-900">
+                  Syncing authority submissions
+                </p>
+              </div>
+              <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                {progressPercent}% complete
+              </Badge>
             </div>
-            <p className="text-base font-normal text-white">{progressPercent}% complete</p>
+            <p className="text-sm leading-relaxed text-slate-600">
+              AI Business is coordinating document hand-offs across TAMM and partner authorities to keep your application on schedule.
+            </p>
+            <div className="space-y-2">
+              <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
+                <div
+                  className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] shadow-[0_1px_6px_rgba(15,118,110,0.35)] transition-all"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                <span>Automation progress</span>
+                <span>{progressPercent}%</span>
+              </div>
+            </div>
           </div>
 
-          <div className="h-px bg-white/30" />
-
-          <div className="space-y-4">
-            <p className="text-base font-semibold text-white">Gathering your documents from</p>
+          <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Document sources
+                </p>
+                <p className="text-base font-semibold text-slate-900">
+                  Authorities connected to your workspace
+                </p>
+              </div>
+            </div>
             <div className="grid grid-cols-2 gap-3">
               {AUTHORITIES.map((authority) => (
                 <div
                   key={authority.id}
-                  className="flex items-center justify-center rounded-full bg-white px-4 py-3 shadow-[0_12px_24px_-16px_rgba(0,0,0,0.15)]"
+                  className="flex items-center justify-center rounded-full border border-[#e6f2ed] bg-white px-4 py-3 shadow-[0_18px_42px_-40px_rgba(15,118,110,0.25)]"
                 >
                   <img
                     src={authority.src}
                     alt={authority.alt}
-                    className="h-auto max-h-[30px] w-auto max-w-full object-contain"
+                    className="h-auto max-h-[32px] w-auto max-w-full object-contain"
                   />
                 </div>
               ))}
@@ -220,52 +374,51 @@ export function DocumentSubmissionFocusContent({
 
         <section
           className={chatCardClass(
-            "border border-white/60 bg-[#54ffd4]/50 p-6 backdrop-blur-xl shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
+            "space-y-4 border border-white/60 bg-white/90 p-6 shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
           )}
         >
-          <div className="space-y-4">
-            <button
-              type="button"
-              onClick={() => setShowDocuments(!showDocuments)}
-              className="flex w-full items-center justify-between text-left"
-            >
-              <h3 className="text-base font-semibold text-white">My TAMM Documents</h3>
-              {showDocuments ? (
-                <ChevronUp className="h-6 w-6 text-white" />
-              ) : (
-                <ChevronDown className="h-6 w-6 text-white" />
-              )}
-            </button>
+          <button
+            type="button"
+            onClick={() => setShowDocuments((value) => !value)}
+            className="flex w-full items-center justify-between text-left"
+          >
+            <div className="space-y-1">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                My TAMM documents
+              </p>
+              <p className="text-base font-semibold text-slate-900">Latest synced files</p>
+            </div>
+            {showDocuments ? <ChevronUp className="h-6 w-6 text-slate-500" /> : <ChevronDown className="h-6 w-6 text-slate-500" />}
+          </button>
 
-            {showDocuments ? (
-              <div className="flex gap-3">
-                <div className="relative flex-shrink-0">
-                  <img
-                    src="https://api.builder.io/api/v1/image/assets/TEMP/e935ed8e6b8aa085650edae1997167c9467b8f30?width=164"
-                    alt="Document 1"
-                    className="h-28 w-20 rounded-lg border border-white/40 object-cover shadow-[0_8px_24px_-12px_rgba(0,0,0,0.3)]"
-                  />
-                </div>
-                <div className="relative flex-shrink-0">
-                  <img
-                    src="https://api.builder.io/api/v1/image/assets/TEMP/e467ef8d4c6409cd0f0e485b663b7b5a5ff73d2b?width=174"
-                    alt="Document 2"
-                    className="h-28 w-20 rounded-lg border border-white/40 object-cover shadow-[0_8px_24px_-12px_rgba(0,0,0,0.3)]"
-                  />
-                </div>
-                <div className="relative flex-shrink-0">
-                  <img
-                    src="https://api.builder.io/api/v1/image/assets/TEMP/e6f6df90a2f485a0a3eed451704b3d9fb7375e09?width=164"
-                    alt="Document 3"
-                    className="h-28 w-20 rounded-lg border border-white/40 object-cover opacity-60 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.3)]"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Loader2 className="h-8 w-8 animate-spin text-[#54ffd4]" />
-                  </div>
+          {showDocuments ? (
+            <div className="flex gap-4">
+              <div className="relative flex-shrink-0">
+                <img
+                  src="https://api.builder.io/api/v1/image/assets/TEMP/e935ed8e6b8aa085650edae1997167c9467b8f30?width=164"
+                  alt="Document preview 1"
+                  className="h-32 w-24 rounded-xl border border-white/70 object-cover shadow-[0_8px_24px_-12px_rgba(15,23,42,0.25)]"
+                />
+              </div>
+              <div className="relative flex-shrink-0">
+                <img
+                  src="https://api.builder.io/api/v1/image/assets/TEMP/e467ef8d4c6409cd0f0e485b663b7b5a5ff73d2b?width=174"
+                  alt="Document preview 2"
+                  className="h-32 w-24 rounded-xl border border-white/70 object-cover shadow-[0_8px_24px_-12px_rgba(15,23,42,0.25)]"
+                />
+              </div>
+              <div className="relative flex-shrink-0">
+                <img
+                  src="https://api.builder.io/api/v1/image/assets/TEMP/e6f6df90a2f485a0a3eed451704b3d9fb7375e09?width=164"
+                  alt="Document preview 3"
+                  className="h-32 w-24 rounded-xl border border-white/70 object-cover opacity-60 shadow-[0_8px_24px_-12px_rgba(15,23,42,0.25)]"
+                />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Loader2 className="h-9 w-9 animate-spin text-[#0f766e]" />
                 </div>
               </div>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
         </section>
       </div>
     </div>
