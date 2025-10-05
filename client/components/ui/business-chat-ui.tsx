@@ -5590,6 +5590,7 @@ export function BusinessChatUI({
       isInvestorAuthenticated,
       setModalView,
       setView,
+      setInputValue,
     ],
   );
 
