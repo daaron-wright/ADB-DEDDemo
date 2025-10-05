@@ -1,5 +1,12 @@
 import type { ReactNode } from "react";
 
+interface PortalBranding {
+  href?: string;
+  logoSrc: string;
+  logoAlt: string;
+  label?: string;
+}
+
 interface PortalPageLayoutProps {
   title: string;
   subtitle: string;
@@ -8,6 +15,7 @@ interface PortalPageLayoutProps {
   headerActions?: ReactNode;
   children: ReactNode;
   fullWidthSection?: ReactNode;
+  brand?: PortalBranding;
 }
 
 export function PortalPageLayout({
@@ -18,7 +26,17 @@ export function PortalPageLayout({
   headerActions,
   children,
   fullWidthSection,
+  brand,
 }: PortalPageLayoutProps) {
+  const brandConfig = {
+    href: "https://www.tamm.abudhabi/",
+    logoSrc:
+      "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F397f9a8d2a3c4c8cb1d79ae828b476be",
+    logoAlt: "TAMM logo",
+    label: "Abu Dhabi Government Services",
+    ...brand,
+  } satisfies PortalBranding;
+
   return (
     <div className="relative min-h-screen bg-[#f5f8f6]">
       <div className="mx-auto w-full max-w-7xl px-6 pb-20 pt-14 lg:px-12 xl:px-16">
@@ -26,19 +44,21 @@ export function PortalPageLayout({
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <a
-                href="https://www.tamm.abudhabi/"
+                href={brandConfig.href}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-3"
               >
                 <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F397f9a8d2a3c4c8cb1d79ae828b476be"
-                  alt="TAMM logo"
+                  src={brandConfig.logoSrc}
+                  alt={brandConfig.logoAlt}
                   className="h-10 w-auto"
                 />
-                <span className="text-xs font-semibold uppercase tracking-[0.24em] text-[#0f766e]">
-                  Abu Dhabi Government Services
-                </span>
+                {brandConfig.label ? (
+                  <span className="text-xs font-semibold uppercase tracking-[0.24em] text-[#0f766e]">
+                    {brandConfig.label}
+                  </span>
+                ) : null}
               </a>
               {headerActions ? (
                 <div className="flex items-center gap-4">{headerActions}</div>
