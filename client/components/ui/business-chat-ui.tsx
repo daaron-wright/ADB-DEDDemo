@@ -6315,31 +6315,35 @@ export function BusinessChatUI({
                           </div>
                         )}
 
-                        <div
-                          className={cn(
-                            "mt-4 rounded-[24px] border border-white/20 bg-white/14 px-4 py-3 text-xs text-slate-600 backdrop-blur-xl",
-                            isSidePanel &&
-                              "border-slate-200 bg-slate-50/90 backdrop-blur-none",
-                          )}
-                        >
-                          Use the highlighted action above to move forward.
-                          We’ll open the next workspace once you confirm.
-                        </div>
+                        {showChatInterface ? (
+                          <div
+                            className={cn(
+                              "mt-4 rounded-[24px] border border-white/20 bg-white/14 px-4 py-3 text-xs text-slate-600 backdrop-blur-xl",
+                              isSidePanel &&
+                                "border-slate-200 bg-slate-50/90 backdrop-blur-none",
+                            )}
+                          >
+                            Use the highlighted action above to move forward.
+                            We’ll open the next workspace once you confirm.
+                          </div>
+                        ) : null}
 
-                        <div
-                          className={cn(
-                            "mt-6 border-t border-white/15 pt-6",
-                            isSidePanel && "border-slate-200",
-                          )}
-                        >
-                          <ChatInputField
-                            value={inputValue}
-                            onChange={setInputValue}
-                            onSubmit={handleSendMessage}
-                            placeholder="Of these who are the target market for a high end restaurants?"
-                            className="w-full"
-                          />
-                        </div>
+                        {showChatInterface ? (
+                          <div
+                            className={cn(
+                              "mt-6 border-t border-white/15 pt-6",
+                              isSidePanel && "border-slate-200",
+                            )}
+                          >
+                            <ChatInputField
+                              value={inputValue}
+                              onChange={setInputValue}
+                              onSubmit={handleSendMessage}
+                              placeholder="Of these who are the target market for a high end restaurants?"
+                              className="w-full"
+                            />
+                          </div>
+                        ) : null}
                       </div>
                     </div>
                   </div>
