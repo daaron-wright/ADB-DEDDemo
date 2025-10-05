@@ -5,7 +5,10 @@ import { Button } from "@/components/ui/button";
 import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, AlertCircle, CheckCircle, AlertTriangle, FileEdit } from "lucide-react";
-import { ComplianceDetailModal } from "./ComplianceDetailModal";
+import {
+  ComplianceDetailModal,
+  type ComplianceDetailModalData,
+} from "./ComplianceDetailModal";
 
 interface ComplianceGrowthFocusContentProps {
   journeyNumber?: string;
@@ -55,12 +58,15 @@ const COMPLIANCE_ITEMS: ComplianceItem[] = [
   },
 ];
 
-const COMPLIANCE_STATUS_TOKENS: Record<ComplianceStatus, {
-  Icon: React.ElementType;
-  iconWrapperClass: string;
-  iconClass: string;
-  textClass: string;
-}> = {
+const COMPLIANCE_STATUS_TOKENS: Record<
+  ComplianceStatus,
+  {
+    Icon: React.ElementType;
+    iconWrapperClass: string;
+    iconClass: string;
+    textClass: string;
+  }
+> = {
   error: {
     Icon: AlertCircle,
     iconWrapperClass: "border border-red-400/40 bg-red-500/20 text-red-100",
@@ -89,13 +95,103 @@ const COMPLIANCE_STATUS_TOKENS: Record<ComplianceStatus, {
 
 type ToggleView = "compliance" | "growth";
 
+const DED_COMPLIANCE_DETAIL: ComplianceDetailModalData = {
+  id: "ded-inspection",
+  title: "DED inspection",
+  statusLabel: "Action needed",
+  statusBadgeClass: "border-amber-200 bg-amber-50 text-amber-700",
+  summary: "AI monitoring flagged follow-ups required to finalise the economic license inspection renewal.",
+  dueLabel: "Inspection window closes in 29 days",
+  progressPercent: 78,
+  outstandingPercent: 22,
+  metrics: [
+    {
+      id: "agency",
+      label: "Responsible authority",
+      value: "Department of Economic Development",
+      helper: "Inspector: H. Al-Nuaimi",
+    },
+    {
+      id: "location",
+      label: "Site",
+      value: "Corniche Culinary Collective",
+      helper: "AED Tower, Level 3",
+    },
+  ],
+  tasks: [
+    {
+      id: "schedule-visit",
+      label: "Confirm onsite visit slot with inspector",
+      status: "priority",
+      detail: "Preferred window: 24–26 April",
+    },
+    {
+      id: "upload-updates",
+      label: "Upload updated kitchen HACCP documents",
+      status: "in_progress",
+      detail: "Draft in review by operations",
+    },
+    {
+      id: "staff-logs",
+      label: "Collect staff training compliance log",
+      status: "in_progress",
+      detail: "Awaiting signatures from shift leads",
+    },
+  ],
+  documents: [
+    {
+      id: "risk-assessment",
+      label: "Risk assessment checklist",
+      type: "PDF • 3.2 MB",
+      status: "Updated",
+    },
+    {
+      id: "floor-plan",
+      label: "Revised kitchen floor plan",
+      type: "DWG • 1.1 MB",
+      status: "Pending upload",
+    },
+    {
+      id: "certificates",
+      label: "Calibration certificates",
+      type: "ZIP • 5 files",
+      status: "Ready",
+    },
+  ],
+  footage: [
+    {
+      id: "kitchen-overview",
+      title: "Kitchen station overview",
+      imageSrc:
+        "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fb8e81338fc04dbb1961cecf6a6b349e10dd288d5?format=webp&width=412",
+      caption: "Temperature variance flagged for station three.",
+    },
+    {
+      id: "dining-floor",
+      title: "Dining floor occupancy",
+      imageSrc:
+        "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F35354ebad5489f0ffae354b2521357c0e9b5d5fa?format=webp&width=458",
+      caption: "Seating compliance meets occupancy targets.",
+    },
+    {
+      id: "fire-exit",
+      title: "Fire exit corridor",
+      imageSrc:
+        "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F37e3d308bae6fa63163fe9e0bbe47135f19cab55?format=webp&width=412",
+      caption: "Exit unobstructed; signage refresh scheduled in 5 days.",
+    },
+  ],
+};
+
 export function ComplianceGrowthFocusContent({
   journeyNumber = "0987654321",
   completionStatus = "78% complete",
   progressPercent = 78,
 }: ComplianceGrowthFocusContentProps) {
   const [activeView, setActiveView] = React.useState<ToggleView>("compliance");
-  const [isComplianceModalOpen, setIsComplianceModalOpen] = React.useState(false);
+  const [complianceModalData, setComplianceModalData] = React.useState<
+    ComplianceDetailModalData | null
+  >(null);
 
   const thingsToDo = 22;
   const complete = 78;
@@ -223,7 +319,7 @@ export function ComplianceGrowthFocusContent({
                     </div>
                     {item.id === "ded-inspection" && (item.status === "warning" || item.status === "error") ? (
                       <button
-                        onClick={() => setIsComplianceModalOpen(true)}
+                        onClick={() => setComplianceModalData(DED_COMPLIANCE_DETAIL)}
                         className="rounded-full border border-white/70 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition-colors hover:bg-[#0f766e]/10"
                       >
                         {statusLabel}
@@ -547,8 +643,8 @@ export function ComplianceGrowthFocusContent({
       )}
 
       <ComplianceDetailModal
-        isOpen={isComplianceModalOpen}
-        onClose={() => setIsComplianceModalOpen(false)}
+        data={complianceModalData}
+        onClose={() => setComplianceModalData(null)}
       />
     </div>
   );
