@@ -5139,6 +5139,8 @@ export function BusinessChatUI({
     [activityOptions, selectedActivityIds],
   );
 
+  const shouldSuppressChat = suppressChatInterface;
+
   const physicalSpacePlan = useMemo<PhysicalSpacePlan | null>(() => {
     if (selectedActivities.length === 0) {
       return null;
