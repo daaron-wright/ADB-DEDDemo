@@ -97,6 +97,9 @@ export function ComplianceGrowthFocusContent({
 
   const thingsToDo = 22;
   const complete = 78;
+  const growthSteps = 9;
+  const growthActions = 3;
+  const growthProgress = 75;
 
   const urgentItems = COMPLIANCE_ITEMS.filter(item => item.status === "error" || item.status === "warning");
 
