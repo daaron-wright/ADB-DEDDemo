@@ -94,7 +94,6 @@ export function ComplianceGrowthFocusContent({
   progressPercent = 78,
 }: ComplianceGrowthFocusContentProps) {
   const [activeView, setActiveView] = React.useState<ToggleView>("compliance");
-  const [showAlert, setShowAlert] = React.useState(true);
 
   const thingsToDo = 22;
   const complete = 78;
