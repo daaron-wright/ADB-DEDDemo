@@ -348,7 +348,7 @@ export function JourneyOrchestrationPanel({
                   Application progress
                 </p>
                 <span className="text-sm font-semibold text-slate-700">
-                  {completedCount} of {totalActions} completed ({completionPercent}%)
+                  {completedCount} / {totalActions} complete ({completionPercent}%)
                 </span>
               </div>
               <div className="mt-4 h-2.5 w-full rounded-full bg-[#e6f2ed]">
@@ -361,7 +361,7 @@ export function JourneyOrchestrationPanel({
                 <span className="font-semibold text-[#0f766e]">
                   {outstandingDisplayCount} remaining
                 </span>
-                <span>{completedCount} completed</span>
+                <span>{completedCount} done</span>
               </div>
               <p className="mt-4 text-sm text-slate-500">
                 Focus on the outstanding actions to keep your workspace moving toward issuance.
