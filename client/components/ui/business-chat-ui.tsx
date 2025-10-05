@@ -5512,14 +5512,13 @@ export function BusinessChatUI({
         }
 
         if (action === "open-investor-journey") {
+          setInputValue(HEAT_MAP_PROMPT);
+
           if (isInvestorAuthenticated) {
             setModalView("heat-map");
             return [
               ...updated,
-              buildMessage(
-                "Where are existing establishments located for specific activities (on a heat map)?",
-                true,
-              ),
+              buildMessage(HEAT_MAP_PROMPT, true),
             ];
           }
 
