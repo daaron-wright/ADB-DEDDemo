@@ -274,38 +274,110 @@ export function ComplianceGrowthFocusContent({
                 return (
                   <div
                     key={item.id}
-                    className="flex flex-col gap-3 rounded-2xl border border-[#d8e4df] bg-white/95 p-4 sm:flex-row sm:items-center sm:justify-between"
+                    className="space-y-3 rounded-2xl border border-[#d8e4df] bg-white/95 p-4"
                   >
-                    <div className="flex items-start gap-3">
-                      <span
-                        className={cn(
-                          "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full",
-                          token.iconWrapperClass,
-                        )}
-                      >
-                        <Icon className={cn("h-5 w-5", token.iconClass)} />
-                      </span>
-                      <div className="space-y-1">
-                        <p className="text-sm font-semibold text-slate-900">{item.label}</p>
-                        <p className="text-xs uppercase tracking-[0.16em] text-slate-500">{item.detail}</p>
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                      <div className="flex items-start gap-3">
+                        <span
+                          className={cn(
+                            "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full",
+                            token.iconWrapperClass,
+                          )}
+                        >
+                          <Icon className={cn("h-5 w-5", token.iconClass)} />
+                        </span>
+                        <div className="space-y-1">
+                          <p className="text-sm font-semibold text-slate-900">{item.label}</p>
+                          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">{item.detail}</p>
+                        </div>
                       </div>
+                      {item.id === "ded-inspection" && (item.status === "warning" || item.status === "error") ? (
+                        <button
+                          onClick={() =>
+                            setExpandedComplianceItem((current) =>
+                              current === "ded-inspection" ? null : "ded-inspection",
+                            )
+                          }
+                          className="self-start rounded-full border border-white/70 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition-colors hover:bg-[#0f766e]/10 sm:self-auto"
+                        >
+                          {expandedComplianceItem === "ded-inspection" ? "Hide details" : "View actions"}
+                        </button>
+                      ) : (
+                        <Badge className="self-start border-white/70 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] sm:self-auto">
+                          {statusLabel}
+                        </Badge>
+                      )}
                     </div>
-                    {item.id === "ded-inspection" && (item.status === "warning" || item.status === "error") ? (
-                      <button
-                        onClick={() =>
-                          setExpandedComplianceItem((current) =>
-                            current === "ded-inspection" ? null : "ded-inspection",
-                          )
-                        }
-                        className="rounded-full border border-white/70 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition-colors hover:bg-[#0f766e]/10"
-                      >
-                        {expandedComplianceItem === "ded-inspection" ? "Hide details" : "View actions"}
-                      </button>
-                    ) : (
-                      <Badge className="border-white/70 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                        {statusLabel}
-                      </Badge>
-                    )}
+
+                    {item.id === "ded-inspection" && expandedComplianceItem === "ded-inspection" ? (
+                      <div className="space-y-5 rounded-2xl border border-[#d8e4df] bg-white p-4 text-sm text-slate-600">
+                        <div className="space-y-2">
+                          <p className="font-semibold text-slate-900">What DED needs</p>
+                          <p>{DED_DETAIL.summary}</p>
+                        </div>
+
+                        <div className="space-y-2">
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Highlights</p>
+                          <ul className="space-y-2">
+                            {DED_DETAIL.highlights.map((highlight, index) => (
+                              <li key={index} className="flex items-start gap-2">
+                                <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0f766e]" />
+                                <span>{highlight}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div className="space-y-2">
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Checklist</p>
+                          <ul className="space-y-2">
+                            {DED_DETAIL.checklist.map((check) => {
+                              const badge = CHECKLIST_BADGES[check.status];
+
+                              return (
+                                <li
+                                  key={check.id}
+                                  className="flex flex-col gap-2 rounded-2xl border border-[#e3eeea] bg-[#f5faf7] p-3 sm:flex-row sm:items-center sm:justify-between"
+                                >
+                                  <div className="space-y-1">
+                                    <p className="text-sm font-medium text-slate-900">{check.label}</p>
+                                    {check.helper ? <p className="text-xs text-slate-500">{check.helper}</p> : null}
+                                  </div>
+                                  <Badge
+                                    className={cn(
+                                      "self-start rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] sm:self-auto",
+                                      badge.className,
+                                    )}
+                                  >
+                                    {badge.label}
+                                  </Badge>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
+
+                        <div className="space-y-2">
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Supporting files</p>
+                          <ul className="space-y-2">
+                            {DED_DETAIL.documents.map((doc) => (
+                              <li
+                                key={doc.id}
+                                className="flex flex-col gap-2 rounded-2xl border border-[#e3eeea] bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+                              >
+                                <div>
+                                  <p className="text-sm font-medium text-slate-900">{doc.label}</p>
+                                  <p className="text-xs text-slate-500">{doc.meta}</p>
+                                </div>
+                                <Badge className="rounded-full border border-[#d8e4df] bg-[#f5faf7] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                                  {doc.statusLabel}
+                                </Badge>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    ) : null}
                   </div>
                 );
               })}
