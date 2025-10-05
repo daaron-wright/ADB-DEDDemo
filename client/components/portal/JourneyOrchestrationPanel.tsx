@@ -342,7 +342,7 @@ export function JourneyOrchestrationPanel({
       {(hasActions || hasTimelineSection) ? (
         <div className="space-y-6">
           {hasActions ? (
-            <div className="rounded-3xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.24)] sm:p-6">
+            <div className="rounded-2xl bg-[#f5faf7] p-5 sm:p-6">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                   Application progress
