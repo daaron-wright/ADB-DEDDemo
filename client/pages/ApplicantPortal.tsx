@@ -1252,23 +1252,6 @@ export default function ApplicantPortal() {
                 <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
                 Chat with AI
               </Button>
-              <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    handleCloseChat();
-                  }}
-                  className={cn(
-                    "inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
-                    isChatOpen
-                      ? "border-[#0f766e] bg-white shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] hover:bg-[#eaf7f3]"
-                      : "border-[#d8e4df] bg-white text-slate-500",
-                  )}
-                >
-                  Close chat
-                </button>
-              </div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]/70">
                 Current view:{" "}
                 {isSidePanelView
