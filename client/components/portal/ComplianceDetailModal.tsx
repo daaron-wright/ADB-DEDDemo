@@ -1,10 +1,10 @@
 import * as React from "react";
 import {
-  AlertCircle,
   AlertTriangle,
   ArrowLeft,
   CheckCircle,
-  FileEdit,
+  Clock,
+  FileText,
   X,
 } from "lucide-react";
 
@@ -12,114 +12,90 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+export type ComplianceTaskStatus = "priority" | "in_progress" | "complete";
+
+export interface ComplianceDetailTask {
+  id: string;
+  label: string;
+  status: ComplianceTaskStatus;
+  detail?: string;
+}
+
+export interface ComplianceDetailMetric {
+  id: string;
+  label: string;
+  value: string;
+  helper?: string;
+}
+
+export interface ComplianceDetailFootage {
+  id: string;
+  title: string;
+  imageSrc: string;
+  caption: string;
+}
+
+export interface ComplianceDetailModalData {
+  id: string;
+  title: string;
+  statusLabel: string;
+  statusBadgeClass?: string;
+  summary: string;
+  dueLabel: string;
+  progressPercent: number;
+  outstandingPercent: number;
+  metrics: ComplianceDetailMetric[];
+  tasks: ComplianceDetailTask[];
+  documents: { id: string; label: string; type: string; status: string }[];
+  footage: ComplianceDetailFootage[];
+}
+
 interface ComplianceDetailModalProps {
-  isOpen: boolean;
+  data: ComplianceDetailModalData | null;
   onClose: () => void;
 }
 
-type ComplianceStatus = "error" | "warning" | "success" | "info";
-
-interface ComplianceItem {
-  id: string;
-  label: string;
-  status: ComplianceStatus;
-  detail: string;
-}
-
-const COMPLIANCE_ITEMS: ComplianceItem[] = [
-  {
-    id: "civil-defence",
-    label: "Civil Defence",
-    status: "error",
-    detail: "2 issues to resolve",
-  },
-  {
-    id: "ded-inspection",
-    label: "DED inspection",
-    status: "warning",
-    detail: "29 days remaining",
-  },
-  {
-    id: "food-safety",
-    label: "Food & Safety inspection",
-    status: "success",
-    detail: "Pass",
-  },
-  {
-    id: "employment-visas",
-    label: "6 Employment Visas",
-    status: "success",
-    detail: "Renewed",
-  },
-  {
-    id: "tawtheeq",
-    label: "Tawtheeq",
-    status: "info",
-    detail: "Expires in 320 days",
-  },
-];
-
-const STATUS_META: Record<
-  ComplianceStatus,
-  {
-    Icon: React.ElementType;
-    iconWrapperClass: string;
-    iconClass: string;
-    badgeClass: string;
-    badgeTextClass: string;
-  }
+const TASK_STATUS_META: Record<
+  ComplianceTaskStatus,
+  { label: string; badgeClass: string; badgeText: string }
 > = {
-  error: {
-    Icon: AlertCircle,
-    iconWrapperClass: "bg-red-50 text-red-500",
-    iconClass: "text-red-500",
+  priority: {
+    label: "Priority",
     badgeClass: "border-red-200 bg-red-50",
-    badgeTextClass: "text-red-700",
+    badgeText: "text-red-700",
   },
-  warning: {
-    Icon: AlertTriangle,
-    iconWrapperClass: "bg-amber-50 text-amber-500",
-    iconClass: "text-amber-500",
+  in_progress: {
+    label: "In progress",
     badgeClass: "border-amber-200 bg-amber-50",
-    badgeTextClass: "text-amber-700",
+    badgeText: "text-amber-700",
   },
-  success: {
-    Icon: CheckCircle,
-    iconWrapperClass: "bg-emerald-50 text-emerald-500",
-    iconClass: "text-emerald-500",
+  complete: {
+    label: "Complete",
     badgeClass: "border-emerald-200 bg-emerald-50",
-    badgeTextClass: "text-emerald-700",
-  },
-  info: {
-    Icon: FileEdit,
-    iconWrapperClass: "bg-slate-100 text-slate-500",
-    iconClass: "text-slate-500",
-    badgeClass: "border-slate-200 bg-slate-100",
-    badgeTextClass: "text-slate-600",
+    badgeText: "text-emerald-700",
   },
 };
 
-export function ComplianceDetailModal({ isOpen, onClose }: ComplianceDetailModalProps) {
-  if (!isOpen) return null;
+export function ComplianceDetailModal({ data, onClose }: ComplianceDetailModalProps) {
+  if (!data) return null;
 
-  const thingsToDo = 22;
-  const complete = 78;
+  const {
+    title,
+    statusLabel,
+    statusBadgeClass,
+    summary,
+    dueLabel,
+    progressPercent,
+    outstandingPercent,
+    metrics,
+    tasks,
+    documents,
+    footage,
+  } = data;
+
   const circleRadius = 28;
   const circleCircumference = 2 * Math.PI * circleRadius;
-  const completeStroke = (complete / 100) * circleCircumference;
-
-  const renderStatusLabel = (status: ComplianceStatus) => {
-    switch (status) {
-      case "error":
-        return "Urgent";
-      case "warning":
-        return "Action needed";
-      case "success":
-        return "Compliant";
-      default:
-        return "FYI";
-    }
-  };
+  const completeStroke = (progressPercent / 100) * circleCircumference;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -131,12 +107,18 @@ export function ComplianceDetailModal({ isOpen, onClose }: ComplianceDetailModal
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
               Compliance dashboard
             </p>
-            <h2 className="text-xl font-semibold text-slate-900">DED inspection review</h2>
-            <p className="text-sm text-slate-600">
-              Quick status summary, priority actions, and latest footage.
-            </p>
+            <h2 className="text-xl font-semibold text-slate-900">{title}</h2>
+            <p className="text-sm text-slate-600">{summary}</p>
           </div>
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            <Badge
+              className={cn(
+                "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                statusBadgeClass ?? "border-amber-200 bg-amber-50 text-amber-700",
+              )}
+            >
+              {statusLabel}
+            </Badge>
             <Button
               type="button"
               variant="outline"
@@ -182,7 +164,7 @@ export function ComplianceDetailModal({ isOpen, onClose }: ComplianceDetailModal
                     />
                   </svg>
                   <div className="flex flex-col items-center">
-                    <span className="text-2xl font-semibold text-[#0f766e]">{complete}%</span>
+                    <span className="text-2xl font-semibold text-[#0f766e]">{progressPercent}%</span>
                     <span className="text-xs uppercase tracking-[0.18em] text-slate-500">Complete</span>
                   </div>
                 </div>
@@ -191,57 +173,73 @@ export function ComplianceDetailModal({ isOpen, onClose }: ComplianceDetailModal
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                       Things to do
                     </p>
-                    <p className="text-lg font-semibold text-slate-900">{thingsToDo}% remaining</p>
+                    <p className="text-lg font-semibold text-slate-900">{outstandingPercent}% remaining</p>
+                    <p>{dueLabel}</p>
                   </div>
-                  <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                      Agencies
-                    </p>
-                    <p className="text-lg font-semibold text-slate-900">DED • Civil Defence</p>
-                  </div>
+                  {metrics.map((metric) => (
+                    <div key={metric.id}>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                        {metric.label}
+                      </p>
+                      <p className="text-lg font-semibold text-slate-900">{metric.value}</p>
+                      {metric.helper ? <p>{metric.helper}</p> : null}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
 
             <div className="space-y-3">
-              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">
-                Checkpoints
+              <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">
+                <AlertTriangle className="h-4 w-4 text-amber-500" /> DED checklist
               </h3>
               <ul className="space-y-3">
-                {COMPLIANCE_ITEMS.map((item) => {
-                  const meta = STATUS_META[item.status];
-                  const StatusIcon = meta.Icon;
-                  const statusLabel = renderStatusLabel(item.status);
+                {tasks.map((task) => {
+                  const meta = TASK_STATUS_META[task.status];
 
                   return (
                     <li
-                      key={item.id}
+                      key={task.id}
                       className="flex items-start gap-3 rounded-2xl border border-[#e3eeea] bg-white p-4"
                     >
-                      <span
-                        className={cn(
-                          "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full",
-                          meta.iconWrapperClass,
-                        )}
-                      >
-                        <StatusIcon className={cn("h-5 w-5", meta.iconClass)} />
-                      </span>
-                      <div className="flex-1 space-y-1">
-                        <p className="text-sm font-medium text-slate-900">{item.label}</p>
-                        <p className="text-xs text-slate-500">{item.detail}</p>
-                      </div>
                       <Badge
                         className={cn(
-                          "px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                          "mt-0.5 rounded-full border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em]",
                           meta.badgeClass,
-                          meta.badgeTextClass,
+                          meta.badgeText,
                         )}
                       >
-                        {statusLabel}
+                        {meta.label}
                       </Badge>
+                      <div className="flex-1 space-y-1">
+                        <p className="text-sm font-medium text-slate-900">{task.label}</p>
+                        {task.detail ? <p className="text-xs text-slate-500">{task.detail}</p> : null}
+                      </div>
                     </li>
                   );
                 })}
+              </ul>
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">
+                <FileText className="h-4 w-4 text-slate-500" /> Documents
+              </h3>
+              <ul className="space-y-2 text-sm text-slate-600">
+                {documents.map((doc) => (
+                  <li
+                    key={doc.id}
+                    className="flex items-center justify-between rounded-2xl border border-[#e3eeea] bg-white px-4 py-3"
+                  >
+                    <div>
+                      <p className="font-medium text-slate-900">{doc.label}</p>
+                      <p className="text-xs text-slate-500">{doc.type}</p>
+                    </div>
+                    <Badge className="rounded-full border border-[#d8e4df] bg-[#f5faf7] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                      {doc.status}
+                    </Badge>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -257,55 +255,39 @@ export function ComplianceDetailModal({ isOpen, onClose }: ComplianceDetailModal
             <div className="rounded-2xl border border-[#d8e4df] bg-white p-5">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">
-                  Kitchen snapshots
+                  DED inspection footage
                 </h3>
-                <Badge className="border-[#b7e1d4] bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  2 feeds
+                <Badge className="rounded-full border border-[#b7e1d4] bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  {footage.length} clips
                 </Badge>
               </div>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                <figure className="overflow-hidden rounded-2xl border border-[#e3eeea]">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fb8e81338fc04dbb1961cecf6a6b349e10dd288d5?format=webp&width=412"
-                    alt="Kitchen station overview"
-                    className="h-36 w-full object-cover"
-                  />
-                  <figcaption className="px-3 py-2 text-xs text-slate-600">
-                    Temperature variance flagged for station three.
-                  </figcaption>
-                </figure>
-                <figure className="overflow-hidden rounded-2xl border border-[#e3eeea]">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F35354ebad5489f0ffae354b2521357c0e9b5d5fa?format=webp&width=458"
-                    alt="Dining floor with overlays"
-                    className="h-36 w-full object-cover"
-                  />
-                  <figcaption className="px-3 py-2 text-xs text-slate-600">
-                    Seating compliance meets occupancy targets.
-                  </figcaption>
-                </figure>
+                {footage.map((clip) => (
+                  <figure
+                    key={clip.id}
+                    className="overflow-hidden rounded-2xl border border-[#e3eeea]"
+                  >
+                    <img
+                      src={clip.imageSrc}
+                      alt={clip.title}
+                      className="h-36 w-full object-cover"
+                    />
+                    <figcaption className="px-3 py-2 text-xs text-slate-600">
+                      {clip.caption}
+                    </figcaption>
+                  </figure>
+                ))}
               </div>
             </div>
 
             <div className="rounded-2xl border border-[#d8e4df] bg-white p-5">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">
-                  Fire exit check
-                </h3>
-                <Badge className="border-[#b7e1d4] bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Clear
-                </Badge>
+              <div className="flex items-center justify-between text-sm text-slate-600">
+                <div className="flex items-center gap-2">
+                  <Clock className="h-4 w-4 text-slate-500" />
+                  <span>Next follow-up window</span>
+                </div>
+                <span className="font-semibold text-slate-900">Within 5 business days</span>
               </div>
-              <figure className="mt-4 overflow-hidden rounded-2xl border border-[#e3eeea]">
-                <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F37e3d308bae6fa63163fe9e0bbe47135f19cab55?format=webp&width=412"
-                  alt="Fire exit corridor"
-                  className="h-40 w-full object-cover"
-                />
-                <figcaption className="px-3 py-2 text-xs text-slate-600">
-                  Corridor unobstructed; signage refresh in 5 days.
-                </figcaption>
-              </figure>
               <div className="mt-4 flex flex-wrap gap-3">
                 <Button
                   type="button"
@@ -320,6 +302,15 @@ export function ComplianceDetailModal({ isOpen, onClose }: ComplianceDetailModal
                 >
                   Request maintenance
                 </Button>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-[#d8e4df] bg-[#f8fbfa] p-5">
+              <div className="space-y-1 text-sm text-slate-600">
+                <p className="font-semibold text-slate-900">Notes for inspector</p>
+                <p>
+                  Provide documentation for kitchen layout updates and confirm staff training logs prior to the onsite visit.
+                </p>
               </div>
             </div>
           </section>
