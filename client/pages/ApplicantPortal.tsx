@@ -92,29 +92,71 @@ const BUSINESS_ACTIVITY_GUIDANCE_MESSAGE =
 
 const journeyStages: JourneyStage[] = [
   {
-    id: "trade-name-activities",
-    title: "Trade name & activities",
+    id: "questionnaire",
+    title: "Questionnaire",
     highlight: {
-      label: "Trade name secured",
+      label: "Intake synced",
+      detail: `Completed ${formatDisplayDate(daysFromToday(-16))}`,
+    },
+    description:
+      "Layla completed the AI-guided questionnaire capturing business objectives, ownership, and operational preferences.",
+    state: "done",
+    statusDetail: "Workspace tailored to responses",
+    tasks: [
+      {
+        id: "questionnaire-business-profile",
+        label: "Complete business profile intake",
+        status: "completed",
+        owner: "Applicant",
+        completedOn: isoDate(daysFromToday(-17)),
+      },
+      {
+        id: "questionnaire-location-plan",
+        label: "Confirm preferred location insights",
+        status: "completed",
+        owner: "Applicant",
+        completedOn: isoDate(daysFromToday(-16)),
+      },
+      {
+        id: "questionnaire-automation-sync",
+        label: "Sync questionnaire with automation engine",
+        status: "completed",
+        owner: "Applicant",
+        completedOn: isoDate(daysFromToday(-15)),
+      },
+    ],
+  },
+  {
+    id: "trade-name-activities",
+    title: "Business Registration",
+    highlight: {
+      label: "Registration packet drafted",
       detail: `Approved ${formatDisplayDate(daysFromToday(-10))}`,
     },
     description:
-      "Layla chose the Corniche Culinary Collective trade name and aligned restaurant activities.",
+      "Trade name reservation, ownership structure, and initial registration documents were prepared with AI guidance.",
     state: "done",
-    statusDetail: "Trade name approved",
+    statusDetail: "Registration documents ready",
     tasks: [
       {
-        id: "trade-name-select",
-        label: "Confirm preferred trade name",
+        id: "registration-trade-name",
+        label: "Reserve Corniche Culinary Collective trade name",
+        status: "completed",
+        owner: "Applicant",
+        completedOn: isoDate(daysFromToday(-12)),
+      },
+      {
+        id: "registration-ownership-structure",
+        label: "Confirm ownership structure and shareholder records",
         status: "completed",
         owner: "Applicant",
         completedOn: isoDate(daysFromToday(-11)),
       },
       {
-        id: "trade-name-activities",
-        label: "Align business activity groupings",
+        id: "registration-initial-approvals",
+        label: "Generate initial registration documents",
         status: "completed",
-        owner: "Applicant",
+        owner: "Department of Economic Development",
         completedOn: isoDate(daysFromToday(-10)),
       },
     ],
@@ -162,97 +204,6 @@ const journeyStages: JourneyStage[] = [
     ],
   },
   {
-    id: "owners",
-    title: "Owners",
-    highlight: {
-      label: "Co-founders added",
-      detail: `Verified ${formatDisplayDate(daysFromToday(-8))}`,
-    },
-    description:
-      "Co-founder details and ownership percentages are registered and verified.",
-    state: "done",
-    statusDetail: "Ownership structure confirmed",
-    tasks: [
-      {
-        id: "owners-add-partners",
-        label: "Add co-founder details",
-        status: "completed",
-        owner: "Applicant",
-        completedOn: isoDate(daysFromToday(-9)),
-      },
-      {
-        id: "owners-verify-ids",
-        label: "Verify Emirates IDs for partners",
-        status: "completed",
-        owner: "Department of Economic Development",
-        completedOn: isoDate(daysFromToday(-8)),
-      },
-    ],
-  },
-  {
-    id: "premises",
-    title: "Premises",
-    highlight: {
-      label: "Property confirmed",
-      detail: `Corniche lease uploaded ${formatDisplayDate(daysFromToday(-6))}`,
-    },
-    description:
-      "Property selection and tenancy documentation for the Corniche unit are confirmed.",
-    state: "done",
-    statusDetail: "Premises ready",
-    tasks: [
-      {
-        id: "premises-confirm-property",
-        label: "Confirm property selection",
-        status: "completed",
-        owner: "Applicant",
-        completedOn: isoDate(daysFromToday(-7)),
-      },
-      {
-        id: "premises-upload-lease",
-        label: "Upload signed tenancy contract",
-        status: "completed",
-        owner: "Applicant",
-        completedOn: isoDate(daysFromToday(-6)),
-      },
-    ],
-  },
-  {
-    id: "approvals",
-    title: "Approvals",
-    highlight: {
-      label: "Approvals secured",
-      detail: `Completed ${formatDisplayDate(daysFromToday(-1))}`,
-    },
-    description:
-      "Layla secured sector approvals, food control clearance, and signage permits.",
-    state: "done",
-    statusDetail: "All approvals received",
-    tasks: [
-      {
-        id: "approvals-adafsa",
-        label: "Submit ADAFSA food control approval",
-        status: "completed",
-        owner: "Applicant",
-        completedOn: isoDate(daysFromToday(-3)),
-      },
-      {
-        id: "approvals-signage",
-        label: "Request municipality signage clearance",
-        status: "completed",
-        owner: "Applicant",
-        completedOn: isoDate(daysFromToday(-2)),
-      },
-      {
-        id: "approvals-ded-review",
-        label: "DED initial NOC review",
-        status: "completed",
-        owner: "Department of Economic Development",
-        completedOn: isoDate(daysFromToday(-1)),
-      },
-    ],
-  },
-  {
     id: "license",
     title: "Business Licensing",
     highlight: {
@@ -284,62 +235,6 @@ const journeyStages: JourneyStage[] = [
         status: "completed",
         owner: "Department of Economic Development",
         completedOn: isoDate(daysFromToday(-2)),
-      },
-    ],
-  },
-  {
-    id: "banking-extras",
-    title: "Banking & extras",
-    highlight: {
-      label: "Support services queued",
-      detail: "Banking and utilities discovery",
-    },
-    description:
-      "AI surfaces shortlisted banks, utilities, and telecom providers for onboarding.",
-    state: "upcoming",
-    statusDetail: "Discovery recommendations ready",
-    tasks: [
-      {
-        id: "banking-shortlist",
-        label: "Shortlist partner banks",
-        status: "pending",
-        owner: "Applicant",
-        dueDate: isoDate(daysFromToday(9)),
-      },
-      {
-        id: "extras-utilities",
-        label: "Request telecom & utilities setup",
-        status: "pending",
-        owner: "Applicant",
-        dueDate: isoDate(daysFromToday(10)),
-      },
-    ],
-  },
-  {
-    id: "payment-issuance",
-    title: "Payment & issuance",
-    highlight: {
-      label: "Payments upcoming",
-      detail: "Consolidated voucher to be generated",
-    },
-    description:
-      "Once the license packet is approved, Layla will pay and receive the digital license instantly.",
-    state: "upcoming",
-    statusDetail: "Awaiting payment release",
-    tasks: [
-      {
-        id: "payment-generate-voucher",
-        label: "Generate consolidated payment voucher",
-        status: "pending",
-        owner: "Applicant",
-        dueDate: isoDate(daysFromToday(11)),
-      },
-      {
-        id: "payment-settle-fees",
-        label: "Pay issuance and licensing fees",
-        status: "pending",
-        owner: "Applicant",
-        dueDate: isoDate(daysFromToday(12)),
       },
     ],
   },
@@ -382,34 +277,6 @@ const journeyStages: JourneyStage[] = [
         status: "pending",
         owner: "Applicant",
         dueDate: isoDate(daysFromToday(2)),
-      },
-    ],
-  },
-  {
-    id: "activation",
-    title: "Activation",
-    highlight: {
-      label: "Launch readiness",
-      detail: "Final countdown to opening",
-    },
-    description:
-      "With inspections cleared and services active, Layla prepares to open the restaurant doors.",
-    state: "upcoming",
-    statusDetail: "Go-live planning",
-    tasks: [
-      {
-        id: "activation-opening-date",
-        label: "Set opening date and soft launch plan",
-        status: "pending",
-        owner: "Applicant",
-        dueDate: isoDate(daysFromToday(16)),
-      },
-      {
-        id: "activation-go-live",
-        label: "Launch go-live checklist",
-        status: "pending",
-        owner: "Applicant",
-        dueDate: isoDate(daysFromToday(17)),
       },
     ],
   },
@@ -538,18 +405,10 @@ const ACTOR_OPTIONS: ActorOption[] = [
 ];
 
 const JOURNEY_STEPS_CONFIG: JourneyStep[] = [
-  {
-    id: "trade-name-activities",
-    label: "Trade name & activities",
-    state: "completed",
-  },
+  { id: "questionnaire", label: "Questionnaire", state: "completed" },
+  { id: "trade-name-activities", label: "Business Registration", state: "completed" },
   { id: "document-submissions", label: "Submit Documents", state: "completed" },
-  { id: "owners", label: "Owners", state: "completed" },
-  { id: "premises", label: "Premises", state: "completed" },
-  { id: "approvals", label: "Approvals", state: "completed" },
   { id: "license", label: "Business Licensing", state: "completed" },
-  { id: "banking-extras", label: "Banking / Extras", state: "upcoming" },
-  { id: "payment-issuance", label: "Payment & Issuance", state: "upcoming" },
   { id: "inspections", label: "Pre-Operational Inspection", state: "current" },
   { id: "compliance-growth", label: "Compliance / Growth", state: "upcoming" },
 ];
@@ -626,20 +485,31 @@ const computeSteps = (activeStepId: string): JourneyStep[] => {
 
 const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
   {
-    stageId: "trade-name-activities",
-    message: "Selecting trade name and restaurant activities...",
-    percent: 18,
-    keyConsiderations: ["Trade name options", "Activity scope"],
+    stageId: "questionnaire",
+    message: "Capturing questionnaire responses and tailoring the workspace...",
+    percent: 12,
+    keyConsiderations: ["Business intent", "Ownership structure"],
     dataTags: [
-      "Preferred trade name",
-      "Activity grouping",
-      "Legal structure",
+      "Business objectives",
+      "Location preferences",
+      "Owner profiles",
+    ],
+  },
+  {
+    stageId: "trade-name-activities",
+    message: "Preparing business registration packet...",
+    percent: 28,
+    keyConsiderations: ["Trade name reservation", "Shareholder records"],
+    dataTags: [
+      "Trade name",
+      "Ownership documents",
+      "Registration packet",
     ],
   },
   {
     stageId: "document-submissions",
     message: "Gathering and submitting required documents...",
-    percent: 24,
+    percent: 44,
     keyConsiderations: ["Document requirements", "Authority coordination"],
     dataTags: [
       "Notarized MOA",
@@ -648,66 +518,15 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
     ],
   },
   {
-    stageId: "owners",
-    message: "Capturing co-founders and ownership splits...",
-    percent: 30,
-    keyConsiderations: ["Shareholder IDs", "Equity splits"],
-    dataTags: [
-      "Co-founder records",
-      "Emirates ID",
-      "Ownership percentages",
-    ],
-  },
-  {
-    stageId: "premises",
-    message: "Confirming Corniche property selection...",
-    percent: 40,
-    keyConsiderations: ["Lease agreement", "Zoning compliance"],
-    dataTags: [
-      "Tenancy contract",
-      "Premises details",
-      "Location insights",
-    ],
-  },
-  {
-    stageId: "approvals",
-    message: "Coordinating sector approvals and permits...",
-    percent: 54,
-    keyConsiderations: ["Food control", "Municipal signage"],
-    dataTags: [
-      "ADAFSA package",
-      "Municipality request",
-      "DED clearance",
-    ],
-  },
-  {
     stageId: "license",
     message: "Automating economic license issuance...",
-    percent: 64,
+    percent: 68,
     keyConsiderations: ["Regulatory approvals", "License generation"],
     dataTags: [
       "Economic license",
       "DED coordination",
       "Application automation",
     ],
-  },
-  {
-    stageId: "banking-extras",
-    message: "Recommending banking and utility partners...",
-    percent: 78,
-    keyConsiderations: ["Working capital", "Utilities onboarding"],
-    dataTags: [
-      "Bank shortlist",
-      "Utility checklist",
-      "Telecom options",
-    ],
-  },
-  {
-    stageId: "payment-issuance",
-    message: "Generating payment voucher and issuance steps...",
-    percent: 88,
-    keyConsiderations: ["Fee schedule", "Payment channels"],
-    dataTags: ["Voucher", "Fee summary", "Receipt"],
   },
   {
     stageId: "inspections",
@@ -724,7 +543,11 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
     stageId: "compliance-growth",
     message: "Monitoring compliance and exploring growth opportunities...",
     percent: 95,
-    keyConsiderations: ["Compliance tracking", "License renewals", "Expansion planning"],
+    keyConsiderations: [
+      "Compliance tracking",
+      "License renewals",
+      "Expansion planning",
+    ],
     dataTags: ["Compliance status", "Growth opportunities", "Renewal dates"],
   },
 ];
