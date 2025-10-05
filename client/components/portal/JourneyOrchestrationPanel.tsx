@@ -381,7 +381,7 @@ export function JourneyOrchestrationPanel({
               </div>
               <div className="space-y-5 rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.24)]">
                 <div
-                  className="flex gap-3 overflow-x-auto pb-2"
+                  className="flex gap-3 overflow-x-auto pb-1"
                   role="tablist"
                   aria-label="Journey stages navigation"
                 >
@@ -391,12 +391,6 @@ export function JourneyOrchestrationPanel({
                     const panelId = `${panelIdPrefix}-${item.id}`;
                     const outstandingForStage =
                       outstandingCountsByStage[item.id] ?? 0;
-                    const indicatorClasses = cn(
-                      "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-semibold",
-                      isActive || item.isCurrent
-                        ? "bg-[#0f766e] text-white"
-                        : "bg-[#f4faf8] text-[#0f766e]",
-                    );
 
                     return (
                       <button
@@ -409,38 +403,47 @@ export function JourneyOrchestrationPanel({
                         tabIndex={isActive ? 0 : -1}
                         onClick={() => handleTimelineSelect(item.id)}
                         className={cn(
-                          "flex min-w-[220px] flex-col gap-2 rounded-2xl border px-4 py-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40",
+                          "min-w-[200px] rounded-2xl border px-4 py-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40",
                           isActive
                             ? "border-[#0f766e] bg-[#eaf7f3] shadow-[0_16px_32px_-28px_rgba(11,64,55,0.32)]"
                             : "border-[#d8e4df] bg-white hover:border-[#0f766e]/60 hover:bg-[#f4faf8]",
                         )}
                       >
                         <div className="flex items-center gap-3">
-                          <span className={indicatorClasses}>{index + 1}</span>
-                          <div className="min-w-0 flex-1 space-y-1">
+                          <span
+                            className={cn(
+                              "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-semibold",
+                              isActive || item.isCurrent
+                                ? "bg-[#0f766e] text-white"
+                                : "bg-[#f4faf8] text-[#0f766e]",
+                            )}
+                          >
+                            {index + 1}
+                          </span>
+                          <div className="min-w-0 flex-1">
                             <p className="truncate text-sm font-semibold text-slate-900">
                               {item.title}
                             </p>
-                            <span
-                              className={cn(
-                                "inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]",
-                                item.statusBadgeClass,
-                              )}
-                            >
-                              {item.statusLabel}
-                            </span>
+                            <div className="mt-1 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                              <span
+                                className={cn(
+                                  "inline-flex items-center rounded-full border px-2.5 py-0.5",
+                                  item.statusBadgeClass,
+                                )}
+                              >
+                                {item.statusLabel}
+                              </span>
+                              {outstandingForStage > 0 ? (
+                                <span className="inline-flex items-center rounded-full bg-[#0f766e]/10 px-2 py-0.5 text-[#0f766e]">
+                                  {outstandingForStage}
+                                </span>
+                              ) : null}
+                              {item.isCurrent ? (
+                                <span className="text-[#0f766e]">Current</span>
+                              ) : null}
+                            </div>
                           </div>
-                          {outstandingForStage > 0 ? (
-                            <span className="ml-auto inline-flex h-6 min-w-[2rem] items-center justify-center rounded-full bg-[#0f766e]/10 px-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                              {outstandingForStage}
-                            </span>
-                          ) : null}
                         </div>
-                        {item.isCurrent ? (
-                          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
-                            Current stage
-                          </span>
-                        ) : null}
                       </button>
                     );
                   })}
@@ -451,7 +454,7 @@ export function JourneyOrchestrationPanel({
                     id={`${panelIdPrefix}-${selectedTimelineItem.id}`}
                     role="tabpanel"
                     aria-labelledby={`${tabIdPrefix}-${selectedTimelineItem.id}`}
-                    className="space-y-5 rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_12px_24px_-20px_rgba(11,64,55,0.18)]"
+                    className="space-y-5 rounded-2xl border border-[#d8e4df] bg-white p-5 shadow-[0_12px_24px_-20px_rgba(11,64,55,0.18)]"
                   >
                     <div className="flex flex-wrap items-start gap-4">
                       <span
@@ -467,18 +470,11 @@ export function JourneyOrchestrationPanel({
                           : "–"}
                       </span>
 
-                      <div className="flex-1 space-y-4">
+                      <div className="flex-1 space-y-3">
                         <div className="flex flex-wrap items-center justify-between gap-3">
-                          <div className="space-y-1">
-                            <p className="text-lg font-semibold text-slate-900">
-                              {selectedTimelineItem.title}
-                            </p>
-                            {selectedTimelineItem.isCurrent ? (
-                              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                                Active stage
-                              </span>
-                            ) : null}
-                          </div>
+                          <h5 className="text-lg font-semibold text-slate-900">
+                            {selectedTimelineItem.title}
+                          </h5>
                           <span
                             className={cn(
                               "inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]",
@@ -488,11 +484,14 @@ export function JourneyOrchestrationPanel({
                             {selectedTimelineItem.statusLabel}
                           </span>
                         </div>
-
+                        {selectedTimelineItem.isCurrent ? (
+                          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                            Active stage
+                          </p>
+                        ) : null}
                         <p className="text-sm leading-relaxed text-slate-600">
                           {selectedTimelineItem.description}
                         </p>
-
                         {selectedTimelineItem.meta ? (
                           <p
                             className={cn(
@@ -503,33 +502,33 @@ export function JourneyOrchestrationPanel({
                             {selectedTimelineItem.meta}
                           </p>
                         ) : null}
-
-                        {selectedTimelineItem.showProgress && chatPhase ? (
-                          <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-[#f4faf8] p-4">
-                            <div className="h-2 w-full overflow-hidden rounded-full bg-[#e6f2ed]">
-                              <div
-                                className="h-full rounded-full bg-[#0f766e] transition-all duration-700"
-                                style={{ width: `${chatProgress}%` }}
-                              />
-                            </div>
-                            {chatPhase.keyConsiderations?.length ? (
-                              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                                {chatPhase.keyConsiderations[0]}
-                              </p>
-                            ) : null}
-                            {isStageManuallySelected ? (
-                              <button
-                                type="button"
-                                onClick={onResumeAutomation}
-                                className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-                              >
-                                Resume automation
-                              </button>
-                            ) : null}
-                          </div>
-                        ) : null}
                       </div>
                     </div>
+
+                    {selectedTimelineItem.showProgress && chatPhase ? (
+                      <div className="space-y-3 rounded-2xl bg-[#f4faf8] p-4">
+                        <div className="h-2 w-full overflow-hidden rounded-full bg-[#e6f2ed]">
+                          <div
+                            className="h-full rounded-full bg-[#0f766e] transition-all duration-700"
+                            style={{ width: `${chatProgress}%` }}
+                          />
+                        </div>
+                        {chatPhase.keyConsiderations?.length ? (
+                          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                            {chatPhase.keyConsiderations[0]}
+                          </p>
+                        ) : null}
+                        {isStageManuallySelected ? (
+                          <button
+                            type="button"
+                            onClick={onResumeAutomation}
+                            className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                          >
+                            Resume automation
+                          </button>
+                        ) : null}
+                      </div>
+                    ) : null}
 
                     <div className="flex flex-wrap items-center gap-3">
                       {selectedTimelineItem.id === "generating-application" ? (
@@ -556,53 +555,36 @@ export function JourneyOrchestrationPanel({
                       ) : null}
                     </div>
 
-                    <div className="space-y-4 rounded-2xl border border-[#d8e4df] bg-white/90 p-5">
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                          Outstanding actions for this stage
-                        </p>
-                        <span className="text-sm font-semibold text-[#0f766e]">
-                          {selectedOutstandingCount}
-                        </span>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                        <span>Outstanding actions</span>
+                        <span>{selectedOutstandingCount}</span>
                       </div>
                       {selectedOutstandingCount > 0 ? (
-                        <ol className="space-y-4">
+                        <ol className="space-y-3">
                           {selectedOutstandingActions.map((action) =>
                             renderActionRow(action),
                           )}
                         </ol>
                       ) : (
-                        <div className="rounded-2xl border border-[#d8e4df] bg-[#f5f8f7] px-5 py-4 text-sm leading-relaxed text-slate-600">
-                          You're up to date for this stage. Review completed actions below or explore other stages.
-                        </div>
+                        <p className="rounded-2xl bg-[#f5f8f7] px-5 py-4 text-sm text-slate-600">
+                          You're up to date for this stage.
+                        </p>
                       )}
                     </div>
 
                     {selectedCompletedCount > 0 ? (
-                      <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-white/90 p-5">
-                        <button
-                          type="button"
-                          onClick={() => setShowCompletedTasks((previous) => !previous)}
-                          className="flex w-full items-center justify-between text-left text-sm font-semibold text-slate-700 transition hover:text-[#0f766e]"
-                        >
+                      <details className="rounded-2xl border border-[#d8e4df] bg-white/90 p-4">
+                        <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-slate-700">
                           <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">
                             Completed actions ({selectedCompletedCount})
                           </span>
-                          <ChevronDown
-                            className={cn(
-                              "h-4 w-4 transition-transform text-slate-500",
-                              showCompletedTasks ? "rotate-180" : "rotate-0",
-                            )}
-                          />
-                        </button>
-                        {showCompletedTasks ? (
-                          <ol className="space-y-4">
-                            {selectedCompletedActions.map((action) =>
-                              renderActionRow(action),
-                            )}
-                          </ol>
-                        ) : null}
-                      </div>
+                          <span className="text-xs text-slate-500">Toggle</span>
+                        </summary>
+                        <ol className="mt-3 space-y-3">
+                          {selectedCompletedActions.map((action) => renderActionRow(action))}
+                        </ol>
+                      </details>
                     ) : null}
                   </div>
                 ) : null}
