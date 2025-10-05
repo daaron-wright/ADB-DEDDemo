@@ -5325,15 +5325,36 @@ export function BusinessChatUI({
       const userMessage = buildMessage(trimmed, false);
       const responses: BusinessMessage[] = [];
 
-      const normalizedAcknowledgement = lower
+      const normalizedText = lower
         .replace(/[.,!?]/g, "")
         .replace(/\s+/g, " ")
         .trim();
+
+      const isSummaryCommand =
+        normalizedText === "summary" ||
+        normalizedText === "show summary" ||
+        normalizedText === "market summary";
+
+      if (isSummaryCommand) {
+        setMessages((prev) => {
+          const sanitized = prev.map((messageItem) =>
+            messageItem.actions
+              ? { ...messageItem, actions: undefined }
+              : messageItem,
+          );
+
+          return [...sanitized, userMessage, buildStepMessage("summary")];
+        });
+        setCurrentStep("summary");
+        setInputValue("");
+        return;
+      }
+
       const acknowledgesHandoff =
-        normalizedAcknowledgement === "yes i acknowledge" ||
-        normalizedAcknowledgement === "i acknowledge" ||
-        (normalizedAcknowledgement.startsWith("yes") &&
-          normalizedAcknowledgement.includes("acknowledge"));
+        normalizedText === "yes i acknowledge" ||
+        normalizedText === "i acknowledge" ||
+        (normalizedText.startsWith("yes") &&
+          normalizedText.includes("acknowledge"));
 
       if (acknowledgesHandoff) {
         responses.push(buildMessage(ACKNOWLEDGEMENT_MESSAGE, true));
@@ -5474,7 +5495,7 @@ export function BusinessChatUI({
       setMessages((prev) => [...prev, userMessage, ...responses]);
       setInputValue("");
     },
-    [buildMessage, openApplicantPortal],
+    [buildMessage, buildStepMessage, openApplicantPortal, setCurrentStep],
   );
 
   const openHeatMapFullView = useCallback(() => {
@@ -5491,7 +5512,8 @@ export function BusinessChatUI({
 
   const openRetailLocations = useCallback(() => {
     setModalView("retail-locations");
-  }, []);
+    setCurrentStep("handoff");
+  }, [setCurrentStep]);
 
   const handleAction = useCallback(
     (action: ConversationAction, label: string) => {
@@ -5559,13 +5581,16 @@ export function BusinessChatUI({
         }
 
         if (action === "confirm-retail-automation") {
+          setCurrentStep("handoff");
+
           if (isInvestorAuthenticated) {
             setView("investor-journey");
             const acknowledgement = buildMessage(
               "I'll automate the application and have opened your applicant portal timeline.",
               true,
             );
-            return [...updated, acknowledgement];
+            const handoffMessage = buildStepMessage("handoff");
+            return [...updated, acknowledgement, handoffMessage];
           }
 
           setIsInvestorAuthenticated(false);
