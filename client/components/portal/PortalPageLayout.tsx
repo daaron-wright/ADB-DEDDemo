@@ -28,14 +28,22 @@ export function PortalPageLayout({
   fullWidthSection,
   brand,
 }: PortalPageLayoutProps) {
-  const brandConfig = {
+  const defaultBrand: Required<Omit<PortalBranding, "label">> & Pick<PortalBranding, "label"> = {
     href: "https://www.tamm.abudhabi/",
     logoSrc:
       "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F397f9a8d2a3c4c8cb1d79ae828b476be",
     logoAlt: "TAMM logo",
     label: "Abu Dhabi Government Services",
+  };
+
+  const brandConfig: PortalBranding = {
+    ...defaultBrand,
     ...brand,
-  } satisfies PortalBranding;
+    href: brand?.href ?? defaultBrand.href,
+    logoSrc: brand?.logoSrc ?? defaultBrand.logoSrc,
+    logoAlt: brand?.logoAlt ?? defaultBrand.logoAlt,
+    label: brand?.label ?? defaultBrand.label,
+  };
 
   return (
     <div className="relative min-h-screen bg-[#f5f8f6]">
