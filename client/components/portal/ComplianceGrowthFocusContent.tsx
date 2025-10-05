@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, AlertCircle, CheckCircle, AlertTriangle, FileEdit } from "lucide-react";
+import { ComplianceDetailModal } from "./ComplianceDetailModal";
 
 interface ComplianceGrowthFocusContentProps {
   journeyNumber?: string;
@@ -94,6 +95,7 @@ export function ComplianceGrowthFocusContent({
   progressPercent = 78,
 }: ComplianceGrowthFocusContentProps) {
   const [activeView, setActiveView] = React.useState<ToggleView>("compliance");
+  const [isComplianceModalOpen, setIsComplianceModalOpen] = React.useState(false);
 
   const thingsToDo = 22;
   const complete = 78;
@@ -219,9 +221,18 @@ export function ComplianceGrowthFocusContent({
                         <p className="text-xs uppercase tracking-[0.16em] text-slate-500">{item.detail}</p>
                       </div>
                     </div>
-                    <Badge className="border-white/70 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                      {statusLabel}
-                    </Badge>
+                    {item.id === "ded-inspection" && (item.status === "warning" || item.status === "error") ? (
+                      <button
+                        onClick={() => setIsComplianceModalOpen(true)}
+                        className="rounded-full border border-white/70 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition-colors hover:bg-[#0f766e]/10"
+                      >
+                        {statusLabel}
+                      </button>
+                    ) : (
+                      <Badge className="border-white/70 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                        {statusLabel}
+                      </Badge>
+                    )}
                   </div>
                 );
               })}
@@ -534,6 +545,11 @@ export function ComplianceGrowthFocusContent({
           </div>
         </div>
       )}
+
+      <ComplianceDetailModal
+        isOpen={isComplianceModalOpen}
+        onClose={() => setIsComplianceModalOpen(false)}
+      />
     </div>
   );
 }
