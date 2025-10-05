@@ -71,30 +71,30 @@ const STATUS_META: Record<
 > = {
   error: {
     Icon: AlertCircle,
-    iconWrapperClass: "border-red-200 bg-red-50 text-red-500",
+    iconWrapperClass: "bg-red-50 text-red-500",
     iconClass: "text-red-500",
     badgeClass: "border-red-200 bg-red-50",
     badgeTextClass: "text-red-700",
   },
   warning: {
     Icon: AlertTriangle,
-    iconWrapperClass: "border-amber-200 bg-amber-50 text-amber-500",
+    iconWrapperClass: "bg-amber-50 text-amber-500",
     iconClass: "text-amber-500",
     badgeClass: "border-amber-200 bg-amber-50",
     badgeTextClass: "text-amber-700",
   },
   success: {
     Icon: CheckCircle,
-    iconWrapperClass: "border-teal-200 bg-teal-50 text-teal-500",
-    iconClass: "text-teal-500",
-    badgeClass: "border-teal-200 bg-teal-50",
-    badgeTextClass: "text-teal-700",
+    iconWrapperClass: "bg-emerald-50 text-emerald-500",
+    iconClass: "text-emerald-500",
+    badgeClass: "border-emerald-200 bg-emerald-50",
+    badgeTextClass: "text-emerald-700",
   },
   info: {
     Icon: FileEdit,
-    iconWrapperClass: "border-slate-200 bg-slate-50 text-slate-500",
+    iconWrapperClass: "bg-slate-100 text-slate-500",
     iconClass: "text-slate-500",
-    badgeClass: "border-slate-200 bg-slate-50",
+    badgeClass: "border-slate-200 bg-slate-100",
     badgeTextClass: "text-slate-600",
   },
 };
@@ -117,25 +117,23 @@ export function ComplianceDetailModal({ isOpen, onClose }: ComplianceDetailModal
       case "success":
         return "Compliant";
       default:
-        return "Information";
+        return "FYI";
     }
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-slate-900/55 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={onClose} />
 
-      <div className="relative z-10 w-full max-w-6xl overflow-hidden rounded-3xl border border-[#d8e4df] bg-white shadow-[0_45px_120px_-60px_rgba(11,64,55,0.45)]">
-        <div className="flex flex-col gap-4 border-b border-[#e3eeea] bg-[#f5faf7] px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+      <div className="relative z-10 w-full max-w-5xl overflow-hidden rounded-3xl border border-[#d8e4df] bg-white shadow-[0_40px_120px_-60px_rgba(11,64,55,0.45)]">
+        <header className="flex flex-col gap-4 border-b border-[#e3eeea] bg-[#f7fbf9] px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-1">
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
               Compliance dashboard
             </p>
-            <h2 className="text-xl font-semibold text-slate-900">
-              DED inspection follow-up overview
-            </h2>
+            <h2 className="text-xl font-semibold text-slate-900">DED inspection review</h2>
             <p className="text-sm text-slate-600">
-              Review live monitoring data, flagged checkpoints, and supporting footage before confirming the next steps.
+              Quick status summary, priority actions, and latest footage.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
@@ -145,7 +143,7 @@ export function ComplianceDetailModal({ isOpen, onClose }: ComplianceDetailModal
               className="rounded-full border-[#d8e4df] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-700 hover:bg-slate-50"
               onClick={onClose}
             >
-              <ArrowLeft className="mr-2 h-4 w-4" /> Back to compliance
+              <ArrowLeft className="mr-2 h-4 w-4" /> Back
             </Button>
             <button
               type="button"
@@ -156,24 +154,13 @@ export function ComplianceDetailModal({ isOpen, onClose }: ComplianceDetailModal
               <X className="h-5 w-5" />
             </button>
           </div>
-        </div>
+        </header>
 
-        <div className="grid gap-6 p-6 lg:grid-cols-[320px_1fr]">
-          <section className="space-y-6 rounded-2xl border border-[#d8e4df] bg-[#f8fbfa] p-6">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                    Live compliance snapshot
-                  </p>
-                  <p className="text-base font-semibold text-slate-900">AI monitoring active</p>
-                </div>
-                <Badge className="border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
-                  Synced
-                </Badge>
-              </div>
-              <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-                <div className="relative flex h-32 w-32 items-center justify-center">
+        <div className="grid gap-6 px-6 py-6 lg:grid-cols-[280px_1fr]">
+          <section className="space-y-6">
+            <div className="rounded-2xl border border-[#d8e4df] bg-[#f8fbfa] p-5">
+              <div className="flex items-center gap-4">
+                <div className="relative flex h-28 w-28 items-center justify-center">
                   <svg className="absolute inset-0 h-full w-full -rotate-90" viewBox="0 0 62 62" fill="none">
                     <circle
                       cx="31"
@@ -199,16 +186,18 @@ export function ComplianceDetailModal({ isOpen, onClose }: ComplianceDetailModal
                     <span className="text-xs uppercase tracking-[0.18em] text-slate-500">Complete</span>
                   </div>
                 </div>
-                <div className="grid gap-4 text-sm text-slate-600">
+                <div className="space-y-3 text-sm text-slate-600">
                   <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Outstanding actions</p>
-                    <p className="mt-1 text-lg font-semibold text-slate-900">{thingsToDo}%</p>
-                    <p>Tasks still required for full compliance.</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                      Things to do
+                    </p>
+                    <p className="text-lg font-semibold text-slate-900">{thingsToDo}% remaining</p>
                   </div>
                   <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Authority sync</p>
-                    <p className="mt-1 text-lg font-semibold text-slate-900">DED, ADAFSA, Civil Defence</p>
-                    <p>Realtime updates across inspection agencies.</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                      Agencies
+                    </p>
+                    <p className="text-lg font-semibold text-slate-900">DED • Civil Defence</p>
                   </div>
                 </div>
               </div>
@@ -216,32 +205,30 @@ export function ComplianceDetailModal({ isOpen, onClose }: ComplianceDetailModal
 
             <div className="space-y-3">
               <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">
-                Compliance checkpoints
+                Checkpoints
               </h3>
-              <div className="space-y-3">
+              <ul className="space-y-3">
                 {COMPLIANCE_ITEMS.map((item) => {
                   const meta = STATUS_META[item.status];
                   const StatusIcon = meta.Icon;
                   const statusLabel = renderStatusLabel(item.status);
 
                   return (
-                    <div
+                    <li
                       key={item.id}
-                      className="flex flex-col gap-3 rounded-2xl border border-[#d8e4df] bg-white p-4 shadow-[0_10px_30px_-28px_rgba(11,64,55,0.35)] sm:flex-row sm:items-center sm:justify-between"
+                      className="flex items-start gap-3 rounded-2xl border border-[#e3eeea] bg-white p-4"
                     >
-                      <div className="flex items-start gap-3">
-                        <span
-                          className={cn(
-                            "flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border",
-                            meta.iconWrapperClass,
-                          )}
-                        >
-                          <StatusIcon className={cn("h-5 w-5", meta.iconClass)} />
-                        </span>
-                        <div className="space-y-1">
-                          <p className="text-sm font-semibold text-slate-900">{item.label}</p>
-                          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">{item.detail}</p>
-                        </div>
+                      <span
+                        className={cn(
+                          "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full",
+                          meta.iconWrapperClass,
+                        )}
+                      >
+                        <StatusIcon className={cn("h-5 w-5", meta.iconClass)} />
+                      </span>
+                      <div className="flex-1 space-y-1">
+                        <p className="text-sm font-medium text-slate-900">{item.label}</p>
+                        <p className="text-xs text-slate-500">{item.detail}</p>
                       </div>
                       <Badge
                         className={cn(
@@ -252,73 +239,71 @@ export function ComplianceDetailModal({ isOpen, onClose }: ComplianceDetailModal
                       >
                         {statusLabel}
                       </Badge>
-                    </div>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
             </div>
 
             <Button
               onClick={onClose}
-              className="w-full rounded-full bg-[#169F9F] px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-24px_rgba(23,135,126,0.45)] transition-colors hover:bg-[#128080]"
+              className="w-full rounded-full bg-[#169F9F] px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white hover:bg-[#128080]"
             >
-              Follow up with inspection team
+              Share follow-up plan
             </Button>
           </section>
 
-          <section className="space-y-6">
-            <div className="rounded-2xl border border-[#d8e4df] bg-white p-5 shadow-[0_18px_48px_-36px_rgba(11,64,55,0.28)]">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">Kitchen</h3>
-                  <p className="text-xs text-slate-500">AI-annotated coverage from today</p>
-                </div>
+          <section className="space-y-4">
+            <div className="rounded-2xl border border-[#d8e4df] bg-white p-5">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">
+                  Kitchen snapshots
+                </h3>
                 <Badge className="border-[#b7e1d4] bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Live feed
+                  2 feeds
                 </Badge>
               </div>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                <figure className="overflow-hidden rounded-2xl border border-[#e3eeea] bg-slate-100">
+                <figure className="overflow-hidden rounded-2xl border border-[#e3eeea]">
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fb8e81338fc04dbb1961cecf6a6b349e10dd288d5?format=webp&width=412"
-                    alt="Chef preparing ingredients under AI monitoring"
-                    className="h-40 w-full object-cover"
+                    alt="Kitchen station overview"
+                    className="h-36 w-full object-cover"
                   />
-                  <figcaption className="px-4 py-3 text-xs text-slate-600">
-                    Temperature calibration flagged for workstation three.
+                  <figcaption className="px-3 py-2 text-xs text-slate-600">
+                    Temperature variance flagged for station three.
                   </figcaption>
                 </figure>
-                <figure className="overflow-hidden rounded-2xl border border-[#e3eeea] bg-slate-100">
+                <figure className="overflow-hidden rounded-2xl border border-[#e3eeea]">
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F35354ebad5489f0ffae354b2521357c0e9b5d5fa?format=webp&width=458"
-                    alt="Dining floor with AI overlays"
-                    className="h-40 w-full object-cover"
+                    alt="Dining floor with overlays"
+                    className="h-36 w-full object-cover"
                   />
-                  <figcaption className="px-4 py-3 text-xs text-slate-600">
-                    Seating compliance meets distancing and occupancy thresholds.
+                  <figcaption className="px-3 py-2 text-xs text-slate-600">
+                    Seating compliance meets occupancy targets.
                   </figcaption>
                 </figure>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-[#d8e4df] bg-white p-5 shadow-[0_18px_48px_-36px_rgba(11,64,55,0.28)]">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">Fire exits</h3>
-                  <p className="text-xs text-slate-500">Auto-generated hazard snapshots</p>
-                </div>
+            <div className="rounded-2xl border border-[#d8e4df] bg-white p-5">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">
+                  Fire exit check
+                </h3>
                 <Badge className="border-[#b7e1d4] bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                   Clear
                 </Badge>
               </div>
-              <figure className="mt-4 overflow-hidden rounded-2xl border border-[#e3eeea] bg-slate-100">
+              <figure className="mt-4 overflow-hidden rounded-2xl border border-[#e3eeea]">
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F37e3d308bae6fa63163fe9e0bbe47135f19cab55?format=webp&width=412"
-                  alt="Fire exit inspection perspective"
-                  className="h-44 w-full object-cover"
+                  alt="Fire exit corridor"
+                  className="h-40 w-full object-cover"
                 />
-                <figcaption className="px-4 py-3 text-xs text-slate-600">
-                  Exit corridor unobstructed; signage refresh scheduled in 5 days.
+                <figcaption className="px-3 py-2 text-xs text-slate-600">
+                  Corridor unobstructed; signage refresh in 5 days.
                 </figcaption>
               </figure>
               <div className="mt-4 flex flex-wrap gap-3">
@@ -327,11 +312,11 @@ export function ComplianceDetailModal({ isOpen, onClose }: ComplianceDetailModal
                   variant="outline"
                   className="rounded-full border-[#d8e4df] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-700 hover:bg-slate-50"
                 >
-                  Download inspection log
+                  Export log
                 </Button>
                 <Button
                   type="button"
-                  className="rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_16px_32px_-24px_rgba(23,135,126,0.4)] hover:bg-[#128080]"
+                  className="rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white hover:bg-[#128080]"
                 >
                   Request maintenance
                 </Button>
