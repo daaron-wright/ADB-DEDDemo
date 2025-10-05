@@ -1400,6 +1400,7 @@ export default function ApplicantPortal() {
             onResumeAutomation={handleResumeAutomation}
             onViewJourney={handleViewJourney}
             onOpenAutomation={handleOpenAutomationFocus}
+            onTimelineFocusChange={setIsTimelineBackgroundBlurred}
             formatDueDate={formatJourneyDueDate}
           />
         </div>
