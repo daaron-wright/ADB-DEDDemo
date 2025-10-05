@@ -6299,7 +6299,7 @@ export function BusinessChatUI({
                             : null}
                         </div>
 
-                        {view === "investor-journey" && (
+                        {showChatInterface && view === "investor-journey" && (
                           <div
                             className={cn(
                               "mt-6 rounded-[28px] border border-white/20 bg-white/16 p-4 backdrop-blur-xl shadow-[0_35px_90px_-60px_rgba(15,23,42,0.28)]",
