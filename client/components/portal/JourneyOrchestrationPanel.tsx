@@ -71,10 +71,9 @@ export function JourneyOrchestrationPanel({
   const completedCount = completedActions.length;
   const outstandingCount = outstandingActions.length;
   const outstandingDisplayCount = remainingActionCount ?? outstandingCount;
-  const primaryOutstandingAction = outstandingActions[0];
   const completionPercent =
     totalActions === 0 ? 0 : Math.round((completedCount / totalActions) * 100);
-  const hasOutstandingSection = totalActions > 0;
+  const hasActions = totalActions > 0;
   const hasTimelineSection = timelineItems.length > 0;
 
   const [selectedTimelineId, setSelectedTimelineId] = React.useState<string>(() => {
@@ -135,13 +134,96 @@ export function JourneyOrchestrationPanel({
     setSelectedTimelineId(id);
   };
 
+  const stageActionSummary = React.useMemo(() => {
+    const normalize = (value: string) =>
+      value.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+    const summary: Record<
+      string,
+      { outstanding: NextActionItem[]; completed: NextActionItem[] }
+    > = {};
+
+    timelineItems.forEach((item) => {
+      summary[item.id] = { outstanding: [], completed: [] };
+    });
+
+    const timelineLookup = timelineItems.reduce<Record<string, string>>(
+      (accumulator, item) => {
+        accumulator[normalize(item.title)] = item.id;
+        return accumulator;
+      },
+      {},
+    );
+
+    actions.forEach((action) => {
+      let targetId: string | null = null;
+
+      if (action.stageTitle) {
+        const normalizedStage = normalize(action.stageTitle);
+        targetId = timelineLookup[normalizedStage] ?? null;
+      }
+
+      if (!targetId && timelineItems.length > 0) {
+        const currentItem = timelineItems.find((item) => item.isCurrent);
+        targetId = currentItem?.id ?? timelineItems[0].id;
+      }
+
+      if (!targetId) {
+        return;
+      }
+
+      if (!summary[targetId]) {
+        summary[targetId] = { outstanding: [], completed: [] };
+      }
+
+      const isCompleted = completionState[action.id] ?? false;
+      if (isCompleted) {
+        summary[targetId].completed.push(action);
+      } else {
+        summary[targetId].outstanding.push(action);
+      }
+    });
+
+    return summary;
+  }, [actions, completionState, timelineItems]);
+
+  const selectedStageSummary = React.useMemo(() => {
+    if (!selectedTimelineItem) {
+      return { outstanding: [], completed: [] };
+    }
+
+    return (
+      stageActionSummary[selectedTimelineItem.id] ?? {
+        outstanding: [],
+        completed: [],
+      }
+    );
+  }, [selectedTimelineItem, stageActionSummary]);
+
+  const selectedOutstandingActions = selectedStageSummary.outstanding;
+  const selectedCompletedActions = selectedStageSummary.completed;
+  const selectedOutstandingCount = selectedOutstandingActions.length;
+  const selectedCompletedCount = selectedCompletedActions.length;
+
+  const outstandingCountsByStage = React.useMemo(() => {
+    return timelineItems.reduce<Record<string, number>>((accumulator, item) => {
+      accumulator[item.id] =
+        stageActionSummary[item.id]?.outstanding.length ?? 0;
+      return accumulator;
+    }, {});
+  }, [timelineItems, stageActionSummary]);
+
   const [showCompletedTasks, setShowCompletedTasks] = React.useState(false);
 
   React.useEffect(() => {
-    if (completedCount === 0 && showCompletedTasks) {
+    if (selectedCompletedCount === 0 && showCompletedTasks) {
       setShowCompletedTasks(false);
     }
-  }, [completedCount, showCompletedTasks]);
+  }, [selectedCompletedCount, showCompletedTasks]);
+
+  React.useEffect(() => {
+    setShowCompletedTasks(false);
+  }, [selectedTimelineId]);
 
   const renderActionRow = (action: NextActionItem) => {
     const token = getNextActionToken(action.status);
