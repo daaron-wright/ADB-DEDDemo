@@ -99,86 +99,61 @@ const DED_COMPLIANCE_DETAIL: ComplianceDetailModalData = {
   id: "ded-inspection",
   title: "DED inspection",
   statusLabel: "Action needed",
-  statusBadgeClass: "border-amber-200 bg-amber-50 text-amber-700",
-  summary: "AI monitoring flagged follow-ups required to finalise the economic license inspection renewal.",
+  statusTone: "warning",
+  summary:
+    "DED inspectors requested a follow-up to confirm updated kitchen layout, staffing logs, and calibration certificates.",
   dueLabel: "Inspection window closes in 29 days",
   progressPercent: 78,
   outstandingPercent: 22,
-  metrics: [
-    {
-      id: "agency",
-      label: "Responsible authority",
-      value: "Department of Economic Development",
-      helper: "Inspector: H. Al-Nuaimi",
-    },
-    {
-      id: "location",
-      label: "Site",
-      value: "Corniche Culinary Collective",
-      helper: "AED Tower, Level 3",
-    },
+  highlights: [
+    "Onsite visit slot still to be confirmed",
+    "Kitchen HACCP documentation needs upload",
+    "Staff training log awaiting shift lead signatures",
   ],
-  tasks: [
+  checklist: [
     {
       id: "schedule-visit",
-      label: "Confirm onsite visit slot with inspector",
-      status: "priority",
-      detail: "Preferred window: 24–26 April",
+      label: "Confirm onsite visit slot with inspector H. Al-Nuaimi",
+      helper: "Preferred window: 24–26 April",
+      status: "in_progress",
     },
     {
       id: "upload-updates",
       label: "Upload updated kitchen HACCP documents",
+      helper: "Draft prepared by operations team",
       status: "in_progress",
-      detail: "Draft in review by operations",
     },
     {
       id: "staff-logs",
       label: "Collect staff training compliance log",
+      helper: "Shift leads to sign off",
       status: "in_progress",
-      detail: "Awaiting signatures from shift leads",
+    },
+    {
+      id: "previous-findings",
+      label: "Review previous inspection findings",
+      helper: "All corrective actions completed",
+      status: "complete",
     },
   ],
   documents: [
     {
       id: "risk-assessment",
       label: "Risk assessment checklist",
-      type: "PDF • 3.2 MB",
-      status: "Updated",
+      meta: "PDF • 3.2 MB",
+      statusLabel: "Updated",
     },
     {
       id: "floor-plan",
       label: "Revised kitchen floor plan",
-      type: "DWG • 1.1 MB",
-      status: "Pending upload",
+      meta: "DWG • 1.1 MB",
+      statusLabel: "Pending upload",
     },
     {
       id: "certificates",
       label: "Calibration certificates",
-      type: "ZIP • 5 files",
-      status: "Ready",
-    },
-  ],
-  footage: [
-    {
-      id: "kitchen-overview",
-      title: "Kitchen station overview",
-      imageSrc:
-        "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fb8e81338fc04dbb1961cecf6a6b349e10dd288d5?format=webp&width=412",
-      caption: "Temperature variance flagged for station three.",
-    },
-    {
-      id: "dining-floor",
-      title: "Dining floor occupancy",
-      imageSrc:
-        "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F35354ebad5489f0ffae354b2521357c0e9b5d5fa?format=webp&width=458",
-      caption: "Seating compliance meets occupancy targets.",
-    },
-    {
-      id: "fire-exit",
-      title: "Fire exit corridor",
-      imageSrc:
-        "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F37e3d308bae6fa63163fe9e0bbe47135f19cab55?format=webp&width=412",
-      caption: "Exit unobstructed; signage refresh scheduled in 5 days.",
+      meta: "ZIP • 5 files",
+      statusLabel: "Ready",
     },
   ],
 };
@@ -189,9 +164,9 @@ export function ComplianceGrowthFocusContent({
   progressPercent = 78,
 }: ComplianceGrowthFocusContentProps) {
   const [activeView, setActiveView] = React.useState<ToggleView>("compliance");
-  const [complianceModalData, setComplianceModalData] = React.useState<
-    ComplianceDetailModalData | null
-  >(null);
+  const [complianceModalData, setComplianceModalData] = React.useState<ComplianceDetailModalData | null>(
+    null,
+  );
 
   const thingsToDo = 22;
   const complete = 78;
@@ -642,10 +617,7 @@ export function ComplianceGrowthFocusContent({
         </div>
       )}
 
-      <ComplianceDetailModal
-        data={complianceModalData}
-        onClose={() => setComplianceModalData(null)}
-      />
+      <ComplianceDetailModal data={complianceModalData} onClose={() => setComplianceModalData(null)} />
     </div>
   );
 }
