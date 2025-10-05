@@ -183,7 +183,7 @@ export function ComplianceGrowthFocusContent({
             "flex-1 rounded-2xl border px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] transition-all",
             activeView === "compliance"
               ? "border-[#169F9F] bg-[#169F9F] text-white shadow-[0_18px_36px_-24px_rgba(23,135,126,0.45)]"
-              : "border-white/20 bg-white/10 text-white/70 hover:bg-white/15",
+              : "border-white/40 bg-white/5 text-white/80 hover:bg-white/10",
           )}
         >
           Compliance
@@ -194,7 +194,7 @@ export function ComplianceGrowthFocusContent({
             "flex-1 rounded-2xl border px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] transition-all",
             activeView === "growth"
               ? "border-[#169F9F] bg-[#169F9F] text-white shadow-[0_18px_36px_-24px_rgba(23,135,126,0.45)]"
-              : "border-white/20 bg-white/10 text-white/70 hover:bg-white/15",
+              : "border-white/40 bg-white/5 text-white/80 hover:bg-white/10",
           )}
         >
           Growth
