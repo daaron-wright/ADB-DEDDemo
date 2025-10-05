@@ -164,6 +164,9 @@ const MODAL_MIN_DIMENSIONS: React.CSSProperties = {
 const ACKNOWLEDGEMENT_MESSAGE =
   "Acknowledged. Opening BUSINESS LICENSE PORTAL Layla's workspace now.";
 
+const HEAT_MAP_PROMPT =
+  "Where are existing establishments located for specific activities (on a heat map)?";
+
 // Preloaded prompts for different business categories
 const PRELOADED_PROMPTS = {
   restaurants: [
