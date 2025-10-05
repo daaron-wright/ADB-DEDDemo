@@ -77,6 +77,64 @@ export function JourneyOrchestrationPanel({
   const hasOutstandingSection = totalActions > 0;
   const hasTimelineSection = timelineItems.length > 0;
 
+  const [selectedTimelineId, setSelectedTimelineId] = React.useState<string>(() => {
+    const prioritized =
+      timelineItems.find((item) => item.isCurrent) ?? timelineItems[0];
+    return prioritized?.id ?? "";
+  });
+  const userSelectedTimelineRef = React.useRef(false);
+
+  React.useEffect(() => {
+    if (timelineItems.length === 0) {
+      userSelectedTimelineRef.current = false;
+      setSelectedTimelineId("");
+      return;
+    }
+
+    const prioritized =
+      timelineItems.find((item) => item.isCurrent) ?? timelineItems[0];
+    const selectedExists = timelineItems.some(
+      (item) => item.id === selectedTimelineId,
+    );
+
+    if (!selectedExists) {
+      userSelectedTimelineRef.current = false;
+      setSelectedTimelineId(prioritized?.id ?? "");
+      return;
+    }
+
+    if (
+      !userSelectedTimelineRef.current &&
+      prioritized &&
+      prioritized.id !== selectedTimelineId
+    ) {
+      setSelectedTimelineId(prioritized.id);
+    }
+  }, [timelineItems, selectedTimelineId]);
+
+  const selectedTimelineItem = React.useMemo(() => {
+    return (
+      timelineItems.find((item) => item.id === selectedTimelineId) ??
+      timelineItems[0] ??
+      null
+    );
+  }, [timelineItems, selectedTimelineId]);
+
+  const selectedTimelineIndex = React.useMemo(() => {
+    if (!selectedTimelineItem) {
+      return -1;
+    }
+
+    return timelineItems.findIndex(
+      (item) => item.id === selectedTimelineItem.id,
+    );
+  }, [timelineItems, selectedTimelineItem]);
+
+  const handleTimelineSelect = (id: string) => {
+    userSelectedTimelineRef.current = true;
+    setSelectedTimelineId(id);
+  };
+
   const [showCompletedTasks, setShowCompletedTasks] = React.useState(false);
 
   React.useEffect(() => {
