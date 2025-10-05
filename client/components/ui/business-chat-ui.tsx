@@ -3376,13 +3376,13 @@ const MessageBubble = ({
           )}
         </div>
       </div>
-      {!message.isAI && (
+      {!message.isAI && showUserAvatar ? (
         <img
           src={ENTREPRENEUR_PROFILE.avatar}
           alt={ENTREPRENEUR_PROFILE.name}
           className="h-8 w-8 flex-shrink-0 rounded-full border-2 border-white/60 object-cover sm:h-10 sm:w-10"
         />
-      )}
+      ) : null}
     </div>
   );
 };
