@@ -221,26 +221,29 @@ export function ComplianceGrowthFocusContent({
 
               <div className="space-y-1 border-t border-white/20 pt-6">
                 {COMPLIANCE_ITEMS.map((item) => {
-                  const Icon = STATUS_ICONS[item.status];
-                  const styles = STATUS_STYLES[item.status];
+                  const token = COMPLIANCE_STATUS_TOKENS[item.status];
+                  const { Icon } = token;
 
                   return (
                     <div key={item.id} className="flex items-start gap-3 py-2">
-                      <Icon className={cn("mt-0.5 h-5 w-5 flex-shrink-0", styles.iconClass)} />
+                      <span
+                        className={cn(
+                          "flex h-8 w-8 items-center justify-center rounded-full",
+                          token.iconWrapperClass,
+                        )}
+                      >
+                        <Icon className={cn("h-4 w-4", token.iconClass)} />
+                      </span>
                       <div className="min-w-0 flex-1">
-                        <div className={cn("text-xs font-normal leading-relaxed", styles.textClass)}>
-                          {item.label}
-                        </div>
-                        <div className={cn("text-xs leading-snug", styles.textClass, "opacity-90")}>
-                          {item.detail}
-                        </div>
+                        <div className={cn("text-sm font-medium", token.textClass)}>{item.label}</div>
+                        <div className={cn("text-xs uppercase tracking-[0.12em] text-white/70")}>{item.detail}</div>
                       </div>
                     </div>
                   );
                 })}
               </div>
 
-              <div className="flex items-center justify-between gap-4 border-t border-white/20 pt-6">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/15 pt-6">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -248,9 +251,8 @@ export function ComplianceGrowthFocusContent({
                 >
                   <ArrowLeft className="h-5 w-5" />
                 </Button>
-
                 <Button
-                  className="rounded-full bg-[#169F9F] px-8 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-[#128080]"
+                  className="rounded-full bg-[#169F9F] px-8 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-24px_rgba(23,135,126,0.45)] transition hover:bg-[#128080]"
                 >
                   Follow up
                 </Button>
