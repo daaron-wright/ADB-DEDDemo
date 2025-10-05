@@ -1,9 +1,4 @@
-import * as React from "react";
-
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
 import type {
@@ -52,13 +47,6 @@ export function JourneyStageFocusView({
   const highlightToken = stage ? highlightTokens[stage.state] : null;
   const stagedTasks = stage?.tasks ?? [];
 
-  const [quickNotes, setQuickNotes] = React.useState("");
-  const [customItemLabel, setCustomItemLabel] = React.useState("");
-  const [customItems, setCustomItems] = React.useState<
-    Array<{ id: string; label: string; completed: boolean }>
-  >([]);
-  const [selectedFiles, setSelectedFiles] = React.useState<string[]>([]);
-
   const renderTaskTimestamp = (task: JourneyStage["tasks"][number]) => {
     if (task.completedOn) {
       return `Completed ${formatDate(task.completedOn)}`;
@@ -69,48 +57,9 @@ export function JourneyStageFocusView({
     return null;
   };
 
-  const handleAddCustomItem = () => {
-    const trimmed = customItemLabel.trim();
-    if (!trimmed) {
-      return;
-    }
-
-    setCustomItems((items) => [
-      ...items,
-      {
-        id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-        label: trimmed,
-        completed: false,
-      },
-    ]);
-    setCustomItemLabel("");
-  };
-
-  const handleToggleCustomItem = (itemId: string) => {
-    setCustomItems((items) =>
-      items.map((item) =>
-        item.id === itemId ? { ...item, completed: !item.completed } : item,
-      ),
-    );
-  };
-
-  const handleRemoveCustomItem = (itemId: string) => {
-    setCustomItems((items) => items.filter((item) => item.id !== itemId));
-  };
-
-  const handleFilesSelected = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const files = Array.from(event.target.files ?? []).map((file) => file.name);
-    setSelectedFiles(files);
-  };
-
-  const handleClearFiles = () => {
-    setSelectedFiles([]);
-  };
-
   const isBusinessRegistrationStage = stage?.id === "trade-name-activities";
-  const isDocumentSubmissionStage = stage?.id === "document-submissions" || stage?.id === "submissions";
+  const isDocumentSubmissionStage =
+    stage?.id === "document-submissions" || stage?.id === "submissions";
   const isBusinessLicensingStage = stage?.id === "license";
   const isPreOperationalInspectionStage = stage?.id === "inspections";
   const isComplianceGrowthStage = stage?.id === "compliance-growth";
@@ -123,80 +72,6 @@ export function JourneyStageFocusView({
           completionStatus="8 of 10 complete"
           progressPercent={78}
         />
-
-        <div
-          className={chatCardClass(
-            TASK_CARD_BASE,
-            "space-y-4 rounded-2xl p-5",
-          )}
-        >
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Capture notes
-              </h4>
-              <span className="text-[11px] uppercase tracking-[0.18em] text-slate-400">
-                Private to you
-              </span>
-            </div>
-            <Textarea
-              value={quickNotes}
-              onChange={(event) => setQuickNotes(event.target.value)}
-              placeholder="Add context, decisions, or blockers for this stage."
-              className="min-h-[120px] rounded-2xl border-white/60 bg-white/70 text-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition focus-visible:ring-[#0f766e]/30"
-            />
-            {quickNotes.trim() ? (
-              <p className="text-xs text-[#0f766e]">
-                Saved locally for this session.
-              </p>
-            ) : null}
-          </div>
-
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Attach supporting documents
-              </h4>
-              {selectedFiles.length > 0 ? (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleClearFiles}
-                  className="h-8 rounded-full px-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 hover:text-[#0f766e]"
-                >
-                  Clear selection
-                </Button>
-              ) : null}
-            </div>
-            <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-white/70 bg-white/70 px-6 py-6 text-center text-sm text-slate-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition hover:border-[#0f766e] hover:text-[#0f766e]">
-              <span className="font-semibold">Drop files here or browse</span>
-              <span className="text-xs text-slate-500">
-                PDF, DOCX, XLSX, and images up to 25 MB each
-              </span>
-              <Input
-                type="file"
-                multiple
-                onChange={handleFilesSelected}
-                className="hidden"
-              />
-            </label>
-            {selectedFiles.length > 0 ? (
-              <div className="space-y-2 rounded-2xl border border-white/70 bg-white/80 p-3 text-sm shadow-[0_12px_24px_-20px_rgba(11,64,55,0.18)]">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Selected files
-                </p>
-                <ul className="space-y-1 text-sm text-slate-700">
-                  {selectedFiles.map((file) => (
-                    <li key={file} className="truncate">
-                      {file}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-          </div>
-        </div>
       </div>
     );
   }
@@ -209,80 +84,6 @@ export function JourneyStageFocusView({
           completionStatus="7 of 8 complete"
           progressPercent={83}
         />
-
-        <div
-          className={chatCardClass(
-            TASK_CARD_BASE,
-            "space-y-4 rounded-2xl p-5",
-          )}
-        >
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Capture notes
-              </h4>
-              <span className="text-[11px] uppercase tracking-[0.18em] text-slate-400">
-                Private to you
-              </span>
-            </div>
-            <Textarea
-              value={quickNotes}
-              onChange={(event) => setQuickNotes(event.target.value)}
-              placeholder="Add context, decisions, or blockers for this stage."
-              className="min-h-[120px] rounded-2xl border-white/60 bg-white/70 text-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition focus-visible:ring-[#0f766e]/30"
-            />
-            {quickNotes.trim() ? (
-              <p className="text-xs text-[#0f766e]">
-                Saved locally for this session.
-              </p>
-            ) : null}
-          </div>
-
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Attach supporting documents
-              </h4>
-              {selectedFiles.length > 0 ? (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleClearFiles}
-                  className="h-8 rounded-full px-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 hover:text-[#0f766e]"
-                >
-                  Clear selection
-                </Button>
-              ) : null}
-            </div>
-            <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-white/70 bg-white/70 px-6 py-6 text-center text-sm text-slate-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition hover:border-[#0f766e] hover:text-[#0f766e]">
-              <span className="font-semibold">Drop files here or browse</span>
-              <span className="text-xs text-slate-500">
-                PDF, DOCX, XLSX, and images up to 25 MB each
-              </span>
-              <Input
-                type="file"
-                multiple
-                onChange={handleFilesSelected}
-                className="hidden"
-              />
-            </label>
-            {selectedFiles.length > 0 ? (
-              <div className="space-y-2 rounded-2xl border border-white/70 bg-white/80 p-3 text-sm shadow-[0_12px_24px_-20px_rgba(11,64,55,0.18)]">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Selected files
-                </p>
-                <ul className="space-y-1 text-sm text-slate-700">
-                  {selectedFiles.map((file) => (
-                    <li key={file} className="truncate">
-                      {file}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-          </div>
-        </div>
       </div>
     );
   }
@@ -295,80 +96,6 @@ export function JourneyStageFocusView({
           completionStatus="6 of 8 complete"
           progressPercent={64}
         />
-
-        <div
-          className={chatCardClass(
-            TASK_CARD_BASE,
-            "space-y-4 rounded-2xl p-5",
-          )}
-        >
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Capture notes
-              </h4>
-              <span className="text-[11px] uppercase tracking-[0.18em] text-slate-400">
-                Private to you
-              </span>
-            </div>
-            <Textarea
-              value={quickNotes}
-              onChange={(event) => setQuickNotes(event.target.value)}
-              placeholder="Add context, decisions, or blockers for this stage."
-              className="min-h-[120px] rounded-2xl border-white/60 bg-white/70 text-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition focus-visible:ring-[#0f766e]/30"
-            />
-            {quickNotes.trim() ? (
-              <p className="text-xs text-[#0f766e]">
-                Saved locally for this session.
-              </p>
-            ) : null}
-          </div>
-
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Attach supporting documents
-              </h4>
-              {selectedFiles.length > 0 ? (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleClearFiles}
-                  className="h-8 rounded-full px-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 hover:text-[#0f766e]"
-                >
-                  Clear selection
-                </Button>
-              ) : null}
-            </div>
-            <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-white/70 bg-white/70 px-6 py-6 text-center text-sm text-slate-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition hover:border-[#0f766e] hover:text-[#0f766e]">
-              <span className="font-semibold">Drop files here or browse</span>
-              <span className="text-xs text-slate-500">
-                PDF, DOCX, XLSX, and images up to 25 MB each
-              </span>
-              <Input
-                type="file"
-                multiple
-                onChange={handleFilesSelected}
-                className="hidden"
-              />
-            </label>
-            {selectedFiles.length > 0 ? (
-              <div className="space-y-2 rounded-2xl border border-white/70 bg-white/80 p-3 text-sm shadow-[0_12px_24px_-20px_rgba(11,64,55,0.18)]">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Selected files
-                </p>
-                <ul className="space-y-1 text-sm text-slate-700">
-                  {selectedFiles.map((file) => (
-                    <li key={file} className="truncate">
-                      {file}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-          </div>
-        </div>
       </div>
     );
   }
@@ -381,80 +108,6 @@ export function JourneyStageFocusView({
           completionStatus="5 of 8 complete"
           progressPercent={51}
         />
-
-        <div
-          className={chatCardClass(
-            TASK_CARD_BASE,
-            "space-y-4 rounded-2xl p-5",
-          )}
-        >
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Capture notes
-              </h4>
-              <span className="text-[11px] uppercase tracking-[0.18em] text-slate-400">
-                Private to you
-              </span>
-            </div>
-            <Textarea
-              value={quickNotes}
-              onChange={(event) => setQuickNotes(event.target.value)}
-              placeholder="Add context, decisions, or blockers for this stage."
-              className="min-h-[120px] rounded-2xl border-white/60 bg-white/70 text-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition focus-visible:ring-[#0f766e]/30"
-            />
-            {quickNotes.trim() ? (
-              <p className="text-xs text-[#0f766e]">
-                Saved locally for this session.
-              </p>
-            ) : null}
-          </div>
-
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Attach supporting documents
-              </h4>
-              {selectedFiles.length > 0 ? (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleClearFiles}
-                  className="h-8 rounded-full px-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 hover:text-[#0f766e]"
-                >
-                  Clear selection
-                </Button>
-              ) : null}
-            </div>
-            <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-white/70 bg-white/70 px-6 py-6 text-center text-sm text-slate-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition hover:border-[#0f766e] hover:text-[#0f766e]">
-              <span className="font-semibold">Drop files here or browse</span>
-              <span className="text-xs text-slate-500">
-                PDF, DOCX, XLSX, and images up to 25 MB each
-              </span>
-              <Input
-                type="file"
-                multiple
-                onChange={handleFilesSelected}
-                className="hidden"
-              />
-            </label>
-            {selectedFiles.length > 0 ? (
-              <div className="space-y-2 rounded-2xl border border-white/70 bg-white/80 p-3 text-sm shadow-[0_12px_24px_-20px_rgba(11,64,55,0.18)]">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Selected files
-                </p>
-                <ul className="space-y-1 text-sm text-slate-700">
-                  {selectedFiles.map((file) => (
-                    <li key={file} className="truncate">
-                      {file}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-          </div>
-        </div>
       </div>
     );
   }
@@ -466,83 +119,9 @@ export function JourneyStageFocusView({
           journeyNumber="0987654321"
           completionStatus="4 of 8 complete"
           tradeName="MARWAH"
-          isTradeNameAvailable={true}
+          isTradeNameAvailable
           progressPercent={46}
         />
-
-        <div
-          className={chatCardClass(
-            TASK_CARD_BASE,
-            "space-y-4 rounded-2xl p-5",
-          )}
-        >
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Capture notes
-              </h4>
-              <span className="text-[11px] uppercase tracking-[0.18em] text-slate-400">
-                Private to you
-              </span>
-            </div>
-            <Textarea
-              value={quickNotes}
-              onChange={(event) => setQuickNotes(event.target.value)}
-              placeholder="Add context, decisions, or blockers for this stage."
-              className="min-h-[120px] rounded-2xl border-white/60 bg-white/70 text-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition focus-visible:ring-[#0f766e]/30"
-            />
-            {quickNotes.trim() ? (
-              <p className="text-xs text-[#0f766e]">
-                Saved locally for this session.
-              </p>
-            ) : null}
-          </div>
-
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Attach supporting documents
-              </h4>
-              {selectedFiles.length > 0 ? (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleClearFiles}
-                  className="h-8 rounded-full px-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 hover:text-[#0f766e]"
-                >
-                  Clear selection
-                </Button>
-              ) : null}
-            </div>
-            <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-white/70 bg-white/70 px-6 py-6 text-center text-sm text-slate-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition hover:border-[#0f766e] hover:text-[#0f766e]">
-              <span className="font-semibold">Drop files here or browse</span>
-              <span className="text-xs text-slate-500">
-                PDF, DOCX, XLSX, and images up to 25 MB each
-              </span>
-              <Input
-                type="file"
-                multiple
-                onChange={handleFilesSelected}
-                className="hidden"
-              />
-            </label>
-            {selectedFiles.length > 0 ? (
-              <div className="space-y-2 rounded-2xl border border-white/70 bg-white/80 p-3 text-sm shadow-[0_12px_24px_-20px_rgba(11,64,55,0.18)]">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Selected files
-                </p>
-                <ul className="space-y-1 text-sm text-slate-700">
-                  {selectedFiles.map((file) => (
-                    <li key={file} className="truncate">
-                      {file}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-          </div>
-        </div>
       </div>
     );
   }
@@ -693,164 +272,6 @@ export function JourneyStageFocusView({
           <p className={timelineItem.statusHelperClass}>{timelineItem.meta}</p>
         </div>
       ) : null}
-
-      <div
-        className={chatCardClass(
-          TASK_CARD_BASE,
-          "space-y-4 rounded-2xl p-5",
-        )}
-      >
-        <div className="space-y-3">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Capture notes
-            </h4>
-            <span className="text-[11px] uppercase tracking-[0.18em] text-slate-400">
-              Private to you
-            </span>
-          </div>
-          <Textarea
-            value={quickNotes}
-            onChange={(event) => setQuickNotes(event.target.value)}
-            placeholder="Add context, decisions, or blockers for this stage."
-            className="min-h-[120px] rounded-2xl border-white/60 bg-white/70 text-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition focus-visible:ring-[#0f766e]/30"
-          />
-          {quickNotes.trim() ? (
-            <p className="text-xs text-[#0f766e]">
-              Saved locally for this session.
-            </p>
-          ) : null}
-        </div>
-
-        <div className="space-y-3">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Add checklist items
-            </h4>
-            {customItems.length > 0 ? (
-              <span className="text-xs text-slate-500">
-                {customItems.filter((item) => item.completed).length} of {" "}
-                {customItems.length} complete
-              </span>
-            ) : null}
-          </div>
-          <div className="flex flex-col gap-2 sm:flex-row">
-            <Input
-              value={customItemLabel}
-              onChange={(event) => setCustomItemLabel(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  event.preventDefault();
-                  handleAddCustomItem();
-                }
-              }}
-              placeholder="Add an action item or reminder"
-              className="rounded-2xl border-white/70 bg-white/80 text-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]"
-            />
-            <Button
-              type="button"
-              onClick={handleAddCustomItem}
-              className="rounded-2xl border border-[#0f766e] bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_14px_28px_-20px_rgba(11,64,55,0.3)] transition hover:bg-[#0c6059]"
-            >
-              Add item
-            </Button>
-          </div>
-          {customItems.length > 0 ? (
-            <div className="space-y-2">
-              {customItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex items-center justify-between gap-3 rounded-2xl border border-white/60 bg-white/80 px-3 py-2 text-sm shadow-[0_12px_24px_-20px_rgba(11,64,55,0.18)]"
-                >
-                  <button
-                    type="button"
-                    onClick={() => handleToggleCustomItem(item.id)}
-                    className={cn(
-                      "flex flex-1 items-center gap-3 text-left transition",
-                      item.completed ? "opacity-70" : undefined,
-                    )}
-                  >
-                    <span
-                      className={cn(
-                        "inline-flex h-5 w-5 items-center justify-center rounded-full border text-[10px] font-semibold",
-                        item.completed
-                          ? "border-[#0f766e] bg-[#0f766e] text-white"
-                          : "border-[#cfe4dd] bg-white text-[#0f766e]",
-                      )}
-                      aria-hidden="true"
-                    >
-                      {item.completed ? "✓" : ""}
-                    </span>
-                    <span
-                      className={cn(
-                        item.completed
-                          ? "line-through decoration-slate-400"
-                          : undefined,
-                      )}
-                    >
-                      {item.label}
-                    </span>
-                  </button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleRemoveCustomItem(item.id)}
-                    className="h-8 rounded-full px-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 hover:text-[#0f766e]"
-                  >
-                    Remove
-                  </Button>
-                </div>
-              ))}
-            </div>
-          ) : null}
-        </div>
-
-        <div className="space-y-3">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Attach supporting documents
-            </h4>
-            {selectedFiles.length > 0 ? (
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={handleClearFiles}
-                className="h-8 rounded-full px-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 hover:text-[#0f766e]"
-              >
-                Clear selection
-              </Button>
-            ) : null}
-          </div>
-          <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-white/70 bg-white/70 px-6 py-6 text-center text-sm text-slate-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition hover:border-[#0f766e] hover:text-[#0f766e]">
-            <span className="font-semibold">Drop files here or browse</span>
-            <span className="text-xs text-slate-500">
-              PDF, DOCX, XLSX, and images up to 25 MB each
-            </span>
-            <Input
-              type="file"
-              multiple
-              onChange={handleFilesSelected}
-              className="hidden"
-            />
-          </label>
-          {selectedFiles.length > 0 ? (
-            <div className="space-y-2 rounded-2xl border border-white/70 bg-white/80 p-3 text-sm shadow-[0_12px_24px_-20px_rgba(11,64,55,0.18)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Selected files
-              </p>
-              <ul className="space-y-1 text-sm text-slate-700">
-                {selectedFiles.map((file) => (
-                  <li key={file} className="truncate">
-                    {file}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-        </div>
-      </div>
     </div>
   );
 }
