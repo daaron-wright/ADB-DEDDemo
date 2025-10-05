@@ -6254,6 +6254,7 @@ export function BusinessChatUI({
                                 <MessageBubble
                                   key={message.id}
                                   message={message}
+                                  showUserAvatar={isInvestorAuthenticated}
                                   onActionClick={handleAction}
                                   dialogueDocProps={
                                     message.type === "dialogue-doc"
