@@ -5522,33 +5522,7 @@ export function BusinessChatUI({
             ];
           }
 
-          setIsInvestorAuthenticated(false);
-          setIsInvestorLoginPending(true);
-          setShouldPromptLogin(true);
-          const loginPromptMessage = buildMessage(
-            "Let's get you logged in with UAE Pass to continue with your personalized business setup.",
-            true,
-          );
-          const journeyCardMessage = buildMessage(
-            "Your journey, powered by AI.",
-            true,
-            {
-              type: "setup-cta",
-              actions: [
-                {
-                  id: "explore-options",
-                  label: "Explore more options",
-                  action: "show-summary",
-                },
-                {
-                  id: "setup-business-primary",
-                  label: "Set up business",
-                  action: "open-investor-journey",
-                },
-              ],
-            },
-          );
-          return [...updated, loginPromptMessage, journeyCardMessage];
+          return updated;
         }
 
         if (action === "confirm-retail-automation") {
