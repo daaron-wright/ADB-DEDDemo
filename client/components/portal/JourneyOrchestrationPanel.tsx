@@ -33,6 +33,7 @@ interface JourneyOrchestrationPanelProps {
   onResumeAutomation: () => void;
   onViewJourney: (stageId: string) => void;
   onOpenAutomation: () => void;
+  onTimelineFocusChange?: (isFocused: boolean) => void;
   formatDueDate?: (isoString: string) => string;
 }
 
@@ -54,6 +55,7 @@ export function JourneyOrchestrationPanel({
   onResumeAutomation,
   onViewJourney,
   onOpenAutomation,
+  onTimelineFocusChange,
   formatDueDate,
 }: JourneyOrchestrationPanelProps) {
   const completedActions = React.useMemo(
@@ -85,10 +87,22 @@ export function JourneyOrchestrationPanel({
     },
   );
   const userSelectedTimelineRef = React.useRef(false);
+  const timelineFocusRef = React.useRef(false);
+
+  const updateTimelineFocus = React.useCallback(
+    (isFocused: boolean) => {
+      if (timelineFocusRef.current !== isFocused) {
+        timelineFocusRef.current = isFocused;
+        onTimelineFocusChange?.(isFocused);
+      }
+    },
+    [onTimelineFocusChange],
+  );
 
   React.useEffect(() => {
     if (timelineItems.length === 0) {
       userSelectedTimelineRef.current = false;
+      updateTimelineFocus(false);
       setSelectedTimelineId("");
       return;
     }
@@ -101,6 +115,7 @@ export function JourneyOrchestrationPanel({
 
     if (!selectedExists) {
       userSelectedTimelineRef.current = false;
+      updateTimelineFocus(false);
       setSelectedTimelineId(prioritized?.id ?? "");
       return;
     }
@@ -110,9 +125,10 @@ export function JourneyOrchestrationPanel({
       prioritized &&
       prioritized.id !== selectedTimelineId
     ) {
+      updateTimelineFocus(false);
       setSelectedTimelineId(prioritized.id);
     }
-  }, [timelineItems, selectedTimelineId]);
+  }, [timelineItems, selectedTimelineId, updateTimelineFocus]);
 
   const selectedTimelineItem = React.useMemo(() => {
     return (
@@ -134,6 +150,7 @@ export function JourneyOrchestrationPanel({
 
   const handleTimelineSelect = (id: string) => {
     userSelectedTimelineRef.current = true;
+    updateTimelineFocus(true);
     setSelectedTimelineId(id);
   };
 
