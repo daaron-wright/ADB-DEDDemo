@@ -5533,21 +5533,29 @@ export function BusinessChatUI({
           return [...updated, buildStepMessage("summary")];
         }
 
-        if (action === "open-investor-journey" || action === "setup") {
+        if (action === "open-investor-journey") {
           const normalizedLabel = label.trim().toLowerCase();
+          const isSignInCta = normalizedLabel === "sign in with uae pass";
           const isSetupCta = normalizedLabel === "set up business";
 
-          setInputValue(HEAT_MAP_PROMPT);
+          if (isSignInCta) {
+            setInputValue(HEAT_MAP_PROMPT);
+          }
 
           if (isInvestorAuthenticated) {
             setModalView("heat-map");
-            return [
-              ...updated,
-              buildMessage(HEAT_MAP_PROMPT, true),
-            ];
+
+            if (isSignInCta) {
+              return [
+                ...updated,
+                buildMessage(HEAT_MAP_PROMPT, true),
+              ];
+            }
+
+            return updated;
           }
 
-          if (isSetupCta || action === "setup") {
+          if (isSetupCta) {
             return updated;
           }
 
