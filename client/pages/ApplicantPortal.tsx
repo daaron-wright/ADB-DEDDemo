@@ -1198,7 +1198,7 @@ export default function ApplicantPortal() {
             onKeyDown={handleJourneyOverviewKeyDown}
             className="space-y-8 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
           >
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)] lg:items-start">
               <div className="space-y-6 text-slate-900">
                 <div className="space-y-2">
                   <div className="flex items-start justify-between gap-4">
@@ -1268,7 +1268,7 @@ export default function ApplicantPortal() {
                   </p>
                 </div>
               </div>
-              <div className="w-full max-w-xs rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] p-4">
+              <div className="w-full rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] p-4 lg:h-full">
                 <div className="flex items-center justify-between text-sm font-medium text-slate-700">
                   <span>Overall progress</span>
                   <span className="text-slate-900">
@@ -1281,7 +1281,7 @@ export default function ApplicantPortal() {
                 </p>
               </div>
             </div>
-            <div className="grid gap-4 text-sm text-slate-600 sm:grid-cols-2">
+            <div className="grid gap-4 text-sm text-slate-600 sm:grid-cols-2 lg:grid-cols-4">
               <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                   Beneficiary
