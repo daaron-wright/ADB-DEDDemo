@@ -7,6 +7,7 @@ interface PortalPageLayoutProps {
   filters: ReactNode;
   headerActions?: ReactNode;
   children: ReactNode;
+  fullWidthSection?: ReactNode;
 }
 
 export function PortalPageLayout({
@@ -16,6 +17,7 @@ export function PortalPageLayout({
   filters,
   headerActions,
   children,
+  fullWidthSection,
 }: PortalPageLayoutProps) {
   return (
     <div className="relative min-h-screen bg-[#f5f8f6]">
@@ -61,13 +63,17 @@ export function PortalPageLayout({
           </div>
         </header>
 
-        <div className="mt-12 grid gap-12 lg:grid-cols-[340px,minmax(0,1fr)] xl:grid-cols-[360px,minmax(0,1fr)] 2xl:grid-cols-[400px,minmax(0,1fr)]">
-          <aside className="lg:sticky lg:top-32">
-            <div className="space-y-8 rounded-3xl border border-[#d8e4df] bg-white px-7 py-8 shadow-[0_12px_32px_-28px_rgba(11,64,55,0.18)] lg:max-h-[calc(100vh_-_10rem)] lg:overflow-y-auto">
-              {filters}
-            </div>
-          </aside>
-          <main className="flex-1 space-y-10 text-slate-900 lg:space-y-12">{children}</main>
+        <div className="mt-12 space-y-12">
+          {fullWidthSection ?? null}
+
+          <div className="grid gap-12 lg:grid-cols-[340px,minmax(0,1fr)] xl:grid-cols-[360px,minmax(0,1fr)] 2xl:grid-cols-[400px,minmax(0,1fr)]">
+            <aside className="lg:sticky lg:top-32">
+              <div className="space-y-8 rounded-3xl border border-[#d8e4df] bg-white px-7 py-8 shadow-[0_12px_32px_-28px_rgba(11,64,55,0.18)] lg:max-h-[calc(100vh_-_10rem)] lg:overflow-y-auto">
+                {filters}
+              </div>
+            </aside>
+            <main className="flex-1 space-y-10 text-slate-900 lg:space-y-12">{children}</main>
+          </div>
         </div>
       </div>
     </div>
