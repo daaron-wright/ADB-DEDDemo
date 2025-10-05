@@ -186,21 +186,21 @@ export function ComplianceGrowthFocusContent({
                 </span>
               </div>
 
-              <div className="grid gap-6 sm:grid-cols-[minmax(0,1fr)_auto]">
+              <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto]">
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
-                    <div className="h-1 w-1 rounded-full bg-white/30" />
+                    <span className="inline-flex h-8 w-1.5 rounded-full bg-white/30" />
                     <div>
-                      <div className="text-lg font-medium text-white">{thingsToDo}%</div>
-                      <div className="text-xs text-white/70">Things to do</div>
+                      <div className="text-[22px] font-semibold leading-6 text-white">{thingsToDo}%</div>
+                      <div className="text-xs uppercase tracking-[0.14em] text-white/70">Things to do</div>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="h-1 w-1 rounded-full bg-[#54FFD4]" />
+                    <span className="inline-flex h-8 w-1.5 rounded-full bg-[#54FFD4]" />
                     <div>
-                      <div className="text-lg font-medium text-white">{complete}%</div>
-                      <div className="text-xs text-white/70">Complete</div>
+                      <div className="text-[22px] font-semibold leading-6 text-white">{complete}%</div>
+                      <div className="text-xs uppercase tracking-[0.14em] text-white/70">Complete</div>
                     </div>
                   </div>
                 </div>
