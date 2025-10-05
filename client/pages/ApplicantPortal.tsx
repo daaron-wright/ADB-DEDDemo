@@ -1379,7 +1379,12 @@ export default function ApplicantPortal() {
         description={workspaceDescription}
         filters={filters}
         headerActions={headerActions}
-        fullWidthSection={journeyOverviewSection}
+        fullWidthSection={
+          <>
+            {heroSection}
+            {journeyOverviewSection}
+          </>
+        }
       >
         <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0d3f43] via-[#0f5f66] to-[#0f766e] p-6 text-white shadow-[0_24px_48px_-32px_rgba(11,64,55,0.35)] sm:p-8">
           <div
