@@ -1417,6 +1417,7 @@ export default function ApplicantPortal() {
         title="Business AI"
         initialMessage={BUSINESS_AI_INTRO_MESSAGE}
         journeyFocusView={journeyFocusViewProps}
+        suppressChatInterface={shouldSuppressChatInterface}
       />
     </>
   );
