@@ -106,10 +106,10 @@ export function ComplianceGrowthFocusContent({
         <Button
           onClick={() => setActiveView("compliance")}
           className={cn(
-            "flex-1 rounded-2xl px-6 py-3 text-sm font-semibold uppercase tracking-wide transition-all",
+            "flex-1 rounded-2xl border px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] transition-all",
             activeView === "compliance"
-              ? "bg-[#169F9F] text-white shadow-md"
-              : "bg-white/20 text-white/70 hover:bg-white/30"
+              ? "border-[#169F9F] bg-[#169F9F] text-white shadow-[0_18px_36px_-24px_rgba(23,135,126,0.45)]"
+              : "border-white/20 bg-white/10 text-white/70 hover:bg-white/15",
           )}
         >
           Compliance
@@ -117,10 +117,10 @@ export function ComplianceGrowthFocusContent({
         <Button
           onClick={() => setActiveView("growth")}
           className={cn(
-            "flex-1 rounded-2xl px-6 py-3 text-sm font-semibold uppercase tracking-wide transition-all",
+            "flex-1 rounded-2xl border px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] transition-all",
             activeView === "growth"
-              ? "bg-[#169F9F] text-white shadow-md"
-              : "bg-white/20 text-white/70 hover:bg-white/30"
+              ? "border-[#169F9F] bg-[#169F9F] text-white shadow-[0_18px_36px_-24px_rgba(23,135,126,0.45)]"
+              : "border-white/20 bg-white/10 text-white/70 hover:bg-white/15",
           )}
         >
           Growth
