@@ -132,34 +132,39 @@ export function ComplianceGrowthFocusContent({
           {showAlert && urgentItems.length > 0 && (
             <div
               className={chatCardClass(
-                "relative overflow-hidden rounded-3xl border border-red-500/30 bg-gradient-to-br from-red-600/90 to-red-700/90 p-6 backdrop-blur-lg",
+                "relative overflow-hidden rounded-3xl border border-red-400/35 bg-white/12 p-5 text-left backdrop-blur-xl shadow-[0_30px_80px_-65px_rgba(127,29,29,0.6)]",
               )}
             >
               <button
                 onClick={() => setShowAlert(false)}
-                className="absolute right-4 top-4 text-white/60 hover:text-white"
+                className="absolute right-4 top-4 text-white/60 transition hover:text-white"
                 aria-label="Dismiss alert"
               >
                 ✕
               </button>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-red-500/30">
-                  <AlertCircle className="h-6 w-6 text-white" />
-                </div>
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-red-400/40 bg-red-500/20 text-red-100">
+                  <AlertCircle className="h-6 w-6 text-red-100" />
+                </span>
                 <div className="flex-1 space-y-4">
-                  <div>
-                    <h3 className="text-base font-medium text-white">
-                      {urgentItems[0].label}
-                    </h3>
-                    <p className="mt-1 text-sm text-white/90">
-                      {urgentItems[0].detail}
-                    </p>
+                  <div className="space-y-2">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-red-200/80">
+                      Compliance alert
+                    </span>
+                    <div>
+                      <h3 className="text-base font-semibold text-white">
+                        {urgentItems[0].label}
+                      </h3>
+                      <p className="mt-1 text-sm text-white/80">
+                        {urgentItems[0].detail}
+                      </p>
+                    </div>
                   </div>
                   <Button
-                    className="rounded-full border-2 border-white bg-transparent px-6 py-2 text-sm font-semibold text-white hover:bg-white/10"
+                    className="w-full rounded-full border border-white/40 bg-transparent px-6 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10"
                   >
-                    Follow up
+                    Follow up now
                   </Button>
                 </div>
               </div>
