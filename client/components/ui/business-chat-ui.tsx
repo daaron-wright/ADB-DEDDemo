@@ -6212,11 +6212,13 @@ export function BusinessChatUI({
                         </button>
                       </div>
                     </div>
-                    <JourneyBreadcrumb
-                      steps={CONVERSATION_STEPS}
-                      currentStepId={currentStep}
-                      className="mb-4 w-full"
-                    />
+                    {showChatInterface ? (
+                      <JourneyBreadcrumb
+                        steps={CONVERSATION_STEPS}
+                        currentStepId={currentStep}
+                        className="mb-4 w-full"
+                      />
+                    ) : null}
                     <div className="flex items-center gap-3 sm:gap-4">
                       <AIBusinessOrb className="h-12 w-12 sm:h-16 sm:w-16" />
                       <div className="min-w-0 flex-1 text-left">
