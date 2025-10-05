@@ -5706,6 +5706,11 @@ export function BusinessChatUI({
     setIsInvestorAuthenticated(false);
     setShouldOpenInvestorView(false);
 
+    if (shouldSuppressChat) {
+      setMessages([]);
+      return;
+    }
+
     const conversation: BusinessMessage[] = [];
 
     const openingUserMessage = buildMessage(
@@ -5732,7 +5737,7 @@ export function BusinessChatUI({
     );
 
     setMessages(conversation);
-  }, [isOpen, buildMessage, initialMessage]);
+  }, [isOpen, buildMessage, initialMessage, shouldSuppressChat]);
 
   useEffect(() => {
     if (messages.length === 0) {
