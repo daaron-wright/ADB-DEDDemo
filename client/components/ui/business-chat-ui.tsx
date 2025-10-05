@@ -3050,11 +3050,11 @@ const SetupBusinessCTA = ({
 
       {/* Avatar positioned over header */}
       <div className="absolute left-[26px] top-[18px] h-[63px] w-[63px]">
-        <div className="h-full w-full rounded-full bg-[#D9D9D9] overflow-hidden">
+        <div className="h-full w-full overflow-hidden rounded-full bg-[#D9D9D9]">
           <img
-            src="https://api.builder.io/api/v1/image/assets/TEMP/0142e541255ee20520b15f139d595835c00ea132?width=131"
-            alt="Profile avatar"
-            className="h-[66px] w-[66px] object-cover -ml-[1px]"
+            src={ENTREPRENEUR_PROFILE.avatar}
+            alt={ENTREPRENEUR_PROFILE.name}
+            className="-ml-[1px] h-[66px] w-[66px] object-cover"
           />
         </div>
       </div>
