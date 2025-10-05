@@ -5092,6 +5092,7 @@ export function BusinessChatUI({
   onMinimize,
   mode = "modal",
   journeyFocusView = null,
+  suppressChatInterface = false,
 }: BusinessChatUIProps) {
   const [messages, setMessages] = useState<BusinessMessage[]>([]);
   const [view, setView] = useState<ChatView>("basic");
