@@ -317,6 +317,15 @@ const journeyStages: JourneyStage[] = [
   },
 ];
 
+const STAGES_WITH_SUPPRESSED_CHAT = new Set<string>([
+  "questionnaire",
+  "trade-name-activities",
+  "document-submissions",
+  "license",
+  "inspections",
+  "compliance-growth",
+]);
+
 const journeyHighlightTokens: Record<
   JourneyHighlightState,
   {
