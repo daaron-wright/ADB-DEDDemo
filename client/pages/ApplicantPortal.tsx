@@ -747,14 +747,17 @@ export default function ApplicantPortal() {
 
   const handleOpenSidePanel = useCallback(() => {
     setBusinessAIView("side-panel");
+    setIsTimelineBackgroundBlurred(false);
     setFocusContext(null);
   }, [setBusinessAIView, setFocusContext]);
   const handleOpenAutomationFocus = useCallback(() => {
     setBusinessAIView("focus");
+    setIsTimelineBackgroundBlurred(true);
     setFocusContext({ type: "automation" });
   }, [setBusinessAIView, setFocusContext]);
   const handleCloseChat = useCallback(() => {
     setBusinessAIView("closed");
+    setIsTimelineBackgroundBlurred(false);
     setFocusedNextActionId(null);
     setFocusContext(null);
   }, [setBusinessAIView, setFocusedNextActionId, setFocusContext]);
