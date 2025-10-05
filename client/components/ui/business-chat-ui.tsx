@@ -5538,14 +5538,14 @@ export function BusinessChatUI({
           const isSignInCta = normalizedLabel === "sign in with uae pass";
           const isSetupCta = normalizedLabel === "set up business";
 
-          if (isSignInCta) {
+          if (isSetupCta) {
             setInputValue(HEAT_MAP_PROMPT);
           }
 
           if (isInvestorAuthenticated) {
             setModalView("heat-map");
 
-            if (isSignInCta) {
+            if (isSetupCta) {
               return [
                 ...updated,
                 buildMessage(HEAT_MAP_PROMPT, true),
