@@ -3126,6 +3126,7 @@ interface MessageBubbleProps {
   applicationProgressProps?: {
     message: string;
   };
+  showUserAvatar?: boolean;
 }
 
 const MessageBubble = ({
@@ -3136,6 +3137,7 @@ const MessageBubble = ({
   onBudgetRangesOpen,
   businessActivitiesProps,
   applicationProgressProps,
+  showUserAvatar = false,
 }: MessageBubbleProps) => {
   const bubbleContainerClasses = message.isAI
     ? "border border-white/30 bg-white/18 text-slate-900 backdrop-blur-xl"
