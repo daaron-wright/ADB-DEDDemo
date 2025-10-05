@@ -794,6 +794,7 @@ export default function ApplicantPortal() {
 
   const handleViewJourney = (stageId: string) => {
     setBusinessAIView("focus");
+    setIsTimelineBackgroundBlurred(true);
     setFocusContext({ type: "stage", stageId });
     setIsStageManuallySelected(true);
     setActiveStageId(stageId);
