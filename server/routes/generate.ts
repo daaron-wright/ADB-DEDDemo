@@ -46,7 +46,7 @@ const getInvestorResponse = (message: string, category: string = 'general') => {
           entrepreneur: {
             name: 'Khalid',
             title: 'Entrepreneur',
-            avatar: 'https://api.builder.io/api/v1/image/assets/TEMP/0142e541255ee20520b15f139d595835c00ea132?width=131'
+            avatar: 'https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F2169b533257e4a5da8d026ed2e4d6a20?format=webp&width=800'
           }
         },
         actions: [
