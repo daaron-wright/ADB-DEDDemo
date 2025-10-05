@@ -1213,7 +1213,14 @@ export default function ApplicantPortal() {
   );
 
   const journeyOverviewSection = (
-    <section className="rounded-3xl border border-[#d8e4df] bg-white p-8 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)]">
+    <section
+      className={cn(
+        "rounded-3xl border border-[#d8e4df] bg-white p-8 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)]",
+        "transition-all duration-500",
+        isTimelineBackgroundBlurred &&
+          "relative z-[60] shadow-[0_32px_70px_-36px_rgba(11,64,55,0.32)]",
+      )}
+    >
       <div
         role="button"
         tabIndex={0}
