@@ -453,7 +453,7 @@ export function JourneyOrchestrationPanel({
                   id={`${panelIdPrefix}-${selectedTimelineItem.id}`}
                   role="tabpanel"
                   aria-labelledby={`${tabIdPrefix}-${selectedTimelineItem.id}`}
-                  className="space-y-5 rounded-2xl bg-white p-5 shadow-[0_12px_24px_-20px_rgba(11,64,55,0.18)]"
+                  className="space-y-5 rounded-2xl bg-white/98 p-5"
                 >
                   <div className="flex flex-wrap items-start gap-4">
                     <span
