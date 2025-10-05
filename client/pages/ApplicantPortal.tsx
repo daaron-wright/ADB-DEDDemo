@@ -603,6 +603,8 @@ export default function ApplicantPortal() {
     JOURNEY_ANIMATION_TIMELINE[0]?.percent ?? 0,
   );
   const [isStageManuallySelected, setIsStageManuallySelected] = useState(false);
+  const [isTimelineBackgroundBlurred, setIsTimelineBackgroundBlurred] =
+    useState(false);
 
   const updateCurrentJourneyStep = useCallback((stepId: string) => {
     if (!JOURNEY_STEPS_CONFIG.some((step) => step.id === stepId)) {
