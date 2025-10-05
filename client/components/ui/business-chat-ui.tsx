@@ -6247,54 +6247,56 @@ export function BusinessChatUI({
                           {journeyFocusView ? (
                             <JourneyStageFocusView {...journeyFocusView} />
                           ) : null}
-                          {messages.map((message) => (
-                            <MessageBubble
-                              key={message.id}
-                              message={message}
-                              onActionClick={handleAction}
-                              dialogueDocProps={
-                                message.type === "dialogue-doc"
-                                  ? {
-                                      title:
-                                        message.docTitle ??
-                                        "Investor dialogue workspace",
-                                      summary: message.content,
-                                      notes: dialogueDocState.notes,
-                                      highlights: dialogueDocState.highlights,
-                                      onNotesChange:
-                                        handleDialogueDocNotesChange,
-                                      onToggleHighlight:
-                                        handleDialogueDocToggleHighlight,
-                                      onHighlightChange:
-                                        handleDialogueDocHighlightChange,
-                                      onHighlightRemove:
-                                        handleDialogueDocHighlightRemove,
-                                      onAddHighlight:
-                                        handleDialogueDocHighlightAdd,
-                                    }
-                                  : undefined
-                              }
-                              onHeatMapOpen={openHeatMapFullView}
-                              onBudgetRangesOpen={openBudgetRangesFocus}
-                              businessActivitiesProps={
-                                message.type === "business-activities"
-                                  ? {
-                                      activities: activityOptions,
-                                      selectedActivityIds,
-                                      onToggleActivity: handleToggleActivity,
-                                      onAddActivity: handleAddActivity,
-                                      maxSelection: MAX_LICENSE_ACTIVITIES,
-                                      physicalPlan: physicalSpacePlan,
-                                    }
-                                  : undefined
-                              }
-                              applicationProgressProps={
-                                message.type === "application-progress"
-                                  ? { message: message.content }
-                                  : undefined
-                              }
-                            />
-                          ))}
+                          {showChatInterface
+                            ? messages.map((message) => (
+                                <MessageBubble
+                                  key={message.id}
+                                  message={message}
+                                  onActionClick={handleAction}
+                                  dialogueDocProps={
+                                    message.type === "dialogue-doc"
+                                      ? {
+                                          title:
+                                            message.docTitle ??
+                                            "Investor dialogue workspace",
+                                          summary: message.content,
+                                          notes: dialogueDocState.notes,
+                                          highlights: dialogueDocState.highlights,
+                                          onNotesChange:
+                                            handleDialogueDocNotesChange,
+                                          onToggleHighlight:
+                                            handleDialogueDocToggleHighlight,
+                                          onHighlightChange:
+                                            handleDialogueDocHighlightChange,
+                                          onHighlightRemove:
+                                            handleDialogueDocHighlightRemove,
+                                          onAddHighlight:
+                                            handleDialogueDocHighlightAdd,
+                                        }
+                                      : undefined
+                                  }
+                                  onHeatMapOpen={openHeatMapFullView}
+                                  onBudgetRangesOpen={openBudgetRangesFocus}
+                                  businessActivitiesProps={
+                                    message.type === "business-activities"
+                                      ? {
+                                          activities: activityOptions,
+                                          selectedActivityIds,
+                                          onToggleActivity: handleToggleActivity,
+                                          onAddActivity: handleAddActivity,
+                                          maxSelection: MAX_LICENSE_ACTIVITIES,
+                                          physicalPlan: physicalSpacePlan,
+                                        }
+                                      : undefined
+                                  }
+                                  applicationProgressProps={
+                                    message.type === "application-progress"
+                                      ? { message: message.content }
+                                      : undefined
+                                  }
+                                />
+                              ))
+                            : null}
                         </div>
 
                         {view === "investor-journey" && (
