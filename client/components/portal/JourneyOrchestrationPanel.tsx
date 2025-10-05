@@ -370,7 +370,7 @@ export function JourneyOrchestrationPanel({
           ) : null}
 
           {hasTimelineSection ? (
-            <section className="space-y-5 rounded-3xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.24)]">
+            <section className="space-y-5 rounded-3xl border border-[#d8e4df] bg-white/95 p-5">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                   Journey timeline
