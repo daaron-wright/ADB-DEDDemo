@@ -566,14 +566,14 @@ export function JourneyOrchestrationPanel({
                         )}
                       </ol>
                     ) : (
-                      <p className="rounded-xl bg-[#f5f8f7] px-4 py-3 text-sm text-slate-600">
+                      <p className="text-sm text-slate-600">
                         You're up to date for this stage.
                       </p>
                     )}
                   </div>
 
                   {selectedCompletedCount > 0 ? (
-                    <details className="rounded-2xl bg-[#f8fbfa] p-4">
+                    <details className="space-y-3">
                       <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-slate-700">
                         <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">
                           Completed actions ({selectedCompletedCount})
