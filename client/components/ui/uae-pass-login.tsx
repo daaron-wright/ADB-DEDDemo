@@ -515,85 +515,85 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
       style={MODAL_MIN_DIMENSIONS}
     >
       <div
-        className="relative mx-auto flex w-full max-w-[840px] flex-col items-center justify-center gap-10 rounded-md border border-[#d8e4df] p-6 text-center [&>*]:w-full"
+        className="relative mx-auto flex w-full max-w-[840px] flex-col items-center justify-center gap-8 rounded-md border border-[#d8e4df] p-10 text-center"
         style={MODAL_MIN_DIMENSIONS}
       >
-        <div className="flex w-full justify-end">
-          <Close asChild>
-            <button
-              ref={closeButtonRef}
-              type="button"
-              onClick={resetFlow}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-[0_12px_32px_-18px_rgba(15,23,42,0.35)] transition-colors duration-150 hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300"
-              aria-label="Close"
+        <Close asChild>
+          <button
+            ref={closeButtonRef}
+            type="button"
+            onClick={resetFlow}
+            className="absolute right-6 top-6 flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-[0_12px_32px_-18px_rgba(15,23,42,0.35)] transition-colors duration-150 hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300"
+            aria-label="Close"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+              <path
+                d="M12.667 3.33301L3.33366 12.6663M3.33366 3.33301L12.667 12.6663"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </Close>
+
+        <div className="w-full max-w-3xl">
+            <AnimatePresence mode="wait">
+            {mode === "full" && loginStep === "userType" && (
+              <UserTypeSelection onSelect={handleUserTypeSelect} />
+            )}
+
+            {loginStep === "login" && (
+              <LoginStepView
+                detail={activeUserDetail}
+                isLoggingIn={isLoggingIn}
+                onLogin={handleDirectLogin}
+              />
+            )}
+
+            {loginStep === "success" && (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.94 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.94 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
+                className="space-y-4 py-6 text-center"
               >
-                <path
-                  d="M12.667 3.33301L3.33366 12.6663M3.33366 3.33301L12.667 12.6663"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          </Close>
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9 12l2 2 4-4"
+                      stroke="currentColor"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-base font-semibold text-slate-900">
+                  You're signed in
+                </h3>
+                <p className="text-sm text-slate-500">
+                  We're preparing your business license portal…
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-
-        <AnimatePresence mode="wait">
-          {mode === "full" && loginStep === "userType" && (
-            <UserTypeSelection onSelect={handleUserTypeSelect} />
-          )}
-
-          {loginStep === "login" && (
-            <LoginStepView
-              detail={activeUserDetail}
-              isLoggingIn={isLoggingIn}
-              onLogin={handleDirectLogin}
-            />
-          )}
-
-          {loginStep === "success" && (
-            <motion.div
-              key="success"
-              initial={{ opacity: 0, scale: 0.94 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.94 }}
-              transition={{ duration: 0.22, ease: "easeOut" }}
-              className="space-y-4 py-6 text-center"
-            >
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M9 12l2 2 4-4"
-                    stroke="currentColor"
-                    strokeWidth="2.4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-base font-semibold text-slate-900">
-                You're signed in
-              </h3>
-              <p className="text-sm text-slate-500">
-                We're preparing your business license portal…
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     </Modal>
   );
