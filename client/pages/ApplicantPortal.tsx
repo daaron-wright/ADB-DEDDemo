@@ -1442,7 +1442,7 @@ export default function ApplicantPortal() {
         </section>
       </PortalPageLayout>
       {isTimelineBackgroundBlurred ? (
-        <div className="pointer-events-none fixed inset-0 z-40 bg-white/40 backdrop-blur-lg transition-opacity duration-500" />
+        <div className="fixed inset-0 z-40 bg-white/40 backdrop-blur-lg transition-opacity duration-500" />
       ) : null}
       <div className="relative z-[70]">
         <BusinessChatUI
