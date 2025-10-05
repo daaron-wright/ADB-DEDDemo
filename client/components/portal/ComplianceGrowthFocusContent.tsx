@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
-import { ArrowLeft, AlertCircle, CheckCircle, AlertTriangle, FileEdit } from "lucide-react";
+import { ArrowRight, AlertCircle, CheckCircle, AlertTriangle, FileEdit } from "lucide-react";
 
 interface ComplianceGrowthFocusContentProps {
   journeyNumber?: string;
