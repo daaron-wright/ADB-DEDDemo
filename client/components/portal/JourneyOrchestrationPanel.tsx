@@ -339,9 +339,9 @@ export function JourneyOrchestrationPanel({
         <p className="text-sm leading-relaxed text-slate-700">{introMessage}</p>
       </div>
 
-      {hasOutstandingSection || hasTimelineSection ? (
+      {(hasActions || hasTimelineSection) ? (
         <div className="space-y-6">
-          {hasOutstandingSection ? (
+          {hasActions ? (
             <div className="rounded-3xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.24)] sm:p-6">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
@@ -369,244 +369,246 @@ export function JourneyOrchestrationPanel({
             </div>
           ) : null}
 
-          <div
-            className={cn(
-              "grid gap-6",
-              hasOutstandingSection && hasTimelineSection
-                ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"
-                : "grid-cols-1",
-            )}
-          >
-            {hasOutstandingSection ? (
-              <section className="space-y-5">
-                <div className="space-y-4 rounded-2xl border border-[#d8e4df] bg-white/95 p-6">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                      Outstanding action
-                    </p>
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-                      {outstandingCount > 1
-                        ? `${outstandingDisplayCount - 1} queued`
-                        : "On track"}
-                    </span>
-                  </div>
-                  {primaryOutstandingAction ? (
-                    <div className="space-y-4">
-                      {renderActionRow(primaryOutstandingAction)}
-                      <div className="rounded-2xl border border-[#d8e4df] bg-[#f5f8f7] px-5 py-4 text-sm leading-relaxed text-slate-600">
-                        <p className="font-semibold text-slate-900">
-                          Related artifact
-                        </p>
-                        <p>
-                          Access the reference package uploaded under "{primaryOutstandingAction.stageTitle}" to review supporting documents already provided.
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="rounded-2xl border border-[#d8e4df] bg-white/85 px-5 py-6 text-center text-sm leading-relaxed text-slate-600">
-                      You're up to date. Review completed items below or continue exploring stages.
-                    </div>
-                  )}
-                </div>
+          {hasTimelineSection ? (
+            <section className="space-y-5">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Journey timeline
+                </p>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                  Active: {currentStageLabel}
+                </span>
+              </div>
+              <div className="space-y-5 rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.24)]">
+                <div
+                  className="flex gap-3 overflow-x-auto pb-2"
+                  role="tablist"
+                  aria-label="Journey stages navigation"
+                >
+                  {timelineItems.map((item, index) => {
+                    const isActive = item.id === selectedTimelineItem?.id;
+                    const tabId = `${tabIdPrefix}-${item.id}`;
+                    const panelId = `${panelIdPrefix}-${item.id}`;
+                    const outstandingForStage =
+                      outstandingCountsByStage[item.id] ?? 0;
+                    const indicatorClasses = cn(
+                      "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-semibold",
+                      isActive || item.isCurrent
+                        ? "bg-[#0f766e] text-white"
+                        : "bg-[#f4faf8] text-[#0f766e]",
+                    );
 
-                {completedCount > 0 ? (
-                  <div className="space-y-3">
-                    <button
-                      type="button"
-                      onClick={() => setShowCompletedTasks((prev) => !prev)}
-                      className="flex w-full items-center justify-between rounded-2xl border border-[#d8e4df] bg-white/85 px-5 py-4 text-left text-sm font-semibold text-slate-700 transition hover:border-[#0f766e]/60 hover:text-[#0f766e]"
-                    >
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">
-                        Completed actions
-                      </span>
-                      <span className="flex items-center gap-2 text-xs text-slate-500">
-                        {completedCount} {completedCount === 1 ? "item" : "items"}
-                        <ChevronDown
-                          className={cn(
-                            "h-4 w-4 transition-transform",
-                            showCompletedTasks ? "rotate-180" : "rotate-0",
-                          )}
-                        />
-                      </span>
-                    </button>
-                    {showCompletedTasks ? (
-                      <ol className="space-y-4">
-                        {completedActions.map((action) => renderActionRow(action))}
-                      </ol>
-                    ) : null}
-                  </div>
-                ) : null}
-              </section>
-            ) : null}
-
-            {hasTimelineSection ? (
-              <section className="space-y-5">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                    Journey timeline
-                  </p>
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-                    Active: {currentStageLabel}
-                  </span>
-                </div>
-                <div className="space-y-4 rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.24)]">
-                  <div className="flex gap-3 overflow-x-auto pb-1">
-                    {timelineItems.map((item, index) => {
-                      const isActive = item.id === selectedTimelineItem?.id;
-                      const indicatorClasses = cn(
-                        "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-semibold",
-                        isActive || item.isCurrent
-                          ? "bg-[#0f766e] text-white"
-                          : "bg-[#f4faf8] text-[#0f766e]",
-                      );
-
-                      return (
-                        <button
-                          key={item.id}
-                          type="button"
-                          onClick={() => handleTimelineSelect(item.id)}
-                          className={cn(
-                            "flex min-w-[200px] flex-col gap-2 rounded-2xl border px-4 py-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40",
-                            isActive
-                              ? "border-[#0f766e] bg-[#eaf7f3] shadow-[0_16px_32px_-28px_rgba(11,64,55,0.32)]"
-                              : "border-[#d8e4df] bg-white hover:border-[#0f766e]/60 hover:bg-[#f4faf8]",
-                          )}
-                          aria-pressed={isActive}
-                        >
-                          <div className="flex items-center gap-3">
-                            <span className={indicatorClasses}>{index + 1}</span>
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        role="tab"
+                        id={tabId}
+                        aria-selected={isActive}
+                        aria-controls={panelId}
+                        tabIndex={isActive ? 0 : -1}
+                        onClick={() => handleTimelineSelect(item.id)}
+                        className={cn(
+                          "flex min-w-[220px] flex-col gap-2 rounded-2xl border px-4 py-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40",
+                          isActive
+                            ? "border-[#0f766e] bg-[#eaf7f3] shadow-[0_16px_32px_-28px_rgba(11,64,55,0.32)]"
+                            : "border-[#d8e4df] bg-white hover:border-[#0f766e]/60 hover:bg-[#f4faf8]",
+                        )}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className={indicatorClasses}>{index + 1}</span>
+                          <div className="min-w-0 flex-1 space-y-1">
                             <p className="truncate text-sm font-semibold text-slate-900">
                               {item.title}
                             </p>
+                            <span
+                              className={cn(
+                                "inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]",
+                                item.statusBadgeClass,
+                              )}
+                            >
+                              {item.statusLabel}
+                            </span>
+                          </div>
+                          {outstandingForStage > 0 ? (
+                            <span className="ml-auto inline-flex h-6 min-w-[2rem] items-center justify-center rounded-full bg-[#0f766e]/10 px-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                              {outstandingForStage}
+                            </span>
+                          ) : null}
+                        </div>
+                        {item.isCurrent ? (
+                          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                            Current stage
+                          </span>
+                        ) : null}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {selectedTimelineItem ? (
+                  <div
+                    id={`${panelIdPrefix}-${selectedTimelineItem.id}`}
+                    role="tabpanel"
+                    aria-labelledby={`${tabIdPrefix}-${selectedTimelineItem.id}`}
+                    className="space-y-5 rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_12px_24px_-20px_rgba(11,64,55,0.18)]"
+                  >
+                    <div className="flex flex-wrap items-start gap-4">
+                      <span
+                        className={cn(
+                          "flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-sm font-semibold",
+                          selectedTimelineItem.isCurrent
+                            ? "bg-[#0f766e] text-white"
+                            : "bg-[#f4faf8] text-[#0f766e]",
+                        )}
+                      >
+                        {selectedTimelineIndex >= 0
+                          ? selectedTimelineIndex + 1
+                          : "–"}
+                      </span>
+
+                      <div className="flex-1 space-y-4">
+                        <div className="flex flex-wrap items-center justify-between gap-3">
+                          <div className="space-y-1">
+                            <p className="text-lg font-semibold text-slate-900">
+                              {selectedTimelineItem.title}
+                            </p>
+                            {selectedTimelineItem.isCurrent ? (
+                              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                                Active stage
+                              </span>
+                            ) : null}
                           </div>
                           <span
                             className={cn(
-                              "inline-flex w-fit items-center rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]",
-                              item.statusBadgeClass,
+                              "inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]",
+                              selectedTimelineItem.statusBadgeClass,
                             )}
                           >
-                            {item.statusLabel}
+                            {selectedTimelineItem.statusLabel}
                           </span>
-                          {item.isCurrent ? (
-                            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
-                              Current
-                            </span>
-                          ) : null}
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {selectedTimelineItem ? (
-                    <div className="space-y-5 rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_12px_24px_-20px_rgba(11,64,55,0.18)]">
-                      <div className="flex flex-wrap items-start gap-4">
-                        <span
-                          className={cn(
-                            "flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-sm font-semibold",
-                            selectedTimelineItem.isCurrent
-                              ? "bg-[#0f766e] text-white"
-                              : "bg-[#f4faf8] text-[#0f766e]",
-                          )}
-                        >
-                          {selectedTimelineIndex >= 0
-                            ? selectedTimelineIndex + 1
-                            : "–"}
-                        </span>
-
-                        <div className="flex-1 space-y-4">
-                          <div className="flex flex-wrap items-center justify-between gap-3">
-                            <div className="space-y-1">
-                              <p className="text-lg font-semibold text-slate-900">
-                                {selectedTimelineItem.title}
-                              </p>
-                              {selectedTimelineItem.isCurrent ? (
-                                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                                  Active stage
-                                </span>
-                              ) : null}
-                            </div>
-                            <span
-                              className={cn(
-                                "inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]",
-                                selectedTimelineItem.statusBadgeClass,
-                              )}
-                            >
-                              {selectedTimelineItem.statusLabel}
-                            </span>
-                          </div>
-
-                          <p className="text-sm leading-relaxed text-slate-600">
-                            {selectedTimelineItem.description}
-                          </p>
-
-                          {selectedTimelineItem.meta ? (
-                            <p
-                              className={cn(
-                                "text-[11px] font-semibold uppercase tracking-[0.18em]",
-                                selectedTimelineItem.statusHelperClass,
-                              )}
-                            >
-                              {selectedTimelineItem.meta}
-                            </p>
-                          ) : null}
-
-                          {selectedTimelineItem.showProgress && chatPhase ? (
-                            <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-[#f4faf8] p-4">
-                              <div className="h-2 w-full overflow-hidden rounded-full bg-[#e6f2ed]">
-                                <div
-                                  className="h-full rounded-full bg-[#0f766e] transition-all duration-700"
-                                  style={{ width: `${chatProgress}%` }}
-                                />
-                              </div>
-                              {chatPhase.keyConsiderations?.length ? (
-                                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                                  {chatPhase.keyConsiderations[0]}
-                                </p>
-                              ) : null}
-                              {isStageManuallySelected ? (
-                                <button
-                                  type="button"
-                                  onClick={onResumeAutomation}
-                                  className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-                                >
-                                  Resume automation
-                                </button>
-                              ) : null}
-                            </div>
-                          ) : null}
                         </div>
-                      </div>
 
-                      <div className="flex flex-wrap items-center gap-3">
-                        {selectedTimelineItem.id === "generating-application" ? (
-                          <button
-                            type="button"
-                            onClick={onOpenAutomation}
-                            className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                        <p className="text-sm leading-relaxed text-slate-600">
+                          {selectedTimelineItem.description}
+                        </p>
+
+                        {selectedTimelineItem.meta ? (
+                          <p
+                            className={cn(
+                              "text-[11px] font-semibold uppercase tracking-[0.18em]",
+                              selectedTimelineItem.statusHelperClass,
+                            )}
                           >
-                            Manage automation
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            onClick={() => onViewJourney(selectedTimelineItem.id)}
-                            className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-                          >
-                            Open stage
-                          </button>
-                        )}
-                        {selectedTimelineItem.isCurrent ? (
-                          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                            You're here
-                          </span>
+                            {selectedTimelineItem.meta}
+                          </p>
+                        ) : null}
+
+                        {selectedTimelineItem.showProgress && chatPhase ? (
+                          <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-[#f4faf8] p-4">
+                            <div className="h-2 w-full overflow-hidden rounded-full bg-[#e6f2ed]">
+                              <div
+                                className="h-full rounded-full bg-[#0f766e] transition-all duration-700"
+                                style={{ width: `${chatProgress}%` }}
+                              />
+                            </div>
+                            {chatPhase.keyConsiderations?.length ? (
+                              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                                {chatPhase.keyConsiderations[0]}
+                              </p>
+                            ) : null}
+                            {isStageManuallySelected ? (
+                              <button
+                                type="button"
+                                onClick={onResumeAutomation}
+                                className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#eaf7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                              >
+                                Resume automation
+                              </button>
+                            ) : null}
+                          </div>
                         ) : null}
                       </div>
                     </div>
-                  ) : null}
-                </div>
-              </section>
-            ) : null}
-          </div>
+
+                    <div className="flex flex-wrap items-center gap-3">
+                      {selectedTimelineItem.id === "generating-application" ? (
+                        <button
+                          type="button"
+                          onClick={onOpenAutomation}
+                          className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                        >
+                          Manage automation
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => onViewJourney(selectedTimelineItem.id)}
+                          className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                        >
+                          Open stage
+                        </button>
+                      )}
+                      {selectedTimelineItem.isCurrent ? (
+                        <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                          You're here
+                        </span>
+                      ) : null}
+                    </div>
+
+                    <div className="space-y-4 rounded-2xl border border-[#d8e4df] bg-white/90 p-5">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                          Outstanding actions for this stage
+                        </p>
+                        <span className="text-sm font-semibold text-[#0f766e]">
+                          {selectedOutstandingCount}
+                        </span>
+                      </div>
+                      {selectedOutstandingCount > 0 ? (
+                        <ol className="space-y-4">
+                          {selectedOutstandingActions.map((action) =>
+                            renderActionRow(action),
+                          )}
+                        </ol>
+                      ) : (
+                        <div className="rounded-2xl border border-[#d8e4df] bg-[#f5f8f7] px-5 py-4 text-sm leading-relaxed text-slate-600">
+                          You're up to date for this stage. Review completed actions below or explore other stages.
+                        </div>
+                      )}
+                    </div>
+
+                    {selectedCompletedCount > 0 ? (
+                      <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-white/90 p-5">
+                        <button
+                          type="button"
+                          onClick={() => setShowCompletedTasks((previous) => !previous)}
+                          className="flex w-full items-center justify-between text-left text-sm font-semibold text-slate-700 transition hover:text-[#0f766e]"
+                        >
+                          <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">
+                            Completed actions ({selectedCompletedCount})
+                          </span>
+                          <ChevronDown
+                            className={cn(
+                              "h-4 w-4 transition-transform text-slate-500",
+                              showCompletedTasks ? "rotate-180" : "rotate-0",
+                            )}
+                          />
+                        </button>
+                        {showCompletedTasks ? (
+                          <ol className="space-y-4">
+                            {selectedCompletedActions.map((action) =>
+                              renderActionRow(action),
+                            )}
+                          </ol>
+                        ) : null}
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
+              </div>
+            </section>
+          ) : null}
         </div>
       ) : null}
     </div>
