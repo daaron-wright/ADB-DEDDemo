@@ -91,6 +91,17 @@ const COMPLIANCE_STATUS_TOKENS: Record<
 
 type ToggleView = "compliance" | "growth";
 
+const CHECKLIST_BADGES = {
+  in_progress: {
+    className: "border-amber-200 bg-amber-50 text-amber-700",
+    label: "In progress",
+  },
+  complete: {
+    className: "border-emerald-200 bg-emerald-50 text-emerald-700",
+    label: "Complete",
+  },
+};
+
 const DED_DETAIL = {
   summary:
     "DED inspectors requested confirmation of updated kitchen layout, staff training logs, and calibration certificates before finalising the renewal.",
