@@ -749,18 +749,23 @@ export default function ApplicantPortal() {
     setBusinessAIView("side-panel");
     setIsTimelineBackgroundBlurred(false);
     setFocusContext(null);
-  }, [setBusinessAIView, setFocusContext]);
+  }, [setBusinessAIView, setFocusContext, setIsTimelineBackgroundBlurred]);
   const handleOpenAutomationFocus = useCallback(() => {
     setBusinessAIView("focus");
     setIsTimelineBackgroundBlurred(true);
     setFocusContext({ type: "automation" });
-  }, [setBusinessAIView, setFocusContext]);
+  }, [setBusinessAIView, setFocusContext, setIsTimelineBackgroundBlurred]);
   const handleCloseChat = useCallback(() => {
     setBusinessAIView("closed");
     setIsTimelineBackgroundBlurred(false);
     setFocusedNextActionId(null);
     setFocusContext(null);
-  }, [setBusinessAIView, setFocusedNextActionId, setFocusContext]);
+  }, [
+    setBusinessAIView,
+    setFocusedNextActionId,
+    setFocusContext,
+    setIsTimelineBackgroundBlurred,
+  ]);
   const handleJourneyOverviewToggle = useCallback(() => {
     setIsJourneyOverviewOpen((prev) => {
       const next = !prev;
