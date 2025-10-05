@@ -327,7 +327,7 @@ export function ComplianceGrowthFocusContent({
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#f59e0b]">
                     Growth status
                   </p>
-                  <p className="text-2xl font-semibold text-slate-900">75% momentum</p>
+                  <p className="text-2xl font-semibold text-slate-900">{growthProgress}% momentum</p>
                 </div>
                 <Badge className="inline-flex items-center gap-2 border-[#f59e0b]/40 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b45309]">
                   AI recommendations
