@@ -397,6 +397,46 @@ export function ComplianceGrowthFocusContent({
                             ))}
                           </ul>
                         </div>
+
+                        <div className="space-y-3">
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Photo reference library</p>
+                          <div className="grid gap-3 sm:grid-cols-3">
+                            {DED_MEDIA.map((asset) => (
+                              <figure
+                                key={asset.id}
+                                className="group overflow-hidden rounded-2xl border border-[#d8e4df] bg-[#f8fbfa]"
+                              >
+                                <img
+                                  src={asset.src}
+                                  alt={asset.alt}
+                                  className="h-32 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                                />
+                                <figcaption className="px-3 py-2 text-center text-xs font-medium text-slate-600">
+                                  {asset.caption}
+                                </figcaption>
+                              </figure>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col gap-3 rounded-2xl border border-[#e3eeea] bg-[#f5faf7] p-4 sm:flex-row sm:items-center sm:justify-between">
+                          <div className="flex items-start gap-3">
+                            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#94d2c2] bg-[#dff2ec]/70 text-[#0f766e]">
+                              <ArrowRight className="h-5 w-5" />
+                            </span>
+                            <div className="space-y-1">
+                              <p className="text-sm font-semibold text-slate-900">Follow up with DED inspector</p>
+                              <p className="text-xs text-slate-600">
+                                Share photo evidence and confirm the onsite visit schedule in one step.
+                              </p>
+                            </div>
+                          </div>
+                          <Button
+                            className="rounded-full bg-[#169F9F] px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_32px_-24px_rgba(23,135,126,0.45)] hover:bg-[#128080]"
+                          >
+                            Follow up
+                          </Button>
+                        </div>
                       </div>
                     ) : null}
                   </div>
