@@ -129,146 +129,173 @@ export function ComplianceGrowthFocusContent({
       </div>
 
       {activeView === "compliance" && (
-        <div className="space-y-5">
-          {showAlert && urgentItems.length > 0 && (
-            <div
-              className={chatCardClass(
-                "relative overflow-hidden rounded-3xl border border-red-400/35 bg-white/12 p-5 text-left backdrop-blur-xl shadow-[0_30px_80px_-65px_rgba(127,29,29,0.6)]",
-              )}
-            >
-              <button
-                onClick={() => setShowAlert(false)}
-                className="absolute right-4 top-4 text-white/60 transition hover:text-white"
-                aria-label="Dismiss alert"
-              >
-                ✕
-              </button>
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
+          <section
+            className={chatCardClass(
+              "space-y-6 border border-white/60 bg-white/95 p-6 text-slate-800 shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
+            )}
+          >
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="space-y-1">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Compliance tracker
+                </p>
+                <p className="text-lg font-semibold text-slate-900">Regulatory obligations</p>
+              </div>
+              <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                {complete}% compliant
+              </Badge>
+            </div>
 
-              <div className="flex items-start gap-4">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-red-400/40 bg-red-500/20 text-red-100">
-                  <AlertCircle className="h-6 w-6 text-red-100" />
-                </span>
-                <div className="flex-1 space-y-4">
-                  <div className="space-y-2">
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-red-200/80">
-                      Compliance alert
-                    </span>
-                    <div>
-                      <h3 className="text-base font-semibold text-white">
-                        {urgentItems[0].label}
-                      </h3>
-                      <p className="mt-1 text-sm text-white/80">
-                        {urgentItems[0].detail}
-                      </p>
-                    </div>
-                  </div>
-                  <Button
-                    className="w-full rounded-full border border-white/40 bg-transparent px-6 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10"
-                  >
-                    Follow up now
-                  </Button>
+            <div className="space-y-4 rounded-[32px] border border-[#0f766e]/25 bg-[#0f766e]/5 px-5 py-4">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="space-y-1">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    Live compliance snapshot
+                  </p>
+                  <p className="text-2xl font-semibold text-slate-900">{progressPercent}% progress</p>
+                </div>
+                <Badge className="inline-flex items-center gap-2 border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
+                  AI monitoring
+                </Badge>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-1">
+                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Things to do</p>
+                  <p className="text-3xl font-semibold text-slate-900">{thingsToDo}%</p>
+                  <p className="text-sm text-slate-600">Outstanding compliance actions</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Complete</p>
+                  <p className="text-3xl font-semibold text-slate-900">{complete}%</p>
+                  <p className="text-sm text-slate-600">Authorities synced</p>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
+                  <div
+                    className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] shadow-[0_1px_6px_rgba(15,118,110,0.35)] transition-all"
+                    style={{ width: `${progressPercent}%` }}
+                  />
+                </div>
+                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                  <span>Compliance progress</span>
+                  <span>{progressPercent}%</span>
                 </div>
               </div>
             </div>
-          )}
 
-          <div
-            className={chatCardClass(
-              "overflow-hidden rounded-3xl border border-white/20 bg-white/12 p-6 text-left backdrop-blur-xl",
-            )}
-          >
-            <div className="space-y-6">
-              <div className="flex items-center justify-between gap-4">
-                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-white">
-                  Compliance Status
-                </h3>
-                <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/70">
-                  Live feed
-                </span>
-              </div>
+            <div className="space-y-3">
+              {COMPLIANCE_ITEMS.map((item) => {
+                const token = COMPLIANCE_STATUS_TOKENS[item.status];
+                const { Icon } = token;
+                const statusLabel =
+                  item.status === "success"
+                    ? "Compliant"
+                    : item.status === "warning"
+                      ? "Action needed"
+                      : item.status === "error"
+                        ? "Urgent"
+                        : "Information";
 
-              <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto]">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex h-8 w-1.5 rounded-full bg-white/30" />
-                    <div>
-                      <div className="text-[22px] font-semibold leading-6 text-white">{thingsToDo}%</div>
-                      <div className="text-xs uppercase tracking-[0.14em] text-white/70">Things to do</div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex h-8 w-1.5 rounded-full bg-[#54FFD4]" />
-                    <div>
-                      <div className="text-[22px] font-semibold leading-6 text-white">{complete}%</div>
-                      <div className="text-xs uppercase tracking-[0.14em] text-white/70">Complete</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="relative flex items-center justify-center">
-                  <svg className="h-24 w-24 -rotate-90 transform">
-                    <circle
-                      cx="48"
-                      cy="48"
-                      r="40"
-                      stroke="rgba(255, 255, 255, 0.2)"
-                      strokeWidth="8"
-                      fill="none"
-                    />
-                    <circle
-                      cx="48"
-                      cy="48"
-                      r="40"
-                      stroke="#54FFD4"
-                      strokeWidth="8"
-                      fill="none"
-                      strokeDasharray={`${(complete / 100) * 251.2} 251.2`}
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </div>
-              </div>
-
-              <div className="space-y-1 border-t border-white/20 pt-6">
-                {COMPLIANCE_ITEMS.map((item) => {
-                  const token = COMPLIANCE_STATUS_TOKENS[item.status];
-                  const { Icon } = token;
-
-                  return (
-                    <div key={item.id} className="flex items-start gap-3 py-2">
+                return (
+                  <div
+                    key={item.id}
+                    className="flex flex-col gap-3 rounded-2xl border border-[#d8e4df] bg-white/95 p-4 sm:flex-row sm:items-center sm:justify-between"
+                  >
+                    <div className="flex items-start gap-3">
                       <span
                         className={cn(
-                          "flex h-8 w-8 items-center justify-center rounded-full",
+                          "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full",
                           token.iconWrapperClass,
                         )}
                       >
-                        <Icon className={cn("h-4 w-4", token.iconClass)} />
+                        <Icon className={cn("h-5 w-5", token.iconClass)} />
                       </span>
-                      <div className="min-w-0 flex-1">
-                        <div className={cn("text-sm font-medium", token.textClass)}>{item.label}</div>
-                        <div className={cn("text-xs uppercase tracking-[0.12em] text-white/70")}>{item.detail}</div>
+                      <div className="space-y-1">
+                        <p className="text-sm font-semibold text-slate-900">{item.label}</p>
+                        <p className="text-xs uppercase tracking-[0.16em] text-slate-500">{item.detail}</p>
                       </div>
                     </div>
-                  );
-                })}
+                    <Badge className="border-white/70 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                      {statusLabel}
+                    </Badge>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          <div className="space-y-5">
+            <section
+              className={chatCardClass(
+                "space-y-4 border border-white/60 bg-white/95 p-6 text-slate-800 shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
+              )}
+            >
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b91c1c]">Compliance alerts</p>
+                <Badge className="border-red-200 bg-red-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-red-700">
+                  {urgentItems.length} open
+                </Badge>
               </div>
 
-              <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/15 pt-6">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-11 w-11 rounded-full border border-white/20 bg-transparent text-white hover:bg-white/10"
-                >
-                  <ArrowLeft className="h-5 w-5" />
-                </Button>
-                <Button
-                  className="rounded-full bg-[#169F9F] px-8 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-24px_rgba(23,135,126,0.45)] transition hover:bg-[#128080]"
-                >
-                  Follow up
-                </Button>
+              {urgentItems.length > 0 ? (
+                <div className="space-y-3">
+                  {urgentItems.map((item) => {
+                    const token = COMPLIANCE_STATUS_TOKENS[item.status];
+                    const { Icon } = token;
+
+                    return (
+                      <div
+                        key={`alert-${item.id}`}
+                        className="flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50/70 p-4"
+                      >
+                        <span className="flex h-9 w-9 items-center justify-center rounded-full border border-red-200 bg-white text-red-500">
+                          <Icon className="h-5 w-5" />
+                        </span>
+                        <div className="flex-1 space-y-1">
+                          <p className="text-sm font-semibold text-red-800">{item.label}</p>
+                          <p className="text-xs text-red-600">{item.detail}</p>
+                        </div>
+                        <Button
+                          size="sm"
+                          className="rounded-full border border-red-200 bg-red-500 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(185,28,28,0.45)] hover:bg-red-600"
+                        >
+                          Follow up
+                        </Button>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="text-sm text-slate-600">All compliance checks are clear.</p>
+              )}
+            </section>
+
+            <section
+              className={chatCardClass(
+                "space-y-4 border border-white/60 bg-white/95 p-6 text-slate-800 shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
+              )}
+            >
+              <div className="space-y-1">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Upcoming renewals</p>
+                <p className="text-base font-semibold text-slate-900">Keep your documents current</p>
               </div>
-            </div>
+              <ul className="space-y-2 text-sm text-slate-600">
+                <li className="flex items-center justify-between rounded-2xl border border-[#d8e4df] bg-white/95 px-4 py-3">
+                  <span>DED inspection follow-up</span>
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">29 days</span>
+                </li>
+                <li className="flex items-center justify-between rounded-2xl border border-[#d8e4df] bg-white/95 px-4 py-3">
+                  <span>Visa renewals status</span>
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Renewed</span>
+                </li>
+                <li className="flex items-center justify-between rounded-2xl border border-[#d8e4df] bg-white/95 px-4 py-3">
+                  <span>Tawtheeq certificate</span>
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">320 days remaining</span>
+                </li>
+              </ul>
+            </section>
           </div>
         </div>
       )}
