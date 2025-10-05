@@ -213,6 +213,9 @@ export function JourneyOrchestrationPanel({
     }, {});
   }, [timelineItems, stageActionSummary]);
 
+  const tabIdPrefix = "journey-timeline-tab";
+  const panelIdPrefix = "journey-timeline-panel";
+
   const [showCompletedTasks, setShowCompletedTasks] = React.useState(false);
 
   React.useEffect(() => {
