@@ -331,7 +331,7 @@ export function JourneyOrchestrationPanel({
   };
 
   return (
-    <div className="space-y-8 rounded-3xl border border-white/60 bg-white/90 p-7 shadow-[0_24px_64px_-32px_rgba(11,64,55,0.28)] backdrop-blur-xl sm:p-8 lg:space-y-9 lg:p-10">
+    <div className="space-y-8 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_18px_48px_-28px_rgba(11,64,55,0.2)] sm:p-8 lg:space-y-8">
       <div className="space-y-4">
         <h4 className="text-xl font-semibold text-slate-900">
           Journey orchestration
