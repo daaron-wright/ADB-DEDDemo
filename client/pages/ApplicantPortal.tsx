@@ -777,6 +777,18 @@ export default function ApplicantPortal() {
     [handleJourneyOverviewToggle],
   );
 
+  useEffect(() => {
+    if (!isJourneyOverviewOpen) {
+      setIsTimelineBackgroundBlurred(false);
+    }
+  }, [isJourneyOverviewOpen]);
+
+  useEffect(() => {
+    if (portalView !== "overview") {
+      setIsTimelineBackgroundBlurred(false);
+    }
+  }, [portalView]);
+
   const handleViewJourney = (stageId: string) => {
     setBusinessAIView("focus");
     setFocusContext({ type: "stage", stageId });
