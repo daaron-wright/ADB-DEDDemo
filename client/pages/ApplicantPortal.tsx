@@ -820,13 +820,13 @@ export default function ApplicantPortal() {
         label: "Add licensing guidance to business activities questionnaire",
         status: "guidance",
         description: BUSINESS_ACTIVITY_GUIDANCE_MESSAGE,
-        stageTitle: "Questionnaire intake",
+        stageTitle: "Questionnaire",
       },
       {
         id: "primary-application-next",
         label: primaryApplication.nextAction,
         status: "workflow",
-        stageTitle: "Workspace overview",
+        stageTitle: "Generating application",
       },
       ...uniqueApplicantTasks,
     ];
