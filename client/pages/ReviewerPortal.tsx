@@ -413,7 +413,7 @@ export default function ReviewerPortal() {
       ? reviewerIdentifierCandidate
       : "Reviewer ID RV-45812";
 
-  const pageTitle = "Review desk";
+  const pageTitle = "My workspace";
   const pageDescription =
     "Monitor the unified queue, keep SLAs healthy, and collaborate with your team to move applications forward.";
 
@@ -785,6 +785,13 @@ export default function ReviewerPortal() {
       description={pageDescription}
       filters={filters}
       headerActions={headerActions}
+      brand={{
+        href: "https://ded.abudhabi.ae",
+        logoSrc:
+          "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fa94de9a70ad54d00a26af54eedaa906d?format=webp&width=800",
+        logoAlt: "Abu Dhabi Department of Economic Development logo",
+        label: "Abu Dhabi Department of Economic Development",
+      }}
     >
       <section className="grid gap-4 md:grid-cols-2">
         <SummaryMetric
