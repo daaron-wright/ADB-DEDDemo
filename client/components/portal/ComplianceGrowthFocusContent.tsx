@@ -158,6 +158,27 @@ const DED_DETAIL = {
   ],
 };
 
+const DED_MEDIA = [
+  {
+    id: "smart-kitchen-monitoring",
+    src: "https://api.builder.io/api/v1/image/assets/TEMP/b8e81338fc04dbb1961cecf6a6b349e10dd288d5?width=824",
+    alt: "DED inspector observing smart kitchen monitoring data on screen",
+    caption: "Kitchen monitoring feed",
+  },
+  {
+    id: "dining-floor-analytics",
+    src: "https://api.builder.io/api/v1/image/assets/TEMP/35354ebad5489f0ffae354b2521357c0e9b5d5fa?width=918",
+    alt: "Analytics overlay highlighting compliance metrics across dining floor",
+    caption: "Dining floor analytics",
+  },
+  {
+    id: "storage-zone-alert",
+    src: "https://api.builder.io/api/v1/image/assets/TEMP/37e3d308bae6fa63163fe9e0bbe47135f19cab55?width=824",
+    alt: "Alert shown for storage zone breach captured by surveillance",
+    caption: "Storage zone alert",
+  },
+];
+
 export function ComplianceGrowthFocusContent({
   journeyNumber = "0987654321",
   completionStatus = "78% complete",
