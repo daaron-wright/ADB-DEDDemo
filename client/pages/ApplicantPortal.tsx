@@ -551,7 +551,6 @@ const JOURNEY_STEPS_CONFIG: JourneyStep[] = [
   { id: "banking-extras", label: "Banking / Extras", state: "upcoming" },
   { id: "payment-issuance", label: "Payment & Issuance", state: "upcoming" },
   { id: "inspections", label: "Pre-Operational Inspection", state: "current" },
-  { id: "activation", label: "Activation", state: "upcoming" },
   { id: "compliance-growth", label: "Compliance / Growth", state: "upcoming" },
 ];
 
@@ -720,13 +719,6 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
       "Food safety cert",
       "Bank account",
     ],
-  },
-  {
-    stageId: "activation",
-    message: "Activating license and preparing opening...",
-    percent: 100,
-    keyConsiderations: ["Launch planning", "Support services"],
-    dataTags: ["Opening date", "Go-live tasks", "Support contacts"],
   },
   {
     stageId: "compliance-growth",
