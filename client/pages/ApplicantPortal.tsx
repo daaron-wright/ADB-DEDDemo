@@ -759,8 +759,14 @@ export default function ApplicantPortal() {
     setFocusContext(null);
   }, [setBusinessAIView, setFocusedNextActionId, setFocusContext]);
   const handleJourneyOverviewToggle = useCallback(() => {
-    setIsJourneyOverviewOpen((prev) => !prev);
-  }, []);
+    setIsJourneyOverviewOpen((prev) => {
+      const next = !prev;
+      if (!next) {
+        setIsTimelineBackgroundBlurred(false);
+      }
+      return next;
+    });
+  }, [setIsTimelineBackgroundBlurred]);
   const handleJourneyOverviewKeyDown = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {
       if (event.key === "Enter" || event.key === " ") {
