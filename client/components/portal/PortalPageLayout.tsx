@@ -100,7 +100,9 @@ export function PortalPageLayout({
                 {filters}
               </div>
             </aside>
-            <main className="flex-1 space-y-10 text-slate-900 lg:space-y-12">{children}</main>
+            <main className="flex-1 space-y-10 text-slate-900 lg:space-y-12">
+              {children}
+            </main>
           </div>
         </div>
       </div>

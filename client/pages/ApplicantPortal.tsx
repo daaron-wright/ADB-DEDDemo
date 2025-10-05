@@ -415,7 +415,11 @@ const ACTOR_OPTIONS: ActorOption[] = [
 
 const JOURNEY_STEPS_CONFIG: JourneyStep[] = [
   { id: "questionnaire", label: "Questionnaire", state: "completed" },
-  { id: "trade-name-activities", label: "Business Registration", state: "completed" },
+  {
+    id: "trade-name-activities",
+    label: "Business Registration",
+    state: "completed",
+  },
   { id: "document-submissions", label: "Submit Documents", state: "completed" },
   { id: "license", label: "Business Licensing", state: "completed" },
   { id: "inspections", label: "Pre-Operational Inspection", state: "current" },
@@ -498,33 +502,21 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
     message: "Capturing questionnaire responses and tailoring the workspace...",
     percent: 12,
     keyConsiderations: ["Business intent", "Ownership structure"],
-    dataTags: [
-      "Business objectives",
-      "Location preferences",
-      "Owner profiles",
-    ],
+    dataTags: ["Business objectives", "Location preferences", "Owner profiles"],
   },
   {
     stageId: "trade-name-activities",
     message: "Preparing business registration packet...",
     percent: 28,
     keyConsiderations: ["Trade name reservation", "Shareholder records"],
-    dataTags: [
-      "Trade name",
-      "Ownership documents",
-      "Registration packet",
-    ],
+    dataTags: ["Trade name", "Ownership documents", "Registration packet"],
   },
   {
     stageId: "document-submissions",
     message: "Gathering and submitting required documents...",
     percent: 44,
     keyConsiderations: ["Document requirements", "Authority coordination"],
-    dataTags: [
-      "Notarized MOA",
-      "Tenancy confirmation",
-      "Site plan review",
-    ],
+    dataTags: ["Notarized MOA", "Tenancy confirmation", "Site plan review"],
   },
   {
     stageId: "license",
@@ -542,11 +534,7 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
     message: "Retrieving certifications and coordinating inspections...",
     percent: 83,
     keyConsiderations: ["Certifications", "Banking setup"],
-    dataTags: [
-      "Conformity certificate",
-      "Food safety cert",
-      "Bank account",
-    ],
+    dataTags: ["Conformity certificate", "Food safety cert", "Bank account"],
   },
   {
     stageId: "compliance-growth",
@@ -1081,10 +1069,16 @@ export default function ApplicantPortal() {
         </p>
         <div className="space-y-6 text-sm text-slate-700">
           <div>
-            <h3 className="text-sm font-semibold text-slate-900">Need support?</h3>
+            <h3 className="text-sm font-semibold text-slate-900">
+              Need support?
+            </h3>
             <p className="mt-2 leading-relaxed">
-              Our licensing team is available Sunday to Thursday, 8:00–18:00 GST. Reach out at{" "}
-              <span className="font-medium text-[#0f766e]">licensing@adm.ae</span> or call{" "}
+              Our licensing team is available Sunday to Thursday, 8:00–18:00
+              GST. Reach out at{" "}
+              <span className="font-medium text-[#0f766e]">
+                licensing@adm.ae
+              </span>{" "}
+              or call{" "}
               <span className="font-medium text-[#0f766e]">800-555-0134</span>.
             </p>
           </div>
@@ -1103,8 +1097,12 @@ export default function ApplicantPortal() {
             </dl>
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-slate-900">Next action</h3>
-            <p className="mt-2 leading-relaxed">{primaryApplication.nextAction}</p>
+            <h3 className="text-sm font-semibold text-slate-900">
+              Next action
+            </h3>
+            <p className="mt-2 leading-relaxed">
+              {primaryApplication.nextAction}
+            </p>
           </div>
         </div>
       </div>
@@ -1171,7 +1169,11 @@ export default function ApplicantPortal() {
               Your journey, powered by AI
             </h2>
             <p className="max-w-xl text-sm leading-relaxed text-white/80">
-              Discover a clear path to research market potential, plan key approvals, and prepare your business case with AI guidance. In just a few stages, explore how {ENTREPRENEUR_PROFILE.name} and other investors turn ideas into thriving restaurants across Abu Dhabi.
+              Discover a clear path to research market potential, plan key
+              approvals, and prepare your business case with AI guidance. In
+              just a few stages, explore how {ENTREPRENEUR_PROFILE.name} and
+              other investors turn ideas into thriving restaurants across Abu
+              Dhabi.
             </p>
           </div>
         </div>
@@ -1268,18 +1270,29 @@ export default function ApplicantPortal() {
                 </button>
               </div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]/70">
-                Current view: {isSidePanelView ? "Side panel" : isFocusView ? "Focus modal" : "Closed"}
+                Current view:{" "}
+                {isSidePanelView
+                  ? "Side panel"
+                  : isFocusView
+                    ? "Focus modal"
+                    : "Closed"}
               </p>
             </div>
           </div>
           <div className="w-full rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] p-4 lg:h-full">
             <div className="flex items-center justify-between text-sm font-medium text-slate-700">
               <span>Overall progress</span>
-              <span className="text-slate-900">{primaryApplication.progress}%</span>
+              <span className="text-slate-900">
+                {primaryApplication.progress}%
+              </span>
             </div>
-            <Progress value={primaryApplication.progress} className="mt-3 h-2" />
+            <Progress
+              value={primaryApplication.progress}
+              className="mt-3 h-2"
+            />
             <p className="mt-3 text-xs text-slate-500">
-              Stay on track by completing outstanding tasks before the SLA threshold.
+              Stay on track by completing outstanding tasks before the SLA
+              threshold.
             </p>
           </div>
         </div>

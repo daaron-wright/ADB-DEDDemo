@@ -4,7 +4,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
-import { ArrowRight, AlertCircle, CheckCircle, AlertTriangle, FileEdit } from "lucide-react";
+import {
+  ArrowRight,
+  AlertCircle,
+  CheckCircle,
+  AlertTriangle,
+  FileEdit,
+} from "lucide-react";
 
 interface ComplianceGrowthFocusContentProps {
   journeyNumber?: string;
@@ -71,7 +77,8 @@ const COMPLIANCE_STATUS_TOKENS: Record<
   },
   warning: {
     Icon: AlertTriangle,
-    iconWrapperClass: "border border-yellow-300/40 bg-yellow-400/15 text-yellow-100",
+    iconWrapperClass:
+      "border border-yellow-300/40 bg-yellow-400/15 text-yellow-100",
     iconClass: "text-yellow-200",
     textClass: "text-white",
   },
@@ -185,7 +192,9 @@ export function ComplianceGrowthFocusContent({
   progressPercent = 78,
 }: ComplianceGrowthFocusContentProps) {
   const [activeView, setActiveView] = React.useState<ToggleView>("compliance");
-  const [expandedComplianceItem, setExpandedComplianceItem] = React.useState<string | null>(null);
+  const [expandedComplianceItem, setExpandedComplianceItem] = React.useState<
+    string | null
+  >(null);
 
   const thingsToDo = 22;
   const complete = 78;
@@ -193,7 +202,9 @@ export function ComplianceGrowthFocusContent({
   const growthActions = 3;
   const growthProgress = 75;
 
-  const urgentItems = COMPLIANCE_ITEMS.filter(item => item.status === "error" || item.status === "warning");
+  const urgentItems = COMPLIANCE_ITEMS.filter(
+    (item) => item.status === "error" || item.status === "warning",
+  );
 
   return (
     <div className="space-y-5">
@@ -234,7 +245,9 @@ export function ComplianceGrowthFocusContent({
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                   Compliance tracker
                 </p>
-                <p className="text-lg font-semibold text-slate-900">Regulatory obligations</p>
+                <p className="text-lg font-semibold text-slate-900">
+                  Regulatory obligations
+                </p>
               </div>
               <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                 {complete}% compliant
@@ -247,7 +260,9 @@ export function ComplianceGrowthFocusContent({
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                     Live compliance snapshot
                   </p>
-                  <p className="text-2xl font-semibold text-slate-900">{progressPercent}% progress</p>
+                  <p className="text-2xl font-semibold text-slate-900">
+                    {progressPercent}% progress
+                  </p>
                 </div>
                 <Badge className="inline-flex items-center gap-2 border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
                   AI monitoring
@@ -255,13 +270,23 @@ export function ComplianceGrowthFocusContent({
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-1">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Things to do</p>
-                  <p className="text-3xl font-semibold text-slate-900">{thingsToDo}%</p>
-                  <p className="text-sm text-slate-600">Outstanding compliance actions</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    Things to do
+                  </p>
+                  <p className="text-3xl font-semibold text-slate-900">
+                    {thingsToDo}%
+                  </p>
+                  <p className="text-sm text-slate-600">
+                    Outstanding compliance actions
+                  </p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Complete</p>
-                  <p className="text-3xl font-semibold text-slate-900">{complete}%</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    Complete
+                  </p>
+                  <p className="text-3xl font-semibold text-slate-900">
+                    {complete}%
+                  </p>
                   <p className="text-sm text-slate-600">Authorities synced</p>
                 </div>
               </div>
@@ -308,20 +333,29 @@ export function ComplianceGrowthFocusContent({
                           <Icon className={cn("h-5 w-5", token.iconClass)} />
                         </span>
                         <div className="space-y-1">
-                          <p className="text-sm font-semibold text-slate-900">{item.label}</p>
-                          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">{item.detail}</p>
+                          <p className="text-sm font-semibold text-slate-900">
+                            {item.label}
+                          </p>
+                          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">
+                            {item.detail}
+                          </p>
                         </div>
                       </div>
-                      {item.id === "ded-inspection" && (item.status === "warning" || item.status === "error") ? (
+                      {item.id === "ded-inspection" &&
+                      (item.status === "warning" || item.status === "error") ? (
                         <button
                           onClick={() =>
                             setExpandedComplianceItem((current) =>
-                              current === "ded-inspection" ? null : "ded-inspection",
+                              current === "ded-inspection"
+                                ? null
+                                : "ded-inspection",
                             )
                           }
                           className="self-start rounded-full border border-white/70 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition-colors hover:bg-[#0f766e]/10 sm:self-auto"
                         >
-                          {expandedComplianceItem === "ded-inspection" ? "Hide details" : "View actions"}
+                          {expandedComplianceItem === "ded-inspection"
+                            ? "Hide details"
+                            : "View actions"}
                         </button>
                       ) : (
                         <Badge className="self-start border-white/70 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] sm:self-auto">
@@ -330,18 +364,26 @@ export function ComplianceGrowthFocusContent({
                       )}
                     </div>
 
-                    {item.id === "ded-inspection" && expandedComplianceItem === "ded-inspection" ? (
+                    {item.id === "ded-inspection" &&
+                    expandedComplianceItem === "ded-inspection" ? (
                       <div className="space-y-5 rounded-2xl border border-[#d8e4df] bg-white p-4 text-sm text-slate-600">
                         <div className="space-y-2">
-                          <p className="font-semibold text-slate-900">What DED needs</p>
+                          <p className="font-semibold text-slate-900">
+                            What DED needs
+                          </p>
                           <p>{DED_DETAIL.summary}</p>
                         </div>
 
                         <div className="space-y-2">
-                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Highlights</p>
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                            Highlights
+                          </p>
                           <ul className="space-y-2">
                             {DED_DETAIL.highlights.map((highlight, index) => (
-                              <li key={index} className="flex items-start gap-2">
+                              <li
+                                key={index}
+                                className="flex items-start gap-2"
+                              >
                                 <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0f766e]" />
                                 <span>{highlight}</span>
                               </li>
@@ -350,7 +392,9 @@ export function ComplianceGrowthFocusContent({
                         </div>
 
                         <div className="space-y-2">
-                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Checklist</p>
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                            Checklist
+                          </p>
                           <ul className="space-y-2">
                             {DED_DETAIL.checklist.map((check) => {
                               const badge = CHECKLIST_BADGES[check.status];
@@ -361,8 +405,14 @@ export function ComplianceGrowthFocusContent({
                                   className="flex flex-col gap-2 rounded-2xl border border-[#e3eeea] bg-[#f5faf7] p-3 sm:flex-row sm:items-center sm:justify-between"
                                 >
                                   <div className="space-y-1">
-                                    <p className="text-sm font-medium text-slate-900">{check.label}</p>
-                                    {check.helper ? <p className="text-xs text-slate-500">{check.helper}</p> : null}
+                                    <p className="text-sm font-medium text-slate-900">
+                                      {check.label}
+                                    </p>
+                                    {check.helper ? (
+                                      <p className="text-xs text-slate-500">
+                                        {check.helper}
+                                      </p>
+                                    ) : null}
                                   </div>
                                   <Badge
                                     className={cn(
@@ -379,7 +429,9 @@ export function ComplianceGrowthFocusContent({
                         </div>
 
                         <div className="space-y-2">
-                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Supporting files</p>
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                            Supporting files
+                          </p>
                           <ul className="space-y-2">
                             {DED_DETAIL.documents.map((doc) => (
                               <li
@@ -387,8 +439,12 @@ export function ComplianceGrowthFocusContent({
                                 className="flex flex-col gap-2 rounded-2xl border border-[#e3eeea] bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
                               >
                                 <div>
-                                  <p className="text-sm font-medium text-slate-900">{doc.label}</p>
-                                  <p className="text-xs text-slate-500">{doc.meta}</p>
+                                  <p className="text-sm font-medium text-slate-900">
+                                    {doc.label}
+                                  </p>
+                                  <p className="text-xs text-slate-500">
+                                    {doc.meta}
+                                  </p>
                                 </div>
                                 <Badge className="rounded-full border border-[#d8e4df] bg-[#f5faf7] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                                   {doc.statusLabel}
@@ -399,7 +455,9 @@ export function ComplianceGrowthFocusContent({
                         </div>
 
                         <div className="space-y-3">
-                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Photo reference library</p>
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                            Photo reference library
+                          </p>
                           <div className="grid gap-3 sm:grid-cols-3">
                             {DED_MEDIA.map((asset) => (
                               <figure
@@ -425,15 +483,16 @@ export function ComplianceGrowthFocusContent({
                               <ArrowRight className="h-5 w-5" />
                             </span>
                             <div className="space-y-1">
-                              <p className="text-sm font-semibold text-slate-900">Follow up with DED inspector</p>
+                              <p className="text-sm font-semibold text-slate-900">
+                                Follow up with DED inspector
+                              </p>
                               <p className="text-xs text-slate-600">
-                                Share photo evidence and confirm the onsite visit schedule in one step.
+                                Share photo evidence and confirm the onsite
+                                visit schedule in one step.
                               </p>
                             </div>
                           </div>
-                          <Button
-                            className="rounded-full bg-[#169F9F] px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_32px_-24px_rgba(23,135,126,0.45)] hover:bg-[#128080]"
-                          >
+                          <Button className="rounded-full bg-[#169F9F] px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_32px_-24px_rgba(23,135,126,0.45)] hover:bg-[#128080]">
                             Follow up
                           </Button>
                         </div>
@@ -452,7 +511,9 @@ export function ComplianceGrowthFocusContent({
               )}
             >
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b91c1c]">Compliance alerts</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b91c1c]">
+                  Compliance alerts
+                </p>
                 <Badge className="border-red-200 bg-red-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-red-700">
                   {urgentItems.length} open
                 </Badge>
@@ -473,7 +534,9 @@ export function ComplianceGrowthFocusContent({
                           <Icon className="h-5 w-5" />
                         </span>
                         <div className="flex-1 space-y-1">
-                          <p className="text-sm font-semibold text-red-800">{item.label}</p>
+                          <p className="text-sm font-semibold text-red-800">
+                            {item.label}
+                          </p>
                           <p className="text-xs text-red-600">{item.detail}</p>
                         </div>
                         <Button
@@ -487,7 +550,9 @@ export function ComplianceGrowthFocusContent({
                   })}
                 </div>
               ) : (
-                <p className="text-sm text-slate-600">All compliance checks are clear.</p>
+                <p className="text-sm text-slate-600">
+                  All compliance checks are clear.
+                </p>
               )}
             </section>
 
@@ -497,21 +562,31 @@ export function ComplianceGrowthFocusContent({
               )}
             >
               <div className="space-y-1">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Upcoming renewals</p>
-                <p className="text-base font-semibold text-slate-900">Keep your documents current</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Upcoming renewals
+                </p>
+                <p className="text-base font-semibold text-slate-900">
+                  Keep your documents current
+                </p>
               </div>
               <ul className="space-y-2 text-sm text-slate-600">
                 <li className="flex items-center justify-between rounded-2xl border border-[#d8e4df] bg-white/95 px-4 py-3">
                   <span>DED inspection follow-up</span>
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">29 days</span>
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">
+                    29 days
+                  </span>
                 </li>
                 <li className="flex items-center justify-between rounded-2xl border border-[#d8e4df] bg-white/95 px-4 py-3">
                   <span>Visa renewals status</span>
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Renewed</span>
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    Renewed
+                  </span>
                 </li>
                 <li className="flex items-center justify-between rounded-2xl border border-[#d8e4df] bg-white/95 px-4 py-3">
                   <span>Tawtheeq certificate</span>
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">320 days remaining</span>
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                    320 days remaining
+                  </span>
                 </li>
               </ul>
             </section>
@@ -531,7 +606,9 @@ export function ComplianceGrowthFocusContent({
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                   Growth dashboard
                 </p>
-                <p className="text-lg font-semibold text-slate-900">Opportunities & insights</p>
+                <p className="text-lg font-semibold text-slate-900">
+                  Opportunities & insights
+                </p>
               </div>
               <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                 {growthSteps} new steps
@@ -544,7 +621,9 @@ export function ComplianceGrowthFocusContent({
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                     Growth status
                   </p>
-                  <p className="text-2xl font-semibold text-slate-900">{growthProgress}% momentum</p>
+                  <p className="text-2xl font-semibold text-slate-900">
+                    {growthProgress}% momentum
+                  </p>
                 </div>
                 <Badge className="inline-flex items-center gap-2 border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
                   AI recommendations
@@ -552,14 +631,26 @@ export function ComplianceGrowthFocusContent({
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-1">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">New growth steps</p>
-                  <p className="text-3xl font-semibold text-slate-900">{growthSteps}</p>
-                  <p className="text-sm text-slate-600">Expansion paths identified</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    New growth steps
+                  </p>
+                  <p className="text-3xl font-semibold text-slate-900">
+                    {growthSteps}
+                  </p>
+                  <p className="text-sm text-slate-600">
+                    Expansion paths identified
+                  </p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Actions to take</p>
-                  <p className="text-3xl font-semibold text-slate-900">{growthActions}</p>
-                  <p className="text-sm text-slate-600">High impact follow-ups</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    Actions to take
+                  </p>
+                  <p className="text-3xl font-semibold text-slate-900">
+                    {growthActions}
+                  </p>
+                  <p className="text-sm text-slate-600">
+                    High impact follow-ups
+                  </p>
                 </div>
               </div>
               <div className="space-y-2">
@@ -580,13 +671,26 @@ export function ComplianceGrowthFocusContent({
               <div className="flex flex-col gap-3 rounded-2xl border border-[#d8e4df] bg-white/95 p-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-start gap-3">
                   <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#94d2c2] bg-[#dff2ec]/70 text-[#0f766e]">
-                    <svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M10.75 0.875C11.1147 0.875 11.4648 1.01948 11.7227 1.27734C11.9805 1.53521 12.125 1.88533 12.125 2.25V2.9375H14.1875C14.5522 2.9375 14.9023 3.08198 15.1602 3.33984C15.418 3.59771 15.5625 3.94783 15.5625 4.3125V18.75C15.5625 19.1147 15.418 19.4648 15.1602 19.7227C14.9023 19.9805 14.5522 20.125 14.1875 20.125H1.8125C1.44783 20.125 1.09771 19.9805 0.839844 19.7227C0.581981 19.4648 0.4375 19.1147 0.4375 18.75V4.3125C0.4375 3.94783 0.581981 3.59771 0.839844 3.33984C1.09771 3.08198 1.44783 2.9375 1.8125 2.9375H3.875V2.25C3.875 1.88533 4.01948 1.53521 4.27734 1.27734C4.53521 1.01948 4.88533 0.875 5.25 0.875H10.75Z" fill="currentColor"/>
+                    <svg
+                      width="16"
+                      height="19"
+                      viewBox="0 0 16 19"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10.75 0.875C11.1147 0.875 11.4648 1.01948 11.7227 1.27734C11.9805 1.53521 12.125 1.88533 12.125 2.25V2.9375H14.1875C14.5522 2.9375 14.9023 3.08198 15.1602 3.33984C15.418 3.59771 15.5625 3.94783 15.5625 4.3125V18.75C15.5625 19.1147 15.418 19.4648 15.1602 19.7227C14.9023 19.9805 14.5522 20.125 14.1875 20.125H1.8125C1.44783 20.125 1.09771 19.9805 0.839844 19.7227C0.581981 19.4648 0.4375 19.1147 0.4375 18.75V4.3125C0.4375 3.94783 0.581981 3.59771 0.839844 3.33984C1.09771 3.08198 1.44783 2.9375 1.8125 2.9375H3.875V2.25C3.875 1.88533 4.01948 1.53521 4.27734 1.27734C4.53521 1.01948 4.88533 0.875 5.25 0.875H10.75Z"
+                        fill="currentColor"
+                      />
                     </svg>
                   </span>
                   <div className="space-y-1">
-                    <p className="text-sm font-semibold text-slate-900">5 new economic trends</p>
-                    <p className="text-xs uppercase tracking-[0.16em] text-slate-500">Curated for hospitality</p>
+                    <p className="text-sm font-semibold text-slate-900">
+                      5 new economic trends
+                    </p>
+                    <p className="text-xs uppercase tracking-[0.16em] text-slate-500">
+                      Curated for hospitality
+                    </p>
                   </div>
                 </div>
                 <Button
@@ -600,13 +704,26 @@ export function ComplianceGrowthFocusContent({
               <div className="flex flex-col gap-3 rounded-2xl border border-[#d8e4df] bg-white/95 p-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-start gap-3">
                   <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#94d2c2] bg-[#dff2ec]/70 text-[#0f766e]">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M17.5 5H15.8333V2.5H14.1667V5H5.83333V2.5H4.16667V5H2.5C1.81083 5 1.25 5.56083 1.25 6.25V17.5C1.25 18.1892 1.81083 18.75 2.5 18.75H17.5C18.1892 18.75 18.75 18.1892 18.75 17.5V6.25C18.75 5.56083 18.1892 5 17.5 5ZM17.5 17.5H2.5V8.33333H17.5V17.5Z" fill="currentColor"/>
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M17.5 5H15.8333V2.5H14.1667V5H5.83333V2.5H4.16667V5H2.5C1.81083 5 1.25 5.56083 1.25 6.25V17.5C1.25 18.1892 1.81083 18.75 2.5 18.75H17.5C18.1892 18.75 18.75 18.1892 18.75 17.5V6.25C18.75 5.56083 18.1892 5 17.5 5ZM17.5 17.5H2.5V8.33333H17.5V17.5Z"
+                        fill="currentColor"
+                      />
                     </svg>
                   </span>
                   <div className="space-y-1">
-                    <p className="text-sm font-semibold text-slate-900">3 relevant services</p>
-                    <p className="text-xs uppercase tracking-[0.16em] text-slate-500">Marketplace matches</p>
+                    <p className="text-sm font-semibold text-slate-900">
+                      3 relevant services
+                    </p>
+                    <p className="text-xs uppercase tracking-[0.16em] text-slate-500">
+                      Marketplace matches
+                    </p>
                   </div>
                 </div>
                 <Button
@@ -620,15 +737,34 @@ export function ComplianceGrowthFocusContent({
               <div className="flex flex-col gap-3 rounded-2xl border border-[#d8e4df] bg-white/95 p-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-start gap-3">
                   <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#94d2c2] bg-[#dff2ec]/70 text-[#0f766e]">
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M6.875 20.625C7.63439 20.625 8.25 20.0094 8.25 19.25C8.25 18.4906 7.63439 17.875 6.875 17.875C6.11561 17.875 5.5 18.4906 5.5 19.25C5.5 20.0094 6.11561 20.625 6.875 20.625Z" fill="currentColor"/>
-                      <path d="M16.5 20.625C17.2594 20.625 17.875 20.0094 17.875 19.25C17.875 18.4906 17.2594 17.875 16.5 17.875C15.7406 17.875 15.125 18.4906 15.125 19.25C15.125 20.0094 15.7406 20.625 16.5 20.625Z" fill="currentColor"/>
-                      <path d="M19.25 4.81264H4.00125L3.4375 1.92514C3.40536 1.76751 3.31896 1.62615 3.19334 1.52565C3.06772 1.42516 2.91084 1.3719 2.75 1.37514H0V2.75014H2.18625L4.8125 15.9501C4.84464 16.1078 4.93104 16.2491 5.05666 16.3496C5.18228 16.4501 5.33916 16.5034 5.5 16.5001H17.875V15.1251H6.06375L5.5 12.3751H17.875C18.0339 12.379 18.1893 12.3277 18.3146 12.2299C18.44 12.1322 18.5276 11.994 18.5625 11.8389L19.9375 5.65139C19.9605 5.54938 19.96 5.44346 19.9359 5.34169C19.9119 5.23992 19.8649 5.14499 19.7986 5.06411C19.7323 4.98323 19.6484 4.91854 19.5534 4.87496C19.4583 4.83139 19.3545 4.81007 19.25 4.81264Z" fill="currentColor"/>
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 22 22"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6.875 20.625C7.63439 20.625 8.25 20.0094 8.25 19.25C8.25 18.4906 7.63439 17.875 6.875 17.875C6.11561 17.875 5.5 18.4906 5.5 19.25C5.5 20.0094 6.11561 20.625 6.875 20.625Z"
+                        fill="currentColor"
+                      />
+                      <path
+                        d="M16.5 20.625C17.2594 20.625 17.875 20.0094 17.875 19.25C17.875 18.4906 17.2594 17.875 16.5 17.875C15.7406 17.875 15.125 18.4906 15.125 19.25C15.125 20.0094 15.7406 20.625 16.5 20.625Z"
+                        fill="currentColor"
+                      />
+                      <path
+                        d="M19.25 4.81264H4.00125L3.4375 1.92514C3.40536 1.76751 3.31896 1.62615 3.19334 1.52565C3.06772 1.42516 2.91084 1.3719 2.75 1.37514H0V2.75014H2.18625L4.8125 15.9501C4.84464 16.1078 4.93104 16.2491 5.05666 16.3496C5.18228 16.4501 5.33916 16.5034 5.5 16.5001H17.875V15.1251H6.06375L5.5 12.3751H17.875C18.0339 12.379 18.1893 12.3277 18.3146 12.2299C18.44 12.1322 18.5276 11.994 18.5625 11.8389L19.9375 5.65139C19.9605 5.54938 19.96 5.44346 19.9359 5.34169C19.9119 5.23992 19.8649 5.14499 19.7986 5.06411C19.7323 4.98323 19.6484 4.91854 19.5534 4.87496C19.4583 4.83139 19.3545 4.81007 19.25 4.81264Z"
+                        fill="currentColor"
+                      />
                     </svg>
                   </span>
                   <div className="space-y-1">
-                    <p className="text-sm font-semibold text-slate-900">Marketplace suppliers</p>
-                    <p className="text-xs uppercase tracking-[0.16em] text-slate-500">17 new matches</p>
+                    <p className="text-sm font-semibold text-slate-900">
+                      Marketplace suppliers
+                    </p>
+                    <p className="text-xs uppercase tracking-[0.16em] text-slate-500">
+                      17 new matches
+                    </p>
                   </div>
                 </div>
                 <Button
@@ -652,7 +788,9 @@ export function ComplianceGrowthFocusContent({
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                     Visitors to Abu Dhabi
                   </p>
-                  <p className="text-xs text-slate-500">Latest tourism intelligence</p>
+                  <p className="text-xs text-slate-500">
+                    Latest tourism intelligence
+                  </p>
                 </div>
                 <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                   +12%
@@ -666,36 +804,73 @@ export function ComplianceGrowthFocusContent({
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-2">
-                      <svg width="27" height="20" viewBox="0 0 27 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0 0H26.6667V6.66667H0V0Z" fill="#FF9933"/>
-                        <path d="M0 6.6665H26.6667V13.3332H0V6.6665Z" fill="white"/>
-                        <path d="M0 13.3335H26.6667V20.0002H0V13.3335Z" fill="#128807"/>
-                        <circle cx="13.3333" cy="10" r="2.66667" fill="#000088"/>
+                      <svg
+                        width="27"
+                        height="20"
+                        viewBox="0 0 27 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M0 0H26.6667V6.66667H0V0Z" fill="#FF9933" />
+                        <path
+                          d="M0 6.6665H26.6667V13.3332H0V6.6665Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M0 13.3335H26.6667V20.0002H0V13.3335Z"
+                          fill="#128807"
+                        />
+                        <circle
+                          cx="13.3333"
+                          cy="10"
+                          r="2.66667"
+                          fill="#000088"
+                        />
                       </svg>
-                      <span className="text-sm font-medium text-slate-700">India</span>
+                      <span className="text-sm font-medium text-slate-700">
+                        India
+                      </span>
                     </div>
                     <div className="flex flex-1 items-center gap-3">
                       <div className="relative h-2 flex-1 overflow-hidden rounded-full bg-[#e6f2ed]">
                         <div className="absolute h-full w-[83%] rounded-full bg-[#0f766e]" />
                       </div>
-                      <span className="text-sm font-semibold text-slate-900">1,651,000</span>
+                      <span className="text-sm font-semibold text-slate-900">
+                        1,651,000
+                      </span>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-2">
-                      <svg width="27" height="20" viewBox="0 0 27 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="26.6667" height="20" fill="#000066"/>
-                        <path d="M0 0H13.3333V10H0V0Z" fill="#000066"/>
-                        <path d="M1.5625 0L6.64583 3.77083L11.7083 0H13.3333V1.29167L8.33333 5.02083L13.3333 8.72917V10H11.6667L6.66667 6.27083L1.6875 10H0V8.75L4.97917 5.04167L0 1.33333V0H1.5625Z" fill="white"/>
-                        <path d="M8.83333 5.85417L13.3333 9.16667V10L7.6875 5.85417H8.83333Z" fill="#C8102E"/>
+                      <svg
+                        width="27"
+                        height="20"
+                        viewBox="0 0 27 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect width="26.6667" height="20" fill="#000066" />
+                        <path d="M0 0H13.3333V10H0V0Z" fill="#000066" />
+                        <path
+                          d="M1.5625 0L6.64583 3.77083L11.7083 0H13.3333V1.29167L8.33333 5.02083L13.3333 8.72917V10H11.6667L6.66667 6.27083L1.6875 10H0V8.75L4.97917 5.04167L0 1.33333V0H1.5625Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M8.83333 5.85417L13.3333 9.16667V10L7.6875 5.85417H8.83333Z"
+                          fill="#C8102E"
+                        />
                       </svg>
-                      <span className="text-sm font-medium text-slate-700">Australia</span>
+                      <span className="text-sm font-medium text-slate-700">
+                        Australia
+                      </span>
                     </div>
                     <div className="flex flex-1 items-center gap-3">
                       <div className="relative h-2 flex-1 overflow-hidden rounded-full bg-[#e6f2ed]">
                         <div className="absolute h-full w-[70%] rounded-full bg-[#54FFD4]" />
                       </div>
-                      <span className="text-sm font-semibold text-slate-900">1,221,498</span>
+                      <span className="text-sm font-semibold text-slate-900">
+                        1,221,498
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -709,24 +884,61 @@ export function ComplianceGrowthFocusContent({
             >
               <div className="flex items-start gap-3">
                 <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#94d2c2] bg-[#dff2ec]/70 text-[#0f766e]">
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14.4901 16.1215H3.76074V14.5478C3.76074 13.7298 4.0855 12.9458 4.66229 12.369C5.23907 11.7922 6.02309 11.4674 6.84109 11.4674H11.4098C12.2278 11.4674 13.0118 11.7922 13.5886 12.369C14.1654 12.9458 14.4901 13.7298 14.4901 14.5478V16.1215Z" fill="currentColor"/>
-                    <path d="M9.125 9.77758C10.7773 9.77758 12.118 8.43686 12.118 6.78458C12.118 5.1323 10.7773 3.79158 9.125 3.79158C7.47272 3.79158 6.13199 5.1323 6.13199 6.78458C6.13199 8.43686 7.47272 9.77758 9.125 9.77758Z" fill="currentColor"/>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14.4901 16.1215H3.76074V14.5478C3.76074 13.7298 4.0855 12.9458 4.66229 12.369C5.23907 11.7922 6.02309 11.4674 6.84109 11.4674H11.4098C12.2278 11.4674 13.0118 11.7922 13.5886 12.369C14.1654 12.9458 14.4901 13.7298 14.4901 14.5478V16.1215Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M9.125 9.77758C10.7773 9.77758 12.118 8.43686 12.118 6.78458C12.118 5.1323 10.7773 3.79158 9.125 3.79158C7.47272 3.79158 6.13199 5.1323 6.13199 6.78458C6.13199 8.43686 7.47272 9.77758 9.125 9.77758Z"
+                      fill="currentColor"
+                    />
                   </svg>
                 </span>
                 <div className="space-y-1">
-                  <p className="text-sm font-semibold text-slate-900">Social media engagement</p>
-                  <p className="text-xs uppercase tracking-[0.16em] text-slate-500">14,445 new followers</p>
+                  <p className="text-sm font-semibold text-slate-900">
+                    Social media engagement
+                  </p>
+                  <p className="text-xs uppercase tracking-[0.16em] text-slate-500">
+                    14,445 new followers
+                  </p>
                 </div>
               </div>
               <div className="relative h-20">
-                <svg className="absolute inset-0 h-full w-full" preserveAspectRatio="none" viewBox="0 0 226 77" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M33.06 46.849C17.5778 50 0 56 0 56V77H226V1.5C202.93 12.5777 201.578 18.8492 172.639 20C152.263 20.8103 140.622 21.5 121.161 25C99.2055 28.9486 89.1444 35 68.4278 40.5C48.2469 45.8577 53.9241 42.6026 33.06 46.849Z" fill="url(#paint0_linear_growth)"/>
-                  <path d="M1.07031 55C1.07031 55 19.7211 49.2895 33.7386 46.6824C50.8499 43.5 60.7437 44.1995 79.7277 37C102.955 28.1911 99.8166 29 119.905 25C138.911 21.2158 153.76 20.8056 173.894 20C202.491 18.8558 201.948 12.514 224.744 1.5" stroke="#73CED0" strokeWidth="1.3" strokeLinecap="round"/>
+                <svg
+                  className="absolute inset-0 h-full w-full"
+                  preserveAspectRatio="none"
+                  viewBox="0 0 226 77"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M33.06 46.849C17.5778 50 0 56 0 56V77H226V1.5C202.93 12.5777 201.578 18.8492 172.639 20C152.263 20.8103 140.622 21.5 121.161 25C99.2055 28.9486 89.1444 35 68.4278 40.5C48.2469 45.8577 53.9241 42.6026 33.06 46.849Z"
+                    fill="url(#paint0_linear_growth)"
+                  />
+                  <path
+                    d="M1.07031 55C1.07031 55 19.7211 49.2895 33.7386 46.6824C50.8499 43.5 60.7437 44.1995 79.7277 37C102.955 28.1911 99.8166 29 119.905 25C138.911 21.2158 153.76 20.8056 173.894 20C202.491 18.8558 201.948 12.514 224.744 1.5"
+                    stroke="#73CED0"
+                    strokeWidth="1.3"
+                    strokeLinecap="round"
+                  />
                   <defs>
-                    <linearGradient id="paint0_linear_growth" x1="113.535" y1="-11.6868" x2="113.32" y2="77.0007" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#4BA2A4"/>
-                      <stop offset="1" stopColor="#041616" stopOpacity="0"/>
+                    <linearGradient
+                      id="paint0_linear_growth"
+                      x1="113.535"
+                      y1="-11.6868"
+                      x2="113.32"
+                      y2="77.0007"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stopColor="#4BA2A4" />
+                      <stop offset="1" stopColor="#041616" stopOpacity="0" />
                     </linearGradient>
                   </defs>
                 </svg>
@@ -751,7 +963,6 @@ export function ComplianceGrowthFocusContent({
           </div>
         </div>
       )}
-
     </div>
   );
 }

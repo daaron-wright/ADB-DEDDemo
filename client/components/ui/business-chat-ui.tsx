@@ -35,7 +35,10 @@ import {
   ChatActivityOption,
   PhysicalSpacePlan,
 } from "@/components/ui/business-activities-chat-card";
-import { JourneyStageFocusView, type JourneyStageFocusViewProps } from "@/components/portal/JourneyStageFocusView";
+import {
+  JourneyStageFocusView,
+  type JourneyStageFocusViewProps,
+} from "@/components/portal/JourneyStageFocusView";
 import { budgetSummaryRows } from "@/components/ui/budget-ranges-data";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
@@ -5196,36 +5199,30 @@ export function BusinessChatUI({
     };
   }, [selectedActivities]);
 
-  const handleToggleActivity = useCallback(
-    (activityId: string) => {
-      setSelectedActivityIds((prev) =>
-        prev.includes(activityId)
-          ? prev.filter((id) => id !== activityId)
-          : [...prev, activityId],
+  const handleToggleActivity = useCallback((activityId: string) => {
+    setSelectedActivityIds((prev) =>
+      prev.includes(activityId)
+        ? prev.filter((id) => id !== activityId)
+        : [...prev, activityId],
+    );
+  }, []);
+
+  const handleAddActivity = useCallback((activityId: string) => {
+    setActivityOptions((prev) => {
+      if (prev.some((item) => item.id === activityId)) {
+        return prev;
+      }
+
+      const libraryItem = BASE_ACTIVITY_LIBRARY.find(
+        (item) => item.id === activityId,
       );
-    },
-    [],
-  );
+      return libraryItem ? [...prev, libraryItem] : prev;
+    });
 
-  const handleAddActivity = useCallback(
-    (activityId: string) => {
-      setActivityOptions((prev) => {
-        if (prev.some((item) => item.id === activityId)) {
-          return prev;
-        }
-
-        const libraryItem = BASE_ACTIVITY_LIBRARY.find(
-          (item) => item.id === activityId,
-        );
-        return libraryItem ? [...prev, libraryItem] : prev;
-      });
-
-      setSelectedActivityIds((prev) =>
-        prev.includes(activityId) ? prev : [...prev, activityId],
-      );
-    },
-    [],
-  );
+    setSelectedActivityIds((prev) =>
+      prev.includes(activityId) ? prev : [...prev, activityId],
+    );
+  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -5546,10 +5543,7 @@ export function BusinessChatUI({
             setModalView("heat-map");
 
             if (isSetupCta) {
-              return [
-                ...updated,
-                buildMessage(HEAT_MAP_PROMPT, true),
-              ];
+              return [...updated, buildMessage(HEAT_MAP_PROMPT, true)];
             }
 
             return updated;
@@ -6307,7 +6301,8 @@ export function BusinessChatUI({
                                             "Investor dialogue workspace",
                                           summary: message.content,
                                           notes: dialogueDocState.notes,
-                                          highlights: dialogueDocState.highlights,
+                                          highlights:
+                                            dialogueDocState.highlights,
                                           onNotesChange:
                                             handleDialogueDocNotesChange,
                                           onToggleHighlight:
@@ -6328,7 +6323,8 @@ export function BusinessChatUI({
                                       ? {
                                           activities: activityOptions,
                                           selectedActivityIds,
-                                          onToggleActivity: handleToggleActivity,
+                                          onToggleActivity:
+                                            handleToggleActivity,
                                           onAddActivity: handleAddActivity,
                                           maxSelection: MAX_LICENSE_ACTIVITIES,
                                           physicalPlan: physicalSpacePlan,

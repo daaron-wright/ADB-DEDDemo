@@ -58,12 +58,13 @@ export function JourneyOrchestrationPanel({
 }: JourneyOrchestrationPanelProps) {
   const completedActions = React.useMemo(
     () =>
-      actions.filter((action) => (completionState[action.id] ?? false) === true),
+      actions.filter(
+        (action) => (completionState[action.id] ?? false) === true,
+      ),
     [actions, completionState],
   );
   const outstandingActions = React.useMemo(
-    () =>
-      actions.filter((action) => !(completionState[action.id] ?? false)),
+    () => actions.filter((action) => !(completionState[action.id] ?? false)),
     [actions, completionState],
   );
 
@@ -76,11 +77,13 @@ export function JourneyOrchestrationPanel({
   const hasActions = totalActions > 0;
   const hasTimelineSection = timelineItems.length > 0;
 
-  const [selectedTimelineId, setSelectedTimelineId] = React.useState<string>(() => {
-    const prioritized =
-      timelineItems.find((item) => item.isCurrent) ?? timelineItems[0];
-    return prioritized?.id ?? "";
-  });
+  const [selectedTimelineId, setSelectedTimelineId] = React.useState<string>(
+    () => {
+      const prioritized =
+        timelineItems.find((item) => item.isCurrent) ?? timelineItems[0];
+      return prioritized?.id ?? "";
+    },
+  );
   const userSelectedTimelineRef = React.useRef(false);
 
   React.useEffect(() => {
@@ -232,9 +235,7 @@ export function JourneyOrchestrationPanel({
     const token = getNextActionToken(action.status);
     const isFocused = focusedActionId === action.id;
     const dueLabel =
-      action.dueDate && formatDueDate
-        ? formatDueDate(action.dueDate)
-        : null;
+      action.dueDate && formatDueDate ? formatDueDate(action.dueDate) : null;
     const isCompleted = completionState[action.id] ?? false;
 
     return (
@@ -248,9 +249,7 @@ export function JourneyOrchestrationPanel({
             isFocused
               ? "border-[#0f766e] bg-[#eaf7f3] shadow-[0_20px_36px_-26px_rgba(11,64,55,0.35)]"
               : "border-[#d8e4df] bg-white hover:border-[#0f766e]/60 hover:bg-[#f4faf8]",
-            isCompleted && !isFocused
-              ? "border-[#d8e4df] bg-white/75"
-              : null,
+            isCompleted && !isFocused ? "border-[#d8e4df] bg-white/75" : null,
           )}
         >
           <button
@@ -263,10 +262,11 @@ export function JourneyOrchestrationPanel({
                 : "border-[#cfe4dd] bg-white text-[#0f766e] hover:border-[#0f766e]",
             )}
             aria-pressed={isCompleted}
-            aria-label=
-              {isCompleted
+            aria-label={
+              isCompleted
                 ? `Mark ${action.label} as not done`
-                : `Mark ${action.label} as done`}
+                : `Mark ${action.label} as done`
+            }
           >
             {isCompleted ? (
               <Check className="h-4 w-4" aria-hidden="true" />
@@ -339,7 +339,7 @@ export function JourneyOrchestrationPanel({
         <p className="text-sm leading-relaxed text-slate-700">{introMessage}</p>
       </div>
 
-      {(hasActions || hasTimelineSection) ? (
+      {hasActions || hasTimelineSection ? (
         <div className="space-y-6">
           {hasActions ? (
             <div className="rounded-2xl bg-[#f5faf7] p-5 sm:p-6">
@@ -348,7 +348,8 @@ export function JourneyOrchestrationPanel({
                   Application progress
                 </p>
                 <span className="text-sm font-semibold text-slate-700">
-                  {completedCount} / {totalActions} complete ({completionPercent}%)
+                  {completedCount} / {totalActions} complete (
+                  {completionPercent}%)
                 </span>
               </div>
               <div className="mt-4 h-2.5 w-full rounded-full bg-[#e6f2ed]">
@@ -364,7 +365,8 @@ export function JourneyOrchestrationPanel({
                 <span>{completedCount} done</span>
               </div>
               <p className="mt-4 text-sm text-slate-500">
-                Focus on the outstanding actions to keep your workspace moving toward issuance.
+                Focus on the outstanding actions to keep your workspace moving
+                toward issuance.
               </p>
             </div>
           ) : null}
@@ -581,7 +583,9 @@ export function JourneyOrchestrationPanel({
                         <span className="text-xs text-slate-500">Toggle</span>
                       </summary>
                       <ol className="mt-3 space-y-3">
-                        {selectedCompletedActions.map((action) => renderActionRow(action))}
+                        {selectedCompletedActions.map((action) =>
+                          renderActionRow(action),
+                        )}
                       </ol>
                     </details>
                   ) : null}

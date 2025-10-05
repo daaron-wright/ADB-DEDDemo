@@ -1,5 +1,12 @@
 import * as React from "react";
-import { ArrowLeft, Clock, Download, ExternalLink, FileText, X } from "lucide-react";
+import {
+  ArrowLeft,
+  Clock,
+  Download,
+  ExternalLink,
+  FileText,
+  X,
+} from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -33,7 +40,10 @@ export interface ComplianceDetailModalData {
   highlights: string[];
 }
 
-export function ComplianceDetailModal({ data, onClose }: ComplianceDetailModalProps) {
+export function ComplianceDetailModal({
+  data,
+  onClose,
+}: ComplianceDetailModalProps) {
   if (!data) return null;
 
   const toneClass = {
@@ -44,7 +54,10 @@ export function ComplianceDetailModal({ data, onClose }: ComplianceDetailModalPr
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-slate-900/55 backdrop-blur-sm" onClick={onClose} />
+      <div
+        className="absolute inset-0 bg-slate-900/55 backdrop-blur-sm"
+        onClick={onClose}
+      />
 
       <div className="relative z-10 w-full max-w-3xl overflow-hidden rounded-3xl border border-[#d8e4df] bg-white shadow-[0_36px_120px_-60px_rgba(11,64,55,0.45)]">
         <header className="flex flex-col gap-4 border-b border-[#e3eeea] bg-[#f8fbf9] px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
@@ -52,11 +65,15 @@ export function ComplianceDetailModal({ data, onClose }: ComplianceDetailModalPr
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
               Compliance detail
             </p>
-            <h2 className="text-lg font-semibold text-slate-900">{data.title}</h2>
+            <h2 className="text-lg font-semibold text-slate-900">
+              {data.title}
+            </h2>
             <p className="text-sm text-slate-600">{data.summary}</p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <Badge className={`rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${toneClass}`}>
+            <Badge
+              className={`rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${toneClass}`}
+            >
               {data.statusLabel}
             </Badge>
             <Button
@@ -84,8 +101,12 @@ export function ComplianceDetailModal({ data, onClose }: ComplianceDetailModalPr
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                 Live progress
               </p>
-              <p className="mt-2 text-3xl font-semibold text-slate-900">{data.progressPercent}%</p>
-              <p className="text-sm text-slate-600">{data.outstandingPercent}% outstanding • {data.dueLabel}</p>
+              <p className="mt-2 text-3xl font-semibold text-slate-900">
+                {data.progressPercent}%
+              </p>
+              <p className="text-sm text-slate-600">
+                {data.outstandingPercent}% outstanding • {data.dueLabel}
+              </p>
             </div>
             <div className="space-y-2">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
@@ -103,7 +124,9 @@ export function ComplianceDetailModal({ data, onClose }: ComplianceDetailModalPr
           </section>
 
           <section className="space-y-3">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">Checklist</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">
+              Checklist
+            </h3>
             <ul className="space-y-2">
               {data.checklist.map((item) => (
                 <li
@@ -111,8 +134,12 @@ export function ComplianceDetailModal({ data, onClose }: ComplianceDetailModalPr
                   className="flex items-start justify-between rounded-2xl border border-[#e3eeea] bg-white px-4 py-3"
                 >
                   <div className="space-y-1">
-                    <p className="text-sm font-medium text-slate-900">{item.label}</p>
-                    {item.helper ? <p className="text-xs text-slate-500">{item.helper}</p> : null}
+                    <p className="text-sm font-medium text-slate-900">
+                      {item.label}
+                    </p>
+                    {item.helper ? (
+                      <p className="text-xs text-slate-500">{item.helper}</p>
+                    ) : null}
                   </div>
                   <Badge
                     className={`rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${
@@ -129,7 +156,9 @@ export function ComplianceDetailModal({ data, onClose }: ComplianceDetailModalPr
           </section>
 
           <section className="space-y-3">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">Supporting files</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">
+              Supporting files
+            </h3>
             <ul className="space-y-2">
               {data.documents.map((doc) => (
                 <li
@@ -137,7 +166,9 @@ export function ComplianceDetailModal({ data, onClose }: ComplianceDetailModalPr
                   className="flex items-center justify-between rounded-2xl border border-[#e3eeea] bg-white px-4 py-3"
                 >
                   <div>
-                    <p className="text-sm font-medium text-slate-900">{doc.label}</p>
+                    <p className="text-sm font-medium text-slate-900">
+                      {doc.label}
+                    </p>
                     <p className="text-xs text-slate-500">{doc.meta}</p>
                   </div>
                   <div className="flex items-center gap-2">

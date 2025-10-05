@@ -187,7 +187,9 @@ export function JourneyStageFocusView({
           {(stage?.statusDetail || timelineItem.meta) && (
             <div className="flex flex-wrap gap-3 text-[11px] font-semibold uppercase tracking-[0.18em]">
               {stage?.statusDetail ? (
-                <span className={highlightToken?.detailClass ?? "text-slate-500"}>
+                <span
+                  className={highlightToken?.detailClass ?? "text-slate-500"}
+                >
                   {stage.statusDetail}
                 </span>
               ) : null}
@@ -222,10 +224,7 @@ export function JourneyStageFocusView({
               return (
                 <div
                   key={task.id}
-                  className={chatCardClass(
-                    TASK_CARD_BASE,
-                    "rounded-2xl p-4",
-                  )}
+                  className={chatCardClass(TASK_CARD_BASE, "rounded-2xl p-4")}
                 >
                   <div className="flex flex-col gap-3">
                     <div className="flex flex-wrap items-start justify-between gap-3">

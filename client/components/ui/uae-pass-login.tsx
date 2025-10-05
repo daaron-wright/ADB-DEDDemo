@@ -164,7 +164,9 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
                   ? "border border-[#0f766e] bg-white text-[#0f766e]"
                   : "text-white",
               )}
-              style={isReviewer ? undefined : { backgroundColor: detail.accent }}
+              style={
+                isReviewer ? undefined : { backgroundColor: detail.accent }
+              }
             >
               Continue
               <svg
@@ -312,7 +314,10 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({
                   height="20"
                   viewBox="0 0 20 20"
                   fill="none"
-                  className={cn("-ml-1", isReviewer ? "text-[#0f766e]" : undefined)}
+                  className={cn(
+                    "-ml-1",
+                    isReviewer ? "text-[#0f766e]" : undefined,
+                  )}
                 >
                   <path
                     d="M3.5 10h13"
@@ -545,7 +550,7 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
         </Close>
 
         <div className="w-full max-w-3xl">
-            <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait">
             {mode === "full" && loginStep === "userType" && (
               <UserTypeSelection onSelect={handleUserTypeSelect} />
             )}

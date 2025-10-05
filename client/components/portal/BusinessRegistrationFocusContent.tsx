@@ -52,7 +52,9 @@ export function BusinessRegistrationFocusContent({
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                 Journey number
               </p>
-              <p className="text-lg font-semibold text-slate-900">{journeyNumber}</p>
+              <p className="text-lg font-semibold text-slate-900">
+                {journeyNumber}
+              </p>
             </div>
             <Badge className="border-white/60 bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-700 shadow-sm">
               {completionStatus}
@@ -65,7 +67,9 @@ export function BusinessRegistrationFocusContent({
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                   Step 1 in progress
                 </p>
-                <p className="text-2xl font-semibold text-slate-900">{tradeName}</p>
+                <p className="text-2xl font-semibold text-slate-900">
+                  {tradeName}
+                </p>
               </div>
               <Badge className="inline-flex items-center gap-1.5 border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f] shadow-sm">
                 <Check className="h-3.5 w-3.5" strokeWidth={3} />
@@ -81,16 +85,22 @@ export function BusinessRegistrationFocusContent({
               </div>
               <div className="space-y-3">
                 <div className="space-y-1">
-                  <h3 className="text-base font-semibold text-slate-900">Trade Name Available</h3>
+                  <h3 className="text-base font-semibold text-slate-900">
+                    Trade Name Available
+                  </h3>
                   <p className="text-sm text-slate-600">
-                    The TAMM platform confirms availability. Final approval remains with the Department of Economic Development.
+                    The TAMM platform confirms availability. Final approval
+                    remains with the Department of Economic Development.
                   </p>
                 </div>
                 <div className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:flex-row sm:items-start sm:justify-between">
                   <div className="space-y-1">
-                    <p className="text-sm font-semibold text-slate-900">Reserve Trade Name</p>
+                    <p className="text-sm font-semibold text-slate-900">
+                      Reserve Trade Name
+                    </p>
                     <p className="text-sm text-slate-600">
-                      Secure this name now. Reservation stays active for one calendar month.
+                      Secure this name now. Reservation stays active for one
+                      calendar month.
                     </p>
                   </div>
                   <Button
@@ -128,12 +138,19 @@ export function BusinessRegistrationFocusContent({
                 <span
                   className={cn(
                     "flex h-10 w-10 items-center justify-center rounded-full border text-sm font-semibold transition",
-                    step.status === "completed" && "border-[#0f766e] bg-[#0f766e] text-white",
-                    step.status === "current" && "border-[#0f766e] bg-[#0f766e]/10 text-[#0f766e]",
-                    step.status === "pending" && "border-slate-200 bg-white text-slate-500",
+                    step.status === "completed" &&
+                      "border-[#0f766e] bg-[#0f766e] text-white",
+                    step.status === "current" &&
+                      "border-[#0f766e] bg-[#0f766e]/10 text-[#0f766e]",
+                    step.status === "pending" &&
+                      "border-slate-200 bg-white text-slate-500",
                   )}
                 >
-                  {step.status === "completed" ? <Check className="h-4 w-4" strokeWidth={3} /> : step.id}
+                  {step.status === "completed" ? (
+                    <Check className="h-4 w-4" strokeWidth={3} />
+                  ) : (
+                    step.id
+                  )}
                 </span>
                 <div className="space-y-1">
                   <p className="text-base font-semibold text-slate-900">
@@ -167,7 +184,9 @@ export function BusinessRegistrationFocusContent({
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
               Business AI assistant
             </p>
-            <p className="text-lg font-semibold text-slate-900">Generating your application</p>
+            <p className="text-lg font-semibold text-slate-900">
+              Generating your application
+            </p>
           </div>
           <div className="ml-auto flex items-end gap-1 text-[#0f766e]">
             {[18, 28, 16, 22, 12, 26, 20, 32, 14].map((height, index) => (
@@ -195,7 +214,8 @@ export function BusinessRegistrationFocusContent({
             </Badge>
           </div>
           <p className="text-sm leading-relaxed text-slate-600">
-            The assistant is completing your trade name checks and generating the application package for submission.
+            The assistant is completing your trade name checks and generating
+            the application package for submission.
           </p>
           <div className="space-y-2">
             <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
@@ -226,7 +246,8 @@ export function BusinessRegistrationFocusContent({
             </Badge>
           </div>
           <p className="text-sm text-slate-600">
-            We’re confirming availability and reserving your trade name before moving to licensing.
+            We’re confirming availability and reserving your trade name before
+            moving to licensing.
           </p>
           <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-[#e6f2ed] bg-white px-4 py-4 shadow-[0_18px_42px_-40px_rgba(15,118,110,0.25)]">
             <img
@@ -235,7 +256,8 @@ export function BusinessRegistrationFocusContent({
               className="h-12 w-auto"
             />
             <p className="text-sm font-medium text-slate-700">
-              Status: verification synced with the Department of Economic Development
+              Status: verification synced with the Department of Economic
+              Development
             </p>
           </div>
         </div>
