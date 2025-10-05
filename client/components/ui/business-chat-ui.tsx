@@ -5511,7 +5511,7 @@ export function BusinessChatUI({
           return [...updated, buildStepMessage("summary")];
         }
 
-        if (action === "open-investor-journey") {
+        if (action === "open-investor-journey" || action === "setup") {
           setInputValue(HEAT_MAP_PROMPT);
 
           if (isInvestorAuthenticated) {
