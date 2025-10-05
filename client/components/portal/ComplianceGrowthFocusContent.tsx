@@ -5,10 +5,6 @@ import { Button } from "@/components/ui/button";
 import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, AlertCircle, CheckCircle, AlertTriangle, FileEdit } from "lucide-react";
-import {
-  ComplianceDetailModal,
-  type ComplianceDetailModalData,
-} from "./ComplianceDetailModal";
 
 interface ComplianceGrowthFocusContentProps {
   journeyNumber?: string;
@@ -95,16 +91,9 @@ const COMPLIANCE_STATUS_TOKENS: Record<
 
 type ToggleView = "compliance" | "growth";
 
-const DED_COMPLIANCE_DETAIL: ComplianceDetailModalData = {
-  id: "ded-inspection",
-  title: "DED inspection",
-  statusLabel: "Action needed",
-  statusTone: "warning",
+const DED_DETAIL = {
   summary:
-    "DED inspectors requested a follow-up to confirm updated kitchen layout, staffing logs, and calibration certificates.",
-  dueLabel: "Inspection window closes in 29 days",
-  progressPercent: 78,
-  outstandingPercent: 22,
+    "DED inspectors requested confirmation of updated kitchen layout, staff training logs, and calibration certificates before finalising the renewal.",
   highlights: [
     "Onsite visit slot still to be confirmed",
     "Kitchen HACCP documentation needs upload",
@@ -164,9 +153,7 @@ export function ComplianceGrowthFocusContent({
   progressPercent = 78,
 }: ComplianceGrowthFocusContentProps) {
   const [activeView, setActiveView] = React.useState<ToggleView>("compliance");
-  const [complianceModalData, setComplianceModalData] = React.useState<ComplianceDetailModalData | null>(
-    null,
-  );
+  const [expandedComplianceItem, setExpandedComplianceItem] = React.useState<string | null>(null);
 
   const thingsToDo = 22;
   const complete = 78;
@@ -294,10 +281,14 @@ export function ComplianceGrowthFocusContent({
                     </div>
                     {item.id === "ded-inspection" && (item.status === "warning" || item.status === "error") ? (
                       <button
-                        onClick={() => setComplianceModalData(DED_COMPLIANCE_DETAIL)}
+                        onClick={() =>
+                          setExpandedComplianceItem((current) =>
+                            current === "ded-inspection" ? null : "ded-inspection",
+                          )
+                        }
                         className="rounded-full border border-white/70 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition-colors hover:bg-[#0f766e]/10"
                       >
-                        {statusLabel}
+                        {expandedComplianceItem === "ded-inspection" ? "Hide details" : "View actions"}
                       </button>
                     ) : (
                       <Badge className="border-white/70 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
@@ -617,7 +608,6 @@ export function ComplianceGrowthFocusContent({
         </div>
       )}
 
-      <ComplianceDetailModal data={complianceModalData} onClose={() => setComplianceModalData(null)} />
     </div>
   );
 }
