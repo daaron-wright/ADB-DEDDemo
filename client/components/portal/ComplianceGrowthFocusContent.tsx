@@ -53,27 +53,33 @@ const COMPLIANCE_ITEMS: ComplianceItem[] = [
   },
 ];
 
-const STATUS_ICONS: Record<ComplianceStatus, React.ElementType> = {
-  error: AlertCircle,
-  warning: AlertTriangle,
-  success: CheckCircle,
-  info: FileEdit,
-};
-
-const STATUS_STYLES: Record<ComplianceStatus, { iconClass: string; textClass: string }> = {
+const COMPLIANCE_STATUS_TOKENS: Record<ComplianceStatus, {
+  Icon: React.ElementType;
+  iconWrapperClass: string;
+  iconClass: string;
+  textClass: string;
+}> = {
   error: {
-    iconClass: "text-red-500",
+    Icon: AlertCircle,
+    iconWrapperClass: "border border-red-400/40 bg-red-500/20 text-red-100",
+    iconClass: "text-red-200",
     textClass: "text-white",
   },
   warning: {
-    iconClass: "text-yellow-400",
+    Icon: AlertTriangle,
+    iconWrapperClass: "border border-yellow-300/40 bg-yellow-400/15 text-yellow-100",
+    iconClass: "text-yellow-200",
     textClass: "text-white",
   },
   success: {
+    Icon: CheckCircle,
+    iconWrapperClass: "border border-teal-200/50 bg-teal-400/15 text-teal-50",
     iconClass: "text-[#54FFD4]",
     textClass: "text-white",
   },
   info: {
+    Icon: FileEdit,
+    iconWrapperClass: "border border-white/30 bg-white/10 text-white/80",
     iconClass: "text-white",
     textClass: "text-white",
   },
