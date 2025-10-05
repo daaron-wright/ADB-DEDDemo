@@ -515,7 +515,7 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
       style={MODAL_MIN_DIMENSIONS}
     >
       <div
-        className="relative mx-auto flex w-full max-w-[840px] flex-col justify-between gap-10 rounded-md border border-[#d8e4df] p-6 text-center [&>*]:w-full"
+        className="relative mx-auto flex w-full max-w-[840px] flex-col items-center justify-center gap-10 rounded-md border border-[#d8e4df] p-6 text-center [&>*]:w-full"
         style={MODAL_MIN_DIMENSIONS}
       >
         <div className="flex w-full justify-end">
@@ -544,14 +544,6 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
               </svg>
             </button>
           </Close>
-        </div>
-
-        <div className="flex justify-center">
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fe6de6e62cbb84e44b95343a7667af213?format=webp&width=320"
-            alt="UAE PASS logo"
-            className="h-12 w-auto"
-          />
         </div>
 
         <AnimatePresence mode="wait">
