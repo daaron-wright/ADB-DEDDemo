@@ -97,7 +97,7 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
   >
     <div className="space-y-4 text-center">
       <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#0f766e]">
-        Abu Dhabi Government Services
+        ABU DHABI GOVERNMENT SERVICES
       </span>
       <div className="space-y-2">
         <h3 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
@@ -110,7 +110,7 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
       </div>
     </div>
 
-    <div className="grid gap-4 sm:grid-cols-2">
+    <div className="mx-auto grid max-w-3xl gap-4 justify-items-center sm:grid-cols-2">
       {(["applicant", "reviewer"] as const).map((type) => {
         const detail = USER_TYPE_DETAILS[type];
         const isReviewer = type === "reviewer";
@@ -126,7 +126,7 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
             type="button"
             onClick={() => onSelect(type)}
             className={chatCardClass(
-              "group flex h-full flex-col justify-between border border-slate-200 bg-white p-6 text-left shadow-sm transition-all duration-200 hover:border-slate-400 hover:shadow-[0_18px_40px_-26px_rgba(15,23,42,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2",
+              "group flex h-full w-full max-w-[360px] flex-col justify-between border border-slate-200 bg-white p-6 text-left shadow-sm transition-all duration-200 hover:border-slate-400 hover:shadow-[0_18px_40px_-26px_rgba(15,23,42,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2",
             )}
             aria-label={`Continue as ${detail.label}`}
             style={{
