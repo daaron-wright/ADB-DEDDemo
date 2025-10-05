@@ -1409,7 +1409,7 @@ export default function ApplicantPortal() {
   );
 
   return (
-    <>
+    <div className="relative">
       <PortalPageLayout
         title={workspaceTitle}
         subtitle="Business license portal"
@@ -1432,17 +1432,22 @@ export default function ApplicantPortal() {
           </div>
         </section>
       </PortalPageLayout>
-      <BusinessChatUI
-        isOpen={isChatOpen}
-        mode={isSidePanelView ? "side-panel" : "modal"}
-        onClose={handleCloseChat}
-        onMinimize={handleCloseChat}
-        category="restaurants"
-        title="Business AI"
-        initialMessage={BUSINESS_AI_INTRO_MESSAGE}
-        journeyFocusView={journeyFocusViewProps}
-        suppressChatInterface={shouldSuppressChatInterface}
-      />
-    </>
+      {isTimelineBackgroundBlurred ? (
+        <div className="pointer-events-none fixed inset-0 z-40 bg-white/40 backdrop-blur-lg transition-opacity duration-500" />
+      ) : null}
+      <div className="relative z-[70]">
+        <BusinessChatUI
+          isOpen={isChatOpen}
+          mode={isSidePanelView ? "side-panel" : "modal"}
+          onClose={handleCloseChat}
+          onMinimize={handleCloseChat}
+          category="restaurants"
+          title="Business AI"
+          initialMessage={BUSINESS_AI_INTRO_MESSAGE}
+          journeyFocusView={journeyFocusViewProps}
+          suppressChatInterface={shouldSuppressChatInterface}
+        />
+      </div>
+    </div>
   );
 }
