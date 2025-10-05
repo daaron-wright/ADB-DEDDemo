@@ -317,7 +317,7 @@ export function ComplianceGrowthFocusContent({
                 <p className="text-lg font-semibold text-slate-900">Opportunities & insights</p>
               </div>
               <Badge className="border-white/70 bg-[#2563eb]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#2563eb]">
-                9 new steps
+                {growthSteps} new steps
               </Badge>
             </div>
 
@@ -336,12 +336,12 @@ export function ComplianceGrowthFocusContent({
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-1">
                   <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#f59e0b]">New growth steps</p>
-                  <p className="text-3xl font-semibold text-slate-900">9</p>
+                  <p className="text-3xl font-semibold text-slate-900">{growthSteps}</p>
                   <p className="text-sm text-slate-600">Expansion paths identified</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#f59e0b]">Actions to take</p>
-                  <p className="text-3xl font-semibold text-slate-900">3</p>
+                  <p className="text-3xl font-semibold text-slate-900">{growthActions}</p>
                   <p className="text-sm text-slate-600">High impact follow-ups</p>
                 </div>
               </div>
@@ -349,12 +349,12 @@ export function ComplianceGrowthFocusContent({
                 <div className="relative h-2 overflow-hidden rounded-full bg-[#fde4c7]">
                   <div
                     className="absolute inset-y-0 left-0 rounded-full bg-[#f59e0b] shadow-[0_1px_6px_rgba(245,158,11,0.35)] transition-all"
-                    style={{ width: "75%" }}
+                    style={{ width: `${growthProgress}%` }}
                   />
                 </div>
                 <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
                   <span>Growth progress</span>
-                  <span>75%</span>
+                  <span>{growthProgress}%</span>
                 </div>
               </div>
             </div>
