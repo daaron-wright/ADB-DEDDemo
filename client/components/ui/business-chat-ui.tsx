@@ -3508,22 +3508,12 @@ const BudgetRangesModal = ({
   const budgetRanges = [
     {
       range: "AED 10,000 - 30,000",
-      title: "Basic Trade License",
-      description: "Standard commercial license for restaurant operations",
+      title: "Commercial License",
+      description: "Core licence required for restaurant operations",
       includes: [
         "Trade license registration",
         "Initial permits",
         "Basic approvals",
-      ],
-    },
-    {
-      range: "AED 790 - 5,000",
-      title: "Tajer/E-commerce License",
-      description: "Limited operations license (no full restaurant service)",
-      includes: [
-        "Online sales permit",
-        "Delivery operations",
-        "Takeaway service",
       ],
     },
     {
