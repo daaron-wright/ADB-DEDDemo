@@ -310,7 +310,7 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({
                     isReviewer ? "border-[#0f766e]/70" : "border-white/80",
                   )}
                 />
-                {isReviewer ? "Connecting to DED" : "Connecting to UAE PASS…"}
+                {isReviewer ? "Connecting to DED…" : "Connecting to UAE PASS…"}
               </>
             ) : (
               <>
