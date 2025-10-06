@@ -871,30 +871,27 @@ export default function ApplicantPortal() {
     }, 0);
   }, [todoBankItems, todoCompletionState]);
 
-  const automationStatus = useMemo(
-    () => {
-      const automationToken = chatPhase
-        ? taskStatusTokens.in_progress
-        : taskStatusTokens.completed;
+  const automationStatus = useMemo(() => {
+    const automationToken = chatPhase
+      ? taskStatusTokens.in_progress
+      : taskStatusTokens.completed;
 
-      return {
-        title: "Generating application",
-        description:
-          chatPhase?.message ??
-          "Application workspace has been generated with the latest requirements and synced checkpoints.",
-        statusLabel: chatPhase
-          ? `${automationToken.label} • ${chatProgress}%`
-          : automationToken.label,
-        statusBadgeClass: automationToken.badgeClass,
-        statusHelperClass: automationToken.helperClass,
-        meta: chatPhase
-          ? "Automation syncing requirements"
-          : "Automation finished",
-        showProgress: Boolean(chatPhase),
-      };
-    },
-    [chatPhase, chatProgress],
-  );
+    return {
+      title: "Generating application",
+      description:
+        chatPhase?.message ??
+        "Application workspace has been generated with the latest requirements and synced checkpoints.",
+      statusLabel: chatPhase
+        ? `${automationToken.label} • ${chatProgress}%`
+        : automationToken.label,
+      statusBadgeClass: automationToken.badgeClass,
+      statusHelperClass: automationToken.helperClass,
+      meta: chatPhase
+        ? "Automation syncing requirements"
+        : "Automation finished",
+      showProgress: Boolean(chatPhase),
+    };
+  }, [chatPhase, chatProgress]);
 
   const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
     return journeyStages.map<JourneyTimelineItem>((stage) => {
@@ -947,7 +944,6 @@ export default function ApplicantPortal() {
     });
   }, [todoBankItems]);
 
-
   useEffect(() => {
     if (
       focusedNextActionId &&
@@ -972,7 +968,8 @@ export default function ApplicantPortal() {
       return;
     }
 
-    const normalizedStageTitle = firstNextAction.stageTitle?.toLowerCase() ?? null;
+    const normalizedStageTitle =
+      firstNextAction.stageTitle?.toLowerCase() ?? null;
     const targetStage = firstNextAction.stageId
       ? journeyStages.find((stage) => stage.id === firstNextAction.stageId)
       : normalizedStageTitle
@@ -1434,7 +1431,8 @@ export default function ApplicantPortal() {
             </h3>
             <p className="mt-3">{primaryApplication.summary}</p>
             <p className="mt-3 text-xs text-[#0f766e]">
-              Your AI assistant will automatically pull the tenancy contract from ADM as soon as you register your lease.
+              Your AI assistant will automatically pull the tenancy contract
+              from ADM as soon as you register your lease.
             </p>
           </div>
         </section>

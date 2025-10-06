@@ -151,7 +151,6 @@ export function JourneyOrchestrationPanel({
   const tabIdPrefix = "journey-timeline-tab";
   const panelIdPrefix = "journey-timeline-panel";
 
-
   return (
     <div className="space-y-8">
       <div className="space-y-4">
@@ -300,12 +299,16 @@ export function JourneyOrchestrationPanel({
                             "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full",
                             item.statusLabel.toLowerCase().includes("completed")
                               ? "bg-[#0f766e] text-white"
-                              : item.statusLabel.toLowerCase().includes("progress")
+                              : item.statusLabel
+                                    .toLowerCase()
+                                    .includes("progress")
                                 ? "bg-[#f4faf8] text-[#0f766e]"
                                 : "border border-[#d8e4df] bg-white text-[#0f766e]",
                           )}
                         >
-                          {item.statusLabel.toLowerCase().includes("completed") ? (
+                          {item.statusLabel
+                            .toLowerCase()
+                            .includes("completed") ? (
                             <Check className="h-3.5 w-3.5" aria-hidden="true" />
                           ) : (
                             <span className="h-1.5 w-1.5 rounded-full bg-current" />
@@ -420,7 +423,6 @@ export function JourneyOrchestrationPanel({
                       </span>
                     ) : null}
                   </div>
-
                 </div>
               ) : null}
             </section>
