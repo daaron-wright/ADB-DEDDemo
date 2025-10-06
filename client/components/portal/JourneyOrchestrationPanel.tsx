@@ -35,6 +35,16 @@ interface JourneyOrchestrationPanelProps {
   onOpenAutomation: () => void;
   onTimelineFocusChange?: (isFocused: boolean) => void;
   formatDueDate?: (isoString: string) => string;
+  automationStatus?: {
+    title: string;
+    description: string;
+    statusLabel: string;
+    statusBadgeClass: string;
+    statusHelperClass: string;
+    meta?: string | null;
+    showProgress: boolean;
+  };
+  stageNumberOffset?: number;
 }
 
 export function JourneyOrchestrationPanel({
@@ -57,6 +67,8 @@ export function JourneyOrchestrationPanel({
   onOpenAutomation,
   onTimelineFocusChange,
   formatDueDate,
+  automationStatus,
+  stageNumberOffset = 0,
 }: JourneyOrchestrationPanelProps) {
   const completedActions = React.useMemo(
     () =>
