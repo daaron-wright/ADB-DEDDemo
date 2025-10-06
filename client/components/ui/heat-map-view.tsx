@@ -10,15 +10,6 @@ type HeatMapViewProps = {
   onBack: () => void;
 };
 
-type MetricOverlayCard = {
-  id: DensityLayerId;
-  title: string;
-  value: string;
-  note: string;
-  source: string;
-  style: React.CSSProperties;
-};
-
 const categoryOrder: DensityLayerId[] = ["residents", "office", "tourists"];
 
 const layerMap: Record<DensityLayerId, (typeof densityLayers)[number]> = densityLayers.reduce(
@@ -32,48 +23,6 @@ const layerMap: Record<DensityLayerId, (typeof densityLayers)[number]> = density
 const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
   const focusArea =
     areaProfiles.find((profile) => profile.area === "Corniche") ?? areaProfiles[0]!;
-
-  const overlayCards: MetricOverlayCard[] = focusArea
-    ? [
-        {
-          id: "residents",
-          title: "Residents",
-          value: focusArea.metrics.residents.value,
-          note: focusArea.metrics.residents.note,
-          source: focusArea.metrics.residents.source,
-          style: {
-            top: "7%",
-            right: "8%",
-            width: "clamp(160px, 18%, 220px)",
-          },
-        },
-        {
-          id: "office",
-          title: "Office workers",
-          value: focusArea.metrics.office.value,
-          note: focusArea.metrics.office.note,
-          source: focusArea.metrics.office.source,
-          style: {
-            top: "35%",
-            right: "5%",
-            width: "clamp(160px, 18%, 220px)",
-          },
-        },
-        {
-          id: "tourists",
-          title: "Tourists",
-          value: focusArea.metrics.tourists.value,
-          note: focusArea.metrics.tourists.note,
-          source: focusArea.metrics.tourists.source,
-          style: {
-            bottom: "25%",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "clamp(160px, 18%, 220px)",
-          },
-        },
-      ]
-    : [];
 
   const keyInsights = [
     {
@@ -296,35 +245,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             </motion.div>
           </div>
 
-          <div className="absolute inset-0">
-            {overlayCards.map((card, index) => (
-              <motion.div
-                key={card.id}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1 + index * 0.1 }}
-                className="absolute"
-                style={card.style}
-              >
-                <div className="rounded-xl border border-white/20 bg-black/25 p-3 text-white backdrop-blur">
-                  <div className="text-left">
-                    <div className="text-xs font-semibold uppercase tracking-[0.24em] text-white/80">
-                      {card.title}
-                    </div>
-                    <div className="mt-1 text-sm font-bold text-white">{card.value}</div>
-                    {card.note ? (
-                      <p className="mt-1 text-[11px] text-white/80 leading-snug">{card.note}</p>
-                    ) : null}
-                    {card.source ? (
-                      <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-white/60">
-                        {card.source}
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <div className="absolute inset-0" />
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
