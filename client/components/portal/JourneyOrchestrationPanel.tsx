@@ -410,6 +410,70 @@ export function JourneyOrchestrationPanel({
                   Active: {currentStageLabel}
                 </span>
               </div>
+              {automationStatus ? (
+                <div className="rounded-2xl border border-[#d8e4df] bg-white p-5 sm:p-6">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                        Automation orchestration
+                      </p>
+                      <h5 className="mt-1 text-lg font-semibold text-slate-900">
+                        {automationStatus.title}
+                      </h5>
+                    </div>
+                    <span
+                      className={cn(
+                        "inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]",
+                        automationStatus.statusBadgeClass,
+                      )}
+                    >
+                      {automationStatus.statusLabel}
+                    </span>
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                    {automationStatus.description}
+                  </p>
+                  {automationStatus.meta ? (
+                    <p
+                      className={cn(
+                        "mt-2 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                        automationStatus.statusHelperClass,
+                      )}
+                    >
+                      {automationStatus.meta}
+                    </p>
+                  ) : null}
+                  {automationStatus.showProgress && chatPhase ? (
+                    <div className="mt-4 space-y-3">
+                      <div className="h-2 w-full overflow-hidden rounded-full bg-[#e6f2ed]">
+                        <div
+                          className="h-full rounded-full bg-[#0f766e] transition-all duration-700"
+                          style={{ width: `${chatProgress}%` }}
+                        />
+                      </div>
+                      {chatPhase.keyConsiderations?.length ? (
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                          {chatPhase.keyConsiderations[0]}
+                        </p>
+                      ) : null}
+                    </div>
+                  ) : null}
+                  <div className="mt-4 flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={onOpenAutomation}
+                      className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                    >
+                      Manage automation
+                    </button>
+                    {automationStatus.showProgress ? (
+                      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                        In progress
+                      </span>
+                    ) : null}
+                  </div>
+                </div>
+              ) : null}
               <div
                 className="flex gap-3 overflow-x-auto pb-1"
                 role="tablist"
