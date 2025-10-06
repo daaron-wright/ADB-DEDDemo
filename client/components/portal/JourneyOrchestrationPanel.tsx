@@ -1,4 +1,3 @@
-import type { MutableRefObject } from "react";
 import * as React from "react";
 import { Check } from "lucide-react";
 
