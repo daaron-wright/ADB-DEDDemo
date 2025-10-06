@@ -1290,22 +1290,6 @@ export default function ApplicantPortal() {
               </p>
             </div>
           </div>
-          <div className="w-full rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] p-4 lg:h-full">
-            <div className="flex items-center justify-between text-sm font-medium text-slate-700">
-              <span>Overall progress</span>
-              <span className="text-slate-900">
-                {primaryApplication.progress}%
-              </span>
-            </div>
-            <Progress
-              value={primaryApplication.progress}
-              className="mt-3 h-2"
-            />
-            <p className="mt-3 text-xs text-slate-500">
-              Stay on track by completing outstanding tasks before the SLA
-              threshold.
-            </p>
-          </div>
         </div>
         <div className="grid gap-4 text-sm text-slate-600 sm:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
