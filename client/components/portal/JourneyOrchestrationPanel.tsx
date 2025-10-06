@@ -1,6 +1,6 @@
 import type { MutableRefObject } from "react";
 import * as React from "react";
-import { Check, ChevronDown } from "lucide-react";
+import { Check } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
