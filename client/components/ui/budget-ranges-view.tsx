@@ -109,7 +109,7 @@ const BudgetRangesView: React.FC<BudgetRangesViewProps> = ({ onBack }) => {
                     {concept === "boutique" ? "16-22 weeks" : "22-32 weeks"}
                   </span>
                   . Fast-track options exist for shell-and-core venues and
-                  fit-out partners pre-approved by DCT.
+                  fit-out partners pre-approved by DMT.
                 </p>
               </div>
               <div className="rounded-2xl bg-white/95 p-4 shadow-inner">
