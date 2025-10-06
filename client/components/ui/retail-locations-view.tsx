@@ -91,6 +91,42 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
     );
   };
 
+  const handleExportBusinessPlan = () => {
+    if (!selectedLocation) {
+      return;
+    }
+
+    const planContent = [
+      "Business Plan Overview",
+      `Location: ${selectedLocation.title}`,
+      `Annual Lease: ${selectedLocation.price}`,
+      `Customer Rating Potential: ${selectedLocation.rating}/5`,
+      "",
+      "Recommended Next Steps:",
+      "- Automate the application to pre-fill licensing requirements.",
+      "- Compile tenancy contract and fit-out documentation.",
+      "- Prepare launch marketing with Corniche footfall insights.",
+    ].join("\n");
+
+    const blob = new Blob([planContent], {
+      type: "text/plain;charset=utf-8",
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `business-plan-${selectedLocation.id}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    window.dispatchEvent(
+      new CustomEvent("retailLocationSelected", {
+        detail: { ...selectedLocation, exportRequested: true },
+      }),
+    );
+  };
+
   if (modalState === "automation-prompt") {
     return (
       <div className="relative flex h-full min-h-[640px] flex-col overflow-x-hidden overflow-y-auto bg-[#f5f8f6]">
@@ -169,11 +205,39 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="space-y-4">
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <button
+                    type="button"
+                    onClick={handleAutomationConfirm}
+                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#0F766E] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0a5a55] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                    Yes, automate it
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleAutomationDecline}
+                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-[#d8e4df] bg-white px-6 py-3 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55]"
+                  >
+                    Not right now
+                  </button>
+                </div>
                 <button
                   type="button"
-                  onClick={handleAutomationConfirm}
-                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#0F766E] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0a5a55] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
+                  onClick={handleExportBusinessPlan}
+                  className="inline-flex items-center gap-2 self-start rounded-full border border-[#0F766E]/35 bg-white/80 px-5 py-2 text-xs font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
                 >
                   <svg
                     width="16"
@@ -185,16 +249,11 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
-                    <path d="M20 6 9 17l-5-5" />
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" x2="12" y1="3" y2="15" />
                   </svg>
-                  Yes, automate it
-                </button>
-                <button
-                  type="button"
-                  onClick={handleAutomationDecline}
-                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-[#d8e4df] bg-white px-6 py-3 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55]"
-                >
-                  Not right now
+                  Export your business plan
                 </button>
               </div>
             </motion.div>
