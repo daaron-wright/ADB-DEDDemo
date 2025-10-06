@@ -6354,6 +6354,86 @@ export function BusinessChatUI({
                       )}
                     >
                       <div className={conversationContainerClass}>
+                        {showChatInterface && hasLicenseMenu ? (
+                          <div
+                            className={cn(
+                              "mb-4 rounded-[28px] border border-white/20 bg-white/16 p-4 backdrop-blur-xl shadow-[0_32px_70px_-48px_rgba(15,23,42,0.28)]",
+                              isSidePanel &&
+                                "border-slate-200 bg-white shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]",
+                            )}
+                          >
+                            <div className="flex flex-col gap-3">
+                              <div className="flex flex-wrap items-center justify-between gap-3">
+                                <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-600">
+                                  Interaction mode
+                                </span>
+                                <div className="flex items-center gap-2">
+                                  <button
+                                    type="button"
+                                    onClick={() => setInteractionMode("chat")}
+                                    aria-pressed={interactionMode === "chat"}
+                                    className={cn(
+                                      "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]",
+                                      interactionMode === "chat"
+                                        ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_12px_26px_-16px_rgba(15,118,110,0.6)]"
+                                        : "border-white/40 bg-white/60 text-[#0F766E] hover:border-[#0F766E]/50 hover:bg-white/80",
+                                      isSidePanel &&
+                                        (interactionMode === "chat"
+                                          ? "shadow-[0_12px_28px_-16px_rgba(15,118,110,0.55)]"
+                                          : "border-slate-200 bg-white text-[#0F766E]"),
+                                    )}
+                                  >
+                                    <MessageCircle className="h-4 w-4" aria-hidden />
+                                    Chat
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => setInteractionMode("voice")}
+                                    aria-pressed={interactionMode === "voice"}
+                                    className={cn(
+                                      "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]",
+                                      interactionMode === "voice"
+                                        ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_12px_26px_-16px_rgba(15,118,110,0.6)]"
+                                        : "border-white/40 bg-white/60 text-[#0F766E] hover:border-[#0F766E]/50 hover:bg-white/80",
+                                      isSidePanel &&
+                                        (interactionMode === "voice"
+                                          ? "shadow-[0_12px_28px_-16px_rgba(15,118,110,0.55)]"
+                                          : "border-slate-200 bg-white text-[#0F766E]"),
+                                    )}
+                                  >
+                                    <Mic className="h-4 w-4" aria-hidden />
+                                    Voice
+                                  </button>
+                                </div>
+                              </div>
+                              <div className="flex flex-wrap gap-2">
+                                {TRADE_LICENSE_MENU_OPTIONS.map((option) => (
+                                  <button
+                                    key={option.id}
+                                    type="button"
+                                    onClick={() => handleMenuSelect(option.id)}
+                                    aria-pressed={selectedLicenseMenu === option.id}
+                                    className={cn(
+                                      "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]",
+                                      selectedLicenseMenu === option.id
+                                        ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_14px_32px_-20px_rgba(15,118,110,0.6)]"
+                                        : "border-white/35 bg-white/30 text-[#0F766E] hover:border-[#0F766E]/45 hover:bg-white/60",
+                                      isSidePanel &&
+                                        (selectedLicenseMenu === option.id
+                                          ? "shadow-[0_14px_32px_-20px_rgba(15,118,110,0.55)]"
+                                          : "border-slate-200 bg-white text-[#0F766E]"),
+                                    )}
+                                  >
+                                    {option.label}
+                                  </button>
+                                ))}
+                              </div>
+                              <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-slate-500">
+                                Trade name reservation · License application guidance
+                              </p>
+                            </div>
+                          </div>
+                        ) : null}
                         <div className={messageListClass}>
                           {journeyFocusView ? (
                             <JourneyStageFocusView {...journeyFocusView} />
