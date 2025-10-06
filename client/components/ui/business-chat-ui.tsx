@@ -2753,46 +2753,24 @@ const ChatInputField = ({
           }}
         />
 
-        {/* Microphone Icon */}
         <button
           type="button"
-          className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-black/10 bg-white text-black transition-colors hover:bg-gray-100"
-          aria-label="Voice input"
+          className={chatButtonClasses}
+          aria-label="Chat input mode"
+          aria-pressed={interactionMode === "chat"}
+          onClick={() => onModeChange?.("chat")}
         >
-          <svg
-            width="9"
-            height="14"
-            viewBox="0 0 10 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-[14px] w-[9px]"
-          >
-            <path
-              d="M1.5 6.5V8C1.5 8.92826 1.86901 9.81823 2.52539 10.4746C3.18177 11.131 4.07174 11.5 5 11.5C5.92826 11.5 6.81823 11.131 7.47461 10.4746C8.13099 9.81823 8.5 8.92826 8.5 8V6.5H9.5V8C9.49947 9.10653 9.0914 10.1744 8.35352 10.999C7.61565 11.8235 6.59961 12.3468 5.5 12.4697V13.5H7.5V14.5H2.5V13.5H4.5V12.4697C3.40039 12.3468 2.38435 11.8235 1.64648 10.999C0.908602 10.1744 0.500525 9.10653 0.5 8V6.5H1.5ZM5 0.5C5.66304 0.5 6.29874 0.763581 6.76758 1.23242C7.23642 1.70126 7.5 2.33696 7.5 3V8C7.5 8.66304 7.23642 9.29874 6.76758 9.76758C6.29874 10.2364 5.66304 10.5 5 10.5C4.33696 10.5 3.70126 10.2364 3.23242 9.76758C2.76358 9.29874 2.5 8.66304 2.5 8V3C2.5 2.33696 2.76358 1.70126 3.23242 1.23242C3.70126 0.763581 4.33696 0.5 5 0.5ZM5 1.5C4.60218 1.5 4.22076 1.65815 3.93945 1.93945C3.65815 2.22076 3.5 2.60218 3.5 3V8C3.5 8.39782 3.65815 8.77924 3.93945 9.06055C4.22076 9.34185 4.60218 9.5 5 9.5C5.39782 9.5 5.77924 9.34185 6.06055 9.06055C6.34185 8.77924 6.5 8.39782 6.5 8V3C6.5 2.60218 6.34185 2.22076 6.06055 1.93945C5.77924 1.65815 5.39782 1.5 5 1.5Z"
-              fill="currentColor"
-            />
-          </svg>
+          <MessageCircle className="h-4 w-4" aria-hidden />
         </button>
 
-        {/* Keyboard Icon */}
         <button
           type="button"
-          className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-black/10 bg-white text-black transition-colors hover:bg-gray-100"
-          aria-label="Keyboard input"
+          className={voiceButtonClasses}
+          aria-label="Voice input mode"
+          aria-pressed={isVoiceMode}
+          onClick={() => onModeChange?.("voice")}
         >
-          <svg
-            width="14"
-            height="9"
-            viewBox="0 0 14 10"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-[9px] w-[14px]"
-          >
-            <path
-              d="M13 0.5C13.2652 0.5 13.5195 0.605432 13.707 0.792969C13.8946 0.980505 14 1.23478 14 1.5V8.5C14 8.76522 13.8946 9.0195 13.707 9.20703C13.5195 9.39457 13.2652 9.5 13 9.5H1C0.734784 9.5 0.480505 9.39457 0.292969 9.20703C0.105432 9.0195 0 8.76522 0 8.5V1.5C0 1.23478 0.105432 0.980505 0.292969 0.792969C0.480505 0.605432 0.734784 0.5 1 0.5H13ZM1 8.5H13V1.5H1V8.5ZM3 7.5H2V6.5H3V7.5ZM9.5 7.5H4V6.5H9.5V7.5ZM12 6.5V7.5H10.5V6.5H12ZM3 5.5H2V4.5H3V5.5ZM5 5.5H4V4.5H5V5.5ZM7 5.5H6V4.5H7V5.5ZM9 5.5H8V4.5H9V5.5ZM12 5.5H10V4.5H12V5.5ZM3 3.5H2V2.5H3V3.5ZM5 3.5H4V2.5H5V3.5ZM7 3.5H6V2.5H7V3.5ZM9 3.5H8V2.5H9V3.5ZM12 3.5H10V2.5H12V3.5Z"
-              fill="currentColor"
-            />
-          </svg>
+          <Mic className="h-4 w-4" aria-hidden />
         </button>
       </div>
     </form>
