@@ -6367,6 +6367,8 @@ export function BusinessChatUI({
                               "mb-4 rounded-[28px] border border-white/20 bg-white/16 p-4 backdrop-blur-xl shadow-[0_32px_70px_-48px_rgba(15,23,42,0.28)]",
                               isSidePanel &&
                                 "border-slate-200 bg-white shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]",
+                              journeyFocusView && !hasLicenseMenu &&
+                                "border-white/25 bg-white/12 text-[#0F766E] shadow-[0_28px_66px_-48px_rgba(15,23,42,0.26)]",
                             )}
                           >
                             <div className="flex flex-col gap-3">
