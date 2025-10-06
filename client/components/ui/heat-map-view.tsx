@@ -92,7 +92,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="relative overflow-hidden rounded-3xl border border-[#d8e4df] bg-gradient-to-br from-[#616161] to-[#4a4a4a] shadow-[0_32px_70px_-42px_rgba(11,64,55,0.35)]"
-            style={{ aspectRatio: "1920/640" }}
+            style={{ aspectRatio: "1920/780" }}
           >
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/df351a3a49f1c6b9b74765965e6ddb3ecf6799d7?width=1600"
