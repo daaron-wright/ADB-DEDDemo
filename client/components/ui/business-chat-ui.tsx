@@ -2721,6 +2721,20 @@ const ChatInputField = ({
     }
   };
 
+  const isVoiceMode = interactionMode === "voice";
+  const chatButtonClasses = cn(
+    "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border transition-colors",
+    interactionMode === "chat"
+      ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_8px_22px_-12px_rgba(15,118,110,0.55)]"
+      : "border-black/10 bg-white text-black hover:bg-gray-100",
+  );
+  const voiceButtonClasses = cn(
+    "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border transition-colors",
+    isVoiceMode
+      ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_8px_22px_-12px_rgba(15,118,110,0.55)]"
+      : "border-black/10 bg-white text-black hover:bg-gray-100",
+  );
+
   return (
     <form
       onSubmit={handleSubmit}
