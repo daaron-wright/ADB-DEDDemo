@@ -340,7 +340,7 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({
                     strokeLinejoin="round"
                   />
                 </svg>
-                {isReviewer ? "Sign in with DED credentials" : "Sign in with UAE PASS"}
+                {loginHeading}
               </>
             )}
           </button>
