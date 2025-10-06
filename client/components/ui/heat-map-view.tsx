@@ -24,6 +24,47 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
   const focusArea =
     areaProfiles.find((profile) => profile.area === "Corniche") ?? areaProfiles[0]!;
 
+  const overlayCards = [
+    {
+      id: "residents" as const,
+      title: "Residents",
+      value: focusArea.metrics.residents.value,
+      note: focusArea.metrics.residents.note,
+      source: focusArea.metrics.residents.source,
+      style: {
+        top: "12%",
+        right: "4%",
+        width: "clamp(150px, 17%, 190px)",
+      } as React.CSSProperties,
+    },
+    {
+      id: "tourists" as const,
+      title: "Tourists",
+      value: focusArea.metrics.tourists.value,
+      note: focusArea.metrics.tourists.note,
+      source: focusArea.metrics.tourists.source,
+      style: {
+        bottom: "18%",
+        left: "6%",
+        width: "clamp(150px, 17%, 190px)",
+      } as React.CSSProperties,
+    },
+    {
+      id: "sources" as const,
+      title: "Data sources",
+      lines: [
+        "Tawtheeq residential & commercial contracts",
+        "DED licence registry and employment filings",
+        "Holiday Homes permits & DCT tourism data",
+      ],
+      style: {
+        bottom: "10%",
+        right: "6%",
+        width: "clamp(160px, 18%, 220px)",
+      } as React.CSSProperties,
+    },
+  ];
+
   const keyInsights = [
     {
       title: "Corniche waterfront towers",
