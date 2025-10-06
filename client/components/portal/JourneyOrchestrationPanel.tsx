@@ -14,7 +14,6 @@ interface JourneyOrchestrationPanelProps {
   introMessage: string;
   actions: NextActionItem[];
   remainingActionCount: number;
-  focusedActionId: string | null;
   completionState: Record<string, boolean>;
   timelineItems: JourneyTimelineItem[];
   currentStageLabel: string;
@@ -41,7 +40,6 @@ export function JourneyOrchestrationPanel({
   introMessage,
   actions,
   remainingActionCount,
-  focusedActionId,
   completionState,
   timelineItems,
   currentStageLabel,
