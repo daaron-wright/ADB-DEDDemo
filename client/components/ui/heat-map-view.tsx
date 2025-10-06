@@ -92,7 +92,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="relative overflow-hidden rounded-3xl border border-[#d8e4df] bg-gradient-to-br from-[#616161] to-[#4a4a4a] shadow-[0_32px_70px_-42px_rgba(11,64,55,0.35)]"
-            style={{ aspectRatio: "1920/780" }}
+            style={{ aspectRatio: "1920/1080", minHeight: "720px" }}
           >
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/df351a3a49f1c6b9b74765965e6ddb3ecf6799d7?width=1600"
@@ -248,39 +248,43 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
 
             <div className="absolute inset-0" />
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.4 }}
-              className="absolute bottom-0 left-0 right-0 mx-4 mb-4 rounded-xl border border-white/20 bg-black/25 p-4 text-white backdrop-blur"
-            >
-              <div className="flex flex-col gap-4">
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-base font-semibold text-white md:text-lg">{focusArea.area}</h3>
-                  <p className="text-xs text-white/80">
-                    Cross-validated demand mix from Tawtheeq occupancy, DED employment filings, and tourism statistics.
-                  </p>
-                </div>
-                <div className="grid gap-4 sm:grid-cols-3">
-                  {categoryOrder.map((categoryId) => {
-                    const metric = focusArea.metrics[categoryId];
-                    const layer = layerMap[categoryId];
-                    return (
-                      <div key={categoryId} className="flex flex-col gap-1">
-                        <span className="text-xs uppercase tracking-[0.2em] text-white/80">
-                          {layer.label}
-                        </span>
-                        <span className="text-lg font-bold md:text-2xl">{metric.value}</span>
-                        <span className="text-[11px] text-white/80 leading-snug">{metric.note}</span>
-                        <span className="text-[10px] uppercase tracking-[0.18em] text-white/60">
-                          {metric.source}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.1 }}
+            className="rounded-3xl border border-[#d8e4df] bg-white/95 p-6 shadow-[0_28px_70px_-38px_rgba(11,64,55,0.32)]"
+          >
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <h3 className="text-base font-semibold text-slate-900 md:text-lg">{focusArea.area}</h3>
+                <p className="text-xs text-slate-600">
+                  Cross-validated demand mix from Tawtheeq occupancy, DED employment filings, and tourism statistics.
+                </p>
               </div>
-            </motion.div>
+              <div className="grid gap-4 sm:grid-cols-3">
+                {categoryOrder.map((categoryId) => {
+                  const metric = focusArea.metrics[categoryId];
+                  const layer = layerMap[categoryId];
+                  return (
+                    <div
+                      key={categoryId}
+                      className="flex flex-col gap-1 rounded-2xl border border-[#e2ece8] bg-white/90 p-4"
+                    >
+                      <span className="text-xs uppercase tracking-[0.2em] text-[#0F766E]">
+                        {layer.label}
+                      </span>
+                      <span className="text-lg font-bold text-slate-900 md:text-2xl">{metric.value}</span>
+                      <span className="text-[11px] text-slate-600 leading-snug">{metric.note}</span>
+                      <span className="text-[10px] uppercase tracking-[0.18em] text-slate-500">
+                        {metric.source}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </motion.div>
 
           <motion.div
