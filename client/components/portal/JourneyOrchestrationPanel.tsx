@@ -44,10 +44,6 @@ export function JourneyOrchestrationPanel({
   remainingActionCount,
   focusedActionId,
   completionState,
-  onToggleAction,
-  onActionClick,
-  nextActionRefs,
-  getNextActionToken,
   timelineItems,
   currentStageLabel,
   chatPhase,
@@ -57,7 +53,6 @@ export function JourneyOrchestrationPanel({
   onViewJourney,
   onOpenAutomation,
   onTimelineFocusChange,
-  formatDueDate,
   automationStatus,
   stageNumberOffset = 0,
 }: JourneyOrchestrationPanelProps) {
