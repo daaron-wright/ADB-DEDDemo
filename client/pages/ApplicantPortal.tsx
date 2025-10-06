@@ -380,28 +380,6 @@ type BusinessAIFocusContext =
   | { type: "automation" }
   | { type: "stage"; stageId: string };
 
-const getNextActionToken = (
-  status: NextActionStatus,
-): { label: string; badgeClass: string; helperClass: string } => {
-  if (status === "guidance") {
-    return {
-      label: "Questionnaire update",
-      badgeClass: "border-[#cdd6fb] bg-[#eef1ff] text-[#3645b0]",
-      helperClass: "text-[#3645b0]",
-    };
-  }
-
-  if (status === "workflow") {
-    return {
-      label: "Workspace",
-      badgeClass: "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
-      helperClass: "text-[#0b7d6f]",
-    };
-  }
-
-  return taskStatusTokens[status];
-};
-
 type PortalView = "overview" | "journey";
 
 const JOURNEY_NUMBER = "0987654321";
