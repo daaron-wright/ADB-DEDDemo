@@ -1232,7 +1232,7 @@ export default function ApplicantPortal() {
         onKeyDown={handleJourneyOverviewKeyDown}
         className="space-y-8 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
       >
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)] lg:items-start">
+        <div className="space-y-6 text-slate-900">
           <div className="space-y-6 text-slate-900">
             <div className="space-y-2">
               <div className="flex items-start justify-between gap-4">
