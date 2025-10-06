@@ -5427,7 +5427,7 @@ export function BusinessChatUI({
       if (mentionsCost) {
         responses.push(
           buildMessage(
-            "Estimated set up costs could range from: There isn't a single fixed price, but rather a range that can vary from approximately AED 10,000 to AED 30,000 for the trade license itself. Type of License: The cost can differ based on the type of license you get. A Tajer/e-commerce license that don't allow full restaurant operations start at AED 790.",
+            "Estimated set up costs could range from: There isn't a single fixed price, but rather a range that can vary from approximately AED 10,000 to AED 30,000 for the trade license itself. Type of License: Figures below this band usually reflect limited permits. For a full Commercial License that enables restaurant operations, plan within the AED 10,000 to AED 30,000 range.",
             true,
             {
               type: "budget-ranges",
