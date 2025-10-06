@@ -984,14 +984,61 @@ export default function ApplicantPortal() {
       todoBankItems[0];
     const firstNextActionId = firstNextAction?.id ?? null;
     setFocusedNextActionId(firstNextActionId);
-    setBusinessAIView("side-panel");
+    setBusinessAIView("closed");
     setFocusContext(null);
+    setIsJourneyOverviewOpen(true);
+    setIsTimelineBackgroundBlurred(false);
+
+    if (!firstNextAction) {
+      return;
+    }
+
+    const normalizedStageTitle = firstNextAction.stageTitle?.toLowerCase() ?? null;
+    const targetStage = firstNextAction.stageId
+      ? journeyStages.find((stage) => stage.id === firstNextAction.stageId)
+      : normalizedStageTitle
+        ? journeyStages.find(
+            (stage) => stage.title.toLowerCase() === normalizedStageTitle,
+          )
+        : null;
+
+    if (!targetStage) {
+      return;
+    }
+
+    setIsStageManuallySelected(true);
+    setActiveStageId(targetStage.id);
+
+    const timelineIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
+      (phase) => phase.stageId === targetStage.id,
+    );
+    if (timelineIndex >= 0) {
+      setJourneyAnimationIndex(timelineIndex);
+      setJourneyProgressPercent(
+        JOURNEY_ANIMATION_TIMELINE[timelineIndex]?.percent ?? 0,
+      );
+    }
+
+    const matchingStep = JOURNEY_STEPS_CONFIG.find(
+      (step) => step.id === targetStage.id,
+    );
+    if (matchingStep) {
+      updateCurrentJourneyStep(targetStage.id);
+    }
   }, [
     todoBankItems,
     todoCompletionState,
     setBusinessAIView,
     setFocusContext,
     setFocusedNextActionId,
+    setIsJourneyOverviewOpen,
+    setIsTimelineBackgroundBlurred,
+    journeyStages,
+    setIsStageManuallySelected,
+    setActiveStageId,
+    setJourneyAnimationIndex,
+    setJourneyProgressPercent,
+    updateCurrentJourneyStep,
   ]);
 
   const handleNextActionClick = useCallback(
