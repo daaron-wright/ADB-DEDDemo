@@ -54,7 +54,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
         <div className="absolute right-[-120px] bottom-[-160px] h-[420px] w-[420px] rounded-full bg-[#0E766E]/10 blur-3xl" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-6 lg:px-12">
+      <div className="relative z-10 mx-auto w-full max-w-screen-2xl px-6 py-6 lg:px-12">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <button
             type="button"
