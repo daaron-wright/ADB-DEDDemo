@@ -5238,6 +5238,8 @@ export function BusinessChatUI({
     });
   }, [messages, showChatInterface]);
 
+  const shouldShowInteractionToolbar = hasLicenseMenu || Boolean(journeyFocusView);
+
   useEffect(() => {
     if (!hasLicenseMenu && selectedLicenseMenu !== "recommended") {
       setSelectedLicenseMenu("recommended");
