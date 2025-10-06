@@ -210,7 +210,7 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
           <p className="mt-2 text-white/70">
             Density layers consolidate Tawtheeq contracts, Department of Economic Development licence intel,
             employment submissions, Holiday Homes permits, and Department of Culture & Tourism hotel statistics.
-            Values are normalised per square kilometre to replace legacy footfall assumptions.
+            Values are normalised per square kilometre using occupancy, licence, and tourism indicators.
           </p>
         </div>
       </div>
