@@ -5659,7 +5659,7 @@ export function BusinessChatUI({
 
         nextMessages.push(
           buildMessage(
-            `${authenticatedName} is now signed in via UAE PASS with ${roleDescriptor}.`,
+            `${authenticatedName} is now signed in via ${loginChannel} with ${roleDescriptor}.`,
             true,
           ),
         );
