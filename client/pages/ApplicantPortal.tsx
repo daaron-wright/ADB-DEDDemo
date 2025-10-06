@@ -1438,6 +1438,9 @@ export default function ApplicantPortal() {
               Application summary
             </h3>
             <p className="mt-3">{primaryApplication.summary}</p>
+            <p className="mt-3 text-xs text-[#0f766e]">
+              Your AI assistant will automatically pull the tenancy contract from ADM as soon as you register your lease.
+            </p>
           </div>
         </section>
       </PortalPageLayout>
