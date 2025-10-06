@@ -1472,6 +1472,12 @@ export default function ApplicantPortal() {
             automationStatus={automationStatus}
             stageNumberOffset={1}
           />
+          {isTimelineBackgroundBlurred ? (
+            <div
+              className="pointer-events-none absolute inset-0 rounded-[inherit] bg-white/45"
+              aria-hidden="true"
+            />
+          ) : null}
         </div>
       ) : null}
     </section>
