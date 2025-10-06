@@ -5139,6 +5139,10 @@ export function BusinessChatUI({
     () => [...BASE_ACTIVITY_LIBRARY],
   );
   const [selectedActivityIds, setSelectedActivityIds] = useState<string[]>([]);
+  const [interactionMode, setInteractionMode] =
+    useState<"chat" | "voice">("chat");
+  const [selectedLicenseMenu, setSelectedLicenseMenu] =
+    useState<TradeLicenseMenuOptionId>("recommended");
 
   const openApplicantPortal = useCallback(() => {
     navigate("/portal/applicant", {
