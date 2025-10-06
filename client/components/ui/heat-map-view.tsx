@@ -287,7 +287,42 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               </motion.div>
             </div>
 
-            <div className="absolute inset-0" />
+            <div className="pointer-events-none absolute inset-0">
+              {overlayCards.map((card, index) => (
+                <motion.div
+                  key={card.id}
+                  initial={{ opacity: 0, y: -12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.9 + index * 0.08 }}
+                  className="absolute"
+                  style={card.style}
+                >
+                  <div className="rounded-2xl border border-white/25 bg-black/45 p-3 text-white shadow-[0_18px_44px_-30px_rgba(13,38,32,0.55)] backdrop-blur">
+                    {card.id === "sources" ? (
+                      <div className="space-y-1 text-left text-[11px] leading-relaxed">
+                        <div className="text-xs font-semibold uppercase tracking-[0.2em] text-white/85">
+                          {card.title}
+                        </div>
+                        {card.lines.map((line) => (
+                          <div key={line}>• {line}</div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-left">
+                        <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80">
+                          {card.title}
+                        </div>
+                        <div className="mt-1 text-sm font-bold text-white">{card.value}</div>
+                        <p className="mt-1 text-[11px] text-white/80 leading-snug">{card.note}</p>
+                        <p className="mt-2 text-[9px] uppercase tracking-[0.18em] text-white/60">
+                          {card.source}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
 
           </motion.div>
 
