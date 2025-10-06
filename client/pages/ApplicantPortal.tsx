@@ -1354,12 +1354,9 @@ export default function ApplicantPortal() {
             <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
               Next action
             </h3>
-            <div className="mt-2 space-y-2 text-sm leading-relaxed text-slate-700">
-              <p>{primaryApplication.nextAction}</p>
-              <p className="text-xs text-[#0f766e]">
-                Your AI assistant will automatically pull the tenancy contract from ADM as soon as you register your lease.
-              </p>
-            </div>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              {primaryApplication.nextAction}
+            </p>
           </div>
           <Button
             type="button"
