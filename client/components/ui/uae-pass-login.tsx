@@ -533,7 +533,7 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
     <Modal
       trigger={enhancedTrigger}
       size="md"
-      title="Sign in with UAE PASS"
+      title={modalTitle}
       className="w-full max-w-[900px] rounded-3xl border border-white/25 bg-white/90 shadow-[0_24px_60px_-20px_rgba(24,32,63,0.28)] backdrop-blur-xl [&>div:first-child]:sr-only [&>div:first-child]:m-0 [&>div:first-child]:h-0 [&>div:first-child]:p-0 [&>div:first-child>button]:hidden"
       style={MODAL_MIN_DIMENSIONS}
     >
