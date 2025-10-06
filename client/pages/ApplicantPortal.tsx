@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useEffect, useRef } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import type { KeyboardEvent } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
@@ -26,7 +26,6 @@ import type {
   JourneyTask,
   JourneyTaskStatus,
   NextActionItem,
-  NextActionStatus,
 } from "@/components/portal/journey-types";
 
 interface ApplicationRecord {
