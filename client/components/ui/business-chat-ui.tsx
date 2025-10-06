@@ -6529,8 +6529,10 @@ export function BusinessChatUI({
                               value={inputValue}
                               onChange={setInputValue}
                               onSubmit={handleSendMessage}
-                              placeholder="Of these who are the target market for a high end restaurants?"
+                              placeholder={chatInputPlaceholder}
                               className="w-full"
+                              interactionMode={interactionMode}
+                              onModeChange={setInteractionMode}
                             />
                           </div>
                         ) : null}
