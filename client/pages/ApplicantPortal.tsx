@@ -1388,7 +1388,6 @@ export default function ApplicantPortal() {
             introMessage={BUSINESS_AI_INTRO_MESSAGE}
             actions={todoBankItems}
             remainingActionCount={remainingTodoCount}
-            focusedActionId={focusedNextActionId}
             completionState={todoCompletionState}
             timelineItems={journeyTimelineItems}
             currentStageLabel={currentStageLabel}
