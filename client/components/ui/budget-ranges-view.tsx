@@ -16,17 +16,6 @@ const BudgetRangesView: React.FC<BudgetRangesViewProps> = ({ onBack }) => {
 
   const bands = useMemo(() => conceptBudgets[concept], [concept]);
 
-  const averageLicensingRange = useMemo(() => {
-    const amounts = bands.map(
-      (band) => band.licensing.match(/\d+/g)?.map(Number) ?? [],
-    );
-    const flattened = amounts.flat();
-    if (flattened.length === 0) return "AED 0";
-    const min = Math.min(...flattened);
-    const max = Math.max(...flattened);
-    return `AED ${min.toLocaleString()} – AED ${max.toLocaleString()}`;
-  }, [bands]);
-
   return (
     <div className="relative flex h-full min-h-[640px] flex-col overflow-x-hidden overflow-y-auto bg-[#f5f8f6]">
       <div className="pointer-events-none absolute inset-0">
