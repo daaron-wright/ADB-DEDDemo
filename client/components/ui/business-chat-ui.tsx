@@ -5634,6 +5634,8 @@ export function BusinessChatUI({
           : ENTREPRENEUR_PROFILE.name;
       const roleDescriptor =
         userType === "reviewer" ? "reviewer access" : "business account";
+      const loginChannel =
+        userType === "reviewer" ? "DED single sign-on" : "UAE PASS";
 
       setMessages((prev) => {
         const sanitized = prev.map((message) =>
