@@ -71,12 +71,6 @@ const BudgetRangesView: React.FC<BudgetRangesViewProps> = ({ onBack }) => {
                     ambition.
                   </p>
                 </div>
-                <div className="rounded-2xl border border-[#0E766E]/15 bg-[#0E766E]/8 px-4 py-3 text-sm font-semibold text-[#0E766E] shadow-[0_12px_26px_-20px_rgba(14,118,110,0.52)]">
-                  Avg. licensing envelope:{" "}
-                  <span className="ml-1 font-bold">
-                    {averageLicensingRange}
-                  </span>
-                </div>
               </div>
               <div className="flex flex-wrap gap-3">
                 {(Object.keys(conceptMeta) as ConceptKey[]).map((key) => {
