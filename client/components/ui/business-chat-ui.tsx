@@ -6324,7 +6324,7 @@ export function BusinessChatUI({
                         </button>
                       </div>
                     </div>
-                    {showChatInterface && !isSidePanel ? (
+                    {showChatInterface && !isSidePanel && !journeyFocusView ? (
                       <JourneyBreadcrumb
                         steps={CONVERSATION_STEPS}
                         currentStepId={currentStep}
