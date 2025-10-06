@@ -5251,6 +5251,10 @@ export function BusinessChatUI({
       return "Voice mode active—tap the mic to ask about licensing steps.";
     }
 
+    if (!shouldShowInteractionToolbar) {
+      return DEFAULT_CHAT_PLACEHOLDER;
+    }
+
     if (!hasLicenseMenu) {
       return DEFAULT_CHAT_PLACEHOLDER;
     }
@@ -5259,7 +5263,7 @@ export function BusinessChatUI({
       TRADE_LICENSE_MENU_PROMPTS[selectedLicenseMenu] ||
       DEFAULT_CHAT_PLACEHOLDER
     );
-  }, [interactionMode, hasLicenseMenu, selectedLicenseMenu]);
+  }, [interactionMode, hasLicenseMenu, selectedLicenseMenu, shouldShowInteractionToolbar]);
 
   const handleMenuSelect = (optionId: TradeLicenseMenuOptionId) => {
     setSelectedLicenseMenu(optionId);
