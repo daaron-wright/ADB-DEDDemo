@@ -6361,7 +6361,7 @@ export function BusinessChatUI({
                       )}
                     >
                       <div className={conversationContainerClass}>
-                        {showChatInterface && hasLicenseMenu ? (
+                        {showChatInterface && shouldShowInteractionToolbar ? (
                           <div
                             className={cn(
                               "mb-4 rounded-[28px] border border-white/20 bg-white/16 p-4 backdrop-blur-xl shadow-[0_32px_70px_-48px_rgba(15,23,42,0.28)]",
