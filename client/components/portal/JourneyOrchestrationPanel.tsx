@@ -421,6 +421,7 @@ export function JourneyOrchestrationPanel({
                   const panelId = `${panelIdPrefix}-${item.id}`;
                   const outstandingForStage =
                     outstandingCountsByStage[item.id] ?? 0;
+                  const stageNumber = index + 1 + stageNumberOffset;
 
                   return (
                     <button
@@ -448,7 +449,7 @@ export function JourneyOrchestrationPanel({
                               : "bg-[#f4faf8] text-[#0f766e]",
                           )}
                         >
-                          {index + 1}
+                          {stageNumber}
                         </span>
                         <div className="min-w-0 flex-1">
                           <p className="truncate text-sm font-semibold text-slate-900">
@@ -496,7 +497,7 @@ export function JourneyOrchestrationPanel({
                       )}
                     >
                       {selectedTimelineIndex >= 0
-                        ? selectedTimelineIndex + 1
+                        ? selectedTimelineIndex + 1 + stageNumberOffset
                         : "–"}
                     </span>
 
