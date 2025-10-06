@@ -1021,41 +1021,6 @@ export default function ApplicantPortal() {
     updateCurrentJourneyStep,
   ]);
 
-  const handleNextActionClick = useCallback(
-    (action: NextActionItem) => {
-      setFocusedNextActionId(action.id);
-      setBusinessAIView("side-panel");
-      setFocusContext(null);
-
-      const stageMatch = journeyStages.find((stage) =>
-        stage.tasks.some((task) => task.id === action.id),
-      );
-
-      if (stageMatch) {
-        setIsStageManuallySelected(true);
-        setActiveStageId(stageMatch.id);
-        const timelineIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
-          (phase) => phase.stageId === stageMatch.id,
-        );
-        if (timelineIndex >= 0) {
-          setJourneyAnimationIndex(timelineIndex);
-          setJourneyProgressPercent(
-            JOURNEY_ANIMATION_TIMELINE[timelineIndex]?.percent ?? 0,
-          );
-        }
-      }
-    },
-    [
-      setBusinessAIView,
-      setFocusContext,
-      setFocusedNextActionId,
-      setIsStageManuallySelected,
-      setActiveStageId,
-      setJourneyAnimationIndex,
-      setJourneyProgressPercent,
-    ],
-  );
-
   const handleTodoToggle = useCallback((itemId: string) => {
     setTodoCompletionState((prev) => ({
       ...prev,
