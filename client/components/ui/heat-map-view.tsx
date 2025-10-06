@@ -10,6 +10,22 @@ type HeatMapViewProps = {
   onBack: () => void;
 };
 
+type MetricOverlayCard = {
+  id: DensityLayerId;
+  title: string;
+  value: string;
+  note: string;
+  source: string;
+  style: React.CSSProperties;
+};
+
+type SourceOverlayCard = {
+  id: "sources";
+  title: string;
+  lines: string[];
+  style: React.CSSProperties;
+};
+
 const categoryOrder: DensityLayerId[] = ["residents", "office", "tourists"];
 
 const layerMap: Record<DensityLayerId, (typeof densityLayers)[number]> = densityLayers.reduce(
@@ -22,12 +38,12 @@ const layerMap: Record<DensityLayerId, (typeof densityLayers)[number]> = density
 
 const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
   const focusArea =
-    areaProfiles.find((profile) => profile.area === "Corniche") ?? areaProfiles[0];
+    areaProfiles.find((profile) => profile.area === "Corniche") ?? areaProfiles[0]!;
 
-  const overlayCards = focusArea
+  const overlayCards: MetricOverlayCard[] = focusArea
     ? [
         {
-          id: "residents" as const,
+          id: "residents",
           title: "Residents",
           value: focusArea.metrics.residents.value,
           note: focusArea.metrics.residents.note,
@@ -36,10 +52,10 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             top: "7%",
             right: "8%",
             width: "clamp(160px, 18%, 220px)",
-          } as React.CSSProperties,
+          },
         },
         {
-          id: "office" as const,
+          id: "office",
           title: "Office workers",
           value: focusArea.metrics.office.value,
           note: focusArea.metrics.office.note,
@@ -48,10 +64,10 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             top: "35%",
             right: "5%",
             width: "clamp(160px, 18%, 220px)",
-          } as React.CSSProperties,
+          },
         },
         {
-          id: "tourists" as const,
+          id: "tourists",
           title: "Tourists",
           value: focusArea.metrics.tourists.value,
           note: focusArea.metrics.tourists.note,
@@ -61,13 +77,13 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             left: "50%",
             transform: "translateX(-50%)",
             width: "clamp(160px, 18%, 220px)",
-          } as React.CSSProperties,
+          },
         },
       ]
     : [];
 
-  const dataSourceCard = {
-    id: "sources" as const,
+  const dataSourceCard: SourceOverlayCard = {
+    id: "sources",
     title: "Data sources",
     lines: [
       "Tawtheeq residential & commercial contracts",
@@ -78,7 +94,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
       top: "36%",
       left: "7%",
       width: "clamp(180px, 20%, 240px)",
-    } as React.CSSProperties,
+    },
   };
 
   const keyInsights = [
