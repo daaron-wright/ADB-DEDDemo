@@ -5228,7 +5228,12 @@ export function BusinessChatUI({
         text.includes("trade name") ||
         text.includes("trade-name") ||
         text.includes("license application") ||
-        text.includes("licence application")
+        text.includes("licence application") ||
+        text.includes("business activit") ||
+        text.includes("license type") ||
+        text.includes("licence type") ||
+        text.includes("type of license") ||
+        text.includes("type of licence")
       );
     });
   }, [messages, showChatInterface]);
