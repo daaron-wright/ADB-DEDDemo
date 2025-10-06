@@ -2696,12 +2696,16 @@ const ChatInputField = ({
   onSubmit,
   placeholder = "Ask me anything...",
   className = "",
+  interactionMode = "chat",
+  onModeChange,
 }: {
   value: string;
   onChange: (value: string) => void;
   onSubmit: (value: string) => void;
   placeholder?: string;
   className?: string;
+  interactionMode?: "chat" | "voice";
+  onModeChange?: (mode: "chat" | "voice") => void;
 }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
