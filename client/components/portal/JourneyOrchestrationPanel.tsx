@@ -290,13 +290,10 @@ export function JourneyOrchestrationPanel({
                 role="tablist"
                 aria-label="Journey stages navigation"
               >
-                {timelineItems.map((item, index) => {
+                {timelineItems.map((item) => {
                   const isActive = item.id === selectedTimelineItem?.id;
                   const tabId = `${tabIdPrefix}-${item.id}`;
                   const panelId = `${panelIdPrefix}-${item.id}`;
-                  const outstandingForStage =
-                    outstandingCountsByStage[item.id] ?? 0;
-                  const stageNumber = index + 1 + stageNumberOffset;
 
                   return (
                     <button
@@ -318,35 +315,26 @@ export function JourneyOrchestrationPanel({
                       <div className="flex items-center gap-3">
                         <span
                           className={cn(
-                            "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-semibold",
-                            isActive || item.isCurrent
+                            "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full",
+                            item.statusLabel.toLowerCase().includes("completed")
                               ? "bg-[#0f766e] text-white"
-                              : "bg-[#f4faf8] text-[#0f766e]",
+                              : item.statusLabel.toLowerCase().includes("progress")
+                                ? "bg-[#f4faf8] text-[#0f766e]"
+                                : "border border-[#d8e4df] bg-white text-[#0f766e]",
                           )}
                         >
-                          {stageNumber}
+                          {item.statusLabel.toLowerCase().includes("completed") ? (
+                            <Check className="h-3.5 w-3.5" aria-hidden="true" />
+                          ) : (
+                            <span className="h-1.5 w-1.5 rounded-full bg-current" />
+                          )}
                         </span>
                         <div className="min-w-0 flex-1">
                           <p className="truncate text-sm font-semibold text-slate-900">
                             {item.title}
                           </p>
-                          <div className="mt-1 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-                            <span
-                              className={cn(
-                                "inline-flex items-center rounded-full border px-2.5 py-0.5",
-                                item.statusBadgeClass,
-                              )}
-                            >
-                              {item.statusLabel}
-                            </span>
-                            {outstandingForStage > 0 ? (
-                              <span className="inline-flex items-center rounded-full bg-[#0f766e]/10 px-2 py-0.5 text-[#0f766e]">
-                                {outstandingForStage}
-                              </span>
-                            ) : null}
-                            {item.isCurrent ? (
-                              <span className="text-[#0f766e]">Current</span>
-                            ) : null}
+                          <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                            {item.statusLabel}
                           </div>
                         </div>
                       </div>
