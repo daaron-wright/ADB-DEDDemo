@@ -11,12 +11,19 @@ const CHAT_MINIMIZED_KEY = "portal-business-ai-minimized";
 const PERSISTENT_PHASE = {
   message: "Generating application...",
   percent: 15,
-  keyConsiderations: ["Legal Structure", "Business Activities", "Physical Space"],
+  keyConsiderations: [
+    "Legal Structure",
+    "Business Activities",
+    "Physical Space",
+  ],
   dataTags: ["UAE PASS profile", "Business intentions", "Workspace readiness"],
 };
 
 export function PortalAIDock() {
-  const [isOpen, setIsOpen] = usePersistentState<boolean>(CHAT_STORAGE_KEY, false);
+  const [isOpen, setIsOpen] = usePersistentState<boolean>(
+    CHAT_STORAGE_KEY,
+    false,
+  );
   const [hasVisited, setHasVisited] = usePersistentState<boolean>(
     CHAT_VISITED_KEY,
     false,
@@ -71,7 +78,11 @@ export function PortalAIDock() {
                     Business AI
                   </p>
                   <p className="text-sm font-medium leading-relaxed text-slate-800">
-                    Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require more clarification to ensure the right decisions are made.
+                    Before initiating the licensing process, we need to identify
+                    the most suitable legal structure, business activities, and
+                    physical space requirements. While certain aspects may
+                    already be predefined, others require more clarification to
+                    ensure the right decisions are made.
                   </p>
                 </div>
                 <div className="space-y-2">
@@ -81,7 +92,8 @@ export function PortalAIDock() {
                     </span>
                   </div>
                   <p className="text-xs font-semibold text-[#0f766e]">
-                    {PERSISTENT_PHASE.message} <span>{PERSISTENT_PHASE.percent}% complete</span>
+                    {PERSISTENT_PHASE.message}{" "}
+                    <span>{PERSISTENT_PHASE.percent}% complete</span>
                   </p>
                   <div className="h-1.5 overflow-hidden rounded-full bg-[#e6f2ed]">
                     <div
@@ -90,7 +102,8 @@ export function PortalAIDock() {
                     />
                   </div>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
-                    Key considerations: 1. Legal Structure. 2. Business Activities. 3. Physical Space.
+                    Key considerations: 1. Legal Structure. 2. Business
+                    Activities. 3. Physical Space.
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2">

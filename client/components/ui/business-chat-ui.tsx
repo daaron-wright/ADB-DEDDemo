@@ -5135,8 +5135,9 @@ export function BusinessChatUI({
     () => [...BASE_ACTIVITY_LIBRARY],
   );
   const [selectedActivityIds, setSelectedActivityIds] = useState<string[]>([]);
-  const [interactionMode, setInteractionMode] =
-    useState<"chat" | "voice">("chat");
+  const [interactionMode, setInteractionMode] = useState<"chat" | "voice">(
+    "chat",
+  );
   const [selectedLicenseMenu, setSelectedLicenseMenu] =
     useState<TradeLicenseMenuOptionId>("recommended");
 
@@ -5219,9 +5220,7 @@ export function BusinessChatUI({
     }
 
     return messages.some((message) => {
-      const text = message.content
-        ? message.content.toLowerCase()
-        : "";
+      const text = message.content ? message.content.toLowerCase() : "";
       return (
         message.type === "business-activities" ||
         message.type === "application-progress" ||
@@ -5238,7 +5237,8 @@ export function BusinessChatUI({
     });
   }, [messages, showChatInterface]);
 
-  const shouldShowInteractionToolbar = hasLicenseMenu || Boolean(journeyFocusView);
+  const shouldShowInteractionToolbar =
+    hasLicenseMenu || Boolean(journeyFocusView);
 
   useEffect(() => {
     if (!hasLicenseMenu && selectedLicenseMenu !== "recommended") {
@@ -5263,7 +5263,12 @@ export function BusinessChatUI({
       TRADE_LICENSE_MENU_PROMPTS[selectedLicenseMenu] ||
       DEFAULT_CHAT_PLACEHOLDER
     );
-  }, [interactionMode, hasLicenseMenu, selectedLicenseMenu, shouldShowInteractionToolbar]);
+  }, [
+    interactionMode,
+    hasLicenseMenu,
+    selectedLicenseMenu,
+    shouldShowInteractionToolbar,
+  ]);
 
   const handleMenuSelect = (optionId: TradeLicenseMenuOptionId) => {
     setSelectedLicenseMenu(optionId);
@@ -6367,7 +6372,8 @@ export function BusinessChatUI({
                               "mb-4 rounded-[28px] border border-white/20 bg-white/16 p-4 backdrop-blur-xl shadow-[0_32px_70px_-48px_rgba(15,23,42,0.28)]",
                               isSidePanel &&
                                 "border-slate-200 bg-white shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)]",
-                              journeyFocusView && !hasLicenseMenu &&
+                              journeyFocusView &&
+                                !hasLicenseMenu &&
                                 "border-white/25 bg-white/12 text-[#0F766E] shadow-[0_28px_66px_-48px_rgba(15,23,42,0.26)]",
                             )}
                           >
@@ -6392,7 +6398,10 @@ export function BusinessChatUI({
                                           : "border-slate-200 bg-white text-[#0F766E]"),
                                     )}
                                   >
-                                    <MessageCircle className="h-4 w-4" aria-hidden />
+                                    <MessageCircle
+                                      className="h-4 w-4"
+                                      aria-hidden
+                                    />
                                     Chat
                                   </button>
                                   <button
@@ -6421,7 +6430,9 @@ export function BusinessChatUI({
                                     key={option.id}
                                     type="button"
                                     onClick={() => handleMenuSelect(option.id)}
-                                    aria-pressed={selectedLicenseMenu === option.id}
+                                    aria-pressed={
+                                      selectedLicenseMenu === option.id
+                                    }
                                     className={cn(
                                       "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]",
                                       selectedLicenseMenu === option.id
@@ -6438,7 +6449,8 @@ export function BusinessChatUI({
                                 ))}
                               </div>
                               <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-slate-500">
-                                Trade name reservation · License application guidance
+                                Trade name reservation · License application
+                                guidance
                               </p>
                             </div>
                           </div>

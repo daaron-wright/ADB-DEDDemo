@@ -12,17 +12,19 @@ type HeatMapViewProps = {
 
 const categoryOrder: DensityLayerId[] = ["residents", "office", "tourists"];
 
-const layerMap: Record<DensityLayerId, (typeof densityLayers)[number]> = densityLayers.reduce(
-  (acc, layer) => {
-    acc[layer.id] = layer;
-    return acc;
-  },
-  {} as Record<DensityLayerId, (typeof densityLayers)[number]>,
-);
+const layerMap: Record<DensityLayerId, (typeof densityLayers)[number]> =
+  densityLayers.reduce(
+    (acc, layer) => {
+      acc[layer.id] = layer;
+      return acc;
+    },
+    {} as Record<DensityLayerId, (typeof densityLayers)[number]>,
+  );
 
 const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
   const focusArea =
-    areaProfiles.find((profile) => profile.area === "Corniche") ?? areaProfiles[0]!;
+    areaProfiles.find((profile) => profile.area === "Corniche") ??
+    areaProfiles[0]!;
 
   const overlayCards = [
     {
@@ -121,7 +123,9 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             <span className="text-xs font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
               Abu Dhabi Business Signals
             </span>
-            <span className="text-sm text-slate-500">Live location density view</span>
+            <span className="text-sm text-slate-500">
+              Live location density view
+            </span>
           </div>
         </div>
       </div>
@@ -155,10 +159,20 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                   transform: "translate(-50%, -50%)",
                 }}
               >
-                <svg className="h-full w-full" viewBox="0 0 212 212" fill="none">
+                <svg
+                  className="h-full w-full"
+                  viewBox="0 0 212 212"
+                  fill="none"
+                >
                   <circle cx="106" cy="106" r="105" fill="url(#redGradient1)" />
                   <defs>
-                    <radialGradient id="redGradient1" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
+                    <radialGradient
+                      id="redGradient1"
+                      cx="0"
+                      cy="0"
+                      r="1"
+                      gradientUnits="objectBoundingBox"
+                    >
                       <stop stopColor="#FF0000" stopOpacity="0.4" />
                       <stop offset="1" stopColor="#FF0000" stopOpacity="0" />
                     </radialGradient>
@@ -179,10 +193,20 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                   transform: "translate(-50%, -50%)",
                 }}
               >
-                <svg className="h-full w-full" viewBox="0 0 190 190" fill="none">
+                <svg
+                  className="h-full w-full"
+                  viewBox="0 0 190 190"
+                  fill="none"
+                >
                   <circle cx="95" cy="95" r="94" fill="url(#redGradient2)" />
                   <defs>
-                    <radialGradient id="redGradient2" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
+                    <radialGradient
+                      id="redGradient2"
+                      cx="0"
+                      cy="0"
+                      r="1"
+                      gradientUnits="objectBoundingBox"
+                    >
                       <stop stopColor="#FF0000" stopOpacity="0.4" />
                       <stop offset="1" stopColor="#FF0000" stopOpacity="0" />
                     </radialGradient>
@@ -203,10 +227,20 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                   transform: "translate(-50%, -50%)",
                 }}
               >
-                <svg className="h-full w-full" viewBox="0 0 177 177" fill="none">
+                <svg
+                  className="h-full w-full"
+                  viewBox="0 0 177 177"
+                  fill="none"
+                >
                   <circle cx="88" cy="88" r="88" fill="url(#orangeGradient1)" />
                   <defs>
-                    <radialGradient id="orangeGradient1" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
+                    <radialGradient
+                      id="orangeGradient1"
+                      cx="0"
+                      cy="0"
+                      r="1"
+                      gradientUnits="objectBoundingBox"
+                    >
                       <stop stopColor="#FF9500" stopOpacity="0.4" />
                       <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
                     </radialGradient>
@@ -227,10 +261,20 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                   transform: "translate(-50%, -50%)",
                 }}
               >
-                <svg className="h-full w-full" viewBox="0 0 177 177" fill="none">
+                <svg
+                  className="h-full w-full"
+                  viewBox="0 0 177 177"
+                  fill="none"
+                >
                   <circle cx="88" cy="88" r="88" fill="url(#orangeGradient2)" />
                   <defs>
-                    <radialGradient id="orangeGradient2" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
+                    <radialGradient
+                      id="orangeGradient2"
+                      cx="0"
+                      cy="0"
+                      r="1"
+                      gradientUnits="objectBoundingBox"
+                    >
                       <stop stopColor="#FF9500" stopOpacity="0.4" />
                       <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
                     </radialGradient>
@@ -251,10 +295,25 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                   transform: "translate(-50%, -50%)",
                 }}
               >
-                <svg className="h-full w-full" viewBox="0 0 249 249" fill="none">
-                  <circle cx="124" cy="124" r="124" fill="url(#orangeGradient3)" />
+                <svg
+                  className="h-full w-full"
+                  viewBox="0 0 249 249"
+                  fill="none"
+                >
+                  <circle
+                    cx="124"
+                    cy="124"
+                    r="124"
+                    fill="url(#orangeGradient3)"
+                  />
                   <defs>
-                    <radialGradient id="orangeGradient3" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
+                    <radialGradient
+                      id="orangeGradient3"
+                      cx="0"
+                      cy="0"
+                      r="1"
+                      gradientUnits="objectBoundingBox"
+                    >
                       <stop stopColor="#FF9500" stopOpacity="0.4" />
                       <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
                     </radialGradient>
@@ -275,10 +334,25 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                   transform: "translate(-50%, -50%)",
                 }}
               >
-                <svg className="h-full w-full" viewBox="0 0 203 177" fill="none">
-                  <circle cx="101" cy="75" r="101" fill="url(#yellowGradient)" />
+                <svg
+                  className="h-full w-full"
+                  viewBox="0 0 203 177"
+                  fill="none"
+                >
+                  <circle
+                    cx="101"
+                    cy="75"
+                    r="101"
+                    fill="url(#yellowGradient)"
+                  />
                   <defs>
-                    <radialGradient id="yellowGradient" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
+                    <radialGradient
+                      id="yellowGradient"
+                      cx="0"
+                      cy="0"
+                      r="1"
+                      gradientUnits="objectBoundingBox"
+                    >
                       <stop stopColor="#FBFF00" stopOpacity="0.4" />
                       <stop offset="1" stopColor="#F7FF00" stopOpacity="0" />
                     </radialGradient>
@@ -312,8 +386,12 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                         <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80">
                           {card.title}
                         </div>
-                        <div className="mt-1 text-sm font-bold text-white">{card.value}</div>
-                        <p className="mt-1 text-[11px] text-white/80 leading-snug">{card.note}</p>
+                        <div className="mt-1 text-sm font-bold text-white">
+                          {card.value}
+                        </div>
+                        <p className="mt-1 text-[11px] text-white/80 leading-snug">
+                          {card.note}
+                        </p>
                         <p className="mt-2 text-[9px] uppercase tracking-[0.18em] text-white/60">
                           {card.source}
                         </p>
@@ -323,7 +401,6 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                 </motion.div>
               ))}
             </div>
-
           </motion.div>
 
           <motion.div
@@ -334,9 +411,12 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
           >
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
-                <h3 className="text-base font-semibold text-slate-900 md:text-lg">{focusArea.area}</h3>
+                <h3 className="text-base font-semibold text-slate-900 md:text-lg">
+                  {focusArea.area}
+                </h3>
                 <p className="text-xs text-slate-600">
-                  Cross-validated demand mix from Tawtheeq occupancy, DED employment filings, and tourism statistics.
+                  Cross-validated demand mix from Tawtheeq occupancy, DED
+                  employment filings, and tourism statistics.
                 </p>
               </div>
               <div className="grid gap-4 sm:grid-cols-3">
@@ -351,8 +431,12 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                       <span className="text-xs uppercase tracking-[0.2em] text-[#0F766E]">
                         {layer.label}
                       </span>
-                      <span className="text-lg font-bold text-slate-900 md:text-2xl">{metric.value}</span>
-                      <span className="text-[11px] text-slate-600 leading-snug">{metric.note}</span>
+                      <span className="text-lg font-bold text-slate-900 md:text-2xl">
+                        {metric.value}
+                      </span>
+                      <span className="text-[11px] text-slate-600 leading-snug">
+                        {metric.note}
+                      </span>
                       <span className="text-[10px] uppercase tracking-[0.18em] text-slate-500">
                         {metric.source}
                       </span>
@@ -376,8 +460,12 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               <div className="mt-4 space-y-3 text-sm text-slate-600">
                 {keyInsights.map((insight) => (
                   <div key={insight.title}>
-                    <p className="font-semibold text-slate-900">{insight.title}</p>
-                    <p className="mt-1 leading-relaxed">{insight.description}</p>
+                    <p className="font-semibold text-slate-900">
+                      {insight.title}
+                    </p>
+                    <p className="mt-1 leading-relaxed">
+                      {insight.description}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -391,12 +479,22 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                 {categoryOrder.map((categoryId) => {
                   const layer = layerMap[categoryId];
                   return (
-                    <div key={layer.id} className="rounded-xl border border-[#e2ece8] bg-white/90 p-3 shadow-sm">
-                      <div className="font-semibold text-slate-900">{layer.label}</div>
-                      <p className="mt-1 text-xs text-slate-500">{layer.summary}</p>
+                    <div
+                      key={layer.id}
+                      className="rounded-xl border border-[#e2ece8] bg-white/90 p-3 shadow-sm"
+                    >
+                      <div className="font-semibold text-slate-900">
+                        {layer.label}
+                      </div>
+                      <p className="mt-1 text-xs text-slate-500">
+                        {layer.summary}
+                      </p>
                       <ul className="mt-2 space-y-1 text-xs text-slate-600">
                         {layer.legend.map((item) => (
-                          <li key={item.label} className="flex items-center gap-3">
+                          <li
+                            key={item.label}
+                            className="flex items-center gap-3"
+                          >
                             <span
                               className="inline-flex h-3 w-3 rounded-full"
                               style={{ backgroundImage: item.swatch }}
