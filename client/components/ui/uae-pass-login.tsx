@@ -398,6 +398,10 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
   const activeUserType: "applicant" | "reviewer" =
     selectedUserType ?? defaultUserType ?? "applicant";
   const activeUserDetail = USER_TYPE_DETAILS[activeUserType];
+  const modalTitle =
+    activeUserDetail.badge === "LR"
+      ? "Sign in with DED credentials"
+      : "Sign in with UAE PASS";
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const timeouts = useRef<ReturnType<typeof setTimeout>[]>([]);
 
