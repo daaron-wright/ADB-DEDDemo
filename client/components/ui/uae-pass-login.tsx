@@ -304,7 +304,7 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({
                     isReviewer ? "border-[#0f766e]/70" : "border-white/80",
                   )}
                 />
-                Connecting to UAE PASS…
+                {isReviewer ? "Connecting to DED" : "Connecting to UAE PASS…"}
               </>
             ) : (
               <>
@@ -334,35 +334,43 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({
                     strokeLinejoin="round"
                   />
                 </svg>
-                Sign in with UAE PASS
+                {isReviewer ? "Sign in with DED credentials" : "Sign in with UAE PASS"}
               </>
             )}
           </button>
 
           <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50/60 px-4 py-3 text-sm text-slate-600">
             <p>
-              You'll be redirected to the official UAE PASS experience to verify
-              your identity securely.
+              {isReviewer
+                ? "You'll be redirected to the DED single sign-on portal to verify your employee credentials."
+                : "You'll be redirected to the official UAE PASS experience to verify your identity securely."}
             </p>
           </div>
         </div>
       </div>
 
       <p className="text-sm text-slate-500 text-center">
-        A single trusted digital identity for all citizens, residents and
-        visitors.
+        {isReviewer
+          ? "DED reviewers must use their departmental account."
+          : "A single trusted digital identity for all citizens, residents and visitors."}
       </p>
 
       <div className="text-center text-sm text-slate-600">
-        Need a UAE PASS account?{" "}
-        <a
-          href="https://uaepass.ae/signup"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-semibold text-emerald-700 transition-colors duration-200 hover:text-emerald-800"
-        >
-          Create an account
-        </a>
+        {isReviewer ? (
+          <span>Need assistance? Contact your DED system administrator.</span>
+        ) : (
+          <>
+            Need a UAE PASS account?{" "}
+            <a
+              href="https://uaepass.ae/signup"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-emerald-700 transition-colors duration-200 hover:text-emerald-800"
+            >
+              Create an account
+            </a>
+          </>
+        )}
       </div>
     </motion.div>
   );
