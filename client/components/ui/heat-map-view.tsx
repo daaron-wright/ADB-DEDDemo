@@ -1,11 +1,109 @@
 import React from "react";
 import { motion } from "framer-motion";
+import {
+  areaProfiles,
+  densityLayers,
+  DensityLayerId,
+} from "@/components/ui/location-density-data";
 
-interface HeatMapViewProps {
+type HeatMapViewProps = {
   onBack: () => void;
-}
+};
+
+const categoryOrder: DensityLayerId[] = ["residents", "office", "tourists"];
+
+const layerMap: Record<DensityLayerId, (typeof densityLayers)[number]> = densityLayers.reduce(
+  (acc, layer) => {
+    acc[layer.id] = layer;
+    return acc;
+  },
+  {} as Record<DensityLayerId, (typeof densityLayers)[number]>,
+);
 
 const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
+  const focusArea =
+    areaProfiles.find((profile) => profile.area === "Corniche") ?? areaProfiles[0];
+
+  const overlayCards = focusArea
+    ? [
+        {
+          id: "residents" as const,
+          title: "Residents",
+          value: focusArea.metrics.residents.value,
+          note: focusArea.metrics.residents.note,
+          source: focusArea.metrics.residents.source,
+          style: {
+            top: "7%",
+            right: "8%",
+            width: "clamp(160px, 18%, 220px)",
+          } as React.CSSProperties,
+        },
+        {
+          id: "office" as const,
+          title: "Office workers",
+          value: focusArea.metrics.office.value,
+          note: focusArea.metrics.office.note,
+          source: focusArea.metrics.office.source,
+          style: {
+            top: "35%",
+            right: "5%",
+            width: "clamp(160px, 18%, 220px)",
+          } as React.CSSProperties,
+        },
+        {
+          id: "tourists" as const,
+          title: "Tourists",
+          value: focusArea.metrics.tourists.value,
+          note: focusArea.metrics.tourists.note,
+          source: focusArea.metrics.tourists.source,
+          style: {
+            bottom: "25%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "clamp(160px, 18%, 220px)",
+          } as React.CSSProperties,
+        },
+      ]
+    : [];
+
+  const dataSourceCard = {
+    id: "sources" as const,
+    title: "Data sources",
+    lines: [
+      "Tawtheeq residential & commercial contracts",
+      "DED licence registry and labour submissions",
+      "Holiday Homes permits & DCT tourism statistics",
+    ],
+    style: {
+      top: "36%",
+      left: "7%",
+      width: "clamp(180px, 20%, 240px)",
+    } as React.CSSProperties,
+  };
+
+  const keyInsights = [
+    {
+      title: "Corniche waterfront towers",
+      description:
+        "6.5k Tawtheeq households sustain >92% occupancy, keeping resident-led demand constant across the week.",
+    },
+    {
+      title: "Al Maryah employment spine",
+      description:
+        "14.2k office workers validated by Tawtheeq and DED licences drive lunchtime peaks and evening corporate dining.",
+    },
+    {
+      title: "Yas Island visitor surge",
+      description:
+        "9.3k nightly visitors from hotels and holiday homes anchor weekend highs and event-led spending.",
+    },
+    {
+      title: "Corniche eastern promenade",
+      description:
+        "Balanced mix of residents, office staff, and beach tourists supports premium pricing along the frontage.",
+    },
+  ];
+
   return (
     <div className="relative flex h-full min-h-[640px] flex-col overflow-x-hidden overflow-y-auto bg-[#f5f8f6]">
       <div className="pointer-events-none absolute inset-0">
@@ -13,7 +111,6 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
         <div className="absolute right-[-120px] bottom-[-160px] h-[420px] w-[420px] rounded-full bg-[#0E766E]/10 blur-3xl" />
       </div>
 
-      {/* Header */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-6 lg:px-12">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <button
@@ -40,14 +137,11 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             <span className="text-xs font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
               Abu Dhabi Business Signals
             </span>
-            <span className="text-sm text-slate-500">
-              Live location density view
-            </span>
+            <span className="text-sm text-slate-500">Live location density view</span>
           </div>
         </div>
       </div>
 
-      {/* Main Map Container - Now Predominant */}
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col gap-3 px-6 pb-8 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -56,16 +150,13 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
           className="relative overflow-hidden rounded-3xl border border-[#d8e4df] bg-gradient-to-br from-[#616161] to-[#4a4a4a] shadow-[0_32px_70px_-42px_rgba(11,64,55,0.35)]"
           style={{ aspectRatio: "800/556" }}
         >
-          {/* Map Background */}
           <img
             src="https://api.builder.io/api/v1/image/assets/TEMP/df351a3a49f1c6b9b74765965e6ddb3ecf6799d7?width=1600"
-            alt="Abu Dhabi heat map"
-            className="absolute inset-0 h-full w-full object-cover rounded-3xl"
+            alt="Abu Dhabi location density map"
+            className="absolute inset-0 h-full w-full rounded-3xl object-cover"
           />
 
-          {/* Heat Map Overlays */}
           <div className="absolute inset-0">
-            {/* Large Red Circle - Center */}
             <motion.div
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -82,13 +173,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               <svg className="h-full w-full" viewBox="0 0 212 212" fill="none">
                 <circle cx="106" cy="106" r="105" fill="url(#redGradient1)" />
                 <defs>
-                  <radialGradient
-                    id="redGradient1"
-                    cx="0"
-                    cy="0"
-                    r="1"
-                    gradientUnits="objectBoundingBox"
-                  >
+                  <radialGradient id="redGradient1" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
                     <stop stopColor="#FF0000" stopOpacity="0.4" />
                     <stop offset="1" stopColor="#FF0000" stopOpacity="0" />
                   </radialGradient>
@@ -96,7 +181,6 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               </svg>
             </motion.div>
 
-            {/* Medium Red Circle - Left */}
             <motion.div
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -113,13 +197,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               <svg className="h-full w-full" viewBox="0 0 190 190" fill="none">
                 <circle cx="95" cy="95" r="94" fill="url(#redGradient2)" />
                 <defs>
-                  <radialGradient
-                    id="redGradient2"
-                    cx="0"
-                    cy="0"
-                    r="1"
-                    gradientUnits="objectBoundingBox"
-                  >
+                  <radialGradient id="redGradient2" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
                     <stop stopColor="#FF0000" stopOpacity="0.4" />
                     <stop offset="1" stopColor="#FF0000" stopOpacity="0" />
                   </radialGradient>
@@ -127,7 +205,6 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               </svg>
             </motion.div>
 
-            {/* Orange Circle - Upper Right */}
             <motion.div
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -144,13 +221,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               <svg className="h-full w-full" viewBox="0 0 177 177" fill="none">
                 <circle cx="88" cy="88" r="88" fill="url(#orangeGradient1)" />
                 <defs>
-                  <radialGradient
-                    id="orangeGradient1"
-                    cx="0"
-                    cy="0"
-                    r="1"
-                    gradientUnits="objectBoundingBox"
-                  >
+                  <radialGradient id="orangeGradient1" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
                     <stop stopColor="#FF9500" stopOpacity="0.4" />
                     <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
                   </radialGradient>
@@ -158,7 +229,6 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               </svg>
             </motion.div>
 
-            {/* Orange Circle - Lower Center */}
             <motion.div
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -175,13 +245,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               <svg className="h-full w-full" viewBox="0 0 177 177" fill="none">
                 <circle cx="88" cy="88" r="88" fill="url(#orangeGradient2)" />
                 <defs>
-                  <radialGradient
-                    id="orangeGradient2"
-                    cx="0"
-                    cy="0"
-                    r="1"
-                    gradientUnits="objectBoundingBox"
-                  >
+                  <radialGradient id="orangeGradient2" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
                     <stop stopColor="#FF9500" stopOpacity="0.4" />
                     <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
                   </radialGradient>
@@ -189,7 +253,6 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               </svg>
             </motion.div>
 
-            {/* Large Orange Circle - Right */}
             <motion.div
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -204,20 +267,9 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               }}
             >
               <svg className="h-full w-full" viewBox="0 0 249 249" fill="none">
-                <circle
-                  cx="124"
-                  cy="124"
-                  r="124"
-                  fill="url(#orangeGradient3)"
-                />
+                <circle cx="124" cy="124" r="124" fill="url(#orangeGradient3)" />
                 <defs>
-                  <radialGradient
-                    id="orangeGradient3"
-                    cx="0"
-                    cy="0"
-                    r="1"
-                    gradientUnits="objectBoundingBox"
-                  >
+                  <radialGradient id="orangeGradient3" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
                     <stop stopColor="#FF9500" stopOpacity="0.4" />
                     <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
                   </radialGradient>
@@ -225,7 +277,6 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               </svg>
             </motion.div>
 
-            {/* Yellow Circle - Top Right */}
             <motion.div
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -242,13 +293,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               <svg className="h-full w-full" viewBox="0 0 203 177" fill="none">
                 <circle cx="101" cy="75" r="101" fill="url(#yellowGradient)" />
                 <defs>
-                  <radialGradient
-                    id="yellowGradient"
-                    cx="0"
-                    cy="0"
-                    r="1"
-                    gradientUnits="objectBoundingBox"
-                  >
+                  <radialGradient id="yellowGradient" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
                     <stop stopColor="#FBFF00" stopOpacity="0.4" />
                     <stop offset="1" stopColor="#F7FF00" stopOpacity="0" />
                   </radialGradient>
@@ -257,136 +302,84 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             </motion.div>
           </div>
 
-          {/* Data Overlay Cards */}
           <div className="absolute inset-0">
-            {/* Top Right Card */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.0 }}
-              className="absolute"
-              style={{
-                top: "7%",
-                right: "8%",
-                width: "clamp(120px, 16%, 160px)",
-              }}
-            >
-              <div className="rounded-xl bg-black/20 backdrop-blur-sm border border-white/20 p-3 text-white">
-                <div className="text-center">
-                  <div className="text-xs font-semibold leading-tight">
-                    Average visitors
-                  </div>
-                  <div className="text-xs font-bold">200-300</div>
+            {[...overlayCards, dataSourceCard].map((card, index) => (
+              <motion.div
+                key={card.id}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1 + index * 0.1 }}
+                className="absolute"
+                style={card.style}
+              >
+                <div className="rounded-xl border border-white/20 bg-black/25 p-3 text-white backdrop-blur">
+                  {card.id === "sources" ? (
+                    <div className="space-y-2 text-left">
+                      <div className="text-xs font-semibold uppercase tracking-[0.24em] text-white/80">
+                        {card.title}
+                      </div>
+                      <ul className="space-y-1 text-[11px] leading-snug text-white/80">
+                        {card.lines.map((line) => (
+                          <li key={line}>• {line}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <div className="text-left">
+                      <div className="text-xs font-semibold uppercase tracking-[0.24em] text-white/80">
+                        {card.title}
+                      </div>
+                      <div className="mt-1 text-sm font-bold text-white">{card.value}</div>
+                      {card.note ? (
+                        <p className="mt-1 text-[11px] text-white/80 leading-snug">{card.note}</p>
+                      ) : null}
+                      {card.source ? (
+                        <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-white/60">
+                          {card.source}
+                        </p>
+                      ) : null}
+                    </div>
+                  )}
                 </div>
-              </div>
-            </motion.div>
-
-            {/* Middle Right Card */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.1 }}
-              className="absolute"
-              style={{
-                top: "35%",
-                right: "5%",
-                width: "clamp(120px, 16%, 160px)",
-              }}
-            >
-              <div className="rounded-xl bg-black/20 backdrop-blur-sm border border-white/20 p-3 text-white">
-                <div className="text-center">
-                  <div className="text-xs font-semibold leading-tight">
-                    Average visitors
-                  </div>
-                  <div className="text-xs font-bold">450-700</div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Lower Center Card */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.2 }}
-              className="absolute"
-              style={{
-                bottom: "25%",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "clamp(120px, 16%, 160px)",
-              }}
-            >
-              <div className="rounded-xl bg-black/20 backdrop-blur-sm border border-white/20 p-3 text-white">
-                <div className="text-center">
-                  <div className="text-xs font-semibold leading-tight">
-                    Average visitors
-                  </div>
-                  <div className="text-xs font-bold">900-1500</div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Left Card */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.3 }}
-              className="absolute"
-              style={{
-                top: "36%",
-                left: "7%",
-                width: "clamp(120px, 16%, 160px)",
-              }}
-            >
-              <div className="rounded-xl bg-black/20 backdrop-blur-sm border border-white/20 p-3 text-white">
-                <div className="text-center">
-                  <div className="text-xs font-semibold leading-tight">
-                    Average visitors
-                  </div>
-                  <div className="text-xs font-bold">1800-2500</div>
-                </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            ))}
           </div>
 
-          {/* Bottom Statistics Panel */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.4 }}
-            className="absolute bottom-0 left-0 right-0 mx-4 mb-4 rounded-xl bg-black/20 backdrop-blur-sm border border-white/20 p-4 md:p-6"
+            className="absolute bottom-0 left-0 right-0 mx-4 mb-4 rounded-xl border border-white/20 bg-black/25 p-4 text-white backdrop-blur"
           >
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
-                <h3 className="text-base font-semibold text-white md:text-lg">
-                  The Corniche
-                </h3>
-                <p className="text-xs text-white/90">Average weekly footfall</p>
+                <h3 className="text-base font-semibold text-white md:text-lg">{focusArea.area}</h3>
+                <p className="text-xs text-white/85">
+                  Cross-validated demand mix from Tawtheeq occupancy, DED employment filings, and tourism statistics.
+                </p>
               </div>
-
-              <div className="flex flex-wrap gap-4 text-white">
-                <div className="flex flex-col">
-                  <span className="text-xs text-white/90">Khalifa City</span>
-                  <span className="text-lg font-bold md:text-2xl">25-35K</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-xs text-white/90">
-                    Abu Dhabi Marina
-                  </span>
-                  <span className="text-lg font-bold md:text-2xl">40-55K</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-xs text-white/90">Baniyas</span>
-                  <span className="text-lg font-bold md:text-2xl">60-75K</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-xs text-white/90">Corniche</span>
-                  <span className="text-lg font-bold md:text-2xl">100K+</span>
-                </div>
+              <div className="grid gap-4 sm:grid-cols-3">
+                {categoryOrder.map((categoryId) => {
+                  const metric = focusArea.metrics[categoryId];
+                  const layer = layerMap[categoryId];
+                  return (
+                    <div key={categoryId} className="flex flex-col gap-1">
+                      <span className="text-xs uppercase tracking-[0.2em] text-white/80">
+                        {layer.label}
+                      </span>
+                      <span className="text-lg font-bold md:text-2xl">{metric.value}</span>
+                      <span className="text-[11px] text-white/80 leading-snug">{metric.note}</span>
+                      <span className="text-[10px] uppercase tracking-[0.18em] text-white/60">
+                        {metric.source}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </motion.div>
         </motion.div>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -398,24 +391,12 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               Key Insights
             </h3>
             <div className="mt-4 space-y-3 text-sm text-slate-600">
-              <div>
-                <p className="font-semibold text-slate-900">
-                  Marina Royal Complex
-                </p>
-                <p className="mt-1 leading-relaxed">
-                  Highest concentration of premium venues with consistent
-                  evening footfall.
-                </p>
-              </div>
-              <div>
-                <p className="font-semibold text-slate-900">
-                  Corniche Eastern Strip
-                </p>
-                <p className="mt-1 leading-relaxed">
-                  Hybrid resident-tourist mix supports premium pricing with
-                  reliable traffic.
-                </p>
-              </div>
+              {keyInsights.map((insight) => (
+                <div key={insight.title}>
+                  <p className="font-semibold text-slate-900">{insight.title}</p>
+                  <p className="mt-1 leading-relaxed">{insight.description}</p>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -423,19 +404,29 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0F766E]">
               Density Legend
             </h3>
-            <div className="mt-4 space-y-3 text-sm text-slate-600">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex h-4 w-4 rounded-full bg-red-500" />
-                <span>High activity (15+ venues)</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="inline-flex h-4 w-4 rounded-full bg-orange-500" />
-                <span>Medium activity (8-14 venues)</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="inline-flex h-4 w-4 rounded-full bg-yellow-400" />
-                <span>Emerging activity (1-7 venues)</span>
-              </div>
+            <div className="mt-4 space-y-4 text-sm text-slate-600">
+              {categoryOrder.map((categoryId) => {
+                const layer = layerMap[categoryId];
+                return (
+                  <div key={layer.id} className="rounded-xl border border-[#e2ece8] bg-white/90 p-3 shadow-sm">
+                    <div className="font-semibold text-slate-900">{layer.label}</div>
+                    <p className="mt-1 text-xs text-slate-500">{layer.summary}</p>
+                    <ul className="mt-2 space-y-1 text-xs text-slate-600">
+                      {layer.legend.map((item) => (
+                        <li key={item.label} className="flex items-center gap-3">
+                          <span
+                            className="inline-flex h-3 w-3 rounded-full"
+                            style={{ backgroundImage: item.swatch }}
+                          />
+                          <span>
+                            {item.label} ({item.threshold})
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
