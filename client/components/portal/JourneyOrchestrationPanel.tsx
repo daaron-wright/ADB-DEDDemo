@@ -562,23 +562,13 @@ export function JourneyOrchestrationPanel({
                   ) : null}
 
                   <div className="flex flex-wrap items-center gap-3">
-                    {selectedTimelineItem.id === "generating-application" ? (
-                      <button
-                        type="button"
-                        onClick={onOpenAutomation}
-                        className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-                      >
-                        Manage automation
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={() => onViewJourney(selectedTimelineItem.id)}
-                        className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-                      >
-                        Open stage
-                      </button>
-                    )}
+                    <button
+                      type="button"
+                      onClick={() => onViewJourney(selectedTimelineItem.id)}
+                      className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                    >
+                      Open stage
+                    </button>
                     {selectedTimelineItem.isCurrent ? (
                       <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                         You're here
