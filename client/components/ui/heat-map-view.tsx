@@ -92,7 +92,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="relative overflow-hidden rounded-3xl border border-[#d8e4df] bg-gradient-to-br from-[#616161] to-[#4a4a4a] shadow-[0_32px_70px_-42px_rgba(11,64,55,0.35)]"
-            style={{ aspectRatio: "1920/520" }}
+            style={{ aspectRatio: "1920/640" }}
           >
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/df351a3a49f1c6b9b74765965e6ddb3ecf6799d7?width=1600"
@@ -333,21 +333,21 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_24px_60px_-38px_rgba(11,64,55,0.25)]">
-              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0F766E]">
+            <section className="rounded-2xl border border-[#d8e4df] bg-white/95 p-4 shadow-[0_18px_48px_-32px_rgba(11,64,55,0.3)]">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0F766E]">
                 Next Actions
               </h3>
-              <ul className="mt-4 space-y-3 text-sm text-slate-600">
+              <ul className="mt-3 space-y-2 text-xs text-slate-600">
                 <li className="flex items-center gap-2">
-                  <span className="inline-flex h-1.5 w-1.5 rounded-full bg-[#0F766E]" />
+                  <span className="inline-flex h-1 w-1 rounded-full bg-[#0F766E]" />
                   Sync with property desk for Corniche frontage availability.
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="inline-flex h-1.5 w-1.5 rounded-full bg-[#0F766E]" />
+                  <span className="inline-flex h-1 w-1 rounded-full bg-[#0F766E]" />
                   Prepare zoning dossier for Saadiyat cultural strip.
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="inline-flex h-1.5 w-1.5 rounded-full bg-[#0F766E]" />
+                  <span className="inline-flex h-1 w-1 rounded-full bg-[#0F766E]" />
                   Share density summary with reviewer workspace.
                 </li>
               </ul>
