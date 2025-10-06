@@ -1466,10 +1466,6 @@ export default function ApplicantPortal() {
             remainingActionCount={remainingTodoCount}
             focusedActionId={focusedNextActionId}
             completionState={todoCompletionState}
-            onToggleAction={handleTodoToggle}
-            onActionClick={handleNextActionClick}
-            nextActionRefs={nextActionRefs}
-            getNextActionToken={getNextActionToken}
             timelineItems={journeyTimelineItems}
             currentStageLabel={currentStageLabel}
             chatPhase={chatPhase ?? null}
@@ -1479,7 +1475,6 @@ export default function ApplicantPortal() {
             onViewJourney={handleViewJourney}
             onOpenAutomation={handleOpenAutomationFocus}
             onTimelineFocusChange={handleTimelineFocusChange}
-            formatDueDate={formatJourneyDueDate}
             automationStatus={automationStatus}
             stageNumberOffset={1}
           />
