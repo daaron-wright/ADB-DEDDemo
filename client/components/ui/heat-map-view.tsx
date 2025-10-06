@@ -95,7 +95,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
         <div className="absolute right-[-120px] bottom-[-160px] h-[420px] w-[420px] rounded-full bg-[#0E766E]/10 blur-3xl" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1920px] px-6 py-6 lg:px-12">
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 py-6 lg:px-12">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <button
             type="button"
@@ -126,14 +126,14 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1920px] flex-1 px-6 pb-10 lg:px-12">
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] flex-1 px-6 pb-10 lg:px-12">
         <div className="flex flex-col gap-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="relative overflow-hidden rounded-3xl border border-[#d8e4df] bg-gradient-to-br from-[#616161] to-[#4a4a4a] shadow-[0_32px_70px_-42px_rgba(11,64,55,0.35)]"
-            style={{ aspectRatio: "1920/1080", minHeight: "720px" }}
+            style={{ aspectRatio: "1600/780", minHeight: "560px" }}
           >
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/df351a3a49f1c6b9b74765965e6ddb3ecf6799d7?width=1600"
