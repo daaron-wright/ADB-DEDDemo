@@ -1233,62 +1233,58 @@ export default function ApplicantPortal() {
         className="space-y-8 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
       >
         <div className="space-y-6 text-slate-900">
-          <div className="space-y-6 text-slate-900">
-            <div className="space-y-2">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h2 className="text-2xl font-semibold tracking-tight">
-                    {primaryApplication.title}
-                  </h2>
-                  <p className="text-sm text-slate-600">
-                    {primaryApplication.directorate}
-                  </p>
-                  <div className="flex flex-wrap items-center gap-3 pt-2">
-                    <Badge
-                      className={cn(
-                        "border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide",
-                        statusStyles[primaryApplication.status],
-                      )}
-                    >
-                      {primaryApplication.status}
-                    </Badge>
-                    <span className="text-xs text-slate-500">
-                      {primaryApplication.id}
-                    </span>
-                  </div>
-                </div>
-                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#d8e4df] bg-white text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)]">
-                  <ChevronDown
-                    className={cn(
-                      "h-5 w-5 transition-transform duration-300",
-                      isJourneyOverviewOpen ? "rotate-180" : "rotate-0",
-                    )}
-                    aria-hidden="true"
-                  />
+          <div className="relative space-y-2 pr-12 lg:pr-16">
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight">
+                {primaryApplication.title}
+              </h2>
+              <p className="text-sm text-slate-600">
+                {primaryApplication.directorate}
+              </p>
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <Badge
+                  className={cn(
+                    "border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide",
+                    statusStyles[primaryApplication.status],
+                  )}
+                >
+                  {primaryApplication.status}
+                </Badge>
+                <span className="text-xs text-slate-500">
+                  {primaryApplication.id}
                 </span>
               </div>
             </div>
-            <div className="space-y-3">
-              <Button
-                type="button"
-                onClick={(event) => {
-                  event.stopPropagation();
-                  handleOpenSidePanel();
-                }}
-                className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-              >
-                <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
-                Chat with AI
-              </Button>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]/70">
-                Current view:{" "}
-                {isSidePanelView
-                  ? "Side panel"
-                  : isFocusView
-                    ? "Focus modal"
-                    : "Closed"}
-              </p>
-            </div>
+            <span className="absolute right-0 top-0 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#d8e4df] bg-white text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)]">
+              <ChevronDown
+                className={cn(
+                  "h-5 w-5 transition-transform duration-300",
+                  isJourneyOverviewOpen ? "rotate-180" : "rotate-0",
+                )}
+                aria-hidden="true"
+              />
+            </span>
+          </div>
+          <div className="space-y-3">
+            <Button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                handleOpenSidePanel();
+              }}
+              className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+            >
+              <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
+              Chat with AI
+            </Button>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]/70">
+              Current view:{" "}
+              {isSidePanelView
+                ? "Side panel"
+                : isFocusView
+                  ? "Focus modal"
+                  : "Closed"}
+            </p>
           </div>
         </div>
         <div className="grid gap-4 text-sm text-slate-600 sm:grid-cols-2 lg:grid-cols-4">
