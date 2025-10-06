@@ -370,7 +370,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 <h3 className="text-base font-semibold text-white md:text-lg">{focusArea.area}</h3>
-                <p className="text-xs text-white/85">
+                <p className="text-xs text-white/80">
                   Cross-validated demand mix from Tawtheeq occupancy, DED employment filings, and tourism statistics.
                 </p>
               </div>
