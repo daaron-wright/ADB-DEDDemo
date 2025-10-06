@@ -250,7 +250,7 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({
               strokeLinejoin="round"
             />
           </svg>
-          Department of Economic Development
+          {headerOrg}
         </div>
         <div className="space-y-1">
           <h3 className="text-base font-semibold text-slate-900">
