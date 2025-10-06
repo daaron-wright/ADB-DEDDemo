@@ -1295,7 +1295,10 @@ export default function ApplicantPortal() {
         aria-label={`Toggle journey overview for ${primaryApplication.title}`}
         onClick={handleJourneyOverviewToggle}
         onKeyDown={handleJourneyOverviewKeyDown}
-        className="space-y-8 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+        className={cn(
+          "space-y-8 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
+          isTimelineBackgroundBlurred && "relative overflow-hidden",
+        )}
       >
         <div className="space-y-6 text-slate-900">
           <div className="relative space-y-2 pr-12 lg:pr-16">
