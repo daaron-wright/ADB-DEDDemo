@@ -821,6 +821,14 @@ export default function ApplicantPortal() {
   };
 
   const todoBankItems = useMemo<NextActionItem[]>(() => {
+    const findStageIdByTitle = (title: string) => {
+      const normalized = title.trim().toLowerCase();
+      const match = journeyStages.find(
+        (stage) => stage.title.toLowerCase() === normalized,
+      );
+      return match?.id ?? null;
+    };
+
     const applicantTasks = journeyStages.flatMap((stage) =>
       stage.tasks
         .filter(
@@ -830,6 +838,7 @@ export default function ApplicantPortal() {
           id: task.id,
           label: task.label,
           status: task.status,
+          stageId: stage.id,
           stageTitle: stage.title,
           dueDate: task.dueDate,
         })),
@@ -840,23 +849,32 @@ export default function ApplicantPortal() {
         array.findIndex((candidate) => candidate.id === task.id) === index,
     );
 
+    const questionnaireStageId = findStageIdByTitle("Questionnaire");
+    const primaryOutstandingStage = journeyStages.find((stage) =>
+      stage.tasks.some(
+        (task) => task.owner === "Applicant" && task.status !== "completed",
+      ),
+    );
+
     return [
       {
         id: "business-activity-guidance",
         label: "Add licensing guidance to business activities questionnaire",
         status: "guidance",
         description: BUSINESS_ACTIVITY_GUIDANCE_MESSAGE,
+        stageId: questionnaireStageId ?? undefined,
         stageTitle: "Questionnaire",
       },
       {
         id: "primary-application-next",
         label: primaryApplication.nextAction,
         status: "workflow",
-        stageTitle: "Generating application",
+        stageId: primaryOutstandingStage?.id ?? undefined,
+        stageTitle: primaryOutstandingStage?.title ?? "Generating application",
       },
       ...uniqueApplicantTasks,
     ];
-  }, [primaryApplication.nextAction]);
+  }, [journeyStages, primaryApplication.nextAction]);
 
   const remainingTodoCount = useMemo(() => {
     return todoBankItems.reduce((count, item) => {
