@@ -217,6 +217,12 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({
     : {
         background: `linear-gradient(140deg, ${detail.accent} 0%, ${detail.accent}CC 100%)`,
       };
+  const headerOrg = isReviewer
+    ? "Department of Economic Development"
+    : "Abu Dhabi Government Services";
+  const loginHeading = isReviewer
+    ? "Sign in with DED credentials"
+    : "Sign in with UAE PASS";
 
   return (
     <motion.div
