@@ -1403,6 +1403,8 @@ export default function ApplicantPortal() {
             onOpenAutomation={handleOpenAutomationFocus}
             onTimelineFocusChange={setIsTimelineBackgroundBlurred}
             formatDueDate={formatJourneyDueDate}
+            automationStatus={automationStatus}
+            stageNumberOffset={1}
           />
         </div>
       ) : null}
