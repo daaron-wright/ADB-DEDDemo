@@ -1300,131 +1300,145 @@ export default function ApplicantPortal() {
           isTimelineBackgroundBlurred && "relative overflow-hidden",
         )}
       >
-        <div className="space-y-6 text-slate-900">
-          <div className="relative space-y-2 pr-12 lg:pr-16">
-            <div>
-              <h2 className="text-2xl font-semibold tracking-tight">
-                {primaryApplication.title}
-              </h2>
-              <p className="text-sm text-slate-600">
-                {primaryApplication.directorate}
-              </p>
-              <div className="flex flex-wrap items-center gap-3 pt-2">
-                <Badge
-                  className={cn(
-                    "border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide",
-                    statusStyles[primaryApplication.status],
-                  )}
-                >
-                  {primaryApplication.status}
-                </Badge>
-                <span className="text-xs text-slate-500">
-                  {primaryApplication.id}
-                </span>
+        <div
+          className={cn(
+            "space-y-8",
+            isTimelineBackgroundBlurred &&
+              "pointer-events-none select-none filter blur-sm lg:blur-md",
+          )}
+        >
+          <div className="space-y-6 text-slate-900">
+            <div className="relative space-y-2 pr-12 lg:pr-16">
+              <div>
+                <h2 className="text-2xl font-semibold tracking-tight">
+                  {primaryApplication.title}
+                </h2>
+                <p className="text-sm text-slate-600">
+                  {primaryApplication.directorate}
+                </p>
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <Badge
+                    className={cn(
+                      "border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide",
+                      statusStyles[primaryApplication.status],
+                    )}
+                  >
+                    {primaryApplication.status}
+                  </Badge>
+                  <span className="text-xs text-slate-500">
+                    {primaryApplication.id}
+                  </span>
+                </div>
               </div>
+              <span className="absolute right-0 top-0 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#d8e4df] bg-white text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)]">
+                <ChevronDown
+                  className={cn(
+                    "h-5 w-5 transition-transform duration-300",
+                    isJourneyOverviewOpen ? "rotate-180" : "rotate-0",
+                  )}
+                  aria-hidden="true"
+                />
+              </span>
             </div>
-            <span className="absolute right-0 top-0 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#d8e4df] bg-white text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)]">
-              <ChevronDown
-                className={cn(
-                  "h-5 w-5 transition-transform duration-300",
-                  isJourneyOverviewOpen ? "rotate-180" : "rotate-0",
-                )}
-                aria-hidden="true"
-              />
-            </span>
+            <div className="space-y-3">
+              <Button
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleOpenSidePanel();
+                }}
+                className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+              >
+                <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                Chat with AI
+              </Button>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]/70">
+                Current view:{" "}
+                {isSidePanelView
+                  ? "Side panel"
+                  : isFocusView
+                    ? "Focus modal"
+                    : "Closed"}
+              </p>
+            </div>
           </div>
-          <div className="space-y-3">
+          <div className="grid gap-4 text-sm text-slate-600 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Beneficiary
+              </p>
+              <p className="mt-2 text-sm font-semibold text-slate-900">
+                {primaryApplication.beneficiary}
+              </p>
+            </div>
+            <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                License type
+              </p>
+              <p className="mt-2 text-sm font-semibold text-slate-900">
+                {primaryApplication.licenseType}
+              </p>
+            </div>
+            <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Submission ID
+              </p>
+              <p className="mt-2 text-sm font-semibold text-slate-900">
+                {primaryApplication.id}
+              </p>
+            </div>
+            <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Last update
+              </p>
+              <p className="mt-2 text-sm font-semibold text-slate-900">
+                {dateFormatter.format(new Date(primaryApplication.lastUpdated))}
+              </p>
+            </div>
+          </div>
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Next action
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                {primaryApplication.nextAction}
+              </p>
+            </div>
             <Button
               type="button"
+              variant="outline"
               onClick={(event) => {
                 event.stopPropagation();
-                handleOpenSidePanel();
+                handleContinueToNextAction();
               }}
-              className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+              className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] transition hover:bg-white hover:shadow-[0_16px_32px_-24px_rgba(11,64,55,0.32)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
             >
-              <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
-              Chat with AI
+              <svg
+                className="h-3.5 w-3.5"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M5 10h10m0 0-4-4m4 4-4 4"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              Continue to Your Next Action
             </Button>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]/70">
-              Current view:{" "}
-              {isSidePanelView
-                ? "Side panel"
-                : isFocusView
-                  ? "Focus modal"
-                  : "Closed"}
-            </p>
           </div>
         </div>
-        <div className="grid gap-4 text-sm text-slate-600 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Beneficiary
-            </p>
-            <p className="mt-2 text-sm font-semibold text-slate-900">
-              {primaryApplication.beneficiary}
-            </p>
-          </div>
-          <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              License type
-            </p>
-            <p className="mt-2 text-sm font-semibold text-slate-900">
-              {primaryApplication.licenseType}
-            </p>
-          </div>
-          <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Submission ID
-            </p>
-            <p className="mt-2 text-sm font-semibold text-slate-900">
-              {primaryApplication.id}
-            </p>
-          </div>
-          <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Last update
-            </p>
-            <p className="mt-2 text-sm font-semibold text-slate-900">
-              {dateFormatter.format(new Date(primaryApplication.lastUpdated))}
-            </p>
-          </div>
-        </div>
-        <div className="space-y-4">
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Next action
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-700">
-              {primaryApplication.nextAction}
-            </p>
-          </div>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={(event) => {
-              event.stopPropagation();
-              handleContinueToNextAction();
-            }}
-            className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)] transition hover:bg-white hover:shadow-[0_16px_32px_-24px_rgba(11,64,55,0.32)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-          >
-            <svg
-              className="h-3.5 w-3.5"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path
-                d="M5 10h10m0 0-4-4m4 4-4 4"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            Continue to Your Next Action
-          </Button>
-        </div>
+        {isTimelineBackgroundBlurred ? (
+          <div
+            className="pointer-events-none absolute inset-0 rounded-[inherit] bg-white/45"
+            aria-hidden="true"
+          />
+        ) : null}
       </div>
       {isJourneyOverviewOpen ? (
         <div
