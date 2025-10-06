@@ -1443,7 +1443,11 @@ export default function ApplicantPortal() {
       {isJourneyOverviewOpen ? (
         <div
           id="journey-overview-panel"
-          className="mt-6 rounded-3xl border border-[#d8e4df] bg-white/95 p-6 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)] sm:p-7"
+          className={cn(
+            "mt-6 rounded-3xl border border-[#d8e4df] bg-white/95 p-6 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)] sm:p-7",
+            isTimelineBackgroundBlurred &&
+              "pointer-events-none select-none filter blur-sm lg:blur-md",
+          )}
         >
           <JourneyOrchestrationPanel
             introMessage={BUSINESS_AI_INTRO_MESSAGE}
