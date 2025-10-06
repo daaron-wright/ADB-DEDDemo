@@ -1143,9 +1143,7 @@ export default function ApplicantPortal() {
     };
   }, [focusViewContext, formatJourneyDueDate]);
 
-  const shouldSuppressChatInterface =
-    focusContext?.type === "stage" &&
-    STAGES_WITH_SUPPRESSED_CHAT.has(focusContext.stageId);
+  const shouldSuppressChatInterface = false;
 
   const filters = (
     <div className="space-y-8">
