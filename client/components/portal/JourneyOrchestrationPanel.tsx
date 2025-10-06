@@ -190,7 +190,14 @@ export function JourneyOrchestrationPanel({
     actions.forEach((action) => {
       let targetId: string | null = null;
 
-      if (action.stageTitle) {
+      if (action.stageId) {
+        const hasExactStage = timelineItems.some(
+          (item) => item.id === action.stageId,
+        );
+        targetId = hasExactStage ? action.stageId : null;
+      }
+
+      if (!targetId && action.stageTitle) {
         const normalizedStage = normalize(action.stageTitle);
         targetId = timelineLookup[normalizedStage] ?? null;
       }
