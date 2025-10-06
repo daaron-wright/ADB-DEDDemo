@@ -1021,13 +1021,6 @@ export default function ApplicantPortal() {
     updateCurrentJourneyStep,
   ]);
 
-  const handleTodoToggle = useCallback((itemId: string) => {
-    setTodoCompletionState((prev) => ({
-      ...prev,
-      [itemId]: !prev[itemId],
-    }));
-  }, []);
-
   const handleResumeAutomation = useCallback(() => {
     setIsStageManuallySelected(false);
     const timelineIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
