@@ -439,39 +439,6 @@ export function JourneyOrchestrationPanel({
                     ) : null}
                   </div>
 
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                      <span>Outstanding actions</span>
-                      <span>{selectedOutstandingCount}</span>
-                    </div>
-                    {selectedOutstandingCount > 0 ? (
-                      <ol className="space-y-3">
-                        {selectedOutstandingActions.map((action) =>
-                          renderActionRow(action),
-                        )}
-                      </ol>
-                    ) : (
-                      <p className="text-sm text-slate-600">
-                        You're up to date for this stage.
-                      </p>
-                    )}
-                  </div>
-
-                  {selectedCompletedCount > 0 ? (
-                    <details className="space-y-3">
-                      <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-slate-700">
-                        <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">
-                          Completed actions ({selectedCompletedCount})
-                        </span>
-                        <span className="text-xs text-slate-500">Toggle</span>
-                      </summary>
-                      <ol className="mt-3 space-y-3">
-                        {selectedCompletedActions.map((action) =>
-                          renderActionRow(action),
-                        )}
-                      </ol>
-                    </details>
-                  ) : null}
                 </div>
               ) : null}
             </section>
