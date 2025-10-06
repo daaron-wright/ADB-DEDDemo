@@ -17,6 +17,7 @@ export type NextActionItem = {
   id: string;
   label: string;
   status: NextActionStatus;
+  stageId?: string;
   stageTitle?: string;
   description?: string;
   dueDate?: string;
