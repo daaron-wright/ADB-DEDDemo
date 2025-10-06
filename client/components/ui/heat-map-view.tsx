@@ -19,13 +19,6 @@ type MetricOverlayCard = {
   style: React.CSSProperties;
 };
 
-type SourceOverlayCard = {
-  id: "sources";
-  title: string;
-  lines: string[];
-  style: React.CSSProperties;
-};
-
 const categoryOrder: DensityLayerId[] = ["residents", "office", "tourists"];
 
 const layerMap: Record<DensityLayerId, (typeof densityLayers)[number]> = densityLayers.reduce(
@@ -81,21 +74,6 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
         },
       ]
     : [];
-
-  const dataSourceCard: SourceOverlayCard = {
-    id: "sources",
-    title: "Data sources",
-    lines: [
-      "Tawtheeq residential & commercial contracts",
-      "DED licence registry and labour submissions",
-      "Holiday Homes permits & DCT tourism statistics",
-    ],
-    style: {
-      top: "36%",
-      left: "7%",
-      width: "clamp(180px, 20%, 240px)",
-    },
-  };
 
   const keyInsights = [
     {
@@ -319,7 +297,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
           </div>
 
           <div className="absolute inset-0">
-            {[...overlayCards, dataSourceCard].map((card, index) => (
+            {overlayCards.map((card, index) => (
               <motion.div
                 key={card.id}
                 initial={{ opacity: 0, y: -20 }}
@@ -329,33 +307,20 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                 style={card.style}
               >
                 <div className="rounded-xl border border-white/20 bg-black/25 p-3 text-white backdrop-blur">
-                  {card.id === "sources" ? (
-                    <div className="space-y-2 text-left">
-                      <div className="text-xs font-semibold uppercase tracking-[0.24em] text-white/80">
-                        {card.title}
-                      </div>
-                      <ul className="space-y-1 text-[11px] leading-snug text-white/80">
-                        {card.lines.map((line) => (
-                          <li key={line}>• {line}</li>
-                        ))}
-                      </ul>
+                  <div className="text-left">
+                    <div className="text-xs font-semibold uppercase tracking-[0.24em] text-white/80">
+                      {card.title}
                     </div>
-                  ) : (
-                    <div className="text-left">
-                      <div className="text-xs font-semibold uppercase tracking-[0.24em] text-white/80">
-                        {card.title}
-                      </div>
-                      <div className="mt-1 text-sm font-bold text-white">{card.value}</div>
-                      {card.note ? (
-                        <p className="mt-1 text-[11px] text-white/80 leading-snug">{card.note}</p>
-                      ) : null}
-                      {card.source ? (
-                        <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-white/60">
-                          {card.source}
-                        </p>
-                      ) : null}
-                    </div>
-                  )}
+                    <div className="mt-1 text-sm font-bold text-white">{card.value}</div>
+                    {card.note ? (
+                      <p className="mt-1 text-[11px] text-white/80 leading-snug">{card.note}</p>
+                    ) : null}
+                    {card.source ? (
+                      <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-white/60">
+                        {card.source}
+                      </p>
+                    ) : null}
+                  </div>
                 </div>
               </motion.div>
             ))}
