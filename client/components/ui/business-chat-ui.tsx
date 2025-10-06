@@ -42,7 +42,7 @@ import {
 import { budgetSummaryRows } from "@/components/ui/budget-ranges-data";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
-import { Map as MapIcon } from "lucide-react";
+import { Map as MapIcon, MessageCircle, Mic } from "lucide-react";
 import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
 
 type ConversationAction =
