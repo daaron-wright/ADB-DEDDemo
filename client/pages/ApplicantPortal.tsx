@@ -73,7 +73,7 @@ const applications: ApplicationRecord[] = [
     nextAction:
       "Submit consolidated approvals package for ADAFSA and Abu Dhabi Municipality.",
     summary:
-      "Layla's AI-assisted application is sequencing trade name reservation, co-founder onboarding, property confirmation, and downstream approvals for a Corniche restaurant.",
+      "Your AI-assisted application is sequencing trade name reservation, co-founder onboarding, property confirmation, and downstream approvals for a Corniche restaurant.",
   },
 ];
 
