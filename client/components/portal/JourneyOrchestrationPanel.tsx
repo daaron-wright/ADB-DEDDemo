@@ -8,7 +8,6 @@ import type {
   JourneyAnimationPhase,
   JourneyTimelineItem,
   NextActionItem,
-  NextActionStatus,
 } from "./journey-types";
 
 interface JourneyOrchestrationPanelProps {
@@ -17,14 +16,6 @@ interface JourneyOrchestrationPanelProps {
   remainingActionCount: number;
   focusedActionId: string | null;
   completionState: Record<string, boolean>;
-  onToggleAction: (id: string) => void;
-  onActionClick: (action: NextActionItem) => void;
-  nextActionRefs: MutableRefObject<Record<string, HTMLElement | null>>;
-  getNextActionToken: (status: NextActionStatus) => {
-    label: string;
-    badgeClass: string;
-    helperClass: string;
-  };
   timelineItems: JourneyTimelineItem[];
   currentStageLabel: string;
   chatPhase: JourneyAnimationPhase | null;
