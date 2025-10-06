@@ -5217,6 +5217,58 @@ export function BusinessChatUI({
     };
   }, [selectedActivities]);
 
+  const hasLicenseMenu = useMemo(() => {
+    if (!showChatInterface) {
+      return false;
+    }
+
+    return messages.some((message) => {
+      const text = message.content
+        ? message.content.toLowerCase()
+        : "";
+      return (
+        message.type === "business-activities" ||
+        message.type === "application-progress" ||
+        text.includes("trade name") ||
+        text.includes("trade-name") ||
+        text.includes("license application") ||
+        text.includes("licence application")
+      );
+    });
+  }, [messages, showChatInterface]);
+
+  useEffect(() => {
+    if (!hasLicenseMenu && selectedLicenseMenu !== "recommended") {
+      setSelectedLicenseMenu("recommended");
+    }
+  }, [hasLicenseMenu, selectedLicenseMenu]);
+
+  const chatInputPlaceholder = useMemo(() => {
+    if (interactionMode === "voice") {
+      return "Voice mode active—tap the mic to ask about licensing steps.";
+    }
+
+    if (!hasLicenseMenu) {
+      return DEFAULT_CHAT_PLACEHOLDER;
+    }
+
+    return (
+      TRADE_LICENSE_MENU_PROMPTS[selectedLicenseMenu] ||
+      DEFAULT_CHAT_PLACEHOLDER
+    );
+  }, [interactionMode, hasLicenseMenu, selectedLicenseMenu]);
+
+  const handleMenuSelect = (optionId: TradeLicenseMenuOptionId) => {
+    setSelectedLicenseMenu(optionId);
+
+    if (interactionMode === "chat" && inputValue.trim().length === 0) {
+      const prompt = TRADE_LICENSE_MENU_PROMPTS[optionId];
+      if (prompt) {
+        setInputValue(prompt);
+      }
+    }
+  };
+
   const handleToggleActivity = useCallback((activityId: string) => {
     setSelectedActivityIds((prev) =>
       prev.includes(activityId)
