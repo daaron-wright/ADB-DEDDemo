@@ -32,9 +32,9 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
       note: focusArea.metrics.residents.note,
       source: focusArea.metrics.residents.source,
       style: {
-        top: "12%",
+        top: "14%",
         right: "4%",
-        width: "clamp(150px, 17%, 190px)",
+        width: "clamp(120px, 26vw, 160px)",
       } as React.CSSProperties,
     },
     {
@@ -44,9 +44,9 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
       note: focusArea.metrics.tourists.note,
       source: focusArea.metrics.tourists.source,
       style: {
-        bottom: "18%",
+        bottom: "16%",
         left: "6%",
-        width: "clamp(150px, 17%, 190px)",
+        width: "clamp(120px, 28vw, 160px)",
       } as React.CSSProperties,
     },
     {
@@ -58,9 +58,9 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
         "Holiday Homes permits & DCT tourism data",
       ],
       style: {
-        bottom: "10%",
-        right: "6%",
-        width: "clamp(160px, 18%, 220px)",
+        bottom: "6%",
+        right: "4%",
+        width: "clamp(150px, 32vw, 190px)",
       } as React.CSSProperties,
     },
   ];
@@ -95,7 +95,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
         <div className="absolute right-[-120px] bottom-[-160px] h-[420px] w-[420px] rounded-full bg-[#0E766E]/10 blur-3xl" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-6 py-6 lg:px-12">
+      <div className="relative z-10 mx-auto w-full max-w-[920px] px-6 py-6 lg:px-10">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <button
             type="button"
@@ -126,14 +126,14 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1280px] flex-1 px-6 pb-10 lg:px-12">
+      <div className="relative z-10 mx-auto w-full max-w-[920px] flex-1 px-6 pb-10 lg:px-10">
         <div className="flex flex-col gap-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="relative overflow-hidden rounded-3xl border border-[#d8e4df] bg-gradient-to-br from-[#616161] to-[#4a4a4a] shadow-[0_32px_70px_-42px_rgba(11,64,55,0.35)]"
-            style={{ aspectRatio: "1280/720", minHeight: "520px" }}
+            style={{ aspectRatio: "920/600", minHeight: "480px" }}
           >
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/df351a3a49f1c6b9b74765965e6ddb3ecf6799d7?width=1600"
