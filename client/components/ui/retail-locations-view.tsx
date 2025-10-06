@@ -183,6 +183,27 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                   className="w-full h-auto"
                 />
               </div>
+              <button
+                type="button"
+                onClick={handleExportBusinessPlan}
+                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#0F766E]/35 bg-white/80 px-6 py-3 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" x2="12" y1="3" y2="15" />
+                </svg>
+                Export your business plan
+              </button>
             </motion.div>
 
             {/* Automation Prompt */}
@@ -205,39 +226,11 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                 </p>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex flex-col gap-3 sm:flex-row">
-                  <button
-                    type="button"
-                    onClick={handleAutomationConfirm}
-                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#0F766E] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0a5a55] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
-                  >
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M20 6 9 17l-5-5" />
-                    </svg>
-                    Yes, automate it
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleAutomationDecline}
-                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-[#d8e4df] bg-white px-6 py-3 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55]"
-                  >
-                    Not right now
-                  </button>
-                </div>
+              <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   type="button"
-                  onClick={handleExportBusinessPlan}
-                  className="inline-flex items-center gap-2 self-start rounded-full border border-[#0F766E]/35 bg-white/80 px-5 py-2 text-xs font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
+                  onClick={handleAutomationConfirm}
+                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#0F766E] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0a5a55] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
                 >
                   <svg
                     width="16"
@@ -249,11 +242,16 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" x2="12" y1="3" y2="15" />
+                    <path d="M20 6 9 17l-5-5" />
                   </svg>
-                  Export your business plan
+                  Yes, automate it
+                </button>
+                <button
+                  type="button"
+                  onClick={handleAutomationDecline}
+                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-[#d8e4df] bg-white px-6 py-3 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55]"
+                >
+                  Not right now
                 </button>
               </div>
             </motion.div>
