@@ -86,13 +86,13 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-screen-2xl flex-1 px-6 pb-10 lg:px-12">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(280px,1fr)]">
+        <div className="flex flex-col gap-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="relative overflow-hidden rounded-3xl border border-[#d8e4df] bg-gradient-to-br from-[#616161] to-[#4a4a4a] shadow-[0_32px_70px_-42px_rgba(11,64,55,0.35)]"
-            style={{ aspectRatio: "960/540" }}
+            style={{ aspectRatio: "1360/520" }}
           >
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/df351a3a49f1c6b9b74765965e6ddb3ecf6799d7?width=1600"
@@ -287,7 +287,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.2 }}
-            className="flex flex-col gap-4"
+            className="grid gap-4 lg:grid-cols-3"
           >
             <section className="rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_24px_60px_-38px_rgba(11,64,55,0.25)]">
               <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0F766E]">
