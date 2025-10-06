@@ -766,6 +766,19 @@ export default function ApplicantPortal() {
     setFocusContext,
     setIsTimelineBackgroundBlurred,
   ]);
+
+  const handleTimelineFocusChange = useCallback(
+    (isFocused: boolean) => {
+      if (isChatOpen) {
+        return;
+      }
+
+      if (!isFocused && isTimelineBackgroundBlurred) {
+        setIsTimelineBackgroundBlurred(false);
+      }
+    },
+    [isChatOpen, isTimelineBackgroundBlurred, setIsTimelineBackgroundBlurred],
+  );
   const handleJourneyOverviewToggle = useCallback(() => {
     setIsJourneyOverviewOpen((prev) => {
       const next = !prev;
@@ -1442,7 +1455,7 @@ export default function ApplicantPortal() {
         <div
           id="journey-overview-panel"
           className={cn(
-            "mt-6 rounded-3xl border border-[#d8e4df] bg-white/95 p-6 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)] sm:p-7",
+            "relative mt-6 rounded-3xl border border-[#d8e4df] bg-white/95 p-6 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)] sm:p-7",
             isTimelineBackgroundBlurred &&
               "pointer-events-none select-none filter blur-sm lg:blur-md",
           )}
@@ -1465,7 +1478,7 @@ export default function ApplicantPortal() {
             onResumeAutomation={handleResumeAutomation}
             onViewJourney={handleViewJourney}
             onOpenAutomation={handleOpenAutomationFocus}
-            onTimelineFocusChange={setIsTimelineBackgroundBlurred}
+            onTimelineFocusChange={handleTimelineFocusChange}
             formatDueDate={formatJourneyDueDate}
             automationStatus={automationStatus}
             stageNumberOffset={1}
