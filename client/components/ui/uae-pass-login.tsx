@@ -28,13 +28,13 @@ const MOCK_USER_PROFILES = {
     avatarUrl: ENTREPRENEUR_PROFILE.avatar,
   },
   reviewer: {
-    reviewerId: "Reviewer ID RV-45812",
-    name: "Reviewer ID RV-45812",
-    email: "rv-45812@adm.ae",
+    reviewerId: "DED Reviewer ID RV-45812",
+    name: "DED Reviewer ID RV-45812",
+    email: "rv-45812@ded.abudhabi.ae",
     emiratesId: "784-1982-7654321-2",
     userType: "reviewer" as const,
-    role: "License Reviewer",
-    department: "Abu Dhabi Municipality",
+    role: "DED License Reviewer",
+    department: "Department of Economic Development",
   },
 };
 
