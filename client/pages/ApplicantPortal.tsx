@@ -864,30 +864,33 @@ export default function ApplicantPortal() {
     }, 0);
   }, [todoBankItems, todoCompletionState]);
 
+  const automationStatus = useMemo(
+    () => {
+      const automationToken = chatPhase
+        ? taskStatusTokens.in_progress
+        : taskStatusTokens.completed;
+
+      return {
+        title: "Generating application",
+        description:
+          chatPhase?.message ??
+          "Application workspace has been generated with the latest requirements and synced checkpoints.",
+        statusLabel: chatPhase
+          ? `${automationToken.label} • ${chatProgress}%`
+          : automationToken.label,
+        statusBadgeClass: automationToken.badgeClass,
+        statusHelperClass: automationToken.helperClass,
+        meta: chatPhase
+          ? "Automation syncing requirements"
+          : "Automation finished",
+        showProgress: Boolean(chatPhase),
+      };
+    },
+    [chatPhase, chatProgress],
+  );
+
   const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
-    const automationToken = chatPhase
-      ? taskStatusTokens.in_progress
-      : taskStatusTokens.completed;
-
-    const automationItem: JourneyTimelineItem = {
-      id: "generating-application",
-      title: "Generating application",
-      description: chatPhase
-        ? chatPhase.message
-        : "Application workspace has been generated with the latest requirements and synced checkpoints.",
-      statusLabel: chatPhase
-        ? `${automationToken.label} • ${chatProgress}%`
-        : automationToken.label,
-      statusBadgeClass: automationToken.badgeClass,
-      statusHelperClass: automationToken.helperClass,
-      meta: chatPhase
-        ? "Automation syncing requirements"
-        : "Automation finished",
-      isCurrent: Boolean(chatPhase),
-      showProgress: Boolean(chatPhase),
-    };
-
-    const stageItems = journeyStages.map<JourneyTimelineItem>((stage) => {
+    return journeyStages.map<JourneyTimelineItem>((stage) => {
       const tokens = journeyHighlightTokens[stage.state];
       return {
         id: stage.id,
@@ -897,26 +900,15 @@ export default function ApplicantPortal() {
         statusBadgeClass: tokens.badgeClass,
         statusHelperClass: tokens.detailClass,
         meta: stage.statusDetail,
-        isCurrent: stage.id === activeStageId && !chatPhase,
+        isCurrent: stage.id === activeStageId,
       };
     });
-
-    return [automationItem, ...stageItems];
-  }, [chatPhase, chatProgress, journeyStages, activeStageId]);
+  }, [journeyStages, activeStageId]);
 
   const currentStageLabel = useMemo(() => {
-    const prioritized = journeyTimelineItems.find(
-      (item) => item.isCurrent && item.id !== "generating-application",
-    );
+    const prioritized = journeyTimelineItems.find((item) => item.isCurrent);
     if (prioritized) {
       return prioritized.title;
-    }
-
-    const automationCurrent = journeyTimelineItems.find(
-      (item) => item.id === "generating-application" && item.isCurrent,
-    );
-    if (automationCurrent) {
-      return automationCurrent.title;
     }
 
     const fallbackStage = journeyStages.find(
