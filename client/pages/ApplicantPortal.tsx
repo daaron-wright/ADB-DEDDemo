@@ -718,7 +718,6 @@ export default function ApplicantPortal() {
   const [focusedNextActionId, setFocusedNextActionId] = useState<string | null>(
     null,
   );
-  const nextActionRefs = useRef<Record<string, HTMLElement | null>>({});
   const [todoCompletionState, setTodoCompletionState] = useState<
     Record<string, boolean>
   >({});
@@ -949,16 +948,6 @@ export default function ApplicantPortal() {
     });
   }, [todoBankItems]);
 
-  useEffect(() => {
-    if (!focusedNextActionId) {
-      return;
-    }
-
-    const node = nextActionRefs.current[focusedNextActionId];
-    if (node) {
-      node.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  }, [focusedNextActionId]);
 
   useEffect(() => {
     if (
