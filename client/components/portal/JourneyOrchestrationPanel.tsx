@@ -25,7 +25,6 @@ interface JourneyOrchestrationPanelProps {
   onViewJourney: (stageId: string) => void;
   onOpenAutomation: () => void;
   onTimelineFocusChange?: (isFocused: boolean) => void;
-  formatDueDate?: (isoString: string) => string;
   automationStatus?: {
     title: string;
     description: string;
