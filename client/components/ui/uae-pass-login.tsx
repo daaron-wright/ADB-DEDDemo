@@ -82,6 +82,8 @@ const MODAL_MIN_DIMENSIONS: React.CSSProperties = {
   minHeight: 556,
 };
 
+const AVAILABLE_USER_TYPES = ["applicant"] as const;
+
 interface UserTypeSelectionProps {
   onSelect: (type: "applicant" | "reviewer") => void;
 }
@@ -101,17 +103,16 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
       </span>
       <div className="space-y-2">
         <h3 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-          Choose your workspace
+          Log-In
         </h3>
         <p className="text-sm text-slate-600">
-          Select the experience you need to demonstrate either the applicant
-          journey or the reviewer console.
+          Access your business license workspace with UAE PASS.
         </p>
       </div>
     </div>
 
-    <div className="mx-auto grid max-w-3xl gap-4 justify-items-center sm:grid-cols-2">
-      {(["applicant", "reviewer"] as const).map((type) => {
+    <div className="mx-auto flex max-w-3xl justify-center">
+      {AVAILABLE_USER_TYPES.map((type) => {
         const detail = USER_TYPE_DETAILS[type];
         const isReviewer = type === "reviewer";
         const badgeStyle = isReviewer
@@ -126,73 +127,76 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
             type="button"
             onClick={() => onSelect(type)}
             className={chatCardClass(
-              "group flex h-full w-full max-w-[360px] flex-col justify-between border border-slate-200 bg-white p-6 text-left shadow-sm transition-all duration-200 hover:border-slate-400 hover:shadow-[0_18px_40px_-26px_rgba(15,23,42,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2",
+              "group w-full max-w-[600px] rounded-3xl border border-slate-200 bg-white p-6 text-left shadow-sm transition-all duration-200 hover:border-slate-400 hover:shadow-[0_18px_40px_-26px_rgba(15,23,42,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 sm:p-8",
             )}
             aria-label={`Continue as ${detail.label}`}
             style={{
               boxShadow: "0 12px 30px -24px rgba(15, 23, 42, 0.3)",
             }}
           >
-            <div className="space-y-4">
-              <div
+            <div className="flex w-full flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-start gap-4 sm:gap-6">
+                <div
+                  className={cn(
+                    "inline-flex h-12 w-12 items-center justify-center rounded-full text-base font-semibold shadow-sm",
+                    isReviewer
+                      ? "border-2 border-[#0f766e] bg-white text-[#0f766e]"
+                      : "text-white",
+                  )}
+                  style={badgeStyle}
+                >
+                  {detail.badge}
+                </div>
+                <div className="space-y-2 text-left">
+                  <h4 className="text-lg font-semibold text-slate-900">
+                    {detail.label}
+                  </h4>
+                  <p className="text-sm leading-relaxed text-slate-600">
+                    {detail.description}
+                  </p>
+                  <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                    {detail.secondary}
+                  </p>
+                </div>
+              </div>
+              <span
                 className={cn(
-                  "inline-flex h-12 w-12 items-center justify-center rounded-full text-base font-semibold shadow-sm",
+                  "inline-flex items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition group-hover:translate-x-0.5",
                   isReviewer
-                    ? "border-2 border-[#0f766e] bg-white text-[#0f766e]"
+                    ? "border border-[#0f766e] bg-white text-[#0f766e]"
                     : "text-white",
+                  "self-start sm:ml-auto sm:self-center",
                 )}
-                style={badgeStyle}
+                style={
+                  isReviewer ? undefined : { backgroundColor: detail.accent }
+                }
               >
-                {detail.badge}
-              </div>
-              <div className="space-y-2">
-                <h4 className="text-lg font-semibold text-slate-900">
-                  {detail.label}
-                </h4>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  {detail.description}
-                </p>
-                <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
-                  {detail.secondary}
-                </p>
-              </div>
+                Continue
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={cn(isReviewer ? "text-[#0f766e]" : "text-white/90")}
+                >
+                  <path
+                    d="M3.5 8h9"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M9.5 4l3.5 4-3.5 4"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
             </div>
-            <span
-              className={cn(
-                "mt-6 inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition group-hover:translate-x-0.5",
-                isReviewer
-                  ? "border border-[#0f766e] bg-white text-[#0f766e]"
-                  : "text-white",
-              )}
-              style={
-                isReviewer ? undefined : { backgroundColor: detail.accent }
-              }
-            >
-              Continue
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className={cn(isReviewer ? "text-[#0f766e]" : "text-white/90")}
-              >
-                <path
-                  d="M3.5 8h9"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M9.5 4l3.5 4-3.5 4"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
           </button>
         );
       })}
@@ -398,10 +402,7 @@ export const UAEPassLogin: React.FC<UAEPassLoginProps> = ({
   const activeUserType: "applicant" | "reviewer" =
     selectedUserType ?? defaultUserType ?? "applicant";
   const activeUserDetail = USER_TYPE_DETAILS[activeUserType];
-  const modalTitle =
-    activeUserDetail.badge === "LR"
-      ? "Sign in with DED credentials"
-      : "Sign in with UAE PASS";
+  const modalTitle = "Log-In";
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const timeouts = useRef<ReturnType<typeof setTimeout>[]>([]);
 
