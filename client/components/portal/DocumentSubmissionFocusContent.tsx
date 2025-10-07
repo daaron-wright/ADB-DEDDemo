@@ -202,7 +202,7 @@ export function DocumentSubmissionFocusContent({
     })),
   );
   const [progress, setProgress] = React.useState(initialProgress);
-  const [isLaunchDropdownOpen, setIsLaunchDropdownOpen] = React.useState(true);
+  const [isLaunchDropdownOpen, setIsLaunchDropdownOpen] = React.useState(false);
   const [isCompletingMoa, setIsCompletingMoa] = React.useState(false);
   const completionTimeoutRef = React.useRef<number | null>(null);
 
