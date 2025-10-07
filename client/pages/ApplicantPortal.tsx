@@ -277,7 +277,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     nextActionButton: "انتقلي إلى الإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل عقدك.",
+      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "مساعد الأعمال الذكي",
     statusLabelMap: {
       "In Review": "قيد المراجعة",
@@ -1718,25 +1718,25 @@ export default function ApplicantPortal() {
     <div className="space-y-8">
       <div className="space-y-3">
         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-          Workspace support
+          {languageCopy.workspaceSupportBadge}
         </p>
         <div className="space-y-6 text-sm text-slate-700">
           <div>
             <h3 className="text-sm font-semibold text-slate-900">
-              Need support?
+              {languageCopy.supportHeading}
             </h3>
             <p className="mt-2 leading-relaxed">
-              Our licensing team is available Sunday to Thursday, 8:00–18:00
-              GST. Reach out at{" "}
-              <span className="font-medium text-[#0f766e]">
-                licensing@adm.ae
-              </span>{" "}
-              or call{" "}
-              <span className="font-medium text-[#0f766e]">800-555-0134</span>.
+              {languageCopy.supportDescription.preEmail}
+              <span className="font-medium text-[#0f766e]">licensing@adm.ae</span>
+              {languageCopy.supportDescription.postEmailPrePhone}
+              <span className="font-medium text-[#0f766e]">800-555-0134</span>
+              {languageCopy.supportDescription.postPhone}
             </p>
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-slate-900">Key dates</h3>
+            <h3 className="text-sm font-semibold text-slate-900">
+              {languageCopy.keyDatesHeading}
+            </h3>
             <dl className="mt-3 space-y-2">
               {keyDates.map((item) => (
                 <div
@@ -1754,7 +1754,7 @@ export default function ApplicantPortal() {
               {languageCopy.nextActionHeading}
             </h3>
             <p className="mt-2 leading-relaxed">
-              {primaryApplication.nextAction}
+              {displayApplication.nextAction}
             </p>
           </div>
         </div>
