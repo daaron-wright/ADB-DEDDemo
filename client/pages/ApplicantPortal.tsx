@@ -94,7 +94,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require more clarification to ensure the right decisions are made.",
-  ar: "قبل البدء في مسار الترخيص، نحتاج إلى تحديد الشكل القانوني الأنسب، وأنشطة العمل، ومتطلبات المساحة. قد تكون بعض العناصر محددة مسبقًا، لكن عناصر أخرى تتطلب توضيحًا إضافيًا لضمان اتخاذ القرارات الصحيحة.",
+  ar: "قبل البدء في مسار الترخ��ص، نحتاج إلى تحديد الشكل القانوني الأنسب، وأنشطة العمل، ومتطلبات المساحة. قد تكون بعض العناصر محددة مسبقًا، لكن عناصر أخرى تتطلب توضيحًا إضافيًا لضمان اتخاذ القرارات الصحيحة.",
 };
 
 interface SupportDescriptionCopy {
@@ -261,7 +261,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       lastUpdated: "آخر تحديث",
     },
     heroBadge: "رحلة المستثمر",
-    heroTitle: "رحلتك مدعومة بالذكاء الاصطناعي",
+    heroTitle: "رحلتك مدعومة ��الذكاء الاصطناعي",
     heroDescription: (name: string) =>
       `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستثمرون آخرون أفكارهم إلى مطاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
@@ -1801,36 +1801,33 @@ export default function ApplicantPortal() {
               />
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/70">
-                  Investor Journey
+                  {languageCopy.heroBadge}
                 </p>
                 <p className="text-sm font-semibold text-white">
-                  {ENTREPRENEUR_PROFILE.name}
+                  {profileName}
                 </p>
               </div>
             </div>
           </div>
           <div className="space-y-3">
             <h2 className="text-2xl font-semibold leading-snug sm:text-3xl">
-              Your journey, powered by AI
+              {languageCopy.heroTitle}
             </h2>
             <p className="max-w-xl text-sm leading-relaxed text-white/80">
-              Discover a clear path to research market potential, plan key
-              approvals, and prepare your business case with AI guidance. In
-              just a few stages, explore how {ENTREPRENEUR_PROFILE.name} and
-              other investors turn ideas into thriving restaurants across Abu
-              Dhabi.
+              {languageCopy.heroDescription(profileName)}
             </p>
           </div>
         </div>
         <div className="flex sm:w-auto sm:items-center">
           <Link
             to={discoveryGeneralChatLink}
+            aria-label={languageCopy.heroButton}
             className="inline-flex items-center justify-center gap-2 rounded-full border border-white/70 px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_-22px_rgba(0,0,0,0.35)] transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
           >
             <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/15">
               <Plus className="h-4 w-4" aria-hidden="true" />
             </span>
-            Explore more options
+            {languageCopy.heroButton}
           </Link>
         </div>
       </div>
