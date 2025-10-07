@@ -1308,6 +1308,7 @@ export default function ApplicantPortal() {
           : undefined,
       stageActivities: stageActivityContext,
       tradeName: primaryApplication.title,
+      onTradeNameChange: handleTradeNameChange,
     };
   }, [
     focusViewContext,
@@ -1319,6 +1320,7 @@ export default function ApplicantPortal() {
     availableJourneyActivities,
     handleAddJourneyActivity,
     primaryApplication.title,
+    handleTradeNameChange,
   ]);
 
   const shouldSuppressChatInterface = false;
