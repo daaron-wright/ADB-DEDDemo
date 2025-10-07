@@ -231,80 +231,90 @@ export function DocumentSubmissionFocusContent({
           </div>
 
           {steps
-            .filter((step) => step.subSteps && step.status === "current")
-            .map((step) => (
-              <div
-                key={step.id}
-                className="space-y-4 rounded-3xl border border-white/60 bg-white p-5 shadow-[0_28px_60px_-54px_rgba(15,23,42,0.4)]"
-              >
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div className="space-y-1">
-                    <p className="text-sm font-semibold text-slate-900">
-                      Active sub-steps
-                    </p>
-                    <p className="text-sm text-slate-600">
-                      Track each requirement before moving to the next stage.
-                    </p>
+            .filter((step) => step.subSteps && step.status !== "pending")
+            .map((step) => {
+              const completedCount = step.subSteps?.filter(
+                (item) => item.status === "completed",
+              ).length ?? 0;
+              const totalCount = step.subSteps?.length ?? 0;
+              const isCompletedStep = step.status === "completed";
+
+              return (
+                <div
+                  key={step.id}
+                  className="space-y-4 rounded-3xl border border-white/60 bg-white p-5 shadow-[0_28px_60px_-54px_rgba(15,23,42,0.4)]"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="space-y-1">
+                      <p className="text-sm font-semibold text-slate-900">
+                        {isCompletedStep ? "Completed sub-steps" : "Active sub-steps"}
+                      </p>
+                      <p className="text-sm text-slate-600">
+                        {isCompletedStep
+                          ? "All required submissions have synced successfully."
+                          : "Track each requirement before moving to the next stage."}
+                      </p>
+                    </div>
+                    <Badge className="border-[#b7e1d4] bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                      {completedCount} of {totalCount} complete
+                    </Badge>
                   </div>
-                  <Badge className="border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
-                    {step.subSteps?.filter((item) => item.status === "completed").length} of {step.subSteps?.length} complete
-                  </Badge>
-                </div>
 
-                <div className="space-y-3">
-                  {step.subSteps?.map((subStep) => {
-                    const token = SUB_STEP_TOKENS[subStep.status];
+                  <div className="space-y-3">
+                    {step.subSteps?.map((subStep) => {
+                      const token = SUB_STEP_TOKENS[subStep.status];
 
-                    return (
-                      <div
-                        key={subStep.id}
-                        className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:flex-row sm:items-center sm:justify-between"
-                      >
-                        <div className="flex items-start gap-3">
-                          <span
-                            className={cn(
-                              "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border",
-                              subStep.status === "completed" && "border-[#0f766e]/20 bg-[#0f766e]/10",
-                              subStep.status === "in_progress" && "border-[#94d2c2] bg-[#dff2ec]/70",
-                              subStep.status === "pending" && "border-slate-200 bg-white",
-                            )}
-                          >
-                            {subStep.status === "completed" ? (
-                              <Check className={cn("h-4 w-4", token.iconClass)} strokeWidth={3} />
-                            ) : subStep.status === "in_progress" ? (
-                              <Loader2 className={cn("h-4 w-4 animate-spin", token.iconClass)} />
-                            ) : (
-                              <span className={cn("block h-2.5 w-2.5 rounded-full", token.dotClass)} />
-                            )}
-                          </span>
-                          <div className="space-y-1">
-                            <p className="text-base font-semibold text-slate-900">
-                              {subStep.label} {subStep.authority ? `(${subStep.authority})` : ""}
-                            </p>
-                            <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
-                              <span>{token.label}</span>
-                              {subStep.isOptional ? (
-                                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                                  Optional
-                                </span>
-                              ) : null}
+                      return (
+                        <div
+                          key={subStep.id}
+                          className="flex flex-col gap-3 rounded-2xl border border-[#e3ede8] bg-white p-4 sm:flex-row sm:items-center sm:justify-between"
+                        >
+                          <div className="flex items-start gap-3">
+                            <span
+                              className={cn(
+                                "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border",
+                                subStep.status === "completed" && "border-[#0f766e]/20 bg-[#0f766e]/10",
+                                subStep.status === "in_progress" && "border-[#94d2c2] bg-[#dff2ec]/70",
+                                subStep.status === "pending" && "border-slate-200 bg-white",
+                              )}
+                            >
+                              {subStep.status === "completed" ? (
+                                <Check className={cn("h-4 w-4", token.iconClass)} strokeWidth={3} />
+                              ) : subStep.status === "in_progress" ? (
+                                <Loader2 className={cn("h-4 w-4 animate-spin", token.iconClass)} />
+                              ) : (
+                                <span className={cn("block h-2.5 w-2.5 rounded-full", token.dotClass)} />
+                              )}
+                            </span>
+                            <div className="space-y-1">
+                              <p className="text-base font-semibold text-slate-900">
+                                {subStep.label} {subStep.authority ? `(${subStep.authority})` : ""}
+                              </p>
+                              <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
+                                <span>{token.label}</span>
+                                {subStep.isOptional ? (
+                                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                                    Optional
+                                  </span>
+                                ) : null}
+                              </div>
                             </div>
                           </div>
+                          <Badge
+                            className={cn(
+                              "self-start border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                              token.badgeClass,
+                            )}
+                          >
+                            {token.label}
+                          </Badge>
                         </div>
-                        <Badge
-                          className={cn(
-                            "self-start border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                            token.badgeClass,
-                          )}
-                        >
-                          {token.label}
-                        </Badge>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
 
         </div>
       </section>
