@@ -143,7 +143,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     arabicLabel: "العربية",
     englishBadge: "English",
     arabicBadge: "العربية • ترجمة",
-    subtitle: "بوابة رخصة الأعمال",
+    subtitle: "بوابة رخ��ة الأعمال",
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة التالية.`,
@@ -1836,7 +1836,7 @@ export default function ApplicantPortal() {
     <div className="relative">
       <PortalPageLayout
         title={workspaceHeroTitle}
-        subtitle="Business license portal"
+        subtitle={languageCopy.subtitle}
         description={workspaceDescription}
         filters={filters}
         headerActions={headerActions}
