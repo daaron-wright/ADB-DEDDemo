@@ -666,7 +666,7 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
               </div>
             </div>
             <div className="text-right">
-              <div className="text-sm font-semibold text-blue-600">4.3���</div>
+              <div className="text-sm font-semibold text-blue-600">4.3★</div>
               <div className="text-xs text-slate-500">$$$</div>
             </div>
           </div>
@@ -6241,9 +6241,6 @@ export function BusinessChatUI({
                           {journeyFocusView ? (
                             <JourneyStageFocusView
                               {...journeyFocusView}
-                              showTradeNameIdeas={
-                                selectedLicenseMenu === "trade-name"
-                              }
                             />
                           ) : null}
                           {!journeyFocusView && showChatInterface
