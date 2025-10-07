@@ -377,9 +377,7 @@ export function BusinessRegistrationFocusContent({
 
           <div className="space-y-5 rounded-3xl border border-white/60 bg-white p-5 shadow-[0_28px_60px_-54px_rgba(15,23,42,0.4)]">
             <div className="flex items-start gap-3">
-              <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#0f766e]/15 text-[#0f766e]">
-                <Check className="h-4 w-4" strokeWidth={3} />
-              </div>
+              <div className={statusIconWrapperClasses}>{statusCardIcon}</div>
               <div className="space-y-3">
                 <div className="space-y-1">
                   <h3 className="text-base font-semibold text-slate-900">
