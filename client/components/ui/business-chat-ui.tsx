@@ -5502,8 +5502,15 @@ export function BusinessChatUI({
 
       setMessages((prev) => [...prev, userMessage, ...responses]);
       setInputValue("");
+      setActiveSuggestedTopic(null);
     },
-    [buildMessage, buildStepMessage, openApplicantPortal, setCurrentStep],
+    [
+      buildMessage,
+      buildStepMessage,
+      openApplicantPortal,
+      setCurrentStep,
+      setActiveSuggestedTopic,
+    ],
   );
 
   const openHeatMapFullView = useCallback(() => {
