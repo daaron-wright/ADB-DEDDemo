@@ -295,11 +295,21 @@ export function BusinessRegistrationFocusContent({
     (idea: string) => {
       setInputValue(idea);
       setHasUserOverride(true);
+      setPendingTradeName(null);
+
+      if (!isChecking) {
+        setHasPerformedCheck(false);
+        setIsNameAvailable(false);
+        setFailedStepIndex(null);
+        setFailureReason(null);
+        setAutomationProgress(0);
+      }
+
       requestAnimationFrame(() => {
         inputRef.current?.focus();
       });
     },
-    [],
+    [isChecking],
   );
 
   const showVerificationSteps = hasPerformedCheck || isChecking;
