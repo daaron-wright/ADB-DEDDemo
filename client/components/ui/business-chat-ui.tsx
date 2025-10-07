@@ -5115,9 +5115,6 @@ export function BusinessChatUI({
   const [interactionMode, setInteractionMode] = useState<"chat" | "voice">(
     "chat",
   );
-  const [selectedLicenseMenu, setSelectedLicenseMenu] =
-    useState<TradeLicenseMenuOptionId>("recommended");
-
   const openApplicantPortal = useCallback(() => {
     navigate("/portal/applicant", {
       state: {
