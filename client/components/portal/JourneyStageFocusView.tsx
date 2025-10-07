@@ -32,6 +32,7 @@ export interface JourneyStageFocusViewProps {
   highlightTokens: Record<JourneyHighlightState, StageTokens>;
   taskTokens: Record<JourneyTaskStatus, TaskToken>;
   formatDate: (isoString: string) => string;
+  showTradeNameIdeas?: boolean;
 }
 
 const TASK_CARD_BASE =
@@ -43,6 +44,7 @@ export function JourneyStageFocusView({
   highlightTokens,
   taskTokens,
   formatDate,
+  showTradeNameIdeas = false,
 }: JourneyStageFocusViewProps) {
   const highlightToken = stage ? highlightTokens[stage.state] : null;
   const stagedTasks = stage?.tasks ?? [];
@@ -119,6 +121,7 @@ export function JourneyStageFocusView({
           journeyNumber="0987654321"
           completionStatus="4 of 8 complete"
           progressPercent={46}
+          showTradeNameIdeas={showTradeNameIdeas}
         />
       </div>
     );
