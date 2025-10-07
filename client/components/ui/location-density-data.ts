@@ -79,8 +79,9 @@ export const densityLayers: DensityLayer[] = [
         intensity: "high",
         size: 74,
         title: "Corniche waterfront towers",
-        density: "6.5k Tawtheeq households",
-        insight: "High-rise residences sustain 92% average occupancy across Corniche blocks.",
+        density: "6.5k residential households",
+        insight:
+          "High-rise residences sustain 92% occupancy, with Tawtheeq rental contracts feeding these totals.",
       },
       {
         id: "khalidiya-res",
@@ -282,8 +283,8 @@ export const areaProfiles: AreaProfile[] = [
       "Scenic promenade attracting residents, office workers, and beach visitors with steady year-round activity.",
     metrics: {
       residents: {
-        value: "6.5k Tawtheeq households",
-        note: "Clustered towers (Zones C1–C4) with >92% renewal rates.",
+        value: "6.5k residential households",
+        note: "Clustered towers (Zones C1–C4) with >92% renewal rates, tallied from Tawtheeq rental contracts.",
         source: "Tawtheeq occupancy registry, Q1 2025",
       },
       office: {
@@ -305,8 +306,8 @@ export const areaProfiles: AreaProfile[] = [
       "Financial district anchored by ADGM, premium hotels, and Cleveland Clinic creating lunch and evening demand.",
     metrics: {
       residents: {
-        value: "2.2k Tawtheeq households",
-        note: "High-income apartments in The Galleria residences with rapid lease absorption.",
+        value: "2.2k residential households",
+        note: "High-income apartments in The Galleria residences with rapid lease absorption, sourced via Tawtheeq contracts.",
         source: "Tawtheeq occupancy registry, Q1 2025",
       },
       office: {
@@ -328,8 +329,8 @@ export const areaProfiles: AreaProfile[] = [
       "Entertainment-led destination with significant tourist inflow and growing residential catchment.",
     metrics: {
       residents: {
-        value: "3.4k Tawtheeq households",
-        note: "New mid-rise communities in Yas Gateway expanding permanent base.",
+        value: "3.4k residential households",
+        note: "New mid-rise communities in Yas Gateway expanding permanent base, counted from Tawtheeq rental filings.",
         source: "Tawtheeq occupancy registry, Q1 2025",
       },
       office: {
