@@ -281,6 +281,17 @@ export function BusinessRegistrationFocusContent({
     [],
   );
 
+  const handleIdeaSelect = React.useCallback(
+    (idea: string) => {
+      setInputValue(idea);
+      setHasUserOverride(true);
+      requestAnimationFrame(() => {
+        inputRef.current?.focus();
+      });
+    },
+    [],
+  );
+
   const showVerificationSteps = hasPerformedCheck || isChecking;
 
   const automationSteps = React.useMemo<TradeNameVerificationStepWithStatus[]>(() => {
