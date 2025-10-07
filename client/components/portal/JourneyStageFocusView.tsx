@@ -133,6 +133,7 @@ export function JourneyStageFocusView({
   const selectedRecommendedActivity = recommendedActivities.find(
     (activity) => activity.id === activeRecommendedActivityId,
   );
+  const selectedRecommendedId = selectedRecommendedActivity?.id ?? null;
 
   const [showActivityCatalog, setShowActivityCatalog] = useState(false);
 
