@@ -152,7 +152,8 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
               <div className="flex items-start gap-4 sm:gap-6">
                 <div
                   className={cn(
-                    "inline-flex h-14 w-14 items-center justify-center text-lg font-semibold transition-shadow duration-200",
+                    "inline-flex items-center justify-center text-lg font-semibold transition-shadow duration-200",
+                    detail.badgeSizeClass ?? "h-14 w-14",
                     detail.badgeShapeClass ?? "rounded-full",
                     isReviewer
                       ? "border-2 border-[#0f766e] bg-white text-[#0f766e] shadow-sm"
