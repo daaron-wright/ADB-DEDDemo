@@ -118,8 +118,6 @@ export function JourneyStageFocusView({
         <BusinessRegistrationFocusContent
           journeyNumber="0987654321"
           completionStatus="4 of 8 complete"
-          tradeName="MARWAH"
-          isTradeNameAvailable
           progressPercent={46}
         />
       </div>
