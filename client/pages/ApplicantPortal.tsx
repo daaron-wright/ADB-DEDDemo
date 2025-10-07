@@ -94,7 +94,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require more clarification to ensure the right decisions are made.",
-  ar: "قبل البدء في مسار الترخ��ص، نحتاج إلى تحديد الشكل القانوني الأنسب، وأنشطة العمل، ومتطلبات المساحة. قد تكون بعض العناصر محددة مسبقًا، لكن عناصر أخرى تتطلب توضيحًا إضافيًا لضمان اتخاذ القرارات الصحيحة.",
+  ar: "قبل البدء في مسار الترخيص، نحتاج إلى تحديد الشكل القانوني الأنسب، وأنشطة العمل، ومتطلبات المساحة. قد تكون بعض العناصر محددة مسبقًا، لكن عناصر أخرى تتطلب توضيحًا إضافيًا لضمان اتخاذ القرارات الصحيحة.",
 };
 
 interface SupportDescriptionCopy {
@@ -261,9 +261,9 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       lastUpdated: "آخر تحديث",
     },
     heroBadge: "رحلة المستثمر",
-    heroTitle: "رحلتك مدعومة ��الذكاء الاصطناعي",
+    heroTitle: "رحلتك مدعومة بالذكاء الاصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستثمرون آخرون أفكارهم إلى مطاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية�� وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستثمرون آخرون أفكارهم إلى مطاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاصطناعي",
     journeyToggleLabel: (title: string) => `عرض أو إخفاء نظرة عامة للرحلة الخاصة بـ ${title}`,
@@ -1848,7 +1848,7 @@ export default function ApplicantPortal() {
         tabIndex={0}
         aria-expanded={isJourneyOverviewOpen}
         aria-controls="journey-overview-panel"
-        aria-label={`Toggle journey overview for ${primaryApplication.title}`}
+        aria-label={languageCopy.journeyToggleLabel(displayApplication.title)}
         onClick={handleJourneyOverviewToggle}
         onKeyDown={handleJourneyOverviewKeyDown}
         className={cn(
@@ -1867,10 +1867,10 @@ export default function ApplicantPortal() {
             <div className="relative space-y-2 pr-12 lg:pr-16">
               <div>
                 <h2 className="text-2xl font-semibold tracking-tight">
-                  {primaryApplication.title}
+                  {displayApplication.title}
                 </h2>
                 <p className="text-sm text-slate-600">
-                  {primaryApplication.directorate}
+                  {displayDirectorate}
                 </p>
                 <div className="flex flex-wrap items-center gap-3 pt-2">
                   <Badge
@@ -1879,7 +1879,7 @@ export default function ApplicantPortal() {
                       statusStyles[primaryApplication.status],
                     )}
                   >
-                    {primaryApplication.status}
+                    {displayStatus}
                   </Badge>
                   <span className="text-xs text-slate-500">
                     {primaryApplication.id}
@@ -1906,30 +1906,30 @@ export default function ApplicantPortal() {
                 className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
               >
                 <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
-                Chat with AI
+                {languageCopy.chatCta}
               </Button>
             </div>
           </div>
           <div className="grid gap-4 text-sm text-slate-600 sm:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Beneficiary
+                {languageCopy.fieldLabels.beneficiary}
               </p>
               <p className="mt-2 text-sm font-semibold text-slate-900">
-                {primaryApplication.beneficiary}
+                {displayBeneficiary}
               </p>
             </div>
             <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                License type
+                {languageCopy.fieldLabels.licenseType}
               </p>
               <p className="mt-2 text-sm font-semibold text-slate-900">
-                {primaryApplication.licenseType}
+                {displayLicenseType}
               </p>
             </div>
             <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Submission ID
+                {languageCopy.fieldLabels.submissionId}
               </p>
               <p className="mt-2 text-sm font-semibold text-slate-900">
                 {primaryApplication.id}
@@ -1937,7 +1937,7 @@ export default function ApplicantPortal() {
             </div>
             <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Last update
+                {languageCopy.fieldLabels.lastUpdate}
               </p>
               <p className="mt-2 text-sm font-semibold text-slate-900">
                 {dateFormatter.format(new Date(primaryApplication.lastUpdated))}
@@ -1950,7 +1950,7 @@ export default function ApplicantPortal() {
                 {languageCopy.nextActionHeading}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-700">
-                {primaryApplication.nextAction}
+                {displayApplication.nextAction}
               </p>
             </div>
             <Button
