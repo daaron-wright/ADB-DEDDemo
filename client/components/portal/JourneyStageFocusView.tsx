@@ -137,6 +137,12 @@ export function JourneyStageFocusView({
 
   const [showActivityCatalog, setShowActivityCatalog] = useState(false);
 
+  useEffect(() => {
+    if (selectedRecommendedId !== "activity-curation") {
+      setShowActivityCatalog(false);
+    }
+  }, [selectedRecommendedId]);
+
   const navigationControls = hasNavigationControls ? (
     <div className="flex flex-wrap items-center justify-end gap-3">
       {navigation?.onPrevious ? (
