@@ -1005,6 +1005,10 @@ export default function ApplicantPortal() {
       if (matchingStep) {
         updateCurrentJourneyStep(stageId);
       }
+
+      window.requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
     },
     [
       setBusinessAIView,
