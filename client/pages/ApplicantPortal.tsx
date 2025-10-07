@@ -1007,7 +1007,11 @@ export default function ApplicantPortal() {
   );
 
   const languageToggle = (
-    <div className="flex flex-col items-end gap-1" aria-label={languageCopy.languageLabel}>
+    <div
+      className="flex flex-col items-end gap-1"
+      role="group"
+      aria-label={languageCopy.languageLabel}
+    >
       <div className="inline-flex items-center gap-1 rounded-full border border-[#0f766e]/30 bg-white/90 p-1 shadow-[0_14px_28px_-24px_rgba(15,118,110,0.35)]">
         <button
           type="button"
