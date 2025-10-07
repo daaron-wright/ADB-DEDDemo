@@ -527,13 +527,10 @@ export function BusinessRegistrationFocusContent({
                 Connected to Department of Economic Development
               </p>
             </div>
-            <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
-              In progress
-            </Badge>
+            <Badge className={tradeCheckBadgeClasses}>{tradeCheckBadgeLabel}</Badge>
           </div>
           <p className="text-sm text-slate-600">
-            We’re confirming availability and reserving your trade name before
-            moving to licensing.
+            {tradeCheckDescription}
           </p>
           <div className="space-y-4 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
