@@ -102,7 +102,7 @@ const CompetitorDataSection: React.FC<CompetitorDataProps> = ({
               Analyzing top restaurants in Abu Dhabi Corniche area
             </p>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
-              Querying the “Investor Compass”
+              Querying the "Investor Compass"
             </p>
 
             <div className="mx-auto max-w-xs">
