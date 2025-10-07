@@ -628,8 +628,7 @@ export function BusinessRegistrationFocusContent({
               className="h-12 w-auto"
             />
             <p className="text-sm font-medium text-slate-700">
-              Status: verification synced with the Department of Economic
-              Development
+              {statusSummary}
             </p>
           </div>
         </div>
