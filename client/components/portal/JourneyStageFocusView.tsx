@@ -74,7 +74,6 @@ const LICENSE_TYPE_PROFILES = [
     id: "commercial",
     title: "Commercial license",
     summary: "Full trading privileges for dine-in, delivery, and catering services.",
-    timeline: "Avg. 14 days",
     feeEstimate: "AED 6,400",
     highlights: [
       "Allows bundling of multiple restaurant activities",
@@ -85,7 +84,6 @@ const LICENSE_TYPE_PROFILES = [
     id: "professional",
     title: "Professional license",
     summary: "Ideal for consultancy-led or niche culinary services.",
-    timeline: "Avg. 10 days",
     feeEstimate: "AED 4,200",
     highlights: [
       "Lower upfront cost and flexible ownership structures",
@@ -431,9 +429,6 @@ export function JourneyStageFocusView({
                               <p className="text-sm font-semibold text-slate-900">
                                 {profile.title}
                               </p>
-                              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                                {profile.timeline}
-                              </span>
                             </div>
                             <p className="text-xs text-slate-500">
                               {profile.summary}
