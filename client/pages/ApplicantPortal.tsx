@@ -366,6 +366,10 @@ const journeyStages: JourneyStage[] = [
   },
 ];
 
+const DEFAULT_ACTIVE_STAGE_ID =
+  journeyStages.find((stage) => deriveStageState(stage) === "current")?.id ??
+  journeyStages[0].id;
+
 const STAGES_WITH_SUPPRESSED_CHAT = new Set<string>([
   "questionnaire",
   "trade-name-activities",
