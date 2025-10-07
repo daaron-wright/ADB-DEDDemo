@@ -1112,6 +1112,7 @@ export default function ApplicantPortal() {
       highlightTokens: journeyHighlightTokens,
       taskTokens: taskStatusTokens,
       formatDate: formatJourneyDueDate,
+      navigation: focusViewContext.navigation,
     };
   }, [focusViewContext, formatJourneyDueDate]);
 
