@@ -159,6 +159,7 @@ export function BusinessRegistrationFocusContent({
   );
   const [inputValue, setInputValue] = React.useState("");
   const [isChecking, setIsChecking] = React.useState(false);
+  const [hasPerformedCheck, setHasPerformedCheck] = React.useState(false);
   const [isNameAvailable, setIsNameAvailable] = React.useState(
     Boolean(tradeName) && isTradeNameAvailable,
   );
@@ -192,10 +193,12 @@ export function BusinessRegistrationFocusContent({
     );
     setFailureReason(null);
     setAutomationProgress(clampProgress(progressPercent));
+    setHasPerformedCheck(false);
   }, [hasUserOverride, tradeName, isTradeNameAvailable, progressPercent]);
 
   React.useEffect(() => {
     setHasUserOverride(false);
+    setHasPerformedCheck(false);
   }, [tradeName, isTradeNameAvailable, progressPercent]);
 
   React.useEffect(() => {
@@ -226,6 +229,7 @@ export function BusinessRegistrationFocusContent({
               : "Please enter a trade name to run the automated checks.",
           );
           setPendingTradeName(null);
+          setHasPerformedCheck(true);
         }
 
         return next;
@@ -258,6 +262,7 @@ export function BusinessRegistrationFocusContent({
       setFailedStepIndex(null);
       setFailureReason(null);
       setHasUserOverride(true);
+      setHasPerformedCheck(true);
     },
     [isChecking, trimmedInput],
   );
