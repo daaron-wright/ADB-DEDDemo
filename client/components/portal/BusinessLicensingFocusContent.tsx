@@ -427,12 +427,21 @@ export function BusinessLicensingFocusContent({
 
           {shouldShowUserActions ? (
             <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
-              <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Your first actions</p>
-                <p className="text-base font-semibold text-slate-900">What AI Business needs from you</p>
-              </div>
-              <ul className="space-y-3">
-                {LICENSING_USER_ACTIONS.map((item) => {
+              <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Your first actions</p>
+              <p className="text-base font-semibold text-slate-900">What AI Business needs from you</p>
+            </div>
+            <Button
+              type="button"
+              onClick={handleRequestLicense}
+              className="rounded-full border border-[#0f766e] bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+            >
+              Request license
+            </Button>
+          </div>
+          <ul className="space-y-3">
+            {LICENSING_USER_ACTIONS.map((item) => {
                   const relatedSubStep =
                     item.id === "license-economic-issuance"
                       ? licensingSubSteps.find((subStep) => subStep.id === "economic-license-ded")
