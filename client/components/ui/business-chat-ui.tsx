@@ -5103,7 +5103,6 @@ export function BusinessChatUI({
   category,
   title = "AI Business",
   initialMessage,
-  onMinimize,
   mode = "modal",
   journeyFocusView = null,
   suppressChatInterface = false,
