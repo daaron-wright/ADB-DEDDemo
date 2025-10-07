@@ -274,8 +274,18 @@ export function BusinessRegistrationFocusContent({
     [],
   );
 
+  const showVerificationSteps = hasPerformedCheck || isChecking;
+
   const automationSteps = React.useMemo<TradeNameVerificationStepWithStatus[]>(() => {
     const totalSteps = TRADE_NAME_CHECKS.length;
+
+    if (!showVerificationSteps) {
+      return TRADE_NAME_CHECKS.map((step) => ({
+        ...step,
+        status: "pending" as TradeNameCheckStatus,
+        progress: 0,
+      }));
+    }
 
     return TRADE_NAME_CHECKS.map((step, index) => {
       const { status, progress } = getStepStatus(
@@ -292,7 +302,7 @@ export function BusinessRegistrationFocusContent({
         progress,
       };
     });
-  }, [automationProgress, failedStepIndex, isNameAvailable]);
+  }, [automationProgress, failedStepIndex, isNameAvailable, showVerificationSteps]);
 
   const hasActiveTradeName = activeTradeName.length > 0;
 
@@ -615,92 +625,98 @@ export function BusinessRegistrationFocusContent({
           </p>
           <div className="space-y-4 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
-              Automated verification steps
+              Verification steps
             </p>
-            <ul className="space-y-4">
-              {automationSteps.map((step, index) => (
-                <li
-                  key={step.title}
-                  className={cn(
-                    "flex gap-3 rounded-2xl border border-transparent bg-white/0 p-3 transition-all duration-500 ease-out",
-                    step.status === "completed" &&
-                      "border-[#0f766e]/40 bg-[#0f766e]/5 shadow-[0_12px_24px_-20px_rgba(15,118,110,0.45)]",
-                    step.status === "current" &&
-                      "border-[#0f766e]/30 bg-[#0f766e]/8 shadow-[0_10px_20px_-20px_rgba(15,118,110,0.45)]",
-                    step.status === "failed" &&
-                      "border-rose-200 bg-rose-50/80 shadow-[0_10px_24px_-22px_rgba(225,29,72,0.45)]",
-                  )}
-                >
-                  <span
+            {showVerificationSteps ? (
+              <ul className="space-y-4">
+                {automationSteps.map((step, index) => (
+                  <li
+                    key={step.title}
                     className={cn(
-                      "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border text-sm font-semibold transition-all duration-500 ease-out",
+                      "flex gap-3 rounded-2xl border border-transparent bg-white/0 p-3 transition-all duration-500 ease-out",
                       step.status === "completed" &&
-                        "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_8px_18px_-10px_rgba(15,118,110,0.55)]",
+                        "border-[#0f766e]/40 bg-[#0f766e]/5 shadow-[0_12px_24px_-20px_rgba(15,118,110,0.45)]",
                       step.status === "current" &&
-                        "border-[#0f766e] bg-[#0f766e]/10 text-[#0f766e] animate-pulse",
-                      step.status === "pending" &&
-                        "border-slate-200 bg-white text-slate-400",
+                        "border-[#0f766e]/30 bg-[#0f766e]/8 shadow-[0_10px_20px_-20px_rgba(15,118,110,0.45)]",
                       step.status === "failed" &&
-                        "border-rose-300 bg-rose-100 text-rose-600",
+                        "border-rose-200 bg-rose-50/80 shadow-[0_10px_24px_-22px_rgba(225,29,72,0.45)]",
                     )}
                   >
-                    {step.status === "completed" ? (
-                      <Check className="h-4 w-4" strokeWidth={3} />
-                    ) : step.status === "failed" ? (
-                      <X className="h-4 w-4" strokeWidth={3} />
-                    ) : (
-                      index + 1
-                    )}
-                  </span>
-                  <div className="flex-1 space-y-3">
-                    <div className="flex flex-wrap items-start justify-between gap-2">
-                      <div className="space-y-1">
-                        <p className="text-sm font-semibold text-slate-900">
-                          {step.title}
-                        </p>
-                        <p className="text-sm leading-relaxed text-slate-600">
-                          {step.description}
-                        </p>
-                      </div>
-                      <span
-                        className={cn(
-                          "inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] transition-colors",
-                          step.status === "completed" &&
-                            "bg-[#0f766e]/10 text-[#0f766e]",
-                          step.status === "current" &&
-                            "bg-[#0f766e]/15 text-[#0f766e]",
-                          step.status === "pending" &&
-                            "bg-slate-100 text-slate-500",
-                          step.status === "failed" &&
-                            "bg-rose-100 text-rose-600",
-                        )}
-                      >
-                        {STATUS_LABELS[step.status]}
-                      </span>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
-                        <div
-                          className={cn(
-                            "h-full rounded-full transition-all duration-500 ease-out",
-                            step.status === "pending" && "bg-[#0f766e]/30",
-                            step.status === "current" && "bg-[#0f766e]",
-                            step.status === "completed" && "bg-[#0f766e]",
-                            step.status === "failed" && "bg-rose-500",
-                          )}
-                          style={{ width: `${step.progress * 100}%` }}
-                        />
-                      </div>
-                      {step.status === "failed" && step.failureDetail && (
-                        <p className="text-sm font-medium text-rose-600">
-                          {step.failureDetail}
-                        </p>
+                    <span
+                      className={cn(
+                        "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border text-sm font-semibold transition-all duration-500 ease-out",
+                        step.status === "completed" &&
+                          "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_8px_18px_-10px_rgba(15,118,110,0.55)]",
+                        step.status === "current" &&
+                          "border-[#0f766e] bg-[#0f766e]/10 text-[#0f766e] animate-pulse",
+                        step.status === "pending" &&
+                          "border-slate-200 bg-white text-slate-400",
+                        step.status === "failed" &&
+                          "border-rose-300 bg-rose-100 text-rose-600",
                       )}
+                    >
+                      {step.status === "completed" ? (
+                        <Check className="h-4 w-4" strokeWidth={3} />
+                      ) : step.status === "failed" ? (
+                        <X className="h-4 w-4" strokeWidth={3} />
+                      ) : (
+                        index + 1
+                      )}
+                    </span>
+                    <div className="flex-1 space-y-3">
+                      <div className="flex flex-wrap items-start justify-between gap-2">
+                        <div className="space-y-1">
+                          <p className="text-sm font-semibold text-slate-900">
+                            {step.title}
+                          </p>
+                          <p className="text-sm leading-relaxed text-slate-600">
+                            {step.description}
+                          </p>
+                        </div>
+                        <span
+                          className={cn(
+                            "inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] transition-colors",
+                            step.status === "completed" &&
+                              "bg-[#0f766e]/10 text-[#0f766e]",
+                            step.status === "current" &&
+                              "bg-[#0f766e]/15 text-[#0f766e]",
+                            step.status === "pending" &&
+                              "bg-slate-100 text-slate-500",
+                            step.status === "failed" &&
+                              "bg-rose-100 text-rose-600",
+                          )}
+                        >
+                          {STATUS_LABELS[step.status]}
+                        </span>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
+                          <div
+                            className={cn(
+                              "h-full rounded-full transition-all duration-500 ease-out",
+                              step.status === "pending" && "bg-[#0f766e]/30",
+                              step.status === "current" && "bg-[#0f766e]",
+                              step.status === "completed" && "bg-[#0f766e]",
+                              step.status === "failed" && "bg-rose-500",
+                            )}
+                            style={{ width: `${step.progress * 100}%` }}
+                          />
+                        </div>
+                        {step.status === "failed" && step.failureDetail && (
+                          <p className="text-sm font-medium text-rose-600">
+                            {step.failureDetail}
+                          </p>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-5 text-sm text-slate-500">
+                Run the automated checks to view how each verification step progresses.
+              </div>
+            )}
           </div>
           <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-[#e6f2ed] bg-white px-4 py-4 shadow-[0_18px_42px_-40px_rgba(15,118,110,0.25)]">
             <img
