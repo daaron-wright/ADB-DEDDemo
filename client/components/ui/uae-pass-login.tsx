@@ -233,7 +233,11 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({
   const badgeStyle = isReviewer
     ? undefined
     : {
-        background: `linear-gradient(140deg, ${detail.accent} 0%, ${detail.accent}CC 100%)`,
+        background: `linear-gradient(145deg, ${detail.accent} 0%, ${
+          detail.badgeHighlight ?? detail.accent
+        } 100%)`,
+        boxShadow:
+          detail.badgeShadow ?? "0 6px 16px -10px rgba(31, 138, 131, 0.55)",
       };
   const headerOrg = isReviewer
     ? "Department of Economic Development"
