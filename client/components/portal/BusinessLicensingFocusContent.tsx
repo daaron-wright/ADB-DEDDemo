@@ -401,86 +401,86 @@ export function BusinessLicensingFocusContent({
             </div>
           </div>
 
-          <div className="space-y-3 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="space-y-1">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Live automation
-                </p>
-                <p className="text-base font-semibold text-slate-900">{rightPanelToken.automationTitle}</p>
-              </div>
-              <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
-                {progress}% complete
-              </Badge>
-            </div>
-            <p className="text-sm leading-relaxed text-slate-600">{rightPanelToken.description}</p>
-            <div className="space-y-2">
-              <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
-                <div
-                  className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] shadow-[0_1px_6px_rgba(15,118,110,0.35)] transition-all"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                <span>Automation progress</span>
-                <span>{progress}%</span>
-              </div>
-            </div>
-          </div>
-
           {shouldShowUserActions ? (
-            <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Your first actions</p>
-              <p className="text-base font-semibold text-slate-900">What AI Business needs from you</p>
+          <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Your first actions</p>
+                <p className="text-base font-semibold text-slate-900">What AI Business needs from you</p>
+              </div>
+              <Button
+                type="button"
+                onClick={handleRequestLicense}
+                className="rounded-full border border-[#0f766e] bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+              >
+                Request license
+              </Button>
             </div>
-            <Button
-              type="button"
-              onClick={handleRequestLicense}
-              className="rounded-full border border-[#0f766e] bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-            >
-              Request license
-            </Button>
-          </div>
-          <ul className="space-y-3">
-            {LICENSING_USER_ACTIONS.map((item) => {
-                  const relatedSubStep =
-                    item.id === "license-economic-issuance"
-                      ? licensingSubSteps.find((subStep) => subStep.id === "economic-license-ded")
-                      : undefined;
-                  const fallbackStatus: SubStepStatus =
-                    stageStatus === "request"
-                      ? "request"
-                      : stageStatus === "in_progress"
-                      ? "in_progress"
-                      : "pending";
-                  const relatedStatus: SubStepStatus = relatedSubStep?.status ?? fallbackStatus;
-                  const token = SUB_STEP_TOKENS[relatedStatus];
+            <ul className="space-y-3">
+              {LICENSING_USER_ACTIONS.map((item) => {
+                const relatedSubStep =
+                  item.id === "license-economic-issuance"
+                    ? licensingSubSteps.find((subStep) => subStep.id === "economic-license-ded")
+                    : undefined;
+                const fallbackStatus: SubStepStatus =
+                  stageStatus === "request"
+                    ? "request"
+                    : stageStatus === "in_progress"
+                    ? "in_progress"
+                    : "pending";
+                const relatedStatus: SubStepStatus = relatedSubStep?.status ?? fallbackStatus;
+                const token = SUB_STEP_TOKENS[relatedStatus];
 
-                  return (
-                    <li
-                      key={item.id}
-                      className="flex flex-col gap-2 rounded-2xl border border-[#e6f2ed] bg-white p-4 shadow-[0_10px_24px_-22px_rgba(15,118,110,0.25)] sm:flex-row sm:items-start sm:justify-between"
-                    >
-                      <div className="flex flex-1 items-start gap-3">
-                        <span className="mt-1 flex h-2.5 w-2.5 flex-shrink-0 rounded-full bg-[#0f766e]" />
-                        <div className="space-y-1">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <p className="text-sm font-semibold text-slate-900">{item.title}</p>
-                            <Badge className={cn("border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em]", token.badgeClass)}>
-                              {token.label}
-                            </Badge>
-                          </div>
-                          <p className="text-sm text-slate-600">{item.action}</p>
+                return (
+                  <li
+                    key={item.id}
+                    className="flex flex-col gap-2 rounded-2xl border border-[#e6f2ed] bg-white p-4 shadow-[0_10px_24px_-22px_rgba(15,118,110,0.25)] sm:flex-row sm:items-start sm:justify-between"
+                  >
+                    <div className="flex flex-1 items-start gap-3">
+                      <span className="mt-1 flex h-2.5 w-2.5 flex-shrink-0 rounded-full bg-[#0f766e]" />
+                      <div className="space-y-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <p className="text-sm font-semibold text-slate-900">{item.title}</p>
+                          <Badge className={cn("border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em]", token.badgeClass)}>
+                            {token.label}
+                          </Badge>
                         </div>
+                        <p className="text-sm text-slate-600">{item.action}</p>
                       </div>
-                    </li>
-                  );
-                })}
-              </ul>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : null}
+
+        <div className="space-y-3 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="space-y-1">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Live automation
+              </p>
+              <p className="text-base font-semibold text-slate-900">{rightPanelToken.automationTitle}</p>
             </div>
-          ) : null}
+            <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+              {progress}% complete
+            </Badge>
+          </div>
+          <p className="text-sm leading-relaxed text-slate-600">{rightPanelToken.description}</p>
+          <div className="space-y-2">
+            <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
+              <div
+                className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] shadow-[0_1px_6px_rgba(15,118,110,0.35)] transition-all"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+              <span>Automation progress</span>
+              <span>{progress}%</span>
+            </div>
+          </div>
+        </div>
 
           <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
