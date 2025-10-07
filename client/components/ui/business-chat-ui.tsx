@@ -6470,7 +6470,7 @@ export function BusinessChatUI({
                               }
                             />
                           ) : null}
-                          {showChatInterface
+                          {!journeyFocusView && showChatInterface
                             ? messages.map((message) => (
                                 <MessageBubble
                                   key={message.id}
@@ -6554,7 +6554,7 @@ export function BusinessChatUI({
                           </div>
                         ) : null}
 
-                        {showChatInterface ? (
+                        {showChatInterface && !journeyFocusView ? (
                           <div
                             className={cn(
                               "mt-6 border-t border-white/15 pt-6",
