@@ -322,6 +322,8 @@ export function JourneyStageFocusView({
           <p className={timelineItem.statusHelperClass}>{timelineItem.meta}</p>
         </div>
       ) : null}
+
+      {navigationControls}
     </div>
   );
 }
