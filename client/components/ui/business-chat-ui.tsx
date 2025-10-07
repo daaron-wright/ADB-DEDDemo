@@ -236,24 +236,6 @@ const CONVERSATION_STEPS: Array<{ id: ConversationStep; label: string }> = [
   { id: "handoff", label: "Investor Workspace" },
 ];
 
-const TRADE_LICENSE_MENU_OPTIONS = [
-  { id: "recommended" as const, label: "Recommended activities" },
-  { id: "license-types" as const, label: "License types" },
-  { id: "trade-name" as const, label: "Trade name ideas" },
-] as const;
-
-type TradeLicenseMenuOptionId =
-  (typeof TRADE_LICENSE_MENU_OPTIONS)[number]["id"];
-
-const TRADE_LICENSE_MENU_PROMPTS: Record<TradeLicenseMenuOptionId, string> = {
-  recommended:
-    "Show me the most recommended business activities for this license.",
-  "license-types":
-    "Compare the commercial and professional license options for my concept.",
-  "trade-name":
-    "Suggest trade name ideas that fit the brand vision and comply with DED rules.",
-};
-
 const DEFAULT_CHAT_PLACEHOLDER =
   "Of these who are the target market for a high end restaurants?";
 
