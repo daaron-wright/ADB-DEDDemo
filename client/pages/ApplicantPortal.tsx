@@ -17,7 +17,10 @@ import { usePersistentState } from "@/hooks/use-persistent-state";
 import { cn } from "@/lib/utils";
 import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
 import { MessageCircle, Plus, ChevronDown } from "lucide-react";
-import { JourneyOrchestrationPanel } from "@/components/portal/JourneyOrchestrationPanel";
+import {
+  JourneyOrchestrationPanel,
+  type JourneyOrchestrationPanelCopy,
+} from "@/components/portal/JourneyOrchestrationPanel";
 import type {
   JourneyAnimationPhase,
   JourneyHighlightState,
