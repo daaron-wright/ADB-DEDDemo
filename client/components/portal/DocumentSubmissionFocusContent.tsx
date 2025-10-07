@@ -260,7 +260,7 @@ export function DocumentSubmissionFocusContent({
       buttonLabel: "Open documents",
       onClick: () => setShowDocuments(true),
     };
-  }, [nextPendingSubStep]);
+  }, [nextPendingSubStep, setIsLaunchDropdownOpen, setShowDocuments]);
 
   React.useEffect(() => {
     if (isMoaCompleted) {
