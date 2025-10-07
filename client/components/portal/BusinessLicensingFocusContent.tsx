@@ -139,11 +139,8 @@ export function BusinessLicensingFocusContent({
     const inProgressTimer = window.setTimeout(() => {
       setStageStatus("in_progress");
     }, 1500);
-    const completedTimer = window.setTimeout(() => {
-      setStageStatus("completed");
-    }, 4200);
 
-    timersRef.current = [inProgressTimer, completedTimer];
+    timersRef.current = [inProgressTimer];
 
     return () => {
       timersRef.current.forEach((timerId) => window.clearTimeout(timerId));
