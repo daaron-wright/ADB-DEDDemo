@@ -412,7 +412,7 @@ export function BusinessRegistrationFocusContent({
                     disabled={isChecking}
                     className="rounded-full bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_12px_28px_-18px_rgba(15,118,110,0.45)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    Focus trade name field
+                    Type another name
                   </Button>
                   <Button
                     variant="outline"
