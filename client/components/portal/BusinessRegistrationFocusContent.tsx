@@ -37,6 +37,8 @@ type TradeNameIdeaSuggestion = {
   arabic: string;
 };
 
+const MAX_TRADE_NAME_SUGGESTIONS = 4;
+
 const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
   {
     title: "Character normalization",
@@ -88,7 +90,7 @@ const TRADE_NAME_IDEAS: ReadonlyArray<TradeNameIdeaSuggestion> = [
   {
     id: "corniche-culinary-collective",
     english: "Corniche Culinary Collective",
-    arabic: "مجموعة كورنيش للطهي",
+    arabic: "مجمو��ة كورنيش للطهي",
   },
   {
     id: "azure-coast-kitchen",
@@ -98,7 +100,7 @@ const TRADE_NAME_IDEAS: ReadonlyArray<TradeNameIdeaSuggestion> = [
   {
     id: "pearl-horizon-dining",
     english: "Pearl Horizon Dining",
-    arabic: "مطعم أفق الل��لؤ",
+    arabic: "مطعم أفق اللؤلؤ",
   },
   {
     id: "harbor-lights-supper-club",
