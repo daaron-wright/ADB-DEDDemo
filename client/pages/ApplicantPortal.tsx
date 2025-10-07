@@ -303,7 +303,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك المدعوم بالذكاء الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال الشركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك المدعوم بالذكاء الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال الشركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة ��مطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الموافقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
@@ -965,8 +965,35 @@ export default function ApplicantPortal() {
   const profileName = portalUser?.name ?? ENTREPRENEUR_PROFILE.name;
   const firstName = profileName.split(" ")[0] ?? profileName;
   const languageCopy = PORTAL_LANGUAGE_COPY[language];
+  const businessAIIntroMessage = BUSINESS_AI_INTRO_MESSAGES[language];
   const workspaceHeroTitle = languageCopy.workspaceTitle(firstName);
   const workspaceDescription = languageCopy.workspaceDescription(firstName);
+
+  const displayApplication = useMemo(() => {
+    const id = primaryApplication.id;
+
+    return {
+      ...primaryApplication,
+      title: languageCopy.applicationTitles[id] ?? primaryApplication.title,
+      summary:
+        languageCopy.applicationSummaries[id] ?? primaryApplication.summary,
+      nextAction:
+        languageCopy.applicationNextActions[id] ?? primaryApplication.nextAction,
+    };
+  }, [languageCopy, primaryApplication]);
+
+  const displayDirectorate =
+    languageCopy.directorateLabels[primaryApplication.directorate] ??
+    primaryApplication.directorate;
+  const displayStatus =
+    languageCopy.statusLabelMap[primaryApplication.status] ??
+    primaryApplication.status;
+  const displayBeneficiary =
+    languageCopy.beneficiaryLabels[primaryApplication.beneficiary] ??
+    primaryApplication.beneficiary;
+  const displayLicenseType =
+    languageCopy.licenseTypeLabels[primaryApplication.licenseType] ??
+    primaryApplication.licenseType;
   const profileEmail = portalUser?.email ?? "layla.almansoori@email.ae";
   const profileAvatar = portalUser?.avatarUrl ?? ENTREPRENEUR_PROFILE.avatar;
   const profileStatus: "online" | "offline" | "none" = "online";
