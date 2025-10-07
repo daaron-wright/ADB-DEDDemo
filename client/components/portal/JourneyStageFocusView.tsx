@@ -182,13 +182,16 @@ export function JourneyStageFocusView({
   }
 
   if (isBusinessRegistrationStage) {
+    const shouldShowTradeNameIdeas =
+      showTradeNameIdeas || selectedRecommendedActivity?.id === "trade-name-ideas";
+
     return (
       <div className="space-y-5 sm:space-y-6">
         <BusinessRegistrationFocusContent
           journeyNumber="0987654321"
           completionStatus="4 of 8 complete"
           progressPercent={46}
-          showTradeNameIdeas={showTradeNameIdeas}
+          showTradeNameIdeas={shouldShowTradeNameIdeas}
         />
         {navigationControls}
       </div>
