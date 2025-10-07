@@ -2,10 +2,11 @@ import * as React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
-import { Check } from "lucide-react";
+import { Check, X } from "lucide-react";
 
 interface BusinessRegistrationFocusContentProps {
   journeyNumber?: string;
@@ -20,6 +21,7 @@ type TradeNameCheckStatus = "completed" | "current" | "pending";
 type TradeNameVerificationStep = {
   title: string;
   description: string;
+  failureDetail?: string;
 };
 
 type TradeNameVerificationStepWithStatus = TradeNameVerificationStep & {
@@ -47,6 +49,8 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     title: "Similar name checks",
     description:
       "We confirm there are no existing businesses with confusingly similar names.",
+    failureDetail:
+      "Matches an existing company chartered as Corniche Culinary Collective Trading.",
   },
   {
     title: "Transliteration check",
@@ -69,6 +73,7 @@ const STATUS_LABELS: Record<TradeNameCheckStatus, string> = {
   completed: "Completed",
   current: "Running",
   pending: "Queued",
+  failed: "Failed",
 };
 
 function getStepStatus(
