@@ -262,6 +262,7 @@ export function DocumentSubmissionFocusContent({
       setProgress(90);
       setIsCompletingMoa(false);
       setIsMoaModalOpen(false);
+      setIsLaunchDropdownOpen(false);
       completionTimeoutRef.current = null;
     }, 1200);
   }, [isCompletingMoa]);
