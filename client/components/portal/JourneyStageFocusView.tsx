@@ -110,7 +110,7 @@ const STAGE_STATUS_TOKENS: Record<JourneyStageStatusState, {
   },
 };
 
-const LICENSE_TYPE_PROFILES = [
+const LICENSE_TYPE_PROFILES: LicenseTypeProfile[] = [
   {
     id: "commercial",
     title: "Commercial license",
@@ -120,6 +120,8 @@ const LICENSE_TYPE_PROFILES = [
       "Allows bundling of multiple restaurant activities",
       "Supports investor visas and banking onboarding",
     ],
+    evaluationPrompt:
+      "Commercial license scenario: Operate a dine-in restaurant in Abu Dhabi with delivery and catering under a commercial Department of Economic Development license.",
   },
   {
     id: "professional",
@@ -130,8 +132,10 @@ const LICENSE_TYPE_PROFILES = [
       "Lower upfront cost and flexible ownership structures",
       "Suited for chef-driven or boutique concepts",
     ],
+    evaluationPrompt:
+      "Professional license scenario: Offer consultancy-led culinary services and boutique concepts with flexible ownership under a professional license structure.",
   },
-] as const;
+];
 
 export function JourneyStageFocusView({
   timelineItem,
