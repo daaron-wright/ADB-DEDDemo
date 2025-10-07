@@ -105,7 +105,7 @@ export function JourneyStageFocusView({
   recommendedActivities = [],
   activeRecommendedActivityId,
   onRecommendedActivityChange,
-  stageActivities: stageActivityContext,
+  stageActivities: stageActivityContext = undefined,
 }: JourneyStageFocusViewProps) {
   const highlightToken = stage ? highlightTokens[stage.state] : null;
   const stagedTasks = stage?.tasks ?? [];
