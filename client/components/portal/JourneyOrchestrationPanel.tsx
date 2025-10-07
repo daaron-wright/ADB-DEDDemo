@@ -129,7 +129,7 @@ export function JourneyOrchestrationPanel({
         <p className="text-sm leading-relaxed text-slate-700">{introMessage}</p>
       </div>
 
-      {hasActions || hasTimelineSection ? (
+      {hasTimelineSection ? (
         <div className="space-y-6">
           {hasTimelineSection ? (
             <section className="space-y-5">
