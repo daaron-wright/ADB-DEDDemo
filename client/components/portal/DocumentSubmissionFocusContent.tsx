@@ -213,7 +213,7 @@ export function DocumentSubmissionFocusContent({
   }, []);
 
   const handleCompleteMoa = React.useCallback(() => {
-    if (isCompletingMoa) {
+    if (isCompletingMoa || isMoaCompleted) {
       return;
     }
 
