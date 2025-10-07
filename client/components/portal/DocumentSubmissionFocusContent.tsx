@@ -14,7 +14,7 @@ import {
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
-import { Check, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
+import { Check, ChevronDown, ChevronUp, Loader2, MessageCircle } from "lucide-react";
 
 interface DocumentSubmissionFocusContentProps {
   journeyNumber?: string;
