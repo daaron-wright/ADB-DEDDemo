@@ -107,7 +107,19 @@ export function JourneyOrchestrationPanel({
       return [] as NextActionItem[];
     }
 
-    return actions.filter((action) => action.stageId === selectedTimelineItem.id);
+    const normalizedTitle = selectedTimelineItem.title.toLowerCase();
+
+    return actions.filter((action) => {
+      if (action.stageId && action.stageId === selectedTimelineItem.id) {
+        return true;
+      }
+
+      if (action.stageTitle && action.stageTitle.toLowerCase() === normalizedTitle) {
+        return true;
+      }
+
+      return false;
+    });
   }, [actions, selectedTimelineItem]);
 
   const primaryOutstandingAction = React.useMemo(() => {
