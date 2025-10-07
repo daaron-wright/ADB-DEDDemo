@@ -1317,6 +1317,7 @@ export default function ApplicantPortal() {
     focusContext,
     journeyTimelineItems,
     journeyStages,
+    stageProgress,
     handleViewJourney,
   ]);
 
