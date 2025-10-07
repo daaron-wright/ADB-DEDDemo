@@ -725,9 +725,7 @@ export default function ApplicantPortal() {
   const profileStatus: "online" | "offline" | "none" = "online";
 
   const primaryApplication = applications[0];
-  const initialStageId =
-    journeyStages.find((stage) => stage.state === "current")?.id ??
-    journeyStages[0].id;
+  const initialStageId = DEFAULT_ACTIVE_STAGE_ID;
 
   const [activeStageId, setActiveStageId] = useState<string>(initialStageId);
 
