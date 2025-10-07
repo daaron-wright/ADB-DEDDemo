@@ -797,6 +797,15 @@ export default function ApplicantPortal() {
     );
   }, []);
 
+  const handleTradeNameChange = useCallback((tradeName: string | null) => {
+    const normalized = tradeName?.trim().toLowerCase() ?? "";
+    setApplicationWorkingTitle(
+      normalized === TARGET_TRADE_NAME_LOWER
+        ? TARGET_TRADE_NAME
+        : DEFAULT_WORKSPACE_TITLE,
+    );
+  }, []);
+
   const handleAddJourneyActivity = useCallback((activityId: string) => {
     setAvailableJourneyActivities((prev) => {
       const activity = prev.find((item) => item.id === activityId);
