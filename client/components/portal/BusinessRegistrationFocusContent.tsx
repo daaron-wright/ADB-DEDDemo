@@ -258,12 +258,13 @@ export function BusinessRegistrationFocusContent({
     return filtered.length > 0 ? filtered : TRADE_NAME_IDEAS;
   }, [approvedNameSet]);
 
-  const [tradeNameSuggestions, setTradeNameSuggestions] = React.useState(
-    () => sampleTradeNameIdeas(availableTradeNameIdeas),
-  );
+  const [tradeNameSuggestions, setTradeNameSuggestions] = React.useState<TradeNameIdeaSuggestion[]>([]);
+  const [hasGeneratedSuggestions, setHasGeneratedSuggestions] = React.useState(false);
 
   const handleGenerateAvailableIdeas = React.useCallback(() => {
-    setTradeNameSuggestions(sampleTradeNameIdeas(availableTradeNameIdeas));
+    const generated = sampleTradeNameIdeas(availableTradeNameIdeas);
+    setTradeNameSuggestions(generated);
+    setHasGeneratedSuggestions(true);
   }, [availableTradeNameIdeas]);
 
   const trimmedInput = inputValue.trim();
@@ -632,23 +633,31 @@ export function BusinessRegistrationFocusContent({
                         </Button>
                       </div>
                       <div className="flex flex-wrap gap-2">
-                        {tradeNameSuggestions.map((idea) => (
-                          <button
-                            key={idea.id}
-                            type="button"
-                            onClick={() => handleIdeaSelect(idea.english)}
-                            className="flex flex-col items-start gap-1 rounded-2xl border border-[#0f766e]/40 bg-white px-3 py-2 text-left text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
-                            disabled={isChecking}
-                            aria-label={`Use available trade name ${idea.english}`}
-                          >
-                            <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">
-                              {idea.english}
-                            </span>
-                            <span className="text-sm font-medium text-[#0f766e]/80" dir="rtl">
-                              {idea.arabic}
-                            </span>
-                          </button>
-                        ))}
+                        {tradeNameSuggestions.length > 0 ? (
+                          tradeNameSuggestions.map((idea) => (
+                            <button
+                              key={idea.id}
+                              type="button"
+                              onClick={() => handleIdeaSelect(idea.english)}
+                              className="flex flex-col items-start gap-1 rounded-2xl border border-[#0f766e]/40 bg-white px-3 py-2 text-left text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
+                              disabled={isChecking}
+                              aria-label={`Use available trade name ${idea.english}`}
+                            >
+                              <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">
+                                {idea.english}
+                              </span>
+                              <span className="text-sm font-medium text-[#0f766e]/80" dir="rtl">
+                                {idea.arabic}
+                              </span>
+                            </button>
+                          ))
+                        ) : (
+                          <p className="text-xs text-slate-500">
+                            {hasGeneratedSuggestions
+                              ? "No approved names are available right now. Try generating again."
+                              : "Use the generator to get approved trade name ideas."}
+                          </p>
+                        )}
                       </div>
                     </div>
                   ) : null}
