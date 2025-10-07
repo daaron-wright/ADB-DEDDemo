@@ -56,6 +56,7 @@ const USER_TYPE_DETAILS: Record<
     badgeHighlight?: string;
     badgeShadow?: string;
     badgeShapeClass?: string;
+    badgeSizeClass?: string;
   }
 > = {
   applicant: {
@@ -68,8 +69,9 @@ const USER_TYPE_DETAILS: Record<
     gradientTo: "to-teal-400/10",
     badge: "BA",
     badgeHighlight: "#33c6bd",
-    badgeShadow: "0 8px 18px -10px rgba(31, 138, 131, 0.55)",
-    badgeShapeClass: "rounded-[18px]",
+    badgeShadow: "0 10px 22px -14px rgba(31, 138, 131, 0.6)",
+    badgeShapeClass: "rounded-xl",
+    badgeSizeClass: "h-16 w-16",
   },
   reviewer: {
     label: "License reviewer",
@@ -81,6 +83,7 @@ const USER_TYPE_DETAILS: Record<
     gradientTo: "to-emerald-400/10",
     badge: "LR",
     badgeShapeClass: "rounded-full",
+    badgeSizeClass: "h-14 w-14",
   },
 };
 
