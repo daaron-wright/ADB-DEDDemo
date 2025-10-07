@@ -28,6 +28,13 @@ interface TaskToken {
   helperClass: string;
 }
 
+interface StageNavigationConfig {
+  onNext?: () => void;
+  onPrevious?: () => void;
+  nextLabel?: string;
+  previousLabel?: string;
+}
+
 export interface JourneyStageFocusViewProps {
   timelineItem: JourneyTimelineItem;
   stage?: JourneyStage | null;
@@ -35,6 +42,7 @@ export interface JourneyStageFocusViewProps {
   taskTokens: Record<JourneyTaskStatus, TaskToken>;
   formatDate: (isoString: string) => string;
   showTradeNameIdeas?: boolean;
+  navigation?: StageNavigationConfig;
 }
 
 const TASK_CARD_BASE =
