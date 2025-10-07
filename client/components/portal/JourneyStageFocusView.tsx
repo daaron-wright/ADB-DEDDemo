@@ -127,6 +127,8 @@ export function JourneyStageFocusView({
     </div>
   ) : null;
 
+  const showRecommendedSelector = recommendedActivities.length > 0;
+
   if (isComplianceGrowthStage) {
     return (
       <div className="space-y-5 sm:space-y-6">
