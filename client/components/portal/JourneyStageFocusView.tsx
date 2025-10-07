@@ -180,6 +180,9 @@ export function JourneyStageFocusView({
   const selectedRecommendedId = selectedRecommendedActivity?.id ?? null;
 
   const [showActivityCatalog, setShowActivityCatalog] = useState(false);
+  const [licenseEvaluations, setLicenseEvaluations] = useState<Record<string, LicenseEvaluation>>({});
+  const [isLicenseEvaluationLoading, setIsLicenseEvaluationLoading] = useState(false);
+  const [licenseEvaluationError, setLicenseEvaluationError] = useState<string | null>(null);
 
   useEffect(() => {
     if (selectedRecommendedId !== "activity-curation") {
