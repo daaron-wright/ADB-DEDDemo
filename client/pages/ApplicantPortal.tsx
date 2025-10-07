@@ -249,7 +249,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     arabicLabel: "العربية",
     englishBadge: "English",
     arabicBadge: "العربية • ترجمة",
-    subtitle: "بوابة رخصة الأعمال",
+    subtitle: "بوابة رخصة ال��عمال",
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة التالية.`,
@@ -269,10 +269,10 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء الاصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستثمرون آخرون أفكارهم إلى مطاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستثمرون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاصطناعي",
-    journeyToggleLabel: (title: string) => `عرض أو إخفاء نظرة عامة للرحلة الخاصة بـ ${title}`,
+    journeyToggleLabel: (title: string) => `عرض أو إ��فاء نظرة عامة للرحلة الخاصة بـ ${title}`,
     fieldLabels: {
       beneficiary: "المستفيد",
       licenseType: "نوع الرخصة",
@@ -323,7 +323,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       timelineLabel: "الجدول الزمني للرحلة",
       activePrefix: "الحالة الحالية:",
       activeStage: "المرحلة النشطة",
-      yourNextStep: "خطوتك التالية",
+      yourNextStep: "خطوت�� التالية",
       tasksCompleteMessage:
         "تم إكمال كل المهام لهذه المرحلة. راقبي تحديثات الأتمتة.",
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
@@ -976,6 +976,15 @@ export default function ApplicantPortal() {
   const workspaceHeroTitle = languageCopy.workspaceTitle(firstName);
   const workspaceDescription = languageCopy.workspaceDescription(firstName);
 
+  const [applicationWorkingTitle, setApplicationWorkingTitle] = useState<string>(
+    DEFAULT_WORKSPACE_TITLE,
+  );
+
+  const primaryApplication = useMemo(
+    () => ({ ...applications[0], title: applicationWorkingTitle }),
+    [applicationWorkingTitle],
+  );
+
   const displayApplication = useMemo(() => {
     const id = primaryApplication.id;
 
@@ -1004,15 +1013,6 @@ export default function ApplicantPortal() {
   const profileEmail = portalUser?.email ?? "layla.almansoori@email.ae";
   const profileAvatar = portalUser?.avatarUrl ?? ENTREPRENEUR_PROFILE.avatar;
   const profileStatus: "online" | "offline" | "none" = "online";
-
-  const [applicationWorkingTitle, setApplicationWorkingTitle] = useState<string>(
-    DEFAULT_WORKSPACE_TITLE,
-  );
-
-  const primaryApplication = useMemo(
-    () => ({ ...applications[0], title: applicationWorkingTitle }),
-    [applicationWorkingTitle],
-  );
   const initialStageId = DEFAULT_ACTIVE_STAGE_ID;
 
   const [activeStageId, setActiveStageId] = useState<string>(initialStageId);
