@@ -141,6 +141,10 @@ function getStepStatus(
   return { status: "current", progress: normalizedProgress };
 }
 
+function clampProgress(value: number) {
+  return Math.min(Math.max(value, 0), 100);
+}
+
 export function BusinessRegistrationFocusContent({
   journeyNumber = "0987654321",
   completionStatus = "4 of 8 complete",
