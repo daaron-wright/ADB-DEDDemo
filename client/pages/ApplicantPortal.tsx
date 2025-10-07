@@ -1330,10 +1330,7 @@ export default function ApplicantPortal() {
           ? (activityId: string) => handleRecommendedActivityChange(stageId, activityId)
           : undefined,
       stageActivities: stageActivityContext,
-      tradeName:
-        applicationWorkingTitle === DEFAULT_WORKSPACE_TITLE
-          ? ""
-          : applicationWorkingTitle,
+      tradeName: applicationWorkingTitle,
       onTradeNameChange: handleTradeNameChange,
     };
   }, [
