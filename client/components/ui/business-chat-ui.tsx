@@ -3921,7 +3921,7 @@ const DiscoverExperienceView = ({
       name: "Baniyas community spine",
       summary:
         "Established residential corridor seeing strong family traffic and quick-service demand spikes.",
-      footfall: "60��75K weekly visits",
+      footfall: "60����75K weekly visits",
       density: "Growing density",
       trend: "+11% midday demand",
       focus: "Family restaurants, fast casual, bakeries",
@@ -5315,7 +5315,6 @@ export function BusinessChatUI({
         });
         setCurrentStep("summary");
         setInputValue("");
-        setActiveSuggestedTopic(null);
         return;
       }
 
@@ -5330,7 +5329,6 @@ export function BusinessChatUI({
 
         setMessages((prev) => [...prev, userMessage, ...responses]);
         setInputValue("");
-        setActiveSuggestedTopic(null);
         setTimeout(() => {
           openApplicantPortal();
         }, 100);
@@ -5464,15 +5462,8 @@ export function BusinessChatUI({
 
       setMessages((prev) => [...prev, userMessage, ...responses]);
       setInputValue("");
-      setActiveSuggestedTopic(null);
     },
-    [
-      buildMessage,
-      buildStepMessage,
-      openApplicantPortal,
-      setCurrentStep,
-      setActiveSuggestedTopic,
-    ],
+    [buildMessage, buildStepMessage, openApplicantPortal, setCurrentStep],
   );
 
   const openHeatMapFullView = useCallback(() => {
@@ -5517,7 +5508,6 @@ export function BusinessChatUI({
 
           if (isSetupCta) {
             setInputValue(HEAT_MAP_PROMPT);
-            setActiveSuggestedTopic(null);
           }
 
           if (isInvestorAuthenticated) {
