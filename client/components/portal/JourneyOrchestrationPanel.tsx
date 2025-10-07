@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Check } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 import type {
@@ -100,6 +101,40 @@ export function JourneyOrchestrationPanel({
       null
     );
   }, [timelineItems, selectedTimelineId]);
+
+  const stageSpecificActions = React.useMemo(() => {
+    if (!selectedTimelineItem) {
+      return [] as NextActionItem[];
+    }
+
+    return actions.filter((action) => action.stageId === selectedTimelineItem.id);
+  }, [actions, selectedTimelineItem]);
+
+  const primaryOutstandingAction = React.useMemo(() => {
+    return (
+      stageSpecificActions.find(
+        (action) => (completionState[action.id] ?? false) === false,
+      ) ?? null
+    );
+  }, [stageSpecificActions, completionState]);
+
+  const nextActionMessage = React.useMemo(() => {
+    if (primaryOutstandingAction) {
+      return primaryOutstandingAction.label;
+    }
+
+    if (stageSpecificActions.length > 0) {
+      return "All tasks for this stage are complete. Monitor automation updates.";
+    }
+
+    if (selectedTimelineItem?.meta) {
+      return selectedTimelineItem.meta;
+    }
+
+    return "Automation is handling the remaining work for you.";
+  }, [primaryOutstandingAction, stageSpecificActions, selectedTimelineItem]);
+
+  const ctaButtonLabel = primaryOutstandingAction ? "Open next task" : "Review stage";
 
   const selectedTimelineIndex = React.useMemo(() => {
     if (!selectedTimelineItem) {
@@ -255,6 +290,32 @@ export function JourneyOrchestrationPanel({
                     </p>
                   ) : null}
                 </div>
+              </div>
+
+              <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-white p-4 shadow-[0_16px_32px_-28px_rgba(11,64,55,0.28)]">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                      Your next step
+                    </p>
+                    <p className="text-sm text-slate-600">
+                      {nextActionMessage}
+                    </p>
+                  </div>
+                  <Button
+                    type="button"
+                    size="sm"
+                    onClick={() => onViewJourney(selectedTimelineItem.id)}
+                    className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
+                  >
+                    {ctaButtonLabel}
+                  </Button>
+                </div>
+                {primaryOutstandingAction ? (
+                  <p className="text-xs text-slate-500">
+                    This action is owned by {primaryOutstandingAction.owner ?? "you"}. Completing it will keep the stage moving forward.
+                  </p>
+                ) : null}
               </div>
 
               {selectedTimelineItem.showProgress && chatPhase ? (
