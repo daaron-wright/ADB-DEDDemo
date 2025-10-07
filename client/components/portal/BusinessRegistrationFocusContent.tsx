@@ -262,6 +262,12 @@ export function BusinessRegistrationFocusContent({
 
   const [tradeNameSuggestions, setTradeNameSuggestions] = React.useState<TradeNameIdeaSuggestion[]>([]);
   const [hasGeneratedSuggestions, setHasGeneratedSuggestions] = React.useState(false);
+  const notifyTradeNameChange = React.useCallback(
+    (value: string | null) => {
+      onTradeNameChange?.(value);
+    },
+    [onTradeNameChange],
+  );
 
   const handleGenerateAvailableIdeas = React.useCallback(() => {
     const generated = sampleTradeNameIdeas(availableTradeNameIdeas);
