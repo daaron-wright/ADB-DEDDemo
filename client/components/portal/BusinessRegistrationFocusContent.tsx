@@ -107,6 +107,27 @@ export function BusinessRegistrationFocusContent({
   isTradeNameAvailable = true,
   progressPercent = 46,
 }: BusinessRegistrationFocusContentProps) {
+  const clampedProgress = Math.min(Math.max(progressPercent, 0), 100);
+  const displayProgress = Math.round(clampedProgress);
+
+  const automationSteps = React.useMemo<TradeNameVerificationStepWithStatus[]>(() => {
+    const totalSteps = TRADE_NAME_CHECKS.length;
+
+    return TRADE_NAME_CHECKS.map((step, index) => {
+      const { status, progress } = getStepStatus(
+        clampedProgress,
+        index,
+        totalSteps,
+      );
+
+      return {
+        ...step,
+        status,
+        progress,
+      };
+    });
+  }, [clampedProgress]);
+
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
       <section
