@@ -171,6 +171,23 @@ const journeyStages: JourneyStage[] = [
       "Gathering and submitting required documents from various authorities including ADJD, ADM, and ADAFSA.",
     state: "done",
     statusDetail: "All documents submitted",
+    statusTransitions: [
+      {
+        id: "document-submissions-in-progress",
+        status: "in_progress",
+        label: "Submission of documents in progress",
+        detail:
+          "Coordinating notarized MOA, tenancy confirmation, and ADAFSA technical consultation.",
+        timestamp: isoDate(daysFromToday(-6)),
+      },
+      {
+        id: "document-submissions-completed",
+        status: "completed",
+        label: "Documents delivered to authorities",
+        detail: `Completed ${formatDisplayDate(daysFromToday(-2))}`,
+        timestamp: isoDate(daysFromToday(-2)),
+      },
+    ],
     tasks: [
       {
         id: "notarized-moa-adjd",
@@ -213,6 +230,22 @@ const journeyStages: JourneyStage[] = [
       "AI Business automated the economic license issuance with the Department of Economic Development.",
     state: "done",
     statusDetail: "Economic license issued",
+    statusTransitions: [
+      {
+        id: "economic-license-in-progress",
+        status: "in_progress",
+        label: "Issuance of Economic License (DED)",
+        detail: "DED automation is finalizing the issuance package.",
+        timestamp: isoDate(daysFromToday(-3)),
+      },
+      {
+        id: "economic-license-completed",
+        status: "completed",
+        label: "Economic license issued",
+        detail: `Completed ${formatDisplayDate(daysFromToday(-2))}`,
+        timestamp: isoDate(daysFromToday(-2)),
+      },
+    ],
     tasks: [
       {
         id: "license-economic-issuance",
@@ -248,6 +281,23 @@ const journeyStages: JourneyStage[] = [
       "Pre-operational inspections and certifications by Civil Defense, ADAFSA, banking, and utility providers.",
     state: "current",
     statusDetail: "Certifications in progress",
+    statusTransitions: [
+      {
+        id: "inspections-in-progress",
+        status: "in_progress",
+        label: "Pre-operational inspections in progress",
+        detail:
+          "Civil Defense and ADAFSA clearances secured; utilities coordination underway.",
+        timestamp: isoDate(daysFromToday(-1)),
+      },
+      {
+        id: "inspections-scheduled",
+        status: "scheduled",
+        label: "Final walkthrough scheduled",
+        detail: `Telecommunication activation on ${formatDisplayDate(daysFromToday(2))}`,
+        timestamp: isoDate(daysFromToday(2)),
+      },
+    ],
     tasks: [
       {
         id: "cert-conformity-adcda",
