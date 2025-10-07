@@ -166,6 +166,7 @@ export function BusinessRegistrationFocusContent({
   const [failureReason, setFailureReason] = React.useState<string | null>(null);
 
   const trimmedInput = inputValue.trim();
+  const isSubmitDisabled = isChecking || trimmedInput.length === 0;
   const displayProgress = Math.round(automationProgress);
 
   React.useEffect(() => {
@@ -292,11 +293,30 @@ export function BusinessRegistrationFocusContent({
     ? "The TAMM platform confirms availability. Final approval remains with the Department of Economic Development."
     : "This name matches an existing business record. Try a different variation to continue.";
 
+  const tradeCheckDescription = isChecking
+    ? "We’re synchronising with the Department of Economic Development to confirm availability."
+    : isNameAvailable
+    ? "We’re confirming availability and reserving your trade name before moving to licensing."
+    : "The checks flagged a conflict with an existing registration, so this name can’t proceed.";
+
   const statusSummary = isChecking
     ? `Status: running automated checks for ${activeTradeName}`
     : isNameAvailable
     ? "Status: verification synced with the Department of Economic Development"
     : `Status: similar name conflict flagged for ${activeTradeName}.`;
+
+  const tradeCheckBadgeLabel = isChecking
+    ? "Checking"
+    : isNameAvailable
+    ? "In progress"
+    : "Action needed";
+
+  const tradeCheckBadgeClasses = cn(
+    "border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]",
+    isChecking && "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]",
+    !isChecking && isNameAvailable && "border-white/70 bg-[#0f766e]/10 text-[#0f766e]",
+    !isChecking && !isNameAvailable && "border-rose-200 bg-rose-50 text-rose-600",
+  );
 
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
