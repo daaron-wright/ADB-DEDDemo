@@ -487,7 +487,7 @@ export function BusinessRegistrationFocusContent({
             <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
               <div
                 className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] shadow-[0_1px_6px_rgba(15,118,110,0.35)] transition-all duration-500 ease-out"
-                style={{ width: `${clampedProgress}%` }}
+                style={{ width: `${automationProgress}%` }}
               />
             </div>
             <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
