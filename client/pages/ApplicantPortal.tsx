@@ -824,11 +824,6 @@ export default function ApplicantPortal() {
     setIsTimelineBackgroundBlurred(false);
     setFocusContext(null);
   }, [setBusinessAIView, setFocusContext, setIsTimelineBackgroundBlurred]);
-  const handleOpenAutomationFocus = useCallback(() => {
-    setBusinessAIView("focus");
-    setIsTimelineBackgroundBlurred(true);
-    setFocusContext({ type: "automation" });
-  }, [setBusinessAIView, setFocusContext, setIsTimelineBackgroundBlurred]);
   const handleCloseChat = useCallback(() => {
     setBusinessAIView("closed");
     setIsTimelineBackgroundBlurred(false);
@@ -980,28 +975,6 @@ export default function ApplicantPortal() {
       return todoCompletionState[item.id] ? count : count + 1;
     }, 0);
   }, [todoBankItems, todoCompletionState]);
-
-  const automationStatus = useMemo(() => {
-    const automationToken = chatPhase
-      ? taskStatusTokens.in_progress
-      : taskStatusTokens.completed;
-
-    return {
-      title: "Generating application",
-      description:
-        chatPhase?.message ??
-        "Application workspace has been generated with the latest requirements and synced checkpoints.",
-      statusLabel: chatPhase
-        ? `${automationToken.label} • ${chatProgress}%`
-        : automationToken.label,
-      statusBadgeClass: automationToken.badgeClass,
-      statusHelperClass: automationToken.helperClass,
-      meta: chatPhase
-        ? "Automation syncing requirements"
-        : "Automation finished",
-      showProgress: Boolean(chatPhase),
-    };
-  }, [chatPhase, chatProgress]);
 
   const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
     return journeyStages.map<JourneyTimelineItem>((stage) => {
@@ -1570,9 +1543,7 @@ export default function ApplicantPortal() {
             isStageManuallySelected={isStageManuallySelected}
             onResumeAutomation={handleResumeAutomation}
             onViewJourney={handleViewJourney}
-            onOpenAutomation={handleOpenAutomationFocus}
             onTimelineFocusChange={handleTimelineFocusChange}
-            automationStatus={automationStatus}
             stageNumberOffset={1}
           />
           {isTimelineBackgroundBlurred ? (
