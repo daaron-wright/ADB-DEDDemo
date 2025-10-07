@@ -772,6 +772,17 @@ export default function ApplicantPortal() {
   const [stageRecommendedSelections, setStageRecommendedSelections] = useState<
     Record<string, string | null>
   >({});
+  const stageOrder = useMemo(
+    () => journeyStages.map((stage) => stage.id),
+    [],
+  );
+  const [stageProgress, setStageProgress] = useState<Record<string, JourneyHighlightState>>(() => {
+    const initial: Record<string, JourneyHighlightState> = {};
+    journeyStages.forEach((stage) => {
+      initial[stage.id] = deriveStageState(stage);
+    });
+    return initial;
+  });
 
   const updateCurrentJourneyStep = useCallback((stepId: string) => {
     if (!JOURNEY_STEPS_CONFIG.some((step) => step.id === stepId)) {
