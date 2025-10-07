@@ -272,6 +272,49 @@ export function JourneyStageFocusView({
               ) : null}
             </div>
           )}
+
+          {showRecommendedSelector ? (
+            <div className="flex flex-wrap items-start justify-between gap-4 rounded-2xl border border-white/30 bg-white/14 p-4">
+              <div className="space-y-1">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Recommended focus
+                </p>
+                <p className="text-sm text-slate-600">
+                  Tailored actions to accelerate this stage.
+                </p>
+              </div>
+              <div className="flex min-w-[240px] max-w-full flex-col gap-3">
+                <div className="flex flex-wrap gap-2">
+                  {recommendedActivities.map((activity) => {
+                    const isActive = activity.id === activeRecommendedActivityId;
+                    return (
+                      <Button
+                        key={activity.id}
+                        type="button"
+                        variant={isActive ? "default" : "outline"}
+                        onClick={() =>
+                          onRecommendedActivityChange?.(activity.id)
+                        }
+                        className={cn(
+                          "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition",
+                          isActive
+                            ? "bg-[#0f766e] text-white shadow-[0_18px_46px_-32px_rgba(15,118,110,0.55)] hover:bg-[#0c6059]"
+                            : "border-[#0f766e]/25 bg-white/70 text-[#0f766e] hover:bg-[#eef7f4]",
+                        )}
+                      >
+                        {activity.label}
+                      </Button>
+                    );
+                  })}
+                </div>
+                {selectedRecommendedActivity ? (
+                  <p className="text-xs text-slate-500">
+                    {selectedRecommendedActivity.description}
+                  </p>
+                ) : null}
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
 
