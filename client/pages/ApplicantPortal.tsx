@@ -1342,7 +1342,7 @@ export default function ApplicantPortal() {
     handleJourneyActivityToggle,
     availableJourneyActivities,
     handleAddJourneyActivity,
-    primaryApplication.title,
+    applicationWorkingTitle,
     handleTradeNameChange,
   ]);
 
