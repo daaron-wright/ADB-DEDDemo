@@ -165,6 +165,7 @@ export function JourneyStageFocusView({
   onRecommendedActivityChange,
   stageActivities: stageActivityContext = undefined,
   tradeName,
+  onTradeNameChange,
 }: JourneyStageFocusViewProps) {
   const highlightToken = stage ? highlightTokens[stage.state] : null;
   const stagedTasks = stage?.tasks ?? [];
