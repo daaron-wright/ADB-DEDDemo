@@ -276,9 +276,19 @@ export function BusinessRegistrationFocusContent({
 
   const handleInputChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setInputValue(event.target.value);
+      const nextValue = event.target.value;
+      setInputValue(nextValue);
+      setHasUserOverride(true);
+
+      if (!isChecking) {
+        setHasPerformedCheck(false);
+        setIsNameAvailable(false);
+        setFailedStepIndex(null);
+        setFailureReason(null);
+        setAutomationProgress(0);
+      }
     },
-    [],
+    [isChecking],
   );
 
   const handleIdeaSelect = React.useCallback(
