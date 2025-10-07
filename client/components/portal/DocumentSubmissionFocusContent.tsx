@@ -359,12 +359,17 @@ export function DocumentSubmissionFocusContent({
                       type="button"
                       onClick={(event) => {
                         event.stopPropagation();
-                        openMoaModal();
+                        handleCompleteMoa();
                       }}
-                      className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                      disabled={isCompletingMoa}
+                      className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30 disabled:cursor-not-allowed disabled:opacity-70"
                     >
-                      <MessageCircle className="h-4 w-4" aria-hidden="true" />
-                      Launch AI assistant to finalize
+                      {isCompletingMoa ? (
+                        <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                      ) : (
+                        <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                      )}
+                      <span>{isCompletingMoa ? "Submitting to ADJD" : "Launch AI assistant to finalize"}</span>
                     </Button>
                   </div>
                 </div>
