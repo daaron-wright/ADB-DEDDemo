@@ -6457,7 +6457,12 @@ export function BusinessChatUI({
                         ) : null}
                         <div className={messageListClass}>
                           {journeyFocusView ? (
-                            <JourneyStageFocusView {...journeyFocusView} />
+                            <JourneyStageFocusView
+                              {...journeyFocusView}
+                              showTradeNameIdeas={
+                                selectedLicenseMenu === "trade-name"
+                              }
+                            />
                           ) : null}
                           {showChatInterface
                             ? messages.map((message) => (
