@@ -1286,7 +1286,10 @@ export default function ApplicantPortal() {
       return null;
     }
 
-    const resolvedStage = { ...stage, state: deriveStageState(stage) };
+    const resolvedStage = {
+      ...stage,
+      state: stageProgress[stage.id] ?? deriveStageState(stage),
+    };
 
     const stageIndex = journeyStages.findIndex((item) => item.id === stage.id);
     const previousStage = stageIndex > 0 ? journeyStages[stageIndex - 1] : null;
