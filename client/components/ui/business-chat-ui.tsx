@@ -138,7 +138,6 @@ interface BusinessChatUIProps {
   category: string;
   title?: string;
   initialMessage?: string;
-  onMinimize?: () => void;
   mode?: "modal" | "side-panel";
   journeyFocusView?: JourneyStageFocusViewProps | null;
   suppressChatInterface?: boolean;
@@ -3349,7 +3348,7 @@ const MessageBubble = ({
                           {row.area}
                         </span>
                         <p className="text-xs text-slate-500">
-                          {row.boutiqueRange !== "���"
+                          {row.boutiqueRange !== "–"
                             ? "High street or lifestyle hub positioning"
                             : "Premium district suited to flagship scale"}
                         </p>
