@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { chatCardClass } from "@/lib/chat-style";
@@ -9,6 +10,7 @@ import type {
   JourneyTaskStatus,
   JourneyTimelineItem,
 } from "./journey-types";
+import type { BusinessActivity } from "./BusinessActivitiesSelection";
 import { BusinessRegistrationFocusContent } from "./BusinessRegistrationFocusContent";
 import { DocumentSubmissionFocusContent } from "./DocumentSubmissionFocusContent";
 import { BusinessLicensingFocusContent } from "./BusinessLicensingFocusContent";
@@ -42,6 +44,14 @@ interface StageRecommendedActivity {
   type: "trade-name" | "document" | "licensing" | "inspection" | "compliance" | "general";
 }
 
+interface StageActivitiesContext {
+  recommended: BusinessActivity[];
+  selectedIds: string[];
+  onToggle: (activityId: string) => void;
+  available: BusinessActivity[];
+  onAdd: (activityId: string) => void;
+}
+
 export interface JourneyStageFocusViewProps {
   timelineItem: JourneyTimelineItem;
   stage?: JourneyStage | null;
@@ -53,10 +63,36 @@ export interface JourneyStageFocusViewProps {
   recommendedActivities?: StageRecommendedActivity[];
   activeRecommendedActivityId?: string | null;
   onRecommendedActivityChange?: (activityId: string) => void;
+  stageActivities?: StageActivitiesContext;
 }
 
 const TASK_CARD_BASE =
   "border border-white/25 bg-white/16 backdrop-blur-xl shadow-[0_30px_80px_-65px_rgba(15,23,42,0.4)]";
+
+const LICENSE_TYPE_PROFILES = [
+  {
+    id: "commercial",
+    title: "Commercial license",
+    summary: "Full trading privileges for dine-in, delivery, and catering services.",
+    timeline: "Avg. 14 days",
+    feeEstimate: "AED 6,400",
+    highlights: [
+      "Allows bundling of multiple restaurant activities",
+      "Supports investor visas and banking onboarding",
+    ],
+  },
+  {
+    id: "professional",
+    title: "Professional license",
+    summary: "Ideal for consultancy-led or niche culinary services.",
+    timeline: "Avg. 10 days",
+    feeEstimate: "AED 4,200",
+    highlights: [
+      "Lower upfront cost and flexible ownership structures",
+      "Suited for chef-driven or boutique concepts",
+    ],
+  },
+] as const;
 
 export function JourneyStageFocusView({
   timelineItem,
@@ -69,6 +105,7 @@ export function JourneyStageFocusView({
   recommendedActivities = [],
   activeRecommendedActivityId,
   onRecommendedActivityChange,
+  stageActivities: stageActivityContext,
 }: JourneyStageFocusViewProps) {
   const highlightToken = stage ? highlightTokens[stage.state] : null;
   const stagedTasks = stage?.tasks ?? [];
@@ -96,6 +133,8 @@ export function JourneyStageFocusView({
   const selectedRecommendedActivity = recommendedActivities.find(
     (activity) => activity.id === activeRecommendedActivityId,
   );
+
+  const [showActivityCatalog, setShowActivityCatalog] = useState(false);
 
   const navigationControls = hasNavigationControls ? (
     <div className="flex flex-wrap items-center justify-end gap-3">
@@ -314,6 +353,150 @@ export function JourneyStageFocusView({
                   <p className="text-xs text-slate-500">
                     {selectedRecommendedActivity.description}
                   </p>
+                ) : null}
+              </div>
+            </div>
+          ) : null}
+
+          {stage?.id === "questionnaire" && stageActivityContext ? (
+            <div className="space-y-4 rounded-2xl border border-white/30 bg-white/16 p-4">
+              {selectedRecommendedActivity?.id === "license-types" ? (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                      License comparison
+                    </h4>
+                    <span className="text-xs text-slate-500">
+                      Matched to restaurant profile
+                    </span>
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {LICENSE_TYPE_PROFILES.map((profile) => (
+                      <div
+                        key={profile.id}
+                        className="rounded-xl border border-[#0f766e]/20 bg-white/80 p-4 shadow-[0_20px_55px_-48px_rgba(15,118,110,0.4)]"
+                      >
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <p className="text-sm font-semibold text-slate-900">
+                              {profile.title}
+                            </p>
+                            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                              {profile.timeline}
+                            </span>
+                          </div>
+                          <p className="text-xs text-slate-500">
+                            {profile.summary}
+                          </p>
+                          <ul className="space-y-1 text-xs text-slate-600">
+                            {profile.highlights.map((item) => (
+                              <li key={item} className="flex items-start gap-2">
+                                <span className="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0f766e]" />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                            {profile.feeEstimate}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              <div className="space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="space-y-1">
+                    <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                      Recommended activities
+                    </h4>
+                    <p className="text-xs text-slate-500">
+                      Toggle to confirm the activities included in your license draft.
+                    </p>
+                  </div>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setShowActivityCatalog((prev) => !prev)}
+                    disabled={stageActivityContext.available.length === 0}
+                    className="inline-flex items-center gap-2 rounded-full border-[#0f766e]/35 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#eef7f4] disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {stageActivityContext.available.length === 0
+                      ? "All activities added"
+                      : showActivityCatalog
+                        ? "Hide catalog"
+                        : "Add a new activity"}
+                  </Button>
+                </div>
+
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {stageActivityContext.recommended.map((activity) => {
+                    const isSelected = stageActivityContext.selectedIds.includes(
+                      activity.id,
+                    );
+                    return (
+                      <button
+                        key={activity.id}
+                        type="button"
+                        onClick={() => stageActivityContext.onToggle(activity.id)}
+                        className={cn(
+                          "rounded-xl border px-4 py-3 text-left transition hover:border-[#0f766e]",
+                          isSelected
+                            ? "border-[#0f766e] bg-[#0f766e]/10 text-[#0f4f4a] shadow-[0_18px_44px_-38px_rgba(15,118,110,0.5)]"
+                            : "border-white/40 bg-white/70 text-slate-700",
+                        )}
+                      >
+                        <p className="text-sm font-semibold text-slate-900">
+                          {activity.label}
+                        </p>
+                        {activity.description ? (
+                          <p className="text-xs text-slate-500">
+                            {activity.description}
+                          </p>
+                        ) : null}
+                        <span className={cn(
+                          "mt-2 inline-flex items-center rounded-full border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]",
+                          isSelected
+                            ? "border-[#0f766e]/40 bg-[#0f766e]/15 text-[#0f766e]"
+                            : "border-slate-200 bg-white text-slate-500",
+                        )}>
+                          {isSelected ? "Selected" : "Tap to select"}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {showActivityCatalog ? (
+                  <div className="space-y-2 rounded-xl border border-dashed border-[#0f766e]/40 bg-white/80 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                      Available activities
+                    </p>
+                    {stageActivityContext.available.length === 0 ? (
+                      <p className="text-xs text-slate-500">
+                        All catalog activities have been added.
+                      </p>
+                    ) : (
+                      <div className="flex flex-wrap gap-2">
+                        {stageActivityContext.available.map((activity) => (
+                          <Button
+                            key={activity.id}
+                            type="button"
+                            variant="outline"
+                            onClick={() => {
+                              stageActivityContext.onAdd(activity.id);
+                              setShowActivityCatalog(false);
+                            }}
+                            className="inline-flex items-center gap-2 rounded-full border-[#0f766e]/35 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#eef7f4]"
+                          >
+                            {activity.label}
+                          </Button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ) : null}
               </div>
             </div>
