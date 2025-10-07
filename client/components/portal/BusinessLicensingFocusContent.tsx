@@ -389,7 +389,10 @@ export function BusinessLicensingFocusContent({
             </div>
             <ul className="space-y-3">
               {LICENSING_USER_ACTIONS.map((item) => {
-                const relatedSubStep = licensingSubSteps.find((subStep) => subStep.id === item.id || subStep.id === "economic-license-ded");
+                const relatedSubStep =
+                  item.id === "license-economic-issuance"
+                    ? licensingSubSteps.find((subStep) => subStep.id === "economic-license-ded")
+                    : undefined;
                 const relatedStatus: SubStepStatus = relatedSubStep?.status ?? (stageStatus === "request" ? "pending" : "in_progress");
                 const token = SUB_STEP_TOKENS[relatedStatus];
 
