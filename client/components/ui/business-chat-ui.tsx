@@ -6415,33 +6415,6 @@ export function BusinessChatUI({
                                     </button>
                                   </div>
                                 </div>
-                                <div className="space-y-2">
-                                  <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-600">
-                                    Suggested topics
-                                  </span>
-                                  <div className="flex flex-wrap gap-2">
-                                    {CHAT_SUGGESTED_TOPICS.map((topic) => (
-                                      <button
-                                        key={topic.id}
-                                        type="button"
-                                        onClick={() => handleSuggestedTopicSelect(topic.id)}
-                                        aria-pressed={activeSuggestedTopic === topic.id}
-                                        className={cn(
-                                          "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]",
-                                          activeSuggestedTopic === topic.id
-                                            ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_14px_32px_-20px_rgba(15,118,110,0.6)]"
-                                            : "border-white/35 bg-white/30 text-[#0F766E] hover:border-[#0F766E]/45 hover:bg-white/60",
-                                          isSidePanel &&
-                                            (activeSuggestedTopic === topic.id
-                                              ? "shadow-[0_14px_32px_-20px_rgba(15,118,110,0.55)]"
-                                              : "border-slate-200 bg-white text-[#0F766E]"),
-                                        )}
-                                      >
-                                        {topic.label}
-                                      </button>
-                                    ))}
-                                  </div>
-                                </div>
                               </div>
                             </div>
                           </div>
