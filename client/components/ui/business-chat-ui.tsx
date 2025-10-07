@@ -5232,7 +5232,7 @@ export function BusinessChatUI({
     });
   }, [messages, showChatInterface]);
 
-  const shouldShowInteractionToolbar = !journeyFocusView && hasLicenseMenu;
+  const shouldShowInteractionToolbar = false;
 
   useEffect(() => {
     if (!hasLicenseMenu && selectedLicenseMenu !== "recommended") {
