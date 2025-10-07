@@ -71,7 +71,7 @@ const USER_TYPE_DETAILS: Record<
     badgeHighlight: "#33c6bd",
     badgeShadow: "0 10px 22px -14px rgba(31, 138, 131, 0.6)",
     badgeShapeClass: "rounded-xl",
-    badgeSizeClass: "h-16 w-32",
+    badgeSizeClass: "h-16 w-28",
   },
   reviewer: {
     label: "License reviewer",
