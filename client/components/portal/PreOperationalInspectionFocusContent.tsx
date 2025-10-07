@@ -291,7 +291,7 @@ export function PreOperationalInspectionFocusContent({
                     </p>
                   </div>
                   <Badge className="border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
-                    {step.subSteps?.filter((item) => item.status === "completed").length} of {step.subSteps?.filter(item => !item.isOptional).length} required complete
+                    {step.subSteps?.filter((item) => item.status === "completed" || item.status === "account_linked").length} of {step.subSteps?.filter((item) => !item.isOptional).length} required complete
                   </Badge>
                 </div>
 
