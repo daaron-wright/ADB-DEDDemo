@@ -12,6 +12,44 @@ interface BusinessRegistrationFocusContentProps {
   progressPercent?: number;
 }
 
+const TRADE_NAME_CHECKS = [
+  {
+    title: "Character normalization",
+    description:
+      "We detect attempts to bypass filters by swapping characters or using deliberate misspellings (e.g., 4bu Dh@b1).",
+  },
+  {
+    title: "Prohibited word checks",
+    description:
+      "We look for explicit and subtle use of restricted terms across the entire name.",
+  },
+  {
+    title: "Cultural checks",
+    description:
+      "We flag references with religious, geographic, royal, or political sensitivity.",
+  },
+  {
+    title: "Similar name checks",
+    description:
+      "We confirm there are no existing businesses with confusingly similar names.",
+  },
+  {
+    title: "Transliteration check",
+    description:
+      "We verify that the Arabic and English renditions align and read correctly.",
+  },
+  {
+    title: "Activity name check",
+    description:
+      "We ensure the English name aligns with your selected business activity.",
+  },
+  {
+    title: "Suggest names",
+    description:
+      "We generate alternatives, rerun every check, and surface the results with any failures explained.",
+  },
+] as const;
+
 export function BusinessRegistrationFocusContent({
   journeyNumber = "0987654321",
   completionStatus = "4 of 8 complete",
