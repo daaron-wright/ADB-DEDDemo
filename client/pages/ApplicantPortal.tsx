@@ -2034,6 +2034,14 @@ export default function ApplicantPortal() {
     </section>
   );
 
+  const portalBrand =
+    language === "ar"
+      ? {
+          label: "خدمات حكومة أبوظبي",
+          logoAlt: "شعار تم",
+        }
+      : undefined;
+
   return (
     <div className="relative" lang={language === "ar" ? "ar" : "en"}>
       <PortalPageLayout
@@ -2048,6 +2056,7 @@ export default function ApplicantPortal() {
             {journeyOverviewSection}
           </>
         }
+        brand={portalBrand}
       >
         <section className="space-y-6">
           <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 text-sm leading-relaxed text-slate-700">
