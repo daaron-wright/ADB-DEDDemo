@@ -5368,6 +5368,7 @@ export function BusinessChatUI({
 
         setMessages((prev) => [...prev, userMessage, ...responses]);
         setInputValue("");
+        setActiveSuggestedTopic(null);
         setTimeout(() => {
           openApplicantPortal();
         }, 100);
