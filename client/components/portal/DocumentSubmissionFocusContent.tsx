@@ -249,58 +249,6 @@ export function DocumentSubmissionFocusContent({
 
   return (
     <>
-      <Dialog open={isMoaModalOpen} onOpenChange={handleModalOpenChange}>
-        <DialogContent className="max-w-2xl border-none bg-white shadow-xl">
-          <DialogHeader className="space-y-2">
-            <DialogTitle className="text-2xl font-semibold text-slate-900">
-              Notarize Memorandum of Association
-            </DialogTitle>
-            <DialogDescription className="text-sm leading-relaxed text-slate-600">
-              AI Business is preparing the ADJD-compliant memorandum using your approved shareholder and capital details.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-5">
-            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3ffa7aec67d74c31b0175b0538c93dfd?format=webp&width=800"
-                alt="Memorandum of Association preview"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="space-y-3 text-sm text-slate-600">
-              <p className="font-semibold text-slate-800">What the assistant is doing</p>
-              <ul className="space-y-2">
-                <li className="flex items-start gap-2">
-                  <Check className="mt-1 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
-                  <span>Importing your approved company name and shareholder percentages into the ADJD template.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="mt-1 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
-                  <span>Validating the minimum capital requirements against your latest filings.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="mt-1 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
-                  <span>Stamping the document with the ADJD e-notary seal before syncing back to your workspace.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <DialogFooter className="gap-2">
-            <Button
-              variant="ghost"
-              onClick={() => setIsMoaModalOpen(false)}
-              disabled={isCompletingMoa}
-            >
-              Cancel
-            </Button>
-            <Button onClick={handleCompleteMoa} disabled={isCompletingMoa} className="bg-[#0f766e] hover:bg-[#0d6a63]">
-              {isCompletingMoa ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" strokeWidth={3} />}
-              <span>{isCompletingMoa ? "Submitting to ADJD" : "Finalize notarization"}</span>
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
         <section
           className={chatCardClass(
