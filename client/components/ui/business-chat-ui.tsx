@@ -5830,7 +5830,7 @@ export function BusinessChatUI({
     setIsInvestorAuthenticated(false);
     setShouldOpenInvestorView(false);
 
-    if (shouldSuppressChat) {
+    if (shouldSuppressChat || journeyFocusView) {
       setMessages([]);
       return;
     }
@@ -5861,7 +5861,13 @@ export function BusinessChatUI({
     );
 
     setMessages(conversation);
-  }, [isOpen, buildMessage, initialMessage, shouldSuppressChat]);
+  }, [
+    isOpen,
+    buildMessage,
+    initialMessage,
+    shouldSuppressChat,
+    journeyFocusView,
+  ]);
 
   useEffect(() => {
     if (messages.length === 0) {
@@ -6535,7 +6541,7 @@ export function BusinessChatUI({
                           </div>
                         )}
 
-                        {showChatInterface ? (
+                        {showChatInterface && !journeyFocusView ? (
                           <div
                             className={cn(
                               "mt-4 rounded-[24px] border border-white/20 bg-white/14 px-4 py-3 text-xs text-slate-600 backdrop-blur-xl",
