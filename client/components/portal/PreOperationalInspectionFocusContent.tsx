@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
@@ -12,7 +13,7 @@ interface PreOperationalInspectionFocusContentProps {
 }
 
 type StepStatus = "completed" | "current" | "pending";
-type SubStepStatus = "completed" | "in_progress" | "pending";
+type SubStepStatus = "completed" | "in_progress" | "pending" | "scheduled";
 
 interface SubStep {
   id: string;
@@ -53,7 +54,7 @@ const PRE_OPERATIONAL_STEPS: Step[] = [
       {
         id: "bank-account",
         label: "Corporate Bank Account Opening",
-        status: "in_progress",
+        status: "pending",
       },
       {
         id: "telecom-services",
@@ -136,6 +137,12 @@ const SUB_STEP_TOKENS: Record<SubStepStatus, { label: string; badgeClass: string
     iconClass: "text-[#b97324]",
     dotClass: "bg-[#b97324]",
   },
+  scheduled: {
+    label: "Scheduled",
+    badgeClass: "border-[#cdd7f8] bg-[#eef2ff] text-[#3446b0]",
+    iconClass: "text-[#3446b0]",
+    dotClass: "bg-[#3446b0]",
+  },
 };
 
 export function PreOperationalInspectionFocusContent({
@@ -143,7 +150,60 @@ export function PreOperationalInspectionFocusContent({
   progressPercent = 83,
 }: PreOperationalInspectionFocusContentProps) {
   const [showDocuments, setShowDocuments] = React.useState(true);
-  const steps = React.useMemo(() => PRE_OPERATIONAL_STEPS, []);
+  const [steps, setSteps] = React.useState<Step[]>(() =>
+    PRE_OPERATIONAL_STEPS.map((step) => ({
+      ...step,
+      subSteps: step.subSteps?.map((subStep) => ({ ...subStep })),
+    })),
+  );
+  const [bankAccountPhase, setBankAccountPhase] = React.useState<"link" | "in_progress" | "completed">("link");
+
+  const handleBankAccountAdvance = React.useCallback(() => {
+    setBankAccountPhase((previousPhase) => {
+      if (previousPhase === "completed") {
+        return previousPhase;
+      }
+
+      setSteps((previousSteps) =>
+        previousSteps.map((step) => {
+          if (step.id !== 4) {
+            return step;
+          }
+
+          return {
+            ...step,
+            subSteps: step.subSteps?.map((subStep) => {
+              if (previousPhase === "link" && subStep.id === "bank-account") {
+                return { ...subStep, status: "in_progress" };
+              }
+
+              if (previousPhase === "in_progress") {
+                if (subStep.id === "bank-account") {
+                  return { ...subStep, status: "completed" };
+                }
+
+                if (subStep.status === "pending") {
+                  return { ...subStep, status: "scheduled" };
+                }
+              }
+
+              return subStep;
+            }),
+          };
+        }),
+      );
+
+      if (previousPhase === "link") {
+        return "in_progress";
+      }
+
+      if (previousPhase === "in_progress") {
+        return "completed";
+      }
+
+      return previousPhase;
+    });
+  }, []);
 
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
@@ -212,55 +272,92 @@ export function PreOperationalInspectionFocusContent({
 
                 <div className="space-y-3">
                   {step.subSteps?.map((subStep) => {
-                    const token = SUB_STEP_TOKENS[subStep.status];
+                const isBankAccount = subStep.id === "bank-account";
+                const token = SUB_STEP_TOKENS[subStep.status];
+                const bankAccountHelperText =
+                  bankAccountPhase === "link"
+                    ? "Connect your corporate banking partner so we can sync settlement details."
+                    : bankAccountPhase === "in_progress"
+                    ? "We’re coordinating with the bank. Mark completed once the account is active."
+                    : "Account is active. Additional optional services are now scheduled.";
+                const badgeLabel = isBankAccount
+                  ? bankAccountPhase === "link"
+                    ? "Link account"
+                    : token.label
+                  : token.label;
 
-                    return (
-                      <div
-                        key={subStep.id}
-                        className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:flex-row sm:items-center sm:justify-between"
+                return (
+                  <div
+                    key={subStep.id}
+                    className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:flex-row sm:items-center sm:justify-between"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span
+                        className={cn(
+                          "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border",
+                          subStep.status === "completed" && "border-[#0f766e]/20 bg-[#0f766e]/10",
+                          subStep.status === "in_progress" && "border-[#94d2c2] bg-[#dff2ec]/70",
+                          subStep.status === "pending" && "border-slate-200 bg-white",
+                          subStep.status === "scheduled" && "border-[#cdd7f8] bg-[#eef2ff]",
+                        )}
                       >
-                        <div className="flex items-start gap-3">
-                          <span
-                            className={cn(
-                              "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border",
-                              subStep.status === "completed" && "border-[#0f766e]/20 bg-[#0f766e]/10",
-                              subStep.status === "in_progress" && "border-[#94d2c2] bg-[#dff2ec]/70",
-                              subStep.status === "pending" && "border-slate-200 bg-white",
-                            )}
-                          >
-                            {subStep.status === "completed" ? (
-                              <Check className={cn("h-4 w-4", token.iconClass)} strokeWidth={3} />
-                            ) : subStep.status === "in_progress" ? (
-                              <Loader2 className={cn("h-4 w-4 animate-spin", token.iconClass)} />
-                            ) : (
-                              <span className={cn("block h-2.5 w-2.5 rounded-full", token.dotClass)} />
-                            )}
-                          </span>
-                          <div className="space-y-1">
-                            <p className="text-base font-semibold text-slate-900">
-                              {subStep.label} {subStep.authority ? `(${subStep.authority})` : ""}
-                            </p>
-                            <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
-                              <span>{token.label}</span>
-                              {subStep.isOptional ? (
-                                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                                  Optional
-                                </span>
-                              ) : null}
-                            </div>
+                        {subStep.status === "completed" ? (
+                          <Check className={cn("h-4 w-4", token.iconClass)} strokeWidth={3} />
+                        ) : subStep.status === "in_progress" ? (
+                          <Loader2 className={cn("h-4 w-4 animate-spin", token.iconClass)} />
+                        ) : (
+                          <span className={cn("block h-2.5 w-2.5 rounded-full", token.dotClass)} />
+                        )}
+                      </span>
+                      <div className="space-y-2">
+                        <div className="space-y-1">
+                          <p className="text-base font-semibold text-slate-900">
+                            {subStep.label} {subStep.authority ? `(${subStep.authority})` : ""}
+                          </p>
+                          <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
+                            <span>{badgeLabel}</span>
+                            {subStep.isOptional ? (
+                              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                                Optional
+                              </span>
+                            ) : null}
                           </div>
                         </div>
-                        <Badge
-                          className={cn(
-                            "self-start border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                            token.badgeClass,
-                          )}
-                        >
-                          {token.label}
-                        </Badge>
+                        {isBankAccount ? (
+                          <div className="flex flex-col gap-2 pt-1 sm:flex-row sm:items-center sm:gap-3">
+                            <Button
+                              type="button"
+                              onClick={handleBankAccountAdvance}
+                              disabled={bankAccountPhase === "completed"}
+                              className={cn(
+                                "inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition",
+                                bankAccountPhase === "completed" && "cursor-default bg-[#0f766e]/60 hover:bg-[#0f766e]/60",
+                              )}
+                            >
+                              {bankAccountPhase === "link"
+                                ? "Link corporate bank account"
+                                : bankAccountPhase === "in_progress"
+                                ? "Mark account setup as completed"
+                                : "Bank account linked"}
+                            </Button>
+                            <p className="text-xs text-slate-500 sm:max-w-[280px]">
+                              {bankAccountHelperText}
+                            </p>
+                          </div>
+                        ) : null}
                       </div>
-                    );
-                  })}
+                    </div>
+                    <Badge
+                      className={cn(
+                        "self-start border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                        token.badgeClass,
+                      )}
+                    >
+                      {badgeLabel}
+                    </Badge>
+                  </div>
+                );
+              })}
                 </div>
               </div>
             ))}
