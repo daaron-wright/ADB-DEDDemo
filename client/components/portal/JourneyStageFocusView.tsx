@@ -77,6 +77,40 @@ export function JourneyStageFocusView({
   const isPreOperationalInspectionStage = stage?.id === "inspections";
   const isComplianceGrowthStage = stage?.id === "compliance-growth";
 
+  const hasNavigationControls = Boolean(
+    navigation && (navigation.onNext || navigation.onPrevious),
+  );
+
+  const navigationControls = hasNavigationControls ? (
+    <div className="flex flex-wrap items-center justify-end gap-3">
+      {navigation?.onPrevious ? (
+        <Button
+          type="button"
+          variant="outline"
+          onClick={navigation.onPrevious}
+          className="inline-flex items-center gap-2 rounded-full border-[#0f766e]/35 bg-white px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#ecf7f3]"
+        >
+          <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+          {navigation.previousLabel
+            ? `Back to ${navigation.previousLabel}`
+            : "Previous stage"}
+        </Button>
+      ) : null}
+      {navigation?.onNext ? (
+        <Button
+          type="button"
+          onClick={navigation.onNext}
+          className="inline-flex items-center gap-2 rounded-full bg-[#0f766e] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_42px_-30px_rgba(15,118,110,0.55)] transition hover:bg-[#0c6059]"
+        >
+          {navigation.nextLabel
+            ? `Next: ${navigation.nextLabel}`
+            : "Next stage"}
+          <ChevronRight className="h-4 w-4" aria-hidden="true" />
+        </Button>
+      ) : null}
+    </div>
+  ) : null;
+
   if (isComplianceGrowthStage) {
     return (
       <div className="space-y-5 sm:space-y-6">
