@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import type {
   JourneyHighlightState,
   JourneyStage,
+  JourneyStageStatusState,
   JourneyTaskStatus,
   JourneyTimelineItem,
 } from "./journey-types";
@@ -68,6 +69,28 @@ export interface JourneyStageFocusViewProps {
 
 const TASK_CARD_BASE =
   "border border-white/25 bg-white/16 backdrop-blur-xl shadow-[0_30px_80px_-65px_rgba(15,23,42,0.4)]";
+
+const STAGE_STATUS_TOKENS: Record<JourneyStageStatusState, {
+  label: string;
+  badgeClass: string;
+  helperClass: string;
+}> = {
+  in_progress: {
+    label: "In progress",
+    badgeClass: "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
+    helperClass: "text-[#0b7d6f]",
+  },
+  completed: {
+    label: "Completed",
+    badgeClass: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
+    helperClass: "text-slate-500",
+  },
+  scheduled: {
+    label: "Scheduled",
+    badgeClass: "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
+    helperClass: "text-[#b97324]",
+  },
+};
 
 const LICENSE_TYPE_PROFILES = [
   {
@@ -361,6 +384,59 @@ export function JourneyStageFocusView({
               ) : null}
             </div>
           )}
+
+          {stage?.statusTransitions?.length ? (
+            <div className="space-y-3 rounded-2xl border border-white/30 bg-white/16 p-4">
+              <div className="space-y-1">
+                <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Stage status updates
+                </h4>
+                <p className="text-xs text-slate-500">
+                  Key checkpoints before progressing to the next stage.
+                </p>
+              </div>
+              <div className="space-y-2">
+                {stage.statusTransitions.map((transition) => {
+                  const token = STAGE_STATUS_TOKENS[transition.status];
+                  return (
+                    <div
+                      key={transition.id}
+                      className="flex flex-col gap-2 rounded-xl border border-white/40 bg-white/80 p-3"
+                    >
+                      <span
+                        className={cn(
+                          "inline-flex w-fit items-center rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
+                          token.badgeClass,
+                        )}
+                      >
+                        {token.label}
+                      </span>
+                      <div className="space-y-1">
+                        <p className="text-sm font-semibold text-slate-900">
+                          {transition.label}
+                        </p>
+                        {transition.detail ? (
+                          <p className="text-xs text-slate-500">
+                            {transition.detail}
+                          </p>
+                        ) : null}
+                        {transition.timestamp ? (
+                          <p
+                            className={cn(
+                              "text-[11px] font-semibold uppercase tracking-[0.18em]",
+                              token.helperClass,
+                            )}
+                          >
+                            {formatDate(transition.timestamp)}
+                          </p>
+                        ) : null}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
 
           {showRecommendedSelector ? (
             <div className="flex flex-wrap items-start justify-between gap-4 rounded-2xl border border-white/30 bg-white/14 p-4">
