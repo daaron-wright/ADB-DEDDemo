@@ -624,19 +624,24 @@ export function BusinessRegistrationFocusContent({
                         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
                           Trade name ideas
                         </p>
-                        <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#0f766e]/70">
-                          Tap to apply
-                        </span>
+                        <Button
+                          type="button"
+                          onClick={handleGenerateAvailableIdeas}
+                          disabled={isChecking}
+                          className="rounded-full border border-[#0f766e]/40 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
+                        >
+                          Generate available names
+                        </Button>
                       </div>
                       <div className="flex flex-wrap gap-2">
-                        {TRADE_NAME_IDEAS.map((idea) => (
+                        {tradeNameSuggestions.map((idea) => (
                           <button
                             key={idea.id}
                             type="button"
                             onClick={() => handleIdeaSelect(idea.english)}
                             className="flex flex-col items-start gap-1 rounded-2xl border border-[#0f766e]/40 bg-white px-3 py-2 text-left text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
                             disabled={isChecking}
-                            aria-label={`Use trade name ${idea.english}`}
+                            aria-label={`Use available trade name ${idea.english}`}
                           >
                             <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">
                               {idea.english}
