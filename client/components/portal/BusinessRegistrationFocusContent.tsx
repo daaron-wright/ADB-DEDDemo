@@ -230,7 +230,7 @@ export function BusinessRegistrationFocusContent({
             .toUpperCase();
           const isSuccess =
             Boolean(evaluatedName) &&
-            APPROVED_TRADE_NAMES.includes(evaluatedName as (typeof APPROVED_TRADE_NAMES)[number]);
+            APPROVED_TRADE_NAMES.some((name) => name === evaluatedName);
 
           setIsChecking(false);
           setIsNameAvailable(isSuccess);
