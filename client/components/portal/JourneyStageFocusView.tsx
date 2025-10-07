@@ -55,6 +55,7 @@ export function JourneyStageFocusView({
   taskTokens,
   formatDate,
   showTradeNameIdeas = false,
+  navigation,
 }: JourneyStageFocusViewProps) {
   const highlightToken = stage ? highlightTokens[stage.state] : null;
   const stagedTasks = stage?.tasks ?? [];
