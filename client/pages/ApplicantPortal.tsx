@@ -139,6 +139,7 @@ interface PortalLanguageCopy {
   applicationSummaryHeading: string;
   applicationSummaryNote: string;
   businessAITitle: string;
+  businessActivityGuidance: string;
   statusLabelMap: Record<ApplicationRecord["status"], string>;
   licenseTypeLabels: Record<ApplicationRecord["licenseType"], string>;
   beneficiaryLabels: Record<ApplicationRecord["beneficiary"], string>;
@@ -193,6 +194,8 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     applicationSummaryNote:
       "Your AI assistant will automatically pull the tenancy contract from ADM as soon as you register your lease.",
     businessAITitle: "Business AI",
+    businessActivityGuidance:
+      "You can select multiple business activities for a restaurant, provided they fall under the same business group. You can list a maximum of 10 activities on a single trade license.",
     statusLabelMap: {
       "In Review": "In Review",
       "Awaiting Documents": "Awaiting Documents",
@@ -263,7 +266,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء الاصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستثمرون آخرون أفكارهم إلى مطاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بم��اندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستثمرون آخرون أفكارهم إلى مطاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاصطناعي",
     journeyToggleLabel: (title: string) => `عرض أو إخفاء نظرة عامة للرحلة الخاصة بـ ${title}`,
@@ -279,6 +282,8 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     applicationSummaryNote:
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "مساعد الأعمال الذكي",
+    businessActivityGuidance:
+      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نفس مجموعة الأعمال. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     statusLabelMap: {
       "In Review": "قيد المراجعة",
       "Awaiting Documents": "بانتظار المستندات",
@@ -312,7 +317,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       heading: "تنسيق الرحلة",
       timelineLabel: "الجدول الزمني للرحلة",
       activePrefix: "الحالة الحالية:",
-      activeStage: "المرحلة النشطة",
+      activeStage: "المرحلة ال��شطة",
       yourNextStep: "خطوتك التالية",
       tasksCompleteMessage:
         "تم إكمال كل المهام لهذه المرحلة. راقبي تحديثات الأتمتة.",
