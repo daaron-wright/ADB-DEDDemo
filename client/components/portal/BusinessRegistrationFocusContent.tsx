@@ -160,6 +160,7 @@ export function BusinessRegistrationFocusContent({
   const [automationProgress, setAutomationProgress] = React.useState(() =>
     clampProgress(progressPercent),
   );
+  const [hasUserOverride, setHasUserOverride] = React.useState(false);
   const [failedStepIndex, setFailedStepIndex] = React.useState<number | null>(
     isTradeNameAvailable ? null : DEFAULT_FAILURE_STEP_INDEX,
   );
@@ -170,7 +171,7 @@ export function BusinessRegistrationFocusContent({
   const displayProgress = Math.round(automationProgress);
 
   React.useEffect(() => {
-    if (isChecking) {
+    if (hasUserOverride) {
       return;
     }
 
@@ -180,7 +181,7 @@ export function BusinessRegistrationFocusContent({
       isTradeNameAvailable ? null : DEFAULT_FAILURE_STEP_INDEX,
     );
     setAutomationProgress(clampProgress(progressPercent));
-  }, [isChecking, tradeName, isTradeNameAvailable, progressPercent]);
+  }, [hasUserOverride, tradeName, isTradeNameAvailable, progressPercent]);
 
   React.useEffect(() => {
     if (!isChecking) {
@@ -226,6 +227,7 @@ export function BusinessRegistrationFocusContent({
       setIsNameAvailable(true);
       setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
       setFailureReason(null);
+      setHasUserOverride(true);
     },
     [isChecking, trimmedInput],
   );
