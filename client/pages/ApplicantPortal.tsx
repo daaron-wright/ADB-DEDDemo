@@ -261,7 +261,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       postEmailPrePhone: " أو اتصلي على ",
       postPhone: ".",
     },
-    keyDatesHeading: "التواريخ الرئيسية",
+    keyDatesHeading: "التواري�� الرئيسية",
     keyDates: {
       submitted: "تم التقديم",
       lastUpdated: "آخر تحديث",
@@ -2009,7 +2009,7 @@ export default function ApplicantPortal() {
           )}
         >
           <JourneyOrchestrationPanel
-            introMessage={BUSINESS_AI_INTRO_MESSAGE}
+            introMessage={businessAIIntroMessage}
             actions={todoBankItems}
             remainingActionCount={remainingTodoCount}
             completionState={todoCompletionState}
@@ -2070,8 +2070,8 @@ export default function ApplicantPortal() {
           mode={isSidePanelView ? "side-panel" : "modal"}
           onClose={handleCloseChat}
           category="restaurants"
-          title="Business AI"
-          initialMessage={BUSINESS_AI_INTRO_MESSAGE}
+          title={languageCopy.businessAITitle}
+          initialMessage={businessAIIntroMessage}
           journeyFocusView={journeyFocusViewProps}
           suppressChatInterface={shouldSuppressChatInterface}
         />
