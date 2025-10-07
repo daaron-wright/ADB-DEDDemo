@@ -93,6 +93,78 @@ const statusStyles: Record<ApplicationRecord["status"], string> = {
 const BUSINESS_AI_INTRO_MESSAGE =
   "Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require more clarification to ensure the right decisions are made.";
 
+type PortalLanguage = "en" | "ar";
+
+interface PortalLanguageCopy {
+  languageLabel: string;
+  englishLabel: string;
+  arabicLabel: string;
+  englishBadge: string;
+  arabicBadge: string;
+  subtitle: string;
+  workspaceTitle: (name: string) => string;
+  workspaceDescription: (name: string) => string;
+  nextActionHeading: string;
+  nextActionButton: string;
+  journey: JourneyOrchestrationPanelCopy;
+}
+
+const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
+  en: {
+    languageLabel: "Language",
+    englishLabel: "English",
+    arabicLabel: "Arabic",
+    englishBadge: "English",
+    arabicBadge: "Arabic • Translated",
+    subtitle: "Business license portal",
+    workspaceTitle: (name: string) =>
+      name.endsWith("s") ? `${name}' workspace` : `${name}'s workspace`,
+    workspaceDescription: (name: string) =>
+      `Track your business license progress, ${name}, and know exactly what comes next.`,
+    nextActionHeading: "Next action",
+    nextActionButton: "Continue to Your Next Action",
+    journey: {
+      heading: "Journey orchestration",
+      timelineLabel: "Journey timeline",
+      activePrefix: "Active:",
+      activeStage: "Active stage",
+      yourNextStep: "Your next step",
+      tasksCompleteMessage:
+        "All tasks for this stage are complete. Monitor automation updates.",
+      automationMessage: "Automation is handling the remaining work for you.",
+      openNextTask: "Open next task",
+      reviewStage: "Review stage",
+      timelineAriaLabel: "Journey stages navigation",
+    },
+  },
+  ar: {
+    languageLabel: "اللغة",
+    englishLabel: "English",
+    arabicLabel: "العربية",
+    englishBadge: "English",
+    arabicBadge: "العربية • ترجمة",
+    subtitle: "بوابة رخصة الأعمال",
+    workspaceTitle: (name: string) => `مساحة عمل ${name}`,
+    workspaceDescription: (name: string) =>
+      `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة التالية.`,
+    nextActionHeading: "الإجراء التالي",
+    nextActionButton: "انتقلي إلى الإجراء التالي",
+    journey: {
+      heading: "تنسيق الرحلة",
+      timelineLabel: "الجدول الزمني للرحلة",
+      activePrefix: "الحالة الحالية:",
+      activeStage: "المرحلة النشطة",
+      yourNextStep: "خطوتك التالية",
+      tasksCompleteMessage:
+        "تم إكمال كل المهام لهذه المرحلة. راقبي تحديثات الأتمتة.",
+      automationMessage: "الأتمتة تتولى بقية العمل نيابةً عنك.",
+      openNextTask: "افتحي المهمة التالية",
+      reviewStage: "استعرضي المرحلة",
+      timelineAriaLabel: "التنقل بين مراحل الرحلة",
+    },
+  },
+};
+
 const BUSINESS_ACTIVITY_GUIDANCE_MESSAGE =
   "You can select multiple business activities for a restaurant, provided they fall under the same business group. You can list a maximum of 10 activities on a single trade license.";
 
