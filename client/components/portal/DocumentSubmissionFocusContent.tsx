@@ -425,30 +425,18 @@ export function DocumentSubmissionFocusContent({
 
           {showDocuments ? (
             <div className="flex gap-4">
-              <div className="relative flex-shrink-0">
-                <img
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/e935ed8e6b8aa085650edae1997167c9467b8f30?width=164"
-                  alt="Document preview 1"
-                  className="h-32 w-24 rounded-xl border border-white/70 object-cover shadow-[0_8px_24px_-12px_rgba(15,23,42,0.25)]"
-                />
-              </div>
-              <div className="relative flex-shrink-0">
-                <img
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/e467ef8d4c6409cd0f0e485b663b7b5a5ff73d2b?width=174"
-                  alt="Document preview 2"
-                  className="h-32 w-24 rounded-xl border border-white/70 object-cover shadow-[0_8px_24px_-12px_rgba(15,23,42,0.25)]"
-                />
-              </div>
-              <div className="relative flex-shrink-0">
-                <img
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/e6f6df90a2f485a0a3eed451704b3d9fb7375e09?width=164"
-                  alt="Document preview 3"
-                  className="h-32 w-24 rounded-xl border border-white/70 object-cover opacity-60 shadow-[0_8px_24px_-12px_rgba(15,23,42,0.25)]"
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Loader2 className="h-9 w-9 animate-spin text-[#0f766e]" />
+              {DOCUMENT_PREVIEWS.map((preview) => (
+                <div key={preview.id} className="relative flex-shrink-0">
+                  <img
+                    src={preview.src}
+                    alt={preview.alt}
+                    className="h-32 w-24 rounded-xl border border-white/70 object-cover shadow-[0_8px_24px_-12px_rgba(15,23,42,0.25)]"
+                  />
+                  <span className="absolute -right-1 -top-1 flex h-7 w-7 items-center justify-center rounded-full border border-white bg-[#0f766e] text-white shadow-[0_6px_18px_-10px_rgba(15,118,110,0.6)]">
+                    <Check className="h-3.5 w-3.5" strokeWidth={3} />
+                  </span>
                 </div>
-              </div>
+              ))}
             </div>
           ) : null}
         </section>
