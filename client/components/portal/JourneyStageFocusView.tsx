@@ -238,30 +238,47 @@ export function JourneyStageFocusView({
   }
 
   if (isDocumentSubmissionStage) {
+    const shouldShowDocuments =
+      selectedRecommendedId === "document-checklist" ||
+      selectedRecommendedId === "coordination-brief";
+
     return (
       <div className="space-y-5 sm:space-y-6">
-        <DocumentSubmissionFocusContent
-          journeyNumber="0987654321"
-          completionStatus="5 of 8 complete"
-          progressPercent={51}
-        />
+        {shouldShowDocuments ? (
+          <DocumentSubmissionFocusContent
+            journeyNumber="0987654321"
+            completionStatus="5 of 8 complete"
+            progressPercent={51}
+          />
+        ) : (
+          renderGuidanceSummary(
+            selectedRecommendedActivity,
+            "Select a document-focused recommendation to load the required submissions.",
+          )
+        )}
         {navigationControls}
       </div>
     );
   }
 
   if (isBusinessRegistrationStage) {
-    const shouldShowTradeNameIdeas =
-      showTradeNameIdeas || selectedRecommendedActivity?.id === "trade-name-ideas";
+    const shouldShowTradeNameIdeas = selectedRecommendedId === "trade-name-ideas";
 
     return (
       <div className="space-y-5 sm:space-y-6">
-        <BusinessRegistrationFocusContent
-          journeyNumber="0987654321"
-          completionStatus="4 of 8 complete"
-          progressPercent={46}
-          showTradeNameIdeas={shouldShowTradeNameIdeas}
-        />
+        {shouldShowTradeNameIdeas ? (
+          <BusinessRegistrationFocusContent
+            journeyNumber="0987654321"
+            completionStatus="4 of 8 complete"
+            progressPercent={46}
+            showTradeNameIdeas
+          />
+        ) : (
+          renderGuidanceSummary(
+            selectedRecommendedActivity,
+            "Select \"Trade name ideas\" to explore compliant brand options.",
+          )
+        )}
         {navigationControls}
       </div>
     );
