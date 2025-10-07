@@ -224,7 +224,6 @@ export function JourneyStageFocusView({
       <div className="space-y-5 sm:space-y-6">
         <ComplianceGrowthFocusContent
           journeyNumber="0987654321"
-          completionStatus="8 of 10 complete"
           progressPercent={78}
         />
         {navigationControls}
@@ -237,7 +236,6 @@ export function JourneyStageFocusView({
       <div className="space-y-5 sm:space-y-6">
         <PreOperationalInspectionFocusContent
           journeyNumber="0987654321"
-          completionStatus="7 of 8 complete"
           progressPercent={83}
         />
         {navigationControls}
@@ -250,7 +248,6 @@ export function JourneyStageFocusView({
       <div className="space-y-5 sm:space-y-6">
         <BusinessLicensingFocusContent
           journeyNumber="0987654321"
-          completionStatus="6 of 8 complete"
           progressPercent={64}
         />
         {navigationControls}
@@ -268,7 +265,6 @@ export function JourneyStageFocusView({
         {shouldShowDocuments ? (
           <DocumentSubmissionFocusContent
             journeyNumber="0987654321"
-            completionStatus="5 of 8 complete"
             progressPercent={51}
           />
         ) : (
@@ -292,7 +288,6 @@ export function JourneyStageFocusView({
         {shouldShowTradeNameIdeas ? (
           <BusinessRegistrationFocusContent
             journeyNumber="0987654321"
-            completionStatus="4 of 8 complete"
             progressPercent={46}
             showTradeNameIdeas
           />
