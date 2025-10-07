@@ -1381,14 +1381,6 @@ export default function ApplicantPortal() {
                 </p>
               </div>
             </div>
-            <div className="text-right">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/60">
-                AI Discovery
-              </p>
-              <p className="text-sm font-semibold text-white">
-                Research with Business Chat
-              </p>
-            </div>
           </div>
           <div className="space-y-3">
             <h2 className="text-2xl font-semibold leading-snug sm:text-3xl">
