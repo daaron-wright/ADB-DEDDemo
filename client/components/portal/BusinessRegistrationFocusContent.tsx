@@ -247,12 +247,15 @@ export function BusinessRegistrationFocusContent({
         return;
       }
 
-      setActiveTradeName(trimmedInput);
+      const normalizedInput = trimmedInput.toUpperCase();
+
+      setActiveTradeName(normalizedInput);
+      setPendingTradeName(normalizedInput);
       setAutomationProgress(0);
       setInputValue("");
       setIsChecking(true);
-      setIsNameAvailable(true);
-      setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
+      setIsNameAvailable(false);
+      setFailedStepIndex(null);
       setFailureReason(null);
       setHasUserOverride(true);
     },
