@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import * as React from "react";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -96,7 +98,7 @@ const TRADE_NAME_IDEAS: ReadonlyArray<TradeNameIdeaSuggestion> = [
   {
     id: "pearl-horizon-dining",
     english: "Pearl Horizon Dining",
-    arabic: "مطعم أفق اللؤلؤ",
+    arabic: "مطعم أفق الل��لؤ",
   },
   {
     id: "harbor-lights-supper-club",
