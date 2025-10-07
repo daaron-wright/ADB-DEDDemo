@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
@@ -15,21 +13,6 @@ interface BusinessRegistrationFocusContentProps {
   progressPercent?: number;
 }
 
-type StepStatus = "current" | "pending" | "completed";
-
-interface StepItem {
-  id: number;
-  label: string;
-  status: StepStatus;
-}
-
-const DEFAULT_STEPS: StepItem[] = [
-  { id: 1, label: "Business Registration", status: "current" },
-  { id: 2, label: "Submission of Documents", status: "pending" },
-  { id: 3, label: "Business Licensing", status: "pending" },
-  { id: 4, label: "Pre-Operational Inspection", status: "pending" },
-];
-
 export function BusinessRegistrationFocusContent({
   journeyNumber = "0987654321",
   completionStatus = "4 of 8 complete",
@@ -37,8 +20,6 @@ export function BusinessRegistrationFocusContent({
   isTradeNameAvailable = true,
   progressPercent = 46,
 }: BusinessRegistrationFocusContentProps) {
-  const steps = React.useMemo(() => DEFAULT_STEPS, []);
-
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
       <section
@@ -132,39 +113,6 @@ export function BusinessRegistrationFocusContent({
             </div>
           </div>
 
-          <ol className="space-y-4">
-            {steps.map((step) => (
-              <li key={step.id} className="flex items-start gap-4">
-                <span
-                  className={cn(
-                    "flex h-10 w-10 items-center justify-center rounded-full border text-sm font-semibold transition",
-                    step.status === "completed" &&
-                      "border-[#0f766e] bg-[#0f766e] text-white",
-                    step.status === "current" &&
-                      "border-[#0f766e] bg-[#0f766e]/10 text-[#0f766e]",
-                    step.status === "pending" &&
-                      "border-slate-200 bg-white text-slate-500",
-                  )}
-                >
-                  {step.status === "completed" ? (
-                    <Check className="h-4 w-4" strokeWidth={3} />
-                  ) : (
-                    step.id
-                  )}
-                </span>
-                <div className="space-y-1">
-                  <p className="text-base font-semibold text-slate-900">
-                    Step {step.id}: {step.label}
-                  </p>
-                  <p className="text-sm text-slate-600">
-                    {step.status === "current"
-                      ? "Currently capturing your business details and verifying the trade name."
-                      : "Pending action once current step is complete."}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
         </div>
       </section>
 
