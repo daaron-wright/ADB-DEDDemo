@@ -124,6 +124,25 @@ const TRADE_NAME_IDEAS: ReadonlyArray<TradeNameIdeaSuggestion> = [
   },
 ];
 
+function sampleTradeNameIdeas(
+  source: ReadonlyArray<TradeNameIdeaSuggestion>,
+): TradeNameIdeaSuggestion[] {
+  if (source.length <= MAX_TRADE_NAME_SUGGESTIONS) {
+    return [...source];
+  }
+
+  const shuffled = [...source];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [
+      shuffled[swapIndex],
+      shuffled[index],
+    ];
+  }
+
+  return shuffled.slice(0, MAX_TRADE_NAME_SUGGESTIONS);
+}
+
 const APPROVED_TRADE_NAMES = [
   "MARWAH",
   "CORNICHE CULINARY COLLECTIVE",
