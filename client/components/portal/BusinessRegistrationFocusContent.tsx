@@ -90,7 +90,12 @@ const TRADE_NAME_IDEAS: ReadonlyArray<TradeNameIdeaSuggestion> = [
   {
     id: "corniche-culinary-collective",
     english: "Corniche Culinary Collective",
-    arabic: "مجمو��ة كورنيش للطهي",
+    arabic: "مجموعة كورنيش للطهي",
+  },
+  {
+    id: "marwah",
+    english: "Marwah",
+    arabic: "مروة",
   },
   {
     id: "azure-coast-kitchen",
