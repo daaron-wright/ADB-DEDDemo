@@ -898,6 +898,12 @@ export function JourneyStageFocusView({
               </div>
             </div>
           ) : null}
+
+          {navigationControls ? (
+            <div className="border-t border-white/40 pt-5">
+              {navigationControls}
+            </div>
+          ) : null}
         </div>
       </div>
 
@@ -911,8 +917,6 @@ export function JourneyStageFocusView({
           <p className={timelineItem.statusHelperClass}>{timelineItem.meta}</p>
         </div>
       ) : null}
-
-      {navigationControls}
     </div>
   );
 }
