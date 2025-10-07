@@ -13,7 +13,7 @@ interface PreOperationalInspectionFocusContentProps {
 }
 
 type StepStatus = "completed" | "current" | "pending";
-type SubStepStatus = "completed" | "in_progress" | "pending" | "scheduled";
+type SubStepStatus = "completed" | "in_progress" | "pending" | "scheduled" | "account_linked";
 
 interface SubStep {
   id: string;
@@ -125,6 +125,12 @@ const SUB_STEP_TOKENS: Record<SubStepStatus, { label: string; badgeClass: string
     iconClass: "text-[#0f766e]",
     dotClass: "bg-[#0f766e]",
   },
+  account_linked: {
+    label: "Account Linked",
+    badgeClass: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
+    iconClass: "text-[#0f766e]",
+    dotClass: "bg-[#0f766e]",
+  },
   in_progress: {
     label: "In progress",
     badgeClass: "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
@@ -156,11 +162,11 @@ export function PreOperationalInspectionFocusContent({
       subSteps: step.subSteps?.map((subStep) => ({ ...subStep })),
     })),
   );
-  const [bankAccountPhase, setBankAccountPhase] = React.useState<"link" | "in_progress" | "completed">("link");
+  const [bankAccountPhase, setBankAccountPhase] = React.useState<"link" | "in_progress" | "account_linked">("link");
 
   const handleBankAccountAdvance = React.useCallback(() => {
     setBankAccountPhase((previousPhase) => {
-      if (previousPhase === "completed") {
+      if (previousPhase !== "link") {
         return previousPhase;
       }
 
@@ -173,18 +179,8 @@ export function PreOperationalInspectionFocusContent({
           return {
             ...step,
             subSteps: step.subSteps?.map((subStep) => {
-              if (previousPhase === "link" && subStep.id === "bank-account") {
+              if (subStep.id === "bank-account") {
                 return { ...subStep, status: "in_progress" };
-              }
-
-              if (previousPhase === "in_progress") {
-                if (subStep.id === "bank-account") {
-                  return { ...subStep, status: "completed" };
-                }
-
-                if (subStep.status === "pending") {
-                  return { ...subStep, status: "scheduled" };
-                }
               }
 
               return subStep;
@@ -193,17 +189,46 @@ export function PreOperationalInspectionFocusContent({
         }),
       );
 
-      if (previousPhase === "link") {
-        return "in_progress";
-      }
-
-      if (previousPhase === "in_progress") {
-        return "completed";
-      }
-
-      return previousPhase;
+      return "in_progress";
     });
   }, []);
+
+  React.useEffect(() => {
+    if (bankAccountPhase !== "in_progress") {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setSteps((previousSteps) =>
+        previousSteps.map((step) => {
+          if (step.id !== 4) {
+            return step;
+          }
+
+          return {
+            ...step,
+            subSteps: step.subSteps?.map((subStep) => {
+              if (subStep.id === "bank-account") {
+                return { ...subStep, status: "account_linked" };
+              }
+
+              if (subStep.status === "pending") {
+                return { ...subStep, status: "scheduled" };
+              }
+
+              return subStep;
+            }),
+          };
+        }),
+      );
+
+      setBankAccountPhase("account_linked");
+    }, 800);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [bankAccountPhase]);
 
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
@@ -272,21 +297,15 @@ export function PreOperationalInspectionFocusContent({
 
                 <div className="space-y-3">
                   {step.subSteps?.map((subStep) => {
-                const isBankAccount = subStep.id === "bank-account";
-                const token = SUB_STEP_TOKENS[subStep.status];
-                const bankAccountHelperText =
-                  bankAccountPhase === "link"
-                    ? "Connect your corporate banking partner so we can sync settlement details."
-                    : bankAccountPhase === "in_progress"
-                    ? "We’re coordinating with the bank. Mark completed once the account is active."
-                    : "Account is active. Additional optional services are now scheduled.";
-                const badgeLabel = isBankAccount
-                  ? bankAccountPhase === "link"
-                    ? "Link account"
-                    : token.label
-                  : token.label;
+                    const isBankAccount = subStep.id === "bank-account";
+                    const token = SUB_STEP_TOKENS[subStep.status];
+                    const badgeLabel = isBankAccount
+                      ? bankAccountPhase === "link"
+                        ? "Link account"
+                        : token.label
+                      : token.label;
 
-                return (
+                    return (
                   <div
                     key={subStep.id}
                     className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:flex-row sm:items-center sm:justify-between"
@@ -295,16 +314,17 @@ export function PreOperationalInspectionFocusContent({
                       <span
                         className={cn(
                           "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border",
-                          subStep.status === "completed" && "border-[#0f766e]/20 bg-[#0f766e]/10",
+                          (subStep.status === "completed" || subStep.status === "account_linked") &&
+                            "border-[#0f766e]/20 bg-[#0f766e]/10",
                           subStep.status === "in_progress" && "border-[#94d2c2] bg-[#dff2ec]/70",
                           subStep.status === "pending" && "border-slate-200 bg-white",
                           subStep.status === "scheduled" && "border-[#cdd7f8] bg-[#eef2ff]",
                         )}
                       >
-                        {subStep.status === "completed" ? (
-                          <Check className={cn("h-4 w-4", token.iconClass)} strokeWidth={3} />
-                        ) : subStep.status === "in_progress" ? (
+                        {subStep.status === "in_progress" ? (
                           <Loader2 className={cn("h-4 w-4 animate-spin", token.iconClass)} />
+                        ) : subStep.status === "completed" || subStep.status === "account_linked" ? (
+                          <Check className={cn("h-4 w-4", token.iconClass)} strokeWidth={3} />
                         ) : (
                           <span className={cn("block h-2.5 w-2.5 rounded-full", token.dotClass)} />
                         )}
@@ -328,21 +348,26 @@ export function PreOperationalInspectionFocusContent({
                             <Button
                               type="button"
                               onClick={handleBankAccountAdvance}
-                              disabled={bankAccountPhase === "completed"}
+                              disabled={bankAccountPhase !== "link"}
                               className={cn(
                                 "inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition",
-                                bankAccountPhase === "completed" && "cursor-default bg-[#0f766e]/60 hover:bg-[#0f766e]/60",
+                                bankAccountPhase !== "link" && "cursor-default bg-[#0f766e]/60 hover:bg-[#0f766e]/60",
                               )}
                             >
-                              {bankAccountPhase === "link"
-                                ? "Link corporate bank account"
-                                : bankAccountPhase === "in_progress"
-                                ? "Mark account setup as completed"
-                                : "Bank account linked"}
+                              {bankAccountPhase === "link" ? (
+                                "Link corporate bank account"
+                              ) : bankAccountPhase === "in_progress" ? (
+                                <>
+                                  <Loader2 className="h-4 w-4 animate-spin" />
+                                  <span>In progress...</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Check className="h-4 w-4" />
+                                  <span>Account linked</span>
+                                </>
+                              )}
                             </Button>
-                            <p className="text-xs text-slate-500 sm:max-w-[280px]">
-                              {bankAccountHelperText}
-                            </p>
                           </div>
                         ) : null}
                       </div>
