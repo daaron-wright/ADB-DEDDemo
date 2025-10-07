@@ -1427,14 +1427,14 @@ export default function ApplicantPortal() {
       },
       {
         id: "primary-application-next",
-        label: primaryApplication.nextAction,
+        label: displayApplication.nextAction,
         status: "workflow",
         stageId: primaryOutstandingStage?.id ?? undefined,
         stageTitle: primaryOutstandingStage?.title ?? "Generating application",
       },
       ...uniqueApplicantTasks,
     ];
-  }, [journeyStages, primaryApplication.nextAction]);
+  }, [journeyStages, displayApplication.nextAction]);
 
   const remainingTodoCount = useMemo(() => {
     return todoBankItems.reduce((count, item) => {
