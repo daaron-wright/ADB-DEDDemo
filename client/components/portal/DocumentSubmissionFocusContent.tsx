@@ -3,14 +3,6 @@ import * as React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
