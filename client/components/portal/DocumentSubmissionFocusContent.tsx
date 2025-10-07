@@ -194,13 +194,26 @@ export function DocumentSubmissionFocusContent({
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="space-y-1">
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Step 2 in progress
+                  {submissionStep
+                    ? `Step ${submissionStep.id} ${submissionToken.headline}`
+                    : "Step 2 in progress"}
                 </p>
                 <p className="text-2xl font-semibold text-slate-900">Submission of Documents</p>
               </div>
-              <Badge className="inline-flex items-center gap-2 border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
-                <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                Automation syncing
+              <Badge
+                className={cn(
+                  "inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                  submissionToken.badgeClass,
+                )}
+              >
+                {submissionToken.iconType === "check" ? (
+                  <Check className={cn("h-3.5 w-3.5", submissionToken.iconClass)} strokeWidth={3} />
+                ) : submissionToken.iconType === "spinner" ? (
+                  <Loader2 className={cn("h-3.5 w-3.5 animate-spin", submissionToken.iconClass)} />
+                ) : (
+                  <span className={cn("block h-2 w-2 rounded-full", submissionToken.iconClass)} />
+                )}
+                {submissionToken.badgeLabel}
               </Badge>
             </div>
             <div className="space-y-2">
