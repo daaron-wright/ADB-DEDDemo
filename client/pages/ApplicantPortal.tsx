@@ -306,7 +306,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       Visitor: "زائر",
     },
     directorateLabels: {
-      "Department of Economic Development": "دائرة التن��ية الاقتصادية",
+      "Department of Economic Development": "دائرة التنمية الاقتصادية",
     },
     applicationTitles: {
       "APP-48291": "مجموعة كورنيش للطهي",
@@ -1426,7 +1426,7 @@ export default function ApplicantPortal() {
     return [
       {
         id: "business-activity-guidance",
-        label: "Add licensing guidance to business activities questionnaire",
+        label: languageCopy.businessActivityGuidanceLabel,
         status: "guidance",
         description: languageCopy.businessActivityGuidance,
         stageId: questionnaireStageId ?? undefined,
