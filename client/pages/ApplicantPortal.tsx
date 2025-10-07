@@ -1232,7 +1232,7 @@ export default function ApplicantPortal() {
 
     return {
       timelineItem,
-      stage,
+      stage: resolvedStage,
       navigation:
         previousStage || nextStage
           ? {
