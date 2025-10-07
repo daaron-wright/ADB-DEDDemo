@@ -400,7 +400,7 @@ export function BusinessRegistrationFocusContent({
                     <Button
                       type="submit"
                       className="h-11 rounded-full bg-[#0f766e] px-5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_12px_28px_-18px_rgba(15,118,110,0.45)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
-                      disabled={isChecking || trimmedInput.length === 0}
+                      disabled={isSubmitDisabled}
                     >
                       Run checks
                     </Button>
