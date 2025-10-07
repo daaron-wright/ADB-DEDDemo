@@ -723,7 +723,7 @@ export function JourneyStageFocusView({
                 ) : null}
 
                 {selectedRecommendedId === "activity-curation" ? (
-                  <div className="space-y-3 rounded-2xl border border-white/30 bg-white/16 p-4">
+                  <div className="space-y-4">
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <div className="space-y-1">
                         <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
