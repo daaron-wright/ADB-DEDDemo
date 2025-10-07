@@ -425,6 +425,31 @@ const taskStatusTokens: Record<
   },
 };
 
+function deriveStageState(stage: JourneyStage): JourneyHighlightState {
+  const tasks = stage.tasks ?? [];
+  if (tasks.length > 0) {
+    if (tasks.every((task) => task.status === "completed")) {
+      return "done";
+    }
+
+    const anyStarted = tasks.some((task) => task.status !== "pending");
+    return anyStarted ? "current" : "upcoming";
+  }
+
+  const transitions = stage.statusTransitions ?? [];
+  if (transitions.length > 0) {
+    if (transitions.some((transition) => transition.status === "completed")) {
+      return "done";
+    }
+
+    if (transitions.some((transition) => transition.status === "in_progress")) {
+      return "current";
+    }
+  }
+
+  return stage.state;
+}
+
 type BusinessAIFocusContext =
   | { type: "automation" }
   | { type: "stage"; stageId: string };
