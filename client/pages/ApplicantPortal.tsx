@@ -143,7 +143,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     arabicLabel: "العربية",
     englishBadge: "English",
     arabicBadge: "العربية • ترجمة",
-    subtitle: "بوابة رخ��ة الأعمال",
+    subtitle: "بوابة رخصة الأعمال",
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة التالية.`,
@@ -1820,6 +1820,7 @@ export default function ApplicantPortal() {
             onResumeAutomation={handleResumeAutomation}
             onViewJourney={handleViewJourney}
             onTimelineFocusChange={handleTimelineFocusChange}
+            copy={languageCopy.journey}
           />
           {isTimelineBackgroundBlurred ? (
             <div
