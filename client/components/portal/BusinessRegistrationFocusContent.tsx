@@ -289,8 +289,12 @@ export function BusinessRegistrationFocusContent({
     });
   }, [automationProgress, failedStepIndex, isNameAvailable]);
 
+  const hasActiveTradeName = activeTradeName.length > 0;
+
   const badgeLabel = isChecking
     ? "Checking..."
+    : !hasActiveTradeName
+    ? "Awaiting name"
     : isNameAvailable
     ? "Available"
     : "Unavailable";
@@ -298,8 +302,11 @@ export function BusinessRegistrationFocusContent({
   const availabilityBadgeClasses = cn(
     "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] shadow-sm transition-colors",
     isChecking && "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
-    !isChecking && isNameAvailable && "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
-    !isChecking && !isNameAvailable && "border-rose-200 bg-rose-50 text-rose-600",
+    !isChecking && !hasActiveTradeName && "border-slate-200 bg-white text-slate-400",
+    !isChecking && hasActiveTradeName && isNameAvailable &&
+      "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
+    !isChecking && hasActiveTradeName && !isNameAvailable &&
+      "border-rose-200 bg-rose-50 text-rose-600",
   );
 
   const badgeIcon = isChecking ? (
@@ -307,6 +314,8 @@ export function BusinessRegistrationFocusContent({
       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-60" />
       <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
     </span>
+  ) : !hasActiveTradeName ? (
+    <span className="h-2 w-2 rounded-full bg-current" />
   ) : isNameAvailable ? (
     <Check className="h-3.5 w-3.5" strokeWidth={3} />
   ) : (
@@ -315,7 +324,11 @@ export function BusinessRegistrationFocusContent({
 
   const statusIconWrapperClasses = cn(
     "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full transition-colors",
-    isChecking || isNameAvailable
+    isChecking
+      ? "bg-[#0f766e]/15 text-[#0f766e]"
+      : !hasActiveTradeName
+      ? "bg-slate-100 text-slate-400"
+      : isNameAvailable
       ? "bg-[#0f766e]/15 text-[#0f766e]"
       : "bg-rose-100 text-rose-600",
   );
@@ -325,6 +338,8 @@ export function BusinessRegistrationFocusContent({
       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current/60" />
       <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
     </span>
+  ) : !hasActiveTradeName ? (
+    <span className="h-2 w-2 rounded-full bg-current" />
   ) : isNameAvailable ? (
     <Check className="h-4 w-4" strokeWidth={3} />
   ) : (
@@ -333,30 +348,40 @@ export function BusinessRegistrationFocusContent({
 
   const statusHeading = isChecking
     ? "Checking trade name"
+    : !hasActiveTradeName
+    ? "No trade name selected"
     : isNameAvailable
     ? "Trade name available"
     : "Trade name unavailable";
 
   const statusDescription = isChecking
     ? "We’re running automated validation before reserving the name."
+    : !hasActiveTradeName
+    ? "Enter a trade name to begin the automated validation process."
     : isNameAvailable
     ? "The TAMM platform confirms availability. Final approval remains with the Department of Economic Development."
     : "This name matches an existing business record. Try a different variation to continue.";
 
   const tradeCheckDescription = isChecking
     ? "We’re synchronising with the Department of Economic Development to confirm availability."
+    : !hasActiveTradeName
+    ? "Start by entering a trade name to run the automated checks."
     : isNameAvailable
     ? "We’re confirming availability and reserving your trade name before moving to licensing."
     : "The checks flagged a conflict with an existing registration, so this name can’t proceed.";
 
   const statusSummary = isChecking
-    ? `Status: running automated checks for ${activeTradeName}`
+    ? `Status: running automated checks for ${activeTradeName || "your trade name"}`
+    : !hasActiveTradeName
+    ? "Status: awaiting trade name submission."
     : isNameAvailable
     ? "Status: verification synced with the Department of Economic Development"
     : `Status: similar name conflict flagged for ${activeTradeName}.`;
 
   const tradeCheckBadgeLabel = isChecking
     ? "Checking"
+    : !hasActiveTradeName
+    ? "Awaiting input"
     : isNameAvailable
     ? "In progress"
     : "Action needed";
@@ -364,8 +389,11 @@ export function BusinessRegistrationFocusContent({
   const tradeCheckBadgeClasses = cn(
     "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]",
     isChecking && "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]",
-    !isChecking && isNameAvailable && "border-white/70 bg-[#0f766e]/10 text-[#0f766e]",
-    !isChecking && !isNameAvailable && "border-rose-200 bg-rose-50 text-rose-600",
+    !isChecking && !hasActiveTradeName && "border-slate-200 bg-white text-slate-400",
+    !isChecking && hasActiveTradeName && isNameAvailable &&
+      "border-white/70 bg-[#0f766e]/10 text-[#0f766e]",
+    !isChecking && hasActiveTradeName && !isNameAvailable &&
+      "border-rose-200 bg-rose-50 text-rose-600",
   );
 
   return (
