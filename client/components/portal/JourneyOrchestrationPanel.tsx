@@ -40,25 +40,6 @@ export function JourneyOrchestrationPanel({
   onTimelineFocusChange,
   stageNumberOffset = 0,
 }: JourneyOrchestrationPanelProps) {
-  const completedActions = React.useMemo(
-    () =>
-      actions.filter(
-        (action) => (completionState[action.id] ?? false) === true,
-      ),
-    [actions, completionState],
-  );
-  const outstandingActions = React.useMemo(
-    () => actions.filter((action) => !(completionState[action.id] ?? false)),
-    [actions, completionState],
-  );
-
-  const totalActions = actions.length;
-  const completedCount = completedActions.length;
-  const outstandingCount = outstandingActions.length;
-  const outstandingDisplayCount = remainingActionCount ?? outstandingCount;
-  const completionPercent =
-    totalActions === 0 ? 0 : Math.round((completedCount / totalActions) * 100);
-  const hasActions = totalActions > 0;
   const hasTimelineSection = timelineItems.length > 0;
 
   const [selectedTimelineId, setSelectedTimelineId] = React.useState<string>(
