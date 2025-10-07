@@ -250,7 +250,7 @@ export function BusinessLicensingFocusContent({
   const licensingStep = steps.find((step) => step.id === 3);
   const licensingSubSteps = licensingStep?.subSteps ?? [];
   const completedCount = licensingSubSteps.filter((subStep) => subStep.status === "completed").length;
-  const shouldShowUserActions = stageStatus !== "pending";
+  const shouldShowUserActions = stageStatus === "request";
 
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
