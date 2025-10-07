@@ -125,7 +125,11 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
         const badgeStyle = isReviewer
           ? undefined
           : {
-              background: `linear-gradient(140deg, ${detail.accent} 0%, ${detail.accent}cc 100%)`,
+              background: `linear-gradient(145deg, ${detail.accent} 0%, ${
+                detail.badgeHighlight ?? detail.accent
+              } 100%)`,
+              boxShadow:
+                detail.badgeShadow ?? "0 6px 16px -10px rgba(31, 138, 131, 0.55)",
             };
 
         return (
@@ -145,9 +149,10 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
               <div className="flex items-start gap-4 sm:gap-6">
                 <div
                   className={cn(
-                    "inline-flex h-12 w-12 items-center justify-center rounded-full text-base font-semibold shadow-sm",
+                    "inline-flex h-14 w-14 items-center justify-center text-lg font-semibold transition-shadow duration-200",
+                    detail.badgeShapeClass ?? "rounded-full",
                     isReviewer
-                      ? "border-2 border-[#0f766e] bg-white text-[#0f766e]"
+                      ? "border-2 border-[#0f766e] bg-white text-[#0f766e] shadow-sm"
                       : "text-white",
                   )}
                   style={badgeStyle}
