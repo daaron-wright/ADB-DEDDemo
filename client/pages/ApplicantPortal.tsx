@@ -785,6 +785,10 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
 
 export default function ApplicantPortal() {
   const location = useLocation();
+  const [language, setLanguage] = usePersistentState<PortalLanguage>(
+    "portal-language",
+    "en",
+  );
   const [portalView, setPortalView] = useState<PortalView>("overview");
   const portalUser = (
     location.state as
