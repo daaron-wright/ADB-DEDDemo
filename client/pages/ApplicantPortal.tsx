@@ -311,7 +311,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "يعمل طلبك المدعوم بالذكاء الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال الشركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
-      "APP-48291": "قدمي حزمة ا��موافقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
+      "APP-48291": "قدمي حزمة الموافقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
     },
     journey: {
       heading: "تنسيق الرحلة",
@@ -1423,7 +1423,7 @@ export default function ApplicantPortal() {
         id: "business-activity-guidance",
         label: "Add licensing guidance to business activities questionnaire",
         status: "guidance",
-        description: BUSINESS_ACTIVITY_GUIDANCE_MESSAGE,
+        description: languageCopy.businessActivityGuidance,
         stageId: questionnaireStageId ?? undefined,
         stageTitle: "Questionnaire",
       },
@@ -1436,7 +1436,11 @@ export default function ApplicantPortal() {
       },
       ...uniqueApplicantTasks,
     ];
-  }, [journeyStages, displayApplication.nextAction]);
+  }, [
+    journeyStages,
+    displayApplication.nextAction,
+    languageCopy.businessActivityGuidance,
+  ]);
 
   const remainingTodoCount = useMemo(() => {
     return todoBankItems.reduce((count, item) => {
