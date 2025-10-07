@@ -77,6 +77,15 @@ const DEFAULT_FAILURE_STEP_INDEX = (() => {
   return index === -1 ? 3 : index;
 })();
 
+const TRADE_NAME_IDEAS = [
+  "Corniche Culinary Collective",
+  "Azure Coast Kitchen",
+  "Pearl Horizon Dining",
+  "Harbor Lights Supper Club",
+  "Marina Ember Grill",
+  "Gulf Breeze Gastronomy",
+] as const;
+
 const STATUS_LABELS: Record<TradeNameCheckStatus, string> = {
   completed: "Completed",
   current: "Running",
