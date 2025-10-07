@@ -242,7 +242,7 @@ const journeyStages: JourneyStage[] = [
         id: "economic-license-completed",
         status: "completed",
         label: "Economic license issued",
-        detail: `Completed ${formatDisplayDate(daysFromToday(-2))}`,
+        detail: "DED license number synced to workspace.",
         timestamp: isoDate(daysFromToday(-2)),
       },
     ],
