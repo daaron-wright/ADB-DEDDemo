@@ -541,11 +541,6 @@ export function DocumentSubmissionFocusContent({
                                     </span>
                                   ) : null}
                                 </div>
-                                {isInteractive ? (
-                                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                                    Launch AI assistant to finalize
-                                  </p>
-                                ) : null}
                               </div>
                             </div>
                             <Badge
