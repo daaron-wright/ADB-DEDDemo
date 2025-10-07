@@ -65,6 +65,7 @@ export interface JourneyStageFocusViewProps {
   activeRecommendedActivityId?: string | null;
   onRecommendedActivityChange?: (activityId: string) => void;
   stageActivities?: StageActivitiesContext;
+  tradeName?: string;
 }
 
 const TASK_CARD_BASE =
