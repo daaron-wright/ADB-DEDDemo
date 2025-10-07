@@ -176,8 +176,11 @@ export function BusinessLicensingFocusContent({
     const inProgressTimer = window.setTimeout(() => {
       setStageStatus("in_progress");
     }, 1500);
+    const pendingTimer = window.setTimeout(() => {
+      setStageStatus("pending");
+    }, 4200);
 
-    timersRef.current = [inProgressTimer];
+    timersRef.current = [inProgressTimer, pendingTimer];
 
     return () => {
       timersRef.current.forEach((timerId) => window.clearTimeout(timerId));
@@ -189,7 +192,11 @@ export function BusinessLicensingFocusContent({
       previousSteps.map((step) => {
         if (step.id === 3) {
           const subStepStatus: SubStepStatus =
-            stageStatus === "request" ? "pending" : "in_progress";
+            stageStatus === "request"
+              ? "request"
+              : stageStatus === "in_progress"
+              ? "in_progress"
+              : "pending";
 
           return {
             ...step,
@@ -204,7 +211,7 @@ export function BusinessLicensingFocusContent({
         if (step.id === 4) {
           return {
             ...step,
-            status: "pending",
+            status: stageStatus === "pending" ? "current" : "pending",
           };
         }
 
@@ -214,8 +221,10 @@ export function BusinessLicensingFocusContent({
 
     if (stageStatus === "request") {
       setProgress(Math.min(initialProgressPercent, 28));
-    } else {
+    } else if (stageStatus === "in_progress") {
       setProgress(Math.max(initialProgressPercent, 68));
+    } else {
+      setProgress(Math.max(initialProgressPercent, 78));
     }
   }, [stageStatus, initialProgressPercent]);
 
