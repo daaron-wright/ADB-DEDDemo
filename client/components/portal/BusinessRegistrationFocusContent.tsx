@@ -148,21 +148,26 @@ function clampProgress(value: number) {
 export function BusinessRegistrationFocusContent({
   journeyNumber = "0987654321",
   completionStatus = "4 of 8 complete",
-  tradeName = "MARWAH",
-  isTradeNameAvailable = true,
+  tradeName = "",
+  isTradeNameAvailable = false,
   progressPercent = 46,
 }: BusinessRegistrationFocusContentProps) {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const [activeTradeName, setActiveTradeName] = React.useState(tradeName);
+  const [pendingTradeName, setPendingTradeName] = React.useState<string | null>(
+    null,
+  );
   const [inputValue, setInputValue] = React.useState("");
   const [isChecking, setIsChecking] = React.useState(false);
-  const [isNameAvailable, setIsNameAvailable] = React.useState(isTradeNameAvailable);
+  const [isNameAvailable, setIsNameAvailable] = React.useState(
+    Boolean(tradeName) && isTradeNameAvailable,
+  );
   const [automationProgress, setAutomationProgress] = React.useState(() =>
     clampProgress(progressPercent),
   );
   const [hasUserOverride, setHasUserOverride] = React.useState(false);
   const [failedStepIndex, setFailedStepIndex] = React.useState<number | null>(
-    isTradeNameAvailable ? null : DEFAULT_FAILURE_STEP_INDEX,
+    Boolean(tradeName) && !isTradeNameAvailable ? DEFAULT_FAILURE_STEP_INDEX : null,
   );
   const [failureReason, setFailureReason] = React.useState<string | null>(null);
 
