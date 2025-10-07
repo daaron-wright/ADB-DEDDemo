@@ -3650,7 +3650,7 @@ const CompetitorBreakoutModal = ({
     },
     {
       name: "Palms & Pearls",
-      rating: "4.3��",
+      rating: "4.3★",
       tier: "Elevated casual",
       insight:
         "Experiential tasting flights outperform à la carte by 1.6x revenue.",
@@ -5188,6 +5188,25 @@ export function BusinessChatUI({
 
     return DEFAULT_CHAT_PLACEHOLDER;
   }, [interactionMode]);
+
+  const handleInputChange = (value: string) => {
+    setInputValue(value);
+    const matchedTopic = CHAT_SUGGESTED_TOPICS.find(
+      (topic) => topic.prompt === value,
+    );
+    setActiveSuggestedTopic(matchedTopic ? matchedTopic.id : null);
+  };
+
+  const handleSuggestedTopicSelect = (topicId: SuggestedTopicId) => {
+    const topic = CHAT_SUGGESTED_TOPICS.find((item) => item.id === topicId);
+    if (!topic) {
+      return;
+    }
+
+    setInteractionMode("chat");
+    setActiveSuggestedTopic(topicId);
+    setInputValue(topic.prompt);
+  };
 
   const handleToggleActivity = useCallback((activityId: string) => {
     setSelectedActivityIds((prev) =>
