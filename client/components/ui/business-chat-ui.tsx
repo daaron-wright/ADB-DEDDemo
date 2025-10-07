@@ -5353,6 +5353,7 @@ export function BusinessChatUI({
         });
         setCurrentStep("summary");
         setInputValue("");
+        setActiveSuggestedTopic(null);
         return;
       }
 
