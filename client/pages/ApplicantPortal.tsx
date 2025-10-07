@@ -995,14 +995,65 @@ export default function ApplicantPortal() {
     ? clampedJourneyProgress
     : Math.min(Math.max(chatPhase?.percent ?? 0, 0), 100);
 
+  const handleLanguageChange = useCallback(
+    (next: PortalLanguage) => {
+      if (next === language) {
+        return;
+      }
+
+      setLanguage(next);
+    },
+    [language, setLanguage],
+  );
+
+  const languageToggle = (
+    <div className="flex flex-col items-end gap-1" aria-label={languageCopy.languageLabel}>
+      <div className="inline-flex items-center gap-1 rounded-full border border-[#0f766e]/30 bg-white/90 p-1 shadow-[0_14px_28px_-24px_rgba(15,118,110,0.35)]">
+        <button
+          type="button"
+          onClick={() => handleLanguageChange("en")}
+          className={cn(
+            "rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] transition",
+            language === "en"
+              ? "bg-[#0f766e] text-white shadow-[0_12px_24px_-18px_rgba(15,118,110,0.45)]"
+              : "text-[#0f766e]/80 hover:text-[#0f766e]",
+          )}
+          aria-pressed={language === "en"}
+        >
+          {languageCopy.englishLabel}
+        </button>
+        <button
+          type="button"
+          onClick={() => handleLanguageChange("ar")}
+          className={cn(
+            "rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] transition",
+            language === "ar"
+              ? "bg-[#0f766e] text-white shadow-[0_12px_24px_-18px_rgba(15,118,110,0.45)]"
+              : "text-[#0f766e]/80 hover:text-[#0f766e]",
+          )}
+          aria-pressed={language === "ar"}
+          lang="ar"
+        >
+          {languageCopy.arabicLabel}
+        </button>
+      </div>
+      <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+        {language === "ar" ? languageCopy.arabicBadge : languageCopy.englishBadge}
+      </span>
+    </div>
+  );
+
   const headerActions = (
-    <PortalProfileMenu
-      name={profileName}
-      email={profileEmail}
-      avatarUrl={profileAvatar}
-      status={profileStatus}
-      onSignOut={() => window.location.assign("/")}
-    />
+    <div className="flex items-center gap-4">
+      {languageToggle}
+      <PortalProfileMenu
+        name={profileName}
+        email={profileEmail}
+        avatarUrl={profileAvatar}
+        status={profileStatus}
+        onSignOut={() => window.location.assign("/")}
+      />
+    </div>
   );
 
   const keyDates = [
