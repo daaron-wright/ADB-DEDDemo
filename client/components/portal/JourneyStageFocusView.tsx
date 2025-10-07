@@ -418,6 +418,8 @@ export function JourneyStageFocusView({
             journeyNumber="0987654321"
             progressPercent={46}
             showTradeNameIdeas
+            tradeName={tradeName}
+            onTradeNameChange={onTradeNameChange}
           />
         ) : (
           renderGuidanceSummary(
