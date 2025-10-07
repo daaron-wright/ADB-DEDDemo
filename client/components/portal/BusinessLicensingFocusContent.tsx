@@ -243,7 +243,7 @@ export function BusinessLicensingFocusContent({
       setProgress(Math.max(initialProgressPercent, 78));
       clearTimers();
     }
-  }, [stageStatus, initialProgressPercent, clearTimers]);
+  }, [stageStatus, initialProgressPercent, clearTimers, queuePendingTransition]);
 
   const stageToken = STAGE_STATUS_TOKENS[stageStatus];
   const rightPanelToken = RIGHT_PANEL_TOKENS[stageStatus];
