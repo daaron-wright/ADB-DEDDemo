@@ -306,82 +306,82 @@ export function PreOperationalInspectionFocusContent({
                       : token.label;
 
                     return (
-                  <div
-                    key={subStep.id}
-                    className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:flex-row sm:items-center sm:justify-between"
-                  >
-                    <div className="flex items-start gap-3">
-                      <span
-                        className={cn(
-                          "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border",
-                          (subStep.status === "completed" || subStep.status === "account_linked") &&
-                            "border-[#0f766e]/20 bg-[#0f766e]/10",
-                          subStep.status === "in_progress" && "border-[#94d2c2] bg-[#dff2ec]/70",
-                          subStep.status === "pending" && "border-slate-200 bg-white",
-                          subStep.status === "scheduled" && "border-[#cdd7f8] bg-[#eef2ff]",
-                        )}
+                      <div
+                        key={subStep.id}
+                        className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:flex-row sm:items-center sm:justify-between"
                       >
-                        {subStep.status === "in_progress" ? (
-                          <Loader2 className={cn("h-4 w-4 animate-spin", token.iconClass)} />
-                        ) : subStep.status === "completed" || subStep.status === "account_linked" ? (
-                          <Check className={cn("h-4 w-4", token.iconClass)} strokeWidth={3} />
-                        ) : (
-                          <span className={cn("block h-2.5 w-2.5 rounded-full", token.dotClass)} />
-                        )}
-                      </span>
-                      <div className="space-y-2">
-                        <div className="space-y-1">
-                          <p className="text-base font-semibold text-slate-900">
-                            {subStep.label} {subStep.authority ? `(${subStep.authority})` : ""}
-                          </p>
-                          <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
-                            <span>{badgeLabel}</span>
-                            {subStep.isOptional ? (
-                              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                                Optional
-                              </span>
+                        <div className="flex items-start gap-3">
+                          <span
+                            className={cn(
+                              "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border",
+                              (subStep.status === "completed" || subStep.status === "account_linked") &&
+                                "border-[#0f766e]/20 bg-[#0f766e]/10",
+                              subStep.status === "in_progress" && "border-[#94d2c2] bg-[#dff2ec]/70",
+                              subStep.status === "pending" && "border-slate-200 bg-white",
+                              subStep.status === "scheduled" && "border-[#cdd7f8] bg-[#eef2ff]",
+                            )}
+                          >
+                            {subStep.status === "in_progress" ? (
+                              <Loader2 className={cn("h-4 w-4 animate-spin", token.iconClass)} />
+                            ) : subStep.status === "completed" || subStep.status === "account_linked" ? (
+                              <Check className={cn("h-4 w-4", token.iconClass)} strokeWidth={3} />
+                            ) : (
+                              <span className={cn("block h-2.5 w-2.5 rounded-full", token.dotClass)} />
+                            )}
+                          </span>
+                          <div className="space-y-2">
+                            <div className="space-y-1">
+                              <p className="text-base font-semibold text-slate-900">
+                                {subStep.label} {subStep.authority ? `(${subStep.authority})` : ""}
+                              </p>
+                              <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
+                                <span>{badgeLabel}</span>
+                                {subStep.isOptional ? (
+                                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                                    Optional
+                                  </span>
+                                ) : null}
+                              </div>
+                            </div>
+                            {isBankAccount ? (
+                              <div className="flex flex-col gap-2 pt-1 sm:flex-row sm:items-center sm:gap-3">
+                                <Button
+                                  type="button"
+                                  onClick={handleBankAccountAdvance}
+                                  disabled={bankAccountPhase !== "link"}
+                                  className={cn(
+                                    "inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition",
+                                    bankAccountPhase !== "link" && "cursor-default bg-[#0f766e]/60 hover:bg-[#0f766e]/60",
+                                  )}
+                                >
+                                  {bankAccountPhase === "link" ? (
+                                    "Link corporate bank account"
+                                  ) : bankAccountPhase === "in_progress" ? (
+                                    <>
+                                      <Loader2 className="h-4 w-4 animate-spin" />
+                                      <span>In progress...</span>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <Check className="h-4 w-4" />
+                                      <span>Account linked</span>
+                                    </>
+                                  )}
+                                </Button>
+                              </div>
                             ) : null}
                           </div>
                         </div>
-                        {isBankAccount ? (
-                          <div className="flex flex-col gap-2 pt-1 sm:flex-row sm:items-center sm:gap-3">
-                            <Button
-                              type="button"
-                              onClick={handleBankAccountAdvance}
-                              disabled={bankAccountPhase !== "link"}
-                              className={cn(
-                                "inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition",
-                                bankAccountPhase !== "link" && "cursor-default bg-[#0f766e]/60 hover:bg-[#0f766e]/60",
-                              )}
-                            >
-                              {bankAccountPhase === "link" ? (
-                                "Link corporate bank account"
-                              ) : bankAccountPhase === "in_progress" ? (
-                                <>
-                                  <Loader2 className="h-4 w-4 animate-spin" />
-                                  <span>In progress...</span>
-                                </>
-                              ) : (
-                                <>
-                                  <Check className="h-4 w-4" />
-                                  <span>Account linked</span>
-                                </>
-                              )}
-                            </Button>
-                          </div>
-                        ) : null}
+                        <Badge
+                          className={cn(
+                            "self-start border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                            token.badgeClass,
+                          )}
+                        >
+                          {badgeLabel}
+                        </Badge>
                       </div>
-                    </div>
-                    <Badge
-                      className={cn(
-                        "self-start border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                        token.badgeClass,
-                      )}
-                    >
-                      {badgeLabel}
-                    </Badge>
-                  </div>
-                );
+                    );
               })}
                 </div>
               </div>
