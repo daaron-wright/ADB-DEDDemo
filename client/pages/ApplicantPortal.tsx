@@ -182,7 +182,8 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       `Discover a clear path to research market potential, plan key approvals, and prepare your business case with AI guidance. In just a few stages, explore how ${name} and other investors turn ideas into thriving restaurants across Abu Dhabi.`,
     heroButton: "Explore more options",
     chatCta: "Chat with AI",
-    journeyToggleLabel: (title: string) => `Toggle journey overview for ${title}`,
+    journeyToggleLabel: (title: string) =>
+      `Toggle journey overview for ${title}`,
     fieldLabels: {
       beneficiary: "Beneficiary",
       licenseType: "License type",
@@ -216,7 +217,8 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       Visitor: "Visitor",
     },
     directorateLabels: {
-      "Department of Economic Development": "Department of Economic Development",
+      "Department of Economic Development":
+        "Department of Economic Development",
     },
     applicationTitles: {
       "APP-48291": "Corniche Culinary Collective",
@@ -272,7 +274,8 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستثمرون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاصطناعي",
-    journeyToggleLabel: (title: string) => `عرض أو إ��فاء نظرة عامة للرحلة الخاصة بـ ${title}`,
+    journeyToggleLabel: (title: string) =>
+      `عرض أو إ��فاء نظرة عامة للرحلة الخاصة بـ ${title}`,
     fieldLabels: {
       beneficiary: "المستفيد",
       licenseType: "نوع الرخصة",
@@ -781,20 +784,28 @@ const RECOMMENDED_STAGE_ACTIVITIES: Record<
     id: string;
     label: string;
     description: string;
-    type: "trade-name" | "document" | "licensing" | "inspection" | "compliance" | "general";
+    type:
+      | "trade-name"
+      | "document"
+      | "licensing"
+      | "inspection"
+      | "compliance"
+      | "general";
   }>
 > = {
   questionnaire: [
     {
       id: "activity-curation",
       label: "Recommended activities",
-      description: "Curate the activities powering your restaurant license profile.",
+      description:
+        "Curate the activities powering your restaurant license profile.",
       type: "general",
     },
     {
       id: "license-types",
       label: "License types",
-      description: "Compare commercial versus professional pathways for your concept.",
+      description:
+        "Compare commercial versus professional pathways for your concept.",
       type: "licensing",
     },
   ],
@@ -802,13 +813,15 @@ const RECOMMENDED_STAGE_ACTIVITIES: Record<
     {
       id: "trade-name-ideas",
       label: "Trade name ideas",
-      description: "Explore compliant trade name concepts aligned to your brand vision.",
+      description:
+        "Explore compliant trade name concepts aligned to your brand vision.",
       type: "trade-name",
     },
     {
       id: "ownership-structure",
       label: "Ownership structure guidance",
-      description: "Review shareholder distribution and governance considerations.",
+      description:
+        "Review shareholder distribution and governance considerations.",
       type: "general",
     },
   ],
@@ -816,13 +829,15 @@ const RECOMMENDED_STAGE_ACTIVITIES: Record<
     {
       id: "document-checklist",
       label: "Document pre-validation",
-      description: "Ensure every authority submission packet is fully prepared.",
+      description:
+        "Ensure every authority submission packet is fully prepared.",
       type: "document",
     },
     {
       id: "coordination-brief",
       label: "Authority coordination brief",
-      description: "Understand which agency is handling each outstanding submission.",
+      description:
+        "Understand which agency is handling each outstanding submission.",
       type: "document",
     },
   ],
@@ -844,7 +859,8 @@ const RECOMMENDED_STAGE_ACTIVITIES: Record<
     {
       id: "inspection-prep",
       label: "Inspection preparation",
-      description: "Checklist for Civil Defense, ADAFSA, and ADM site readiness.",
+      description:
+        "Checklist for Civil Defense, ADAFSA, and ADM site readiness.",
       type: "inspection",
     },
     {
@@ -976,9 +992,8 @@ export default function ApplicantPortal() {
   const workspaceHeroTitle = languageCopy.workspaceTitle(firstName);
   const workspaceDescription = languageCopy.workspaceDescription(firstName);
 
-  const [applicationWorkingTitle, setApplicationWorkingTitle] = useState<string>(
-    DEFAULT_WORKSPACE_TITLE,
-  );
+  const [applicationWorkingTitle, setApplicationWorkingTitle] =
+    useState<string>(DEFAULT_WORKSPACE_TITLE);
 
   const primaryApplication = useMemo(
     () => ({ ...applications[0], title: applicationWorkingTitle }),
@@ -994,7 +1009,8 @@ export default function ApplicantPortal() {
       summary:
         languageCopy.applicationSummaries[id] ?? primaryApplication.summary,
       nextAction:
-        languageCopy.applicationNextActions[id] ?? primaryApplication.nextAction,
+        languageCopy.applicationNextActions[id] ??
+        primaryApplication.nextAction,
     };
   }, [languageCopy, primaryApplication]);
 
@@ -1045,11 +1061,10 @@ export default function ApplicantPortal() {
   const [stageRecommendedSelections, setStageRecommendedSelections] = useState<
     Record<string, string | null>
   >({});
-  const stageOrder = useMemo(
-    () => journeyStages.map((stage) => stage.id),
-    [],
-  );
-  const [stageProgress, setStageProgress] = useState<Record<string, JourneyHighlightState>>(() => {
+  const stageOrder = useMemo(() => journeyStages.map((stage) => stage.id), []);
+  const [stageProgress, setStageProgress] = useState<
+    Record<string, JourneyHighlightState>
+  >(() => {
     const initial: Record<string, JourneyHighlightState> = {};
     journeyStages.forEach((stage) => {
       initial[stage.id] = deriveStageState(stage);
@@ -1069,7 +1084,11 @@ export default function ApplicantPortal() {
 
       stageOrder.forEach((stageId, index) => {
         const nextState =
-          index < targetIndex ? "done" : index === targetIndex ? "current" : "upcoming";
+          index < targetIndex
+            ? "done"
+            : index === targetIndex
+              ? "current"
+              : "upcoming";
         next[stageId] = nextState;
         if (previous[stageId] !== nextState) {
           hasChange = true;
@@ -1235,7 +1254,9 @@ export default function ApplicantPortal() {
         </button>
       </div>
       <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-        {language === "ar" ? languageCopy.arabicBadge : languageCopy.englishBadge}
+        {language === "ar"
+          ? languageCopy.arabicBadge
+          : languageCopy.englishBadge}
       </span>
     </div>
   );
@@ -1257,14 +1278,20 @@ export default function ApplicantPortal() {
     () => [
       {
         label: languageCopy.keyDates.submitted,
-        value: dateFormatter.format(new Date(primaryApplication.submissionDate)),
+        value: dateFormatter.format(
+          new Date(primaryApplication.submissionDate),
+        ),
       },
       {
         label: languageCopy.keyDates.lastUpdated,
         value: dateFormatter.format(new Date(primaryApplication.lastUpdated)),
       },
     ],
-    [languageCopy, primaryApplication.lastUpdated, primaryApplication.submissionDate],
+    [
+      languageCopy,
+      primaryApplication.lastUpdated,
+      primaryApplication.submissionDate,
+    ],
   );
 
   const discoveryGeneralChatLink = "/?chat=open";
@@ -1642,7 +1669,9 @@ export default function ApplicantPortal() {
               onPrevious: previousStage
                 ? () => handleViewJourney(previousStage.id)
                 : undefined,
-              onNext: nextStage ? () => handleViewJourney(nextStage.id) : undefined,
+              onNext: nextStage
+                ? () => handleViewJourney(nextStage.id)
+                : undefined,
               previousLabel: previousStage?.title,
               nextLabel: nextStage?.title,
             }
@@ -1671,7 +1700,8 @@ export default function ApplicantPortal() {
       return null;
     }
 
-    const stageId = focusViewContext.stage?.id ?? focusViewContext.timelineItem.id;
+    const stageId =
+      focusViewContext.stage?.id ?? focusViewContext.timelineItem.id;
     const recommendedOptions =
       stageId && stageId in RECOMMENDED_STAGE_ACTIVITIES
         ? RECOMMENDED_STAGE_ACTIVITIES[stageId]
@@ -1704,7 +1734,8 @@ export default function ApplicantPortal() {
       activeRecommendedActivityId: selectedRecommendedId,
       onRecommendedActivityChange:
         stageId && recommendedOptions && recommendedOptions.length > 0
-          ? (activityId: string) => handleRecommendedActivityChange(stageId, activityId)
+          ? (activityId: string) =>
+              handleRecommendedActivityChange(stageId, activityId)
           : undefined,
       stageActivities: stageActivityContext,
       tradeName: applicationWorkingTitle,
@@ -1738,7 +1769,9 @@ export default function ApplicantPortal() {
             </h3>
             <p className="mt-2 leading-relaxed">
               {languageCopy.supportDescription.preEmail}
-              <span className="font-medium text-[#0f766e]">licensing@adm.ae</span>
+              <span className="font-medium text-[#0f766e]">
+                licensing@adm.ae
+              </span>
               {languageCopy.supportDescription.postEmailPrePhone}
               <span className="font-medium text-[#0f766e]">800-555-0134</span>
               {languageCopy.supportDescription.postPhone}
@@ -1880,9 +1913,7 @@ export default function ApplicantPortal() {
                 <h2 className="text-2xl font-semibold tracking-tight">
                   {displayApplication.title}
                 </h2>
-                <p className="text-sm text-slate-600">
-                  {displayDirectorate}
-                </p>
+                <p className="text-sm text-slate-600">{displayDirectorate}</p>
                 <div className="flex flex-wrap items-center gap-3 pt-2">
                   <Badge
                     className={cn(

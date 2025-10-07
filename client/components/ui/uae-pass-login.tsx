@@ -178,7 +178,9 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
                   viewBox="0 0 16 16"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className={cn(isReviewer ? "text-[#0f766e]" : "text-white/90")}
+                  className={cn(
+                    isReviewer ? "text-[#0f766e]" : "text-white/90",
+                  )}
                 >
                   <path
                     d="M3.5 8h9"

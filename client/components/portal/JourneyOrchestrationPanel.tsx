@@ -151,7 +151,10 @@ export function JourneyOrchestrationPanel({
         return true;
       }
 
-      if (action.stageTitle && action.stageTitle.toLowerCase() === normalizedTitle) {
+      if (
+        action.stageTitle &&
+        action.stageTitle.toLowerCase() === normalizedTitle
+      ) {
         return true;
       }
 
@@ -181,7 +184,12 @@ export function JourneyOrchestrationPanel({
     }
 
     return localizedCopy.automationMessage;
-  }, [primaryOutstandingAction, stageSpecificActions, selectedTimelineItem, localizedCopy]);
+  }, [
+    primaryOutstandingAction,
+    stageSpecificActions,
+    selectedTimelineItem,
+    localizedCopy,
+  ]);
 
   const ctaButtonLabel = primaryOutstandingAction
     ? localizedCopy.openNextTask
@@ -258,16 +266,12 @@ export function JourneyOrchestrationPanel({
                         "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full",
                         item.statusLabel.toLowerCase().includes("completed")
                           ? "bg-[#0f766e] text-white"
-                          : item.statusLabel
-                                .toLowerCase()
-                                .includes("progress")
-                              ? "bg-[#f4faf8] text-[#0f766e]"
-                              : "border border-[#d8e4df] bg-white text-[#0f766e]",
+                          : item.statusLabel.toLowerCase().includes("progress")
+                            ? "bg-[#f4faf8] text-[#0f766e]"
+                            : "border border-[#d8e4df] bg-white text-[#0f766e]",
                       )}
                     >
-                      {item.statusLabel
-                        .toLowerCase()
-                        .includes("completed") ? (
+                      {item.statusLabel.toLowerCase().includes("completed") ? (
                         <Check className="h-3.5 w-3.5" aria-hidden="true" />
                       ) : (
                         <span className="h-1.5 w-1.5 rounded-full bg-current" />
