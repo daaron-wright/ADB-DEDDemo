@@ -220,6 +220,7 @@ export function DocumentSubmissionFocusContent({
     : STEP_STATUS_TOKENS.current;
   const notarizedMoa = submissionStep?.subSteps?.find((subStep) => subStep.id === "notarized-moa");
   const isMoaCompleted = notarizedMoa?.status === "completed";
+  const shouldShowUserActions = submissionStep?.status === "completed";
 
   React.useEffect(() => {
     if (isMoaCompleted) {
@@ -618,39 +619,41 @@ export function DocumentSubmissionFocusContent({
               </div>
             </div>
 
-            <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
-              <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Your first actions</p>
-                <p className="text-base font-semibold text-slate-900">What AI Business needs from you</p>
-              </div>
-              <ul className="space-y-3">
-                {DOCUMENT_USER_ACTIONS.map((item) => {
-                  const relatedSubStep = submissionStep?.subSteps?.find((subStep) => subStep.id === item.id);
-                  const relatedStatus: SubStepStatus = relatedSubStep?.status ?? "pending";
-                  const token = SUB_STEP_TOKENS[relatedStatus];
+            {shouldShowUserActions ? (
+              <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Your first actions</p>
+                  <p className="text-base font-semibold text-slate-900">What AI Business needs from you</p>
+                </div>
+                <ul className="space-y-3">
+                  {DOCUMENT_USER_ACTIONS.map((item) => {
+                    const relatedSubStep = submissionStep?.subSteps?.find((subStep) => subStep.id === item.id);
+                    const relatedStatus: SubStepStatus = relatedSubStep?.status ?? "pending";
+                    const token = SUB_STEP_TOKENS[relatedStatus];
 
-                  return (
-                    <li
-                      key={item.id}
-                      className="flex flex-col gap-2 rounded-2xl border border-[#e6f2ed] bg-white p-4 shadow-[0_10px_24px_-22px_rgba(15,118,110,0.25)] sm:flex-row sm:items-start sm:justify-between"
-                    >
-                      <div className="flex flex-1 items-start gap-3">
-                        <span className="mt-1 flex h-2.5 w-2.5 flex-shrink-0 rounded-full bg-[#0f766e]" />
-                        <div className="space-y-1">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <p className="text-sm font-semibold text-slate-900">{item.title}</p>
-                            <Badge className={cn("border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em]", token.badgeClass)}>
-                              {token.label}
-                            </Badge>
+                    return (
+                      <li
+                        key={item.id}
+                        className="flex flex-col gap-2 rounded-2xl border border-[#e6f2ed] bg-white p-4 shadow-[0_10px_24px_-22px_rgba(15,118,110,0.25)] sm:flex-row sm:items-start sm:justify-between"
+                      >
+                        <div className="flex flex-1 items-start gap-3">
+                          <span className="mt-1 flex h-2.5 w-2.5 flex-shrink-0 rounded-full bg-[#0f766e]" />
+                          <div className="space-y-1">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <p className="text-sm font-semibold text-slate-900">{item.title}</p>
+                              <Badge className={cn("border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em]", token.badgeClass)}>
+                                {token.label}
+                              </Badge>
+                            </div>
+                            <p className="text-sm text-slate-600">{item.action}</p>
                           </div>
-                          <p className="text-sm text-slate-600">{item.action}</p>
                         </div>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ) : null}
 
             <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
               <div className="flex flex-wrap items-center justify-between gap-3">
