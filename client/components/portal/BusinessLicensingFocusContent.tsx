@@ -152,15 +152,11 @@ export function BusinessLicensingFocusContent({
       previousSteps.map((step) => {
         if (step.id === 3) {
           const subStepStatus: SubStepStatus =
-            stageStatus === "request"
-              ? "pending"
-              : stageStatus === "in_progress"
-              ? "in_progress"
-              : "completed";
+            stageStatus === "request" ? "pending" : "in_progress";
 
           return {
             ...step,
-            status: stageStatus === "completed" ? "completed" : "current",
+            status: "current",
             subSteps: step.subSteps?.map((subStep) => ({
               ...subStep,
               status: subStepStatus,
@@ -171,7 +167,7 @@ export function BusinessLicensingFocusContent({
         if (step.id === 4) {
           return {
             ...step,
-            status: stageStatus === "completed" ? "current" : "pending",
+            status: "pending",
           };
         }
 
@@ -181,10 +177,8 @@ export function BusinessLicensingFocusContent({
 
     if (stageStatus === "request") {
       setProgress(Math.min(initialProgressPercent, 28));
-    } else if (stageStatus === "in_progress") {
-      setProgress(Math.max(initialProgressPercent, 68));
     } else {
-      setProgress(100);
+      setProgress(Math.max(initialProgressPercent, 68));
     }
   }, [stageStatus, initialProgressPercent]);
 
