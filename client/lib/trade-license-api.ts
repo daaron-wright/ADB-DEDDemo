@@ -1,7 +1,7 @@
-const DEFAULT_API_BASE_URL = "https://469b2251f491.ngrok-free.app";
+const CLIENT_API_BASE =
+  (import.meta.env.VITE_PORTAL_API_BASE_URL as string | undefined)?.replace(/\/$/, "") ?? "";
 
-const API_BASE_URL =
-  import.meta.env.VITE_TRADE_LICENSE_API_BASE_URL ?? DEFAULT_API_BASE_URL;
+const API_BASE_URL = `${CLIENT_API_BASE}/api/trade-license`;
 
 export type LanguageCode = "english" | "arabic" | "both";
 
@@ -60,7 +60,7 @@ export async function validateActivityCompatibility(
   payload: ActivityCompatibilityRequest,
   options: { signal?: AbortSignal } = {},
 ): Promise<ActivityCompatibilityResponse> {
-  const response = await fetch(`${API_BASE_URL}/api/v1/activity-compatibility/validate`, {
+  const response = await fetch(`${API_BASE_URL}/validate`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
