@@ -303,7 +303,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك المدعوم بالذكاء الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال الشركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة ��مطعم على الكورنيش.",
+        "يعمل طلبك المدعوم بالذكاء الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال الشركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الموافقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
@@ -1246,16 +1246,19 @@ export default function ApplicantPortal() {
     </div>
   );
 
-  const keyDates = [
-    {
-      label: "Submitted",
-      value: dateFormatter.format(new Date(primaryApplication.submissionDate)),
-    },
-    {
-      label: "Last updated",
-      value: dateFormatter.format(new Date(primaryApplication.lastUpdated)),
-    },
-  ];
+  const keyDates = useMemo(
+    () => [
+      {
+        label: languageCopy.keyDates.submitted,
+        value: dateFormatter.format(new Date(primaryApplication.submissionDate)),
+      },
+      {
+        label: languageCopy.keyDates.lastUpdated,
+        value: dateFormatter.format(new Date(primaryApplication.lastUpdated)),
+      },
+    ],
+    [languageCopy, primaryApplication.lastUpdated, primaryApplication.submissionDate],
+  );
 
   const discoveryGeneralChatLink = "/?chat=open";
 
