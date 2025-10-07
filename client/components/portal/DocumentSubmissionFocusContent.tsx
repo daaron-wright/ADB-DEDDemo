@@ -248,8 +248,7 @@ export function DocumentSubmissionFocusContent({
   }, [isCompletingMoa]);
 
   return (
-    <>
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
+    <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
         <section
           className={chatCardClass(
             "border border-white/25 bg-white/90 p-6 backdrop-blur-2xl shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
@@ -642,6 +641,5 @@ export function DocumentSubmissionFocusContent({
           </section>
         </div>
       </div>
-    </>
   );
 }
