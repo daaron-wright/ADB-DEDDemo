@@ -1635,7 +1635,6 @@ export default function ApplicantPortal() {
           isOpen={isChatOpen}
           mode={isSidePanelView ? "side-panel" : "modal"}
           onClose={handleCloseChat}
-          onMinimize={handleCloseChat}
           category="restaurants"
           title="Business AI"
           initialMessage={BUSINESS_AI_INTRO_MESSAGE}
