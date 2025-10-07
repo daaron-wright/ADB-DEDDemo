@@ -174,7 +174,6 @@ export function PortalAIDock() {
       <BusinessChatUI
         isOpen={isOpen}
         onClose={handleClose}
-        onMinimize={handleMinimize}
         category="restaurants"
         title="Business AI"
         initialMessage="Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require some more clarification to ensure the right decisions are made."
