@@ -91,21 +91,6 @@ const AUTHORITIES = [
   },
 ];
 
-const STEP_STATUS_TOKENS: Record<StepStatus, { indicatorClass: string; helper: string }> = {
-  completed: {
-    indicatorClass: "border-[#0f766e] bg-[#0f766e] text-white",
-    helper: "Completed",
-  },
-  current: {
-    indicatorClass: "border-[#0f766e] bg-[#0f766e]/10 text-[#0f766e]",
-    helper: "In progress",
-  },
-  pending: {
-    indicatorClass: "border-slate-200 bg-white text-slate-500",
-    helper: "Pending",
-  },
-};
-
 const SUB_STEP_TOKENS: Record<SubStepStatus, { label: string; badgeClass: string; iconClass: string; dotClass: string }> = {
   completed: {
     label: "Completed",
