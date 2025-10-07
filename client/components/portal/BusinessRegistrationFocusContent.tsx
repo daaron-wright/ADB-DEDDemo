@@ -209,11 +209,23 @@ export function BusinessRegistrationFocusContent({
 
         if (next >= 100) {
           window.clearInterval(interval);
+
+          const evaluatedName = (pendingTradeName ?? activeTradeName)
+            .trim()
+            .toUpperCase();
+          const isSuccess = Boolean(evaluatedName) && evaluatedName === "MARWAH";
+
           setIsChecking(false);
-          setIsNameAvailable(false);
+          setIsNameAvailable(isSuccess);
+          setFailedStepIndex(isSuccess ? null : DEFAULT_FAILURE_STEP_INDEX);
           setFailureReason(
-            "This name conflicts with an existing Corniche Culinary Collective registration.",
+            isSuccess
+              ? null
+              : evaluatedName
+              ? `We couldn’t reserve ${evaluatedName}. Try MARWAH or another unique variation.`
+              : "Please enter a trade name to run the automated checks.",
           );
+          setPendingTradeName(null);
         }
 
         return next;
@@ -221,7 +233,7 @@ export function BusinessRegistrationFocusContent({
     }, 420);
 
     return () => window.clearInterval(interval);
-  }, [isChecking]);
+  }, [isChecking, pendingTradeName, activeTradeName]);
 
   const handleSubmit = React.useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
