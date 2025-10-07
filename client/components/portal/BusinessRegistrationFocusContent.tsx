@@ -244,6 +244,30 @@ export function BusinessRegistrationFocusContent({
   );
   const [failureReason, setFailureReason] = React.useState<string | null>(null);
 
+  const approvedNameSet = React.useMemo(
+    () =>
+      new Set(
+        APPROVED_TRADE_NAMES.map((name) => name.trim().toUpperCase()),
+      ),
+    [],
+  );
+
+  const availableTradeNameIdeas = React.useMemo(() => {
+    const filtered = TRADE_NAME_IDEAS.filter((idea) =>
+      approvedNameSet.has(idea.english.trim().toUpperCase()),
+    );
+
+    return filtered.length > 0 ? filtered : TRADE_NAME_IDEAS;
+  }, [approvedNameSet]);
+
+  const [tradeNameSuggestions, setTradeNameSuggestions] = React.useState(
+    () => sampleTradeNameIdeas(availableTradeNameIdeas),
+  );
+
+  const handleGenerateAvailableIdeas = React.useCallback(() => {
+    setTradeNameSuggestions(sampleTradeNameIdeas(availableTradeNameIdeas));
+  }, [availableTradeNameIdeas]);
+
   const trimmedInput = inputValue.trim();
   const isSubmitDisabled = isChecking || trimmedInput.length === 0;
   const displayProgress = Math.round(automationProgress);
