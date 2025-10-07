@@ -514,6 +514,31 @@ export function BusinessRegistrationFocusContent({
                       Run checks
                     </Button>
                   </form>
+                  {showTradeNameIdeas ? (
+                    <div className="space-y-3 rounded-2xl border border-[#0f766e]/25 bg-[#0f766e]/5 p-4">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                          Trade name ideas
+                        </p>
+                        <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#0f766e]/70">
+                          Tap to apply
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {TRADE_NAME_IDEAS.map((idea) => (
+                          <button
+                            key={idea}
+                            type="button"
+                            onClick={() => handleIdeaSelect(idea)}
+                            className="rounded-full border border-[#0f766e]/40 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10"
+                            disabled={isChecking}
+                          >
+                            {idea}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
                 <div className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:flex-row sm:items-start sm:justify-between">
                   <div className="space-y-1">
