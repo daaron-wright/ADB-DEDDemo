@@ -35,6 +35,13 @@ interface StageNavigationConfig {
   previousLabel?: string;
 }
 
+interface StageRecommendedActivity {
+  id: string;
+  label: string;
+  description: string;
+  type: "trade-name" | "document" | "licensing" | "inspection" | "compliance" | "general";
+}
+
 export interface JourneyStageFocusViewProps {
   timelineItem: JourneyTimelineItem;
   stage?: JourneyStage | null;
@@ -43,6 +50,9 @@ export interface JourneyStageFocusViewProps {
   formatDate: (isoString: string) => string;
   showTradeNameIdeas?: boolean;
   navigation?: StageNavigationConfig;
+  recommendedActivities?: StageRecommendedActivity[];
+  activeRecommendedActivityId?: string | null;
+  onRecommendedActivityChange?: (activityId: string) => void;
 }
 
 const TASK_CARD_BASE =
