@@ -281,6 +281,24 @@ export function BusinessRegistrationFocusContent({
     <X className="h-3.5 w-3.5" strokeWidth={3} />
   );
 
+  const statusIconWrapperClasses = cn(
+    "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full transition-colors",
+    isChecking || isNameAvailable
+      ? "bg-[#0f766e]/15 text-[#0f766e]"
+      : "bg-rose-100 text-rose-600",
+  );
+
+  const statusCardIcon = isChecking ? (
+    <span className="relative flex h-4 w-4 items-center justify-center">
+      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current/60" />
+      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
+    </span>
+  ) : isNameAvailable ? (
+    <Check className="h-4 w-4" strokeWidth={3} />
+  ) : (
+    <X className="h-4 w-4" strokeWidth={3} />
+  );
+
   const statusHeading = isChecking
     ? "Checking trade name"
     : isNameAvailable
