@@ -5234,8 +5234,7 @@ export function BusinessChatUI({
     });
   }, [messages, showChatInterface]);
 
-  const shouldShowInteractionToolbar =
-    hasLicenseMenu || Boolean(journeyFocusView);
+  const shouldShowInteractionToolbar = !journeyFocusView && hasLicenseMenu;
 
   useEffect(() => {
     if (!hasLicenseMenu && selectedLicenseMenu !== "recommended") {
