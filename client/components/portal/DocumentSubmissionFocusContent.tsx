@@ -187,6 +187,7 @@ export function DocumentSubmissionFocusContent({
     })),
   );
   const [progress, setProgress] = React.useState(initialProgress);
+  const [isLaunchDropdownOpen, setIsLaunchDropdownOpen] = React.useState(true);
   const [isMoaModalOpen, setIsMoaModalOpen] = React.useState(false);
   const [isCompletingMoa, setIsCompletingMoa] = React.useState(false);
   const completionTimeoutRef = React.useRef<number | null>(null);
@@ -215,6 +216,10 @@ export function DocumentSubmissionFocusContent({
     },
     [isCompletingMoa],
   );
+
+  const handleLaunchDropdownToggle = React.useCallback(() => {
+    setIsLaunchDropdownOpen((value) => !value);
+  }, []);
 
   const openMoaModal = React.useCallback(() => {
     if (!isMoaCompleted) {
