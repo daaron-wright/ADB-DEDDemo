@@ -2,7 +2,8 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
-import { handleGenerate } from './routes/generate';
+import { handleGenerate } from "./routes/generate";
+import { handleValidateActivityCompatibility } from "./routes/trade-license";
 
 export function createServer() {
   const app = express();
@@ -21,6 +22,10 @@ export function createServer() {
   app.get("/api/demo", handleDemo);
 
   app.post("/api/generate", handleGenerate);
+  app.post(
+    "/api/trade-license/validate",
+    handleValidateActivityCompatibility,
+  );
 
   return app;
 }
