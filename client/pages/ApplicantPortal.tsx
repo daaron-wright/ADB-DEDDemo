@@ -545,16 +545,16 @@ const RECOMMENDED_STAGE_ACTIVITIES: Record<
 > = {
   questionnaire: [
     {
-      id: "license-types",
-      label: "License types",
-      description: "Compare commercial versus professional pathways for your concept.",
-      type: "licensing",
-    },
-    {
       id: "activity-curation",
       label: "Recommended activities",
       description: "Curate the activities powering your restaurant license profile.",
       type: "general",
+    },
+    {
+      id: "license-types",
+      label: "License types",
+      description: "Compare commercial versus professional pathways for your concept.",
+      type: "licensing",
     },
   ],
   "trade-name-activities": [
