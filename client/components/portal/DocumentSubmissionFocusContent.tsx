@@ -425,8 +425,8 @@ export function DocumentSubmissionFocusContent({
                     </div>
                     <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white/80 shadow-[0_12px_24px_-18px_rgba(15,23,42,0.15)] lg:max-w-[220px]">
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3ffa7aec67d74c31b0175b0538c93dfd?format=webp&width=800"
-                        alt="Memorandum of Association preview"
+                        src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F6997697fade940c09535339d9cce163e?format=webp&width=800"
+                        alt="Memorandum of Association reference document"
                         className="h-full w-full object-cover"
                       />
                     </div>
