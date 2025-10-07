@@ -780,6 +780,7 @@ export function BusinessRegistrationFocusContent({
                     </p>
                   </div>
                   <Button
+                    ref={continueButtonRef}
                     variant="ghost"
                     size="sm"
                     className="h-9 shrink-0 rounded-full px-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
