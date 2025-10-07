@@ -27,39 +27,23 @@ export function PortalAIDock() {
     CHAT_VISITED_KEY,
     false,
   );
-  const [isMinimized, setIsMinimized] = usePersistentState<boolean>(
-    CHAT_MINIMIZED_KEY,
-    false,
-  );
-
   const statusPill = useMemo(() => {
     if (isOpen) {
       return "Chat in progress";
-    }
-    if (isMinimized) {
-      return "Chat minimized";
     }
     if (hasVisited) {
       return "Chat ready";
     }
     return "Business AI ready";
-  }, [hasVisited, isMinimized, isOpen]);
+  }, [hasVisited, isOpen]);
 
   const handleOpen = () => {
     setIsOpen(true);
-    setIsMinimized(false);
-    setHasVisited(true);
-  };
-
-  const handleMinimize = () => {
-    setIsOpen(false);
-    setIsMinimized(true);
     setHasVisited(true);
   };
 
   const handleClose = () => {
     setIsOpen(false);
-    setIsMinimized(false);
   };
 
   return (
