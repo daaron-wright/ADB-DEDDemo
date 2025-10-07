@@ -34,7 +34,7 @@ const DOCUMENT_SUBMISSION_STEPS: Step[] = [
   {
     id: 2,
     label: "Submission of Documents",
-    status: "current",
+    status: "completed",
     subSteps: [
       {
         id: "notarized-moa",
@@ -52,18 +52,18 @@ const DOCUMENT_SUBMISSION_STEPS: Step[] = [
         id: "site-plan-review",
         label: "Site Plan Review and Technical Consultation",
         authority: "ADAFSA",
-        status: "in_progress",
+        status: "completed",
       },
       {
         id: "convert-property",
         label: "Convert Residential to Commercial property",
         authority: "ADM",
-        status: "pending",
+        status: "completed",
         isOptional: true,
       },
     ],
   },
-  { id: 3, label: "Business Licensing", status: "pending" },
+  { id: 3, label: "Business Licensing", status: "current" },
   { id: 4, label: "Pre-Operational Inspection", status: "pending" },
 ];
 
