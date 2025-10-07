@@ -1640,7 +1640,7 @@ export default function ApplicantPortal() {
   return (
     <div className="relative">
       <PortalPageLayout
-        title={workspaceTitle}
+        title={workspaceHeroTitle}
         subtitle="Business license portal"
         description={workspaceDescription}
         filters={filters}
