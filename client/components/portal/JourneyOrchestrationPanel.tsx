@@ -131,36 +131,6 @@ export function JourneyOrchestrationPanel({
 
       {hasActions || hasTimelineSection ? (
         <div className="space-y-6">
-          {hasActions ? (
-            <div className="rounded-2xl bg-[#f5faf7] p-5 sm:p-6">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Application progress
-                </p>
-                <span className="text-sm font-semibold text-slate-700">
-                  {completedCount} / {totalActions} complete (
-                  {completionPercent}%)
-                </span>
-              </div>
-              <div className="mt-4 h-2.5 w-full rounded-full bg-[#e6f2ed]">
-                <div
-                  className="h-full rounded-full bg-[#0f766e] transition-all duration-500"
-                  style={{ width: `${completionPercent}%` }}
-                />
-              </div>
-              <div className="mt-4 flex flex-wrap gap-3 text-sm text-slate-600">
-                <span className="font-semibold text-[#0f766e]">
-                  {outstandingDisplayCount} remaining
-                </span>
-                <span>{completedCount} done</span>
-              </div>
-              <p className="mt-4 text-sm text-slate-500">
-                Focus on the outstanding actions to keep your workspace moving
-                toward issuance.
-              </p>
-            </div>
-          ) : null}
-
           {hasTimelineSection ? (
             <section className="space-y-5">
               <div className="flex flex-wrap items-center justify-between gap-2">
