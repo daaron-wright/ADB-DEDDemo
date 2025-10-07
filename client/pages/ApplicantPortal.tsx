@@ -1273,6 +1273,7 @@ export default function ApplicantPortal() {
           ? (activityId: string) => handleRecommendedActivityChange(stageId, activityId)
           : undefined,
       stageActivities: stageActivityContext,
+      tradeName: primaryApplication.title,
     };
   }, [
     focusViewContext,
@@ -1283,6 +1284,7 @@ export default function ApplicantPortal() {
     handleJourneyActivityToggle,
     availableJourneyActivities,
     handleAddJourneyActivity,
+    primaryApplication.title,
   ]);
 
   const shouldSuppressChatInterface = false;
