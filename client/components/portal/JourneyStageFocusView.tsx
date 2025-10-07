@@ -93,6 +93,9 @@ export function JourneyStageFocusView({
   const hasNavigationControls = Boolean(
     navigation && (navigation.onNext || navigation.onPrevious),
   );
+  const selectedRecommendedActivity = recommendedActivities.find(
+    (activity) => activity.id === activeRecommendedActivityId,
+  );
 
   const navigationControls = hasNavigationControls ? (
     <div className="flex flex-wrap items-center justify-end gap-3">
