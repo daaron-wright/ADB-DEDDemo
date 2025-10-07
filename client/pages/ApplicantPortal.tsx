@@ -1194,6 +1194,16 @@ export default function ApplicantPortal() {
     handleViewJourney,
   ]);
 
+  const handleRecommendedActivityChange = useCallback(
+    (stageId: string, activityId: string) => {
+      setStageRecommendedSelections((prev) => ({
+        ...prev,
+        [stageId]: activityId,
+      }));
+    },
+    [],
+  );
+
   const journeyFocusViewProps = useMemo(() => {
     if (!focusViewContext) {
       return null;
@@ -1218,8 +1228,17 @@ export default function ApplicantPortal() {
       navigation: focusViewContext.navigation,
       recommendedActivities: recommendedOptions,
       activeRecommendedActivityId: selectedRecommendedId,
+      onRecommendedActivityChange:
+        stageId && recommendedOptions && recommendedOptions.length > 0
+          ? (activityId: string) => handleRecommendedActivityChange(stageId, activityId)
+          : undefined,
     };
-  }, [focusViewContext, formatJourneyDueDate]);
+  }, [
+    focusViewContext,
+    formatJourneyDueDate,
+    stageRecommendedSelections,
+    handleRecommendedActivityChange,
+  ]);
 
   const shouldSuppressChatInterface = false;
 
