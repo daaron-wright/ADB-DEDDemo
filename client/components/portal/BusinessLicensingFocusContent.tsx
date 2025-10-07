@@ -13,7 +13,7 @@ interface BusinessLicensingFocusContentProps {
 
 type StepStatus = "completed" | "current" | "pending";
 type SubStepStatus = "completed" | "in_progress" | "pending";
-type StageStatus = "request" | "in_progress" | "completed";
+type StageStatus = "request" | "in_progress";
 
 interface SubStep {
   id: string;
