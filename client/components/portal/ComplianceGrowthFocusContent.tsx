@@ -14,7 +14,6 @@ import {
 
 interface ComplianceGrowthFocusContentProps {
   journeyNumber?: string;
-  completionStatus?: string;
   progressPercent?: number;
 }
 
@@ -188,7 +187,6 @@ const DED_MEDIA = [
 
 export function ComplianceGrowthFocusContent({
   journeyNumber = "0987654321",
-  completionStatus = "78% complete",
   progressPercent = 78,
 }: ComplianceGrowthFocusContentProps) {
   const [activeView, setActiveView] = React.useState<ToggleView>("compliance");
