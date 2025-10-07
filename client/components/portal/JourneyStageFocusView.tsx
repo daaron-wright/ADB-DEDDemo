@@ -158,6 +158,7 @@ export function JourneyStageFocusView({
           completionStatus="5 of 8 complete"
           progressPercent={51}
         />
+        {navigationControls}
       </div>
     );
   }
