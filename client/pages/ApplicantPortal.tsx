@@ -1233,6 +1233,17 @@ export default function ApplicantPortal() {
         ? stageRecommendedSelections[stageId]
         : null;
 
+    const stageActivityContext =
+      stageId === "questionnaire"
+        ? {
+            recommended: RECOMMENDED_ACTIVITIES,
+            selectedIds: selectedJourneyActivityIds,
+            onToggle: handleJourneyActivityToggle,
+            available: availableJourneyActivities,
+            onAdd: handleAddJourneyActivity,
+          }
+        : undefined;
+
     return {
       timelineItem: focusViewContext.timelineItem,
       stage: focusViewContext.stage,
@@ -1246,12 +1257,17 @@ export default function ApplicantPortal() {
         stageId && recommendedOptions && recommendedOptions.length > 0
           ? (activityId: string) => handleRecommendedActivityChange(stageId, activityId)
           : undefined,
+      stageActivities: stageActivityContext,
     };
   }, [
     focusViewContext,
     formatJourneyDueDate,
     stageRecommendedSelections,
     handleRecommendedActivityChange,
+    selectedJourneyActivityIds,
+    handleJourneyActivityToggle,
+    availableJourneyActivities,
+    handleAddJourneyActivity,
   ]);
 
   const shouldSuppressChatInterface = false;
