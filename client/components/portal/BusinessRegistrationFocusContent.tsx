@@ -546,6 +546,8 @@ export function BusinessRegistrationFocusContent({
                       "border-[#0f766e]/40 bg-[#0f766e]/5 shadow-[0_12px_24px_-20px_rgba(15,118,110,0.45)]",
                     step.status === "current" &&
                       "border-[#0f766e]/30 bg-[#0f766e]/8 shadow-[0_10px_20px_-20px_rgba(15,118,110,0.45)]",
+                    step.status === "failed" &&
+                      "border-rose-200 bg-rose-50/80 shadow-[0_10px_24px_-22px_rgba(225,29,72,0.45)]",
                   )}
                 >
                   <span
@@ -557,10 +559,14 @@ export function BusinessRegistrationFocusContent({
                         "border-[#0f766e] bg-[#0f766e]/10 text-[#0f766e] animate-pulse",
                       step.status === "pending" &&
                         "border-slate-200 bg-white text-slate-400",
+                      step.status === "failed" &&
+                        "border-rose-300 bg-rose-100 text-rose-600",
                     )}
                   >
                     {step.status === "completed" ? (
                       <Check className="h-4 w-4" strokeWidth={3} />
+                    ) : step.status === "failed" ? (
+                      <X className="h-4 w-4" strokeWidth={3} />
                     ) : (
                       index + 1
                     )}
@@ -584,21 +590,31 @@ export function BusinessRegistrationFocusContent({
                             "bg-[#0f766e]/15 text-[#0f766e]",
                           step.status === "pending" &&
                             "bg-slate-100 text-slate-500",
+                          step.status === "failed" &&
+                            "bg-rose-100 text-rose-600",
                         )}
                       >
                         {STATUS_LABELS[step.status]}
                       </span>
                     </div>
-                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
-                      <div
-                        className={cn(
-                          "h-full rounded-full transition-all duration-500 ease-out",
-                          step.status === "pending"
-                            ? "bg-[#0f766e]/30"
-                            : "bg-[#0f766e]",
-                        )}
-                        style={{ width: `${step.progress * 100}%` }}
-                      />
+                    <div className="space-y-2">
+                      <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
+                        <div
+                          className={cn(
+                            "h-full rounded-full transition-all duration-500 ease-out",
+                            step.status === "pending" && "bg-[#0f766e]/30",
+                            step.status === "current" && "bg-[#0f766e]",
+                            step.status === "completed" && "bg-[#0f766e]",
+                            step.status === "failed" && "bg-rose-500",
+                          )}
+                          style={{ width: `${step.progress * 100}%` }}
+                        />
+                      </div>
+                      {step.status === "failed" && step.failureDetail && (
+                        <p className="text-sm font-medium text-rose-600">
+                          {step.failureDetail}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </li>
