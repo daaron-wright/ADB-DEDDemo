@@ -407,6 +407,10 @@ export function BusinessRegistrationFocusContent({
     [isChecking, notifyTradeNameChange],
   );
 
+  const focusTradeNameInput = React.useCallback(() => {
+    inputRef.current?.focus();
+  }, []);
+
   const handleIdeaSelect = React.useCallback(
     (idea: string) => {
       setInputValue(idea);
