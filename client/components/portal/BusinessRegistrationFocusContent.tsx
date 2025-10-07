@@ -10,7 +10,6 @@ import { Check, X } from "lucide-react";
 
 interface BusinessRegistrationFocusContentProps {
   journeyNumber?: string;
-  completionStatus?: string;
   tradeName?: string;
   isTradeNameAvailable?: boolean;
   progressPercent?: number;
@@ -162,7 +161,6 @@ function clampProgress(value: number) {
 
 export function BusinessRegistrationFocusContent({
   journeyNumber = "0987654321",
-  completionStatus = "4 of 8 complete",
   tradeName = "",
   isTradeNameAvailable = false,
   progressPercent = 46,
@@ -473,9 +471,6 @@ export function BusinessRegistrationFocusContent({
                 {journeyNumber}
               </p>
             </div>
-            <Badge className="border-white/60 bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-700 shadow-sm">
-              {completionStatus}
-            </Badge>
           </div>
 
           <div className="rounded-[32px] border border-[#0f766e]/30 bg-[#0f766e]/5 px-5 py-4">
