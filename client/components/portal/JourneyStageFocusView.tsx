@@ -262,7 +262,9 @@ export function JourneyStageFocusView({
   }
 
   if (isBusinessRegistrationStage) {
-    const shouldShowTradeNameIdeas = selectedRecommendedId === "trade-name-ideas";
+    const shouldShowTradeNameIdeas =
+      selectedRecommendedId === "trade-name-ideas" ||
+      (!recommendedActivities.length && showTradeNameIdeas);
 
     return (
       <div className="space-y-5 sm:space-y-6">
