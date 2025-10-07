@@ -203,6 +203,27 @@ const PRELOADED_PROMPTS = {
   ],
 };
 
+const CHAT_SUGGESTED_TOPICS = [
+  {
+    id: "recommended" as const,
+    label: "Recommended activities",
+    prompt: "Show me the most recommended business activities for this license.",
+  },
+  {
+    id: "license-comparison" as const,
+    label: "License comparison",
+    prompt: "Compare the commercial and professional license options for my concept.",
+  },
+  {
+    id: "trade-name" as const,
+    label: "Trade name ideas",
+    prompt:
+      "Suggest trade name ideas that fit the brand vision and comply with DED rules.",
+  },
+] as const;
+
+type SuggestedTopicId = typeof CHAT_SUGGESTED_TOPICS[number]["id"];
+
 type ConversationStep = "intro" | "summary" | "handoff";
 
 const CONVERSATION_BLUEPRINT: Record<
