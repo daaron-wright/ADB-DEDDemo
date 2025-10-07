@@ -6256,35 +6256,6 @@ export function BusinessChatUI({
                             Live
                           </span>
                         </div>
-                        {onMinimize && (
-                          <button
-                            type="button"
-                            onClick={onMinimize}
-                            className={cn(
-                              "flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/40 text-slate-500 transition hover:border-[#0E766E]/70 hover:text-[#0A4A46] sm:h-10 sm:w-10 backdrop-blur-xl",
-                              isSidePanel &&
-                                "border-slate-200 bg-white/90 backdrop-blur-none hover:border-[#0E766E]/60",
-                            )}
-                            aria-label="Minimize chat"
-                          >
-                            <svg
-                              width="18"
-                              height="18"
-                              className="h-4 w-4 sm:h-5 sm:w-5"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M5 12H19"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </button>
-                        )}
                         <button
                           type="button"
                           onClick={onClose}
