@@ -381,9 +381,104 @@ export function DocumentSubmissionFocusContent({
                   <span>{progress}%</span>
                 </div>
               </div>
-            </div>
+          </div>
 
-            {steps
+          {!isMoaCompleted ? (
+            <div className="space-y-4 rounded-3xl border border-white/60 bg-white p-5 shadow-[0_28px_60px_-54px_rgba(15,23,42,0.4)]">
+              <button
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleLaunchDropdownToggle();
+                }}
+                aria-expanded={isLaunchDropdownOpen}
+                className="flex w-full items-center justify-between gap-3 text-left"
+              >
+                <div className="space-y-1">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    Active document automation
+                  </p>
+                  <p className="text-lg font-semibold text-slate-900">Notarize MOA (ADJD)</p>
+                </div>
+                <span className="inline-flex items-center gap-2 rounded-full border border-[#0f766e]/30 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Launch AI assistant
+                  <ChevronDown
+                    className={cn(
+                      "h-4 w-4 transition-transform duration-200",
+                      isLaunchDropdownOpen ? "rotate-180" : "rotate-0",
+                    )}
+                  />
+                </span>
+              </button>
+              {isLaunchDropdownOpen ? (
+                <div className="space-y-4 rounded-2xl border border-[#e3ede8] bg-[#f9fbfa] p-4 text-sm text-slate-600">
+                  <p className="font-semibold text-slate-800">
+                    AI Business will guide you through the notarization with ADJD.
+                  </p>
+                  <ul className="space-y-2">
+                    <li className="flex items-start gap-2">
+                      <Check className="mt-1 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
+                      <span>Pre-fills the ADJD template with your approved company details.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="mt-1 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
+                      <span>Verifies shareholder capital contributions and signatures.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="mt-1 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
+                      <span>Syncs the notarized memorandum back to your workspace.</span>
+                    </li>
+                  </ul>
+                  <div className="flex flex-wrap gap-3">
+                    <Button
+                      type="button"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        openMoaModal();
+                      }}
+                      className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
+                    >
+                      <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                      Launch AI assistant to finalize
+                    </Button>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          ) : (
+            <div className="rounded-3xl border border-white/60 bg-white shadow-[0_28px_60px_-54px_rgba(15,23,42,0.4)]">
+              <Accordion type="single" collapsible defaultValue="moa-summary">
+                <AccordionItem value="moa-summary" className="border-none">
+                  <AccordionTrigger className="px-5 py-4 text-left text-base font-semibold text-slate-900">
+                    Notarized MOA synced with ADJD
+                  </AccordionTrigger>
+                  <AccordionContent className="px-5">
+                    <div className="space-y-3 rounded-2xl border border-[#e3ede8] bg-[#f9fbfa] p-4 text-sm text-slate-600">
+                      <p className="text-slate-800">
+                        AI Business completed the notarization and updated your TAMM workspace with the signed memorandum.
+                      </p>
+                      <ul className="space-y-2">
+                        <li className="flex items-start gap-2">
+                          <Check className="mt-1 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
+                          <span>ADJD template populated with approved shareholder and capital details.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="mt-1 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
+                          <span>Digital notary seal applied and archived to your document vault.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="mt-1 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
+                          <span>All remaining submission tasks marked as complete.</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          )}
+
+          {steps
               .filter((step) => step.subSteps && step.status !== "pending")
               .map((step) => {
                 const completedCount = step.subSteps?.filter((item) => item.status === "completed").length ?? 0;
