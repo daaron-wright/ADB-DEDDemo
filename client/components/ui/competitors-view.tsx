@@ -204,6 +204,9 @@ const LoadingCard = ({ delay = 0 }: { delay?: number }) => {
           <p className="text-sm text-white/80 md:text-base">
             Gathering Competitor Data
           </p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#54FFD4]">
+            Querying the "Investor Compass"
+          </p>
           <div className="mt-2 w-40 max-w-[70%]">
             <div className="h-1.5 overflow-hidden rounded-full bg-white/15">
               <motion.div
