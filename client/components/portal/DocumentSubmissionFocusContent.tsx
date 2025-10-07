@@ -249,7 +249,7 @@ export function DocumentSubmissionFocusContent({
       setIsLaunchDropdownOpen(false);
       completionTimeoutRef.current = null;
     }, 1200);
-  }, [isCompletingMoa]);
+  }, [isCompletingMoa, isMoaCompleted]);
 
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
