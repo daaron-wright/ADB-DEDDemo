@@ -666,7 +666,7 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
               </div>
             </div>
             <div className="text-right">
-              <div className="text-sm font-semibold text-blue-600">4.3★</div>
+              <div className="text-sm font-semibold text-blue-600">4.3���</div>
               <div className="text-xs text-slate-500">$$$</div>
             </div>
           </div>
@@ -5188,71 +5188,15 @@ export function BusinessChatUI({
     };
   }, [selectedActivities]);
 
-  const hasLicenseMenu = useMemo(() => {
-    if (!showChatInterface) {
-      return false;
-    }
-
-    return messages.some((message) => {
-      const text = message.content ? message.content.toLowerCase() : "";
-      return (
-        message.type === "business-activities" ||
-        message.type === "application-progress" ||
-        text.includes("trade name") ||
-        text.includes("trade-name") ||
-        text.includes("license application") ||
-        text.includes("licence application") ||
-        text.includes("business activit") ||
-        text.includes("license type") ||
-        text.includes("licence type") ||
-        text.includes("type of license") ||
-        text.includes("type of licence")
-      );
-    });
-  }, [messages, showChatInterface]);
-
   const shouldShowInteractionToolbar = false;
-
-  useEffect(() => {
-    if (!hasLicenseMenu && selectedLicenseMenu !== "recommended") {
-      setSelectedLicenseMenu("recommended");
-    }
-  }, [hasLicenseMenu, selectedLicenseMenu]);
 
   const chatInputPlaceholder = useMemo(() => {
     if (interactionMode === "voice") {
       return "Voice mode active—tap the mic to ask about licensing steps.";
     }
 
-    if (!shouldShowInteractionToolbar) {
-      return DEFAULT_CHAT_PLACEHOLDER;
-    }
-
-    if (!hasLicenseMenu) {
-      return DEFAULT_CHAT_PLACEHOLDER;
-    }
-
-    return (
-      TRADE_LICENSE_MENU_PROMPTS[selectedLicenseMenu] ||
-      DEFAULT_CHAT_PLACEHOLDER
-    );
-  }, [
-    interactionMode,
-    hasLicenseMenu,
-    selectedLicenseMenu,
-    shouldShowInteractionToolbar,
-  ]);
-
-  const handleMenuSelect = (optionId: TradeLicenseMenuOptionId) => {
-    setSelectedLicenseMenu(optionId);
-
-    if (interactionMode === "chat" && inputValue.trim().length === 0) {
-      const prompt = TRADE_LICENSE_MENU_PROMPTS[optionId];
-      if (prompt) {
-        setInputValue(prompt);
-      }
-    }
-  };
+    return DEFAULT_CHAT_PLACEHOLDER;
+  }, [interactionMode]);
 
   const handleToggleActivity = useCallback((activityId: string) => {
     setSelectedActivityIds((prev) =>
