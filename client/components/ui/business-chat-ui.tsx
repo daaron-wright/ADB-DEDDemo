@@ -2695,16 +2695,12 @@ const ChatInputField = ({
   onSubmit,
   placeholder = "Ask me anything...",
   className = "",
-  interactionMode = "chat",
-  onModeChange,
 }: {
   value: string;
   onChange: (value: string) => void;
   onSubmit: (value: string) => void;
   placeholder?: string;
   className?: string;
-  interactionMode?: "chat" | "voice";
-  onModeChange?: (mode: "chat" | "voice") => void;
 }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -2719,20 +2715,6 @@ const ChatInputField = ({
       handleSubmit(e as any);
     }
   };
-
-  const isVoiceMode = interactionMode === "voice";
-  const chatButtonClasses = cn(
-    "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border transition-colors",
-    interactionMode === "chat"
-      ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_8px_22px_-12px_rgba(15,118,110,0.55)]"
-      : "border-black/10 bg-white text-black hover:bg-gray-100",
-  );
-  const voiceButtonClasses = cn(
-    "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border transition-colors",
-    isVoiceMode
-      ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_8px_22px_-12px_rgba(15,118,110,0.55)]"
-      : "border-black/10 bg-white text-black hover:bg-gray-100",
-  );
 
   return (
     <form
@@ -2753,23 +2735,11 @@ const ChatInputField = ({
         />
 
         <button
-          type="button"
-          className={chatButtonClasses}
-          aria-label="Chat input mode"
-          aria-pressed={interactionMode === "chat"}
-          onClick={() => onModeChange?.("chat")}
+          type="submit"
+          className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E] text-white shadow-[0_12px_28px_-18px_rgba(15,118,110,0.55)] transition hover:bg-[#0c5d57] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
+          aria-label="Send message"
         >
-          <MessageCircle className="h-4 w-4" aria-hidden />
-        </button>
-
-        <button
-          type="button"
-          className={voiceButtonClasses}
-          aria-label="Voice input mode"
-          aria-pressed={isVoiceMode}
-          onClick={() => onModeChange?.("voice")}
-        >
-          <Mic className="h-4 w-4" aria-hidden />
+          <Send className="h-4 w-4" aria-hidden />
         </button>
       </div>
     </form>
