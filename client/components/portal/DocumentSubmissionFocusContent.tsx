@@ -207,6 +207,12 @@ export function DocumentSubmissionFocusContent({
   const notarizedMoa = submissionStep?.subSteps?.find((subStep) => subStep.id === "notarized-moa");
   const isMoaCompleted = notarizedMoa?.status === "completed";
 
+  React.useEffect(() => {
+    if (isMoaCompleted) {
+      setIsLaunchDropdownOpen(false);
+    }
+  }, [isMoaCompleted]);
+
   const handleModalOpenChange = React.useCallback(
     (open: boolean) => {
       if (!open && isCompletingMoa) {
