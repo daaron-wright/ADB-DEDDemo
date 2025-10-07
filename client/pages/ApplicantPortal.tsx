@@ -786,28 +786,40 @@ export default function ApplicantPortal() {
     }
   }, [portalView]);
 
-  const handleViewJourney = (stageId: string) => {
-    setBusinessAIView("focus");
-    setIsTimelineBackgroundBlurred(true);
-    setFocusContext({ type: "stage", stageId });
-    setIsStageManuallySelected(true);
-    setActiveStageId(stageId);
-    const timelineIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
-      (phase) => phase.stageId === stageId,
-    );
-    if (timelineIndex >= 0) {
-      setJourneyAnimationIndex(timelineIndex);
-      setJourneyProgressPercent(
-        JOURNEY_ANIMATION_TIMELINE[timelineIndex]?.percent ?? 0,
+  const handleViewJourney = useCallback(
+    (stageId: string) => {
+      setBusinessAIView("focus");
+      setIsTimelineBackgroundBlurred(true);
+      setFocusContext({ type: "stage", stageId });
+      setIsStageManuallySelected(true);
+      setActiveStageId(stageId);
+      const timelineIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
+        (phase) => phase.stageId === stageId,
       );
-    }
-    const matchingStep = JOURNEY_STEPS_CONFIG.find(
-      (step) => step.id === stageId,
-    );
-    if (matchingStep) {
-      updateCurrentJourneyStep(stageId);
-    }
-  };
+      if (timelineIndex >= 0) {
+        setJourneyAnimationIndex(timelineIndex);
+        setJourneyProgressPercent(
+          JOURNEY_ANIMATION_TIMELINE[timelineIndex]?.percent ?? 0,
+        );
+      }
+      const matchingStep = JOURNEY_STEPS_CONFIG.find(
+        (step) => step.id === stageId,
+      );
+      if (matchingStep) {
+        updateCurrentJourneyStep(stageId);
+      }
+    },
+    [
+      setBusinessAIView,
+      setIsTimelineBackgroundBlurred,
+      setFocusContext,
+      setIsStageManuallySelected,
+      setActiveStageId,
+      setJourneyAnimationIndex,
+      setJourneyProgressPercent,
+      updateCurrentJourneyStep,
+    ],
+  );
 
   const todoBankItems = useMemo<NextActionItem[]>(() => {
     const findStageIdByTitle = (title: string) => {
