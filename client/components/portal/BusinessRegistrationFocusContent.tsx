@@ -552,6 +552,53 @@ export function BusinessRegistrationFocusContent({
     ? "Status: verification synced with the Department of Economic Development"
     : `Status: similar name conflict flagged for ${activeTradeName}.`;
 
+  const registrationCta = React.useMemo(() => {
+    if (!hasActiveTradeName) {
+      return {
+        headline: "Submit your trade name",
+        description: "Enter a preferred business name so AI Business can validate availability.",
+        buttonLabel: "Enter trade name",
+        onClick: focusTradeNameInput,
+        disabled: isChecking,
+      };
+    }
+
+    if (isChecking) {
+      return {
+        headline: "Validation in progress",
+        description: "Hold tight while we finish automated checks. You can review the verification steps anytime.",
+        buttonLabel: "View verification",
+        onClick: () => {
+          document.getElementById("registration-verification")?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        },
+        disabled: false,
+      };
+    }
+
+    if (!isNameAvailable) {
+      return {
+        headline: "Try another name",
+        description: failureReason ?? "We couldn't reserve the current name. Try a new unique variation.",
+        buttonLabel: "Choose new name",
+        onClick: focusTradeNameInput,
+        disabled: false,
+      };
+    }
+
+    return {
+      headline: "Reserve your approved name",
+      description: "Lock in this trade name before moving to licensing.",
+      buttonLabel: "Reserve name",
+      onClick: () => {
+        continueButtonRef.current?.focus();
+      },
+      disabled: false,
+    };
+  }, [failureReason, focusTradeNameInput, hasActiveTradeName, isChecking, isNameAvailable]);
+
   const tradeCheckBadgeLabel = isChecking
     ? "Checking"
     : !hasActiveTradeName
