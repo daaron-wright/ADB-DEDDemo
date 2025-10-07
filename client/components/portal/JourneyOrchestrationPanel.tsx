@@ -10,6 +10,19 @@ import type {
   NextActionItem,
 } from "./journey-types";
 
+export interface JourneyOrchestrationPanelCopy {
+  heading: string;
+  timelineLabel: string;
+  activePrefix: string;
+  activeStage: string;
+  yourNextStep: string;
+  tasksCompleteMessage: string;
+  automationMessage: string;
+  openNextTask: string;
+  reviewStage: string;
+  timelineAriaLabel: string;
+}
+
 interface JourneyOrchestrationPanelProps {
   introMessage: string;
   actions: NextActionItem[];
@@ -24,6 +37,7 @@ interface JourneyOrchestrationPanelProps {
   onViewJourney: (stageId: string) => void;
   onTimelineFocusChange?: (isFocused: boolean) => void;
   stageNumberOffset?: number;
+  copy?: Partial<JourneyOrchestrationPanelCopy>;
 }
 
 export function JourneyOrchestrationPanel({
@@ -40,8 +54,31 @@ export function JourneyOrchestrationPanel({
   onViewJourney,
   onTimelineFocusChange,
   stageNumberOffset = 0,
+  copy,
 }: JourneyOrchestrationPanelProps) {
   const hasTimelineSection = timelineItems.length > 0;
+
+  const defaultCopy: JourneyOrchestrationPanelCopy = React.useMemo(
+    () => ({
+      heading: "Journey orchestration",
+      timelineLabel: "Journey timeline",
+      activePrefix: "Active:",
+      activeStage: "Active stage",
+      yourNextStep: "Your next step",
+      tasksCompleteMessage:
+        "All tasks for this stage are complete. Monitor automation updates.",
+      automationMessage: "Automation is handling the remaining work for you.",
+      openNextTask: "Open next task",
+      reviewStage: "Review stage",
+      timelineAriaLabel: "Journey stages navigation",
+    }),
+    [],
+  );
+
+  const localizedCopy = React.useMemo(
+    () => ({ ...defaultCopy, ...copy }),
+    [copy, defaultCopy],
+  );
 
   const [selectedTimelineId, setSelectedTimelineId] = React.useState<string>(
     () => {
@@ -136,17 +173,19 @@ export function JourneyOrchestrationPanel({
     }
 
     if (stageSpecificActions.length > 0) {
-      return "All tasks for this stage are complete. Monitor automation updates.";
+      return localizedCopy.tasksCompleteMessage;
     }
 
     if (selectedTimelineItem?.meta) {
       return selectedTimelineItem.meta;
     }
 
-    return "Automation is handling the remaining work for you.";
-  }, [primaryOutstandingAction, stageSpecificActions, selectedTimelineItem]);
+    return localizedCopy.automationMessage;
+  }, [primaryOutstandingAction, stageSpecificActions, selectedTimelineItem, localizedCopy]);
 
-  const ctaButtonLabel = primaryOutstandingAction ? "Open next task" : "Review stage";
+  const ctaButtonLabel = primaryOutstandingAction
+    ? localizedCopy.openNextTask
+    : localizedCopy.reviewStage;
 
   const selectedTimelineIndex = React.useMemo(() => {
     if (!selectedTimelineItem) {
@@ -171,7 +210,7 @@ export function JourneyOrchestrationPanel({
     <div className="space-y-8">
       <div className="space-y-4">
         <h4 className="text-xl font-semibold text-slate-900">
-          Journey orchestration
+          {localizedCopy.heading}
         </h4>
         <p className="text-sm leading-relaxed text-slate-700">{introMessage}</p>
       </div>
@@ -180,16 +219,16 @@ export function JourneyOrchestrationPanel({
         <section className="space-y-5">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Journey timeline
+              {localizedCopy.timelineLabel}
             </p>
             <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-              Active: {currentStageLabel}
+              {localizedCopy.activePrefix} {currentStageLabel}
             </span>
           </div>
           <div
             className="flex gap-3 overflow-x-auto pb-1"
             role="tablist"
-            aria-label="Journey stages navigation"
+            aria-label={localizedCopy.timelineAriaLabel}
           >
             {timelineItems.map((item) => {
               const isActive = item.id === selectedTimelineItem?.id;
@@ -285,7 +324,7 @@ export function JourneyOrchestrationPanel({
                   </div>
                   {selectedTimelineItem.isCurrent ? (
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                      Active stage
+                      {localizedCopy.activeStage}
                     </p>
                   ) : null}
                   <p className="text-sm leading-relaxed text-slate-600">
@@ -308,7 +347,7 @@ export function JourneyOrchestrationPanel({
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                      Your next step
+                      {localizedCopy.yourNextStep}
                     </p>
                     <p className="text-sm text-slate-600">
                       {nextActionMessage}
