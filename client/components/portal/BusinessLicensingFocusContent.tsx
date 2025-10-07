@@ -234,9 +234,7 @@ export function BusinessLicensingFocusContent({
                   stageToken.badgeClass,
                 )}
               >
-                {stageToken.iconType === "check" ? (
-                  <Check className={cn("h-3.5 w-3.5", stageToken.iconClass)} strokeWidth={3} />
-                ) : stageToken.iconType === "spinner" ? (
+                {stageToken.iconType === "spinner" ? (
                   <Loader2 className={cn("h-3.5 w-3.5 animate-spin", stageToken.iconClass)} />
                 ) : (
                   <span className={cn("block h-2 w-2 rounded-full", stageToken.iconClass)} />
