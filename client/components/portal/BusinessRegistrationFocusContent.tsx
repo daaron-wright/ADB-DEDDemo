@@ -185,14 +185,10 @@ export function BusinessRegistrationFocusContent({
 
     setActiveTradeName(normalizedTradeName);
     setPendingTradeName(null);
-    setIsNameAvailable(Boolean(normalizedTradeName) && isTradeNameAvailable);
-    setFailedStepIndex(
-      !normalizedTradeName || isTradeNameAvailable
-        ? null
-        : DEFAULT_FAILURE_STEP_INDEX,
-    );
+    setIsNameAvailable(false);
+    setFailedStepIndex(null);
     setFailureReason(null);
-    setAutomationProgress(clampProgress(progressPercent));
+    setAutomationProgress(0);
     setHasPerformedCheck(false);
   }, [hasUserOverride, tradeName, isTradeNameAvailable, progressPercent]);
 
