@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 
 const CHAT_STORAGE_KEY = "portal-business-ai-open";
 const CHAT_VISITED_KEY = "portal-business-ai-visited";
-const CHAT_MINIMIZED_KEY = "portal-business-ai-minimized";
 
 const PERSISTENT_PHASE = {
   message: "Generating application...",
