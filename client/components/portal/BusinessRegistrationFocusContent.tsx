@@ -312,7 +312,7 @@ export function BusinessRegistrationFocusContent({
     : "Action needed";
 
   const tradeCheckBadgeClasses = cn(
-    "border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]",
+    "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]",
     isChecking && "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]",
     !isChecking && isNameAvailable && "border-white/70 bg-[#0f766e]/10 text-[#0f766e]",
     !isChecking && !isNameAvailable && "border-rose-200 bg-rose-50 text-rose-600",
