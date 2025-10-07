@@ -69,6 +69,13 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
   },
 ];
 
+const DEFAULT_FAILURE_STEP_INDEX = (() => {
+  const index = TRADE_NAME_CHECKS.findIndex(
+    (step) => step.title === "Similar name checks",
+  );
+  return index === -1 ? 3 : index;
+})();
+
 const STATUS_LABELS: Record<TradeNameCheckStatus, string> = {
   completed: "Completed",
   current: "Running",
