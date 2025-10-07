@@ -172,6 +172,7 @@ export function JourneyStageFocusView({
           progressPercent={46}
           showTradeNameIdeas={showTradeNameIdeas}
         />
+        {navigationControls}
       </div>
     );
   }
