@@ -275,7 +275,11 @@ export function JourneyStageFocusView({
           return;
         }
 
-        if ((error as Error).name === "AbortError") {
+        const errorObject = error as Error | DOMException;
+        const errorName = errorObject?.name ?? "";
+        const errorMessage = (errorObject?.message ?? "").toLowerCase();
+
+        if (errorName === "AbortError" || errorMessage.includes("aborted")) {
           return;
         }
 
