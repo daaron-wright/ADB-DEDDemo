@@ -76,6 +76,10 @@ const applications: ApplicationRecord[] = [
   },
 ];
 
+const TARGET_TRADE_NAME = applications[0].title;
+const TARGET_TRADE_NAME_LOWER = TARGET_TRADE_NAME.trim().toLowerCase();
+const DEFAULT_WORKSPACE_TITLE = "Commercial License for Restaurant in Corniche";
+
 const statusStyles: Record<ApplicationRecord["status"], string> = {
   "In Review": "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
   "Awaiting Documents": "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
