@@ -1218,6 +1218,34 @@ export default function ApplicantPortal() {
     [],
   );
 
+  useEffect(() => {
+    if (!focusContext || focusContext.type !== "stage") {
+      return;
+    }
+
+    const stageId = focusContext.stageId;
+    const recommendedOptions = RECOMMENDED_STAGE_ACTIVITIES[stageId];
+    if (!recommendedOptions || recommendedOptions.length === 0) {
+      return;
+    }
+
+    setStageRecommendedSelections((prev) => {
+      if (prev[stageId]) {
+        return prev;
+      }
+
+      const defaultId = recommendedOptions[0]?.id ?? null;
+      if (!defaultId) {
+        return prev;
+      }
+
+      return {
+        ...prev,
+        [stageId]: defaultId,
+      };
+    });
+  }, [focusContext, setStageRecommendedSelections]);
+
   const journeyFocusViewProps = useMemo(() => {
     if (!focusViewContext) {
       return null;
