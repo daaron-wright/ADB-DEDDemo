@@ -1256,10 +1256,11 @@ export default function ApplicantPortal() {
       stageId && stageId in RECOMMENDED_STAGE_ACTIVITIES
         ? RECOMMENDED_STAGE_ACTIVITIES[stageId]
         : undefined;
+    const fallbackRecommendedId = recommendedOptions?.[0]?.id ?? null;
     const selectedRecommendedId =
       stageId && stageRecommendedSelections[stageId]
         ? stageRecommendedSelections[stageId]
-        : null;
+        : fallbackRecommendedId;
 
     const stageActivityContext =
       stageId === "questionnaire"
