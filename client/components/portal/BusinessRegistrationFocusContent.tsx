@@ -364,8 +364,9 @@ export function BusinessRegistrationFocusContent({
       setFailureReason(null);
       setHasUserOverride(true);
       setHasPerformedCheck(true);
+      notifyTradeNameChange(normalizedInput);
     },
-    [isChecking, trimmedInput],
+    [isChecking, notifyTradeNameChange, trimmedInput],
   );
 
   const handleInputChange = React.useCallback(
@@ -373,6 +374,7 @@ export function BusinessRegistrationFocusContent({
       const nextValue = event.target.value;
       setInputValue(nextValue);
       setHasUserOverride(true);
+      notifyTradeNameChange(nextValue.trim() ? nextValue.trim() : null);
 
       if (!isChecking) {
         setHasPerformedCheck(false);
@@ -382,7 +384,7 @@ export function BusinessRegistrationFocusContent({
         setAutomationProgress(0);
       }
     },
-    [isChecking],
+    [isChecking, notifyTradeNameChange],
   );
 
   const handleIdeaSelect = React.useCallback(
@@ -390,6 +392,7 @@ export function BusinessRegistrationFocusContent({
       setInputValue(idea);
       setHasUserOverride(true);
       setPendingTradeName(null);
+      notifyTradeNameChange(idea);
 
       if (!isChecking) {
         setHasPerformedCheck(false);
@@ -403,7 +406,7 @@ export function BusinessRegistrationFocusContent({
         inputRef.current?.focus();
       });
     },
-    [isChecking],
+    [isChecking, notifyTradeNameChange],
   );
 
   const showVerificationSteps = hasPerformedCheck || isChecking;
