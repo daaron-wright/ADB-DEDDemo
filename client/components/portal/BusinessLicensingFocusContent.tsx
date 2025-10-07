@@ -423,7 +423,13 @@ export function BusinessLicensingFocusContent({
                     item.id === "license-economic-issuance"
                       ? licensingSubSteps.find((subStep) => subStep.id === "economic-license-ded")
                       : undefined;
-                  const relatedStatus: SubStepStatus = relatedSubStep?.status ?? (stageStatus === "request" ? "pending" : "in_progress");
+                  const fallbackStatus: SubStepStatus =
+                    stageStatus === "request"
+                      ? "request"
+                      : stageStatus === "in_progress"
+                      ? "in_progress"
+                      : "pending";
+                  const relatedStatus: SubStepStatus = relatedSubStep?.status ?? fallbackStatus;
                   const token = SUB_STEP_TOKENS[relatedStatus];
 
                   return (
