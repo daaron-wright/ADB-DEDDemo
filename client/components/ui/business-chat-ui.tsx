@@ -241,7 +241,6 @@ const TRADE_LICENSE_MENU_OPTIONS = [
   { id: "recommended" as const, label: "Recommended activities" },
   { id: "license-types" as const, label: "License types" },
   { id: "trade-name" as const, label: "Trade name ideas" },
-  { id: "documents" as const, label: "Required documents" },
 ] as const;
 
 type TradeLicenseMenuOptionId =
