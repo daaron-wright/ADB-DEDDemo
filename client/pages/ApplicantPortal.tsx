@@ -1055,7 +1055,8 @@ export default function ApplicantPortal() {
 
   const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
     return journeyStages.map<JourneyTimelineItem>((stage) => {
-      const tokens = journeyHighlightTokens[stage.state];
+      const resolvedState = deriveStageState(stage);
+      const tokens = journeyHighlightTokens[resolvedState];
       return {
         id: stage.id,
         title: stage.title,
@@ -1067,7 +1068,7 @@ export default function ApplicantPortal() {
         isCurrent: stage.id === activeStageId,
       };
     });
-  }, [journeyStages, activeStageId]);
+  }, [activeStageId]);
 
   const currentStageLabel = useMemo(() => {
     const prioritized = journeyTimelineItems.find((item) => item.isCurrent);
