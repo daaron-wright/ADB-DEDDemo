@@ -5085,8 +5085,6 @@ export function BusinessChatUI({
   const [interactionMode, setInteractionMode] = useState<"chat" | "voice">(
     "chat",
   );
-  const [activeSuggestedTopic, setActiveSuggestedTopic] =
-    useState<SuggestedTopicId | null>(null);
   const openApplicantPortal = useCallback(() => {
     navigate("/portal/applicant", {
       state: {
