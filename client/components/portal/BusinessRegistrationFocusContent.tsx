@@ -266,7 +266,7 @@ export function BusinessRegistrationFocusContent({
               </p>
             </div>
             <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
-              {progressPercent}% complete
+              {displayProgress}% complete
             </Badge>
           </div>
           <p className="text-sm leading-relaxed text-slate-600">
@@ -276,13 +276,13 @@ export function BusinessRegistrationFocusContent({
           <div className="space-y-2">
             <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
               <div
-                className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] shadow-[0_1px_6px_rgba(15,118,110,0.35)] transition-all"
-                style={{ width: `${progressPercent}%` }}
+                className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] shadow-[0_1px_6px_rgba(15,118,110,0.35)] transition-all duration-500 ease-out"
+                style={{ width: `${clampedProgress}%` }}
               />
             </div>
             <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
               <span>Automation progress</span>
-              <span>{progressPercent}%</span>
+              <span>{displayProgress}%</span>
             </div>
           </div>
         </div>
