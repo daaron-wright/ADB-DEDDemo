@@ -3349,7 +3349,7 @@ const MessageBubble = ({
                           {row.area}
                         </span>
                         <p className="text-xs text-slate-500">
-                          {row.boutiqueRange !== "–"
+                          {row.boutiqueRange !== "���"
                             ? "High street or lifestyle hub positioning"
                             : "Premium district suited to flagship scale"}
                         </p>
@@ -6275,7 +6275,7 @@ export function BusinessChatUI({
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
-                              d="M19 12H5M5 12L11 18M5 12L11 6"
+                              d="M18 6L6 18M6 6l12 12"
                               stroke="currentColor"
                               strokeWidth="2"
                               strokeLinecap="round"
