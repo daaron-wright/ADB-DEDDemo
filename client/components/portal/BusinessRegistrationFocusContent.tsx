@@ -86,6 +86,11 @@ const TRADE_NAME_IDEAS = [
   "Gulf Breeze Gastronomy",
 ] as const;
 
+const APPROVED_TRADE_NAMES = [
+  "MARWAH",
+  "CORNICHE CULINARY COLLECTIVE",
+] as const;
+
 const STATUS_LABELS: Record<TradeNameCheckStatus, string> = {
   completed: "Completed",
   current: "Running",
@@ -223,7 +228,9 @@ export function BusinessRegistrationFocusContent({
           const evaluatedName = (pendingTradeName ?? activeTradeName)
             .trim()
             .toUpperCase();
-          const isSuccess = Boolean(evaluatedName) && evaluatedName === "MARWAH";
+          const isSuccess =
+            Boolean(evaluatedName) &&
+            APPROVED_TRADE_NAMES.includes(evaluatedName as (typeof APPROVED_TRADE_NAMES)[number]);
 
           setIsChecking(false);
           setIsNameAvailable(isSuccess);
@@ -232,7 +239,7 @@ export function BusinessRegistrationFocusContent({
             isSuccess
               ? null
               : evaluatedName
-              ? `We couldn’t reserve ${evaluatedName}. Try MARWAH or another unique variation.`
+              ? `We couldn’t reserve ${evaluatedName}. Try ${APPROVED_TRADE_NAMES.join(" or ")} or another unique variation.`
               : "Please enter a trade name to run the automated checks.",
           );
           setPendingTradeName(null);
