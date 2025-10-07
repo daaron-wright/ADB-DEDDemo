@@ -909,7 +909,10 @@ export function BusinessRegistrationFocusContent({
         ) : null}
 
         <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
-          <div className="flex flex-wrap items-center justify-between gap-3">
+          <div
+            id="registration-verification"
+            className="flex flex-wrap items-center justify-between gap-3"
+          >
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                 Trade name check
