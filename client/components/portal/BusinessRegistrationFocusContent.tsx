@@ -184,6 +184,10 @@ export function BusinessRegistrationFocusContent({
   }, [hasUserOverride, tradeName, isTradeNameAvailable, progressPercent]);
 
   React.useEffect(() => {
+    setHasUserOverride(false);
+  }, [tradeName, isTradeNameAvailable, progressPercent]);
+
+  React.useEffect(() => {
     if (!isChecking) {
       return;
     }
