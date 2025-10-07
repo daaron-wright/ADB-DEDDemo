@@ -140,6 +140,7 @@ interface PortalLanguageCopy {
   applicationSummaryNote: string;
   businessAITitle: string;
   businessActivityGuidance: string;
+  businessActivityGuidanceLabel: string;
   statusLabelMap: Record<ApplicationRecord["status"], string>;
   licenseTypeLabels: Record<ApplicationRecord["licenseType"], string>;
   beneficiaryLabels: Record<ApplicationRecord["beneficiary"], string>;
@@ -196,6 +197,8 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     businessAITitle: "Business AI",
     businessActivityGuidance:
       "You can select multiple business activities for a restaurant, provided they fall under the same business group. You can list a maximum of 10 activities on a single trade license.",
+    businessActivityGuidanceLabel:
+      "Add licensing guidance to business activities questionnaire",
     statusLabelMap: {
       "In Review": "In Review",
       "Awaiting Documents": "Awaiting Documents",
@@ -284,6 +287,8 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     businessAITitle: "مساعد الأعمال الذكي",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نفس مجموعة الأعمال. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
+    businessActivityGuidanceLabel:
+      "أضيفي إرشادات الترخيص إلى استبيان الأنشطة التجارية",
     statusLabelMap: {
       "In Review": "قيد المراجعة",
       "Awaiting Documents": "بانتظار المستندات",
@@ -301,7 +306,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       Visitor: "زائر",
     },
     directorateLabels: {
-      "Department of Economic Development": "دائرة التنمية الاقتصادية",
+      "Department of Economic Development": "دائرة التن��ية الاقتصادية",
     },
     applicationTitles: {
       "APP-48291": "مجموعة كورنيش للطهي",
