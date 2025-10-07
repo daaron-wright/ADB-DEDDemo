@@ -154,6 +154,24 @@ const STATUS_LABELS: Record<TradeNameCheckStatus, string> = {
   failed: "Failed",
 };
 
+const REGISTRATION_USER_ACTIONS = [
+  {
+    id: "registration-trade-name",
+    title: "Reserve trade name",
+    action: "Enter your preferred business name so AI Business can validate availability and reserve it with DED.",
+  },
+  {
+    id: "registration-ownership-structure",
+    title: "Confirm ownership structure",
+    action: "Upload shareholder IDs and confirm share percentages to finalize the ownership register.",
+  },
+  {
+    id: "registration-initial-approvals",
+    title: "Generate registration packet",
+    action: "Approve the AI-generated registration forms so they can be routed for signatures.",
+  },
+] as const;
+
 function getStepStatus(
   progressPercent: number,
   stepIndex: number,
