@@ -208,6 +208,10 @@ export function DocumentSubmissionFocusContent({
     setIsLaunchDropdownOpen((value) => !value);
   }, []);
 
+  const openLaunchDropdown = React.useCallback(() => {
+    setIsLaunchDropdownOpen(true);
+  }, []);
+
   const handleCompleteMoa = React.useCallback(() => {
     if (isCompletingMoa) {
       return;
