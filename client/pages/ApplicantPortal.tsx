@@ -722,7 +722,7 @@ export default function ApplicantPortal() {
 
   const profileName = portalUser?.name ?? ENTREPRENEUR_PROFILE.name;
   const firstName = profileName.split(" ")[0];
-  const workspaceTitle = `${firstName}'s workspace`;
+  const workspaceHeroTitle = `${firstName}'s workspace`;
   const workspaceDescription = `Track your business license progress, ${firstName}, and know exactly what comes next.`;
   const profileEmail = portalUser?.email ?? "layla.almansoori@email.ae";
   const profileAvatar = portalUser?.avatarUrl ?? ENTREPRENEUR_PROFILE.avatar;
