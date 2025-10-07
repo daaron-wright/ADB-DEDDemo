@@ -16,7 +16,7 @@ interface BusinessRegistrationFocusContentProps {
   progressPercent?: number;
 }
 
-type TradeNameCheckStatus = "completed" | "current" | "pending";
+type TradeNameCheckStatus = "completed" | "current" | "pending" | "failed";
 
 type TradeNameVerificationStep = {
   title: string;
