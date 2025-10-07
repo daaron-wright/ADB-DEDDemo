@@ -111,12 +111,67 @@ const SUB_STEP_TOKENS: Record<SubStepStatus, { label: string; badgeClass: string
   },
 };
 
+const STEP_STATUS_TOKENS: Record<StepStatus, {
+  headline: string;
+  badgeLabel: string;
+  badgeClass: string;
+  iconClass: string;
+  iconType: "check" | "spinner" | "dot";
+}> = {
+  completed: {
+    headline: "completed",
+    badgeLabel: "Automation complete",
+    badgeClass: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
+    iconClass: "text-[#0f766e]",
+    iconType: "check",
+  },
+  current: {
+    headline: "in progress",
+    badgeLabel: "Automation syncing",
+    badgeClass: "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
+    iconClass: "text-[#0b7d6f]",
+    iconType: "spinner",
+  },
+  pending: {
+    headline: "pending",
+    badgeLabel: "Awaiting kickoff",
+    badgeClass: "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
+    iconClass: "text-[#b97324]",
+    iconType: "dot",
+  },
+};
+
+const DOCUMENT_PREVIEWS = [
+  {
+    id: "preview-1",
+    src: "https://api.builder.io/api/v1/image/assets/TEMP/e935ed8e6b8aa085650edae1997167c9467b8f30?width=164",
+    alt: "Document preview 1",
+  },
+  {
+    id: "preview-2",
+    src: "https://api.builder.io/api/v1/image/assets/TEMP/e467ef8d4c6409cd0f0e485b663b7b5a5ff73d2b?width=174",
+    alt: "Document preview 2",
+  },
+  {
+    id: "preview-3",
+    src: "https://api.builder.io/api/v1/image/assets/TEMP/e6f6df90a2f485a0a3eed451704b3d9fb7375e09?width=164",
+    alt: "Document preview 3",
+  },
+];
+
 export function DocumentSubmissionFocusContent({
   journeyNumber = "0987654321",
-  progressPercent = 51,
+  progressPercent = 90,
 }: DocumentSubmissionFocusContentProps) {
   const [showDocuments, setShowDocuments] = React.useState(true);
   const steps = React.useMemo(() => DOCUMENT_SUBMISSION_STEPS, []);
+  const submissionStep = React.useMemo(
+    () => steps.find((step) => step.id === 2),
+    [steps],
+  );
+  const submissionToken = submissionStep
+    ? STEP_STATUS_TOKENS[submissionStep.status]
+    : STEP_STATUS_TOKENS.current;
 
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
