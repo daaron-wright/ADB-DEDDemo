@@ -293,10 +293,10 @@ export function BusinessRegistrationFocusContent({
     : "This name matches an existing business record. Try a different variation to continue.";
 
   const statusSummary = isChecking
-    ? "Status: running automated checks with DED"
+    ? `Status: running automated checks for ${activeTradeName}`
     : isNameAvailable
     ? "Status: verification synced with the Department of Economic Development"
-    : "Status: similar name conflict flagged by the Department of Economic Development";
+    : `Status: similar name conflict flagged for ${activeTradeName}.`;
 
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
