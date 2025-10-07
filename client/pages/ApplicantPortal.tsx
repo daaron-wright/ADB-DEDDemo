@@ -1558,7 +1558,7 @@ export default function ApplicantPortal() {
           </div>
           <div>
             <h3 className="text-sm font-semibold text-slate-900">
-              Next action
+              {languageCopy.nextActionHeading}
             </h3>
             <p className="mt-2 leading-relaxed">
               {primaryApplication.nextAction}
@@ -1757,7 +1757,7 @@ export default function ApplicantPortal() {
           <div className="space-y-4">
             <div>
               <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Next action
+                {languageCopy.nextActionHeading}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-700">
                 {primaryApplication.nextAction}
@@ -1787,7 +1787,7 @@ export default function ApplicantPortal() {
                   strokeLinejoin="round"
                 />
               </svg>
-              Continue to Your Next Action
+              {languageCopy.nextActionButton}
             </Button>
           </div>
         </div>
