@@ -447,6 +447,87 @@ const ADDITIONAL_ACTIVITIES: BusinessActivity[] = [
   },
 ];
 
+const RECOMMENDED_STAGE_ACTIVITIES: Record<
+  string,
+  Array<{
+    id: string;
+    label: string;
+    description: string;
+    type: "trade-name" | "document" | "licensing" | "inspection" | "compliance" | "general";
+  }>
+> = {
+  "trade-name-activities": [
+    {
+      id: "trade-name-ideas",
+      label: "Trade name ideas",
+      description: "Explore compliant trade name concepts aligned to your brand vision.",
+      type: "trade-name",
+    },
+    {
+      id: "ownership-structure",
+      label: "Ownership structure guidance",
+      description: "Review shareholder distribution and governance considerations.",
+      type: "general",
+    },
+  ],
+  "document-submissions": [
+    {
+      id: "document-checklist",
+      label: "Document pre-validation",
+      description: "Ensure every authority submission packet is fully prepared.",
+      type: "document",
+    },
+    {
+      id: "coordination-brief",
+      label: "Authority coordination brief",
+      description: "Understand which agency is handling each outstanding submission.",
+      type: "document",
+    },
+  ],
+  license: [
+    {
+      id: "licensing-scenarios",
+      label: "License scenario comparison",
+      description: "Compare economic license pathways and issuance timelines.",
+      type: "licensing",
+    },
+    {
+      id: "renewal-readiness",
+      label: "Renewal readiness checklist",
+      description: "Prepare for post-issuance obligations before launch.",
+      type: "licensing",
+    },
+  ],
+  inspections: [
+    {
+      id: "inspection-prep",
+      label: "Inspection preparation",
+      description: "Checklist for Civil Defense, ADAFSA, and ADM site readiness.",
+      type: "inspection",
+    },
+    {
+      id: "service-activation",
+      label: "Service activation plan",
+      description: "Coordinate utilities, banking, and telecom hand-offs.",
+      type: "inspection",
+    },
+  ],
+  "compliance-growth": [
+    {
+      id: "compliance-monitoring",
+      label: "Compliance monitoring",
+      description: "Track renewals, certifications, and upcoming obligations.",
+      type: "compliance",
+    },
+    {
+      id: "growth-opportunities",
+      label: "Growth opportunity scan",
+      description: "Identify expansion pathways and cross-sell options.",
+      type: "compliance",
+    },
+  ],
+};
+
 const INITIAL_SELECTED_ACTIVITY_IDS = [
   "full-service-restaurant",
   "charcoal-bbq",
