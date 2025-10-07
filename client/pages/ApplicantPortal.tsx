@@ -263,7 +263,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء الاصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية�� وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستثمرون آخرون أفكارهم إلى مطاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستثمرون آخرون أفكارهم إلى مطاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاصطناعي",
     journeyToggleLabel: (title: string) => `عرض أو إخفاء نظرة عامة للرحلة الخاصة بـ ${title}`,
@@ -2041,12 +2041,11 @@ export default function ApplicantPortal() {
         <section className="space-y-6">
           <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 text-sm leading-relaxed text-slate-700">
             <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Application summary
+              {languageCopy.applicationSummaryHeading}
             </h3>
-            <p className="mt-3">{primaryApplication.summary}</p>
+            <p className="mt-3">{displayApplication.summary}</p>
             <p className="mt-3 text-xs text-[#0f766e]">
-              Your AI assistant will automatically pull the tenancy contract
-              from ADM as soon as you register your lease.
+              {languageCopy.applicationSummaryNote}
             </p>
           </div>
         </section>
