@@ -512,9 +512,8 @@ export function DocumentSubmissionFocusContent({
                             <button
                               key={subStep.id}
                               type="button"
-                              onClick={openMoaModal}
+                              onClick={openLaunchDropdown}
                               className="flex w-full flex-col gap-3 rounded-2xl border border-[#e3ede8] bg-white p-4 text-left transition hover:border-[#0f766e]/40 hover:shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e] sm:flex-row sm:items-center sm:justify-between"
-                              aria-haspopup="dialog"
                             >
                               {content}
                             </button>
