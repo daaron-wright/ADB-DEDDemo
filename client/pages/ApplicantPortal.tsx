@@ -1199,6 +1199,16 @@ export default function ApplicantPortal() {
       return null;
     }
 
+    const stageId = focusViewContext.stage?.id ?? focusViewContext.timelineItem.id;
+    const recommendedOptions =
+      stageId && stageId in RECOMMENDED_STAGE_ACTIVITIES
+        ? RECOMMENDED_STAGE_ACTIVITIES[stageId]
+        : undefined;
+    const selectedRecommendedId =
+      stageId && stageRecommendedSelections[stageId]
+        ? stageRecommendedSelections[stageId]
+        : null;
+
     return {
       timelineItem: focusViewContext.timelineItem,
       stage: focusViewContext.stage,
@@ -1206,6 +1216,8 @@ export default function ApplicantPortal() {
       taskTokens: taskStatusTokens,
       formatDate: formatJourneyDueDate,
       navigation: focusViewContext.navigation,
+      recommendedActivities: recommendedOptions,
+      activeRecommendedActivityId: selectedRecommendedId,
     };
   }, [focusViewContext, formatJourneyDueDate]);
 
