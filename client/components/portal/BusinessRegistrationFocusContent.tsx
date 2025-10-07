@@ -310,18 +310,69 @@ export function BusinessRegistrationFocusContent({
               Automated verification steps
             </p>
             <ul className="space-y-4">
-              {TRADE_NAME_CHECKS.map((step, index) => (
-                <li key={step.title} className="flex gap-3">
-                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[#0f766e]/40 bg-[#0f766e]/5 text-sm font-semibold text-[#0f766e]">
-                    {index + 1}
+              {automationSteps.map((step, index) => (
+                <li
+                  key={step.title}
+                  className={cn(
+                    "flex gap-3 rounded-2xl border border-transparent bg-white/0 p-3 transition-all duration-500 ease-out",
+                    step.status === "completed" &&
+                      "border-[#0f766e]/40 bg-[#0f766e]/5 shadow-[0_12px_24px_-20px_rgba(15,118,110,0.45)]",
+                    step.status === "current" &&
+                      "border-[#0f766e]/30 bg-[#0f766e]/8 shadow-[0_10px_20px_-20px_rgba(15,118,110,0.45)]",
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border text-sm font-semibold transition-all duration-500 ease-out",
+                      step.status === "completed" &&
+                        "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_8px_18px_-10px_rgba(15,118,110,0.55)]",
+                      step.status === "current" &&
+                        "border-[#0f766e] bg-[#0f766e]/10 text-[#0f766e] animate-pulse",
+                      step.status === "pending" &&
+                        "border-slate-200 bg-white text-slate-400",
+                    )}
+                  >
+                    {step.status === "completed" ? (
+                      <Check className="h-4 w-4" strokeWidth={3} />
+                    ) : (
+                      index + 1
+                    )}
                   </span>
-                  <div className="space-y-1">
-                    <p className="text-sm font-semibold text-slate-900">
-                      {step.title}
-                    </p>
-                    <p className="text-sm leading-relaxed text-slate-600">
-                      {step.description}
-                    </p>
+                  <div className="flex-1 space-y-3">
+                    <div className="flex flex-wrap items-start justify-between gap-2">
+                      <div className="space-y-1">
+                        <p className="text-sm font-semibold text-slate-900">
+                          {step.title}
+                        </p>
+                        <p className="text-sm leading-relaxed text-slate-600">
+                          {step.description}
+                        </p>
+                      </div>
+                      <span
+                        className={cn(
+                          "inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] transition-colors",
+                          step.status === "completed" &&
+                            "bg-[#0f766e]/10 text-[#0f766e]",
+                          step.status === "current" &&
+                            "bg-[#0f766e]/15 text-[#0f766e]",
+                          step.status === "pending" &&
+                            "bg-slate-100 text-slate-500",
+                        )}
+                      >
+                        {STATUS_LABELS[step.status]}
+                      </span>
+                    </div>
+                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
+                      <div
+                        className={cn(
+                          "h-full rounded-full transition-all duration-500 ease-out",
+                          step.status === "pending"
+                            ? "bg-[#0f766e]/30"
+                            : "bg-[#0f766e]",
+                        )}
+                        style={{ width: `${step.progress * 100}%` }}
+                      />
+                    </div>
                   </div>
                 </li>
               ))}
