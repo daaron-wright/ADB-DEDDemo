@@ -195,36 +195,6 @@ export function BusinessLicensingFocusContent({
               </div>
             ))}
 
-          <ol className="space-y-4">
-            {steps.map((step) => {
-              const token = STEP_STATUS_TOKENS[step.status];
-
-              return (
-                <li key={step.id} className="flex items-start gap-4">
-                  <span
-                    className={cn(
-                      "flex h-10 w-10 items-center justify-center rounded-full border text-sm font-semibold",
-                      token.indicatorClass,
-                    )}
-                  >
-                    {step.status === "completed" ? <Check className="h-4 w-4" strokeWidth={3} /> : step.status === "current" ? <Loader2 className="h-4 w-4 animate-spin" /> : step.id}
-                  </span>
-                  <div className="space-y-1">
-                    <p className="text-base font-semibold text-slate-900">
-                      Step {step.id}: {step.label}
-                    </p>
-                    <p className="text-sm text-slate-600">
-                      {token.helper === "Completed"
-                        ? "Finished and synced with your workspace."
-                        : token.helper === "In progress"
-                          ? "Automating license issuance and regulatory approvals."
-                          : "Queued until the current licensing step is complete."}
-                    </p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
         </div>
       </section>
 
