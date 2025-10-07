@@ -15,7 +15,19 @@ interface BusinessRegistrationFocusContentProps {
   progressPercent?: number;
 }
 
-const TRADE_NAME_CHECKS = [
+type TradeNameCheckStatus = "completed" | "current" | "pending";
+
+type TradeNameVerificationStep = {
+  title: string;
+  description: string;
+};
+
+type TradeNameVerificationStepWithStatus = TradeNameVerificationStep & {
+  status: TradeNameCheckStatus;
+  progress: number;
+};
+
+const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
   {
     title: "Character normalization",
     description:
@@ -51,7 +63,42 @@ const TRADE_NAME_CHECKS = [
     description:
       "We generate alternatives, rerun every check, and surface the results with any failures explained.",
   },
-] as const;
+];
+
+const STATUS_LABELS: Record<TradeNameCheckStatus, string> = {
+  completed: "Completed",
+  current: "Running",
+  pending: "Queued",
+};
+
+function getStepStatus(
+  progressPercent: number,
+  stepIndex: number,
+  totalSteps: number,
+): { status: TradeNameCheckStatus; progress: number } {
+  if (totalSteps <= 0) {
+    return { status: "pending", progress: 0 };
+  }
+
+  const segmentSize = 100 / totalSteps;
+  const segmentStart = segmentSize * stepIndex;
+  const segmentEnd = segmentStart + segmentSize;
+
+  if (progressPercent >= segmentEnd) {
+    return { status: "completed", progress: 1 };
+  }
+
+  if (progressPercent <= segmentStart) {
+    return { status: "pending", progress: 0 };
+  }
+
+  const normalizedProgress = Math.min(
+    Math.max((progressPercent - segmentStart) / segmentSize, 0),
+    1,
+  );
+
+  return { status: "current", progress: normalizedProgress };
+}
 
 export function BusinessRegistrationFocusContent({
   journeyNumber = "0987654321",
