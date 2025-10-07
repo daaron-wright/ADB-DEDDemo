@@ -116,6 +116,29 @@ const SUB_STEP_TOKENS: Record<
   },
 };
 
+const DOCUMENT_USER_ACTIONS = [
+  {
+    id: "notarized-moa",
+    title: "Notarized MOA (ADJD)",
+    action: "Review the AI-prepared memorandum and apply your digital signature before notarization.",
+  },
+  {
+    id: "tenancy-confirmation",
+    title: "Tenancy confirmation (ADM)",
+    action: "Upload the signed Ejari or municipality tenancy letter for the restaurant space.",
+  },
+  {
+    id: "site-plan-review",
+    title: "Site plan review (ADAFSA)",
+    action: "Share the latest kitchen site plan PDF so ADAFSA can start the technical consultation.",
+  },
+  {
+    id: "convert-property",
+    title: "Convert property to commercial (ADM)",
+    action: "Submit the property conversion request form with owner consent if this step applies to you.",
+  },
+] as const;
+
 const STEP_STATUS_TOKENS: Record<
   StepStatus,
   {
