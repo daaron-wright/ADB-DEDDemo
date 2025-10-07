@@ -336,25 +336,48 @@ export function DocumentSubmissionFocusContent({
                 </span>
               </button>
               {isLaunchDropdownOpen ? (
-                <div className="space-y-4 rounded-2xl border border-[#e3ede8] bg-[#f9fbfa] p-4 text-sm text-slate-600">
-                  <p className="font-semibold text-slate-800">
-                    AI Business will guide you through the notarization with ADJD.
-                  </p>
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-2">
-                      <Check className="mt-1 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
-                      <span>Pre-fills the ADJD template with your approved company details.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="mt-1 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
-                      <span>Verifies shareholder capital contributions and signatures.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="mt-1 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
-                      <span>Syncs the notarized memorandum back to your workspace.</span>
-                    </li>
-                  </ul>
-                  <div className="flex flex-wrap gap-3">
+                <div className="space-y-5 rounded-2xl border border-[#e3ede8] bg-[#f9fbfa] p-4 text-sm text-slate-600">
+                  <div className="flex flex-col gap-4 lg:flex-row">
+                    <div className="flex-1 space-y-3">
+                      <p className="font-semibold text-slate-800">
+                        {isCompletingMoa
+                          ? "AI Business is finalizing your memorandum for ADJD."
+                          : "AI Business will guide you through the notarization with ADJD."}
+                      </p>
+                      <ul className="space-y-2">
+                        <li className="flex items-start gap-2">
+                          <Check className="mt-1 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
+                          <span>Pre-fills the ADJD template with your approved company details.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="mt-1 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
+                          <span>Verifies shareholder capital contributions and signatures.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="mt-1 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
+                          <span>Syncs the notarized memorandum back to your workspace.</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white/80 shadow-[0_12px_24px_-18px_rgba(15,23,42,0.15)] lg:max-w-[220px]">
+                      <img
+                        src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F3ffa7aec67d74c31b0175b0538c93dfd?format=webp&width=800"
+                        alt="Memorandum of Association preview"
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="space-y-1">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                        {isCompletingMoa ? "Syncing with ADJD" : "Ready to notarize"}
+                      </p>
+                      <p className="text-[11px] text-slate-500">
+                        {isCompletingMoa
+                          ? "Keep this tab open while we submit the memorandum."
+                          : "Your shareholder details and capital structure are pre-filled."}
+                      </p>
+                    </div>
                     <Button
                       type="button"
                       onClick={(event) => {
