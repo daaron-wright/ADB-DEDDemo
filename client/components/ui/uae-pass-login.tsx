@@ -289,9 +289,10 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({
         <div className="flex items-start gap-4 px-6 pt-6">
           <div
             className={cn(
-              "flex h-12 w-12 items-center justify-center rounded-2xl text-base font-semibold shadow-md",
+              "flex h-14 w-14 items-center justify-center text-lg font-semibold transition-shadow duration-200",
+              detail.badgeShapeClass ?? "rounded-full",
               isReviewer
-                ? "border-2 border-[#0f766e] bg-white text-[#0f766e]"
+                ? "border-2 border-[#0f766e] bg-white text-[#0f766e] shadow-sm"
                 : "text-white",
             )}
             style={badgeStyle}
