@@ -833,65 +833,67 @@ export function JourneyStageFocusView({
               )
             )
           ) : null}
+
+          {stage ? (
+            <div className="space-y-4 border-t border-white/40 pt-5">
+              <div className="flex items-center justify-between">
+                <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Stage tasks
+                </h4>
+                <span className="text-xs text-slate-500">
+                  {stagedTasks.length} item{stagedTasks.length === 1 ? "" : "s"}
+                </span>
+              </div>
+              <div className="space-y-3">
+                {stagedTasks.map((task) => {
+                  const token = taskTokens[task.status];
+                  const timestamp = renderTaskTimestamp(task);
+
+                  return (
+                    <div
+                      key={task.id}
+                      className={chatCardClass(TASK_CARD_BASE, "rounded-2xl p-4")}
+                    >
+                      <div className="flex flex-col gap-3">
+                        <div className="flex flex-wrap items-start justify-between gap-3">
+                          <div className="space-y-1">
+                            <p className="text-sm font-semibold text-slate-900">
+                              {task.label}
+                            </p>
+                            <p className="text-xs text-slate-500">
+                              Owner: {task.owner}
+                            </p>
+                          </div>
+                          <span
+                            className={cn(
+                              "inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]",
+                              token.badgeClass,
+                            )}
+                          >
+                            {token.label}
+                          </span>
+                        </div>
+                        {timestamp ? (
+                          <p
+                            className={cn(
+                              "text-[11px] font-semibold uppercase tracking-[0.18em]",
+                              token.helperClass,
+                            )}
+                          >
+                            {timestamp}
+                          </p>
+                        ) : null}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
 
-      {stage ? (
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Stage tasks
-            </h4>
-            <span className="text-xs text-slate-500">
-              {stagedTasks.length} item{stagedTasks.length === 1 ? "" : "s"}
-            </span>
-          </div>
-          <div className="space-y-3">
-            {stagedTasks.map((task) => {
-              const token = taskTokens[task.status];
-              const timestamp = renderTaskTimestamp(task);
-
-              return (
-                <div
-                  key={task.id}
-                  className={chatCardClass(TASK_CARD_BASE, "rounded-2xl p-4")}
-                >
-                  <div className="flex flex-col gap-3">
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <div className="space-y-1">
-                        <p className="text-sm font-semibold text-slate-900">
-                          {task.label}
-                        </p>
-                        <p className="text-xs text-slate-500">
-                          Owner: {task.owner}
-                        </p>
-                      </div>
-                      <span
-                        className={cn(
-                          "inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]",
-                          token.badgeClass,
-                        )}
-                      >
-                        {token.label}
-                      </span>
-                    </div>
-                    {timestamp ? (
-                      <p
-                        className={cn(
-                          "text-[11px] font-semibold uppercase tracking-[0.18em]",
-                          token.helperClass,
-                        )}
-                      >
-                        {timestamp}
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      ) : timelineItem.meta ? (
+      {!stage && timelineItem.meta ? (
         <div
           className={chatCardClass(
             TASK_CARD_BASE,
