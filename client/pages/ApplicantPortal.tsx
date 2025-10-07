@@ -474,10 +474,14 @@ const JOURNEY_STEPS_CONFIG: JourneyStep[] = [
   {
     id: "trade-name-activities",
     label: "Business Registration",
-    state: "completed",
+    state: "current",
   },
-  { id: "document-submissions", label: "Submit Documents", state: "completed" },
-  { id: "license", label: "Business Licensing", state: "completed" },
+  {
+    id: "document-submissions",
+    label: "Submit Documents",
+    state: "current",
+  },
+  { id: "license", label: "Business Licensing", state: "current" },
   { id: "inspections", label: "Pre-Operational Inspection", state: "current" },
   { id: "compliance-growth", label: "Compliance / Growth", state: "upcoming" },
 ];
