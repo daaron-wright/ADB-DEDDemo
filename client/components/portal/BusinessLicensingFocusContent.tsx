@@ -236,6 +236,9 @@ export function BusinessLicensingFocusContent({
       clearTimers();
     } else if (stageStatus === "in_progress") {
       setProgress(Math.max(initialProgressPercent, 68));
+      if (timersRef.current.length === 0) {
+        queuePendingTransition();
+      }
     } else {
       setProgress(Math.max(initialProgressPercent, 78));
       clearTimers();
