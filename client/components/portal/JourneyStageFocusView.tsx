@@ -190,6 +190,93 @@ export function JourneyStageFocusView({
     }
   }, [selectedRecommendedId]);
 
+  const effectiveTradeName =
+    tradeName && tradeName.trim().length > 0
+      ? tradeName.trim()
+      : timelineItem.title;
+
+  useEffect(() => {
+    if (selectedRecommendedId !== "license-types") {
+      return;
+    }
+
+    if (!LICENSE_TYPE_PROFILES.length) {
+      setLicenseEvaluations({});
+      return;
+    }
+
+    const controller = new AbortController();
+    let isCancelled = false;
+
+    const tradeNameForEvaluation =
+      effectiveTradeName && effectiveTradeName.length > 0
+        ? effectiveTradeName
+        : "Trade License";
+
+    setIsLicenseEvaluationLoading(true);
+    setLicenseEvaluationError(null);
+
+    validateActivityCompatibility(
+      {
+        trade_name: tradeNameForEvaluation,
+        business_activities: LICENSE_TYPE_PROFILES.map(
+          (profile) => profile.evaluationPrompt,
+        ),
+        language: "english",
+        enable_llm_judge: false,
+      },
+      { signal: controller.signal },
+    )
+      .then((response) => {
+        if (isCancelled) {
+          return;
+        }
+
+        const mappedEvaluations: Record<string, LicenseEvaluation> = {};
+        const resultMap = new Map(
+          response.results.map((item) => [item.activity_description, item]),
+        );
+
+        LICENSE_TYPE_PROFILES.forEach((profile) => {
+          const match = resultMap.get(profile.evaluationPrompt);
+          if (!match) {
+            return;
+          }
+
+          mappedEvaluations[profile.id] = {
+            compatibilityScore: match.compatibility_score,
+            isConsistent: match.is_consistent,
+            reason: match.reason ?? null,
+            threshold: match.threshold ?? response.threshold_used,
+          };
+        });
+
+        setLicenseEvaluations(mappedEvaluations);
+      })
+      .catch((error) => {
+        if (isCancelled) {
+          return;
+        }
+
+        if ((error as Error).name === "AbortError") {
+          return;
+        }
+
+        console.error("Failed to load license compatibility", error);
+        setLicenseEvaluationError("Unable to load license compatibility insights.");
+      })
+      .finally(() => {
+        if (!isCancelled) {
+          setIsLicenseEvaluationLoading(false);
+        }
+      });
+
+    return () => {
+      isCancelled = true;
+      controller.abort();
+    };
+  }, [effectiveTradeName, selectedRecommendedId]);
+
   const navigationControls = hasNavigationControls ? (
     <div className="flex flex-wrap items-center justify-end gap-3">
       {navigation?.onPrevious ? (
