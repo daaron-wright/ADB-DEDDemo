@@ -393,7 +393,7 @@ export function JourneyStageFocusView({
         {shouldShowDocuments ? (
           <DocumentSubmissionFocusContent
             journeyNumber="0987654321"
-            progressPercent={51}
+            progressPercent={90}
           />
         ) : (
           renderGuidanceSummary(
