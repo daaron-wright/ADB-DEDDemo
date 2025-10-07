@@ -98,8 +98,11 @@ const CompetitorDataSection: React.FC<CompetitorDataProps> = ({
             <h3 className="text-xl font-semibold text-slate-900 mb-2">
               Gathering Competitor Data
             </h3>
-            <p className="text-sm text-slate-600 mb-6">
+            <p className="text-sm text-slate-600 mb-3">
               Analyzing top restaurants in Abu Dhabi Corniche area
+            </p>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
+              Querying the “Investor Compass”
             </p>
 
             <div className="mx-auto max-w-xs">
@@ -127,16 +130,28 @@ const CompetitorDataSection: React.FC<CompetitorDataProps> = ({
             className="space-y-6"
           >
             <div className="text-center">
-              <span className="inline-flex items-center gap-2 rounded-full border border-[#0E766E]/25 bg-[#0E766E]/10 px-4 py-2 text-sm font-semibold text-[#0E766E]">
-                <svg
-                  className="h-4 w-4"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                </svg>
-                Analysis Complete
-              </span>
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                <span className="inline-flex items-center gap-2 rounded-full border border-[#0E766E]/25 bg-[#0E766E]/10 px-4 py-2 text-sm font-semibold text-[#0E766E]">
+                  <svg
+                    className="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                  </svg>
+                  Analysis Complete
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-full border border-[#0E766E]/20 bg-white px-4 py-2 text-sm font-semibold text-[#0E766E] shadow-[0_12px_24px_-18px_rgba(14,118,110,0.32)]">
+                  <svg
+                    className="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2Zm0 15a1.25 1.25 0 1 1 1.25-1.25A1.252 1.252 0 0 1 12 17Zm1.25-4.5a1.25 1.25 0 1 1-2.5 0V7.75a1.25 1.25 0 0 1 2.5 0Z" />
+                  </svg>
+                  Investor Compass data implemented
+                </span>
+              </div>
               <h2 className="mt-4 text-2xl font-semibold text-slate-900">
                 Top 4 Restaurants in Abu Dhabi Corniche
               </h2>
