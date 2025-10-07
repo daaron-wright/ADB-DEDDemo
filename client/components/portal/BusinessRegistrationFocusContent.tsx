@@ -14,6 +14,7 @@ interface BusinessRegistrationFocusContentProps {
   tradeName?: string;
   isTradeNameAvailable?: boolean;
   progressPercent?: number;
+  showTradeNameIdeas?: boolean;
 }
 
 type TradeNameCheckStatus = "completed" | "current" | "pending" | "failed";
