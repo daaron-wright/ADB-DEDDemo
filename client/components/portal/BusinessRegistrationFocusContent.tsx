@@ -326,12 +326,12 @@ export function BusinessRegistrationFocusContent({
                   Step 1 in progress
                 </p>
                 <p className="text-2xl font-semibold text-slate-900">
-                  {tradeName}
+                  {activeTradeName}
                 </p>
               </div>
-              <Badge className="inline-flex items-center gap-1.5 border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f] shadow-sm">
-                <Check className="h-3.5 w-3.5" strokeWidth={3} />
-                {isTradeNameAvailable ? "Available" : "Pending review"}
+              <Badge className={availabilityBadgeClasses}>
+                {badgeIcon}
+                {badgeLabel}
               </Badge>
             </div>
           </div>
