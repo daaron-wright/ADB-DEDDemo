@@ -175,6 +175,29 @@ export function JourneyStageFocusView({
 
   const showRecommendedSelector = recommendedActivities.length > 0;
 
+  const renderGuidanceSummary = (
+    activity?: StageRecommendedActivity | null,
+    fallback?: string,
+  ) => (
+    <div
+      className={chatCardClass(
+        TASK_CARD_BASE,
+        "rounded-2xl border border-white/40 bg-white/85 p-5 text-sm text-slate-600",
+      )}
+    >
+      <div className="space-y-2">
+        <p className="text-sm font-semibold text-slate-900">
+          {activity ? activity.label : "Select a focus"}
+        </p>
+        <p className="text-sm text-slate-600">
+          {activity?.description ??
+            fallback ??
+            "Select a recommended focus to load detailed guidance."}
+        </p>
+      </div>
+    </div>
+  );
+
   if (isComplianceGrowthStage) {
     return (
       <div className="space-y-5 sm:space-y-6">
