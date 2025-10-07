@@ -79,14 +79,14 @@ const STAGE_STATUS_TOKENS: Record<
     badgeLabel: string;
     badgeClass: string;
     iconClass: string;
-    iconType: "check" | "spinner" | "dot";
+    iconType: "spinner" | "dot";
   }
 > = {
   request: {
-    headline: "request",
-    badgeLabel: "Request submitted",
+    headline: "request license",
+    badgeLabel: "Request license",
     badgeClass: "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
-    iconClass: "text-[#b97324]",
+    iconClass: "bg-[#b97324]",
     iconType: "dot",
   },
   in_progress: {
@@ -95,13 +95,6 @@ const STAGE_STATUS_TOKENS: Record<
     badgeClass: "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
     iconClass: "text-[#0b7d6f]",
     iconType: "spinner",
-  },
-  completed: {
-    headline: "completed",
-    badgeLabel: "License issued",
-    badgeClass: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
-    iconClass: "text-[#0f766e]",
-    iconType: "check",
   },
 };
 
