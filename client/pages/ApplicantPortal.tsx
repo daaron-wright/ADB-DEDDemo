@@ -663,6 +663,9 @@ export default function ApplicantPortal() {
   const [isStageManuallySelected, setIsStageManuallySelected] = useState(false);
   const [isTimelineBackgroundBlurred, setIsTimelineBackgroundBlurred] =
     useState(false);
+  const [stageRecommendedSelections, setStageRecommendedSelections] = useState<
+    Record<string, string | null>
+  >({});
 
   const updateCurrentJourneyStep = useCallback((stepId: string) => {
     if (!JOURNEY_STEPS_CONFIG.some((step) => step.id === stepId)) {
