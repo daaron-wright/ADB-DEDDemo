@@ -29,6 +29,12 @@ type TradeNameVerificationStepWithStatus = TradeNameVerificationStep & {
   progress: number;
 };
 
+type TradeNameIdeaSuggestion = {
+  id: string;
+  english: string;
+  arabic: string;
+};
+
 const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
   {
     title: "Character normalization",
@@ -76,14 +82,38 @@ const DEFAULT_FAILURE_STEP_INDEX = (() => {
   return index === -1 ? 3 : index;
 })();
 
-const TRADE_NAME_IDEAS = [
-  "Corniche Culinary Collective",
-  "Azure Coast Kitchen",
-  "Pearl Horizon Dining",
-  "Harbor Lights Supper Club",
-  "Marina Ember Grill",
-  "Gulf Breeze Gastronomy",
-] as const;
+const TRADE_NAME_IDEAS: ReadonlyArray<TradeNameIdeaSuggestion> = [
+  {
+    id: "corniche-culinary-collective",
+    english: "Corniche Culinary Collective",
+    arabic: "مجموعة كورنيش للطهي",
+  },
+  {
+    id: "azure-coast-kitchen",
+    english: "Azure Coast Kitchen",
+    arabic: "مطبخ الساحل اللازوردي",
+  },
+  {
+    id: "pearl-horizon-dining",
+    english: "Pearl Horizon Dining",
+    arabic: "مطعم أفق اللؤلؤ",
+  },
+  {
+    id: "harbor-lights-supper-club",
+    english: "Harbor Lights Supper Club",
+    arabic: "نادي عشاء أضواء الميناء",
+  },
+  {
+    id: "marina-ember-grill",
+    english: "Marina Ember Grill",
+    arabic: "مشويات جمرة المرسى",
+  },
+  {
+    id: "gulf-breeze-gastronomy",
+    english: "Gulf Breeze Gastronomy",
+    arabic: "مذاقات نسيم الخليج",
+  },
+];
 
 const APPROVED_TRADE_NAMES = [
   "MARWAH",
@@ -549,13 +579,19 @@ export function BusinessRegistrationFocusContent({
                       <div className="flex flex-wrap gap-2">
                         {TRADE_NAME_IDEAS.map((idea) => (
                           <button
-                            key={idea}
+                            key={idea.id}
                             type="button"
-                            onClick={() => handleIdeaSelect(idea)}
-                            className="rounded-full border border-[#0f766e]/40 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10"
+                            onClick={() => handleIdeaSelect(idea.english)}
+                            className="flex flex-col items-start gap-1 rounded-2xl border border-[#0f766e]/40 bg-white px-3 py-2 text-left text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
                             disabled={isChecking}
+                            aria-label={`Use trade name ${idea.english}`}
                           >
-                            {idea}
+                            <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">
+                              {idea.english}
+                            </span>
+                            <span className="text-sm font-medium text-[#0f766e]/80" dir="rtl">
+                              {idea.arabic}
+                            </span>
                           </button>
                         ))}
                       </div>
