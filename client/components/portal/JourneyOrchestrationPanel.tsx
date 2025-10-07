@@ -311,9 +311,9 @@ export function JourneyOrchestrationPanel({
                     {ctaButtonLabel}
                   </Button>
                 </div>
-                {primaryOutstandingAction ? (
+                {primaryOutstandingAction?.description ? (
                   <p className="text-xs text-slate-500">
-                    This action is owned by {primaryOutstandingAction.owner ?? "you"}. Completing it will keep the stage moving forward.
+                    {primaryOutstandingAction.description}
                   </p>
                 ) : null}
               </div>
