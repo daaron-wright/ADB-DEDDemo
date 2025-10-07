@@ -80,6 +80,8 @@ function getStepStatus(
   progressPercent: number,
   stepIndex: number,
   totalSteps: number,
+  isNameAvailable: boolean,
+  failedStepIndex: number | null,
 ): { status: TradeNameCheckStatus; progress: number } {
   if (totalSteps <= 0) {
     return { status: "pending", progress: 0 };
@@ -88,6 +90,38 @@ function getStepStatus(
   const segmentSize = 100 / totalSteps;
   const segmentStart = segmentSize * stepIndex;
   const segmentEnd = segmentStart + segmentSize;
+  const normalizedProgress = Math.min(
+    Math.max((progressPercent - segmentStart) / segmentSize, 0),
+    1,
+  );
+
+  if (failedStepIndex !== null) {
+    if (stepIndex < failedStepIndex) {
+      if (progressPercent >= segmentEnd) {
+        return { status: "completed", progress: 1 };
+      }
+
+      if (progressPercent <= segmentStart) {
+        return { status: "pending", progress: 0 };
+      }
+
+      return { status: "current", progress: normalizedProgress };
+    }
+
+    if (stepIndex === failedStepIndex) {
+      if (!isNameAvailable && progressPercent >= segmentEnd) {
+        return { status: "failed", progress: 1 };
+      }
+
+      if (progressPercent <= segmentStart) {
+        return { status: "pending", progress: 0 };
+      }
+
+      return { status: "current", progress: normalizedProgress };
+    }
+
+    return { status: "pending", progress: 0 };
+  }
 
   if (progressPercent >= segmentEnd) {
     return { status: "completed", progress: 1 };
@@ -96,11 +130,6 @@ function getStepStatus(
   if (progressPercent <= segmentStart) {
     return { status: "pending", progress: 0 };
   }
-
-  const normalizedProgress = Math.min(
-    Math.max((progressPercent - segmentStart) / segmentSize, 0),
-    1,
-  );
 
   return { status: "current", progress: normalizedProgress };
 }
