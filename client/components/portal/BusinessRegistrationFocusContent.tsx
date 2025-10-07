@@ -234,6 +234,28 @@ export function BusinessRegistrationFocusContent({
             We’re confirming availability and reserving your trade name before
             moving to licensing.
           </p>
+          <div className="space-y-4 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+              Automated verification steps
+            </p>
+            <ul className="space-y-4">
+              {TRADE_NAME_CHECKS.map((step, index) => (
+                <li key={step.title} className="flex gap-3">
+                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[#0f766e]/40 bg-[#0f766e]/5 text-sm font-semibold text-[#0f766e]">
+                    {index + 1}
+                  </span>
+                  <div className="space-y-1">
+                    <p className="text-sm font-semibold text-slate-900">
+                      {step.title}
+                    </p>
+                    <p className="text-sm leading-relaxed text-slate-600">
+                      {step.description}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
           <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-[#e6f2ed] bg-white px-4 py-4 shadow-[0_18px_42px_-40px_rgba(15,118,110,0.25)]">
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/aedca84491987116f058410105f4a516ff1a5477?width=424"
