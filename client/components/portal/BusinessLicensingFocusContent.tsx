@@ -241,100 +241,73 @@ export function BusinessLicensingFocusContent({
             </div>
           </div>
 
-          {stageStatus !== "completed" ? (
-            <div className="space-y-4 rounded-3xl border border-white/60 bg-white p-5 shadow-[0_28px_60px_-54px_rgba(15,23,42,0.4)]">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div className="space-y-1">
-                  <p className="text-sm font-semibold text-slate-900">Active licensing actions</p>
-                  <p className="text-sm text-slate-600">
-                    AI Business is coordinating with the Department of Economic Development.
-                  </p>
-                </div>
-                <Badge
-                  className={cn(
-                    "px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                    stageStatus === "request" && "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
-                    stageStatus === "in_progress" && "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
-                  )}
-                >
-                  {completedCount} of {licensingSubSteps.length} complete
-                </Badge>
+          <div className="space-y-4 rounded-3xl border border-white/60 bg-white p-5 shadow-[0_28px_60px_-54px_rgba(15,23,42,0.4)]">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="space-y-1">
+                <p className="text-sm font-semibold text-slate-900">Active licensing actions</p>
+                <p className="text-sm text-slate-600">
+                  AI Business is coordinating with the Department of Economic Development.
+                </p>
               </div>
+              <Badge
+                className={cn(
+                  "px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                  stageStatus === "request" && "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
+                  stageStatus === "in_progress" && "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
+                )}
+              >
+                {completedCount} of {licensingSubSteps.length} complete
+              </Badge>
+            </div>
 
-              <div className="space-y-3">
-                {licensingSubSteps.map((subStep) => {
-                  const token = SUB_STEP_TOKENS[subStep.status];
+            <div className="space-y-3">
+              {licensingSubSteps.map((subStep) => {
+                const token = SUB_STEP_TOKENS[subStep.status];
 
-                  return (
-                    <div
-                      key={subStep.id}
-                      className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:flex-row sm:items-center sm:justify-between"
-                    >
-                      <div className="flex items-start gap-3">
-                        <span
-                          className={cn(
-                            "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border",
-                            subStep.status === "completed" && "border-[#0f766e]/20 bg-[#0f766e]/10",
-                            subStep.status === "in_progress" && "border-[#94d2c2] bg-[#dff2ec]/70",
-                            subStep.status === "pending" && "border-slate-200 bg-white",
-                          )}
-                        >
-                          {subStep.status === "completed" ? (
-                            <Check className={cn("h-4 w-4", token.iconClass)} strokeWidth={3} />
-                          ) : subStep.status === "in_progress" ? (
-                            <Loader2 className={cn("h-4 w-4 animate-spin", token.iconClass)} />
-                          ) : (
-                            <span className={cn("block h-2.5 w-2.5 rounded-full", token.dotClass)} />
-                          )}
-                        </span>
-                        <div className="space-y-1">
-                          <p className="text-base font-semibold text-slate-900">
-                            {subStep.label} {subStep.authority ? `(${subStep.authority})` : ""}
-                          </p>
-                          <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
-                            <span>{token.label}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <Badge
+                return (
+                  <div
+                    key={subStep.id}
+                    className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:flex-row sm:items-center sm:justify-between"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span
                         className={cn(
-                          "self-start border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                          token.badgeClass,
+                          "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border",
+                          subStep.status === "completed" && "border-[#0f766e]/20 bg-[#0f766e]/10",
+                          subStep.status === "in_progress" && "border-[#94d2c2] bg-[#dff2ec]/70",
+                          subStep.status === "pending" && "border-slate-200 bg-white",
                         )}
                       >
-                        {token.label}
-                      </Badge>
+                        {subStep.status === "completed" ? (
+                          <Check className={cn("h-4 w-4", token.iconClass)} strokeWidth={3} />
+                        ) : subStep.status === "in_progress" ? (
+                          <Loader2 className={cn("h-4 w-4 animate-spin", token.iconClass)} />
+                        ) : (
+                          <span className={cn("block h-2.5 w-2.5 rounded-full", token.dotClass)} />
+                        )}
+                      </span>
+                      <div className="space-y-1">
+                        <p className="text-base font-semibold text-slate-900">
+                          {subStep.label} {subStep.authority ? `(${subStep.authority})` : ""}
+                        </p>
+                        <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
+                          <span>{token.label}</span>
+                        </div>
+                      </div>
                     </div>
-                  );
-                })}
-              </div>
+                    <Badge
+                      className={cn(
+                        "self-start border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                        token.badgeClass,
+                      )}
+                    >
+                      {token.label}
+                    </Badge>
+                  </div>
+                );
+              })}
             </div>
-          ) : (
-            <div className="space-y-4 rounded-3xl border border-white/60 bg-white p-5 shadow-[0_28px_60px_-54px_rgba(15,23,42,0.4)]">
-              <div className="flex items-start gap-3">
-                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#0f766e]/20 bg-[#0f766e]/10">
-                  <Check className="h-5 w-5 text-[#0f766e]" strokeWidth={3} />
-                </span>
-                <div className="space-y-1">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
-                    Licensing complete
-                  </p>
-                  <p className="text-base font-semibold text-slate-900">Economic License issued via DED</p>
-                  <p className="text-sm text-slate-600">
-                    AI Business submitted the request and confirmed issuance with the Department of Economic Development.
-                  </p>
-                </div>
-              </div>
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <Badge className="border-[#b7e1d4] bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  License issued
-                </Badge>
-                <span className="text-sm font-semibold text-slate-500">
-                  {completedCount} of {licensingSubSteps.length} complete
-                </span>
-              </div>
-            </div>
-          )}
+          </div>
         </div>
       </section>
 
