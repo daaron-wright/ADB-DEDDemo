@@ -180,11 +180,17 @@ export function BusinessRegistrationFocusContent({
       return;
     }
 
-    setActiveTradeName(tradeName);
-    setIsNameAvailable(isTradeNameAvailable);
+    const normalizedTradeName = tradeName.trim().toUpperCase();
+
+    setActiveTradeName(normalizedTradeName);
+    setPendingTradeName(null);
+    setIsNameAvailable(Boolean(normalizedTradeName) && isTradeNameAvailable);
     setFailedStepIndex(
-      isTradeNameAvailable ? null : DEFAULT_FAILURE_STEP_INDEX,
+      !normalizedTradeName || isTradeNameAvailable
+        ? null
+        : DEFAULT_FAILURE_STEP_INDEX,
     );
+    setFailureReason(null);
     setAutomationProgress(clampProgress(progressPercent));
   }, [hasUserOverride, tradeName, isTradeNameAvailable, progressPercent]);
 
