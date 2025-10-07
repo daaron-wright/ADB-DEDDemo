@@ -108,21 +108,15 @@ const RIGHT_PANEL_TOKENS: Record<
 > = {
   request: {
     headline: "Preparing license request",
-    automationTitle: "Submitting request to DED",
+    automationTitle: "Submitting license request",
     description:
       "AI Business is compiling your commercial details and preparing the request package for the Department of Economic Development.",
   },
   in_progress: {
     headline: "Automating application process",
-    automationTitle: "Generating application...",
+    automationTitle: "Syncing with DED",
     description:
       "AI Business is automating the license application process with regulatory authorities.",
-  },
-  completed: {
-    headline: "License issued successfully",
-    automationTitle: "Economic License confirmed",
-    description:
-      "AI Business secured your Economic License and synced the approval back to your workspace.",
   },
 };
 
