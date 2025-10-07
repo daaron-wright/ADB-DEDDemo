@@ -2,6 +2,19 @@ export type JourneyHighlightState = "done" | "current" | "upcoming";
 
 export type JourneyTaskStatus = "completed" | "in_progress" | "pending";
 
+export type JourneyStageStatusState =
+  | "in_progress"
+  | "completed"
+  | "scheduled";
+
+export type JourneyStageStatusTransition = {
+  id: string;
+  status: JourneyStageStatusState;
+  label: string;
+  detail?: string;
+  timestamp?: string;
+};
+
 export type JourneyTask = {
   id: string;
   label: string;
@@ -46,6 +59,7 @@ export type JourneyStage = {
   state: JourneyHighlightState;
   statusDetail?: string;
   tasks: JourneyTask[];
+  statusTransitions?: JourneyStageStatusTransition[];
 };
 
 export type JourneyAnimationPhase = {
