@@ -784,6 +784,29 @@ export default function ApplicantPortal() {
     return initial;
   });
 
+  useEffect(() => {
+    const targetIndex = stageOrder.indexOf(activeStageId);
+    if (targetIndex === -1) {
+      return;
+    }
+
+    setStageProgress((previous) => {
+      let hasChange = false;
+      const next: Record<string, JourneyHighlightState> = {};
+
+      stageOrder.forEach((stageId, index) => {
+        const nextState =
+          index < targetIndex ? "done" : index === targetIndex ? "current" : "upcoming";
+        next[stageId] = nextState;
+        if (previous[stageId] !== nextState) {
+          hasChange = true;
+        }
+      });
+
+      return hasChange ? next : previous;
+    });
+  }, [activeStageId, stageOrder]);
+
   const updateCurrentJourneyStep = useCallback((stepId: string) => {
     if (!JOURNEY_STEPS_CONFIG.some((step) => step.id === stepId)) {
       return;
