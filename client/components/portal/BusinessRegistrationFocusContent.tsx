@@ -152,6 +152,7 @@ export function BusinessRegistrationFocusContent({
   isTradeNameAvailable = true,
   progressPercent = 46,
 }: BusinessRegistrationFocusContentProps) {
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
   const [activeTradeName, setActiveTradeName] = React.useState(tradeName);
   const [inputValue, setInputValue] = React.useState("");
   const [isChecking, setIsChecking] = React.useState(false);
