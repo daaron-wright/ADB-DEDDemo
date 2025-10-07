@@ -8,7 +8,6 @@ import { Check, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
 
 interface PreOperationalInspectionFocusContentProps {
   journeyNumber?: string;
-  completionStatus?: string;
   progressPercent?: number;
 }
 
@@ -141,7 +140,6 @@ const SUB_STEP_TOKENS: Record<SubStepStatus, { label: string; badgeClass: string
 
 export function PreOperationalInspectionFocusContent({
   journeyNumber = "0987654321",
-  completionStatus = "7 of 8 complete",
   progressPercent = 83,
 }: PreOperationalInspectionFocusContentProps) {
   const [showDocuments, setShowDocuments] = React.useState(true);
@@ -162,9 +160,6 @@ export function PreOperationalInspectionFocusContent({
               </p>
               <p className="text-lg font-semibold text-slate-900">{journeyNumber}</p>
             </div>
-            <Badge className="border-white/60 bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-700 shadow-sm">
-              {completionStatus}
-            </Badge>
           </div>
 
           <div className="space-y-4 rounded-[32px] border border-[#0f766e]/30 bg-[#0f766e]/5 px-5 py-4">
