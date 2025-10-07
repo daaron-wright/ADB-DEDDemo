@@ -6396,10 +6396,6 @@ export function BusinessChatUI({
                                   </button>
                                 ))}
                               </div>
-                              <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-slate-500">
-                                Trade name reservation · License application
-                                guidance
-                              </p>
                             </div>
                           </div>
                         ) : null}
