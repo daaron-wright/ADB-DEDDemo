@@ -6353,15 +6353,96 @@ export function BusinessChatUI({
                               isSidePanel && "border-slate-200",
                             )}
                           >
-                            <ChatInputField
-                              value={inputValue}
-                              onChange={setInputValue}
-                              onSubmit={handleSendMessage}
-                              placeholder={chatInputPlaceholder}
-                              className="w-full"
-                              interactionMode={interactionMode}
-                              onModeChange={setInteractionMode}
-                            />
+                            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                              <ChatInputField
+                                value={inputValue}
+                                onChange={handleInputChange}
+                                onSubmit={handleSendMessage}
+                                placeholder={chatInputPlaceholder}
+                                className="flex-1"
+                              />
+                              <div
+                                className={cn(
+                                  "flex w-full flex-col gap-4 rounded-[28px] border border-white/20 bg-white/16 p-4 backdrop-blur-xl lg:w-[280px]",
+                                  isSidePanel &&
+                                    "border-slate-200 bg-white shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)] backdrop-blur-none",
+                                )}
+                              >
+                                <div className="space-y-2">
+                                  <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-600">
+                                    Interaction mode
+                                  </span>
+                                  <div className="flex flex-wrap items-center gap-2">
+                                    <button
+                                      type="button"
+                                      onClick={() => setInteractionMode("chat")}
+                                      aria-pressed={interactionMode === "chat"}
+                                      className={cn(
+                                        "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]",
+                                        interactionMode === "chat"
+                                          ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_12px_26px_-16px_rgba(15,118,110,0.6)]"
+                                          : "border-white/40 bg-white/60 text-[#0F766E] hover:border-[#0F766E]/50 hover:bg-white/80",
+                                        isSidePanel &&
+                                          (interactionMode === "chat"
+                                            ? "shadow-[0_12px_28px_-16px_rgba(15,118,110,0.55)]"
+                                            : "border-slate-200 bg-white text-[#0F766E]"),
+                                      )}
+                                    >
+                                      <MessageCircle className="h-4 w-4" aria-hidden />
+                                      Chat
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        setInteractionMode("voice");
+                                        setActiveSuggestedTopic(null);
+                                      }}
+                                      aria-pressed={interactionMode === "voice"}
+                                      className={cn(
+                                        "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]",
+                                        interactionMode === "voice"
+                                          ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_12px_26px_-16px_rgba(15,118,110,0.6)]"
+                                          : "border-white/40 bg-white/60 text-[#0F766E] hover:border-[#0F766E]/50 hover:bg-white/80",
+                                        isSidePanel &&
+                                          (interactionMode === "voice"
+                                            ? "shadow-[0_12px_28px_-16px_rgba(15,118,110,0.55)]"
+                                            : "border-slate-200 bg-white text-[#0F766E]"),
+                                      )}
+                                    >
+                                      <Mic className="h-4 w-4" aria-hidden />
+                                      Voice
+                                    </button>
+                                  </div>
+                                </div>
+                                <div className="space-y-2">
+                                  <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-600">
+                                    Suggested topics
+                                  </span>
+                                  <div className="flex flex-wrap gap-2">
+                                    {CHAT_SUGGESTED_TOPICS.map((topic) => (
+                                      <button
+                                        key={topic.id}
+                                        type="button"
+                                        onClick={() => handleSuggestedTopicSelect(topic.id)}
+                                        aria-pressed={activeSuggestedTopic === topic.id}
+                                        className={cn(
+                                          "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]",
+                                          activeSuggestedTopic === topic.id
+                                            ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_14px_32px_-20px_rgba(15,118,110,0.6)]"
+                                            : "border-white/35 bg-white/30 text-[#0F766E] hover:border-[#0F766E]/45 hover:bg-white/60",
+                                          isSidePanel &&
+                                            (activeSuggestedTopic === topic.id
+                                              ? "shadow-[0_14px_32px_-20px_rgba(15,118,110,0.55)]"
+                                              : "border-slate-200 bg-white text-[#0F766E]"),
+                                        )}
+                                      >
+                                        {topic.label}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         ) : null}
                       </div>
