@@ -180,7 +180,7 @@ export function BusinessLicensingFocusContent({
   const queuePendingTransition = React.useCallback(() => {
     clearTimers();
     const timerId = window.setTimeout(() => {
-      setStageStatus("pending");
+      setStageStatus((current) => (current === "in_progress" ? "pending" : current));
     }, 3600);
     timersRef.current = [timerId];
   }, [clearTimers]);
