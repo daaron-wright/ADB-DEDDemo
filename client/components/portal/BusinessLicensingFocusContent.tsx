@@ -172,20 +172,32 @@ export function BusinessLicensingFocusContent({
   const [progress, setProgress] = React.useState(() => Math.min(initialProgressPercent, 28));
   const timersRef = React.useRef<number[]>([]);
 
-  React.useEffect(() => {
-    const inProgressTimer = window.setTimeout(() => {
-      setStageStatus("in_progress");
-    }, 1500);
-    const pendingTimer = window.setTimeout(() => {
-      setStageStatus("pending");
-    }, 4200);
-
-    timersRef.current = [inProgressTimer, pendingTimer];
-
-    return () => {
-      timersRef.current.forEach((timerId) => window.clearTimeout(timerId));
-    };
+  const clearTimers = React.useCallback(() => {
+    timersRef.current.forEach((timerId) => window.clearTimeout(timerId));
+    timersRef.current = [];
   }, []);
+
+  const queuePendingTransition = React.useCallback(() => {
+    clearTimers();
+    const timerId = window.setTimeout(() => {
+      setStageStatus("pending");
+    }, 3600);
+    timersRef.current = [timerId];
+  }, [clearTimers]);
+
+  const handleRequestLicense = React.useCallback(() => {
+    if (stageStatus !== "request") {
+      return;
+    }
+    setStageStatus("in_progress");
+    queuePendingTransition();
+  }, [stageStatus, queuePendingTransition]);
+
+  React.useEffect(() => {
+    return () => {
+      clearTimers();
+    };
+  }, [clearTimers]);
 
   React.useEffect(() => {
     setSteps((previousSteps) =>
@@ -221,12 +233,14 @@ export function BusinessLicensingFocusContent({
 
     if (stageStatus === "request") {
       setProgress(Math.min(initialProgressPercent, 28));
+      clearTimers();
     } else if (stageStatus === "in_progress") {
       setProgress(Math.max(initialProgressPercent, 68));
     } else {
       setProgress(Math.max(initialProgressPercent, 78));
+      clearTimers();
     }
-  }, [stageStatus, initialProgressPercent]);
+  }, [stageStatus, initialProgressPercent, clearTimers]);
 
   const stageToken = STAGE_STATUS_TOKENS[stageStatus];
   const rightPanelToken = RIGHT_PANEL_TOKENS[stageStatus];
