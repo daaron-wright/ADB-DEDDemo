@@ -5168,21 +5168,6 @@ export function BusinessChatUI({
 
   const handleInputChange = (value: string) => {
     setInputValue(value);
-    const matchedTopic = CHAT_SUGGESTED_TOPICS.find(
-      (topic) => topic.prompt === value,
-    );
-    setActiveSuggestedTopic(matchedTopic ? matchedTopic.id : null);
-  };
-
-  const handleSuggestedTopicSelect = (topicId: SuggestedTopicId) => {
-    const topic = CHAT_SUGGESTED_TOPICS.find((item) => item.id === topicId);
-    if (!topic) {
-      return;
-    }
-
-    setInteractionMode("chat");
-    setActiveSuggestedTopic(topicId);
-    setInputValue(topic.prompt);
   };
 
   const handleToggleActivity = useCallback((activityId: string) => {
