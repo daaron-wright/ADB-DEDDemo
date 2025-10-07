@@ -71,7 +71,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
     {
       title: "Corniche waterfront towers",
       description:
-        "6.5k Tawtheeq households sustain >92% occupancy, keeping resident-led demand constant across the week.",
+        "6.5k residential households sustain >92% occupancy, with Tawtheeq rental contracts feeding the counts each quarter.",
     },
     {
       title: "Al Maryah employment spine",
