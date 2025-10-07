@@ -184,7 +184,7 @@ const journeyStages: JourneyStage[] = [
         id: "document-submissions-completed",
         status: "completed",
         label: "Documents delivered to authorities",
-        detail: `Completed ${formatDisplayDate(daysFromToday(-2))}`,
+        detail: "Package validated across ADJD, ADM, and ADAFSA.",
         timestamp: isoDate(daysFromToday(-2)),
       },
     ],
