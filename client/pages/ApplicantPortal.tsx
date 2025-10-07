@@ -90,10 +90,25 @@ const statusStyles: Record<ApplicationRecord["status"], string> = {
   Draft: "border-[#d8e4df] bg-[#f4f8f6] text-slate-600",
 };
 
-const BUSINESS_AI_INTRO_MESSAGE =
-  "Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require more clarification to ensure the right decisions are made.";
-
 type PortalLanguage = "en" | "ar";
+
+const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
+  en: "Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require more clarification to ensure the right decisions are made.",
+  ar: "قبل البدء في مسار الترخيص، نحتاج إلى تحديد الشكل القانوني الأنسب، وأنشطة العمل، ومتطلبات المساحة. قد تكون بعض العناصر محددة مسبقًا، لكن عناصر أخرى تتطلب توضيحًا إضافيًا لضمان اتخاذ القرارات الصحيحة.",
+};
+
+interface SupportDescriptionCopy {
+  preEmail: string;
+  postEmailPrePhone: string;
+  postPhone: string;
+}
+
+interface FieldLabelsCopy {
+  beneficiary: string;
+  licenseType: string;
+  submissionId: string;
+  lastUpdate: string;
+}
 
 interface PortalLanguageCopy {
   languageLabel: string;
@@ -104,8 +119,33 @@ interface PortalLanguageCopy {
   subtitle: string;
   workspaceTitle: (name: string) => string;
   workspaceDescription: (name: string) => string;
+  workspaceSupportBadge: string;
+  supportHeading: string;
+  supportDescription: SupportDescriptionCopy;
+  keyDatesHeading: string;
+  keyDates: {
+    submitted: string;
+    lastUpdated: string;
+  };
+  heroBadge: string;
+  heroTitle: string;
+  heroDescription: (name: string) => string;
+  heroButton: string;
+  chatCta: string;
+  journeyToggleLabel: (title: string) => string;
+  fieldLabels: FieldLabelsCopy;
   nextActionHeading: string;
   nextActionButton: string;
+  applicationSummaryHeading: string;
+  applicationSummaryNote: string;
+  businessAITitle: string;
+  statusLabelMap: Record<ApplicationRecord["status"], string>;
+  licenseTypeLabels: Record<ApplicationRecord["licenseType"], string>;
+  beneficiaryLabels: Record<ApplicationRecord["beneficiary"], string>;
+  directorateLabels: Record<string, string>;
+  applicationTitles: Record<string, string>;
+  applicationSummaries: Record<string, string>;
+  applicationNextActions: Record<string, string>;
   journey: JourneyOrchestrationPanelCopy;
 }
 
@@ -121,8 +161,68 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       name.endsWith("s") ? `${name}' workspace` : `${name}'s workspace`,
     workspaceDescription: (name: string) =>
       `Track your business license progress, ${name}, and know exactly what comes next.`,
+    workspaceSupportBadge: "Workspace support",
+    supportHeading: "Need support?",
+    supportDescription: {
+      preEmail:
+        "Our licensing team is available Sunday to Thursday, 8:00–18:00 GST. Reach out at ",
+      postEmailPrePhone: " or call ",
+      postPhone: ".",
+    },
+    keyDatesHeading: "Key dates",
+    keyDates: {
+      submitted: "Submitted",
+      lastUpdated: "Last updated",
+    },
+    heroBadge: "Investor Journey",
+    heroTitle: "Your journey, powered by AI",
+    heroDescription: (name: string) =>
+      `Discover a clear path to research market potential, plan key approvals, and prepare your business case with AI guidance. In just a few stages, explore how ${name} and other investors turn ideas into thriving restaurants across Abu Dhabi.`,
+    heroButton: "Explore more options",
+    chatCta: "Chat with AI",
+    journeyToggleLabel: (title: string) => `Toggle journey overview for ${title}`,
+    fieldLabels: {
+      beneficiary: "Beneficiary",
+      licenseType: "License type",
+      submissionId: "Submission ID",
+      lastUpdate: "Last update",
+    },
     nextActionHeading: "Next action",
     nextActionButton: "Continue to Your Next Action",
+    applicationSummaryHeading: "Application summary",
+    applicationSummaryNote:
+      "Your AI assistant will automatically pull the tenancy contract from ADM as soon as you register your lease.",
+    businessAITitle: "Business AI",
+    statusLabelMap: {
+      "In Review": "In Review",
+      "Awaiting Documents": "Awaiting Documents",
+      Approved: "Approved",
+      Draft: "Draft",
+    },
+    licenseTypeLabels: {
+      "Commercial License": "Commercial License",
+      "Dual License": "Dual License",
+    },
+    beneficiaryLabels: {
+      Citizen: "Citizen",
+      Resident: "Resident",
+      Investor: "Investor",
+      Visitor: "Visitor",
+    },
+    directorateLabels: {
+      "Department of Economic Development": "Department of Economic Development",
+    },
+    applicationTitles: {
+      "APP-48291": "Corniche Culinary Collective",
+    },
+    applicationSummaries: {
+      "APP-48291":
+        "Your AI-assisted application is sequencing trade name reservation, co-founder onboarding, property confirmation, and downstream approvals for a Corniche restaurant.",
+    },
+    applicationNextActions: {
+      "APP-48291":
+        "Submit consolidated approvals package for ADAFSA and Abu Dhabi Municipality.",
+    },
     journey: {
       heading: "Journey orchestration",
       timelineLabel: "Journey timeline",
@@ -147,8 +247,67 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة التالية.`,
+    workspaceSupportBadge: "دعم مساحة العمل",
+    supportHeading: "تحتاجين إلى مساعدة؟",
+    supportDescription: {
+      preEmail:
+        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت الخليج. تواصلي عبر ",
+      postEmailPrePhone: " أو اتصلي على ",
+      postPhone: ".",
+    },
+    keyDatesHeading: "التواريخ الرئيسية",
+    keyDates: {
+      submitted: "تم التقديم",
+      lastUpdated: "آخر تحديث",
+    },
+    heroBadge: "رحلة المستثمر",
+    heroTitle: "رحلتك مدعومة بالذكاء الاصطناعي",
+    heroDescription: (name: string) =>
+      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستثمرون آخرون أفكارهم إلى مطاعم مزدهرة في أبوظبي.`,
+    heroButton: "استكشفي خيارات إضافية",
+    chatCta: "الدردشة مع الذكاء الاصطناعي",
+    journeyToggleLabel: (title: string) => `عرض أو إخفاء نظرة عامة للرحلة الخاصة بـ ${title}`,
+    fieldLabels: {
+      beneficiary: "المستفيد",
+      licenseType: "نوع الرخصة",
+      submissionId: "معرّف الطلب",
+      lastUpdate: "آخر تحديث",
+    },
     nextActionHeading: "الإجراء التالي",
     nextActionButton: "انتقلي إلى الإجراء التالي",
+    applicationSummaryHeading: "ملخص الطلب",
+    applicationSummaryNote:
+      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل عقدك.",
+    businessAITitle: "مساعد الأعمال الذكي",
+    statusLabelMap: {
+      "In Review": "قيد المراجعة",
+      "Awaiting Documents": "بانتظار المستندات",
+      Approved: "موافق عليه",
+      Draft: "مسودة",
+    },
+    licenseTypeLabels: {
+      "Commercial License": "رخصة تجارية",
+      "Dual License": "رخصة مزدوجة",
+    },
+    beneficiaryLabels: {
+      Citizen: "مواطن",
+      Resident: "مقيم",
+      Investor: "مستثمر",
+      Visitor: "زائر",
+    },
+    directorateLabels: {
+      "Department of Economic Development": "دائرة التنمية الاقتصادية",
+    },
+    applicationTitles: {
+      "APP-48291": "مجموعة كورنيش للطهي",
+    },
+    applicationSummaries: {
+      "APP-48291":
+        "يعمل طلبك المدعوم بالذكاء الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال الشركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+    },
+    applicationNextActions: {
+      "APP-48291": "قدمي حزمة الموافقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
+    },
     journey: {
       heading: "تنسيق الرحلة",
       timelineLabel: "الجدول الزمني للرحلة",
@@ -157,7 +316,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       yourNextStep: "خطوتك التالية",
       tasksCompleteMessage:
         "تم إكمال كل المهام لهذه المرحلة. راقبي تحديثات الأتمتة.",
-      automationMessage: "الأتمتة تتولى بقية العمل نيابةً عنك.",
+      automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة التالية",
       reviewStage: "استعرضي المرحلة",
       timelineAriaLabel: "التنقل بين مراحل الرحلة",
