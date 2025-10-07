@@ -1072,8 +1072,34 @@ export default function ApplicantPortal() {
       return null;
     }
 
-    return { timelineItem, stage };
-  }, [focusContext, journeyTimelineItems]);
+    const stageIndex = journeyStages.findIndex((item) => item.id === stage.id);
+    const previousStage = stageIndex > 0 ? journeyStages[stageIndex - 1] : null;
+    const nextStage =
+      stageIndex >= 0 && stageIndex < journeyStages.length - 1
+        ? journeyStages[stageIndex + 1]
+        : null;
+
+    return {
+      timelineItem,
+      stage,
+      navigation:
+        previousStage || nextStage
+          ? {
+              onPrevious: previousStage
+                ? () => handleViewJourney(previousStage.id)
+                : undefined,
+              onNext: nextStage ? () => handleViewJourney(nextStage.id) : undefined,
+              previousLabel: previousStage?.title,
+              nextLabel: nextStage?.title,
+            }
+          : undefined,
+    };
+  }, [
+    focusContext,
+    journeyTimelineItems,
+    journeyStages,
+    handleViewJourney,
+  ]);
 
   const journeyFocusViewProps = useMemo(() => {
     if (!focusViewContext) {
