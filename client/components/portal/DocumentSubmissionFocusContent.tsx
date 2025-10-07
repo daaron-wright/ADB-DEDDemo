@@ -188,11 +188,11 @@ export function DocumentSubmissionFocusContent({
   const [progress, setProgress] = React.useState(initialProgress);
   const [isMoaModalOpen, setIsMoaModalOpen] = React.useState(false);
   const [isCompletingMoa, setIsCompletingMoa] = React.useState(false);
-  const completionTimeoutRef = React.useRef<number>();
+  const completionTimeoutRef = React.useRef<number | null>(null);
 
   React.useEffect(() => {
     return () => {
-      if (completionTimeoutRef.current) {
+      if (completionTimeoutRef.current !== null) {
         window.clearTimeout(completionTimeoutRef.current);
       }
     };
@@ -256,6 +256,7 @@ export function DocumentSubmissionFocusContent({
       setProgress(90);
       setIsCompletingMoa(false);
       setIsMoaModalOpen(false);
+      completionTimeoutRef.current = null;
     }, 1200);
   }, [isCompletingMoa]);
 
