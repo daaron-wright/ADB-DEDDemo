@@ -732,7 +732,14 @@ export default function ApplicantPortal() {
   const profileAvatar = portalUser?.avatarUrl ?? ENTREPRENEUR_PROFILE.avatar;
   const profileStatus: "online" | "offline" | "none" = "online";
 
-  const primaryApplication = applications[0];
+  const [applicationWorkingTitle, setApplicationWorkingTitle] = useState<string>(
+    DEFAULT_WORKSPACE_TITLE,
+  );
+
+  const primaryApplication = useMemo(
+    () => ({ ...applications[0], title: applicationWorkingTitle }),
+    [applicationWorkingTitle],
+  );
   const initialStageId = DEFAULT_ACTIVE_STAGE_ID;
 
   const [activeStageId, setActiveStageId] = useState<string>(initialStageId);
