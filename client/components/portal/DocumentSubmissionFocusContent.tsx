@@ -222,6 +222,46 @@ export function DocumentSubmissionFocusContent({
   const isMoaCompleted = notarizedMoa?.status === "completed";
   const shouldShowUserActions = submissionStep?.status === "completed";
 
+  const nextPendingSubStep = React.useMemo(() => {
+    return submissionStep?.subSteps?.find((subStep) => subStep.status !== "completed") ?? null;
+  }, [submissionStep]);
+
+  const documentCta = React.useMemo(() => {
+    if (nextPendingSubStep) {
+      const authoritySuffix = nextPendingSubStep.authority ? ` (${nextPendingSubStep.authority})` : "";
+      const headline = `Complete ${nextPendingSubStep.label}${authoritySuffix}`;
+      const description =
+        nextPendingSubStep.id === "notarized-moa"
+          ? "Launch the notarization assistant to finalise the memorandum and sync it back to TAMM."
+          : "Upload the required document so AI Business can continue coordinating with the authority.";
+      const buttonLabel = nextPendingSubStep.id === "notarized-moa" ? "Open notarization" : "View document requirements";
+
+      return {
+        headline,
+        description,
+        buttonLabel,
+        onClick: () => {
+          if (nextPendingSubStep.id === "notarized-moa") {
+            setIsLaunchDropdownOpen(true);
+          } else {
+            setShowDocuments(true);
+          }
+          document.getElementById(nextPendingSubStep.id)?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        },
+      };
+    }
+
+    return {
+      headline: "Review your submitted documents",
+      description: "Everything is synced. Double-check the files before moving to licensing.",
+      buttonLabel: "Open documents",
+      onClick: () => setShowDocuments(true),
+    };
+  }, [nextPendingSubStep]);
+
   React.useEffect(() => {
     if (isMoaCompleted) {
       setIsLaunchDropdownOpen(false);
