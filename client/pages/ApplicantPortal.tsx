@@ -1834,7 +1834,7 @@ export default function ApplicantPortal() {
   );
 
   return (
-    <div className="relative">
+    <div className="relative" lang={language === "ar" ? "ar" : "en"}>
       <PortalPageLayout
         title={workspaceHeroTitle}
         subtitle={languageCopy.subtitle}
