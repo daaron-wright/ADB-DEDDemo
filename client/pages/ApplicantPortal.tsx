@@ -906,14 +906,6 @@ export default function ApplicantPortal() {
       if (matchingStep) {
         updateCurrentJourneyStep(stageId);
       }
-
-      const recommendedItems = RECOMMENDED_STAGE_ACTIVITIES[stageId];
-      if (recommendedItems && recommendedItems.length > 0) {
-        setStageRecommendedSelections((prev) => ({
-          ...prev,
-          [stageId]: prev[stageId] ?? recommendedItems[0]?.id ?? null,
-        }));
-      }
     },
     [
       setBusinessAIView,
@@ -924,7 +916,6 @@ export default function ApplicantPortal() {
       setJourneyAnimationIndex,
       setJourneyProgressPercent,
       updateCurrentJourneyStep,
-      setStageRecommendedSelections,
     ],
   );
 
