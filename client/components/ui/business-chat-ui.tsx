@@ -253,8 +253,6 @@ const TRADE_LICENSE_MENU_PROMPTS: Record<TradeLicenseMenuOptionId, string> = {
     "Compare the commercial and professional license options for my concept.",
   "trade-name":
     "Suggest trade name ideas that fit the brand vision and comply with DED rules.",
-  documents:
-    "List the documents I need to complete the trade name reservation and license application.",
 };
 
 const DEFAULT_CHAT_PLACEHOLDER =
