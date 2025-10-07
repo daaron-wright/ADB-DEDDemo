@@ -12,8 +12,8 @@ interface BusinessLicensingFocusContentProps {
 }
 
 type StepStatus = "completed" | "current" | "pending";
-type SubStepStatus = "completed" | "in_progress" | "pending";
-type StageStatus = "request" | "in_progress";
+type SubStepStatus = "completed" | "in_progress" | "pending" | "request";
+type StageStatus = "request" | "in_progress" | "pending";
 
 interface SubStep {
   id: string;
@@ -70,6 +70,12 @@ const SUB_STEP_TOKENS: Record<
     iconClass: "text-[#b97324]",
     dotClass: "bg-[#b97324]",
   },
+  request: {
+    label: "Request",
+    badgeClass: "border-[#f3dcb6] bg-[#fff6e8] text-[#b97324]",
+    iconClass: "text-[#b97324]",
+    dotClass: "bg-[#b97324]",
+  },
 };
 
 const STAGE_STATUS_TOKENS: Record<
@@ -96,6 +102,13 @@ const STAGE_STATUS_TOKENS: Record<
     iconClass: "text-[#0b7d6f]",
     iconType: "spinner",
   },
+  pending: {
+    headline: "pending",
+    badgeLabel: "Pending issuance",
+    badgeClass: "border-[#f3dcb6] bg-[#fff6e8] text-[#b97324]",
+    iconClass: "bg-[#b97324]",
+    iconType: "dot",
+  },
 };
 
 const RIGHT_PANEL_TOKENS: Record<
@@ -117,6 +130,12 @@ const RIGHT_PANEL_TOKENS: Record<
     automationTitle: "Syncing with DED",
     description:
       "AI Business is automating the license application process with regulatory authorities.",
+  },
+  pending: {
+    headline: "Awaiting DED issuance",
+    automationTitle: "Pending issuance",
+    description:
+      "The request is under review with DED. We'll notify you as soon as the license number is released.",
   },
 };
 
