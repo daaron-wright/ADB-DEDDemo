@@ -13,6 +13,7 @@ interface BusinessLicensingFocusContentProps {
 
 type StepStatus = "completed" | "current" | "pending";
 type SubStepStatus = "completed" | "in_progress" | "pending";
+type StageStatus = "request" | "in_progress" | "completed";
 
 interface SubStep {
   id: string;
@@ -28,7 +29,7 @@ interface Step {
   subSteps?: SubStep[];
 }
 
-const BUSINESS_LICENSING_STEPS: Step[] = [
+const INITIAL_BUSINESS_LICENSING_STEPS: Step[] = [
   { id: 1, label: "Business Registration", status: "completed" },
   { id: 2, label: "Submission of Documents", status: "completed" },
   {
@@ -40,14 +41,17 @@ const BUSINESS_LICENSING_STEPS: Step[] = [
         id: "economic-license-ded",
         label: "Issuance of Economic License",
         authority: "DED",
-        status: "in_progress",
+        status: "pending",
       },
     ],
   },
   { id: 4, label: "Pre-Operational Inspection", status: "pending" },
 ];
 
-const SUB_STEP_TOKENS: Record<SubStepStatus, { label: string; badgeClass: string; iconClass: string; dotClass: string }> = {
+const SUB_STEP_TOKENS: Record<
+  SubStepStatus,
+  { label: string; badgeClass: string; iconClass: string; dotClass: string }
+> = {
   completed: {
     label: "Completed",
     badgeClass: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
@@ -68,12 +72,143 @@ const SUB_STEP_TOKENS: Record<SubStepStatus, { label: string; badgeClass: string
   },
 };
 
+const STAGE_STATUS_TOKENS: Record<
+  StageStatus,
+  {
+    headline: string;
+    badgeLabel: string;
+    badgeClass: string;
+    iconClass: string;
+    iconType: "check" | "spinner" | "dot";
+  }
+> = {
+  request: {
+    headline: "request",
+    badgeLabel: "Request submitted",
+    badgeClass: "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
+    iconClass: "text-[#b97324]",
+    iconType: "dot",
+  },
+  in_progress: {
+    headline: "in progress",
+    badgeLabel: "Automation syncing",
+    badgeClass: "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
+    iconClass: "text-[#0b7d6f]",
+    iconType: "spinner",
+  },
+  completed: {
+    headline: "completed",
+    badgeLabel: "License issued",
+    badgeClass: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
+    iconClass: "text-[#0f766e]",
+    iconType: "check",
+  },
+};
+
+const RIGHT_PANEL_TOKENS: Record<
+  StageStatus,
+  {
+    headline: string;
+    automationTitle: string;
+    description: string;
+  }
+> = {
+  request: {
+    headline: "Preparing license request",
+    automationTitle: "Submitting request to DED",
+    description:
+      "AI Business is compiling your commercial details and preparing the request package for the Department of Economic Development.",
+  },
+  in_progress: {
+    headline: "Automating application process",
+    automationTitle: "Generating application...",
+    description:
+      "AI Business is automating the license application process with regulatory authorities.",
+  },
+  completed: {
+    headline: "License issued successfully",
+    automationTitle: "Economic License confirmed",
+    description:
+      "AI Business secured your Economic License and synced the approval back to your workspace.",
+  },
+};
+
 export function BusinessLicensingFocusContent({
   journeyNumber = "0987654321",
-  progressPercent = 64,
+  progressPercent: initialProgressPercent = 64,
 }: BusinessLicensingFocusContentProps) {
   const [showDocuments, setShowDocuments] = React.useState(true);
-  const steps = React.useMemo(() => BUSINESS_LICENSING_STEPS, []);
+  const [stageStatus, setStageStatus] = React.useState<StageStatus>("request");
+  const [steps, setSteps] = React.useState<Step[]>(() =>
+    INITIAL_BUSINESS_LICENSING_STEPS.map((step) => ({
+      ...step,
+      subSteps: step.subSteps?.map((subStep) => ({ ...subStep })),
+    })),
+  );
+  const [progress, setProgress] = React.useState(() => Math.min(initialProgressPercent, 28));
+  const timersRef = React.useRef<number[]>([]);
+
+  React.useEffect(() => {
+    const inProgressTimer = window.setTimeout(() => {
+      setStageStatus("in_progress");
+    }, 1500);
+    const completedTimer = window.setTimeout(() => {
+      setStageStatus("completed");
+    }, 4200);
+
+    timersRef.current = [inProgressTimer, completedTimer];
+
+    return () => {
+      timersRef.current.forEach((timerId) => window.clearTimeout(timerId));
+    };
+  }, []);
+
+  React.useEffect(() => {
+    setSteps((previousSteps) =>
+      previousSteps.map((step) => {
+        if (step.id === 3) {
+          const subStepStatus: SubStepStatus =
+            stageStatus === "request"
+              ? "pending"
+              : stageStatus === "in_progress"
+              ? "in_progress"
+              : "completed";
+
+          return {
+            ...step,
+            status: stageStatus === "completed" ? "completed" : "current",
+            subSteps: step.subSteps?.map((subStep) => ({
+              ...subStep,
+              status: subStepStatus,
+            })),
+          };
+        }
+
+        if (step.id === 4) {
+          return {
+            ...step,
+            status: stageStatus === "completed" ? "current" : "pending",
+          };
+        }
+
+        return step;
+      }),
+    );
+
+    if (stageStatus === "request") {
+      setProgress(Math.min(initialProgressPercent, 28));
+    } else if (stageStatus === "in_progress") {
+      setProgress(Math.max(initialProgressPercent, 68));
+    } else {
+      setProgress(100);
+    }
+  }, [stageStatus, initialProgressPercent]);
+
+  const stageToken = STAGE_STATUS_TOKENS[stageStatus];
+  const rightPanelToken = RIGHT_PANEL_TOKENS[stageStatus];
+  const licensingStep = steps.find((step) => step.id === 3);
+  const licensingSubSteps = licensingStep?.subSteps ?? [];
+  const completedCount = licensingSubSteps.filter((subStep) => subStep.status === "completed").length;
 
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
@@ -96,100 +231,134 @@ export function BusinessLicensingFocusContent({
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="space-y-1">
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Step 3 in progress
+                  {`Step ${licensingStep?.id ?? 3} ${stageToken.headline}`}
                 </p>
                 <p className="text-2xl font-semibold text-slate-900">Business Licensing</p>
               </div>
-              <Badge className="inline-flex items-center gap-2 border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
-                <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                Automation syncing
+              <Badge
+                className={cn(
+                  "inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                  stageToken.badgeClass,
+                )}
+              >
+                {stageToken.iconType === "check" ? (
+                  <Check className={cn("h-3.5 w-3.5", stageToken.iconClass)} strokeWidth={3} />
+                ) : stageToken.iconType === "spinner" ? (
+                  <Loader2 className={cn("h-3.5 w-3.5 animate-spin", stageToken.iconClass)} />
+                ) : (
+                  <span className={cn("block h-2 w-2 rounded-full", stageToken.iconClass)} />
+                )}
+                {stageToken.badgeLabel}
               </Badge>
             </div>
             <div className="space-y-2">
               <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
                 <div
                   className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] shadow-[0_1px_6px_rgba(15,118,110,0.35)] transition-all"
-                  style={{ width: `${progressPercent}%` }}
+                  style={{ width: `${progress}%` }}
                 />
               </div>
               <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
                 <span>License generation</span>
-                <span>{progressPercent}%</span>
+                <span>{progress}%</span>
               </div>
             </div>
           </div>
 
-          {steps
-            .filter((step) => step.subSteps && step.status === "current")
-            .map((step) => (
-              <div
-                key={step.id}
-                className="space-y-4 rounded-3xl border border-white/60 bg-white p-5 shadow-[0_28px_60px_-54px_rgba(15,23,42,0.4)]"
-              >
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div className="space-y-1">
-                    <p className="text-sm font-semibold text-slate-900">
-                      Active licensing actions
-                    </p>
-                    <p className="text-sm text-slate-600">
-                      AI Business is coordinating with the Department of Economic Development.
-                    </p>
-                  </div>
-                  <Badge className="border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
-                    {step.subSteps?.filter((item) => item.status === "completed").length} of {step.subSteps?.length} complete
-                  </Badge>
+          {stageStatus !== "completed" ? (
+            <div className="space-y-4 rounded-3xl border border-white/60 bg-white p-5 shadow-[0_28px_60px_-54px_rgba(15,23,42,0.4)]">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="space-y-1">
+                  <p className="text-sm font-semibold text-slate-900">Active licensing actions</p>
+                  <p className="text-sm text-slate-600">
+                    AI Business is coordinating with the Department of Economic Development.
+                  </p>
                 </div>
+                <Badge
+                  className={cn(
+                    "px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                    stageStatus === "request" && "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
+                    stageStatus === "in_progress" && "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
+                  )}
+                >
+                  {completedCount} of {licensingSubSteps.length} complete
+                </Badge>
+              </div>
 
-                <div className="space-y-3">
-                  {step.subSteps?.map((subStep) => {
-                    const token = SUB_STEP_TOKENS[subStep.status];
+              <div className="space-y-3">
+                {licensingSubSteps.map((subStep) => {
+                  const token = SUB_STEP_TOKENS[subStep.status];
 
-                    return (
-                      <div
-                        key={subStep.id}
-                        className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:flex-row sm:items-center sm:justify-between"
-                      >
-                        <div className="flex items-start gap-3">
-                          <span
-                            className={cn(
-                              "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border",
-                              subStep.status === "completed" && "border-[#0f766e]/20 bg-[#0f766e]/10",
-                              subStep.status === "in_progress" && "border-[#94d2c2] bg-[#dff2ec]/70",
-                              subStep.status === "pending" && "border-slate-200 bg-white",
-                            )}
-                          >
-                            {subStep.status === "completed" ? (
-                              <Check className={cn("h-4 w-4", token.iconClass)} strokeWidth={3} />
-                            ) : subStep.status === "in_progress" ? (
-                              <Loader2 className={cn("h-4 w-4 animate-spin", token.iconClass)} />
-                            ) : (
-                              <span className={cn("block h-2.5 w-2.5 rounded-full", token.dotClass)} />
-                            )}
-                          </span>
-                          <div className="space-y-1">
-                            <p className="text-base font-semibold text-slate-900">
-                              {subStep.label} {subStep.authority ? `(${subStep.authority})` : ""}
-                            </p>
-                            <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
-                              <span>{token.label}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <Badge
+                  return (
+                    <div
+                      key={subStep.id}
+                      className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:flex-row sm:items-center sm:justify-between"
+                    >
+                      <div className="flex items-start gap-3">
+                        <span
                           className={cn(
-                            "self-start border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                            token.badgeClass,
+                            "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border",
+                            subStep.status === "completed" && "border-[#0f766e]/20 bg-[#0f766e]/10",
+                            subStep.status === "in_progress" && "border-[#94d2c2] bg-[#dff2ec]/70",
+                            subStep.status === "pending" && "border-slate-200 bg-white",
                           )}
                         >
-                          {token.label}
-                        </Badge>
+                          {subStep.status === "completed" ? (
+                            <Check className={cn("h-4 w-4", token.iconClass)} strokeWidth={3} />
+                          ) : subStep.status === "in_progress" ? (
+                            <Loader2 className={cn("h-4 w-4 animate-spin", token.iconClass)} />
+                          ) : (
+                            <span className={cn("block h-2.5 w-2.5 rounded-full", token.dotClass)} />
+                          )}
+                        </span>
+                        <div className="space-y-1">
+                          <p className="text-base font-semibold text-slate-900">
+                            {subStep.label} {subStep.authority ? `(${subStep.authority})` : ""}
+                          </p>
+                          <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
+                            <span>{token.label}</span>
+                          </div>
+                        </div>
                       </div>
-                    );
-                  })}
+                      <Badge
+                        className={cn(
+                          "self-start border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                          token.badgeClass,
+                        )}
+                      >
+                        {token.label}
+                      </Badge>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-4 rounded-3xl border border-white/60 bg-white p-5 shadow-[0_28px_60px_-54px_rgba(15,23,42,0.4)]">
+              <div className="flex items-start gap-3">
+                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#0f766e]/20 bg-[#0f766e]/10">
+                  <Check className="h-5 w-5 text-[#0f766e]" strokeWidth={3} />
+                </span>
+                <div className="space-y-1">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                    Licensing complete
+                  </p>
+                  <p className="text-base font-semibold text-slate-900">Economic License issued via DED</p>
+                  <p className="text-sm text-slate-600">
+                    AI Business submitted the request and confirmed issuance with the Department of Economic Development.
+                  </p>
                 </div>
               </div>
-            ))}
-
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <Badge className="border-[#b7e1d4] bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  License issued
+                </Badge>
+                <span className="text-sm font-semibold text-slate-500">
+                  {completedCount} of {licensingSubSteps.length} complete
+                </span>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -210,7 +379,7 @@ export function BusinessLicensingFocusContent({
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                 Business AI assistant
               </p>
-              <p className="text-lg font-semibold text-slate-900">Automating application process</p>
+              <p className="text-lg font-semibold text-slate-900">{rightPanelToken.headline}</p>
             </div>
             <div className="ml-auto flex items-end gap-1 text-[#0f766e]">
               {[18, 28, 16, 22, 12, 26, 20, 32, 14].map((height, index) => (
@@ -225,27 +394,23 @@ export function BusinessLicensingFocusContent({
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                   Live automation
                 </p>
-                <p className="text-base font-semibold text-slate-900">
-                  Generating application...
-                </p>
+                <p className="text-base font-semibold text-slate-900">{rightPanelToken.automationTitle}</p>
               </div>
               <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
-                {progressPercent}% complete
+                {progress}% complete
               </Badge>
             </div>
-            <p className="text-sm leading-relaxed text-slate-600">
-              AI Business is automating the license application process with regulatory authorities.
-            </p>
+            <p className="text-sm leading-relaxed text-slate-600">{rightPanelToken.description}</p>
             <div className="space-y-2">
               <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
                 <div
                   className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] shadow-[0_1px_6px_rgba(15,118,110,0.35)] transition-all"
-                  style={{ width: `${progressPercent}%` }}
+                  style={{ width: `${progress}%` }}
                 />
               </div>
               <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
                 <span>Automation progress</span>
-                <span>{progressPercent}%</span>
+                <span>{progress}%</span>
               </div>
             </div>
           </div>
