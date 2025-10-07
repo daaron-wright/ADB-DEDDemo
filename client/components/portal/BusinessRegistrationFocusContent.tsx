@@ -296,6 +296,7 @@ export function BusinessRegistrationFocusContent({
   const trimmedInput = inputValue.trim();
   const isSubmitDisabled = isChecking || trimmedInput.length === 0;
   const displayProgress = Math.round(automationProgress);
+  const isStageReadyForUserActions = automationProgress >= 100 && isNameAvailable;
 
   React.useEffect(() => {
     if (hasUserOverride) {
@@ -802,30 +803,32 @@ export function BusinessRegistrationFocusContent({
           </div>
         </div>
 
-        <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Your first actions
-            </p>
-            <p className="text-base font-semibold text-slate-900">
-              What AI Business needs from you
-            </p>
+        {isStageReadyForUserActions ? (
+          <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Your first actions
+              </p>
+              <p className="text-base font-semibold text-slate-900">
+                What AI Business needs from you
+              </p>
+            </div>
+            <ul className="space-y-3">
+              {REGISTRATION_USER_ACTIONS.map((item) => (
+                <li
+                  key={item.id}
+                  className="flex gap-3 rounded-2xl border border-[#e6f2ed] bg-white p-4 shadow-[0_10px_24px_-22px_rgba(15,118,110,0.25)]"
+                >
+                  <span className="mt-1 flex h-2.5 w-2.5 flex-shrink-0 rounded-full bg-[#0f766e]" />
+                  <div className="space-y-1">
+                    <p className="text-sm font-semibold text-slate-900">{item.title}</p>
+                    <p className="text-sm text-slate-600">{item.action}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="space-y-3">
-            {REGISTRATION_USER_ACTIONS.map((item) => (
-              <li
-                key={item.id}
-                className="flex gap-3 rounded-2xl border border-[#e6f2ed] bg-white p-4 shadow-[0_10px_24px_-22px_rgba(15,118,110,0.25)]"
-              >
-                <span className="mt-1 flex h-2.5 w-2.5 flex-shrink-0 rounded-full bg-[#0f766e]" />
-                <div className="space-y-1">
-                  <p className="text-sm font-semibold text-slate-900">{item.title}</p>
-                  <p className="text-sm text-slate-600">{item.action}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+        ) : null}
 
         <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
