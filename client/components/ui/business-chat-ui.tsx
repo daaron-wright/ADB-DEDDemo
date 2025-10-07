@@ -6325,8 +6325,6 @@ export function BusinessChatUI({
                                 "border-white/25 bg-white/12 text-[#0F766E] shadow-[0_28px_66px_-48px_rgba(15,23,42,0.26)]",
                             )}
                           >
-                            <div className="flex flex-col gap-3">
-                            </div>
                           </div>
                         ) : null}
                         <div className={messageListClass}>
