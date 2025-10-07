@@ -6346,10 +6346,7 @@ export function BusinessChatUI({
                                     </button>
                                     <button
                                       type="button"
-                                      onClick={() => {
-                                        setInteractionMode("voice");
-                                        setActiveSuggestedTopic(null);
-                                      }}
+                                      onClick={() => setInteractionMode("voice")}
                                       aria-pressed={interactionMode === "voice"}
                                       className={cn(
                                         "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]",
