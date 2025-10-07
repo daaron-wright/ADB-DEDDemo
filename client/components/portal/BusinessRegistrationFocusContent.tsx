@@ -344,12 +344,46 @@ export function BusinessRegistrationFocusContent({
               <div className="space-y-3">
                 <div className="space-y-1">
                   <h3 className="text-base font-semibold text-slate-900">
-                    Trade Name Available
+                    {statusHeading}
                   </h3>
                   <p className="text-sm text-slate-600">
-                    The TAMM platform confirms availability. Final approval
-                    remains with the Department of Economic Development.
+                    {statusDescription}
                   </p>
+                </div>
+                {!isChecking && !isNameAvailable && failureReason && (
+                  <div className="rounded-2xl border border-rose-200 bg-rose-50/80 p-4 text-sm text-rose-700">
+                    {failureReason}
+                  </div>
+                )}
+                <div className="space-y-3 rounded-2xl border border-slate-200 bg-white/90 p-4">
+                  <div className="space-y-1">
+                    <p className="text-sm font-semibold text-slate-900">
+                      Try another trade name
+                    </p>
+                    <p className="text-xs text-slate-500">
+                      Enter a new option to rerun the automated checks instantly.
+                    </p>
+                  </div>
+                  <form
+                    onSubmit={handleSubmit}
+                    className="flex flex-col gap-3 sm:flex-row"
+                  >
+                    <Input
+                      ref={inputRef}
+                      value={inputValue}
+                      onChange={handleInputChange}
+                      placeholder="Enter a new trade name"
+                      disabled={isChecking}
+                      className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400 sm:flex-1"
+                    />
+                    <Button
+                      type="submit"
+                      className="h-11 rounded-full bg-[#0f766e] px-5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_12px_28px_-18px_rgba(15,118,110,0.45)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+                      disabled={isChecking || trimmedInput.length === 0}
+                    >
+                      Run checks
+                    </Button>
+                  </form>
                 </div>
                 <div className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:flex-row sm:items-start sm:justify-between">
                   <div className="space-y-1">
@@ -364,14 +398,20 @@ export function BusinessRegistrationFocusContent({
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="h-9 shrink-0 rounded-full px-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] hover:bg-[#0f766e]/10"
+                    className="h-9 shrink-0 rounded-full px-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
+                    disabled={isChecking || !isNameAvailable}
                   >
                     Continue
                   </Button>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  <Button className="rounded-full bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_12px_28px_-18px_rgba(15,118,110,0.45)] hover:bg-[#0c6059]">
-                    Try Another Name
+                  <Button
+                    type="button"
+                    onClick={() => inputRef.current?.focus()}
+                    disabled={isChecking}
+                    className="rounded-full bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_12px_28px_-18px_rgba(15,118,110,0.45)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    Focus trade name field
                   </Button>
                   <Button
                     variant="outline"
