@@ -628,37 +628,6 @@ export function DocumentSubmissionFocusContent({
               </div>
             </div>
 
-            <div className="space-y-3 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="space-y-1">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                    Live automation
-                  </p>
-                  <p className="text-base font-semibold text-slate-900">
-                    Syncing authority submissions
-                  </p>
-                </div>
-                <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
-                  {progress}% complete
-                </Badge>
-              </div>
-              <p className="text-sm leading-relaxed text-slate-600">
-                AI Business is coordinating document hand-offs across TAMM and partner authorities to keep your application on schedule.
-              </p>
-              <div className="space-y-2">
-                <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
-                  <div
-                    className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] shadow-[0_1px_6px_rgba(15,118,110,0.35)] transition-all"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
-                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  <span>Automation progress</span>
-                  <span>{progress}%</span>
-                </div>
-              </div>
-            </div>
-
             {shouldShowUserActions ? (
               <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
                 <div>
@@ -694,6 +663,37 @@ export function DocumentSubmissionFocusContent({
                 </ul>
               </div>
             ) : null}
+
+            <div className="space-y-3 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="space-y-1">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    Live automation
+                  </p>
+                  <p className="text-base font-semibold text-slate-900">
+                    Syncing authority submissions
+                  </p>
+                </div>
+                <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                  {progress}% complete
+                </Badge>
+              </div>
+              <p className="text-sm leading-relaxed text-slate-600">
+                AI Business is coordinating document hand-offs across TAMM and partner authorities to keep your application on schedule.
+              </p>
+              <div className="space-y-2">
+                <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
+                  <div
+                    className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] shadow-[0_1px_6px_rgba(15,118,110,0.35)] transition-all"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                  <span>Automation progress</span>
+                  <span>{progress}%</span>
+                </div>
+              </div>
+            </div>
 
             <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
               <div className="flex flex-wrap items-center justify-between gap-3">
