@@ -54,6 +54,22 @@ interface StageActivitiesContext {
   onAdd: (activityId: string) => void;
 }
 
+interface LicenseTypeProfile {
+  id: string;
+  title: string;
+  summary: string;
+  feeEstimate: string;
+  highlights: string[];
+  evaluationPrompt: string;
+}
+
+interface LicenseEvaluation {
+  compatibilityScore: number;
+  isConsistent: boolean;
+  reason?: string | null;
+  threshold?: number | null;
+}
+
 export interface JourneyStageFocusViewProps {
   timelineItem: JourneyTimelineItem;
   stage?: JourneyStage | null;
