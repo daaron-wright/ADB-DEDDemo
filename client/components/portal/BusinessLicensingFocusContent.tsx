@@ -120,6 +120,24 @@ const RIGHT_PANEL_TOKENS: Record<
   },
 };
 
+const LICENSING_USER_ACTIONS = [
+  {
+    id: "license-economic-issuance",
+    title: "Issuance of Economic License",
+    action: "Confirm your final list of business activities before the request is submitted to DED.",
+  },
+  {
+    id: "license-automation-sync",
+    title: "AI automation of license application",
+    action: "Authorize the AI assistant to submit the payment token and supporting documents.",
+  },
+  {
+    id: "license-final-review",
+    title: "Final license review",
+    action: "Review the generated license preview and acknowledge the details before issuance.",
+  },
+] as const;
+
 export function BusinessLicensingFocusContent({
   journeyNumber = "0987654321",
   progressPercent: initialProgressPercent = 64,
