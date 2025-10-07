@@ -1689,7 +1689,6 @@ export default function ApplicantPortal() {
             onResumeAutomation={handleResumeAutomation}
             onViewJourney={handleViewJourney}
             onTimelineFocusChange={handleTimelineFocusChange}
-            stageNumberOffset={1}
           />
           {isTimelineBackgroundBlurred ? (
             <div
