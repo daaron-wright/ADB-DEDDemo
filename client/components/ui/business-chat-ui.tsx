@@ -5188,8 +5188,6 @@ export function BusinessChatUI({
     };
   }, [selectedActivities]);
 
-  const shouldShowInteractionToolbar = false;
-
   const chatInputPlaceholder = useMemo(() => {
     if (interactionMode === "voice") {
       return "Voice mode active—tap the mic to ask about licensing steps.";
