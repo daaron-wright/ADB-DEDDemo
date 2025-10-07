@@ -110,6 +110,20 @@ const STAGE_STATUS_TOKENS: Record<JourneyStageStatusState, {
   },
 };
 
+function normalizeCompatibilityPercent(score?: number | null): number | null {
+  if (typeof score !== "number" || Number.isNaN(score) || !Number.isFinite(score)) {
+    return null;
+  }
+
+  const scaled =
+    score > 1 && score <= 100
+      ? score
+      : score * 100;
+
+  const clamped = Math.min(Math.max(scaled, 0), 100);
+  return Math.round(clamped);
+}
+
 const LICENSE_TYPE_PROFILES: LicenseTypeProfile[] = [
   {
     id: "commercial",
@@ -215,6 +229,7 @@ export function JourneyStageFocusView({
 
     setIsLicenseEvaluationLoading(true);
     setLicenseEvaluationError(null);
+    setLicenseEvaluations({});
 
     validateActivityCompatibility(
       {
@@ -598,39 +613,111 @@ export function JourneyStageFocusView({
                       <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                         License comparison
                       </h4>
-                      <span className="text-xs text-slate-500">
-                        Matched to restaurant profile
+                      <span className={cn(
+                        "text-xs",
+                        licenseEvaluationError ? "text-rose-600" : "text-slate-500",
+                      )}>
+                        {isLicenseEvaluationLoading
+                          ? "Evaluating license fit…"
+                          : licenseEvaluationError ?? `Matched to ${effectiveTradeName}`}
                       </span>
                     </div>
+                    {licenseEvaluationError ? (
+                      <div className="rounded-xl border border-rose-200 bg-rose-50/80 p-3 text-xs text-rose-600">
+                        {licenseEvaluationError}
+                      </div>
+                    ) : null}
                     <div className="grid gap-3 sm:grid-cols-2">
-                      {LICENSE_TYPE_PROFILES.map((profile) => (
-                        <div
-                          key={profile.id}
-                          className="rounded-xl border border-[#0f766e]/20 bg-white/80 p-4 shadow-[0_20px_55px_-48px_rgba(15,118,110,0.4)]"
-                        >
-                          <div className="space-y-2">
-                            <div className="flex items-center justify-between">
-                              <p className="text-sm font-semibold text-slate-900">
-                                {profile.title}
+                      {LICENSE_TYPE_PROFILES.map((profile) => {
+                        const evaluation = licenseEvaluations[profile.id];
+                        const compatibilityPercent = normalizeCompatibilityPercent(
+                          evaluation?.compatibilityScore ?? null,
+                        );
+                        const thresholdPercent = normalizeCompatibilityPercent(
+                          evaluation?.threshold ?? null,
+                        );
+                        const consistencyClass = evaluation
+                          ? evaluation.isConsistent
+                            ? "border-[#0f766e]/50 bg-[#0f766e]/10 text-[#0f766e]"
+                            : "border-amber-200 bg-amber-50 text-amber-700"
+                          : "border-slate-200 bg-white text-slate-500";
+                        const compatibilityDisplay = evaluation
+                          ? compatibilityPercent !== null
+                            ? `${compatibilityPercent}%`
+                            : "N/A"
+                          : isLicenseEvaluationLoading
+                            ? "Evaluating…"
+                            : "Awaiting data";
+
+                        return (
+                          <div
+                            key={profile.id}
+                            className="rounded-xl border border-[#0f766e]/20 bg-white/80 p-4 shadow-[0_20px_55px_-48px_rgba(15,118,110,0.4)]"
+                          >
+                            <div className="space-y-3">
+                              <div className="flex items-center justify-between">
+                                <p className="text-sm font-semibold text-slate-900">
+                                  {profile.title}
+                                </p>
+                                <span
+                                  className={cn(
+                                    "inline-flex items-center rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]",
+                                    consistencyClass,
+                                  )}
+                                >
+                                  {evaluation
+                                    ? evaluation.isConsistent
+                                      ? "Consistent"
+                                      : "Review required"
+                                    : "Pending"}
+                                </span>
+                              </div>
+                              <p className="text-xs text-slate-500">
+                                {profile.summary}
                               </p>
+                              <ul className="space-y-1 text-xs text-slate-600">
+                                {profile.highlights.map((item) => (
+                                  <li key={item} className="flex items-start gap-2">
+                                    <span className="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0f766e]" />
+                                    <span>{item}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                                {profile.feeEstimate}
+                              </p>
+                              <div className="space-y-2 rounded-lg border border-[#0f766e]/25 bg-[#0f766e]/5 p-3">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                                    Compatibility
+                                  </span>
+                                  <span className="text-sm font-semibold text-[#0f766e]">
+                                    {compatibilityDisplay}
+                                  </span>
+                                </div>
+                                {evaluation?.reason ? (
+                                  <p className="text-xs text-[#0f766e]">
+                                    {evaluation.reason}
+                                  </p>
+                                ) : (
+                                  <p className="text-xs text-slate-600">
+                                    {isLicenseEvaluationLoading
+                                      ? "We’re checking alignment with this license profile."
+                                      : evaluation
+                                        ? "No additional concerns flagged."
+                                        : "Insights will appear once the evaluation completes."}
+                                  </p>
+                                )}
+                                {thresholdPercent !== null ? (
+                                  <p className="text-[11px] text-[#0f766e]/70">
+                                    Threshold: {thresholdPercent}% required
+                                  </p>
+                                ) : null}
+                              </div>
                             </div>
-                            <p className="text-xs text-slate-500">
-                              {profile.summary}
-                            </p>
-                            <ul className="space-y-1 text-xs text-slate-600">
-                              {profile.highlights.map((item) => (
-                                <li key={item} className="flex items-start gap-2">
-                                  <span className="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0f766e]" />
-                                  <span>{item}</span>
-                                </li>
-                              ))}
-                            </ul>
-                            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                              {profile.feeEstimate}
-                            </p>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 ) : null}
