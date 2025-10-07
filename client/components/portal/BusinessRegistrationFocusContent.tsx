@@ -141,17 +141,99 @@ export function BusinessRegistrationFocusContent({
   isTradeNameAvailable = true,
   progressPercent = 46,
 }: BusinessRegistrationFocusContentProps) {
-  const clampedProgress = Math.min(Math.max(progressPercent, 0), 100);
-  const displayProgress = Math.round(clampedProgress);
+  const [activeTradeName, setActiveTradeName] = React.useState(tradeName);
+  const [inputValue, setInputValue] = React.useState("");
+  const [isChecking, setIsChecking] = React.useState(false);
+  const [isNameAvailable, setIsNameAvailable] = React.useState(isTradeNameAvailable);
+  const [automationProgress, setAutomationProgress] = React.useState(() =>
+    clampProgress(progressPercent),
+  );
+  const [failedStepIndex, setFailedStepIndex] = React.useState<number | null>(
+    isTradeNameAvailable ? null : DEFAULT_FAILURE_STEP_INDEX,
+  );
+  const [failureReason, setFailureReason] = React.useState<string | null>(null);
+
+  const trimmedInput = inputValue.trim();
+  const displayProgress = Math.round(automationProgress);
+
+  React.useEffect(() => {
+    if (isChecking) {
+      return;
+    }
+
+    setActiveTradeName(tradeName);
+    setIsNameAvailable(isTradeNameAvailable);
+    setFailedStepIndex(
+      isTradeNameAvailable ? null : DEFAULT_FAILURE_STEP_INDEX,
+    );
+    setAutomationProgress(clampProgress(progressPercent));
+  }, [isChecking, tradeName, isTradeNameAvailable, progressPercent]);
+
+  React.useEffect(() => {
+    if (!isChecking) {
+      return;
+    }
+
+    const interval = window.setInterval(() => {
+      setAutomationProgress((previous) => {
+        const next = Math.min(previous + 12, 100);
+
+        if (next >= 100) {
+          window.clearInterval(interval);
+          setIsChecking(false);
+          setIsNameAvailable(false);
+          setFailureReason(
+            "This name conflicts with an existing Corniche Culinary Collective registration.",
+          );
+        }
+
+        return next;
+      });
+    }, 420);
+
+    return () => window.clearInterval(interval);
+  }, [isChecking]);
+
+  const handleSubmit = React.useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      if (isChecking) {
+        return;
+      }
+
+      if (!trimmedInput) {
+        return;
+      }
+
+      setActiveTradeName(trimmedInput);
+      setAutomationProgress(0);
+      setInputValue("");
+      setIsChecking(true);
+      setIsNameAvailable(true);
+      setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
+      setFailureReason(null);
+    },
+    [isChecking, trimmedInput],
+  );
+
+  const handleInputChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setInputValue(event.target.value);
+    },
+    [],
+  );
 
   const automationSteps = React.useMemo<TradeNameVerificationStepWithStatus[]>(() => {
     const totalSteps = TRADE_NAME_CHECKS.length;
 
     return TRADE_NAME_CHECKS.map((step, index) => {
       const { status, progress } = getStepStatus(
-        clampedProgress,
+        automationProgress,
         index,
         totalSteps,
+        isNameAvailable,
+        failedStepIndex,
       );
 
       return {
@@ -160,7 +242,49 @@ export function BusinessRegistrationFocusContent({
         progress,
       };
     });
-  }, [clampedProgress]);
+  }, [automationProgress, failedStepIndex, isNameAvailable]);
+
+  const badgeLabel = isChecking
+    ? "Checking..."
+    : isNameAvailable
+    ? "Available"
+    : "Unavailable";
+
+  const availabilityBadgeClasses = cn(
+    "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] shadow-sm transition-colors",
+    isChecking && "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
+    !isChecking && isNameAvailable && "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
+    !isChecking && !isNameAvailable && "border-rose-200 bg-rose-50 text-rose-600",
+  );
+
+  const badgeIcon = isChecking ? (
+    <span className="relative flex h-3.5 w-3.5 items-center justify-center">
+      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-60" />
+      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
+    </span>
+  ) : isNameAvailable ? (
+    <Check className="h-3.5 w-3.5" strokeWidth={3} />
+  ) : (
+    <X className="h-3.5 w-3.5" strokeWidth={3} />
+  );
+
+  const statusHeading = isChecking
+    ? "Checking trade name"
+    : isNameAvailable
+    ? "Trade name available"
+    : "Trade name unavailable";
+
+  const statusDescription = isChecking
+    ? "We’re running automated validation before reserving the name."
+    : isNameAvailable
+    ? "The TAMM platform confirms availability. Final approval remains with the Department of Economic Development."
+    : "This name matches an existing business record. Try a different variation to continue.";
+
+  const statusSummary = isChecking
+    ? "Status: running automated checks with DED"
+    : isNameAvailable
+    ? "Status: verification synced with the Department of Economic Development"
+    : "Status: similar name conflict flagged by the Department of Economic Development";
 
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
