@@ -5555,6 +5555,7 @@ export function BusinessChatUI({
 
           if (isSetupCta) {
             setInputValue(HEAT_MAP_PROMPT);
+            setActiveSuggestedTopic(null);
           }
 
           if (isInvestorAuthenticated) {
