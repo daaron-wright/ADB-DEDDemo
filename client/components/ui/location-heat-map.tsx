@@ -136,6 +136,17 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
     return activeTrend.unit ? ` ${activeTrend.unit}` : "";
   }, [activeTrend]);
 
+  const formatDeltaValue = (value?: number) => {
+    if (value === undefined || value === null || !activeTrend) {
+      return "–";
+    }
+
+    const unitLower = activeTrend.unit.toLowerCase();
+    const decimals = unitLower.includes("aed") ? 1 : 0;
+    const signedValue = value >= 0 ? `+${value.toFixed(decimals)}` : value.toFixed(decimals);
+    return `${signedValue}${deltaUnit}`;
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
