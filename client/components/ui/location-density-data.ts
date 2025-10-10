@@ -40,6 +40,23 @@ export interface AreaProfile {
   metrics: Record<DensityLayerId, AreaProfileMetric>;
 }
 
+export interface TrendMetricPoint {
+  month: string;
+  value: number;
+  yoyDelta: number;
+}
+
+export interface TrendMetric {
+  id: "tourism" | "social" | "fnb";
+  label: string;
+  subtitle: string;
+  unit: string;
+  accent: string;
+  description: string;
+  data: TrendMetricPoint[];
+  sources: string[];
+}
+
 export const densityLayers: DensityLayer[] = [
   {
     id: "residents",
