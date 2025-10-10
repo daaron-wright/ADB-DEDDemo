@@ -450,7 +450,17 @@ export default function Index() {
             </div>
 
             {/* Sign in button */}
-            <div className="flex justify-end">
+            <div className="flex items-center justify-end gap-3">
+              <UAEPassLogin
+                mode="quick"
+                defaultUserType="reviewer"
+                trigger={
+                  <span className="inline-flex items-center justify-center rounded-full border border-[#0F766E] bg-white px-6 py-4 text-base font-semibold text-[#0F766E] transition-colors hover:bg-[#0F766E]/10">
+                    License Reviewer Login
+                  </span>
+                }
+                onLogin={handleUAEPassLogin}
+              />
               <UAEPassLogin
                 mode="full"
                 defaultUserType="applicant"
