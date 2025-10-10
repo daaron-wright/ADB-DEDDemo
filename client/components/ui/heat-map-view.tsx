@@ -611,7 +611,108 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.9 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="rounded-3xl border border-[#d8e4df] bg-white/95 p-6 shadow-[0_28px_70px_-38px_rgba(11,64,55,0.32)]"
+              >
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div className="max-w-xl">
+                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E]">
+                      Trend visualisation
+                    </span>
+                    <h3 className="mt-2 text-base font-semibold text-slate-900 md:text-lg">
+                      {activeTrend?.label}
+                    </h3>
+                    <p className="mt-2 text-sm text-slate-600">{activeTrend?.subtitle}</p>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {trendMetrics.map((metric) => {
+                      const isActive = metric.id === selectedTrendId;
+                      return (
+                        <button
+                          key={metric.id}
+                          type="button"
+                          onClick={() => setSelectedTrendId(metric.id)}
+                          className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E]/40 ${
+                            isActive
+                              ? "border-[#0F766E] bg-[#0F766E] text-white shadow-sm"
+                              : "border-[#d8e4df] bg-white text-[#0F766E] hover:bg-[#eff6f3]"
+                          }`}
+                        >
+                          <span
+                            className="h-2.5 w-2.5 rounded-full"
+                            style={{ backgroundColor: metric.accent }}
+                          />
+                          {metric.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="mt-6 rounded-2xl border border-[#e2ece8] bg-white p-5">
+                  <svg
+                    viewBox={`0 0 ${SPARKLINE_WIDTH} ${SPARKLINE_HEIGHT}`}
+                    className="h-28 w-full"
+                    role="img"
+                    aria-label={`${activeTrend?.label ?? "Trend"} sparkline showing recent movement`}
+                  >
+                    {sparklineFillPath ? <path d={sparklineFillPath} fill={trendAccent} fillOpacity={0.12} /> : null}
+                    {sparklinePath ? (
+                      <path
+                        d={sparklinePath}
+                        fill="none"
+                        stroke={trendAccent}
+                        strokeWidth={2.5}
+                        strokeLinecap="round"
+                      />
+                    ) : null}
+                    {activeTrendPoint ? (
+                      <circle
+                        cx={activeTrendPoint.x}
+                        cy={activeTrendPoint.y}
+                        r={4.5}
+                        fill="#ffffff"
+                        stroke={trendAccent}
+                        strokeWidth={2}
+                      />
+                    ) : null}
+                  </svg>
+
+                  <input
+                    type="range"
+                    min={0}
+                    max={(activeTrend?.data.length ?? 1) - 1}
+                    value={activeTrendIndex}
+                    onChange={(event) => setActiveTrendIndex(Number(event.target.value))}
+                    className="mt-4 w-full"
+                    style={{ accentColor: trendAccent }}
+                    aria-label="Select period"
+                  />
+
+                  <div className="mt-4 grid gap-4 sm:grid-cols-3">
+                    <div className="rounded-2xl border border-[#e2ece8] bg-[#f5f8f6] p-4">
+                      <div className="text-[11px] uppercase tracking-[0.2em] text-slate-500">Selected period</div>
+                      <div className="mt-2 text-lg font-semibold text-slate-900">{activeTrendDatum?.month ?? "–"}</div>
+                    </div>
+                    <div className="rounded-2xl border border-[#e2ece8] bg-[#f5f8f6] p-4">
+                      <div className="text-[11px] uppercase tracking-[0.2em] text-slate-500">{activeTrend?.label ?? "Metric"}</div>
+                      <div className="mt-2 text-lg font-semibold text-slate-900">{formattedTrendValue}</div>
+                    </div>
+                    <div className="rounded-2xl border border-[#e2ece8] bg-[#f5f8f6] p-4">
+                      <div className="text-[11px] uppercase tracking-[0.2em] text-slate-500">YoY delta</div>
+                      <div className={`mt-2 text-lg font-semibold ${deltaColorClass}`}>{formattedDelta}</div>
+                      <div className="mt-1 text-[11px] uppercase tracking-[0.2em] text-slate-500">
+                        Momentum {trendDirection}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.95 }}
                 className="rounded-3xl border border-[#d8e4df] bg-white/95 p-6 shadow-[0_28px_70px_-38px_rgba(11,64,55,0.32)]"
               >
                 <h3 className="text-base font-semibold text-slate-900 md:text-lg">Trend interpretation</h3>
@@ -621,7 +722,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1 }}
+                transition={{ duration: 0.6, delay: 1.05 }}
                 className="grid gap-4 lg:grid-cols-2"
               >
                 <section className="rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_24px_60px_-38px_rgba(11,64,55,0.25)]">
