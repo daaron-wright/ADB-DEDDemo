@@ -363,3 +363,70 @@ export const areaProfiles: AreaProfile[] = [
     },
   },
 ];
+
+export const trendMetrics: TrendMetric[] = [
+  {
+    id: "tourism",
+    label: "Tourism demand",
+    subtitle: "Hotel occupancy + arrivals indexed to 2023",
+    unit: "index",
+    accent: "#F97316",
+    description:
+      "Tracks monthly visitor demand across Corniche, Yas Island, and Saadiyat based on DCT stay metrics.",
+    data: [
+      { month: "Oct 2024", value: 104, yoyDelta: 5 },
+      { month: "Nov 2024", value: 108, yoyDelta: 6 },
+      { month: "Dec 2024", value: 115, yoyDelta: 9 },
+      { month: "Jan 2025", value: 109, yoyDelta: 7 },
+      { month: "Feb 2025", value: 113, yoyDelta: 8 },
+      { month: "Mar 2025", value: 118, yoyDelta: 11 },
+    ],
+    sources: [
+      "Department of Culture & Tourism hotel statistics",
+      "Airport arrivals trend reports",
+    ],
+  },
+  {
+    id: "social",
+    label: "Social media buzz",
+    subtitle: "Cuisine-specific mentions across UAE feeds",
+    unit: "buzz index",
+    accent: "#8B5CF6",
+    description:
+      "Aggregates Instagram, TikTok, and Google review velocity for dining hotspots in Abu Dhabi.",
+    data: [
+      { month: "Oct 2024", value: 72, yoyDelta: 12 },
+      { month: "Nov 2024", value: 78, yoyDelta: 14 },
+      { month: "Dec 2024", value: 91, yoyDelta: 20 },
+      { month: "Jan 2025", value: 88, yoyDelta: 18 },
+      { month: "Feb 2025", value: 94, yoyDelta: 19 },
+      { month: "Mar 2025", value: 97, yoyDelta: 21 },
+    ],
+    sources: [
+      "Visit Abu Dhabi social listening",
+      "Google Business profile analytics",
+      "TikTok UAE trend reports",
+    ],
+  },
+  {
+    id: "fnb",
+    label: "F&B gross value added",
+    subtitle: "Quarterly GDP contribution (seasonally adjusted)",
+    unit: "AED bn",
+    accent: "#0E766E",
+    description:
+      "Measures the food & beverage sector's gross value added contribution across Abu Dhabi.",
+    data: [
+      { month: "Q4 2023", value: 6.2, yoyDelta: 0.6 },
+      { month: "Q1 2024", value: 6.5, yoyDelta: 0.7 },
+      { month: "Q2 2024", value: 6.8, yoyDelta: 0.8 },
+      { month: "Q3 2024", value: 7.1, yoyDelta: 0.9 },
+      { month: "Q4 2024", value: 7.6, yoyDelta: 1 },
+      { month: "Q1 2025", value: 7.9, yoyDelta: 1.1 },
+    ],
+    sources: [
+      "Statistics Centre – Abu Dhabi national accounts",
+      "DED licence renewals",
+    ],
+  },
+];
