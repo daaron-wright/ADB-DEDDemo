@@ -5921,6 +5921,22 @@ export function BusinessChatUI({
         </div>
       </div>
     );
+  } else if (modalView === "competitor-map") {
+    modalOverlay = (
+      <div className="fixed inset-0 z-[80] flex items-center justify-center">
+        <div
+          className="absolute inset-0 bg-slate-950/85 backdrop-blur-sm"
+          onClick={() => setModalView("chat")}
+        />
+        <div
+          className="relative z-10 h-[90vh] w-full max-w-[1100px] overflow-hidden rounded-2xl border border-white/12 bg-white/10 shadow-2xl"
+          role="dialog"
+          aria-modal="true"
+        >
+          <CompetitorHeatMap onBack={() => setModalView("chat")} />
+        </div>
+      </div>
+    );
   }
 
   const backgroundImage =
