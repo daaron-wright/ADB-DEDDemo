@@ -136,6 +136,156 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
           {activeLayer.summary}
         </p>
 
+        <div className="rounded-2xl border border-white/12 bg-white/6 p-4 text-white/80">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <h4 className="text-white text-lg font-semibold">Regional trend signals</h4>
+              <p className="text-white/60 text-sm max-w-xl">
+                {activeTrend?.subtitle}
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              {trendMetrics.map((metric) => {
+                const isActive = metric.id === selectedTrendId;
+                return (
+                  <button
+                    key={metric.id}
+                    type="button"
+                    onClick={() => setSelectedTrendId(metric.id)}
+                    className={cn(
+                      "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40",
+                      isActive
+                        ? "border-white bg-white/15 text-white"
+                        : "border-white/25 bg-white/5 text-white/60 hover:border-white/40",
+                    )}
+                  >
+                    <span
+                      className="h-2.5 w-2.5 rounded-full"
+                      style={{ backgroundColor: metric.accent }}
+                    />
+                    {metric.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="mt-5 grid gap-6 lg:grid-cols-[minmax(0,1fr),auto] lg:items-center">
+            <div>
+              <svg
+                viewBox={`0 0 ${SPARKLINE_WIDTH} ${SPARKLINE_HEIGHT}`}
+                className="w-full max-w-xl"
+                role="img"
+                aria-label={`${activeTrend?.label ?? "Trend"} sparkline showing recent movement`}
+              >
+                {sparklineFillPath ? (
+                  <path
+                    d={sparklineFillPath}
+                    fill={activeTrend?.accent ?? "#0E766E"}
+                    fillOpacity={0.15}
+                  />
+                ) : null}
+                {sparklinePath ? (
+                  <path
+                    d={sparklinePath}
+                    fill="none"
+                    stroke={activeTrend?.accent ?? "#0E766E"}
+                    strokeWidth={2.5}
+                    strokeLinecap="round"
+                  />
+                ) : null}
+                {activeTrendPoint ? (
+                  <circle
+                    cx={activeTrendPoint.x}
+                    cy={activeTrendPoint.y}
+                    r={4.5}
+                    fill="#ffffff"
+                    stroke={activeTrend?.accent ?? "#0E766E"}
+                    strokeWidth={2}
+                  />
+                ) : null}
+              </svg>
+
+              <input
+                type="range"
+                min={0}
+                max={(activeTrend?.data.length ?? 1) - 1}
+                value={activeTrendIndex}
+                onChange={(event) => setActiveTrendIndex(Number(event.target.value))}
+                className="mt-4 w-full accent-[#0E766E]"
+                aria-label="Select period"
+              />
+
+              <div className="mt-3 flex flex-wrap items-center gap-6 text-sm text-white/80">
+                <div>
+                  <div className="text-[11px] uppercase tracking-[0.2em] text-white/50">
+                    Selected period
+                  </div>
+                  <div className="text-white text-base font-semibold">
+                    {activeTrendDatum?.month ?? "–"}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[11px] uppercase tracking-[0.2em] text-white/50">
+                    {activeTrend?.label ?? "Metric"}
+                  </div>
+                  <div className="text-white text-base font-semibold">
+                    {activeTrendDatum
+                      ? `${activeTrendDatum.value.toLocaleString(undefined, {
+                          maximumFractionDigits: activeTrend?.unit === "AED bn" ? 1 : 0,
+                        })}${activeTrend?.unit ? ` ${activeTrend.unit}` : ""}`
+                      : "–"}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[11px] uppercase tracking-[0.2em] text-white/50">
+                    YoY delta
+                  </div>
+                  <div
+                    className={cn(
+                      "text-base font-semibold",
+                      (activeTrendDatum?.yoyDelta ?? 0) >= 0
+                        ? "text-emerald-300"
+                        : "text-rose-300",
+                    )}
+                  >
+                    {activeTrendDatum
+                      ? `${activeTrendDatum.yoyDelta >= 0 ? "+" : ""}${activeTrendDatum.yoyDelta.toFixed(
+                          activeTrend?.unit === "AED bn" ? 1 : 0,
+                        )}${
+                          activeTrend?.unit === "AED bn"
+                            ? " bn"
+                            : activeTrend?.unit === "index"
+                              ? " pts"
+                              : "%"
+                        }`
+                      : "–"}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-3 text-xs text-white/70">
+              <p className="text-sm leading-relaxed text-white/75">
+                {activeTrend?.description}
+              </p>
+              <div>
+                <div className="font-semibold uppercase tracking-[0.24em] text-white/60">
+                  Sources
+                </div>
+                <ul className="mt-2 space-y-1 text-white/60">
+                  {activeTrend?.sources.map((source) => (
+                    <li key={source} className="flex items-start gap-2">
+                      <span className="mt-1 inline-flex h-1.5 w-1.5 rounded-full bg-white/40" />
+                      <span>{source}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="relative mb-2">
           <div
             className="relative h-64 w-full overflow-hidden rounded-xl border border-white/20 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800"
