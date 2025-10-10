@@ -133,15 +133,15 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
   };
 
   const latestDelta = activeTrendDatum?.yoyDelta ?? 0;
-  const trendDirection = latestDelta >= 0 ? "accelerating" : "moderating";
-  const deltaDescriptor = latestDelta >= 0 ? "up" : "down";
+  const trendDirection = latestDelta > 0 ? "accelerating" : latestDelta < 0 ? "moderating" : "steady";
+  const deltaDescriptor = latestDelta > 0 ? "up" : latestDelta < 0 ? "down" : "flat";
+  const formattedTrendValue = formatTrendValue(activeTrendDatum?.value);
+  const formattedDelta = formatDeltaValue(activeTrendDatum?.yoyDelta);
 
   const headerSubtitle = isMarketView ? "Live location density view" : "Regional trend signals";
 
   const trendNarrative = activeTrendDatum
-    ? `Latest ${activeTrend.label.toLowerCase()} reading for ${activeTrendDatum.month} sits at ${formatTrendValue(
-        activeTrendDatum.value,
-      )}, ${deltaDescriptor} ${Math.abs(latestDelta)} ${activeTrend.unit.toLowerCase().includes("aed") ? "bn" : "pts"} versus last year. Momentum is ${trendDirection} across Corniche, Al Maryah, and Yas visitor corridors.`
+    ? `Latest ${activeTrend.label.toLowerCase()} reading for ${activeTrendDatum.month} is ${formattedTrendValue} (${formattedDelta} year-on-year). Momentum is ${trendDirection} across Corniche, Al Maryah, and Yas visitor corridors.`
     : activeTrend?.description ?? "";
 
   return (
