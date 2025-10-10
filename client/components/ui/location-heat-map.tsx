@@ -7,11 +7,22 @@ import {
   densityLayers,
   DensityLayerId,
   HeatIntensity,
+  trendMetrics,
+  TrendMetric,
 } from "@/components/ui/location-density-data";
+
+const SPARKLINE_WIDTH = 280;
+const SPARKLINE_HEIGHT = 72;
 
 const LocationHeatMap = ({ className = "" }: { className?: string }) => {
   const [activeLayerId, setActiveLayerId] = useState<DensityLayerId>("residents");
   const [selectedPointId, setSelectedPointId] = useState<string | null>(null);
+  const [selectedTrendId, setSelectedTrendId] = useState<TrendMetric["id"]>(
+    trendMetrics[0]?.id ?? "tourism",
+  );
+  const [activeTrendIndex, setActiveTrendIndex] = useState<number>(
+    (trendMetrics[0]?.data.length ?? 1) - 1,
+  );
 
   const activeLayer = useMemo(
     () => densityLayers.find((layer) => layer.id === activeLayerId) ?? densityLayers[0],
@@ -23,13 +34,66 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
     [activeLayer, selectedPointId],
   );
 
+  const activeTrend = useMemo(
+    () => trendMetrics.find((metric) => metric.id === selectedTrendId) ?? trendMetrics[0],
+    [selectedTrendId],
+  );
+
   useEffect(() => {
     setSelectedPointId(null);
   }, [activeLayerId]);
 
+  useEffect(() => {
+    setActiveTrendIndex((activeTrend?.data.length ?? 1) - 1);
+  }, [selectedTrendId, activeTrend?.data.length]);
+
   const getHeatPointColor = (intensity: HeatIntensity) => {
     return activeLayer.palette[intensity];
   };
+
+  const sparklineCoordinates = useMemo(() => {
+    if (!activeTrend) {
+      return [] as Array<{ x: number; y: number; value: number }>;
+    }
+
+    const values = activeTrend.data.map((point) => point.value);
+    const maxValue = Math.max(...values);
+    const minValue = Math.min(...values);
+
+    const step =
+      activeTrend.data.length > 1
+        ? SPARKLINE_WIDTH / (activeTrend.data.length - 1)
+        : SPARKLINE_WIDTH;
+
+    return activeTrend.data.map((point, index) => {
+      const x = index * step;
+      const normalized = maxValue === minValue ? 0.5 : (point.value - minValue) / (maxValue - minValue);
+      const y = SPARKLINE_HEIGHT - normalized * SPARKLINE_HEIGHT;
+      return { x, y, value: point.value };
+    });
+  }, [activeTrend]);
+
+  const sparklinePath = useMemo(() => {
+    if (!sparklineCoordinates.length) {
+      return "";
+    }
+
+    return sparklineCoordinates
+      .map((point, index) => `${index === 0 ? "M" : "L"}${point.x.toFixed(2)} ${point.y.toFixed(2)}`)
+      .join(" ");
+  }, [sparklineCoordinates]);
+
+  const sparklineFillPath = useMemo(() => {
+    if (!sparklineCoordinates.length) {
+      return "";
+    }
+
+    const baseLine = `${SPARKLINE_WIDTH} ${SPARKLINE_HEIGHT} L 0 ${SPARKLINE_HEIGHT} Z`;
+    return `${sparklinePath} L ${baseLine}`;
+  }, [sparklineCoordinates, sparklinePath]);
+
+  const activeTrendPoint = sparklineCoordinates[activeTrendIndex] ?? sparklineCoordinates.at(-1);
+  const activeTrendDatum = activeTrend?.data[activeTrendIndex] ?? activeTrend?.data.at(-1);
 
   return (
     <motion.div
