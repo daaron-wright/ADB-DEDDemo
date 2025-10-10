@@ -253,6 +253,9 @@ const BudgetRangesView: React.FC<BudgetRangesViewProps> = ({ onBack }) => {
               </div>
             </div>
           </motion.div>
+          <p className="mt-6 text-xs text-slate-500">
+            Cost shown is indicative and subject to change based on the business activity and other regulatory requirements.
+          </p>
         </motion.div>
       </div>
     </div>
