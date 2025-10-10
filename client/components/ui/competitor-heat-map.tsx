@@ -216,12 +216,12 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                         : "border-white/12 bg-white/8",
                     )}
                   >
-                    <div className="flex items-center justify-between gap-4">
-                      <div>
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="max-w-xs">
                         <div className="text-[11px] uppercase tracking-[0.2em] text-white/50">{metric.label}</div>
-                        <div className="text-white text-base font-semibold">
+                        <p className="mt-1 text-sm leading-relaxed text-white/70">
                           {metric.description}
-                        </div>
+                        </p>
                       </div>
                       <div className="text-right">
                         <div className="text-white text-lg font-semibold">
