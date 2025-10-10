@@ -152,7 +152,7 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
             <div className="flex items-start gap-4">
               <div
                 className={cn(
-                  "flex h-14 w-14 items-center justify-center rounded-2xl text-lg font-semibold",
+                  "flex h-16 w-16 items-center justify-center rounded-xl text-lg font-semibold",
                   isReviewer ? "bg-white" : "text-white",
                 )}
                 style={badgeStyle}
