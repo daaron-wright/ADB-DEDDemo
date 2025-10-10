@@ -250,7 +250,7 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
             className="relative h-64 w-full overflow-hidden rounded-xl border border-white/20 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800"
             style={{
               backgroundImage:
-                "url('https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=386')",
+                "url('https://api.builder.io/api/v1/image/assets/TEMP/df351a3a49f1c6b9b74765965e6ddb3ecf6799d7?width=1600')",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
