@@ -13,15 +13,6 @@ type HeatMapViewProps = {
 };
 
 type ViewMode = "market" | "trends";
-type TrendShapeType = "circle" | "diamond" | "hex" | "roundedSquare" | "ring";
-
-type TrendShapeConfig = {
-  shape: TrendShapeType;
-  opacity: number;
-  rotate?: number;
-  scale?: number;
-  borderWidth?: number;
-};
 
 type MarketBlobConfig = {
   id: string;
@@ -30,6 +21,13 @@ type MarketBlobConfig = {
   circle: { cx: number; cy: number; r: number };
   gradientStops: Array<{ offset: number; color: string; opacity: number }>;
   delay: number;
+};
+
+type TrendPointConfig = {
+  id: string;
+  left: number;
+  top: number;
+  baseSize: number;
 };
 
 const SPARKLINE_WIDTH = 280;
@@ -140,34 +138,22 @@ const marketBlobConfigs: MarketBlobConfig[] = [
   },
 ];
 
-const trendShapeConfigs: Record<TrendMetric["id"], TrendShapeConfig[]> = {
-  tourism: [
-    { shape: "circle", opacity: 0.26 },
-    { shape: "ring", opacity: 0.18, scale: 0.86, borderWidth: 6 },
-    { shape: "circle", opacity: 0.2, scale: 0.92 },
-    { shape: "ring", opacity: 0.16, scale: 0.8, borderWidth: 5 },
-    { shape: "circle", opacity: 0.18, scale: 1.05 },
-    { shape: "ring", opacity: 0.12, scale: 0.74, borderWidth: 4 },
-  ],
-  social: [
-    { shape: "diamond", opacity: 0.22, rotate: 10 },
-    { shape: "diamond", opacity: 0.18, rotate: -8, scale: 0.88 },
-    { shape: "hex", opacity: 0.21 },
-    { shape: "diamond", opacity: 0.16, rotate: 18, scale: 0.96 },
-    { shape: "hex", opacity: 0.18, rotate: -12 },
-    { shape: "roundedSquare", opacity: 0.15, rotate: 14, scale: 0.9 },
-  ],
-  fnb: [
-    { shape: "hex", opacity: 0.24 },
-    { shape: "roundedSquare", opacity: 0.2, rotate: 6 },
-    { shape: "hex", opacity: 0.22, rotate: -8, scale: 0.94 },
-    { shape: "roundedSquare", opacity: 0.18, rotate: -4, scale: 0.88 },
-    { shape: "hex", opacity: 0.2, rotate: 12 },
-    { shape: "roundedSquare", opacity: 0.16, rotate: -10, scale: 0.92 },
-  ],
-};
+const trendPointConfigs: TrendPointConfig[] = [
+  { id: "trend-point-1", left: 36, top: 28, baseSize: 26 },
+  { id: "trend-point-2", left: 22, top: 40, baseSize: 22 },
+  { id: "trend-point-3", left: 18, top: 18, baseSize: 20 },
+  { id: "trend-point-4", left: 40, top: 62, baseSize: 24 },
+  { id: "trend-point-5", left: 56, top: 18, baseSize: 28 },
+  { id: "trend-point-6", left: 50, top: 8, baseSize: 18 },
+  { id: "trend-point-7", left: 62, top: 40, baseSize: 24 },
+  { id: "trend-point-8", left: 72, top: 60, baseSize: 20 },
+];
 
-const defaultTrendShapes = trendShapeConfigs.tourism;
+const trendPointMultipliers: Record<TrendMetric["id"], number[]> = {
+  tourism: [1.2, 0.9, 0.8, 1, 1.1, 0.75, 1.05, 0.85],
+  social: [0.95, 1.1, 0.85, 1.05, 0.9, 0.8, 1.15, 1],
+  fnb: [1.05, 0.95, 1.1, 1.2, 0.9, 0.8, 1, 1.15],
+};
 
 const hexToRgba = (hex: string, alpha: number) => {
   const normalized = hex.replace("#", "");
@@ -200,16 +186,10 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
   const isMarketView = viewMode === "market";
 
   const focusArea =
-    areaProfiles.find((profile) => profile.area === "Corniche") ??
-    areaProfiles[0]!;
+    areaProfiles.find((profile) => profile.area === "Corniche") ?? areaProfiles[0]!;
 
   const activeTrend = useMemo(
     () => trendMetrics.find((metric) => metric.id === selectedTrendId) ?? trendMetrics[0],
-    [selectedTrendId],
-  );
-
-  const activeTrendShapes = useMemo(
-    () => trendShapeConfigs[selectedTrendId] ?? defaultTrendShapes,
     [selectedTrendId],
   );
 
@@ -301,7 +281,6 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
 
   const latestDelta = activeTrendDatum?.yoyDelta ?? 0;
   const trendDirection = latestDelta > 0 ? "accelerating" : latestDelta < 0 ? "moderating" : "steady";
-  const deltaDescriptor = latestDelta > 0 ? "up" : latestDelta < 0 ? "down" : "flat";
   const formattedTrendValue = formatTrendValue(activeTrendDatum?.value);
   const formattedDelta = formatDeltaValue(activeTrendDatum?.yoyDelta);
   const deltaColorClass = latestDelta > 0 ? "text-emerald-600" : latestDelta < 0 ? "text-rose-600" : "text-slate-600";
@@ -333,101 +312,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
     [gradientPrefix],
   );
 
-  const renderTrendShape = useCallback(
-    (config: TrendShapeConfig | undefined, index: number) => {
-      const fallback = activeTrendShapes[0] ?? defaultTrendShapes[0];
-      const shapeConfig = config ?? activeTrendShapes[index] ?? fallback;
-      const opacity = Math.max(Math.min(shapeConfig.opacity, 0.45), 0);
-      const fillColor = hexToRgba(trendAccent, opacity);
-      const fadeColor = hexToRgba(trendAccent, opacity * 0.4);
-      const glowColor = hexToRgba(trendAccent, opacity * 0.75);
-      const transforms: string[] = [];
-      if (shapeConfig.scale && shapeConfig.scale !== 1) {
-        transforms.push(`scale(${shapeConfig.scale})`);
-      }
-      if (shapeConfig.rotate) {
-        transforms.push(`rotate(${shapeConfig.rotate}deg)`);
-      }
-      const transform = transforms.length ? transforms.join(" ") : undefined;
-
-      const baseProps: React.CSSProperties = {
-        width: "100%",
-        height: "100%",
-        boxShadow: `0 24px 60px -36px ${glowColor}`,
-        transform,
-        transformOrigin: "50% 50%",
-      };
-
-      switch (shapeConfig.shape) {
-        case "circle":
-          return (
-            <div
-              style={{
-                ...baseProps,
-                borderRadius: "50%",
-                background: `radial-gradient(50% 50% at 50% 50%, ${fillColor} 0%, ${hexToRgba(trendAccent, 0)} 100%)`,
-              }}
-            />
-          );
-        case "diamond":
-          return (
-            <div
-              style={{
-                ...baseProps,
-                clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
-                background: `linear-gradient(135deg, ${fillColor} 0%, ${fadeColor} 100%)`,
-              }}
-            />
-          );
-        case "hex":
-          return (
-            <div
-              style={{
-                ...baseProps,
-                clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
-                background: `linear-gradient(160deg, ${fillColor} 0%, ${fadeColor} 100%)`,
-              }}
-            />
-          );
-        case "roundedSquare":
-          return (
-            <div
-              style={{
-                ...baseProps,
-                borderRadius: "28%",
-                background: `linear-gradient(150deg, ${fillColor} 0%, ${fadeColor} 100%)`,
-              }}
-            />
-          );
-        case "ring":
-          return (
-            <div
-              style={{
-                ...baseProps,
-                borderRadius: "50%",
-                border: `${shapeConfig.borderWidth ?? 6}px solid ${hexToRgba(
-                  trendAccent,
-                  Math.min(opacity + 0.1, 0.55),
-                )}`,
-                boxSizing: "border-box",
-                background: "transparent",
-              }}
-            />
-          );
-        default:
-          return (
-            <div
-              style={{
-                ...baseProps,
-                borderRadius: "50%",
-                background: `radial-gradient(50% 50% at 50% 50%, ${fillColor} 0%, ${hexToRgba(trendAccent, 0)} 100%)`,
-              }}
-            />
-          );
-      }
-    },
-    [activeTrendShapes, trendAccent],
-  );
+  const activeMultipliers = trendPointMultipliers[selectedTrendId] ?? trendPointMultipliers.tourism;
 
   return (
     <div className="relative flex h-full min-h-[640px] flex-col overflow-x-hidden overflow-y-auto bg-[#f5f8f6]">
@@ -503,20 +388,66 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
             />
 
             <div className="pointer-events-none absolute inset-0">
-              {marketBlobConfigs.map((blob, index) => (
-                <motion.div
-                  key={blob.id}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, delay: blob.delay }}
-                  className="absolute"
-                  style={blob.style}
-                >
-                  {isMarketView
-                    ? renderMarketBlob(blob)
-                    : renderTrendShape(activeTrendShapes[index], index)}
-                </motion.div>
-              ))}
+              {isMarketView ? (
+                marketBlobConfigs.map((blob) => (
+                  <motion.div
+                    key={blob.id}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: blob.delay }}
+                    className="absolute"
+                    style={blob.style}
+                  >
+                    {renderMarketBlob(blob)}
+                  </motion.div>
+                ))
+              ) : (
+                trendPointConfigs.map((point, index) => {
+                  const multiplier = activeMultipliers[index % activeMultipliers.length] ?? 1;
+                  const size = point.baseSize * multiplier;
+                  return (
+                    <motion.div
+                      key={point.id}
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5, delay: 0.4 + index * 0.05 }}
+                      className="absolute"
+                      style={{
+                        left: `${point.left}%`,
+                        top: `${point.top}%`,
+                        width: `${size}px`,
+                        height: `${size}px`,
+                        transform: "translate(-50%, -50%)",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          borderRadius: "50%",
+                          background: `radial-gradient(50% 50% at 50% 50%, ${hexToRgba(trendAccent, 0.4)} 0%, ${hexToRgba(
+                            trendAccent,
+                            0,
+                          )} 100%)`,
+                          border: `1px solid ${hexToRgba(trendAccent, 0.6)}`,
+                          boxShadow: `0 16px 40px -28px ${hexToRgba(trendAccent, 0.65)}`,
+                          position: "relative",
+                        }}
+                      >
+                        <span
+                          style={{
+                            position: "absolute",
+                            inset: "32%",
+                            borderRadius: "50%",
+                            backgroundColor: hexToRgba(trendAccent, 0.85),
+                            boxShadow: `0 0 14px ${hexToRgba(trendAccent, 0.55)}`,
+                          }}
+                        />
+                      </div>
+                    </motion.div>
+                  );
+                })
+              )}
             </div>
 
             {!isMarketView ? (
