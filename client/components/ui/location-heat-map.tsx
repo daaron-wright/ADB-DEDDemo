@@ -14,6 +14,8 @@ import {
 const SPARKLINE_WIDTH = 280;
 const SPARKLINE_HEIGHT = 72;
 
+type ViewMode = "market" | "trends";
+
 const LocationHeatMap = ({ className = "" }: { className?: string }) => {
   const [activeLayerId, setActiveLayerId] = useState<DensityLayerId>("residents");
   const [selectedPointId, setSelectedPointId] = useState<string | null>(null);
@@ -23,6 +25,9 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
   const [activeTrendIndex, setActiveTrendIndex] = useState<number>(
     (trendMetrics[0]?.data.length ?? 1) - 1,
   );
+  const [viewMode, setViewMode] = useState<ViewMode>("market");
+
+  const isMarketView = viewMode === "market";
 
   const activeLayer = useMemo(
     () => densityLayers.find((layer) => layer.id === activeLayerId) ?? densityLayers[0],
@@ -44,12 +49,20 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
   }, [activeLayerId]);
 
   useEffect(() => {
+    if (!isMarketView) {
+      setSelectedPointId(null);
+    }
+  }, [isMarketView]);
+
+  useEffect(() => {
     setActiveTrendIndex((activeTrend?.data.length ?? 1) - 1);
   }, [selectedTrendId, activeTrend?.data.length]);
 
   const getHeatPointColor = (intensity: HeatIntensity) => {
     return activeLayer.palette[intensity];
   };
+
+  const trendAccent = activeTrend?.accent ?? "#0E766E";
 
   const sparklineCoordinates = useMemo(() => {
     if (!activeTrend) {
@@ -61,9 +74,7 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
     const minValue = Math.min(...values);
 
     const step =
-      activeTrend.data.length > 1
-        ? SPARKLINE_WIDTH / (activeTrend.data.length - 1)
-        : SPARKLINE_WIDTH;
+      activeTrend.data.length > 1 ? SPARKLINE_WIDTH / (activeTrend.data.length - 1) : SPARKLINE_WIDTH;
 
     return activeTrend.data.map((point, index) => {
       const x = index * step;
@@ -147,6 +158,9 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
     return `${signedValue}${deltaUnit}`;
   };
 
+  const subheadingText = isMarketView ? activeLayer.subtitle : activeTrend?.subtitle ?? "";
+  const summaryText = isMarketView ? activeLayer.summary : activeTrend?.description ?? "";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -159,9 +173,34 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
       <div className="p-6 space-y-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <h3 className="text-white text-xl font-bold">Location Density Map</h3>
-            <p className="text-white/70 text-sm max-w-md">{activeLayer.subtitle}</p>
+            <h3 className="text-white text-xl font-bold">Location Intelligence Map</h3>
+            <p className="text-white/70 text-sm max-w-md">{subheadingText}</p>
           </div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 p-1">
+            <button
+              type="button"
+              onClick={() => setViewMode("market")}
+              className={cn(
+                "rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30",
+                isMarketView ? "bg-white text-slate-900 shadow" : "text-white/70 hover:text-white",
+              )}
+            >
+              Total addressable market
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode("trends")}
+              className={cn(
+                "rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30",
+                !isMarketView ? "bg-white text-slate-900 shadow" : "text-white/70 hover:text-white",
+              )}
+            >
+              Visualize trends
+            </button>
+          </div>
+        </div>
+
+        {isMarketView ? (
           <div className="flex flex-wrap items-center gap-2">
             {densityLayers.map((layer) => (
               <button
@@ -179,147 +218,32 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
               </button>
             ))}
           </div>
-        </div>
-
-        <p className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/80">
-          {activeLayer.summary}
-        </p>
-
-        <div className="rounded-2xl border border-white/12 bg-white/6 p-4 text-white/80">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <h4 className="text-white text-lg font-semibold">Regional trend signals</h4>
-              <p className="text-white/60 text-sm max-w-xl">
-                {activeTrend?.subtitle}
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              {trendMetrics.map((metric) => {
-                const isActive = metric.id === selectedTrendId;
-                return (
-                  <button
-                    key={metric.id}
-                    type="button"
-                    onClick={() => setSelectedTrendId(metric.id)}
-                    className={cn(
-                      "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40",
-                      isActive
-                        ? "border-white bg-white/15 text-white"
-                        : "border-white/25 bg-white/5 text-white/60 hover:border-white/40",
-                    )}
-                  >
-                    <span
-                      className="h-2.5 w-2.5 rounded-full"
-                      style={{ backgroundColor: metric.accent }}
-                    />
-                    {metric.label}
-                  </button>
-                );
-              })}
-            </div>
+        ) : (
+          <div className="flex flex-wrap items-center gap-2">
+            {trendMetrics.map((metric) => {
+              const isActive = metric.id === selectedTrendId;
+              return (
+                <button
+                  key={metric.id}
+                  type="button"
+                  onClick={() => setSelectedTrendId(metric.id)}
+                  className={cn(
+                    "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40",
+                    isActive ? "border-white bg-white/15 text-white" : "border-white/25 bg-white/5 text-white/60 hover:border-white/40",
+                  )}
+                >
+                  <span
+                    className="h-2.5 w-2.5 rounded-full"
+                    style={{ backgroundColor: metric.accent }}
+                  />
+                  {metric.label}
+                </button>
+              );
+            })}
           </div>
+        )}
 
-          <div className="mt-5 grid gap-6 lg:grid-cols-[minmax(0,1fr),auto] lg:items-center">
-            <div>
-              <svg
-                viewBox={`0 0 ${SPARKLINE_WIDTH} ${SPARKLINE_HEIGHT}`}
-                className="w-full max-w-xl"
-                role="img"
-                aria-label={`${activeTrend?.label ?? "Trend"} sparkline showing recent movement`}
-              >
-                {sparklineFillPath ? (
-                  <path
-                    d={sparklineFillPath}
-                    fill={activeTrend?.accent ?? "#0E766E"}
-                    fillOpacity={0.15}
-                  />
-                ) : null}
-                {sparklinePath ? (
-                  <path
-                    d={sparklinePath}
-                    fill="none"
-                    stroke={activeTrend?.accent ?? "#0E766E"}
-                    strokeWidth={2.5}
-                    strokeLinecap="round"
-                  />
-                ) : null}
-                {activeTrendPoint ? (
-                  <circle
-                    cx={activeTrendPoint.x}
-                    cy={activeTrendPoint.y}
-                    r={4.5}
-                    fill="#ffffff"
-                    stroke={activeTrend?.accent ?? "#0E766E"}
-                    strokeWidth={2}
-                  />
-                ) : null}
-              </svg>
-
-              <input
-                type="range"
-                min={0}
-                max={(activeTrend?.data.length ?? 1) - 1}
-                value={activeTrendIndex}
-                onChange={(event) => setActiveTrendIndex(Number(event.target.value))}
-                className="mt-4 w-full accent-[#0E766E]"
-                aria-label="Select period"
-              />
-
-              <div className="mt-3 flex flex-wrap items-center gap-6 text-sm text-white/80">
-                <div>
-                  <div className="text-[11px] uppercase tracking-[0.2em] text-white/50">
-                    Selected period
-                  </div>
-                  <div className="text-white text-base font-semibold">
-                    {activeTrendDatum?.month ?? "–"}
-                  </div>
-                </div>
-                <div>
-                  <div className="text-[11px] uppercase tracking-[0.2em] text-white/50">
-                    {activeTrend?.label ?? "Metric"}
-                  </div>
-                  <div className="text-white text-base font-semibold">
-                    {formatTrendValue(activeTrendDatum?.value)}
-                  </div>
-                </div>
-                <div>
-                  <div className="text-[11px] uppercase tracking-[0.2em] text-white/50">
-                    YoY delta
-                  </div>
-                  <div
-                    className={cn(
-                      "text-base font-semibold",
-                      (activeTrendDatum?.yoyDelta ?? 0) >= 0
-                        ? "text-emerald-300"
-                        : "text-rose-300",
-                    )}
-                  >
-                    {formatDeltaValue(activeTrendDatum?.yoyDelta)}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-3 text-xs text-white/70">
-              <p className="text-sm leading-relaxed text-white/75">
-                {activeTrend?.description}
-              </p>
-              <div>
-                <div className="font-semibold uppercase tracking-[0.24em] text-white/60">
-                  Sources
-                </div>
-                <ul className="mt-2 space-y-1 text-white/60">
-                  {activeTrend?.sources.map((source) => (
-                    <li key={source} className="flex items-start gap-2">
-                      <span className="mt-1 inline-flex h-1.5 w-1.5 rounded-full bg-white/40" />
-                      <span>{source}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+        <p className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/80">{summaryText}</p>
 
         <div className="relative mb-2">
           <div
@@ -345,18 +269,21 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
                     width: `${point.size}px`,
                     height: `${point.size}px`,
                     transform: "translate(-50%, -50%)",
-                    background: getHeatPointColor(point.intensity),
+                    background: isMarketView ? getHeatPointColor(point.intensity) : trendAccent,
                     borderRadius: "50%",
-                    boxShadow:
-                      selectedPointId === point.id
+                    boxShadow: isMarketView
+                      ? selectedPointId === point.id
                         ? "0 0 0 2px rgba(255,255,255,0.35)"
-                        : "0 0 0 1px rgba(255,255,255,0.15)",
+                        : "0 0 0 1px rgba(255,255,255,0.15)"
+                      : "0 0 0 1px rgba(255,255,255,0.2)",
+                    opacity: isMarketView ? 1 : 0.7,
+                    pointerEvents: isMarketView ? "auto" : "none",
                   } as React.CSSProperties
                 }
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.15, type: "spring", stiffness: 180 }}
-                whileHover={{ scale: 1.1 }}
+                whileHover={isMarketView ? { scale: 1.1 } : undefined}
                 onClick={() =>
                   setSelectedPointId((current) => (current === point.id ? null : point.id))
                 }
@@ -365,29 +292,107 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
               />
             ))}
 
-            <div className="absolute top-4 right-4 space-y-3 rounded-xl border border-white/15 bg-black/60 p-3 backdrop-blur">
-              <div className="text-xs font-semibold uppercase tracking-[0.24em] text-white/80">
-                {activeLayer.label} density
+            {isMarketView ? (
+              <div className="absolute top-4 right-4 space-y-3 rounded-xl border border-white/15 bg-black/60 p-3 backdrop-blur">
+                <div className="text-xs font-semibold uppercase tracking-[0.24em] text-white/80">
+                  {activeLayer.label} density
+                </div>
+                <div className="space-y-2">
+                  {activeLayer.legend.map((item) => (
+                    <div key={item.label} className="flex items-center gap-3 text-xs text-white/80">
+                      <span
+                        className="h-3 w-3 rounded-full"
+                        style={{ backgroundImage: item.swatch }}
+                        aria-hidden="true"
+                      />
+                      <div className="flex flex-col leading-tight">
+                        <span className="font-semibold text-white">{item.label}</span>
+                        <span className="text-white/60">{item.threshold}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="space-y-2">
-                {activeLayer.legend.map((item) => (
-                  <div key={item.label} className="flex items-center gap-3 text-xs text-white/80">
-                    <span
-                      className="h-3 w-3 rounded-full"
-                      style={{ backgroundImage: item.swatch }}
-                      aria-hidden="true"
-                    />
-                    <div className="flex flex-col leading-tight">
-                      <span className="font-semibold text-white">{item.label}</span>
-                      <span className="text-white/60">{item.threshold}</span>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="absolute bottom-4 left-4 right-4 z-10 space-y-4 rounded-2xl border border-white/15 bg-black/65 p-4 backdrop-blur"
+              >
+                <div className="flex flex-wrap items-end justify-between gap-4">
+                  <div>
+                    <div className="text-[11px] uppercase tracking-[0.24em] text-white/50">Selected period</div>
+                    <div className="text-white text-lg font-semibold">
+                      {activeTrendDatum?.month ?? "–"}
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
+                  <div className="text-right">
+                    <div className="text-[11px] uppercase tracking-[0.24em] text-white/50">
+                      {activeTrend?.label ?? "Metric"}
+                    </div>
+                    <div className="text-white text-lg font-semibold">
+                      {formatTrendValue(activeTrendDatum?.value)}
+                    </div>
+                    <div
+                      className={cn(
+                        "text-sm font-semibold",
+                        (activeTrendDatum?.yoyDelta ?? 0) >= 0 ? "text-emerald-300" : "text-rose-300",
+                      )}
+                    >
+                      {formatDeltaValue(activeTrendDatum?.yoyDelta)}
+                    </div>
+                  </div>
+                </div>
+
+                <svg
+                  viewBox={`0 0 ${SPARKLINE_WIDTH} ${SPARKLINE_HEIGHT}`}
+                  className="w-full"
+                  role="img"
+                  aria-label={`${activeTrend?.label ?? "Trend"} sparkline showing recent movement`}
+                >
+                  {sparklineFillPath ? (
+                    <path d={sparklineFillPath} fill={trendAccent} fillOpacity={0.15} />
+                  ) : null}
+                  {sparklinePath ? (
+                    <path
+                      d={sparklinePath}
+                      fill="none"
+                      stroke={trendAccent}
+                      strokeWidth={2.5}
+                      strokeLinecap="round"
+                    />
+                  ) : null}
+                  {activeTrendPoint ? (
+                    <circle
+                      cx={activeTrendPoint.x}
+                      cy={activeTrendPoint.y}
+                      r={4.5}
+                      fill="#ffffff"
+                      stroke={trendAccent}
+                      strokeWidth={2}
+                    />
+                  ) : null}
+                </svg>
+
+                <input
+                  type="range"
+                  min={0}
+                  max={(activeTrend?.data.length ?? 1) - 1}
+                  value={activeTrendIndex}
+                  onChange={(event) => setActiveTrendIndex(Number(event.target.value))}
+                  className="w-full"
+                  style={{ accentColor: trendAccent }}
+                  aria-label="Select period"
+                />
+
+                <p className="text-xs leading-relaxed text-white/70">
+                  {activeTrend?.subtitle}
+                </p>
+              </motion.div>
+            )}
           </div>
 
-          {activePoint ? (
+          {isMarketView && activePoint ? (
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -414,57 +419,75 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
           ) : null}
         </div>
 
-        <div className="space-y-4">
-          <h4 className="text-white text-lg font-bold">Area analysis</h4>
-          {areaProfiles.map((profile, index) => {
-            const layerMetric = profile.metrics[activeLayerId];
-            return (
-              <motion.div
-                key={profile.area}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="rounded-xl border border-white/10 bg-white/5 p-4 text-white/80"
-              >
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  <div>
-                    <div className="text-white text-base font-semibold">{profile.area}</div>
-                    <p className="text-white/70 text-sm max-w-xl">{profile.description}</p>
-                  </div>
-                  <div className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold text-white">
-                    <span>{profile.rating.toFixed(1)}</span>
-                    <span className="text-white/60">/10</span>
-                  </div>
-                </div>
-                <div className="mt-3 grid gap-4 md:grid-cols-3">
-                  <div className="rounded-lg border border-white/10 bg-white/5 p-3">
-                    <div className="text-white/60 text-xs uppercase tracking-[0.2em]">
-                      {activeLayer.label} snapshot
+        {isMarketView ? (
+          <>
+            <div className="space-y-4">
+              <h4 className="text-white text-lg font-bold">Area analysis</h4>
+              {areaProfiles.map((profile, index) => {
+                const layerMetric = profile.metrics[activeLayerId];
+                return (
+                  <motion.div
+                    key={profile.area}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="rounded-xl border border-white/10 bg-white/5 p-4 text-white/80"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-4">
+                      <div>
+                        <div className="text-white text-base font-semibold">{profile.area}</div>
+                        <p className="text-white/70 text-sm max-w-xl">{profile.description}</p>
+                      </div>
+                      <div className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold text-white">
+                        <span>{profile.rating.toFixed(1)}</span>
+                        <span className="text-white/60">/10</span>
+                      </div>
                     </div>
-                    <div className="mt-2 text-white text-lg font-semibold">
-                      {layerMetric.value}
+                    <div className="mt-3 grid gap-4 md:grid-cols-3">
+                      <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+                        <div className="text-white/60 text-xs uppercase tracking-[0.2em]">
+                          {activeLayer.label} snapshot
+                        </div>
+                        <div className="mt-2 text-white text-lg font-semibold">
+                          {layerMetric.value}
+                        </div>
+                        <p className="mt-1 text-sm text-white/70">{layerMetric.note}</p>
+                        <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-white/40">
+                          {layerMetric.source}
+                        </p>
+                      </div>
                     </div>
-                    <p className="mt-1 text-sm text-white/70">{layerMetric.note}</p>
-                    <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-white/40">
-                      {layerMetric.source}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+                  </motion.div>
+                );
+              })}
+            </div>
 
-        <div className="rounded-xl border border-white/10 bg-white/5 p-4 text-xs text-white/60">
-          <div className="font-semibold uppercase tracking-[0.24em] text-white/70">
-            Data provenance
+            <div className="rounded-xl border border-white/10 bg-white/5 p-4 text-xs text-white/60">
+              <div className="font-semibold uppercase tracking-[0.24em] text-white/70">
+                Data provenance
+              </div>
+              <p className="mt-2 text-white/70">
+                Density layers consolidate Tawtheeq contracts, Department of Economic Development licence intel,
+                employment submissions, Holiday Homes permits, and Department of Culture & Tourism hotel statistics.
+                Values are normalised per square kilometre using occupancy, licence, and tourism indicators.
+              </p>
+            </div>
+          </>
+        ) : (
+          <div className="rounded-xl border border-white/10 bg-white/6 p-4 text-xs text-white/70">
+            <div className="font-semibold uppercase tracking-[0.24em] text-white/65">
+              Data sources
+            </div>
+            <ul className="mt-2 space-y-1 text-white/60">
+              {(activeTrend?.sources ?? []).map((source) => (
+                <li key={source} className="flex items-start gap-2">
+                  <span className="mt-1 inline-flex h-1.5 w-1.5 rounded-full bg-white/40" />
+                  <span>{source}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <p className="mt-2 text-white/70">
-            Density layers consolidate Tawtheeq contracts, Department of Economic Development licence intel,
-            employment submissions, Holiday Homes permits, and Department of Culture & Tourism hotel statistics.
-            Values are normalised per square kilometre using occupancy, licence, and tourism indicators.
-          </p>
-        </div>
+        )}
       </div>
     </motion.div>
   );
