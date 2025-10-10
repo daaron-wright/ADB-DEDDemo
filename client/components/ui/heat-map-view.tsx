@@ -804,52 +804,55 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                     aria-valuetext={activeTrendDatum?.month ?? ""}
                     onKeyDown={handleSparklineKeyDown}
                   >
-                    <svg
-                      viewBox={`0 0 ${SPARKLINE_WIDTH} ${SPARKLINE_HEIGHT}`}
-                      className="h-32 w-full cursor-pointer select-none"
-                      role="img"
-                      aria-hidden="true"
-                      onClick={handleSparklineMouseInteraction}
-                      onMouseMove={(event) => {
-                        if (event.buttons > 0) {
-                          handleSparklineMouseInteraction(event);
-                        }
-                      }}
-                      onMouseDown={handleSparklineMouseInteraction}
-                      onTouchStart={handleSparklineTouchInteraction}
-                      onTouchMove={handleSparklineTouchInteraction}
-                    >
-                      {sparklineFillPath ? <path d={sparklineFillPath} fill={hexToRgba(trendAccent, 0.08)} /> : null}
-                      {sparklinePath ? (
-                        <path
-                          d={sparklinePath}
-                          fill="none"
-                          stroke={trendAccent}
-                          strokeWidth={2.4}
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeOpacity={0.9}
-                        />
-                      ) : null}
-                      {activeTrendPoint ? (
-                        <g>
-                          <circle
-                            cx={activeTrendPoint.x}
-                            cy={activeTrendPoint.y}
-                            r={5}
-                            fill="#ffffff"
+                    <div className="relative overflow-hidden rounded-xl border border-[#e2ece8] bg-white px-4 py-3">
+                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(15,118,110,0.06),transparent_55%)]" />
+                      <svg
+                        viewBox={`0 0 ${SPARKLINE_WIDTH} ${SPARKLINE_HEIGHT}`}
+                        className="relative h-28 w-full cursor-pointer select-none"
+                        role="img"
+                        aria-hidden="true"
+                        onClick={handleSparklineMouseInteraction}
+                        onMouseMove={(event) => {
+                          if (event.buttons > 0) {
+                            handleSparklineMouseInteraction(event);
+                          }
+                        }}
+                        onMouseDown={handleSparklineMouseInteraction}
+                        onTouchStart={handleSparklineTouchInteraction}
+                        onTouchMove={handleSparklineTouchInteraction}
+                      >
+                        {sparklineFillPath ? <path d={sparklineFillPath} fill={hexToRgba(trendAccent, 0.08)} /> : null}
+                        {sparklinePath ? (
+                          <path
+                            d={sparklinePath}
+                            fill="none"
                             stroke={trendAccent}
-                            strokeWidth={2}
+                            strokeWidth={2.2}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeOpacity={0.9}
                           />
-                          <circle
-                            cx={activeTrendPoint.x}
-                            cy={activeTrendPoint.y}
-                            r={10}
-                            fill={hexToRgba(trendAccent, 0.12)}
-                          />
-                        </g>
-                      ) : null}
-                    </svg>
+                        ) : null}
+                        {activeTrendPoint ? (
+                          <g>
+                            <circle
+                              cx={activeTrendPoint.x}
+                              cy={activeTrendPoint.y}
+                              r={3.2}
+                              fill="#ffffff"
+                              stroke={trendAccent}
+                              strokeWidth={1.6}
+                            />
+                            <circle
+                              cx={activeTrendPoint.x}
+                              cy={activeTrendPoint.y}
+                              r={7}
+                              fill={hexToRgba(trendAccent, 0.1)}
+                            />
+                          </g>
+                        ) : null}
+                      </svg>
+                    </div>
                     <div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">
                       <span>{firstTrendLabel}</span>
                       <span>{lastTrendLabel}</span>
