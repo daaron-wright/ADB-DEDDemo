@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useId, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
   areaProfiles,
@@ -13,19 +13,180 @@ type HeatMapViewProps = {
 };
 
 type ViewMode = "market" | "trends";
+type TrendShapeType = "circle" | "diamond" | "hex" | "roundedSquare" | "ring";
 
-const categoryOrder: DensityLayerId[] = ["residents", "office", "tourists"];
+type TrendShapeConfig = {
+  shape: TrendShapeType;
+  opacity: number;
+  rotate?: number;
+  scale?: number;
+  borderWidth?: number;
+};
 
-const layerMap: Record<DensityLayerId, (typeof densityLayers)[number]> = densityLayers.reduce(
-  (acc, layer) => {
-    acc[layer.id] = layer;
-    return acc;
-  },
-  {} as Record<DensityLayerId, (typeof densityLayers)[number]>,
-);
+type MarketBlobConfig = {
+  id: string;
+  style: React.CSSProperties;
+  viewBox: string;
+  circle: { cx: number; cy: number; r: number };
+  gradientStops: Array<{ offset: number; color: string; opacity: number }>;
+  delay: number;
+};
 
 const SPARKLINE_WIDTH = 280;
 const SPARKLINE_HEIGHT = 72;
+
+const marketBlobConfigs: MarketBlobConfig[] = [
+  {
+    id: "market-blob-1",
+    style: {
+      width: "clamp(150px, 26%, 211px)",
+      height: "clamp(150px, 26%, 211px)",
+      left: "35%",
+      top: "28%",
+      transform: "translate(-50%, -50%)",
+    },
+    viewBox: "0 0 212 212",
+    circle: { cx: 106, cy: 106, r: 105 },
+    gradientStops: [
+      { offset: 0, color: "#FF0000", opacity: 0.4 },
+      { offset: 1, color: "#FF0000", opacity: 0 },
+    ],
+    delay: 0.3,
+  },
+  {
+    id: "market-blob-2",
+    style: {
+      width: "clamp(120px, 24%, 189px)",
+      height: "clamp(120px, 24%, 189px)",
+      left: "18%",
+      top: "38%",
+      transform: "translate(-50%, -50%)",
+    },
+    viewBox: "0 0 190 190",
+    circle: { cx: 95, cy: 95, r: 94 },
+    gradientStops: [
+      { offset: 0, color: "#FF0000", opacity: 0.4 },
+      { offset: 1, color: "#FF0000", opacity: 0 },
+    ],
+    delay: 0.4,
+  },
+  {
+    id: "market-blob-3",
+    style: {
+      width: "clamp(110px, 22%, 176px)",
+      height: "clamp(110px, 22%, 176px)",
+      left: "18%",
+      top: "20%",
+      transform: "translate(-50%, -50%)",
+    },
+    viewBox: "0 0 177 177",
+    circle: { cx: 88, cy: 88, r: 88 },
+    gradientStops: [
+      { offset: 0, color: "#FF9500", opacity: 0.4 },
+      { offset: 1, color: "#FFB300", opacity: 0 },
+    ],
+    delay: 0.5,
+  },
+  {
+    id: "market-blob-4",
+    style: {
+      width: "clamp(110px, 22%, 176px)",
+      height: "clamp(110px, 22%, 176px)",
+      left: "35%",
+      top: "64%",
+      transform: "translate(-50%, -50%)",
+    },
+    viewBox: "0 0 177 177",
+    circle: { cx: 88, cy: 88, r: 88 },
+    gradientStops: [
+      { offset: 0, color: "#FF9500", opacity: 0.4 },
+      { offset: 1, color: "#FFB300", opacity: 0 },
+    ],
+    delay: 0.6,
+  },
+  {
+    id: "market-blob-5",
+    style: {
+      width: "clamp(180px, 31%, 248px)",
+      height: "clamp(180px, 31%, 248px)",
+      left: "54%",
+      top: "13%",
+      transform: "translate(-50%, -50%)",
+    },
+    viewBox: "0 0 249 249",
+    circle: { cx: 124, cy: 124, r: 124 },
+    gradientStops: [
+      { offset: 0, color: "#FF9500", opacity: 0.4 },
+      { offset: 1, color: "#FFB300", opacity: 0 },
+    ],
+    delay: 0.7,
+  },
+  {
+    id: "market-blob-6",
+    style: {
+      width: "clamp(150px, 25%, 203px)",
+      height: "clamp(150px, 25%, 203px)",
+      left: "52%",
+      top: "-5%",
+      transform: "translate(-50%, -50%)",
+    },
+    viewBox: "0 0 203 177",
+    circle: { cx: 101, cy: 75, r: 101 },
+    gradientStops: [
+      { offset: 0, color: "#FBFF00", opacity: 0.4 },
+      { offset: 1, color: "#F7FF00", opacity: 0 },
+    ],
+    delay: 0.8,
+  },
+];
+
+const trendShapeConfigs: Record<TrendMetric["id"], TrendShapeConfig[]> = {
+  tourism: [
+    { shape: "circle", opacity: 0.26 },
+    { shape: "ring", opacity: 0.18, scale: 0.86, borderWidth: 6 },
+    { shape: "circle", opacity: 0.2, scale: 0.92 },
+    { shape: "ring", opacity: 0.16, scale: 0.8, borderWidth: 5 },
+    { shape: "circle", opacity: 0.18, scale: 1.05 },
+    { shape: "ring", opacity: 0.12, scale: 0.74, borderWidth: 4 },
+  ],
+  social: [
+    { shape: "diamond", opacity: 0.22, rotate: 10 },
+    { shape: "diamond", opacity: 0.18, rotate: -8, scale: 0.88 },
+    { shape: "hex", opacity: 0.21 },
+    { shape: "diamond", opacity: 0.16, rotate: 18, scale: 0.96 },
+    { shape: "hex", opacity: 0.18, rotate: -12 },
+    { shape: "roundedSquare", opacity: 0.15, rotate: 14, scale: 0.9 },
+  ],
+  fnb: [
+    { shape: "hex", opacity: 0.24 },
+    { shape: "roundedSquare", opacity: 0.2, rotate: 6 },
+    { shape: "hex", opacity: 0.22, rotate: -8, scale: 0.94 },
+    { shape: "roundedSquare", opacity: 0.18, rotate: -4, scale: 0.88 },
+    { shape: "hex", opacity: 0.2, rotate: 12 },
+    { shape: "roundedSquare", opacity: 0.16, rotate: -10, scale: 0.92 },
+  ],
+};
+
+const defaultTrendShapes = trendShapeConfigs.tourism;
+
+const hexToRgba = (hex: string, alpha: number) => {
+  const normalized = hex.replace("#", "");
+  const fullHex =
+    normalized.length === 3
+      ? normalized
+          .split("")
+          .map((char) => char + char)
+          .join("")
+      : normalized;
+  if (fullHex.length !== 6) {
+    return `rgba(0, 0, 0, ${alpha})`;
+  }
+  const r = parseInt(fullHex.slice(0, 2), 16);
+  const g = parseInt(fullHex.slice(2, 4), 16);
+  const b = parseInt(fullHex.slice(4, 6), 16);
+  const clampedAlpha = Math.min(Math.max(alpha, 0), 1);
+  return `rgba(${r}, ${g}, ${b}, ${clampedAlpha})`;
+};
 
 const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
   const [viewMode, setViewMode] = useState<ViewMode>("market");
@@ -39,10 +200,16 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
   const isMarketView = viewMode === "market";
 
   const focusArea =
-    areaProfiles.find((profile) => profile.area === "Corniche") ?? areaProfiles[0]!;
+    areaProfiles.find((profile) => profile.area === "Corniche") ??
+    areaProfiles[0]!;
 
   const activeTrend = useMemo(
     () => trendMetrics.find((metric) => metric.id === selectedTrendId) ?? trendMetrics[0],
+    [selectedTrendId],
+  );
+
+  const activeTrendShapes = useMemo(
+    () => trendShapeConfigs[selectedTrendId] ?? defaultTrendShapes,
     [selectedTrendId],
   );
 
@@ -145,6 +312,123 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
     ? `Latest ${activeTrend.label.toLowerCase()} reading for ${activeTrendDatum.month} is ${formattedTrendValue} (${formattedDelta} year-on-year). Momentum is ${trendDirection} across Corniche, Al Maryah, and Yas visitor corridors.`
     : activeTrend?.description ?? "";
 
+  const gradientPrefix = useId();
+
+  const renderMarketBlob = useCallback(
+    (blob: MarketBlobConfig) => {
+      const gradientId = `${gradientPrefix}-${blob.id}`;
+      return (
+        <svg className="h-full w-full" viewBox={blob.viewBox} fill="none">
+          <defs>
+            <radialGradient id={gradientId} cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
+              {blob.gradientStops.map((stop) => (
+                <stop key={stop.offset} offset={stop.offset} stopColor={stop.color} stopOpacity={stop.opacity} />
+              ))}
+            </radialGradient>
+          </defs>
+          <circle cx={blob.circle.cx} cy={blob.circle.cy} r={blob.circle.r} fill={`url(#${gradientId})`} />
+        </svg>
+      );
+    },
+    [gradientPrefix],
+  );
+
+  const renderTrendShape = useCallback(
+    (config: TrendShapeConfig | undefined, index: number) => {
+      const fallback = activeTrendShapes[0] ?? defaultTrendShapes[0];
+      const shapeConfig = config ?? activeTrendShapes[index] ?? fallback;
+      const opacity = Math.max(Math.min(shapeConfig.opacity, 0.45), 0);
+      const fillColor = hexToRgba(trendAccent, opacity);
+      const fadeColor = hexToRgba(trendAccent, opacity * 0.4);
+      const glowColor = hexToRgba(trendAccent, opacity * 0.75);
+      const transforms: string[] = [];
+      if (shapeConfig.scale && shapeConfig.scale !== 1) {
+        transforms.push(`scale(${shapeConfig.scale})`);
+      }
+      if (shapeConfig.rotate) {
+        transforms.push(`rotate(${shapeConfig.rotate}deg)`);
+      }
+      const transform = transforms.length ? transforms.join(" ") : undefined;
+
+      const baseProps: React.CSSProperties = {
+        width: "100%",
+        height: "100%",
+        boxShadow: `0 24px 60px -36px ${glowColor}`,
+        transform,
+        transformOrigin: "50% 50%",
+      };
+
+      switch (shapeConfig.shape) {
+        case "circle":
+          return (
+            <div
+              style={{
+                ...baseProps,
+                borderRadius: "50%",
+                background: `radial-gradient(50% 50% at 50% 50%, ${fillColor} 0%, ${hexToRgba(trendAccent, 0)} 100%)`,
+              }}
+            />
+          );
+        case "diamond":
+          return (
+            <div
+              style={{
+                ...baseProps,
+                clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
+                background: `linear-gradient(135deg, ${fillColor} 0%, ${fadeColor} 100%)`,
+              }}
+            />
+          );
+        case "hex":
+          return (
+            <div
+              style={{
+                ...baseProps,
+                clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
+                background: `linear-gradient(160deg, ${fillColor} 0%, ${fadeColor} 100%)`,
+              }}
+            />
+          );
+        case "roundedSquare":
+          return (
+            <div
+              style={{
+                ...baseProps,
+                borderRadius: "28%",
+                background: `linear-gradient(150deg, ${fillColor} 0%, ${fadeColor} 100%)`,
+              }}
+            />
+          );
+        case "ring":
+          return (
+            <div
+              style={{
+                ...baseProps,
+                borderRadius: "50%",
+                border: `${shapeConfig.borderWidth ?? 6}px solid ${hexToRgba(
+                  trendAccent,
+                  Math.min(opacity + 0.1, 0.55),
+                )}`,
+                boxSizing: "border-box",
+                background: "transparent",
+              }}
+            />
+          );
+        default:
+          return (
+            <div
+              style={{
+                ...baseProps,
+                borderRadius: "50%",
+                background: `radial-gradient(50% 50% at 50% 50%, ${fillColor} 0%, ${hexToRgba(trendAccent, 0)} 100%)`,
+              }}
+            />
+          );
+      }
+    },
+    [activeTrendShapes, trendAccent],
+  );
+
   return (
     <div className="relative flex h-full min-h-[640px] flex-col overflow-x-hidden overflow-y-auto bg-[#f5f8f6]">
       <div className="pointer-events-none absolute inset-0">
@@ -218,191 +502,39 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
               className="absolute inset-0 h-full w-full rounded-3xl object-cover"
             />
 
-            <div className="absolute inset-0">
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="absolute"
-                style={{
-                  width: "clamp(150px, 26%, 211px)",
-                  height: "clamp(150px, 26%, 211px)",
-                  left: "35%",
-                  top: "28%",
-                  transform: "translate(-50%, -50%)",
-                }}
-              >
-                <svg className="h-full w-full" viewBox="0 0 212 212" fill="none">
-                  <circle
-                    cx="106"
-                    cy="106"
-                    r="105"
-                    fill={isMarketView ? "url(#redGradient1)" : trendAccent}
-                    fillOpacity={isMarketView ? 1 : 0.18}
-                  />
-                  <defs>
-                    <radialGradient id="redGradient1" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
-                      <stop stopColor="#FF0000" stopOpacity="0.4" />
-                      <stop offset="1" stopColor="#FF0000" stopOpacity="0" />
-                    </radialGradient>
-                  </defs>
-                </svg>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="absolute"
-                style={{
-                  width: "clamp(120px, 24%, 189px)",
-                  height: "clamp(120px, 24%, 189px)",
-                  left: "18%",
-                  top: "38%",
-                  transform: "translate(-50%, -50%)",
-                }}
-              >
-                <svg className="h-full w-full" viewBox="0 0 190 190" fill="none">
-                  <circle
-                    cx="95"
-                    cy="95"
-                    r="94"
-                    fill={isMarketView ? "url(#redGradient2)" : trendAccent}
-                    fillOpacity={isMarketView ? 1 : 0.13}
-                  />
-                  <defs>
-                    <radialGradient id="redGradient2" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
-                      <stop stopColor="#FF0000" stopOpacity="0.4" />
-                      <stop offset="1" stopColor="#FF0000" stopOpacity="0" />
-                    </radialGradient>
-                  </defs>
-                </svg>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                className="absolute"
-                style={{
-                  width: "clamp(110px, 22%, 176px)",
-                  height: "clamp(110px, 22%, 176px)",
-                  left: "18%",
-                  top: "20%",
-                  transform: "translate(-50%, -50%)",
-                }}
-              >
-                <svg className="h-full w-full" viewBox="0 0 177 177" fill="none">
-                  <circle
-                    cx="88"
-                    cy="88"
-                    r="88"
-                    fill={isMarketView ? "url(#orangeGradient1)" : trendAccent}
-                    fillOpacity={isMarketView ? 1 : 0.18}
-                  />
-                  <defs>
-                    <radialGradient id="orangeGradient1" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
-                      <stop stopColor="#FF9500" stopOpacity="0.4" />
-                      <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
-                    </radialGradient>
-                  </defs>
-                </svg>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="absolute"
-                style={{
-                  width: "clamp(110px, 22%, 176px)",
-                  height: "clamp(110px, 22%, 176px)",
-                  left: "35%",
-                  top: "64%",
-                  transform: "translate(-50%, -50%)",
-                }}
-              >
-                <svg className="h-full w-full" viewBox="0 0 177 177" fill="none">
-                  <circle
-                    cx="88"
-                    cy="88"
-                    r="88"
-                    fill={isMarketView ? "url(#orangeGradient2)" : trendAccent}
-                    fillOpacity={isMarketView ? 1 : 0.14}
-                  />
-                  <defs>
-                    <radialGradient id="orangeGradient2" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
-                      <stop stopColor="#FF9500" stopOpacity="0.4" />
-                      <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
-                    </radialGradient>
-                  </defs>
-                </svg>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.7 }}
-                className="absolute"
-                style={{
-                  width: "clamp(180px, 31%, 248px)",
-                  height: "clamp(180px, 31%, 248px)",
-                  left: "54%",
-                  top: "13%",
-                  transform: "translate(-50%, -50%)",
-                }}
-              >
-                <svg className="h-full w-full" viewBox="0 0 249 249" fill="none">
-                  <circle
-                    cx="124"
-                    cy="124"
-                    r="124"
-                    fill={isMarketView ? "url(#orangeGradient3)" : trendAccent}
-                    fillOpacity={isMarketView ? 1 : 0.12}
-                  />
-                  <defs>
-                    <radialGradient id="orangeGradient3" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
-                      <stop stopColor="#FF9500" stopOpacity="0.4" />
-                      <stop offset="1" stopColor="#FFB300" stopOpacity="0" />
-                    </radialGradient>
-                  </defs>
-                </svg>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-                className="absolute"
-                style={{
-                  width: "clamp(150px, 25%, 203px)",
-                  height: "clamp(150px, 25%, 203px)",
-                  left: "52%",
-                  top: "-5%",
-                  transform: "translate(-50%, -50%)",
-                }}
-              >
-                <svg className="h-full w-full" viewBox="0 0 203 177" fill="none">
-                  <circle
-                    cx="101"
-                    cy="75"
-                    r="101"
-                    fill={isMarketView ? "url(#yellowGradient)" : trendAccent}
-                    fillOpacity={isMarketView ? 1 : 0.1}
-                  />
-                  <defs>
-                    <radialGradient id="yellowGradient" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox">
-                      <stop stopColor="#FBFF00" stopOpacity="0.4" />
-                      <stop offset="1" stopColor="#F7FF00" stopOpacity="0" />
-                    </radialGradient>
-                  </defs>
-                </svg>
-              </motion.div>
+            <div className="pointer-events-none absolute inset-0">
+              {marketBlobConfigs.map((blob, index) => (
+                <motion.div
+                  key={blob.id}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: blob.delay }}
+                  className="absolute"
+                  style={blob.style}
+                >
+                  {isMarketView
+                    ? renderMarketBlob(blob)
+                    : renderTrendShape(activeTrendShapes[index], index)}
+                </motion.div>
+              ))}
             </div>
+
+            {!isMarketView ? (
+              <motion.div
+                initial={{ opacity: 0, y: -12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                className="absolute top-6 left-6 z-20 max-w-[260px] rounded-2xl border border-white/25 bg-black/50 p-4 text-white shadow-[0_18px_44px_-30px_rgba(13,38,32,0.55)] backdrop-blur"
+              >
+                <div className="text-[11px] uppercase tracking-[0.24em] text-white/70">Trend metric</div>
+                <div className="mt-2 text-lg font-semibold leading-tight">{activeTrend?.label}</div>
+                <div className="mt-1 text-xs text-white/65">{activeTrend?.subtitle}</div>
+              </motion.div>
+            ) : null}
 
             {isMarketView ? (
               <div className="pointer-events-none absolute inset-0">
-                {["residents", "tourists"].map((key, index) => {
+                {(["residents", "tourists"] as const).map((key, index) => {
                   const card =
                     key === "residents"
                       ? {
@@ -474,18 +606,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                   </div>
                 </motion.div>
               </div>
-            ) : (
-              <motion.div
-                initial={{ opacity: 0, y: -12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-                className="absolute top-6 left-6 z-20 max-w-[260px] rounded-2xl border border-white/25 bg-black/50 p-4 text-white shadow-[0_18px_44px_-30px_rgba(13,38,32,0.55)] backdrop-blur"
-              >
-                <div className="text-[11px] uppercase tracking-[0.24em] text-white/70">Trend metric</div>
-                <div className="mt-2 text-lg font-semibold leading-tight">{activeTrend?.label}</div>
-                <div className="mt-1 text-xs text-white/65">{activeTrend?.subtitle}</div>
-              </motion.div>
-            )}
+            ) : null}
           </motion.div>
 
           {isMarketView ? (
@@ -504,9 +625,9 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                     </p>
                   </div>
                   <div className="grid gap-4 sm:grid-cols-3">
-                    {categoryOrder.map((categoryId) => {
+                    {(["residents", "office", "tourists"] as DensityLayerId[]).map((categoryId) => {
                       const metric = focusArea.metrics[categoryId];
-                      const layer = layerMap[categoryId];
+                      const layer = densityLayers.find((l) => l.id === categoryId)!;
                       return (
                         <div
                           key={categoryId}
@@ -565,25 +686,22 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                 <section className="rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_24px_60px_-38px_rgba(11,64,55,0.25)]">
                   <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0F766E]">Density Legend</h3>
                   <div className="mt-4 space-y-4 text-sm text-slate-600">
-                    {categoryOrder.map((categoryId) => {
-                      const layer = layerMap[categoryId];
-                      return (
-                        <div key={layer.id} className="rounded-xl border border-[#e2ece8] bg-white/90 p-3 shadow-sm">
-                          <div className="font-semibold text-slate-900">{layer.label}</div>
-                          <p className="mt-1 text-xs text-slate-500">{layer.summary}</p>
-                          <ul className="mt-2 space-y-1 text-xs text-slate-600">
-                            {layer.legend.map((item) => (
-                              <li key={item.label} className="flex items-center gap-3">
-                                <span className="inline-flex h-3 w-3 rounded-full" style={{ backgroundImage: item.swatch }} />
-                                <span>
-                                  {item.label} ({item.threshold})
-                                </span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      );
-                    })}
+                    {densityLayers.map((layer) => (
+                      <div key={layer.id} className="rounded-xl border border-[#e2ece8] bg-white/90 p-3 shadow-sm">
+                        <div className="font-semibold text-slate-900">{layer.label}</div>
+                        <p className="mt-1 text-xs text-slate-500">{layer.summary}</p>
+                        <ul className="mt-2 space-y-1 text-xs text-slate-600">
+                          {layer.legend.map((item) => (
+                            <li key={item.label} className="flex items-center gap-3">
+                              <span className="inline-flex h-3 w-3 rounded-full" style={{ backgroundImage: item.swatch }} />
+                              <span>
+                                {item.label} ({item.threshold})
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
                   </div>
                 </section>
 
@@ -656,21 +774,23 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                     role="img"
                     aria-label={`${activeTrend?.label ?? "Trend"} sparkline showing recent movement`}
                   >
-                    {sparklineFillPath ? <path d={sparklineFillPath} fill={trendAccent} fillOpacity={0.12} /> : null}
+                    {sparklineFillPath ? <path d={sparklineFillPath} fill={hexToRgba(trendAccent, 0.08)} /> : null}
                     {sparklinePath ? (
                       <path
                         d={sparklinePath}
                         fill="none"
                         stroke={trendAccent}
-                        strokeWidth={2.5}
+                        strokeWidth={2}
                         strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeOpacity={0.85}
                       />
                     ) : null}
                     {activeTrendPoint ? (
                       <circle
                         cx={activeTrendPoint.x}
                         cy={activeTrendPoint.y}
-                        r={4.5}
+                        r={3.5}
                         fill="#ffffff"
                         stroke={trendAccent}
                         strokeWidth={2}
@@ -732,7 +852,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                       <div key={profile.area}>
                         <p className="font-semibold text-slate-900">{profile.area}</p>
                         <p className="mt-1 leading-relaxed">
-                          {profile.area} couples {profile.metrics.residents.value.toLowerCase()} with {profile.metrics.tourists.value.toLowerCase()} and {profile.metrics.office.value.toLowerCase()}, amplifying {activeTrend?.label.toLowerCase()} uplift for operators along the corridor.
+                          {profile.area} couples {profile.metrics.residents.value.toLowerCase()} with {profile.metrics.tourists.value.toLowerCase()} and {profile.metrics.office.value.toLowerCase()}, amplifying {(activeTrend?.label ?? "demand").toLowerCase()} uplift for operators along the corridor.
                         </p>
                       </div>
                     ))}
