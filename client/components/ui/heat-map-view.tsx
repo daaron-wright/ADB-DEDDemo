@@ -347,7 +347,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items.CENTER gap-2 rounded-full border border-[#d8e4df] bg-white px-4 py-2 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55]"
+            className="inline-flex items-center gap-2 rounded-full border border-[#d8e4df] bg-white px-4 py-2 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55]"
           >
             <svg
               width="18"
@@ -476,7 +476,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                 initial={{ opacity: 0, y: -12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
-                className="absolute top-6 left-6 z-20 max-w-[260px] rounded-2xl border border.white/25 bg-black/50 p-4 text-white shadow-[0_18px_44px_-30px_rgba(13,38,32,0.55)] backdrop-blur"
+                className="absolute top-6 left-6 z-20 max-w-[260px] rounded-2xl border border-white/25 bg-black/50 p-4 text-white shadow-[0_18px_44px_-30px_rgba(13,38,32,0.55)] backdrop-blur"
               >
                 <div className="text-[11px] uppercase tracking-[0.24em] text-white/70">Trend metric</div>
                 <div className="mt-2 text-lg font-semibold leading-tight">{activeTrend?.label}</div>
@@ -664,7 +664,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                       <span className="inline-flex h-1 w-1 rounded-full bg-[#0F766E]" />
                       Sync with property desk for Corniche frontage availability.
                     </li>
-                    <li className="flex items.CENTER gap-2">
+                    <li className="flex items-center gap-2">
                       <span className="inline-flex h-1 w-1 rounded-full bg-[#0F766E]" />
                       Prepare zoning dossier for Saadiyat cultural strip.
                     </li>
