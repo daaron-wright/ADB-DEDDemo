@@ -279,11 +279,7 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
                     {activeTrend?.label ?? "Metric"}
                   </div>
                   <div className="text-white text-base font-semibold">
-                    {activeTrendDatum
-                      ? `${activeTrendDatum.value.toLocaleString(undefined, {
-                          maximumFractionDigits: activeTrend?.unit === "AED bn" ? 1 : 0,
-                        })}${activeTrend?.unit ? ` ${activeTrend.unit}` : ""}`
-                      : "–"}
+                    {formatTrendValue(activeTrendDatum?.value)}
                   </div>
                 </div>
                 <div>
@@ -298,17 +294,7 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
                         : "text-rose-300",
                     )}
                   >
-                    {activeTrendDatum
-                      ? `${activeTrendDatum.yoyDelta >= 0 ? "+" : ""}${activeTrendDatum.yoyDelta.toFixed(
-                          activeTrend?.unit === "AED bn" ? 1 : 0,
-                        )}${
-                          activeTrend?.unit === "AED bn"
-                            ? " bn"
-                            : activeTrend?.unit === "index"
-                              ? " pts"
-                              : "%"
-                        }`
-                      : "–"}
+                    {formatDeltaValue(activeTrendDatum?.yoyDelta)}
                   </div>
                 </div>
               </div>
