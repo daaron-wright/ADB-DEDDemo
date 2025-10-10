@@ -727,6 +727,9 @@ export function JourneyStageFocusView({
                         );
                       })}
                     </div>
+                    <p className="mt-2 text-[11px] text-slate-500">
+                      Cost shown is indicative and subject to change based on the business activity and other regulatory requirements.
+                    </p>
                   </div>
                 ) : null}
 
