@@ -455,13 +455,8 @@ export default function Index() {
                 mode="full"
                 defaultUserType="applicant"
                 trigger={
-                  <span className="inline-flex items-center justify-center rounded-full bg-teal-gradient px-7 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
-                    <span className="flex flex-col items-center leading-tight">
-                      <span>Sign in</span>
-                      <span className="text-xs font-medium text-white/80">
-                        Business Applicant · License Reviewer
-                      </span>
-                    </span>
+                  <span className="inline-flex items-center justify-center rounded-full bg-teal-gradient px-6 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
+                    Sign in
                   </span>
                 }
                 onLogin={handleUAEPassLogin}
