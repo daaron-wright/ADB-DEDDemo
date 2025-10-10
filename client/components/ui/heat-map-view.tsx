@@ -137,6 +137,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
   const deltaDescriptor = latestDelta > 0 ? "up" : latestDelta < 0 ? "down" : "flat";
   const formattedTrendValue = formatTrendValue(activeTrendDatum?.value);
   const formattedDelta = formatDeltaValue(activeTrendDatum?.yoyDelta);
+  const deltaColorClass = latestDelta > 0 ? "text-emerald-600" : latestDelta < 0 ? "text-rose-600" : "text-slate-600";
 
   const headerSubtitle = isMarketView ? "Live location density view" : "Regional trend signals";
 
