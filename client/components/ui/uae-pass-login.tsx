@@ -121,18 +121,22 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
       </div>
     </div>
 
-    <div className="mx-auto flex max-w-4xl flex-col gap-4 sm:flex-row sm:flex-wrap sm:justify-center">
+    <div className="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2">
       {AVAILABLE_USER_TYPES.map((type) => {
         const detail = USER_TYPE_DETAILS[type];
         const isReviewer = type === "reviewer";
         const badgeStyle = isReviewer
-          ? undefined
+          ? {
+              border: "2px solid #0f766e",
+              color: "#0f766e",
+            }
           : {
-              background: `linear-gradient(145deg, ${detail.accent} 0%, ${
+              background: `linear-gradient(160deg, ${detail.accent} 0%, ${
                 detail.badgeHighlight ?? detail.accent
               } 100%)`,
               boxShadow:
-                detail.badgeShadow ?? "0 6px 16px -10px rgba(31, 138, 131, 0.55)",
+                detail.badgeShadow ?? "0 12px 28px -18px rgba(15,118,110,0.45)",
+              color: "#ffffff",
             };
 
         return (
@@ -141,47 +145,40 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
             type="button"
             onClick={() => onSelect(type)}
             className={chatCardClass(
-              "group w-full rounded-3xl border border-slate-200 bg-white p-6 text-left shadow-sm transition-all duration-200 hover:border-slate-400 hover:shadow-[0_18px_40px_-26px_rgba(15,23,42,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 sm:w-[calc(50%-0.5rem)] sm:flex-1 sm:min-w-[260px] sm:p-8",
+              "group relative flex h-full w-full flex-col gap-6 rounded-[30px] border border-slate-200 bg-white/98 p-6 text-left shadow-[0_22px_60px_-32px_rgba(24,32,63,0.35)] transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_28px_65px_-30px_rgba(24,32,63,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 sm:p-8",
             )}
             aria-label={`Continue as ${detail.label}`}
-            style={{
-              boxShadow: "0 12px 30px -24px rgba(15, 23, 42, 0.3)",
-            }}
           >
-            <div className="flex w-full flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex items-start gap-4 sm:gap-6">
-                <div
-                  className={cn(
-                    "inline-flex items-center justify-center text-lg font-semibold transition-shadow duration-200",
-                    detail.badgeSizeClass ?? "h-14 w-14",
-                    detail.badgeShapeClass ?? "rounded-full",
-                    isReviewer
-                      ? "border-2 border-[#0f766e] bg-white text-[#0f766e] shadow-sm"
-                      : "text-white",
-                  )}
-                  style={badgeStyle}
-                >
-                  {detail.badge}
-                </div>
-                <div className="space-y-2 text-left">
-                  <h4 className="text-lg font-semibold text-slate-900">
-                    {detail.label}
-                  </h4>
-                  <p className="text-sm leading-relaxed text-slate-600">
-                    {detail.description}
-                  </p>
-                  <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
-                    {detail.secondary}
-                  </p>
-                </div>
+            <div className="flex items-start gap-4">
+              <div
+                className={cn(
+                  "flex h-14 w-14 items-center justify-center rounded-2xl text-lg font-semibold",
+                  isReviewer ? "bg-white" : "text-white",
+                )}
+                style={badgeStyle}
+              >
+                {detail.badge}
               </div>
+              <div className="space-y-2">
+                <h4 className="text-lg font-semibold text-slate-900">
+                  {detail.label}
+                </h4>
+                <p className="text-sm leading-relaxed text-slate-600">
+                  {detail.description}
+                </p>
+                <p className="text-xs font-medium uppercase tracking-[0.28em] text-slate-500">
+                  {detail.secondary}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end">
               <span
                 className={cn(
-                  "inline-flex items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition group-hover:translate-x-0.5",
+                  "inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition-transform duration-200 group-hover:translate-x-0.5",
                   isReviewer
-                    ? "border border-[#0f766e] bg-white text-[#0f766e]"
+                    ? "border border-[#0f766e] text-[#0f766e]"
                     : "text-white",
-                  "self-start sm:ml-auto sm:self-center",
                 )}
                 style={
                   isReviewer ? undefined : { backgroundColor: detail.accent }
