@@ -92,8 +92,11 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
     return `${sparklinePath} L ${baseLine}`;
   }, [sparklineCoordinates, sparklinePath]);
 
-  const activeTrendPoint = sparklineCoordinates[activeTrendIndex] ?? sparklineCoordinates.at(-1);
-  const activeTrendDatum = activeTrend?.data[activeTrendIndex] ?? activeTrend?.data.at(-1);
+  const fallbackTrendPoint = sparklineCoordinates[sparklineCoordinates.length - 1];
+  const activeTrendPoint =
+    sparklineCoordinates[activeTrendIndex] ?? fallbackTrendPoint ?? { x: 0, y: SPARKLINE_HEIGHT / 2, value: 0 };
+  const fallbackTrendDatum = activeTrend?.data[activeTrend?.data.length - 1];
+  const activeTrendDatum = activeTrend?.data[activeTrendIndex] ?? fallbackTrendDatum;
 
   return (
     <motion.div
