@@ -138,21 +138,41 @@ const marketBlobConfigs: MarketBlobConfig[] = [
   },
 ];
 
-const trendPointConfigs: TrendPointConfig[] = [
-  { id: "trend-point-1", left: 36, top: 28, baseSize: 26 },
-  { id: "trend-point-2", left: 22, top: 40, baseSize: 22 },
-  { id: "trend-point-3", left: 18, top: 18, baseSize: 20 },
-  { id: "trend-point-4", left: 40, top: 62, baseSize: 24 },
-  { id: "trend-point-5", left: 56, top: 18, baseSize: 28 },
-  { id: "trend-point-6", left: 50, top: 8, baseSize: 18 },
-  { id: "trend-point-7", left: 62, top: 40, baseSize: 24 },
-  { id: "trend-point-8", left: 72, top: 60, baseSize: 20 },
-];
+const trendPointLayouts: Record<TrendMetric["id"], TrendPointConfig[]> = {
+  tourism: [
+    { id: "tour-1", left: 32, top: 42, baseSize: 26 },
+    { id: "tour-2", left: 46, top: 28, baseSize: 22 },
+    { id: "tour-3", left: 58, top: 18, baseSize: 20 },
+    { id: "tour-4", left: 68, top: 44, baseSize: 24 },
+    { id: "tour-5", left: 60, top: 62, baseSize: 22 },
+    { id: "tour-6", left: 48, top: 56, baseSize: 18 },
+    { id: "tour-7", left: 36, top: 26, baseSize: 20 },
+  ],
+  social: [
+    { id: "soc-1", left: 22, top: 34, baseSize: 24 },
+    { id: "soc-2", left: 34, top: 20, baseSize: 19 },
+    { id: "soc-3", left: 48, top: 16, baseSize: 22 },
+    { id: "soc-4", left: 62, top: 28, baseSize: 25 },
+    { id: "soc-5", left: 74, top: 20, baseSize: 17 },
+    { id: "soc-6", left: 70, top: 48, baseSize: 20 },
+    { id: "soc-7", left: 56, top: 60, baseSize: 18 },
+    { id: "soc-8", left: 40, top: 52, baseSize: 21 },
+  ],
+  fnb: [
+    { id: "fnb-1", left: 28, top: 50, baseSize: 25 },
+    { id: "fnb-2", left: 38, top: 36, baseSize: 22 },
+    { id: "fnb-3", left: 52, top: 30, baseSize: 27 },
+    { id: "fnb-4", left: 66, top: 38, baseSize: 24 },
+    { id: "fnb-5", left: 70, top: 56, baseSize: 20 },
+    { id: "fnb-6", left: 58, top: 70, baseSize: 18 },
+    { id: "fnb-7", left: 44, top: 64, baseSize: 22 },
+  ],
+};
 
 const trendPointMultipliers: Record<TrendMetric["id"], number[]> = {
-  tourism: [1.2, 0.9, 0.8, 1, 1.1, 0.75, 1.05, 0.85],
-  social: [0.95, 1.1, 0.85, 1.05, 0.9, 0.8, 1.15, 1],
-  fnb: [1.05, 0.95, 1.1, 1.2, 0.9, 0.8, 1, 1.15],
+  tourism: [1.2, 1, 0.9, 1.1, 0.95, 0.85, 1.05],
+  social: [0.95, 0.85, 1.05, 1.2, 0.9, 1, 0.88, 1.1],
+  fnb: [1.1, 0.95, 1.25, 1.18, 0.92, 0.85, 1.08],
 };
 
 const hexToRgba = (hex: string, alpha: number) => {
@@ -312,6 +332,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
     [gradientPrefix],
   );
 
+  const activeTrendPoints = trendPointLayouts[selectedTrendId] ?? trendPointLayouts.tourism;
   const activeMultipliers = trendPointMultipliers[selectedTrendId] ?? trendPointMultipliers.tourism;
 
   return (
@@ -402,7 +423,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                   </motion.div>
                 ))
               ) : (
-                trendPointConfigs.map((point, index) => {
+                activeTrendPoints.map((point, index) => {
                   const multiplier = activeMultipliers[index % activeMultipliers.length] ?? 1;
                   const size = point.baseSize * multiplier;
                   return (
@@ -490,7 +511,7 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                             bottom: "16%",
                             left: "6%",
                             width: "clamp(120px, 28vw, 160px)",
-                          } as React.CSSProperties,
+                          } as React.CSS_PROPERTIES,
                         };
                   return (
                     <motion.div
@@ -507,307 +528,4 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                             {card.title}
                           </div>
                           <div className="mt-1 text-sm font-bold text-white">{card.value}</div>
-                          <p className="mt-1 text-[11px] text-white/80 leading-snug">{card.note}</p>
-                          <p className="mt-2 text-[9px] uppercase tracking-[0.18em] text-white/60">{card.source}</p>
-                        </div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-
-                <motion.div
-                  key="sources"
-                  initial={{ opacity: 0, y: -12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 1.06 }}
-                  className="absolute"
-                  style={{
-                    bottom: "6%",
-                    right: "4%",
-                    width: "clamp(150px, 32vw, 190px)",
-                  }}
-                >
-                  <div className="rounded-2xl border border-white/25 bg-black/45 p-3 text-white shadow-[0_18px_44px_-30px_rgba(13,38,32,0.55)] backdrop-blur">
-                    <div className="space-y-1 text-left text-[11px] leading-relaxed">
-                      <div className="text-xs font-semibold uppercase tracking-[0.2em] text-white/85">Data sources</div>
-                      <div>• Tawtheeq residential & commercial contracts</div>
-                      <div>• DED licence registry and employment filings</div>
-                      <div>• Holiday Homes permits & DCT tourism data</div>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            ) : null}
-          </motion.div>
-
-          {isMarketView ? (
-            <>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.1 }}
-                className="rounded-3xl border border-[#d8e4df] bg-white/95 p-6 shadow-[0_28px_70px_-38px_rgba(11,64,55,0.32)]"
-              >
-                <div className="flex flex-col gap-4">
-                  <div className="flex flex-col gap-2">
-                    <h3 className="text-base font-semibold text-slate-900 md:text-lg">{focusArea.area}</h3>
-                    <p className="text-xs text-slate-600">
-                      Cross-validated demand mix from Tawtheeq occupancy, DED employment filings, and tourism statistics.
-                    </p>
-                  </div>
-                  <div className="grid gap-4 sm:grid-cols-3">
-                    {(["residents", "office", "tourists"] as DensityLayerId[]).map((categoryId) => {
-                      const metric = focusArea.metrics[categoryId];
-                      const layer = densityLayers.find((l) => l.id === categoryId)!;
-                      return (
-                        <div
-                          key={categoryId}
-                          className="flex flex-col gap-1 rounded-2xl border border-[#e2ece8] bg-white/90 p-4"
-                        >
-                          <span className="text-xs uppercase tracking-[0.2em] text-[#0F766E]">{layer.label}</span>
-                          <span className="text-lg font-bold text-slate-900 md:text-2xl">{metric.value}</span>
-                          <span className="text-[11px] text-slate-600 leading-snug">{metric.note}</span>
-                          <span className="text-[10px] uppercase tracking-[0.18em] text-slate-500">{metric.source}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.2 }}
-                className="grid gap-4 lg:grid-cols-3"
-              >
-                <section className="rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_24px_60px_-38px_rgba(11,64,55,0.25)]">
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0F766E]">Key Insights</h3>
-                  <div className="mt-4 space-y-3 text-sm text-slate-600">
-                    {[
-                      {
-                        title: "Corniche waterfront towers",
-                        description:
-                          "6.5k residential households sustain >92% occupancy, with Tawtheeq rental contracts feeding the counts each quarter.",
-                      },
-                      {
-                        title: "Al Maryah employment spine",
-                        description:
-                          "14.2k office workers validated by Tawtheeq and DED licences drive lunchtime peaks and evening corporate dining.",
-                      },
-                      {
-                        title: "Yas Island visitor surge",
-                        description:
-                          "9.3k nightly visitors from hotels and holiday homes anchor weekend highs and event-led spending.",
-                      },
-                      {
-                        title: "Corniche eastern promenade",
-                        description:
-                          "Balanced mix of residents, office staff, and beach tourists supports premium pricing along the frontage.",
-                      },
-                    ].map((insight) => (
-                      <div key={insight.title}>
-                        <p className="font-semibold text-slate-900">{insight.title}</p>
-                        <p className="mt-1 leading-relaxed">{insight.description}</p>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-
-                <section className="rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_24px_60px_-38px_rgba(11,64,55,0.25)]">
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0F766E]">Density Legend</h3>
-                  <div className="mt-4 space-y-4 text-sm text-slate-600">
-                    {densityLayers.map((layer) => (
-                      <div key={layer.id} className="rounded-xl border border-[#e2ece8] bg-white/90 p-3 shadow-sm">
-                        <div className="font-semibold text-slate-900">{layer.label}</div>
-                        <p className="mt-1 text-xs text-slate-500">{layer.summary}</p>
-                        <ul className="mt-2 space-y-1 text-xs text-slate-600">
-                          {layer.legend.map((item) => (
-                            <li key={item.label} className="flex items-center gap-3">
-                              <span className="inline-flex h-3 w-3 rounded-full" style={{ backgroundImage: item.swatch }} />
-                              <span>
-                                {item.label} ({item.threshold})
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-
-                <section className="rounded-2xl border border-[#d8e4df] bg-white/95 p-4 shadow-[0_18px_48px_-32px_rgba(11,64,55,0.3)]">
-                  <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0F766E]">Next Actions</h3>
-                  <ul className="mt-3 space-y-2 text-xs text-slate-600">
-                    <li className="flex items-center gap-2">
-                      <span className="inline-flex h-1 w-1 rounded-full bg-[#0F766E]" />
-                      Sync with property desk for Corniche frontage availability.
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="inline-flex h-1 w-1 rounded-full bg-[#0F766E]" />
-                      Prepare zoning dossier for Saadiyat cultural strip.
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="inline-flex h-1 w-1 rounded-full bg-[#0F766E]" />
-                      Share density summary with reviewer workspace.
-                    </li>
-                  </ul>
-                </section>
-              </motion.div>
-            </>
-          ) : (
-            <>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-                className="rounded-3xl border border-[#d8e4df] bg-white/95 p-6 shadow-[0_28px_70px_-38px_rgba(11,64,55,0.32)]"
-              >
-                <div className="flex flex-wrap items-start justify-between gap-4">
-                  <div className="max-w-xl">
-                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E]">
-                      Trend visualisation
-                    </span>
-                    <h3 className="mt-2 text-base font-semibold text-slate-900 md:text-lg">
-                      {activeTrend?.label}
-                    </h3>
-                    <p className="mt-2 text-sm text-slate-600">{activeTrend?.subtitle}</p>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-2">
-                    {trendMetrics.map((metric) => {
-                      const isActive = metric.id === selectedTrendId;
-                      return (
-                        <button
-                          key={metric.id}
-                          type="button"
-                          onClick={() => setSelectedTrendId(metric.id)}
-                          className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E]/40 ${
-                            isActive
-                              ? "border-[#0F766E] bg-[#0F766E] text-white shadow-sm"
-                              : "border-[#d8e4df] bg-white text-[#0F766E] hover:bg-[#eff6f3]"
-                          }`}
-                        >
-                          <span
-                            className="h-2.5 w-2.5 rounded-full"
-                            style={{ backgroundColor: metric.accent }}
-                          />
-                          {metric.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <div className="mt-6 rounded-2xl border border-[#e2ece8] bg-white p-5">
-                  <svg
-                    viewBox={`0 0 ${SPARKLINE_WIDTH} ${SPARKLINE_HEIGHT}`}
-                    className="h-28 w-full"
-                    role="img"
-                    aria-label={`${activeTrend?.label ?? "Trend"} sparkline showing recent movement`}
-                  >
-                    {sparklineFillPath ? <path d={sparklineFillPath} fill={hexToRgba(trendAccent, 0.08)} /> : null}
-                    {sparklinePath ? (
-                      <path
-                        d={sparklinePath}
-                        fill="none"
-                        stroke={trendAccent}
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeOpacity={0.85}
-                      />
-                    ) : null}
-                    {activeTrendPoint ? (
-                      <circle
-                        cx={activeTrendPoint.x}
-                        cy={activeTrendPoint.y}
-                        r={3.5}
-                        fill="#ffffff"
-                        stroke={trendAccent}
-                        strokeWidth={2}
-                      />
-                    ) : null}
-                  </svg>
-
-                  <input
-                    type="range"
-                    min={0}
-                    max={(activeTrend?.data.length ?? 1) - 1}
-                    value={activeTrendIndex}
-                    onChange={(event) => setActiveTrendIndex(Number(event.target.value))}
-                    className="mt-4 w-full"
-                    style={{ accentColor: trendAccent }}
-                    aria-label="Select period"
-                  />
-
-                  <div className="mt-4 grid gap-4 sm:grid-cols-3">
-                    <div className="rounded-2xl border border-[#e2ece8] bg-[#f5f8f6] p-4">
-                      <div className="text-[11px] uppercase tracking-[0.2em] text-slate-500">Selected period</div>
-                      <div className="mt-2 text-lg font-semibold text-slate-900">{activeTrendDatum?.month ?? "–"}</div>
-                    </div>
-                    <div className="rounded-2xl border border-[#e2ece8] bg-[#f5f8f6] p-4">
-                      <div className="text-[11px] uppercase tracking-[0.2em] text-slate-500">{activeTrend?.label ?? "Metric"}</div>
-                      <div className="mt-2 text-lg font-semibold text-slate-900">{formattedTrendValue}</div>
-                    </div>
-                    <div className="rounded-2xl border border-[#e2ece8] bg-[#f5f8f6] p-4">
-                      <div className="text-[11px] uppercase tracking-[0.2em] text-slate-500">YoY delta</div>
-                      <div className={`mt-2 text-lg font-semibold ${deltaColorClass}`}>{formattedDelta}</div>
-                      <div className="mt-1 text-[11px] uppercase tracking-[0.2em] text-slate-500">
-                        Momentum {trendDirection}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.95 }}
-                className="rounded-3xl border border-[#d8e4df] bg-white/95 p-6 shadow-[0_28px_70px_-38px_rgba(11,64,55,0.32)]"
-              >
-                <h3 className="text-base font-semibold text-slate-900 md:text-lg">Trend interpretation</h3>
-                <p className="mt-2 text-sm text-slate-600">{trendNarrative}</p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.05 }}
-                className="grid gap-4 lg:grid-cols-2"
-              >
-                <section className="rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_24px_60px_-38px_rgba(11,64,55,0.25)]">
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0F766E]">Signals across priority zones</h3>
-                  <div className="mt-4 space-y-4 text-sm text-slate-600">
-                    {areaProfiles.map((profile) => (
-                      <div key={profile.area}>
-                        <p className="font-semibold text-slate-900">{profile.area}</p>
-                        <p className="mt-1 leading-relaxed">
-                          {profile.area} couples {profile.metrics.residents.value.toLowerCase()} with {profile.metrics.tourists.value.toLowerCase()} and {profile.metrics.office.value.toLowerCase()}, amplifying {(activeTrend?.label ?? "demand").toLowerCase()} uplift for operators along the corridor.
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-
-                <section className="rounded-2xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_24px_60px_-38px_rgba(11,64,55,0.25)]">
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0F766E]">Data sources</h3>
-                  <ul className="mt-4 space-y-2 text-sm text-slate-600">
-                    {(activeTrend?.sources ?? []).map((source) => (
-                      <li key={source} className="flex items-start gap-2">
-                        <span className="mt-1 inline-flex h-1.5 w-1.5 rounded-full bg-[#0F766E]" />
-                        <span>{source}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              </motion.div>
-            </>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default HeatMapView;
+                          <p className="mt-1 text-[11px] text-white/80 leading-snug">{card.note}
