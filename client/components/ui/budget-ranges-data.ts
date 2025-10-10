@@ -31,7 +31,7 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
     {
       area: "Corniche Waterfront",
       totalRange: "AED 950K – 1.35M",
-      licensing: "AED 18K – 28K",
+      licensing: "AED 3,000 – 8,000",
       fitOut: "AED 420K – 560K",
       staffing: "AED 150K – 185K",
       marketing: "AED 65K – 90K",
@@ -43,7 +43,7 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
     {
       area: "Al Maryah Island",
       totalRange: "AED 1.05M – 1.48M",
-      licensing: "AED 22K – 30K",
+      licensing: "AED 3,000 – 8,000",
       fitOut: "AED 470K – 620K",
       staffing: "AED 165K – 210K",
       marketing: "AED 75K – 95K",
@@ -55,7 +55,7 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
     {
       area: "Al Reem Island",
       totalRange: "AED 780K – 1.12M",
-      licensing: "AED 16K – 24K",
+      licensing: "AED 3,000 – 8,000",
       fitOut: "AED 360K – 480K",
       staffing: "AED 130K – 170K",
       marketing: "AED 55K – 75K",
@@ -67,7 +67,7 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
     {
       area: "Yas Island",
       totalRange: "AED 860K – 1.26M",
-      licensing: "AED 18K – 26K",
+      licensing: "AED 3,000 – 8,000",
       fitOut: "AED 410K – 540K",
       staffing: "AED 140K – 180K",
       marketing: "AED 60K – 85K",
@@ -78,7 +78,7 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
     {
       area: "Saadiyat Island",
       totalRange: "AED 840K – 1.18M",
-      licensing: "AED 18K – 26K",
+      licensing: "AED 3,000 – 8,000",
       fitOut: "AED 390K – 520K",
       staffing: "AED 135K – 170K",
       marketing: "AED 58K – 80K",
@@ -89,7 +89,7 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
     {
       area: "Al Zahiyah",
       totalRange: "AED 820K – 1.14M",
-      licensing: "AED 17K – 24K",
+      licensing: "AED 3,000 – 8,000",
       fitOut: "AED 360K – 500K",
       staffing: "AED 130K – 165K",
       marketing: "AED 52K – 78K",
@@ -102,7 +102,7 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
     {
       area: "Corniche Waterfront",
       totalRange: "AED 1.65M – 2.25M",
-      licensing: "AED 24K – 34K",
+      licensing: "AED 3,000 – 8,000",
       fitOut: "AED 720K – 930K",
       staffing: "AED 260K – 310K",
       marketing: "AED 110K – 150K",
@@ -113,7 +113,7 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
     {
       area: "Al Maryah Island",
       totalRange: "AED 1.8M – 2.4M",
-      licensing: "AED 26K – 36K",
+      licensing: "AED 3,000 – 8,000",
       fitOut: "AED 760K – 970K",
       staffing: "AED 280K – 340K",
       marketing: "AED 125K – 165K",
@@ -125,7 +125,7 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
     {
       area: "Saadiyat Island",
       totalRange: "AED 1.55M – 2.1M",
-      licensing: "AED 22K – 32K",
+      licensing: "AED 3,000 – 8,000",
       fitOut: "AED 680K – 860K",
       staffing: "AED 240K – 300K",
       marketing: "AED 105K – 140K",
@@ -136,7 +136,7 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
     {
       area: "Yas Island",
       totalRange: "AED 1.7M – 2.3M",
-      licensing: "AED 24K – 34K",
+      licensing: "AED 3,000 – 8,000",
       fitOut: "AED 700K – 900K",
       staffing: "AED 250K – 320K",
       marketing: "AED 110K – 150K",
@@ -148,7 +148,7 @@ export const conceptBudgets: Record<ConceptKey, BudgetBand[]> = {
     {
       area: "Al Zahiyah",
       totalRange: "AED 1.45M – 1.98M",
-      licensing: "AED 22K – 30K",
+      licensing: "AED 3,000 – 8,000",
       fitOut: "AED 640K – 820K",
       staffing: "AED 220K – 280K",
       marketing: "AED 95K – 135K",
