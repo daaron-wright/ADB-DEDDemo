@@ -130,7 +130,7 @@ const LICENSE_TYPE_PROFILES: LicenseTypeProfile[] = [
     id: "commercial",
     title: "Commercial license",
     summary: "Full trading privileges for dine-in, delivery, and catering services.",
-    feeEstimate: "AED 6,400",
+    feeEstimate: "AED 3,000 – 8,000",
     highlights: [
       "Allows bundling of multiple restaurant activities",
       "Supports investor visas and banking onboarding",
@@ -142,7 +142,7 @@ const LICENSE_TYPE_PROFILES: LicenseTypeProfile[] = [
     id: "professional",
     title: "Professional license",
     summary: "Ideal for consultancy-led or niche culinary services.",
-    feeEstimate: "AED 4,200",
+    feeEstimate: "AED 3,000 – 8,000",
     highlights: [
       "Lower upfront cost and flexible ownership structures",
       "Suited for chef-driven or boutique concepts",
