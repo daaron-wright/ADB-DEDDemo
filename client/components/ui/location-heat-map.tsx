@@ -98,6 +98,44 @@ const LocationHeatMap = ({ className = "" }: { className?: string }) => {
   const fallbackTrendDatum = activeTrend?.data[activeTrend?.data.length - 1];
   const activeTrendDatum = activeTrend?.data[activeTrendIndex] ?? fallbackTrendDatum;
 
+  const formatTrendValue = (value?: number) => {
+    if (value === undefined || value === null || !activeTrend) {
+      return "–";
+    }
+
+    const unitLower = activeTrend.unit.toLowerCase();
+    if (unitLower.includes("aed")) {
+      return `${value.toFixed(1)} ${activeTrend.unit}`;
+    }
+
+    if (unitLower.includes("index")) {
+      return `${Math.round(value)} ${activeTrend.unit}`;
+    }
+
+    return `${Math.round(value)} ${activeTrend.unit}`;
+  };
+
+  const deltaUnit = useMemo(() => {
+    if (!activeTrend) {
+      return "";
+    }
+
+    const unitLower = activeTrend.unit.toLowerCase();
+    if (unitLower.includes("aed")) {
+      return " bn";
+    }
+    if (unitLower.includes("index")) {
+      return " pts";
+    }
+    if (unitLower.includes("buzz")) {
+      return " pts";
+    }
+    if (unitLower.includes("%")) {
+      return " %";
+    }
+    return activeTrend.unit ? ` ${activeTrend.unit}` : "";
+  }, [activeTrend]);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
