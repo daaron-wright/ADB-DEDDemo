@@ -5830,12 +5830,14 @@ export function BusinessChatUI({
     const handleCompetitorBreakout = () => setCompetitorBreakoutOpen(true);
     const handleGapBreakout = () => setGapBreakoutOpen(true);
     const handleGapAnalysis = () => openGapAnalysis();
+    const handleCompetitorMap = () => openCompetitorMap();
     const handleRetailLocations = () => openRetailLocations();
 
     window.addEventListener("openCuisineBreakout", handleCuisineBreakout);
     window.addEventListener("openCompetitorBreakout", handleCompetitorBreakout);
     window.addEventListener("openGapAnalysisBreakout", handleGapBreakout);
     window.addEventListener("openGapAnalysis", handleGapAnalysis);
+    window.addEventListener("openCompetitorHeatMap", handleCompetitorMap);
     window.addEventListener("openRetailLocations", handleRetailLocations);
 
     return () => {
@@ -5846,9 +5848,10 @@ export function BusinessChatUI({
       );
       window.removeEventListener("openGapAnalysisBreakout", handleGapBreakout);
       window.removeEventListener("openGapAnalysis", handleGapAnalysis);
+      window.removeEventListener("openCompetitorHeatMap", handleCompetitorMap);
       window.removeEventListener("openRetailLocations", handleRetailLocations);
     };
-  }, [openGapAnalysis, openRetailLocations]);
+  }, [openCompetitorMap, openGapAnalysis, openRetailLocations]);
 
   if (!isOpen) return null;
 
