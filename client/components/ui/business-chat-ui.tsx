@@ -5401,7 +5401,7 @@ export function BusinessChatUI({
       if (mentionsCost) {
         responses.push(
           buildMessage(
-            "Estimated set up costs could range from: There isn't a single fixed price, but rather a range that can vary from approximately AED 10,000 to AED 30,000 for the trade license itself. Type of License: Figures below this band usually reflect limited permits. For a full Commercial License that enables restaurant operations, plan within the AED 10,000 to AED 30,000 range.",
+            "Estimated setup costs for the trade license typically fall between AED 3,000 and AED 8,000. Figures below this band usually reflect limited permits, while a full Commercial License that enables restaurant operations generally sits within the AED 3,000 to AED 8,000 range. Cost shown is indicative and subject to change based on the business activity and other regulatory requirements.",
             true,
             {
               type: "budget-ranges",
