@@ -290,7 +290,7 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({
         <div className="flex items-start gap-4 px-6 pt-6">
           <div
             className={cn(
-              "flex h-16 w-[120px] items-center justify-center rounded-xl text-lg font-semibold transition-shadow duration-200",
+              "flex h-[100px] w-16 items-center justify-center rounded-xl text-lg font-semibold transition-shadow duration-200",
               isReviewer
                 ? "border-2 border-[#0f766e] bg-white text-[#0f766e] shadow-sm"
                 : "text-white",
