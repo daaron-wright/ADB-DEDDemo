@@ -474,99 +474,16 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                 </motion.div>
               </div>
             ) : (
-              <>
-                <div className="absolute top-6 left-6 z-20 flex flex-wrap gap-2">
-                  {trendMetrics.map((metric) => {
-                    const isActive = metric.id === selectedTrendId;
-                    return (
-                      <button
-                        key={metric.id}
-                        type="button"
-                        onClick={() => setSelectedTrendId(metric.id)}
-                        className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 ${
-                          isActive
-                            ? "border-white bg-white/15 text-white"
-                            : "border-white/30 bg-black/30 text-white/70 hover:border-white/50"
-                        }`}
-                      >
-                        <span
-                          className="h-2.5 w-2.5 rounded-full"
-                          style={{ backgroundColor: metric.accent }}
-                        />
-                        {metric.label}
-                      </button>
-                    );
-                  })}
-                </div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
-                  className="absolute bottom-6 left-6 right-6 z-20 space-y-4 rounded-3xl border border-white/20 bg-black/65 p-5 text-white shadow-[0_20px_52px_-34px_rgba(10,35,30,0.7)] backdrop-blur-lg"
-                >
-                  <div className="flex flex-wrap justify-between gap-4">
-                    <div>
-                      <div className="text-[11px] uppercase tracking-[0.24em] text-white/60">Selected period</div>
-                      <div className="text-lg font-semibold">{activeTrendDatum?.month ?? "–"}</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-[11px] uppercase tracking-[0.24em] text-white/60">
-                        {activeTrend?.label ?? "Metric"}
-                      </div>
-                      <div className="text-lg font-semibold">{formatTrendValue(activeTrendDatum?.value)}</div>
-                      <div
-                        className={`text-sm font-semibold ${latestDelta >= 0 ? "text-emerald-300" : "text-rose-300"}`}
-                      >
-                        {formatDeltaValue(activeTrendDatum?.yoyDelta)}
-                      </div>
-                    </div>
-                  </div>
-
-                  <svg
-                    viewBox={`0 0 ${SPARKLINE_WIDTH} ${SPARKLINE_HEIGHT}`}
-                    className="w-full"
-                    role="img"
-                    aria-label={`${activeTrend?.label ?? "Trend"} sparkline showing recent movement`}
-                  >
-                    {sparklineFillPath ? (
-                      <path d={sparklineFillPath} fill={trendAccent} fillOpacity={0.15} />
-                    ) : null}
-                    {sparklinePath ? (
-                      <path
-                        d={sparklinePath}
-                        fill="none"
-                        stroke={trendAccent}
-                        strokeWidth={2.5}
-                        strokeLinecap="round"
-                      />
-                    ) : null}
-                    {activeTrendPoint ? (
-                      <circle
-                        cx={activeTrendPoint.x}
-                        cy={activeTrendPoint.y}
-                        r={4.5}
-                        fill="#ffffff"
-                        stroke={trendAccent}
-                        strokeWidth={2}
-                      />
-                    ) : null}
-                  </svg>
-
-                  <input
-                    type="range"
-                    min={0}
-                    max={(activeTrend?.data.length ?? 1) - 1}
-                    value={activeTrendIndex}
-                    onChange={(event) => setActiveTrendIndex(Number(event.target.value))}
-                    className="w-full"
-                    style={{ accentColor: trendAccent }}
-                    aria-label="Select period"
-                  />
-
-                  <p className="text-xs leading-relaxed text-white/80">{activeTrend?.subtitle}</p>
-                </motion.div>
-              </>
+              <motion.div
+                initial={{ opacity: 0, y: -12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                className="absolute top-6 left-6 z-20 max-w-[260px] rounded-2xl border border-white/25 bg-black/50 p-4 text-white shadow-[0_18px_44px_-30px_rgba(13,38,32,0.55)] backdrop-blur"
+              >
+                <div className="text-[11px] uppercase tracking-[0.24em] text-white/70">Trend metric</div>
+                <div className="mt-2 text-lg font-semibold leading-tight">{activeTrend?.label}</div>
+                <div className="mt-1 text-xs text-white/65">{activeTrend?.subtitle}</div>
+              </motion.div>
             )}
           </motion.div>
 
