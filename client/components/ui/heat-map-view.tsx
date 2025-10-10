@@ -792,49 +792,71 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
                   </div>
                 </div>
 
-                <div className="mt-6 rounded-2xl border border-[#e2ece8] bg-white p-5">
-                  <svg
-                    viewBox={`0 0 ${SPARKLINE_WIDTH} ${SPARKLINE_HEIGHT}`}
-                    className="h-28 w-full"
-                    role="img"
-                    aria-label={`${activeTrend?.label ?? "Trend"} sparkline showing recent movement`}
+                <div className="mt-6 rounded-2xl border border-[#e2ece8] bg-[#f8fbfa] p-5">
+                  <div
+                    className="relative flex flex-col gap-3"
+                    tabIndex={0}
+                    role="slider"
+                    aria-label={`${activeTrend?.label ?? "Trend"} timeline`}
+                    aria-valuemin={0}
+                    aria-valuemax={Math.max(totalTrendPoints - 1, 0)}
+                    aria-valuenow={activeTrendIndex}
+                    aria-valuetext={activeTrendDatum?.month ?? ""}
+                    onKeyDown={handleSparklineKeyDown}
                   >
-                    {sparklineFillPath ? <path d={sparklineFillPath} fill={hexToRgba(trendAccent, 0.08)} /> : null}
-                    {sparklinePath ? (
-                      <path
-                        d={sparklinePath}
-                        fill="none"
-                        stroke={trendAccent}
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeOpacity={0.85}
-                      />
-                    ) : null}
-                    {activeTrendPoint ? (
-                      <circle
-                        cx={activeTrendPoint.x}
-                        cy={activeTrendPoint.y}
-                        r={3.5}
-                        fill="#ffffff"
-                        stroke={trendAccent}
-                        strokeWidth={2}
-                      />
-                    ) : null}
-                  </svg>
+                    <svg
+                      viewBox={`0 0 ${SPARKLINE_WIDTH} ${SPARKLINE_HEIGHT}`}
+                      className="h-32 w-full cursor-pointer select-none"
+                      role="img"
+                      aria-hidden="true"
+                      onClick={handleSparklineMouseInteraction}
+                      onMouseMove={(event) => {
+                        if (event.buttons > 0) {
+                          handleSparklineMouseInteraction(event);
+                        }
+                      }}
+                      onMouseDown={handleSparklineMouseInteraction}
+                      onTouchStart={handleSparklineTouchInteraction}
+                      onTouchMove={handleSparklineTouchInteraction}
+                    >
+                      {sparklineFillPath ? <path d={sparklineFillPath} fill={hexToRgba(trendAccent, 0.08)} /> : null}
+                      {sparklinePath ? (
+                        <path
+                          d={sparklinePath}
+                          fill="none"
+                          stroke={trendAccent}
+                          strokeWidth={2.4}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeOpacity={0.9}
+                        />
+                      ) : null}
+                      {activeTrendPoint ? (
+                        <g>
+                          <circle
+                            cx={activeTrendPoint.x}
+                            cy={activeTrendPoint.y}
+                            r={5}
+                            fill="#ffffff"
+                            stroke={trendAccent}
+                            strokeWidth={2}
+                          />
+                          <circle
+                            cx={activeTrendPoint.x}
+                            cy={activeTrendPoint.y}
+                            r={10}
+                            fill={hexToRgba(trendAccent, 0.12)}
+                          />
+                        </g>
+                      ) : null}
+                    </svg>
+                    <div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">
+                      <span>{firstTrendLabel}</span>
+                      <span>{lastTrendLabel}</span>
+                    </div>
+                  </div>
 
-                  <input
-                    type="range"
-                    min={0}
-                    max={(activeTrend?.data.length ?? 1) - 1}
-                    value={activeTrendIndex}
-                    onChange={(event) => setActiveTrendIndex(Number(event.target.value))}
-                    className="mt-4 w-full"
-                    style={{ accentColor: trendAccent }}
-                    aria-label="Select period"
-                  />
-
-                  <div className="mt-4 grid gap-4 sm:grid-cols-3">
+                  <div className="mt-5 grid gap-4 sm:grid-cols-3">
                     <div className="rounded-2xl border border-[#e2ece8] bg-[#f5f8f6] p-4">
                       <div className="text-[11px] uppercase tracking-[0.2em] text-slate-500">Selected period</div>
                       <div className="mt-2 text-lg font-semibold text-slate-900">{activeTrendDatum?.month ?? "–"}</div>
