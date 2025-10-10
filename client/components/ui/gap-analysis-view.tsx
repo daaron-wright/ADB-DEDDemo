@@ -165,6 +165,19 @@ const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({
                     Elevate guest journey with concierge-style reservations and
                     private dining.
                   </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-2 inline-flex h-1.5 w-1.5 rounded-full bg-[#0E766E]" />
+                    Highlight upcoming cultural moments by referencing the
+                    <a
+                      href="https://visitabudhabi.ae/en/events/calendar"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="ml-1 inline-flex items-center gap-1 font-semibold text-[#0E766E] underline-offset-2 hover:underline"
+                    >
+                      Abu Dhabi Events Calendar
+                    </a>
+                    to align promotions.
+                  </li>
                 </ul>
                 <button
                   type="button"
