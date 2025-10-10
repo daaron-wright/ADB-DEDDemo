@@ -6213,18 +6213,68 @@ export function BusinessChatUI({
                         className="mb-4 w-full"
                       />
                     ) : null}
-                    <div className="flex items-center gap-3 sm:gap-4">
-                      <AIBusinessOrb className="h-12 w-12 sm:h-16 sm:w-16" />
-                      <div className="min-w-0 flex-1 text-left">
-                        <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
-                          AI Business
-                        </h3>
-                        <p className="text-xs text-slate-500">
-                          Guiding your Abu Dhabi investment journey
-                        </p>
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                      <div className="flex items-center gap-3 sm:gap-4">
+                        <AIBusinessOrb className="h-12 w-12 sm:h-16 sm:w-16" />
+                        <div className="min-w-0 flex-1 text-left">
+                          <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
+                            AI Business
+                          </h3>
+                          <p className="text-xs text-slate-500">
+                            Guiding your Abu Dhabi investment journey
+                          </p>
+                        </div>
+                        <div className="hidden sm:block">
+                          <SoundVisualization />
+                        </div>
                       </div>
-                      <div className="hidden sm:block">
-                        <SoundVisualization />
+                      <div className="flex flex-col items-start gap-2 sm:items-end">
+                        <span
+                          className={cn(
+                            "text-[11px] font-semibold uppercase tracking-[0.22em]",
+                            isSidePanel ? "text-slate-500" : "text-slate-500",
+                          )}
+                        >
+                          Interaction mode
+                        </span>
+                        <div className="flex flex-wrap items-center justify-end gap-2">
+                          <button
+                            type="button"
+                            onClick={() => setInteractionMode("chat")}
+                            aria-pressed={interactionMode === "chat"}
+                            className={cn(
+                              "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]",
+                              interactionMode === "chat"
+                                ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_12px_26px_-16px_rgba(15,118,110,0.6)]"
+                                : "border-white/40 bg-white/60 text-[#0F766E] hover:border-[#0F766E]/50 hover:bg-white/80",
+                              isSidePanel &&
+                                (interactionMode === "chat"
+                                  ? "shadow-[0_12px_28px_-16px_rgba(15,118,110,0.55)]"
+                                  : "border-slate-200 bg-white text-[#0F766E]"),
+                            )}
+                          >
+                            <MessageCircle className="h-4 w-4" aria-hidden />
+                            Chat
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setInteractionMode("voice")}
+                            aria-pressed={interactionMode === "voice"}
+                            className={cn(
+                              "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]",
+                              interactionMode === "voice"
+                                ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_12px_26px_-16px_rgba(15,118,110,0.6)]"
+                                : "border-white/40 bg-white/60 text-[#0F766E] hover:border-[#0F766E]/50 hover:bg-white/80",
+                              isSidePanel &&
+                                (interactionMode === "voice"
+                                  ? "shadow-[0_12px_28px_-16px_rgba(15,118,110,0.55)]"
+                                  : "border-slate-200 bg-white text-[#0F766E]"),
+                            )}
+                          >
+                            <Mic className="h-4 w-4" aria-hidden />
+                            Voice
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -6334,66 +6384,13 @@ export function BusinessChatUI({
                               isSidePanel && "border-slate-200",
                             )}
                           >
-                            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                              <ChatInputField
-                                value={inputValue}
-                                onChange={handleInputChange}
-                                onSubmit={handleSendMessage}
-                                placeholder={chatInputPlaceholder}
-                                className="flex-1"
-                              />
-                              <div
-                                className={cn(
-                                  "flex w-full flex-col gap-4 rounded-[28px] border border-white/20 bg-white/16 p-4 backdrop-blur-xl lg:w-[280px]",
-                                  isSidePanel &&
-                                    "border-slate-200 bg-white shadow-[0_24px_60px_-46px_rgba(15,23,42,0.22)] backdrop-blur-none",
-                                )}
-                              >
-                                <div className="space-y-2">
-                                  <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-600">
-                                    Interaction mode
-                                  </span>
-                                  <div className="flex flex-wrap items-center gap-2">
-                                    <button
-                                      type="button"
-                                      onClick={() => setInteractionMode("chat")}
-                                      aria-pressed={interactionMode === "chat"}
-                                      className={cn(
-                                        "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]",
-                                        interactionMode === "chat"
-                                          ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_12px_26px_-16px_rgba(15,118,110,0.6)]"
-                                          : "border-white/40 bg-white/60 text-[#0F766E] hover:border-[#0F766E]/50 hover:bg-white/80",
-                                        isSidePanel &&
-                                          (interactionMode === "chat"
-                                            ? "shadow-[0_12px_28px_-16px_rgba(15,118,110,0.55)]"
-                                            : "border-slate-200 bg-white text-[#0F766E]"),
-                                      )}
-                                    >
-                                      <MessageCircle className="h-4 w-4" aria-hidden />
-                                      Chat
-                                    </button>
-                                    <button
-                                      type="button"
-                                      onClick={() => setInteractionMode("voice")}
-                                      aria-pressed={interactionMode === "voice"}
-                                      className={cn(
-                                        "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]",
-                                        interactionMode === "voice"
-                                          ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_12px_26px_-16px_rgba(15,118,110,0.6)]"
-                                          : "border-white/40 bg-white/60 text-[#0F766E] hover:border-[#0F766E]/50 hover:bg-white/80",
-                                        isSidePanel &&
-                                          (interactionMode === "voice"
-                                            ? "shadow-[0_12px_28px_-16px_rgba(15,118,110,0.55)]"
-                                            : "border-slate-200 bg-white text-[#0F766E]"),
-                                      )}
-                                    >
-                                      <Mic className="h-4 w-4" aria-hidden />
-                                      Voice
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                            <ChatInputField
+                              value={inputValue}
+                              onChange={handleInputChange}
+                              onSubmit={handleSendMessage}
+                              placeholder={chatInputPlaceholder}
+                              className="w-full"
+                            />
                           </div>
                         ) : null}
                       </div>
