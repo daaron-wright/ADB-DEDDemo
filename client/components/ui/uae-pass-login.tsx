@@ -92,7 +92,7 @@ const MODAL_MIN_DIMENSIONS: React.CSSProperties = {
   minHeight: 556,
 };
 
-const AVAILABLE_USER_TYPES = ["applicant"] as const;
+const AVAILABLE_USER_TYPES = ["applicant", "reviewer"] as const;
 
 interface UserTypeSelectionProps {
   onSelect: (type: "applicant" | "reviewer") => void;
