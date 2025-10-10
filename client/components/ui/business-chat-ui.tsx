@@ -5483,6 +5483,10 @@ export function BusinessChatUI({
     setModalView("gap-analysis");
   }, []);
 
+  const openCompetitorMap = useCallback(() => {
+    setModalView("competitor-map");
+  }, []);
+
   const openRetailLocations = useCallback(() => {
     setModalView("retail-locations");
     setCurrentStep("handoff");
