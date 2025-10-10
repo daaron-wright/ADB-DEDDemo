@@ -3475,7 +3475,7 @@ const BudgetRangesModal = ({
 }) => {
   const budgetRanges = [
     {
-      range: "AED 10,000 - 30,000",
+      range: "AED 3,000 – 8,000",
       title: "Commercial License",
       description: "Core licence required for restaurant operations",
       includes: [
@@ -3485,7 +3485,7 @@ const BudgetRangesModal = ({
       ],
     },
     {
-      range: "AED 50,000 - 150,000",
+      range: "AED 3,000 – 8,000",
       title: "Premium Location License",
       description: "High-end areas with additional requirements",
       includes: [
@@ -3495,7 +3495,7 @@ const BudgetRangesModal = ({
       ],
     },
     {
-      range: "AED 200,000 - 500,000",
+      range: "AED 3,000 – 8,000",
       title: "Comprehensive Setup",
       description: "Full restaurant setup with all permits and approvals",
       includes: [
