@@ -150,7 +150,8 @@ type ModalView =
   | "heat-map"
   | "budget-ranges"
   | "gap-analysis"
-  | "retail-locations";
+  | "retail-locations"
+  | "competitor-map";
 
 interface ChatThread {
   id: string;
