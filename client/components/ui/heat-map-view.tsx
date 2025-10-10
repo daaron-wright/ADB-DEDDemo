@@ -334,6 +334,79 @@ const HeatMapView: React.FC<HeatMapViewProps> = ({ onBack }) => {
 
   const activeTrendPoints = trendPointLayouts[selectedTrendId] ?? trendPointLayouts.tourism;
   const activeMultipliers = trendPointMultipliers[selectedTrendId] ?? trendPointMultipliers.tourism;
+  const totalTrendPoints = activeTrend?.data.length ?? 0;
+  const firstTrendLabel = activeTrend?.data[0]?.month ?? "";
+  const lastTrendLabel = activeTrend?.data[totalTrendPoints - 1]?.month ?? "";
+
+  const handleSparklineCoordinateSelect = useCallback(
+    (positionX: number, width: number) => {
+      if (!sparklineCoordinates.length || width <= 0) {
+        return;
+      }
+
+      const clampedX = Math.max(0, Math.min(positionX, width));
+      const viewBoxX = (clampedX / width) * SPARKLINE_WIDTH;
+
+      let closestIndex = 0;
+      let minDistance = Number.POSITIVE_INFINITY;
+
+      for (let index = 0; index < sparklineCoordinates.length; index += 1) {
+        const point = sparklineCoordinates[index];
+        const distance = Math.abs(point.x - viewBoxX);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = index;
+        }
+      }
+
+      setActiveTrendIndex(closestIndex);
+    },
+    [sparklineCoordinates, setActiveTrendIndex],
+  );
+
+  const handleSparklineMouseInteraction = useCallback(
+    (event: React.MouseEvent<SVGSVGElement>) => {
+      const rect = event.currentTarget.getBoundingClientRect();
+      handleSparklineCoordinateSelect(event.clientX - rect.left, rect.width);
+    },
+    [handleSparklineCoordinateSelect],
+  );
+
+  const handleSparklineTouchInteraction = useCallback(
+    (event: React.TouchEvent<SVGSVGElement>) => {
+      const touch = event.touches[0];
+      if (!touch) {
+        return;
+      }
+
+      const rect = event.currentTarget.getBoundingClientRect();
+      handleSparklineCoordinateSelect(touch.clientX - rect.left, rect.width);
+    },
+    [handleSparklineCoordinateSelect],
+  );
+
+  const handleSparklineKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (!totalTrendPoints) {
+        return;
+      }
+
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        setActiveTrendIndex((previous) => Math.max(0, previous - 1));
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        setActiveTrendIndex((previous) => Math.min(totalTrendPoints - 1, previous + 1));
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        setActiveTrendIndex(0);
+      } else if (event.key === "End") {
+        event.preventDefault();
+        setActiveTrendIndex(totalTrendPoints - 1);
+      }
+    },
+    [totalTrendPoints, setActiveTrendIndex],
+  );
 
   return (
     <div className="relative flex h-full min-h-[640px] flex-col overflow-x-hidden overflow-y-auto bg-[#f5f8f6]">
