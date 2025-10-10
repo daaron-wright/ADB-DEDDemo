@@ -13,12 +13,9 @@ interface CompetitorHeatMapProps {
   onBack: () => void;
 }
 
-const MAP_WIDTH = 920;
-const MAP_HEIGHT = 520;
-
 const metricOrder: CompetitorMetricId[] = ["tourism", "social", "fnb"];
 
-const formatPosition = (value: number, total: number) => `${Math.max(0, Math.min(100, value))}%`;
+const formatPosition = (value: number) => `${Math.max(0, Math.min(100, value))}%`;
 
 const getPointStyle = (
   point: CompetitorPoint,
@@ -31,8 +28,8 @@ const getPointStyle = (
   const size = point.baseSize + normalizedValue * 24;
 
   return {
-    left: formatPosition(point.x, MAP_WIDTH),
-    top: formatPosition(point.y, MAP_HEIGHT),
+    left: formatPosition(point.x),
+    top: formatPosition(point.y),
     width: `${size}px`,
     height: `${size}px`,
     transform: "translate(-50%, -50%)",
