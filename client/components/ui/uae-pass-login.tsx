@@ -121,7 +121,7 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
       </div>
     </div>
 
-    <div className="mx-auto flex max-w-3xl justify-center">
+    <div className="mx-auto flex max-w-4xl flex-col gap-4 sm:flex-row sm:flex-wrap sm:justify-center">
       {AVAILABLE_USER_TYPES.map((type) => {
         const detail = USER_TYPE_DETAILS[type];
         const isReviewer = type === "reviewer";
@@ -141,7 +141,7 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
             type="button"
             onClick={() => onSelect(type)}
             className={chatCardClass(
-              "group w-full max-w-[600px] rounded-3xl border border-slate-200 bg-white p-6 text-left shadow-sm transition-all duration-200 hover:border-slate-400 hover:shadow-[0_18px_40px_-26px_rgba(15,23,42,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 sm:p-8",
+              "group w-full rounded-3xl border border-slate-200 bg-white p-6 text-left shadow-sm transition-all duration-200 hover:border-slate-400 hover:shadow-[0_18px_40px_-26px_rgba(15,23,42,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 sm:w-[calc(50%-0.5rem)] sm:flex-1 sm:min-w-[260px] sm:p-8",
             )}
             aria-label={`Continue as ${detail.label}`}
             style={{
