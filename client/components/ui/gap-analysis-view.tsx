@@ -84,10 +84,10 @@ const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({
               <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-10">
                 <div className="flex flex-wrap items-center gap-4 text-white">
                   <div className="rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em]">
-                    Footfall insights
+                    Population density
                   </div>
                   <div className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2">
-                    <span className="text-3xl font-semibold">6.3%</span>
+                    <span className="text-3xl font-semibold">18.2k/km²</span>
                     <svg className="h-5 w-5 fill-[#54FFD4]" viewBox="0 0 17 15">
                       <path d="M8.5 0L16.7272 14.25H0.272758L8.5 0Z" />
                     </svg>
