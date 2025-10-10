@@ -131,7 +131,7 @@ const CompetitorDataSection: React.FC<CompetitorDataProps> = ({
           >
             <div className="text-center">
               <div className="flex flex-wrap items-center justify-center gap-2">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#0E766E]/25 bg-[#0E766E]/10 px-4 py-2 text-sm font-semibold text-[#0E766E]">
+                <span className="inline-flex items-center gap-2 rounded-full border border-[#0E766E]/20 bg-white px-4 py-2 text-sm font-semibold text-[#0E766E] shadow-[0_12px_24px_-18px_rgba(14,118,110,0.24)]">
                   <svg
                     className="h-4 w-4"
                     viewBox="0 0 24 24"
