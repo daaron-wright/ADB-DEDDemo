@@ -1015,13 +1015,13 @@ const CuisinePopularityBreakout = ({
                   "w-full h-full bg-white/14 backdrop-blur-md",
                 )}
               >
-                {/* AI Business Header */}
+                {/* Omnis Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <AIBusinessOrb className="h-16 w-16" />
                     <div>
                       <div className="text-white text-lg font-semibold">
-                        AI Business
+                        Omnis
                       </div>
                       <div className="flex items-center gap-1">
                         {[
@@ -1266,13 +1266,13 @@ const CompetitorAnalysisBreakout = ({
                   "w-full h-full bg-white/14 backdrop-blur-md",
                 )}
               >
-                {/* AI Business Header */}
+                {/* Omnis Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <AIBusinessOrb className="h-16 w-16" />
                     <div>
                       <div className="text-white text-lg font-semibold">
-                        AI Business
+                        Omnis
                       </div>
                       <div className="flex items-center gap-1">
                         {[
@@ -1541,13 +1541,13 @@ const GapAnalysisBreakout = ({
                   "w-full h-full bg-white/14 backdrop-blur-md",
                 )}
               >
-                {/* AI Business Header */}
+                {/* Omnis Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <AIBusinessOrb className="h-16 w-16" />
                     <div>
                       <div className="text-white text-lg font-semibold">
-                        AI Business
+                        Omnis
                       </div>
                       <div className="flex items-center gap-1">
                         {[
@@ -2001,7 +2001,7 @@ const DashboardView = ({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
         {/* Left Column */}
         <div className="space-y-6">
-          {/* AI Business Chat Interface */}
+          {/* Omnis Chat Interface */}
           <motion.div
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -2014,7 +2014,7 @@ const DashboardView = ({
               <AIBusinessOrb className="h-16 w-16" />
               <div>
                 <h3 className="text-white text-lg font-semibold">
-                  AI Business
+                  Omnis
                 </h3>
                 <motion.div
                   className="flex items-center gap-1 mt-2"
@@ -2505,13 +2505,13 @@ const DiscoveryCompilationCard = ({
           "sm:rounded-3xl",
         )}
       >
-        {/* AI Business Header */}
+        {/* Omnis Header */}
         <div className="flex flex-col p-6 pb-8">
           <div className="flex items-center gap-2 mb-8">
             <AIBusinessOrb className="h-16 w-16" />
             <div className="flex-1">
               <h3 className="text-white text-lg font-semibold mb-2">
-                AI Business
+                Omnis
               </h3>
               <motion.div
                 className="flex items-center gap-1"
@@ -5058,7 +5058,7 @@ export function BusinessChatUI({
   isOpen,
   onClose,
   category,
-  title = "AI Business",
+  title = "Omnis",
   initialMessage,
   mode = "modal",
   journeyFocusView = null,
@@ -6218,7 +6218,7 @@ export function BusinessChatUI({
                         <AIBusinessOrb className="h-12 w-12 sm:h-16 sm:w-16" />
                         <div className="min-w-0 flex-1 text-left">
                           <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
-                            AI Business
+                            Omnis
                           </h3>
                           <p className="text-xs text-slate-500">
                             Guiding your Abu Dhabi investment journey
