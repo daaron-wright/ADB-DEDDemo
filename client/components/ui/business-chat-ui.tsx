@@ -6093,7 +6093,6 @@ export function BusinessChatUI({
       buildStepMessage,
       openApplicantPortal,
       setCurrentStep,
-      setModalView,
       setCompetitorBreakoutOpen,
     ],
   );
