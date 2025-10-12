@@ -322,6 +322,36 @@ const CONVERSATION_BLUEPRINT: Record<
   handoff: {
     message:
       "Loading your investor journey dashboard now. You'll land on the tailored checklist with milestones, documents, and submission guidance.",
+    recommendations: [
+      {
+        id: "handoff-automation",
+        label: "Automate my application",
+        description:
+          "Let Omnis pre-fill documents, submit requests, and sync your applicant portal timeline.",
+        icon: Gauge,
+        type: "conversation",
+        action: "confirm-retail-automation",
+      },
+      {
+        id: "handoff-retail-locations",
+        label: "See shortlisted retail spaces",
+        description:
+          "Review curated Corniche-ready locations with compliance scoring and fit-out notes.",
+        icon: MapPin,
+        type: "modal",
+        modal: "retail-locations",
+      },
+      {
+        id: "handoff-human-fallback",
+        label: "Talk to a TAMM specialist",
+        description:
+          "We'll involve a human advisor to guide the transition while Omnis keeps everything synced.",
+        icon: Headset,
+        type: "human",
+        prompt:
+          "I'd like to speak with a TAMM advisor to finalise my investor workspace handoff.",
+      },
+    ],
   },
 };
 
