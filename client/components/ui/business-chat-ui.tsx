@@ -292,39 +292,39 @@ const CONVERSATION_BLUEPRINT: Record<
   },
   summary: {
     message:
-      "Corniche demand is hot: 96% footfall, coastal casual trending, licensing clears in ~14 days once docs are pre-checked.",
+      "Your business viability summary is ready. Review the findings, export the plan, then let me reserve the trade name when you give the go-ahead.",
     actions: [
-      { label: "Open my investor journey", action: "open-investor-journey" },
+      { label: "Open business viability summary", action: "open-viability-summary" },
     ],
     recommendations: [
       {
-        id: "summary-investor-journey",
-        label: "Open my investor workspace",
+        id: "summary-open-viability",
+        label: "Review viability summary",
         description:
-          "Jump into the guided checklist with licensing milestones and document prep in one place.",
+          "See the consolidated demographics, competition filters, and budget benchmarks in one exportable view.",
         icon: ClipboardList,
         type: "conversation",
-        action: "open-investor-journey",
+        action: "open-viability-summary",
         nextStep: "handoff",
       },
       {
-        id: "summary-compare-districts",
-        label: "Compare Corniche with Saadiyat",
+        id: "summary-budget-refresh",
+        label: "Revisit Corniche budget ranges",
         description:
-          "Stack footfall, spending power, and rental benchmarks side-by-side before you commit.",
-        icon: TrendingUp,
+          "Double-check annual operating costs and fit-out reserves before confirming your trade name.",
+        icon: Gauge,
         type: "modal",
-        modal: "competitor-map",
+        modal: "budget-ranges",
       },
       {
         id: "summary-human-fallback",
-        label: "Talk to a TAMM specialist",
+        label: "Talk to a human agent",
         description:
-          "Connect with an advisor for questions about licensing, compliance, or strategy.",
+          "Connect with a TAMM specialist if you want a personal walkthrough before applying.",
         icon: Headset,
         type: "human",
         prompt:
-          "Can you connect me with a TAMM advisor to review the market summary Omnis shared?",
+          "Please connect me with a TAMM agent to review my business viability summary.",
       },
     ],
   },
