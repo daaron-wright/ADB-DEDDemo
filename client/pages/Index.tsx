@@ -191,8 +191,9 @@ export default function Index() {
   };
 
   useEffect(() => {
+    updateGradient(fallbackFocus);
     applyFocusPoint();
-  }, []);
+  }, [applyFocusPoint, fallbackFocus, updateGradient]);
 
   useEffect(() => {
     return () => {
