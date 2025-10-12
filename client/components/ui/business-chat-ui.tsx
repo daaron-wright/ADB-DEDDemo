@@ -29,10 +29,6 @@ import RetailLocationsView from "@/components/ui/retail-locations-view";
 import CompetitorHeatMap from "@/components/ui/competitor-heat-map";
 import ComprehensiveReport from "@/components/ui/comprehensive-report";
 import { ApplicationProgressCard } from "@/components/ui/application-progress-card";
-import { MarketOpportunityInsight } from "@/components/ui/market-opportunity-insight";
-import { CompetitiveLandscapeInsight } from "@/components/ui/competitive-landscape-insight";
-import { BudgetLocationCostInsight } from "@/components/ui/budget-location-cost-insight";
-import { BusinessViabilitySummary } from "@/components/ui/business-viability-summary";
 import {
   BusinessActivitiesChatCard,
   ChatActivityOption,
