@@ -316,7 +316,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك المدعوم بالذكاء الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال الشركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك المدعوم بالذكاء الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الموافقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
@@ -1026,7 +1026,7 @@ export default function ApplicantPortal() {
   const displayLicenseType =
     languageCopy.licenseTypeLabels[primaryApplication.licenseType] ??
     primaryApplication.licenseType;
-  const profileEmail = portalUser?.email ?? "layla.almansoori@email.ae";
+  const profileEmail = portalUser?.email ?? ENTREPRENEUR_PROFILE.email;
   const profileAvatar = portalUser?.avatarUrl ?? ENTREPRENEUR_PROFILE.avatar;
   const profileStatus: "online" | "offline" | "none" = "online";
   const initialStageId = DEFAULT_ACTIVE_STAGE_ID;
