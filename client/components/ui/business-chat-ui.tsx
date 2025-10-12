@@ -3930,6 +3930,131 @@ const StageTopicSuggestions = ({
   );
 };
 
+const SuggestedThemesPanel = ({
+  stageLabel,
+  stageMessage,
+  groupedRecommendations,
+  onClose,
+  onRecommendationSelect,
+  hasStageTopics,
+  currentStep,
+  onSendTopic,
+}: {
+  stageLabel?: string;
+  stageMessage: string;
+  groupedRecommendations: SuggestedThemeGroup[];
+  onClose: () => void;
+  onRecommendationSelect: (recommendation: StageRecommendation) => void;
+  hasStageTopics: boolean;
+  currentStep: ConversationStep;
+  onSendTopic: (prompt: string) => void;
+}) => {
+  return (
+    <div className="rounded-[32px] border border-emerald-100/80 bg-white/96 p-6 shadow-[0_40px_110px_-60px_rgba(15,23,42,0.36)] backdrop-blur-[6px] sm:p-8">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div className="space-y-3 lg:max-w-2xl">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+            Suggested themes
+          </p>
+          <div>
+            <h4 className="text-lg font-semibold text-slate-900 sm:text-xl">
+              {stageLabel ?? "Current stage"}
+            </h4>
+            <p className="mt-2 text-sm leading-relaxed text-slate-600 sm:text-base">
+              {stageMessage}
+            </p>
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          className="inline-flex h-10 w-10 items-center justify-center self-start rounded-full border border-slate-200 bg-white text-slate-500 transition hover:border-slate-300 hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
+          aria-label="Close suggested themes"
+        >
+          <X className="h-4 w-4" aria-hidden="true" />
+        </button>
+      </div>
+      {groupedRecommendations.length > 0 ? (
+        <Accordion
+          type="multiple"
+          className="mt-6 grid gap-4 lg:grid-cols-2"
+        >
+          {groupedRecommendations.map((group) => {
+            const GroupIcon = group.icon;
+            return (
+              <AccordionItem
+                key={group.id}
+                value={group.id}
+                className="group rounded-3xl border border-emerald-100/70 bg-white/95 shadow-[0_32px_80px_-64px_rgba(15,23,42,0.32)] transition hover:shadow-[0_36px_96px_-60px_rgba(15,23,42,0.36)]"
+              >
+                <AccordionTrigger className="flex w-full items-start gap-4 px-6 py-5 text-left text-sm font-semibold text-slate-900 transition hover:text-[#0F766E] sm:text-base">
+                  <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/10 text-[#0F766E] shadow-[0_18px_40px_-28px_rgba(15,118,110,0.6)]">
+                    <GroupIcon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <div className="min-w-0 space-y-1 text-left">
+                    <p className="text-base font-semibold text-slate-900">
+                      {group.label}
+                    </p>
+                    <p className="text-sm leading-relaxed text-slate-500/85">
+                      {group.description}
+                    </p>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-6 pt-0">
+                  <div className="space-y-4">
+                    {group.items.map((recommendation) => {
+                      const Icon = recommendation.icon;
+                      return (
+                        <div
+                          key={recommendation.id}
+                          className="flex flex-col gap-4 rounded-2xl border border-emerald-100 bg-white/95 p-5 shadow-[0_24px_68px_-58px_rgba(15,23,42,0.3)] sm:flex-row sm:items-start sm:justify-between"
+                        >
+                          <div className="flex flex-1 items-start gap-3">
+                            <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
+                              <Icon className="h-5 w-5" aria-hidden="true" />
+                            </span>
+                            <div className="min-w-0 space-y-1">
+                              <p className="text-sm font-semibold text-slate-900 sm:text-base">
+                                {recommendation.label}
+                              </p>
+                              <p className="text-sm leading-relaxed text-slate-600">
+                                {recommendation.description}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex shrink-0 items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => onRecommendationSelect(recommendation)}
+                              className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/30 bg-[#0F766E]/10 px-4 py-2 text-sm font-semibold text-[#0F766E] transition hover:border-[#0F766E]/45 hover:bg-[#0F766E]/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
+                            >
+                              Open this workspace
+                              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
+      ) : (
+        <div className="mt-6 rounded-2xl border border-emerald-100 bg-white/95 p-6 text-sm leading-relaxed text-slate-600 shadow-[0_24px_60px_-50px_rgba(15,23,42,0.28)]">
+          More guided themes are on the way. For now, keep exploring with Omnis and the action buttons below.
+        </div>
+      )}
+      {hasStageTopics ? (
+        <div className="mt-8 border-t border-emerald-100/70 pt-6">
+          <StageTopicSuggestions step={currentStep} onSendTopic={onSendTopic} />
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
 const InvestorJourneyCard = ({
   onClose,
   onSetupBusiness,
