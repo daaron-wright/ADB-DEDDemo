@@ -92,6 +92,7 @@ type BusinessMessageType =
   | "dialogue-doc"
   | "cuisine-analysis"
   | "competitor-analysis"
+  | "competitor-cta"
   | "demographics"
   | "location-analysis"
   | "budget-ranges"
@@ -856,11 +857,7 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
   );
 };
 
-const CompetitorAnalysisSummaryTile = ({
-  onViewCompetitors,
-}: {
-  onViewCompetitors?: () => void;
-}) => {
+const CompetitorAnalysisSummaryTile = () => {
   return (
     <div className="rounded-3xl border border-[#dce9e4] bg-white/95 p-6 shadow-[0_30px_80px_-58px_rgba(14,118,110,0.28)]">
       <div className="flex flex-col gap-6">
@@ -892,16 +889,39 @@ const CompetitorAnalysisSummaryTile = ({
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <button
-            type="button"
-            onClick={onViewCompetitors}
-            className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/25 bg-white px-4 py-2 text-sm font-semibold text-[#0F766E] shadow-[0_18px_48px_-42px_rgba(14,118,110,0.32)] transition hover:border-[#0F766E]/40 hover:bg-[#f0f9f6]"
-          >
-            View Competitors • Investor Compass
-            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-          </button>
+      </div>
+    </div>
+  );
+};
+
+const CompetitorInvestorCompassCTA = ({
+  description,
+  onViewCompetitors,
+}: {
+  description?: string;
+  onViewCompetitors?: () => void;
+}) => {
+  return (
+    <div className="rounded-3xl border border-[#dce9e4] bg-white/95 p-5 shadow-[0_28px_70px_-52px_rgba(14,118,110,0.3)]">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="space-y-1">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+            Investor Compass
+          </p>
+          <p className="text-sm leading-relaxed text-slate-600">
+            {description?.trim().length
+              ? description
+              : "Open Investor Compass for a mapped view of competitor locations, filters, and whitespace insight."}
+          </p>
         </div>
+        <button
+          type="button"
+          onClick={onViewCompetitors}
+          className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/30 bg-white px-4 py-2 text-sm font-semibold text-[#0F766E] shadow-[0_18px_46px_-40px_rgba(14,118,110,0.32)] transition hover:border-[#0F766E]/45 hover:bg-[#f2fbf8]"
+        >
+          View Competitors • Investor Compass
+          <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+        </button>
       </div>
     </div>
   );
@@ -3454,9 +3474,18 @@ const MessageBubble = ({
 
           {message.type === "competitor-analysis" && (
             <div className="mt-4">
-              <CompetitorAnalysisSummaryTile
+              <CompetitorAnalysisSummaryTile />
+            </div>
+          )}
+
+          {message.type === "competitor-cta" && (
+            <div className="mt-4">
+              <CompetitorInvestorCompassCTA
+                description={message.content}
                 onViewCompetitors={() =>
-                  window.dispatchEvent(new CustomEvent("openCompetitorHeatMap"))
+                  window.dispatchEvent(
+                    new CustomEvent("openCompetitorHeatMap"),
+                  )
                 }
               />
             </div>
