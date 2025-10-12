@@ -28,6 +28,7 @@ export default function Index() {
   });
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [isLauncherExpanded, setLauncherExpanded] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
