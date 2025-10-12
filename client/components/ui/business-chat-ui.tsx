@@ -7345,6 +7345,27 @@ export function BusinessChatUI({
                     </div>
                   </div>
 
+                  {stageBlueprint && isAdvisorPanelOpen ? (
+                    <div className="mt-5">
+                      <SuggestedThemesPanel
+                        stageLabel={stageMeta?.label}
+                        stageMessage={stageBlueprint.message}
+                        groupedRecommendations={groupedThemeRecommendations}
+                        onClose={() => setAdvisorPanelOpen(false)}
+                        onRecommendationSelect={(recommendation) => {
+                          handleRecommendationSelect(recommendation);
+                          setAdvisorPanelOpen(false);
+                        }}
+                        hasStageTopics={hasStageTopics}
+                        currentStep={currentStep}
+                        onSendTopic={(prompt) => {
+                          handleSendMessage(prompt);
+                          setAdvisorPanelOpen(false);
+                        }}
+                      />
+                    </div>
+                  ) : null}
+
                   <div className={bodyWrapperClass}>
                     <div
                       className={cn(
