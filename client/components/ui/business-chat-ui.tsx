@@ -5805,10 +5805,13 @@ export function BusinessChatUI({
           if (isInvestorAuthenticated) {
             setView("investor-journey");
             const acknowledgement = buildMessage(
-              "I'll automate the application and have opened your applicant portal timeline.",
+              "Perfect — I’m triggering automation, reserving your trade name, and opening the applicant portal timeline for you now.",
               true,
             );
             const handoffMessage = buildStepMessage("handoff");
+            setTimeout(() => {
+              openApplicantPortal();
+            }, 200);
             return [...updated, acknowledgement, handoffMessage];
           }
 
@@ -5817,7 +5820,7 @@ export function BusinessChatUI({
           setShouldPromptLogin(true);
           setShouldOpenInvestorView(true);
           const approvalMessage = buildMessage(
-            "Let's get you logged in with UAE Pass.",
+            "Great choice. Let’s sign you in with UAE PASS so I can automate everything for you.",
             true,
           );
           return [...updated, approvalMessage];
