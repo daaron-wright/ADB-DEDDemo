@@ -6565,8 +6565,18 @@ export function BusinessChatUI({
                               {...journeyFocusView}
                             />
                           ) : null}
-                          {!journeyFocusView && showChatInterface
-                            ? messages.map((message) => (
+                          {!journeyFocusView && showChatInterface ? (
+                            <>
+                              {stageBlueprint ? (
+                                <StageRecommendationBoard
+                                  key={`stage-${currentStep}`}
+                                  step={currentStep}
+                                  blueprint={stageBlueprint}
+                                  onSelect={handleRecommendationSelect}
+                                  isSidePanel={isSidePanel}
+                                />
+                              ) : null}
+                              {artifactMessages.map((message) => (
                                 <MessageBubble
                                   key={message.id}
                                   message={message}
@@ -6616,8 +6626,9 @@ export function BusinessChatUI({
                                       : undefined
                                   }
                                 />
-                              ))
-                            : null}
+                              ))}
+                            </>
+                          ) : null}
                         </div>
 
                         {showChatInterface && view === "investor-journey" && (
