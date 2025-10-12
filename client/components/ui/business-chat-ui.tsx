@@ -7092,61 +7092,61 @@ export function BusinessChatUI({
                                     </div>
                                     <div className="mt-4">
                                       {groupedThemeRecommendations.length > 0 ? (
-                                        <Accordion type="multiple" className="space-y-3">
+                                        <Accordion type="multiple" className="space-y-4">
                                           {groupedThemeRecommendations.map((group) => {
                                             const GroupIcon = group.icon;
                                             return (
                                               <AccordionItem
                                                 key={group.id}
                                                 value={group.id}
-                                                className="overflow-hidden rounded-2xl border border-emerald-100/70 bg-white/90 shadow-[0_28px_70px_-55px_rgba(15,23,42,0.32)]"
+                                                className="overflow-hidden rounded-3xl border border-emerald-100/70 bg-white/95 shadow-[0_32px_80px_-60px_rgba(15,23,42,0.32)] transition hover:shadow-[0_36px_96px_-58px_rgba(15,23,42,0.34)]"
                                               >
-                                                <AccordionTrigger className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm font-semibold text-slate-900 transition hover:text-[#0F766E]">
-                                                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/10 text-[#0F766E]">
+                                                <AccordionTrigger className="flex w-full items-center gap-4 px-6 py-4 text-left text-sm font-semibold text-slate-900 transition hover:text-[#0F766E] sm:text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40">
+                                                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
                                                     <GroupIcon className="h-4 w-4" aria-hidden="true" />
                                                   </span>
                                                   <div className="min-w-0 flex-1 text-left">
-                                                    <p className="truncate text-sm font-semibold text-slate-900">
+                                                    <p className="text-sm font-semibold text-slate-900 sm:text-base">
                                                       {group.label}
                                                     </p>
-                                                    <p className="mt-1 text-xs text-slate-500">
+                                                    <p className="mt-1 text-sm leading-relaxed text-slate-500/80">
                                                       {group.description}
                                                     </p>
                                                   </div>
                                                 </AccordionTrigger>
-                                                <AccordionContent className="px-4 pb-4">
-                                                  <div className="space-y-3">
+                                                <AccordionContent className="px-6 pb-6 pt-1">
+                                                  <div className="space-y-4">
                                                     {group.items.map((recommendation) => {
                                                       const Icon = recommendation.icon;
                                                       return (
                                                         <div
                                                           key={recommendation.id}
-                                                          className="rounded-xl border border-emerald-100 bg-white/95 p-4 shadow-[0_22px_55px_-48px_rgba(15,23,42,0.3)]"
+                                                          className="rounded-2xl border border-emerald-100 bg-white/95 p-5 shadow-[0_26px_72px_-56px_rgba(15,23,42,0.32)]"
                                                         >
-                                                          <div className="flex items-start gap-3">
-                                                            <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
-                                                              <Icon className="h-4 w-4" aria-hidden="true" />
+                                                          <div className="flex items-start gap-4">
+                                                            <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
+                                                              <Icon className="h-5 w-5" aria-hidden="true" />
                                                             </span>
                                                             <div className="min-w-0 flex-1">
-                                                              <p className="text-sm font-semibold text-slate-900">
+                                                              <p className="text-sm font-semibold text-slate-900 sm:text-base">
                                                                 {recommendation.label}
                                                               </p>
-                                                              <p className="mt-1 text-xs leading-relaxed text-slate-600">
+                                                              <p className="mt-1 text-sm leading-relaxed text-slate-600">
                                                                 {recommendation.description}
                                                               </p>
                                                             </div>
                                                           </div>
-                                                          <div className="mt-3 flex flex-wrap gap-2">
+                                                          <div className="mt-4 flex flex-wrap gap-2">
                                                             <button
                                                               type="button"
                                                               onClick={() => {
                                                                 handleRecommendationSelect(recommendation);
                                                                 setAdvisorPanelOpen(false);
                                                               }}
-                                                              className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/30 bg-[#0F766E]/10 px-3 py-1.5 text-xs font-semibold text-[#0F766E] transition hover:border-[#0F766E]/45 hover:bg-[#0F766E]/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
+                                                              className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/30 bg-[#0F766E]/10 px-4 py-2 text-sm font-semibold text-[#0F766E] transition hover:border-[#0F766E]/45 hover:bg-[#0F766E]/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
                                                             >
                                                               Open this workspace
-                                                              <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                                                              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                                                             </button>
                                                           </div>
                                                         </div>
