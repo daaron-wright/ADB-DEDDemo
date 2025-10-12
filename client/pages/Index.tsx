@@ -578,6 +578,83 @@ export default function Index() {
               and simplify business setup.
             </p>
 
+            {!chatState.isOpen ? (
+              <motion.div
+                drag
+                dragConstraints={pageRef}
+                dragElastic={0.12}
+                dragMomentum={false}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="pointer-events-auto fixed bottom-6 right-6 z-30 w-[280px] sm:w-[320px]"
+                style={{ touchAction: "none" }}
+              >
+                <div className="rounded-[26px] border border-emerald-600/15 bg-white/90 p-4 shadow-[0_32px_80px_-44px_rgba(15,118,110,0.55)] backdrop-blur-xl">
+                  <button
+                    type="button"
+                    onClick={() => openOmnisChat()}
+                    className="w-full rounded-2xl border border-transparent bg-emerald-500/10 px-4 py-3 text-left transition hover:bg-emerald-500/14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/30"
+                  >
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-emerald-700/90">
+                      Interact with Omnis
+                    </span>
+                    <div className="mt-3 flex items-center gap-3">
+                      <div className="relative flex h-10 w-10 items-center justify-center">
+                        <div className="absolute inset-0 rounded-full bg-emerald-400/30 blur-lg" />
+                        <OmnisIcon className="relative h-10 w-10" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-slate-900">Hi, Lyla</p>
+                        <p className="text-xs text-slate-600">
+                          I'm ready to surface the right insight or open your workspace when you are.
+                        </p>
+                      </div>
+                    </div>
+                  </button>
+
+                  <div className="mt-4 flex flex-col gap-2">
+                    {quickLaunchActions.map((action) => (
+                      <button
+                        key={action.id}
+                        type="button"
+                        onClick={() => openOmnisChat(action.prompt)}
+                        className="group flex w-full items-start gap-3 rounded-2xl border border-emerald-600/10 bg-white px-4 py-3 text-left text-sm font-semibold text-slate-900 shadow-[0_18px_46px_-34px_rgba(15,118,110,0.45)] transition hover:-translate-y-0.5 hover:border-emerald-600/35 hover:shadow-[0_26px_60px_-34px_rgba(15,118,110,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/30"
+                      >
+                        <span className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-700">
+                          <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                        </span>
+                        <div className="space-y-1">
+                          <span>{action.label}</span>
+                          <span className="text-xs font-normal text-slate-600">
+                            {action.description}
+                          </span>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="mt-4 border-t border-emerald-200/40 pt-3">
+                    <Tooltip
+                      align="end"
+                      side="top"
+                      sideOffset={8}
+                      className="aegov-tooltip max-w-xs rounded-xl border border-emerald-200 bg-white px-3 py-2 text-xs text-slate-700 shadow-lg"
+                      content="Prefer a person? We'll alert the TAMM call centre and keep your Omnis workspace synced."
+                    >
+                      <button
+                        type="button"
+                        onClick={() => openOmnisChat("I'd like to speak with someone from the call centre about my business setup.")}
+                        className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-700 transition hover:text-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/30"
+                      >
+                        <Headset className="h-4 w-4" aria-hidden="true" />
+                        Talk to a human
+                      </button>
+                    </Tooltip>
+                  </div>
+                </div>
+              </motion.div>
+            ) : null}
+
             {/* Business Categories Section */}
             <div className="w-full">
               <h2 className="text-black text-2xl font-bold text-center mb-12 tracking-tight">
