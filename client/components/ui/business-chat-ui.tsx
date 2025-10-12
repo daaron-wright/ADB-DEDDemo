@@ -6193,7 +6193,7 @@ export function BusinessChatUI({
           if (isInvestorAuthenticated) {
             setView("investor-journey");
             const acknowledgement = buildMessage(
-              "Perfect — I���m triggering automation, reserving your trade name, and opening the applicant portal timeline for you now.",
+              "Perfect — I’m triggering automation, reserving your trade name, and opening the applicant portal timeline for you now.",
               true,
             );
             const handoffMessage = buildStepMessage("handoff");
@@ -6983,7 +6983,10 @@ export function BusinessChatUI({
                                     key={`stage-${currentStep}`}
                                     step={currentStep}
                                     blueprint={stageBlueprint}
-                                    onSelect={handleAdvisorRecommendationSelect}
+                                    onSelect={(recommendation) => {
+                                      handleRecommendationSelect(recommendation);
+                                      setAdvisorPanelOpen(false);
+                                    }}
                                     isSidePanel={isSidePanel}
                                   />
                                 ) : (
@@ -6991,7 +6994,10 @@ export function BusinessChatUI({
                                     key={`topics-${currentStep}`}
                                     step={currentStep}
                                     isSidePanel={isSidePanel}
-                                    onSendTopic={handleAdvisorTopicPrompt}
+                                    onSendTopic={(prompt) => {
+                                      handleSendMessage(prompt);
+                                      setAdvisorPanelOpen(false);
+                                    }}
                                   />
                                 )}
                               </div>
