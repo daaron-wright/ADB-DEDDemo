@@ -323,17 +323,17 @@ export const areaProfiles: AreaProfile[] = [
       "Financial district anchored by ADGM, premium hotels, and Cleveland Clinic creating lunch and evening demand.",
     metrics: {
       residents: {
-        value: "2.2k residential households",
+        value: "1,800 – 2,600 residents",
         note: "High-income apartments in The Galleria residences with rapid lease absorption, sourced via Tawtheeq contracts.",
         source: "Tawtheeq occupancy registry, Q1 2025",
       },
       office: {
-        value: "14.2k office workers",
+        value: "12,500 – 15,400 office workers",
         note: "Corporate HQ concentration across ADGM towers and adjacent campuses.",
         source: "Tawtheeq commercial leases & DED licence renewals, 2024",
       },
       tourists: {
-        value: "3.6k nightly visitors",
+        value: "2,900 – 4,400 nightly visitors",
         note: "Four and five-star hotels with medical tourism extensions.",
         source: "DCT tourism statistics, FY 2024",
       },
@@ -346,17 +346,17 @@ export const areaProfiles: AreaProfile[] = [
       "Entertainment-led destination with significant tourist inflow and growing residential catchment.",
     metrics: {
       residents: {
-        value: "3.4k residential households",
+        value: "2,800 – 3,900 residents",
         note: "New mid-rise communities in Yas Gateway expanding permanent base, counted from Tawtheeq rental filings.",
         source: "Tawtheeq occupancy registry, Q1 2025",
       },
       office: {
-        value: "4.9k workers",
+        value: "4,200 – 5,800 workers",
         note: "Theme-park operations and support offices concentrated around Yas South.",
         source: "Employment statistics, 2024",
       },
       tourists: {
-        value: "9.3k nightly visitors",
+        value: "8,400 – 10,100 nightly visitors",
         note: "Theme parks and hotels driving weekend and event surges (F1, concerts).",
         source: "Holiday Homes + DCT hotel statistics, FY 2024",
       },
