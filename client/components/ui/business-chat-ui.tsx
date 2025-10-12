@@ -823,7 +823,7 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
               <div className="text-xs text-slate-600">Market gaps</div>
             </div>
             <div>
-              <div className="text-lg font-bold text-blue-600">4.5★</div>
+              <div className="text-lg font-bold text-blue-600">4.5��</div>
               <div className="text-xs text-slate-600">Avg rating</div>
             </div>
             <div>
@@ -3862,102 +3862,6 @@ const StageTopicSuggestions = ({
           </div>
         );
       })}
-    </div>
-  );
-};
-
-const StageRecommendationBoard = ({
-  step,
-  blueprint,
-  onSelect,
-  isSidePanel,
-}: StageRecommendationBoardProps) => {
-  const stageMeta = CONVERSATION_STEPS.find((item) => item.id === step);
-
-  return (
-    <div
-      className={cn(
-        "mb-4 flex gap-3 sm:gap-4",
-        isSidePanel ? "justify-start" : "justify-start",
-      )}
-    >
-      {!isSidePanel && (
-        <AIBusinessOrb className="mt-1 hidden h-8 w-8 flex-shrink-0 shadow-sm ring-[#0E766E]/60 sm:block" />
-      )}
-      <div
-        className={cn(
-          "flex w-full max-w-[80%] flex-col gap-4 sm:max-w-[72%]",
-          isSidePanel && "max-w-none",
-        )}
-      >
-        <div
-          className={chatCardClass(
-            "w-full border border-white/30 bg-white/18 px-5 py-5 backdrop-blur-2xl shadow-[0_42px_110px_-60px_rgba(15,23,42,0.45)]",
-            "rounded-[28px]",
-          )}
-        >
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-            <div className="space-y-2">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-emerald-700/80">
-                Current stage
-              </span>
-              <h4
-                id={`stage-${step}`}
-                className="text-xl font-semibold text-slate-900 sm:text-2xl"
-              >
-                {stageMeta?.label ?? "Stage"}
-              </h4>
-            </div>
-            <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.25)] animate-pulse" />
-              Interact with Omnis
-            </div>
-          </div>
-          <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-slate-600">
-            {blueprint.message}
-          </p>
-          <div className="mt-5">
-            <Accordion type="single" collapsible className="space-y-3">
-              {blueprint.recommendations.map((recommendation, index) => {
-                const Icon = recommendation.icon;
-                const value = `${recommendation.id}-${index}`;
-
-                return (
-                  <AccordionItem
-                    key={recommendation.id}
-                    value={value}
-                    className="overflow-hidden rounded-2xl border border-white/25 bg-white/12 shadow-[0_28px_72px_-50px_rgba(15,23,42,0.42)] backdrop-blur"
-                  >
-                    <AccordionTrigger className="flex w-full items-center gap-3 px-5 py-4 text-left text-sm font-semibold text-slate-900 transition hover:text-emerald-700">
-                      <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-700 shadow-[0_18px_42px_-26px_rgba(16,185,129,0.65)]">
-                        <Icon className="h-4 w-4" aria-hidden="true" />
-                      </span>
-                      <span className="flex-1 truncate">
-                        {recommendation.label}
-                      </span>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-5 pb-4 text-sm text-slate-600">
-                      <p className="text-xs leading-relaxed text-slate-600">
-                        {recommendation.description}
-                      </p>
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        <button
-                          type="button"
-                          onClick={() => onSelect(recommendation)}
-                          className="inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-xs font-semibold text-emerald-700 transition hover:border-emerald-500 hover:bg-emerald-500/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
-                        >
-                          Continue with this theme
-                          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-                        </button>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                );
-              })}
-            </Accordion>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
