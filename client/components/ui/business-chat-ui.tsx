@@ -6233,9 +6233,7 @@ export function BusinessChatUI({
         }
 
         if (action === "contact-human") {
-          handleHumanFallback(
-            "I’d like to talk to a human agent about my restaurant setup.",
-          );
+          handleHumanFallback();
           return [...updated, buildMessage("Connecting you with a TAMM specialist now.", true)];
         }
 
