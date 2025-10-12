@@ -5948,7 +5948,6 @@ export function BusinessChatUI({
       const lower = trimmed.toLowerCase();
       const userMessage = buildMessage(trimmed, false);
       const responses: BusinessMessage[] = [];
-      let shouldOpenCompetitorBreakout = false;
 
       const normalizedText = lower
         .replace(/[.,!?]/g, "")
