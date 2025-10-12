@@ -1,5 +1,6 @@
 export const ENTREPRENEUR_PROFILE = {
-  name: "Layla Al-Mansoori",
+  name: "Layla",
+  email: "layla@email.ae",
   title: "Entrepreneur",
   avatar:
     "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F2169b533257e4a5da8d026ed2e4d6a20?format=webp&width=800",
