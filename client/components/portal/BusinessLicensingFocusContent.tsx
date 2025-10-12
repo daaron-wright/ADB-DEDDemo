@@ -124,13 +124,13 @@ const RIGHT_PANEL_TOKENS: Record<
     headline: "Preparing license request",
     automationTitle: "Submitting license request",
     description:
-      "AI Business is compiling your commercial details and preparing the request package for the Department of Economic Development.",
+      "Omnis is compiling your commercial details and preparing the request package for the Department of Economic Development.",
   },
   in_progress: {
     headline: "Automating application process",
     automationTitle: "Syncing with DED",
     description:
-      "AI Business is automating the license application process with regulatory authorities.",
+      "Omnis is automating the license application process with regulatory authorities.",
   },
   pending: {
     headline: "Awaiting DED issuance",
@@ -311,7 +311,7 @@ export function BusinessLicensingFocusContent({
               <div className="space-y-1">
                 <p className="text-sm font-semibold text-slate-900">Active licensing actions</p>
                 <p className="text-sm text-slate-600">
-                  AI Business is coordinating with the Department of Economic Development.
+                  Omnis is coordinating with the Department of Economic Development.
                 </p>
               </div>
               <Badge
@@ -391,7 +391,7 @@ export function BusinessLicensingFocusContent({
             </div>
             <div className="min-w-[180px] space-y-1">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Business AI assistant
+                Omnis assistant
               </p>
               <p className="text-lg font-semibold text-slate-900">{rightPanelToken.headline}</p>
             </div>
@@ -407,7 +407,7 @@ export function BusinessLicensingFocusContent({
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Your first actions</p>
-                <p className="text-base font-semibold text-slate-900">What AI Business needs from you</p>
+                <p className="text-base font-semibold text-slate-900">What Omnis needs from you</p>
               </div>
               <Button
                 type="button"
