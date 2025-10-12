@@ -3950,17 +3950,17 @@ const SuggestedThemesPanel = ({
   onSendTopic: (prompt: string) => void;
 }) => {
   return (
-    <div className="rounded-[32px] border border-emerald-100/80 bg-white/96 p-6 shadow-[0_40px_110px_-60px_rgba(15,23,42,0.36)] backdrop-blur-[6px] sm:p-8">
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+    <div className="rounded-[32px] border border-emerald-100/70 bg-white/97 p-6 shadow-[0_46px_120px_-62px_rgba(15,23,42,0.42)] backdrop-blur-[8px] sm:p-9">
+      <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
         <div className="space-y-3 lg:max-w-2xl">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#0F766E]/90">
             Suggested themes
           </p>
-          <div>
-            <h4 className="text-lg font-semibold text-slate-900 sm:text-xl">
+          <div className="space-y-2">
+            <h4 className="text-xl font-semibold text-slate-900 sm:text-2xl">
               {stageLabel ?? "Current stage"}
             </h4>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600 sm:text-base">
+            <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
               {stageMessage}
             </p>
           </div>
@@ -3975,54 +3975,57 @@ const SuggestedThemesPanel = ({
         </button>
       </div>
       {groupedRecommendations.length > 0 ? (
-        <div className="mt-6 space-y-4">
+        <div className="mt-7 space-y-5">
           {groupedRecommendations.map((group) => {
             const GroupIcon = group.icon;
             return (
-              <div key={group.id} className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/10 text-[#0F766E]">
-                    <GroupIcon className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-900 sm:text-base">
-                      {group.label}
-                    </p>
-                    <p className="text-xs text-slate-500 sm:text-sm">
-                      {group.description}
-                    </p>
+              <section
+                key={group.id}
+                className="rounded-3xl border border-emerald-100/65 bg-white/92 px-5 py-5 shadow-[0_28px_80px_-60px_rgba(14,118,110,0.35)] sm:px-6 sm:py-6"
+              >
+                <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex items-start gap-3 text-left">
+                    <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E] shadow-[0_18px_44px_-32px_rgba(15,118,110,0.55)]">
+                      <GroupIcon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <div className="space-y-1">
+                      <p className="text-base font-semibold text-slate-900">
+                        {group.label}
+                      </p>
+                      <p className="text-sm leading-relaxed text-slate-600">
+                        {group.description}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex flex-wrap gap-2 sm:gap-3">
-                  {group.items.map((recommendation) => {
-                    const Icon = recommendation.icon;
-                    return (
-                      <button
-                        key={recommendation.id}
-                        type="button"
-                        onClick={() => onRecommendationSelect(recommendation)}
-                        className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/30 bg-white px-3.5 py-2 text-xs font-semibold text-[#0F766E] shadow-[0_10px_28px_-18px_rgba(15,118,110,0.35)] transition hover:border-[#0F766E]/50 hover:bg-[#f2fbf8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 sm:text-sm"
-                      >
-                        <span className="inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0F766E]" aria-hidden />
-                        <span className="inline-flex items-center gap-1">
+                  <div className="flex flex-wrap gap-2 sm:gap-3">
+                    {group.items.map((recommendation) => {
+                      const Icon = recommendation.icon;
+                      return (
+                        <button
+                          key={recommendation.id}
+                          type="button"
+                          onClick={() => onRecommendationSelect(recommendation)}
+                          className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/35 bg-white/90 px-4 py-2 text-sm font-semibold text-[#0F766E] shadow-[0_18px_40px_-28px_rgba(15,118,110,0.4)] transition hover:border-[#0F766E]/55 hover:bg-[#f2fbf8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
+                        >
                           <Icon className="h-4 w-4" aria-hidden="true" />
                           {recommendation.label}
-                        </span>
-                      </button>
-                    );
-                  })}
+                          <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
+              </section>
             );
           })}
         </div>
       ) : (
-        <div className="mt-6 rounded-2xl border border-emerald-100 bg-white/95 p-6 text-sm leading-relaxed text-slate-600 shadow-[0_24px_60px_-50px_rgba(15,23,42,0.28)]">
+        <div className="mt-7 rounded-3xl border border-emerald-100 bg-white/95 p-6 text-sm leading-relaxed text-slate-600 shadow-[0_24px_60px_-50px_rgba(15,23,42,0.28)] sm:p-7">
           More guided themes are on the way. In the meantime, continue with the quick actions below.
         </div>
       )}
       {hasStageTopics ? (
-        <div className="mt-8 border-t border-emerald-100/70 pt-6">
+        <div className="mt-9 border-t border-emerald-100/70 pt-6">
           <StageTopicSuggestions step={currentStep} onSendTopic={onSendTopic} />
         </div>
       ) : null}
