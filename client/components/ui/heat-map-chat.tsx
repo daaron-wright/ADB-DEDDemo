@@ -41,7 +41,7 @@ const AccessibleMessageBubble = ({ message }: { message: Message }) => {
         {/* Assistant label for screen readers */}
         {message.isAI && (
           <span className="text-sm font-medium text-gray-800 mb-1">
-            AI Business
+            Omnis
           </span>
         )}
 
@@ -396,7 +396,7 @@ export const HeatMapChat: React.FC<HeatMapChatProps> = ({
                     id="heat-map-chat-title"
                     className="text-lg font-semibold text-gray-900"
                   >
-                    AI Business
+                    Omnis
                   </h2>
                   <p className="text-sm text-gray-600">
                     Location Analysis Assistant
