@@ -6909,32 +6909,80 @@ export function BusinessChatUI({
                       </div>
                     </div>
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setAdvisorPanelView((prev) =>
-                            prev === "topics" ? "recommendations" : "topics",
-                          )
-                        }
-                        className="group flex items-center gap-3 rounded-full border border-white/25 bg-white/14 px-3 py-2 transition hover:border-emerald-300/60 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 sm:gap-4"
-                        aria-pressed={advisorPanelView === "topics"}
-                        aria-label="Toggle Omnis topic suggestions"
-                      >
-                        <AIBusinessOrb className="h-12 w-12 sm:h-16 sm:w-16" />
-                        <div className="min-w-0 flex-1 text-left">
-                          <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
-                            Omnis
-                          </h3>
-                          <p className="text-xs text-slate-500">
-                            {advisorPanelView === "topics"
-                              ? "Tap to return to guided actions"
-                              : "Tap to explore suggested topics"}
-                          </p>
-                        </div>
-                        <div className="hidden sm:block">
-                          <SoundVisualization />
-                        </div>
-                      </button>
+                      <div className="relative">
+                        <button
+                          type="button"
+                          onClick={() => setAdvisorPanelOpen((prev) => !prev)}
+                          className={cn(
+                            "group flex items-center gap-3 rounded-full border border-white/25 bg-white/14 px-3 py-2 transition hover:border-emerald-300/60 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 sm:gap-4",
+                            isAdvisorPanelOpen &&
+                              "border-emerald-300/60 bg-white/22 shadow-[0_24px_60px_-40px_rgba(16,185,129,0.55)]",
+                          )}
+                          aria-expanded={isAdvisorPanelOpen}
+                          aria-controls="omnis-advisor-panel"
+                          aria-label="Toggle Omnis advisor panel"
+                        >
+                          <AIBusinessOrb className="h-12 w-12 sm:h-16 sm:w-16" />
+                          <div className="min-w-0 flex-1 text-left">
+                            <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
+                              Omnis
+                            </h3>
+                            <p className="text-xs text-slate-500">
+                              {isAdvisorPanelOpen
+                                ? "Tap to collapse guided insights"
+                                : "Tap to explore guided actions & topics"}
+                            </p>
+                          </div>
+                          <div className="hidden sm:block">
+                            <SoundVisualization />
+                          </div>
+                        </button>
+                        <AnimatePresence>
+                          {isAdvisorPanelOpen && stageBlueprint ? (
+                            <motion.div
+                              id="omnis-advisor-panel"
+                              initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: 6, scale: 0.96 }}
+                              transition={{ duration: 0.2, ease: "easeOut" }}
+                              className="absolute right-0 top-[calc(100%+12px)] z-50 w-[min(360px,calc(100vw-64px))]"
+                            >
+                              <div
+                                className={chatCardClass(
+                                  cn(
+                                    "border border-white/30 bg-white/90 px-4 py-4 backdrop-blur-xl shadow-[0_40px_120px_-55px_rgba(15,23,42,0.45)]",
+                                    "rounded-[24px]",
+                                    isSidePanel &&
+                                      "border-slate-200 bg-white shadow-[0_32px_90px_-55px_rgba(15,23,42,0.3)]",
+                                  ),
+                                )}
+                              >
+                                <AdvisorPanelTabs
+                                  activeView={advisorPanelView}
+                                  onViewChange={setAdvisorPanelView}
+                                  isSidePanel={isSidePanel}
+                                />
+                                {advisorPanelView === "recommendations" ? (
+                                  <StageRecommendationBoard
+                                    key={`stage-${currentStep}`}
+                                    step={currentStep}
+                                    blueprint={stageBlueprint}
+                                    onSelect={handleAdvisorRecommendationSelect}
+                                    isSidePanel={isSidePanel}
+                                  />
+                                ) : (
+                                  <StageTopicSuggestions
+                                    key={`topics-${currentStep}`}
+                                    step={currentStep}
+                                    isSidePanel={isSidePanel}
+                                    onSendTopic={handleAdvisorTopicPrompt}
+                                  />
+                                )}
+                              </div>
+                            </motion.div>
+                          ) : null}
+                        </AnimatePresence>
+                      </div>
                       <div className="flex flex-col items-start gap-2 sm:items-end">
                         <span
                           className={cn(
