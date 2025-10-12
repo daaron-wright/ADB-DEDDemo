@@ -6,7 +6,6 @@ import React, {
   useMemo,
 } from "react";
 import { useNavigate } from "react-router-dom";
-import Draggable from "react-draggable";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
