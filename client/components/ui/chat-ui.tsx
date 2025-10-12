@@ -66,7 +66,7 @@ const MessageBubble = ({ message }: { message: Message }) => {
 
 const queryClient = new QueryClient();
 
-export function ChatUI({ isOpen, onClose, title = "AI Business" }: ChatUIProps) {
+export function ChatUI({ isOpen, onClose, title = "Omnis" }: ChatUIProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
