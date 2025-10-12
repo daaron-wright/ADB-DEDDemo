@@ -3816,114 +3816,59 @@ interface StageRecommendationBoardProps {
 
 const StageTopicSuggestions = ({
   step,
-  isSidePanel,
   onSendTopic,
 }: {
   step: ConversationStep;
-  isSidePanel: boolean;
   onSendTopic: (prompt: string) => void;
 }) => {
   const groups = STAGE_TOPIC_GROUPS[step] ?? [];
-  const hasGroups = groups.length > 0;
+
+  if (groups.length === 0) {
+    return null;
+  }
 
   return (
-    <div
-      className={cn(
-        "mb-4 flex gap-3 sm:gap-4",
-        isSidePanel ? "justify-start" : "justify-start",
-      )}
-    >
-      {!isSidePanel && (
-        <AIBusinessOrb className="mt-1 hidden h-8 w-8 flex-shrink-0 sm:block" />
-      )}
-      <div
-        className={cn(
-          "flex w-full max-w-[80%] flex-col gap-4 sm:max-w-[72%]",
-          isSidePanel && "max-w-none",
-        )}
-      >
-        {hasGroups ? (
-          groups.map((group) => {
-            const Icon = group.icon;
-            return (
-              <div
-                key={group.id}
-                className={chatCardClass(
-                  cn(
-                    "w-full border border-white/30 bg-white/18 px-5 py-5 backdrop-blur-2xl shadow-[0_42px_110px_-60px_rgba(15,23,42,0.45)]",
-                    "rounded-[28px]",
-                    isSidePanel &&
-                      "border-slate-200 bg-white shadow-[0_30px_70px_-55px_rgba(15,23,42,0.2)]",
-                  ),
-                )}
-              >
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="flex items-start gap-3">
-                    <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E] shadow-[0_18px_42px_-26px_rgba(16,185,129,0.55)]">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    <div>
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-emerald-700/80">
-                        Topic track
-                      </span>
-                      <h4 className="text-lg font-semibold text-slate-900 sm:text-xl">
-                        {group.title}
-                      </h4>
-                    </div>
-                  </div>
-                  <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
-                    Explore with Omnis
-                  </div>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                  {group.description}
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2">
+    <div className="space-y-3">
+      <div>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+          Conversation starters
+        </p>
+        <p className="text-xs text-slate-500">
+          Drop a prompt to keep momentum without leaving the current stage.
+        </p>
+      </div>
+      {groups.map((group) => {
+        const Icon = group.icon;
+        return (
+          <div
+            key={group.id}
+            className="rounded-2xl border border-emerald-100/60 bg-white/80 p-4 shadow-[0_24px_60px_-44px_rgba(15,23,42,0.28)]"
+          >
+            <div className="flex items-start gap-3">
+              <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
+                <Icon className="h-4 w-4" aria-hidden="true" />
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-semibold text-slate-900">{group.title}</p>
+                <p className="mt-1 text-xs leading-relaxed text-slate-600">{group.description}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
                   {group.topics.map((topic) => (
                     <button
                       key={topic.id}
                       type="button"
                       onClick={() => onSendTopic(topic.prompt)}
-                      className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/16 px-3.5 py-2 text-xs font-semibold text-slate-700 shadow-[0_18px_45px_-30px_rgba(15,23,42,0.4)] transition hover:-translate-y-0.5 hover:border-emerald-400/45 hover:bg-white/24 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
+                      className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/20 bg-white px-3 py-1.5 text-xs font-semibold text-[#0F766E] transition hover:border-[#0F766E]/40 hover:bg-[#f2fbf8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
                     >
-                      <span className="inline-flex h-2 w-2 rounded-full bg-[#0F766E]" aria-hidden />
+                      <span className="inline-flex h-1.5 w-1.5 rounded-full bg-[#0F766E]" aria-hidden />
                       {topic.label}
                     </button>
                   ))}
                 </div>
               </div>
-            );
-          })
-        ) : (
-          <div
-            className={chatCardClass(
-              cn(
-                "w-full border border-white/30 bg-white/18 px-5 py-5 backdrop-blur-2xl shadow-[0_42px_110px_-60px_rgba(15,23,42,0.45)]",
-                "rounded-[28px]",
-                isSidePanel &&
-                  "border-slate-200 bg-white shadow-[0_30px_70px_-55px_rgba(15,23,42,0.2)]",
-              ),
-            )}
-          >
-            <div className="flex items-start gap-3">
-              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E] shadow-[0_18px_42px_-26px_rgba(16,185,129,0.55)]">
-                <MapIcon className="h-5 w-5" aria-hidden="true" />
-              </span>
-              <div>
-                <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-emerald-700/80">
-                  Topic track
-                </span>
-                <h4 className="text-lg font-semibold text-slate-900 sm:text-xl">
-                  More topics coming soon
-                </h4>
-              </div>
             </div>
-            <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              Omnis will surface additional topic prompts for this stage as new signals arrive. For now, continue with the guided actions tab.
-            </p>
           </div>
-        )}
-      </div>
+        );
+      })}
     </div>
   );
 };
