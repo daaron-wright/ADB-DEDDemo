@@ -183,7 +183,7 @@ const getCategoryBackground = (category: string) => {
 
 const queryClient = new QueryClient();
 
-export function InvestorChatUI({ isOpen, onClose, category, title = "AI Business" }: InvestorChatUIProps) {
+export function InvestorChatUI({ isOpen, onClose, category, title = "Omnis" }: InvestorChatUIProps) {
   const [messages, setMessages] = useState<InvestorMessage[]>([
     {
       id: '1',
