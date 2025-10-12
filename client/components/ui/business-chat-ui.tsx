@@ -901,9 +901,6 @@ const CompetitorAnalysisSummaryTile = ({
             View Competitors • Investor Compass
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
           </button>
-          <p className="text-xs leading-relaxed text-slate-500">
-            Omnis keeps the Investor Compass synchronized with the latest operator openings and menu shifts.
-          </p>
         </div>
       </div>
     </div>
