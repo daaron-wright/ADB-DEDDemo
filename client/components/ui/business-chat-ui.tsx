@@ -5890,7 +5890,6 @@ export function BusinessChatUI({
       const userMessage = buildMessage(trimmed, false);
       const responses: BusinessMessage[] = [];
       let shouldOpenCompetitorBreakout = false;
-      let shouldOpenCompetitorMap = false;
 
       const normalizedText = lower
         .replace(/[.,!?]/g, "")
