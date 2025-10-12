@@ -6822,86 +6822,53 @@ export function BusinessChatUI({
                     </div>
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                       <div className="relative">
-                        <button
-                          ref={advisorPillRef}
-                          type="button"
-                          onClick={() => setAdvisorPanelOpen((prev) => !prev)}
-                          className={cn(
-                            "group flex items-center gap-3 rounded-full border border-white/25 bg-white/14 px-3 py-2 transition hover:border-emerald-300/60 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 sm:gap-4",
-                            isAdvisorPanelOpen &&
-                              "border-emerald-300/60 bg-white/22 shadow-[0_24px_60px_-40px_rgba(16,185,129,0.55)]",
-                          )}
-                          aria-expanded={isAdvisorPanelOpen}
-                          aria-controls="omnis-advisor-panel"
-                          aria-label="Toggle Omnis advisor panel"
-                        >
-                          <AIBusinessOrb className="h-12 w-12 sm:h-16 sm:w-16" />
-                          <div className="min-w-0 flex-1 text-left">
-                            <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
-                              Omnis
-                            </h3>
-                            <p className="text-xs text-slate-500">
-                              {isAdvisorPanelOpen
-                                ? "Tap to collapse guided insights"
-                                : "Tap to explore guided actions & topics"}
-                            </p>
+                        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+                          <div className="flex items-center gap-3 sm:gap-4">
+                            <AIBusinessOrb className="h-12 w-12 sm:h-16 sm:w-16" />
+                            <div className="min-w-0 flex-1 text-left">
+                              <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
+                                Omnis
+                              </h3>
+                              <p className="text-xs text-slate-500">
+                                Guiding your Abu Dhabi investment journey
+                              </p>
+                            </div>
+                            <div className="hidden sm:block">
+                              <SoundVisualization />
+                            </div>
                           </div>
-                          <div className="hidden sm:block">
-                            <SoundVisualization />
-                          </div>
-                        </button>
-                        <AnimatePresence>
-                          {isAdvisorPanelOpen && stageBlueprint ? (
-                            <motion.div
-                              ref={advisorPanelRef}
-                              id="omnis-advisor-panel"
-                              initial={{ opacity: 0, y: 8, scale: 0.96 }}
-                              animate={{ opacity: 1, y: 0, scale: 1 }}
-                              exit={{ opacity: 0, y: 6, scale: 0.96 }}
-                              transition={{ duration: 0.2, ease: "easeOut" }}
-                              className="absolute right-0 top-[calc(100%+12px)] z-50 w-[min(360px,calc(100vw-64px))]"
+                          {stageBlueprint ? (
+                            <button
+                              type="button"
+                              onClick={() => setAdvisorPanelOpen((prev) => !prev)}
+                              className={cn(
+                                "inline-flex items-center gap-2 self-start rounded-full border border-white/30 bg-white/18 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition hover:border-[#0F766E]/50 hover:bg-white/24 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40",
+                                isAdvisorPanelOpen && "border-[#0F766E] bg-white/28",
+                                isSidePanel && "border-slate-300 text-[#0F766E]",
+                              )}
+                              aria-pressed={isAdvisorPanelOpen}
                             >
-                              <div
-                                className={chatCardClass(
-                                  cn(
-                                    "border border-white/30 bg-white/90 px-4 py-4 backdrop-blur-xl shadow-[0_40px_120px_-55px_rgba(15,23,42,0.45)]",
-                                    "rounded-[24px]",
-                                    isSidePanel &&
-                                      "border-slate-200 bg-white shadow-[0_32px_90px_-55px_rgba(15,23,42,0.3)]",
-                                  ),
+                              Suggested themes
+                              <svg
+                                className={cn(
+                                  "h-3.5 w-3.5 transition-transform",
+                                  isAdvisorPanelOpen ? "rotate-180" : "rotate-0",
                                 )}
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <AdvisorPanelTabs
-                                  activeView={advisorPanelView}
-                                  onViewChange={setAdvisorPanelView}
-                                  isSidePanel={isSidePanel}
+                                <path
+                                  d="M3 4.5L6 7.5L9 4.5"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                 />
-                                {advisorPanelView === "recommendations" ? (
-                                  <StageRecommendationBoard
-                                    key={`stage-${currentStep}`}
-                                    step={currentStep}
-                                    blueprint={stageBlueprint}
-                                    onSelect={(recommendation) => {
-                                      handleRecommendationSelect(recommendation);
-                                      setAdvisorPanelOpen(false);
-                                    }}
-                                    isSidePanel={isSidePanel}
-                                  />
-                                ) : (
-                                  <StageTopicSuggestions
-                                    key={`topics-${currentStep}`}
-                                    step={currentStep}
-                                    isSidePanel={isSidePanel}
-                                    onSendTopic={(prompt) => {
-                                      handleSendMessage(prompt);
-                                      setAdvisorPanelOpen(false);
-                                    }}
-                                  />
-                                )}
-                              </div>
-                            </motion.div>
+                              </svg>
+                            </button>
                           ) : null}
-                        </AnimatePresence>
+                        </div>
                       </div>
                       <div className="flex flex-col items-start gap-2 sm:items-end">
                         <span
