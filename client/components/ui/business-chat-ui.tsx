@@ -3975,75 +3975,50 @@ const SuggestedThemesPanel = ({
         </button>
       </div>
       {groupedRecommendations.length > 0 ? (
-        <Accordion
-          type="multiple"
-          className="mt-6 grid gap-4 lg:grid-cols-2"
-        >
+        <div className="mt-6 space-y-4">
           {groupedRecommendations.map((group) => {
             const GroupIcon = group.icon;
             return (
-              <AccordionItem
-                key={group.id}
-                value={group.id}
-                className="group rounded-3xl border border-emerald-100/70 bg-white/95 shadow-[0_32px_80px_-64px_rgba(15,23,42,0.32)] transition hover:shadow-[0_36px_96px_-60px_rgba(15,23,42,0.36)]"
-              >
-                <AccordionTrigger className="flex w-full items-start gap-4 px-6 py-5 text-left text-sm font-semibold text-slate-900 transition hover:text-[#0F766E] sm:text-base">
-                  <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/10 text-[#0F766E] shadow-[0_18px_40px_-28px_rgba(15,118,110,0.6)]">
+              <div key={group.id} className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/10 text-[#0F766E]">
                     <GroupIcon className="h-5 w-5" aria-hidden="true" />
                   </span>
-                  <div className="min-w-0 space-y-1 text-left">
-                    <p className="text-base font-semibold text-slate-900">
+                  <div>
+                    <p className="text-sm font-semibold text-slate-900 sm:text-base">
                       {group.label}
                     </p>
-                    <p className="text-sm leading-relaxed text-slate-500/85">
+                    <p className="text-xs text-slate-500 sm:text-sm">
                       {group.description}
                     </p>
                   </div>
-                </AccordionTrigger>
-                <AccordionContent className="px-6 pb-6 pt-0">
-                  <div className="space-y-4">
-                    {group.items.map((recommendation) => {
-                      const Icon = recommendation.icon;
-                      return (
-                        <div
-                          key={recommendation.id}
-                          className="flex flex-col gap-4 rounded-2xl border border-emerald-100 bg-white/95 p-5 shadow-[0_24px_68px_-58px_rgba(15,23,42,0.3)] sm:flex-row sm:items-start sm:justify-between"
-                        >
-                          <div className="flex flex-1 items-start gap-3">
-                            <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
-                              <Icon className="h-5 w-5" aria-hidden="true" />
-                            </span>
-                            <div className="min-w-0 space-y-1">
-                              <p className="text-sm font-semibold text-slate-900 sm:text-base">
-                                {recommendation.label}
-                              </p>
-                              <p className="text-sm leading-relaxed text-slate-600">
-                                {recommendation.description}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="flex shrink-0 items-center gap-2">
-                            <button
-                              type="button"
-                              onClick={() => onRecommendationSelect(recommendation)}
-                              className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/30 bg-[#0F766E]/10 px-4 py-2 text-sm font-semibold text-[#0F766E] transition hover:border-[#0F766E]/45 hover:bg-[#0F766E]/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
-                            >
-                              Open this workspace
-                              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                            </button>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
+                </div>
+                <div className="flex flex-wrap gap-2 sm:gap-3">
+                  {group.items.map((recommendation) => {
+                    const Icon = recommendation.icon;
+                    return (
+                      <button
+                        key={recommendation.id}
+                        type="button"
+                        onClick={() => onRecommendationSelect(recommendation)}
+                        className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/30 bg-white px-3.5 py-2 text-xs font-semibold text-[#0F766E] shadow-[0_10px_28px_-18px_rgba(15,118,110,0.35)] transition hover:border-[#0F766E]/50 hover:bg-[#f2fbf8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 sm:text-sm"
+                      >
+                        <span className="inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0F766E]" aria-hidden />
+                        <span className="inline-flex items-center gap-1">
+                          <Icon className="h-4 w-4" aria-hidden="true" />
+                          {recommendation.label}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             );
           })}
-        </Accordion>
+        </div>
       ) : (
         <div className="mt-6 rounded-2xl border border-emerald-100 bg-white/95 p-6 text-sm leading-relaxed text-slate-600 shadow-[0_24px_60px_-50px_rgba(15,23,42,0.28)]">
-          More guided themes are on the way. For now, keep exploring with Omnis and the action buttons below.
+          More guided themes are on the way. In the meantime, continue with the quick actions below.
         </div>
       )}
       {hasStageTopics ? (
