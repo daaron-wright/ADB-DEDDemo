@@ -566,74 +566,93 @@ export default function Index() {
                 dragMomentum={false}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="pointer-events-auto fixed bottom-6 right-6 z-30 w-[280px] sm:w-[320px]"
+                className="pointer-events-auto fixed bottom-6 right-6 z-30"
                 style={{ touchAction: "none" }}
               >
-                <div className="rounded-[28px] border border-white/35 bg-white/18 p-4 shadow-[0_40px_90px_-55px_rgba(15,23,42,0.4)] backdrop-blur-2xl">
-                  <div className="flex items-start gap-3">
-                    <div className="relative flex h-11 w-11 flex-shrink-0 items-center justify-center">
-                      <div className="absolute inset-0 rounded-full bg-emerald-400/30 blur-xl" />
-                      <OmnisIcon className="relative h-11 w-11" />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="flex items-center justify-between gap-3">
-                        <span className="text-sm font-semibold text-slate-900">Hi, Lyla</span>
-                        <span className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-700">
-                          <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.32)] animate-pulse" />
-                          Omnis Live
-                        </span>
+                {isLauncherExpanded ? (
+                  <div className="w-[280px] rounded-[28px] border border-white/35 bg-white/18 p-4 shadow-[0_40px_90px_-55px_rgba(15,23,42,0.4)] backdrop-blur-2xl sm:w-[320px]">
+                    <div className="flex items-start gap-3">
+                      <div className="relative flex h-11 w-11 flex-shrink-0 items-center justify-center">
+                        <div className="absolute inset-0 rounded-full bg-emerald-400/30 blur-xl" />
+                        <OmnisIcon className="relative h-11 w-11" />
                       </div>
-                      <p className="mt-1 text-xs text-slate-600">
-                        Ask for market signals or licensing steps and I'll surface the right workspace.
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => openOmnisChat()}
-                    className="mt-4 inline-flex w-full items-center justify-between rounded-2xl border border-white/25 bg-white/14 px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-emerald-200/60 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
-                  >
-                    <span>Open Omnis workspace</span>
-                    <ArrowUpRight className="h-4 w-4 text-emerald-600" aria-hidden="true" />
-                  </button>
-
-                  <div className="mt-3 flex flex-col gap-2">
-                    {quickLaunchActions.map((action) => (
-                      <button
-                        key={action.id}
-                        type="button"
-                        onClick={() => openOmnisChat(action.prompt)}
-                        className="group inline-flex w-full items-center justify-between rounded-2xl border border-white/20 bg-white/12 px-4 py-3 text-sm font-medium text-slate-800 transition hover:border-emerald-200/55 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/30"
-                      >
-                        <span className="flex items-center gap-2 text-left">
-                          <span className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-700 shadow-[0_18px_40px_-24px_rgba(16,185,129,0.65)]">
-                            <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between gap-3">
+                          <span className="text-sm font-semibold text-slate-900">Hi, Lyla</span>
+                          <span className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-700">
+                            <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.32)] animate-pulse" />
+                            Omnis Live
                           </span>
-                          <span>{action.label}</span>
-                        </span>
-                        <ArrowUpRight className="h-4 w-4 text-slate-400 transition group-hover:text-emerald-600" aria-hidden="true" />
+                        </div>
+                        <p className="mt-1 text-xs text-slate-600">
+                          Ask for market signals or licensing steps and I'll surface the right workspace.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setLauncherExpanded(false)}
+                        className="inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/20 text-slate-500 transition hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
+                        aria-label="Collapse Omnis quick actions"
+                      >
+                        <X className="h-4 w-4" aria-hidden="true" />
                       </button>
-                    ))}
-                  </div>
+                    </div>
 
-                  <Tooltip
-                    align="end"
-                    side="top"
-                    sideOffset={10}
-                    className="aegov-tooltip max-w-xs rounded-xl border border-white/30 bg-white/90 px-3 py-2 text-xs text-slate-700 shadow-[0_20px_45px_-28px_rgba(15,23,42,0.3)] backdrop-blur-xl"
-                    content="Prefer a person? We'll alert the TAMM call centre and keep your Omnis workspace synced."
-                  >
                     <button
                       type="button"
-                      onClick={() => openOmnisChat("I'd like to speak with someone from the call centre about my business setup.")}
-                      className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/25 bg-white/12 px-4 py-2 text-xs font-semibold text-emerald-700 transition hover:border-emerald-200/50 hover:text-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/35"
+                      onClick={() => openOmnisChat()}
+                      className="mt-4 inline-flex w-full items-center justify-between rounded-2xl border border-white/25 bg-white/14 px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-emerald-200/60 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
                     >
-                      <Headset className="h-4 w-4" aria-hidden="true" />
-                      Talk to a human
+                      <span>Open Omnis workspace</span>
+                      <ArrowUpRight className="h-4 w-4 text-emerald-600" aria-hidden="true" />
                     </button>
-                  </Tooltip>
-                </div>
+
+                    <div className="mt-3 flex flex-col gap-2">
+                      {quickLaunchActions.map((action) => (
+                        <button
+                          key={action.id}
+                          type="button"
+                          onClick={() => openOmnisChat(action.prompt)}
+                          className="group inline-flex w-full items-center justify-between rounded-2xl border border-white/20 bg-white/12 px-4 py-3 text-sm font-medium text-slate-800 transition hover:border-emerald-200/55 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/30"
+                        >
+                          <span className="flex items-center gap-2 text-left">
+                            <span className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-700 shadow-[0_18px_40px_-24px_rgba(16,185,129,0.65)]">
+                              <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                            </span>
+                            <span>{action.label}</span>
+                          </span>
+                          <ArrowUpRight className="h-4 w-4 text-slate-400 transition group-hover:text-emerald-600" aria-hidden="true" />
+                        </button>
+                      ))}
+                    </div>
+
+                    <Tooltip
+                      align="end"
+                      side="top"
+                      sideOffset={10}
+                      className="aegov-tooltip max-w-xs rounded-xl border border-white/30 bg-white/90 px-3 py-2 text-xs text-slate-700 shadow-[0_20px_45px_-28px_rgba(15,23,42,0.3)] backdrop-blur-xl"
+                      content="Prefer a person? We'll alert the TAMM call centre and keep your Omnis workspace synced."
+                    >
+                      <button
+                        type="button"
+                        onClick={() => openOmnisChat("I'd like to speak with someone from the call centre about my business setup.")}
+                        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/25 bg-white/12 px-4 py-2 text-xs font-semibold text-emerald-700 transition hover:border-emerald-200/50 hover:text-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/35"
+                      >
+                        <Headset className="h-4 w-4" aria-hidden="true" />
+                        Talk to a human
+                      </button>
+                    </Tooltip>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setLauncherExpanded(true)}
+                    className="inline-flex h-16 w-16 items-center justify-center rounded-full border border-white/40 bg-white/20 shadow-[0_26px_70px_-40px_rgba(15,23,42,0.45)] backdrop-blur-2xl transition hover:bg-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
+                    aria-label="Show Omnis quick actions"
+                  >
+                    <OmnisIcon className="h-11 w-11" />
+                  </button>
+                )}
               </motion.div>
             ) : null}
 
