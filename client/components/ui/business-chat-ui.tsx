@@ -6494,23 +6494,52 @@ export function BusinessChatUI({
 
     const conversation: BusinessMessage[] = [];
 
-    const openingUserMessage = buildMessage(
-      initialMessage ??
-        "I want to invest my money and open a restaurant business in Abu Dhabi. What commercial activities align with my business type and can you help me set up?",
-      false,
+    conversation.push(
+      buildMessage(
+        "Layla shares her Corniche waterfront dining concept, so I begin with a market opportunity view that layers demographics, priority zones, and live trend sliders.",
+        true,
+        {
+          type: "market-opportunity",
+        },
+      ),
     );
-    conversation.push(openingUserMessage);
 
     conversation.push(
       buildMessage(
-        "I can help you explore business opportunities in Abu Dhabi and guide you through the setup process. To provide personalized insights and access government services, I'll need to verify your identity first.",
+        "Once she reviews the demand map, Layla narrows to the Corniche cluster and ticks the 'Relevant to my concept' checkbox so the investor compass reveals white space and hides mismatched operators.",
         true,
         {
+          type: "competitive-landscape",
+        },
+      ),
+    );
+
+    conversation.push(
+      buildMessage(
+        "With competitive gaps confirmed, Layla asks for operating cost benchmarks across Corniche and Saadiyat listings before shortlisting a site.",
+        true,
+        {
+          type: "budget-analysis",
+        },
+      ),
+    );
+
+    conversation.push(
+      buildMessage(
+        "Congratulations, Layla. Your business idea is very viable. Why not proceed with your trade name reservation so I can transition you into the application workspace?",
+        true,
+        {
+          type: "viability-summary",
           actions: [
             {
-              id: "start-login",
-              label: "Sign in with UAE Pass",
+              id: "reserve-trade-name",
+              label: "Yes, reserve the trade name",
               action: "open-investor-journey",
+            },
+            {
+              id: "send-summary",
+              label: "Send me this summary",
+              action: "show-summary",
             },
           ],
         },
@@ -7217,7 +7246,7 @@ export function BusinessChatUI({
                             )}
                           >
                             Use the highlighted action above to move forward.
-                            We’ll open the next workspace once you confirm.
+                            We��ll open the next workspace once you confirm.
                           </div>
                         ) : null}
 
