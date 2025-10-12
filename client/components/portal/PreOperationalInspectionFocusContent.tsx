@@ -405,7 +405,7 @@ export function PreOperationalInspectionFocusContent({
             </div>
             <div className="min-w-[180px] space-y-1">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Business AI assistant
+                Omnis assistant
               </p>
               <p className="text-lg font-semibold text-slate-900">Automating application process</p>
             </div>
@@ -431,7 +431,7 @@ export function PreOperationalInspectionFocusContent({
               </Badge>
             </div>
             <p className="text-sm leading-relaxed text-slate-600">
-              AI Business is retrieving certifications and coordinating final inspections across authorities.
+              Omnis is retrieving certifications and coordinating final inspections across authorities.
             </p>
             <div className="space-y-2">
               <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
