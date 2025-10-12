@@ -7064,8 +7064,8 @@ export function BusinessChatUI({
                               {isAdvisorPanelOpen && stageBlueprint ? (
                                 <div
                                   className={cn(
-                                    "absolute right-0 top-full z-40 mt-3 w-[min(360px,80vw)]",
-                                    isSidePanel && "left-0 right-auto w-[min(340px,calc(100vw-48px))]",
+                                    "absolute right-0 top-full z-40 mt-3 w-[min(460px,88vw)]",
+                                    isSidePanel && "left-0 right-auto w-[min(420px,calc(100vw-64px))]",
                                   )}
                                 >
                                   <div className="max-h-[75vh] overflow-y-auto rounded-3xl border border-emerald-100 bg-white/95 p-5 shadow-[0_35px_90px_-45px_rgba(15,23,42,0.35)]">
