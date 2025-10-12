@@ -5717,18 +5717,16 @@ export function BusinessChatUI({
   const handleAction = useCallback(
     (action: ConversationAction, label: string) => {
       setMessages((prev) => {
-        if (prev.length === 0) {
-          return prev;
-        }
-
-        const withoutActions = prev.map((message) =>
+        const sanitized = prev.map((message) =>
           message.actions ? { ...message, actions: undefined } : message,
         );
 
-        const updated = [...withoutActions, buildMessage(label, false)];
+        const updated = [...sanitized, buildMessage(label, false)];
 
-        if (action === "show-summary" && currentStep === "intro") {
-          setCurrentStep("summary");
+        if (action === "show-summary") {
+          if (currentStep !== "summary") {
+            setCurrentStep("summary");
+          }
           return [...updated, buildStepMessage("summary")];
         }
 
@@ -5742,6 +5740,7 @@ export function BusinessChatUI({
           }
 
           if (isInvestorAuthenticated) {
+            setCurrentStep("handoff");
             setModalView("heat-map");
 
             if (isSetupCta) {
@@ -5752,9 +5751,11 @@ export function BusinessChatUI({
           }
 
           if (isSetupCta) {
+            setCurrentStep("handoff");
             return updated;
           }
 
+          setCurrentStep("handoff");
           setIsInvestorAuthenticated(false);
           setIsInvestorLoginPending(true);
           setShouldPromptLogin(true);
