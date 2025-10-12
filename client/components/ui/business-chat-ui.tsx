@@ -6494,9 +6494,13 @@ export function BusinessChatUI({
 
     const conversation: BusinessMessage[] = [];
 
+    const ideaNarrative = initialMessage && initialMessage.trim().length > 0
+      ? `Layla says, “${initialMessage.trim()}”`
+      : "Layla shares her Corniche waterfront dining concept.";
+
     conversation.push(
       buildMessage(
-        "Layla shares her Corniche waterfront dining concept, so I begin with a market opportunity view that layers demographics, priority zones, and live trend sliders.",
+        `${ideaNarrative} I'm surfacing a market opportunity view that layers demographics, priority zones, and live trend sliders.`,
         true,
         {
           type: "market-opportunity",
@@ -7246,7 +7250,7 @@ export function BusinessChatUI({
                             )}
                           >
                             Use the highlighted action above to move forward.
-                            We��ll open the next workspace once you confirm.
+                            We’ll open the next workspace once you confirm.
                           </div>
                         ) : null}
 
