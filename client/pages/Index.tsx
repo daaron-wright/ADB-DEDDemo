@@ -30,15 +30,15 @@ export default function Index() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const fallbackFocus = { x: 640, y: 360 };
-  const [focusPoint, setFocusPoint] = useState<{ x: number; y: number }>(
-    fallbackFocus,
-  );
+  const fallbackFocus = FALLBACK_FOCUS;
+  const focusPointRef = useRef<{ x: number; y: number }>(fallbackFocus);
   const categoryPositions = useRef<Record<string, { x: number; y: number }>>(
     {},
   );
   const focusUpdateRaf = useRef<number | null>(null);
   const queuedFocusPoint = useRef<{ x: number; y: number } | null>(null);
+  const gradientRef = useRef<HTMLDivElement>(null);
+  const hasCategoryFocusRef = useRef(false);
 
   const ambientOrbs = useMemo(
     () => [
