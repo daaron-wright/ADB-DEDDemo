@@ -7050,29 +7050,6 @@ export function BusinessChatUI({
                           ) : null}
                           {!journeyFocusView && showChatInterface ? (
                             <>
-                              {isAdvisorPanelOpen && stageBlueprint ? (
-                                <>
-                                  <StageRecommendationBoard
-                                    key={`stage-${currentStep}`}
-                                    step={currentStep}
-                                    blueprint={stageBlueprint}
-                                    onSelect={(recommendation) => {
-                                      handleRecommendationSelect(recommendation);
-                                      setAdvisorPanelOpen(false);
-                                    }}
-                                    isSidePanel={isSidePanel}
-                                  />
-                                  <StageTopicSuggestions
-                                    key={`topics-${currentStep}`}
-                                    step={currentStep}
-                                    isSidePanel={isSidePanel}
-                                    onSendTopic={(prompt) => {
-                                      handleSendMessage(prompt);
-                                      setAdvisorPanelOpen(false);
-                                    }}
-                                  />
-                                </>
-                              ) : null}
                               {artifactMessages.map((message) => (
                                 <MessageBubble
                                   key={message.id}
