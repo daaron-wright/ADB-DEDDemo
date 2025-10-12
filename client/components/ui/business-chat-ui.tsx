@@ -3819,7 +3819,7 @@ const CompetitorBreakoutModal = ({
   const competitorHighlights = [
     {
       name: "Shurfa Bay",
-      rating: "4.8���",
+      rating: "4.8�����",
       tier: "Premium waterfront",
       insight:
         "Sunset terrace has maintained 98% capacity across the past four evenings.",
@@ -5698,6 +5698,21 @@ export function BusinessChatUI({
     setModalView("retail-locations");
     setCurrentStep("handoff");
   }, [setCurrentStep]);
+
+  const handleHumanFallback = useCallback(
+    (prompt?: string) => {
+      toast({
+        title: "Connecting you with TAMM advisors",
+        description:
+          "We'll transition to a human specialist and keep your Omnis workspace updated.",
+      });
+
+      if (prompt) {
+        handleSendMessage(prompt);
+      }
+    },
+    [toast, handleSendMessage],
+  );
 
   const handleAction = useCallback(
     (action: ConversationAction, label: string) => {
