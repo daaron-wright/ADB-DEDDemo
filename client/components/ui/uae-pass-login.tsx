@@ -152,10 +152,10 @@ const UserTypeSelection: React.FC<UserTypeSelectionProps> = ({ onSelect }) => (
             <div className="flex items-start gap-4">
               <div
                 className={cn(
-                  "flex h-16 w-16 items-center justify-center rounded-full text-base font-semibold",
+                  "flex h-16 w-16 aspect-square items-center justify-center rounded-full text-base font-semibold",
                   isReviewer ? "bg-white" : "text-white",
                 )}
-                style={badgeStyle}
+                style={{ borderRadius: "9999px", ...badgeStyle }}
               >
                 {detail.badge}
               </div>
@@ -290,12 +290,12 @@ const LoginStepView: React.FC<LoginStepViewProps> = ({
         <div className="flex items-start gap-4 px-6 pt-6">
           <div
             className={cn(
-              "flex h-16 w-16 items-center justify-center rounded-full text-base font-semibold transition-shadow duration-200",
+              "flex h-16 w-16 aspect-square items-center justify-center rounded-full text-base font-semibold transition-shadow duration-200",
               isReviewer
                 ? "border-2 border-[#0f766e] bg-white text-[#0f766e] shadow-sm"
                 : "text-white",
             )}
-            style={badgeStyle}
+            style={{ borderRadius: "9999px", ...(badgeStyle ?? {}) }}
           >
             {detail.badge}
           </div>
