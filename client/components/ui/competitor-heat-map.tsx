@@ -228,7 +228,7 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                         className="absolute inset-[34%] rounded-full"
                         style={{
                           background: `radial-gradient(circle at 45% 35%, #ffffff 0%, ${coreAccent} 65%)`,
-                          boxShadow: `0 0 0 1px rgba(255,255,255,0.45)` ,
+                          boxShadow: "0 0 0 1px rgba(255,255,255,0.45)",
                         }}
                         aria-hidden="true"
                       />
