@@ -388,7 +388,7 @@ const CONVERSATION_STEPS: Array<{ id: ConversationStep; label: string }> = [
 ];
 
 const DEFAULT_CHAT_PLACEHOLDER =
-  "Of these who are the target market for a high end restaurants?";
+  "Layla, describe the concept you want to open next so I can map the steps.";
 
 const HEAT_MAP_THUMBNAIL_URL =
   "https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=386";
