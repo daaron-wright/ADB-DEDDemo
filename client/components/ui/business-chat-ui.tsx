@@ -250,6 +250,36 @@ const CONVERSATION_BLUEPRINT: Record<
     message:
       "Welcome to the Abu Dhabi business assistant. I'll keep this focused so you know exactly what to do next. Ready for the snapshot that matters most?",
     actions: [{ label: "Show market highlights", action: "show-summary" }],
+    recommendations: [
+      {
+        id: "intro-market-highlights",
+        label: "Review Corniche market highlights",
+        description:
+          "See live demand, footfall, and cuisine trends Omnis is tracking right now.",
+        icon: Sparkles,
+        type: "conversation",
+        action: "show-summary",
+      },
+      {
+        id: "intro-location-heatmap",
+        label: "Open Corniche heat map",
+        description:
+          "Visualize footfall intensity, competitor clusters, and zoning overlays before you commit.",
+        icon: MapPin,
+        type: "modal",
+        modal: "heat-map",
+      },
+      {
+        id: "intro-human-fallback",
+        label: "Talk to a TAMM specialist",
+        description:
+          "Reach a human advisor instantly while Omnis keeps your workspace synced.",
+        icon: Headset,
+        type: "human",
+        prompt:
+          "I'd like to speak with someone from the TAMM business support team about my restaurant setup.",
+      },
+    ],
   },
   summary: {
     message:
