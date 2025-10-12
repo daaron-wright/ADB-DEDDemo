@@ -832,7 +832,7 @@ export function BusinessRegistrationFocusContent({
           </div>
           <div className="min-w-[180px] space-y-1">
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Business AI assistant
+              Omnis assistant
             </p>
             <p className="text-lg font-semibold text-slate-900">
               Generating your application
@@ -856,7 +856,7 @@ export function BusinessRegistrationFocusContent({
                 Your first actions
               </p>
               <p className="text-base font-semibold text-slate-900">
-                What AI Business needs from you
+                What Omnis needs from you
               </p>
             </div>
             <ul className="space-y-3">
