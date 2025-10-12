@@ -4551,7 +4551,7 @@ const DiscoverExperienceView = ({
       name: "Abu Dhabi Marina & Breakwater",
       summary:
         "Destination leisure cluster anchored by luxury hotels, yacht clubs, and family attractions.",
-      footfall: "40–55K weekly visits",
+      footfall: "40���55K weekly visits",
       density: "High density",
       trend: "+9% weekend uplift",
       focus: "Waterfront lounges, seafood houses, family dining",
@@ -6749,6 +6749,30 @@ export function BusinessChatUI({
           aria-modal="true"
         >
           <CompetitorHeatMap onBack={() => setModalView("chat")} />
+        </div>
+      </div>
+    );
+  } else if (modalView === "viability-summary") {
+    modalOverlay = (
+      <div className="fixed inset-0 z-[80] flex items-center justify-center">
+        <div
+          className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+          onClick={() => setModalView("chat")}
+        />
+        <div
+          className="relative z-10 h-auto w-full max-w-[720px] overflow-hidden rounded-2xl border border-white/12 bg-white shadow-2xl"
+          role="dialog"
+          aria-modal="true"
+        >
+          <BusinessViabilitySummary
+            onExportPlan={() =>
+              toast({
+                title: "Export ready",
+                description:
+                  "I’m packaging the market, competition, and budget insights into a PDF for you.",
+              })
+            }
+          />
         </div>
       </div>
     );
