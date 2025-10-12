@@ -86,7 +86,11 @@ type BusinessMessageType =
   | "budget-ranges"
   | "comprehensive-report"
   | "business-activities"
-  | "application-progress";
+  | "application-progress"
+  | "market-opportunity"
+  | "competitive-landscape"
+  | "budget-analysis"
+  | "viability-summary";
 
 interface BusinessMessage {
   id: string;
