@@ -3498,66 +3498,66 @@ const StageRecommendationBoard = ({
   isSidePanel,
 }: StageRecommendationBoardProps) => {
   const stageMeta = CONVERSATION_STEPS.find((item) => item.id === step);
-  const containerClass = cn(
-    chatCardClass(
-      "w-full border border-white/30 bg-white/18 px-5 py-5 backdrop-blur-2xl shadow-[0_42px_110px_-60px_rgba(15,23,42,0.45)]",
-      "rounded-[28px]",
-    ),
-    isSidePanel &&
-      "border-slate-200 bg-white/95 shadow-[0_32px_80px_-50px_rgba(15,23,42,0.32)] backdrop-blur-none",
-  );
 
   return (
-    <div className={cn("w-full", !isSidePanel && "max-w-[640px] mx-auto") }>
-      <div className={containerClass}>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div className="space-y-2">
-            <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-emerald-700/80">
-              Current stage
-            </span>
-            <h4 className="text-xl font-semibold text-slate-900 sm:text-2xl">
-              {stageMeta?.label ?? "Stage"}
-            </h4>
-          </div>
-          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700">
-            <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.25)] animate-pulse" />
-            Interact with Omnis
-          </div>
+    <section
+      className={cn(
+        "w-full space-y-5",
+        !isSidePanel && "max-w-[640px] mx-auto",
+        isSidePanel && "space-y-4",
+      )}
+      aria-labelledby={`stage-${step}`}
+    >
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="space-y-2">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-emerald-700/80">
+            Current stage
+          </span>
+          <h4
+            id={`stage-${step}`}
+            className="text-xl font-semibold text-slate-900 sm:text-2xl"
+          >
+            {stageMeta?.label ?? "Stage"}
+          </h4>
         </div>
-        <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-slate-600">
-          {blueprint.message}
-        </p>
-        <div className="mt-5 space-y-2.5">
-          {blueprint.recommendations.map((recommendation) => {
-            const Icon = recommendation.icon;
-            return (
-              <button
-                key={recommendation.id}
-                type="button"
-                onClick={() => onSelect(recommendation)}
-                className="group flex w-full items-start justify-between gap-4 rounded-2xl border border-white/25 bg-white/14 px-5 py-4 text-left shadow-[0_32px_80px_-52px_rgba(15,23,42,0.42)] transition hover:-translate-y-0.5 hover:border-emerald-400/45 hover:bg-white/22 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
-              >
-                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-700 shadow-[0_18px_42px_-26px_rgba(16,185,129,0.65)]">
-                  <Icon className="h-5 w-5" aria-hidden="true" />
-                </span>
-                <div className="flex min-w-0 flex-1 flex-col">
-                  <p className="text-sm font-semibold text-slate-900">
-                    {recommendation.label}
-                  </p>
-                  <p className="mt-1 text-xs text-slate-600">
-                    {recommendation.description}
-                  </p>
-                </div>
-                <ArrowUpRight
-                  className="mt-1 h-4 w-4 flex-shrink-0 text-slate-400 transition group-hover:text-emerald-600"
-                  aria-hidden="true"
-                />
-              </button>
-            );
-          })}
+        <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700">
+          <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.25)] animate-pulse" />
+          Interact with Omnis
         </div>
       </div>
-    </div>
+      <p className="whitespace-pre-line text-sm leading-relaxed text-slate-600">
+        {blueprint.message}
+      </p>
+      <div className="space-y-2.5">
+        {blueprint.recommendations.map((recommendation) => {
+          const Icon = recommendation.icon;
+          return (
+            <button
+              key={recommendation.id}
+              type="button"
+              onClick={() => onSelect(recommendation)}
+              className="group flex w-full items-start justify-between gap-4 rounded-2xl border border-white/25 bg-white/12 px-5 py-4 text-left shadow-[0_28px_72px_-50px_rgba(15,23,42,0.42)] transition hover:-translate-y-0.5 hover:border-emerald-400/45 hover:bg-white/18 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
+            >
+              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-700 shadow-[0_18px_42px_-26px_rgba(16,185,129,0.65)]">
+                <Icon className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div className="flex min-w-0 flex-1 flex-col">
+                <p className="text-sm font-semibold text-slate-900">
+                  {recommendation.label}
+                </p>
+                <p className="mt-1 text-xs text-slate-600">
+                  {recommendation.description}
+                </p>
+              </div>
+              <ArrowUpRight
+                className="mt-1 h-4 w-4 flex-shrink-0 text-slate-400 transition group-hover:text-emerald-600"
+                aria-hidden="true"
+              />
+            </button>
+          );
+        })}
+      </div>
+    </section>
   );
 };
 
