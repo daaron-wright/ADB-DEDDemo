@@ -166,6 +166,26 @@ type ModalView =
   | "retail-locations"
   | "competitor-map";
 
+type ConversationStep = "intro" | "summary" | "handoff";
+
+type RecommendationInteraction =
+  | "conversation"
+  | "prompt"
+  | "modal"
+  | "human";
+
+interface StageRecommendation {
+  id: string;
+  label: string;
+  description: string;
+  icon: LucideIcon;
+  type: RecommendationInteraction;
+  action?: ConversationAction;
+  prompt?: string;
+  modal?: ModalView;
+  nextStep?: ConversationStep;
+}
+
 interface ChatThread {
   id: string;
   title: string;
