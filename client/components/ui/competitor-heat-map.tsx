@@ -1,10 +1,11 @@
-import React, { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { chatCardClass } from "@/lib/chat-style";
 import {
   competitorMapPoints,
   competitorMetricsMeta,
+  CompetitorFilter,
   CompetitorMetricId,
   CompetitorPoint,
 } from "@/components/ui/competitor-map-data";
@@ -13,50 +14,94 @@ interface CompetitorHeatMapProps {
   onBack: () => void;
 }
 
-const metricOrder: CompetitorMetricId[] = ["tourism", "social", "fnb"];
+const filterOptions: Array<{
+  id: CompetitorFilter;
+  label: string;
+  description: string;
+}> = [
+  {
+    id: "relevant",
+    label: "Relevant to my concept",
+    description: "Concepts that mirror Lyla's positioning and experiential focus.",
+  },
+  {
+    id: "highDemand",
+    label: "High demand",
+    description: "Venues capturing outsized visitor volume and repeat local demand.",
+  },
+];
 
-const formatPosition = (value: number) => `${Math.max(0, Math.min(100, value))}%`;
+const metricOrder: CompetitorMetricId[] = ["rating", "socialMentions", "fnbGross"];
 
-const hexToRgba = (hex: string, alpha: number) => {
-  const normalized = hex.replace("#", "");
-  const fullHex =
-    normalized.length === 3
-      ? normalized
-          .split("")
-          .map((char) => char + char)
-          .join("")
-      : normalized;
-  if (fullHex.length !== 6) {
-    return `rgba(0, 0, 0, ${alpha})`;
+const mapBackgroundImage =
+  "https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=1280";
+
+const formatPosition = (value: number) => `${Math.min(Math.max(value, 4), 96)}%`;
+
+const getPopoverTransform = (point: CompetitorPoint) => {
+  if (point.x >= 70) {
+    return "translate(-88%, -112%)";
   }
-
-  const r = parseInt(fullHex.slice(0, 2), 16);
-  const g = parseInt(fullHex.slice(2, 4), 16);
-  const b = parseInt(fullHex.slice(4, 6), 16);
-  return `rgba(${r}, ${g}, ${b}, ${Math.min(Math.max(alpha, 0), 1)})`;
-};
-
-const getPointStyle = (point: CompetitorPoint, metricId: CompetitorMetricId) => {
-  const metric = point.metrics[metricId];
-  const normalizedValue = Math.min(1, Math.max(0, metric.value / (metricId === "fnb" ? 12 : 100)));
-  const size = point.baseSize + normalizedValue * 24;
-
-  return {
-    left: formatPosition(point.x),
-    top: formatPosition(point.y),
-    width: `${size}px`,
-    height: `${size}px`,
-    transform: "translate(-50%, -50%)",
-  } as React.CSSProperties;
+  if (point.x <= 30) {
+    return "translate(-12%, -112%)";
+  }
+  return "translate(-50%, -112%)";
 };
 
 const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
-  const [selectedMetric, setSelectedMetric] = useState<CompetitorMetricId>("tourism");
+  const [activeFilters, setActiveFilters] = useState<Record<CompetitorFilter, boolean>>({
+    relevant: false,
+    highDemand: false,
+  });
   const [activePointId, setActivePointId] = useState<string>(competitorMapPoints[0]?.id ?? "");
 
-  const activePoint = useMemo(
-    () => competitorMapPoints.find((point) => point.id === activePointId) ?? competitorMapPoints[0],
-    [activePointId],
+  const filteredPoints = useMemo(() => {
+    const selectedFilters = (Object.entries(activeFilters) as Array<[CompetitorFilter, boolean]>)
+      .filter(([, isActive]) => isActive)
+      .map(([filterId]) => filterId);
+
+    if (selectedFilters.length === 0) {
+      return competitorMapPoints;
+    }
+
+    return competitorMapPoints.filter((point) =>
+      selectedFilters.every((filterId) => point.attributes.includes(filterId)),
+    );
+  }, [activeFilters]);
+
+  useEffect(() => {
+    if (filteredPoints.length === 0) {
+      setActivePointId("");
+      return;
+    }
+
+    const stillVisible = filteredPoints.some((point) => point.id === activePointId);
+    if (!stillVisible) {
+      setActivePointId(filteredPoints[0].id);
+    }
+  }, [filteredPoints, activePointId]);
+
+  const activePoint = useMemo(() => {
+    if (filteredPoints.length === 0) {
+      return null;
+    }
+    return filteredPoints.find((point) => point.id === activePointId) ?? filteredPoints[0];
+  }, [filteredPoints, activePointId]);
+
+  const toggleFilter = (filterId: CompetitorFilter) => {
+    setActiveFilters((prev) => ({
+      ...prev,
+      [filterId]: !prev[filterId],
+    }));
+  };
+
+  const handleResetFilters = () => {
+    setActiveFilters({ relevant: false, highDemand: false });
+  };
+
+  const hasFiltersApplied = useMemo(
+    () => Object.values(activeFilters).some((value) => value),
+    [activeFilters],
   );
 
   return (
@@ -69,9 +114,9 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
       <header className="relative z-10 flex items-center justify-between border-b border-[#d8e4df] bg-white/90 px-6 py-4 backdrop-blur">
         <div className="space-y-1">
           <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">Investor Compass</p>
-          <h2 className="text-lg font-semibold text-slate-900">Competitor Heat Map</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Competitive Landscape</h2>
           <p className="text-xs text-slate-600">
-            Interact with live competitor signals across Abu Dhabi&apos;s premium dining districts.
+            Pinpoint existing venues across Abu Dhabi&apos;s waterfront districts and surface gaps before budgeting.
           </p>
         </div>
         <button
@@ -96,190 +141,310 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
         </button>
       </header>
 
-      <div className="relative z-10 flex flex-1 flex-col gap-6 overflow-hidden px-6 pb-8 pt-6">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr),360px]">
+      <div className="relative z-10 flex flex-1 flex-col gap-6 overflow-hidden px-6 pb-8 pt-6 lg:flex-row">
+        <div
+          className={chatCardClass(
+            "relative flex-1 overflow-hidden rounded-3xl border border-[#d8e4df] bg-white/95 shadow-[0_32px_80px_-54px_rgba(14,118,110,0.35)]",
+          )}
+          style={{ minHeight: "520px" }}
+        >
           <div
-            className={chatCardClass(
-              "relative w-full overflow-hidden rounded-3xl border border-[#d8e4df] bg-white/95 shadow-[0_32px_80px_-54px_rgba(14,118,110,0.35)]",
-            )}
-            style={{ minHeight: "360px" }}
-          >
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage:
-                  "url('https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=1280')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                filter: "saturate(0.82)",
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#0b2b34]/82 via-[#0b2b34]/68 to-transparent" />
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url('${mapBackgroundImage}')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              filter: "saturate(0.88)",
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#0b2b34]/75 via-[#0b2b34]/50 to-transparent" />
 
-            <div className="relative z-10 h-full w-full text-white">
-              <div className="flex flex-wrap items-center justify-between gap-4 px-5 py-4">
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-white/70">Metric focus</h3>
-                  <p className="text-xs text-white/60">{competitorMetricsMeta[selectedMetric].subtitle}</p>
-                </div>
-                <div className="flex flex-wrap items-center gap-2">
-                  {metricOrder.map((metricId) => {
-                    const meta = competitorMetricsMeta[metricId];
-                    const isActive = selectedMetric === metricId;
-                    return (
-                      <button
-                        key={metricId}
-                        type="button"
-                        onClick={() => setSelectedMetric(metricId)}
-                        className={cn(
-                          "inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] transition",
-                          isActive
-                            ? "border-white bg-white/20 text-white shadow-[0_12px_32px_-18px_rgba(84,255,212,0.35)]"
-                            : "border-white/35 bg-white/10 text-white/70 hover:border-white/50",
-                        )}
-                      >
-                        <span
-                          className="h-2.5 w-2.5 rounded-full"
-                          style={{ backgroundColor: meta.accent }}
-                          aria-hidden="true"
-                        />
-                        {meta.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="relative mx-5 mb-5 rounded-2xl border border-white/20 bg-black/45 p-4 backdrop-blur">
-                <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/70">Hover to explore</div>
-                <p className="mt-2 text-xs text-white/70">
-                  Dot intensity reflects {competitorMetricsMeta[selectedMetric].legend}. Select a node to reveal competitive
-                  positioning and revenue signals.
-                </p>
-              </div>
-
-              <div className="relative mx-5 mb-6 h-[360px] overflow-hidden rounded-3xl border border-white/18 bg-black/35">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(84,255,212,0.12),transparent_65%)]" />
-                {competitorMapPoints.map((point) => {
-                  const isActive = point.id === activePoint?.id;
-                  const style = getPointStyle(point, selectedMetric);
-                  const accent = competitorMetricsMeta[selectedMetric].accent;
-                  return (
-                    <motion.button
-                      key={point.id}
-                      type="button"
-                      style={style}
-                      className="group absolute overflow-visible"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                      whileHover={{ scale: 1.08 }}
-                      onClick={() => setActivePointId(point.id)}
-                      onFocus={() => setActivePointId(point.id)}
-                      onMouseEnter={() => setActivePointId(point.id)}
-                      aria-pressed={isActive}
-                      aria-label={`${point.name}, ${point.cuisine}`}
-                    >
-                      <span
-                        className="absolute inset-0 rounded-full"
-                        style={{
-                          background: `radial-gradient(50% 50% at 50% 50%, ${hexToRgba(accent, 0.4)} 0%, ${hexToRgba(
-                            accent,
-                            0,
-                          )} 100%)`,
-                          border: `1px solid ${hexToRgba(accent, 0.65)}`,
-                          boxShadow: isActive
-                            ? `0 0 0 2px rgba(255,255,255,0.85), 0 18px 38px -24px ${hexToRgba(accent, 0.7)}`
-                            : `0 14px 32px -28px ${hexToRgba(accent, 0.55)}`,
-                        }}
-                      />
-                      <span
-                        className="absolute"
-                        style={{
-                          inset: "32%",
-                          borderRadius: "50%",
-                          backgroundColor: hexToRgba(accent, 0.92),
-                          boxShadow: `0 0 14px ${hexToRgba(accent, 0.55)}`,
-                        }}
-                      />
-                      <span
-                        className={cn(
-                          "absolute left-1/2 top-[calc(100%+8px)] min-w-[140px] -translate-x-1/2 rounded-full border px-3 py-1 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-white opacity-0 shadow-lg transition group-hover:opacity-100",
-                          isActive ? "border-white/45 bg-black/80" : "border-white/30 bg-black/65",
-                        )}
-                      >
-                        {point.name}
-                      </span>
-                    </motion.button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          <aside className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/95 p-6 text-slate-700 shadow-[0_28px_70px_-48px_rgba(14,118,110,0.24)]">
-            <div className="flex items-start justify-between gap-2">
+          <div className="relative z-10 flex h-full flex-col text-white">
+            <div className="flex flex-wrap items-center justify-between gap-4 px-5 py-4">
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
-                  Spotlight competitor
+                <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-white/70">
+                  Map view
+                </h3>
+                <p className="text-xs text-white/65">
+                  Pins highlight F&amp;B competitors aligned to Lyla&apos;s concept filters.
                 </p>
-                <h3 className="text-xl font-semibold text-slate-900">{activePoint?.name}</h3>
-                <p className="text-sm text-slate-600">{activePoint?.location}</p>
               </div>
-              <span className="inline-flex items-center rounded-full border border-[#e2ece8] bg-[#f1f6f4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0F766E]">
-                {activePoint?.cuisine}
-              </span>
+              <div className="text-right text-xs text-white/70">
+                {filteredPoints.length} of {competitorMapPoints.length} venues shown
+              </div>
             </div>
 
-            <p className="text-sm leading-relaxed text-slate-600">{activePoint?.summary}</p>
+            <div className="relative flex-1">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(84,255,212,0.12),transparent_65%)]" />
 
-            <div className="space-y-3">
-              {metricOrder.map((metricId) => {
-                const metric = activePoint?.metrics[metricId];
-                if (!metric) return null;
-                const isActive = metricId === selectedMetric;
+              {filteredPoints.map((point) => {
+                const isActive = point.id === activePoint?.id;
                 return (
-                  <div
-                    key={metricId}
+                  <button
+                    key={point.id}
+                    type="button"
+                    onClick={() => setActivePointId(point.id)}
+                    onFocus={() => setActivePointId(point.id)}
                     className={cn(
-                      "rounded-2xl border px-4 py-3 transition",
-                      isActive
-                        ? "border-[#0F766E]/35 bg-[#e7f5f2] shadow-[0_20px_46px_-34px_rgba(14,118,110,0.4)]"
-                        : "border-[#e2ece8] bg-[#f8fbfa]",
+                      "group absolute -translate-x-1/2 -translate-y-full rounded-full border border-white/40 bg-white/90 p-1 shadow-xl transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
+                      isActive && "border-white bg-[#54FFD4]/90 text-slate-900",
                     )}
+                    style={{
+                      left: formatPosition(point.x),
+                      top: formatPosition(point.y),
+                    }}
+                    aria-label={`${point.name}, ${point.cuisine}`}
                   >
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="max-w-xs">
-                        <div className="text-[11px] uppercase tracking-[0.2em] text-[#0F766E]">{metric.label}</div>
-                        <p className="mt-1 text-sm leading-relaxed text-slate-600">{metric.description}</p>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-lg font-semibold text-slate-900">
-                          {competitorMetricsMeta[metricId].formatter
-                            ? competitorMetricsMeta[metricId].formatter?.(metric.value)
-                            : `${metric.value} ${metric.unit}`}
-                        </div>
-                        <div className="text-[11px] uppercase tracking-[0.18em] text-slate-400">{metric.unit}</div>
-                      </div>
-                    </div>
-                  </div>
+                    <span
+                      className={cn(
+                        "flex h-10 w-10 items-center justify-center rounded-full transition",
+                        isActive
+                          ? "bg-[#54FFD4] text-[#0b2b34]"
+                          : "bg-white text-[#0F766E] group-hover:bg-[#54FFD4]/80 group-hover:text-[#0b2b34]",
+                      )}
+                    >
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path d="M12 2C8.687 2 6 4.686 6 8c0 4.418 6 12 6 12s6-7.582 6-12c0-3.314-2.687-6-6-6Zm0 8.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" />
+                      </svg>
+                    </span>
+                    <span className="mt-2 block rounded-full bg-black/65 px-3 py-1 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-white opacity-0 transition group-hover:opacity-100">
+                      {point.name}
+                    </span>
+                  </button>
                 );
               })}
-            </div>
 
-            <div className="rounded-2xl border border-[#e2ece8] bg-[#f8fbfa] p-4">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">Highlights</div>
-              <ul className="mt-2 space-y-2 text-sm text-slate-600">
-                {activePoint?.highlights.map((highlight) => (
-                  <li key={highlight} className="flex items-start gap-2">
-                    <span className="mt-1 inline-flex h-1.5 w-1.5 rounded-full bg-[#0F766E]/65" />
-                    <span>{highlight}</span>
-                  </li>
-                ))}
-              </ul>
+              {!filteredPoints.length && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="rounded-2xl border border-white/25 bg-black/45 px-5 py-4 text-center text-sm text-white/80 backdrop-blur">
+                    No competitors match the selected filters. Reset filters to view the full landscape.
+                  </div>
+                </div>
+              )}
+
+              <AnimatePresence>
+                {activePoint && (
+                  <motion.div
+                    key={activePoint.id}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 12 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    className="pointer-events-auto absolute z-20 w-[320px] max-w-[90vw] rounded-3xl border border-white/25 bg-white/95 p-5 text-left text-slate-800 shadow-[0_22px_60px_-35px_rgba(10,10,40,0.65)]"
+                    style={{
+                      left: formatPosition(activePoint.x),
+                      top: formatPosition(activePoint.y),
+                      transform: getPopoverTransform(activePoint),
+                    }}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+                          Competitor snapshot
+                        </p>
+                        <h3 className="mt-1 text-lg font-semibold text-slate-900">{activePoint.name}</h3>
+                        <p className="text-sm text-slate-500">{activePoint.location}</p>
+                      </div>
+                      <span className="inline-flex items-center rounded-full border border-[#e2ece8] bg-[#f1f6f4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0F766E]">
+                        {activePoint.cuisine}
+                      </span>
+                    </div>
+
+                    <p className="mt-3 text-sm leading-relaxed text-slate-600">{activePoint.summary}</p>
+
+                    <div className="mt-4 space-y-3">
+                      {metricOrder.map((metricId) => {
+                        const metric = activePoint.metrics[metricId];
+                        const meta = competitorMetricsMeta[metricId];
+                        if (!metric) return null;
+
+                        return (
+                          <div
+                            key={metricId}
+                            className="rounded-2xl border border-[#e2ece8] bg-[#f8fbfa] px-4 py-3"
+                          >
+                            <div className="flex items-start justify-between gap-4">
+                              <div className="max-w-[60%]">
+                                <div
+                                  className="text-[11px] font-semibold uppercase tracking-[0.2em]"
+                                  style={{ color: meta.accent }}
+                                >
+                                  {meta.label}
+                                </div>
+                                <p className="mt-1 text-sm text-slate-600">{metric.description}</p>
+                              </div>
+                              <div className="text-right">
+                                <div className="text-lg font-semibold text-slate-900">
+                                  {meta.formatter ? meta.formatter(metric.value) : `${metric.value} ${metric.unit}`}
+                                </div>
+                                <div className="text-[11px] uppercase tracking-[0.18em] text-slate-400">
+                                  {metric.unit}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <div className="mt-4 rounded-2xl border border-[#e2ece8] bg-[#f8fbfa] p-4">
+                      <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+                        Highlights
+                      </div>
+                      <ul className="mt-2 space-y-2 text-sm text-slate-600">
+                        {activePoint.highlights.map((highlight) => (
+                          <li key={highlight} className="flex items-start gap-2">
+                            <span className="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0F766E]/70" />
+                            <span>{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-          </aside>
+          </div>
         </div>
+
+        <aside className="flex w-full flex-col gap-5 rounded-3xl border border-[#d8e4df] bg-white/95 p-6 text-slate-700 shadow-[0_28px_70px_-48px_rgba(14,118,110,0.24)] lg:w-[360px]">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+              Filter competitors
+            </p>
+            <h3 className="mt-1 text-xl font-semibold text-slate-900">Surface white space</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-600">
+              Select the attributes that matter most to Lyla&apos;s concept to narrow in on comparable venues.
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            {filterOptions.map((option) => {
+              const isChecked = activeFilters[option.id];
+              const matches = competitorMapPoints.filter((point) =>
+                point.attributes.includes(option.id),
+              ).length;
+
+              return (
+                <label
+                  key={option.id}
+                  className={cn(
+                    "flex cursor-pointer items-start gap-3 rounded-2xl border px-4 py-3 transition",
+                    isChecked
+                      ? "border-[#0F766E]/45 bg-[#e7f5f2] shadow-[0_20px_46px_-34px_rgba(14,118,110,0.4)]"
+                      : "border-[#e2ece8] bg-[#f8fbfa] hover:border-[#cbdcd6]",
+                  )}
+                >
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={() => toggleFilter(option.id)}
+                    className="sr-only"
+                  />
+                  <span
+                    className={cn(
+                      "mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-md border",
+                      isChecked
+                        ? "border-transparent bg-[#0F766E] text-white"
+                        : "border-[#cbdcd6] bg-white text-transparent",
+                    )}
+                    aria-hidden="true"
+                  >
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M2 6.5 4.5 9 10 3.5" />
+                    </svg>
+                  </span>
+                  <span className="flex-1">
+                    <span className="text-sm font-semibold text-slate-900">{option.label}</span>
+                    <p className="text-xs text-slate-500">{option.description}</p>
+                  </span>
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E]">
+                    {matches}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
+
+          <div className="flex items-center justify-between text-sm text-slate-600">
+            <span>
+              {hasFiltersApplied
+                ? "Filters applied"
+                : "No filters applied — showing full landscape"}
+            </span>
+            <button
+              type="button"
+              onClick={handleResetFilters}
+              disabled={!hasFiltersApplied}
+              className={cn(
+                "text-xs font-semibold uppercase tracking-[0.2em]",
+                hasFiltersApplied
+                  ? "text-[#0F766E] hover:text-[#0b5a54]"
+                  : "text-slate-400",
+              )}
+            >
+              Reset
+            </button>
+          </div>
+
+          <div className="rounded-2xl border border-[#e2ece8] bg-[#f8fbfa] p-4">
+            <div className="flex items-center justify-between">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+                Matches
+              </div>
+              <span className="text-xs text-slate-500">
+                {filteredPoints.length} selected
+              </span>
+            </div>
+            <div className="mt-3 space-y-2">
+              {filteredPoints.length ? (
+                filteredPoints.map((point) => {
+                  const isActive = point.id === activePoint?.id;
+                  return (
+                    <button
+                      key={point.id}
+                      type="button"
+                      onClick={() => setActivePointId(point.id)}
+                      className={cn(
+                        "flex w-full items-center justify-between rounded-2xl border px-3 py-2 text-left text-sm transition",
+                        isActive
+                          ? "border-[#0F766E]/45 bg-white text-[#0F766E] shadow-[0_12px_32px_-24px_rgba(14,118,110,0.45)]"
+                          : "border-transparent bg-white/60 text-slate-700 hover:border-[#d0e2dd] hover:bg-white",
+                      )}
+                    >
+                      <span className="flex-1">
+                        <span className="block font-semibold">{point.name}</span>
+                        <span className="text-xs text-slate-500">{point.location}</span>
+                      </span>
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0F766E]">
+                        View
+                      </span>
+                    </button>
+                  );
+                })
+              ) : (
+                <div className="rounded-xl border border-dashed border-[#d0e2dd] bg-white/70 px-3 py-4 text-center text-xs text-slate-500">
+                  No venues meet the selected criteria yet. Widen your filters to continue the journey before budgeting.
+                </div>
+              )}
+            </div>
+          </div>
+        </aside>
       </div>
     </motion.div>
   );
