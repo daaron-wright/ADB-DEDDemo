@@ -87,14 +87,6 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
     );
   };
 
-  const handleAutomationDecline = () => {
-    window.dispatchEvent(
-      new CustomEvent("retailLocationSelected", {
-        detail: { ...selectedLocation, automationConfirmed: false },
-      }),
-    );
-  };
-
   const handleExportBusinessPlan = () => {
     if (!selectedLocation) {
       return;
