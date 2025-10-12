@@ -407,7 +407,7 @@ export function SummaryDashboard({
 
         {/* Main Content */}
         <div className="relative z-10 p-8 h-[calc(100vh-87px)] overflow-y-auto">
-          {/* AI Business Header */}
+          {/* Omnis Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -416,7 +416,7 @@ export function SummaryDashboard({
           >
             <AIBusinessOrb className="h-16 w-16" />
             <div className="flex-1">
-              <h2 className="text-white text-lg font-semibold">AI Business</h2>
+              <h2 className="text-white text-lg font-semibold">Omnis</h2>
             </div>
             <SoundVisualization />
           </motion.div>
