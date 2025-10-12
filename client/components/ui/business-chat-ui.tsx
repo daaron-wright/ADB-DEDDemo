@@ -856,6 +856,61 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
   );
 };
 
+const CompetitorAnalysisSummaryTile = ({
+  onViewCompetitors,
+}: {
+  onViewCompetitors?: () => void;
+}) => {
+  return (
+    <div className="rounded-3xl border border-[#dce9e4] bg-white/95 p-6 shadow-[0_30px_80px_-58px_rgba(14,118,110,0.28)]">
+      <div className="flex flex-col gap-6">
+        <div className="flex items-start gap-3">
+          <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
+            <Target className="h-5 w-5" aria-hidden="true" />
+          </span>
+          <div className="space-y-3">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+                Competitive Analysis Summary
+              </p>
+              <h4 className="mt-1 text-base font-semibold text-slate-900">
+                These establishments represent your primary competition in the Corniche area.
+              </h4>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                Each offers unique positioning in cuisine, price point, and customer experience that can inform how Layla differentiates the
+                waterfront tasting house she plans to build.
+              </p>
+            </div>
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]">
+                Next steps
+              </p>
+              <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-600">
+                <li>• Review detailed competitor pricing analysis</li>
+                <li>• Analyze menu positioning gaps</li>
+                <li>• Schedule site visits for concept validation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <button
+            type="button"
+            onClick={onViewCompetitors}
+            className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/25 bg-white px-4 py-2 text-sm font-semibold text-[#0F766E] shadow-[0_18px_48px_-42px_rgba(14,118,110,0.32)] transition hover:border-[#0F766E]/40 hover:bg-[#f0f9f6]"
+          >
+            View Competitors • Investor Compass
+            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </button>
+          <p className="text-xs leading-relaxed text-slate-500">
+            Omnis keeps the Investor Compass synchronized with the latest operator openings and menu shifts.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // Gap Analysis Card Component
 const GapAnalysisCard = ({ className = "" }: { className?: string }) => {
   return (
