@@ -832,7 +832,7 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
               <div className="text-xs text-slate-600">Market gaps</div>
             </div>
             <div>
-              <div className="text-lg font-bold text-blue-600">4.5��</div>
+              <div className="text-lg font-bold text-blue-600">4.5���</div>
               <div className="text-xs text-slate-600">Avg rating</div>
             </div>
             <div>
@@ -6014,7 +6014,6 @@ export function BusinessChatUI({
           ),
         );
         shouldOpenCompetitorBreakout = true;
-        shouldOpenCompetitorMap = true;
       } else if (mentionsCost) {
         responses.push(
           buildMessage(
