@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { MessageCircle, Headset, ArrowUpRight } from "lucide-react";
+import { MessageCircle, Headset, ArrowUpRight, X } from "lucide-react";
 import { Tooltip } from "@aegov/design-system-react";
 import { BusinessChatUI } from "@/components/ui/business-chat-ui";
 import { UAEPassLogin } from "@/components/ui/uae-pass-login";
