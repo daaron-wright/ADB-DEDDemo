@@ -3463,6 +3463,30 @@ const MessageBubble = ({
             </div>
           )}
 
+          {message.type === "market-opportunity" && (
+            <div className="mt-4">
+              <MarketOpportunityInsight onOpenHeatMap={onHeatMapOpen} />
+            </div>
+          )}
+
+          {message.type === "competitive-landscape" && (
+            <div className="mt-4">
+              <CompetitiveLandscapeInsight />
+            </div>
+          )}
+
+          {message.type === "budget-analysis" && (
+            <div className="mt-4">
+              <BudgetLocationCostInsight onViewAllLocations={onRetailLocationsOpen} />
+            </div>
+          )}
+
+          {message.type === "viability-summary" && (
+            <div className="mt-4">
+              <BusinessViabilitySummary onExportPlan={onExportPlan} />
+            </div>
+          )}
+
           {message.type === "comprehensive-report" && (
             <div className="mt-4">
               <ComprehensiveReport />
