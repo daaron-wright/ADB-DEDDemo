@@ -1,4 +1,4 @@
-import { Download, MessageCircle } from "lucide-react";
+import { Download, MessageCircle, Target } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface BusinessViabilitySummaryProps {
@@ -60,6 +60,43 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
           </div>
         ))}
       </section>
+
+      <div className="rounded-3xl border border-[#dce9e4] bg-white/95 px-5 py-5 shadow-[0_30px_76px_-58px_rgba(14,118,110,0.28)]">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex items-start gap-3">
+            <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
+              <Target className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <div className="space-y-2">
+              <h4 className="text-base font-semibold text-slate-900">
+                Competitive gap aligns with Layla&apos;s Corniche dining house
+              </h4>
+              <p className="text-sm leading-relaxed text-slate-600">
+                Our competitor sweep found that only a handful of premium venues along the Corniche offer curated late-evening tasting journeys.
+                Layla&apos;s waterfront concept brings the experiential dining layer missing between Shurfa Bay and Villa Toscana, unlocking high-spend
+                demand from luxury tourists and office executives seeking post-9&nbsp;PM reservations.
+              </p>
+              <ul className="space-y-2 text-sm leading-relaxed text-slate-600">
+                <li>• Corniche and Saadiyat competitors cluster around prix-fixe hotel dining with limited immersive storytelling.</li>
+                <li>• Marketplace chatter shows 22% unmet demand for chef-led tasting rooms with concierge-level service.</li>
+                <li>• Layla&apos;s concept packages coastal provenance, terrace rituals, and omakase-style flights—directly filling the gap Omnis surfaced.</li>
+              </ul>
+            </div>
+          </div>
+          <div className="flex flex-col items-start gap-3 sm:items-end">
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent("openCompetitorBreakout"))}
+              className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/25 bg-white px-4 py-2 text-sm font-semibold text-[#0F766E] shadow-[0_18px_48px_-40px_rgba(14,118,110,0.4)] transition hover:border-[#0F766E]/40 hover:bg-[#f1f9f6]"
+            >
+              Review competitor evidence
+            </button>
+            <p className="max-w-xs text-xs leading-relaxed text-slate-500">
+              Omnis keeps the competitor landscape refreshed, so this gap statement updates as new operators appear or pricing shifts.
+            </p>
+          </div>
+        </div>
+      </div>
 
       <div className="rounded-3xl border border-[#e2ece8] bg-[#eef7f3] px-5 py-4 text-sm text-slate-700">
         <h4 className="text-sm font-semibold uppercase tracking-[0.22em] text-[#0F766E]">Next steps</h4>
