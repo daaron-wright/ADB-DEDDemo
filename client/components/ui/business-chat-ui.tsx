@@ -287,6 +287,37 @@ const CONVERSATION_BLUEPRINT: Record<
     actions: [
       { label: "Open my investor journey", action: "open-investor-journey" },
     ],
+    recommendations: [
+      {
+        id: "summary-investor-journey",
+        label: "Open my investor workspace",
+        description:
+          "Jump into the guided checklist with licensing milestones and document prep in one place.",
+        icon: ClipboardList,
+        type: "conversation",
+        action: "open-investor-journey",
+        nextStep: "handoff",
+      },
+      {
+        id: "summary-compare-districts",
+        label: "Compare Corniche with Saadiyat",
+        description:
+          "Stack footfall, spending power, and rental benchmarks side-by-side before you commit.",
+        icon: TrendingUp,
+        type: "modal",
+        modal: "competitor-map",
+      },
+      {
+        id: "summary-human-fallback",
+        label: "Talk to a TAMM specialist",
+        description:
+          "Connect with an advisor for questions about licensing, compliance, or strategy.",
+        icon: Headset,
+        type: "human",
+        prompt:
+          "Can you connect me with a TAMM advisor to review the market summary Omnis shared?",
+      },
+    ],
   },
   handoff: {
     message:
