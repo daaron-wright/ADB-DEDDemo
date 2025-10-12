@@ -253,27 +253,27 @@ const CONVERSATION_BLUEPRINT: Record<
 > = {
   intro: {
     message:
-      "Stage 1 is all about market opportunity and demographics. Ready to explore the Corniche heat map or skip ahead if you already have those answers?",
+      "Let’s chart your next move. You can dive into market signals first or branch straight into other focus areas if that’s more helpful today.",
     actions: [
-      { label: "Open Step 1 · Market opportunity", action: "open-market-overview" },
-      { label: "Skip to Step 2 · Competition", action: "open-competition-analysis" },
-      { label: "Skip to Step 3 · Budget", action: "open-budget-analysis" },
+      { label: "Explore market signals", action: "open-market-overview" },
+      { label: "Shift to competitive context", action: "open-competition-analysis" },
+      { label: "Jump into budget outlook", action: "open-budget-analysis" },
     ],
     recommendations: [
       {
         id: "intro-market-overview",
-        label: "Open Corniche heat map",
+        label: "Open market intelligence view",
         description:
-          "See addressable market ranges, priority zones like Saadiyat, and trend sliders in one workspace.",
+          "Surface addressable market ranges, highlight zones like Saadiyat, and inspect live trend sliders.",
         icon: MapPin,
         type: "modal",
         modal: "heat-map",
       },
       {
         id: "intro-competitive-landscape",
-        label: "Jump to competitive landscape",
+        label: "Review competitive signals",
         description:
-          "Filter Corniche competitors by checkbox and reveal white space before budgeting.",
+          "Filter comparable operators with checkboxes and uncover potential white space before the next step.",
         icon: TrendingUp,
         type: "modal",
         modal: "competitor-map",
@@ -282,11 +282,11 @@ const CONVERSATION_BLUEPRINT: Record<
         id: "intro-human-fallback",
         label: "Talk to a human agent",
         description:
-          "Reach a TAMM specialist instantly while I keep your insights synced.",
+          "Reach a TAMM specialist instantly while I keep your workspace updated.",
         icon: Headset,
         type: "human",
         prompt:
-          "I'd like to speak with a TAMM agent about my restaurant setup.",
+          "I'd like to speak with a TAMM agent about my next steps.",
       },
     ],
   },
