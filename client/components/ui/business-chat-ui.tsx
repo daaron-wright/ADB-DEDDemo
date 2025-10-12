@@ -7163,8 +7163,6 @@ export function BusinessChatUI({
                                   }
                                   onHeatMapOpen={openHeatMapFullView}
                                   onBudgetRangesOpen={openBudgetRangesFocus}
-                                  onRetailLocationsOpen={openRetailLocations}
-                                  onExportPlan={handleExportBusinessPlan}
                                   businessActivitiesProps={
                                     message.type === "business-activities"
                                       ? {
