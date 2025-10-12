@@ -7155,15 +7155,17 @@ export function BusinessChatUI({
                                         </div>
                                       )}
                                     </div>
-                                    <div className="mt-5">
-                                      <StageTopicSuggestions
-                                        step={currentStep}
-                                        onSendTopic={(prompt) => {
-                                          handleSendMessage(prompt);
-                                          setAdvisorPanelOpen(false);
-                                        }}
-                                      />
-                                    </div>
+                                    {hasStageTopics ? (
+                                      <div className="mt-5">
+                                        <StageTopicSuggestions
+                                          step={currentStep}
+                                          onSendTopic={(prompt) => {
+                                            handleSendMessage(prompt);
+                                            setAdvisorPanelOpen(false);
+                                          }}
+                                        />
+                                      </div>
+                                    ) : null}
                                   </div>
                                 </div>
                               ) : null}
