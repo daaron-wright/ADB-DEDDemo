@@ -13,6 +13,12 @@ import { cn } from "@/lib/utils";
 import { chatCardClass } from "@/lib/chat-style";
 import { Badge } from "@/components/ui/badge";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
   CuisinePopularityChart,
   CompetitorAnalysisChart,
   DemographicsCard,
