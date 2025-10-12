@@ -5630,6 +5630,9 @@ export function BusinessChatUI({
   const [interactionMode, setInteractionMode] = useState<"chat" | "voice">(
     "chat",
   );
+  const [advisorPanelView, setAdvisorPanelView] = useState<AdvisorPanelView>(
+    "recommendations",
+  );
   const openApplicantPortal = useCallback(() => {
     navigate("/portal/applicant", {
       state: {
