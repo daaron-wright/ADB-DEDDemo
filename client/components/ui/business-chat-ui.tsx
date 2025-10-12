@@ -3976,34 +3976,45 @@ const StageRecommendationBoard = ({
           <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-slate-600">
             {blueprint.message}
           </p>
-          <div className="mt-5 space-y-2.5">
-            {blueprint.recommendations.map((recommendation) => {
-              const Icon = recommendation.icon;
-              return (
-                <button
-                  key={recommendation.id}
-                  type="button"
-                  onClick={() => onSelect(recommendation)}
-                  className="group flex w-full items-start justify-between gap-4 rounded-2xl border border-white/25 bg-white/12 px-5 py-4 text-left shadow-[0_28px_72px_-50px_rgba(15,23,42,0.42)] transition hover:-translate-y-0.5 hover:border-emerald-400/45 hover:bg-white/18 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
-                >
-                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-700 shadow-[0_18px_42px_-26px_rgba(16,185,129,0.65)]">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                  <div className="flex min-w-0 flex-1 flex-col">
-                    <p className="text-sm font-semibold text-slate-900">
-                      {recommendation.label}
-                    </p>
-                    <p className="mt-1 text-xs text-slate-600">
-                      {recommendation.description}
-                    </p>
-                  </div>
-                  <ArrowUpRight
-                    className="mt-1 h-4 w-4 flex-shrink-0 text-slate-400 transition group-hover:text-emerald-600"
-                    aria-hidden="true"
-                  />
-                </button>
-              );
-            })}
+          <div className="mt-5">
+            <Accordion type="single" collapsible className="space-y-3">
+              {blueprint.recommendations.map((recommendation, index) => {
+                const Icon = recommendation.icon;
+                const value = `${recommendation.id}-${index}`;
+
+                return (
+                  <AccordionItem
+                    key={recommendation.id}
+                    value={value}
+                    className="overflow-hidden rounded-2xl border border-white/25 bg-white/12 shadow-[0_28px_72px_-50px_rgba(15,23,42,0.42)] backdrop-blur"
+                  >
+                    <AccordionTrigger className="flex w-full items-center gap-3 px-5 py-4 text-left text-sm font-semibold text-slate-900 transition hover:text-emerald-700">
+                      <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-700 shadow-[0_18px_42px_-26px_rgba(16,185,129,0.65)]">
+                        <Icon className="h-4 w-4" aria-hidden="true" />
+                      </span>
+                      <span className="flex-1 truncate">
+                        {recommendation.label}
+                      </span>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-5 pb-4 text-sm text-slate-600">
+                      <p className="text-xs leading-relaxed text-slate-600">
+                        {recommendation.description}
+                      </p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <button
+                          type="button"
+                          onClick={() => onSelect(recommendation)}
+                          className="inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-xs font-semibold text-emerald-700 transition hover:border-emerald-500 hover:bg-emerald-500/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
+                        >
+                          Continue with this theme
+                          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                        </button>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                );
+              })}
+            </Accordion>
           </div>
         </div>
       </div>
