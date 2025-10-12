@@ -5362,6 +5362,14 @@ export function BusinessChatUI({
     };
   }, [selectedActivities]);
 
+  const stageBlueprint = CONVERSATION_BLUEPRINT[currentStep];
+
+  const artifactMessages = useMemo(
+    () =>
+      messages.filter((message) => message.type && message.type !== "text"),
+    [messages],
+  );
+
   const chatInputPlaceholder = useMemo(() => {
     if (interactionMode === "voice") {
       return "Voice mode active—tap the mic to ask about licensing steps.";
