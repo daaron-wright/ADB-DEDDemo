@@ -179,44 +179,57 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
 
               {filteredPoints.map((point) => {
                 const isActive = point.id === activePoint?.id;
+                const baseSize = Math.max(22, point.baseSize ?? 24);
+                const haloColor = point.attributes.includes("highDemand") ? "#54FFD4" : "#4DD0E1";
+                const coreColor = point.attributes.includes("relevant") ? "#0F766E" : "#155E75";
+
                 return (
-                  <button
+                  <motion.button
                     key={point.id}
                     type="button"
                     onClick={() => setActivePointId(point.id)}
                     onFocus={() => setActivePointId(point.id)}
-                    className={cn(
-                      "group absolute -translate-x-1/2 -translate-y-full rounded-full border border-white/40 bg-white/90 p-1 shadow-xl transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
-                      isActive && "border-white bg-[#54FFD4]/90 text-slate-900",
-                    )}
+                    className="group absolute -translate-x-1/2 -translate-y-1/2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
                     style={{
                       left: formatPosition(point.x),
                       top: formatPosition(point.y),
                     }}
                     aria-label={`${point.name}, ${point.cuisine}`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.96 }}
                   >
                     <span
+                      className="relative flex items-center justify-center"
+                      style={{ width: baseSize, height: baseSize }}
+                    >
+                      <span
+                        className="absolute inset-0 rounded-full opacity-60 blur-[16px] transition group-hover:opacity-90"
+                        style={{
+                          background: `radial-gradient(circle at center, ${haloColor}80 0%, transparent 70%)`,
+                        }}
+                        aria-hidden="true"
+                      />
+                      <span
+                        className={cn(
+                          "absolute inset-0 rounded-full border border-white/20 transition",
+                          isActive ? "opacity-100" : "opacity-80 group-hover:opacity-95",
+                        )}
+                        style={{
+                          background: `radial-gradient(circle at 45% 35%, ${haloColor} 0%, ${coreColor} 75%)`,
+                        }}
+                        aria-hidden="true"
+                      />
+                      <span className="relative h-2 w-2 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.7)]" aria-hidden="true" />
+                    </span>
+                    <span
                       className={cn(
-                        "flex h-10 w-10 items-center justify-center rounded-full transition",
-                        isActive
-                          ? "bg-[#54FFD4] text-[#0b2b34]"
-                          : "bg-white text-[#0F766E] group-hover:bg-[#54FFD4]/80 group-hover:text-[#0b2b34]",
+                        "mt-3 block rounded-full bg-black/65 px-3 py-1 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition",
+                        isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100",
                       )}
                     >
-                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path d="M12 2C8.687 2 6 4.686 6 8c0 4.418 6 12 6 12s6-7.582 6-12c0-3.314-2.687-6-6-6Zm0 8.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" />
-                      </svg>
-                    </span>
-                    <span className="mt-2 block rounded-full bg-black/65 px-3 py-1 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-white opacity-0 transition group-hover:opacity-100">
                       {point.name}
                     </span>
-                  </button>
+                  </motion.button>
                 );
               })}
 
