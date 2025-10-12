@@ -5738,22 +5738,6 @@ export function BusinessChatUI({
 
   const stageBlueprint = CONVERSATION_BLUEPRINT[currentStep];
 
-  const handleAdvisorRecommendationSelect = useCallback(
-    (recommendation: StageRecommendation) => {
-      handleRecommendationSelect(recommendation);
-      setAdvisorPanelOpen(false);
-    },
-    [handleRecommendationSelect],
-  );
-
-  const handleAdvisorTopicPrompt = useCallback(
-    (prompt: string) => {
-      handleSendMessage(prompt);
-      setAdvisorPanelOpen(false);
-    },
-    [handleSendMessage],
-  );
-
   useEffect(() => {
     if (!isAdvisorPanelOpen) {
       return;
@@ -6209,7 +6193,7 @@ export function BusinessChatUI({
           if (isInvestorAuthenticated) {
             setView("investor-journey");
             const acknowledgement = buildMessage(
-              "Perfect — I’m triggering automation, reserving your trade name, and opening the applicant portal timeline for you now.",
+              "Perfect — I���m triggering automation, reserving your trade name, and opening the applicant portal timeline for you now.",
               true,
             );
             const handoffMessage = buildStepMessage("handoff");
