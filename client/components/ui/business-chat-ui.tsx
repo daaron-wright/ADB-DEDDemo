@@ -3231,8 +3231,6 @@ const MessageBubble = ({
   dialogueDocProps,
   onHeatMapOpen,
   onBudgetRangesOpen,
-  onRetailLocationsOpen,
-  onExportPlan,
   businessActivitiesProps,
   applicationProgressProps,
   showUserAvatar = false,
