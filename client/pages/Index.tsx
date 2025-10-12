@@ -402,6 +402,12 @@ export default function Index() {
     [],
   );
 
+  useEffect(() => {
+    if (chatState.isOpen) {
+      setLauncherExpanded(false);
+    }
+  }, [chatState.isOpen]);
+
   const handlePointerMove = (event: React.MouseEvent<HTMLDivElement>) => {
     queueFocusPoint({ x: event.clientX, y: event.clientY });
   };
