@@ -475,7 +475,7 @@ const journeyStages: JourneyStage[] = [
       detail: "DED automation running final checks",
     },
     description:
-      "AI Business is coordinating with the Department of Economic Development to finalize the economic license issuance.",
+      "Omnis is coordinating with the Department of Economic Development to finalize the economic license issuance.",
     state: "current",
     statusDetail: "Economic license generation in progress",
     statusTransitions: [
