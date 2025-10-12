@@ -3458,7 +3458,11 @@ const MessageBubble = ({
 
           {message.type === "competitor-analysis" && (
             <div className="mt-4">
-              <CompetitorAnalysisChart />
+              <CompetitorAnalysisSummaryTile
+                onViewCompetitors={() =>
+                  window.dispatchEvent(new CustomEvent("openCompetitorHeatMap"))
+                }
+              />
             </div>
           )}
 
