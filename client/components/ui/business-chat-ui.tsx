@@ -877,8 +877,7 @@ const CompetitorAnalysisSummaryTile = ({
                 These establishments represent your primary competition in the Corniche area.
               </h4>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Each offers unique positioning in cuisine, price point, and customer experience that can inform how Layla differentiates the
-                waterfront tasting house she plans to build.
+                Each offers unique positioning in cuisine, price point, and customer experience that can inform your differentiation strategy.
               </p>
             </div>
             <div>
