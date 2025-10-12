@@ -65,7 +65,9 @@ type ConversationAction =
   | "decline-retail-automation"
   | "open-market-overview"
   | "open-competition-analysis"
-  | "open-budget-analysis";
+  | "open-budget-analysis"
+  | "open-viability-summary"
+  | "contact-human";
 
 interface MessageAction {
   id: string;
@@ -128,7 +130,7 @@ interface DialogueDocProps {
 
 const createInitialDialogueDocState = (): DialogueDocState => ({
   notes:
-    "Capture next steps, decisions, and follow-ups here.\n• Define target district and audience\n• Outline licensing documents\n�� Track stakeholder approvals",
+    "Capture next steps, decisions, and follow-ups here.\n• Define target district and audience\n• Outline licensing documents\n���� Track stakeholder approvals",
   highlights: [
     {
       id: "dialogue-highlight-1",
@@ -4551,7 +4553,7 @@ const DiscoverExperienceView = ({
       name: "Abu Dhabi Marina & Breakwater",
       summary:
         "Destination leisure cluster anchored by luxury hotels, yacht clubs, and family attractions.",
-      footfall: "40���55K weekly visits",
+      footfall: "40–55K weekly visits",
       density: "High density",
       trend: "+9% weekend uplift",
       focus: "Waterfront lounges, seafood houses, family dining",
