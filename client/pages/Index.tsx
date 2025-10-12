@@ -604,7 +604,7 @@ export default function Index() {
                         </span>
                       </div>
                       <p className="mt-1 text-xs text-slate-600">
-                        Ask for market signals or licensing steps and Ill surface the right workspace.
+                        Ask for market signals or licensing steps and I'll surface the right workspace.
                       </p>
                     </div>
                   </div>
