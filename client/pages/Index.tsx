@@ -365,8 +365,11 @@ export default function Index() {
   };
 
   const hasCategoryFocus = Boolean(hoveredCategory || activeCategory);
-  const focusIntensity = hasCategoryFocus ? 0.36 : 0.22;
-  const haloIntensity = hasCategoryFocus ? 0.24 : 0.14;
+
+  useEffect(() => {
+    hasCategoryFocusRef.current = hasCategoryFocus;
+    updateGradient();
+  }, [hasCategoryFocus, updateGradient]);
 
   return (
     <div
