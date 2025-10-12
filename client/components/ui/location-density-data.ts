@@ -362,6 +362,29 @@ export const areaProfiles: AreaProfile[] = [
       },
     },
   },
+  {
+    area: "Saadiyat Cultural District",
+    rating: 8.5,
+    description:
+      "Museum-led waterfront with premium resorts and cultural tourism driving high-spend diners.",
+    metrics: {
+      residents: {
+        value: "1,600 – 2,400 residents",
+        note: "Beachfront residences and villas with long-stay expatriate demand.",
+        source: "Tawtheeq occupancy registry, Q1 2025",
+      },
+      office: {
+        value: "2,900 – 3,800 workers",
+        note: "Cultural institutions and education hubs sustaining weekday footfall.",
+        source: "Employment statistics, 2024",
+      },
+      tourists: {
+        value: "3,400 – 5,200 nightly visitors",
+        note: "Louvre Abu Dhabi and luxury resorts create premium visitor waves across peak months.",
+        source: "DCT tourism statistics, FY 2024",
+      },
+    },
+  },
 ];
 
 export const trendMetrics: TrendMetric[] = [
