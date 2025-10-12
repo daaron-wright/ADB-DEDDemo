@@ -352,6 +352,14 @@ export default function Index() {
     }
   };
 
+  const openOmnisChat = useCallback((prompt?: string | null) => {
+    setChatState({
+      isOpen: true,
+      category: "general",
+      initialMessage: prompt ?? null,
+    });
+  }, []);
+
   const startBusinessChat = useCallback(
     (categoryId: string, initialMessage?: string | null) => {
       setChatState({
