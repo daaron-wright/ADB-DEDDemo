@@ -6132,20 +6132,8 @@ export function BusinessChatUI({
 
       setMessages((prev) => [...prev, userMessage, ...responses]);
       setInputValue("");
-
-      if (shouldOpenCompetitorBreakout) {
-        setTimeout(() => {
-          setCompetitorBreakoutOpen(true);
-        }, 180);
-      }
     },
-    [
-      buildMessage,
-      buildStepMessage,
-      openApplicantPortal,
-      setCurrentStep,
-      setCompetitorBreakoutOpen,
-    ],
+    [buildMessage, buildStepMessage, openApplicantPortal, setCurrentStep],
   );
 
   const openHeatMapFullView = useCallback(() => {
