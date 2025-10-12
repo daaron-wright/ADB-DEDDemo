@@ -5993,8 +5993,30 @@ export function BusinessChatUI({
         lower.includes("analysis") ||
         lower.includes("summary") ||
         lower.includes("culmination");
+      const mentionsTopCompetitors =
+        normalizedText.includes("top compet") ||
+        normalizedText.includes("competitor in the area") ||
+        normalizedText.includes("competitors in the area");
 
-      if (mentionsCost) {
+      if (mentionsTopCompetitors) {
+        responses.push(
+          buildMessage(
+            "Surfacing the leading operators across the Corniche, Saadiyat, and nearby dining corridors.",
+            true,
+            {
+              type: "competitor-analysis",
+            },
+          ),
+        );
+        responses.push(
+          buildMessage(
+            "Opening the competitor landscape so you can review positioning, price ladders, and the clearest white space.",
+            true,
+          ),
+        );
+        shouldOpenCompetitorBreakout = true;
+        shouldOpenCompetitorMap = true;
+      } else if (mentionsCost) {
         responses.push(
           buildMessage(
             "Estimated setup costs for the trade license typically fall between AED 3,000 and AED 8,000. Figures below this band usually reflect limited permits, while a full Commercial License that enables restaurant operations generally sits within the AED 3,000 to AED 8,000 range. Cost shown is indicative and subject to change based on the business activity and other regulatory requirements.",
