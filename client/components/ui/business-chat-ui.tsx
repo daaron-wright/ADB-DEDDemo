@@ -243,6 +243,7 @@ const CONVERSATION_BLUEPRINT: Record<
   {
     message: string;
     actions?: ReadonlyArray<{ label: string; action: ConversationAction }>;
+    recommendations: ReadonlyArray<StageRecommendation>;
   }
 > = {
   intro: {
