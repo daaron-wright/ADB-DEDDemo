@@ -1,5 +1,4 @@
 import { Building2, ExternalLink } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 interface CostBreakdown {
   label: string;
