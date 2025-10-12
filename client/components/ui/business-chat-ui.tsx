@@ -321,7 +321,7 @@ const CONVERSATION_BLUEPRINT: Record<
         label: "Revisit budget outlook",
         description:
           "Confirm operating envelopes and fit-out reserves before locking decisions.",
-        icon: Gauge,
+        icon: Sparkles,
         type: "modal",
         modal: "budget-ranges",
       },
