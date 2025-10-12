@@ -3502,9 +3502,9 @@ const STAGE_TOPIC_GROUPS: Record<ConversationStep, TopicGroup[]> = {
   intro: [
     {
       id: "interaction-map",
-      title: "Interaction Map",
+      title: "Interactive Map",
       description:
-        "Preview live footfall, resident density, and tourist flows before committing to a district focus.",
+        "Preview live footfall, resident density, tourist flows, and zoning overlays before committing to a district focus.",
       icon: MapIcon,
       topics: [
         {
@@ -3523,7 +3523,13 @@ const STAGE_TOPIC_GROUPS: Record<ConversationStep, TopicGroup[]> = {
           id: "intro-timing",
           label: "Peak trading hours",
           prompt:
-            "When does foot traffic spike across the Corniche and Saadiyat districts this week?",
+            "When does foot traffic spike across the Corniche, Saadiyat, and Al Maryah districts this week?",
+        },
+        {
+          id: "intro-zoning",
+          label: "Compliance overlays",
+          prompt:
+            "Layer the interaction map with compliance/zoning boundaries so I know where restaurant licenses are permissible.",
         },
       ],
     },
@@ -3531,7 +3537,7 @@ const STAGE_TOPIC_GROUPS: Record<ConversationStep, TopicGroup[]> = {
       id: "demand-signals",
       title: "Demand Signals",
       description:
-        "Validate demand drivers and seasonal triggers before deep-diving licensing or budgeting.",
+        "Validate demand drivers, seasonal triggers, and spend behavior before deep-diving licensing or budgeting.",
       icon: Sparkles,
       topics: [
         {
@@ -3545,6 +3551,33 @@ const STAGE_TOPIC_GROUPS: Record<ConversationStep, TopicGroup[]> = {
           label: "Influencer traction",
           prompt:
             "Which influencer campaigns or social spikes are moving diner demand near my preferred locations?",
+        },
+        {
+          id: "intro-spend",
+          label: "Average spend bands",
+          prompt:
+            "Give me average ticket sizes and spending power for top Corniche and Saadiyat venues so I can calibrate pricing.",
+        },
+      ],
+    },
+    {
+      id: "early-reports",
+      title: "Quick Summaries",
+      description:
+        "Surface the latest narratives from reports and one-pagers before diving into deeper tools.",
+      icon: ClipboardList,
+      topics: [
+        {
+          id: "intro-market-summary",
+          label: "Market spotlight",
+          prompt:
+            "Summarise today's Corniche market snapshot, including demand, competitor heat, and compliance cues.",
+        },
+        {
+          id: "intro-investor-summary",
+          label: "Investor one-pager",
+          prompt:
+            "Draft an investor-ready summary of why Corniche dining is attractive right now.",
         },
       ],
     },
@@ -3575,11 +3608,17 @@ const STAGE_TOPIC_GROUPS: Record<ConversationStep, TopicGroup[]> = {
           prompt:
             "How do Shurfa Bay and Palms & Pearls compare on revenue contribution versus social buzz?",
         },
+        {
+          id: "summary-revenue-share",
+          label: "Revenue vs. visits",
+          prompt:
+            "Plot revenue contribution against visit share for each competitor so I can see who is monetising best.",
+        },
       ],
     },
     {
       id: "gap-analysis",
-      title: "Gap Analysis",
+      title: "Gap & Opportunity Scan",
       description:
         "Spot opportunities and operational gaps that can fuel the pitch deck or investment case.",
       icon: Gauge,
@@ -3602,6 +3641,60 @@ const STAGE_TOPIC_GROUPS: Record<ConversationStep, TopicGroup[]> = {
           prompt:
             "Map demand-supply gaps across Corniche, Saadiyat, and Reem for premium casual dining.",
         },
+        {
+          id: "summary-gap-report",
+          label: "Gap scorecard",
+          prompt:
+            "Generate a gap-analysis summary showing concept fit, compliance readiness, and demand alignment for Corniche vs. Saadiyat.",
+        },
+      ],
+    },
+    {
+      id: "budget-themes",
+      title: "Budget & Investment",
+      description:
+        "Break down capital requirements, fit-out costs, and scenario planning across licensing classes.",
+      icon: ClipboardList,
+      topics: [
+        {
+          id: "summary-budget-ranges",
+          label: "Budget ranges",
+          prompt:
+            "Summarise the budget ranges view, highlighting upfront costs and operating bands for a Corniche restaurant.",
+        },
+        {
+          id: "summary-budget-comparison",
+          label: "Budget comparison",
+          prompt:
+            "Compare budget requirements between Corniche, Saadiyat, and Al Maryah concepts side-by-side.",
+        },
+        {
+          id: "summary-budget-cashflow",
+          label: "Cash flow outlook",
+          prompt:
+            "Draft a quick cash-flow estimate using the budget ranges data plus expected revenue lift from the competitor study.",
+        },
+      ],
+    },
+    {
+      id: "report-downloads",
+      title: "Reports & Summaries",
+      description:
+        "Pull consolidated insights, board-ready summaries, and investor one-pagers on demand.",
+      icon: ClipboardList,
+      topics: [
+        {
+          id: "summary-exec-report",
+          label: "Executive report",
+          prompt:
+            "Generate an executive summary that blends the competitor map, gap analysis, and budget findings.",
+        },
+        {
+          id: "summary-investor-pack",
+          label: "Investor briefing",
+          prompt:
+            "Create a briefing note I can send to investors covering demand signals, budget expectations, and automation steps.",
+        },
       ],
     },
   ],
@@ -3610,7 +3703,7 @@ const STAGE_TOPIC_GROUPS: Record<ConversationStep, TopicGroup[]> = {
       id: "automation-next-steps",
       title: "Automation & Next Steps",
       description:
-        "Line up the paperwork, trade name, and concierge support once Lyla agrees to automate.",
+        "Line up the paperwork, trade name, budget follow-ups, and concierge support once Lyla agrees to automate.",
       icon: ClipboardList,
       topics: [
         {
@@ -3631,13 +3724,19 @@ const STAGE_TOPIC_GROUPS: Record<ConversationStep, TopicGroup[]> = {
           prompt:
             "What timeline should I expect once you start automating the application and trade name steps?",
         },
+        {
+          id: "handoff-budget-followup",
+          label: "Budget follow-up",
+          prompt:
+            "Schedule a follow-up to refine the budget ranges with landlord quotes and fit-out partner estimates.",
+        },
       ],
     },
     {
       id: "experience-blueprint",
       title: "Experience Blueprint",
       description:
-        "Align experience design and partnerships while the application is being automated.",
+        "Align experience design, digital touchpoints, and partnerships while automation runs in the background.",
       icon: Headset,
       topics: [
         {
@@ -3651,6 +3750,39 @@ const STAGE_TOPIC_GROUPS: Record<ConversationStep, TopicGroup[]> = {
           label: "Partner outreach",
           prompt:
             "Which local partners or events should I engage while automation prepares the application?",
+        },
+        {
+          id: "handoff-digital",
+          label: "Digital concierge",
+          prompt:
+            "What digital concierge or loyalty experiences should I design to complement the Corniche concept?",
+        },
+      ],
+    },
+    {
+      id: "workspace-navigation",
+      title: "Workspace Navigation",
+      description:
+        "Ensure Lyla and stakeholders know how to open every supporting workspace and report from the chat.",
+      icon: MapPin,
+      topics: [
+        {
+          id: "handoff-open-map",
+          label: "Open map view",
+          prompt:
+            "Open the interactive map workspace so I can revisit competitor pins and area overlays before final submission.",
+        },
+        {
+          id: "handoff-open-budget",
+          label: "Open budget ranges",
+          prompt:
+            "Launch the budget ranges view again so I can share it with my finance partner before we automate.",
+        },
+        {
+          id: "handoff-open-report",
+          label: "Download summary",
+          prompt:
+            "Download the latest comprehensive report that combines trends, competition, budget, and automation steps.",
         },
       ],
     },
