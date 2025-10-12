@@ -6971,13 +6971,29 @@ export function BusinessChatUI({
                           {!journeyFocusView && showChatInterface ? (
                             <>
                               {stageBlueprint ? (
-                                <StageRecommendationBoard
-                                  key={`stage-${currentStep}`}
-                                  step={currentStep}
-                                  blueprint={stageBlueprint}
-                                  onSelect={handleRecommendationSelect}
-                                  isSidePanel={isSidePanel}
-                                />
+                                <>
+                                  <AdvisorPanelTabs
+                                    activeView={advisorPanelView}
+                                    onViewChange={setAdvisorPanelView}
+                                    isSidePanel={isSidePanel}
+                                  />
+                                  {advisorPanelView === "recommendations" ? (
+                                    <StageRecommendationBoard
+                                      key={`stage-${currentStep}`}
+                                      step={currentStep}
+                                      blueprint={stageBlueprint}
+                                      onSelect={handleRecommendationSelect}
+                                      isSidePanel={isSidePanel}
+                                    />
+                                  ) : (
+                                    <StageTopicSuggestions
+                                      key={`topics-${currentStep}`}
+                                      step={currentStep}
+                                      isSidePanel={isSidePanel}
+                                      onSendTopic={handleSendMessage}
+                                    />
+                                  )}
+                                </>
                               ) : null}
                               {artifactMessages.map((message) => (
                                 <MessageBubble
