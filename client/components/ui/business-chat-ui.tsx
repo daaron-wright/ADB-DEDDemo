@@ -7302,7 +7302,7 @@ export function BusinessChatUI({
                               {isAdvisorPanelOpen ? (
                                 <div
                                   className={cn(
-                                    "absolute right-0 top-full z-50 mt-3 w-[min(520px,88vw)]",
+                                    "absolute right-0 top-full z-[120] mt-3 w-[min(520px,88vw)]",
                                     isSidePanel && "left-0 right-auto w-[min(460px,calc(100vw-48px))]",
                                   )}
                                 >
