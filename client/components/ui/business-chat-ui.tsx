@@ -20,7 +20,6 @@ import {
 } from "@/components/ui/accordion";
 import {
   CuisinePopularityChart,
-  CompetitorAnalysisChart,
   DemographicsCard,
   VisitorTasteTrendsChart,
 } from "@/components/ui/data-visualizations";
