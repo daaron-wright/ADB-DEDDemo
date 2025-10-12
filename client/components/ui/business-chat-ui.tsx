@@ -61,7 +61,10 @@ type ConversationAction =
   | "show-summary"
   | "open-investor-journey"
   | "confirm-retail-automation"
-  | "decline-retail-automation";
+  | "decline-retail-automation"
+  | "open-market-overview"
+  | "open-competition-analysis"
+  | "open-budget-analysis";
 
 interface MessageAction {
   id: string;
