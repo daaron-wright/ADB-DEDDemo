@@ -6379,6 +6379,7 @@ export function BusinessChatUI({
     setShouldPromptLogin(false);
     setIsInvestorAuthenticated(false);
     setShouldOpenInvestorView(false);
+    setAdvisorPanelView("recommendations");
 
     if (shouldSuppressChat || journeyFocusView) {
       setMessages([]);
