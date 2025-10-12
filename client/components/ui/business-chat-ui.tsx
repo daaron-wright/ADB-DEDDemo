@@ -6407,6 +6407,10 @@ export function BusinessChatUI({
   }, [messages, currentStep]);
 
   useEffect(() => {
+    setAdvisorPanelView("recommendations");
+  }, [currentStep]);
+
+  useEffect(() => {
     const handleRetailLocationSelected = (event: Event) => {
       const customEvent = event as CustomEvent;
       const {
