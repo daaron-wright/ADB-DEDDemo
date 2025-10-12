@@ -3484,8 +3484,6 @@ const MessageBubble = ({
   );
 };
 
-type AdvisorPanelView = "recommendations" | "topics";
-
 interface TopicSuggestion {
   id: string;
   label: string;
@@ -3665,71 +3663,6 @@ interface StageRecommendationBoardProps {
   onSelect: (recommendation: StageRecommendation) => void;
   isSidePanel: boolean;
 }
-
-const AdvisorPanelTabs = ({
-  activeView,
-  onViewChange,
-  isSidePanel,
-}: {
-  activeView: AdvisorPanelView;
-  onViewChange: (view: AdvisorPanelView) => void;
-  isSidePanel: boolean;
-}) => {
-  return (
-    <div
-      className={cn(
-        "mb-3 flex gap-3 sm:gap-4",
-        isSidePanel ? "justify-start" : "justify-start",
-      )}
-    >
-      {!isSidePanel && <div className="hidden h-8 w-8 flex-shrink-0 sm:block" />}
-      <div
-        className={cn(
-          "flex w-full max-w-[80%] sm:max-w-[72%]",
-          isSidePanel && "max-w-none",
-        )}
-      >
-        <div
-          className={cn(
-            "inline-flex items-center gap-1 rounded-full border px-1 py-1 text-xs font-semibold uppercase tracking-[0.18em]",
-            isSidePanel
-              ? "border-slate-200 bg-white shadow-[0_20px_50px_-38px_rgba(15,23,42,0.26)]"
-              : "border-white/25 bg-white/12 backdrop-blur-xl shadow-[0_24px_60px_-45px_rgba(15,23,42,0.35)]",
-          )}
-        >
-          <button
-            type="button"
-            onClick={() => onViewChange("recommendations")}
-            className={cn(
-              "rounded-full px-3.5 py-1.5 transition",
-              activeView === "recommendations"
-                ? "bg-[#0F766E] text-white shadow-[0_12px_32px_-18px_rgba(15,118,110,0.55)]"
-                : isSidePanel
-                  ? "text-[#0F766E]"
-                  : "text-white/80",
-            )}
-          >
-            Guided actions
-          </button>
-          <button
-            type="button"
-            onClick={() => onViewChange("topics")}
-            className={cn(
-              "rounded-full px-3.5 py-1.5 transition",
-              activeView === "topics"
-                ? "bg-[#0F766E] text-white shadow-[0_12px_32px_-18px_rgba(15,118,110,0.55)]"
-                : isSidePanel
-                  ? "text-[#0F766E]"
-                  : "text-white/80",
-            )}
-          >
-            Suggest topics
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const StageTopicSuggestions = ({
   step,
