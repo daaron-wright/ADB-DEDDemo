@@ -158,7 +158,7 @@ const REGISTRATION_USER_ACTIONS = [
   {
     id: "registration-trade-name",
     title: "Reserve trade name",
-    action: "Enter your preferred business name so AI Business can validate availability and reserve it with DED.",
+    action: "Enter your preferred business name so Omnis can validate availability and reserve it with DED.",
   },
   {
     id: "registration-ownership-structure",
