@@ -5591,8 +5591,6 @@ export function BusinessChatUI({
     "chat",
   );
   const [isAdvisorPanelOpen, setAdvisorPanelOpen] = useState(false);
-  const advisorPanelRef = useRef<HTMLDivElement | null>(null);
-  const advisorPillRef = useRef<HTMLButtonElement | null>(null);
   const openApplicantPortal = useCallback(() => {
     navigate("/portal/applicant", {
       state: {
