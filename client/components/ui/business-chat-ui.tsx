@@ -5620,7 +5620,7 @@ export function BusinessChatUI({
       } else if (mentionsDemographics) {
         responses.push(
           buildMessage(
-            "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).",
+            "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City ��� 20k residents, 25k daily; family-focused community (6/10).",
             true,
             {
               type: "demographics",
@@ -5828,6 +5828,55 @@ export function BusinessChatUI({
       setModalView,
       setView,
       setInputValue,
+    ],
+  );
+
+  const handleRecommendationSelect = useCallback(
+    (recommendation: StageRecommendation) => {
+      if (recommendation.type === "conversation" && recommendation.action) {
+        handleAction(recommendation.action, recommendation.label);
+      } else if (recommendation.type === "prompt" && recommendation.prompt) {
+        handleSendMessage(recommendation.prompt);
+      } else if (recommendation.type === "modal" && recommendation.modal) {
+        switch (recommendation.modal) {
+          case "heat-map":
+            openHeatMapFullView();
+            break;
+          case "budget-ranges":
+            openBudgetRangesFocus();
+            break;
+          case "gap-analysis":
+            openGapAnalysis();
+            break;
+          case "retail-locations":
+            openRetailLocations();
+            break;
+          case "competitor-map":
+            openCompetitorMap();
+            break;
+          default:
+            setModalView(recommendation.modal);
+            break;
+        }
+      } else if (recommendation.type === "human") {
+        handleHumanFallback(recommendation.prompt);
+      }
+
+      if (recommendation.nextStep) {
+        setCurrentStep(recommendation.nextStep);
+      }
+    },
+    [
+      handleAction,
+      handleSendMessage,
+      openHeatMapFullView,
+      openBudgetRangesFocus,
+      openGapAnalysis,
+      openRetailLocations,
+      openCompetitorMap,
+      setModalView,
+      handleHumanFallback,
+      setCurrentStep,
     ],
   );
 
