@@ -5590,9 +5590,6 @@ export function BusinessChatUI({
   const [interactionMode, setInteractionMode] = useState<"chat" | "voice">(
     "chat",
   );
-  const [advisorPanelView, setAdvisorPanelView] = useState<AdvisorPanelView>(
-    "recommendations",
-  );
   const [isAdvisorPanelOpen, setAdvisorPanelOpen] = useState(false);
   const advisorPanelRef = useRef<HTMLDivElement | null>(null);
   const advisorPillRef = useRef<HTMLButtonElement | null>(null);
@@ -6343,7 +6340,6 @@ export function BusinessChatUI({
     setShouldPromptLogin(false);
     setIsInvestorAuthenticated(false);
     setShouldOpenInvestorView(false);
-    setAdvisorPanelView("recommendations");
     setAdvisorPanelOpen(false);
 
     if (shouldSuppressChat || journeyFocusView) {
@@ -6400,7 +6396,6 @@ export function BusinessChatUI({
   }, [messages, currentStep]);
 
   useEffect(() => {
-    setAdvisorPanelView("recommendations");
     setAdvisorPanelOpen(false);
   }, [currentStep]);
 
