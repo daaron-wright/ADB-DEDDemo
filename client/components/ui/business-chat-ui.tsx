@@ -7299,6 +7299,31 @@ export function BusinessChatUI({
                                   />
                                 </svg>
                               </button>
+                              {isAdvisorPanelOpen ? (
+                                <div
+                                  className={cn(
+                                    "absolute right-0 top-full z-50 mt-3 w-[min(520px,88vw)]",
+                                    isSidePanel && "left-0 right-auto w-[min(460px,calc(100vw-48px))]",
+                                  )}
+                                >
+                                  <SuggestedThemesPanel
+                                    stageLabel={stageMeta?.label}
+                                    stageMessage={stageBlueprint.message}
+                                    groupedRecommendations={groupedThemeRecommendations}
+                                    onClose={() => setAdvisorPanelOpen(false)}
+                                    onRecommendationSelect={(recommendation) => {
+                                      handleRecommendationSelect(recommendation);
+                                      setAdvisorPanelOpen(false);
+                                    }}
+                                    hasStageTopics={hasStageTopics}
+                                    currentStep={currentStep}
+                                    onSendTopic={(prompt) => {
+                                      handleSendMessage(prompt);
+                                      setAdvisorPanelOpen(false);
+                                    }}
+                                  />
+                                </div>
+                              ) : null}
                             </div>
                           ) : null}
                         </div>
@@ -7353,27 +7378,6 @@ export function BusinessChatUI({
                       </div>
                     </div>
                   </div>
-
-                  {stageBlueprint && isAdvisorPanelOpen ? (
-                    <div className="mt-5">
-                      <SuggestedThemesPanel
-                        stageLabel={stageMeta?.label}
-                        stageMessage={stageBlueprint.message}
-                        groupedRecommendations={groupedThemeRecommendations}
-                        onClose={() => setAdvisorPanelOpen(false)}
-                        onRecommendationSelect={(recommendation) => {
-                          handleRecommendationSelect(recommendation);
-                          setAdvisorPanelOpen(false);
-                        }}
-                        hasStageTopics={hasStageTopics}
-                        currentStep={currentStep}
-                        onSendTopic={(prompt) => {
-                          handleSendMessage(prompt);
-                          setAdvisorPanelOpen(false);
-                        }}
-                      />
-                    </div>
-                  ) : null}
 
                   <div className={bodyWrapperClass}>
                     <div
