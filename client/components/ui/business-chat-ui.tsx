@@ -5666,34 +5666,6 @@ export function BusinessChatUI({
 
   const stageBlueprint = CONVERSATION_BLUEPRINT[currentStep];
 
-  useEffect(() => {
-    if (!isAdvisorPanelOpen) {
-      return;
-    }
-
-    const handleClickOutside = (event: MouseEvent) => {
-      const panelEl = advisorPanelRef.current;
-      const pillEl = advisorPillRef.current;
-      if (!panelEl) return;
-      if (panelEl.contains(event.target as Node)) return;
-      if (pillEl && pillEl.contains(event.target as Node)) return;
-      setAdvisorPanelOpen(false);
-    };
-
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setAdvisorPanelOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    window.addEventListener("keydown", handleEscape);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      window.removeEventListener("keydown", handleEscape);
-    };
-  }, [isAdvisorPanelOpen]);
-
   const artifactMessages = useMemo(
     () =>
       messages.filter((message) => message.type && message.type !== "text"),
