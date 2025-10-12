@@ -3162,8 +3162,7 @@ const SetupBusinessCTA = ({
           Investor Journey
         </div>
         <div className="text-black text-lg leading-[140%] tracking-[0.058px]">
-          <span className="font-bold">Layla</span>{" "}
-          <span className="font-normal">Al-Mansoori</span>
+          <span className="font-bold">{ENTREPRENEUR_PROFILE.name}</span>
         </div>
       </div>
     </div>
@@ -5729,7 +5728,7 @@ export function BusinessChatUI({
         user: {
           name: ENTREPRENEUR_PROFILE.name,
           role: ENTREPRENEUR_PROFILE.title,
-          email: "layla.almansoori@email.ae",
+          email: ENTREPRENEUR_PROFILE.email,
           avatarUrl: ENTREPRENEUR_PROFILE.avatar,
         },
       },
