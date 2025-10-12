@@ -166,7 +166,8 @@ type ModalView =
   | "budget-ranges"
   | "gap-analysis"
   | "retail-locations"
-  | "competitor-map";
+  | "competitor-map"
+  | "viability-summary";
 
 type ConversationStep = "intro" | "summary" | "handoff";
 
