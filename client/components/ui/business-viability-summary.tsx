@@ -82,7 +82,7 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
         </div>
         <button
           type="button"
-          onClick={onExportPlan}
+          onClick={() => onExportPlan?.()}
           className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/30 bg-[#0F766E] px-4 py-2 text-sm font-semibold text-white shadow-[0_22px_60px_-40px_rgba(14,118,110,0.5)] transition hover:bg-[#0b5a54]"
         >
           <Download className="h-4 w-4" aria-hidden="true" />
@@ -106,7 +106,7 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
         <div className="flex flex-wrap gap-3">
           <button
             type="button"
-            onClick={onBeginApplication}
+            onClick={() => onBeginApplication?.()}
             className={cn(
               "inline-flex items-center gap-2 rounded-full bg-[#0F766E] px-4 py-2 text-sm font-semibold text-white shadow-[0_22px_60px_-40px_rgba(14,118,110,0.5)] transition",
               "hover:bg-[#0b5a54]",
@@ -116,7 +116,7 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
           </button>
           <button
             type="button"
-            onClick={onMaybeLater}
+            onClick={() => onMaybeLater?.()}
             className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/30 bg-white px-4 py-2 text-sm font-semibold text-[#0F766E] transition hover:bg-[#f0faf7]"
           >
             Review other tracks
