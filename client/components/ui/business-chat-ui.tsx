@@ -5677,6 +5677,62 @@ export function BusinessChatUI({
 
   const stageBlueprint = CONVERSATION_BLUEPRINT[currentStep];
 
+  const groupedThemeRecommendations = useMemo<SuggestedThemeGroup[]>(() => {
+    if (!stageBlueprint) {
+      return [];
+    }
+
+    const definitions = [
+      {
+        id: "maps",
+        label: "Maps",
+        description: "Location intelligence and spatial layers across Abu Dhabi.",
+        icon: Map,
+        predicate: (recommendation: StageRecommendation) =>
+          recommendation.modal === "heat-map" || recommendation.modal === "retail-locations",
+      },
+      {
+        id: "signals",
+        label: "Signals",
+        description: "Demand, competitive, and trend signals you can act on.",
+        icon: TrendingUp,
+        predicate: (recommendation: StageRecommendation) =>
+          recommendation.modal === "competitor-map" ||
+          recommendation.action === "open-market-overview" ||
+          recommendation.action === "show-summary",
+      },
+      {
+        id: "summaries",
+        label: "Summaries",
+        description: "Recaps, exports, and handoffs to keep momentum.",
+        icon: ClipboardList,
+        predicate: (recommendation: StageRecommendation) =>
+          recommendation.action === "open-viability-summary" || recommendation.modal === "comprehensive-report",
+      },
+      {
+        id: "support",
+        label: "Support",
+        description: "Bring in advisors or alternative channels when you need them.",
+        icon: Headset,
+        predicate: (recommendation: StageRecommendation) => recommendation.type === "human",
+      },
+    ].map((definition) => ({
+      ...definition,
+      items: [] as StageRecommendation[],
+    }));
+
+    const fallbackGroup = definitions.find((definition) => definition.id === "signals") ?? definitions[0];
+
+    stageBlueprint.recommendations.forEach((recommendation) => {
+      const group = definitions.find((definition) => definition.predicate(recommendation)) ?? fallbackGroup;
+      group.items.push(recommendation);
+    });
+
+    return definitions
+      .filter((definition) => definition.items.length > 0)
+      .map(({ predicate, ...definition }) => definition);
+  }, [stageBlueprint]);
+
   const artifactMessages = useMemo(
     () =>
       messages.filter((message) => message.type && message.type !== "text"),
