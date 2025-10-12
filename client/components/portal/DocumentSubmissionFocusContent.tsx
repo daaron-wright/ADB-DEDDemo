@@ -233,7 +233,7 @@ export function DocumentSubmissionFocusContent({
       const description =
         nextPendingSubStep.id === "notarized-moa"
           ? "Launch the notarization assistant to finalise the memorandum and sync it back to TAMM."
-          : "Upload the required document so AI Business can continue coordinating with the authority.";
+          : "Upload the required document so Omnis can continue coordinating with the authority.";
       const buttonLabel = nextPendingSubStep.id === "notarized-moa" ? "Open notarization" : "View document requirements";
 
       return {
@@ -405,8 +405,8 @@ export function DocumentSubmissionFocusContent({
                     <div className="flex-1 space-y-3">
                       <p className="font-semibold text-slate-800">
                         {isCompletingMoa
-                          ? "AI Business is finalizing your memorandum for ADJD."
-                          : "AI Business will guide you through the notarization with ADJD."}
+                          ? "Omnis is finalizing your memorandum for ADJD."
+                          : "Omnis will guide you through the notarization with ADJD."}
                       </p>
                       <ul className="space-y-2">
                         <li className="flex items-start gap-2">
@@ -472,7 +472,7 @@ export function DocumentSubmissionFocusContent({
                   <AccordionContent className="px-5">
                     <div className="space-y-3 rounded-2xl border border-[#e3ede8] bg-[#f9fbfa] p-4 text-sm text-slate-600">
                       <p className="text-slate-800">
-                        AI Business completed the notarization and updated your TAMM workspace with the signed memorandum.
+                        Omnis completed the notarization and updated your TAMM workspace with the signed memorandum.
                       </p>
                       <ul className="space-y-2">
                         <li className="flex items-start gap-2">
@@ -632,7 +632,7 @@ export function DocumentSubmissionFocusContent({
               <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/90 p-5">
                 <div>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Your first actions</p>
-                  <p className="text-base font-semibold text-slate-900">What AI Business needs from you</p>
+                  <p className="text-base font-semibold text-slate-900">What Omnis needs from you</p>
                 </div>
                 <ul className="space-y-3">
                   {DOCUMENT_USER_ACTIONS.map((item) => {
@@ -679,7 +679,7 @@ export function DocumentSubmissionFocusContent({
                 </Badge>
               </div>
               <p className="text-sm leading-relaxed text-slate-600">
-                AI Business is coordinating document hand-offs across TAMM and partner authorities to keep your application on schedule.
+                Omnis is coordinating document hand-offs across TAMM and partner authorities to keep your application on schedule.
               </p>
               <div className="space-y-2">
                 <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
