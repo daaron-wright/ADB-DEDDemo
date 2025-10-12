@@ -29,6 +29,7 @@ import RetailLocationsView from "@/components/ui/retail-locations-view";
 import CompetitorHeatMap from "@/components/ui/competitor-heat-map";
 import ComprehensiveReport from "@/components/ui/comprehensive-report";
 import { ApplicationProgressCard } from "@/components/ui/application-progress-card";
+import { BusinessViabilitySummary } from "@/components/ui/business-viability-summary";
 import {
   BusinessActivitiesChatCard,
   ChatActivityOption,
