@@ -159,7 +159,7 @@ const CuisinePopularityCard: React.FC = () => {
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
-            AI Business summary
+            Omnis summary
           </span>
           <h2 className="mt-2 text-2xl font-semibold text-slate-900">
             Popularity of cuisines in Abu Dhabi
@@ -173,7 +173,7 @@ const CuisinePopularityCard: React.FC = () => {
           <AIBusinessOrb className="h-12 w-12" />
           <div>
             <div className="text-sm font-semibold text-slate-900">
-              AI Business
+              Omnis
             </div>
             <div className="text-xs uppercase tracking-[0.2em] text-slate-400">
               Insight engine
