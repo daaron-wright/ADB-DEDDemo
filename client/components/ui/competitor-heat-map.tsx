@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { chatCardClass } from "@/lib/chat-style";
 import {
@@ -37,16 +37,6 @@ const mapBackgroundImage =
   "https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=1280";
 
 const formatPosition = (value: number) => `${Math.min(Math.max(value, 4), 96)}%`;
-
-const getPopoverTransform = (point: CompetitorPoint) => {
-  if (point.x >= 70) {
-    return "translate(-88%, -112%)";
-  }
-  if (point.x <= 30) {
-    return "translate(-12%, -112%)";
-  }
-  return "translate(-50%, -112%)";
-};
 
 const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
   const [activeFilters, setActiveFilters] = useState<Record<CompetitorFilter, boolean>>({
@@ -188,6 +178,7 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                   <motion.button
                     key={point.id}
                     type="button"
+                    onMouseEnter={() => setActivePointId(point.id)}
                     onClick={() => setActivePointId(point.id)}
                     onFocus={() => setActivePointId(point.id)}
                     className="group absolute -translate-x-1/2 -translate-y-1/2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
@@ -254,87 +245,6 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                 </div>
               )}
 
-              <AnimatePresence>
-                {activePoint && (
-                  <motion.div
-                    key={activePoint.id}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 12 }}
-                    transition={{ duration: 0.25, ease: "easeOut" }}
-                    className="pointer-events-auto absolute z-20 w-[320px] max-w-[90vw] rounded-3xl border border-white/25 bg-white/95 p-5 text-left text-slate-800 shadow-[0_22px_60px_-35px_rgba(10,10,40,0.65)]"
-                    style={{
-                      left: formatPosition(activePoint.x),
-                      top: formatPosition(activePoint.y),
-                      transform: getPopoverTransform(activePoint),
-                    }}
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
-                          Competitor snapshot
-                        </p>
-                        <h3 className="mt-1 text-lg font-semibold text-slate-900">{activePoint.name}</h3>
-                        <p className="text-sm text-slate-500">{activePoint.location}</p>
-                      </div>
-                      <span className="inline-flex items-center rounded-full border border-[#e2ece8] bg-[#f1f6f4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0F766E]">
-                        {activePoint.cuisine}
-                      </span>
-                    </div>
-
-                    <p className="mt-3 text-sm leading-relaxed text-slate-600">{activePoint.summary}</p>
-
-                    <div className="mt-4 space-y-3">
-                      {metricOrder.map((metricId) => {
-                        const metric = activePoint.metrics[metricId];
-                        const meta = competitorMetricsMeta[metricId];
-                        if (!metric) return null;
-
-                        return (
-                          <div
-                            key={metricId}
-                            className="rounded-2xl border border-[#e2ece8] bg-[#f8fbfa] px-4 py-3"
-                          >
-                            <div className="flex items-start justify-between gap-4">
-                              <div className="max-w-[60%]">
-                                <div
-                                  className="text-[11px] font-semibold uppercase tracking-[0.2em]"
-                                  style={{ color: meta.accent }}
-                                >
-                                  {meta.label}
-                                </div>
-                                <p className="mt-1 text-sm text-slate-600">{metric.description}</p>
-                              </div>
-                              <div className="text-right">
-                                <div className="text-lg font-semibold text-slate-900">
-                                  {meta.formatter ? meta.formatter(metric.value) : `${metric.value} ${metric.unit}`}
-                                </div>
-                                <div className="text-[11px] uppercase tracking-[0.18em] text-slate-400">
-                                  {metric.unit}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    <div className="mt-4 rounded-2xl border border-[#e2ece8] bg-[#f8fbfa] p-4">
-                      <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
-                        Highlights
-                      </div>
-                      <ul className="mt-2 space-y-2 text-sm text-slate-600">
-                        {activePoint.highlights.map((highlight) => (
-                          <li key={highlight} className="flex items-start gap-2">
-                            <span className="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0F766E]/70" />
-                            <span>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
           </div>
         </div>
