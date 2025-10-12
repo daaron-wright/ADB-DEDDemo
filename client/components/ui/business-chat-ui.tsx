@@ -3659,7 +3659,7 @@ const getCategoryBackground = (category: string) => {
 
 const getCategoryTitle = (category: string) => {
   const titles = {
-    restaurants: "Commercial License for Restaurants",
+    restaurants: "Economic License for Restaurants",
     "fast-food": "Commercial License for Fast Food",
     branch: "Dual License for Branch",
     "retail-store": "Commercial License for Retail Store",
