@@ -556,7 +556,7 @@ export function BusinessRegistrationFocusContent({
     if (!hasActiveTradeName) {
       return {
         headline: "Submit your trade name",
-        description: "Enter a preferred business name so AI Business can validate availability.",
+        description: "Enter a preferred business name so Omnis can validate availability.",
         buttonLabel: "Enter trade name",
         onClick: focusTradeNameInput,
         disabled: isChecking,
