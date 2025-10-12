@@ -5738,6 +5738,7 @@ export function BusinessChatUI({
     () => CONVERSATION_STEPS.find((item) => item.id === currentStep),
     [currentStep],
   );
+  const hasStageTopics = (STAGE_TOPIC_GROUPS[currentStep] ?? []).length > 0;
 
   const artifactMessages = useMemo(
     () =>
