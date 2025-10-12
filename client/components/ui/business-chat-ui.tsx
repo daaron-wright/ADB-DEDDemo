@@ -5734,6 +5734,11 @@ export function BusinessChatUI({
       .map(({ predicate, ...definition }) => definition);
   }, [stageBlueprint]);
 
+  const stageMeta = useMemo(
+    () => CONVERSATION_STEPS.find((item) => item.id === currentStep),
+    [currentStep],
+  );
+
   const artifactMessages = useMemo(
     () =>
       messages.filter((message) => message.type && message.type !== "text"),
