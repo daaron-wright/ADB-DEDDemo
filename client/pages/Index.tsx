@@ -540,27 +540,6 @@ export default function Index() {
 
           {/* Hero Section */}
           <main className="flex flex-col items-center justify-center px-8 py-16 max-w-6xl mx-auto">
-            <div className="mb-8 flex w-full max-w-xl items-center gap-4 rounded-3xl border border-white/50 bg-white/70 px-5 py-4 shadow-[0_24px_55px_-34px_rgba(24,32,63,0.3)] backdrop-blur-[22px]">
-              <div className="relative">
-                <div className="absolute inset-0 rounded-full bg-emerald-200/40 blur-xl" />
-                <OmnisIcon className="relative text-white" />
-              </div>
-              <div className="relative flex flex-col gap-1 text-left">
-                <span className="text-xs font-semibold uppercase tracking-[0.32em] text-emerald-700/90">
-                  Meet Your AI Companion
-                </span>
-                <div className="flex flex-wrap items-baseline gap-2">
-                  <span className="text-2xl font-semibold text-slate-900">Omnis</span>
-                  <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-emerald-700">
-                    Always On
-                  </span>
-                </div>
-                <p className="text-sm leading-relaxed text-slate-600">
-                  Guiding every step from discovery to licensing with contextual insights.
-                </p>
-              </div>
-            </div>
-
             {/* Subtitle */}
             <p className="text-tamm-gray-light text-base font-medium mb-3">
               AI Native Business
