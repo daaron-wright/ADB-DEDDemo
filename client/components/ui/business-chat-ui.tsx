@@ -3950,95 +3950,87 @@ const SuggestedThemesPanel = ({
   onSendTopic: (prompt: string) => void;
 }) => {
   return (
-    <div className="relative z-10 rounded-[36px] border border-emerald-100/85 bg-white px-8 py-7 shadow-[0_58px_150px_-60px_rgba(15,23,42,0.5)] sm:px-10 sm:py-8">
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex flex-1 flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-          <div className="space-y-3 lg:max-w-xl">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[#0F766E]">
-              Suggested themes
-            </p>
-            <div className="space-y-2">
+    <div className="relative z-20 flex flex-col gap-8 rounded-[36px] border border-emerald-100/80 bg-white px-7 py-6 shadow-[0_60px_140px_-58px_rgba(15,23,42,0.46)] sm:px-10 sm:py-8">
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+        <div className="flex flex-1 flex-col gap-4 pr-0 lg:pr-8">
+          <div className="flex items-start justify-between gap-4">
+            <div className="space-y-3">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[#0F766E]">
+                Suggested themes
+              </p>
               <h4 className="text-xl font-semibold text-slate-900 sm:text-2xl">
                 {stageLabel ?? "Current stage"}
               </h4>
-              <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
-                {stageMessage}
-              </p>
             </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:border-slate-300 hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
+              aria-label="Close suggested themes"
+            >
+              <X className="h-4 w-4" aria-hidden="true" />
+            </button>
           </div>
+          <p className="max-w-xl text-sm leading-relaxed text-slate-600 sm:text-base">
+            {stageMessage}
+          </p>
           {hasStageTopics ? (
-            <div className="hidden rounded-2xl border border-emerald-100/70 bg-[#f4fbf8] px-5 py-4 lg:flex lg:max-w-md lg:flex-col lg:gap-3">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]">
-                Conversation starters
-              </p>
+            <div className="rounded-2xl border border-emerald-100/70 bg-[#f4fbf8] px-4 py-4">
               <StageTopicSuggestions step={currentStep} onSendTopic={onSendTopic} />
             </div>
           ) : null}
         </div>
-        <button
-          type="button"
-          onClick={onClose}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:border-slate-300 hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
-          aria-label="Close suggested themes"
-        >
-          <X className="h-4 w-4" aria-hidden="true" />
-        </button>
-      </div>
-      {groupedRecommendations.length > 0 ? (
-        <div className="mt-8 grid gap-5 lg:grid-cols-[repeat(3,minmax(0,1fr))]">
-          {groupedRecommendations.map((group) => {
-            const GroupIcon = group.icon;
-            return (
-              <section
-                key={group.id}
-                className="flex h-full flex-col justify-between gap-5 rounded-3xl border border-emerald-100/70 bg-white px-5 py-6 shadow-[0_32px_94px_-58px_rgba(14,118,110,0.4)] sm:px-6"
-              >
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-start gap-3 text-left">
-                    <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/14 text-[#0F766E] shadow-[0_18px_44px_-32px_rgba(15,118,110,0.55)]">
-                      <GroupIcon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    <div className="space-y-1">
-                      <p className="text-base font-semibold text-slate-900">
-                        {group.label}
-                      </p>
-                      <p className="text-sm leading-relaxed text-slate-600">
-                        {group.description}
-                      </p>
+        {groupedRecommendations.length > 0 ? (
+          <div className="flex-[1.6]">
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {groupedRecommendations.map((group) => {
+                const GroupIcon = group.icon;
+                return (
+                  <section
+                    key={group.id}
+                    className="flex h-full flex-col justify-between gap-4 rounded-3xl border border-emerald-100/70 bg-white px-5 py-5 shadow-[0_26px_80px_-56px_rgba(14,118,110,0.38)]"
+                  >
+                    <div className="flex items-start gap-3 text-left">
+                      <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/14 text-[#0F766E] shadow-[0_18px_42px_-30px_rgba(15,118,110,0.5)]">
+                        <GroupIcon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <div className="space-y-1">
+                        <p className="text-sm font-semibold text-slate-900 sm:text-base">
+                          {group.label}
+                        </p>
+                        <p className="text-xs leading-relaxed text-slate-600 sm:text-sm">
+                          {group.description}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex flex-wrap gap-2 sm:gap-3">
-                    {group.items.map((recommendation) => {
-                      const Icon = recommendation.icon;
-                      return (
-                        <button
-                          key={recommendation.id}
-                          type="button"
-                          onClick={() => onRecommendationSelect(recommendation)}
-                          className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/35 bg-white px-4 py-2 text-sm font-semibold text-[#0F766E] shadow-[0_18px_42px_-30px_rgba(15,118,110,0.42)] transition hover:border-[#0F766E]/55 hover:bg-[#f2fbf8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
-                        >
-                          <Icon className="h-4 w-4" aria-hidden="true" />
-                          {recommendation.label}
-                          <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </section>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="mt-7 rounded-3xl border border-emerald-100 bg-white p-6 text-sm leading-relaxed text-slate-600 shadow-[0_28px_72px_-56px_rgba(15,23,42,0.32)] sm:p-7">
-          More guided themes are on the way. In the meantime, continue with the quick actions below.
-        </div>
-      )}
-      {hasStageTopics ? (
-        <div className="mt-8 border-t border-emerald-100/70 pt-6 lg:hidden">
-          <StageTopicSuggestions step={currentStep} onSendTopic={onSendTopic} />
-        </div>
-      ) : null}
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
+                      {group.items.map((recommendation) => {
+                        const Icon = recommendation.icon;
+                        return (
+                          <button
+                            key={recommendation.id}
+                            type="button"
+                            onClick={() => onRecommendationSelect(recommendation)}
+                            className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/35 bg-white px-4 py-2 text-xs font-semibold text-[#0F766E] shadow-[0_16px_36px_-28px_rgba(15,118,110,0.4)] transition hover:border-[#0F766E]/55 hover:bg-[#f2fbf8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 sm:text-sm"
+                          >
+                            <Icon className="h-4 w-4" aria-hidden="true" />
+                            {recommendation.label}
+                            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </section>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <div className="flex-[1.4] rounded-3xl border border-emerald-100 bg-white p-6 text-sm leading-relaxed text-slate-600 shadow-[0_28px_72px_-56px_rgba(15,23,42,0.32)]">
+            More guided themes are on the way. In the meantime, continue with the quick actions below.
+          </div>
+        )}
+      </div>
     </div>
   );
 };
