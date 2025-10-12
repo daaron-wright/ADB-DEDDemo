@@ -327,7 +327,7 @@ export default function Index() {
     );
     return category
       ? `${category.subtitle} for ${category.title}`
-      : "AI Business";
+      : "Omnis";
   };
 
   const pageRef = useRef<HTMLDivElement>(null);
