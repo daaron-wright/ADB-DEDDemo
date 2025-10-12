@@ -162,7 +162,7 @@ export function ApplicationProgressCard({
             {isGenerating ? "Live review in progress" : "Checks complete"}
           </span>
         </div>
-        <span className="font-medium text-slate-600">AI Business</span>
+        <span className="font-medium text-slate-600">Omnis</span>
       </div>
     </div>
   );
