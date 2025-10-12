@@ -253,36 +253,40 @@ const CONVERSATION_BLUEPRINT: Record<
 > = {
   intro: {
     message:
-      "Let me bring up today's Corniche signals and shortcut you to the right workspace.",
-    actions: [{ label: "Show market highlights", action: "show-summary" }],
+      "Stage 1 is all about market opportunity and demographics. Ready to explore the Corniche heat map or skip ahead if you already have those answers?",
+    actions: [
+      { label: "Open Step 1 · Market opportunity", action: "open-market-overview" },
+      { label: "Skip to Step 2 · Competition", action: "open-competition-analysis" },
+      { label: "Skip to Step 3 · Budget", action: "open-budget-analysis" },
+    ],
     recommendations: [
       {
-        id: "intro-market-highlights",
-        label: "Review Corniche market highlights",
-        description:
-          "See live demand, footfall, and cuisine trends Omnis is tracking right now.",
-        icon: Sparkles,
-        type: "conversation",
-        action: "show-summary",
-      },
-      {
-        id: "intro-location-heatmap",
+        id: "intro-market-overview",
         label: "Open Corniche heat map",
         description:
-          "Visualize footfall intensity, competitor clusters, and zoning overlays before you commit.",
+          "See addressable market ranges, priority zones like Saadiyat, and trend sliders in one workspace.",
         icon: MapPin,
         type: "modal",
         modal: "heat-map",
       },
       {
-        id: "intro-human-fallback",
-        label: "Talk to a TAMM specialist",
+        id: "intro-competitive-landscape",
+        label: "Jump to competitive landscape",
         description:
-          "Reach a human advisor instantly while Omnis keeps your workspace synced.",
+          "Filter Corniche competitors by checkbox and reveal white space before budgeting.",
+        icon: TrendingUp,
+        type: "modal",
+        modal: "competitor-map",
+      },
+      {
+        id: "intro-human-fallback",
+        label: "Talk to a human agent",
+        description:
+          "Reach a TAMM specialist instantly while I keep your insights synced.",
         icon: Headset,
         type: "human",
         prompt:
-          "I'd like to speak with someone from the TAMM business support team about my restaurant setup.",
+          "I'd like to speak with a TAMM agent about my restaurant setup.",
       },
     ],
   },
