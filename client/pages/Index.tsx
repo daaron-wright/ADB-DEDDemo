@@ -371,6 +371,36 @@ export default function Index() {
     [],
   );
 
+  const quickLaunchActions = useMemo(
+    () => [
+      {
+        id: "market-signals",
+        label: "Review market signals",
+        description:
+          "Get the latest residents, tourists, and office worker density for Corniche.",
+        prompt:
+          "Show me today's Corniche demand signals across residents, tourists, and office workers.",
+      },
+      {
+        id: "licensing-overview",
+        label: "See licensing steps",
+        description:
+          "Preview the Abu Dhabi economic license timeline and required documents.",
+        prompt:
+          "Walk me through the licensing steps after I choose Corniche for my restaurant.",
+      },
+      {
+        id: "compare-locations",
+        label: "Explore location heat map",
+        description:
+          "Compare Corniche with Saadiyat and other districts in the interactive map.",
+        prompt:
+          "Open the heat map so I can compare Corniche with Saadiyat for my concept.",
+      },
+    ],
+    [],
+  );
+
   const handlePointerMove = (event: React.MouseEvent<HTMLDivElement>) => {
     queueFocusPoint({ x: event.clientX, y: event.clientY });
   };
