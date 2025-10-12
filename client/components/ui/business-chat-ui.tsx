@@ -292,16 +292,16 @@ const CONVERSATION_BLUEPRINT: Record<
   },
   summary: {
     message:
-      "Your business viability summary is ready. Review the findings, export the plan, then let me reserve the trade name when you give the go-ahead.",
+      "Your viability recap is standing by. Review it, export it, or loop back into any track before we confirm next steps.",
     actions: [
-      { label: "Open business viability summary", action: "open-viability-summary" },
+      { label: "Open viability recap", action: "open-viability-summary" },
     ],
     recommendations: [
       {
         id: "summary-open-viability",
-        label: "Review viability summary",
+        label: "Review viability recap",
         description:
-          "See the consolidated demographics, competition filters, and budget benchmarks in one exportable view.",
+          "Gather the market signals, competitive filters, and budget ranges into one exportable package.",
         icon: ClipboardList,
         type: "conversation",
         action: "open-viability-summary",
@@ -309,9 +309,9 @@ const CONVERSATION_BLUEPRINT: Record<
       },
       {
         id: "summary-budget-refresh",
-        label: "Revisit Corniche budget ranges",
+        label: "Revisit budget outlook",
         description:
-          "Double-check annual operating costs and fit-out reserves before confirming your trade name.",
+          "Confirm operating envelopes and fit-out reserves before locking decisions.",
         icon: Gauge,
         type: "modal",
         modal: "budget-ranges",
@@ -324,7 +324,7 @@ const CONVERSATION_BLUEPRINT: Record<
         icon: Headset,
         type: "human",
         prompt:
-          "Please connect me with a TAMM agent to review my business viability summary.",
+          "Please connect me with a TAMM agent to review my next steps.",
       },
     ],
   },
