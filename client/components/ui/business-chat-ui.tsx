@@ -6083,6 +6083,17 @@ export function BusinessChatUI({
 
       setMessages((prev) => [...prev, userMessage, ...responses]);
       setInputValue("");
+
+      if (shouldOpenCompetitorBreakout) {
+        setTimeout(() => {
+          setCompetitorBreakoutOpen(true);
+        }, 180);
+      }
+      if (shouldOpenCompetitorMap) {
+        setTimeout(() => {
+          setModalView("competitor-map");
+        }, 180);
+      }
     },
     [buildMessage, buildStepMessage, openApplicantPortal, setCurrentStep],
   );
