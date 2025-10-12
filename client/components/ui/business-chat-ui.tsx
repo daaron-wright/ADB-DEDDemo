@@ -18,7 +18,6 @@ import {
   DemographicsCard,
   VisitorTasteTrendsChart,
 } from "@/components/ui/data-visualizations";
-import { JourneyBreadcrumb } from "@/components/ui/journey-breadcrumb";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { UAEPassLogin } from "@/components/ui/uae-pass-login";
 import LocationHeatMap from "@/components/ui/location-heat-map";
