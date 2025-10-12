@@ -134,13 +134,13 @@ const PropertyMarker = ({ property, isHovered, onHover, onLeave }: {
   </div>
 );
 
-const AIBusinessChat = () => (
+const OmnisChat = () => (
   <div className="absolute bottom-6 right-6 w-[351px] h-[206px] z-30">
     <div className="bg-white/14 backdrop-blur-sm rounded-3xl p-4 h-full border border-white/20">
       <div className="flex items-center gap-3 mb-4">
         <AIBusinessOrb className="h-16 w-16" />
         <div>
-          <h3 className="text-white text-lg font-semibold tracking-[0.058px]">AI Business</h3>
+          <h3 className="text-white text-lg font-semibold tracking-[0.058px]">Omnis</h3>
           <div className="flex items-center gap-1 mt-1">
             {Array.from({ length: 9 }, (_, i) => (
               <div 
@@ -260,8 +260,8 @@ export const PropertyMapView: React.FC<PropertyMapViewProps> = ({ isOpen, onClos
           />
         ))}
 
-        {/* AI Business Chat */}
-        <AIBusinessChat />
+        {/* Omnis Chat */}
+      <OmnisChat />
 
         {/* Footer Collaboration */}
         <div className="absolute bottom-6 left-12 text-white">
