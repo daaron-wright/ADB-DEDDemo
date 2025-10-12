@@ -39,18 +39,6 @@ export function OmnisIcon({ className, variant = "default", ...props }: OmnisIco
           <stop offset="55%" stopColor="#D9D9D9" stopOpacity="0.6" />
           <stop offset="100%" stopColor="#7C7C7C" stopOpacity="0.35" />
         </linearGradient>
-        <linearGradient
-          id="omnisMonoWave"
-          x1="18%"
-          y1="32%"
-          x2="84%"
-          y2="70%"
-          gradientUnits="objectBoundingBox"
-        >
-          <stop offset="0%" stopColor="#F0F0F0" stopOpacity="0.85" />
-          <stop offset="50%" stopColor="#BFBFBF" stopOpacity="0.55" />
-          <stop offset="100%" stopColor="#161616" stopOpacity="0.65" />
-        </linearGradient>
         <radialGradient id="omnisMonoHighlight" cx="36%" cy="28%" r="32%">
           <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.9" />
           <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
@@ -77,24 +65,6 @@ export function OmnisIcon({ className, variant = "default", ...props }: OmnisIco
         strokeLinecap="round"
         strokeLinejoin="round"
         opacity="0.85"
-      />
-
-      <path
-        d="M46.4 24.5c3.5 10-1.2 21.1-10.8 25-8.2 3.3-18.1 0.7-23.5-6.8"
-        stroke="url(#omnisMonoWave)"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        opacity="0.75"
-      />
-
-      <path
-        d="M19.5 21.2c6-5.8 15.8-6.6 23-1.8 6.1 3.9 9.2 10.4 8.4 16.8"
-        stroke="url(#omnisMonoWave)"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        opacity="0.5"
       />
 
       <circle cx="44.6" cy="18.8" r="3.2" fill="#F0F0F0" opacity="0.85" />
