@@ -63,6 +63,7 @@ import {
   ArrowUpRight,
   Layers,
   Map,
+  X,
 } from "lucide-react";
 import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
 
