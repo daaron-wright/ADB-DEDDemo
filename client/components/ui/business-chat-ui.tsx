@@ -130,7 +130,7 @@ interface DialogueDocProps {
 
 const createInitialDialogueDocState = (): DialogueDocState => ({
   notes:
-    "Capture next steps, decisions, and follow-ups here.\n• Define target district and audience\n• Outline licensing documents\n���� Track stakeholder approvals",
+    "Capture next steps, decisions, and follow-ups here.\n• Define target district and audience\n• Outline licensing documents\n�� Track stakeholder approvals",
   highlights: [
     {
       id: "dialogue-highlight-1",
@@ -6199,11 +6199,40 @@ export function BusinessChatUI({
           ];
         }
 
-        if (action === "show-summary") {
+        if (action === "open-viability-summary" || action === "show-summary") {
+          setModalView("viability-summary");
+          setAdvisorPanelOpen(false);
           if (currentStep !== "summary") {
             setCurrentStep("summary");
           }
-          return [...updated, buildStepMessage("summary")];
+          return [
+            ...updated,
+            buildMessage(
+              "Congratulations, Layla. Your business idea is very viable. Why not proceed with your trade name reservation so I can keep the momentum for you?",
+              true,
+              {
+                actions: [
+                  {
+                    id: "summary-reserve-trade-name",
+                    label: "Yes, reserve the trade name",
+                    action: "open-investor-journey",
+                  },
+                  {
+                    id: "summary-maybe-later",
+                    label: "Maybe later",
+                    action: "decline-retail-automation",
+                  },
+                ],
+              },
+            ),
+          ];
+        }
+
+        if (action === "contact-human") {
+          handleHumanFallback(
+            "I’d like to talk to a human agent about my restaurant setup.",
+          );
+          return [...updated, buildMessage("Connecting you with a TAMM specialist now.", true)];
         }
 
         if (action === "open-investor-journey") {
