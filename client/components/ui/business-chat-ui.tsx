@@ -6058,20 +6058,13 @@ export function BusinessChatUI({
       if (mentionsTopCompetitors) {
         responses.push(
           buildMessage(
-            "Surfacing the leading operators across the Corniche, Saadiyat, and nearby dining corridors.",
+            "Here’s a competitive analysis summary for the Corniche corridor.",
             true,
             {
               type: "competitor-analysis",
             },
           ),
         );
-        responses.push(
-          buildMessage(
-            "Opening the competitor landscape so you can review positioning, price ladders, and the clearest white space.",
-            true,
-          ),
-        );
-        shouldOpenCompetitorBreakout = true;
       } else if (mentionsCost) {
         responses.push(
           buildMessage(
