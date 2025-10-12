@@ -1,7 +1,10 @@
-import { Download } from "lucide-react";
+import { Download, MessageCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface BusinessViabilitySummaryProps {
   onExportPlan?: () => void;
+  onBeginApplication?: () => void;
+  onMaybeLater?: () => void;
 }
 
 const summaryPoints = [
@@ -72,8 +75,10 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
 
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-3xl border border-[#e2ece8] bg-white/90 px-5 py-4 shadow-[0_28px_70px_-52px_rgba(14,118,110,0.28)]">
         <div>
-          <p className="text-sm font-semibold text-slate-900">Export your business plan</p>
-          <p className="text-xs text-slate-500">Generates a PDF of every insight captured in this discovery session.</p>
+          <p className="text-sm font-semibold text-slate-900">Export your business plan &amp; CX data packs</p>
+          <p className="text-xs text-slate-500">
+            Download a PDF of every insight plus the curated CX data-packs prepared by the DED customer experience team.
+          </p>
         </div>
         <button
           type="button"
@@ -81,20 +86,47 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
           className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/30 bg-[#0F766E] px-4 py-2 text-sm font-semibold text-white shadow-[0_22px_60px_-40px_rgba(14,118,110,0.5)] transition hover:bg-[#0b5a54]"
         >
           <Download className="h-4 w-4" aria-hidden="true" />
-          Export as PDF
+          Export everything
         </button>
       </div>
 
-      <footer className="rounded-3xl border border-[#e2ece8] bg-white px-5 py-4 text-sm text-slate-700">
-        <p className="font-semibold text-slate-900">
-          "Congratulations, Layla. Your concept is reading as highly viable. Why not proceed with the trade name
-          reservation so I can keep momentum for you?"
+      <section className="space-y-4 rounded-3xl border border-[#e2ece8] bg-white px-5 py-5 shadow-[0_28px_72px_-58px_rgba(14,118,110,0.28)]">
+        <div className="flex items-start gap-3">
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
+            <MessageCircle className="h-4 w-4" aria-hidden="true" />
+          </span>
+          <div className="space-y-2">
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#0F766E]">Omnis conversational handoff</p>
+            <div className="rounded-2xl border border-[#e2ece8] bg-[#f8fbfa] px-4 py-3 text-sm leading-relaxed text-slate-700">
+              "Congratulations, Layla. Your concept is highly viable. Ready for me to carry this into the formal
+              application with the investor workspace?"
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <button
+            type="button"
+            onClick={onBeginApplication}
+            className={cn(
+              "inline-flex items-center gap-2 rounded-full bg-[#0F766E] px-4 py-2 text-sm font-semibold text-white shadow-[0_22px_60px_-40px_rgba(14,118,110,0.5)] transition",
+              "hover:bg-[#0b5a54]",
+            )}
+          >
+            Yes, begin the application
+          </button>
+          <button
+            type="button"
+            onClick={onMaybeLater}
+            className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/30 bg-white px-4 py-2 text-sm font-semibold text-[#0F766E] transition hover:bg-[#f0faf7]"
+          >
+            Review other tracks
+          </button>
+        </div>
+        <p className="text-xs text-slate-500">
+          Choosing the affirmative option above triggers the application workspace handoff in Omnis and syncs Lyla&apos;s
+          progress with the formal applicant portal.
         </p>
-        <p className="mt-2 text-xs text-slate-500">
-          Layla&apos;s affirmative response will transition her straight into the application workspace inside the chat
-          experience.
-        </p>
-      </footer>
+      </section>
     </div>
   );
 };
