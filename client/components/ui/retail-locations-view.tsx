@@ -75,10 +75,14 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
     setModalState("automation-prompt");
   };
 
-  const handleAutomationConfirm = () => {
+  const handleAutomationDiscuss = () => {
+    if (!selectedLocation) {
+      return;
+    }
+
     window.dispatchEvent(
       new CustomEvent("retailLocationSelected", {
-        detail: { ...selectedLocation, automationConfirmed: true },
+        detail: { ...selectedLocation, automationPromptRequested: true },
       }),
     );
   };
@@ -215,21 +219,20 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
             >
               <div className="text-center lg:text-left">
                 <h2 className="text-2xl font-bold text-slate-900 mb-4">
-                  Interested? Would you like me to automate the application
-                  process and pre-fill all your information based on your
-                  exploration?
+                  Great news—Omnis is ready to brief the setup team on your
+                  shortlisted location.
                 </h2>
                 <p className="text-slate-600 mb-8">
-                  Save time by letting our AI assistant handle the paperwork and
-                  pre-fill your application with the information from your
-                  exploration.
+                  We&apos;ll jump back into the conversation so Omnis can share
+                  the viability readout, congratulate you, and ask whether you
+                  want the application automated and the trade name reserved.
                 </p>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   type="button"
-                  onClick={handleAutomationConfirm}
+                  onClick={handleAutomationDiscuss}
                   className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#0F766E] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0a5a55] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
                 >
                   <svg
@@ -242,16 +245,18 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
-                    <path d="M20 6 9 17l-5-5" />
+                    <path d="M14 9l-3 3-3-3" />
+                    <path d="M12 12v8" />
+                    <path d="M5 21h14" />
                   </svg>
-                  Yes, automate it
+                  Continue with Omnis
                 </button>
                 <button
                   type="button"
-                  onClick={handleAutomationDecline}
+                  onClick={() => setModalState("locations")}
                   className="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-[#d8e4df] bg-white px-6 py-3 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55]"
                 >
-                  Not right now
+                  Keep exploring
                 </button>
               </div>
             </motion.div>
