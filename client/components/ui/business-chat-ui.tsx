@@ -6168,6 +6168,14 @@ export function BusinessChatUI({
     setCurrentStep("handoff");
   }, [setCurrentStep]);
 
+  const handleExportBusinessPlan = useCallback(() => {
+    toast({
+      title: "Export queued",
+      description:
+        "Omnis is compiling the demographics, competition, and cost insights into a PDF for Layla.",
+    });
+  }, [toast]);
+
   const handleHumanFallback = useCallback(
     (prompt?: string) => {
       toast({
