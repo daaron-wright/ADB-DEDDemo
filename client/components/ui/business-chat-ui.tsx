@@ -42,7 +42,21 @@ import {
 import { budgetSummaryRows } from "@/components/ui/budget-ranges-data";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
-import { Map as MapIcon, MessageCircle, Mic, Send } from "lucide-react";
+import {
+  type LucideIcon,
+  Map as MapIcon,
+  MessageCircle,
+  Mic,
+  Send,
+  Sparkles,
+  BarChart3,
+  ClipboardList,
+  TrendingUp,
+  MapPin,
+  Gauge,
+  Headset,
+  ArrowUpRight,
+} from "lucide-react";
 import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
 
 type ConversationAction =
