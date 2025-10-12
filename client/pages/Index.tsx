@@ -589,68 +589,70 @@ export default function Index() {
                 className="pointer-events-auto fixed bottom-6 right-6 z-30 w-[280px] sm:w-[320px]"
                 style={{ touchAction: "none" }}
               >
-                <div className="rounded-[26px] border border-emerald-600/15 bg-white/90 p-4 shadow-[0_32px_80px_-44px_rgba(15,118,110,0.55)] backdrop-blur-xl">
+                <div className="rounded-[28px] border border-white/35 bg-white/18 p-4 shadow-[0_40px_90px_-55px_rgba(15,23,42,0.4)] backdrop-blur-2xl">
+                  <div className="flex items-start gap-3">
+                    <div className="relative flex h-11 w-11 flex-shrink-0 items-center justify-center">
+                      <div className="absolute inset-0 rounded-full bg-emerald-400/30 blur-xl" />
+                      <OmnisIcon className="relative h-11 w-11" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="text-sm font-semibold text-slate-900">Hi, Lyla</span>
+                        <span className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-700">
+                          <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.32)] animate-pulse" />
+                          Omnis Live
+                        </span>
+                      </div>
+                      <p className="mt-1 text-xs text-slate-600">
+                        Ask for market signals or licensing steps and Ill surface the right workspace.
+                      </p>
+                    </div>
+                  </div>
+
                   <button
                     type="button"
                     onClick={() => openOmnisChat()}
-                    className="w-full rounded-2xl border border-transparent bg-emerald-500/10 px-4 py-3 text-left transition hover:bg-emerald-500/14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/30"
+                    className="mt-4 inline-flex w-full items-center justify-between rounded-2xl border border-white/25 bg-white/14 px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-emerald-200/60 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
                   >
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-emerald-700/90">
-                      Interact with Omnis
-                    </span>
-                    <div className="mt-3 flex items-center gap-3">
-                      <div className="relative flex h-10 w-10 items-center justify-center">
-                        <div className="absolute inset-0 rounded-full bg-emerald-400/30 blur-lg" />
-                        <OmnisIcon className="relative h-10 w-10" />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-sm font-semibold text-slate-900">Hi, Lyla</p>
-                        <p className="text-xs text-slate-600">
-                          I'm ready to surface the right insight or open your workspace when you are.
-                        </p>
-                      </div>
-                    </div>
+                    <span>Open Omnis workspace</span>
+                    <ArrowUpRight className="h-4 w-4 text-emerald-600" aria-hidden="true" />
                   </button>
 
-                  <div className="mt-4 flex flex-col gap-2">
+                  <div className="mt-3 flex flex-col gap-2">
                     {quickLaunchActions.map((action) => (
                       <button
                         key={action.id}
                         type="button"
                         onClick={() => openOmnisChat(action.prompt)}
-                        className="group flex w-full items-start gap-3 rounded-2xl border border-emerald-600/10 bg-white px-4 py-3 text-left text-sm font-semibold text-slate-900 shadow-[0_18px_46px_-34px_rgba(15,118,110,0.45)] transition hover:-translate-y-0.5 hover:border-emerald-600/35 hover:shadow-[0_26px_60px_-34px_rgba(15,118,110,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/30"
+                        className="group inline-flex w-full items-center justify-between rounded-2xl border border-white/20 bg-white/12 px-4 py-3 text-sm font-medium text-slate-800 transition hover:border-emerald-200/55 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/30"
                       >
-                        <span className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-700">
-                          <MessageCircle className="h-4 w-4" aria-hidden="true" />
-                        </span>
-                        <div className="space-y-1">
-                          <span>{action.label}</span>
-                          <span className="text-xs font-normal text-slate-600">
-                            {action.description}
+                        <span className="flex items-center gap-2 text-left">
+                          <span className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-700 shadow-[0_18px_40px_-24px_rgba(16,185,129,0.65)]">
+                            <MessageCircle className="h-4 w-4" aria-hidden="true" />
                           </span>
-                        </div>
+                          <span>{action.label}</span>
+                        </span>
+                        <ArrowUpRight className="h-4 w-4 text-slate-400 transition group-hover:text-emerald-600" aria-hidden="true" />
                       </button>
                     ))}
                   </div>
 
-                  <div className="mt-4 border-t border-emerald-200/40 pt-3">
-                    <Tooltip
-                      align="end"
-                      side="top"
-                      sideOffset={8}
-                      className="aegov-tooltip max-w-xs rounded-xl border border-emerald-200 bg-white px-3 py-2 text-xs text-slate-700 shadow-lg"
-                      content="Prefer a person? We'll alert the TAMM call centre and keep your Omnis workspace synced."
+                  <Tooltip
+                    align="end"
+                    side="top"
+                    sideOffset={10}
+                    className="aegov-tooltip max-w-xs rounded-xl border border-white/30 bg-white/90 px-3 py-2 text-xs text-slate-700 shadow-[0_20px_45px_-28px_rgba(15,23,42,0.3)] backdrop-blur-xl"
+                    content="Prefer a person? We'll alert the TAMM call centre and keep your Omnis workspace synced."
+                  >
+                    <button
+                      type="button"
+                      onClick={() => openOmnisChat("I'd like to speak with someone from the call centre about my business setup.")}
+                      className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/25 bg-white/12 px-4 py-2 text-xs font-semibold text-emerald-700 transition hover:border-emerald-200/50 hover:text-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/35"
                     >
-                      <button
-                        type="button"
-                        onClick={() => openOmnisChat("I'd like to speak with someone from the call centre about my business setup.")}
-                        className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-700 transition hover:text-emerald-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/30"
-                      >
-                        <Headset className="h-4 w-4" aria-hidden="true" />
-                        Talk to a human
-                      </button>
-                    </Tooltip>
-                  </div>
+                      <Headset className="h-4 w-4" aria-hidden="true" />
+                      Talk to a human
+                    </button>
+                  </Tooltip>
                 </div>
               </motion.div>
             ) : null}
