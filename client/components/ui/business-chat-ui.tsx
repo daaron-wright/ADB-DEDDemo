@@ -262,7 +262,7 @@ const CONVERSATION_BLUEPRINT: Record<
 > = {
   intro: {
     message:
-      "Let’s chart your next move. You can dive into market signals first or branch straight into other focus areas if that’s more helpful today.",
+      "Let’s chart your next move. You can dive into market signals first or branch straight into other focus areas if that���s more helpful today.",
     actions: [
       { label: "Explore market signals", action: "open-market-overview" },
       { label: "Shift to competitive context", action: "open-competition-analysis" },
@@ -274,7 +274,7 @@ const CONVERSATION_BLUEPRINT: Record<
         label: "Open market intelligence view",
         description:
           "Surface addressable market ranges, highlight zones like Saadiyat, and inspect live trend sliders.",
-        icon: MapPin,
+        icon: Map,
         type: "modal",
         modal: "heat-map",
       },
