@@ -3486,6 +3486,82 @@ const MessageBubble = ({
   );
 };
 
+interface StageRecommendationBoardProps {
+  step: ConversationStep;
+  blueprint: (typeof CONVERSATION_BLUEPRINT)[ConversationStep];
+  onSelect: (recommendation: StageRecommendation) => void;
+  isSidePanel: boolean;
+}
+
+const StageRecommendationBoard = ({
+  step,
+  blueprint,
+  onSelect,
+  isSidePanel,
+}: StageRecommendationBoardProps) => {
+  const stageMeta = CONVERSATION_STEPS.find((item) => item.id === step);
+  const containerClass = cn(
+    "w-full rounded-[28px] border border-white/25 bg-white/18 px-5 py-5 sm:px-6 sm:py-6 shadow-[0_38px_90px_-55px_rgba(15,23,42,0.4)] backdrop-blur-2xl",
+    isSidePanel &&
+      "border-slate-200 bg-white/95 shadow-[0_30px_70px_-50px_rgba(15,23,42,0.28)] backdrop-blur-none",
+  );
+
+  return (
+    <div className="flex w-full justify-center">
+      <div className={cn("w-full max-w-[640px]", isSidePanel && "max-w-none") }>
+        <div className={containerClass}>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div className="space-y-2">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-emerald-700/80">
+                Current stage
+              </span>
+              <h4 className="text-xl font-semibold text-slate-900 sm:text-2xl">
+                {stageMeta?.label ?? "Stage"}
+              </h4>
+            </div>
+            <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.25)] animate-pulse" />
+              Interact with Omnis
+            </div>
+          </div>
+          <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-slate-600">
+            {blueprint.message}
+          </p>
+          <div className="mt-6 space-y-3">
+            {blueprint.recommendations.map((recommendation) => {
+              const Icon = recommendation.icon;
+              return (
+                <button
+                  key={recommendation.id}
+                  type="button"
+                  onClick={() => onSelect(recommendation)}
+                  className="group flex w-full items-start gap-4 rounded-2xl border border-white/25 bg-white/20 px-5 py-4 text-left shadow-[0_28px_70px_-48px_rgba(15,23,42,0.42)] transition hover:-translate-y-0.5 hover:border-emerald-500/40 hover:bg-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
+                >
+                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-700 shadow-[0_14px_30px_-18px_rgba(16,185,129,0.6)]">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-slate-900">
+                      {recommendation.label}
+                    </p>
+                    <p className="mt-1 text-xs text-slate-600">
+                      {recommendation.description}
+                    </p>
+                  </div>
+                  <ArrowUpRight
+                    className="mt-1 h-4 w-4 text-slate-400 transition group-hover:text-emerald-600"
+                    aria-hidden="true"
+                  />
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const InvestorJourneyCard = ({
   onClose,
   onSetupBusiness,
