@@ -49,7 +49,6 @@ import {
   Mic,
   Send,
   Sparkles,
-  BarChart3,
   ClipboardList,
   TrendingUp,
   MapPin,
