@@ -247,7 +247,7 @@ const CONVERSATION_BLUEPRINT: Record<
 > = {
   intro: {
     message:
-      "Welcome to the Abu Dhabi business assistant. I'll keep this focused so you know exactly what to do next. Ready for the snapshot that matters most?",
+      "Let me bring up today's Corniche signals and shortcut you to the right workspace.",
     actions: [{ label: "Show market highlights", action: "show-summary" }],
     recommendations: [
       {
@@ -282,7 +282,7 @@ const CONVERSATION_BLUEPRINT: Record<
   },
   summary: {
     message:
-      "Here is the market signal summary you need to decide fast:\n• Corniche waterfront is running at 96% footfall intensity with premium dining demand.\n• Emirati fusion and coastal casual concepts are the fastest growing cuisine segments.\n• Licensing turnaround averages 14 days once documents are pre-validated.\nWhen you're ready, I'll take you straight into the investor journey workspace.",
+      "Corniche demand is hot: 96% footfall, coastal casual trending, licensing clears in ~14 days once docs are pre-checked.",
     actions: [
       { label: "Open my investor journey", action: "open-investor-journey" },
     ],
@@ -320,7 +320,7 @@ const CONVERSATION_BLUEPRINT: Record<
   },
   handoff: {
     message:
-      "Loading your investor journey dashboard now. You'll land on the tailored checklist with milestones, documents, and submission guidance.",
+      "Opening your investor workspace with the synced checklist and documents.",
     recommendations: [
       {
         id: "handoff-automation",
@@ -3500,14 +3500,14 @@ const StageRecommendationBoard = ({
 }: StageRecommendationBoardProps) => {
   const stageMeta = CONVERSATION_STEPS.find((item) => item.id === step);
   const containerClass = cn(
-    "w-full rounded-[28px] border border-white/25 bg-white/18 px-5 py-5 sm:px-6 sm:py-6 shadow-[0_38px_90px_-55px_rgba(15,23,42,0.4)] backdrop-blur-2xl",
+    "w-full rounded-[28px] border border-white/35 bg-white/16 px-5 py-5 sm:px-6 sm:py-6 shadow-[0_42px_110px_-60px_rgba(15,23,42,0.45)] backdrop-blur-2xl",
     isSidePanel &&
-      "border-slate-200 bg-white/95 shadow-[0_30px_70px_-50px_rgba(15,23,42,0.28)] backdrop-blur-none",
+      "border-slate-200 bg-white/95 shadow-[0_32px_80px_-50px_rgba(15,23,42,0.32)] backdrop-blur-none",
   );
 
   return (
     <div className="flex w-full justify-center">
-      <div className={cn("w-full max-w-[640px]", isSidePanel && "max-w-none")}>
+      <div className={cn("w-full max-w-[640px]", isSidePanel && "max-w-none") }>
         <div className={containerClass}>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="space-y-2">
@@ -3526,7 +3526,7 @@ const StageRecommendationBoard = ({
           <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-slate-600">
             {blueprint.message}
           </p>
-          <div className="mt-6 space-y-3">
+          <div className="mt-5 space-y-2.5">
             {blueprint.recommendations.map((recommendation) => {
               const Icon = recommendation.icon;
               return (
@@ -3534,12 +3534,12 @@ const StageRecommendationBoard = ({
                   key={recommendation.id}
                   type="button"
                   onClick={() => onSelect(recommendation)}
-                  className="group flex w-full items-start gap-4 rounded-2xl border border-white/25 bg-white/20 px-5 py-4 text-left shadow-[0_28px_70px_-48px_rgba(15,23,42,0.42)] transition hover:-translate-y-0.5 hover:border-emerald-500/40 hover:bg-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
+                  className="group flex w-full items-start justify-between gap-4 rounded-2xl border border-white/25 bg-white/14 px-5 py-4 text-left shadow-[0_32px_80px_-52px_rgba(15,23,42,0.42)] transition hover:-translate-y-0.5 hover:border-emerald-400/45 hover:bg-white/22 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
                 >
-                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-700 shadow-[0_14px_30px_-18px_rgba(16,185,129,0.6)]">
+                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-700 shadow-[0_18px_42px_-26px_rgba(16,185,129,0.65)]">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
-                  <div className="flex-1">
+                  <div className="flex min-w-0 flex-1 flex-col">
                     <p className="text-sm font-semibold text-slate-900">
                       {recommendation.label}
                     </p>
@@ -3548,7 +3548,7 @@ const StageRecommendationBoard = ({
                     </p>
                   </div>
                   <ArrowUpRight
-                    className="mt-1 h-4 w-4 text-slate-400 transition group-hover:text-emerald-600"
+                    className="mt-1 h-4 w-4 flex-shrink-0 text-slate-400 transition group-hover:text-emerald-600"
                     aria-hidden="true"
                   />
                 </button>
