@@ -6153,7 +6153,7 @@ export function BusinessChatUI({
           return [
             ...updated,
             buildMessage(
-              "Congratulations, Layla. Your business idea is very viable. Why not proceed with your trade name reservation so I can keep the momentum for you?",
+              "Congratulations, Layla. Your concept is highly viable. Ready for me to carry this into the formal application with the investor workspace?",
               true,
               {
                 actions: [
@@ -6182,9 +6182,42 @@ export function BusinessChatUI({
           const normalizedLabel = label.trim().toLowerCase();
           const isSignInCta = normalizedLabel === "sign in with uae pass";
           const isSetupCta = normalizedLabel === "set up business";
+          const isReserveTradeName =
+            normalizedLabel.includes("reserve the trade name") ||
+            normalizedLabel.includes("begin the application") ||
+            normalizedLabel.includes("begin application");
 
           if (isSetupCta) {
             setInputValue(HEAT_MAP_PROMPT);
+          }
+
+          if (isReserveTradeName) {
+            setCurrentStep("handoff");
+            setAdvisorPanelOpen(false);
+            setModalView("chat");
+
+            if (isInvestorAuthenticated) {
+              setView("investor-journey");
+              const acknowledgement = buildMessage(
+                "Perfect — I’m triggering automation, reserving your trade name, and opening the applicant portal timeline for you now.",
+                true,
+              );
+              const handoffMessage = buildStepMessage("handoff");
+              setTimeout(() => {
+                openApplicantPortal();
+              }, 200);
+              return [...updated, acknowledgement, handoffMessage];
+            }
+
+            setIsInvestorAuthenticated(false);
+            setIsInvestorLoginPending(true);
+            setShouldPromptLogin(true);
+            setShouldOpenInvestorView(true);
+            const approvalMessage = buildMessage(
+              "Great choice. Let’s sign you in with UAE PASS so I can automate everything for you.",
+              true,
+            );
+            return [...updated, approvalMessage];
           }
 
           if (isInvestorAuthenticated) {
@@ -6749,9 +6782,11 @@ export function BusinessChatUI({
               toast({
                 title: "Export ready",
                 description:
-                  "I’m packaging the market, competition, and budget insights into a PDF for you.",
+                  "I’m packaging the market, competition, and budget insights into a PDF for you, alongside the DED CX data-packs.",
               })
             }
+            onBeginApplication={() => handleAction("open-investor-journey", "Yes, reserve the trade name")}
+            onMaybeLater={() => handleAction("decline-retail-automation", "Maybe later")}
           />
         </div>
       </div>
