@@ -402,6 +402,84 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
             </button>
           </div>
 
+          <div className="rounded-3xl border border-[#e2ece8] bg-[#f8fbfa] p-5 shadow-[0_24px_60px_-48px_rgba(14,118,110,0.28)]">
+            {activePoint ? (
+              <div className="space-y-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]">
+                      Investor Compass data
+                    </p>
+                    <h4 className="text-lg font-semibold text-slate-900">{activePoint.name}</h4>
+                    <p className="text-xs text-slate-500">{activePoint.location}</p>
+                  </div>
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0F766E] shadow">
+                    {activePoint.cuisine}
+                  </span>
+                </div>
+
+                <p className="text-sm leading-relaxed text-slate-600">{activePoint.summary}</p>
+
+                <div className="space-y-3">
+                  {metricOrder.map((metricId) => {
+                    const metric = activePoint.metrics[metricId];
+                    const meta = competitorMetricsMeta[metricId];
+                    if (!metric || !meta) {
+                      return null;
+                    }
+
+                    return (
+                      <div
+                        key={metricId}
+                        className="rounded-2xl border border-[#e2ece8] bg-white px-4 py-3"
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="max-w-[60%]">
+                            <div
+                              className="text-[11px] font-semibold uppercase tracking-[0.2em]"
+                              style={{ color: meta.accent }}
+                            >
+                              {meta.label}
+                            </div>
+                            <p className="mt-1 text-xs text-slate-500">{metric.description}</p>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-lg font-semibold text-slate-900">
+                              {meta.formatter
+                                ? meta.formatter(metric.value)
+                                : `${metric.value} ${metric.unit}`}
+                            </div>
+                            <div className="text-[11px] uppercase tracking-[0.18em] text-slate-400">
+                              {metric.unit}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="space-y-2 text-sm text-slate-600">
+                  {activePoint.highlights.map((highlight) => (
+                    <div key={highlight} className="flex items-start gap-2">
+                      <span className="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0F766E]" />
+                      <span>{highlight}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="text-xs text-slate-500">
+                  Locations refresh directly from the Investor Compass explorer every 48 hours.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-2 text-sm text-slate-600">
+                <p>Filters removed all visible competitors. Reset to review the full landscape.</p>
+                <p className="text-xs text-slate-500">Investor Compass sync resumes once filters are cleared.</p>
+              </div>
+            )}
+          </div>
+
           <div className="rounded-2xl border border-[#e2ece8] bg-[#f8fbfa] p-4">
             <div className="flex items-center justify-between">
               <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
