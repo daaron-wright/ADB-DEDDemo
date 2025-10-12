@@ -7050,41 +7050,6 @@ export function BusinessChatUI({
                           ) : null}
                           {!journeyFocusView && showChatInterface ? (
                             <>
-                              {stageBlueprint ? (
-                                <motion.div
-                                  initial={{ height: 0, opacity: 0 }}
-                                  animate={{
-                                    height: advisorPanelView ? "auto" : 0,
-                                    opacity: 1,
-                                  }}
-                                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                                  className="overflow-hidden"
-                                >
-                                  <div className="pt-4">
-                                    <AdvisorPanelTabs
-                                      activeView={advisorPanelView}
-                                      onViewChange={setAdvisorPanelView}
-                                      isSidePanel={isSidePanel}
-                                    />
-                                    {advisorPanelView === "recommendations" ? (
-                                      <StageRecommendationBoard
-                                        key={`stage-${currentStep}`}
-                                        step={currentStep}
-                                        blueprint={stageBlueprint}
-                                        onSelect={handleRecommendationSelect}
-                                        isSidePanel={isSidePanel}
-                                      />
-                                    ) : (
-                                      <StageTopicSuggestions
-                                        key={`topics-${currentStep}`}
-                                        step={currentStep}
-                                        isSidePanel={isSidePanel}
-                                        onSendTopic={handleSendMessage}
-                                      />
-                                    )}
-                                  </div>
-                                </motion.div>
-                              ) : null}
                               {artifactMessages.map((message) => (
                                 <MessageBubble
                                   key={message.id}
