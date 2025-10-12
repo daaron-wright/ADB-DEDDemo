@@ -179,9 +179,10 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
 
               {filteredPoints.map((point) => {
                 const isActive = point.id === activePoint?.id;
-                const baseSize = Math.max(22, point.baseSize ?? 24);
-                const haloColor = point.attributes.includes("highDemand") ? "#54FFD4" : "#4DD0E1";
-                const coreColor = point.attributes.includes("relevant") ? "#0F766E" : "#155E75";
+                const baseSize = Math.max(22, point.baseSize ?? 26);
+                const haloColor = point.attributes.includes("highDemand") ? "#54FFD4" : "#4EC7C0";
+                const rimColor = point.attributes.includes("relevant") ? "#0D5E56" : "#134E60";
+                const coreAccent = point.attributes.includes("relevant") ? "#11A598" : "#1C8BA6";
 
                 return (
                   <motion.button
@@ -203,23 +204,35 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                       style={{ width: baseSize, height: baseSize }}
                     >
                       <span
-                        className="absolute inset-0 rounded-full opacity-60 blur-[16px] transition group-hover:opacity-90"
+                        className="absolute -inset-3 rounded-full opacity-55 blur-[22px] transition group-hover:opacity-85"
                         style={{
-                          background: `radial-gradient(circle at center, ${haloColor}80 0%, transparent 70%)`,
+                          background: `radial-gradient(circle at center, ${haloColor}66 0%, transparent 70%)`,
+                        }}
+                        aria-hidden="true"
+                      />
+                      <span
+                        className="absolute inset-0 rounded-full shadow-[0_0_0_1.25px_rgba(15,118,110,0.45)]"
+                        style={{
+                          background: `radial-gradient(circle at 50% 35%, ${haloColor} 0%, ${rimColor} 75%)`,
                         }}
                         aria-hidden="true"
                       />
                       <span
                         className={cn(
-                          "absolute inset-0 rounded-full border border-white/20 transition",
-                          isActive ? "opacity-100" : "opacity-80 group-hover:opacity-95",
+                          "absolute inset-[22%] rounded-full border border-white/35",
+                          isActive ? "bg-white/10" : "bg-white/5",
                         )}
+                        aria-hidden="true"
+                      />
+                      <span
+                        className="absolute inset-[34%] rounded-full"
                         style={{
-                          background: `radial-gradient(circle at 45% 35%, ${haloColor} 0%, ${coreColor} 75%)`,
+                          background: `radial-gradient(circle at 45% 35%, #ffffff 0%, ${coreAccent} 65%)`,
+                          boxShadow: `0 0 0 1px rgba(255,255,255,0.45)` ,
                         }}
                         aria-hidden="true"
                       />
-                      <span className="relative h-2 w-2 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.7)]" aria-hidden="true" />
+                      <span className="relative h-[6px] w-[6px] rounded-full bg-white" aria-hidden="true" />
                     </span>
                     <span
                       className={cn(
