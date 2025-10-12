@@ -55,6 +55,7 @@ import {
   Send,
   Sparkles,
   ClipboardList,
+  Target,
   TrendingUp,
   MapPin,
   Gauge,
