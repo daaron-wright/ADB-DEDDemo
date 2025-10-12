@@ -3484,12 +3484,339 @@ const MessageBubble = ({
   );
 };
 
+type AdvisorPanelView = "recommendations" | "topics";
+
+interface TopicSuggestion {
+  id: string;
+  label: string;
+  prompt: string;
+}
+
+interface TopicGroup {
+  id: string;
+  title: string;
+  description: string;
+  icon: LucideIcon;
+  topics: TopicSuggestion[];
+}
+
+const STAGE_TOPIC_GROUPS: Record<ConversationStep, TopicGroup[]> = {
+  intro: [
+    {
+      id: "interaction-map",
+      title: "Interaction Map",
+      description:
+        "Preview live footfall, resident density, and tourist flows before committing to a district focus.",
+      icon: MapIcon,
+      topics: [
+        {
+          id: "intro-footfall",
+          label: "Corniche footfall snapshot",
+          prompt:
+            "Can you show me today's interaction map for the Corniche, highlighting the heaviest visitor flows?",
+        },
+        {
+          id: "intro-residents",
+          label: "Resident vs. tourist mix",
+          prompt:
+            "Break down the interaction map by residents, tourists, and daily workers so I can see who dominates the Corniche right now.",
+        },
+        {
+          id: "intro-timing",
+          label: "Peak trading hours",
+          prompt:
+            "When does foot traffic spike across the Corniche and Saadiyat districts this week?",
+        },
+      ],
+    },
+    {
+      id: "demand-signals",
+      title: "Demand Signals",
+      description:
+        "Validate demand drivers and seasonal triggers before deep-diving licensing or budgeting.",
+      icon: Sparkles,
+      topics: [
+        {
+          id: "intro-seasonal",
+          label: "Seasonal uplift",
+          prompt:
+            "What seasonal events or tourist surges should I anticipate for premium dining around the Corniche?",
+        },
+        {
+          id: "intro-influencers",
+          label: "Influencer traction",
+          prompt:
+            "Which influencer campaigns or social spikes are moving diner demand near my preferred locations?",
+        },
+      ],
+    },
+  ],
+  summary: [
+    {
+      id: "competitor-analysis",
+      title: "Competitor Analysis",
+      description:
+        "Compare incumbent venues and understand how they capture share before finalising positioning.",
+      icon: TrendingUp,
+      topics: [
+        {
+          id: "summary-top-performers",
+          label: "Top performers",
+          prompt:
+            "Show me the top five Corniche competitors with their ratings and social mentions over the last 90 days.",
+        },
+        {
+          id: "summary-white-space",
+          label: "Cuisine white space",
+          prompt:
+            "Which cuisines are underserved on the Corniche compared to visitor demand?",
+        },
+        {
+          id: "summary-benchmarking",
+          label: "Benchmark KPIs",
+          prompt:
+            "How do Shurfa Bay and Palms & Pearls compare on revenue contribution versus social buzz?",
+        },
+      ],
+    },
+    {
+      id: "gap-analysis",
+      title: "Gap Analysis",
+      description:
+        "Spot opportunities and operational gaps that can fuel the pitch deck or investment case.",
+      icon: Gauge,
+      topics: [
+        {
+          id: "summary-occupancy",
+          label: "Occupancy pressure",
+          prompt:
+            "Where are occupancy costs highest versus guest spend so I can see margin pressure zones?",
+        },
+        {
+          id: "summary-regulatory",
+          label: "Regulatory bottlenecks",
+          prompt:
+            "Highlight any licensing or compliance gaps competitors are struggling with right now.",
+        },
+        {
+          id: "summary-demand-gap",
+          label: "Demand vs. supply",
+          prompt:
+            "Map demand-supply gaps across Corniche, Saadiyat, and Reem for premium casual dining.",
+        },
+      ],
+    },
+  ],
+  handoff: [
+    {
+      id: "automation-next-steps",
+      title: "Automation & Next Steps",
+      description:
+        "Line up the paperwork, trade name, and concierge support once Lyla agrees to automate.",
+      icon: ClipboardList,
+      topics: [
+        {
+          id: "handoff-trade-name",
+          label: "Trade name reservation",
+          prompt:
+            "Can you help me brainstorm trade names and check availability for my concept?",
+        },
+        {
+          id: "handoff-paperwork",
+          label: "Paperwork checklist",
+          prompt:
+            "List the documents Omnis will prepare or request once we automate the application.",
+        },
+        {
+          id: "handoff-timeline",
+          label: "Automation timeline",
+          prompt:
+            "What timeline should I expect once you start automating the application and trade name steps?",
+        },
+      ],
+    },
+    {
+      id: "experience-blueprint",
+      title: "Experience Blueprint",
+      description:
+        "Align experience design and partnerships while the application is being automated.",
+      icon: Headset,
+      topics: [
+        {
+          id: "handoff-experience",
+          label: "Experience pillars",
+          prompt:
+            "Summarise the experience pillars we should emphasise for investors while the paperwork runs.",
+        },
+        {
+          id: "handoff-partners",
+          label: "Partner outreach",
+          prompt:
+            "Which local partners or events should I engage while automation prepares the application?",
+        },
+      ],
+    },
+  ],
+};
+
 interface StageRecommendationBoardProps {
   step: ConversationStep;
   blueprint: (typeof CONVERSATION_BLUEPRINT)[ConversationStep];
   onSelect: (recommendation: StageRecommendation) => void;
   isSidePanel: boolean;
 }
+
+const AdvisorPanelTabs = ({
+  activeView,
+  onViewChange,
+  isSidePanel,
+}: {
+  activeView: AdvisorPanelView;
+  onViewChange: (view: AdvisorPanelView) => void;
+  isSidePanel: boolean;
+}) => {
+  return (
+    <div
+      className={cn(
+        "mb-3 flex gap-3 sm:gap-4",
+        isSidePanel ? "justify-start" : "justify-start",
+      )}
+    >
+      {!isSidePanel && <div className="hidden h-8 w-8 flex-shrink-0 sm:block" />}
+      <div
+        className={cn(
+          "flex w-full max-w-[80%] sm:max-w-[72%]",
+          isSidePanel && "max-w-none",
+        )}
+      >
+        <div
+          className={cn(
+            "inline-flex items-center gap-1 rounded-full border px-1 py-1 text-xs font-semibold uppercase tracking-[0.18em]",
+            isSidePanel
+              ? "border-slate-200 bg-white shadow-[0_20px_50px_-38px_rgba(15,23,42,0.26)]"
+              : "border-white/25 bg-white/12 backdrop-blur-xl shadow-[0_24px_60px_-45px_rgba(15,23,42,0.35)]",
+          )}
+        >
+          <button
+            type="button"
+            onClick={() => onViewChange("recommendations")}
+            className={cn(
+              "rounded-full px-3.5 py-1.5 transition",
+              activeView === "recommendations"
+                ? "bg-[#0F766E] text-white shadow-[0_12px_32px_-18px_rgba(15,118,110,0.55)]"
+                : isSidePanel
+                  ? "text-[#0F766E]"
+                  : "text-white/80",
+            )}
+          >
+            Guided actions
+          </button>
+          <button
+            type="button"
+            onClick={() => onViewChange("topics")}
+            className={cn(
+              "rounded-full px-3.5 py-1.5 transition",
+              activeView === "topics"
+                ? "bg-[#0F766E] text-white shadow-[0_12px_32px_-18px_rgba(15,118,110,0.55)]"
+                : isSidePanel
+                  ? "text-[#0F766E]"
+                  : "text-white/80",
+            )}
+          >
+            Suggest topics
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const StageTopicSuggestions = ({
+  step,
+  isSidePanel,
+  onSendTopic,
+}: {
+  step: ConversationStep;
+  isSidePanel: boolean;
+  onSendTopic: (prompt: string) => void;
+}) => {
+  const groups = STAGE_TOPIC_GROUPS[step] ?? [];
+
+  if (groups.length === 0) {
+    return null;
+  }
+
+  return (
+    <div
+      className={cn(
+        "mb-4 flex gap-3 sm:gap-4",
+        isSidePanel ? "justify-start" : "justify-start",
+      )}
+    >
+      {!isSidePanel && (
+        <AIBusinessOrb className="mt-1 hidden h-8 w-8 flex-shrink-0 sm:block" />
+      )}
+      <div
+        className={cn(
+          "flex w-full max-w-[80%] flex-col gap-4 sm:max-w-[72%]",
+          isSidePanel && "max-w-none",
+        )}
+      >
+        {groups.map((group) => {
+          const Icon = group.icon;
+          return (
+            <div
+              key={group.id}
+              className={chatCardClass(
+                cn(
+                  "w-full border border-white/30 bg-white/18 px-5 py-5 backdrop-blur-2xl shadow-[0_42px_110px_-60px_rgba(15,23,42,0.45)]",
+                  "rounded-[28px]",
+                  isSidePanel &&
+                    "border-slate-200 bg-white shadow-[0_30px_70px_-55px_rgba(15,23,42,0.2)]",
+                ),
+              )}
+            >
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex items-start gap-3">
+                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E] shadow-[0_18px_42px_-26px_rgba(16,185,129,0.55)]">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <div>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-emerald-700/80">
+                      Topic track
+                    </span>
+                    <h4 className="text-lg font-semibold text-slate-900 sm:text-xl">
+                      {group.title}
+                    </h4>
+                  </div>
+                </div>
+                <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
+                  Explore with Omnis
+                </div>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                {group.description}
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {group.topics.map((topic) => (
+                  <button
+                    key={topic.id}
+                    type="button"
+                    onClick={() => onSendTopic(topic.prompt)}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/16 px-3.5 py-2 text-xs font-semibold text-slate-700 shadow-[0_18px_45px_-30px_rgba(15,23,42,0.4)] transition hover:-translate-y-0.5 hover:border-emerald-400/45 hover:bg-white/24 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
+                  >
+                    <span className="inline-flex h-2 w-2 rounded-full bg-[#0F766E]" aria-hidden />
+                    {topic.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 const StageRecommendationBoard = ({
   step,
