@@ -3817,7 +3817,7 @@ const CompetitorBreakoutModal = ({
   const competitorHighlights = [
     {
       name: "Shurfa Bay",
-      rating: "4.8�����",
+      rating: "4.8�������",
       tier: "Premium waterfront",
       insight:
         "Sunset terrace has maintained 98% capacity across the past four evenings.",
@@ -6476,13 +6476,6 @@ export function BusinessChatUI({
                         </button>
                       </div>
                     </div>
-                    {showChatInterface && !isSidePanel && !journeyFocusView ? (
-                      <JourneyBreadcrumb
-                        steps={CONVERSATION_STEPS}
-                        currentStepId={currentStep}
-                        className="mb-4 w-full"
-                      />
-                    ) : null}
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                       <div className="flex items-center gap-3 sm:gap-4">
                         <AIBusinessOrb className="h-12 w-12 sm:h-16 sm:w-16" />
