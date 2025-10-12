@@ -30,8 +30,9 @@ export default function Index() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const fallbackFocus = FALLBACK_FOCUS;
-  const focusPointRef = useRef<{ x: number; y: number }>(fallbackFocus);
+  const focusPointRef = useRef<{ x: number; y: number }>({
+    ...FALLBACK_FOCUS,
+  });
   const categoryPositions = useRef<Record<string, { x: number; y: number }>>(
     {},
   );
