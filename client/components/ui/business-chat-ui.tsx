@@ -5883,12 +5883,21 @@ export function BusinessChatUI({
       {
         id: "signals",
         label: "Signals",
-        description: "Demand, competitive, and trend signals you can act on.",
+        description: "Demand and trend signals you can act on.",
         icon: TrendingUp,
         predicate: (recommendation: StageRecommendation) =>
-          recommendation.modal === "competitor-map" ||
           recommendation.action === "open-market-overview" ||
           recommendation.action === "show-summary",
+        items: [],
+      },
+      {
+        id: "competition",
+        label: "Competition",
+        description: "Dedicated competitor intelligence, filters, and white space analysis.",
+        icon: Target,
+        predicate: (recommendation: StageRecommendation) =>
+          recommendation.modal === "competitor-map" ||
+          recommendation.action === "open-competition-analysis",
         items: [],
       },
       {
