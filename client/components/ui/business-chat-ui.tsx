@@ -238,8 +238,6 @@ const PRELOADED_PROMPTS = {
   ],
 };
 
-type ConversationStep = "intro" | "summary" | "handoff";
-
 const CONVERSATION_BLUEPRINT: Record<
   ConversationStep,
   {
