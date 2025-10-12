@@ -167,7 +167,7 @@ export default function Index() {
   const applyFocusPoint = useCallback(
     (point?: { x: number; y: number }) => {
       if (typeof window === "undefined") {
-        updateGradient(point ?? fallbackFocus);
+        updateGradient(point ?? { ...FALLBACK_FOCUS });
         return;
       }
 
@@ -180,7 +180,7 @@ export default function Index() {
         });
       }
     },
-    [fallbackFocus, queueFocusPoint, updateGradient],
+    [queueFocusPoint, updateGradient],
   );
 
   const getFocusFromElement = (element: HTMLElement) => {
