@@ -199,6 +199,14 @@ interface StageRecommendation {
   nextStep?: ConversationStep;
 }
 
+type SuggestedThemeGroup = {
+  id: string;
+  label: string;
+  description: string;
+  icon: LucideIcon;
+  items: StageRecommendation[];
+};
+
 interface ChatThread {
   id: string;
   title: string;
