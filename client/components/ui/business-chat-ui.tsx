@@ -6198,6 +6198,11 @@ export function BusinessChatUI({
             },
           ),
         );
+        responses.push(
+          buildMessage("", true, {
+            type: "competitor-cta",
+          }),
+        );
       } else if (mentionsCost) {
         responses.push(
           buildMessage(
