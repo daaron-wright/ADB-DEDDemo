@@ -3219,6 +3219,8 @@ interface MessageBubbleProps {
   dialogueDocProps?: DialogueDocProps;
   onHeatMapOpen?: () => void;
   onBudgetRangesOpen?: () => void;
+  onRetailLocationsOpen?: () => void;
+  onExportPlan?: () => void;
   businessActivitiesProps?: {
     activities: ChatActivityOption[];
     selectedActivityIds: string[];
