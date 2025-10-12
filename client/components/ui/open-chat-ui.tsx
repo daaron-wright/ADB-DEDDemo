@@ -244,7 +244,7 @@ const queryClient = new QueryClient();
 export function OpenChatUI({
   isOpen,
   onClose,
-  title = "AI Business",
+  title = "Omnis",
   businessCategories,
   onCategoryClick,
   mode = "general",
