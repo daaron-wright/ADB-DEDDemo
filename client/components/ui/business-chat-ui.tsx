@@ -6409,7 +6409,7 @@ export function BusinessChatUI({
                       Status
                     </span>
                     <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
-                      Live
+                      Always On
                     </span>
                   </div>
                 </div>
