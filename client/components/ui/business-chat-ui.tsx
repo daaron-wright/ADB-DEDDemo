@@ -5660,6 +5660,7 @@ export function BusinessChatUI({
   const [advisorPanelView, setAdvisorPanelView] = useState<AdvisorPanelView>(
     "recommendations",
   );
+  const [isAdvisorPanelOpen, setAdvisorPanelOpen] = useState(false);
   const openApplicantPortal = useCallback(() => {
     navigate("/portal/applicant", {
       state: {
@@ -5734,6 +5735,22 @@ export function BusinessChatUI({
   }, [selectedActivities]);
 
   const stageBlueprint = CONVERSATION_BLUEPRINT[currentStep];
+
+  const handleAdvisorRecommendationSelect = useCallback(
+    (recommendation: StageRecommendation) => {
+      handleRecommendationSelect(recommendation);
+      setAdvisorPanelOpen(false);
+    },
+    [handleRecommendationSelect],
+  );
+
+  const handleAdvisorTopicPrompt = useCallback(
+    (prompt: string) => {
+      handleSendMessage(prompt);
+      setAdvisorPanelOpen(false);
+    },
+    [handleSendMessage],
+  );
 
   const artifactMessages = useMemo(
     () =>
@@ -6380,6 +6397,7 @@ export function BusinessChatUI({
     setIsInvestorAuthenticated(false);
     setShouldOpenInvestorView(false);
     setAdvisorPanelView("recommendations");
+    setAdvisorPanelOpen(false);
 
     if (shouldSuppressChat || journeyFocusView) {
       setMessages([]);
@@ -6436,6 +6454,7 @@ export function BusinessChatUI({
 
   useEffect(() => {
     setAdvisorPanelView("recommendations");
+    setAdvisorPanelOpen(false);
   }, [currentStep]);
 
   useEffect(() => {
