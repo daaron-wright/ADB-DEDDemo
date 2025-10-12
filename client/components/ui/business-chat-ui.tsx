@@ -6095,7 +6095,14 @@ export function BusinessChatUI({
         }, 180);
       }
     },
-    [buildMessage, buildStepMessage, openApplicantPortal, setCurrentStep],
+    [
+      buildMessage,
+      buildStepMessage,
+      openApplicantPortal,
+      setCurrentStep,
+      setModalView,
+      setCompetitorBreakoutOpen,
+    ],
   );
 
   const openHeatMapFullView = useCallback(() => {
