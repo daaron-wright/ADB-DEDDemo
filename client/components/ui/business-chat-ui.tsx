@@ -6489,63 +6489,47 @@ export function BusinessChatUI({
 
     const conversation: BusinessMessage[] = [];
 
-    const ideaNarrative = initialMessage && initialMessage.trim().length > 0
-      ? `Layla says, "${initialMessage.trim()}"`
-      : "Layla shares her Corniche waterfront dining concept.";
+    const openingStatement = initialMessage && initialMessage.trim().length > 0
+      ? initialMessage.trim()
+      : "I want to invest my money and open a restaurant business in Abu Dhabi. What commercial activities align with my business type and can you help me set up?";
+
+    conversation.push(buildMessage(openingStatement, false));
 
     conversation.push(
       buildMessage(
-        `${ideaNarrative} I'm surfacing a market opportunity view that layers demographics, priority zones, and live trend sliders.`,
+        "Great — we'll move through four checkpoints together. Step 1 focuses on market opportunity and demographics. If you've already validated that, skip ahead to the stage that fits your maturity.",
         true,
         {
-          type: "market-opportunity",
-        },
-      ),
-    );
-
-    conversation.push(
-      buildMessage(
-        "Once she reviews the demand map, Layla narrows to the Corniche cluster and ticks the 'Relevant to my concept' checkbox so the investor compass reveals white space and hides mismatched operators.",
-        true,
-        {
-          type: "competitive-landscape",
-        },
-      ),
-    );
-
-    conversation.push(
-      buildMessage(
-        "With competitive gaps confirmed, Layla asks for operating cost benchmarks across Corniche and Saadiyat listings before shortlisting a site.",
-        true,
-        {
-          type: "budget-analysis",
-        },
-      ),
-    );
-
-    conversation.push(
-      buildMessage(
-        "Congratulations, Layla. Your business idea is very viable. Why not proceed with your trade name reservation so I can transition you into the application workspace?",
-        true,
-        {
-          type: "viability-summary",
           actions: [
             {
-              id: "reserve-trade-name",
-              label: "Yes, reserve the trade name",
-              action: "open-investor-journey",
+              id: "step-1-market",
+              label: "Open Step 1 · Market opportunity",
+              action: "open-market-overview",
             },
             {
-              id: "send-summary",
-              label: "Send me this summary",
-              action: "show-summary",
+              id: "step-2-competition",
+              label: "Skip to Step 2 · Competition",
+              action: "open-competition-analysis",
+            },
+            {
+              id: "step-3-budget",
+              label: "Skip to Step 3 · Budget & costs",
+              action: "open-budget-analysis",
             },
           ],
         },
       ),
     );
 
+    conversation.push(
+      buildMessage(
+        "I'll keep suggested themes active so you can revisit any stage. When you're satisfied with the evidence, ask for the business viability summary and I'll prepare Step 4 along with trade name next steps.",
+        true,
+      ),
+    );
+
     setMessages(conversation);
+    setAdvisorPanelOpen(true);
   }, [
     isOpen,
     buildMessage,
