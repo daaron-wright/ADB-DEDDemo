@@ -6941,6 +6941,7 @@ export function BusinessChatUI({
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                       <div className="relative">
                         <button
+                          ref={advisorPillRef}
                           type="button"
                           onClick={() => setAdvisorPanelOpen((prev) => !prev)}
                           className={cn(
