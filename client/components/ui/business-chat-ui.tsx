@@ -6070,7 +6070,11 @@ export function BusinessChatUI({
   useEffect(() => {
     const handleRetailLocationSelected = (event: Event) => {
       const customEvent = event as CustomEvent;
-      const { automationConfirmed } = customEvent.detail || {};
+      const {
+        automationConfirmed,
+        automationPromptRequested,
+        title: selectedTitle,
+      } = customEvent.detail || {};
 
       setModalView("chat");
       setMessages((prev) => {
@@ -6078,13 +6082,47 @@ export function BusinessChatUI({
           message.actions ? { ...message, actions: undefined } : message,
         );
 
+        if (automationPromptRequested) {
+          const locationLabel = typeof selectedTitle === "string" && selectedTitle
+            ? selectedTitle
+            : "this Corniche opportunity";
+
+          const celebration = buildMessage(
+            `Congratulations, Lyla — this concept is reading as highly viable. I’ve bookmarked ${locationLabel} so we can keep momentum and move straight into your trade name reservation.`,
+            true,
+          );
+
+          const automationInvite = buildMessage(
+            "Would you like me to automate the application process now so I can pre-fill the paperwork and reserve your trade name?",
+            true,
+            {
+              actions: [
+                {
+                  id: "confirm-retail-automation-cta",
+                  label: "Yes, automate it",
+                  action: "confirm-retail-automation",
+                },
+                {
+                  id: "decline-retail-automation-cta",
+                  label: "Maybe later",
+                  action: "decline-retail-automation",
+                },
+              ],
+            },
+          );
+
+          return [...sanitized, celebration, automationInvite];
+        }
+
         if (automationConfirmed === true) {
           const acknowledgement = buildMessage(ACKNOWLEDGEMENT_MESSAGE, true);
           setTimeout(() => {
             openApplicantPortal();
           }, 100);
           return [...sanitized, acknowledgement];
-        } else if (automationConfirmed === false) {
+        }
+
+        if (automationConfirmed === false) {
           return [
             ...sanitized,
             buildMessage(
