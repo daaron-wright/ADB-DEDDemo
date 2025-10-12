@@ -5991,7 +5991,7 @@ export function BusinessChatUI({
       } else if (mentionsDemographics) {
         responses.push(
           buildMessage(
-            "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City ��� 20k residents, 25k daily; family-focused community (6/10).",
+            "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah ��� 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City ��� 20k residents, 25k daily; family-focused community (6/10).",
             true,
             {
               type: "demographics",
@@ -6984,29 +6984,39 @@ export function BusinessChatUI({
                           {!journeyFocusView && showChatInterface ? (
                             <>
                               {stageBlueprint ? (
-                                <>
-                                  <AdvisorPanelTabs
-                                    activeView={advisorPanelView}
-                                    onViewChange={setAdvisorPanelView}
-                                    isSidePanel={isSidePanel}
-                                  />
-                                  {advisorPanelView === "recommendations" ? (
-                                    <StageRecommendationBoard
-                                      key={`stage-${currentStep}`}
-                                      step={currentStep}
-                                      blueprint={stageBlueprint}
-                                      onSelect={handleRecommendationSelect}
+                                <motion.div
+                                  initial={{ height: 0, opacity: 0 }}
+                                  animate={{
+                                    height: advisorPanelView ? "auto" : 0,
+                                    opacity: 1,
+                                  }}
+                                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                                  className="overflow-hidden"
+                                >
+                                  <div className="pt-4">
+                                    <AdvisorPanelTabs
+                                      activeView={advisorPanelView}
+                                      onViewChange={setAdvisorPanelView}
                                       isSidePanel={isSidePanel}
                                     />
-                                  ) : (
-                                    <StageTopicSuggestions
-                                      key={`topics-${currentStep}`}
-                                      step={currentStep}
-                                      isSidePanel={isSidePanel}
-                                      onSendTopic={handleSendMessage}
-                                    />
-                                  )}
-                                </>
+                                    {advisorPanelView === "recommendations" ? (
+                                      <StageRecommendationBoard
+                                        key={`stage-${currentStep}`}
+                                        step={currentStep}
+                                        blueprint={stageBlueprint}
+                                        onSelect={handleRecommendationSelect}
+                                        isSidePanel={isSidePanel}
+                                      />
+                                    ) : (
+                                      <StageTopicSuggestions
+                                        key={`topics-${currentStep}`}
+                                        step={currentStep}
+                                        isSidePanel={isSidePanel}
+                                        onSendTopic={handleSendMessage}
+                                      />
+                                    )}
+                                  </div>
+                                </motion.div>
                               ) : null}
                               {artifactMessages.map((message) => (
                                 <MessageBubble
