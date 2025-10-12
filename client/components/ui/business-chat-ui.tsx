@@ -6525,23 +6525,23 @@ export function BusinessChatUI({
     const conversation: BusinessMessage[] = [];
 
     const welcomeMessage = buildMessage(
-      "Hi Layla, I'm Omnis. How can I help you today?",
+      "Hi Layla, I'm Omnis. Where would you like to start?",
       true,
       {
         actions: [
           {
-            id: "welcome-start-restaurant",
-            label: "I want to start a restaurant",
+            id: "welcome-market-overview",
+            label: "Explore market signals",
             action: "open-market-overview",
           },
           {
-            id: "welcome-show-competition",
-            label: "Show Corniche competition",
+            id: "welcome-competition",
+            label: "Assess competitive landscape",
             action: "open-competition-analysis",
           },
           {
-            id: "welcome-estimate-budget",
-            label: "Estimate Corniche budget",
+            id: "welcome-budget",
+            label: "Review budget outlook",
             action: "open-budget-analysis",
           },
           {
