@@ -7103,7 +7103,7 @@ export function BusinessChatUI({
                                               >
                                                 <AccordionTrigger className="flex w-full items-center gap-4 px-6 py-4 text-left text-sm font-semibold text-slate-900 transition hover:text-[#0F766E] sm:text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40">
                                                   <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
-                                                    <GroupIcon className="h-4 w-4" aria-hidden="true" />
+                                                    <GroupIcon className="h-5 w-5" aria-hidden="true" />
                                                   </span>
                                                   <div className="min-w-0 flex-1 text-left">
                                                     <p className="text-sm font-semibold text-slate-900 sm:text-base">
