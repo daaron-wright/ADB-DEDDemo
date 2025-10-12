@@ -832,7 +832,7 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
               <div className="text-xs text-slate-600">Market gaps</div>
             </div>
             <div>
-              <div className="text-lg font-bold text-blue-600">4.5���</div>
+              <div className="text-lg font-bold text-blue-600">4.5��</div>
               <div className="text-xs text-slate-600">Avg rating</div>
             </div>
             <div>
@@ -6085,11 +6085,6 @@ export function BusinessChatUI({
       if (shouldOpenCompetitorBreakout) {
         setTimeout(() => {
           setCompetitorBreakoutOpen(true);
-        }, 180);
-      }
-      if (shouldOpenCompetitorMap) {
-        setTimeout(() => {
-          setModalView("competitor-map");
         }, 180);
       }
     },
