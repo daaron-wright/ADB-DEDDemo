@@ -7021,35 +7021,152 @@ export function BusinessChatUI({
                             </div>
                           </div>
                           {stageBlueprint ? (
-                            <button
-                              type="button"
-                              onClick={() => setAdvisorPanelOpen((prev) => !prev)}
-                              className={cn(
-                                "inline-flex items-center gap-2 self-start rounded-full border border-white/30 bg-white/18 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition hover:border-[#0F766E]/50 hover:bg-white/24 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40",
-                                isAdvisorPanelOpen && "border-[#0F766E] bg-white/28",
-                                isSidePanel && "border-slate-300 text-[#0F766E]",
-                              )}
-                              aria-pressed={isAdvisorPanelOpen}
-                            >
-                              Suggested themes
-                              <svg
+                            <div className="relative">
+                              <button
+                                type="button"
+                                onClick={() => setAdvisorPanelOpen((prev) => !prev)}
                                 className={cn(
-                                  "h-3.5 w-3.5 transition-transform",
-                                  isAdvisorPanelOpen ? "rotate-180" : "rotate-0",
+                                  "inline-flex items-center gap-2 self-start rounded-full border border-white/30 bg-white/18 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition hover:border-[#0F766E]/50 hover:bg-white/24 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40",
+                                  isAdvisorPanelOpen && "border-[#0F766E] bg-white/28",
+                                  isSidePanel && "border-slate-300 text-[#0F766E]",
                                 )}
-                                viewBox="0 0 12 12"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
+                                aria-pressed={isAdvisorPanelOpen}
                               >
-                                <path
-                                  d="M3 4.5L6 7.5L9 4.5"
-                                  stroke="currentColor"
-                                  strokeWidth="1.5"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </svg>
-                            </button>
+                                Suggested themes
+                                <svg
+                                  className={cn(
+                                    "h-3.5 w-3.5 transition-transform",
+                                    isAdvisorPanelOpen ? "rotate-180" : "rotate-0",
+                                  )}
+                                  viewBox="0 0 12 12"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M3 4.5L6 7.5L9 4.5"
+                                    stroke="currentColor"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </svg>
+                              </button>
+                              {isAdvisorPanelOpen && stageBlueprint ? (
+                                <div
+                                  className={cn(
+                                    "absolute right-0 top-full z-40 mt-3 w-[min(360px,80vw)]",
+                                    isSidePanel && "left-0 right-auto w-[min(340px,calc(100vw-48px))]",
+                                  )}
+                                >
+                                  <div className="max-h-[75vh] overflow-y-auto rounded-3xl border border-emerald-100 bg-white/95 p-5 shadow-[0_35px_90px_-45px_rgba(15,23,42,0.35)]">
+                                    <div className="flex items-start justify-between gap-3">
+                                      <div className="min-w-0 flex-1">
+                                        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+                                          Suggested themes
+                                        </p>
+                                        <h4 className="mt-1 text-lg font-semibold text-slate-900">
+                                          {stageMeta?.label ?? "Current stage"}
+                                        </h4>
+                                        <p className="mt-2 text-xs leading-relaxed text-slate-600">
+                                          {stageBlueprint.message}
+                                        </p>
+                                      </div>
+                                      <button
+                                        type="button"
+                                        onClick={() => setAdvisorPanelOpen(false)}
+                                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:border-slate-300 hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
+                                        aria-label="Close suggested themes"
+                                      >
+                                        <X className="h-4 w-4" aria-hidden="true" />
+                                      </button>
+                                    </div>
+                                    <div className="mt-4">
+                                      {groupedThemeRecommendations.length > 0 ? (
+                                        <Accordion type="multiple" className="space-y-3">
+                                          {groupedThemeRecommendations.map((group) => {
+                                            const GroupIcon = group.icon;
+                                            return (
+                                              <AccordionItem
+                                                key={group.id}
+                                                value={group.id}
+                                                className="overflow-hidden rounded-2xl border border-emerald-100/70 bg-white/90 shadow-[0_28px_70px_-55px_rgba(15,23,42,0.32)]"
+                                              >
+                                                <AccordionTrigger className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm font-semibold text-slate-900 transition hover:text-[#0F766E]">
+                                                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/10 text-[#0F766E]">
+                                                    <GroupIcon className="h-4 w-4" aria-hidden="true" />
+                                                  </span>
+                                                  <div className="min-w-0 flex-1 text-left">
+                                                    <p className="truncate text-sm font-semibold text-slate-900">
+                                                      {group.label}
+                                                    </p>
+                                                    <p className="mt-1 text-xs text-slate-500">
+                                                      {group.description}
+                                                    </p>
+                                                  </div>
+                                                </AccordionTrigger>
+                                                <AccordionContent className="px-4 pb-4">
+                                                  <div className="space-y-3">
+                                                    {group.items.map((recommendation) => {
+                                                      const Icon = recommendation.icon;
+                                                      return (
+                                                        <div
+                                                          key={recommendation.id}
+                                                          className="rounded-xl border border-emerald-100 bg-white/95 p-4 shadow-[0_22px_55px_-48px_rgba(15,23,42,0.3)]"
+                                                        >
+                                                          <div className="flex items-start gap-3">
+                                                            <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
+                                                              <Icon className="h-4 w-4" aria-hidden="true" />
+                                                            </span>
+                                                            <div className="min-w-0 flex-1">
+                                                              <p className="text-sm font-semibold text-slate-900">
+                                                                {recommendation.label}
+                                                              </p>
+                                                              <p className="mt-1 text-xs leading-relaxed text-slate-600">
+                                                                {recommendation.description}
+                                                              </p>
+                                                            </div>
+                                                          </div>
+                                                          <div className="mt-3 flex flex-wrap gap-2">
+                                                            <button
+                                                              type="button"
+                                                              onClick={() => {
+                                                                handleRecommendationSelect(recommendation);
+                                                                setAdvisorPanelOpen(false);
+                                                              }}
+                                                              className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/30 bg-[#0F766E]/10 px-3 py-1.5 text-xs font-semibold text-[#0F766E] transition hover:border-[#0F766E]/45 hover:bg-[#0F766E]/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
+                                                            >
+                                                              Open this workspace
+                                                              <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                                                            </button>
+                                                          </div>
+                                                        </div>
+                                                      );
+                                                    })}
+                                                  </div>
+                                                </AccordionContent>
+                                              </AccordionItem>
+                                            );
+                                          })}
+                                        </Accordion>
+                                      ) : (
+                                        <div className="rounded-2xl border border-emerald-100 bg-white/95 p-4 text-xs leading-relaxed text-slate-600 shadow-[0_24px_60px_-50px_rgba(15,23,42,0.28)]">
+                                          More guided themes are on the way. For now, keep exploring with Omnis and the action buttons below.
+                                        </div>
+                                      )}
+                                    </div>
+                                    <div className="mt-5">
+                                      <StageTopicSuggestions
+                                        step={currentStep}
+                                        onSendTopic={(prompt) => {
+                                          handleSendMessage(prompt);
+                                          setAdvisorPanelOpen(false);
+                                        }}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              ) : null}
+                            </div>
                           ) : null}
                         </div>
                       </div>
