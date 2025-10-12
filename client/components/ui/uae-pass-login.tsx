@@ -21,7 +21,7 @@ type LoginStep = "userType" | "login" | "success" | "fingerprint";
 const MOCK_USER_PROFILES = {
   applicant: {
     name: ENTREPRENEUR_PROFILE.name,
-    email: "layla.almansoori@email.ae",
+    email: ENTREPRENEUR_PROFILE.email,
     emiratesId: "784-1985-1234567-8",
     userType: "applicant" as const,
     role: "Business Applicant",
