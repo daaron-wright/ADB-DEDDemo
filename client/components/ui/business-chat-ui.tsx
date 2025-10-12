@@ -7269,7 +7269,7 @@ export function BusinessChatUI({
                                   isAdvisorPanelOpen && "border-[#0F766E] bg-white/28",
                                   isSidePanel && "border-slate-300 text-[#0F766E]",
                                 )}
-                                aria-pressed={isAdvisorPanelOpen}
+                                aria-expanded={isAdvisorPanelOpen}
                               >
                                 Suggested themes
                                 <svg
@@ -7290,123 +7290,6 @@ export function BusinessChatUI({
                                   />
                                 </svg>
                               </button>
-                              {isAdvisorPanelOpen && stageBlueprint ? (
-                                <div
-                                  className={cn(
-                                    "absolute right-0 top-full z-40 mt-3 w-[min(460px,88vw)]",
-                                    isSidePanel && "left-0 right-auto w-[min(420px,calc(100vw-64px))]",
-                                  )}
-                                >
-                                  <div className="max-h-[75vh] overflow-y-auto rounded-3xl border border-emerald-100 bg-white/95 p-5 shadow-[0_35px_90px_-45px_rgba(15,23,42,0.35)]">
-                                    <div className="flex items-start justify-between gap-3">
-                                      <div className="min-w-0 flex-1">
-                                        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
-                                          Suggested themes
-                                        </p>
-                                        <h4 className="mt-1 text-lg font-semibold text-slate-900">
-                                          {stageMeta?.label ?? "Current stage"}
-                                        </h4>
-                                        <p className="mt-2 text-xs leading-relaxed text-slate-600">
-                                          {stageBlueprint.message}
-                                        </p>
-                                      </div>
-                                      <button
-                                        type="button"
-                                        onClick={() => setAdvisorPanelOpen(false)}
-                                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:border-slate-300 hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
-                                        aria-label="Close suggested themes"
-                                      >
-                                        <X className="h-4 w-4" aria-hidden="true" />
-                                      </button>
-                                    </div>
-                                    <div className="mt-4">
-                                      {groupedThemeRecommendations.length > 0 ? (
-                                        <Accordion type="multiple" className="space-y-4">
-                                          {groupedThemeRecommendations.map((group) => {
-                                            const GroupIcon = group.icon;
-                                            return (
-                                              <AccordionItem
-                                                key={group.id}
-                                                value={group.id}
-                                                className="overflow-hidden rounded-3xl border border-emerald-100/70 bg-white/95 shadow-[0_32px_80px_-60px_rgba(15,23,42,0.32)] transition hover:shadow-[0_36px_96px_-58px_rgba(15,23,42,0.34)]"
-                                              >
-                                                <AccordionTrigger className="flex w-full items-center gap-4 px-6 py-4 text-left text-sm font-semibold text-slate-900 transition hover:text-[#0F766E] sm:text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40">
-                                                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
-                                                    <GroupIcon className="h-5 w-5" aria-hidden="true" />
-                                                  </span>
-                                                  <div className="min-w-0 flex-1 text-left">
-                                                    <p className="text-sm font-semibold text-slate-900 sm:text-base">
-                                                      {group.label}
-                                                    </p>
-                                                    <p className="mt-1 text-sm leading-relaxed text-slate-500/80">
-                                                      {group.description}
-                                                    </p>
-                                                  </div>
-                                                </AccordionTrigger>
-                                                <AccordionContent className="px-6 pb-6 pt-1">
-                                                  <div className="space-y-4">
-                                                    {group.items.map((recommendation) => {
-                                                      const Icon = recommendation.icon;
-                                                      return (
-                                                        <div
-                                                          key={recommendation.id}
-                                                          className="rounded-2xl border border-emerald-100 bg-white/95 p-5 shadow-[0_26px_72px_-56px_rgba(15,23,42,0.32)]"
-                                                        >
-                                                          <div className="flex items-start gap-4">
-                                                            <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
-                                                              <Icon className="h-5 w-5" aria-hidden="true" />
-                                                            </span>
-                                                            <div className="min-w-0 flex-1">
-                                                              <p className="text-sm font-semibold text-slate-900 sm:text-base">
-                                                                {recommendation.label}
-                                                              </p>
-                                                              <p className="mt-1 text-sm leading-relaxed text-slate-600">
-                                                                {recommendation.description}
-                                                              </p>
-                                                            </div>
-                                                          </div>
-                                                          <div className="mt-4 flex flex-wrap gap-2">
-                                                            <button
-                                                              type="button"
-                                                              onClick={() => {
-                                                                handleRecommendationSelect(recommendation);
-                                                                setAdvisorPanelOpen(false);
-                                                              }}
-                                                              className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/30 bg-[#0F766E]/10 px-4 py-2 text-sm font-semibold text-[#0F766E] transition hover:border-[#0F766E]/45 hover:bg-[#0F766E]/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
-                                                            >
-                                                              Open this workspace
-                                                              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                                                            </button>
-                                                          </div>
-                                                        </div>
-                                                      );
-                                                    })}
-                                                  </div>
-                                                </AccordionContent>
-                                              </AccordionItem>
-                                            );
-                                          })}
-                                        </Accordion>
-                                      ) : (
-                                        <div className="rounded-2xl border border-emerald-100 bg-white/95 p-4 text-xs leading-relaxed text-slate-600 shadow-[0_24px_60px_-50px_rgba(15,23,42,0.28)]">
-                                          More guided themes are on the way. For now, keep exploring with Omnis and the action buttons below.
-                                        </div>
-                                      )}
-                                    </div>
-                                    {hasStageTopics ? (
-                                      <div className="mt-5">
-                                        <StageTopicSuggestions
-                                          step={currentStep}
-                                          onSendTopic={(prompt) => {
-                                            handleSendMessage(prompt);
-                                            setAdvisorPanelOpen(false);
-                                          }}
-                                        />
-                                      </div>
-                                    ) : null}
-                                  </div>
-                                </div>
-                              ) : null}
                             </div>
                           ) : null}
                         </div>
