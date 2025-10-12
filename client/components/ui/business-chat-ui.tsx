@@ -6159,6 +6159,42 @@ export function BusinessChatUI({
 
         const updated = [...sanitized, buildMessage(label, false)];
 
+        if (action === "open-market-overview") {
+          setModalView("heat-map");
+          setAdvisorPanelOpen(false);
+          return [
+            ...updated,
+            buildMessage(
+              "Opening the market opportunity workspace. Explore the demographics heat map, then ask me about competition when you're ready.",
+              true,
+            ),
+          ];
+        }
+
+        if (action === "open-competition-analysis") {
+          setModalView("competitor-map");
+          setAdvisorPanelOpen(false);
+          return [
+            ...updated,
+            buildMessage(
+              "Jumping ahead to the competitive landscape. Use the filters to surface relevant operators and spot white space.",
+              true,
+            ),
+          ];
+        }
+
+        if (action === "open-budget-analysis") {
+          setModalView("budget-ranges");
+          setAdvisorPanelOpen(false);
+          return [
+            ...updated,
+            buildMessage(
+              "Opening the Corniche budget benchmarks so you can validate operating ranges and fit-out assumptions.",
+              true,
+            ),
+          ];
+        }
+
         if (action === "show-summary") {
           if (currentStep !== "summary") {
             setCurrentStep("summary");
