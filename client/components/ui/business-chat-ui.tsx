@@ -5782,7 +5782,7 @@ export function BusinessChatUI({
   const [interactionMode, setInteractionMode] = useState<"chat" | "voice">(
     "chat",
   );
-  const [isAdvisorPanelOpen, setAdvisorPanelOpen] = useState(true);
+  const [isAdvisorPanelOpen, setAdvisorPanelOpen] = useState(false);
   const openApplicantPortal = useCallback(() => {
     navigate("/portal/applicant", {
       state: {
