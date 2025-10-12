@@ -6394,9 +6394,6 @@ export function BusinessChatUI({
                   </div>
 
                   <div className="mx-auto flex flex-1 flex-col items-center gap-1 text-center">
-                    <span className="inline-flex items-center rounded-full border border-slate-200/70 bg-white/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
-                      Application Journey
-                    </span>
                     <h2 className="max-w-[320px] text-sm font-semibold leading-tight text-slate-900 sm:text-base lg:text-lg">
                       {headerTitle}
                     </h2>
