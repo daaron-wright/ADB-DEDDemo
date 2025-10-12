@@ -300,17 +300,17 @@ export const areaProfiles: AreaProfile[] = [
       "Scenic promenade attracting residents, office workers, and beach visitors with steady year-round activity.",
     metrics: {
       residents: {
-        value: "6.5k residential households",
+        value: "10,200 – 14,800 residents",
         note: "Clustered towers (Zones C1–C4) with >92% renewal rates, tallied from Tawtheeq rental contracts.",
         source: "Tawtheeq occupancy registry, Q1 2025",
       },
       office: {
-        value: "11.8k daily workers",
+        value: "9,600 – 14,200 daily workers",
         note: "Government complexes and consultancy offices within a 10-minute walk.",
         source: "DED licences + employment statistics, 2024",
       },
       tourists: {
-        value: "5.7k nightly visitors",
+        value: "3,900 – 6,100 nightly visitors",
         note: "Beachfront resorts averaging 78% occupancy across winter peak.",
         source: "DCT hotel performance report, FY 2024",
       },
