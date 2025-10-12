@@ -6522,41 +6522,47 @@ export function BusinessChatUI({
 
     const conversation: BusinessMessage[] = [];
 
-    const openingStatement = initialMessage && initialMessage.trim().length > 0
-      ? initialMessage.trim()
-      : "I want to invest my money and open a restaurant business in Abu Dhabi. What commercial activities align with my business type and can you help me set up?";
+    const welcomeMessage = buildMessage(
+      "Hi Layla, I'm Omnis. How can I help you today?",
+      true,
+      {
+        actions: [
+          {
+            id: "welcome-start-restaurant",
+            label: "I want to start a restaurant",
+            action: "open-market-overview",
+          },
+          {
+            id: "welcome-show-competition",
+            label: "Show Corniche competition",
+            action: "open-competition-analysis",
+          },
+          {
+            id: "welcome-estimate-budget",
+            label: "Estimate Corniche budget",
+            action: "open-budget-analysis",
+          },
+          {
+            id: "welcome-human-agent",
+            label: "Talk to a human agent",
+            action: "contact-human",
+          },
+        ],
+      },
+    );
 
-    conversation.push(buildMessage(openingStatement, false));
+    conversation.push(welcomeMessage);
 
     conversation.push(
       buildMessage(
-        "Great — we'll move through four checkpoints together. Step 1 focuses on market opportunity and demographics. If you've already validated that, skip ahead to the stage that fits your maturity.",
+        "Stage 1 covers market opportunity and demographics. When you're ready, you can progress through competition, budget, and finally the business viability summary without losing momentum.",
         true,
-        {
-          actions: [
-            {
-              id: "step-1-market",
-              label: "Open Step 1 · Market opportunity",
-              action: "open-market-overview",
-            },
-            {
-              id: "step-2-competition",
-              label: "Skip to Step 2 · Competition",
-              action: "open-competition-analysis",
-            },
-            {
-              id: "step-3-budget",
-              label: "Skip to Step 3 · Budget & costs",
-              action: "open-budget-analysis",
-            },
-          ],
-        },
       ),
     );
 
     conversation.push(
       buildMessage(
-        "I'll keep suggested themes active so you can revisit any stage. When you're satisfied with the evidence, ask for the business viability summary and I'll prepare Step 4 along with trade name next steps.",
+        "Suggested themes stay visible, so feel free to skip to the stage that matches your ideation maturity. Ask me for the business viability summary whenever you want to move into the application phase.",
         true,
       ),
     );
