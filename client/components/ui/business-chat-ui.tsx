@@ -3508,7 +3508,7 @@ const StageRecommendationBoard = ({
 
   return (
     <div className="flex w-full justify-center">
-      <div className={cn("w-full max-w-[640px]", isSidePanel && "max-w-none") }>
+      <div className={cn("w-full max-w-[640px]", isSidePanel && "max-w-none")}>
         <div className={containerClass}>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="space-y-2">
