@@ -6557,14 +6557,14 @@ export function BusinessChatUI({
 
     conversation.push(
       buildMessage(
-        "Stage 1 covers market opportunity and demographics. When you're ready, you can progress through competition, budget, and finally the business viability summary without losing momentum.",
+        "We'll move through market signals, competitive context, budget outlook, and eventually the viability summary. Jump to whichever focus suits your current thinking.",
         true,
       ),
     );
 
     conversation.push(
       buildMessage(
-        "Suggested themes stay visible, so feel free to skip to the stage that matches your ideation maturity. Ask me for the business viability summary whenever you want to move into the application phase.",
+        "Suggested themes stay flexible, so you can branch into other tracks or come back to earlier ones. When you’re ready for the viability summary, just let me know and we’ll pivot into the application phase.",
         true,
       ),
     );
