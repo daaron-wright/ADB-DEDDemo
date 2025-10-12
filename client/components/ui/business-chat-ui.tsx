@@ -3807,13 +3807,6 @@ const STAGE_TOPIC_GROUPS: Record<ConversationStep, TopicGroup[]> = {
   ],
 };
 
-interface StageRecommendationBoardProps {
-  step: ConversationStep;
-  blueprint: (typeof CONVERSATION_BLUEPRINT)[ConversationStep];
-  onSelect: (recommendation: StageRecommendation) => void;
-  isSidePanel: boolean;
-}
-
 const StageTopicSuggestions = ({
   step,
   onSendTopic,
