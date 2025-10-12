@@ -12,6 +12,8 @@ import { BusinessChatUI } from "@/components/ui/business-chat-ui";
 import { UAEPassLogin } from "@/components/ui/uae-pass-login";
 import { cn } from "@/lib/utils";
 
+const FALLBACK_FOCUS = { x: 640, y: 360 };
+
 export default function Index() {
   const [chatState, setChatState] = useState<{
     isOpen: boolean;
