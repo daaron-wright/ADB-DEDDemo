@@ -5683,7 +5683,14 @@ export function BusinessChatUI({
       return [];
     }
 
-    const definitions = [
+    const definitions: Array<{
+      id: string;
+      label: string;
+      description: string;
+      icon: LucideIcon;
+      predicate: (recommendation: StageRecommendation) => boolean;
+      items: StageRecommendation[];
+    }> = [
       {
         id: "maps",
         label: "Maps",
@@ -5691,6 +5698,7 @@ export function BusinessChatUI({
         icon: Map,
         predicate: (recommendation: StageRecommendation) =>
           recommendation.modal === "heat-map" || recommendation.modal === "retail-locations",
+        items: [],
       },
       {
         id: "signals",
@@ -5701,6 +5709,7 @@ export function BusinessChatUI({
           recommendation.modal === "competitor-map" ||
           recommendation.action === "open-market-overview" ||
           recommendation.action === "show-summary",
+        items: [],
       },
       {
         id: "summaries",
@@ -5709,6 +5718,7 @@ export function BusinessChatUI({
         icon: ClipboardList,
         predicate: (recommendation: StageRecommendation) =>
           recommendation.action === "open-viability-summary" || recommendation.modal === "comprehensive-report",
+        items: [],
       },
       {
         id: "support",
@@ -5716,13 +5726,12 @@ export function BusinessChatUI({
         description: "Bring in advisors or alternative channels when you need them.",
         icon: Headset,
         predicate: (recommendation: StageRecommendation) => recommendation.type === "human",
+        items: [],
       },
-    ].map((definition) => ({
-      ...definition,
-      items: [] as StageRecommendation[],
-    }));
+    ];
 
-    const fallbackGroup = definitions.find((definition) => definition.id === "signals") ?? definitions[0];
+    const fallbackGroup =
+      definitions.find((definition) => definition.id === "signals") ?? definitions[0];
 
     stageBlueprint.recommendations.forEach((recommendation) => {
       const group = definitions.find((definition) => definition.predicate(recommendation)) ?? fallbackGroup;
