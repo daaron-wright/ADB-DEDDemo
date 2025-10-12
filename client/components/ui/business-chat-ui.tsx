@@ -6495,7 +6495,7 @@ export function BusinessChatUI({
     const conversation: BusinessMessage[] = [];
 
     const ideaNarrative = initialMessage && initialMessage.trim().length > 0
-      ? `Layla says, “${initialMessage.trim()}”`
+      ? `Layla says, "${initialMessage.trim()}"`
       : "Layla shares her Corniche waterfront dining concept.";
 
     conversation.push(
