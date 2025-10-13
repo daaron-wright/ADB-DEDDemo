@@ -94,7 +94,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require more clarification to ensure the right decisions are made.",
-  ar: "قبل البدء في مسار الترخيص، نحتاج إلى تحديد الشكل القانوني الأنسب، وأنشطة العمل، ومتطلبات المساحة. قد تكون بعض العناصر محددة مسبقًا، لكن عناصر أخرى تتطلب توضيحًا إضافيًا لضمان اتخاذ القرارات الصحيحة.",
+  ar: "قبل البدء في مسار الترخيص، نحتاج إلى تحديد الشكل القانوني الأنسب، وأنشطة العمل، ومتطلبات الم��احة. قد تكون بعض العناصر محددة مسبقًا، لكن عناصر أخرى تتطلب توضيحًا إضافيًا لضمان اتخاذ القرارات الصحيحة.",
 };
 
 interface SupportDescriptionCopy {
@@ -260,7 +260,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     supportDescription: {
       preEmail:
         "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت الخليج. تواصلي عبر ",
-      postEmailPrePhone: " أو اتصلي على ",
+      postEmailPrePhone: " أو اتصلي عل�� ",
       postPhone: ".",
     },
     keyDatesHeading: "التواري�� الرئيسية",
@@ -283,7 +283,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإجراء التالي",
-    nextActionButton: "انتقلي إلى الإجراء التالي",
+    nextActionButton: "انتقلي إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
@@ -2070,6 +2070,8 @@ export default function ApplicantPortal() {
       ? {
           label: "خدمات حكومة أبوظبي",
           logoAlt: "شعار تم",
+          logoSrc:
+            "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F397f9a8d2a3c4c8cb1d79ae828b476be",
         }
       : undefined;
 
