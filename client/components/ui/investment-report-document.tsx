@@ -40,7 +40,7 @@ export const InvestmentReportDocument: React.FC<InvestmentReportDocumentProps> =
       <div className="grid grid-cols-2 gap-8 text-sm">
         {/* Left Column - Demographics */}
         <div>
-          <h2 className="text-base font-bold text-teal-600 mb-4">Demographics and Footfall</h2>
+          <h2 className="text-base font-bold text-teal-600 mb-4">Demographics and Population Density</h2>
 
           <div className="space-y-4">
             <div>
