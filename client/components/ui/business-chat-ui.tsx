@@ -1068,7 +1068,7 @@ const CompetitorAnalysisSummaryTile = () => {
                 Next steps
               </p>
               <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-600">
-                <li>• Review detailed competitor pricing analysis</li>
+                <li>��� Review detailed competitor pricing analysis</li>
                 <li>• Analyze menu positioning gaps</li>
                 <li>• Schedule site visits for concept validation</li>
               </ul>
@@ -1166,7 +1166,7 @@ const GapAnalysisCard = ({ className = "" }: { className?: string }) => {
             </svg>
           </div>
           <p className="text-sm text-slate-600">
-            Footfall growth potential in Corniche area
+            Population density growth potential in Corniche area
           </p>
         </div>
 
@@ -1913,7 +1913,7 @@ const GapAnalysisBreakout = ({
             {/* Left Side Content */}
             <div className="absolute left-20 top-40">
               <div className="text-white text-lg font-medium mb-2">
-                Footfall insights
+                Population density insights
               </div>
               <div className="flex items-center gap-2 mb-6">
                 <span className="text-white text-[52px] font-semibold leading-none">
@@ -4010,8 +4010,8 @@ const STAGE_TOPIC_GROUPS: Record<ConversationStep, TopicGroup[]> = {
       icon: MapIcon,
       topics: [
         {
-          id: "intro-footfall",
-          label: "Corniche footfall snapshot",
+          id: "intro-population-density",
+          label: "Corniche population density snapshot",
           prompt:
             "Can you show me today's interaction map for the Corniche, highlighting the heaviest visitor flows?",
         },
@@ -5659,7 +5659,7 @@ const DiscoverExperienceView = ({
                       Abu Dhabi F&B Hotspot Density
                     </h3>
                     <p className="max-w-2xl text-base text-slate-600">
-                      Compare licensing concentration and live footfall signals
+                      Compare licensing concentration and live population density signals
                       across the city&apos;s restaurant districts.
                     </p>
                   </div>
@@ -6074,7 +6074,7 @@ const DiscoverExperienceView = ({
                           <dl className="mt-4 grid grid-cols-2 gap-4 text-xs text-slate-600">
                             <div>
                               <dt className="uppercase tracking-[0.2em] text-slate-400">
-                                Footfall
+                                Population density
                               </dt>
                               <dd className="mt-1 text-sm font-semibold text-slate-900">
                                 {activeInsight.populationDensity}
@@ -6261,7 +6261,7 @@ const DiscoverExperienceView = ({
                               <div className="mt-3 grid grid-cols-3 gap-4 text-xs text-slate-600 md:grid-cols-4">
                                 <div>
                                   <span className="uppercase tracking-[0.2em] text-slate-400">
-                                    Footfall
+                                    Population density
                                   </span>
                                   <p className="mt-1 text-sm font-semibold text-slate-900">
                                     {spot.populationDensity}
