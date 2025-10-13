@@ -3475,7 +3475,7 @@ const RegionExplorerPrompt = ({
 }: {
   onExplore: () => void;
 }) => (
-  <div className="flex w-full justify-end">
+  <div className="flex w-full justify-center">
     <div
       className={chatCardClass(
         "relative w-full max-w-[640px] overflow-hidden border border-white/40 bg-white/80 px-6 py-6 sm:px-7 sm:py-7 shadow-[0_42px_120px_-72px_rgba(15,23,42,0.55)] backdrop-blur-2xl",
