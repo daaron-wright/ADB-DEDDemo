@@ -8117,7 +8117,7 @@ export function BusinessChatUI({
               <SuggestedThemesPanel
                 stageLabel={stagePanelLabel}
                 stageMessage={stagePanelMessage}
-                groupedRecommendations={groupedThemeRecommendations}
+                groupedRecommendations={displayedThemeRecommendations}
                 onClose={closeThemesPanel}
                 onRecommendationSelect={(recommendation) => {
                   handleRecommendationSelect(recommendation);
@@ -8431,7 +8431,7 @@ export function BusinessChatUI({
                                   <SuggestedThemesPanel
                                     stageLabel={stagePanelLabel}
                                     stageMessage={stagePanelMessage}
-                                    groupedRecommendations={groupedThemeRecommendations}
+                                    groupedRecommendations={displayedThemeRecommendations}
                                     onClose={() => setAdvisorPanelOpen(false)}
                                     onRecommendationSelect={(recommendation) => {
                                       handleRecommendationSelect(recommendation);
