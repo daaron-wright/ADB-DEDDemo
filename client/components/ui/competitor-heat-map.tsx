@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { chatCardClass } from "@/lib/chat-style";
 import {
@@ -38,75 +38,46 @@ const mapBackgroundImage =
 
 const formatPosition = (value: number) => `${Math.min(Math.max(value, 4), 96)}%`;
 
-const ActiveCompetitorPopup = ({ point }: { point: CompetitorPoint }) => (
-  <div className="pointer-events-none relative">
-    <div className="pointer-events-auto w-[min(320px,85vw)] rounded-3xl border border-white/35 bg-[#072027]/95 p-4 shadow-[0_28px_60px_-34px_rgba(8,22,30,0.65)] backdrop-blur">
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/60">
-            Corniche competitor
-          </p>
-          <h4 className="text-lg font-semibold text-white">{point.name}</h4>
-          <p className="text-xs text-white/60">{point.location}</p>
-        </div>
-        <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white shadow">
-          {point.cuisine}
-        </span>
-      </div>
+const hotspotPalettes = {
+  highDemandRelevant: {
+    inner: "#FF5A3D",
+    mid: "#FF9F6B",
+    outer: "rgba(255,159,107,0)",
+  },
+  highDemand: {
+    inner: "#FF8A3D",
+    mid: "#FFC371",
+    outer: "rgba(255,195,113,0)",
+  },
+  relevant: {
+    inner: "#2DD4BF",
+    mid: "#5EEAD4",
+    outer: "rgba(94,234,212,0)",
+  },
+  default: {
+    inner: "#2CB4FF",
+    mid: "#7DD3FC",
+    outer: "rgba(125,211,252,0)",
+  },
+} as const;
 
-      <p className="mt-3 text-sm leading-relaxed text-white/80">{point.summary}</p>
+type HotspotPalette = typeof hotspotPalettes[keyof typeof hotspotPalettes];
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-3">
-        {metricOrder.map((metricId) => {
-          const metric = point.metrics[metricId];
-          const meta = competitorMetricsMeta[metricId];
-          if (!metric || !meta) {
-            return null;
-          }
+const getHotspotPalette = (point: CompetitorPoint): HotspotPalette => {
+  const hasRelevant = point.attributes.includes("relevant");
+  const hasHighDemand = point.attributes.includes("highDemand");
 
-          const formattedValue = meta.formatter
-            ? meta.formatter(metric.value)
-            : `${metric.value}`;
-
-          return (
-            <div
-              key={metricId}
-              className="rounded-2xl border border-white/15 bg-white/10 p-3"
-            >
-              <div
-                className="text-[10px] font-semibold uppercase tracking-[0.2em]"
-                style={{ color: meta.accent }}
-              >
-                {meta.label}
-              </div>
-              <div className="mt-2 text-lg font-semibold text-white">{formattedValue}</div>
-              <div className="text-[11px] uppercase tracking-[0.18em] text-white/60">
-                {metric.unit}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="mt-4 space-y-1 text-xs text-white/60">
-        <p>Signals derived from Investor Compass social scraping and review analytics.</p>
-        <p>Use filters to surface white space where Corniche demand is underserved.</p>
-      </div>
-    </div>
-    <span
-      className="absolute left-1/2 top-full block h-4 w-4 -translate-x-1/2 rotate-45"
-      style={{
-        background: "rgba(7, 32, 39, 0.95)",
-        borderColor: "rgba(255,255,255,0.2)",
-        borderStyle: "solid",
-        borderWidth: "1px",
-        borderTopColor: "transparent",
-        borderLeftColor: "transparent",
-      }}
-      aria-hidden="true"
-    />
-  </div>
-);
+  if (hasRelevant && hasHighDemand) {
+    return hotspotPalettes.highDemandRelevant;
+  }
+  if (hasHighDemand) {
+    return hotspotPalettes.highDemand;
+  }
+  if (hasRelevant) {
+    return hotspotPalettes.relevant;
+  }
+  return hotspotPalettes.default;
+};
 
 const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
   const [activeFilters, setActiveFilters] = useState<Record<CompetitorFilter, boolean>>({
@@ -245,9 +216,9 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
               {filteredPoints.map((point) => {
                 const isActive = point.id === activePoint?.id;
                 const baseSize = Math.max(22, point.baseSize ?? 26);
-                const haloColor = point.attributes.includes("highDemand") ? "#54FFD4" : "#4EC7C0";
-                const rimColor = point.attributes.includes("relevant") ? "#0D5E56" : "#134E60";
-                const coreAccent = point.attributes.includes("relevant") ? "#11A598" : "#1C8BA6";
+                const hotspotSize = Math.max(180, baseSize * 8);
+                const palette = getHotspotPalette(point);
+                const gradientId = `competitor-hotspot-${point.id}`;
 
                 return (
                   <motion.button
@@ -256,81 +227,38 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                     onMouseEnter={() => setActivePointId(point.id)}
                     onClick={() => setActivePointId(point.id)}
                     onFocus={() => setActivePointId(point.id)}
-                    className="group absolute -translate-x-1/2 -translate-y-1/2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                    className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 transition-transform duration-300"
                     style={{
                       left: formatPosition(point.x),
                       top: formatPosition(point.y),
+                      width: hotspotSize,
+                      height: hotspotSize,
                     }}
                     aria-label={`${point.name}, ${point.cuisine}`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.96 }}
+                    animate={{ scale: isActive ? 1.08 : 1 }}
+                    transition={{ type: "spring", stiffness: 220, damping: 18 }}
+                    whileHover={{ scale: 1.12 }}
+                    whileTap={{ scale: 0.95 }}
                   >
+                    <svg viewBox="0 0 200 200" className="h-full w-full">
+                      <defs>
+                        <radialGradient id={gradientId} gradientUnits="userSpaceOnUse">
+                          <stop offset="0%" stopColor={palette.inner} stopOpacity={isActive ? 0.88 : 0.6} />
+                          <stop offset="55%" stopColor={palette.mid} stopOpacity={isActive ? 0.42 : 0.25} />
+                          <stop offset="100%" stopColor={palette.outer} stopOpacity="0" />
+                        </radialGradient>
+                      </defs>
+                      <circle cx="100" cy="100" r="100" fill={`url(#${gradientId})`} />
+                    </svg>
                     <span
-                      className="relative flex items-center justify-center"
-                      style={{ width: baseSize, height: baseSize }}
-                    >
-                      <span
-                        className="absolute -inset-3 rounded-full opacity-55 blur-[22px] transition group-hover:opacity-85"
-                        style={{
-                          background: `radial-gradient(circle at center, ${haloColor}66 0%, transparent 70%)`,
-                        }}
-                        aria-hidden="true"
-                      />
-                      <span
-                        className="absolute inset-0 rounded-full shadow-[0_0_0_1.25px_rgba(15,118,110,0.45)]"
-                        style={{
-                          background: `radial-gradient(circle at 50% 35%, ${haloColor} 0%, ${rimColor} 75%)`,
-                        }}
-                        aria-hidden="true"
-                      />
-                      <span
-                        className={cn(
-                          "absolute inset-[22%] rounded-full border border-white/35",
-                          isActive ? "bg-white/10" : "bg-white/5",
-                        )}
-                        aria-hidden="true"
-                      />
-                      <span
-                        className="absolute inset-[34%] rounded-full"
-                        style={{
-                          background: `radial-gradient(circle at 45% 35%, #ffffff 0%, ${coreAccent} 65%)`,
-                          boxShadow: "0 0 0 1px rgba(255,255,255,0.45)",
-                        }}
-                        aria-hidden="true"
-                      />
-                      <span className="relative h-[6px] w-[6px] rounded-full bg-white" aria-hidden="true" />
-                    </span>
-                    <span
-                      className={cn(
-                        "mt-3 block rounded-full bg-black/65 px-3 py-1 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition",
-                        isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100",
-                      )}
-                    >
-                      {point.name}
-                    </span>
+                      className="pointer-events-none absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/60 bg-white/50 shadow-[0_0_0_18px_rgba(255,255,255,0.08)] transition-opacity duration-300"
+                      style={{ opacity: isActive ? 0.75 : 0.35 }}
+                      aria-hidden="true"
+                    />
+                    <span className="sr-only">{point.name}</span>
                   </motion.button>
                 );
               })}
-
-              <AnimatePresence>
-                {activePoint ? (
-                  <motion.div
-                    key={activePoint.id}
-                    className="pointer-events-none absolute z-30"
-                    style={{
-                      left: formatPosition(activePoint.x),
-                      top: formatPosition(activePoint.y),
-                      transform: "translate(-50%, calc(-100% - 28px))",
-                    }}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <ActiveCompetitorPopup point={activePoint} />
-                  </motion.div>
-                ) : null}
-              </AnimatePresence>
 
               {!filteredPoints.length && (
                 <div className="absolute inset-0 flex items-center justify-center">
