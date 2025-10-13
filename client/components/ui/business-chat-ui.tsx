@@ -4550,26 +4550,26 @@ const SuggestedThemesPanel = ({
       >
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="flex items-start gap-3">
-          <span
-            className={cn(
-              "flex items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]",
-              group.id === "support" ? "gap-2 px-4 py-2" : "h-12 w-12",
-            )}
-          >
-            <GroupIcon
-              className={cn("h-5 w-5", group.id === "support" && "h-4 w-4")}
-              aria-hidden="true"
-            />
-            {group.id === "support" ? (
-              <span className="text-[11px] font-semibold uppercase tracking-[0.22em]">
+            <span
+              className={cn(
+                "flex items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]",
+                group.id === "support" ? "gap-2 px-4 py-2" : "h-12 w-12",
+              )}
+            >
+              <GroupIcon
+                className={cn("h-5 w-5", group.id === "support" && "h-4 w-4")}
+                aria-hidden="true"
+              />
+              {group.id === "support" ? (
+                <span className="text-[11px] font-semibold uppercase tracking-[0.22em]">
+                  {group.label}
+                </span>
+              ) : null}
+            </span>
+            <div className="space-y-1">
+              <p className="text-base font-semibold text-slate-900 sm:text-lg">
                 {group.label}
-              </span>
-            ) : null}
-          </span>
-          <div className="space-y-1">
-            <p className="text-base font-semibold text-slate-900 sm:text-lg">
-              {group.label}
-            </p>
+              </p>
               <p className="text-sm leading-relaxed text-slate-600">
                 {group.description}
               </p>
