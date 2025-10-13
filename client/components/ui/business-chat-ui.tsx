@@ -5008,7 +5008,7 @@ const CompetitorBreakoutModal = ({
       rating: "4.3★",
       tier: "Elevated casual",
       insight:
-        "Experiential tasting flights outperform à la carte by 1.6x revenue.",
+        "Experiential tasting flights outperform �� la carte by 1.6x revenue.",
     },
   ];
 
@@ -6464,8 +6464,7 @@ export function BusinessChatUI({
   const [isAdvisorPanelOpen, setAdvisorPanelOpen] = useState(false);
   const [hasTriggeredSuggestedThemes, setHasTriggeredSuggestedThemes] =
     useState(false);
-  const [persistedThemeGroups, setPersistedThemeGroups] =
-    useState<SuggestedThemeGroup[]>([]);
+  const themeGroupsRef = useRef<SuggestedThemeGroup[]>([]);
   const [followUpRecommendations, setFollowUpRecommendations] = useState<StageRecommendation[]>([]);
   const [suggestedThemesActiveTab, setSuggestedThemesActiveTab] =
     useState<string>("summary");
