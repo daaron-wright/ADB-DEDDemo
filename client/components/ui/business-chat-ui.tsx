@@ -553,7 +553,7 @@ const FOLLOW_UP_SUMMARY_COMPLETION: ReadonlyArray<StageRecommendation> = [
   },
   {
     id: "follow-up-talk-to-advisor",
-    label: "Talk to a TAMM specialist",
+    label: "Human Assistance",
     description:
       "Bring in a human advisor to confirm the next actions for your concept.",
     icon: Headset,
