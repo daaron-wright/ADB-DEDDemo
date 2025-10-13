@@ -3470,6 +3470,43 @@ const StageRecommendationsMessage = ({
   </div>
 );
 
+const RegionExplorerPrompt = ({
+  onExplore,
+}: {
+  onExplore: () => void;
+}) => (
+  <div className="flex w-full justify-center">
+    <div
+      className={chatCardClass(
+        "relative w-full max-w-[640px] overflow-hidden border border-white/40 bg-white/80 px-6 py-6 sm:px-7 sm:py-7 shadow-[0_42px_120px_-72px_rgba(15,23,42,0.55)] backdrop-blur-2xl",
+      )}
+    >
+      <div className="pointer-events-none absolute inset-y-0 right-0 h-full w-1/2 bg-gradient-to-br from-[#0E766E]/8 via-transparent to-white" />
+      <div className="relative flex flex-col gap-4">
+        <div className="space-y-2">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
+            Start with location intelligence
+          </span>
+          <h3 className="text-xl font-semibold leading-tight text-slate-900">
+            Explore the districts attracting investors right now
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-600">
+            Compare heat signatures, demand drivers, and incentives across Abu Dhabi’s neighbourhoods before you commit to a concept or budget.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={onExplore}
+          className="inline-flex w-fit items-center gap-2 rounded-full border border-[#0E766E] bg-[#0E766E] px-5 py-2 text-sm font-semibold text-white shadow-[0_22px_44px_-28px_rgba(14,118,110,0.65)] transition hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E766E]/40"
+        >
+          Explore investment districts
+          <ArrowUpRight className="h-4 w-4" aria-hidden />
+        </button>
+      </div>
+    </div>
+  </div>
+);
+
 const CHAT_ACTION_BUTTON_CLASSES =
   "inline-flex items-center gap-2 rounded-full bg-[#0E766E] px-4 py-2 text-sm font-semibold text-white shadow-[0_16px_30px_-18px_rgba(14,118,110,0.45)] transition hover:bg-[#0a5a55]";
 
