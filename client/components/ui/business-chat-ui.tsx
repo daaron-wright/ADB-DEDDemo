@@ -5220,7 +5220,7 @@ const DiscoverExperienceView = ({
       name: "Khalifa City",
       summary:
         "Expanding suburb with new schools, villas, and lifestyle centers attracting higher disposable income.",
-      footfall: "25–35K weekly visits",
+      populationDensity: "25–35K weekly visits",
       density: "Emerging density",
       trend: "+6% new households",
       focus: "Community casual dining, specialty coffee",
@@ -6629,7 +6629,7 @@ export function BusinessChatUI({
     : stageMeta?.label ?? "Current stage";
 
   const stagePanelMessage = followUpRecommendations.length > 0
-    ? followUpRecommendations[0]?.description ?? "Choose what you’d like to explore next."
+    ? followUpRecommendations[0]?.description ?? "Choose what you���d like to explore next."
     : stageBlueprint?.message ?? "";
 
   useEffect(() => {
