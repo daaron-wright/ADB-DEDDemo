@@ -7169,6 +7169,7 @@ export function BusinessChatUI({
 
   useEffect(() => {
     setAdvisorPanelOpen(false);
+    setFollowUpRecommendations([]);
   }, [currentStep]);
 
   useEffect(() => {
