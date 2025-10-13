@@ -5209,7 +5209,7 @@ const DiscoverExperienceView = ({
       name: "Baniyas community spine",
       summary:
         "Established residential corridor seeing strong family traffic and quick-service demand spikes.",
-      footfall: "60����75K weekly visits",
+      populationDensity: "60����75K weekly visits",
       density: "Growing density",
       trend: "+11% midday demand",
       focus: "Family restaurants, fast casual, bakeries",
