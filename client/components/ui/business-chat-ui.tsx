@@ -6986,6 +6986,7 @@ export function BusinessChatUI({
       } else if (recommendation.type === "prompt" && recommendation.prompt) {
         handleSendMessage(recommendation.prompt);
       } else if (recommendation.type === "modal" && recommendation.modal) {
+        appendUserSelectionLog(recommendation.label);
         switch (recommendation.modal) {
           case "heat-map":
             openHeatMapFullView();
