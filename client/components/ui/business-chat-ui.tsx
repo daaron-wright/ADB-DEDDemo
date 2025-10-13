@@ -6047,7 +6047,11 @@ export function BusinessChatUI({
         new Map(recommendations.map((rec) => [rec.id, rec])).values(),
       );
 
-      if (dedupedRecommendations.length === 0) {
+      const filteredRecommendations = dedupedRecommendations.filter(
+        (recommendation) => recommendation.type !== "human",
+      );
+
+      if (filteredRecommendations.length === 0) {
         return [];
       }
 
@@ -6165,7 +6169,7 @@ export function BusinessChatUI({
       const fallbackGroup =
         definitions.find((definition) => definition.id === "interactive-map") ?? definitions[0];
 
-      dedupedRecommendations.forEach((recommendation) => {
+      filteredRecommendations.forEach((recommendation) => {
         const group =
           definitions.find((definition) => definition.predicate(recommendation)) ?? fallbackGroup;
         group.items.push(recommendation);
@@ -6192,7 +6196,7 @@ export function BusinessChatUI({
     : stageMeta?.label ?? "Current stage";
 
   const stagePanelMessage = followUpRecommendations.length > 0
-    ? followUpRecommendations[0]?.description ?? "Choose what you’d like to explore next."
+    ? followUpRecommendations[0]?.description ?? "Choose what you���d like to explore next."
     : stageBlueprint?.message ?? "";
 
   useEffect(() => {
