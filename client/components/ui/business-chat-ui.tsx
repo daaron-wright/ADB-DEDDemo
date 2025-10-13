@@ -8076,42 +8076,34 @@ export function BusinessChatUI({
     );
   }
 
-  const themesHoverOverlay =
-    typeof window !== "undefined" && isThemesHoverOpen && showThemesHoverCard
+  const themesPanelOverlay =
+    typeof window !== "undefined" && isThemesPanelOpen
       ? createPortal(
           <div
             className="fixed inset-0 z-[110] flex items-center justify-center bg-slate-950/40 px-4 py-8 backdrop-blur-sm"
             role="dialog"
             aria-modal="true"
-            onMouseEnter={openThemesHover}
-            onMouseLeave={scheduleThemesHoverClose}
             onClick={(event) => {
               if (event.target === event.currentTarget) {
-                closeThemesHover();
+                closeThemesPanel();
               }
             }}
           >
-            <div
-              className="pointer-events-auto w-[min(680px,92vw)]"
-              onMouseEnter={openThemesHover}
-              onMouseLeave={scheduleThemesHoverClose}
-              onFocus={openThemesHover}
-              onBlur={scheduleThemesHoverClose}
-            >
+            <div className="pointer-events-auto w-[min(680px,92vw)]">
               <SuggestedThemesPanel
                 stageLabel={stagePanelLabel}
                 stageMessage={stagePanelMessage}
                 groupedRecommendations={groupedThemeRecommendations}
-                onClose={closeThemesHover}
+                onClose={closeThemesPanel}
                 onRecommendationSelect={(recommendation) => {
                   handleRecommendationSelect(recommendation);
-                  closeThemesHover();
+                  closeThemesPanel();
                 }}
                 hasStageTopics={hasStageTopics}
                 currentStep={currentStep}
                 onSendTopic={(prompt) => {
                   handleSendMessage(prompt);
-                  closeThemesHover();
+                  closeThemesPanel();
                 }}
                 variant="popover"
                 activeTab={suggestedThemesActiveTab}
