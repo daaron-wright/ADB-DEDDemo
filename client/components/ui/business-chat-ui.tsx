@@ -3482,7 +3482,7 @@ const RegionExplorerPrompt = ({
       )}
     >
       <div className="pointer-events-none absolute inset-y-0 right-0 h-full w-1/2 bg-gradient-to-br from-[#0E766E]/8 via-transparent to-white" />
-      <div className="relative flex flex-col items-center gap-4 text-center">
+      <div className="relative flex flex-col gap-4 text-left">
         <div className="space-y-2">
           <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
             Start with location intelligence
