@@ -401,6 +401,28 @@ const CONVERSATION_BLUEPRINT: Record<
   },
 };
 
+const LOCATION_INTELLIGENCE_FOLLOW_UPS: ReadonlyArray<StageRecommendation> = [
+  {
+    id: "follow-up-location-demographics",
+    label: "Look at demographics of a particular area",
+    description:
+      "Highlight resident and visitor patterns by zooming into the district you want to evaluate next.",
+    icon: MapPin,
+    type: "prompt",
+    prompt:
+      "Show me the demographics for the Corniche area, including resident and visitor breakdowns.",
+  },
+  {
+    id: "follow-up-location-budget",
+    label: "See budget ranges for this location",
+    description:
+      "Compare indicative setup and operating budgets tailored to the neighbourhood you're considering.",
+    icon: Gauge,
+    type: "modal",
+    modal: "budget-ranges",
+  },
+];
+
 const CONVERSATION_STEPS: Array<{ id: ConversationStep; label: string }> = [
   { id: "intro", label: "Start" },
   { id: "summary", label: "Market Summary" },
