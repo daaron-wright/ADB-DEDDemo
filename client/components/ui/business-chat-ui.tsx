@@ -6122,8 +6122,8 @@ export function BusinessChatUI({
     }
 
     const allRecommendations = [
-      ...(stageBlueprint?.recommendations ?? []),
       ...followUpRecommendations,
+      ...(stageBlueprint?.recommendations ?? []),
     ];
 
     const dedupedRecommendations = Array.from(
