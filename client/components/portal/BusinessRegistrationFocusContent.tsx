@@ -214,7 +214,6 @@ export function BusinessRegistrationFocusContent({
   tradeName = "",
   isTradeNameAvailable = false,
   progressPercent = 46,
-  showTradeNameIdeas = false,
   onTradeNameChange,
 }: BusinessRegistrationFocusContentProps) {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
