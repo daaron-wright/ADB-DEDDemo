@@ -5,7 +5,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import { createPortal } from "react-dom";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
@@ -6780,10 +6780,22 @@ export function BusinessChatUI({
     setAdvisorPanelOpen(false);
   }, [setAdvisorPanelOpen]);
 
-  const handleThemesToggle = useCallback(() => {
-    setIsThemesPanelOpen((prev) => !prev);
-    setAdvisorPanelOpen(false);
-  }, [setAdvisorPanelOpen]);
+  const handleThemesOpenChange = useCallback(
+    (open: boolean) => {
+      if (!themesAvailable) {
+        setIsThemesPanelOpen(false);
+        return;
+      }
+
+      if (open) {
+        setIsThemesPanelOpen(true);
+        setAdvisorPanelOpen(false);
+      } else {
+        closeThemesPanel();
+      }
+    },
+    [themesAvailable, closeThemesPanel, setAdvisorPanelOpen],
+  );
 
   useEffect(() => {
     if (!themesAvailable) {
@@ -6795,23 +6807,6 @@ export function BusinessChatUI({
       setIsThemesPanelOpen(true);
     }
   }, [themesAvailable, isAdvisorPanelOpen]);
-
-  useEffect(() => {
-    if (!isThemesPanelOpen) {
-      return;
-    }
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        closeThemesPanel();
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isThemesPanelOpen, closeThemesPanel]);
 
   const themesButtonClasses = cn(
     "inline-flex items-center gap-1 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40",
@@ -8111,47 +8106,6 @@ export function BusinessChatUI({
     );
   }
 
-  const themesPanelOverlay =
-    typeof window !== "undefined" && isThemesPanelOpen
-      ? createPortal(
-          <div
-            className="fixed inset-0 z-[110] flex items-center justify-center bg-slate-950/40 px-4 py-8 backdrop-blur-sm"
-            role="dialog"
-            aria-modal="true"
-            onClick={(event) => {
-              if (event.target === event.currentTarget) {
-                closeThemesPanel();
-              }
-            }}
-          >
-            <div className="pointer-events-auto w-[min(820px,96vw)] max-h-[90vh] overflow-hidden">
-              <div className="h-full overflow-y-auto pr-1 sm:pr-2">
-                <SuggestedThemesPanel
-                  stageLabel={stagePanelLabel}
-                  stageMessage={stagePanelMessage}
-                  groupedRecommendations={displayedThemeRecommendations}
-                  onClose={closeThemesPanel}
-                  onRecommendationSelect={(recommendation) => {
-                    handleRecommendationSelect(recommendation);
-                    closeThemesPanel();
-                  }}
-                  hasStageTopics={hasStageTopics}
-                  currentStep={currentStep}
-                  onSendTopic={(prompt) => {
-                    handleSendMessage(prompt);
-                    closeThemesPanel();
-                  }}
-                  variant="popover"
-                  activeTab={suggestedThemesActiveTab}
-                  onActiveTabChange={setSuggestedThemesActiveTab}
-                />
-              </div>
-            </div>
-          </div>,
-          document.body,
-        )
-      : null;
-
   const backgroundImage =
     view === "discover-experience"
       ? DISCOVER_EXPERIENCE_BACKGROUND
@@ -8407,22 +8361,53 @@ export function BusinessChatUI({
                                   Omnis
                                 </h3>
                                 {themesAvailable ? (
-                                  <button
-                                    type="button"
-                                    onClick={handleThemesToggle}
-                                    aria-pressed={isThemesPanelOpen}
-                                    aria-expanded={isThemesPanelOpen}
-                                    className={themesButtonClasses}
+                                  <Popover
+                                    open={isThemesPanelOpen}
+                                    onOpenChange={handleThemesOpenChange}
                                   >
-                                    Themes
-                                    <ChevronDown
-                                      className={cn(
-                                        "h-3 w-3 transition-transform",
-                                        isThemesPanelOpen ? "rotate-180" : "rotate-0",
-                                      )}
-                                      aria-hidden="true"
-                                    />
-                                  </button>
+                                    <PopoverTrigger asChild>
+                                      <button
+                                        type="button"
+                                        aria-pressed={isThemesPanelOpen}
+                                        aria-expanded={isThemesPanelOpen}
+                                        className={themesButtonClasses}
+                                      >
+                                        Themes
+                                        <ChevronDown
+                                          className={cn(
+                                            "h-3 w-3 transition-transform",
+                                            isThemesPanelOpen ? "rotate-180" : "rotate-0",
+                                          )}
+                                          aria-hidden="true"
+                                        />
+                                      </button>
+                                    </PopoverTrigger>
+                                    <PopoverContent
+                                      align="start"
+                                      sideOffset={12}
+                                      className="w-[min(680px,92vw)] max-h-[75vh] overflow-y-auto border-none bg-transparent p-0 shadow-none"
+                                    >
+                                      <SuggestedThemesPanel
+                                        stageLabel={stagePanelLabel}
+                                        stageMessage={stagePanelMessage}
+                                        groupedRecommendations={displayedThemeRecommendations}
+                                        onClose={closeThemesPanel}
+                                        onRecommendationSelect={(recommendation) => {
+                                          handleRecommendationSelect(recommendation);
+                                          closeThemesPanel();
+                                        }}
+                                        hasStageTopics={hasStageTopics}
+                                        currentStep={currentStep}
+                                        onSendTopic={(prompt) => {
+                                          handleSendMessage(prompt);
+                                          closeThemesPanel();
+                                        }}
+                                        variant="popover"
+                                        activeTab={suggestedThemesActiveTab}
+                                        onActiveTabChange={setSuggestedThemesActiveTab}
+                                      />
+                                    </PopoverContent>
+                                  </Popover>
                                 ) : null}
                               </div>
                               <p className="text-xs text-slate-500">
@@ -8600,7 +8585,6 @@ export function BusinessChatUI({
           </div>
         )}
 
-        {themesPanelOverlay}
         {modalOverlay}
 
         {/* Budget Ranges Modal */}
