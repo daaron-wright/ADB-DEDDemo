@@ -4472,7 +4472,7 @@ const SuggestedThemesPanel = ({
                 value={group.id}
                 className="group overflow-hidden rounded-3xl border border-emerald-100/80 border-b-0 bg-white/95 shadow-[0_26px_82px_-58px_rgba(14,118,110,0.4)] transition data-[state=open]:border-[#0F766E]/55 data-[state=open]:shadow-[0_40px_110px_-72px_rgba(14,118,110,0.48)]"
               >
-                <AccordionTrigger className="flex flex-wrap items-start gap-4 px-6 py-5 text-left text-slate-900">
+                <AccordionTrigger className="flex flex-wrap items-start justify-start gap-4 px-6 py-5 text-left text-slate-900 data-[state=open]:text-[#0F766E] sm:justify-between">
                   <div className="flex min-w-[240px] flex-1 items-start gap-3 text-left">
                     <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
                       <GroupIcon className="h-5 w-5" aria-hidden="true" />
