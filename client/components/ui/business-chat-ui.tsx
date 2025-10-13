@@ -4312,7 +4312,7 @@ const StageTopicSuggestions = ({
 
   useEffect(() => {
     setOpenGroupValues(groups.map((group) => group.id));
-  }, [step, groups.length]);
+  }, [step, groups]);
 
   if (groups.length === 0) {
     return null;
