@@ -4525,12 +4525,12 @@ const SuggestedThemesPanel = ({
         )}
       >
         <div className="space-y-2">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[#0F766E]">
-            Suggested themes
-          </p>
-          <h4 className="text-lg font-semibold text-slate-900 sm:text-xl">
-            {stageLabel ?? "Current stage"}
+          <h4 className="text-sm font-semibold uppercase tracking-[0.32em] text-[#0F766E]">
+            OVERVIEW
           </h4>
+          <p className="text-xl font-semibold text-slate-900 sm:text-2xl">
+            Where to focus right now
+          </p>
           <p className="max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
             {stageMessage}
           </p>
@@ -4556,32 +4556,43 @@ const SuggestedThemesPanel = ({
         </div>
       ) : null}
       {groupedRecommendations.length > 0 ? (
-        <div className="flex flex-col gap-5">
-          {groupedRecommendations.map((group) => {
-            const GroupIcon = group.icon;
-
-            return (
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="flex flex-col gap-5">
+          <TabsList className="flex flex-wrap gap-2 rounded-full border border-emerald-100/80 bg-[#f0f9f6] p-1">
+            <TabsTrigger
+              value="summary"
+              className="flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)]"
+            >
+              Overview
+            </TabsTrigger>
+            {groupedRecommendations.map((group) => {
+              const GroupIcon = group.icon;
+              return (
+                <TabsTrigger
+                  key={group.id}
+                  value={group.id}
+                  className="flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)]"
+                >
+                  <GroupIcon className="h-4 w-4" aria-hidden="true" />
+                  {group.label}
+                </TabsTrigger>
+              );
+            })}
+          </TabsList>
+          <TabsContent value="summary" className="m-0">
+            <OverviewSummary
+              stageMessage={stageMessage}
+              groupedRecommendations={groupedRecommendations}
+            />
+          </TabsContent>
+          {groupedRecommendations.map((group) => (
+            <TabsContent key={group.id} value={group.id} className="m-0">
               <section
-                key={group.id}
                 className="flex flex-col gap-4 rounded-[28px] border border-emerald-100/70 bg-white/95 px-5 py-5 shadow-[0_32px_110px_-72px_rgba(14,118,110,0.4)] sm:px-6 sm:py-6"
               >
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                   <div className="flex items-start gap-3">
-                    <span
-                      className={cn(
-                        "flex items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]",
-                        group.id === "support" ? "gap-2 px-4 py-2" : "h-12 w-12",
-                      )}
-                    >
-                      <GroupIcon
-                        className={cn("h-5 w-5", group.id === "support" && "h-4 w-4")}
-                        aria-hidden="true"
-                      />
-                      {group.id === "support" ? (
-                        <span className="text-[11px] font-semibold uppercase tracking-[0.22em]">
-                          {group.label}
-                        </span>
-                      ) : null}
+                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
+                      <group.icon className="h-5 w-5" aria-hidden="true" />
                     </span>
                     <div className="space-y-1">
                       <p className="text-base font-semibold text-slate-900 sm:text-lg">
@@ -4606,9 +4617,9 @@ const SuggestedThemesPanel = ({
                   ))}
                 </div>
               </section>
-            );
-          })}
-        </div>
+            </TabsContent>
+          ))}
+        </Tabs>
       ) : (
         <div className="rounded-3xl border border-emerald-100 bg-white p-6 text-sm leading-relaxed text-slate-600 shadow-[0_28px_72px_-56px_rgba(15,23,42,0.32)]">
           More guided themes are on the way. In the meantime, continue with the quick actions below.
