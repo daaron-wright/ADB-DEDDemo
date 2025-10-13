@@ -6163,7 +6163,8 @@ export function BusinessChatUI({
         },
       ];
 
-      const fallbackGroup = definitions[0];
+      const fallbackGroup =
+        definitions.find((definition) => definition.id === "interactive-map") ?? definitions[0];
 
       dedupedRecommendations.forEach((recommendation) => {
         const group =
