@@ -6804,6 +6804,7 @@ export function BusinessChatUI({
       setShouldOpenInvestorView,
       setShouldPromptLogin,
       setFollowUpRecommendations,
+      setAdvisorPanelOpen,
       setView,
       setInputValue,
     ],
