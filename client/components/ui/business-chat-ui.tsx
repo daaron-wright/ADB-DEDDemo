@@ -6660,10 +6660,10 @@ export function BusinessChatUI({
   const [isTopicsPanelOpen, setIsTopicsPanelOpen] = useState(false);
 
   useEffect(() => {
-    if (!themesAvailable) {
+    if (!topicsAvailable) {
       setIsTopicsPanelOpen(false);
     }
-  }, [themesAvailable]);
+  }, [topicsAvailable]);
 
   const closeTopicsPanel = useCallback(() => {
     setIsTopicsPanelOpen(false);
