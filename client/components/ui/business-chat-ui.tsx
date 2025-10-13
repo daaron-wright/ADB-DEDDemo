@@ -6597,6 +6597,7 @@ export function BusinessChatUI({
     () => groupedThemeRecommendations.some((group) => group.id === "support"),
     [groupedThemeRecommendations],
   );
+  const canUseSupportShortcut = hasSupportTab && hasTriggeredSuggestedThemes;
 
   const showInlineSuggestedThemes =
     hasTriggeredSuggestedThemes &&
