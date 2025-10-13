@@ -297,7 +297,6 @@ export function BusinessRegistrationFocusContent({
   const trimmedInput = inputValue.trim();
   const isSubmitDisabled = isChecking || trimmedInput.length === 0;
   const displayProgress = Math.round(automationProgress);
-  const isStageReadyForUserActions = automationProgress >= 100 && isNameAvailable;
 
   React.useEffect(() => {
     if (hasUserOverride) {
