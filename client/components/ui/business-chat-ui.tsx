@@ -6883,6 +6883,7 @@ export function BusinessChatUI({
       setShouldPromptLogin(false);
       setIsInvestorAuthenticated(false);
       setShouldOpenInvestorView(false);
+      setAdvisorPanelOpen(false);
       setModalView("chat");
       return;
     }
@@ -6895,59 +6896,162 @@ export function BusinessChatUI({
     setShouldPromptLogin(false);
     setIsInvestorAuthenticated(false);
     setShouldOpenInvestorView(false);
-    setAdvisorPanelOpen(false);
 
-    if (shouldSuppressChat || journeyFocusView) {
+    if (shouldSuppressChat) {
       setMessages([]);
+      setAdvisorPanelOpen(false);
       return;
     }
 
-    const conversation: BusinessMessage[] = [];
+    if (journeyFocusView) {
+      const stageId = journeyFocusView.stage?.id ?? journeyFocusView.timelineItem.id;
+      const stageTitle =
+        journeyFocusView.stage?.title ?? journeyFocusView.timelineItem.title;
+      const stageHighlightLabel = journeyFocusView.stage?.highlight?.label ?? null;
+      const stageHighlightDetail = journeyFocusView.stage?.highlight?.detail ?? null;
+      const stageDescription =
+        journeyFocusView.stage?.description ?? journeyFocusView.timelineItem.description ?? null;
+      const stageStatusLabel = journeyFocusView.timelineItem.statusLabel ?? null;
+      const stageStatusBadgeClass =
+        journeyFocusView.timelineItem.statusBadgeClass ?? null;
+      const stageStatusHelperClass =
+        journeyFocusView.timelineItem.statusHelperClass ?? null;
+      const stageMeta = journeyFocusView.timelineItem.meta ?? null;
 
-    const welcomeMessage = buildMessage(
-      "Hi Layla, I'm Omnis. Where would you like to start?",
-      true,
+      const stageIntro = stageTitle
+        ? `You're now focusing on ${stageTitle}. I'll keep this workspace anchored to the requirements and intel for this phase.`
+        : "You're now focusing on this stage. I'll keep this workspace anchored to what matters right now.";
+
+      const overviewMessage = buildMessage(stageIntro, true, {
+        type: "stage-overview",
+        stageId,
+        stageTitle,
+        stageHighlightLabel,
+        stageHighlightDetail,
+        stageDescription,
+        stageStatusLabel,
+        stageStatusBadgeClass,
+        stageStatusHelperClass,
+        stageMeta,
+      });
+
+      let stageRecommendations: StageRecommendationSummary[] = (journeyFocusView.recommendedActivities ?? [])
+        .slice(0, 3)
+        .map((activity) => ({
+          id: activity.id,
+          label: activity.label,
+          description: activity.description,
+          category: activity.type,
+        }));
+
+      if (stageRecommendations.length === 0) {
+        const pendingTasks = (journeyFocusView.stage?.tasks ?? [])
+          .filter((task) => task.status !== "completed")
+          .slice(0, 3);
+
+        stageRecommendations = pendingTasks.map((task) => ({
+          id: task.id,
+          label: task.label,
+          description:
+            task.status === "in_progress"
+              ? "Marked in progress—ask me if you'd like me to chase blockers or provide supporting material."
+              : "Still outstanding—let me know when you're ready for checklists or document templates.",
+          category: "Task",
+        }));
+      }
+
+      if (stageRecommendations.length === 0) {
+        stageRecommendations = [
+          {
+            id: `${stageId ?? "stage"}-summary`,
+            label: "Get a stage summary",
+            description:
+              "I'll recap completed items, open tasks, and any dependencies so you can confirm momentum.",
+            category: "Guidance",
+          },
+          {
+            id: `${stageId ?? "stage"}-preview`,
+            label: "Preview what's next",
+            description:
+              "Ask me to outline the upcoming stage so you can prepare documents, stakeholders, and timelines in advance.",
+            category: "Planning",
+          },
+        ];
+      }
+
+      const stageConversation: BusinessMessage[] = [overviewMessage];
+
+      stageConversation.push(
+        buildMessage("Here are the quick wins I suggest while we’re here:", true, {
+          type: "stage-recommendations",
+          stageId,
+          stageTitle,
+          stageRecommendations,
+        }),
+      );
+
+      setMessages(stageConversation);
+      setAdvisorPanelOpen(false);
+      return;
+    }
+
+    const defaultActions: MessageAction[] = [
       {
-        actions: [
-          {
-            id: "welcome-market-overview",
-            label: "Explore market signals",
-            action: "open-market-overview",
-          },
-          {
-            id: "welcome-competition",
-            label: "Assess competitive landscape",
-            action: "open-competition-analysis",
-          },
-          {
-            id: "welcome-budget",
-            label: "Review budget outlook",
-            action: "open-budget-analysis",
-          },
-          {
-            id: "welcome-human-agent",
-            label: "Talk to a human agent",
-            action: "contact-human",
-          },
-        ],
+        id: "welcome-market-overview",
+        label: "Explore market signals",
+        action: "open-market-overview",
       },
-    );
+      {
+        id: "welcome-competition",
+        label: "Assess competitive landscape",
+        action: "open-competition-analysis",
+      },
+      {
+        id: "welcome-budget",
+        label: "Review budget outlook",
+        action: "open-budget-analysis",
+      },
+      {
+        id: "welcome-human-agent",
+        label: "Talk to a human agent",
+        action: "contact-human",
+      },
+    ];
 
-    conversation.push(welcomeMessage);
+    const trimmedInitial = initialMessage?.trim();
+    const welcomeText =
+      trimmedInitial && trimmedInitial.length > 0
+        ? trimmedInitial
+        : "Hi Layla, I'm Omnis. Where would you like to start?";
 
-    conversation.push(
-      buildMessage(
-        "We'll move through market signals, competitive context, budget outlook, and eventually the viability summary. Jump to whichever focus suits your current thinking.",
-        true,
-      ),
-    );
+    const conversation: BusinessMessage[] = [
+      buildMessage(welcomeText, true, {
+        actions: defaultActions,
+      }),
+    ];
 
-    conversation.push(
-      buildMessage(
-        "Suggested themes stay flexible, so you can branch into other tracks or come back to earlier ones. When you’re ready for the viability summary, just let me know and we’ll pivot into the application phase.",
-        true,
-      ),
-    );
+    if (!trimmedInitial) {
+      conversation.push(
+        buildMessage(
+          "We'll move through market signals, competitive context, budget outlook, and eventually the viability summary. Jump to whichever focus suits your current thinking.",
+          true,
+        ),
+      );
+
+      conversation.push(
+        buildMessage(
+          "Suggested themes stay flexible, so you can branch into other tracks or come back to earlier ones. When you’re ready for the viability summary, just let me know and we’ll pivot into the application phase.",
+          true,
+        ),
+      );
+    } else {
+      conversation.push(
+        buildMessage(
+          "Let me know the outcome you’re targeting and I’ll surface the right checklists, data, or automations to keep momentum.",
+          true,
+        ),
+      );
+    }
 
     setMessages(conversation);
     setAdvisorPanelOpen(true);
