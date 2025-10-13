@@ -216,9 +216,8 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
               {filteredPoints.map((point) => {
                 const isActive = point.id === activePoint?.id;
                 const baseSize = Math.max(22, point.baseSize ?? 26);
-                const hotspotSize = Math.max(180, baseSize * 8);
+                const markerSize = Math.max(28, baseSize);
                 const palette = getHotspotPalette(point);
-                const gradientId = `competitor-hotspot-${point.id}`;
 
                 return (
                   <motion.button
@@ -227,12 +226,12 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                     onMouseEnter={() => setActivePointId(point.id)}
                     onClick={() => setActivePointId(point.id)}
                     onFocus={() => setActivePointId(point.id)}
-                    className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 transition-transform duration-300"
+                    className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 transition-transform duration-300"
                     style={{
                       left: formatPosition(point.x),
                       top: formatPosition(point.y),
-                      width: hotspotSize,
-                      height: hotspotSize,
+                      width: markerSize,
+                      height: markerSize,
                     }}
                     aria-label={`${point.name}, ${point.cuisine}`}
                     animate={{ scale: isActive ? 1.08 : 1 }}
@@ -240,21 +239,31 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                     whileHover={{ scale: 1.12 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <svg viewBox="0 0 200 200" className="h-full w-full">
-                      <defs>
-                        <radialGradient id={gradientId} gradientUnits="userSpaceOnUse">
-                          <stop offset="0%" stopColor={palette.inner} stopOpacity={isActive ? 0.88 : 0.6} />
-                          <stop offset="55%" stopColor={palette.mid} stopOpacity={isActive ? 0.42 : 0.25} />
-                          <stop offset="100%" stopColor={palette.outer} stopOpacity="0" />
-                        </radialGradient>
-                      </defs>
-                      <circle cx="100" cy="100" r="100" fill={`url(#${gradientId})`} />
+                    <svg viewBox="0 0 40 40" className="h-full w-full">
+                      <circle
+                        cx="20"
+                        cy="20"
+                        r="17"
+                        fill="none"
+                        stroke={palette.mid}
+                        strokeWidth={isActive ? 3 : 2}
+                        strokeOpacity={isActive ? 0.9 : 0.65}
+                      />
+                      <circle
+                        cx="20"
+                        cy="20"
+                        r="10"
+                        fill={palette.inner}
+                        fillOpacity={isActive ? 0.95 : 0.75}
+                      />
+                      <circle
+                        cx="20"
+                        cy="20"
+                        r="4"
+                        fill="#fff"
+                        fillOpacity={isActive ? 0.9 : 0.65}
+                      />
                     </svg>
-                    <span
-                      className="pointer-events-none absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/60 bg-white/50 shadow-[0_0_0_18px_rgba(255,255,255,0.08)] transition-opacity duration-300"
-                      style={{ opacity: isActive ? 0.75 : 0.35 }}
-                      aria-hidden="true"
-                    />
                     <span className="sr-only">{point.name}</span>
                   </motion.button>
                 );
