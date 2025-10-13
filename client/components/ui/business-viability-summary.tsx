@@ -33,6 +33,8 @@ const nextSteps = [
 
 export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> = ({
   onExportPlan,
+  onBeginApplication,
+  onMaybeLater,
 }) => {
   return (
     <div className="space-y-6">
