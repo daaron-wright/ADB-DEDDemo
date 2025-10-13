@@ -6688,7 +6688,7 @@ export function BusinessChatUI({
   );
 
   useEffect(() => {
-    if (!themesAvailable) {
+    if (!topicsAvailable) {
       setIsTopicsPanelOpen(false);
       return;
     }
@@ -6696,7 +6696,7 @@ export function BusinessChatUI({
     if (isAdvisorPanelOpen) {
       setIsTopicsPanelOpen(true);
     }
-  }, [themesAvailable, isAdvisorPanelOpen]);
+  }, [topicsAvailable, isAdvisorPanelOpen]);
 
   const topicsButtonClasses = cn(
     "inline-flex items-center gap-1 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40",
