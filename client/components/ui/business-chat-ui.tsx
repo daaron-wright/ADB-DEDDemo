@@ -6374,7 +6374,7 @@ export function BusinessChatUI({
     "chat",
   );
   const [isAdvisorPanelOpen, setAdvisorPanelOpen] = useState(false);
-  const [hasTriggeredSuggestedThemes, setHasTriggeredSuggestedThemes] =
+  const [hasTriggeredSuggestedTopics, setHasTriggeredSuggestedTopics] =
     useState(false);
   const themeGroupsRef = useRef<SuggestedThemeGroup[]>([]);
   const [followUpRecommendations, setFollowUpRecommendations] = useState<StageRecommendation[]>([]);
