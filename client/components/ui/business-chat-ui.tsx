@@ -6153,7 +6153,7 @@ export function BusinessChatUI({
       setFollowUpRecommendations(Array.from(items));
       setAdvisorPanelOpen(items.length > 0);
     },
-    [],
+    [setAdvisorPanelOpen, setFollowUpRecommendations],
   );
   const openApplicantPortal = useCallback(() => {
     navigate("/portal/applicant", {
