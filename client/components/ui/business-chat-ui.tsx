@@ -562,6 +562,15 @@ const FOLLOW_UP_SUMMARY_COMPLETION: ReadonlyArray<StageRecommendation> = [
   },
 ];
 
+const HUMAN_ASSISTANCE_RECOMMENDATION: StageRecommendation = {
+  id: "persistent-human-assistance",
+  label: "Human Assistance",
+  description: "Reach a TAMM specialist instantly while I keep your workspace updated.",
+  icon: Headset,
+  type: "human",
+  prompt: "Please connect me with a TAMM advisor to review my setup and next steps.",
+};
+
 const CONVERSATION_STEPS: Array<{ id: ConversationStep; label: string }> = [
   { id: "intro", label: "Start" },
   { id: "summary", label: "Market Summary" },
