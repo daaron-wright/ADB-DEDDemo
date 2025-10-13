@@ -6593,6 +6593,11 @@ export function BusinessChatUI({
     ? followUpRecommendations[0]?.description ?? "Choose what you’d like to explore next."
     : stageBlueprint?.message ?? "";
 
+  const hasSupportTab = useMemo(
+    () => groupedThemeRecommendations.some((group) => group.id === "support"),
+    [groupedThemeRecommendations],
+  );
+
   const showInlineSuggestedThemes =
     hasTriggeredSuggestedThemes &&
     groupedThemeRecommendations.length > 0;
