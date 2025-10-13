@@ -6229,8 +6229,25 @@ export function BusinessChatUI({
       return "Voice mode active—tap the mic to ask about licensing steps.";
     }
 
+    if (followUpRecommendations.length > 0) {
+      const nextRecommendation = followUpRecommendations[0];
+
+      switch (nextRecommendation.id) {
+        case "follow-up-location-demographics":
+          return "Ask for demographics in the district you’re evaluating.";
+        case "follow-up-location-budget":
+          return "Request budget ranges for this location to plan next steps.";
+        default:
+          break;
+      }
+
+      if (nextRecommendation.label) {
+        return `${nextRecommendation.label}.`;
+      }
+    }
+
     return DEFAULT_CHAT_PLACEHOLDER;
-  }, [interactionMode]);
+  }, [interactionMode, followUpRecommendations]);
 
   const handleInputChange = (value: string) => {
     setInputValue(value);
