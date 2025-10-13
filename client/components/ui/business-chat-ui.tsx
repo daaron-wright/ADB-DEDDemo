@@ -6661,7 +6661,7 @@ export function BusinessChatUI({
 
   useEffect(() => {
     if (!themesAvailable) {
-      setIsThemesPanelOpen(false);
+      setIsTopicsPanelOpen(false);
     }
   }, [themesAvailable]);
 
