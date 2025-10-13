@@ -6242,7 +6242,7 @@ export function BusinessChatUI({
       }
 
       if (nextRecommendation.label) {
-        return `${nextRecommendation.label}.`;
+        return nextRecommendation.label;
       }
     }
 
