@@ -6749,7 +6749,8 @@ export function BusinessChatUI({
   const openRetailLocations = useCallback(() => {
     setModalView("retail-locations");
     setCurrentStep("handoff");
-  }, [setCurrentStep]);
+    applyFollowUps([]);
+  }, [applyFollowUps, setCurrentStep]);
 
   const handleHumanFallback = useCallback(
     (prompt?: string) => {
