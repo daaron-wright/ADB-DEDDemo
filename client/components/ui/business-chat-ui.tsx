@@ -4349,6 +4349,56 @@ const RECOMMENDATION_TYPE_BADGE_CLASSES: Record<RecommendationInteraction, strin
   human: "border border-rose-100 bg-rose-50 text-rose-700",
 };
 
+const SummaryTabCard = ({
+  stageMessage,
+  groupedRecommendations,
+}: {
+  stageMessage: string;
+  groupedRecommendations: SuggestedThemeGroup[];
+}) => (
+  <div className="flex flex-col gap-6 rounded-[32px] border border-emerald-100/70 bg-white/90 px-6 py-6 shadow-[0_24px_80px_-64px_rgba(14,118,110,0.35)]">
+    <div className="space-y-3">
+      <h5 className="text-sm font-semibold uppercase tracking-[0.28em] text-[#0F766E]">
+        Overview
+      </h5>
+      <p className="text-base font-semibold text-slate-900 sm:text-lg">
+        Where to focus right now
+      </p>
+      <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
+        {stageMessage}
+      </p>
+    </div>
+    {groupedRecommendations.length > 0 ? (
+      <div className="grid gap-3 sm:grid-cols-2">
+        {groupedRecommendations.map((group) => {
+          const GroupIcon = group.icon;
+          return (
+            <div
+              key={group.id}
+              className="flex items-start gap-3 rounded-2xl border border-emerald-100/60 bg-white/80 px-4 py-4"
+            >
+              <span className="mt-1 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
+                <GroupIcon className="h-4 w-4" aria-hidden="true" />
+              </span>
+              <div className="space-y-1">
+                <p className="text-sm font-semibold text-slate-900">
+                  {group.label}
+                </p>
+                <p className="text-xs leading-relaxed text-slate-600">
+                  {group.description}
+                </p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/80">
+                  {group.items.length} {group.items.length === 1 ? "path" : "paths"}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    ) : null}
+  </div>
+);
+
 const RecommendationAccordionItem = ({
   recommendation,
   onSelect,
@@ -4422,6 +4472,8 @@ const SuggestedThemesPanel = ({
   onSendTopic,
   showCloseButton = true,
   variant = "popover",
+  activeTab: controlledActiveTab,
+  onActiveTabChange,
 }: {
   stageLabel?: string;
   stageMessage: string;
@@ -4433,6 +4485,8 @@ const SuggestedThemesPanel = ({
   onSendTopic: (prompt: string) => void;
   showCloseButton?: boolean;
   variant?: "popover" | "inline";
+  activeTab?: string;
+  onActiveTabChange?: (value: string) => void;
 }) => {
   const showClose = showCloseButton && typeof onClose === "function";
 
@@ -4442,22 +4496,36 @@ const SuggestedThemesPanel = ({
       "z-0 w-full border-emerald-200 bg-white/95 shadow-[0_32px_100px_-80px_rgba(15,23,42,0.45)]",
   );
 
-  const [activeTab, setActiveTab] = useState(() => groupedRecommendations[0]?.id ?? "");
+  const availableTabs = useMemo(
+    () => ["summary", ...groupedRecommendations.map((group) => group.id)],
+    [groupedRecommendations],
+  );
+
+  const [internalActiveTab, setInternalActiveTab] = useState(() => availableTabs[0] ?? "summary");
 
   useEffect(() => {
-    if (groupedRecommendations.length === 0) {
-      setActiveTab("");
-      return;
-    }
+    setInternalActiveTab(availableTabs[0] ?? "summary");
+  }, [availableTabs]);
 
-    const currentTabExists = groupedRecommendations.some(
-      (group) => group.id === activeTab,
-    );
+  const activeTab = controlledActiveTab ?? internalActiveTab;
 
-    if (!currentTabExists) {
-      setActiveTab(groupedRecommendations[0]?.id ?? "");
+  useEffect(() => {
+    if (!availableTabs.includes(activeTab)) {
+      const fallback = availableTabs[0] ?? "summary";
+      if (controlledActiveTab === undefined) {
+        setInternalActiveTab(fallback);
+      } else {
+        onActiveTabChange?.(fallback);
+      }
     }
-  }, [activeTab, groupedRecommendations]);
+  }, [activeTab, availableTabs, controlledActiveTab, onActiveTabChange]);
+
+  const handleTabChange = (value: string) => {
+    if (controlledActiveTab === undefined) {
+      setInternalActiveTab(value);
+    }
+    onActiveTabChange?.(value);
+  };
 
   const renderGroupSection = (group: SuggestedThemeGroup) => {
     const GroupIcon = group.icon;
@@ -4503,8 +4571,6 @@ const SuggestedThemesPanel = ({
     );
   };
 
-  const hasMultipleGroups = groupedRecommendations.length > 1;
-
   return (
     <div className={containerClass}>
       <div
@@ -4541,36 +4607,44 @@ const SuggestedThemesPanel = ({
         </div>
       ) : null}
       {groupedRecommendations.length > 0 ? (
-        hasMultipleGroups ? (
-          <Tabs
-            value={activeTab}
-            onValueChange={setActiveTab}
-            className="flex flex-col gap-5"
-          >
-            <TabsList className="flex flex-wrap gap-2 rounded-full border border-emerald-100/80 bg-[#f0f9f6] p-1">
-              {groupedRecommendations.map((group) => {
-                const GroupIcon = group.icon;
-                return (
-                  <TabsTrigger
-                    key={group.id}
-                    value={group.id}
-                    className="flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)]"
-                  >
-                    <GroupIcon className="h-4 w-4" aria-hidden="true" />
-                    {group.label}
-                  </TabsTrigger>
-                );
-              })}
-            </TabsList>
-            {groupedRecommendations.map((group) => (
-              <TabsContent key={group.id} value={group.id} className="m-0">
-                {renderGroupSection(group)}
-              </TabsContent>
-            ))}
-          </Tabs>
-        ) : (
-          renderGroupSection(groupedRecommendations[0])
-        )
+        <Tabs
+          value={activeTab}
+          onValueChange={handleTabChange}
+          className="flex flex-col gap-5"
+        >
+          <TabsList className="flex flex-wrap gap-2 rounded-full border border-emerald-100/80 bg-[#f0f9f6] p-1">
+            <TabsTrigger
+              value="summary"
+              className="flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)]"
+            >
+              Summary
+            </TabsTrigger>
+            {groupedRecommendations.map((group) => {
+              const GroupIcon = group.icon;
+              return (
+                <TabsTrigger
+                  key={group.id}
+                  value={group.id}
+                  className="flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)]"
+                >
+                  <GroupIcon className="h-4 w-4" aria-hidden="true" />
+                  {group.label}
+                </TabsTrigger>
+              );
+            })}
+          </TabsList>
+          <TabsContent value="summary" className="m-0">
+            <SummaryTabCard
+              stageMessage={stageMessage}
+              groupedRecommendations={groupedRecommendations}
+            />
+          </TabsContent>
+          {groupedRecommendations.map((group) => (
+            <TabsContent key={group.id} value={group.id} className="m-0">
+              {renderGroupSection(group)}
+            </TabsContent>
+          ))}
+        </Tabs>
       ) : (
         <div className="rounded-3xl border border-emerald-100 bg-white p-6 text-sm leading-relaxed text-slate-600 shadow-[0_28px_72px_-56px_rgba(15,23,42,0.32)]">
           More guided themes are on the way. In the meantime, continue with the quick actions below.
