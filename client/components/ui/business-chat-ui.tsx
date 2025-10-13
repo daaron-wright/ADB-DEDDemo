@@ -8236,8 +8236,6 @@ export function BusinessChatUI({
                                           closeThemesPanel();
                                         }}
                                         variant="popover"
-                                        activeTab={suggestedThemesActiveTab}
-                                        onActiveTabChange={setSuggestedThemesActiveTab}
                                       />
                                     </PopoverContent>
                                   </Popover>
