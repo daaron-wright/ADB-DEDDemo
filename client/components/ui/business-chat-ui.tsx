@@ -6873,6 +6873,23 @@ export function BusinessChatUI({
 
   useEffect(() => () => clearThemesHoverTimeout(), [clearThemesHoverTimeout]);
 
+  useEffect(() => {
+    if (!isThemesHoverOpen) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeThemesHover();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isThemesHoverOpen, closeThemesHover]);
+
   const handleThemesToggle = useCallback(() => {
     setIsInlineThemesExpanded((prev) => {
       const next = !prev;
