@@ -6602,22 +6602,9 @@ export function BusinessChatUI({
 
   useEffect(() => {
     if (!themesAvailable) {
-      if (suggestedThemesActiveTab !== "summary") {
-        setSuggestedThemesActiveTab("summary");
-      }
-      return;
+      setIsThemesPanelOpen(false);
     }
-
-    const availableTabs = new Set([
-      "summary",
-      ...displayedThemeRecommendations.map((group) => group.id),
-    ]);
-
-    if (!availableTabs.has(suggestedThemesActiveTab)) {
-      const fallback = displayedThemeRecommendations[0]?.id ?? "summary";
-      setSuggestedThemesActiveTab(fallback);
-    }
-  }, [displayedThemeRecommendations, themesAvailable, suggestedThemesActiveTab]);
+  }, [themesAvailable]);
   const [isThemesPanelOpen, setIsThemesPanelOpen] = useState(false);
 
   const closeThemesPanel = useCallback(() => {
