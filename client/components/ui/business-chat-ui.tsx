@@ -6023,11 +6023,16 @@ export function BusinessChatUI({
   const stageBlueprint = CONVERSATION_BLUEPRINT[currentStep];
 
   const activeRecommendations = useMemo<StageRecommendation[]>(() => {
-    if (followUpRecommendations.length > 0) {
-      return [...followUpRecommendations];
+    const base =
+      followUpRecommendations.length > 0
+        ? [...followUpRecommendations]
+        : [...(stageBlueprint?.recommendations ?? [])];
+
+    if (!base.some((recommendation) => recommendation.type === "human")) {
+      base.push(HUMAN_ASSISTANCE_RECOMMENDATION);
     }
 
-    return [...(stageBlueprint?.recommendations ?? [])];
+    return base;
   }, [followUpRecommendations, stageBlueprint]);
 
   const buildThemeGroups = useCallback(
