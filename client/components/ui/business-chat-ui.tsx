@@ -6709,27 +6709,6 @@ export function BusinessChatUI({
       .map(({ predicate, ...definition }) => definition);
   }, [activeRecommendations]);
 
-  useEffect(() => {
-    if (!hasTriggeredSuggestedThemes) {
-      setSuggestedThemesActiveTab("summary");
-      return;
-    }
-
-    const availableTabs = new Set([
-      "summary",
-      ...groupedThemeRecommendations.map((group) => group.id),
-    ]);
-
-    if (!availableTabs.has(suggestedThemesActiveTab)) {
-      const fallback = groupedThemeRecommendations[0]?.id ?? "summary";
-      setSuggestedThemesActiveTab(fallback);
-    }
-  }, [
-    groupedThemeRecommendations,
-    hasTriggeredSuggestedThemes,
-    suggestedThemesActiveTab,
-  ]);
-
   const stageMeta = useMemo(
     () => CONVERSATION_STEPS.find((item) => item.id === currentStep),
     [currentStep],
@@ -6744,8 +6723,51 @@ export function BusinessChatUI({
     ? followUpRecommendations[0]?.description ?? "Choose what you’d like to explore next."
     : stageBlueprint?.message ?? "";
 
+  useEffect(() => {
+    if (groupedThemeRecommendations.length > 0) {
+      setPersistedThemeGroups(groupedThemeRecommendations);
+      if (!hasTriggeredSuggestedThemes) {
+        setHasTriggeredSuggestedThemes(true);
+      }
+      return;
+    }
+
+    if (hasStageTopics && !hasTriggeredSuggestedThemes) {
+      setHasTriggeredSuggestedThemes(true);
+    }
+  }, [
+    groupedThemeRecommendations,
+    hasStageTopics,
+    hasTriggeredSuggestedThemes,
+  ]);
+
+  const hasThemeInventory =
+    groupedThemeRecommendations.length > 0 || persistedThemeGroups.length > 0;
+  const displayedThemeRecommendations =
+    groupedThemeRecommendations.length > 0
+      ? groupedThemeRecommendations
+      : persistedThemeGroups;
   const themesAvailable =
-    hasTriggeredSuggestedThemes && groupedThemeRecommendations.length > 0;
+    hasThemeInventory || hasStageTopics || hasTriggeredSuggestedThemes;
+
+  useEffect(() => {
+    if (!themesAvailable) {
+      if (suggestedThemesActiveTab !== "summary") {
+        setSuggestedThemesActiveTab("summary");
+      }
+      return;
+    }
+
+    const availableTabs = new Set([
+      "summary",
+      ...displayedThemeRecommendations.map((group) => group.id),
+    ]);
+
+    if (!availableTabs.has(suggestedThemesActiveTab)) {
+      const fallback = displayedThemeRecommendations[0]?.id ?? "summary";
+      setSuggestedThemesActiveTab(fallback);
+    }
+  }, [displayedThemeRecommendations, themesAvailable, suggestedThemesActiveTab]);
   const [isThemesPanelOpen, setIsThemesPanelOpen] = useState(false);
 
   const closeThemesPanel = useCallback(() => {
