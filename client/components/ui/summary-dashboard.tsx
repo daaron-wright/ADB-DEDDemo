@@ -494,7 +494,7 @@ export function SummaryDashboard({
                     <li>• Strong dining culture: 78% eat out twice weekly</li>
                     <li>
                       • The Corniche offers premium location with 100K+ weekly
-                      footfall
+                      population density
                     </li>
                   </ul>
                 </div>
