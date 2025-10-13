@@ -87,7 +87,7 @@ export const InvestmentReportDocument: React.FC<InvestmentReportDocumentProps> =
             </div>
 
             <div>
-              <h3 className="font-bold text-black mb-2">Footfall Numbers:</h3>
+              <h3 className="font-bold text-black mb-2">Population Density Indicators:</h3>
               <p className="text-gray-700 leading-relaxed mb-3">
                 The Corniche itself sees a high volume of visitors. Reports from tourism agencies mention monthly averages ranging
                 from 30,000 to 50,000 visitors, enjoying the various amenities like cycling paths, beaches, and parks.
