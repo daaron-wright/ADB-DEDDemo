@@ -185,7 +185,7 @@ export const InvestmentReportDocument: React.FC<InvestmentReportDocumentProps> =
                 <span className="font-bold text-black">High Season (October - April): </span>
                 <span className="text-gray-700">
                   This is the busiest period for both residents and tourists. The weather is cool and pleasant,
-                  leading to maximum footfall and higher revenues.
+                  leading to peak population density and higher revenues.
                 </span>
               </div>
               <div>
