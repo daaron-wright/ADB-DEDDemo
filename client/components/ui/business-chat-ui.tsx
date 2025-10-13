@@ -6998,7 +6998,7 @@ export function BusinessChatUI({
     const defaultActions: MessageAction[] = [
       {
         id: "welcome-market-overview",
-        label: "Explore market signals",
+        label: "Discover investment districts",
         action: "open-market-overview",
       },
       {
@@ -7031,6 +7031,13 @@ export function BusinessChatUI({
     ];
 
     if (!trimmedInitial) {
+      conversation.push(
+        buildMessage(
+          "Not sure where to start? I can surface the districts attracting the strongest demand right now—just tap “Discover investment districts” above and I’ll walk you through the hotspots.",
+          true,
+        ),
+      );
+
       conversation.push(
         buildMessage(
           "We'll move through market signals, competitive context, budget outlook, and eventually the viability summary. Jump to whichever focus suits your current thinking.",
