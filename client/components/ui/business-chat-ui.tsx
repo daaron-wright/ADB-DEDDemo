@@ -6620,10 +6620,14 @@ export function BusinessChatUI({
       const userMessage = buildMessage(trimmed, false);
       const responses: BusinessMessage[] = [];
 
-      const normalizedText = lower
-        .replace(/[.,!?]/g, "")
-        .replace(/\s+/g, " ")
-        .trim();
+      const normalizedText = normalizeMessageContent(trimmed);
+
+      if (
+        !hasTriggeredSuggestedThemes &&
+        normalizedText === NORMALIZED_SUGGESTED_THEMES_TRIGGER
+      ) {
+        setHasTriggeredSuggestedThemes(true);
+      }
 
       const isSummaryCommand =
         normalizedText === "summary" ||
