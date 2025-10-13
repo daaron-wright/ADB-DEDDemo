@@ -858,7 +858,7 @@ export function BusinessRegistrationFocusContent({
         headline: "Payment in progress",
         description:
           "AD Pay opened in a new tab. Complete the reservation payment to lock your trade name.",
-        buttonLabel: "Payment started",
+        buttonLabel: "Payment complete with AD Pay",
         onClick: () => undefined,
         disabled: true,
       };
@@ -888,7 +888,7 @@ export function BusinessRegistrationFocusContent({
     ? "Awaiting input"
     : isNameAvailable
     ? hasInitiatedPayment
-      ? "Payment started"
+      ? "Payment complete with AD Pay"
       : "Ready to pay"
     : "Action needed";
 
