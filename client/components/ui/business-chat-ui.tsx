@@ -4025,7 +4025,7 @@ const STAGE_TOPIC_GROUPS: Record<ConversationStep, TopicGroup[]> = {
           id: "intro-timing",
           label: "Peak trading hours",
           prompt:
-            "When does foot traffic spike across the Corniche, Saadiyat, and Al Maryah districts this week?",
+            "When does population density spike across the Corniche, Saadiyat, and Al Maryah districts this week?",
         },
         {
           id: "intro-zoning",
