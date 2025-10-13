@@ -375,7 +375,7 @@ export const areaProfiles: AreaProfile[] = [
       },
       office: {
         value: "2,900 – 3,800 workers",
-        note: "Cultural institutions and education hubs sustaining weekday footfall.",
+        note: "Cultural institutions and education hubs sustaining weekday population density.",
         source: "Employment statistics, 2024",
       },
       tourists: {
