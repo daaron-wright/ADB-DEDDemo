@@ -292,11 +292,11 @@ const normalizeMessageContent = (value: string) =>
     .replace(/\s+/g, " ")
     .trim();
 
-const SUGGESTED_THEMES_TRIGGER_MESSAGE =
+const SUGGESTED_TOPICS_TRIGGER_MESSAGE =
   "I want to open a new restaurant in Abu Dhabi. What are the best areas for modern Emirati fusion cuisine?";
 
-const NORMALIZED_SUGGESTED_THEMES_TRIGGER = normalizeMessageContent(
-  SUGGESTED_THEMES_TRIGGER_MESSAGE,
+const NORMALIZED_SUGGESTED_TOPICS_TRIGGER = normalizeMessageContent(
+  SUGGESTED_TOPICS_TRIGGER_MESSAGE,
 );
 
 const CONVERSATION_BLUEPRINT: Record<
