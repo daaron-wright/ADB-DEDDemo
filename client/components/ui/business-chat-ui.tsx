@@ -8134,11 +8134,19 @@ export function BusinessChatUI({
                       <div className="flex items-center gap-3">
                         <div className="hidden sm:flex items-center gap-2 text-slate-500">
                           <span className="text-[11px] font-semibold uppercase tracking-[0.22em]">
-                            Status
+                            Support
                           </span>
-                          <span className="inline-flex items-center rounded-full border border-emerald-200/70 bg-emerald-100/40 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
-                            Always On
-                          </span>
+                          <button
+                            type="button"
+                            onClick={handleSupportShortcut}
+                            disabled={!canUseSupportShortcut}
+                            className={cn(
+                              "inline-flex items-center gap-1.5 rounded-full border border-emerald-200/70 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition hover:border-[#0F766E]/60 hover:bg-white/90 disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-white/60 disabled:text-slate-400",
+                            )}
+                          >
+                            <Headset className="h-3.5 w-3.5" aria-hidden="true" />
+                            Support tab
+                          </button>
                         </div>
                         <button
                           type="button"
