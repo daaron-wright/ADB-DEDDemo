@@ -6710,10 +6710,10 @@ export function BusinessChatUI({
   );
 
   useEffect(() => {
-    if (!themesAvailable && isAdvisorPanelOpen) {
+    if (!topicsAvailable && isAdvisorPanelOpen) {
       setAdvisorPanelOpen(false);
     }
-  }, [themesAvailable, isAdvisorPanelOpen, setAdvisorPanelOpen]);
+  }, [topicsAvailable, isAdvisorPanelOpen, setAdvisorPanelOpen]);
 
   const artifactMessages = useMemo(
     () =>
