@@ -4006,7 +4006,7 @@ const STAGE_TOPIC_GROUPS: Record<ConversationStep, TopicGroup[]> = {
       id: "interaction-map",
       title: "Interactive Map",
       description:
-        "Preview live footfall, resident density, tourist flows, and zoning overlays before committing to a district focus.",
+        "Preview live population density, resident distribution, tourist flows, and zoning overlays before committing to a district focus.",
       icon: MapIcon,
       topics: [
         {
