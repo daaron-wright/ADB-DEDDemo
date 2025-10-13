@@ -238,7 +238,7 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                     <path d="M12 12v8" />
                     <path d="M5 21h14" />
                   </svg>
-                  Continue with Omnis
+                  Continue to your workspace with Omnis
                 </button>
                 <button
                   type="button"
