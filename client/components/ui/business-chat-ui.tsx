@@ -8402,8 +8402,7 @@ export function BusinessChatUI({
                             </div>
                           </div>
                           {stageBlueprint &&
-                          hasTriggeredSuggestedThemes &&
-                          !shouldShowInlineSuggestedThemes ? (
+                          hasTriggeredSuggestedThemes ? (
                             <div className="relative z-[200] isolate overflow-visible">
                               {isAdvisorPanelOpen ? (
                                 <div
