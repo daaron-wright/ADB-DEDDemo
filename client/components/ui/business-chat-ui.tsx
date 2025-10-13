@@ -5762,7 +5762,7 @@ const DiscoverExperienceView = ({
                                   {insightById["khalifa-city"]?.trend}
                                 </p>
                                 <p className="text-xs text-slate-600">
-                                  {insightById["khalifa-city"]?.footfall}
+                                  {insightById["khalifa-city"]?.populationDensity}
                                 </p>
                               </div>
                             )}
@@ -5809,7 +5809,7 @@ const DiscoverExperienceView = ({
                                   {insightById["marina"]?.trend}
                                 </p>
                                 <p className="text-xs text-slate-600">
-                                  {insightById["marina"]?.footfall}
+                                  {insightById["marina"]?.populationDensity}
                                 </p>
                               </div>
                             )}
@@ -5856,7 +5856,7 @@ const DiscoverExperienceView = ({
                                   {insightById["central"]?.trend}
                                 </p>
                                 <p className="text-xs text-slate-600">
-                                  {insightById["central"]?.footfall}
+                                  {insightById["central"]?.populationDensity}
                                 </p>
                               </div>
                             )}
@@ -5903,7 +5903,7 @@ const DiscoverExperienceView = ({
                                   {insightById["baniyas"]?.trend}
                                 </p>
                                 <p className="text-xs text-slate-600">
-                                  {insightById["baniyas"]?.footfall}
+                                  {insightById["baniyas"]?.populationDensity}
                                 </p>
                               </div>
                             )}
@@ -5950,7 +5950,7 @@ const DiscoverExperienceView = ({
                                   {insightById["corniche"]?.trend}
                                 </p>
                                 <p className="text-xs text-slate-600">
-                                  {insightById["corniche"]?.footfall}
+                                  {insightById["corniche"]?.populationDensity}
                                 </p>
                               </div>
                             )}
@@ -5997,7 +5997,7 @@ const DiscoverExperienceView = ({
                                   {insightById["coastal"]?.trend}
                                 </p>
                                 <p className="text-xs text-slate-600">
-                                  {insightById["coastal"]?.footfall}
+                                  {insightById["coastal"]?.populationDensity}
                                 </p>
                               </div>
                             )}
@@ -6077,7 +6077,7 @@ const DiscoverExperienceView = ({
                                 Footfall
                               </dt>
                               <dd className="mt-1 text-sm font-semibold text-slate-900">
-                                {activeInsight.footfall}
+                                {activeInsight.populationDensity}
                               </dd>
                             </div>
                             <div>
@@ -6138,7 +6138,7 @@ const DiscoverExperienceView = ({
                                   <div className="flex items-center justify-between text-sm font-semibold text-slate-900">
                                     <span>{spot.name}</span>
                                     <span className="text-slate-500">
-                                      {spot.footfall}
+                                      {spot.populationDensity}
                                     </span>
                                   </div>
                                   <div className="mt-1 flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-slate-500">
@@ -6264,7 +6264,7 @@ const DiscoverExperienceView = ({
                                     Footfall
                                   </span>
                                   <p className="mt-1 text-sm font-semibold text-slate-900">
-                                    {spot.footfall}
+                                    {spot.populationDensity}
                                   </p>
                                 </div>
                                 <div>
