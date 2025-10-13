@@ -174,9 +174,9 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
       <header className="relative z-10 flex items-center justify-between border-b border-[#d8e4df] bg-white/90 px-6 py-4 backdrop-blur">
         <div className="space-y-1">
           <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">Investor Compass</p>
-          <h2 className="text-lg font-semibold text-slate-900">Competitive Landscape</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Corniche competitive landscape</h2>
           <p className="text-xs text-slate-600">
-            Pinpoint existing venues across Abu Dhabi&apos;s waterfront districts and surface gaps before budgeting.
+            Analyze Investor Compass signals to locate white space across Corniche waterfront dining.
           </p>
         </div>
         <button
