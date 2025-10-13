@@ -221,6 +221,9 @@ interface StageRecommendation {
   nextStep?: ConversationStep;
 }
 
+const normalizeRecommendationText = (recommendation: StageRecommendation) =>
+  `${recommendation.label} ${recommendation.description ?? ""} ${recommendation.prompt ?? ""}`.toLowerCase();
+
 type SuggestedThemeGroup = {
   id: string;
   label: string;
