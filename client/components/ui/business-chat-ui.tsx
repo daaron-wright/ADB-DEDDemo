@@ -6925,13 +6925,13 @@ export function BusinessChatUI({
       });
 
       if (action === "open-market-overview") {
-        setFollowUpRecommendations(Array.from(LOCATION_INTELLIGENCE_FOLLOW_UPS));
-        setAdvisorPanelOpen(true);
+        applyFollowUps(LOCATION_INTELLIGENCE_FOLLOW_UPS);
       } else {
-        setFollowUpRecommendations([]);
+        applyFollowUps([]);
       }
     },
     [
+      applyFollowUps,
       buildMessage,
       buildStepMessage,
       currentStep,
@@ -6943,8 +6943,6 @@ export function BusinessChatUI({
       setModalView,
       setShouldOpenInvestorView,
       setShouldPromptLogin,
-      setFollowUpRecommendations,
-      setAdvisorPanelOpen,
       setView,
       setInputValue,
     ],
