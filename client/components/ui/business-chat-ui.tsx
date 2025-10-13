@@ -4458,15 +4458,6 @@ const SuggestedTopicsPanel = ({
           </button>
         ) : null}
       </div>
-      {hasStageTopics ? (
-        <div className="rounded-3xl border border-emerald-100/70 bg-[#f4fbf8] px-5 py-4">
-          <StageTopicSuggestions
-            key={currentStep}
-            step={currentStep}
-            onSendTopic={onSendTopic}
-          />
-        </div>
-      ) : null}
       {groupedRecommendations.length > 0 ? (
         <Tabs value={activeTab} onValueChange={setActiveTab} className="flex flex-col gap-5">
           <TabsList className="flex flex-wrap gap-2 rounded-full border border-emerald-100/80 bg-[#f0f9f6] p-1">
