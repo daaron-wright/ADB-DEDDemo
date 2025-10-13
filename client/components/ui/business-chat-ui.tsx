@@ -3658,7 +3658,7 @@ const RegionExplorerPrompt = ({
             Let’s chart your next move.
           </h3>
           <p className="text-sm leading-relaxed text-slate-600">
-            Drop a prompt like ���Preview live resident density, tourist flows, and zoning overlays before committing to a district focus.” or “Validate demand drivers, seasonal triggers, and spend behavior before deep-diving licensing or budgeting.”
+            Drop a prompt like “Preview live resident density, tourist flows, and zoning overlays before committing to a district focus.” or “Validate demand drivers, seasonal triggers, and spend behavior before deep-diving licensing or budgeting.”
           </p>
         </div>
       </div>
@@ -7846,7 +7846,7 @@ export function BusinessChatUI({
 
       conversation.push(
         buildMessage(
-          "Suggested themes stay flexible, so you can branch into other tracks or come back to earlier ones. When you���re ready for the viability summary, just let me know and we’ll pivot into the application phase.",
+          "Suggested themes stay flexible, so you can branch into other tracks or come back to earlier ones. When you’re ready for the viability summary, just let me know and we’ll pivot into the application phase.",
           true,
         ),
       );
@@ -8119,26 +8119,28 @@ export function BusinessChatUI({
               }
             }}
           >
-            <div className="pointer-events-auto w-[min(680px,92vw)]">
-              <SuggestedThemesPanel
-                stageLabel={stagePanelLabel}
-                stageMessage={stagePanelMessage}
-                groupedRecommendations={displayedThemeRecommendations}
-                onClose={closeThemesPanel}
-                onRecommendationSelect={(recommendation) => {
-                  handleRecommendationSelect(recommendation);
-                  closeThemesPanel();
-                }}
-                hasStageTopics={hasStageTopics}
-                currentStep={currentStep}
-                onSendTopic={(prompt) => {
-                  handleSendMessage(prompt);
-                  closeThemesPanel();
-                }}
-                variant="popover"
-                activeTab={suggestedThemesActiveTab}
-                onActiveTabChange={setSuggestedThemesActiveTab}
-              />
+            <div className="pointer-events-auto w-[min(820px,96vw)] max-h-[90vh] overflow-hidden">
+              <div className="h-full overflow-y-auto pr-1 sm:pr-2">
+                <SuggestedThemesPanel
+                  stageLabel={stagePanelLabel}
+                  stageMessage={stagePanelMessage}
+                  groupedRecommendations={displayedThemeRecommendations}
+                  onClose={closeThemesPanel}
+                  onRecommendationSelect={(recommendation) => {
+                    handleRecommendationSelect(recommendation);
+                    closeThemesPanel();
+                  }}
+                  hasStageTopics={hasStageTopics}
+                  currentStep={currentStep}
+                  onSendTopic={(prompt) => {
+                    handleSendMessage(prompt);
+                    closeThemesPanel();
+                  }}
+                  variant="popover"
+                  activeTab={suggestedThemesActiveTab}
+                  onActiveTabChange={setSuggestedThemesActiveTab}
+                />
+              </div>
             </div>
           </div>,
           document.body,
