@@ -692,6 +692,7 @@ export default function Index() {
                               animate={{
                                 filter: isElevated ? "blur(7px)" : "blur(0px)",
                                 scale: isElevated ? 1.04 : 1,
+                                y: isElevated ? 18 : 0,
                               }}
                               transition={{ duration: 0.45, ease: "easeOut" }}
                             />
@@ -705,6 +706,7 @@ export default function Index() {
                                     ? "blur(7px)"
                                     : "blur(0px)",
                                   scale: isElevated ? 1.04 : 1,
+                                  y: isElevated ? 18 : 0,
                                 }}
                                 transition={{ duration: 0.45, ease: "easeOut" }}
                               />
