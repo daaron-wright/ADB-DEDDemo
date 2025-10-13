@@ -7831,12 +7831,12 @@ export function BusinessChatUI({
                           <div className="flex items-center gap-3 sm:gap-4">
                             <AIBusinessOrb className="h-12 w-12 sm:h-16 sm:w-16" />
                             <div className="min-w-0 flex-1 text-left">
-                              <div className="flex flex-wrap items-center gap-2 sm:w-full sm:justify-between sm:gap-3">
+                              <div className="flex w-full flex-wrap items-center justify-between gap-2 sm:gap-4">
                                 <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
                                   Omnis
                                 </h3>
                                 {topicsAvailable ? (
-                                  <div className="flex-shrink-0 sm:ml-6">
+                                  <div className="flex-shrink-0 ml-auto pl-4 sm:pl-10">
                                     <Popover
                                       open={isTopicsPanelOpen}
                                       onOpenChange={handleTopicsOpenChange}
