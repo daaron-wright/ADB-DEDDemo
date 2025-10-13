@@ -6657,7 +6657,7 @@ export function BusinessChatUI({
   const themesAvailable =
     hasThemeInventory || hasStageTopics || hasTriggeredSuggestedThemes;
 
-  const [isThemesPanelOpen, setIsThemesPanelOpen] = useState(false);
+  const [isTopicsPanelOpen, setIsTopicsPanelOpen] = useState(false);
 
   useEffect(() => {
     if (!themesAvailable) {
