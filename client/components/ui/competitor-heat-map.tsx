@@ -223,10 +223,10 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
             <div className="flex flex-wrap items-center justify-between gap-4 px-5 py-4">
               <div>
                 <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-white/70">
-                  Map view
+                  Corniche map view
                 </h3>
-                <p className="text-xs text-white/65">
-                  Pins highlight F&amp;B competitors aligned to Lyla&apos;s concept filters.
+                <p className="text-xs text-white/70">
+                  Pins surface Investor Compass insight for waterfront competitors meeting Lyla&apos;s filters.
                 </p>
               </div>
               <div className="text-right text-xs text-white/70">
