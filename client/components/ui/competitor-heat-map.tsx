@@ -437,7 +437,7 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]">
-                      Investor Compass data
+                      Investor Compass signals
                     </p>
                     <h4 className="text-lg font-semibold text-slate-900">{activePoint.name}</h4>
                     <p className="text-xs text-slate-500">{activePoint.location}</p>
