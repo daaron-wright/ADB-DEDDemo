@@ -129,6 +129,8 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
     );
   }, [activeFilters]);
 
+  const showRelevantGap = activeFilters.relevant && filteredPoints.length === 0;
+
   useEffect(() => {
     if (filteredPoints.length === 0) {
       setActivePointId("");
