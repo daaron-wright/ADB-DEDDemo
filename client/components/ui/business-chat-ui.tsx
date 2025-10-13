@@ -4329,19 +4329,36 @@ const SuggestedThemesPanel = ({
   hasStageTopics,
   currentStep,
   onSendTopic,
+  showCloseButton = true,
+  variant = "popover",
 }: {
   stageLabel?: string;
   stageMessage: string;
   groupedRecommendations: SuggestedThemeGroup[];
-  onClose: () => void;
+  onClose?: () => void;
   onRecommendationSelect: (recommendation: StageRecommendation) => void;
   hasStageTopics: boolean;
   currentStep: ConversationStep;
   onSendTopic: (prompt: string) => void;
+  showCloseButton?: boolean;
+  variant?: "popover" | "inline";
 }) => {
+  const showClose = showCloseButton && typeof onClose === "function";
+
+  const containerClass = cn(
+    "relative z-20 flex flex-col gap-6 rounded-[40px] border border-emerald-100/80 bg-white px-7 py-7 shadow-[0_64px_150px_-60px_rgba(15,23,42,0.5)] sm:px-10 sm:py-8",
+    variant === "inline" &&
+      "z-0 w-full border-emerald-200 bg-white/95 shadow-[0_32px_100px_-80px_rgba(15,23,42,0.45)]",
+  );
+
   return (
-    <div className="relative z-20 flex flex-col gap-6 rounded-[40px] border border-emerald-100/80 bg-white px-7 py-7 shadow-[0_64px_150px_-60px_rgba(15,23,42,0.5)] sm:px-10 sm:py-8">
-      <div className="flex items-start justify-between gap-4">
+    <div className={containerClass}>
+      <div
+        className={cn(
+          "flex items-start justify-between gap-4",
+          !showClose && "justify-start",
+        )}
+      >
         <div className="space-y-3">
           <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[#0F766E]">
             Suggested themes
@@ -4353,14 +4370,16 @@ const SuggestedThemesPanel = ({
             {stageMessage}
           </p>
         </div>
-        <button
-          type="button"
-          onClick={onClose}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:border-slate-300 hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
-          aria-label="Close suggested themes"
-        >
-          <X className="h-4 w-4" aria-hidden="true" />
-        </button>
+        {showClose ? (
+          <button
+            type="button"
+            onClick={onClose}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:border-slate-300 hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
+            aria-label="Close suggested themes"
+          >
+            <X className="h-4 w-4" aria-hidden="true" />
+          </button>
+        ) : null}
       </div>
       {hasStageTopics ? (
         <div className="rounded-3xl border border-emerald-100/70 bg-[#f4fbf8] px-5 py-4">
