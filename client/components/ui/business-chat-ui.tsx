@@ -6313,8 +6313,6 @@ export function BusinessChatUI({
     useState(false);
   const themeGroupsRef = useRef<SuggestedThemeGroup[]>([]);
   const [followUpRecommendations, setFollowUpRecommendations] = useState<StageRecommendation[]>([]);
-  const [suggestedThemesActiveTab, setSuggestedThemesActiveTab] =
-    useState<string>("summary");
   const applyFollowUps = useCallback(
     (items: ReadonlyArray<StageRecommendation>) => {
       const next = Array.from(items);
