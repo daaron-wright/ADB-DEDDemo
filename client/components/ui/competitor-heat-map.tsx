@@ -39,7 +39,7 @@ const mapBackgroundImage =
 const formatPosition = (value: number) => `${Math.min(Math.max(value, 4), 96)}%`;
 
 const ActiveCompetitorPopup = ({ point }: { point: CompetitorPoint }) => (
-  <div className="pointer-events-none">
+  <div className="pointer-events-none relative">
     <div className="pointer-events-auto w-[min(320px,85vw)] rounded-3xl border border-white/35 bg-[#072027]/95 p-4 shadow-[0_28px_60px_-34px_rgba(8,22,30,0.65)] backdrop-blur">
       <div className="flex items-start justify-between gap-3">
         <div>
@@ -54,7 +54,7 @@ const ActiveCompetitorPopup = ({ point }: { point: CompetitorPoint }) => (
         </span>
       </div>
 
-      <p className="mt-3 text-sm leading-relaxed text-white/85">{point.summary}</p>
+      <p className="mt-3 text-sm leading-relaxed text-white/80">{point.summary}</p>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-3">
         {metricOrder.map((metricId) => {
@@ -80,7 +80,7 @@ const ActiveCompetitorPopup = ({ point }: { point: CompetitorPoint }) => (
                 {meta.label}
               </div>
               <div className="mt-2 text-lg font-semibold text-white">{formattedValue}</div>
-              <div className="text-[11px] uppercase tracking-[0.18em] text-white/55">
+              <div className="text-[11px] uppercase tracking-[0.18em] text-white/60">
                 {metric.unit}
               </div>
             </div>
@@ -88,7 +88,7 @@ const ActiveCompetitorPopup = ({ point }: { point: CompetitorPoint }) => (
         })}
       </div>
 
-      <div className="mt-4 space-y-1 text-xs text-white/65">
+      <div className="mt-4 space-y-1 text-xs text-white/60">
         <p>Signals derived from Investor Compass social scraping and review analytics.</p>
         <p>Use filters to surface white space where Corniche demand is underserved.</p>
       </div>
