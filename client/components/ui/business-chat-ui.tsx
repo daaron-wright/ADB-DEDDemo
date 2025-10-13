@@ -7736,7 +7736,7 @@ export function BusinessChatUI({
 
       conversation.push(
         buildMessage(
-          "Suggested themes stay flexible, so you can branch into other tracks or come back to earlier ones. When you’re ready for the viability summary, just let me know and we’ll pivot into the application phase.",
+          "Suggested topics stay flexible, so you can branch into other tracks or come back to earlier ones. When you’re ready for the viability summary, just let me know and we’ll pivot into the application phase.",
           true,
         ),
       );
