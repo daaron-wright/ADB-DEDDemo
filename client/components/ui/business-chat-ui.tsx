@@ -6563,150 +6563,158 @@ export function BusinessChatUI({
     return [...(stageBlueprint?.recommendations ?? [])];
   }, [followUpRecommendations, stageBlueprint]);
 
-  const groupedThemeRecommendations = useMemo<SuggestedThemeGroup[]>(() => {
-    if (activeRecommendations.length === 0) {
-      return [];
-    }
+  const buildThemeGroups = useCallback(
+    (recommendations: StageRecommendation[]): SuggestedThemeGroup[] => {
+      if (recommendations.length === 0) {
+        return [];
+      }
 
-    const dedupedRecommendations = Array.from(
-      new Map(activeRecommendations.map((rec) => [rec.id, rec])).values(),
-    );
+      const dedupedRecommendations = Array.from(
+        new Map(recommendations.map((rec) => [rec.id, rec])).values(),
+      );
 
-    if (dedupedRecommendations.length === 0) {
-      return [];
-    }
+      if (dedupedRecommendations.length === 0) {
+        return [];
+      }
 
-    const definitions: Array<{
-      id: string;
-      label: string;
-      description: string;
-      icon: LucideIcon;
-      predicate: (recommendation: StageRecommendation) => boolean;
-      items: StageRecommendation[];
-    }> = [
-      {
-        id: "interactive-map",
-        label: "Interactive map",
-        description: "Location intelligence layers and spatial planning for Abu Dhabi districts.",
-        icon: MapIcon,
-        predicate: (recommendation: StageRecommendation) => {
-          const text = normalizeRecommendationText(recommendation);
-          return (
-            recommendation.modal === "heat-map" ||
-            recommendation.modal === "retail-locations" ||
-            recommendation.icon === MapIcon ||
-            text.includes("map") ||
-            text.includes("location")
-          );
+      const definitions: Array<{
+        id: string;
+        label: string;
+        description: string;
+        icon: LucideIcon;
+        predicate: (recommendation: StageRecommendation) => boolean;
+        items: StageRecommendation[];
+      }> = [
+        {
+          id: "interactive-map",
+          label: "Interactive map",
+          description: "Location intelligence layers and spatial planning for Abu Dhabi districts.",
+          icon: MapIcon,
+          predicate: (recommendation: StageRecommendation) => {
+            const text = normalizeRecommendationText(recommendation);
+            return (
+              recommendation.modal === "heat-map" ||
+              recommendation.modal === "retail-locations" ||
+              recommendation.icon === MapIcon ||
+              text.includes("map") ||
+              text.includes("location")
+            );
+          },
+          items: [],
         },
-        items: [],
-      },
-      {
-        id: "demographics",
-        label: "Demographics",
-        description: "Audience mixes, visitor flows, and population insights by zone.",
-        icon: MapPin,
-        predicate: (recommendation: StageRecommendation) => {
-          const text = normalizeRecommendationText(recommendation);
-          return (
-            recommendation.icon === MapPin ||
-            text.includes("demographic") ||
-            text.includes("resident") ||
-            text.includes("visitor") ||
-            text.includes("population")
-          );
+        {
+          id: "demographics",
+          label: "Demographics",
+          description: "Audience mixes, visitor flows, and population insights by zone.",
+          icon: MapPin,
+          predicate: (recommendation: StageRecommendation) => {
+            const text = normalizeRecommendationText(recommendation);
+            return (
+              recommendation.icon === MapPin ||
+              text.includes("demographic") ||
+              text.includes("resident") ||
+              text.includes("visitor") ||
+              text.includes("population")
+            );
+          },
+          items: [],
         },
-        items: [],
-      },
-      {
-        id: "budget",
-        label: "Budget",
-        description: "Setup envelopes, operating costs, and capital planning guidance.",
-        icon: Gauge,
-        predicate: (recommendation: StageRecommendation) => {
-          const text = normalizeRecommendationText(recommendation);
-          return (
-            recommendation.modal === "budget-ranges" ||
-            recommendation.action === "open-budget-analysis" ||
-            recommendation.icon === Gauge ||
-            text.includes("budget") ||
-            text.includes("cost") ||
-            text.includes("price")
-          );
+        {
+          id: "budget",
+          label: "Budget",
+          description: "Setup envelopes, operating costs, and capital planning guidance.",
+          icon: Gauge,
+          predicate: (recommendation: StageRecommendation) => {
+            const text = normalizeRecommendationText(recommendation);
+            return (
+              recommendation.modal === "budget-ranges" ||
+              recommendation.action === "open-budget-analysis" ||
+              recommendation.icon === Gauge ||
+              text.includes("budget") ||
+              text.includes("cost") ||
+              text.includes("price")
+            );
+          },
+          items: [],
         },
-        items: [],
-      },
-      {
-        id: "competitor-analysis",
-        label: "Competitor analysis",
-        description: "Competitive benchmarks, white space detection, and operator mapping.",
-        icon: Target,
-        predicate: (recommendation: StageRecommendation) => {
-          const text = normalizeRecommendationText(recommendation);
-          return (
-            recommendation.modal === "competitor-map" ||
-            recommendation.action === "open-competition-analysis" ||
-            recommendation.icon === Target ||
-            recommendation.icon === TrendingUp ||
-            text.includes("competitor") ||
-            text.includes("competitive")
-          );
+        {
+          id: "competitor-analysis",
+          label: "Competitor analysis",
+          description: "Competitive benchmarks, white space detection, and operator mapping.",
+          icon: Target,
+          predicate: (recommendation: StageRecommendation) => {
+            const text = normalizeRecommendationText(recommendation);
+            return (
+              recommendation.modal === "competitor-map" ||
+              recommendation.action === "open-competition-analysis" ||
+              recommendation.icon === Target ||
+              recommendation.icon === TrendingUp ||
+              text.includes("competitor") ||
+              text.includes("competitive")
+            );
+          },
+          items: [],
         },
-        items: [],
-      },
-      {
-        id: "gap-analysis",
-        label: "Gap analysis",
-        description: "Identify underserved segments and market whitespace opportunities.",
-        icon: Layers,
-        predicate: (recommendation: StageRecommendation) => {
-          const text = normalizeRecommendationText(recommendation);
-          return (
-            recommendation.modal === "gap-analysis" ||
-            recommendation.icon === Layers ||
-            text.includes("gap analysis") ||
-            text.includes("gap")
-          );
+        {
+          id: "gap-analysis",
+          label: "Gap analysis",
+          description: "Identify underserved segments and market whitespace opportunities.",
+          icon: Layers,
+          predicate: (recommendation: StageRecommendation) => {
+            const text = normalizeRecommendationText(recommendation);
+            return (
+              recommendation.modal === "gap-analysis" ||
+              recommendation.icon === Layers ||
+              text.includes("gap analysis") ||
+              text.includes("gap")
+            );
+          },
+          items: [],
         },
-        items: [],
-      },
-      {
-        id: "summaries",
-        label: "Summaries",
-        description: "Recaps, exports, and handoffs to keep momentum.",
-        icon: ClipboardList,
-        predicate: (recommendation: StageRecommendation) => {
-          const text = normalizeRecommendationText(recommendation);
-          return (
-            recommendation.action === "open-viability-summary" ||
-            text.includes("summary") ||
-            text.includes("recap")
-          );
+        {
+          id: "summaries",
+          label: "Summaries",
+          description: "Recaps, exports, and handoffs to keep momentum.",
+          icon: ClipboardList,
+          predicate: (recommendation: StageRecommendation) => {
+            const text = normalizeRecommendationText(recommendation);
+            return (
+              recommendation.action === "open-viability-summary" ||
+              text.includes("summary") ||
+              text.includes("recap")
+            );
+          },
+          items: [],
         },
-        items: [],
-      },
-      {
-        id: "support",
-        label: "Support",
-        description: "Bring in advisors or alternative channels when you need them.",
-        icon: Headset,
-        predicate: (recommendation: StageRecommendation) => recommendation.type === "human",
-        items: [],
-      },
-    ];
+        {
+          id: "support",
+          label: "Support",
+          description: "Bring in advisors or alternative channels when you need them.",
+          icon: Headset,
+          predicate: (recommendation: StageRecommendation) => recommendation.type === "human",
+          items: [],
+        },
+      ];
 
-    const fallbackGroup = definitions[0];
+      const fallbackGroup = definitions[0];
 
-    dedupedRecommendations.forEach((recommendation) => {
-      const group =
-        definitions.find((definition) => definition.predicate(recommendation)) ?? fallbackGroup;
-      group.items.push(recommendation);
-    });
+      dedupedRecommendations.forEach((recommendation) => {
+        const group =
+          definitions.find((definition) => definition.predicate(recommendation)) ?? fallbackGroup;
+        group.items.push(recommendation);
+      });
 
-    return definitions
-      .filter((definition) => definition.items.length > 0)
-      .map(({ predicate, ...definition }) => definition);
-  }, [activeRecommendations]);
+      return definitions
+        .filter((definition) => definition.items.length > 0)
+        .map(({ predicate, ...definition }) => definition);
+    },
+    [],
+  );
+
+  const groupedThemeRecommendations = useMemo<SuggestedThemeGroup[]>(
+    () => buildThemeGroups(activeRecommendations),
+    [activeRecommendations, buildThemeGroups],
+  );
 
   const stageMeta = useMemo(
     () => CONVERSATION_STEPS.find((item) => item.id === currentStep),
