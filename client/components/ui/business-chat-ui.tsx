@@ -6766,6 +6766,30 @@ export function BusinessChatUI({
 
   const shouldShowInlineSuggestedThemes =
     canShowInlineSuggestedThemes && isInlineThemesExpanded;
+  const showThemesHoverCard =
+    canShowInlineSuggestedThemes && !isInlineThemesExpanded;
+
+  const handleThemesToggle = useCallback(() => {
+    setIsInlineThemesExpanded((prev) => {
+      const next = !prev;
+      if (!prev) {
+        inlineThemesInitializedRef.current = true;
+      }
+      return next;
+    });
+    setAdvisorPanelOpen(false);
+  }, [setAdvisorPanelOpen]);
+
+  const themesButtonClasses = cn(
+    "inline-flex items-center gap-1 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40",
+    isInlineThemesExpanded
+      ? "border-[#0F766E] bg-[#0F766E]/10 text-[#0F766E] shadow-[0_12px_26px_-18px_rgba(15,118,110,0.4)]"
+      : "border-emerald-100/80 bg-white/80 text-[#0F766E] hover:border-[#0F766E]/60 hover:bg-white",
+    isSidePanel &&
+      (isInlineThemesExpanded
+        ? "border-[#0F766E] bg-[#0F766E]/10"
+        : "border-slate-200 bg-white hover:border-slate-300"),
+  );
 
   useEffect(() => {
     if (!hasTriggeredSuggestedThemes && isAdvisorPanelOpen) {
