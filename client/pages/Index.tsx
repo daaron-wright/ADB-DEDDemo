@@ -408,10 +408,6 @@ export default function Index() {
     }
   }, [chatState.isOpen]);
 
-  const handlePointerMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    queueFocusPoint({ x: event.clientX, y: event.clientY });
-  };
-
   const hasCategoryFocus = Boolean(hoveredCategory || activeCategory);
 
   useEffect(() => {
