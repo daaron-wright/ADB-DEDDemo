@@ -633,10 +633,10 @@ export default function Index() {
                   <button
                     type="button"
                     onClick={() => setLauncherExpanded(true)}
-                    className="inline-flex h-16 w-16 items-center justify-center rounded-full border border-white/40 bg-white/20 shadow-[0_26px_70px_-40px_rgba(15,23,42,0.45)] backdrop-blur-2xl transition hover:bg-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
+                    className="inline-flex h-16 w-16 items-center justify-center rounded-full border border-white/60 bg-white shadow-[0_26px_70px_-40px_rgba(15,23,42,0.35)] transition hover:shadow-[0_30px_80px_-45px_rgba(15,23,42,0.38)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
                     aria-label="Show Omnis quick actions"
                   >
-                    <OmnisIcon className="h-11 w-11" />
+                    <span className="sr-only">Show Omnis quick actions</span>
                   </button>
                 )}
               </motion.div>
