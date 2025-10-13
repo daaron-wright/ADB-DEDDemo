@@ -334,6 +334,15 @@ const CONVERSATION_BLUEPRINT: Record<
         modal: "competitor-map",
       },
       {
+        id: "intro-gap-analysis",
+        label: "Analyze market gaps",
+        description:
+          "Spot underserved concepts and experience whitespace across priority districts.",
+        icon: Layers,
+        type: "modal",
+        modal: "gap-analysis",
+      },
+      {
         id: "intro-human-fallback",
         label: "Talk to a human agent",
         description:
