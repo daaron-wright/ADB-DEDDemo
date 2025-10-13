@@ -286,7 +286,7 @@ const DemographicsCard = ({ className = "" }: { className?: string }) => {
       </div>
 
       <div className="mt-6 p-4 bg-white/5 rounded-xl border border-white/10">
-        <h4 className="text-white font-semibold mb-2">Footfall Insights</h4>
+        <h4 className="text-white font-semibold mb-2">Population Density Insights</h4>
         <div className="flex items-baseline gap-2">
           <span className="text-white text-3xl font-bold">6.3%</span>
           <svg width="16" height="16" viewBox="0 0 17 15" fill="none">
