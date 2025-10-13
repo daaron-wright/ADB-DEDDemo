@@ -561,9 +561,7 @@ export default function Index() {
                 {isLauncherExpanded ? (
                   <div className="w-[280px] rounded-[28px] border border-white/35 bg-white/18 p-4 shadow-[0_40px_90px_-55px_rgba(15,23,42,0.4)] backdrop-blur-2xl sm:w-[320px]">
                     <div className="flex items-start gap-3">
-                      <div className="relative flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-white shadow-[0_12px_30px_-18px_rgba(22,101,76,0.45)]">
-                        <OmnisIcon className="h-9 w-9" />
-                      </div>
+                      <div className="relative flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-white shadow-[0_12px_30px_-18px_rgba(22,101,76,0.45)]" />
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-3">
                           <span className="text-sm font-semibold text-slate-900">Hi, Lyla</span>
