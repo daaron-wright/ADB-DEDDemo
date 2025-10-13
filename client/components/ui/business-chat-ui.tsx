@@ -6678,13 +6678,13 @@ export function BusinessChatUI({
       }
 
       if (open) {
-        setIsThemesPanelOpen(true);
+        setIsTopicsPanelOpen(true);
         setAdvisorPanelOpen(false);
       } else {
-        closeThemesPanel();
+        closeTopicsPanel();
       }
     },
-    [themesAvailable, closeThemesPanel, setAdvisorPanelOpen],
+    [themesAvailable, closeTopicsPanel, setAdvisorPanelOpen],
   );
 
   useEffect(() => {
