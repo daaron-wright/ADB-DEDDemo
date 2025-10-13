@@ -411,7 +411,7 @@ const CONVERSATION_BLUEPRINT: Record<
       },
       {
         id: "handoff-human-fallback",
-        label: "Talk to a TAMM specialist",
+        label: "Human Assistance",
         description:
           "We'll involve a human advisor to guide the transition while Omnis keeps everything synced.",
         icon: Headset,
