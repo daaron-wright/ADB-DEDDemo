@@ -4136,7 +4136,7 @@ const SuggestedTopicsPanel = ({
               <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[#0F766E]/10 bg-white/70 text-[#0F766E] shadow-[0_14px_32px_-26px_rgba(14,118,110,0.35)]">
                 <Sparkles className="h-4 w-4" aria-hidden="true" />
               </span>
-              <span className="text-center leading-tight tracking-[0.24em] sm:text-left">
+              <span className="text-center uppercase leading-tight tracking-[0.24em] sm:text-left">
                 Overview
               </span>
             </TabsTrigger>
@@ -4151,8 +4151,8 @@ const SuggestedTopicsPanel = ({
                   <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[#0F766E]/10 bg-white/70 text-[#0F766E] shadow-[0_14px_32px_-26px_rgba(14,118,110,0.35)]">
                     <GroupIcon className="h-4 w-4" aria-hidden="true" />
                   </span>
-                  <span className="text-center leading-tight tracking-[0.24em] sm:text-left">
-                    {group.label.toUpperCase()}
+                  <span className="text-center uppercase leading-tight tracking-[0.24em] sm:text-left">
+                    {group.label}
                   </span>
                 </TabsTrigger>
               );
