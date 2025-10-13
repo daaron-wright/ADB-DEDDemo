@@ -6326,11 +6326,11 @@ export function BusinessChatUI({
   const hasStageTopics = (STAGE_TOPIC_GROUPS[currentStep] ?? []).length > 0;
 
   const stagePanelLabel = followUpRecommendations.length > 0
-    ? "Next location intelligence steps"
+    ? "Next suggested themes"
     : stageMeta?.label ?? "Current stage";
 
   const stagePanelMessage = followUpRecommendations.length > 0
-    ? "Choose the next insight to explore after reviewing the investment districts."
+    ? followUpRecommendations[0]?.description ?? "Choose what you’d like to explore next."
     : stageBlueprint?.message ?? "";
 
   const artifactMessages = useMemo(
