@@ -6445,6 +6445,7 @@ export function BusinessChatUI({
     : stageBlueprint?.message ?? "";
 
   const showInlineSuggestedThemes =
+    hasTriggeredSuggestedThemes &&
     followUpRecommendations.length === 0 &&
     currentStep === "intro" &&
     groupedThemeRecommendations.length > 0;
