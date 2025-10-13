@@ -6665,8 +6665,8 @@ export function BusinessChatUI({
     }
   }, [themesAvailable]);
 
-  const closeThemesPanel = useCallback(() => {
-    setIsThemesPanelOpen(false);
+  const closeTopicsPanel = useCallback(() => {
+    setIsTopicsPanelOpen(false);
     setAdvisorPanelOpen(false);
   }, [setAdvisorPanelOpen]);
 
