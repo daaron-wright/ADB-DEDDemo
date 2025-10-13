@@ -6680,6 +6680,24 @@ export function BusinessChatUI({
     );
   }, []);
 
+  const handleSupportShortcut = useCallback(() => {
+    if (!hasTriggeredSuggestedThemes || !hasSupportTab) {
+      return;
+    }
+
+    setSuggestedThemesActiveTab("support");
+
+    if (!showInlineSuggestedThemes) {
+      setAdvisorPanelOpen(true);
+    }
+  }, [
+    hasSupportTab,
+    hasTriggeredSuggestedThemes,
+    setAdvisorPanelOpen,
+    setSuggestedThemesActiveTab,
+    showInlineSuggestedThemes,
+  ]);
+
   useEffect(() => {
     if (!isOpen) return;
     if (!shouldPromptLogin) return;
