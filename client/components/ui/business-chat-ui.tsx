@@ -5198,7 +5198,7 @@ const DiscoverExperienceView = ({
       name: "Abu Dhabi Marina & Breakwater",
       summary:
         "Destination leisure cluster anchored by luxury hotels, yacht clubs, and family attractions.",
-      footfall: "40–55K weekly visits",
+      populationDensity: "40–55K weekly visits",
       density: "High density",
       trend: "+9% weekend uplift",
       focus: "Waterfront lounges, seafood houses, family dining",
