@@ -6732,14 +6732,11 @@ export function BusinessChatUI({
 
   useEffect(() => {
     if (groupedThemeRecommendations.length > 0) {
-      setPersistedThemeGroups(groupedThemeRecommendations);
+      themeGroupsRef.current = groupedThemeRecommendations;
       if (!hasTriggeredSuggestedThemes) {
         setHasTriggeredSuggestedThemes(true);
       }
-      return;
-    }
-
-    if (hasStageTopics && !hasTriggeredSuggestedThemes) {
+    } else if (hasStageTopics && !hasTriggeredSuggestedThemes) {
       setHasTriggeredSuggestedThemes(true);
     }
   }, [
@@ -6748,12 +6745,13 @@ export function BusinessChatUI({
     hasTriggeredSuggestedThemes,
   ]);
 
-  const hasThemeInventory =
-    groupedThemeRecommendations.length > 0 || persistedThemeGroups.length > 0;
   const displayedThemeRecommendations =
     groupedThemeRecommendations.length > 0
       ? groupedThemeRecommendations
-      : persistedThemeGroups;
+      : themeGroupsRef.current;
+
+  const hasThemeInventory = displayedThemeRecommendations.length > 0;
+
   const themesAvailable =
     hasThemeInventory || hasStageTopics || hasTriggeredSuggestedThemes;
 
