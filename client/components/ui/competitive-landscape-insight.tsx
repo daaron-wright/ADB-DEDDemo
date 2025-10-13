@@ -300,17 +300,28 @@ export const CompetitiveLandscapeInsight: React.FC<CompetitiveLandscapeInsightPr
 
                 <p className="text-sm leading-relaxed text-slate-600">{activeCompetitor.summary}</p>
 
-                <div className="flex items-center justify-between gap-3 rounded-2xl border border-[#e2ece8] bg-white px-4 py-3 text-sm text-slate-700">
-                  <div className="space-y-1">
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-[#e2ece8] bg-white px-4 py-3 text-sm text-slate-700">
                     <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0F766E]">
-                      Social mentions
+                      Ratings
                     </div>
-                    <div className="text-base font-semibold text-slate-900">
+                    <div className="mt-1 flex items-baseline gap-1">
+                      <span className="text-xl font-semibold text-slate-900">
+                        {activeCompetitor.rating.toFixed(1)}
+                      </span>
+                      <span className="text-xs text-slate-500">/5</span>
+                    </div>
+                    <div className="text-xs text-slate-500">Average guest reviews</div>
+                  </div>
+
+                  <div className="rounded-2xl border border-[#e2ece8] bg-white px-4 py-3 text-sm text-slate-700">
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0F766E]">
+                      Social media mentions
+                    </div>
+                    <div className="mt-1 text-xl font-semibold text-slate-900">
                       {activeCompetitor.socialMentions.toLocaleString("en-US")}
                     </div>
-                  </div>
-                  <div className="text-xs text-slate-500">
-                    Visitor share data not available for this venue.
+                    <div className="text-xs text-slate-500">Trailing 90-day Investor Compass pulse</div>
                   </div>
                 </div>
 
