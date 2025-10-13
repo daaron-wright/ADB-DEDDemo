@@ -6598,8 +6598,36 @@ export function BusinessChatUI({
         normalizedText.includes("top compet") ||
         normalizedText.includes("competitor in the area") ||
         normalizedText.includes("competitors in the area");
+      const mentionsConceptDiscovery =
+        (lower.includes("best areas") ||
+          lower.includes("best area") ||
+          lower.includes("best place") ||
+          lower.includes("best places")) &&
+        (lower.includes("new restaurant") ||
+          lower.includes("modern emirati") ||
+          lower.includes("emirati fusion"));
+      const mentionsExistingEstablishments =
+        lower.includes("existing") && lower.includes("establish");
 
-      if (mentionsTopCompetitors) {
+      let nextFollowUps: ReadonlyArray<StageRecommendation> = [];
+
+      if (mentionsConceptDiscovery) {
+        appendHeatMapResponse(
+          "Highlighting the Abu Dhabi districts attracting modern Emirati fusion dining concepts right now.",
+        );
+        nextFollowUps = FOLLOW_UP_CONCEPT_DISCOVERY;
+      } else if (mentionsExistingEstablishments) {
+        responses.push(
+          buildMessage(
+            "Mapping existing licensed establishments so you can compare saturation by cuisine and district.",
+            true,
+            {
+              type: "location-analysis",
+            },
+          ),
+        );
+        nextFollowUps = FOLLOW_UP_EXISTING_ESTABLISHMENTS;
+      } else if (mentionsTopCompetitors) {
         responses.push(
           buildMessage(
             "Here’s a competitive analysis summary for the Corniche corridor.",
@@ -6614,6 +6642,7 @@ export function BusinessChatUI({
             type: "competitor-cta",
           }),
         );
+        nextFollowUps = FOLLOW_UP_COMPETITOR_ANALYSIS;
       } else if (mentionsCost) {
         responses.push(
           buildMessage(
@@ -6624,23 +6653,18 @@ export function BusinessChatUI({
             },
           ),
         );
+        nextFollowUps = FOLLOW_UP_BUDGET_DISCUSSION;
       } else if (mentionsDemographics) {
         responses.push(
           buildMessage(
-            "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah ��� 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City ��� 20k residents, 25k daily; family-focused community (6/10).",
+            "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).",
             true,
             {
               type: "demographics",
             },
           ),
         );
-      } else if (mentionsCornicheDetails) {
-        responses.push(
-          buildMessage(
-            "The Corniche is a popular choice due to its high foot traffic and scenic views. It attracts both tourists and locals, especially during the cooler months. The area is known for its diverse range of dining options, from casual cafes to upscale restaurants, catering to a wide range of tastes and budgets.",
-            true,
-          ),
-        );
+        nextFollowUps = FOLLOW_UP_DEMOGRAPHICS_FOCUS;
       } else if (mentionsTargetMarket) {
         responses.push(
           buildMessage(
@@ -6648,6 +6672,15 @@ export function BusinessChatUI({
             true,
           ),
         );
+        nextFollowUps = FOLLOW_UP_TARGET_MARKET_DETAIL;
+      } else if (mentionsCornicheDetails) {
+        responses.push(
+          buildMessage(
+            "The Corniche is a popular choice due to its high foot traffic and scenic views. It attracts both tourists and locals, especially during the cooler months. The area is known for its diverse range of dining options, from casual cafes to upscale restaurants, catering to a wide range of tastes and budgets.",
+            true,
+          ),
+        );
+        nextFollowUps = FOLLOW_UP_CORNICHE_DEEP_DIVE;
       } else if (mentionsReports) {
         responses.push(
           buildMessage(
@@ -6658,18 +6691,22 @@ export function BusinessChatUI({
             },
           ),
         );
+        nextFollowUps = FOLLOW_UP_SUMMARY_COMPLETION;
       } else if (mentionsCorniche) {
         appendHeatMapResponse(
           "Zooming into the Corniche waterfront cluster. Footfall intensity is at 96% for premium dining, highlighted on the heat map now.",
         );
+        nextFollowUps = FOLLOW_UP_CORNICHE_DEEP_DIVE;
       } else if (mentionsHeatMap) {
         appendHeatMapResponse(
           "I have created a heat map for the top areas and existing businesses. Compare the highlighted districts to see where activity concentrates.",
         );
+        nextFollowUps = LOCATION_INTELLIGENCE_FOLLOW_UPS;
       } else if (lower.includes("map")) {
         appendHeatMapResponse(
           "Here's a map-based view so you can explore each neighbourhood visually. Tell me which district you'd like to dive into.",
         );
+        nextFollowUps = LOCATION_INTELLIGENCE_FOLLOW_UPS;
       } else {
         responses.push(
           buildMessage(
@@ -6677,10 +6714,12 @@ export function BusinessChatUI({
             true,
           ),
         );
+        nextFollowUps = [];
       }
 
       setMessages((prev) => [...prev, userMessage, ...responses]);
       setInputValue("");
+      applyFollowUps(nextFollowUps);
     },
     [buildMessage, buildStepMessage, openApplicantPortal, setCurrentStep],
   );
