@@ -8277,7 +8277,7 @@ export function BusinessChatUI({
                                       sideOffset={12}
                                       className="w-[min(680px,92vw)] max-h-[75vh] overflow-y-auto border-none bg-transparent p-0 shadow-none"
                                     >
-                                      <SuggestedThemesPanel
+                                      <SuggestedTopicsPanel
                                         stageLabel={stagePanelLabel}
                                         stageMessage={stagePanelMessage}
                                         groupedRecommendations={displayedThemeRecommendations}
