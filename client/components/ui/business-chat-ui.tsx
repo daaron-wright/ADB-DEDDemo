@@ -98,7 +98,16 @@ type BusinessMessageType =
   | "budget-ranges"
   | "comprehensive-report"
   | "business-activities"
-  | "application-progress";
+  | "application-progress"
+  | "stage-overview"
+  | "stage-recommendations";
+
+interface StageRecommendationSummary {
+  id: string;
+  label: string;
+  description?: string | null;
+  category?: string | null;
+}
 
 interface BusinessMessage {
   id: string;
@@ -113,6 +122,16 @@ interface BusinessMessage {
   docTitle?: string;
   imageUrl?: string;
   stepId?: ConversationStep;
+  stageId?: string;
+  stageTitle?: string;
+  stageHighlightLabel?: string | null;
+  stageHighlightDetail?: string | null;
+  stageDescription?: string | null;
+  stageStatusLabel?: string | null;
+  stageStatusBadgeClass?: string | null;
+  stageStatusHelperClass?: string | null;
+  stageMeta?: string | null;
+  stageRecommendations?: StageRecommendationSummary[];
 }
 
 interface DialogueDocHighlight {
