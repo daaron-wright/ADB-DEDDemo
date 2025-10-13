@@ -6635,16 +6635,16 @@ export function BusinessChatUI({
   useEffect(() => {
     if (groupedThemeRecommendations.length > 0) {
       themeGroupsRef.current = groupedThemeRecommendations;
-      if (!hasTriggeredSuggestedThemes) {
-        setHasTriggeredSuggestedThemes(true);
+      if (!hasTriggeredSuggestedTopics) {
+        setHasTriggeredSuggestedTopics(true);
       }
-    } else if (hasStageTopics && !hasTriggeredSuggestedThemes) {
-      setHasTriggeredSuggestedThemes(true);
+    } else if (hasStageTopics && !hasTriggeredSuggestedTopics) {
+      setHasTriggeredSuggestedTopics(true);
     }
   }, [
     groupedThemeRecommendations,
     hasStageTopics,
-    hasTriggeredSuggestedThemes,
+    hasTriggeredSuggestedTopics,
   ]);
 
   const displayedThemeRecommendations =
