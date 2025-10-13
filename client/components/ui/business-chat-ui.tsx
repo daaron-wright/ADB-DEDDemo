@@ -6272,7 +6272,7 @@ export function BusinessChatUI({
     }
   }, [topicsAvailable, isAdvisorPanelOpen, setAdvisorPanelOpen]);
 
-  const conversationMessages = useMemo(() => messages, [messages]);
+  const chatMessages = useMemo(() => messages, [messages]);
 
   const chatInputPlaceholder = useMemo(() => {
     if (interactionMode === "voice") {
@@ -7955,7 +7955,7 @@ export function BusinessChatUI({
                           ) : null}
                           {!journeyFocusView && showChatInterface ? (
                             <>
-                              {conversationMessages.map((message) => (
+                              {chatMessages.map((message) => (
                                 <MessageBubble
                                   key={message.id}
                                   message={message}
@@ -8006,7 +8006,7 @@ export function BusinessChatUI({
                                   }
                                 />
                               ))}
-                              {conversationMessages.length === 0 ? (
+                              {chatMessages.length === 0 ? (
                                 <RegionExplorerPrompt
                                   onExplore={() =>
                                     handleAction(
