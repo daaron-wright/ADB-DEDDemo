@@ -269,7 +269,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       lastUpdated: "آخر تحديث",
     },
     heroBadge: "رحلة المستثمر",
-    heroTitle: "رحلتك مدعومة بالذكاء الاصطناعي",
+    heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
       `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستثمرون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
@@ -278,7 +278,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       `عرض أو إ��فاء نظرة عامة للرحلة الخاصة بـ ${title}`,
     fieldLabels: {
       beneficiary: "المستفيد",
-      licenseType: "نو�� الرخصة",
+      licenseType: "نوع الرخصة",
       submissionId: "معرّف الطلب",
       lastUpdate: "آخر تحديث",
     },
@@ -312,11 +312,11 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "Department of Economic Development": "دائرة التنمية الاقتصادية",
     },
     applicationTitles: {
-      "APP-48291": "مجموعة كورنيش للطهي",
+      "APP-48291": "رحلة المطعم (الأطعمة والمشروبات)",
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك المدعوم بالذكاء الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك المدعوم ب��لذكاء الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الموافقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
