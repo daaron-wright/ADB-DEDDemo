@@ -419,8 +419,6 @@ export default function Index() {
     <div
       ref={pageRef}
       className="relative min-h-screen overflow-hidden transition-colors duration-700 ease-out"
-      onMouseMove={handlePointerMove}
-      onMouseLeave={() => applyFocusPoint()}
     >
       <div
         className={cn(
