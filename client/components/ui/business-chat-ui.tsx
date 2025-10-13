@@ -8167,12 +8167,6 @@ export function BusinessChatUI({
                                           handleRecommendationSelect(recommendation);
                                           closeTopicsPanel();
                                         }}
-                                        hasStageTopics={hasStageTopics}
-                                        currentStep={currentStep}
-                                        onSendTopic={(prompt) => {
-                                          handleSendMessage(prompt);
-                                          closeTopicsPanel();
-                                        }}
                                         variant="popover"
                                       />
                                     </PopoverContent>
