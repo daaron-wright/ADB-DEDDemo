@@ -8116,12 +8116,7 @@ export function BusinessChatUI({
                   </div>
 
                   <div className={bodyWrapperClass}>
-                    <div
-                      className={cn(
-                        "flex flex-col gap-4 sm:gap-6 lg:gap-8",
-                        isSidePanel && "flex-1 min-h-0",
-                      )}
-                    >
+                    <div className={bodyContentClass}>
                       {showChatInterface && showInlineSuggestedThemes ? (
                         <SuggestedThemesPanel
                           stageLabel={stagePanelLabel}
