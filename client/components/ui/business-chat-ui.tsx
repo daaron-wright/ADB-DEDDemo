@@ -6672,7 +6672,7 @@ export function BusinessChatUI({
 
   const handleTopicsOpenChange = useCallback(
     (open: boolean) => {
-      if (!themesAvailable) {
+      if (!topicsAvailable) {
         setIsTopicsPanelOpen(false);
         return;
       }
@@ -6684,7 +6684,7 @@ export function BusinessChatUI({
         closeTopicsPanel();
       }
     },
-    [themesAvailable, closeTopicsPanel, setAdvisorPanelOpen],
+    [topicsAvailable, closeTopicsPanel, setAdvisorPanelOpen],
   );
 
   useEffect(() => {
