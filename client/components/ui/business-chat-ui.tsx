@@ -4401,9 +4401,6 @@ const SuggestedTopicsPanel = ({
   groupedRecommendations,
   onClose,
   onRecommendationSelect,
-  hasStageTopics,
-  currentStep,
-  onSendTopic,
   showCloseButton = true,
   variant = "popover",
 }: {
@@ -4412,9 +4409,6 @@ const SuggestedTopicsPanel = ({
   groupedRecommendations: SuggestedThemeGroup[];
   onClose?: () => void;
   onRecommendationSelect: (recommendation: StageRecommendation) => void;
-  hasStageTopics: boolean;
-  currentStep: ConversationStep;
-  onSendTopic: (prompt: string) => void;
   showCloseButton?: boolean;
   variant?: "popover" | "inline";
 }) => {
@@ -4956,7 +4950,7 @@ const GapBreakoutModal = ({
         "Blend kids programming with curated sundowner menus to capture mixed visitor cohorts.",
     },
     {
-      title: "Wellness-forward caf��",
+      title: "Wellness-forward café",
       urgency: "Emerging",
       detail:
         "Morning boardwalk activity up 14% quarter-on-quarter; healthy grab-and-go remains underserved.",
