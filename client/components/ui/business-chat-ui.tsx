@@ -8250,7 +8250,7 @@ export function BusinessChatUI({
                                 <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
                                   Omnis
                                 </h3>
-                                {themesAvailable ? (
+                                {topicsAvailable ? (
                                   <Popover
                                     open={isTopicsPanelOpen}
                                     onOpenChange={handleTopicsOpenChange}
