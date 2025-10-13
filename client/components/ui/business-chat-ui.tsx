@@ -6115,18 +6115,21 @@ export function BusinessChatUI({
 
   const stageBlueprint = CONVERSATION_BLUEPRINT[currentStep];
 
+  const activeRecommendations = useMemo<StageRecommendation[]>(() => {
+    if (followUpRecommendations.length > 0) {
+      return [...followUpRecommendations];
+    }
+
+    return [...(stageBlueprint?.recommendations ?? [])];
+  }, [followUpRecommendations, stageBlueprint?.recommendations]);
+
   const groupedThemeRecommendations = useMemo<SuggestedThemeGroup[]>(() => {
-    if (!stageBlueprint && followUpRecommendations.length === 0) {
+    if (activeRecommendations.length === 0) {
       return [];
     }
 
-    const allRecommendations = [
-      ...followUpRecommendations,
-      ...(stageBlueprint?.recommendations ?? []),
-    ];
-
     const dedupedRecommendations = Array.from(
-      new Map(allRecommendations.map((rec) => [rec.id, rec])).values(),
+      new Map(activeRecommendations.map((rec) => [rec.id, rec])).values(),
     );
 
     if (dedupedRecommendations.length === 0) {
@@ -6156,8 +6159,7 @@ export function BusinessChatUI({
         description: "Demand and trend signals you can act on.",
         icon: TrendingUp,
         predicate: (recommendation: StageRecommendation) =>
-          recommendation.action === "open-market-overview" ||
-          recommendation.action === "show-summary",
+          recommendation.action === "open-market-overview" || recommendation.action === "show-summary",
         items: [],
       },
       {
@@ -6166,8 +6168,7 @@ export function BusinessChatUI({
         description: "Dedicated competitor intelligence, filters, and white space analysis.",
         icon: Target,
         predicate: (recommendation: StageRecommendation) =>
-          recommendation.modal === "competitor-map" ||
-          recommendation.action === "open-competition-analysis",
+          recommendation.modal === "competitor-map" || recommendation.action === "open-competition-analysis",
         items: [],
       },
       {
@@ -6201,7 +6202,7 @@ export function BusinessChatUI({
     return definitions
       .filter((definition) => definition.items.length > 0)
       .map(({ predicate, ...definition }) => definition);
-  }, [stageBlueprint, followUpRecommendations]);
+  }, [activeRecommendations]);
 
   const stageMeta = useMemo(
     () => CONVERSATION_STEPS.find((item) => item.id === currentStep),
@@ -6484,7 +6485,7 @@ export function BusinessChatUI({
       } else if (mentionsDemographics) {
         responses.push(
           buildMessage(
-            "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah ��� 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City ��� 20k residents, 25k daily; family-focused community (6/10).",
+            "Abu Dhabi's dining potential varies by zone, each offering unique demographics and footfall drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island �� 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah ��� 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City ��� 20k residents, 25k daily; family-focused community (6/10).",
             true,
             {
               type: "demographics",
