@@ -13,12 +13,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { chatCardClass } from "@/lib/chat-style";
 import { Badge } from "@/components/ui/badge";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   CuisinePopularityChart,
