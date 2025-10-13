@@ -6256,6 +6256,8 @@ export function BusinessChatUI({
     "chat",
   );
   const [isAdvisorPanelOpen, setAdvisorPanelOpen] = useState(false);
+  const [hasTriggeredSuggestedThemes, setHasTriggeredSuggestedThemes] =
+    useState(false);
   const [followUpRecommendations, setFollowUpRecommendations] = useState<StageRecommendation[]>([]);
   const applyFollowUps = useCallback(
     (items: ReadonlyArray<StageRecommendation>) => {
