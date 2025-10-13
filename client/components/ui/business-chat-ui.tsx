@@ -3320,6 +3320,156 @@ const SetupBusinessCTA = ({
   </div>
 );
 
+const formatStageCategoryLabel = (value?: string | null) => {
+  if (!value) {
+    return null;
+  }
+
+  return value
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
+    .join(" ");
+};
+
+interface StageOverviewMessageProps {
+  title: string;
+  intro: string;
+  highlightLabel?: string | null;
+  highlightDetail?: string | null;
+  description?: string | null;
+  statusLabel?: string | null;
+  statusBadgeClass?: string | null;
+  statusHelperClass?: string | null;
+  meta?: string | null;
+}
+
+const StageOverviewMessage = ({
+  title,
+  intro,
+  highlightLabel,
+  highlightDetail,
+  description,
+  statusLabel,
+  statusBadgeClass,
+  statusHelperClass,
+  meta,
+}: StageOverviewMessageProps) => (
+  <div className="mb-6 flex w-full justify-start">
+    <div
+      className={chatCardClass(
+        "w-full max-w-[640px] border border-[#d8e4df] bg-white/90 px-5 py-5 sm:px-6 sm:py-6 shadow-[0_36px_90px_-70px_rgba(15,23,42,0.55)]",
+      )}
+    >
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
+            Stage focus
+          </p>
+          <h3 className="mt-1 text-2xl font-semibold leading-tight text-slate-900">
+            {title}
+          </h3>
+        </div>
+        {statusLabel ? (
+          <span
+            className={cn(
+              "inline-flex items-center rounded-full border px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.22em]",
+              statusBadgeClass ?? "border-[#0E766E]/40 bg-[#0E766E]/10 text-[#0E766E]",
+            )}
+          >
+            {statusLabel}
+          </span>
+        ) : null}
+      </div>
+      <p className="mt-4 text-sm leading-relaxed text-slate-700">{intro}</p>
+      {highlightLabel ? (
+        <div className="mt-4 rounded-2xl border border-[#cfe6de] bg-[#f3fbf8] px-4 py-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
+            {highlightLabel}
+          </p>
+          {highlightDetail ? (
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              {highlightDetail}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
+      {description ? (
+        <p className="mt-4 text-sm leading-relaxed text-slate-700 whitespace-pre-wrap">
+          {description}
+        </p>
+      ) : null}
+      {meta ? (
+        <p
+          className={cn(
+            "mt-4 text-xs leading-relaxed",
+            statusHelperClass ?? "text-slate-500",
+          )}
+        >
+          {meta}
+        </p>
+      ) : null}
+    </div>
+  </div>
+);
+
+interface StageRecommendationsMessageProps {
+  stageTitle: string;
+  intro: string;
+  recommendations: StageRecommendationSummary[];
+}
+
+const StageRecommendationsMessage = ({
+  stageTitle,
+  intro,
+  recommendations,
+}: StageRecommendationsMessageProps) => (
+  <div className="mb-6 flex w-full justify-start">
+    <div
+      className={chatCardClass(
+        "w-full max-w-[640px] border border-[#d8e4df] bg-white/90 px-5 py-5 sm:px-6 sm:py-6 shadow-[0_36px_90px_-70px_rgba(15,23,42,0.55)]",
+      )}
+    >
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h4 className="text-sm font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
+          Recommended next moves
+        </h4>
+        <span className="text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
+          {stageTitle}
+        </span>
+      </div>
+      <p className="mt-4 text-sm leading-relaxed text-slate-700">{intro}</p>
+      <ul className="mt-5 space-y-4">
+        {recommendations.map((item) => {
+          const categoryLabel = formatStageCategoryLabel(item.category);
+          return (
+            <li
+              key={item.id}
+              className="rounded-2xl border border-[#d8e4df]/80 bg-white px-4 py-3 shadow-[0_24px_68px_-62px_rgba(15,23,42,0.55)]"
+            >
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <span className="text-base font-semibold text-slate-900">
+                  {item.label}
+                </span>
+                {categoryLabel ? (
+                  <span className="rounded-full border border-[#d8e4df] bg-[#f2fbf7] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0E766E]">
+                    {categoryLabel}
+                  </span>
+                ) : null}
+              </div>
+              {item.description ? (
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                  {item.description}
+                </p>
+              ) : null}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </div>
+);
+
 const CHAT_ACTION_BUTTON_CLASSES =
   "inline-flex items-center gap-2 rounded-full bg-[#0E766E] px-4 py-2 text-sm font-semibold text-white shadow-[0_16px_30px_-18px_rgba(14,118,110,0.45)] transition hover:bg-[#0a5a55]";
 
