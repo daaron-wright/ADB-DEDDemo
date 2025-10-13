@@ -6673,7 +6673,7 @@ export function BusinessChatUI({
   const handleTopicsOpenChange = useCallback(
     (open: boolean) => {
       if (!themesAvailable) {
-        setIsThemesPanelOpen(false);
+        setIsTopicsPanelOpen(false);
         return;
       }
 
