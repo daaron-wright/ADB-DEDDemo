@@ -4131,9 +4131,14 @@ const SuggestedTopicsPanel = ({
           <TabsList className="grid w-full auto-rows-fr grid-cols-1 gap-2 rounded-[32px] border border-emerald-100/80 bg-[#f0f9f6] p-3 sm:grid-cols-2 lg:grid-cols-4">
             <TabsTrigger
               value="summary"
-              className="group flex h-full w-full flex-col items-center justify-center gap-2 rounded-[24px] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0F766E]/80 transition-all duration-200 ease-out hover:text-[#0F766E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:flex-row sm:gap-3 sm:text-xs"
+              className="group flex h-full w-full items-center justify-center gap-3 rounded-[24px] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0F766E]/80 transition-all duration-200 ease-out hover:text-[#0F766E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:text-xs"
             >
-              <span className="text-center leading-tight">Overview</span>
+              <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[#0F766E]/10 bg-white/70 text-[#0F766E] shadow-[0_14px_32px_-26px_rgba(14,118,110,0.35)]">
+                <Sparkles className="h-4 w-4" aria-hidden="true" />
+              </span>
+              <span className="text-center leading-tight tracking-[0.24em] sm:text-left">
+                Overview
+              </span>
             </TabsTrigger>
             {groupedRecommendations.map((group) => {
               const GroupIcon = group.icon;
@@ -4141,12 +4146,14 @@ const SuggestedTopicsPanel = ({
                 <TabsTrigger
                   key={group.id}
                   value={group.id}
-                  className="group flex h-full w-full flex-col items-center justify-center gap-2 rounded-[24px] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0F766E]/80 transition-all duration-200 ease-out hover:text-[#0F766E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:flex-row sm:gap-3 sm:text-xs"
+                  className="group flex h-full w-full items-center justify-center gap-3 rounded-[24px] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0F766E]/80 transition-all duration-200 ease-out hover:text-[#0F766E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:text-xs"
                 >
-                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
+                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[#0F766E]/10 bg-white/70 text-[#0F766E] shadow-[0_14px_32px_-26px_rgba(14,118,110,0.35)]">
                     <GroupIcon className="h-4 w-4" aria-hidden="true" />
                   </span>
-                  <span className="text-center leading-tight sm:text-left">{group.label}</span>
+                  <span className="text-center leading-tight tracking-[0.24em] sm:text-left">
+                    {group.label.toUpperCase()}
+                  </span>
                 </TabsTrigger>
               );
             })}
@@ -4170,7 +4177,7 @@ const SuggestedTopicsPanel = ({
                         <GroupIcon className="h-5 w-5" aria-hidden="true" />
                       </span>
                       <div className="space-y-1">
-                        <p className="text-base font-semibold text-slate-900 sm:text-lg">
+                        <p className="text-base font-semibold uppercase tracking-[0.18em] text-slate-900 sm:text-lg sm:tracking-[0.22em]">
                           {group.label}
                         </p>
                         <p className="text-sm leading-relaxed text-slate-600">
