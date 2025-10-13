@@ -4998,7 +4998,7 @@ const CompetitorBreakoutModal = ({
   const competitorHighlights = [
     {
       name: "Shurfa Bay",
-      rating: "4.8���������",
+      rating: "4.8�������",
       tier: "Premium waterfront",
       insight:
         "Sunset terrace has maintained 98% capacity across the past four evenings.",
@@ -5337,7 +5337,7 @@ const DiscoverExperienceView = ({
       name: "Coastal district",
       summary:
         "Lifestyle beachfront with active tourism calendar and family day-trip itineraries.",
-      footfall: "35���50K weekly visits",
+      footfall: "35–50K weekly visits",
       density: "Seasonal peaks",
       trend: "+5% holiday uplift",
       focus: "Beach clubs, ice cream bars, casual dining",
@@ -8367,47 +8367,59 @@ export function BusinessChatUI({
                                 </h3>
                                 {canShowInlineSuggestedThemes ? (
                                   showThemesHoverCard ? (
-                                    <HoverCard openDelay={150} closeDelay={120}>
-                                      <HoverCardTrigger asChild>
-                                        <button
-                                          type="button"
-                                          onClick={handleThemesToggle}
-                                          aria-pressed={isInlineThemesExpanded}
-                                          aria-expanded={isInlineThemesExpanded}
-                                          className={themesButtonClasses}
-                                        >
-                                          Themes
-                                          <ChevronDown
-                                            className={cn(
-                                              "h-3 w-3 transition-transform",
-                                              isInlineThemesExpanded
-                                                ? "rotate-180"
-                                                : "rotate-0",
-                                            )}
-                                            aria-hidden="true"
-                                          />
-                                        </button>
-                                      </HoverCardTrigger>
-                                      <HoverCardContent
-                                        align="start"
-                                        sideOffset={12}
-                                        className="w-[min(560px,92vw)] border-none bg-transparent p-0 shadow-none"
+                                    <div
+                                      className="relative"
+                                      onMouseEnter={openThemesHover}
+                                      onMouseLeave={scheduleThemesHoverClose}
+                                      onFocus={openThemesHover}
+                                      onBlur={scheduleThemesHoverClose}
+                                    >
+                                      <button
+                                        type="button"
+                                        onClick={handleThemesToggle}
+                                        aria-pressed={isInlineThemesExpanded}
+                                        aria-expanded={isInlineThemesExpanded}
+                                        className={themesButtonClasses}
                                       >
-                                        <SuggestedThemesPanel
-                                          stageLabel={stagePanelLabel}
-                                          stageMessage={stagePanelMessage}
-                                          groupedRecommendations={groupedThemeRecommendations}
-                                          onRecommendationSelect={handleRecommendationSelect}
-                                          hasStageTopics={hasStageTopics}
-                                          currentStep={currentStep}
-                                          onSendTopic={handleSendMessage}
-                                          showCloseButton={false}
-                                          variant="popover"
-                                          activeTab={suggestedThemesActiveTab}
-                                          onActiveTabChange={setSuggestedThemesActiveTab}
+                                        Themes
+                                        <ChevronDown
+                                          className={cn(
+                                            "h-3 w-3 transition-transform",
+                                            isInlineThemesExpanded
+                                              ? "rotate-180"
+                                              : "rotate-0",
+                                          )}
+                                          aria-hidden="true"
                                         />
-                                      </HoverCardContent>
-                                    </HoverCard>
+                                      </button>
+                                      {isThemesHoverOpen ? (
+                                        <div
+                                          className={cn(
+                                            "absolute right-0 top-full z-[120] mt-3 w-[min(680px,92vw)]",
+                                            isSidePanel &&
+                                              "left-0 right-auto w-[min(520px,calc(100vw-48px))]",
+                                          )}
+                                          onMouseEnter={openThemesHover}
+                                          onMouseLeave={scheduleThemesHoverClose}
+                                          onFocus={openThemesHover}
+                                          onBlur={scheduleThemesHoverClose}
+                                        >
+                                          <SuggestedThemesPanel
+                                            stageLabel={stagePanelLabel}
+                                            stageMessage={stagePanelMessage}
+                                            groupedRecommendations={groupedThemeRecommendations}
+                                            onRecommendationSelect={handleRecommendationSelect}
+                                            hasStageTopics={hasStageTopics}
+                                            currentStep={currentStep}
+                                            onSendTopic={handleSendMessage}
+                                            showCloseButton={false}
+                                            variant="popover"
+                                            activeTab={suggestedThemesActiveTab}
+                                            onActiveTabChange={setSuggestedThemesActiveTab}
+                                          />
+                                        </div>
+                                      ) : null}
+                                    </div>
                                   ) : (
                                     <button
                                       type="button"
