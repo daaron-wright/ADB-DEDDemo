@@ -236,6 +236,9 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
 
             <div className="relative flex-1">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(84,255,212,0.12),transparent_65%)]" />
+              <div className="absolute left-6 top-6 z-20 rounded-full bg-black/45 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.26em] text-white shadow-[0_12px_32px_-20px_rgba(8,22,30,0.7)]">
+                Corniche · Investor Compass
+              </div>
 
               {filteredPoints.map((point) => {
                 const isActive = point.id === activePoint?.id;
@@ -306,6 +309,26 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                   </motion.button>
                 );
               })}
+
+              <AnimatePresence>
+                {activePoint ? (
+                  <motion.div
+                    key={activePoint.id}
+                    className="pointer-events-none absolute z-30"
+                    style={{
+                      left: formatPosition(activePoint.x),
+                      top: formatPosition(activePoint.y),
+                      transform: "translate(-50%, calc(-100% - 28px))",
+                    }}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ActiveCompetitorPopup point={activePoint} />
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
 
               {!filteredPoints.length && (
                 <div className="absolute inset-0 flex items-center justify-center">
