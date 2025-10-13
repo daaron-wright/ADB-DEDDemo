@@ -3658,7 +3658,7 @@ const RegionExplorerPrompt = ({
             Let’s chart your next move.
           </h3>
           <p className="text-sm leading-relaxed text-slate-600">
-            Drop a prompt like “Preview live resident density, tourist flows, and zoning overlays before committing to a district focus.” or “Validate demand drivers, seasonal triggers, and spend behavior before deep-diving licensing or budgeting.”
+            Drop a prompt like ���Preview live resident density, tourist flows, and zoning overlays before committing to a district focus.” or “Validate demand drivers, seasonal triggers, and spend behavior before deep-diving licensing or budgeting.”
           </p>
         </div>
       </div>
@@ -7384,7 +7384,7 @@ export function BusinessChatUI({
             if (isInvestorAuthenticated) {
               setView("investor-journey");
               const acknowledgement = buildMessage(
-                "Perfect ��� I’m triggering automation, reserving your trade name, and opening the applicant portal timeline for you now.",
+                "Perfect — I’m triggering automation, reserving your trade name, and opening the applicant portal timeline for you now.",
                 true,
               );
               const handoffMessage = buildStepMessage("handoff");
@@ -7846,7 +7846,7 @@ export function BusinessChatUI({
 
       conversation.push(
         buildMessage(
-          "Suggested themes stay flexible, so you can branch into other tracks or come back to earlier ones. When you’re ready for the viability summary, just let me know and we’ll pivot into the application phase.",
+          "Suggested themes stay flexible, so you can branch into other tracks or come back to earlier ones. When you���re ready for the viability summary, just let me know and we’ll pivot into the application phase.",
           true,
         ),
       );
@@ -8423,39 +8423,6 @@ export function BusinessChatUI({
                               </p>
                             </div>
                           </div>
-                          {stageBlueprint &&
-                          themesAvailable ? (
-                            <div className="relative z-[200] isolate overflow-visible">
-                              {isAdvisorPanelOpen ? (
-                                <div
-                                  className={cn(
-                                    "absolute right-0 top-full z-[120] mt-3 w-[min(680px,92vw)]",
-                                    isSidePanel &&
-                                      "left-0 right-auto w-[min(520px,calc(100vw-48px))]",
-                                  )}
-                                >
-                                  <SuggestedThemesPanel
-                                    stageLabel={stagePanelLabel}
-                                    stageMessage={stagePanelMessage}
-                                    groupedRecommendations={displayedThemeRecommendations}
-                                    onClose={() => setAdvisorPanelOpen(false)}
-                                    onRecommendationSelect={(recommendation) => {
-                                      handleRecommendationSelect(recommendation);
-                                      setAdvisorPanelOpen(false);
-                                    }}
-                                    hasStageTopics={hasStageTopics}
-                                    currentStep={currentStep}
-                                    onSendTopic={(prompt) => {
-                                      handleSendMessage(prompt);
-                                      setAdvisorPanelOpen(false);
-                                    }}
-                                    activeTab={suggestedThemesActiveTab}
-                                    onActiveTabChange={setSuggestedThemesActiveTab}
-                                  />
-                                </div>
-                              ) : null}
-                            </div>
-                          ) : null}
                         </div>
                       </div>
                       <div className="flex flex-col items-start gap-2 sm:items-end">
