@@ -6272,11 +6272,7 @@ export function BusinessChatUI({
     }
   }, [topicsAvailable, isAdvisorPanelOpen, setAdvisorPanelOpen]);
 
-  const artifactMessages = useMemo(
-    () =>
-      messages.filter((message) => message.type && message.type !== "text"),
-    [messages],
-  );
+  const conversationMessages = useMemo(() => messages, [messages]);
 
   const chatInputPlaceholder = useMemo(() => {
     if (interactionMode === "voice") {
@@ -7959,7 +7955,7 @@ export function BusinessChatUI({
                           ) : null}
                           {!journeyFocusView && showChatInterface ? (
                             <>
-                              {artifactMessages.map((message) => (
+                              {conversationMessages.map((message) => (
                                 <MessageBubble
                                   key={message.id}
                                   message={message}
@@ -8010,7 +8006,7 @@ export function BusinessChatUI({
                                   }
                                 />
                               ))}
-                              {artifactMessages.length === 0 ? (
+                              {conversationMessages.length === 0 ? (
                                 <RegionExplorerPrompt
                                   onExplore={() =>
                                     handleAction(
