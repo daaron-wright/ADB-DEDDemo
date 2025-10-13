@@ -7281,7 +7281,7 @@ export function BusinessChatUI({
       },
       {
         id: "welcome-human-agent",
-        label: "Talk to a human agent",
+        label: "Human Assistance",
         action: "contact-human",
       },
     ];
