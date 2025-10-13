@@ -414,7 +414,7 @@ const LOCATION_INTELLIGENCE_FOLLOW_UPS: ReadonlyArray<StageRecommendation> = [
   },
   {
     id: "follow-up-location-budget",
-    label: "See budget ranges for this location",
+    label: "Budget ranges for this location",
     description:
       "Compare indicative setup and operating budgets tailored to the neighbourhood you're considering.",
     icon: Gauge,
