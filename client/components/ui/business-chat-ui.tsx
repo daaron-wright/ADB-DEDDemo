@@ -8012,6 +8012,20 @@ export function BusinessChatUI({
                         isSidePanel && "flex-1 min-h-0",
                       )}
                     >
+                      {showChatInterface && showInlineSuggestedThemes ? (
+                        <SuggestedThemesPanel
+                          stageLabel={stagePanelLabel}
+                          stageMessage={stagePanelMessage}
+                          groupedRecommendations={groupedThemeRecommendations}
+                          onRecommendationSelect={handleRecommendationSelect}
+                          hasStageTopics={hasStageTopics}
+                          currentStep={currentStep}
+                          onSendTopic={handleSendMessage}
+                          showCloseButton={false}
+                          variant="inline"
+                        />
+                      ) : null}
+
                       <div className={conversationContainerClass}>
                         <div className={messageListClass}>
                           {journeyFocusView ? (
