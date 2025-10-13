@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useMemo } from "react";
 
 import { BusinessChatUI } from "@/components/ui/business-chat-ui";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
