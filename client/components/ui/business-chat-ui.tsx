@@ -8596,7 +8596,7 @@ export function BusinessChatUI({
           </div>
         )}
 
-        {themesHoverOverlay}
+        {themesPanelOverlay}
         {modalOverlay}
 
         {/* Budget Ranges Modal */}
