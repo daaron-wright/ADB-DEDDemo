@@ -308,7 +308,7 @@ const CONVERSATION_BLUEPRINT: Record<
 > = {
   intro: {
     message:
-      "Let’s chart your next move. You can dive into market signals first or branch straight into other focus areas if that’s more helpful today.",
+      "Let’s chart your next move. You can dive into market signals first or branch straight into other focus areas if that��s more helpful today.",
     actions: [
       { label: "Explore market signals", action: "open-market-overview" },
       { label: "Shift to competitive context", action: "open-competition-analysis" },
@@ -6529,30 +6529,89 @@ export function BusinessChatUI({
       items: StageRecommendation[];
     }> = [
       {
-        id: "maps",
-        label: "Maps",
-        description: "Location intelligence and spatial layers across Abu Dhabi.",
+        id: "interactive-map",
+        label: "Interactive map",
+        description: "Location intelligence layers and spatial planning for Abu Dhabi districts.",
         icon: MapIcon,
-        predicate: (recommendation: StageRecommendation) =>
-          recommendation.modal === "heat-map" || recommendation.modal === "retail-locations",
+        predicate: (recommendation: StageRecommendation) => {
+          const text = normalizeRecommendationText(recommendation);
+          return (
+            recommendation.modal === "heat-map" ||
+            recommendation.modal === "retail-locations" ||
+            recommendation.icon === MapIcon ||
+            text.includes("map") ||
+            text.includes("location")
+          );
+        },
         items: [],
       },
       {
-        id: "signals",
-        label: "Signals",
-        description: "Demand and trend signals you can act on.",
-        icon: TrendingUp,
-        predicate: (recommendation: StageRecommendation) =>
-          recommendation.action === "open-market-overview" || recommendation.action === "show-summary",
+        id: "demographics",
+        label: "Demographics",
+        description: "Audience mixes, visitor flows, and population insights by zone.",
+        icon: MapPin,
+        predicate: (recommendation: StageRecommendation) => {
+          const text = normalizeRecommendationText(recommendation);
+          return (
+            recommendation.icon === MapPin ||
+            text.includes("demographic") ||
+            text.includes("resident") ||
+            text.includes("visitor") ||
+            text.includes("population")
+          );
+        },
         items: [],
       },
       {
-        id: "competition",
-        label: "Competition",
-        description: "Dedicated competitor intelligence, filters, and white space analysis.",
+        id: "budget",
+        label: "Budget",
+        description: "Setup envelopes, operating costs, and capital planning guidance.",
+        icon: Gauge,
+        predicate: (recommendation: StageRecommendation) => {
+          const text = normalizeRecommendationText(recommendation);
+          return (
+            recommendation.modal === "budget-ranges" ||
+            recommendation.action === "open-budget-analysis" ||
+            recommendation.icon === Gauge ||
+            text.includes("budget") ||
+            text.includes("cost") ||
+            text.includes("price")
+          );
+        },
+        items: [],
+      },
+      {
+        id: "competitor-analysis",
+        label: "Competitor analysis",
+        description: "Competitive benchmarks, white space detection, and operator mapping.",
         icon: Target,
-        predicate: (recommendation: StageRecommendation) =>
-          recommendation.modal === "competitor-map" || recommendation.action === "open-competition-analysis",
+        predicate: (recommendation: StageRecommendation) => {
+          const text = normalizeRecommendationText(recommendation);
+          return (
+            recommendation.modal === "competitor-map" ||
+            recommendation.action === "open-competition-analysis" ||
+            recommendation.icon === Target ||
+            recommendation.icon === TrendingUp ||
+            text.includes("competitor") ||
+            text.includes("competitive")
+          );
+        },
+        items: [],
+      },
+      {
+        id: "gap-analysis",
+        label: "Gap analysis",
+        description: "Identify underserved segments and market whitespace opportunities.",
+        icon: Layers,
+        predicate: (recommendation: StageRecommendation) => {
+          const text = normalizeRecommendationText(recommendation);
+          return (
+            recommendation.modal === "gap-analysis" ||
+            recommendation.icon === Layers ||
+            text.includes("gap analysis") ||
+            text.includes("gap")
+          );
+        },
         items: [],
       },
       {
@@ -6560,8 +6619,15 @@ export function BusinessChatUI({
         label: "Summaries",
         description: "Recaps, exports, and handoffs to keep momentum.",
         icon: ClipboardList,
-        predicate: (recommendation: StageRecommendation) =>
-          recommendation.action === "open-viability-summary" || recommendation.modal === "comprehensive-report",
+        predicate: (recommendation: StageRecommendation) => {
+          const text = normalizeRecommendationText(recommendation);
+          return (
+            recommendation.action === "open-viability-summary" ||
+            recommendation.modal === "comprehensive-report" ||
+            text.includes("summary") ||
+            text.includes("recap")
+          );
+        },
         items: [],
       },
       {
