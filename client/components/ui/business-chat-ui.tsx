@@ -6655,7 +6655,7 @@ export function BusinessChatUI({
   const hasThemeInventory = displayedThemeRecommendations.length > 0;
 
   const topicsAvailable =
-    hasThemeInventory || hasStageTopics || hasTriggeredSuggestedSuggestedTopics;
+    hasThemeInventory || hasStageTopics || hasTriggeredSuggestedTopics;
 
   const [isTopicsPanelOpen, setIsTopicsPanelOpen] = useState(false);
 
