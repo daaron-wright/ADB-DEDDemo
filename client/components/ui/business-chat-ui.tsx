@@ -7831,50 +7831,52 @@ export function BusinessChatUI({
                           <div className="flex items-center gap-3 sm:gap-4">
                             <AIBusinessOrb className="h-12 w-12 sm:h-16 sm:w-16" />
                             <div className="min-w-0 flex-1 text-left">
-                              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                              <div className="flex flex-wrap items-center gap-2 sm:w-full sm:justify-between sm:gap-3">
                                 <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
                                   Omnis
                                 </h3>
                                 {topicsAvailable ? (
-                                  <Popover
-                                    open={isTopicsPanelOpen}
-                                    onOpenChange={handleTopicsOpenChange}
-                                  >
-                                    <PopoverTrigger asChild>
-                                      <button
-                                        type="button"
-                                        aria-pressed={isTopicsPanelOpen}
-                                        aria-expanded={isTopicsPanelOpen}
-                                        className={topicsButtonClasses}
-                                      >
-                                        Suggested Topics
-                                        <ChevronDown
-                                          className={cn(
-                                            "h-3 w-3 transition-transform",
-                                            isTopicsPanelOpen ? "rotate-180" : "rotate-0",
-                                          )}
-                                          aria-hidden="true"
-                                        />
-                                      </button>
-                                    </PopoverTrigger>
-                                    <PopoverContent
-                                      align="start"
-                                      sideOffset={12}
-                                      className="w-[min(820px,94vw)] max-h-[75vh] overflow-y-auto border-none bg-transparent p-0 shadow-none"
+                                  <div className="flex-shrink-0 sm:ml-6">
+                                    <Popover
+                                      open={isTopicsPanelOpen}
+                                      onOpenChange={handleTopicsOpenChange}
                                     >
-                                      <SuggestedTopicsPanel
-                                        stageLabel={stagePanelLabel}
-                                        stageMessage={stagePanelMessage}
-                                        groupedRecommendations={displayedThemeRecommendations}
-                                        onClose={closeTopicsPanel}
-                                        onRecommendationSelect={(recommendation) => {
-                                          handleRecommendationSelect(recommendation);
-                                          closeTopicsPanel();
-                                        }}
-                                        variant="popover"
-                                      />
-                                    </PopoverContent>
-                                  </Popover>
+                                      <PopoverTrigger asChild>
+                                        <button
+                                          type="button"
+                                          aria-pressed={isTopicsPanelOpen}
+                                          aria-expanded={isTopicsPanelOpen}
+                                          className={topicsButtonClasses}
+                                        >
+                                          Suggested Topics
+                                          <ChevronDown
+                                            className={cn(
+                                              "h-3 w-3 transition-transform",
+                                              isTopicsPanelOpen ? "rotate-180" : "rotate-0",
+                                            )}
+                                            aria-hidden="true"
+                                          />
+                                        </button>
+                                      </PopoverTrigger>
+                                      <PopoverContent
+                                        align="start"
+                                        sideOffset={12}
+                                        className="w-[min(820px,94vw)] max-h-[75vh] overflow-y-auto border-none bg-transparent p-0 shadow-none"
+                                      >
+                                        <SuggestedTopicsPanel
+                                          stageLabel={stagePanelLabel}
+                                          stageMessage={stagePanelMessage}
+                                          groupedRecommendations={displayedThemeRecommendations}
+                                          onClose={closeTopicsPanel}
+                                          onRecommendationSelect={(recommendation) => {
+                                            handleRecommendationSelect(recommendation);
+                                            closeTopicsPanel();
+                                          }}
+                                          variant="popover"
+                                        />
+                                      </PopoverContent>
+                                    </Popover>
+                                  </div>
                                 ) : null}
                               </div>
                               <p className="text-xs text-slate-500">
