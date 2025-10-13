@@ -3658,87 +3658,8 @@ const RegionExplorerPrompt = ({
             Let’s chart your next move.
           </h3>
           <p className="text-sm leading-relaxed text-slate-600">
-            You can dive into market signals first or branch straight into other focus areas if that’s more helpful today.
+            Drop a prompt like “Preview live resident density, tourist flows, and zoning overlays before committing to a district focus.” or “Validate demand drivers, seasonal triggers, and spend behavior before deep-diving licensing or budgeting.”
           </p>
-        </div>
-
-        <div className="space-y-3">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0E766E]">
-            Conversation starters
-          </p>
-          <p className="text-sm leading-relaxed text-slate-600">
-            Drop a prompt to keep momentum without leaving the current stage.
-          </p>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="space-y-4 rounded-2xl border border-[#d8e4df]/80 bg-white/90 p-5 shadow-[0_26px_72px_-60px_rgba(15,23,42,0.48)]">
-            <div className="space-y-1">
-              <div className="flex items-center justify-between gap-2">
-                <h4 className="text-base font-semibold text-slate-900">Interactive Map</h4>
-                <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
-                  4 prompts
-                </span>
-              </div>
-              <p className="text-sm leading-relaxed text-slate-600">
-                Preview live footfall, resident density, tourist flows, and zoning overlays before committing to a district focus.
-              </p>
-            </div>
-            <ul className="space-y-2 text-sm text-slate-600">
-              <li className="flex items-start gap-2">
-                <span className="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0E766E]" />
-                Corniche footfall snapshot
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0E766E]" />
-                Resident vs. tourist mix
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0E766E]" />
-                Peak trading hours
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0E766E]" />
-                Compliance overlays
-              </li>
-            </ul>
-            <button
-              type="button"
-              onClick={onExplore}
-              className="inline-flex w-fit items-center gap-2 rounded-full border border-[#0E766E] bg-[#0E766E] px-4 py-2 text-sm font-semibold text-white shadow-[0_22px_44px_-28px_rgba(14,118,110,0.65)] transition hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E766E]/40"
-            >
-              Launch interactive map
-              <ArrowUpRight className="h-4 w-4" aria-hidden />
-            </button>
-          </div>
-
-          <div className="space-y-4 rounded-2xl border border-[#d8e4df]/80 bg-white/90 p-5 shadow-[0_26px_72px_-60px_rgba(15,23,42,0.48)]">
-            <div className="space-y-1">
-              <div className="flex items-center justify-between gap-2">
-                <h4 className="text-base font-semibold text-slate-900">Demand Signals</h4>
-                <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
-                  3 prompts
-                </span>
-              </div>
-              <p className="text-sm leading-relaxed text-slate-600">
-                Validate demand drivers, seasonal triggers, and spend behavior before deep-diving licensing or budgeting.
-              </p>
-            </div>
-            <ul className="space-y-2 text-sm text-slate-600">
-              <li className="flex items-start gap-2">
-                <span className="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0E766E]" />
-                Seasonal uplift
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0E766E]" />
-                Influencer traction
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0E766E]" />
-                Average spend bands
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
     </div>
