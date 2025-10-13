@@ -510,7 +510,7 @@ export default function Index() {
 
             {/* Welcome heading */}
             <div className="flex items-center justify-center">
-              <span className="text-black text-base font-medium">Welcome</span>
+              <span className="text-black text-base font-medium">Welcome, Layla</span>
             </div>
 
             {/* Sign in button */}
