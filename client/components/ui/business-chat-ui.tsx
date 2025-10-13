@@ -256,7 +256,7 @@ const PRELOADED_PROMPTS = {
   restaurants: [
     "I want to understand the competitor landscape for restaurants in Abu Dhabi. Can you provide detailed analysis?",
     "What are the most popular cuisines in Abu Dhabi and what gaps exist in the market?",
-    "Can you analyze the footfall and customer behavior patterns in the Corniche area?",
+    "Can you analyze the population density and customer behavior patterns in the Corniche area?",
     "What are the licensing requirements and estimated timeline for opening a restaurant?",
   ],
   "fast-food": [
