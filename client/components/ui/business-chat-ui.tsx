@@ -309,7 +309,7 @@ const CONVERSATION_BLUEPRINT: Record<
 > = {
   intro: {
     message:
-      "Let’s chart your next move. You can dive into market signals first or branch straight into other focus areas if that’s more helpful today.",
+      "Let’s decide where to open a restaurant. Curious about the demographics of a particular area? We can validate demand drivers, seasonal triggers, and spend behavior before diving deeper into licensing or budgeting.",
     actions: [
       { label: "Explore market signals", action: "open-market-overview" },
       { label: "Shift to competitive context", action: "open-competition-analysis" },
@@ -3655,10 +3655,10 @@ const RegionExplorerPrompt = ({
             Start
           </span>
           <h3 className="text-xl font-semibold leading-tight text-slate-900">
-            Let’s chart your next move.
+            Let’s decide where to open a restaurant.
           </h3>
           <p className="text-sm leading-relaxed text-slate-600">
-            Drop a prompt like “Preview live resident density, tourist flows, and zoning overlays before committing to a district focus.” or “Validate demand drivers, seasonal triggers, and spend behavior before deep-diving licensing or budgeting.”
+            Ask about resident density, tourist flows, zoning overlays, district demographics, or even demand drivers, seasonal triggers, and spend behavior before diving deeper into licensing or budgeting.
           </p>
         </div>
       </div>
@@ -4991,7 +4991,7 @@ const CompetitorBreakoutModal = ({
   const competitorHighlights = [
     {
       name: "Shurfa Bay",
-      rating: "4.8�������",
+      rating: "4.8���������",
       tier: "Premium waterfront",
       insight:
         "Sunset terrace has maintained 98% capacity across the past four evenings.",
