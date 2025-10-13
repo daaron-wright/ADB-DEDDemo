@@ -4377,8 +4377,21 @@ const SummaryTabCard = ({
               key={group.id}
               className="flex items-start gap-3 rounded-2xl border border-emerald-100/60 bg-white/80 px-4 py-4"
             >
-              <span className="mt-1 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
-                <GroupIcon className="h-4 w-4" aria-hidden="true" />
+              <span
+                className={cn(
+                  "mt-1 flex flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]",
+                  group.id === "support" ? "gap-2 px-3 py-2" : "h-9 w-9",
+                )}
+              >
+                <GroupIcon
+                  className={cn("h-4 w-4", group.id === "support" && "h-3.5 w-3.5")}
+                  aria-hidden="true"
+                />
+                {group.id === "support" ? (
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.24em]">
+                    {group.label}
+                  </span>
+                ) : null}
               </span>
               <div className="space-y-1">
                 <p className="text-sm font-semibold text-slate-900">
@@ -4537,13 +4550,26 @@ const SuggestedThemesPanel = ({
       >
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="flex items-start gap-3">
-            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
-              <GroupIcon className="h-5 w-5" aria-hidden="true" />
-            </span>
-            <div className="space-y-1">
-              <p className="text-base font-semibold text-slate-900 sm:text-lg">
+          <span
+            className={cn(
+              "flex items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]",
+              group.id === "support" ? "gap-2 px-4 py-2" : "h-12 w-12",
+            )}
+          >
+            <GroupIcon
+              className={cn("h-5 w-5", group.id === "support" && "h-4 w-4")}
+              aria-hidden="true"
+            />
+            {group.id === "support" ? (
+              <span className="text-[11px] font-semibold uppercase tracking-[0.22em]">
                 {group.label}
-              </p>
+              </span>
+            ) : null}
+          </span>
+          <div className="space-y-1">
+            <p className="text-base font-semibold text-slate-900 sm:text-lg">
+              {group.label}
+            </p>
               <p className="text-sm leading-relaxed text-slate-600">
                 {group.description}
               </p>
@@ -6593,12 +6619,6 @@ export function BusinessChatUI({
     ? followUpRecommendations[0]?.description ?? "Choose what you’d like to explore next."
     : stageBlueprint?.message ?? "";
 
-  const hasSupportTab = useMemo(
-    () => groupedThemeRecommendations.some((group) => group.id === "support"),
-    [groupedThemeRecommendations],
-  );
-  const canUseSupportShortcut = hasSupportTab && hasTriggeredSuggestedThemes;
-
   const showInlineSuggestedThemes =
     hasTriggeredSuggestedThemes &&
     groupedThemeRecommendations.length > 0;
@@ -6680,24 +6700,6 @@ export function BusinessChatUI({
       prev.includes(activityId) ? prev : [...prev, activityId],
     );
   }, []);
-
-  const handleSupportShortcut = useCallback(() => {
-    if (!hasTriggeredSuggestedThemes || !hasSupportTab) {
-      return;
-    }
-
-    setSuggestedThemesActiveTab("support");
-
-    if (!showInlineSuggestedThemes) {
-      setAdvisorPanelOpen(true);
-    }
-  }, [
-    hasSupportTab,
-    hasTriggeredSuggestedThemes,
-    setAdvisorPanelOpen,
-    setSuggestedThemesActiveTab,
-    showInlineSuggestedThemes,
-  ]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -8098,22 +8100,6 @@ export function BusinessChatUI({
                     </p>
                   </div>
 
-                  <div className="hidden sm:flex items-center gap-2 text-slate-500">
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.22em]">
-                      Support
-                    </span>
-                    <button
-                      type="button"
-                      onClick={handleSupportShortcut}
-                      disabled={!canUseSupportShortcut}
-                      className={cn(
-                        "inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition hover:border-[#0F766E]/60 hover:bg-white disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-white/60 disabled:text-slate-400",
-                      )}
-                    >
-                      <Headset className="h-3.5 w-3.5" aria-hidden="true" />
-                      Support tab
-                    </button>
-                  </div>
                 </div>
               </div>
 
@@ -8132,22 +8118,6 @@ export function BusinessChatUI({
                         </p>
                       </div>
                       <div className="flex items-center gap-3">
-                        <div className="hidden sm:flex items-center gap-2 text-slate-500">
-                          <span className="text-[11px] font-semibold uppercase tracking-[0.22em]">
-                            Support
-                          </span>
-                          <button
-                            type="button"
-                            onClick={handleSupportShortcut}
-                            disabled={!canUseSupportShortcut}
-                            className={cn(
-                              "inline-flex items-center gap-1.5 rounded-full border border-emerald-200/70 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition hover:border-[#0F766E]/60 hover:bg-white/90 disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-white/60 disabled:text-slate-400",
-                            )}
-                          >
-                            <Headset className="h-3.5 w-3.5" aria-hidden="true" />
-                            Support tab
-                          </button>
-                        </div>
                         <button
                           type="button"
                           onClick={onClose}
