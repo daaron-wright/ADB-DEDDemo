@@ -56,7 +56,7 @@ const retailSpaces: RetailSpace[] = [
       { label: "Utilities", value: "AED 34k", description: "Museum district blended benchmark" },
       { label: "Fit-out reserve", value: "AED 190k", description: "Gallery-grade interior finishes" },
     ],
-    highlight: "Footfall uplift from Louvre Abu Dhabi weekend traffic",
+    highlight: "Population density uplift from Louvre Abu Dhabi weekend traffic",
   },
   {
     id: "marina-promenade",
