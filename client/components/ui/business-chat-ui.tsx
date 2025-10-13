@@ -8446,61 +8446,13 @@ export function BusinessChatUI({
                                   Omnis
                                 </h3>
                                 {canShowInlineSuggestedThemes ? (
-                                  showThemesHoverCard ? (
-                                    <div
-                                      className="relative"
-                                      onMouseEnter={openThemesHover}
-                                      onMouseLeave={scheduleThemesHoverClose}
-                                      onFocus={openThemesHover}
-                                      onBlur={scheduleThemesHoverClose}
-                                    >
-                                      <button
-                                        type="button"
-                                        onClick={handleThemesToggle}
-                                        aria-pressed={isInlineThemesExpanded}
-                                        aria-expanded={isInlineThemesExpanded}
-                                        className={themesButtonClasses}
-                                      >
-                                        Themes
-                                        <ChevronDown
-                                          className={cn(
-                                            "h-3 w-3 transition-transform",
-                                            isInlineThemesExpanded
-                                              ? "rotate-180"
-                                              : "rotate-0",
-                                          )}
-                                          aria-hidden="true"
-                                        />
-                                      </button>
-                                      {isThemesHoverOpen ? (
-                                        <div
-                                          className={cn(
-                                            "absolute right-0 top-full z-[120] mt-3 w-[min(680px,92vw)]",
-                                            isSidePanel &&
-                                              "left-0 right-auto w-[min(520px,calc(100vw-48px))]",
-                                          )}
-                                          onMouseEnter={openThemesHover}
-                                          onMouseLeave={scheduleThemesHoverClose}
-                                          onFocus={openThemesHover}
-                                          onBlur={scheduleThemesHoverClose}
-                                        >
-                                          <SuggestedThemesPanel
-                                            stageLabel={stagePanelLabel}
-                                            stageMessage={stagePanelMessage}
-                                            groupedRecommendations={groupedThemeRecommendations}
-                                            onRecommendationSelect={handleRecommendationSelect}
-                                            hasStageTopics={hasStageTopics}
-                                            currentStep={currentStep}
-                                            onSendTopic={handleSendMessage}
-                                            showCloseButton={false}
-                                            variant="popover"
-                                            activeTab={suggestedThemesActiveTab}
-                                            onActiveTabChange={setSuggestedThemesActiveTab}
-                                          />
-                                        </div>
-                                      ) : null}
-                                    </div>
-                                  ) : (
+                                  <div
+                                    className="relative"
+                                    onMouseEnter={openThemesHover}
+                                    onMouseLeave={scheduleThemesHoverClose}
+                                    onFocus={openThemesHover}
+                                    onBlur={scheduleThemesHoverClose}
+                                  >
                                     <button
                                       type="button"
                                       onClick={handleThemesToggle}
@@ -8519,7 +8471,7 @@ export function BusinessChatUI({
                                         aria-hidden="true"
                                       />
                                     </button>
-                                  )
+                                  </div>
                                 ) : null}
                               </div>
                               <p className="text-xs text-slate-500">
