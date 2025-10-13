@@ -6528,6 +6528,7 @@ export function BusinessChatUI({
 
         setMessages((prev) => [...prev, userMessage, ...responses]);
         setInputValue("");
+        applyFollowUps([]);
         setTimeout(() => {
           openApplicantPortal();
         }, 100);
