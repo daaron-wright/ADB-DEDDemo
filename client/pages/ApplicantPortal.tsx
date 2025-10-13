@@ -64,7 +64,7 @@ const daysFromToday = (offset: number) => {
 const applications: ApplicationRecord[] = [
   {
     id: "APP-48291",
-    title: "Corniche Culinary Collective",
+    title: "Restaurant (F&B) Journey",
     directorate: "Department of Economic Development",
     beneficiary: "Citizen",
     status: "In Review",
@@ -221,7 +221,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "Department of Economic Development",
     },
     applicationTitles: {
-      "APP-48291": "Corniche Culinary Collective",
+      "APP-48291": "Restaurant (F&B) Journey",
     },
     applicationSummaries: {
       "APP-48291":
@@ -278,7 +278,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       `عرض أو إ��فاء نظرة عامة للرحلة الخاصة بـ ${title}`,
     fieldLabels: {
       beneficiary: "المستفيد",
-      licenseType: "نوع الرخصة",
+      licenseType: "نو�� الرخصة",
       submissionId: "معرّف الطلب",
       lastUpdate: "آخر تحديث",
     },
@@ -387,7 +387,7 @@ const journeyStages: JourneyStage[] = [
     tasks: [
       {
         id: "registration-trade-name",
-        label: "Reserve Corniche Culinary Collective trade name",
+        label: "Reserve Restaurant (F&B) Journey trade name",
         status: "completed",
         owner: "Applicant",
         completedOn: isoDate(daysFromToday(-3)),
