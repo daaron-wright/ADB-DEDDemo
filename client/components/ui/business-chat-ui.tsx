@@ -7165,6 +7165,7 @@ export function BusinessChatUI({
       setShouldOpenInvestorView(false);
       setAdvisorPanelOpen(false);
       setModalView("chat");
+      applyFollowUps([]);
       return;
     }
 
@@ -7176,6 +7177,7 @@ export function BusinessChatUI({
     setShouldPromptLogin(false);
     setIsInvestorAuthenticated(false);
     setShouldOpenInvestorView(false);
+    applyFollowUps([]);
 
     if (shouldSuppressChat) {
       setMessages([]);
@@ -7343,6 +7345,7 @@ export function BusinessChatUI({
     setMessages(conversation);
     setAdvisorPanelOpen(true);
   }, [
+    applyFollowUps,
     isOpen,
     buildMessage,
     initialMessage,
