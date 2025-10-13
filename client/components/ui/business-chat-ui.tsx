@@ -6689,12 +6689,12 @@ export function BusinessChatUI({
 
   useEffect(() => {
     if (!themesAvailable) {
-      setIsThemesPanelOpen(false);
+      setIsTopicsPanelOpen(false);
       return;
     }
 
     if (isAdvisorPanelOpen) {
-      setIsThemesPanelOpen(true);
+      setIsTopicsPanelOpen(true);
     }
   }, [themesAvailable, isAdvisorPanelOpen]);
 
