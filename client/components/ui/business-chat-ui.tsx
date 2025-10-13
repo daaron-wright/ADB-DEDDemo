@@ -6858,8 +6858,10 @@ export function BusinessChatUI({
       applyFollowUps,
       buildMessage,
       buildStepMessage,
+      hasTriggeredSuggestedThemes,
       openApplicantPortal,
       setCurrentStep,
+      setHasTriggeredSuggestedThemes,
     ],
   );
 
