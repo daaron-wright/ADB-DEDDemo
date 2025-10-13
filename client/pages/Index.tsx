@@ -520,7 +520,7 @@ export default function Index() {
                 defaultUserType="applicant"
                 trigger={
                   <span className="inline-flex items-center justify-center rounded-full bg-teal-gradient px-6 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
-                    Sign in
+                    Sing Out
                   </span>
                 }
                 onLogin={handleUAEPassLogin}
