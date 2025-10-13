@@ -4128,12 +4128,12 @@ const SuggestedTopicsPanel = ({
       </div>
       {groupedRecommendations.length > 0 ? (
         <Tabs value={activeTab} onValueChange={setActiveTab} className="flex flex-col gap-5">
-          <TabsList className="grid w-full grid-cols-2 gap-2 rounded-[32px] border border-emerald-100/80 bg-[#f0f9f6] p-2 sm:grid-cols-4">
+          <TabsList className="grid w-full auto-rows-fr grid-cols-1 gap-2 rounded-[32px] border border-emerald-100/80 bg-[#f0f9f6] p-3 sm:grid-cols-2 lg:grid-cols-4">
             <TabsTrigger
               value="summary"
-              className="flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:text-[11px]"
+              className="group flex h-full w-full flex-col items-center justify-center gap-2 rounded-[24px] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0F766E]/80 transition-all duration-200 ease-out hover:text-[#0F766E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:flex-row sm:gap-3 sm:text-xs"
             >
-              Overview
+              <span className="text-center leading-tight">Overview</span>
             </TabsTrigger>
             {groupedRecommendations.map((group) => {
               const GroupIcon = group.icon;
@@ -4141,12 +4141,12 @@ const SuggestedTopicsPanel = ({
                 <TabsTrigger
                   key={group.id}
                   value={group.id}
-                  className="flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:text-[11px]"
+                  className="group flex h-full w-full flex-col items-center justify-center gap-2 rounded-[24px] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0F766E]/80 transition-all duration-200 ease-out hover:text-[#0F766E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:flex-row sm:gap-3 sm:text-xs"
                 >
-                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
+                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
                     <GroupIcon className="h-4 w-4" aria-hidden="true" />
                   </span>
-                  <span className="truncate text-center">{group.label}</span>
+                  <span className="text-center leading-tight sm:text-left">{group.label}</span>
                 </TabsTrigger>
               );
             })}
