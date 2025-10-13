@@ -6625,7 +6625,7 @@ export function BusinessChatUI({
   const hasStageTopics = (STAGE_TOPIC_GROUPS[currentStep] ?? []).length > 0;
 
   const stagePanelLabel = followUpRecommendations.length > 0
-    ? "Next suggested themes"
+    ? "Next suggested topics"
     : stageMeta?.label ?? "Current stage";
 
   const stagePanelMessage = followUpRecommendations.length > 0
