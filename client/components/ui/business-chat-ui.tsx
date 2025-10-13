@@ -6464,6 +6464,8 @@ export function BusinessChatUI({
   const [isAdvisorPanelOpen, setAdvisorPanelOpen] = useState(false);
   const [hasTriggeredSuggestedThemes, setHasTriggeredSuggestedThemes] =
     useState(false);
+  const [persistedThemeGroups, setPersistedThemeGroups] =
+    useState<SuggestedThemeGroup[]>([]);
   const [followUpRecommendations, setFollowUpRecommendations] = useState<StageRecommendation[]>([]);
   const [suggestedThemesActiveTab, setSuggestedThemesActiveTab] =
     useState<string>("summary");
