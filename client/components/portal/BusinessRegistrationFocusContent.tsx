@@ -108,7 +108,7 @@ const TRADE_NAME_IDEAS: ReadonlyArray<TradeNameIdeaSuggestion> = [
   {
     id: "harbor-lights-supper-club",
     english: "Harbor Lights Supper Club",
-    arabic: "نادي عشاء أضواء ��لميناء",
+    arabic: "نادي ��شاء أضواء الميناء",
   },
   {
     id: "marina-ember-grill",
@@ -253,7 +253,6 @@ export function BusinessRegistrationFocusContent({
 
   const [tradeNameSuggestions, setTradeNameSuggestions] = React.useState<TradeNameIdeaSuggestion[]>([]);
   const [hasGeneratedSuggestions, setHasGeneratedSuggestions] = React.useState(false);
-  const continueButtonRef = React.useRef<HTMLButtonElement | null>(null);
   const notifyTradeNameChange = React.useCallback(
     (value: string | null) => {
       onTradeNameChange?.(value);
@@ -537,9 +536,7 @@ export function BusinessRegistrationFocusContent({
       headline: "Reserve your approved name",
       description: "Lock in this trade name before moving to licensing.",
       buttonLabel: "Reserve name",
-      onClick: () => {
-        continueButtonRef.current?.focus();
-      },
+      onClick: focusTradeNameInput,
       disabled: false,
     };
   }, [failureReason, focusTradeNameInput, hasActiveTradeName, isChecking, isNameAvailable]);
