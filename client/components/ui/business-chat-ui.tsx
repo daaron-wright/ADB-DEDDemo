@@ -7797,6 +7797,16 @@ export function BusinessChatUI({
                                   }
                                 />
                               ))}
+                              {artifactMessages.length === 0 ? (
+                                <RegionExplorerPrompt
+                                  onExplore={() =>
+                                    handleAction(
+                                      "open-market-overview",
+                                      "Show me Abu Dhabi's investment districts",
+                                    )
+                                  }
+                                />
+                              ) : null}
                             </>
                           ) : null}
                         </div>
