@@ -6670,7 +6670,7 @@ export function BusinessChatUI({
     setAdvisorPanelOpen(false);
   }, [setAdvisorPanelOpen]);
 
-  const handleThemesOpenChange = useCallback(
+  const handleTopicsOpenChange = useCallback(
     (open: boolean) => {
       if (!themesAvailable) {
         setIsThemesPanelOpen(false);
