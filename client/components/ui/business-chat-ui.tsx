@@ -4598,41 +4598,44 @@ const SuggestedThemesPanel = ({
               groupedRecommendations={groupedRecommendations}
             />
           </TabsContent>
-          {groupedRecommendations.map((group) => (
-            <TabsContent key={group.id} value={group.id} className="m-0">
-              <section
-                className="flex flex-col gap-4 rounded-[28px] border border-emerald-100/70 bg-white/95 px-5 py-5 shadow-[0_32px_110px_-72px_rgba(14,118,110,0.4)] sm:px-6 sm:py-6"
-              >
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="flex items-start gap-3">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
-                      <group.icon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    <div className="space-y-1">
-                      <p className="text-base font-semibold text-slate-900 sm:text-lg">
-                        {group.label}
-                      </p>
-                      <p className="text-sm leading-relaxed text-slate-600">
-                        {group.description}
-                      </p>
+          {groupedRecommendations.map((group) => {
+            const GroupIcon = group.icon;
+            return (
+              <TabsContent key={group.id} value={group.id} className="m-0">
+                <section
+                  className="flex flex-col gap-4 rounded-[28px] border border-emerald-100/70 bg-white/95 px-5 py-5 shadow-[0_32px_110px_-72px_rgba(14,118,110,0.4)] sm:px-6 sm:py-6"
+                >
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="flex items-start gap-3">
+                      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
+                        <GroupIcon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <div className="space-y-1">
+                        <p className="text-base font-semibold text-slate-900 sm:text-lg">
+                          {group.label}
+                        </p>
+                        <p className="text-sm leading-relaxed text-slate-600">
+                          {group.description}
+                        </p>
+                      </div>
                     </div>
+                    <span className="inline-flex items-center rounded-full border border-emerald-100/70 bg-[#f4fbf8] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-[#0F766E]">
+                      {group.items.length} {group.items.length === 1 ? "suggestion" : "suggestions"}
+                    </span>
                   </div>
-                  <span className="inline-flex items-center rounded-full border border-emerald-100/70 bg-[#f4fbf8] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-[#0F766E]">
-                    {group.items.length} {group.items.length === 1 ? "suggestion" : "suggestions"}
-                  </span>
-                </div>
-                <div className="flex flex-col gap-3">
-                  {group.items.map((recommendation) => (
-                    <RecommendationListItem
-                      key={recommendation.id}
-                      recommendation={recommendation}
-                      onSelect={onRecommendationSelect}
-                    />
-                  ))}
-                </div>
-              </section>
-            </TabsContent>
-          ))}
+                  <div className="flex flex-col gap-3">
+                    {group.items.map((recommendation) => (
+                      <RecommendationListItem
+                        key={recommendation.id}
+                        recommendation={recommendation}
+                        onSelect={onRecommendationSelect}
+                      />
+                    ))}
+                  </div>
+                </section>
+              </TabsContent>
+            );
+          })}
         </Tabs>
       ) : (
         <div className="rounded-3xl border border-emerald-100 bg-white p-6 text-sm leading-relaxed text-slate-600 shadow-[0_28px_72px_-56px_rgba(15,23,42,0.32)]">
