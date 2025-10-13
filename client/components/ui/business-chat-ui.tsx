@@ -7763,9 +7763,8 @@ export function BusinessChatUI({
   );
 
   const bodyWrapperClass = cn(
-    "px-3 sm:px-4 lg:px-6 pb-4 sm:pb-6 lg:pb-8",
-    isSidePanel &&
-      "flex h-full flex-col overflow-hidden px-4 pb-5 sm:px-5 lg:px-6",
+    "flex flex-1 flex-col overflow-hidden px-3 pb-4 sm:px-4 sm:pb-6 lg:px-6 lg:pb-8",
+    isSidePanel && "px-4 pb-5 sm:px-5 lg:px-6",
   );
 
   const conversationContainerClass = cn(
