@@ -6146,14 +6146,6 @@ export function BusinessChatUI({
           items: [],
         },
         {
-          id: "human-assistance",
-          label: "Human Assistance",
-          description: "Reach a TAMM specialist instantly while I keep your workspace updated.",
-          icon: Headset,
-          predicate: (recommendation: StageRecommendation) => recommendation.type === "human",
-          items: [],
-        },
-        {
           id: "summaries",
           label: "Summaries",
           description: "Recaps, exports, and handoffs to keep momentum.",
