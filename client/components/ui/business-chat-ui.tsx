@@ -279,6 +279,20 @@ const PRELOADED_PROMPTS = {
   ],
 };
 
+const normalizeMessageContent = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[.,!?]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const SUGGESTED_THEMES_TRIGGER_MESSAGE =
+  "I want to open a new restaurant in Abu Dhabi. What are the best areas for modern Emirati fusion cuisine?";
+
+const NORMALIZED_SUGGESTED_THEMES_TRIGGER = normalizeMessageContent(
+  SUGGESTED_THEMES_TRIGGER_MESSAGE,
+);
+
 const CONVERSATION_BLUEPRINT: Record<
   ConversationStep,
   {
