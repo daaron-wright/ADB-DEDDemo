@@ -6721,7 +6721,13 @@ export function BusinessChatUI({
       setInputValue("");
       applyFollowUps(nextFollowUps);
     },
-    [buildMessage, buildStepMessage, openApplicantPortal, setCurrentStep],
+    [
+      applyFollowUps,
+      buildMessage,
+      buildStepMessage,
+      openApplicantPortal,
+      setCurrentStep,
+    ],
   );
 
   const openHeatMapFullView = useCallback(() => {
