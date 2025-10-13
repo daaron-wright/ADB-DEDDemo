@@ -5242,7 +5242,7 @@ const DiscoverExperienceView = ({
       name: "Coastal district",
       summary:
         "Lifestyle beachfront with active tourism calendar and family day-trip itineraries.",
-      footfall: "35–50K weekly visits",
+      populationDensity: "35–50K weekly visits",
       density: "Seasonal peaks",
       trend: "+5% holiday uplift",
       focus: "Beach clubs, ice cream bars, casual dining",
@@ -7644,7 +7644,7 @@ export function BusinessChatUI({
           description:
             task.status === "in_progress"
               ? "Marked in progress—ask me if you'd like me to chase blockers or provide supporting material."
-              : "Still outstanding��let me know when you're ready for checklists or document templates.",
+              : "Still outstanding—let me know when you're ready for checklists or document templates.",
           category: "Task",
         }));
       }
