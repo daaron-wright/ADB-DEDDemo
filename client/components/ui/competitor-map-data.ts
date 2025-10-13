@@ -1,6 +1,6 @@
 export type CompetitorFilter = "relevant" | "highDemand";
 
-export type CompetitorMetricId = "rating" | "socialMentions" | "fnbGross";
+export type CompetitorMetricId = "googleRating" | "socialBuzz" | "sentiment";
 
 export interface CompetitorMetric {
   label: string;
@@ -30,26 +30,26 @@ export const competitorMetricsMeta: Record<CompetitorMetricId, {
   legend: string;
   formatter?: (value: number) => string;
 }> = {
-  rating: {
-    label: "Ratings",
+  googleRating: {
+    label: "Google rating",
     accent: "#0E766E",
-    subtitle: "Average guest ratings aggregated across major platforms",
-    legend: "Scaled from 1 to 5 based on diner reviews",
-    formatter: (value) => `${value.toFixed(1)}/5`,
+    subtitle: "Latest average pulled from Google reviews in the last 90 days",
+    legend: "Scale from 1 to 5 refreshed nightly",
+    formatter: (value) => value.toFixed(1),
   },
-  socialMentions: {
-    label: "Social media mentions (90d)",
+  socialBuzz: {
+    label: "Social buzz index",
     accent: "#8B5CF6",
-    subtitle: "Conversation volume sourced from the Investor Compass social graph",
-    legend: "Rolling 90-day mention count across key platforms",
-    formatter: (value) => value.toLocaleString(),
+    subtitle: "Composite index blending Instagram, TikTok, and TripAdvisor chatter",
+    legend: "0-100 index derived from the Investor Compass social graph",
+    formatter: (value) => `${Math.round(value)}`,
   },
-  fnbGross: {
-    label: "F&B gross output",
-    accent: "#F97316",
-    subtitle: "Estimated monthly gross value added in AED millions",
-    legend: "Modeled using Omnis demand indices for the district",
-    formatter: (value) => `AED ${value.toFixed(1)}M`,
+  sentiment: {
+    label: "Sentiment analysis",
+    accent: "#F59E0B",
+    subtitle: "Positive share of social sentiment across scraped platforms",
+    legend: "Percentage of positive mentions over the last 4 weeks",
+    formatter: (value) => `${Math.round(value)}%`,
   },
 };
 
@@ -63,25 +63,25 @@ export const competitorMapPoints: CompetitorPoint[] = [
     y: 46,
     baseSize: 30,
     summary:
-      "Beachfront fine dining with sunset views, high tourist footfall from marina visitors and luxury hotel stays.",
+      "Beachfront fine dining with sunset views, sustained by marina tourism and concierge partnerships.",
     metrics: {
-      rating: {
-        label: "Guest rating",
+      googleRating: {
+        label: "Google rating",
         value: 4.8,
-        unit: "score",
-        description: "Consistently ranked in the top percentile across OpenTable and Google Reviews.",
+        unit: "out of 5",
+        description: "Averaged from 1,300+ Google reviews captured in the last quarter.",
       },
-      socialMentions: {
-        label: "Social buzz",
-        value: 1870,
-        unit: "mentions",
-        description: "Weekly viral reels and influencer coverage keep brand awareness elevated.",
+      socialBuzz: {
+        label: "Social buzz index",
+        value: 92,
+        unit: "index",
+        description: "Influencer reels and marina event coverage keep weekly chatter elevated.",
       },
-      fnbGross: {
-        label: "Monthly GVA",
-        value: 3.6,
-        unit: "AEDm",
-        description: "High average check and premium cabana packages drive strong monthly contribution.",
+      sentiment: {
+        label: "Sentiment analysis",
+        value: 82,
+        unit: "% positive",
+        description: "Investor Compass sentiment engine shows strong praise for premium service.",
       },
     },
     highlights: [
@@ -100,25 +100,25 @@ export const competitorMapPoints: CompetitorPoint[] = [
     y: 54,
     baseSize: 26,
     summary:
-      "Intimate dining concept with experiential tasting menus, highly referenced across social platforms.",
+      "Intimate tasting journeys with heavy social amplification around Corniche sunset dining.",
     metrics: {
-      rating: {
-        label: "Guest rating",
+      googleRating: {
+        label: "Google rating",
         value: 4.7,
-        unit: "score",
-        description: "Diners cite storytelling-led tasting menus and attentive service.",
+        unit: "out of 5",
+        description: "Weighted Google rating factoring verified local guide reviews.",
       },
-      socialMentions: {
-        label: "Social buzz",
-        value: 2140,
-        unit: "mentions",
-        description: "Top trending Corniche restaurant across TikTok UAE over the last quarter.",
+      socialBuzz: {
+        label: "Social buzz index",
+        value: 95,
+        unit: "index",
+        description: "Top-trending Corniche concept across TikTok UAE over the last quarter.",
       },
-      fnbGross: {
-        label: "Monthly GVA",
-        value: 2.9,
-        unit: "AEDm",
-        description: "High table turn velocity with extended degustation experiences.",
+      sentiment: {
+        label: "Sentiment analysis",
+        value: 85,
+        unit: "% positive",
+        description: "High positive sentiment tied to storytelling-led tasting menus.",
       },
     },
     highlights: [
@@ -137,25 +137,25 @@ export const competitorMapPoints: CompetitorPoint[] = [
     y: 50,
     baseSize: 24,
     summary:
-      "Flagship hotel dining room with elevated Italian classics, strong corporate and tourist mix.",
+      "Flagship hotel dining room with elevated Italian classics and a loyal corporate mix.",
     metrics: {
-      rating: {
-        label: "Guest rating",
+      googleRating: {
+        label: "Google rating",
         value: 4.6,
-        unit: "score",
-        description: "Awarded Michelin recognition with exceptional service consistency.",
+        unit: "out of 5",
+        description: "Maintains Michelin-recognised scores across Google and OpenTable.",
       },
-      socialMentions: {
-        label: "Social buzz",
-        value: 960,
-        unit: "mentions",
-        description: "Consistent social coverage anchored in award announcements and chef features.",
+      socialBuzz: {
+        label: "Social buzz index",
+        value: 78,
+        unit: "index",
+        description: "Award coverage and chef features keep the brand visible but niche.",
       },
-      fnbGross: {
-        label: "Monthly GVA",
-        value: 3.2,
-        unit: "AEDm",
-        description: "Corporate tasting menus and banquet packages boost revenue mix.",
+      sentiment: {
+        label: "Sentiment analysis",
+        value: 76,
+        unit: "% positive",
+        description: "Feedback highlights impeccable service though menu innovation is moderate.",
       },
     },
     highlights: [
@@ -174,25 +174,25 @@ export const competitorMapPoints: CompetitorPoint[] = [
     y: 38,
     baseSize: 22,
     summary:
-      "Lifestyle beach club anchoring Saadiyat nightlife with strong music calendar and day-to-night service.",
+      "Lifestyle beach club anchoring Saadiyat nightlife with a robust day-to-night programme.",
     metrics: {
-      rating: {
-        label: "Guest rating",
+      googleRating: {
+        label: "Google rating",
         value: 4.5,
-        unit: "score",
-        description: "Guests praise the all-day experience and curated live entertainment.",
+        unit: "out of 5",
+        description: "Google reviews emphasise atmosphere and curated music line-up.",
       },
-      socialMentions: {
-        label: "Social buzz",
-        value: 1680,
-        unit: "mentions",
-        description: "Weekly live DJ reels and influencer content drive steady reach.",
+      socialBuzz: {
+        label: "Social buzz index",
+        value: 84,
+        unit: "index",
+        description: "Weekly DJ sets and influencer partnerships sustain buzz.",
       },
-      fnbGross: {
-        label: "Monthly GVA",
-        value: 2.5,
-        unit: "AEDm",
-        description: "Premium cabana packages increase basket size and beverage spend.",
+      sentiment: {
+        label: "Sentiment analysis",
+        value: 73,
+        unit: "% positive",
+        description: "Positive sentiment on vibe and entertainment, with pricing flagged occasionally.",
       },
     },
     highlights: [
@@ -211,25 +211,25 @@ export const competitorMapPoints: CompetitorPoint[] = [
     y: 44,
     baseSize: 20,
     summary:
-      "Cultural destination dining connected to the Louvre Abu Dhabi evening programme.",
+      "Cultural destination dining connected to Louvre Abu Dhabi's evening programme.",
     metrics: {
-      rating: {
-        label: "Guest rating",
+      googleRating: {
+        label: "Google rating",
         value: 4.9,
-        unit: "score",
-        description: "Top-rated for curated tasting menus aligned with art exhibitions.",
+        unit: "out of 5",
+        description: "Perfect scores tied to the immersive pairing of art and cuisine.",
       },
-      socialMentions: {
-        label: "Social buzz",
-        value: 2340,
-        unit: "mentions",
-        description: "Influencer walkthroughs and art-led dining events trend every quarter.",
+      socialBuzz: {
+        label: "Social buzz index",
+        value: 97,
+        unit: "index",
+        description: "Influencer walkthroughs and art-led events trend every quarter.",
       },
-      fnbGross: {
-        label: "Monthly GVA",
-        value: 2.7,
-        unit: "AEDm",
-        description: "Limited seating drives premium pricing and sold-out residencies.",
+      sentiment: {
+        label: "Sentiment analysis",
+        value: 88,
+        unit: "% positive",
+        description: "Sentiment analytics show exceptional resonance with cultural tourists.",
       },
     },
     highlights: [
