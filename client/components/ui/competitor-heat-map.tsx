@@ -34,7 +34,7 @@ const filterOptions: Array<{
 const metricOrder: CompetitorMetricId[] = ["googleRating", "socialBuzz", "sentiment"];
 
 const mapBackgroundImage =
-  "https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=1280";
+  "https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=2048";
 
 const formatPosition = (value: number) => `${Math.min(Math.max(value, 4), 96)}%`;
 
@@ -185,7 +185,7 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
             className="absolute inset-0"
             style={{
               backgroundImage: `url('${mapBackgroundImage}')`,
-              backgroundSize: "cover",
+              backgroundSize: "105%",
               backgroundPosition: "center",
               filter: "saturate(0.88)",
             }}
