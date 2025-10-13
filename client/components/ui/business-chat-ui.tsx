@@ -8281,22 +8281,6 @@ export function BusinessChatUI({
 
                   <div className={bodyWrapperClass}>
                     <div className={bodyContentClass}>
-                      {showChatInterface && showInlineSuggestedThemes ? (
-                        <SuggestedThemesPanel
-                          stageLabel={stagePanelLabel}
-                          stageMessage={stagePanelMessage}
-                          groupedRecommendations={groupedThemeRecommendations}
-                          onRecommendationSelect={handleRecommendationSelect}
-                          hasStageTopics={hasStageTopics}
-                          currentStep={currentStep}
-                          onSendTopic={handleSendMessage}
-                          showCloseButton={false}
-                          variant="inline"
-                          activeTab={suggestedThemesActiveTab}
-                          onActiveTabChange={setSuggestedThemesActiveTab}
-                        />
-                      ) : null}
-
                       <div className={conversationContainerClass}>
                         <div className={messageListClass}>
                           {journeyFocusView ? (
@@ -8306,6 +8290,21 @@ export function BusinessChatUI({
                           ) : null}
                           {!journeyFocusView && showChatInterface ? (
                             <>
+                              {showInlineSuggestedThemes ? (
+                                <SuggestedThemesPanel
+                                  stageLabel={stagePanelLabel}
+                                  stageMessage={stagePanelMessage}
+                                  groupedRecommendations={groupedThemeRecommendations}
+                                  onRecommendationSelect={handleRecommendationSelect}
+                                  hasStageTopics={hasStageTopics}
+                                  currentStep={currentStep}
+                                  onSendTopic={handleSendMessage}
+                                  showCloseButton={false}
+                                  variant="inline"
+                                  activeTab={suggestedThemesActiveTab}
+                                  onActiveTabChange={setSuggestedThemesActiveTab}
+                                />
+                              ) : null}
                               {artifactMessages.map((message) => (
                                 <MessageBubble
                                   key={message.id}
