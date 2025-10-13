@@ -4998,7 +4998,7 @@ const CompetitorBreakoutModal = ({
   const competitorHighlights = [
     {
       name: "Shurfa Bay",
-      rating: "4.8�������",
+      rating: "4.8���������",
       tier: "Premium waterfront",
       insight:
         "Sunset terrace has maintained 98% capacity across the past four evenings.",
@@ -5337,7 +5337,7 @@ const DiscoverExperienceView = ({
       name: "Coastal district",
       summary:
         "Lifestyle beachfront with active tourism calendar and family day-trip itineraries.",
-      footfall: "35–50K weekly visits",
+      footfall: "35���50K weekly visits",
       density: "Seasonal peaks",
       trend: "+5% holiday uplift",
       focus: "Beach clubs, ice cream bars, casual dining",
@@ -6767,6 +6767,35 @@ export function BusinessChatUI({
     canShowInlineSuggestedThemes && isInlineThemesExpanded;
   const showThemesHoverCard =
     canShowInlineSuggestedThemes && !isInlineThemesExpanded;
+  const [isThemesHoverOpen, setIsThemesHoverOpen] = useState(false);
+  const themesHoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearThemesHoverTimeout = useCallback(() => {
+    if (themesHoverTimeoutRef.current) {
+      clearTimeout(themesHoverTimeoutRef.current);
+      themesHoverTimeoutRef.current = null;
+    }
+  }, []);
+
+  const closeThemesHover = useCallback(() => {
+    clearThemesHoverTimeout();
+    setIsThemesHoverOpen(false);
+  }, [clearThemesHoverTimeout]);
+
+  const scheduleThemesHoverClose = useCallback(() => {
+    clearThemesHoverTimeout();
+    themesHoverTimeoutRef.current = setTimeout(() => {
+      setIsThemesHoverOpen(false);
+      themesHoverTimeoutRef.current = null;
+    }, 120);
+  }, [clearThemesHoverTimeout]);
+
+  const openThemesHover = useCallback(() => {
+    clearThemesHoverTimeout();
+    setIsThemesHoverOpen(true);
+  }, [clearThemesHoverTimeout]);
+
+  useEffect(() => () => clearThemesHoverTimeout(), [clearThemesHoverTimeout]);
 
   const handleThemesToggle = useCallback(() => {
     setIsInlineThemesExpanded((prev) => {
@@ -6777,7 +6806,16 @@ export function BusinessChatUI({
       return next;
     });
     setAdvisorPanelOpen(false);
-  }, [setAdvisorPanelOpen]);
+    setIsThemesHoverOpen(false);
+    clearThemesHoverTimeout();
+  }, [clearThemesHoverTimeout, setAdvisorPanelOpen]);
+
+  useEffect(() => {
+    if (!showThemesHoverCard) {
+      setIsThemesHoverOpen(false);
+      clearThemesHoverTimeout();
+    }
+  }, [showThemesHoverCard, clearThemesHoverTimeout]);
 
   const themesButtonClasses = cn(
     "inline-flex items-center gap-1 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40",
