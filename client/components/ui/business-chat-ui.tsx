@@ -4446,9 +4446,6 @@ const SuggestedTopicsPanel = ({
           <p className="text-xl font-semibold text-slate-900 sm:text-2xl">
             Where to focus right now
           </p>
-          <p className="max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
-            {stageMessage}
-          </p>
         </div>
         {showClose ? (
           <button
