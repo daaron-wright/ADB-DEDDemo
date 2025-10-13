@@ -2,6 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { chatCardClass } from "@/lib/chat-style";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import {
   competitorMapPoints,
   competitorMetricsMeta,
@@ -283,215 +290,214 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
           </div>
         </div>
 
-        <aside className="flex w-full flex-col gap-5 rounded-3xl border border-[#d8e4df] bg-white/95 p-6 text-slate-700 shadow-[0_28px_70px_-48px_rgba(14,118,110,0.24)] lg:w-[360px]">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
-              Filter competitors
-            </p>
-            <h3 className="mt-1 text-xl font-semibold text-slate-900">Surface white space</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">
-              Select the attributes that matter most to Lyla&apos;s concept to narrow in on comparable venues.
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            {filterOptions.map((option) => {
-              const isChecked = activeFilters[option.id];
-              const matches = competitorMapPoints.filter((point) =>
-                point.attributes.includes(option.id),
-              ).length;
-
-              return (
-                <label
-                  key={option.id}
-                  className={cn(
-                    "flex cursor-pointer items-start gap-3 rounded-2xl border px-4 py-3 transition",
-                    isChecked
-                      ? "border-[#0F766E]/45 bg-[#e7f5f2] shadow-[0_20px_46px_-34px_rgba(14,118,110,0.4)]"
-                      : "border-[#e2ece8] bg-[#f8fbfa] hover:border-[#cbdcd6]",
-                  )}
-                >
-                  <input
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={() => toggleFilter(option.id)}
-                    className="sr-only"
-                  />
-                  <span
-                    className={cn(
-                      "mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-md border",
-                      isChecked
-                        ? "border-transparent bg-[#0F766E] text-white"
-                        : "border-[#cbdcd6] bg-white text-transparent",
-                    )}
-                    aria-hidden="true"
-                  >
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 12 12"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M2 6.5 4.5 9 10 3.5" />
-                    </svg>
-                  </span>
-                  <span className="flex-1">
-                    <span className="text-sm font-semibold text-slate-900">{option.label}</span>
-                    <p className="text-xs text-slate-500">{option.description}</p>
-                  </span>
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E]">
-                    {matches}
-                  </span>
-                </label>
-              );
-            })}
-          </div>
-
-          <div className="flex items-center justify-between text-sm text-slate-600">
-            <span>
-              {hasFiltersApplied
-                ? "Filters applied"
-                : "No filters applied — showing full landscape"}
-            </span>
-            <button
-              type="button"
-              onClick={handleResetFilters}
-              disabled={!hasFiltersApplied}
-              className={cn(
-                "text-xs font-semibold uppercase tracking-[0.2em]",
-                hasFiltersApplied
-                  ? "text-[#0F766E] hover:text-[#0b5a54]"
-                  : "text-slate-400",
-              )}
-            >
-              Reset
-            </button>
-          </div>
-
-          <div className="rounded-3xl border border-[#e2ece8] bg-[#f8fbfa] p-5 shadow-[0_24px_60px_-48px_rgba(14,118,110,0.28)]">
-            {activePoint ? (
-              <div className="space-y-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]">
-                      Investor Compass signals
-                    </p>
-                    <h4 className="text-lg font-semibold text-slate-900">{activePoint.name}</h4>
-                    <p className="text-xs text-slate-500">{activePoint.location}</p>
-                  </div>
-                  <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0F766E] shadow">
-                    {activePoint.cuisine}
-                  </span>
-                </div>
-
-                <p className="text-sm leading-relaxed text-slate-600">{activePoint.summary}</p>
-
-                <div className="space-y-3">
-                  {metricOrder.map((metricId) => {
-                    const metric = activePoint.metrics[metricId];
-                    const meta = competitorMetricsMeta[metricId];
-                    if (!metric || !meta) {
-                      return null;
-                    }
-
-                    return (
-                      <div
-                        key={metricId}
-                        className="rounded-2xl border border-[#e2ece8] bg-white px-4 py-3"
-                      >
-                        <div className="flex items-start justify-between gap-4">
-                          <div className="max-w-[60%]">
-                            <div
-                              className="text-[11px] font-semibold uppercase tracking-[0.2em]"
-                              style={{ color: meta.accent }}
-                            >
-                              {meta.label}
-                            </div>
-                            <p className="mt-1 text-xs text-slate-500">{metric.description}</p>
-                          </div>
-                          <div className="text-right">
-                            <div className="text-lg font-semibold text-slate-900">
-                              {meta.formatter
-                                ? meta.formatter(metric.value)
-                                : `${metric.value} ${metric.unit}`}
-                            </div>
-                            <div className="text-[11px] uppercase tracking-[0.18em] text-slate-400">
-                              {metric.unit}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                <div className="space-y-2 text-sm text-slate-600">
-                  {activePoint.highlights.map((highlight) => (
-                    <div key={highlight} className="flex items-start gap-2">
-                      <span className="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0F766E]" />
-                      <span>{highlight}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <p className="text-xs text-slate-500">
-                  Locations refresh directly from the Investor Compass explorer every 48 hours.
+        <aside className="flex w-full max-h-[620px] flex-col overflow-hidden rounded-3xl border border-[#d8e4df] bg-white/95 text-slate-700 shadow-[0_28px_70px_-48px_rgba(14,118,110,0.24)] lg:w-[360px]">
+          <ScrollArea className="h-full">
+            <div className="space-y-5 p-6 pr-4">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+                  Filter competitors
+                </p>
+                <h3 className="mt-1 text-xl font-semibold text-slate-900">Surface white space</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                  Select the attributes that matter most to Lyla&apos;s concept to narrow in on comparable venues.
                 </p>
               </div>
-            ) : (
-              <div className="space-y-2 text-sm text-slate-600">
-                <p>Filters removed all visible competitors. Reset to review the full landscape.</p>
-                <p className="text-xs text-slate-500">Investor Compass sync resumes once filters are cleared.</p>
-              </div>
-            )}
-          </div>
 
-          <div className="rounded-2xl border border-[#e2ece8] bg-[#f8fbfa] p-4">
-            <div className="flex items-center justify-between">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
-                Matches
-              </div>
-              <span className="text-xs text-slate-500">
-                {filteredPoints.length} selected
-              </span>
-            </div>
-            <div className="mt-3 space-y-2">
-              {filteredPoints.length ? (
-                filteredPoints.map((point) => {
-                  const isActive = point.id === activePoint?.id;
+              <div className="space-y-3">
+                {filterOptions.map((option) => {
+                  const isChecked = activeFilters[option.id];
+                  const matches = competitorMapPoints.filter((point) =>
+                    point.attributes.includes(option.id),
+                  ).length;
+
                   return (
-                    <button
-                      key={point.id}
-                      type="button"
-                      onClick={() => setActivePointId(point.id)}
+                    <label
+                      key={option.id}
                       className={cn(
-                        "flex w-full items-center justify-between rounded-2xl border px-3 py-2 text-left text-sm transition",
-                        isActive
-                          ? "border-[#0F766E]/45 bg-white text-[#0F766E] shadow-[0_12px_32px_-24px_rgba(14,118,110,0.45)]"
-                          : "border-transparent bg-white/60 text-slate-700 hover:border-[#d0e2dd] hover:bg-white",
+                        "flex cursor-pointer items-start gap-3 rounded-2xl border px-4 py-3 transition",
+                        isChecked
+                          ? "border-[#0F766E]/45 bg-[#e7f5f2] shadow-[0_20px_46px_-34px_rgba(14,118,110,0.4)]"
+                          : "border-[#e2ece8] bg-[#f8fbfa] hover:border-[#cbdcd6]",
                       )}
                     >
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => toggleFilter(option.id)}
+                        className="sr-only"
+                      />
+                      <span
+                        className={cn(
+                          "mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-md border",
+                          isChecked
+                            ? "border-transparent bg-[#0F766E] text-white"
+                            : "border-[#cbdcd6] bg-white text-transparent",
+                        )}
+                        aria-hidden="true"
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 12 12"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M2 6.5 4.5 9 10 3.5" />
+                        </svg>
+                      </span>
                       <span className="flex-1">
-                        <span className="block font-semibold">{point.name}</span>
-                        <span className="text-xs text-slate-500">{point.location}</span>
+                        <span className="text-sm font-semibold text-slate-900">{option.label}</span>
+                        <p className="text-xs text-slate-500">{option.description}</p>
                       </span>
-                      <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0F766E]">
-                        View
+                      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E]">
+                        {matches}
                       </span>
-                    </button>
+                    </label>
                   );
-                })
-              ) : (
-                <div className="rounded-xl border border-dashed border-[#d0e2dd] bg-white/70 px-3 py-4 text-center text-xs text-slate-500">
-                  No venues meet the selected criteria yet. Widen your filters to continue the journey before budgeting.
+                })}
+              </div>
+
+              <div className="flex items-center justify-between text-sm text-slate-600">
+                <span>
+                  {hasFiltersApplied
+                    ? "Filters applied"
+                    : "No filters applied — showing full landscape"}
+                </span>
+                <button
+                  type="button"
+                  onClick={handleResetFilters}
+                  disabled={!hasFiltersApplied}
+                  className={cn(
+                    "text-xs font-semibold uppercase tracking-[0.2em]",
+                    hasFiltersApplied
+                      ? "text-[#0F766E] hover:text-[#0b5a54]"
+                      : "text-slate-400",
+                  )}
+                >
+                  Reset
+                </button>
+              </div>
+
+              <div className="rounded-3xl border border-[#e2ece8] bg-[#f8fbfa] p-5 shadow-[0_24px_60px_-48px_rgba(14,118,110,0.28)]">
+                {activePoint ? (
+                  <div className="space-y-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]">
+                          Investor Compass signals
+                        </p>
+                        <h4 className="text-lg font-semibold text-slate-900">{activePoint.name}</h4>
+                        <p className="text-xs text-slate-500">{activePoint.location}</p>
+                      </div>
+                      <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0F766E] shadow">
+                        {activePoint.cuisine}
+                      </span>
+                    </div>
+
+                    <p className="text-sm leading-relaxed text-slate-600">{activePoint.summary}</p>
+
+                    <Accordion type="multiple" collapsible defaultValue={[]} className="space-y-3">
+                      {metricOrder.map((metricId) => {
+                        const metric = activePoint.metrics[metricId];
+                        const meta = competitorMetricsMeta[metricId];
+                        if (!metric || !meta) {
+                          return null;
+                        }
+
+                        const formattedValue = meta.formatter
+                          ? meta.formatter(metric.value)
+                          : metric.value.toString();
+
+                        return (
+                          <AccordionItem
+                            key={metricId}
+                            value={metricId}
+                            className="overflow-hidden rounded-2xl border border-[#e2ece8] bg-white text-slate-700"
+                          >
+                            <AccordionTrigger className="flex items-center justify-between gap-4 px-4 py-3 text-left text-sm font-semibold uppercase tracking-[0.18em] text-[#0F766E] hover:text-[#0b5a54]">
+                              <span>{meta.label}</span>
+                              <span className="text-base font-semibold tracking-normal text-slate-900">
+                                {formattedValue}
+                              </span>
+                            </AccordionTrigger>
+                            <AccordionContent className="border-t border-[#e2ece8] bg-white px-4 py-3 text-sm text-slate-600">
+                              <p className="font-medium text-slate-800">{metric.description}</p>
+                              <p className="mt-2 text-xs uppercase tracking-[0.18em] text-slate-400">{meta.legend}</p>
+                              <p className="mt-1 text-xs text-slate-500">{meta.subtitle}</p>
+                            </AccordionContent>
+                          </AccordionItem>
+                        );
+                      })}
+                    </Accordion>
+
+                    <div className="space-y-2 text-sm text-slate-600">
+                      {activePoint.highlights.map((highlight) => (
+                        <div key={highlight} className="flex items-start gap-2">
+                          <span className="mt-[6px] h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0F766E]" />
+                          <span>{highlight}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <p className="text-xs text-slate-500">
+                      Locations refresh directly from the Investor Compass explorer every 48 hours.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-2 text-sm text-slate-600">
+                    <p>Filters removed all visible competitors. Reset to review the full landscape.</p>
+                    <p className="text-xs text-slate-500">Investor Compass sync resumes once filters are cleared.</p>
+                  </div>
+                )}
+              </div>
+
+              <div className="rounded-2xl border border-[#e2ece8] bg-[#f8fbfa] p-4">
+                <div className="flex items-center justify-between">
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+                    Matches
+                  </div>
+                  <span className="text-xs text-slate-500">
+                    {filteredPoints.length} selected
+                  </span>
                 </div>
-              )}
+                <div className="mt-3 space-y-2">
+                  {filteredPoints.length ? (
+                    filteredPoints.map((point) => {
+                      const isActive = point.id === activePoint?.id;
+                      return (
+                        <button
+                          key={point.id}
+                          type="button"
+                          onClick={() => setActivePointId(point.id)}
+                          className={cn(
+                            "flex w-full items-center justify-between rounded-2xl border px-3 py-2 text-left text-sm transition",
+                            isActive
+                              ? "border-[#0F766E]/45 bg-white text-[#0F766E] shadow-[0_12px_32px_-24px_rgba(14,118,110,0.45)]"
+                              : "border-transparent bg-white/60 text-slate-700 hover:border-[#d0e2dd] hover:bg-white",
+                          )}
+                        >
+                          <span className="flex-1">
+                            <span className="block font-semibold">{point.name}</span>
+                            <span className="text-xs text-slate-500">{point.location}</span>
+                          </span>
+                          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0F766E]">
+                            View
+                          </span>
+                        </button>
+                      );
+                    })
+                  ) : (
+                    <div className="rounded-xl border border-dashed border-[#d0e2dd] bg-white/70 px-3 py-4 text-center text-xs text-slate-500">
+                      No venues meet the selected criteria yet. Widen your filters to continue the journey before budgeting.
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
+          </ScrollArea>
         </aside>
       </div>
     </motion.div>
