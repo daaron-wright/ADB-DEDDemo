@@ -6547,10 +6547,14 @@ export function BusinessChatUI({
     useState<string>("summary");
   const applyFollowUps = useCallback(
     (items: ReadonlyArray<StageRecommendation>) => {
-      setFollowUpRecommendations(Array.from(items));
-      setAdvisorPanelOpen(items.length > 0);
+      const next = Array.from(items);
+      setFollowUpRecommendations(next);
+      setAdvisorPanelOpen(next.length > 0);
+      if (next.length > 0) {
+        setHasTriggeredSuggestedThemes(true);
+      }
     },
-    [setAdvisorPanelOpen, setFollowUpRecommendations],
+    [setAdvisorPanelOpen, setFollowUpRecommendations, setHasTriggeredSuggestedThemes],
   );
   const openApplicantPortal = useCallback(() => {
     navigate("/portal/applicant", {
