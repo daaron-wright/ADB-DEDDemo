@@ -222,7 +222,7 @@ export default function Index() {
       {
         id: "restaurants",
         title: "Restaurants",
-        subtitle: "Commercial License",
+        subtitle: "Economic License",
         image:
           "https://api.builder.io/api/v1/image/assets/TEMP/5ea3e6930d5e28ed683d222762dba4e684143d78?width=498",
         overlayImage:
@@ -235,7 +235,7 @@ export default function Index() {
       {
         id: "fast-food",
         title: "General Business",
-        subtitle: "Commercial License",
+        subtitle: "Economic License",
         image:
           "https://api.builder.io/api/v1/image/assets/TEMP/93a8ccdd2ba263b5df1fa8ac003cfbbe0f2a04bf?width=766",
         tooltip:
@@ -246,7 +246,7 @@ export default function Index() {
       {
         id: "retail-store",
         title: "Medical",
-        subtitle: "Commercial License",
+        subtitle: "Economic License",
         image:
           "https://api.builder.io/api/v1/image/assets/TEMP/28a07c4a89a2e43c77d74ad46a6ad88ca8d969b3?width=616",
         tooltip:
