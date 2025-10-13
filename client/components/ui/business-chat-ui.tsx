@@ -7036,6 +7036,7 @@ export function BusinessChatUI({
       followUpRecommendations,
       applyFollowUps,
       setCurrentStep,
+      appendUserSelectionLog,
     ],
   );
 
