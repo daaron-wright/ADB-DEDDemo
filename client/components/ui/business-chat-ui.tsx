@@ -4399,6 +4399,42 @@ const RECOMMENDATION_TYPE_BADGE_CLASSES: Record<RecommendationInteraction, strin
   human: "border border-rose-100 bg-rose-50 text-rose-700",
 };
 
+const OverviewSummary = ({
+  stageMessage,
+  groupedRecommendations,
+}: {
+  stageMessage: string;
+  groupedRecommendations: SuggestedThemeGroup[];
+}) => (
+  <div className="space-y-4 rounded-[24px] border border-emerald-100/70 bg-white/95 px-5 py-5 shadow-[0_26px_90px_-70px_rgba(14,118,110,0.4)] sm:px-6 sm:py-6">
+    <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
+      {stageMessage}
+    </p>
+    {groupedRecommendations.length > 0 ? (
+      <ul className="grid gap-3 sm:grid-cols-2">
+        {groupedRecommendations.map((group) => (
+          <li
+            key={group.id}
+            className="flex items-start gap-3 rounded-2xl border border-emerald-100/60 bg-white/90 px-4 py-3"
+          >
+            <span className="mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
+              <group.icon className="h-4 w-4" aria-hidden="true" />
+            </span>
+            <div className="space-y-1">
+              <p className="text-sm font-semibold text-slate-900">
+                {group.label}
+              </p>
+              <p className="text-xs leading-relaxed text-slate-600">
+                {group.description}
+              </p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    ) : null}
+  </div>
+);
+
 const RecommendationListItem = ({
   recommendation,
   onSelect,
