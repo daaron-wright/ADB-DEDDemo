@@ -6498,7 +6498,7 @@ export function BusinessChatUI({
         {
           id: "interactive-map",
           label: "Interactive map",
-          description: "Location intelligence layers and spatial planning for Abu Dhabi districts.",
+          description: "Open the location intelligence workspace for Abu Dhabi districts.",
           icon: MapIcon,
           predicate: (recommendation: StageRecommendation) => {
             const text = normalizeRecommendationText(recommendation);
