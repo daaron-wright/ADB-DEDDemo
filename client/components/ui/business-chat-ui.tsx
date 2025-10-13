@@ -7987,7 +7987,9 @@ export function BusinessChatUI({
                               </p>
                             </div>
                           </div>
-                          {stageBlueprint && !showInlineSuggestedThemes ? (
+                          {stageBlueprint &&
+                          hasTriggeredSuggestedThemes &&
+                          !showInlineSuggestedThemes ? (
                             <div className="relative z-[200] isolate overflow-visible">
                               <button
                                 type="button"
