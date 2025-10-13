@@ -309,7 +309,7 @@ const CONVERSATION_BLUEPRINT: Record<
 > = {
   intro: {
     message:
-      "Let’s decide where to open a restaurant. Curious about the demographics of a particular area? We can validate demand drivers, seasonal triggers, and spend behavior before diving deeper into licensing or budgeting.",
+      "Choose a topic below to open the right workspace or insight for your restaurant planning.",
     actions: [
       { label: "Explore market signals", action: "open-market-overview" },
       { label: "Shift to competitive context", action: "open-competition-analysis" },
