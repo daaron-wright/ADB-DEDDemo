@@ -234,7 +234,7 @@ export default function Index() {
       },
       {
         id: "fast-food",
-        title: "Fast Food",
+        title: "General Business",
         subtitle: "Commercial License",
         image:
           "https://api.builder.io/api/v1/image/assets/TEMP/93a8ccdd2ba263b5df1fa8ac003cfbbe0f2a04bf?width=766",
@@ -256,7 +256,7 @@ export default function Index() {
       },
       {
         id: "retail-store",
-        title: "Retail Store",
+        title: "Medical",
         subtitle: "Commercial License",
         image:
           "https://api.builder.io/api/v1/image/assets/TEMP/28a07c4a89a2e43c77d74ad46a6ad88ca8d969b3?width=616",
