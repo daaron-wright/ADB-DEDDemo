@@ -7135,20 +7135,22 @@ export function BusinessChatUI({
       setIsInvestorAuthenticated(true);
       if (shouldOpenInvestorView) {
         setView("investor-journey");
-        setShouldOpenInvestorView(false);
-      }
-      setCurrentStep("handoff");
-    },
-    [
-      isInvestorLoginPending,
-      shouldOpenInvestorView,
-      buildMessage,
-      buildStepMessage,
-      setView,
-      setCurrentStep,
-      setIsInvestorAuthenticated,
-    ],
-  );
+      setShouldOpenInvestorView(false);
+    }
+    setCurrentStep("handoff");
+    applyFollowUps([]);
+  },
+  [
+    applyFollowUps,
+    isInvestorLoginPending,
+    shouldOpenInvestorView,
+    buildMessage,
+    buildStepMessage,
+    setView,
+    setCurrentStep,
+    setIsInvestorAuthenticated,
+  ],
+);
 
   useEffect(() => {
     if (!isOpen) {
