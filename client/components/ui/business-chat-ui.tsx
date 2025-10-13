@@ -8252,17 +8252,17 @@ export function BusinessChatUI({
                                 </h3>
                                 {themesAvailable ? (
                                   <Popover
-                                    open={isThemesPanelOpen}
-                                    onOpenChange={handleThemesOpenChange}
+                                    open={isTopicsPanelOpen}
+                                    onOpenChange={handleTopicsOpenChange}
                                   >
                                     <PopoverTrigger asChild>
                                       <button
                                         type="button"
-                                        aria-pressed={isThemesPanelOpen}
-                                        aria-expanded={isThemesPanelOpen}
-                                        className={themesButtonClasses}
+                                        aria-pressed={isTopicsPanelOpen}
+                                        aria-expanded={isTopicsPanelOpen}
+                                        className={topicsButtonClasses}
                                       >
-                                        Themes
+                                        Suggested Topics
                                         <ChevronDown
                                           className={cn(
                                             "h-3 w-3 transition-transform",
