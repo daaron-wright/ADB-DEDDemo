@@ -108,7 +108,7 @@ const TRADE_NAME_IDEAS: ReadonlyArray<TradeNameIdeaSuggestion> = [
   {
     id: "harbor-lights-supper-club",
     english: "Harbor Lights Supper Club",
-    arabic: "نادي عشاء أضواء الميناء",
+    arabic: "نادي عشاء أضواء ��لميناء",
   },
   {
     id: "marina-ember-grill",
@@ -472,38 +472,6 @@ export function BusinessRegistrationFocusContent({
   ) : (
     <X className="h-3.5 w-3.5" strokeWidth={3} />
   );
-
-  const statusIconWrapperClasses = cn(
-    "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full transition-colors",
-    isChecking
-      ? "bg-[#0f766e]/15 text-[#0f766e]"
-      : !hasActiveTradeName
-      ? "bg-slate-100 text-slate-400"
-      : isNameAvailable
-      ? "bg-[#0f766e]/15 text-[#0f766e]"
-      : "bg-rose-100 text-rose-600",
-  );
-
-  const statusCardIcon = isChecking ? (
-    <span className="relative flex h-4 w-4 items-center justify-center">
-      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current/60" />
-      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
-    </span>
-  ) : !hasActiveTradeName ? (
-    <span className="h-2 w-2 rounded-full bg-current" />
-  ) : isNameAvailable ? (
-    <Check className="h-4 w-4" strokeWidth={3} />
-  ) : (
-    <X className="h-4 w-4" strokeWidth={3} />
-  );
-
-  const statusHeading = isChecking
-    ? "Checking trade name"
-    : !hasActiveTradeName
-    ? "No trade name selected"
-    : isNameAvailable
-    ? "Trade name available"
-    : "Trade name unavailable";
 
   const statusDescription = isChecking
     ? "We’re running automated validation before reserving the name."
