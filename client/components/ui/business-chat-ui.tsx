@@ -422,6 +422,114 @@ const LOCATION_INTELLIGENCE_FOLLOW_UPS: ReadonlyArray<StageRecommendation> = [
   },
 ];
 
+const FOLLOW_UP_CONCEPT_DISCOVERY: ReadonlyArray<StageRecommendation> = [
+  {
+    id: "follow-up-existing-establishments",
+    label: "Where are existing establishments located?",
+    description:
+      "Plot licensed operators by activity so you can gauge saturation across districts.",
+    icon: MapIcon,
+    type: "prompt",
+    prompt:
+      "Where are existing establishments located for specific activities?",
+  },
+];
+
+const FOLLOW_UP_EXISTING_ESTABLISHMENTS: ReadonlyArray<StageRecommendation> = [
+  {
+    id: "follow-up-top-competitors",
+    label: "Who are the top competitors in the area?",
+    description:
+      "Surface a ranked view of Emirati fusion concepts near your preferred districts.",
+    icon: Target,
+    type: "prompt",
+    prompt:
+      "Who are the top competitors in the area, with the same cuisine?",
+  },
+];
+
+const FOLLOW_UP_COMPETITOR_ANALYSIS: ReadonlyArray<StageRecommendation> = [
+  {
+    id: "follow-up-budget-estimate",
+    label: "How much would it cost to open a restaurant?",
+    description:
+      "Review indicative setup and operating budgets tailored to these neighbourhoods.",
+    icon: Gauge,
+    type: "prompt",
+    prompt: "How much would it cost to open a restaurant?",
+  },
+];
+
+const FOLLOW_UP_BUDGET_DISCUSSION: ReadonlyArray<StageRecommendation> = [
+  {
+    id: "follow-up-demographics-request",
+    label: "Can you give me demographic data for this area?",
+    description:
+      "Understand residents, visitors, and demand drivers before locking your concept.",
+    icon: MapPin,
+    type: "prompt",
+    prompt: "Can you give me any demographic data you have for this area?",
+  },
+];
+
+const FOLLOW_UP_DEMOGRAPHICS_FOCUS: ReadonlyArray<StageRecommendation> = [
+  {
+    id: "follow-up-target-market",
+    label: "Who is the target market for high-end restaurants?",
+    description:
+      "Zero in on premium customer segments that align with your positioning.",
+    icon: Sparkles,
+    type: "prompt",
+    prompt: "Of these who are the target market for a high end restaurants?",
+  },
+];
+
+const FOLLOW_UP_TARGET_MARKET_DETAIL: ReadonlyArray<StageRecommendation> = [
+  {
+    id: "follow-up-corniche-detail",
+    label: "Share more detail on The Corniche",
+    description:
+      "Dive into footfall, incentives, and regulatory context for the Corniche strip.",
+    icon: MapIcon,
+    type: "prompt",
+    prompt: "Great can you give me more details on The Corniche",
+  },
+];
+
+const FOLLOW_UP_CORNICHE_DEEP_DIVE: ReadonlyArray<StageRecommendation> = [
+  {
+    id: "follow-up-generate-summary",
+    label: "Generate a summary on these areas",
+    description:
+      "Combine every insight so far into a board-ready market intelligence brief.",
+    icon: ClipboardList,
+    type: "prompt",
+    prompt: "Can you go deeper and generate a summary on these areas",
+  },
+];
+
+const FOLLOW_UP_SUMMARY_COMPLETION: ReadonlyArray<StageRecommendation> = [
+  {
+    id: "follow-up-open-viability-recap",
+    label: "Open the viability recap",
+    description:
+      "Review, export, or share the synthesized insights for investors and partners.",
+    icon: ClipboardList,
+    type: "conversation",
+    action: "open-viability-summary",
+    nextStep: "handoff",
+  },
+  {
+    id: "follow-up-talk-to-advisor",
+    label: "Talk to a TAMM specialist",
+    description:
+      "Bring in a human advisor to confirm the next actions for your concept.",
+    icon: Headset,
+    type: "human",
+    prompt: "Please connect me with a TAMM advisor to review my summary.",
+  },
+];
+
 const CONVERSATION_STEPS: Array<{ id: ConversationStep; label: string }> = [
   { id: "intro", label: "Start" },
   { id: "summary", label: "Market Summary" },
