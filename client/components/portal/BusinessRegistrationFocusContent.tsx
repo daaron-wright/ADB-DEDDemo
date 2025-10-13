@@ -147,13 +147,6 @@ const APPROVED_TRADE_NAMES = [
   "CORNICHE CULINARY COLLECTIVE",
 ] as const;
 
-const STATUS_LABELS: Record<TradeNameCheckStatus, string> = {
-  completed: "Completed",
-  current: "Running",
-  pending: "Queued",
-  failed: "Failed",
-};
-
 const REGISTRATION_USER_ACTIONS = [
   {
     id: "registration-trade-name",
