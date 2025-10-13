@@ -6558,6 +6558,27 @@ export function BusinessChatUI({
       .map(({ predicate, ...definition }) => definition);
   }, [activeRecommendations]);
 
+  useEffect(() => {
+    if (!hasTriggeredSuggestedThemes) {
+      setSuggestedThemesActiveTab("summary");
+      return;
+    }
+
+    const availableTabs = new Set([
+      "summary",
+      ...groupedThemeRecommendations.map((group) => group.id),
+    ]);
+
+    if (!availableTabs.has(suggestedThemesActiveTab)) {
+      const fallback = groupedThemeRecommendations[0]?.id ?? "summary";
+      setSuggestedThemesActiveTab(fallback);
+    }
+  }, [
+    groupedThemeRecommendations,
+    hasTriggeredSuggestedThemes,
+    suggestedThemesActiveTab,
+  ]);
+
   const stageMeta = useMemo(
     () => CONVERSATION_STEPS.find((item) => item.id === currentStep),
     [currentStep],
