@@ -8266,7 +8266,7 @@ export function BusinessChatUI({
                                         <ChevronDown
                                           className={cn(
                                             "h-3 w-3 transition-transform",
-                                            isThemesPanelOpen ? "rotate-180" : "rotate-0",
+                                            isTopicsPanelOpen ? "rotate-180" : "rotate-0",
                                           )}
                                           aria-hidden="true"
                                         />
