@@ -3523,6 +3523,32 @@ const MessageBubble = ({
     );
   }
 
+  if (message.type === "stage-overview") {
+    return (
+      <StageOverviewMessage
+        title={message.stageTitle ?? "Current stage"}
+        intro={message.content}
+        highlightLabel={message.stageHighlightLabel}
+        highlightDetail={message.stageHighlightDetail}
+        description={message.stageDescription}
+        statusLabel={message.stageStatusLabel}
+        statusBadgeClass={message.stageStatusBadgeClass}
+        statusHelperClass={message.stageStatusHelperClass}
+        meta={message.stageMeta}
+      />
+    );
+  }
+
+  if (message.type === "stage-recommendations") {
+    return (
+      <StageRecommendationsMessage
+        stageTitle={message.stageTitle ?? "Current stage"}
+        intro={message.content}
+        recommendations={message.stageRecommendations ?? []}
+      />
+    );
+  }
+
   if (message.type === "dialogue-doc" && dialogueDocProps) {
     return (
       <div className="mb-6 flex w-full justify-center">
