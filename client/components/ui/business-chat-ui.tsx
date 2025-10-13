@@ -6384,10 +6384,10 @@ export function BusinessChatUI({
       setFollowUpRecommendations(next);
       setAdvisorPanelOpen(next.length > 0);
       if (next.length > 0) {
-        setHasTriggeredSuggestedThemes(true);
+        setHasTriggeredSuggestedTopics(true);
       }
     },
-    [setAdvisorPanelOpen, setFollowUpRecommendations, setHasTriggeredSuggestedThemes],
+    [setAdvisorPanelOpen, setFollowUpRecommendations, setHasTriggeredSuggestedTopics],
   );
   const openApplicantPortal = useCallback(() => {
     navigate("/portal/applicant", {
