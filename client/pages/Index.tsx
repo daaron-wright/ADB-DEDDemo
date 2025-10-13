@@ -239,9 +239,9 @@ export default function Index() {
         image:
           "https://api.builder.io/api/v1/image/assets/TEMP/93a8ccdd2ba263b5df1fa8ac003cfbbe0f2a04bf?width=766",
         tooltip:
-          "Best for quick-service launches with delivery or drive-thru. Get prebuilt SOPs, supplier rosters, and marketing permits in one flow.",
+          "Great for service-led or corporate ventures. AI maps the right license path, compliance checklist, and launch milestones for your business plan.",
         prompt:
-          "What's the market demand for fast-food chains in Abu Dhabi and what are the best locations for a quick-service restaurant?",
+          "I’m exploring a general business license in Abu Dhabi. Outline the setup steps, compliance requirements, and projected timeline for launch.",
       },
       {
         id: "retail-store",
@@ -250,9 +250,9 @@ export default function Index() {
         image:
           "https://api.builder.io/api/v1/image/assets/TEMP/28a07c4a89a2e43c77d74ad46a6ad88ca8d969b3?width=616",
         tooltip:
-          "Perfect for physical retail. AI recommends fit-out standards, merchandising approvals, and logistics partners tailored to your concept.",
+          "Best for clinics or wellness practices. AI prepares health authority approvals, clinical fit-out standards, and staffing guidance.",
         prompt:
-          "What are the prime retail locations in Abu Dhabi and what are the fit-out standards and merchandising requirements for retail stores?",
+          "Help me plan a medical practice in Abu Dhabi, including health authority approvals, facility standards, and staffing expectations.",
       },
     ],
     [],
