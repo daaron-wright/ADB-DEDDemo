@@ -339,7 +339,7 @@ const CONVERSATION_BLUEPRINT: Record<
       },
       {
         id: "intro-human-fallback",
-        label: "Talk to a human agent",
+        label: "Human Assistance",
         description:
           "Reach a TAMM specialist instantly while I keep your workspace updated.",
         icon: Headset,
