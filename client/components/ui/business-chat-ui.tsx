@@ -6550,7 +6550,7 @@ export function BusinessChatUI({
         {
           id: "competitor-analysis",
           label: "Competitor analysis",
-          description: "Competitive benchmarks, white space detection, and operator mapping.",
+          description: "Launch the competitor benchmarking view for comparisons and mapping.",
           icon: Target,
           predicate: (recommendation: StageRecommendation) => {
             const text = normalizeRecommendationText(recommendation);
