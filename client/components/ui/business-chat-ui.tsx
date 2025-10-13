@@ -486,6 +486,15 @@ const FOLLOW_UP_COMPETITOR_ANALYSIS: ReadonlyArray<StageRecommendation> = [
     type: "prompt",
     prompt: "How much would it cost to open a restaurant?",
   },
+  {
+    id: "follow-up-gap-analysis",
+    label: "Review gap analysis",
+    description:
+      "Inspect whitespace opportunities and concept saturation across key districts.",
+    icon: Layers,
+    type: "modal",
+    modal: "gap-analysis",
+  },
 ];
 
 const FOLLOW_UP_BUDGET_DISCUSSION: ReadonlyArray<StageRecommendation> = [
