@@ -6869,6 +6869,8 @@ export function BusinessChatUI({
       openCompetitorMap,
       setModalView,
       handleHumanFallback,
+      followUpRecommendations,
+      setFollowUpRecommendations,
       setCurrentStep,
     ],
   );
