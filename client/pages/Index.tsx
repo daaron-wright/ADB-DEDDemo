@@ -244,17 +244,6 @@ export default function Index() {
           "What's the market demand for fast-food chains in Abu Dhabi and what are the best locations for a quick-service restaurant?",
       },
       {
-        id: "branch",
-        title: "Branch",
-        subtitle: "Dual License",
-        image:
-          "https://api.builder.io/api/v1/image/assets/TEMP/474e9427353e36aa9e243c53c1ca9efe1f850f1a?width=788",
-        tooltip:
-          "Expanding an existing brand? Receive instant zoning checks, dual-license compliance, and performance benchmarks for new locations.",
-        prompt:
-          "What are the requirements for opening a branch office of an existing company and how does the dual-license structure work?",
-      },
-      {
         id: "retail-store",
         title: "Medical",
         subtitle: "Commercial License",
@@ -662,7 +651,7 @@ export default function Index() {
                 You may be interested in
               </h2>
               {/* Business Category Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto justify-items-center">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto justify-items-center">
                 {businessCategories.map((category) => {
                   const isHovered = hoveredCategory === category.id;
                   const isActive = activeCategory === category.id;
