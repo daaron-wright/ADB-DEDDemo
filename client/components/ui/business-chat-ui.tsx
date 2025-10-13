@@ -8208,6 +8208,53 @@ export function BusinessChatUI({
     );
   }
 
+  const themesHoverOverlay =
+    typeof window !== "undefined" && isThemesHoverOpen && showThemesHoverCard
+      ? createPortal(
+          <div
+            className="fixed inset-0 z-[110] flex items-center justify-center bg-slate-950/40 px-4 py-8 backdrop-blur-sm"
+            role="dialog"
+            aria-modal="true"
+            onMouseEnter={openThemesHover}
+            onMouseLeave={scheduleThemesHoverClose}
+            onClick={(event) => {
+              if (event.target === event.currentTarget) {
+                closeThemesHover();
+              }
+            }}
+          >
+            <div
+              className="pointer-events-auto w-[min(680px,92vw)]"
+              onMouseEnter={openThemesHover}
+              onMouseLeave={scheduleThemesHoverClose}
+              onFocus={openThemesHover}
+              onBlur={scheduleThemesHoverClose}
+            >
+              <SuggestedThemesPanel
+                stageLabel={stagePanelLabel}
+                stageMessage={stagePanelMessage}
+                groupedRecommendations={groupedThemeRecommendations}
+                onClose={closeThemesHover}
+                onRecommendationSelect={(recommendation) => {
+                  handleRecommendationSelect(recommendation);
+                  closeThemesHover();
+                }}
+                hasStageTopics={hasStageTopics}
+                currentStep={currentStep}
+                onSendTopic={(prompt) => {
+                  handleSendMessage(prompt);
+                  closeThemesHover();
+                }}
+                variant="popover"
+                activeTab={suggestedThemesActiveTab}
+                onActiveTabChange={setSuggestedThemesActiveTab}
+              />
+            </div>
+          </div>,
+          document.body,
+        )
+      : null;
+
   const backgroundImage =
     view === "discover-experience"
       ? DISCOVER_EXPERIENCE_BACKGROUND
