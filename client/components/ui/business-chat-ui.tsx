@@ -6348,10 +6348,22 @@ export function BusinessChatUI({
       const nextRecommendation = followUpRecommendations[0];
 
       switch (nextRecommendation.id) {
-        case "follow-up-location-demographics":
-          return "Ask for demographics in the district you’re evaluating.";
+        case "follow-up-existing-establishments":
+          return "Ask where existing establishments are located for your concept.";
+        case "follow-up-top-competitors":
+          return "Ask who the top competitors are in this area.";
+        case "follow-up-budget-estimate":
         case "follow-up-location-budget":
           return "Request budget ranges for this location to plan next steps.";
+        case "follow-up-location-demographics":
+        case "follow-up-demographics-request":
+          return "Ask for demographics in the district you’re evaluating.";
+        case "follow-up-target-market":
+          return "Ask which segments make up the high-end target market.";
+        case "follow-up-corniche-detail":
+          return "Ask for more detail about The Corniche market.";
+        case "follow-up-generate-summary":
+          return "Request a deeper summary for these areas.";
         default:
           break;
       }
