@@ -273,7 +273,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroDescription: (name: string) =>
       `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستثمرون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
-    chatCta: "الدردشة مع الذكاء الاصطناعي",
+    chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
       `عرض أو إ��فاء نظرة عامة للرحلة الخاصة بـ ${title}`,
     fieldLabels: {
@@ -300,7 +300,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     licenseTypeLabels: {
       "Commercial License": "رخصة تجارية",
-      "Dual License": "رخصة مزدوجة",
+      "Dual License": "ر��صة مزدوجة",
     },
     beneficiaryLabels: {
       Citizen: "مواطن",
@@ -1297,15 +1297,13 @@ export default function ApplicantPortal() {
   const discoveryGeneralChatLink = "/?chat=open";
 
   const [businessAIView, setBusinessAIView] = usePersistentState<
-    "closed" | "side-panel" | "focus"
+    "closed" | "modal" | "focus"
   >("portal-business-ai-view", "closed");
 
   const [focusContext, setFocusContext] =
     useState<BusinessAIFocusContext | null>(null);
   const [isJourneyOverviewOpen, setIsJourneyOverviewOpen] = useState(false);
 
-  const isSidePanelView = businessAIView === "side-panel";
-  const isFocusView = businessAIView === "focus";
   const isChatOpen = businessAIView !== "closed";
 
   const [focusedNextActionId, setFocusedNextActionId] = useState<string | null>(
@@ -1315,8 +1313,8 @@ export default function ApplicantPortal() {
     Record<string, boolean>
   >({});
 
-  const handleOpenSidePanel = useCallback(() => {
-    setBusinessAIView("side-panel");
+  const handleOpenChat = useCallback(() => {
+    setBusinessAIView("modal");
     setIsTimelineBackgroundBlurred(false);
     setFocusContext(null);
   }, [setBusinessAIView, setFocusContext, setIsTimelineBackgroundBlurred]);
@@ -1943,7 +1941,7 @@ export default function ApplicantPortal() {
                 type="button"
                 onClick={(event) => {
                   event.stopPropagation();
-                  handleOpenSidePanel();
+                  handleOpenChat();
                 }}
                 className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
               >
@@ -2106,10 +2104,13 @@ export default function ApplicantPortal() {
       {isTimelineBackgroundBlurred ? (
         <div className="fixed inset-0 z-40 bg-white/40 backdrop-blur-lg transition-opacity duration-500" />
       ) : null}
+      {isChatOpen && (
+        <div className="pointer-events-none fixed inset-0 z-60 bg-black/10 backdrop-blur-xl transition-opacity duration-300" />
+      )}
       <div className="relative z-[70]">
         <BusinessChatUI
           isOpen={isChatOpen}
-          mode={isSidePanelView ? "side-panel" : "modal"}
+          mode="modal"
           onClose={handleCloseChat}
           category="restaurants"
           title={languageCopy.businessAITitle}
