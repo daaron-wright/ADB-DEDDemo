@@ -7576,7 +7576,7 @@ export function BusinessChatUI({
       const stageConversation: BusinessMessage[] = [overviewMessage];
 
       stageConversation.push(
-        buildMessage("Here are the quick wins I suggest while we��re here:", true, {
+        buildMessage("Here are the quick wins I suggest while we’re here:", true, {
           type: "stage-recommendations",
           stageId,
           stageTitle,
@@ -8319,6 +8319,8 @@ export function BusinessChatUI({
                           onSendTopic={handleSendMessage}
                           showCloseButton={false}
                           variant="inline"
+                          activeTab={suggestedThemesActiveTab}
+                          onActiveTabChange={setSuggestedThemesActiveTab}
                         />
                       ) : null}
 
