@@ -6212,7 +6212,7 @@ export function BusinessChatUI({
 
   const stagePanelLabel = followUpRecommendations.length > 0
     ? "Next location intelligence steps"
-    : stageMeta?.label;
+    : stageMeta?.label ?? "Current stage";
 
   const stagePanelMessage = followUpRecommendations.length > 0
     ? "Choose the next insight to explore after reviewing the investment districts."
