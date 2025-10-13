@@ -6849,6 +6849,12 @@ export function BusinessChatUI({
         handleHumanFallback(recommendation.prompt);
       }
 
+      if (followUpRecommendations.length > 0) {
+        setFollowUpRecommendations((prev) =>
+          prev.filter((item) => item.id !== recommendation.id),
+        );
+      }
+
       if (recommendation.nextStep) {
         setCurrentStep(recommendation.nextStep);
       }
