@@ -651,7 +651,7 @@ export default function Index() {
                 You may be interested in
               </h2>
               {/* Business Category Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto justify-items-center">
+              <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 justify-items-stretch sm:grid-cols-2 xl:grid-cols-3">
                 {businessCategories.map((category) => {
                   const isHovered = hoveredCategory === category.id;
                   const isActive = activeCategory === category.id;
@@ -665,13 +665,13 @@ export default function Index() {
                       sideOffset={16}
                       className="aegov-tooltip rounded-2xl border border-white/30 bg-white/95 px-4 py-3 text-slate-800 shadow-[0_24px_55px_-30px_rgba(24,32,63,0.35)] backdrop-blur-lg [&_svg]:fill-white"
                       content={
-                        <div className="max-w-[240px] text-sm leading-relaxed text-slate-700">
+                        <div className="max-w-[260px] text-sm leading-relaxed text-slate-700">
                           {category.tooltip}
                         </div>
                       }
                     >
                       <div
-                        className="group relative cursor-pointer w-[253px]"
+                        className="group relative h-full w-full cursor-pointer"
                         onClick={(event) =>
                           handleTileClick(category.id, category.title, event)
                         }
@@ -681,7 +681,7 @@ export default function Index() {
                         onMouseLeave={handleCategoryLeave}
                       >
                         <motion.div
-                          className="relative h-[271px] w-full overflow-hidden rounded-3xl border border-white/70 shadow-[0_18px_40px_-26px_rgba(15,15,45,0.18)]"
+                          className="relative aspect-[16/9] w-full min-h-[200px] overflow-hidden rounded-3xl border border-white/70 shadow-[0_18px_40px_-26px_rgba(15,15,45,0.18)]"
                           whileHover={{ y: -3 }}
                         >
                           <div className="absolute inset-0">
@@ -711,13 +711,13 @@ export default function Index() {
                             )}
                           </div>
 
-                          <div className="absolute bottom-4 left-4 right-4 z-10">
-                            <div className="relative flex items-center justify-between overflow-hidden rounded-2xl border border-white/50 bg-white/15 p-4 backdrop-blur-xl shadow-[0_25px_55px_-34px_rgba(24,32,63,0.55)]">
+                          <div className="absolute bottom-5 left-5 right-5 z-10">
+                            <div className="relative flex flex-col items-start justify-between gap-3 overflow-hidden rounded-2xl border border-white/50 bg-white/15 p-5 backdrop-blur-xl shadow-[0_25px_55px_-34px_rgba(24,32,63,0.55)] sm:flex-row sm:items-center sm:gap-4">
                               <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/70 via-white/15 to-white/5 opacity-80" />
                               <div className="pointer-events-none absolute -top-12 left-1/2 h-24 w-32 -translate-x-1/2 rounded-full bg-white/40 blur-3xl" />
 
                               <div className="relative z-10 flex-1">
-                                <p className="text-white text-xs font-medium mb-1">
+                                <p className="mb-1 text-xs font-medium text-white">
                                   {category.subtitle}
                                 </p>
                                 <h3 className="text-white text-xl font-semibold leading-tight">
