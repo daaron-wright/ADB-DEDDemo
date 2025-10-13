@@ -215,7 +215,7 @@ export const InvestmentReportDocument: React.FC<InvestmentReportDocumentProps> =
           In summary, the Abu Dhabi Corniche is a high-traffic location with a
           diverse customer base. A successful F&B business here would need to
           cater to a mix of price points and tastes, embrace digital ordering, and
-          be prepared for significant seasonal variations in footfall.
+          be prepared for significant seasonal variations in population density.
         </p>
       </div>
 
