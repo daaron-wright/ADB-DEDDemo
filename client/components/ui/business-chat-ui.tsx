@@ -7767,6 +7767,11 @@ export function BusinessChatUI({
     isSidePanel && "px-4 pb-5 sm:px-5 lg:px-6",
   );
 
+  const bodyContentClass = cn(
+    "flex flex-1 flex-col gap-4 sm:gap-6 lg:gap-8 overflow-y-auto",
+    isSidePanel ? "min-h-0 pr-0" : "pr-1 sm:pr-2 lg:pr-3",
+  );
+
   const conversationContainerClass = cn(
     "flex min-h-[360px] flex-col",
     isSidePanel && "flex-1 min-h-0",
