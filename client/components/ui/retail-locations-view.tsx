@@ -211,13 +211,10 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
             >
               <div className="text-center lg:text-left">
                 <h2 className="text-2xl font-bold text-slate-900 mb-4">
-                  Great news—Omnis is ready to brief the setup team on your
-                  shortlisted location.
+                  Great news—Omnis has everything it needs for your shortlisted spot.
                 </h2>
                 <p className="text-slate-600 mb-8">
-                  We&apos;ll jump back into the conversation so Omnis can share
-                  the viability readout, congratulate you, and ask whether you
-                  want the application automated and the trade name reserved.
+                  We&apos;ll hop back into the chat so Omnis can celebrate the win, share a quick viability update, and check if you want us to reserve the trade name and fast-track the application.
                 </p>
               </div>
 
