@@ -5187,7 +5187,7 @@ const DiscoverExperienceView = ({
       name: "Corniche waterfront",
       summary:
         "Flagship promenade combining daily commuters, tourists, and premium dining demand across the waterfront.",
-      footfall: "100K+ weekly visits",
+      populationDensity: "100K+ weekly visits",
       density: "Very high density",
       trend: "+14% YoY evening visitors",
       focus: "Fine dining, experiential cafes, promenade lounges",
