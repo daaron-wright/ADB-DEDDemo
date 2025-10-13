@@ -294,7 +294,7 @@ export const CompetitiveLandscapeInsight: React.FC<CompetitiveLandscapeInsightPr
                     <p className="text-xs text-slate-500">{activeCompetitor.location}</p>
                   </div>
                   <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E] shadow">
-                    {activeCompetitor.rating.toFixed(1)}★
+                    {activeCompetitor.concept}
                   </span>
                 </div>
 
