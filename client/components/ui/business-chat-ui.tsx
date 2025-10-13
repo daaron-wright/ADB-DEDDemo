@@ -6783,6 +6783,13 @@ export function BusinessChatUI({
 
         return updated;
       });
+
+      if (action === "open-market-overview") {
+        setFollowUpRecommendations(Array.from(LOCATION_INTELLIGENCE_FOLLOW_UPS));
+        setAdvisorPanelOpen(true);
+      } else {
+        setFollowUpRecommendations([]);
+      }
     },
     [
       buildMessage,
