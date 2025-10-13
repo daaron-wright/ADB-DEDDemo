@@ -8377,33 +8377,23 @@ export function BusinessChatUI({
                                 <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
                                   Omnis
                                 </h3>
-                                {canShowInlineSuggestedThemes ? (
-                                  <div
-                                    className="relative"
-                                    onMouseEnter={openThemesHover}
-                                    onMouseLeave={scheduleThemesHoverClose}
-                                    onFocus={openThemesHover}
-                                    onBlur={scheduleThemesHoverClose}
+                                {themesAvailable ? (
+                                  <button
+                                    type="button"
+                                    onClick={handleThemesToggle}
+                                    aria-pressed={isThemesPanelOpen}
+                                    aria-expanded={isThemesPanelOpen}
+                                    className={themesButtonClasses}
                                   >
-                                    <button
-                                      type="button"
-                                      onClick={handleThemesToggle}
-                                      aria-pressed={isInlineThemesExpanded}
-                                      aria-expanded={isInlineThemesExpanded}
-                                      className={themesButtonClasses}
-                                    >
-                                      Themes
-                                      <ChevronDown
-                                        className={cn(
-                                          "h-3 w-3 transition-transform",
-                                          isInlineThemesExpanded
-                                            ? "rotate-180"
-                                            : "rotate-0",
-                                        )}
-                                        aria-hidden="true"
-                                      />
-                                    </button>
-                                  </div>
+                                    Themes
+                                    <ChevronDown
+                                      className={cn(
+                                        "h-3 w-3 transition-transform",
+                                        isThemesPanelOpen ? "rotate-180" : "rotate-0",
+                                      )}
+                                      aria-hidden="true"
+                                    />
+                                  </button>
                                 ) : null}
                               </div>
                               <p className="text-xs text-slate-500">
