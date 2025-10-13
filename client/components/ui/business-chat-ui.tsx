@@ -7887,7 +7887,7 @@ export function BusinessChatUI({
                           </div>
                         )}
 
-                        {showChatInterface && !journeyFocusView ? (
+                        {showChatInterface ? (
                           <div
                             className={cn(
                               "mt-6 border-t border-white/15 pt-6",
