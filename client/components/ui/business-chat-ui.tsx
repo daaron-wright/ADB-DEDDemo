@@ -6525,14 +6525,8 @@ export function BusinessChatUI({
       if (!hasTriggeredSuggestedTopics) {
         setHasTriggeredSuggestedTopics(true);
       }
-    } else if (hasStageTopics && !hasTriggeredSuggestedTopics) {
-      setHasTriggeredSuggestedTopics(true);
     }
-  }, [
-    groupedThemeRecommendations,
-    hasStageTopics,
-    hasTriggeredSuggestedTopics,
-  ]);
+  }, [groupedThemeRecommendations, hasTriggeredSuggestedTopics]);
 
   const displayedThemeRecommendations =
     groupedThemeRecommendations.length > 0
