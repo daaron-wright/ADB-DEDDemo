@@ -6454,7 +6454,7 @@ export function BusinessChatUI({
     if (!hasTriggeredSuggestedThemes && isAdvisorPanelOpen) {
       setAdvisorPanelOpen(false);
     }
-  }, [hasTriggeredSuggestedThemes, isAdvisorPanelOpen]);
+  }, [hasTriggeredSuggestedThemes, isAdvisorPanelOpen, setAdvisorPanelOpen]);
 
   const artifactMessages = useMemo(
     () =>
