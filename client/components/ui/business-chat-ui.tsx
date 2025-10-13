@@ -6772,7 +6772,8 @@ export function BusinessChatUI({
 
   const closeThemesPanel = useCallback(() => {
     setIsThemesPanelOpen(false);
-  }, []);
+    setAdvisorPanelOpen(false);
+  }, [setAdvisorPanelOpen]);
 
   const handleThemesToggle = useCallback(() => {
     setIsThemesPanelOpen((prev) => !prev);
