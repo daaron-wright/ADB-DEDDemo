@@ -6976,7 +6976,7 @@ export function BusinessChatUI({
         return [...sanitized, buildMessage(label.trim(), false)];
       });
     },
-    [buildMessage],
+    [buildMessage, setMessages],
   );
 
   const handleRecommendationSelect = useCallback(
