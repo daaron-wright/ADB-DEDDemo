@@ -7267,18 +7267,29 @@ export function BusinessChatUI({
     ];
 
     const trimmedInitial = initialMessage?.trim();
-    const welcomeText =
-      trimmedInitial && trimmedInitial.length > 0
-        ? trimmedInitial
-        : "Hi Layla, I'm Omnis. Where would you like to start?";
+    const hasInitialPrompt = Boolean(trimmedInitial);
+    const baseGreeting =
+      "Welcome, Layla. I'm Omnis—here to keep momentum on your concept.";
 
-    const conversation: BusinessMessage[] = [
-      buildMessage(welcomeText, true, {
-        actions: defaultActions,
-      }),
-    ];
+    const conversation: BusinessMessage[] = [];
 
-    if (!trimmedInitial) {
+    if (hasInitialPrompt) {
+      conversation.push(buildMessage(trimmedInitial!, false));
+    }
+
+    conversation.push(
+      buildMessage(
+        hasInitialPrompt
+          ? `${baseGreeting} Let me line up what you asked for.`
+          : `${baseGreeting} Where would you like to start?`,
+        true,
+        {
+          actions: defaultActions,
+        },
+      ),
+    );
+
+    if (!hasInitialPrompt) {
       conversation.push(
         buildMessage(
           "Not sure where to start? I can surface the districts attracting the strongest demand right now—just tap \"Discover investment districts\" above and I'll walk you through the hotspots.",
@@ -7302,7 +7313,7 @@ export function BusinessChatUI({
     } else {
       conversation.push(
         buildMessage(
-          "Let me know the outcome you’re targeting and I’ll surface the right checklists, data, or automations to keep momentum.",
+          "I'll pull together the right insights for that. Let me know if you want market signals, competitor context, or budget next.",
           true,
         ),
       );
