@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
+import { useToast } from "@/hooks/use-toast";
 import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
 import { Check, X } from "lucide-react";
@@ -86,41 +87,107 @@ const DEFAULT_FAILURE_STEP_INDEX = (() => {
 
 const TRADE_NAME_IDEAS: ReadonlyArray<TradeNameIdeaSuggestion> = [
   {
-    id: "corniche-culinary-collective",
-    english: "Corniche Culinary Collective",
-    arabic: "مجموعة كورنيش للطهي",
+    id: "marwah-restaurant-sole-llc",
+    english: "Marwah Restaurant Sole LLC",
+    arabic: "مطعم مروة الفردي ذ.م.م",
   },
   {
-    id: "marwah",
-    english: "Marwah",
-    arabic: "مروة",
+    id: "marwah-hospitality-sole-llc",
+    english: "Marwah Hospitality Sole LLC",
+    arabic: "ضيافة مروة الفردية ذ.م.م",
   },
   {
-    id: "azure-coast-kitchen",
-    english: "Azure Coast Kitchen",
-    arabic: "مطبخ الساحل اللازوردي",
+    id: "azure-coast-kitchen-sole-llc",
+    english: "Azure Coast Kitchen Sole LLC",
+    arabic: "مطبخ الساحل اللازوردي الفردي ذ.م.م",
   },
   {
-    id: "pearl-horizon-dining",
-    english: "Pearl Horizon Dining",
-    arabic: "مطعم أفق اللؤلؤ",
+    id: "pearl-horizon-dining-sole-llc",
+    english: "Pearl Horizon Dining Sole LLC",
+    arabic: "مطعم أفق اللؤلؤ الفردي ذ.م.م",
   },
   {
-    id: "harbor-lights-supper-club",
-    english: "Harbor Lights Supper Club",
-    arabic: "نادي ��شاء أضواء الميناء",
+    id: "harbor-lights-supper-club-sole-llc",
+    english: "Harbor Lights Supper Club Sole LLC",
+    arabic: "نادي عشاء أضواء الميناء الفردي ذ.م.م",
   },
   {
-    id: "marina-ember-grill",
-    english: "Marina Ember Grill",
-    arabic: "مشويات جمرة المرسى",
+    id: "corniche-culinary-collective-sole-llc",
+    english: "Corniche Culinary Collective Sole LLC",
+    arabic: "مجموعة كورنيش للطهي الفردي ذ.م.م",
   },
   {
-    id: "gulf-breeze-gastronomy",
-    english: "Gulf Breeze Gastronomy",
-    arabic: "مذاقات نسيم الخليج",
+    id: "gulf-breeze-gastronomy-sole-llc",
+    english: "Gulf Breeze Gastronomy Sole LLC",
+    arabic: "مذاقات نسيم الخليج الفردي ذ.م.م",
   },
 ];
+
+const APPROVED_TRADE_NAMES = [
+  "MARWAH RESTAURANT SOLE LLC",
+  "MARWAH HOSPITALITY SOLE LLC",
+  "CORNICHE CULINARY COLLECTIVE SOLE LLC",
+  "PEARL HORIZON DINING SOLE LLC",
+] as const;
+
+const UPPERCASE_EXCEPTIONS = new Set([
+  "LLC",
+  "L.L.C.",
+  "LLP",
+  "PJSC",
+  "FZ-LLC",
+  "FZCO",
+  "SPC",
+]);
+
+const DOUBLE_CHAR_MAP = new Map<string, string>([
+  ["aa", "ا"],
+  ["ae", "اي"],
+  ["ai", "اي"],
+  ["ay", "اي"],
+  ["ch", "تش"],
+  ["dh", "ذ"],
+  ["gh", "غ"],
+  ["kh", "خ"],
+  ["ph", "ف"],
+  ["qu", "قو"],
+  ["sh", "ش"],
+  ["th", "ث"],
+  ["wh", "و"],
+  ["oo", "و"],
+  ["ee", "ي"],
+  ["ou", "و"],
+  ["ia", "يا"],
+]);
+
+const SINGLE_CHAR_MAP = new Map<string, string>([
+  ["a", "ا"],
+  ["b", "ب"],
+  ["c", "ك"],
+  ["d", "د"],
+  ["e", "ي"],
+  ["f", "ف"],
+  ["g", "ج"],
+  ["h", "ه"],
+  ["i", "ي"],
+  ["j", "ج"],
+  ["k", "ك"],
+  ["l", "ل"],
+  ["m", "م"],
+  ["n", "ن"],
+  ["o", "و"],
+  ["p", "ب"],
+  ["q", "ق"],
+  ["r", "ر"],
+  ["s", "س"],
+  ["t", "ت"],
+  ["u", "و"],
+  ["v", "ف"],
+  ["w", "و"],
+  ["x", "كس"],
+  ["y", "ي"],
+  ["z", "ز"],
+]);
 
 function sampleTradeNameIdeas(
   source: ReadonlyArray<TradeNameIdeaSuggestion>,
@@ -141,10 +208,67 @@ function sampleTradeNameIdeas(
   return shuffled.slice(0, MAX_TRADE_NAME_SUGGESTIONS);
 }
 
-const APPROVED_TRADE_NAMES = [
-  "MARWAH",
-  "CORNICHE CULINARY COLLECTIVE",
-] as const;
+function normalizeUppercaseWord(word: string) {
+  return word.replace(/[^a-zA-Z]/g, "").toUpperCase();
+}
+
+function formatTradeName(value: string | undefined) {
+  if (!value) {
+    return "";
+  }
+
+  return value
+    .trim()
+    .split(/\s+/)
+    .map((word) => {
+      const normalized = normalizeUppercaseWord(word);
+      if (normalized && UPPERCASE_EXCEPTIONS.has(normalized)) {
+        return normalized;
+      }
+
+      if (word.length === 0) {
+        return word;
+      }
+
+      const lower = word.toLowerCase();
+      return lower.charAt(0).toUpperCase() + lower.slice(1);
+    })
+    .join(" ");
+}
+
+function formatArabicName(value: string) {
+  return value.replace(/\s+/g, " ").trim();
+}
+
+function transliterateToArabic(input: string) {
+  const trimmed = input.trim().toLowerCase();
+
+  if (!trimmed) {
+    return "";
+  }
+
+  let result = "";
+  let index = 0;
+
+  while (index < trimmed.length) {
+    const pair = trimmed.slice(index, index + 2);
+    if (DOUBLE_CHAR_MAP.has(pair)) {
+      result += DOUBLE_CHAR_MAP.get(pair);
+      index += 2;
+      continue;
+    }
+
+    const char = trimmed[index];
+    if (SINGLE_CHAR_MAP.has(char)) {
+      result += SINGLE_CHAR_MAP.get(char);
+    } else {
+      result += char;
+    }
+    index += 1;
+  }
+
+  return result.replace(/\s+/g, " ").trim();
+}
 
 function getStepStatus(
   progressPercent: number,
@@ -208,6 +332,92 @@ function clampProgress(value: number) {
   return Math.min(Math.max(value, 0), 100);
 }
 
+function VerificationStepItem({
+  step,
+  index,
+  totalSteps,
+}: {
+  step: TradeNameVerificationStepWithStatus;
+  index: number;
+  totalSteps: number;
+}) {
+  const isFailed = step.status === "failed";
+  const isCompleted = step.status === "completed";
+  const isCurrent = step.status === "current";
+  const statusLabel = isFailed
+    ? "Flagged"
+    : isCompleted
+    ? "Passed"
+    : isCurrent
+    ? "Running"
+    : "Queued";
+  const progressPercent = Math.round(step.progress * 100);
+
+  const indicatorClasses = cn(
+    "flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold",
+    isFailed && "border-rose-200 bg-rose-50 text-rose-600",
+    isCompleted && "border-emerald-200 bg-emerald-50 text-emerald-700",
+    isCurrent && "border-[#0f766e]/50 bg-[#0f766e]/10 text-[#0f766e]",
+    step.status === "pending" && "border-slate-200 bg-white text-slate-400",
+  );
+
+  const statusBadgeClasses = cn(
+    "rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]",
+    isFailed && "border-rose-200 bg-rose-50 text-rose-600",
+    isCompleted && "border-emerald-200 bg-[#dff2ec] text-[#0b7d6f]",
+    isCurrent && "border-[#0f766e]/50 bg-[#0f766e]/10 text-[#0f766e]",
+    step.status === "pending" && "border-slate-200 bg-white text-slate-400",
+  );
+
+  return (
+    <li className="space-y-3 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="flex items-start gap-3">
+          <span className={indicatorClasses} aria-hidden>
+            {isFailed ? (
+              <X className="h-4 w-4" strokeWidth={3} />
+            ) : isCompleted ? (
+              <Check className="h-4 w-4" strokeWidth={3} />
+            ) : isCurrent ? (
+              <span className="relative flex h-3 w-3 items-center justify-center">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current/70" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
+              </span>
+            ) : (
+              <span className="h-2 w-2 rounded-full bg-current/60" />
+            )}
+          </span>
+          <div className="space-y-2">
+            <div>
+              <p className="text-sm font-semibold text-slate-900">{step.title}</p>
+              <p className="text-sm text-slate-600">{step.description}</p>
+            </div>
+            {isFailed && step.failureDetail ? (
+              <div className="rounded-xl border border-rose-200 bg-rose-50/80 p-3 text-sm text-rose-700">
+                {step.failureDetail}
+              </div>
+            ) : null}
+          </div>
+        </div>
+        <Badge className={statusBadgeClasses}>{statusLabel}</Badge>
+      </div>
+      {isCurrent ? (
+        <div className="space-y-2">
+          <div className="relative h-1.5 overflow-hidden rounded-full bg-[#f1f5f3]">
+            <div
+              className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all duration-300 ease-out"
+              style={{ width: `${progressPercent}%` }}
+            />
+          </div>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
+            {`Step ${index + 1} of ${totalSteps} • ${progressPercent}%`}
+          </p>
+        </div>
+      ) : null}
+    </li>
+  );
+}
+
 export function BusinessRegistrationFocusContent({
   journeyNumber = "0987654321",
   tradeName = "",
@@ -216,11 +426,23 @@ export function BusinessRegistrationFocusContent({
   onTradeNameChange,
 }: BusinessRegistrationFocusContentProps) {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
-  const [activeTradeName, setActiveTradeName] = React.useState(tradeName);
-  const [pendingTradeName, setPendingTradeName] = React.useState<string | null>(
-    null,
+  const { toast } = useToast();
+  const [englishInputValue, setEnglishInputValue] = React.useState(() =>
+    formatTradeName(tradeName),
   );
-  const [inputValue, setInputValue] = React.useState("");
+  const [arabicInputValue, setArabicInputValue] = React.useState("");
+  const [activeEnglishTradeName, setActiveEnglishTradeName] = React.useState(() =>
+    formatTradeName(tradeName),
+  );
+  const [activeArabicTradeName, setActiveArabicTradeName] = React.useState("");
+  const [pendingSubmission, setPendingSubmission] = React.useState<
+    | {
+        english: string;
+        arabic: string;
+        normalized: string;
+      }
+    | null
+  >(null);
   const [isChecking, setIsChecking] = React.useState(false);
   const [hasPerformedCheck, setHasPerformedCheck] = React.useState(false);
   const [isNameAvailable, setIsNameAvailable] = React.useState(
@@ -229,11 +451,12 @@ export function BusinessRegistrationFocusContent({
   const [automationProgress, setAutomationProgress] = React.useState(() =>
     clampProgress(progressPercent),
   );
-  const [hasUserOverride, setHasUserOverride] = React.useState(false);
   const [failedStepIndex, setFailedStepIndex] = React.useState<number | null>(
     Boolean(tradeName) && !isTradeNameAvailable ? DEFAULT_FAILURE_STEP_INDEX : null,
   );
   const [failureReason, setFailureReason] = React.useState<string | null>(null);
+  const [hasUserOverride, setHasUserOverride] = React.useState(false);
+  const [hasInitiatedPayment, setHasInitiatedPayment] = React.useState(false);
 
   const approvedNameSet = React.useMemo(
     () =>
@@ -251,8 +474,11 @@ export function BusinessRegistrationFocusContent({
     return filtered.length > 0 ? filtered : TRADE_NAME_IDEAS;
   }, [approvedNameSet]);
 
-  const [tradeNameSuggestions, setTradeNameSuggestions] = React.useState<TradeNameIdeaSuggestion[]>([]);
+  const [tradeNameSuggestions, setTradeNameSuggestions] = React.useState<
+    TradeNameIdeaSuggestion[]
+  >([]);
   const [hasGeneratedSuggestions, setHasGeneratedSuggestions] = React.useState(false);
+
   const notifyTradeNameChange = React.useCallback(
     (value: string | null) => {
       onTradeNameChange?.(value);
@@ -264,10 +490,16 @@ export function BusinessRegistrationFocusContent({
     const generated = sampleTradeNameIdeas(availableTradeNameIdeas);
     setTradeNameSuggestions(generated);
     setHasGeneratedSuggestions(true);
+    setHasUserOverride(true);
+    setHasInitiatedPayment(false);
   }, [availableTradeNameIdeas]);
 
-  const trimmedInput = inputValue.trim();
-  const isSubmitDisabled = isChecking || trimmedInput.length === 0;
+  const trimmedEnglishInput = englishInputValue.trim();
+  const trimmedArabicInput = arabicInputValue.trim();
+  const isSubmitDisabled =
+    isChecking ||
+    trimmedEnglishInput.length === 0 ||
+    trimmedArabicInput.length === 0;
   const displayProgress = Math.round(automationProgress);
 
   React.useEffect(() => {
@@ -275,20 +507,24 @@ export function BusinessRegistrationFocusContent({
       return;
     }
 
-    const normalizedTradeName = tradeName.trim().toUpperCase();
-
-    setActiveTradeName(normalizedTradeName);
-    setPendingTradeName(null);
-    setIsNameAvailable(false);
-    setFailedStepIndex(null);
+    const formatted = formatTradeName(tradeName);
+    setActiveEnglishTradeName(formatted);
+    setEnglishInputValue(formatted);
+    setActiveArabicTradeName("");
+    setArabicInputValue("");
+    setPendingSubmission(null);
+    setIsNameAvailable(Boolean(tradeName) && isTradeNameAvailable);
+    setFailedStepIndex(
+      Boolean(tradeName) && !isTradeNameAvailable ? DEFAULT_FAILURE_STEP_INDEX : null,
+    );
     setFailureReason(null);
-    setAutomationProgress(0);
-    setHasPerformedCheck(false);
+    setAutomationProgress(clampProgress(progressPercent));
+    setHasPerformedCheck(Boolean(tradeName));
+    setHasInitiatedPayment(false);
   }, [hasUserOverride, tradeName, isTradeNameAvailable, progressPercent]);
 
   React.useEffect(() => {
     setHasUserOverride(false);
-    setHasPerformedCheck(false);
   }, [tradeName, isTradeNameAvailable, progressPercent]);
 
   React.useEffect(() => {
@@ -298,17 +534,25 @@ export function BusinessRegistrationFocusContent({
 
     const interval = window.setInterval(() => {
       setAutomationProgress((previous) => {
-        const next = Math.min(previous + 12, 100);
+        const next = Math.min(previous + 14, 100);
 
         if (next >= 100) {
           window.clearInterval(interval);
 
-          const evaluatedName = (pendingTradeName ?? activeTradeName)
-            .trim()
-            .toUpperCase();
+          const evaluationSource = pendingSubmission ??
+            (activeEnglishTradeName
+              ? {
+                  english: activeEnglishTradeName,
+                  arabic: activeArabicTradeName,
+                  normalized: activeEnglishTradeName.trim().toUpperCase(),
+                }
+              : null);
+
+          const normalizedName = evaluationSource?.normalized ?? "";
+          const englishDisplay = evaluationSource?.english ?? trimmedEnglishInput ?? "";
+          const arabicDisplay = evaluationSource?.arabic ?? trimmedArabicInput ?? "";
           const isSuccess =
-            Boolean(evaluatedName) &&
-            APPROVED_TRADE_NAMES.some((name) => name === evaluatedName);
+            Boolean(normalizedName) && approvedNameSet.has(normalizedName);
 
           setIsChecking(false);
           setIsNameAvailable(isSuccess);
@@ -316,12 +560,15 @@ export function BusinessRegistrationFocusContent({
           setFailureReason(
             isSuccess
               ? null
-              : evaluatedName
-              ? `We couldn’t reserve ${evaluatedName}. Try ${APPROVED_TRADE_NAMES.join(" or ")} or another unique variation.`
-              : "Please enter a trade name to run the automated checks.",
+              : normalizedName
+              ? `We couldn’t reserve ${englishDisplay}. Try Marwah Restaurant Sole LLC, Marwah Hospitality Sole LLC, or another unique variation aligned to your activity.`
+              : "Please enter English and Arabic names to run the automated checks.",
           );
-          setPendingTradeName(null);
+          setPendingSubmission(null);
           setHasPerformedCheck(true);
+          setActiveEnglishTradeName(englishDisplay);
+          setActiveArabicTradeName(arabicDisplay);
+          setHasInitiatedPayment(false);
         }
 
         return next;
@@ -329,7 +576,15 @@ export function BusinessRegistrationFocusContent({
     }, 420);
 
     return () => window.clearInterval(interval);
-  }, [isChecking, pendingTradeName, activeTradeName]);
+  }, [
+    isChecking,
+    pendingSubmission,
+    activeEnglishTradeName,
+    activeArabicTradeName,
+    trimmedEnglishInput,
+    trimmedArabicInput,
+    approvedNameSet,
+  ]);
 
   const handleSubmit = React.useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
@@ -339,43 +594,74 @@ export function BusinessRegistrationFocusContent({
         return;
       }
 
-      if (!trimmedInput) {
+      if (!trimmedEnglishInput || !trimmedArabicInput) {
+        toast({
+          title: "Add both names",
+          description: "Enter the English and Arabic trade names before running the checks.",
+          variant: "destructive",
+        });
         return;
       }
 
-      const normalizedInput = trimmedInput.toUpperCase();
+      const formattedEnglish = formatTradeName(trimmedEnglishInput);
+      const formattedArabic = formatArabicName(trimmedArabicInput);
+      const normalizedEnglish = formattedEnglish.toUpperCase();
 
-      setActiveTradeName(normalizedInput);
-      setPendingTradeName(normalizedInput);
+      setActiveEnglishTradeName(formattedEnglish);
+      setActiveArabicTradeName(formattedArabic);
+      setPendingSubmission({
+        english: formattedEnglish,
+        arabic: formattedArabic,
+        normalized: normalizedEnglish,
+      });
       setAutomationProgress(0);
-      setInputValue("");
       setIsChecking(true);
       setIsNameAvailable(false);
       setFailedStepIndex(null);
       setFailureReason(null);
       setHasUserOverride(true);
       setHasPerformedCheck(true);
-      notifyTradeNameChange(normalizedInput);
+      setHasInitiatedPayment(false);
+      notifyTradeNameChange(formattedEnglish);
     },
-    [isChecking, notifyTradeNameChange, trimmedInput],
+    [
+      isChecking,
+      trimmedEnglishInput,
+      trimmedArabicInput,
+      toast,
+      notifyTradeNameChange,
+    ],
   );
 
-  const handleInputChange = React.useCallback(
+  const handleEnglishInputChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const nextValue = event.target.value;
-      setInputValue(nextValue);
+      setEnglishInputValue(nextValue);
       setHasUserOverride(true);
-      notifyTradeNameChange(nextValue.trim() ? nextValue.trim() : null);
-
-      if (!isChecking) {
-        setHasPerformedCheck(false);
-        setIsNameAvailable(false);
-        setFailedStepIndex(null);
-        setFailureReason(null);
-        setAutomationProgress(0);
-      }
+      setHasPerformedCheck(false);
+      setIsNameAvailable(false);
+      setFailedStepIndex(null);
+      setFailureReason(null);
+      setAutomationProgress(0);
+      setHasInitiatedPayment(false);
+      notifyTradeNameChange(nextValue.trim() ? formatTradeName(nextValue) : null);
     },
-    [isChecking, notifyTradeNameChange],
+    [notifyTradeNameChange],
+  );
+
+  const handleArabicInputChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const nextValue = event.target.value;
+      setArabicInputValue(nextValue);
+      setHasUserOverride(true);
+      setHasPerformedCheck(false);
+      setIsNameAvailable(false);
+      setFailedStepIndex(null);
+      setFailureReason(null);
+      setAutomationProgress(0);
+      setHasInitiatedPayment(false);
+    },
+    [],
   );
 
   const focusTradeNameInput = React.useCallback(() => {
@@ -383,26 +669,58 @@ export function BusinessRegistrationFocusContent({
   }, []);
 
   const handleIdeaSelect = React.useCallback(
-    (idea: string) => {
-      setInputValue(idea);
+    (idea: TradeNameIdeaSuggestion) => {
+      setEnglishInputValue(idea.english);
+      setArabicInputValue(idea.arabic);
       setHasUserOverride(true);
-      setPendingTradeName(null);
-      notifyTradeNameChange(idea);
-
-      if (!isChecking) {
-        setHasPerformedCheck(false);
-        setIsNameAvailable(false);
-        setFailedStepIndex(null);
-        setFailureReason(null);
-        setAutomationProgress(0);
-      }
+      setPendingSubmission(null);
+      setHasPerformedCheck(false);
+      setIsNameAvailable(false);
+      setFailedStepIndex(null);
+      setFailureReason(null);
+      setAutomationProgress(0);
+      setHasInitiatedPayment(false);
+      notifyTradeNameChange(idea.english);
 
       requestAnimationFrame(() => {
         inputRef.current?.focus();
       });
     },
-    [isChecking, notifyTradeNameChange],
+    [notifyTradeNameChange],
   );
+
+  const handleTransliterate = React.useCallback(() => {
+    if (!trimmedEnglishInput) {
+      toast({
+        title: "Enter an English name",
+        description: "Add the English trade name first so we can transliterate it for you.",
+      });
+      return;
+    }
+
+    const transliterated = transliterateToArabic(trimmedEnglishInput);
+    setArabicInputValue(transliterated);
+    setHasUserOverride(true);
+    setHasPerformedCheck(false);
+    setIsNameAvailable(false);
+    setFailedStepIndex(null);
+    setFailureReason(null);
+    setAutomationProgress(0);
+    setHasInitiatedPayment(false);
+  }, [toast, trimmedEnglishInput]);
+
+  const handleInitiatePayment = React.useCallback(() => {
+    if (!isNameAvailable) {
+      focusTradeNameInput();
+      return;
+    }
+
+    setHasInitiatedPayment(true);
+    toast({
+      title: "AD Pay checkout started",
+      description: `We opened AD Pay so you can reserve ${activeEnglishTradeName}. Complete the payment to lock the name before licensing.`,
+    });
+  }, [toast, isNameAvailable, activeEnglishTradeName, focusTradeNameInput]);
 
   const showVerificationSteps = hasPerformedCheck || isChecking;
 
@@ -439,7 +757,7 @@ export function BusinessRegistrationFocusContent({
     return current ?? (automationSteps.length > 0 ? automationSteps[0] : null);
   }, [automationSteps]);
 
-  const hasActiveTradeName = activeTradeName.length > 0;
+  const hasActiveTradeName = activeEnglishTradeName.length > 0;
 
   const badgeLabel = isChecking
     ? "Checking..."
@@ -473,35 +791,36 @@ export function BusinessRegistrationFocusContent({
   );
 
   const statusDescription = isChecking
-    ? "We’re running automated validation before reserving the name."
+    ? "Trade Name Engine is reviewing your English and Arabic names against all automated checks."
     : !hasActiveTradeName
-    ? "Enter a trade name to begin the automated validation process."
+    ? "Enter the English and Arabic trade names to begin the validation process."
     : isNameAvailable
-    ? "The TAMM platform confirms availability. Final approval remains with the Department of Economic Development."
-    : "This name matches an existing business record. Try a different variation to continue.";
+    ? "The Trade Name Engine cleared this name. Use AD Pay now to reserve it before moving into licensing."
+    : "This name conflicts with an existing business record. Try a different variation to continue.";
 
   const tradeCheckDescription = isChecking
-    ? "We’re synchronising with the Department of Economic Development to confirm availability."
+    ? "We’re synchronising with the Department of Economic Development through the Trade Name Engine."
     : !hasActiveTradeName
-    ? "Start by entering a trade name to run the automated checks."
+    ? "Start by entering English and Arabic trade names. We’ll run the automated checks once you submit."
     : isNameAvailable
-    ? "We’re confirming availability and reserving your trade name before moving to licensing."
-    : "The checks flagged a conflict with an existing registration, so this name can’t proceed.";
+    ? "All checks passed. Reserve the name now via AD Pay so it’s held for your application."
+    : "The Trade Name Engine flagged a conflict, so this name can’t be reserved.";
 
   const statusSummary = isChecking
-    ? `Status: running automated checks for ${activeTradeName || "your trade name"}`
+    ? `Status: running automated checks for ${activeEnglishTradeName || "your trade name"}`
     : !hasActiveTradeName
     ? "Status: awaiting trade name submission."
     : isNameAvailable
-    ? "Status: verification synced with the Department of Economic Development"
-    : `Status: similar name conflict flagged for ${activeTradeName}.`;
+    ? "Result: Passed • Trade Name Engine confirms availability. Reserve with AD Pay."
+    : `Result: Failed • Similar name conflict flagged for ${activeEnglishTradeName}.`;
 
   const registrationCta = React.useMemo(() => {
     if (!hasActiveTradeName) {
       return {
-        headline: "Submit your trade name",
-        description: "Enter a preferred business name so Omnis can validate availability.",
-        buttonLabel: "Enter trade name",
+        headline: "Submit your trade names",
+        description:
+          "Enter your preferred English name with its Arabic equivalent so Omnis can validate availability.",
+        buttonLabel: "Enter trade names",
         onClick: focusTradeNameInput,
         disabled: isChecking,
       };
@@ -510,7 +829,8 @@ export function BusinessRegistrationFocusContent({
     if (isChecking) {
       return {
         headline: "Validation in progress",
-        description: "Hold tight while we finish automated checks. You can review the verification steps anytime.",
+        description:
+          "Hold tight while we finish automated checks. You can review the verification steps anytime.",
         buttonLabel: "View verification",
         onClick: () => {
           document.getElementById("registration-verification")?.scrollIntoView({
@@ -525,28 +845,51 @@ export function BusinessRegistrationFocusContent({
     if (!isNameAvailable) {
       return {
         headline: "Try another name",
-        description: failureReason ?? "We couldn't reserve the current name. Try a new unique variation.",
+        description:
+          failureReason ?? "We couldn’t reserve the current name. Try a new unique variation.",
         buttonLabel: "Choose new name",
         onClick: focusTradeNameInput,
         disabled: false,
       };
     }
 
+    if (hasInitiatedPayment) {
+      return {
+        headline: "Payment in progress",
+        description:
+          "AD Pay opened in a new tab. Complete the reservation payment to lock your trade name.",
+        buttonLabel: "Payment started",
+        onClick: () => undefined,
+        disabled: true,
+      };
+    }
+
     return {
       headline: "Reserve your approved name",
-      description: "Lock in this trade name before moving to licensing.",
-      buttonLabel: "Reserve name",
-      onClick: focusTradeNameInput,
+      description:
+        "Pay the reservation fee now so the name stays exclusive to your application before licensing.",
+      buttonLabel: "Pay with AD Pay",
+      onClick: handleInitiatePayment,
       disabled: false,
     };
-  }, [failureReason, focusTradeNameInput, hasActiveTradeName, isChecking, isNameAvailable]);
+  }, [
+    failureReason,
+    focusTradeNameInput,
+    handleInitiatePayment,
+    hasActiveTradeName,
+    hasInitiatedPayment,
+    isChecking,
+    isNameAvailable,
+  ]);
 
   const tradeCheckBadgeLabel = isChecking
     ? "Checking"
     : !hasActiveTradeName
     ? "Awaiting input"
     : isNameAvailable
-    ? "In progress"
+    ? hasInitiatedPayment
+      ? "Payment started"
+      : "Ready to pay"
     : "Action needed";
 
   const tradeCheckBadgeClasses = cn(
@@ -554,7 +897,9 @@ export function BusinessRegistrationFocusContent({
     isChecking && "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]",
     !isChecking && !hasActiveTradeName && "border-slate-200 bg-white text-slate-400",
     !isChecking && hasActiveTradeName && isNameAvailable &&
-      "border-white/70 bg-[#0f766e]/10 text-[#0f766e]",
+      !hasInitiatedPayment && "border-white/70 bg-[#0f766e]/10 text-[#0f766e]",
+    !isChecking && hasActiveTradeName && isNameAvailable && hasInitiatedPayment &&
+      "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
     !isChecking && hasActiveTradeName && !isNameAvailable &&
       "border-rose-200 bg-rose-50 text-rose-600",
   );
@@ -580,13 +925,20 @@ export function BusinessRegistrationFocusContent({
             </Badge>
           </div>
 
-          <div className="space-y-2 rounded-3xl border border-[#0f766e]/25 bg-[#0f766e]/5 p-5">
+          <div className="space-y-3 rounded-3xl border border-[#0f766e]/25 bg-[#0f766e]/5 p-5">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
               Current step
             </p>
-            <h3 className="text-2xl font-semibold text-slate-900">
-              {activeTradeName || "Trade name pending"}
-            </h3>
+            <div className="space-y-1">
+              <h3 className="text-2xl font-semibold text-slate-900">
+                {activeEnglishTradeName || "Trade name pending"}
+              </h3>
+              {activeArabicTradeName ? (
+                <p className="text-base font-semibold text-[#0f766e]" dir="rtl">
+                  {activeArabicTradeName}
+                </p>
+              ) : null}
+            </div>
             <p className="text-sm text-slate-700">{statusDescription}</p>
           </div>
 
@@ -614,27 +966,57 @@ export function BusinessRegistrationFocusContent({
           <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-5">
             <div className="space-y-1">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Try another trade name
+                Submit your trade names
               </p>
               <p className="text-sm text-slate-600">
-                Enter a new option and Omnis will check it automatically.
+                Enter the English name in the required format (e.g. “Marwah Restaurant Sole LLC”),
+                then mirror it in Arabic. Use transliteration if you need help with the Arabic spelling.
               </p>
             </div>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row">
-              <Input
-                ref={inputRef}
-                value={inputValue}
-                onChange={handleInputChange}
-                placeholder="Enter a new trade name"
-                disabled={isChecking}
-                className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400 sm:flex-1"
-              />
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <label className="block text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                  English trade name
+                </label>
+                <Input
+                  ref={inputRef}
+                  value={englishInputValue}
+                  onChange={handleEnglishInputChange}
+                  placeholder="Marwah Restaurant Sole LLC"
+                  disabled={isChecking}
+                  className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
+                />
+              </div>
+              <div className="space-y-2">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <label className="block text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                    Arabic trade name
+                  </label>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleTransliterate}
+                    disabled={isChecking}
+                    className="rounded-full border-[#0f766e]/40 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    Transliterate
+                  </Button>
+                </div>
+                <Input
+                  value={arabicInputValue}
+                  onChange={handleArabicInputChange}
+                  placeholder="مطعم مروة الفردي ذ.م.م"
+                  disabled={isChecking}
+                  dir="rtl"
+                  className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
+                />
+              </div>
               <Button
                 type="submit"
-                className="h-11 rounded-full bg-[#0f766e] px-5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_12px_28px_-18px_rgba(15,118,110,0.45)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+                className="h-11 w-full rounded-full bg-[#0f766e] px-5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_12px_28px_-18px_rgba(15,118,110,0.45)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
                 disabled={isSubmitDisabled}
               >
-                Run checks
+                Run automated checks
               </Button>
             </form>
             <div className="flex flex-wrap items-center gap-2">
@@ -645,7 +1027,7 @@ export function BusinessRegistrationFocusContent({
                 disabled={isChecking}
                 className="rounded-full border-[#0f766e]/40 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Get name ideas
+                Get name recommendations
               </Button>
               {hasGeneratedSuggestions && tradeNameSuggestions.length === 0 ? (
                 <span className="text-xs text-slate-500">
@@ -654,16 +1036,19 @@ export function BusinessRegistrationFocusContent({
               ) : null}
             </div>
             {tradeNameSuggestions.length > 0 && (
-              <div className="flex flex-wrap gap-2">
+              <div className="grid gap-2 sm:grid-cols-2">
                 {tradeNameSuggestions.slice(0, 4).map((idea) => (
                   <button
                     key={idea.id}
                     type="button"
-                    onClick={() => handleIdeaSelect(idea.english)}
-                    className="rounded-full border border-[#0f766e]/40 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
+                    onClick={() => handleIdeaSelect(idea)}
+                    className="rounded-2xl border border-[#0f766e]/40 bg-white px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
                     disabled={isChecking}
                   >
-                    {idea.english}
+                    <span className="block text-[12px] text-slate-900">{idea.english}</span>
+                    <span className="block text-[12px] text-[#0f766e]" dir="rtl">
+                      {idea.arabic}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -730,7 +1115,7 @@ export function BusinessRegistrationFocusContent({
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Trade name check
+                Trade name engine
               </p>
               <p className="text-base font-semibold text-slate-900">
                 Connected to Department of Economic Development
@@ -739,6 +1124,36 @@ export function BusinessRegistrationFocusContent({
             <Badge className={tradeCheckBadgeClasses}>{tradeCheckBadgeLabel}</Badge>
           </div>
           <p className="text-sm text-slate-600">{statusSummary}</p>
+          {isNameAvailable ? (
+            <div className="rounded-2xl border border-[#0f766e]/30 bg-[#0f766e]/5 p-4 text-sm text-[#0f766e]">
+              Reservation fee: AED 620 • Pay through AD Pay to secure the name for 90 days.
+            </div>
+          ) : null}
+        </div>
+
+        <div
+          id="registration-verification"
+          className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-5"
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+            Verification steps
+          </p>
+          {showVerificationSteps ? (
+            <ul className="space-y-4">
+              {automationSteps.map((step, index) => (
+                <VerificationStepItem
+                  key={step.title}
+                  step={step}
+                  index={index}
+                  totalSteps={automationSteps.length}
+                />
+              ))}
+            </ul>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-5 text-sm text-slate-500">
+              Run the automated checks to view how each Trade Name Engine step progresses in real time.
+            </div>
+          )}
         </div>
       </section>
     </div>
