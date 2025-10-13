@@ -377,7 +377,7 @@ const CONVERSATION_BLUEPRINT: Record<
       },
       {
         id: "summary-human-fallback",
-        label: "Talk to a human agent",
+        label: "Human Assistance",
         description:
           "Connect with a TAMM specialist if you want a personal walkthrough before applying.",
         icon: Headset,
