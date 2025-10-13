@@ -6117,7 +6117,20 @@ export function BusinessChatUI({
   const stageBlueprint = CONVERSATION_BLUEPRINT[currentStep];
 
   const groupedThemeRecommendations = useMemo<SuggestedThemeGroup[]>(() => {
-    if (!stageBlueprint) {
+    if (!stageBlueprint && followUpRecommendations.length === 0) {
+      return [];
+    }
+
+    const allRecommendations = [
+      ...(stageBlueprint?.recommendations ?? []),
+      ...followUpRecommendations,
+    ];
+
+    const dedupedRecommendations = Array.from(
+      new Map(allRecommendations.map((rec) => [rec.id, rec])).values(),
+    );
+
+    if (dedupedRecommendations.length === 0) {
       return [];
     }
 
@@ -6180,15 +6193,16 @@ export function BusinessChatUI({
     const fallbackGroup =
       definitions.find((definition) => definition.id === "signals") ?? definitions[0];
 
-    stageBlueprint.recommendations.forEach((recommendation) => {
-      const group = definitions.find((definition) => definition.predicate(recommendation)) ?? fallbackGroup;
+    dedupedRecommendations.forEach((recommendation) => {
+      const group =
+        definitions.find((definition) => definition.predicate(recommendation)) ?? fallbackGroup;
       group.items.push(recommendation);
     });
 
     return definitions
       .filter((definition) => definition.items.length > 0)
       .map(({ predicate, ...definition }) => definition);
-  }, [stageBlueprint]);
+  }, [stageBlueprint, followUpRecommendations]);
 
   const stageMeta = useMemo(
     () => CONVERSATION_STEPS.find((item) => item.id === currentStep),
