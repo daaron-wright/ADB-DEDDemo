@@ -7620,7 +7620,7 @@ export function BusinessChatUI({
                             </div>
                           </div>
                           {stageBlueprint ? (
-                            <div className="relative">
+                            <div className="relative z-[200] isolate">
                               <button
                                 type="button"
                                 onClick={() => setAdvisorPanelOpen((prev) => !prev)}
