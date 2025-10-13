@@ -155,7 +155,7 @@ interface DialogueDocProps {
 
 const createInitialDialogueDocState = (): DialogueDocState => ({
   notes:
-    "Capture next steps, decisions, and follow-ups here.\n• Define target district and audience\n• Outline licensing documents\n�� Track stakeholder approvals",
+    "Capture next steps, decisions, and follow-ups here.\n• Define target district and audience\n�� Outline licensing documents\n�� Track stakeholder approvals",
   highlights: [
     {
       id: "dialogue-highlight-1",
@@ -7834,7 +7834,7 @@ export function BusinessChatUI({
                                 <button
                                   type="button"
                                   onClick={() => handleHumanFallback()}
-                                  className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/35 bg-white/80 px-3 py-1 text-[11px] font-semibold text-[#0F766E] shadow-[0_14px_32px_-24px_rgba(14,118,110,0.5)] transition hover:border-[#0F766E]/60 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E]/35"
+                                  className="inline-flex flex-shrink-0 items-center gap-2 rounded-full border border-[#0F766E]/35 bg-white/80 px-3 py-1 text-[11px] font-semibold text-[#0F766E] shadow-[0_14px_32px_-24px_rgba(14,118,110,0.5)] transition hover:border-[#0F766E]/60 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E]/35"
                                 >
                                   <span className="h-2 w-2 rounded-full bg-[#0F766E] shadow-[0_0_0_3px_rgba(14,118,110,0.25)]" />
                                   Chat with a Person
