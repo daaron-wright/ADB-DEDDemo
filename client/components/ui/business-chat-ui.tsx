@@ -8281,16 +8281,16 @@ export function BusinessChatUI({
                                         stageLabel={stagePanelLabel}
                                         stageMessage={stagePanelMessage}
                                         groupedRecommendations={displayedThemeRecommendations}
-                                        onClose={closeThemesPanel}
+                                        onClose={closeTopicsPanel}
                                         onRecommendationSelect={(recommendation) => {
                                           handleRecommendationSelect(recommendation);
-                                          closeThemesPanel();
+                                          closeTopicsPanel();
                                         }}
                                         hasStageTopics={hasStageTopics}
                                         currentStep={currentStep}
                                         onSendTopic={(prompt) => {
                                           handleSendMessage(prompt);
-                                          closeThemesPanel();
+                                          closeTopicsPanel();
                                         }}
                                         variant="popover"
                                       />
