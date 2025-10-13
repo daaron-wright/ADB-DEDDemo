@@ -6742,66 +6742,33 @@ export function BusinessChatUI({
     ? followUpRecommendations[0]?.description ?? "Choose what you’d like to explore next."
     : stageBlueprint?.message ?? "";
 
-  const canShowInlineSuggestedThemes =
-    hasTriggeredSuggestedThemes &&
-    groupedThemeRecommendations.length > 0;
-  const [isInlineThemesExpanded, setIsInlineThemesExpanded] = useState(false);
-  const inlineThemesInitializedRef = useRef(false);
+  const themesAvailable =
+    hasTriggeredSuggestedThemes && groupedThemeRecommendations.length > 0;
+  const [isThemesPanelOpen, setIsThemesPanelOpen] = useState(false);
 
-  useEffect(() => {
-    if (canShowInlineSuggestedThemes) {
-      if (!inlineThemesInitializedRef.current) {
-        setIsInlineThemesExpanded(true);
-        inlineThemesInitializedRef.current = true;
-      }
-    } else {
-      inlineThemesInitializedRef.current = false;
-      setIsInlineThemesExpanded(false);
-    }
-  }, [canShowInlineSuggestedThemes]);
-
-  const shouldShowInlineSuggestedThemes =
-    canShowInlineSuggestedThemes && isInlineThemesExpanded;
-  const showThemesHoverCard =
-    canShowInlineSuggestedThemes && !isInlineThemesExpanded;
-  const [isThemesHoverOpen, setIsThemesHoverOpen] = useState(false);
-  const themesHoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const clearThemesHoverTimeout = useCallback(() => {
-    if (themesHoverTimeoutRef.current) {
-      clearTimeout(themesHoverTimeoutRef.current);
-      themesHoverTimeoutRef.current = null;
-    }
+  const closeThemesPanel = useCallback(() => {
+    setIsThemesPanelOpen(false);
   }, []);
 
-  const closeThemesHover = useCallback(() => {
-    clearThemesHoverTimeout();
-    setIsThemesHoverOpen(false);
-  }, [clearThemesHoverTimeout]);
-
-  const scheduleThemesHoverClose = useCallback(() => {
-    clearThemesHoverTimeout();
-    themesHoverTimeoutRef.current = setTimeout(() => {
-      setIsThemesHoverOpen(false);
-      themesHoverTimeoutRef.current = null;
-    }, 120);
-  }, [clearThemesHoverTimeout]);
-
-  const openThemesHover = useCallback(() => {
-    clearThemesHoverTimeout();
-    setIsThemesHoverOpen(true);
-  }, [clearThemesHoverTimeout]);
-
-  useEffect(() => () => clearThemesHoverTimeout(), [clearThemesHoverTimeout]);
+  const handleThemesToggle = useCallback(() => {
+    setIsThemesPanelOpen((prev) => !prev);
+    setAdvisorPanelOpen(false);
+  }, [setAdvisorPanelOpen]);
 
   useEffect(() => {
-    if (!isThemesHoverOpen) {
+    if (!themesAvailable) {
+      setIsThemesPanelOpen(false);
+    }
+  }, [themesAvailable]);
+
+  useEffect(() => {
+    if (!isThemesPanelOpen) {
       return;
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        closeThemesHover();
+        closeThemesPanel();
       }
     };
 
@@ -6809,35 +6776,15 @@ export function BusinessChatUI({
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isThemesHoverOpen, closeThemesHover]);
-
-  const handleThemesToggle = useCallback(() => {
-    setIsInlineThemesExpanded((prev) => {
-      const next = !prev;
-      if (!prev) {
-        inlineThemesInitializedRef.current = true;
-      }
-      return next;
-    });
-    setAdvisorPanelOpen(false);
-    setIsThemesHoverOpen(false);
-    clearThemesHoverTimeout();
-  }, [clearThemesHoverTimeout, setAdvisorPanelOpen]);
-
-  useEffect(() => {
-    if (!showThemesHoverCard) {
-      setIsThemesHoverOpen(false);
-      clearThemesHoverTimeout();
-    }
-  }, [showThemesHoverCard, clearThemesHoverTimeout]);
+  }, [isThemesPanelOpen, closeThemesPanel]);
 
   const themesButtonClasses = cn(
     "inline-flex items-center gap-1 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40",
-    isInlineThemesExpanded
+    isThemesPanelOpen
       ? "border-[#0F766E] bg-[#0F766E]/10 text-[#0F766E] shadow-[0_12px_26px_-18px_rgba(15,118,110,0.4)]"
       : "border-emerald-100/80 bg-white/80 text-[#0F766E] hover:border-[#0F766E]/60 hover:bg-white",
     isSidePanel &&
-      (isInlineThemesExpanded
+      (isThemesPanelOpen
         ? "border-[#0F766E] bg-[#0F766E]/10"
         : "border-slate-200 bg-white hover:border-slate-300"),
   );
