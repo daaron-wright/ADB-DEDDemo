@@ -563,12 +563,24 @@ export default function Index() {
                     <div className="flex items-start gap-3">
                       <div className="relative flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-white shadow-[0_12px_30px_-18px_rgba(22,101,76,0.45)]" />
                       <div className="min-w-0 flex-1">
-                        <div className="flex items-center justify-between gap-3">
+                        <div className="flex flex-wrap items-center justify-between gap-3">
                           <span className="text-sm font-semibold text-slate-900">Hi, Lyla</span>
-                          <span className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-700">
-                            <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.32)] animate-pulse" />
-                            Omnis Live
-                          </span>
+                          <div className="flex flex-shrink-0 items-center gap-2">
+                            <span className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-700">
+                              <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.32)] animate-pulse" />
+                              Omnis Live
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                openOmnisChat("I'd like to speak with someone from the call centre about my business setup.")
+                              }
+                              className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/20 px-3 py-1 text-[11px] font-semibold text-emerald-700 shadow-[0_16px_40px_-30px_rgba(14,118,110,0.55)] transition hover:border-emerald-200/55 hover:bg-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/35"
+                            >
+                              <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.32)]" />
+                              Chat with a Person
+                            </button>
+                          </div>
                         </div>
                         <p className="mt-1 text-xs text-slate-600">
                           Ask for market signals or licensing steps and I'll surface the right workspace.
