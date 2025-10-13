@@ -3432,7 +3432,7 @@ const SetupBusinessCTA = ({
 
       {/* Avatar positioned over header */}
       <div className="absolute left-[26px] top-[18px] h-[63px] w-[63px]">
-        <div className="h-full w-full overflow-hidden rounded-full bg-[#D9D9D9]">
+        <div className="h-full w-full overflow-hidden rounded-full bg-white">
           <img
             src={ENTREPRENEUR_PROFILE.avatar}
             alt={ENTREPRENEUR_PROFILE.name}
