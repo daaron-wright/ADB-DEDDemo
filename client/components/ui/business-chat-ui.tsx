@@ -6600,12 +6600,13 @@ export function BusinessChatUI({
   const themesAvailable =
     hasThemeInventory || hasStageTopics || hasTriggeredSuggestedThemes;
 
+  const [isThemesPanelOpen, setIsThemesPanelOpen] = useState(false);
+
   useEffect(() => {
     if (!themesAvailable) {
       setIsThemesPanelOpen(false);
     }
   }, [themesAvailable]);
-  const [isThemesPanelOpen, setIsThemesPanelOpen] = useState(false);
 
   const closeThemesPanel = useCallback(() => {
     setIsThemesPanelOpen(false);
