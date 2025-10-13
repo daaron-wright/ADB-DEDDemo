@@ -3986,20 +3986,6 @@ const MessageBubble = ({
   );
 };
 
-interface TopicSuggestion {
-  id: string;
-  label: string;
-  prompt: string;
-}
-
-interface TopicGroup {
-  id: string;
-  title: string;
-  description: string;
-  icon: LucideIcon;
-  topics: TopicSuggestion[];
-}
-
 const STAGE_TOPIC_GROUPS: Record<ConversationStep, TopicGroup[]> = {
   intro: [
     {
