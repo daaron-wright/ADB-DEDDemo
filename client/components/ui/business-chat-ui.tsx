@@ -7985,7 +7985,10 @@ export function BusinessChatUI({
         {isOpen && (
           <div
             key="chat-ui-root"
-            className="fixed inset-0 z-50 overflow-hidden"
+            className={cn(
+              "fixed inset-0 z-50",
+              isSidePanel ? "overflow-hidden" : "overflow-y-auto",
+            )}
           >
             {isSidePanel && (
               <motion.button
