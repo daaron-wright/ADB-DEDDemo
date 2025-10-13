@@ -4291,99 +4291,6 @@ const STAGE_TOPIC_GROUPS: Record<ConversationStep, TopicGroup[]> = {
   ],
 };
 
-const StageTopicSuggestions = ({
-  step,
-  onSendTopic,
-}: {
-  step: ConversationStep;
-  onSendTopic: (prompt: string) => void;
-}) => {
-  const groups = STAGE_TOPIC_GROUPS[step] ?? [];
-  const [openGroupValues, setOpenGroupValues] = useState<string[]>(() =>
-    groups.map((group) => group.id),
-  );
-
-  useEffect(() => {
-    setOpenGroupValues(groups.map((group) => group.id));
-  }, [step, groups]);
-
-  if (groups.length === 0) {
-    return null;
-  }
-
-  return (
-    <div className="space-y-3">
-      <div>
-        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
-          Conversation starters
-        </p>
-        <p className="text-xs text-slate-500">
-          Drop a prompt to keep momentum without leaving the current stage.
-        </p>
-      </div>
-      <Accordion
-        type="multiple"
-        value={openGroupValues}
-        onValueChange={(value) =>
-          setOpenGroupValues(Array.isArray(value) ? value : [value])
-        }
-        className="space-y-3"
-      >
-        {groups.map((group) => {
-          const Icon = group.icon;
-          const isExpanded = openGroupValues.includes(group.id);
-
-          return (
-            <AccordionItem key={group.id} value={group.id} className="border-none">
-              <div
-                className={cn(
-                  "rounded-2xl border border-emerald-100/60 bg-white/80 shadow-[0_24px_60px_-44px_rgba(15,23,42,0.28)] transition",
-                  isExpanded
-                    ? "border-[#0F766E]/60 shadow-[0_32px_90px_-62px_rgba(14,118,110,0.38)]"
-                    : "hover:border-[#0F766E]/45 hover:shadow-[0_28px_72px_-58px_rgba(14,118,110,0.3)]",
-                )}
-              >
-                <AccordionTrigger className="flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-semibold text-slate-900 no-underline hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 data-[state=open]:text-[#0F766E]">
-                  <span className="flex flex-1 items-center gap-3 text-left">
-                    <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
-                      <Icon className="h-4 w-4" aria-hidden="true" />
-                    </span>
-                    <span className="flex flex-1 flex-col text-left">
-                      <span className="text-sm font-semibold leading-tight sm:text-base">
-                        {group.title}
-                      </span>
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70">
-                        {group.topics.length} prompt{group.topics.length === 1 ? "" : "s"}
-                      </span>
-                    </span>
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="px-4 pb-4 pt-0">
-                  <p className="text-xs leading-relaxed text-slate-600 sm:text-sm">
-                    {group.description}
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {group.topics.map((topic) => (
-                      <button
-                        key={topic.id}
-                        type="button"
-                        onClick={() => onSendTopic(topic.prompt)}
-                        className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/20 bg-white px-3 py-1.5 text-xs font-semibold text-[#0F766E] transition hover:border-[#0F766E]/40 hover:bg-[#f2fbf8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
-                      >
-                        <span className="inline-flex h-1.5 w-1.5 rounded-full bg-[#0F766E]" aria-hidden />
-                        {topic.label}
-                      </button>
-                    ))}
-                  </div>
-                </AccordionContent>
-              </div>
-            </AccordionItem>
-          );
-        })}
-      </Accordion>
-    </div>
-  );
-};
 
 const RECOMMENDATION_TYPE_LABELS: Record<RecommendationInteraction, string> = {
   conversation: "Chat action",
@@ -5049,7 +4956,7 @@ const GapBreakoutModal = ({
         "Blend kids programming with curated sundowner menus to capture mixed visitor cohorts.",
     },
     {
-      title: "Wellness-forward café",
+      title: "Wellness-forward caf��",
       urgency: "Emerging",
       detail:
         "Morning boardwalk activity up 14% quarter-on-quarter; healthy grab-and-go remains underserved.",
