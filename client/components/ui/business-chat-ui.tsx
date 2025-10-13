@@ -19,7 +19,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   CuisinePopularityChart,
   DemographicsCard,
@@ -4399,70 +4398,7 @@ const RECOMMENDATION_TYPE_BADGE_CLASSES: Record<RecommendationInteraction, strin
   human: "border border-rose-100 bg-rose-50 text-rose-700",
 };
 
-const SummaryTabCard = ({
-  stageMessage,
-  groupedRecommendations,
-}: {
-  stageMessage: string;
-  groupedRecommendations: SuggestedThemeGroup[];
-}) => (
-  <div className="flex flex-col gap-6 rounded-[32px] border border-emerald-100/70 bg-white/90 px-6 py-6 shadow-[0_24px_80px_-64px_rgba(14,118,110,0.35)]">
-    <div className="space-y-3">
-      <h5 className="text-sm font-semibold uppercase tracking-[0.28em] text-[#0F766E]">
-        Overview
-      </h5>
-      <p className="text-base font-semibold text-slate-900 sm:text-lg">
-        Where to focus right now
-      </p>
-      <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
-        {stageMessage}
-      </p>
-    </div>
-    {groupedRecommendations.length > 0 ? (
-      <div className="grid gap-3 sm:grid-cols-2">
-        {groupedRecommendations.map((group) => {
-          const GroupIcon = group.icon;
-          return (
-            <div
-              key={group.id}
-              className="flex items-start gap-3 rounded-2xl border border-emerald-100/60 bg-white/80 px-4 py-4"
-            >
-              <span
-                className={cn(
-                  "mt-1 flex flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]",
-                  group.id === "support" ? "gap-2 px-3 py-2" : "h-9 w-9",
-                )}
-              >
-                <GroupIcon
-                  className={cn("h-4 w-4", group.id === "support" && "h-3.5 w-3.5")}
-                  aria-hidden="true"
-                />
-                {group.id === "support" ? (
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.24em]">
-                    {group.label}
-                  </span>
-                ) : null}
-              </span>
-              <div className="space-y-1">
-                <p className="text-sm font-semibold text-slate-900">
-                  {group.label}
-                </p>
-                <p className="text-xs leading-relaxed text-slate-600">
-                  {group.description}
-                </p>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/80">
-                  {group.items.length} {group.items.length === 1 ? "path" : "paths"}
-                </p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    ) : null}
-  </div>
-);
-
-const RecommendationAccordionItem = ({
+const RecommendationListItem = ({
   recommendation,
   onSelect,
 }: {
@@ -4470,57 +4406,45 @@ const RecommendationAccordionItem = ({
   onSelect: (recommendation: StageRecommendation) => void;
 }) => {
   const Icon = recommendation.icon;
+  const typeLabel = RECOMMENDATION_TYPE_LABELS[recommendation.type];
+  const typeClasses = RECOMMENDATION_TYPE_BADGE_CLASSES[recommendation.type];
 
   return (
-    <AccordionItem
-      value={recommendation.id}
-      className="overflow-hidden rounded-2xl border border-emerald-100/70 bg-white/95 shadow-[0_26px_82px_-58px_rgba(14,118,110,0.32)] transition data-[state=open]:border-[#0F766E]/55 data-[state=open]:shadow-[0_40px_110px_-72px_rgba(14,118,110,0.48)]"
-    >
-      <AccordionTrigger className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-slate-900 transition data-[state=open]:text-[#0F766E]">
-        <span className="flex flex-1 items-center gap-3 text-left">
-          <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
-            <Icon className="h-5 w-5" aria-hidden="true" />
-          </span>
-          <span className="space-y-1">
-            <span className="block text-sm font-semibold leading-snug text-slate-900 sm:text-base">
-              {recommendation.label}
-            </span>
-            <span className="block text-xs font-semibold uppercase tracking-[0.26em] text-[#0F766E]/70 sm:hidden">
-              {RECOMMENDATION_TYPE_LABELS[recommendation.type]}
-            </span>
-          </span>
+    <div className="flex flex-col gap-3 rounded-2xl border border-emerald-100/70 bg-white/95 px-4 py-4 shadow-[0_24px_80px_-64px_rgba(14,118,110,0.35)] transition hover:border-emerald-200/80 hover:shadow-[0_32px_120px_-80px_rgba(14,118,110,0.45)] sm:px-5 sm:py-5">
+      <div className="flex items-start gap-3">
+        <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
+          <Icon className="h-5 w-5" aria-hidden="true" />
         </span>
+        <div className="space-y-1">
+          <p className="text-sm font-semibold text-slate-900 sm:text-base">
+            {recommendation.label}
+          </p>
+          {recommendation.description ? (
+            <p className="text-xs leading-relaxed text-slate-600 sm:text-sm">
+              {recommendation.description}
+            </p>
+          ) : null}
+        </div>
+      </div>
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <span
           className={cn(
-            "hidden items-center rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] sm:inline-flex",
-            RECOMMENDATION_TYPE_BADGE_CLASSES[recommendation.type],
+            "inline-flex items-center rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em]",
+            typeClasses,
           )}
         >
-          {RECOMMENDATION_TYPE_LABELS[recommendation.type]}
+          {typeLabel}
         </span>
-      </AccordionTrigger>
-      <AccordionContent className="px-5 pb-5">
-        <p className="text-sm leading-relaxed text-slate-600">
-          {recommendation.description}
-        </p>
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex flex-wrap gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70">
-            {recommendation.type === "modal" ? <span>Insight view</span> : null}
-            {recommendation.type === "prompt" ? <span>AI prompt</span> : null}
-            {recommendation.type === "conversation" ? <span>Chat action</span> : null}
-            {recommendation.type === "human" ? <span>Human assist</span> : null}
-          </div>
-          <button
-            type="button"
-            onClick={() => onSelect(recommendation)}
-            className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/40 bg-[#0F766E]/10 px-4 py-2 text-sm font-semibold text-[#0F766E] transition hover:border-[#0F766E]/70 hover:bg-[#0F766E]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
-          >
-            Activate
-            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-          </button>
-        </div>
-      </AccordionContent>
-    </AccordionItem>
+        <button
+          type="button"
+          onClick={() => onSelect(recommendation)}
+          className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/30 bg-[#0F766E]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#0F766E] transition hover:border-[#0F766E]/50 hover:bg-[#0F766E]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
+        >
+          Activate
+          <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+        </button>
+      </div>
+    </div>
   );
 };
 
@@ -4535,8 +4459,6 @@ const SuggestedThemesPanel = ({
   onSendTopic,
   showCloseButton = true,
   variant = "popover",
-  activeTab: controlledActiveTab,
-  onActiveTabChange,
 }: {
   stageLabel?: string;
   stageMessage: string;
@@ -4548,104 +4470,14 @@ const SuggestedThemesPanel = ({
   onSendTopic: (prompt: string) => void;
   showCloseButton?: boolean;
   variant?: "popover" | "inline";
-  activeTab?: string;
-  onActiveTabChange?: (value: string) => void;
 }) => {
   const showClose = showCloseButton && typeof onClose === "function";
 
   const containerClass = cn(
-    "relative z-20 flex flex-col gap-6 rounded-[40px] border border-emerald-100/80 bg-white px-7 py-7 shadow-[0_64px_150px_-60px_rgba(15,23,42,0.5)] sm:px-10 sm:py-8",
+    "relative z-20 flex flex-col gap-6 rounded-[32px] border border-emerald-100/80 bg-white px-6 py-6 shadow-[0_48px_140px_-60px_rgba(15,23,42,0.5)] sm:px-8 sm:py-8",
     variant === "inline" &&
-      "z-0 w-full border-emerald-200 bg-white/95 shadow-[0_32px_100px_-80px_rgba(15,23,42,0.45)]",
+      "z-0 w-full border-emerald-200 bg-white/95 shadow-[0_24px_100px_-70px_rgba(15,23,42,0.45)]",
   );
-
-  const availableTabs = useMemo(
-    () => ["summary", ...groupedRecommendations.map((group) => group.id)],
-    [groupedRecommendations],
-  );
-
-  const [internalActiveTab, setInternalActiveTab] = useState(() => availableTabs[0] ?? "summary");
-
-  useEffect(() => {
-    setInternalActiveTab(availableTabs[0] ?? "summary");
-  }, [availableTabs]);
-
-  const activeTab = controlledActiveTab ?? internalActiveTab;
-
-  useEffect(() => {
-    if (!availableTabs.includes(activeTab)) {
-      const fallback = availableTabs[0] ?? "summary";
-      if (controlledActiveTab === undefined) {
-        setInternalActiveTab(fallback);
-      } else {
-        onActiveTabChange?.(fallback);
-      }
-    }
-  }, [activeTab, availableTabs, controlledActiveTab, onActiveTabChange]);
-
-  const handleTabChange = (value: string) => {
-    if (controlledActiveTab === undefined) {
-      setInternalActiveTab(value);
-    }
-    onActiveTabChange?.(value);
-  };
-
-  const renderGroupSection = (group: SuggestedThemeGroup) => {
-    const GroupIcon = group.icon;
-
-    return (
-      <div
-        key={group.id}
-        className="flex flex-col gap-5 rounded-[32px] border border-emerald-100/70 bg-white/90 px-5 py-5 shadow-[0_24px_80px_-64px_rgba(14,118,110,0.35)] sm:px-6 sm:py-6"
-      >
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div className="flex items-start gap-3">
-            <span
-              className={cn(
-                "flex items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]",
-                group.id === "support" ? "gap-2 px-4 py-2" : "h-12 w-12",
-              )}
-            >
-              <GroupIcon
-                className={cn("h-5 w-5", group.id === "support" && "h-4 w-4")}
-                aria-hidden="true"
-              />
-              {group.id === "support" ? (
-                <span className="text-[11px] font-semibold uppercase tracking-[0.22em]">
-                  {group.label}
-                </span>
-              ) : null}
-            </span>
-            <div className="space-y-1">
-              <p className="text-base font-semibold text-slate-900 sm:text-lg">
-                {group.label}
-              </p>
-              <p className="text-sm leading-relaxed text-slate-600">
-                {group.description}
-              </p>
-            </div>
-          </div>
-          <div className="inline-flex items-center rounded-full border border-emerald-100/70 bg-[#f4fbf8] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#0F766E]">
-            {group.items.length} {group.items.length === 1 ? "suggestion" : "suggestions"}
-          </div>
-        </div>
-        <Accordion
-          key={group.items.map((item) => item.id).join("|")}
-          type="multiple"
-          defaultValue={group.items.slice(0, 1).map((item) => item.id)}
-          className="flex flex-col gap-3"
-        >
-          {group.items.map((recommendation) => (
-            <RecommendationAccordionItem
-              key={recommendation.id}
-              recommendation={recommendation}
-              onSelect={onRecommendationSelect}
-            />
-          ))}
-        </Accordion>
-      </div>
-    );
-  };
 
   return (
     <div className={containerClass}>
@@ -4655,11 +4487,11 @@ const SuggestedThemesPanel = ({
           !showClose && "justify-start",
         )}
       >
-        <div className="space-y-3">
+        <div className="space-y-2">
           <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[#0F766E]">
             Suggested themes
           </p>
-          <h4 className="text-xl font-semibold text-slate-900 sm:text-2xl">
+          <h4 className="text-lg font-semibold text-slate-900 sm:text-xl">
             {stageLabel ?? "Current stage"}
           </h4>
           <p className="max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
@@ -4687,44 +4519,59 @@ const SuggestedThemesPanel = ({
         </div>
       ) : null}
       {groupedRecommendations.length > 0 ? (
-        <Tabs
-          value={activeTab}
-          onValueChange={handleTabChange}
-          className="flex flex-col gap-5"
-        >
-          <TabsList className="flex flex-wrap gap-2 rounded-full border border-emerald-100/80 bg-[#f0f9f6] p-1">
-            <TabsTrigger
-              value="summary"
-              className="flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)]"
-            >
-              Summary
-            </TabsTrigger>
-            {groupedRecommendations.map((group) => {
-              const GroupIcon = group.icon;
-              return (
-                <TabsTrigger
-                  key={group.id}
-                  value={group.id}
-                  className="flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)]"
-                >
-                  <GroupIcon className="h-4 w-4" aria-hidden="true" />
-                  {group.label}
-                </TabsTrigger>
-              );
-            })}
-          </TabsList>
-          <TabsContent value="summary" className="m-0">
-            <SummaryTabCard
-              stageMessage={stageMessage}
-              groupedRecommendations={groupedRecommendations}
-            />
-          </TabsContent>
-          {groupedRecommendations.map((group) => (
-            <TabsContent key={group.id} value={group.id} className="m-0">
-              {renderGroupSection(group)}
-            </TabsContent>
-          ))}
-        </Tabs>
+        <div className="flex flex-col gap-5">
+          {groupedRecommendations.map((group) => {
+            const GroupIcon = group.icon;
+
+            return (
+              <section
+                key={group.id}
+                className="flex flex-col gap-4 rounded-[28px] border border-emerald-100/70 bg-white/95 px-5 py-5 shadow-[0_32px_110px_-72px_rgba(14,118,110,0.4)] sm:px-6 sm:py-6"
+              >
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="flex items-start gap-3">
+                    <span
+                      className={cn(
+                        "flex items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]",
+                        group.id === "support" ? "gap-2 px-4 py-2" : "h-12 w-12",
+                      )}
+                    >
+                      <GroupIcon
+                        className={cn("h-5 w-5", group.id === "support" && "h-4 w-4")}
+                        aria-hidden="true"
+                      />
+                      {group.id === "support" ? (
+                        <span className="text-[11px] font-semibold uppercase tracking-[0.22em]">
+                          {group.label}
+                        </span>
+                      ) : null}
+                    </span>
+                    <div className="space-y-1">
+                      <p className="text-base font-semibold text-slate-900 sm:text-lg">
+                        {group.label}
+                      </p>
+                      <p className="text-sm leading-relaxed text-slate-600">
+                        {group.description}
+                      </p>
+                    </div>
+                  </div>
+                  <span className="inline-flex items-center rounded-full border border-emerald-100/70 bg-[#f4fbf8] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-[#0F766E]">
+                    {group.items.length} {group.items.length === 1 ? "suggestion" : "suggestions"}
+                  </span>
+                </div>
+                <div className="flex flex-col gap-3">
+                  {group.items.map((recommendation) => (
+                    <RecommendationListItem
+                      key={recommendation.id}
+                      recommendation={recommendation}
+                      onSelect={onRecommendationSelect}
+                    />
+                  ))}
+                </div>
+              </section>
+            );
+          })}
+        </div>
       ) : (
         <div className="rounded-3xl border border-emerald-100 bg-white p-6 text-sm leading-relaxed text-slate-600 shadow-[0_28px_72px_-56px_rgba(15,23,42,0.32)]">
           More guided themes are on the way. In the meantime, continue with the quick actions below.
