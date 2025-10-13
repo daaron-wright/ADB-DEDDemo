@@ -301,7 +301,7 @@ const CONVERSATION_BLUEPRINT: Record<
         label: "Open market intelligence view",
         description:
           "Surface addressable market ranges, highlight zones like Saadiyat, and inspect live trend sliders.",
-        icon: Map,
+        icon: MapIcon,
         type: "modal",
         modal: "heat-map",
       },
@@ -6145,7 +6145,7 @@ export function BusinessChatUI({
         id: "maps",
         label: "Maps",
         description: "Location intelligence and spatial layers across Abu Dhabi.",
-        icon: Map,
+        icon: MapIcon,
         predicate: (recommendation: StageRecommendation) =>
           recommendation.modal === "heat-map" || recommendation.modal === "retail-locations",
         items: [],
