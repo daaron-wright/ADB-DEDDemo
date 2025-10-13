@@ -7008,6 +7008,7 @@ export function BusinessChatUI({
             break;
         }
       } else if (recommendation.type === "human") {
+        appendUserSelectionLog(recommendation.label);
         handleHumanFallback(recommendation.prompt);
       }
 
