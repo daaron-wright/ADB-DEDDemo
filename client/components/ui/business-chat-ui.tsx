@@ -64,6 +64,7 @@ import {
   ArrowUpRight,
   Layers,
   X,
+  ChevronDown,
 } from "lucide-react";
 import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
 
@@ -6619,9 +6620,26 @@ export function BusinessChatUI({
     ? followUpRecommendations[0]?.description ?? "Choose what you’d like to explore next."
     : stageBlueprint?.message ?? "";
 
-  const showInlineSuggestedThemes =
+  const canShowInlineSuggestedThemes =
     hasTriggeredSuggestedThemes &&
     groupedThemeRecommendations.length > 0;
+  const [isInlineThemesExpanded, setIsInlineThemesExpanded] = useState(false);
+  const inlineThemesInitializedRef = useRef(false);
+
+  useEffect(() => {
+    if (canShowInlineSuggestedThemes) {
+      if (!inlineThemesInitializedRef.current) {
+        setIsInlineThemesExpanded(true);
+        inlineThemesInitializedRef.current = true;
+      }
+    } else {
+      inlineThemesInitializedRef.current = false;
+      setIsInlineThemesExpanded(false);
+    }
+  }, [canShowInlineSuggestedThemes]);
+
+  const shouldShowInlineSuggestedThemes =
+    canShowInlineSuggestedThemes && isInlineThemesExpanded;
 
   useEffect(() => {
     if (!hasTriggeredSuggestedThemes && isAdvisorPanelOpen) {
@@ -8156,9 +8174,42 @@ export function BusinessChatUI({
                           <div className="flex items-center gap-3 sm:gap-4">
                             <AIBusinessOrb className="h-12 w-12 sm:h-16 sm:w-16" />
                             <div className="min-w-0 flex-1 text-left">
-                              <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
-                                Omnis
-                              </h3>
+                              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                                <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
+                                  Omnis
+                                </h3>
+                                {canShowInlineSuggestedThemes ? (
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      setIsInlineThemesExpanded((prev) => !prev)
+                                    }
+                                    aria-pressed={isInlineThemesExpanded}
+                                    aria-expanded={isInlineThemesExpanded}
+                                    className={cn(
+                                      "inline-flex items-center gap-1 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40",
+                                      isInlineThemesExpanded
+                                        ? "border-[#0F766E] bg-[#0F766E]/10 text-[#0F766E] shadow-[0_12px_26px_-18px_rgba(15,118,110,0.4)]"
+                                        : "border-emerald-100/80 bg-white/80 text-[#0F766E] hover:border-[#0F766E]/60 hover:bg-white",
+                                      isSidePanel &&
+                                        (isInlineThemesExpanded
+                                          ? "border-[#0F766E] bg-[#0F766E]/10"
+                                          : "border-slate-200 bg-white"),
+                                    )}
+                                  >
+                                    Themes
+                                    <ChevronDown
+                                      className={cn(
+                                        "h-3 w-3 transition-transform",
+                                        isInlineThemesExpanded
+                                          ? "rotate-180"
+                                          : "rotate-0",
+                                      )}
+                                      aria-hidden="true"
+                                    />
+                                  </button>
+                                ) : null}
+                              </div>
                               <p className="text-xs text-slate-500">
                                 Guiding your Abu Dhabi investment journey
                               </p>
@@ -8166,7 +8217,7 @@ export function BusinessChatUI({
                           </div>
                           {stageBlueprint &&
                           hasTriggeredSuggestedThemes &&
-                          !showInlineSuggestedThemes ? (
+                          !shouldShowInlineSuggestedThemes ? (
                             <div className="relative z-[200] isolate overflow-visible">
                               <button
                                 type="button"
@@ -8290,7 +8341,7 @@ export function BusinessChatUI({
                           ) : null}
                           {!journeyFocusView && showChatInterface ? (
                             <>
-                              {showInlineSuggestedThemes ? (
+                              {shouldShowInlineSuggestedThemes ? (
                                 <SuggestedThemesPanel
                                   stageLabel={stagePanelLabel}
                                   stageMessage={stagePanelMessage}
