@@ -5231,7 +5231,7 @@ const DiscoverExperienceView = ({
       name: "Central business zone",
       summary:
         "High-rise core around Hamdan and Electra streets with office workers and late-night crowd overlap.",
-      footfall: "70–85K weekly visits",
+      populationDensity: "70–85K weekly visits",
       density: "High mixed density",
       trend: "+8% lunch rush",
       focus: "Express lunch spots, premium quick service",
@@ -6629,7 +6629,7 @@ export function BusinessChatUI({
     : stageMeta?.label ?? "Current stage";
 
   const stagePanelMessage = followUpRecommendations.length > 0
-    ? followUpRecommendations[0]?.description ?? "Choose what you���d like to explore next."
+    ? followUpRecommendations[0]?.description ?? "Choose what you’d like to explore next."
     : stageBlueprint?.message ?? "";
 
   useEffect(() => {
@@ -7644,7 +7644,7 @@ export function BusinessChatUI({
           description:
             task.status === "in_progress"
               ? "Marked in progress—ask me if you'd like me to chase blockers or provide supporting material."
-              : "Still outstanding—let me know when you're ready for checklists or document templates.",
+              : "Still outstanding��let me know when you're ready for checklists or document templates.",
           category: "Task",
         }));
       }
