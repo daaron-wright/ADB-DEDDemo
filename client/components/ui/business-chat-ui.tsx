@@ -6962,6 +6962,23 @@ export function BusinessChatUI({
     ],
   );
 
+  const appendUserSelectionLog = useCallback(
+    (label: string | undefined) => {
+      if (!label || label.trim().length === 0) {
+        return;
+      }
+
+      setMessages((prev) => {
+        const sanitized = prev.map((message) =>
+          message.actions ? { ...message, actions: undefined } : message,
+        );
+
+        return [...sanitized, buildMessage(label.trim(), false)];
+      });
+    },
+    [buildMessage],
+  );
+
   const handleRecommendationSelect = useCallback(
     (recommendation: StageRecommendation) => {
       if (recommendation.type === "conversation" && recommendation.action) {
