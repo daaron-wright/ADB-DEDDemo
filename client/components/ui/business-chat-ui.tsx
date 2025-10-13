@@ -6450,6 +6450,12 @@ export function BusinessChatUI({
     currentStep === "intro" &&
     groupedThemeRecommendations.length > 0;
 
+  useEffect(() => {
+    if (!hasTriggeredSuggestedThemes && isAdvisorPanelOpen) {
+      setAdvisorPanelOpen(false);
+    }
+  }, [hasTriggeredSuggestedThemes, isAdvisorPanelOpen]);
+
   const artifactMessages = useMemo(
     () =>
       messages.filter((message) => message.type && message.type !== "text"),
