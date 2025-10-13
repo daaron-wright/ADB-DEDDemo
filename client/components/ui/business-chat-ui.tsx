@@ -4516,6 +4516,17 @@ const SuggestedThemesPanel = ({
       "z-0 w-full border-emerald-200 bg-white/95 shadow-[0_24px_100px_-70px_rgba(15,23,42,0.45)]",
   );
 
+  const availableTabs = useMemo(
+    () => ["summary", ...groupedRecommendations.map((group) => group.id)],
+    [groupedRecommendations],
+  );
+
+  const [activeTab, setActiveTab] = useState(() => availableTabs[0] ?? "summary");
+
+  useEffect(() => {
+    setActiveTab(availableTabs[0] ?? "summary");
+  }, [availableTabs]);
+
   return (
     <div className={containerClass}>
       <div
