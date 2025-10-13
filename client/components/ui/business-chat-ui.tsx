@@ -6352,6 +6352,11 @@ export function BusinessChatUI({
     ? followUpRecommendations[0]?.description ?? "Choose what you’d like to explore next."
     : stageBlueprint?.message ?? "";
 
+  const showInlineSuggestedThemes =
+    followUpRecommendations.length === 0 &&
+    currentStep === "intro" &&
+    groupedThemeRecommendations.length > 0;
+
   const artifactMessages = useMemo(
     () =>
       messages.filter((message) => message.type && message.type !== "text"),
