@@ -147,7 +147,7 @@ export const InvestmentReportDocument: React.FC<InvestmentReportDocumentProps> =
             <div>
               <h3 className="font-bold text-black mb-1">Busy Trails and Spenders:</h3>
               <p className="text-gray-700 leading-relaxed">
-                The Corniche sees significant footfall throughout the day, but activity peaks in the evenings and weekends.
+                The Corniche sees significant population density throughout the day, but activity peaks in the evenings and weekends.
                 Evening hours offer the best opportunities for a restaurant to roll, to exercise, and to dine
                 out are also another traffic driver.
               </p>
