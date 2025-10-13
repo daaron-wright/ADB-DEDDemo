@@ -8181,9 +8181,10 @@ export function BusinessChatUI({
                                 {canShowInlineSuggestedThemes ? (
                                   <button
                                     type="button"
-                                    onClick={() =>
-                                      setIsInlineThemesExpanded((prev) => !prev)
-                                    }
+                                    onClick={() => {
+                                      setIsInlineThemesExpanded((prev) => !prev);
+                                      setAdvisorPanelOpen(false);
+                                    }}
                                     aria-pressed={isInlineThemesExpanded}
                                     aria-expanded={isInlineThemesExpanded}
                                     className={cn(
@@ -8219,40 +8220,12 @@ export function BusinessChatUI({
                           hasTriggeredSuggestedThemes &&
                           !shouldShowInlineSuggestedThemes ? (
                             <div className="relative z-[200] isolate overflow-visible">
-                              <button
-                                type="button"
-                                onClick={() => setAdvisorPanelOpen((prev) => !prev)}
-                                className={cn(
-                                  "inline-flex items-center gap-2 self-start rounded-full border border-white/30 bg-white/18 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition hover:border-[#0F766E]/50 hover:bg-white/24 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40",
-                                  isAdvisorPanelOpen && "border-[#0F766E] bg-white/28",
-                                  isSidePanel && "border-slate-300 text-[#0F766E]",
-                                )}
-                                aria-expanded={isAdvisorPanelOpen}
-                              >
-                                Suggested themes
-                                <svg
-                                  className={cn(
-                                    "h-3.5 w-3.5 transition-transform",
-                                    isAdvisorPanelOpen ? "rotate-180" : "rotate-0",
-                                  )}
-                                  viewBox="0 0 12 12"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M3 4.5L6 7.5L9 4.5"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  />
-                                </svg>
-                              </button>
                               {isAdvisorPanelOpen ? (
                                 <div
                                   className={cn(
                                     "absolute right-0 top-full z-[120] mt-3 w-[min(680px,92vw)]",
-                                    isSidePanel && "left-0 right-auto w-[min(520px,calc(100vw-48px))]",
+                                    isSidePanel &&
+                                      "left-0 right-auto w-[min(520px,calc(100vw-48px))]",
                                   )}
                                 >
                                   <SuggestedThemesPanel
