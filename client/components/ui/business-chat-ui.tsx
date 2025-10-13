@@ -6803,6 +6803,7 @@ export function BusinessChatUI({
       setModalView,
       setShouldOpenInvestorView,
       setShouldPromptLogin,
+      setFollowUpRecommendations,
       setView,
       setInputValue,
     ],
