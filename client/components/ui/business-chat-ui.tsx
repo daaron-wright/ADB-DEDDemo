@@ -6568,7 +6568,7 @@ export function BusinessChatUI({
         {
           id: "gap-analysis",
           label: "Gap analysis",
-          description: "Identify underserved segments and market whitespace opportunities.",
+          description: "Review gap analysis insights to spot underserved concepts.",
           icon: Layers,
           predicate: (recommendation: StageRecommendation) => {
             const text = normalizeRecommendationText(recommendation);
