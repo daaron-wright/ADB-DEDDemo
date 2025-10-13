@@ -4149,10 +4149,10 @@ const SuggestedTopicsPanel = ({
       </div>
       {groupedRecommendations.length > 0 ? (
         <Tabs value={activeTab} onValueChange={setActiveTab} className="flex flex-col gap-5">
-          <TabsList className="flex flex-wrap gap-2 rounded-full border border-emerald-100/80 bg-[#f0f9f6] p-1">
+          <TabsList className="grid w-full grid-cols-2 gap-2 rounded-[32px] border border-emerald-100/80 bg-[#f0f9f6] p-2 sm:grid-cols-4">
             <TabsTrigger
               value="summary"
-              className="flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)]"
+              className="flex w-full items-center justify-center gap-2 rounded-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:text-[11px]"
             >
               Overview
             </TabsTrigger>
@@ -4162,10 +4162,10 @@ const SuggestedTopicsPanel = ({
                 <TabsTrigger
                   key={group.id}
                   value={group.id}
-                  className="flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)]"
+                  className="flex w-full items-center justify-center gap-2 rounded-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:text-[11px]"
                 >
-                  <GroupIcon className="h-4 w-4" aria-hidden="true" />
-                  {group.label}
+                  <GroupIcon className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+                  <span className="truncate">{group.label}</span>
                 </TabsTrigger>
               );
             })}
