@@ -463,6 +463,11 @@ export function BusinessRegistrationFocusContent({
     });
   }, [automationProgress, failedStepIndex, isNameAvailable, showVerificationSteps]);
 
+  const currentAutomationStep = React.useMemo(() => {
+    const current = automationSteps.find((step) => step.status === "current");
+    return current ?? (automationSteps.length > 0 ? automationSteps[0] : null);
+  }, [automationSteps]);
+
   const hasActiveTradeName = activeTradeName.length > 0;
 
   const badgeLabel = isChecking
