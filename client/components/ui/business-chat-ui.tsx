@@ -6980,9 +6980,10 @@ export function BusinessChatUI({
       }
 
       if (followUpRecommendations.length > 0) {
-        setFollowUpRecommendations((prev) =>
-          prev.filter((item) => item.id !== recommendation.id),
+        const remaining = followUpRecommendations.filter(
+          (item) => item.id !== recommendation.id,
         );
+        applyFollowUps(remaining);
       }
 
       if (recommendation.nextStep) {
