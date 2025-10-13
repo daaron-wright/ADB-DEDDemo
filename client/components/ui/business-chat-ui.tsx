@@ -8329,36 +8329,68 @@ export function BusinessChatUI({
                                   Omnis
                                 </h3>
                                 {canShowInlineSuggestedThemes ? (
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      setIsInlineThemesExpanded((prev) => !prev);
-                                      setAdvisorPanelOpen(false);
-                                    }}
-                                    aria-pressed={isInlineThemesExpanded}
-                                    aria-expanded={isInlineThemesExpanded}
-                                    className={cn(
-                                      "inline-flex items-center gap-1 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40",
-                                      isInlineThemesExpanded
-                                        ? "border-[#0F766E] bg-[#0F766E]/10 text-[#0F766E] shadow-[0_12px_26px_-18px_rgba(15,118,110,0.4)]"
-                                        : "border-emerald-100/80 bg-white/80 text-[#0F766E] hover:border-[#0F766E]/60 hover:bg-white",
-                                      isSidePanel &&
-                                        (isInlineThemesExpanded
-                                          ? "border-[#0F766E] bg-[#0F766E]/10"
-                                          : "border-slate-200 bg-white"),
-                                    )}
-                                  >
-                                    Themes
-                                    <ChevronDown
-                                      className={cn(
-                                        "h-3 w-3 transition-transform",
-                                        isInlineThemesExpanded
-                                          ? "rotate-180"
-                                          : "rotate-0",
-                                      )}
-                                      aria-hidden="true"
-                                    />
-                                  </button>
+                                  showThemesHoverCard ? (
+                                    <HoverCard openDelay={150} closeDelay={120}>
+                                      <HoverCardTrigger asChild>
+                                        <button
+                                          type="button"
+                                          onClick={handleThemesToggle}
+                                          aria-pressed={isInlineThemesExpanded}
+                                          aria-expanded={isInlineThemesExpanded}
+                                          className={themesButtonClasses}
+                                        >
+                                          Themes
+                                          <ChevronDown
+                                            className={cn(
+                                              "h-3 w-3 transition-transform",
+                                              isInlineThemesExpanded
+                                                ? "rotate-180"
+                                                : "rotate-0",
+                                            )}
+                                            aria-hidden="true"
+                                          />
+                                        </button>
+                                      </HoverCardTrigger>
+                                      <HoverCardContent
+                                        align="start"
+                                        sideOffset={12}
+                                        className="w-[min(560px,92vw)] border-none bg-transparent p-0 shadow-none"
+                                      >
+                                        <SuggestedThemesPanel
+                                          stageLabel={stagePanelLabel}
+                                          stageMessage={stagePanelMessage}
+                                          groupedRecommendations={groupedThemeRecommendations}
+                                          onRecommendationSelect={handleRecommendationSelect}
+                                          hasStageTopics={hasStageTopics}
+                                          currentStep={currentStep}
+                                          onSendTopic={handleSendMessage}
+                                          showCloseButton={false}
+                                          variant="popover"
+                                          activeTab={suggestedThemesActiveTab}
+                                          onActiveTabChange={setSuggestedThemesActiveTab}
+                                        />
+                                      </HoverCardContent>
+                                    </HoverCard>
+                                  ) : (
+                                    <button
+                                      type="button"
+                                      onClick={handleThemesToggle}
+                                      aria-pressed={isInlineThemesExpanded}
+                                      aria-expanded={isInlineThemesExpanded}
+                                      className={themesButtonClasses}
+                                    >
+                                      Themes
+                                      <ChevronDown
+                                        className={cn(
+                                          "h-3 w-3 transition-transform",
+                                          isInlineThemesExpanded
+                                            ? "rotate-180"
+                                            : "rotate-0",
+                                        )}
+                                        aria-hidden="true"
+                                      />
+                                    </button>
+                                  )
                                 ) : null}
                               </div>
                               <p className="text-xs text-slate-500">
