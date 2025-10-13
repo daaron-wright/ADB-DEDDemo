@@ -6121,7 +6121,7 @@ export function BusinessChatUI({
     }
 
     return [...(stageBlueprint?.recommendations ?? [])];
-  }, [followUpRecommendations, stageBlueprint?.recommendations]);
+  }, [followUpRecommendations, stageBlueprint]);
 
   const groupedThemeRecommendations = useMemo<SuggestedThemeGroup[]>(() => {
     if (activeRecommendations.length === 0) {
@@ -7132,7 +7132,7 @@ export function BusinessChatUI({
     if (!trimmedInitial) {
       conversation.push(
         buildMessage(
-          "Not sure where to start? I can surface the districts attracting the strongest demand right now��just tap \"Discover investment districts\" above and I'll walk you through the hotspots.",
+          "Not sure where to start? I can surface the districts attracting the strongest demand right now—just tap \"Discover investment districts\" above and I'll walk you through the hotspots.",
           true,
         ),
       );
