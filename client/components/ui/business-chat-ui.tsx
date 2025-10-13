@@ -6148,6 +6148,13 @@ export function BusinessChatUI({
   );
   const [isAdvisorPanelOpen, setAdvisorPanelOpen] = useState(false);
   const [followUpRecommendations, setFollowUpRecommendations] = useState<StageRecommendation[]>([]);
+  const applyFollowUps = useCallback(
+    (items: ReadonlyArray<StageRecommendation>) => {
+      setFollowUpRecommendations(Array.from(items));
+      setAdvisorPanelOpen(items.length > 0);
+    },
+    [],
+  );
   const openApplicantPortal = useCallback(() => {
     navigate("/portal/applicant", {
       state: {
