@@ -7001,7 +7001,7 @@ export function BusinessChatUI({
       setModalView,
       handleHumanFallback,
       followUpRecommendations,
-      setFollowUpRecommendations,
+      applyFollowUps,
       setCurrentStep,
     ],
   );
