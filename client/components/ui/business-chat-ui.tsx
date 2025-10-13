@@ -7615,9 +7615,6 @@ export function BusinessChatUI({
                                 Guiding your Abu Dhabi investment journey
                               </p>
                             </div>
-                            <div className="hidden sm:block">
-                              <SoundVisualization />
-                            </div>
                           </div>
                           {stageBlueprint ? (
                             <div className="relative z-[200] isolate overflow-visible">
