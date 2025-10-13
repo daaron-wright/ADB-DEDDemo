@@ -6040,6 +6040,7 @@ export function BusinessChatUI({
     "chat",
   );
   const [isAdvisorPanelOpen, setAdvisorPanelOpen] = useState(false);
+  const [followUpRecommendations, setFollowUpRecommendations] = useState<StageRecommendation[]>([]);
   const openApplicantPortal = useCallback(() => {
     navigate("/portal/applicant", {
       state: {
