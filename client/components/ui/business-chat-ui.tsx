@@ -6504,6 +6504,7 @@ export function BusinessChatUI({
 
   const shouldSuppressChat = suppressChatInterface;
   const showChatInterface = !shouldSuppressChat;
+  const isSidePanel = mode === "side-panel";
 
   const physicalSpacePlan = useMemo<PhysicalSpacePlan | null>(() => {
     if (selectedActivities.length === 0) {
@@ -6680,7 +6681,6 @@ export function BusinessChatUI({
           const text = normalizeRecommendationText(recommendation);
           return (
             recommendation.action === "open-viability-summary" ||
-            recommendation.modal === "comprehensive-report" ||
             text.includes("summary") ||
             text.includes("recap")
           );
@@ -8117,9 +8117,6 @@ export function BusinessChatUI({
     view === "discover-experience"
       ? `Your Investment Journey for ${categoryName}`
       : getCategoryTitle(category);
-
-  const isSidePanel = mode === "side-panel";
-  const isModal = mode === "modal";
 
   const outerContainerClass = cn(
     "relative z-10 flex w-full justify-center px-3 py-6 sm:px-6 sm:py-8 lg:px-12 lg:py-10",
