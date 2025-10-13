@@ -89,7 +89,7 @@ export const competitorMapPoints: CompetitorPoint[] = [
       "Signature deck experiences sell out Thursday–Saturday",
       "Strong partnerships with marina events and regattas",
     ],
-    attributes: ["relevant", "highDemand"],
+    attributes: ["highDemand"],
   },
   {
     id: "palms-pearls",
@@ -126,7 +126,7 @@ export const competitorMapPoints: CompetitorPoint[] = [
       "Collaborations with Louvre Abu Dhabi for seasonal menus",
       "Viral dessert activations attracting regional visitors",
     ],
-    attributes: ["relevant", "highDemand"],
+    attributes: ["highDemand"],
   },
   {
     id: "villa-toscana",
@@ -163,7 +163,7 @@ export const competitorMapPoints: CompetitorPoint[] = [
       "Dedicated corporate tasting menus for ADGM executives",
       "High conversion on hotel cross-promotions",
     ],
-    attributes: ["relevant"],
+    attributes: [],
   },
   {
     id: "cove-beach",
@@ -237,6 +237,6 @@ export const competitorMapPoints: CompetitorPoint[] = [
       "Partnership with Department of Culture & Tourism",
       "High conversion from tourist itineraries",
     ],
-    attributes: ["relevant", "highDemand"],
+    attributes: ["highDemand"],
   },
 ];
