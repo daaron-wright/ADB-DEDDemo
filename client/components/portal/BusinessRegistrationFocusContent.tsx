@@ -13,7 +13,6 @@ interface BusinessRegistrationFocusContentProps {
   tradeName?: string;
   isTradeNameAvailable?: boolean;
   progressPercent?: number;
-  showTradeNameIdeas?: boolean;
   onTradeNameChange?: (tradeName: string | null) => void;
 }
 
