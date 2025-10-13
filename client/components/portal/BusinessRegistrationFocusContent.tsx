@@ -22,6 +22,7 @@ type TradeNameCheckStatus = "completed" | "current" | "pending" | "failed";
 type TradeNameVerificationStep = {
   title: string;
   description: string;
+  summary: string;
   failureDetail?: string;
 };
 
@@ -43,21 +44,25 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     title: "Character normalization",
     description:
       "We detect attempts to bypass filters by swapping characters or using deliberate misspellings (e.g., 4bu Dh@b1).",
+    summary: "Catches disguised characters or leetspeak before approval.",
   },
   {
     title: "Prohibited word checks",
     description:
       "We look for explicit and subtle use of restricted terms across the entire name.",
+    summary: "Blocks restricted or sensitive words from the name.",
   },
   {
     title: "Cultural checks",
     description:
       "We flag references with religious, geographic, royal, or political sensitivity.",
+    summary: "Confirms the name respects local cultural and religious norms.",
   },
   {
     title: "Similar name checks",
     description:
       "We confirm there are no existing businesses with confusingly similar names.",
+    summary: "Prevents duplicates or confusingly similar business names.",
     failureDetail:
       "Matches an existing company chartered as Corniche Culinary Collective Trading.",
   },
@@ -65,16 +70,19 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     title: "Transliteration check",
     description:
       "We verify that the Arabic and English renditions align and read correctly.",
+    summary: "Aligns the English and Arabic spellings so they read the same.",
   },
   {
     title: "Activity name check",
     description:
       "We ensure the English name aligns with your selected business activity.",
+    summary: "Checks the name matches your chosen business activity.",
   },
   {
     title: "Suggest names",
     description:
       "We generate alternatives, rerun every check, and surface the results with any failures explained.",
+    summary: "Offers compliant alternatives automatically if something is flagged.",
   },
 ];
 
@@ -99,7 +107,7 @@ const TRADE_NAME_IDEAS: ReadonlyArray<TradeNameIdeaSuggestion> = [
   {
     id: "azure-coast-kitchen-sole-llc",
     english: "Azure Coast Kitchen Sole LLC",
-    arabic: "مطبخ الساحل اللازوردي الفردي ذ.م.م",
+    arabic: "مطبخ السا��ل اللازوردي الفردي ذ.م.م",
   },
   {
     id: "pearl-horizon-dining-sole-llc",
@@ -344,17 +352,17 @@ function VerificationStepItem({
   const isFailed = step.status === "failed";
   const isCompleted = step.status === "completed";
   const isCurrent = step.status === "current";
+
   const statusLabel = isFailed
-    ? "Flagged"
+    ? "Needs attention"
     : isCompleted
     ? "Passed"
     : isCurrent
-    ? "Running"
-    : "Queued";
-  const progressPercent = Math.round(step.progress * 100);
+    ? "Checking now"
+    : "Upcoming";
 
   const indicatorClasses = cn(
-    "flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold",
+    "flex h-9 w-9 items-center justify-center rounded-full border text-xs font-semibold",
     isFailed && "border-rose-200 bg-rose-50 text-rose-600",
     isCompleted && "border-emerald-200 bg-emerald-50 text-emerald-700",
     isCurrent && "border-[#0f766e]/50 bg-[#0f766e]/10 text-[#0f766e]",
@@ -362,58 +370,50 @@ function VerificationStepItem({
   );
 
   const statusBadgeClasses = cn(
-    "rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]",
+    "rounded-full border px-3 py-1 text-xs font-semibold",
     isFailed && "border-rose-200 bg-rose-50 text-rose-600",
-    isCompleted && "border-emerald-200 bg-[#dff2ec] text-[#0b7d6f]",
-    isCurrent && "border-[#0f766e]/50 bg-[#0f766e]/10 text-[#0f766e]",
+    isCompleted && "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
+    isCurrent && "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]",
     step.status === "pending" && "border-slate-200 bg-white text-slate-400",
   );
 
   return (
-    <li className="space-y-3 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="flex items-start gap-3">
-          <span className={indicatorClasses} aria-hidden>
-            {isFailed ? (
-              <X className="h-4 w-4" strokeWidth={3} />
-            ) : isCompleted ? (
-              <Check className="h-4 w-4" strokeWidth={3} />
-            ) : isCurrent ? (
-              <span className="relative flex h-3 w-3 items-center justify-center">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current/70" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
-              </span>
-            ) : (
-              <span className="h-2 w-2 rounded-full bg-current/60" />
-            )}
-          </span>
-          <div className="space-y-2">
-            <div>
-              <p className="text-sm font-semibold text-slate-900">{step.title}</p>
-              <p className="text-sm text-slate-600">{step.description}</p>
-            </div>
-            {isFailed && step.failureDetail ? (
-              <div className="rounded-xl border border-rose-200 bg-rose-50/80 p-3 text-sm text-rose-700">
-                {step.failureDetail}
-              </div>
-            ) : null}
-          </div>
-        </div>
-        <Badge className={statusBadgeClasses}>{statusLabel}</Badge>
-      </div>
-      {isCurrent ? (
+    <li className="rounded-2xl border border-[#e6f2ed] bg-white/95 p-4">
+      <div className="flex items-start gap-3">
+        <span className={indicatorClasses} aria-hidden>
+          {isFailed ? (
+            <X className="h-4 w-4" strokeWidth={3} />
+          ) : isCompleted ? (
+            <Check className="h-4 w-4" strokeWidth={3} />
+          ) : isCurrent ? (
+            <span className="relative flex h-3 w-3 items-center justify-center">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current/70" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
+            </span>
+          ) : (
+            <span className="h-2 w-2 rounded-full bg-current/60" />
+          )}
+        </span>
         <div className="space-y-2">
-          <div className="relative h-1.5 overflow-hidden rounded-full bg-[#f1f5f3]">
-            <div
-              className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all duration-300 ease-out"
-              style={{ width: `${progressPercent}%` }}
-            />
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="text-sm font-semibold text-slate-900">
+              {`Step ${index + 1}/${totalSteps}: ${step.title}`}
+            </p>
+            <span className={statusBadgeClasses}>{statusLabel}</span>
           </div>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
-            {`Step ${index + 1} of ${totalSteps} • ${progressPercent}%`}
-          </p>
+          <p className="text-sm text-slate-600">{step.summary}</p>
+          {isCurrent && !isFailed ? (
+            <div className="rounded-xl bg-[#0f766e]/5 px-3 py-2 text-xs font-semibold text-[#0f766e]">
+              Trade Name Engine is processing this check.
+            </div>
+          ) : null}
+          {isFailed && step.failureDetail ? (
+            <div className="rounded-xl border border-rose-200 bg-rose-50/80 px-3 py-2 text-sm text-rose-700">
+              {step.failureDetail}
+            </div>
+          ) : null}
         </div>
-      ) : null}
+      </div>
     </li>
   );
 }
@@ -752,10 +752,15 @@ export function BusinessRegistrationFocusContent({
     });
   }, [automationProgress, failedStepIndex, isNameAvailable, showVerificationSteps]);
 
-  const currentAutomationStep = React.useMemo(() => {
-    const current = automationSteps.find((step) => step.status === "current");
-    return current ?? (automationSteps.length > 0 ? automationSteps[0] : null);
-  }, [automationSteps]);
+  const totalVerificationSteps = automationSteps.length;
+  const completedVerificationSteps = automationSteps.filter(
+    (step) => step.status === "completed",
+  ).length;
+  const flaggedVerificationStep =
+    automationSteps.find((step) => step.status === "failed") ?? null;
+  const nowCheckingStep = isChecking
+    ? automationSteps.find((step) => step.status === "current") ?? null
+    : null;
 
   const hasActiveTradeName = activeEnglishTradeName.length > 0;
 
@@ -1031,7 +1036,7 @@ export function BusinessRegistrationFocusContent({
               </Button>
               {hasGeneratedSuggestions && tradeNameSuggestions.length === 0 ? (
                 <span className="text-xs text-slate-500">
-                  No approved suggestions yet—try again in a moment.
+                  No approved suggestions yet��try again in a moment.
                 </span>
               ) : null}
             </div>
@@ -1098,14 +1103,27 @@ export function BusinessRegistrationFocusContent({
               <span>Automation progress</span>
               <span>{displayProgress}%</span>
             </div>
-            {currentAutomationStep ? (
+            {isChecking && nowCheckingStep ? (
               <div className="rounded-2xl border border-[#e6f2ed] bg-white/90 px-4 py-3 text-sm text-slate-600">
                 <p className="font-semibold text-slate-900">
-                  Currently checking: {currentAutomationStep.title}
+                  Checking now: {nowCheckingStep.title}
                 </p>
                 <p className="text-sm text-slate-600">
-                  {currentAutomationStep.description}
+                  {nowCheckingStep.description}
                 </p>
+              </div>
+            ) : flaggedVerificationStep ? (
+              <div className="rounded-2xl border border-rose-200 bg-rose-50/90 px-4 py-3 text-sm text-rose-700">
+                <p className="font-semibold text-rose-700">
+                  Flagged: {flaggedVerificationStep.title}
+                </p>
+                <p className="text-sm text-rose-600">
+                  {flaggedVerificationStep.failureDetail ?? flaggedVerificationStep.description}
+                </p>
+              </div>
+            ) : hasPerformedCheck && isNameAvailable ? (
+              <div className="rounded-2xl border border-[#94d2c2] bg-[#dff2ec] px-4 py-3 text-sm text-[#0b7d6f]">
+                All checks passed. Reserve the name with AD Pay to lock it in.
               </div>
             ) : null}
           </div>
@@ -1135,11 +1153,35 @@ export function BusinessRegistrationFocusContent({
           id="registration-verification"
           className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-5"
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
-            Verification steps
-          </p>
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div className="space-y-1">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                Verification steps
+              </p>
+              <p className="text-sm text-slate-600">
+                Trade Name Engine runs {totalVerificationSteps} checks to confirm your name.
+              </p>
+            </div>
+            {showVerificationSteps ? (
+              <div className="flex flex-wrap items-center justify-end gap-2">
+                <span className="rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-xs font-semibold text-[#0b7d6f]">
+                  {completedVerificationSteps}/{totalVerificationSteps} passed
+                </span>
+                {flaggedVerificationStep ? (
+                  <span className="rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-600">
+                    Needs attention
+                  </span>
+                ) : null}
+                {nowCheckingStep ? (
+                  <span className="max-w-[220px] truncate rounded-full border border-[#0f766e]/30 bg-[#0f766e]/5 px-3 py-1 text-xs font-semibold text-[#0f766e]">
+                    Checking: {nowCheckingStep.title}
+                  </span>
+                ) : null}
+              </div>
+            ) : null}
+          </div>
           {showVerificationSteps ? (
-            <ul className="space-y-4">
+            <ul className="grid gap-3 sm:grid-cols-2">
               {automationSteps.map((step, index) => (
                 <VerificationStepItem
                   key={step.title}
