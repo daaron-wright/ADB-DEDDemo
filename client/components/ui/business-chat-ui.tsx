@@ -7773,8 +7773,8 @@ export function BusinessChatUI({
   );
 
   const conversationContainerClass = cn(
-    "flex min-h-[360px] flex-col",
-    isSidePanel && "flex-1 min-h-0",
+    "flex flex-1 min-h-[360px] flex-col",
+    isSidePanel && "min-h-0",
   );
 
   const messageListClass = cn(
