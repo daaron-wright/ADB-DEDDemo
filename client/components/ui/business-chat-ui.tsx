@@ -6814,10 +6814,10 @@ export function BusinessChatUI({
   );
 
   useEffect(() => {
-    if (!hasTriggeredSuggestedThemes && isAdvisorPanelOpen) {
+    if (!themesAvailable && isAdvisorPanelOpen) {
       setAdvisorPanelOpen(false);
     }
-  }, [hasTriggeredSuggestedThemes, isAdvisorPanelOpen, setAdvisorPanelOpen]);
+  }, [themesAvailable, isAdvisorPanelOpen, setAdvisorPanelOpen]);
 
   const artifactMessages = useMemo(
     () =>
