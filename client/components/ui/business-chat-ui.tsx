@@ -4131,7 +4131,7 @@ const SuggestedTopicsPanel = ({
           <TabsList className="grid w-full grid-cols-2 gap-2 rounded-[32px] border border-emerald-100/80 bg-[#f0f9f6] p-2 sm:grid-cols-4">
             <TabsTrigger
               value="summary"
-              className="flex w-full items-center justify-center gap-2 rounded-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:text-[11px]"
+              className="flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:text-[11px]"
             >
               Overview
             </TabsTrigger>
@@ -4141,10 +4141,12 @@ const SuggestedTopicsPanel = ({
                 <TabsTrigger
                   key={group.id}
                   value={group.id}
-                  className="flex w-full items-center justify-center gap-2 rounded-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:text-[11px]"
+                  className="flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]/70 transition data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:text-[11px]"
                 >
-                  <GroupIcon className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
-                  <span className="truncate">{group.label}</span>
+                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
+                    <GroupIcon className="h-4 w-4" aria-hidden="true" />
+                  </span>
+                  <span className="truncate text-center">{group.label}</span>
                 </TabsTrigger>
               );
             })}
@@ -6616,7 +6618,7 @@ export function BusinessChatUI({
       } else if (mentionsDemographics) {
         responses.push(
           buildMessage(
-            "Abu Dhabi's dining potential varies by zone, each offering unique demographics and population density drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).",
+            "Abu Dhabi's dining potential varies by zone, each offering unique demographics and population density drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island ��� 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).",
             true,
             {
               type: "demographics",
