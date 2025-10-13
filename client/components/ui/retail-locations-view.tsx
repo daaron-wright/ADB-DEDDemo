@@ -101,7 +101,7 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
       "Recommended Next Steps:",
       "- Automate the application to pre-fill licensing requirements.",
       "- Compile tenancy contract and fit-out documentation.",
-      "- Prepare launch marketing with Corniche footfall insights.",
+      "- Prepare launch marketing with Corniche population density insights.",
     ].join("\n");
 
     const blob = new Blob([planContent], {
