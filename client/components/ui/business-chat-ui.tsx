@@ -6596,14 +6596,6 @@ export function BusinessChatUI({
           },
           items: [],
         },
-        {
-          id: "support",
-          label: "Support",
-          description: "Bring in advisors or alternative channels when you need them.",
-          icon: Headset,
-          predicate: (recommendation: StageRecommendation) => recommendation.type === "human",
-          items: [],
-        },
       ];
 
       const fallbackGroup = definitions[0];
