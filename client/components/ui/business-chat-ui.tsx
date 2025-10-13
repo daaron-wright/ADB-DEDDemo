@@ -7362,10 +7362,6 @@ export function BusinessChatUI({
   }, [messages, currentStep]);
 
   useEffect(() => {
-    applyFollowUps([]);
-  }, [applyFollowUps, currentStep]);
-
-  useEffect(() => {
     const handleRetailLocationSelected = (event: Event) => {
       const customEvent = event as CustomEvent;
       const {
