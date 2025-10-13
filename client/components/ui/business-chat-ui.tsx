@@ -6783,8 +6783,13 @@ export function BusinessChatUI({
   useEffect(() => {
     if (!themesAvailable) {
       setIsThemesPanelOpen(false);
+      return;
     }
-  }, [themesAvailable]);
+
+    if (isAdvisorPanelOpen) {
+      setIsThemesPanelOpen(true);
+    }
+  }, [themesAvailable, isAdvisorPanelOpen]);
 
   useEffect(() => {
     if (!isThemesPanelOpen) {
@@ -7379,7 +7384,7 @@ export function BusinessChatUI({
             if (isInvestorAuthenticated) {
               setView("investor-journey");
               const acknowledgement = buildMessage(
-                "Perfect — I’m triggering automation, reserving your trade name, and opening the applicant portal timeline for you now.",
+                "Perfect ��� I’m triggering automation, reserving your trade name, and opening the applicant portal timeline for you now.",
                 true,
               );
               const handoffMessage = buildStepMessage("handoff");
