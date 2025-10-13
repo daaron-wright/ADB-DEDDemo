@@ -527,7 +527,7 @@ const FOLLOW_UP_TARGET_MARKET_DETAIL: ReadonlyArray<StageRecommendation> = [
     id: "follow-up-corniche-detail",
     label: "Share more detail on The Corniche",
     description:
-      "Dive into footfall, incentives, and regulatory context for the Corniche strip.",
+      "Dive into population density, incentives, and regulatory context for the Corniche strip.",
     icon: MapIcon,
     type: "prompt",
     prompt: "Great can you give me more details on The Corniche",
