@@ -6262,9 +6262,9 @@ export function BusinessChatUI({
   const applyFollowUps = useCallback(
     (items: ReadonlyArray<StageRecommendation>) => {
       setFollowUpRecommendations(Array.from(items));
-      setAdvisorPanelOpen(items.length > 0 && hasTriggeredSuggestedThemes);
+      setAdvisorPanelOpen(items.length > 0);
     },
-    [hasTriggeredSuggestedThemes, setAdvisorPanelOpen, setFollowUpRecommendations],
+    [setAdvisorPanelOpen, setFollowUpRecommendations],
   );
   const openApplicantPortal = useCallback(() => {
     navigate("/portal/applicant", {
