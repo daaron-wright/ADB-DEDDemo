@@ -7081,11 +7081,20 @@ export function BusinessChatUI({
 
       const normalizedText = normalizeMessageContent(trimmed);
 
-      if (
-        !hasTriggeredSuggestedThemes &&
-        normalizedText === NORMALIZED_SUGGESTED_THEMES_TRIGGER
-      ) {
-        setHasTriggeredSuggestedThemes(true);
+      if (normalizedText === NORMALIZED_SUGGESTED_THEMES_TRIGGER) {
+        const interactiveMapMessage = buildMessage(
+          "Highlighting the Abu Dhabi districts attracting modern Emirati fusion dining concepts right now.",
+          true,
+          {
+            type: "heat-map",
+            imageUrl: HEAT_MAP_THUMBNAIL_URL,
+          },
+        );
+
+        setMessages((prev) => [...prev, userMessage, interactiveMapMessage]);
+        setInputValue("");
+        applyFollowUps([]);
+        return;
       }
 
       const isSummaryCommand =
