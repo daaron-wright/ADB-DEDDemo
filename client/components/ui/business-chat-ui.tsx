@@ -337,16 +337,6 @@ const CONVERSATION_BLUEPRINT: Record<
         type: "modal",
         modal: "gap-analysis",
       },
-      {
-        id: "intro-human-fallback",
-        label: "Human Assistance",
-        description:
-          "Reach a TAMM specialist instantly while I keep your workspace updated.",
-        icon: Headset,
-        type: "human",
-        prompt:
-          "I'd like to speak with a TAMM agent about my next steps.",
-      },
     ],
   },
   summary: {
@@ -375,16 +365,6 @@ const CONVERSATION_BLUEPRINT: Record<
         type: "modal",
         modal: "budget-ranges",
       },
-      {
-        id: "summary-human-fallback",
-        label: "Human Assistance",
-        description:
-          "Connect with a TAMM specialist if you want a personal walkthrough before applying.",
-        icon: Headset,
-        type: "human",
-        prompt:
-          "Please connect me with a TAMM agent to review my next steps.",
-      },
     ],
   },
   handoff: {
@@ -408,16 +388,6 @@ const CONVERSATION_BLUEPRINT: Record<
         icon: Layers,
         type: "modal",
         modal: "retail-locations",
-      },
-      {
-        id: "handoff-human-fallback",
-        label: "Human Assistance",
-        description:
-          "We'll involve a human advisor to guide the transition while Omnis keeps everything synced.",
-        icon: Headset,
-        type: "human",
-        prompt:
-          "I'd like to speak with a TAMM advisor to finalise my investor workspace handoff.",
       },
     ],
   },
