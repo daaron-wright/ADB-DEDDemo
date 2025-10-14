@@ -1643,6 +1643,14 @@ export default function ApplicantPortal() {
           }
         : undefined;
 
+    const stageIndex = stageId ? journeyStages.findIndex((stage) => stage.id === stageId) : -1;
+    const priorStagesComplete =
+      stageId && stageIndex > 0
+        ? journeyStages
+            .slice(0, stageIndex)
+            .every((stage) => (stageProgress[stage.id] ?? deriveStageState(stage)) === "done")
+        : true;
+
     return {
       timelineItem: focusViewContext.timelineItem,
       stage: focusViewContext.stage,
@@ -1660,6 +1668,7 @@ export default function ApplicantPortal() {
       stageActivities: stageActivityContext,
       tradeName: applicationWorkingTitle,
       onTradeNameChange: handleTradeNameChange,
+      growthUnlocked: stageId === "compliance-growth" ? priorStagesComplete : undefined,
     };
   }, [
     focusViewContext,
@@ -1672,6 +1681,8 @@ export default function ApplicantPortal() {
     handleAddJourneyActivity,
     applicationWorkingTitle,
     handleTradeNameChange,
+    journeyStages,
+    stageProgress,
   ]);
 
   const shouldSuppressChatInterface = false;
