@@ -373,25 +373,25 @@ const DED_DOCUMENTS: DedDocument[] = [
 const DED_MEDIA = [
   {
     id: "signboard-detection",
-    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F308acad36dd540dca76cbdde33c3212d?format=webp&width=800",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F197b04fa34024849906af2ac08f25f39?format=webp&width=800",
     alt: "YOLO overlay highlighting the Marwah Restaurant exterior signboard with bounding boxes",
     caption: "Exterior signboard detection",
   },
   {
     id: "kitchen-detection",
-    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F2331744306ad40c49e1cb65014f8c71a?format=webp&width=800",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fa3f11c71a8294d0d8e81f541e6e6d606?format=webp&width=800",
     alt: "Computer vision detection of kitchen stations and equipment inside Marwah Restaurant",
     caption: "Kitchen station detection",
   },
   {
     id: "dining-room-detection",
-    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F34a4ec9d31c84b2987a5bad7d5d23889?format=webp&width=800",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F4b306ba2c0664e379dfc1ee8016d39b7?format=webp&width=800",
     alt: "Dining room view with YOLO detection labels across tables and seating",
     caption: "Dining room detection",
   },
   {
     id: "storage-room-detection",
-    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F539b8c625fe247caa6b2c7b389922091?format=webp&width=800",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fce2a7bb7f4364833a42b1e2c895bb940?format=webp&width=800",
     alt: "Storage room shelving with detection overlays marking supplies and equipment",
     caption: "Storage room detection",
   },
