@@ -270,7 +270,7 @@ const READINESS_STATUS_TOKENS: Record<ReadinessStatus, { label: string; classNam
 };
 
 const DEFAULT_COMPLIANCE_ITEMS: ComplianceItem[] = [
-  { id: "civil-defence", label: "Civil Defence", status: "error", detail: "2 issues to resolve" },
+  { id: "civil-defence", label: "Civil Defence", status: "success", detail: "Compliant" },
   { id: "ded-inspection", label: "DED inspection", status: "warning", detail: "29 days remaining" },
   { id: "food-safety", label: "Food & Safety inspection", status: "success", detail: "Pass" },
   { id: "employment-visas", label: "6 Employment Visas", status: "success", detail: "Renewed" },
