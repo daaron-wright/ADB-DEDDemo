@@ -255,7 +255,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة التالية.`,
-    workspaceSupportBadge: "دعم مساحة العمل",
+    workspaceSupportBadge: "دعم مساحة ��لعمل",
     supportHeading: "تحتاجين إلى مساعدة؟",
     supportDescription: {
       preEmail:
@@ -2054,6 +2054,8 @@ export default function ApplicantPortal() {
           initialMessage={businessAIIntroMessage}
           journeyFocusView={journeyFocusViewProps}
           suppressChatInterface={shouldSuppressChatInterface}
+          hasCompletedApplication={isApplicationComplete}
+          feedbackThreshold={4}
         />
       </div>
     </div>
