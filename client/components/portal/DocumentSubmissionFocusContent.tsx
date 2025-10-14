@@ -105,55 +105,81 @@ function DocumentVaultCard({
   disabled: boolean;
 }) {
   const token = statusTokens[item.status];
+  const isCompleted = item.status === "completed";
 
   return (
     <button
       type="button"
       onClick={() => onSelect(item.id)}
-      disabled={disabled}
+      disabled={disabled || isCompleted}
       className={cn(
         "group flex w-full flex-col gap-3 rounded-3xl border border-[#d8e4df] bg-white/95 p-5 text-left shadow-[0_28px_60px_-56px_rgba(15,23,42,0.4)] transition",
-        isActive && "border-[#0f766e] bg-white",
-        disabled && "cursor-not-allowed opacity-60",
+        isActive && !isCompleted && "border-[#0f766e] bg-white",
+        isCompleted && "border-[#d8e4df] bg-[#f8fbfa] text-slate-500",
+        (disabled || isCompleted) && "cursor-default opacity-80",
       )}
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <span
             className={cn(
-              "flex h-10 w-10 items-center justify-center rounded-full border border-[#e6f2ed] bg-[#f7fbf9] text-[#0f766e]",
-              isActive && "border-[#0f766e] text-[#0f766e]",
+              "flex h-10 w-10 items-center justify-center rounded-full border border-[#e6f2ed] bg-[#f7fbf9] text-[#0f766e] transition",
+              isActive && !isCompleted && "border-[#0f766e] text-[#0f766e]",
+              isCompleted && "border-[#d8e4df] bg-white text-[#94a3b8]",
             )}
           >
             <FileText className="h-5 w-5" />
           </span>
           <div className="space-y-1">
-            <p className="text-sm font-semibold text-slate-900">{item.title}</p>
-            <p className="text-xs text-slate-500">{item.source}</p>
+            <p
+              className={cn(
+                "text-sm font-semibold",
+                isCompleted ? "text-slate-500 line-through decoration-[#94d2c2]" : "text-slate-900",
+              )}
+            >
+              {item.title}
+            </p>
+            <p className={cn("text-xs", isCompleted ? "text-slate-400" : "text-slate-500")}>{item.source}</p>
           </div>
         </div>
         <Badge
           className={cn(
             "inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
             token.badgeClass,
+            isCompleted && "border-[#d8e4df] bg-white text-[#0f766e]",
           )}
         >
           <span className={cn("h-2 w-2 rounded-full", token.dotClass)} />
-          {token.label}
+          {isCompleted ? "Stored" : token.label}
         </Badge>
       </div>
-      <p className="text-sm text-slate-600">{item.description}</p>
+      <p className={cn("text-sm", isCompleted ? "text-slate-500" : "text-slate-600")}>{item.description}</p>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <span className="inline-flex items-center gap-2 rounded-full border border-[#0f766e]/30 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+        <span
+          className={cn(
+            "inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+            isCompleted ? "border-[#d8e4df] bg-white text-slate-400" : "border-[#0f766e]/30 bg-[#0f766e]/5 text-[#0f766e]",
+          )}
+        >
           {item.integrationBadge}
         </span>
         <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
-          {item.sourceDetail}
+          {isCompleted ? "Securely stored" : item.sourceDetail}
         </span>
       </div>
-      <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#0f766e]">
-        {item.actionLabel}
-        <Download className="h-4 w-4 transition group-hover:translate-x-1" />
+      <span
+        className={cn(
+          "inline-flex items-center gap-2 text-sm font-semibold",
+          isCompleted ? "text-slate-400" : "text-[#0f766e]",
+        )}
+      >
+        {isCompleted ? "Document stored" : item.actionLabel}
+        <Download
+          className={cn(
+            "h-4 w-4",
+            isCompleted ? "opacity-40" : "transition group-hover:translate-x-1",
+          )}
+        />
       </span>
     </button>
   );
