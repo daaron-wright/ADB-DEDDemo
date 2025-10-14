@@ -855,7 +855,7 @@ export function ComplianceGrowthFocusContent({
                 Review outstanding tasks, then share evidence so inspectors can approve everything in one visit.
               </p>
               <div className="space-y-3">
-                {COMPLIANCE_ITEMS.map((item) => (
+                {complianceItems.map((item) => (
                   <ComplianceChecklistItem
                     key={item.id}
                     item={item}
