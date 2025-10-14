@@ -562,27 +562,57 @@ export function ComplianceGrowthFocusContent({
     inspectionUploadInputRef.current?.click();
   }, []);
 
-  const handleInspectionFileChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) {
-      return;
-    }
-
-    setInspectionEvidence((previous) => {
-      if (previous?.url) {
-        URL.revokeObjectURL(previous.url);
+  const handleInspectionFileChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (!file) {
+        return;
       }
 
-      return {
+      const nextInspection: InspectionEvidence = {
         id: `inspection-${Date.now()}`,
         name: file.name,
         url: URL.createObjectURL(file),
         sizeLabel: formatFileSize(file.size),
       };
-    });
 
-    event.target.value = "";
-  }, []);
+      setPendingInspection((previous) => {
+        if (previous?.url) {
+          URL.revokeObjectURL(previous.url);
+        }
+        return nextInspection;
+      });
+      setInspectionSubmissionStatus("ready");
+
+      event.target.value = "";
+    },
+    [],
+  );
+
+  const handleInspectionSubmit = React.useCallback(() => {
+    if (!pendingInspection) {
+      return;
+    }
+
+    setInspectionEvidence((previous) => {
+      if (previous?.url && previous.url !== pendingInspection.url) {
+        URL.revokeObjectURL(previous.url);
+      }
+      return pendingInspection;
+    });
+    setInspectionSubmissionStatus("submitted");
+    setPendingInspection(null);
+  }, [pendingInspection]);
+
+  const handleResetPendingInspection = React.useCallback(() => {
+    setPendingInspection((previous) => {
+      if (previous?.url && previous.url !== inspectionEvidence?.url) {
+        URL.revokeObjectURL(previous.url);
+      }
+      return null;
+    });
+    setInspectionSubmissionStatus(inspectionEvidence ? "submitted" : "idle");
+  }, [inspectionEvidence]);
 
   const growthOpportunities = React.useMemo<GrowthOpportunity[]>(
     () =>
