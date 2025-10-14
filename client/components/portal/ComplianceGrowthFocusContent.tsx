@@ -607,7 +607,7 @@ export function ComplianceGrowthFocusContent({
             <CollapsibleCard
               value="alerts"
               title="Compliance alerts"
-              subtitle={`${urgentItems.length} open`}
+              subtitle={`${urgentItems.length} open • Calendar & Omnis`}
               contentId="compliance-alerts-card"
             >
               {urgentItems.length > 0 ? (
@@ -619,6 +619,91 @@ export function ComplianceGrowthFocusContent({
               ) : (
                 <p className="text-sm text-slate-600">All compliance checks are clear.</p>
               )}
+              <div className="space-y-3 rounded-3xl border border-[#d8e4df] bg-[#f8fbfa] p-4">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="space-y-1">
+                    <p className="text-sm font-semibold text-slate-900">Calendar reminders</p>
+                    <p className="text-xs text-slate-500">Sync deadlines to your Outlook, Google, or Apple calendar.</p>
+                  </div>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => {
+                      ensureSectionOpen("compliance", "alerts");
+                      scrollToElement("compliance-alerts-card");
+                    }}
+                    className="rounded-full border-[#0f766e]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+                  >
+                    Add reminders
+                  </Button>
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                  Upcoming events are shared instantly with your calendar and notified 48h in advance.
+                </p>
+              </div>
+              <div className="space-y-3 rounded-3xl border border-[#d8e4df] bg-[#f5faf7] p-4">
+                <div className="flex items-start gap-3">
+                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#94d2c2] bg-[#dff2ec]/70 text-[#0f766e]">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M4.375 2.5H15.625C16.1753 2.5 16.6667 2.99137 16.6667 3.54167V16.0417C16.6667 16.592 16.1753 17.0833 15.625 17.0833H4.375C3.8247 17.0833 3.33333 16.592 3.33333 16.0417V3.54167C3.33333 2.99137 3.8247 2.5 4.375 2.5Z"
+                        stroke="#0f766e"
+                        strokeWidth="1.4"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M6.66667 0.833374V4.16671"
+                        stroke="#0f766e"
+                        strokeWidth="1.4"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M13.3333 0.833374V4.16671"
+                        stroke="#0f766e"
+                        strokeWidth="1.4"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M3.33333 6.66663H16.6667"
+                        stroke="#0f766e"
+                        strokeWidth="1.4"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <div className="space-y-1">
+                    <p className="text-sm font-semibold text-slate-900">Proactive Omnis notifications</p>
+                    <p className="text-xs text-slate-600">Omnis monitors authority responses and pings you instantly.</p>
+                  </div>
+                </div>
+                <ul className="space-y-2 text-xs text-slate-600">
+                  <li className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#0f766e]" />
+                    Whatsapp + email alerts when an inspection date changes
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#0f766e]" />
+                    Daily digest with upcoming renewals and risks
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#0f766e]" />
+                    Escalation to inspectors if deadlines slip by 24h
+                  </li>
+                </ul>
+                <Button
+                  size="sm"
+                  className="self-start rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(23,135,126,0.45)] hover:bg-[#128080]"
+                >
+                  Configure Omnis alerts
+                </Button>
+              </div>
             </CollapsibleCard>
 
             <CollapsibleCard
