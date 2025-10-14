@@ -485,7 +485,248 @@ export function DocumentSubmissionFocusContent({
   const licenceSubtitle = licenseDetails ? "Stored in AD Locker" : "Issued after payment";
 
   return (
-    <div className="grid gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+    <div className="space-y-6">
+      <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_26px_60px_-50px_rgba(15,23,42,0.35)]">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+              Journey number
+            </p>
+            <p className="text-lg font-semibold text-slate-900">{journeyNumber}</p>
+          </div>
+          <Badge className="inline-flex items-center gap-2 rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
+            <Check className="h-3.5 w-3.5" strokeWidth={3} />
+            Auto-fetch enabled
+          </Badge>
+        </div>
+        <div className="mt-5 space-y-4">
+          <div className="space-y-2">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+              Submit documents & licence issuance
+            </p>
+            <h3 className="text-2xl font-semibold text-slate-900">
+              Everything synced in your vault
+            </h3>
+            <p className="text-sm text-slate-600">
+              Omnis keeps documents current through AD Connect, ADJD, TAMM, and AD Pay. Review any flagged items, then finish with payment.
+            </p>
+          </div>
+          <div className="space-y-2">
+            <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
+              <div
+                className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+              <span>Automation progress</span>
+              <span>{progress}%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Accordion
+        type="multiple"
+        value={openSections}
+        onValueChange={(values) => setOpenSections(values)}
+        className="space-y-4"
+      >
+        <CollapsibleCard
+          value="action"
+          title="Next action"
+          subtitle={nextAction.subtitle}
+          contentId="submit-stage-action"
+        >
+          <p className="text-sm text-slate-600">{nextAction.description}</p>
+          <Button
+            type="button"
+            size="sm"
+            onClick={nextAction.onClick}
+            disabled={nextAction.disabled}
+            className="self-start rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
+          >
+            {nextAction.buttonLabel}
+          </Button>
+        </CollapsibleCard>
+
+        <CollapsibleCard
+          value="vault"
+          title="Document vault"
+          subtitle={vaultSubtitle}
+          contentId="submit-stage-vault"
+        >
+          <p className="text-sm text-slate-600">
+            Documents stay in sync automatically. Open any item to review or download it.
+          </p>
+          <div className="space-y-3">
+            {documents.map((item) => (
+              <DocumentVaultCard
+                key={item.id}
+                item={item}
+                isActive={item.isExpanded}
+                onSelect={handleDocumentClick}
+                disabled={isFinalisingMoa && item.id === "memorandum-of-association"}
+              />
+            ))}
+          </div>
+          {allDocumentsCompleted ? (
+            <div className="rounded-3xl border border-[#94d2c2] bg-[#dff2ec]/70 p-4 text-sm font-semibold text-[#0b7d6f]">
+              Every document is signed and stored. You can issue the licence.
+            </div>
+          ) : null}
+        </CollapsibleCard>
+
+        <CollapsibleCard
+          value="moa"
+          title="MOA assistant"
+          subtitle={moaSubtitle}
+          contentId="submit-stage-moa"
+        >
+          {showMoaAssistant ? (
+            <>
+              <div className="flex items-center gap-3">
+                <div className="relative flex h-12 w-12 items-center justify-center rounded-full border border-[#0f766e]/25 bg-white">
+                  <AIBusinessOrb className="h-8 w-8" />
+                  <span className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border border-white bg-[#0f766e] text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
+                    AI
+                  </span>
+                </div>
+                <p className="text-sm font-semibold text-slate-900">
+                  Guided notarisation with Omnis
+                </p>
+              </div>
+              <p className="text-sm text-slate-600">
+                We filled the memorandum with shareholders, activities, and translations. Review and sign before we send it to ADJD.
+              </p>
+              <div className="rounded-3xl border border-[#0f766e]/20 bg-[#0f766e]/5 p-4 text-sm text-[#0f766e]">
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-2">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={3} />
+                    Key clauses aligned in Arabic and English.
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={3} />
+                    Omnis sends the signed MOA to ADJD and stores the notarised copy.
+                  </li>
+                </ul>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button
+                  type="button"
+                  onClick={handleCompleteMoa}
+                  disabled={isFinalisingMoa}
+                  className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {isFinalisingMoa ? "Finalising with ADJD..." : "Sign & notarise MOA"}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setShowMoaAssistant(false)}
+                  className="rounded-full border-[#0f766e]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+                >
+                  Hide assistant
+                </Button>
+              </div>
+            </>
+          ) : (
+            <div className="space-y-3">
+              <p className="text-sm text-slate-600">
+                Reopen the assistant if you want Omnis to walk you through the MOA again.
+              </p>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  setShowMoaAssistant(true);
+                  ensureSectionOpen("moa");
+                }}
+                className="self-start rounded-full border-[#0f766e]/40 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+              >
+                Reopen assistant
+              </Button>
+            </div>
+          )}
+        </CollapsibleCard>
+
+        <CollapsibleCard
+          value="payment"
+          title="Final licence fee"
+          subtitle={paymentSubtitle}
+          contentId="submit-stage-payment"
+        >
+          <Badge className="w-fit rounded-full border border-[#0f766e]/25 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+            AED 3,120
+          </Badge>
+          <p className="text-sm text-slate-600">
+            Pay once through AD Pay and we will push the licence to your wallet and AD Locker.
+          </p>
+          <Button
+            type="button"
+            onClick={() => {
+              ensureSectionOpen("payment");
+              scrollToElement("submit-stage-payment");
+              if (!hasPaid && !isPaying && allDocumentsCompleted) {
+                handleInitiatePayment();
+              }
+            }}
+            disabled={!allDocumentsCompleted || hasPaid || isPaying}
+            className="w-full rounded-full bg-[#0f766e] px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {hasPaid ? "Payment complete with AD Pay" : isPaying ? "Processing via AD Pay..." : "Pay and issue licence"}
+          </Button>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+            Tenancy • MOA • Payment synced automatically
+          </p>
+        </CollapsibleCard>
+
+        <CollapsibleCard
+          value="license"
+          title="Licence confirmation"
+          subtitle={licenceSubtitle}
+          contentId="submit-stage-license"
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#0f766e]/30 bg-[#0f766e]/5 text-[#0f766e]">
+              <Wallet className="h-5 w-5" />
+            </span>
+            <Badge
+              className={cn(
+                "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                licenseDetails ? "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]" : "border-slate-200 bg-white text-slate-400",
+              )}
+            >
+              {licenseDetails ? "Issued" : "Pending"}
+            </Badge>
+          </div>
+          {licenseDetails ? (
+            <div className="space-y-3 rounded-3xl border border-[#94d2c2] bg-[#dff2ec]/60 p-5 text-sm text-[#0b7d6f]">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <span className="font-semibold uppercase tracking-[0.18em]">Licence number</span>
+                <span className="text-base font-semibold">{licenseDetails.licenseNumber}</span>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em]">Issued on</p>
+                  <p className="text-sm font-semibold">{licenseDetails.issueDate}</p>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em]">Valid until</p>
+                  <p className="text-sm font-semibold">{licenseDetails.expiryDate}</p>
+                </div>
+              </div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em]">
+                We emailed the PDF and stored it in AD Locker for inspections.
+              </p>
+            </div>
+          ) : (
+            <p className="text-sm text-slate-600">
+              Once the payment clears, we show the licence number here and sync it automatically.
+            </p>
+          )}
+        </CollapsibleCard>
+      </Accordion>
     </div>
   );
 }
