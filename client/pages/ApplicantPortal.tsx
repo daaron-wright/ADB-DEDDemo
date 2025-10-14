@@ -300,7 +300,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     supportDescription: {
       preEmail:
         "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت الخليج. تواصلي عبر ",
-      postEmailPrePhone: " أو اتصلي عل�� ",
+      postEmailPrePhone: " أو اتصلي عل���� ",
       postPhone: ".",
     },
     keyDatesHeading: "التواري�� الرئيسية",
@@ -323,13 +323,13 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإجراء التالي",
-    nextActionButton: "انتقلي إلى ��لإجراء التالي",
+    nextActionButton: "ان��قلي إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "مساع�� ��لأعمال الذكي",
     businessActivityGuidance:
-      "يمكنك اخ��يار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نفس مجموعة الأعمال. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
+      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نفس مجموعة الأعمال. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
       "أضيفي إرشادات الترخيص إلى استبيان الأنشطة التجارية",
     statusLabelMap: {
@@ -357,7 +357,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك المدعوم ب��لذكا�� الاصطناعي على تنسيق حج�� الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك المدعوم ب��لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الم��افقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
@@ -391,7 +391,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       pendingLicenseLabel: "متاح بعد الاستبيان",
       pendingSubmissionLabel: "يتم تخصيصه بعد إكمال ��لاستبيان",
       chatIntro:
-        "لنؤكد بعض التفاصيل معًا. بعد إنهاء هذا الاستبيان، سأعرض نوع التر��يص ومعرّف الطلب.",
+        "لنؤكد بعض التفاصيل معًا. بعد إنهاء هذ�� الاستبيان، سأعرض نوع التر��يص ومعرّف الطلب.",
     },
   },
 };
@@ -2110,6 +2110,54 @@ export default function ApplicantPortal() {
             </span>
             {languageCopy.heroButton}
           </Link>
+        </div>
+      </div>
+    </section>
+  );
+
+  const questionnaireOnboardingSection = (
+    <section className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)] sm:p-7">
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex-1 space-y-4">
+          <Badge
+            className={cn(
+              "w-fit px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+              questionnaireStatusBadgeClass,
+            )}
+          >
+            {languageCopy.questionnaireOnboarding.heading}
+          </Badge>
+          <div className="space-y-2">
+            <h3 className="text-lg font-semibold text-slate-900">
+              {questionnaireStatusMessage}
+            </h3>
+            <p className="text-sm leading-relaxed text-slate-600">
+              {languageCopy.questionnaireOnboarding.description}
+            </p>
+          </div>
+          <Progress
+            value={questionnaireProgressValue}
+            className="h-2 w-full max-w-md"
+          />
+        </div>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <Button
+            type="button"
+            onClick={handleQuestionnairePrimaryAction}
+            className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
+          >
+            {questionnairePrimaryCtaLabel}
+          </Button>
+          {questionnaireProgress === "in_progress" ? (
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleQuestionnaireComplete}
+              className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
+            >
+              {languageCopy.questionnaireOnboarding.completeCta}
+            </Button>
+          ) : null}
         </div>
       </div>
     </section>
