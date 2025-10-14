@@ -311,7 +311,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون ��فكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -323,7 +323,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإجراء التالي",
-    nextActionButton: "انتقلي إلى ��لإجراء التالي",
+    nextActionButton: "انتقلي إلى ��ل��جراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
@@ -353,14 +353,14 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "Department of Economic Development": "دائرة التنمية الاقتصادية",
     },
     applicationTitles: {
-      "APP-48291": "رحلة المطعم (الأطعمة والمشروبات)",
+      "APP-48291": "رحلة المطعم (الأطعمة وال��شروبات)",
     },
     applicationSummaries: {
       "APP-48291":
         "يعمل طلبك المدعوم ب��لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
-      "APP-48291": "ق��مي حزمة الم��افقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
+      "APP-48291": "قدمي حزمة الم��افقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
     },
     journey: {
       heading: "تنسيق الرحلة",
@@ -382,7 +382,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       inProgressMessage:
         "يعمل الذكاء الاصطناعي على جمع التفاصيل لإعداد الاستبيان.",
       completedMessage:
-        "تمت مزامنة إجابات الاستبيان. تفاصيل التر��يص جاهزة الآن.",
+        "تمت مزامنة إجابات الاستبيان. تفاصيل الترخيص جاهزة الآن.",
       description:
         "أطلقي محادثة موجهة لتأكيد فكرة مشروعك قبل إنشاء مسار الترخيص.",
       startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
@@ -622,9 +622,7 @@ const journeyStages: JourneyStage[] = [
   },
 ];
 
-const DEFAULT_ACTIVE_STAGE_ID =
-  journeyStages.find((stage) => deriveStageState(stage) === "current")?.id ??
-  journeyStages[0].id;
+const DEFAULT_ACTIVE_STAGE_ID = QUESTIONNAIRE_STAGE_ID;
 
 const STAGES_WITH_SUPPRESSED_CHAT = new Set<string>([
   "questionnaire",
