@@ -517,6 +517,74 @@ export function ComplianceGrowthFocusContent({
                         </div>
 
                         <div className="space-y-3">
+                          <div className="flex flex-wrap items-center justify-between gap-3">
+                            <div className="space-y-1">
+                              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                                Signboard inspection
+                              </p>
+                              <p className="text-sm text-slate-600">
+                                Upload a short video of the exterior signage so inspectors can review it remotely.
+                              </p>
+                            </div>
+                            <Badge className="rounded-full border border-[#0f766e]/25 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                              Investor view
+                            </Badge>
+                          </div>
+                          <input
+                            ref={inspectionUploadInputRef}
+                            type="file"
+                            accept="video/*"
+                            onChange={handleInspectionFileChange}
+                            className="hidden"
+                          />
+                          <button
+                            type="button"
+                            onClick={handleInspectionUploadClick}
+                            className="flex h-20 w-full items-center justify-center rounded-3xl border border-dashed border-[#0f766e] bg-[#f5faf7] text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#0f766e]/10"
+                          >
+                            Upload inspection video
+                          </button>
+                          <div className="space-y-3 rounded-2xl border border-[#e3eeea] bg-white px-4 py-3">
+                            <div className="flex flex-wrap items-center justify-between gap-3">
+                              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                                Inspection evidences library
+                              </p>
+                              {inspectionEvidence ? (
+                                <Badge className="rounded-full border border-[#f3dcb6] bg-[#fdf6e4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b97324]">
+                                  Pending review
+                                </Badge>
+                              ) : null}
+                            </div>
+                            {inspectionEvidence ? (
+                              <div className="space-y-3 rounded-2xl border border-[#e3eeea] bg-[#f5faf7] p-3">
+                                <video
+                                  src={inspectionEvidence.url}
+                                  controls
+                                  className="h-52 w-full rounded-2xl bg-black/80 object-cover"
+                                />
+                                <div className="flex flex-wrap items-center justify-between gap-2">
+                                  <div>
+                                    <p className="text-sm font-semibold text-slate-900">
+                                      {inspectionEvidence.name}
+                                    </p>
+                                    <p className="text-xs text-slate-500">
+                                      {inspectionEvidence.sizeLabel}
+                                    </p>
+                                  </div>
+                                  <span className="rounded-full border border-[#f3dcb6] bg-[#fdf6e4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b97324]">
+                                    Pending review
+                                  </span>
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="rounded-2xl border border-dashed border-[#e3eeea] bg-[#f8fbfa] p-4 text-sm text-slate-500">
+                                No inspection videos yet. Upload evidence to trigger the remote review.
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="space-y-3">
                           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                             Photo reference library
                           </p>
