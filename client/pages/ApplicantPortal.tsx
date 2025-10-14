@@ -312,7 +312,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
       `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
-    heroButton: "استكشفي خيارات إضافية",
+    heroButton: "استكشفي خيارا�� إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
       `عرض أو إ��فاء نظرة عامة للرحلة الخاصة بـ ${title}`,
@@ -2244,9 +2244,7 @@ export default function ApplicantPortal() {
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                 {languageCopy.fieldLabels.licenseType}
               </p>
-              <p className="mt-2 text-sm font-semibold text-slate-900">
-                {displayLicenseType}
-              </p>
+              <p className={licenseValueClass}>{resolvedLicenseType}</p>
             </div>
             <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
