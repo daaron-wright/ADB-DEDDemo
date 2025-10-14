@@ -562,7 +562,7 @@ export function ComplianceGrowthFocusContent({
                                   controls
                                   className="h-52 w-full rounded-2xl bg-black/80 object-cover"
                                 />
-                                <div className="flex flex-wrap items-center justify-between gap-2">
+                                <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                                   <div>
                                     <p className="text-sm font-semibold text-slate-900">
                                       {inspectionEvidence.name}
@@ -571,9 +571,9 @@ export function ComplianceGrowthFocusContent({
                                       {inspectionEvidence.sizeLabel}
                                     </p>
                                   </div>
-                                  <span className="rounded-full border border-[#f3dcb6] bg-[#fdf6e4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b97324]">
-                                    Pending review
-                                  </span>
+                                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">
+                                    Status: pending review
+                                  </p>
                                 </div>
                               </div>
                             ) : (
