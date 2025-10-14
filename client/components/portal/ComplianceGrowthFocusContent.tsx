@@ -3,6 +3,7 @@ import * as React from "react";
 import { Accordion } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CollapsibleCard } from "./StageCollapsibleCard";
 import { cn } from "@/lib/utils";
 import {
@@ -16,13 +17,12 @@ import {
 interface ComplianceGrowthFocusContentProps {
   journeyNumber?: string;
   progressPercent?: number;
+  growthUnlocked?: boolean;
 }
 
 type ComplianceStatus = "error" | "warning" | "success" | "info";
-
-type ToggleView = "compliance" | "growth";
-
 type ChecklistStatus = "in_progress" | "complete";
+type ToggleView = "compliance" | "growth";
 
 type ComplianceItem = {
   id: string;
@@ -59,6 +59,8 @@ type InspectionEvidence = {
   url: string;
   sizeLabel: string;
 };
+
+type TabKey = "compliance" | "growth";
 
 const COMPLIANCE_ITEMS: ComplianceItem[] = [
   {
@@ -229,26 +231,26 @@ const GROWTH_PROGRESS = 75;
 const GROWTH_STEPS = 9;
 const GROWTH_ACTIONS = 3;
 
-const GROWTH_OPPORTUNITY_CONTENT = {
-  trends: {
-    id: "trends",
-    title: "5 new economic trends",
-    subtitle: "Curated for hospitality",
-    buttonLabel: "View report",
+const GROWTH_OPPORTUNITY_DEFINITIONS = [
+  {
+    id: "tourist-affluence",
+    title: "Rising tourist affluence",
+    subtitle: "Average visitor spend is up 18% compared to last year",
+    buttonLabel: "Review trend insights",
   },
-  services: {
-    id: "services",
-    title: "3 relevant services",
-    subtitle: "Marketplace matches",
-    buttonLabel: "Explore services",
+  {
+    id: "catering-partner",
+    title: "Partner with Emirates Culinary Catering",
+    subtitle: "Secure premium event contracts with a trusted catering ally",
+    buttonLabel: "Connect with catering partner",
   },
-  suppliers: {
-    id: "suppliers",
-    title: "Marketplace suppliers",
-    subtitle: "17 new matches",
-    buttonLabel: "Meet suppliers",
+  {
+    id: "al-ain-franchise",
+    title: "Franchise expansion in Al Ain",
+    subtitle: "Al Jimi Mall is offering incentives for new F&B concepts",
+    buttonLabel: "Review franchise playbook",
   },
-};
+] as const;
 
 const TOURISM_DELTA = 12;
 const TOURISM_TOTAL = "5,932,234";
@@ -325,90 +327,32 @@ function formatFileSize(bytes: number) {
 export function ComplianceGrowthFocusContent({
   journeyNumber = "0987654321",
   progressPercent = 78,
+  growthUnlocked = false,
 }: ComplianceGrowthFocusContentProps) {
-  const [activeView, setActiveView] = React.useState<ToggleView>("compliance");
+  const [activeTab, setActiveTab] = React.useState<TabKey>("compliance");
   const [complianceSections, setComplianceSections] = React.useState<string[]>([
     "action",
     "snapshot",
     "checklist",
+    "alerts",
+    "renewals",
   ]);
   const [growthSections, setGrowthSections] = React.useState<string[]>([
     "action",
     "snapshot",
     "opportunities",
+    "tourism",
+    "engagement",
   ]);
-  const [showDedDetail, setShowDedDetail] = React.useState<boolean>(false);
+  const [showDedDetail, setShowDedDetail] = React.useState(false);
   const [inspectionEvidence, setInspectionEvidence] = React.useState<InspectionEvidence | null>(null);
-
   const inspectionUploadInputRef = React.useRef<HTMLInputElement | null>(null);
 
-  const urgentItems = React.useMemo(
-    () => COMPLIANCE_ITEMS.filter((item) => item.status === "error" || item.status === "warning"),
-    [],
-  );
-
-  const scrollToElement = React.useCallback((elementId: string) => {
-    document.getElementById(elementId)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, []);
-
-  const ensureSectionOpen = React.useCallback(
-    (view: ToggleView, sectionId: string) => {
-      if (view === "compliance") {
-        setComplianceSections((previous) => (previous.includes(sectionId) ? previous : [...previous, sectionId]));
-      } else {
-        setGrowthSections((previous) => (previous.includes(sectionId) ? previous : [...previous, sectionId]));
-      }
-    },
-    [setComplianceSections, setGrowthSections],
-  );
-
-  const complianceSummary = React.useMemo(
-    () =>
-      `${urgentItems.length} urgent ${urgentItems.length === 1 ? "item" : "items"} • ${progressPercent}% compliant`,
-    [progressPercent, urgentItems],
-  );
-
-  const complianceNextAction = React.useMemo(() => {
-    const dedItem = COMPLIANCE_ITEMS.find((item) => item.id === "ded-inspection");
-    if (!dedItem) {
-      return {
-        subtitle: "All compliance tasks",
-        description: "Track authority updates and confirm each required inspection.",
-        buttonLabel: "View compliance snapshot",
-        onClick: () => ensureSectionOpen("compliance", "snapshot"),
-        disabled: false,
-      };
+  React.useEffect(() => {
+    if (!growthUnlocked && activeTab === "growth") {
+      setActiveTab("compliance");
     }
-
-    const token = COMPLIANCE_STATUS_TOKENS[dedItem.status];
-    return {
-      subtitle: `${dedItem.label} — ${token.badgeLabel}`,
-      description:
-        "Check the DED requirements and upload the requested evidence so the renewal can be cleared early.",
-      buttonLabel: "Open DED checklist",
-      onClick: () => {
-        ensureSectionOpen("compliance", "checklist");
-        setShowDedDetail(true);
-        scrollToElement("compliance-checklist-card");
-      },
-      disabled: false,
-    };
-  }, [ensureSectionOpen, scrollToElement, setShowDedDetail]);
-
-  const growthNextAction = React.useMemo(() => {
-    return {
-      subtitle: "Marketplace services",
-      description: "Review the three suggested services aligned to your growth plan this quarter.",
-      buttonLabel: "View opportunities",
-      onClick: () => {
-        ensureSectionOpen("growth", "opportunities");
-        scrollToElement("growth-opportunities-card");
-      },
-      disabled: false,
-    };
-  }, [ensureSectionOpen, scrollToElement]);
-
-  const growthSummary = `${GROWTH_STEPS} new steps • ${GROWTH_ACTIONS} actions`;
+  }, [growthUnlocked, activeTab]);
 
   React.useEffect(() => {
     return () => {
@@ -418,110 +362,154 @@ export function ComplianceGrowthFocusContent({
     };
   }, [inspectionEvidence]);
 
+  const urgentItems = React.useMemo(
+    () => COMPLIANCE_ITEMS.filter((item) => item.status === "error" || item.status === "warning"),
+    [],
+  );
+
+  const complianceSummary = React.useMemo(
+    () => `${urgentItems.length} urgent ${urgentItems.length === 1 ? "item" : "items"} • ${progressPercent}% compliant`,
+    [progressPercent, urgentItems],
+  );
+
+  const growthSummary = `${GROWTH_OPPORTUNITY_DEFINITIONS.length} curated plays • ${GROWTH_ACTIONS} actions`;
+
+  const scrollToElement = React.useCallback((elementId: string) => {
+    document.getElementById(elementId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
+
+  const ensureSectionOpen = React.useCallback((view: ToggleView, sectionId: string) => {
+    if (view === "compliance") {
+      setComplianceSections((previous) => (previous.includes(sectionId) ? previous : [...previous, sectionId]));
+    } else {
+      setGrowthSections((previous) => (previous.includes(sectionId) ? previous : [...previous, sectionId]));
+    }
+  }, []);
+
+  const complianceNextAction = React.useMemo(() => {
+    const dedItem = COMPLIANCE_ITEMS.find((item) => item.id === "ded-inspection");
+    if (!dedItem) {
+      return {
+        subtitle: "All compliance tasks",
+        description: "Track authority updates and confirm each required inspection.",
+        buttonLabel: "View compliance snapshot",
+        onClick: () => {
+          ensureSectionOpen("compliance", "snapshot");
+          scrollToElement("compliance-snapshot-card");
+        },
+        disabled: false,
+      } as const;
+    }
+
+    const token = COMPLIANCE_STATUS_TOKENS[dedItem.status];
+    return {
+      subtitle: `${dedItem.label} — ${token.badgeLabel}`,
+      description:
+        "Check the DED requirements and upload the requested evidence so the renewal closes early.",
+      buttonLabel: "Open DED checklist",
+      onClick: () => {
+        ensureSectionOpen("compliance", "checklist");
+        setShowDedDetail(true);
+        scrollToElement("compliance-checklist-card");
+      },
+      disabled: false,
+    } as const;
+  }, [ensureSectionOpen, scrollToElement]);
+
+  const growthNextAction = React.useMemo(
+    () => ({
+      subtitle: "Growth opportunities",
+      description:
+        "Open the opportunities card to review tourist affluence trends, partner intros, and expansion leads.",
+      buttonLabel: "Show opportunities",
+      onClick: () => {
+        ensureSectionOpen("growth", "opportunities");
+        scrollToElement("growth-opportunities-card");
+      },
+      disabled: false,
+    }) as const,
+    [ensureSectionOpen, scrollToElement],
+  );
+
   const handleInspectionUploadClick = React.useCallback(() => {
     inspectionUploadInputRef.current?.click();
   }, []);
 
-  const handleInspectionFileChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const file = event.target.files?.[0];
-      if (!file) {
-        return;
-      }
-      setInspectionEvidence((previous) => {
-        if (previous?.url) {
-          URL.revokeObjectURL(previous.url);
-        }
-        return {
-          id: `inspection-${Date.now()}`,
-          name: file.name,
-          url: URL.createObjectURL(file),
-          sizeLabel: formatFileSize(file.size),
-        };
-      });
-      event.target.value = "";
-    },
-    [],
-  );
+  const handleInspectionFileChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      return;
+    }
 
-  const growthOpportunities = React.useMemo<GrowthOpportunity[]>(
-    () => [
-      {
-        ...GROWTH_OPPORTUNITY_CONTENT.trends,
+    setInspectionEvidence((previous) => {
+      if (previous?.url) {
+        URL.revokeObjectURL(previous.url);
+      }
+
+      return {
+        id: `inspection-${Date.now()}`,
+        name: file.name,
+        url: URL.createObjectURL(file),
+        sizeLabel: formatFileSize(file.size),
+      };
+    });
+
+    event.target.value = "";
+  }, []);
+
+  const growthOpportunities = React.useMemo<GrowtхонOpportunity[]>(
+    () =>
+      GROWTH_OPPORTUNITY_DEFINITIONS.map((definition) => ({
+        id: definition.id,
+        title: definition.title,
+        subtitle: definition.subtitle,
+        buttonLabel: definition.buttonLabel,
         onClick: () => {
           ensureSectionOpen("growth", "opportunities");
           scrollToElement("growth-opportunities-card");
         },
-      },
-      {
-        ...GROWTH_OPPORTUNITY_CONTENT.services,
-        onClick: () => {
-          ensureSectionOpen("growth", "opportunities");
-          scrollToElement("growth-opportunities-card");
-        },
-      },
-      {
-        ...GROWTH_OPPORTUNITY_CONTENT.suppliers,
-        onClick: () => {
-          ensureSectionOpen("growth", "opportunities");
-          scrollToElement("growth-opportunities-card");
-        },
-      },
-    ],
+      })),
     [ensureSectionOpen, scrollToElement],
   );
 
-  function handleViewChange(view: ToggleView) {
-    setActiveView(view);
-    requestAnimationFrame(() => {
-      const anchor = view === "compliance" ? "compliance-action-card" : "growth-action-card";
-      scrollToElement(anchor);
-    });
-  }
-
-  const accordionValue = activeView === "compliance" ? complianceSections : growthSections;
-  const setAccordionValue = activeView === "compliance" ? setComplianceSections : setGrowthSections;
-
-  const nextAction = activeView === "compliance" ? complianceNextAction : growthNextAction;
-  const summarySubtitle = activeView === "compliance" ? complianceSummary : growthSummary;
-  const summaryProgress = activeView === "compliance" ? progressPercent : GROWTH_PROGRESS;
-  const summaryLabel = activeView === "compliance" ? "Compliance progress" : "Growth progress";
+  const summarySubtitle = activeTab === "compliance" ? complianceSummary : growthSummary;
+  const summaryProgress = activeTab === "compliance" ? progressPercent : GROWTH_PROGRESS;
+  const summaryLabel = activeTab === "compliance" ? "Compliance progress" : "Growth momentum";
 
   return (
     <div className="space-y-6">
-      <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_26px_60px_-50px_rgba(15,23,42,0.35)]">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Journey number</p>
-            <p className="text-lg font-semibold text-slate-900">{journeyNumber}</p>
-          </div>
-          <Badge className="inline-flex items-center gap-2 rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
-            Live sync
-          </Badge>
-        </div>
-        <div className="mt-5 space-y-4">
+      <Tabs
+        value={activeTab}
+        onValueChange={(value) => setActiveTab(value as TabKey)}
+        className="space-y-6"
+      >
+        <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_26px_60px_-50px_rgba(15,23,42,0.35)]">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="space-y-1">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Stage 5 • Compliance & growth</p>
-              <h3 className="text-2xl font-semibold text-slate-900">Stay compliant while expanding</h3>
-              <p className="text-sm text-slate-600">Switch views to follow regulatory tasks or act on new expansion opportunities.</p>
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Journey number
+              </p>
+              <p className="text-lg font-semibold text-slate-900">{journeyNumber}</p>
             </div>
-            <div className="flex items-center gap-2">
-              <ToggleButton
-                label="Compliance"
-                isActive={activeView === "compliance"}
-                onClick={() => handleViewChange("compliance")}
-              />
-              <ToggleButton
-                label="Growth"
-                isActive={activeView === "growth"}
-                onClick={() => handleViewChange("growth")}
-              />
-            </div>
+            <Badge className="inline-flex items-center gap-2 rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
+              {activeTab === "compliance" ? "Live sync" : "Omnis insights"}
+            </Badge>
           </div>
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-              <span>{summarySubtitle}</span>
+          <div className="mt-5 space-y-4">
+            <div className="space-y-2">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Stage 5 · Compliance & growth
+              </p>
+              <h3 className="text-2xl font-semibold text-slate-900">
+                {activeTab === "compliance"
+                  ? "Stay inspection-ready"
+                  : "Unlock expansion plays"}
+              </h3>
+              <p className="text-sm text-slate-600">
+                {activeTab === "compliance"
+                  ? "Monitor active obligations and coordinate evidence before authorities request it."
+                  : "Use Omnis insights to explore affluent visitors, partner networks, and regional expansion."}
+              </p>
             </div>
             <div className="space-y-2">
               <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
@@ -536,30 +524,43 @@ export function ComplianceGrowthFocusContent({
               </div>
             </div>
           </div>
+          <TabsList className="mt-4 inline-flex gap-2 rounded-full border border-[#d8e4df] bg-[#f5faf7] p-1">
+            <TabsTrigger value="compliance" className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]">
+              Compliance
+            </TabsTrigger>
+            {growthUnlocked ? (
+              <TabsTrigger value="growth" className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]">
+                Growth
+              </TabsTrigger>
+            ) : null}
+          </TabsList>
         </div>
-      </div>
 
-      <Accordion type="multiple" value={accordionValue} onValueChange={setAccordionValue} className="space-y-4">
-        <CollapsibleCard
-          value="action"
-          title="Next action"
-          subtitle={nextAction.subtitle}
-          contentId={activeView === "compliance" ? "compliance-action-card" : "growth-action-card"}
-        >
-          <p className="text-sm text-slate-600">{nextAction.description}</p>
-          <Button
-            type="button"
-            size="sm"
-            onClick={nextAction.onClick}
-            disabled={nextAction.disabled}
-            className="self-start rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
+        <TabsContent value="compliance" className="space-y-4">
+          <Accordion
+            type="multiple"
+            value={complianceSections}
+            onValueChange={(values) => setComplianceSections(values)}
+            className="space-y-4"
           >
-            {nextAction.buttonLabel}
-          </Button>
-        </CollapsibleCard>
+            <CollapsibleCard
+              value="action"
+              title="Next action"
+              subtitle={complianceNextAction.subtitle}
+              contentId="compliance-action-card"
+            >
+              <p className="text-sm text-slate-600">{complianceNextAction.description}</p>
+              <Button
+                type="button"
+                size="sm"
+                onClick={complianceNextAction.onClick}
+                disabled={complianceNextAction.disabled}
+                className="self-start rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
+              >
+                {complianceNextAction.buttonLabel}
+              </Button>
+            </CollapsibleCard>
 
-        {activeView === "compliance" ? (
-          <>
             <CollapsibleCard
               value="snapshot"
               title="Compliance snapshot"
@@ -623,7 +624,9 @@ export function ComplianceGrowthFocusContent({
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div className="space-y-1">
                     <p className="text-sm font-semibold text-slate-900">Calendar reminders</p>
-                    <p className="text-xs text-slate-500">Sync deadlines to your Outlook, Google, or Apple calendar.</p>
+                    <p className="text-xs text-slate-500">
+                      Sync deadlines to your Outlook, Google, or Apple calendar.
+                    </p>
                   </div>
                   <Button
                     size="sm"
@@ -718,60 +721,92 @@ export function ComplianceGrowthFocusContent({
                 <RenewalItem label="Tawtheeq certificate" value="320 days remaining" valueClass="text-slate-500" />
               </ul>
             </CollapsibleCard>
-          </>
-        ) : (
-          <>
-            <CollapsibleCard
-              value="snapshot"
-              title="Growth snapshot"
-              subtitle="Momentum across insights"
-              contentId="growth-snapshot-card"
-            >
-              <div className="grid gap-4 sm:grid-cols-2">
-                <MetricSummary label="New growth steps" value={`${GROWTH_STEPS}`} helper="Expansion paths identified" />
-                <MetricSummary label="Actions to take" value={`${GROWTH_ACTIONS}`} helper="High impact follow-ups" />
-              </div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                Omnis refreshes the growth plan with market signals and partner data.
-              </p>
-            </CollapsibleCard>
+          </Accordion>
 
-            <CollapsibleCard
-              value="opportunities"
-              title="Opportunities"
-              subtitle="Act on the highest impact items"
-              contentId="growth-opportunities-card"
-            >
-              <div className="space-y-3">
-                {growthOpportunities.map((opportunity) => (
-                  <GrowthOpportunityCard key={opportunity.id} opportunity={opportunity} />
-                ))}
-              </div>
-            </CollapsibleCard>
+          {!growthUnlocked ? (
+            <div className="rounded-3xl border border-dashed border-[#0f766e]/40 bg-[#f5faf7] p-5 text-sm text-[#0f766e]">
+              Complete the earlier stages to unlock Omnis growth insights. Once the preceding steps are marked done, the Growth tab will appear automatically.
+            </div>
+          ) : null}
+        </TabsContent>
 
-            <CollapsibleCard
-              value="tourism"
-              title="Tourism insight"
-              subtitle="Latest visitor data"
-              contentId="growth-tourism-card"
+        {growthUnlocked ? (
+          <TabsContent value="growth" className="space-y-4">
+            <Accordion
+              type="multiple"
+              value={growthSections}
+              onValueChange={(values) => setGrowthSections(values)}
+              className="space-y-4"
             >
-              <TourismInsight />
-            </CollapsibleCard>
+              <CollapsibleCard
+                value="action"
+                title="Next action"
+                subtitle={growthNextAction.subtitle}
+                contentId="growth-action-card"
+              >
+                <p className="text-sm text-slate-600">{growthNextAction.description}</p>
+                <Button
+                  type="button"
+                  size="sm"
+                  onClick={growthNextAction.onClick}
+                  disabled={growthNextAction.disabled}
+                  className="self-start rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
+                >
+                  {growthNextAction.buttonLabel}
+                </Button>
+              </CollapsibleCard>
 
-            <CollapsibleCard
-              value="engagement"
-              title="Engagement trends"
-              subtitle="Social reach this month"
-              contentId="growth-engagement-card"
-            >
-              <SocialInsight />
-            </CollapsibleCard>
-          </>
-        )}
-      </Accordion>
+              <CollapsibleCard
+                value="snapshot"
+                title="Growth snapshot"
+                subtitle="Momentum across insights"
+                contentId="growth-snapshot-card"
+              >
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <MetricSummary label="New growth steps" value={`${GROWTH_STEPS}`} helper="Expansion paths identified" />
+                  <MetricSummary label="Actions to take" value={`${GROWTH_ACTIONS}`} helper="High impact follow-ups" />
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                  Omnis refreshes the growth plan with market signals and partner data.
+                </p>
+              </CollapsibleCard>
+
+              <CollapsibleCard
+                value="opportunities"
+                title="Opportunities"
+                subtitle="Act on the highest impact items"
+                contentId="growth-opportunities-card"
+              >
+                <div className="space-y-3">
+                  {growthOpportunities.map((opportunity) => (
+                    <GrowthOpportunityCard key={opportunity.id} opportunity={opportunity} />
+                  ))}
+                </div>
+              </CollapsibleCard>
+
+              <CollapsibleCard
+                value="tourism"
+                title="Tourism insight"
+                subtitle="Affluent visitor segments"
+                contentId="growth-tourism-card"
+              >
+                <TourismInsight />
+              </CollapsibleCard>
+
+              <CollapsibleCard
+                value="engagement"
+                title="Engagement trends"
+                subtitle="Social reach this month"
+                contentId="growth-engagement-card"
+              >
+                <SocialInsight />
+              </CollapsibleCard>
+            </Accordion>
+          </TabsContent>
+        ) : null}
+      </Tabs>
     </div>
   );
-
 }
 
 function ToggleButton({
@@ -809,7 +844,7 @@ function MetricSummary({
   helper: string;
 }) {
   return (
-    <div className="rounded-3xl border border-[#d8e4df] bg-white/95 p-4 shadow-[0_18px_42px_-40px_rgba(15,118,110,0.25)]">
+    <div className="rounded-3xl border border-[#d8e4df] bg-white/95 p-4 shadow-[0_18px_42px_-40px_rgба(15,118,110,0.25)]">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">{label}</p>
       <p className="mt-1 text-3xl font-semibold text-slate-900">{value}</p>
       <p className="mt-1 text-sm text-slate-600">{helper}</p>
@@ -874,7 +909,7 @@ function DedDetailCard({
   inputRef: React.RefObject<HTMLInputElement>;
 }) {
   return (
-    <div className="space-y-5 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_20px_48px_-44px_rgba(15,23,42,0.4)]">
+    <div className="space-y-5 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_20px_48px_-44px_rgба(15,23,42,0.4)]">
       <div className="space-y-2">
         <p className="font-semibold text-slate-900">What DED needs</p>
         <p className="text-sm text-slate-600">{DED_SUMMARY}</p>
@@ -1025,7 +1060,7 @@ function ComplianceAlert({ item }: { item: ComplianceItem }) {
       </div>
       <Button
         size="sm"
-        className="rounded-full border border-red-200 bg-red-500 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(185,28,28,0.45)] hover:bg-red-600"
+        className="rounded-full border border-red-200 bg-red-500 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgба(185,28,28,0.45)] hover:bg-red-600"
       >
         Follow up
       </Button>
@@ -1060,7 +1095,7 @@ function GrowthOpportunityCard({ opportunity }: { opportunity: GrowthOpportunity
       <Button
         size="sm"
         onClick={opportunity.onClick}
-        className="rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(23,135,126,0.45)] hover:bg-[#128080]"
+        className="rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgба(23,135,126,0.45)] hover:bg-[#128080]"
       >
         {opportunity.buttonLabel}
       </Button>
@@ -1117,69 +1152,4 @@ function SocialInsight() {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M14.4901 16.1215H3.76074V14.5478C3.76074 13.7298 4.0855 12.9458 4.66229 12.369C5.23907 11.7922 6.02309 11.4674 6.84109 11.4674H11.4098C12.2278 11.4674 13.0118 11.7922 13.5886 12.369C14.1654 12.9458 14.4901 13.7298 14.4901 14.5478V16.1215Z"
-              fill="currentColor"
-            />
-            <path
-              d="M9.125 9.77758C10.7773 9.77758 12.118 8.43686 12.118 6.78458C12.118 5.1323 10.7773 3.79158 9.125 3.79158C7.47272 3.79158 6.13199 5.1323 6.13199 6.78458C6.13199 8.43686 7.47272 9.77758 9.125 9.77758Z"
-              fill="currentColor"
-            />
-          </svg>
-        </span>
-        <div className="space-y-1">
-          <p className="text-sm font-semibold text-slate-900">Social media engagement</p>
-          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">{SOCIAL_GROWTH.toLocaleString()} new followers</p>
-        </div>
-      </div>
-      <div className="relative h-20">
-        <svg
-          className="absolute inset-0 h-full w-full"
-          preserveAspectRatio="none"
-          viewBox="0 0 226 77"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M33.06 46.849C17.5778 50 0 56 0 56V77H226V1.5C202.93 12.5777 201.578 18.8492 172.639 20C152.263 20.8103 140.622 21.5 121.161 25C99.2055 28.9486 89.1444 35 68.4278 40.5C48.2469 45.8577 53.9241 42.6026 33.06 46.849Z"
-            fill="url(#paint0_linear_growth)"
-          />
-          <path
-            d="M1.07031 55C1.07031 55 19.7211 49.2895 33.7386 46.6824C50.8499 43.5 60.7437 44.1995 79.7277 37C102.955 28.1911 99.8166 29 119.905 25C138.911 21.2158 153.76 20.8056 173.894 20C202.491 18.8558 201.948 12.514 224.744 1.5"
-            stroke="#73CED0"
-            strokeWidth="1.3"
-            strokeLinecap="round"
-          />
-          <defs>
-            <linearGradient
-              id="paint0_linear_growth"
-              x1="113.535"
-              y1="-11.6868"
-              x2="113.32"
-              y2="77.0007"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#4BA2A4" />
-              <stop offset="1" stopColor="#041616" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-        </svg>
-        <div className="absolute right-[30%] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-[#0f766e] ring-4 ring-[#6ed6cc]" />
-      </div>
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-600 hover:bg-slate-50"
-        >
-          Track insights
-        </Button>
-        <Button
-          size="sm"
-          className="rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(23,135,126,0.45)] hover:bg-[#128080]"
-        >
-          Download report
-        </Button>
-      </div>
-    </div>
-  );
-}
+              d=...
