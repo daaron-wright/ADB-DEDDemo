@@ -907,8 +907,8 @@ export default function ApplicantPortal() {
       | undefined
   )?.user;
 
-  const profileName = portalUser?.name ?? ENTREPRENEUR_PROFILE.name;
-  const firstName = profileName.split(" ")[0] ?? profileName;
+  const profileName = "Layla";
+  const firstName = "Layla";
   const languageCopy = PORTAL_LANGUAGE_COPY[language];
   const businessAIIntroMessage = BUSINESS_AI_INTRO_MESSAGES[language];
   const workspaceHeroTitle = languageCopy.workspaceTitle(firstName);
