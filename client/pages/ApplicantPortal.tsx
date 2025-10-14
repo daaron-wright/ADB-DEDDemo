@@ -21,6 +21,7 @@ import {
   JourneyOrchestrationPanel,
   type JourneyOrchestrationPanelCopy,
 } from "@/components/portal/JourneyOrchestrationPanel";
+import type { JourneyStageFocusViewProps } from "@/components/portal/JourneyStageFocusView";
 import type {
   JourneyAnimationPhase,
   JourneyHighlightState,
@@ -335,7 +336,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة التالية",
       reviewStage: "استعرضي المرحلة",
-      timelineAriaLabel: "ال��نقل بين مراحل الرحلة",
+      timelineAriaLabel: "التنقل بين مراحل الرحلة",
     },
   },
 };
