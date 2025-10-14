@@ -87,6 +87,7 @@ const statusStyles: Record<ApplicationRecord["status"], string> = {
   "In Review": "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
   "Awaiting Documents": "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
   Approved: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
+  Compliant: "border-[#b7e1d4] bg-[#eaf7f3] text-[#0f766e]",
   Draft: "border-[#d8e4df] bg-[#f4f8f6] text-slate-600",
 };
 
@@ -329,7 +330,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       yourNextStep: "خطوت�� التالية",
       tasksCompleteMessage:
         "تم إكمال كل المهام لهذه المرحلة. راقبي تحديثات الأتمتة.",
-      automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
+      automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً ع��ك.",
       openNextTask: "افتحي المهمة التالية",
       reviewStage: "استعرضي المرحلة",
       timelineAriaLabel: "التنقل بين مراحل الرحلة",
