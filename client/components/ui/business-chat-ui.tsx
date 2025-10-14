@@ -97,7 +97,9 @@ type BusinessMessageType =
   | "business-activities"
   | "application-progress"
   | "stage-overview"
-  | "stage-recommendations";
+  | "stage-recommendations"
+  | "feedback-prompt"
+  | "feedback-notification";
 
 interface StageRecommendationSummary {
   id: string;
@@ -1045,7 +1047,7 @@ const CompetitorAnalysisSummaryTile = () => {
               </p>
               <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-600">
                 <li>��� Review detailed competitor pricing analysis</li>
-                <li>��� Analyze menu positioning gaps</li>
+                <li>• Analyze menu positioning gaps</li>
                 <li>• Schedule site visits for concept validation</li>
               </ul>
             </div>
