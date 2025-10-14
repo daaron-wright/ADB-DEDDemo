@@ -402,6 +402,11 @@ export function DocumentSubmissionFocusContent({
                 />
               ))}
             </div>
+            {allDocumentsCompleted ? (
+              <div className="rounded-3xl border border-[#94d2c2] bg-[#dff2ec]/70 p-4 text-sm font-semibold text-[#0b7d6f]">
+                Every document is signed and stored. You’re cleared to issue the licence.
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
