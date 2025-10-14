@@ -1731,7 +1731,7 @@ function InspectionAuditReportPlaceholder() {
   );
 }
 
-function InspectionSupportingInfo() {
+function InspectionSupportingInfo({ checklistItems }: { checklistItems: ChecklistItem[] }) {
   return (
     <div className="space-y-5">
       <div className="space-y-2">
