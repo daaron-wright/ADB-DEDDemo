@@ -5959,6 +5959,29 @@ export function BusinessChatUI({
   const [isAdvisorPanelOpen, setAdvisorPanelOpen] = useState(false);
   const [hasTriggeredSuggestedTopics, setHasTriggeredSuggestedTopics] =
     useState(false);
+
+  useEffect(() => {
+    if (hasCompletedApplication && !hasFeedbackPrompted) {
+      setMessages((previous) => {
+        if (previous.some((message) => message.id === "feedback-loop-prompt")) {
+          return previous;
+        }
+        return [
+          ...previous,
+          {
+            id: "feedback-loop-prompt",
+            content:
+              "Your licence journey is complete. Share any suggestions on improving regulations or the process and Omnis will relay themes to policy makers once they reach a threshold.",
+            isAI: true,
+            timestamp: new Date(),
+            type: "feedback-prompt",
+          },
+        ];
+      });
+      setHasFeedbackPrompted(true);
+    }
+  }, [hasCompletedApplication, hasFeedbackPrompted, setMessages]);
+
   const themeGroupsRef = useRef<SuggestedThemeGroup[]>([]);
   const [followUpRecommendations, setFollowUpRecommendations] = useState<StageRecommendation[]>([]);
   const applyFollowUps = useCallback(
