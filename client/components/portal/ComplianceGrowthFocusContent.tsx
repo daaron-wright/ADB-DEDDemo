@@ -542,7 +542,7 @@ export function ComplianceGrowthFocusContent({
                             onClick={handleInspectionUploadClick}
                             className="flex h-20 w-full items-center justify-center rounded-3xl border border-dashed border-[#0f766e] bg-[#f5faf7] text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#0f766e]/10"
                           >
-                            Upload inspection video
+                            Upload Inspection Video
                           </button>
                           <div className="space-y-3 rounded-2xl border border-[#e3eeea] bg-white px-4 py-3">
                             <div className="flex flex-wrap items-center justify-between gap-3">
