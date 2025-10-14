@@ -393,7 +393,7 @@ export function ComplianceGrowthFocusContent({
       },
       disabled: false,
     };
-  }, [ensureSectionOpen, scrollToElement]);
+  }, [ensureSectionOpen, scrollToElement, setShowDedDetail]);
 
   const growthNextAction = React.useMemo(() => {
     return {
