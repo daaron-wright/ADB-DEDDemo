@@ -258,6 +258,17 @@ const PIPELINE_STATUS_TOKENS: Record<PipelineStatus, { icon: React.ElementType; 
   },
 };
 
+const READINESS_STATUS_TOKENS: Record<ReadinessStatus, { label: string; className: string }> = {
+  pass: {
+    label: "Pass",
+    className: "border-[#94d2c2] bg-[#eaf7f3] text-[#0f766e]",
+  },
+  attention: {
+    label: "Attention",
+    className: "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
+  },
+};
+
 const COMPLIANCE_ITEMS: ComplianceItem[] = [
   { id: "civil-defence", label: "Civil Defence", status: "error", detail: "2 issues to resolve" },
   { id: "ded-inspection", label: "DED inspection", status: "warning", detail: "29 days remaining" },
