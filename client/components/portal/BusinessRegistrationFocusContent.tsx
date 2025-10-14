@@ -1225,7 +1225,7 @@ export function BusinessRegistrationFocusContent({
                 Verification steps
               </p>
               <p className="text-sm text-slate-600">
-                Trade Name Engine runs {totalVerificationSteps} checks to confirm your name.
+                Trade Name Engine runs {totalVerificationSteps} checks to confirm your name. Tap any bar to expand the details.
               </p>
             </div>
             {showVerificationSteps ? (
