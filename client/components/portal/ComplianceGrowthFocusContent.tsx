@@ -216,7 +216,7 @@ const TEXT_VERIFICATION_RESULTS: TextVerificationRow[] = [
     id: "arabic",
     language: "Arabic",
     registered: REGISTERED_TRADE_NAMES.arabic,
-    extracted: "مط��م مروى شركة ذات مسؤولية محدودة",
+    extracted: "مطعم مروى شركة ذات مسؤولية محدودة",
     matchScore: 0.96,
     status: "PASS",
   },
@@ -234,6 +234,27 @@ const SUBMISSION_STATUS_TOKENS: Record<InspectionSubmissionStatus, { label: stri
   submitted: {
     label: "Pending review",
     className: "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
+  },
+};
+
+const PIPELINE_STATUS_TOKENS: Record<PipelineStatus, { icon: React.ElementType; wrapperClass: string; iconClass: string; connectorClass: string }> = {
+  complete: {
+    icon: CheckCircle,
+    wrapperClass: "border-[#0f766e] bg-[#0f766e] text-white",
+    iconClass: "h-4 w-4",
+    connectorClass: "bg-[#0f766e]/30",
+  },
+  active: {
+    icon: Loader2,
+    wrapperClass: "border-[#0f766e] bg-[#f5faf7] text-[#0f766e]",
+    iconClass: "h-4 w-4 animate-spin",
+    connectorClass: "bg-[#0f766e]/30",
+  },
+  pending: {
+    icon: Circle,
+    wrapperClass: "border-[#d8e4df] bg-white text-[#d8e4df]",
+    iconClass: "h-3.5 w-3.5",
+    connectorClass: "bg-[#d8e4df]",
   },
 };
 
