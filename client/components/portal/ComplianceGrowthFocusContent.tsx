@@ -367,7 +367,7 @@ const DEFAULT_DED_CHECKLIST: ChecklistItem[] = [
 const DED_DOCUMENTS: DedDocument[] = [
   { id: "risk-assessment", label: "Risk assessment checklist", meta: "PDF • 3.2 MB", statusLabel: "Updated" },
   { id: "floor-plan", label: "Revised kitchen floor plan", meta: "DWG • 1.1 MB", statusLabel: "Pending upload" },
-  { id: "certificates", label: "Calibration certificates", meta: "ZIP ��� 5 files", statusLabel: "Ready" },
+  { id: "certificates", label: "Calibration certificates", meta: "ZIP • 5 files", statusLabel: "Ready" },
 ];
 
 const DED_MEDIA = [
@@ -504,6 +504,12 @@ export function ComplianceGrowthFocusContent({
   growthUnlocked = false,
 }: ComplianceGrowthFocusContentProps) {
   const [activeTab, setActiveTab] = React.useState<TabKey>("compliance");
+  const [complianceItems, setComplianceItems] = React.useState<ComplianceItem[]>(
+    DEFAULT_COMPLIANCE_ITEMS,
+  );
+  const [dedChecklistItems, setDedChecklistItems] = React.useState<ChecklistItem[]>(
+    DEFAULT_DED_CHECKLIST,
+  );
   const [complianceSections, setComplianceSections] = React.useState<string[]>([
     "action",
     "snapshot",
@@ -523,7 +529,14 @@ export function ComplianceGrowthFocusContent({
   const [pendingInspection, setPendingInspection] = React.useState<InspectionEvidence | null>(null);
   const [inspectionSubmissionStatus, setInspectionSubmissionStatus] =
     React.useState<InspectionSubmissionStatus>("idle");
+  const [isComplianceComplete, setIsComplianceComplete] = React.useState(false);
+  const [hasScheduledWorkspaceReturn, setHasScheduledWorkspaceReturn] = React.useState(false);
   const inspectionUploadInputRef = React.useRef<HTMLInputElement | null>(null);
+
+  const allDedChecklistComplete = React.useMemo(
+    () => dedChecklistItems.every((item) => item.status === "complete"),
+    [dedChecklistItems],
+  );
 
   const showGrowthTab = Boolean(growthUnlocked);
 
