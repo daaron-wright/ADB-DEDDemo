@@ -287,7 +287,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
-    businessAITitle: "مساعد الأعمال الذكي",
+    businessAITitle: "مساع�� الأعمال الذكي",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نفس مجموعة الأعمال. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
@@ -468,57 +468,6 @@ const journeyStages: JourneyStage[] = [
     ],
   },
   {
-    id: "license",
-    title: "Business Licensing",
-    highlight: {
-      label: "License automation underway",
-      detail: "DED automation running final checks",
-    },
-    description:
-      "Omnis is coordinating with the Department of Economic Development to finalize the economic license issuance.",
-    state: "current",
-    statusDetail: "Economic license generation in progress",
-    statusTransitions: [
-      {
-        id: "economic-license-in-progress",
-        status: "in_progress",
-        label: "Issuance of Economic License (DED)",
-        detail: "DED automation is finalizing the issuance package.",
-        timestamp: isoDate(daysFromToday(-1)),
-      },
-      {
-        id: "economic-license-scheduled",
-        status: "scheduled",
-        label: "Awaiting license number sync",
-        detail: `Expected within ${formatDisplayDate(daysFromToday(2))}`,
-        timestamp: isoDate(daysFromToday(2)),
-      },
-    ],
-    tasks: [
-      {
-        id: "license-economic-issuance",
-        label: "Issuance of Economic License (DED)",
-        status: "in_progress",
-        owner: "Department of Economic Development",
-        dueDate: isoDate(daysFromToday(2)),
-      },
-      {
-        id: "license-automation-sync",
-        label: "AI automation of license application",
-        status: "in_progress",
-        owner: "Applicant",
-        dueDate: isoDate(daysFromToday(1)),
-      },
-      {
-        id: "license-final-review",
-        label: "Final license review and approval",
-        status: "pending",
-        owner: "Department of Economic Development",
-        dueDate: isoDate(daysFromToday(3)),
-      },
-    ],
-  },
-  {
     id: "inspections",
     title: "Pre-Operational Inspection",
     highlight: {
@@ -622,7 +571,6 @@ const STAGES_WITH_SUPPRESSED_CHAT = new Set<string>([
   "questionnaire",
   "trade-name-activities",
   "document-submissions",
-  "license",
   "inspections",
   "compliance-growth",
 ]);
@@ -729,7 +677,6 @@ const JOURNEY_STEPS_CONFIG: JourneyStep[] = [
     label: "Submit Documents",
     state: "current",
   },
-  { id: "license", label: "Business Licensing", state: "current" },
   { id: "inspections", label: "Pre-Operational Inspection", state: "current" },
   { id: "compliance-growth", label: "Compliance / Growth", state: "upcoming" },
 ];
@@ -841,20 +788,6 @@ const RECOMMENDED_STAGE_ACTIVITIES: Record<
       type: "document",
     },
   ],
-  license: [
-    {
-      id: "licensing-scenarios",
-      label: "License scenario comparison",
-      description: "Compare economic license pathways and issuance timelines.",
-      type: "licensing",
-    },
-    {
-      id: "renewal-readiness",
-      label: "Renewal readiness checklist",
-      description: "Prepare for post-issuance obligations before launch.",
-      type: "licensing",
-    },
-  ],
   inspections: [
     {
       id: "inspection-prep",
@@ -933,17 +866,6 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
     percent: 44,
     keyConsiderations: ["Document requirements", "Authority coordination"],
     dataTags: ["Notarized MOA", "Tenancy confirmation", "Site plan review"],
-  },
-  {
-    stageId: "license",
-    message: "Automating economic license issuance...",
-    percent: 68,
-    keyConsiderations: ["Regulatory approvals", "License generation"],
-    dataTags: [
-      "Economic license",
-      "DED coordination",
-      "Application automation",
-    ],
   },
   {
     stageId: "inspections",
