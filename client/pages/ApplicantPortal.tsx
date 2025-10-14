@@ -1463,7 +1463,27 @@ export default function ApplicantPortal() {
       ),
     );
 
+    const questionnaireAction: NextActionItem = {
+      id: QUESTIONNAIRE_TODO_ID,
+      label: hasQuestionnaireCompleted
+        ? languageCopy.questionnaireOnboarding.completedMessage
+        : hasQuestionnaireStarted
+          ? languageCopy.questionnaireOnboarding.inProgressMessage
+          : languageCopy.questionnaireOnboarding.notStartedMessage,
+      status: hasQuestionnaireCompleted
+        ? "completed"
+        : hasQuestionnaireStarted
+          ? "in_progress"
+          : "pending",
+      stageId: QUESTIONNAIRE_STAGE_ID,
+      stageTitle: "Questionnaire",
+      description: hasQuestionnaireCompleted
+        ? undefined
+        : languageCopy.questionnaireOnboarding.description,
+    };
+
     return [
+      questionnaireAction,
       {
         id: "business-activity-guidance",
         label: languageCopy.businessActivityGuidanceLabel,
@@ -1485,6 +1505,9 @@ export default function ApplicantPortal() {
     journeyStages,
     displayApplication.nextAction,
     languageCopy.businessActivityGuidance,
+    languageCopy.questionnaireOnboarding,
+    hasQuestionnaireStarted,
+    hasQuestionnaireCompleted,
   ]);
 
   const remainingTodoCount = useMemo(() => {
