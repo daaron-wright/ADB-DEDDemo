@@ -311,7 +311,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكار��م إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -323,7 +323,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإجراء التالي",
-    nextActionButton: "انتقلي إلى ��ل��جراء التالي",
+    nextActionButton: "انتقلي إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
@@ -353,7 +353,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "Department of Economic Development": "دائرة التنمية الاقتصادية",
     },
     applicationTitles: {
-      "APP-48291": "رحلة المطعم (الأطعمة وال��شروبات)",
+      "APP-48291": "رحلة المطعم (الأطعمة والمشروبات)",
     },
     applicationSummaries: {
       "APP-48291":
@@ -723,18 +723,22 @@ const ACTOR_OPTIONS: ActorOption[] = [
 ];
 
 const JOURNEY_STEPS_CONFIG: JourneyStep[] = [
-  { id: "questionnaire", label: "Questionnaire", state: "completed" },
+  { id: QUESTIONNAIRE_STAGE_ID, label: "Questionnaire", state: "current" },
   {
-    id: "trade-name-activities",
+    id: TRADE_NAME_STAGE_ID,
     label: "Business Registration",
-    state: "current",
+    state: "upcoming",
   },
   {
     id: "document-submissions",
     label: "Submit Documents",
-    state: "current",
+    state: "upcoming",
   },
-  { id: "inspections", label: "Pre-Operational Inspection", state: "current" },
+  {
+    id: "inspections",
+    label: "Pre-Operational Inspection",
+    state: "upcoming",
+  },
   { id: "compliance-growth", label: "Compliance / Growth", state: "upcoming" },
 ];
 
