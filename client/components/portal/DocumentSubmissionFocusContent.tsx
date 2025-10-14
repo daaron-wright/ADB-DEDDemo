@@ -111,12 +111,12 @@ function DocumentVaultCard({
     <button
       type="button"
       onClick={() => onSelect(item.id)}
-      disabled={disabled || isCompleted}
+      disabled={disabled}
       className={cn(
         "group flex w-full flex-col gap-3 rounded-3xl border border-[#d8e4df] bg-white/95 p-5 text-left shadow-[0_28px_60px_-56px_rgba(15,23,42,0.4)] transition",
         isActive && !isCompleted && "border-[#0f766e] bg-white",
         isCompleted && "border-[#d8e4df] bg-[#f8fbfa] text-slate-500",
-        (disabled || isCompleted) && "cursor-default opacity-80",
+        disabled && "cursor-not-allowed opacity-60",
       )}
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
