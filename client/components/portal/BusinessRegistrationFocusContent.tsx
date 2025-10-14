@@ -862,28 +862,28 @@ export function BusinessRegistrationFocusContent({
   );
 
   const statusDescription = isChecking
-    ? "Trade Name Engine is reviewing your English and Arabic names against all automated checks."
+    ? "Omnis is checking the English and Arabic names."
     : !hasActiveTradeName
-    ? "Enter the English and Arabic trade names to begin the validation process."
+    ? "Enter both versions of the trade name to start the review."
     : isNameAvailable
-    ? "The Trade Name Engine cleared this name. Use AD Pay now to reserve it before moving into licensing."
-    : "This name conflicts with an existing business record. Try a different variation to continue.";
+    ? "This name is approved. Reserve it before moving forward."
+    : "This name conflicts with another business. Try a different option.";
 
   const tradeCheckDescription = isChecking
-    ? "We’re synchronising with the Department of Economic Development through the Trade Name Engine."
+    ? "We’re syncing with the Department of Economic Development."
     : !hasActiveTradeName
-    ? "Start by entering English and Arabic trade names. We’ll run the automated checks once you submit."
+    ? "Add your trade names so we can run the automated checks."
     : isNameAvailable
-    ? "All checks passed. Reserve the name now via AD Pay so it’s held for your application."
-    : "The Trade Name Engine flagged a conflict, so this name can’t be reserved.";
+    ? "All checks passed. Reserve the name with AD Pay."
+    : "The checks flagged a conflict. Choose a different name.";
 
   const statusSummary = isChecking
-    ? `Status: running automated checks for ${activeEnglishTradeName || "your trade name"}`
+    ? `Running checks for ${activeEnglishTradeName || "your trade name"}.`
     : !hasActiveTradeName
-    ? "Status: awaiting trade name submission."
+    ? "Waiting for a trade name submission."
     : isNameAvailable
-    ? "Result: Passed • Trade Name Engine confirms availability. Reserve with AD Pay."
-    : `Result: Failed • Similar name conflict flagged for ${activeEnglishTradeName}.`;
+    ? "Result: available. Reserve it to keep it."
+    : `Result: conflict found for ${activeEnglishTradeName}.`;
 
   const registrationCta = React.useMemo(() => {
     if (!hasActiveTradeName) {
