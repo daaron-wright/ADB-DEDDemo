@@ -3729,6 +3729,21 @@ const MessageBubble = ({
     );
   }
 
+  if (message.type === "feedback-prompt" && feedbackProps) {
+    return (
+      <FeedbackPromptCard
+        message={message}
+        onSubmit={feedbackProps.onSubmit}
+        suggestionCount={feedbackProps.suggestionCount}
+        threshold={feedbackProps.threshold}
+      />
+    );
+  }
+
+  if (message.type === "feedback-notification") {
+    return <FeedbackNotificationMessage message={message} />;
+  }
+
   if (message.type === "dialogue-doc" && dialogueDocProps) {
     return (
       <div className="mb-6 flex w-full justify-center">
