@@ -399,7 +399,7 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
 
                     <p className="text-sm leading-relaxed text-slate-600">{activePoint.summary}</p>
 
-                    <Accordion type="multiple" collapsible defaultValue={[]} className="space-y-3">
+                    <Accordion type="multiple" defaultValue={[]} className="space-y-3">
                       {metricOrder.map((metricId) => {
                         const metric = activePoint.metrics[metricId];
                         const meta = competitorMetricsMeta[metricId];
