@@ -256,7 +256,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة التالية.`,
-    workspaceSupportBadge: "دعم مساحة ����لعمل",
+    workspaceSupportBadge: "دعم مساحة ��لعمل",
     supportHeading: "تحتاجين إلى مساعدة؟",
     supportDescription: {
       preEmail:
@@ -276,7 +276,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
-      `عرض أو إ��فاء نظرة عامة للر��لة الخاصة بـ ${title}`,
+      `عرض أو إ��فاء نظرة عامة للرحلة الخاصة بـ ${title}`,
     fieldLabels: {
       beneficiary: "المستفيد",
       licenseType: "نوع الرخصة",
@@ -287,7 +287,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     nextActionButton: "انتقلي إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
+      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ����قدك.",
     businessAITitle: "مساع�� ��لأعمال الذكي",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نفس مجموعة الأعمال. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
@@ -297,7 +297,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "In Review": "قيد المراجعة",
       "Awaiting Documents": "بانتظار المستندات",
       Approved: "موافق عليه",
-      Draft: "مسو��ة",
+      Draft: "مسودة",
     },
     licenseTypeLabels: {
       "Commercial License": "رخصة تجارية",
@@ -1696,7 +1696,7 @@ export default function ApplicantPortal() {
             .every((stage) => (stageProgress[stage.id] ?? deriveStageState(stage)) === "done")
         : true;
 
-    return {
+    const focusViewProps: JourneyStageFocusViewProps = {
       timelineItem: focusViewContext.timelineItem,
       stage: focusViewContext.stage,
       highlightTokens: journeyHighlightTokens,
@@ -1715,6 +1715,13 @@ export default function ApplicantPortal() {
       onTradeNameChange: handleTradeNameChange,
       growthUnlocked: stageId === "compliance-growth" ? priorStagesComplete : undefined,
     };
+
+    if (stageId === "compliance-growth") {
+      focusViewProps.onComplianceReturn = handleCompliancePassed;
+      focusViewProps.isCompliancePassed = applicationStatus === "Compliant";
+    }
+
+    return focusViewProps;
   }, [
     focusViewContext,
     formatJourneyDueDate,
@@ -1728,6 +1735,8 @@ export default function ApplicantPortal() {
     handleTradeNameChange,
     journeyStages,
     stageProgress,
+    handleCompliancePassed,
+    applicationStatus,
   ]);
 
   const isApplicationComplete = useMemo(() => {
