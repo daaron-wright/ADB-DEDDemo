@@ -1265,7 +1265,7 @@ export function BusinessRegistrationFocusContent({
             </Accordion>
           ) : (
             <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-5 text-sm text-slate-500">
-              Run the automated checks to view how each Trade Name Engine step progresses in real time.
+              Run the automated checks to see each Trade Name Engine bar fill in. Tap a bar to expand the full explanation.
             </div>
           )}
         </div>
