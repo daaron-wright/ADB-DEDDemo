@@ -83,6 +83,7 @@ export interface JourneyStageFocusViewProps {
   stageActivities?: StageActivitiesContext;
   tradeName?: string;
   onTradeNameChange?: (tradeName: string | null) => void;
+  growthUnlocked?: boolean;
 }
 
 const TASK_CARD_BASE =
@@ -165,6 +166,7 @@ export function JourneyStageFocusView({
   stageActivities: stageActivityContext = undefined,
   tradeName,
   onTradeNameChange,
+  growthUnlocked = false,
 }: JourneyStageFocusViewProps) {
   const highlightToken = stage ? highlightTokens[stage.state] : null;
   const stagedTasks = stage?.tasks ?? [];
@@ -357,6 +359,7 @@ export function JourneyStageFocusView({
         <ComplianceGrowthFocusContent
           journeyNumber="0987654321"
           progressPercent={78}
+          growthUnlocked={growthUnlocked}
         />
         {navigationControls}
       </div>
