@@ -311,7 +311,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون ��فكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -323,10 +323,10 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإجراء التالي",
-    nextActionButton: "انتقلي إلى ����لإجراء التالي",
+    nextActionButton: "انتقلي إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب ع��د الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
+      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "مساع�� ��لأعمال الذكي",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نفس مجموعة الأعمال. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
@@ -353,14 +353,14 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "Department of Economic Development": "دائرة التنمية الاقتصادية",
     },
     applicationTitles: {
-      "APP-48291": "رح��ة المطعم (الأطعمة والمشروبات)",
+      "APP-48291": "رحلة المطعم (الأطعمة والمشروبات)",
     },
     applicationSummaries: {
       "APP-48291":
         "يعمل طلبك المدعوم ب��لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
-      "APP-48291": "قدمي حزمة الم��افقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
+      "APP-48291": "ق��مي حزمة الم��افقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
     },
     journey: {
       heading: "تنسيق الرحلة",
@@ -382,7 +382,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       inProgressMessage:
         "يعمل الذكاء الاصطناعي على جمع التفاصيل لإعداد الاستبيان.",
       completedMessage:
-        "تمت مزامنة إجابات الاستبيان. تفاصيل الترخيص جاهزة الآن.",
+        "تمت مزامنة إجابات الاستبيان. تفاصيل التر��يص جاهزة الآن.",
       description:
         "أطلقي محادثة موجهة لتأكيد فكرة مشروعك قبل إنشاء مسار الترخيص.",
       startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
@@ -398,37 +398,37 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
 
 const journeyStages: JourneyStage[] = [
   {
-    id: "questionnaire",
+    id: QUESTIONNAIRE_STAGE_ID,
     title: "Questionnaire",
     highlight: {
-      label: "Intake synced",
-      detail: `Completed ${formatDisplayDate(daysFromToday(-16))}`,
+      label: "AI intake required",
+      detail: "Launch with Business AI to get started",
     },
     description:
-      "Layla completed the AI-guided questionnaire capturing business objectives, ownership, and operational preferences.",
-    state: "done",
-    statusDetail: "Workspace tailored to responses",
+      "Use the guided AI questionnaire to capture business objectives, ownership preferences, and operating parameters before generating your licensing workspace.",
+    state: "current",
+    statusDetail: "Awaiting AI questionnaire kickoff",
     tasks: [
       {
         id: "questionnaire-business-profile",
-        label: "Complete business profile intake",
-        status: "completed",
+        label: "Start AI questionnaire intake",
+        status: "pending",
         owner: "Applicant",
-        completedOn: isoDate(daysFromToday(-17)),
+        dueDate: isoDate(daysFromToday(0)),
       },
       {
         id: "questionnaire-location-plan",
         label: "Confirm preferred location insights",
-        status: "completed",
+        status: "pending",
         owner: "Applicant",
-        completedOn: isoDate(daysFromToday(-16)),
+        dueDate: isoDate(daysFromToday(1)),
       },
       {
         id: "questionnaire-automation-sync",
         label: "Sync questionnaire with automation engine",
-        status: "completed",
+        status: "pending",
         owner: "Applicant",
-        completedOn: isoDate(daysFromToday(-15)),
+        dueDate: isoDate(daysFromToday(2)),
       },
     ],
   },
