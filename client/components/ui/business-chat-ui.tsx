@@ -41,6 +41,7 @@ import {
   type JourneyStageFocusViewProps,
 } from "@/components/portal/JourneyStageFocusView";
 import { budgetSummaryRows } from "@/components/ui/budget-ranges-data";
+import { Textarea } from "@/components/ui/textarea";
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
 import {
