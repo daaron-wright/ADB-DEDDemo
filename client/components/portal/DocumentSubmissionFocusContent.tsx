@@ -329,6 +329,126 @@ export function DocumentSubmissionFocusContent({
     }
   }, [documents]);
 
+  const completedDocumentsCount = React.useMemo(
+    () => documents.filter((item) => item.status === "completed").length,
+    [documents],
+  );
+
+  const pendingDocument = React.useMemo(
+    () => documents.find((item) => item.status !== "completed") ?? null,
+    [documents],
+  );
+
+  const defaultOpenSections = React.useMemo(() => {
+    const sections = ["action", "vault"];
+    if (showMoaAssistant) {
+      sections.push("moa");
+    }
+    if (allDocumentsCompleted) {
+      sections.push("payment");
+    }
+    if (licenseDetails) {
+      sections.push("license");
+    }
+    return sections;
+  }, [allDocumentsCompleted, licenseDetails, showMoaAssistant]);
+
+  const [openSections, setOpenSections] = React.useState<string[]>(defaultOpenSections);
+
+  React.useEffect(() => {
+    setOpenSections((previous) => {
+      const merged = new Set(previous);
+      defaultOpenSections.forEach((section) => merged.add(section));
+      return Array.from(merged);
+    });
+  }, [defaultOpenSections]);
+
+  const ensureSectionOpen = React.useCallback((sectionId: string) => {
+    setOpenSections((previous) =>
+      previous.includes(sectionId) ? previous : [...previous, sectionId],
+    );
+  }, []);
+
+  const scrollToElement = React.useCallback((elementId: string) => {
+    document
+      .getElementById(elementId)
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
+
+  const handleDocumentClick = React.useCallback(
+    (id: string) => {
+      ensureSectionOpen("vault");
+      handleSelectDocument(id);
+      if (id === "memorandum-of-association") {
+        ensureSectionOpen("moa");
+      }
+      scrollToElement("submit-stage-vault");
+    },
+    [ensureSectionOpen, handleSelectDocument, scrollToElement],
+  );
+
+  const nextAction = React.useMemo(
+    () => {
+      if (pendingDocument) {
+        const isMoa = pendingDocument.id === "memorandum-of-association";
+        return {
+          subtitle: pendingDocument.title,
+          description: isMoa
+            ? "Open the MOA to review and notarise it."
+            : "Open the document and confirm it is ready.",
+          buttonLabel: `Review ${pendingDocument.title}`,
+          onClick: () => {
+            handleDocumentClick(pendingDocument.id);
+          },
+          disabled: false,
+        } as const;
+      }
+
+      if (!hasPaid) {
+        return {
+          subtitle: "Pay the issuance fee",
+          description: "All documents are ready. Complete payment to issue the licence.",
+          buttonLabel: isPaying ? "Processing via AD Pay..." : "Pay with AD Pay",
+          onClick: () => {
+            ensureSectionOpen("payment");
+            scrollToElement("submit-stage-payment");
+            if (!isPaying) {
+              handleInitiatePayment();
+            }
+          },
+          disabled: isPaying,
+        } as const;
+      }
+
+      return {
+        subtitle: "Licence issued",
+        description: "View the licence number and download your documents.",
+        buttonLabel: "View licence details",
+        onClick: () => {
+          ensureSectionOpen("license");
+          scrollToElement("submit-stage-license");
+        },
+        disabled: false,
+      } as const;
+    },
+    [
+      ensureSectionOpen,
+      handleDocumentClick,
+      handleInitiatePayment,
+      hasPaid,
+      isPaying,
+      pendingDocument,
+      scrollToElement,
+    ],
+  );
+
+  const vaultSubtitle = `${completedDocumentsCount}/${documents.length} documents ready`;
+  const moaSubtitle = showMoaAssistant
+    ? "Omnis guidance for notarisation"
+    : "Assistant closed — reopen anytime";
+  const paymentSubtitle = hasPaid ? "Paid via AD Pay" : "AED 3,120 via AD Pay";
+  const licenceSubtitle = licenseDetails ? "Stored in AD Locker" : "Issued after payment";
+
   const handleInitiatePayment = React.useCallback(() => {
     if (isPaying || hasPaid || !allDocumentsCompleted) {
       return;
