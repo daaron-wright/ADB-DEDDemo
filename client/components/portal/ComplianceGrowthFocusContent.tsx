@@ -460,6 +460,9 @@ export function ComplianceGrowthFocusContent({
   ]);
   const [showDedDetail, setShowDedDetail] = React.useState(false);
   const [inspectionEvidence, setInspectionEvidence] = React.useState<InspectionEvidence | null>(null);
+  const [pendingInspection, setPendingInspection] = React.useState<InspectionEvidence | null>(null);
+  const [inspectionSubmissionStatus, setInspectionSubmissionStatus] =
+    React.useState<InspectionSubmissionStatus>("idle");
   const inspectionUploadInputRef = React.useRef<HTMLInputElement | null>(null);
 
   React.useEffect(() => {
@@ -475,6 +478,17 @@ export function ComplianceGrowthFocusContent({
       }
     };
   }, [inspectionEvidence]);
+
+  React.useEffect(() => {
+    return () => {
+      if (
+        pendingInspection?.url &&
+        pendingInspection.url !== inspectionEvidence?.url
+      ) {
+        URL.revokeObjectURL(pendingInspection.url);
+      }
+    };
+  }, [pendingInspection, inspectionEvidence]);
 
   const urgentItems = React.useMemo(
     () => COMPLIANCE_ITEMS.filter((item) => item.status === "error" || item.status === "warning"),
