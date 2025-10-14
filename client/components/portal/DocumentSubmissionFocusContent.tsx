@@ -253,6 +253,27 @@ export function DocumentSubmissionFocusContent({
     setShowMoaAssistant(id === "memorandum-of-association");
   }, []);
 
+  const handleApplyOmnisRevision = React.useCallback(() => {
+    setMoaClauseDraft(OMNIS_RECOMMENDED_MOA_CLAUSE);
+    setHasAppliedOmnisRevision(true);
+    setMoaEditorNotes(
+      "Omnis inserted the bilingual clause and aligned profit notices with ADJD templates.",
+    );
+    toast({
+      title: "Omnis revisions applied",
+      description:
+        "Arabic translation and profit notice standards were merged into the draft.",
+    });
+  }, [toast]);
+
+  const handleResetMoaRevision = React.useCallback(() => {
+    setMoaClauseDraft(INITIAL_MOA_CLAUSE_DRAFT);
+    setMoaEditorNotes(
+      "Omnis highlighted the bilingual clause to align with ADJD templates before notarisation.",
+    );
+    setHasAppliedOmnisRevision(false);
+  }, []);
+
   const handleCompleteMoa = React.useCallback(() => {
     if (isFinalisingMoa || activeDocumentId !== "memorandum-of-association") {
       return;
