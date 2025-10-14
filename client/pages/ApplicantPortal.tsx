@@ -323,7 +323,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "مساع�� ��لأعمال الذكي",
     businessActivityGuidance:
-      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نفس مجموعة الأعمال. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
+      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نفس مج��وعة الأعمال. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
       "أضيفي إرشادات الترخيص إلى استبيان الأنشطة التجارية",
     statusLabelMap: {
@@ -368,6 +368,24 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       openNextTask: "افتحي المهمة التالية",
       reviewStage: "استعرضي المرحلة",
       timelineAriaLabel: "التنقل بين مراحل الرحلة",
+    },
+    questionnaireOnboarding: {
+      heading: "تهيئة الاستبيان الذكي",
+      notStartedMessage:
+        "ابدئي الاستبيان الموجّه بالذكاء الاصطناعي لتخصيص مساحة عملك.",
+      inProgressMessage:
+        "يعمل الذكاء الاصطناعي على جمع التف��صيل لإعداد الاستبيان.",
+      completedMessage:
+        "تمت مزامنة إجابات الاستبيان. تفاصيل الترخيص جاهزة الآن.",
+      description:
+        "أطلقي محادثة موجهة لتأكيد فكرة مشروعك قبل إنشاء مسار الترخيص.",
+      startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
+      resumeCta: "افتحي مساحة الاستبيان",
+      completeCta: "أتمي الاستبيان",
+      pendingLicenseLabel: "متاح بعد الاستبيان",
+      pendingSubmissionLabel: "يتم تخصيصه بعد إكمال الاستبيان",
+      chatIntro:
+        "لنؤكد بعض التفاصيل معًا. بعد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
     },
   },
 };
