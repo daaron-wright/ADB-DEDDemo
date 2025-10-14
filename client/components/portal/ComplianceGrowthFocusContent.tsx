@@ -431,10 +431,10 @@ const GROWTH_OPPORTUNITY_DEFINITIONS = [
 ] as const;
 
 const GROWTH_FEEDBACK_PROMPTS = [
-  "Here's what felt smooth in my trade license journey today.",
-  "I'm still confused about this regulation or step.",
-  "I spotted a digital touchpoint that could make inspections faster.",
-  "When licensing stalls, these customer moments suffer.",
+  "Reservation calendar kept looping me back to the start when I picked a morning slot.",
+  "Payment page timed out after card entry, so I wasn’t sure if my booking was confirmed.",
+  "The checklist never mentioned I needed the Ejari upload before the reservation review.",
+  "SMS with my reservation code arrived hours late and the inspector wouldn’t proceed without it.",
 ] as const;
 
 const TOURISM_DELTA = 12;
