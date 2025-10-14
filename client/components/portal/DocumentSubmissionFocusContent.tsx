@@ -581,7 +581,7 @@ export function DocumentSubmissionFocusContent({
           contentId="submit-stage-moa"
         >
           {showMoaAssistant ? (
-            <>
+            <div className="space-y-6">
               <div className="flex items-center gap-3">
                 <div className="relative flex h-12 w-12 items-center justify-center rounded-full border border-[#0f766e]/25 bg-white">
                   <AIBusinessOrb className="h-8 w-8" />
@@ -589,9 +589,14 @@ export function DocumentSubmissionFocusContent({
                     AI
                   </span>
                 </div>
-                <p className="text-sm font-semibold text-slate-900">
-                  Guided notarisation with Omnis
-                </p>
+                <div>
+                  <p className="text-sm font-semibold text-slate-900">
+                    Guided notarisation with Omnis
+                  </p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    Live collaboration mode
+                  </p>
+                </div>
               </div>
               <p className="text-sm text-slate-600">
                 We filled the memorandum with shareholders, activities, and translations. Review and sign before we send it to ADJD.
@@ -608,25 +613,106 @@ export function DocumentSubmissionFocusContent({
                   </li>
                 </ul>
               </div>
+              <div className="grid gap-5 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+                <MyTAMMDocuments
+                  companyName="Corniche Dining Group LLC"
+                  isGenerating={isFinalisingMoa && !hasAppliedOmnisRevision}
+                />
+                <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <Badge className="inline-flex items-center gap-2 rounded-full border border-[#0f766e]/20 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                      Omnis live edit
+                    </Badge>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                      {hasAppliedOmnisRevision ? "Updated moments ago" : "Awaiting confirmation"}
+                    </span>
+                  </div>
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="moa-clause-draft"
+                      className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+                    >
+                      Clause preview
+                    </label>
+                    <Textarea
+                      id="moa-clause-draft"
+                      value={moaClauseDraft}
+                      onChange={(event) => {
+                        setMoaClauseDraft(event.target.value);
+                        setHasAppliedOmnisRevision(false);
+                      }}
+                      rows={10}
+                      className="min-h-[200px] resize-none border-[#0f766e]/20 bg-[#f9fbfa] text-sm leading-relaxed text-slate-700"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="moa-editor-notes"
+                      className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500"
+                    >
+                      Omnis reviewer notes
+                    </label>
+                    <Textarea
+                      id="moa-editor-notes"
+                      value={moaEditorNotes}
+                      onChange={(event) => setMoaEditorNotes(event.target.value)}
+                      rows={4}
+                      className="resize-none border-slate-200 bg-white text-sm leading-relaxed text-slate-700"
+                    />
+                    <p className="text-xs text-slate-500">
+                      Omnis captures translation checks and board approvals inline with ADJD fields.
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <Button
+                      type="button"
+                      onClick={handleApplyOmnisRevision}
+                      disabled={isFinalisingMoa || hasAppliedOmnisRevision}
+                      className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
+                    >
+                      {hasAppliedOmnisRevision ? "Revision applied" : "Apply Omnis revision"}
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleResetMoaRevision}
+                      disabled={isFinalisingMoa}
+                      className="rounded-full border-[#0f766e]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+                    >
+                      Reset draft
+                    </Button>
+                  </div>
+                </div>
+              </div>
               <div className="flex flex-wrap items-center gap-3">
                 <Button
                   type="button"
                   onClick={handleCompleteMoa}
-                  disabled={isFinalisingMoa}
+                  disabled={isFinalisingMoa || !hasAppliedOmnisRevision}
                   className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {isFinalisingMoa ? "Finalising with ADJD..." : "Sign & notarise MOA"}
+                  {isFinalisingMoa
+                    ? "Finalising with ADJD..."
+                    : hasAppliedOmnisRevision
+                      ? "Sign & notarise MOA"
+                      : "Apply revisions to continue"}
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setShowMoaAssistant(false)}
+                  disabled={isFinalisingMoa}
                   className="rounded-full border-[#0f766e]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
                 >
                   Hide assistant
                 </Button>
               </div>
-            </>
+              {!hasAppliedOmnisRevision ? (
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">
+                  Apply Omnis' revision before notarisation.
+                </p>
+              ) : null}
+            </div>
           ) : (
             <div className="space-y-3">
               <p className="text-sm text-slate-600">
@@ -638,6 +724,7 @@ export function DocumentSubmissionFocusContent({
                 onClick={() => {
                   setShowMoaAssistant(true);
                   ensureSectionOpen("moa");
+                  handleResetMoaRevision();
                 }}
                 className="self-start rounded-full border-[#0f766e]/40 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
               >
