@@ -431,10 +431,10 @@ const GROWTH_OPPORTUNITY_DEFINITIONS = [
 ] as const;
 
 const GROWTH_FEEDBACK_PROMPTS = [
-  "Reservation calendar kept looping me back to the start when I picked a morning slot.",
-  "Payment page timed out after card entry, so I wasn’t sure if my booking was confirmed.",
-  "The checklist never mentioned I needed the Ejari upload before the reservation review.",
-  "SMS with my reservation code arrived hours late and the inspector wouldn’t proceed without it.",
+  "Reservation calendar reset my slot despite DED Circular 14/2023 requiring a five-day notice window.",
+  "Payment portal double-charged inspection fees even though Regulation 7 promises automatic reversal on failure.",
+  "Checklist skipped the Ejari upload flagged as mandatory in Licensing Policy Annex B before reservation review.",
+  "SMS confirmation arrived after the Service Charter Article 12 SLA, so the inspector recorded a no-show.",
 ] as const;
 
 const TOURISM_DELTA = 12;
