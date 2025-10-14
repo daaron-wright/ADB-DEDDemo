@@ -290,7 +290,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     englishLabel: "English",
     arabicLabel: "العربية",
     englishBadge: "English",
-    arabicBadge: "العربي�� • ترجمة",
+    arabicBadge: "العربية • ترجمة",
     subtitle: "��وابة رخصة ال��عمال",
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
@@ -299,7 +299,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     supportHeading: "تحتاجين إلى مساعدة؟",
     supportDescription: {
       preEmail:
-        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت الخليج. تواصلي عبر ",
+        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت ��لخليج. تواصلي عبر ",
       postEmailPrePhone: " أو اتصلي عل�� ",
       postPhone: ".",
     },
@@ -384,7 +384,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       completedMessage:
         "تمت مزامنة إجابات الاستبيان. تفاصيل الترخيص جاهزة الآن.",
       description:
-        "أطلقي محادثة موجهة لتأكيد فكرة مشروعك قبل إ��شاء مسار الترخيص.",
+        "أطلقي محادثة موجهة لتأكيد فكرة مشروعك قبل إنشاء مسار الترخيص.",
       startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
@@ -2343,7 +2343,7 @@ export default function ApplicantPortal() {
   const portalBrand =
     language === "ar"
       ? {
-          label: "خدمات ح��ومة أبوظبي",
+          label: "خدمات حكومة أبوظبي",
           logoAlt: "شعار تم",
           logoSrc:
             "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F397f9a8d2a3c4c8cb1d79ae828b476be",
@@ -2361,6 +2361,7 @@ export default function ApplicantPortal() {
         fullWidthSection={
           <>
             {heroSection}
+            {questionnaireOnboardingSection}
             {journeyOverviewSection}
           </>
         }
