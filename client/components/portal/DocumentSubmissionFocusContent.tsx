@@ -231,7 +231,10 @@ export function DocumentSubmissionFocusContent({
               ...item,
               isExpanded: item.status !== "completed",
             }
-          : item,
+          : {
+              ...item,
+              isExpanded: false,
+            },
       ),
     );
     setActiveDocumentId(id);
