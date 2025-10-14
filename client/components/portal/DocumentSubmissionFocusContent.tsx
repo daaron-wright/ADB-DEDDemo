@@ -227,10 +227,11 @@ export function DocumentSubmissionFocusContent({
     }, 1200);
   }, [activeDocumentId, isFinalisingMoa, toast]);
 
-  const handleCompleteAllDocuments = React.useEffect(() => {
-    if (documents.some((item) => item.status === "requires_action")) {
+  React.useEffect(() => {
+    if (documents.some((item) => item.status !== "completed")) {
       return;
     }
+
     setProgress((value) => Math.max(value, 92));
   }, [documents]);
 
