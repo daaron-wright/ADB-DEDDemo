@@ -291,7 +291,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     arabicLabel: "العربية",
     englishBadge: "English",
     arabicBadge: "العربية • ترجمة",
-    subtitle: "��وابة رخصة ��ل��عمال",
+    subtitle: "��وابة رخصة ال��عمال",
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة ��لتالية.`,
@@ -312,7 +312,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
       `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
-    heroButton: "استكشفي خيارات إضافية",
+    heroButton: "استكشفي خيارات إضا��ية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
       `عرض أو إ��فاء نظرة عامة للرحلة الخاصة بـ ${title}`,
@@ -334,7 +334,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "أضيفي إرشادات الترخيص إلى استبيان الأنشطة التجارية",
     statusLabelMap: {
       "In Review": "قيد المراجعة",
-      "Awaiting Documents": "بانتظار الم��تندات",
+      "Awaiting Documents": "بانتظار المستندات",
       Approved: "موافق عليه",
       Draft: "مسودة",
       Compliant: "متوافق",
@@ -366,7 +366,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       heading: "تنسيق الرحلة",
       timelineLabel: "الجدول الزمني للرحلة",
       activePrefix: "الحالة الحالية:",
-      activeStage: "المرحلة النشطة",
+      activeStage: "المرحلة النشط��",
       yourNextStep: "خطوت�� التالية",
       tasksCompleteMessage:
         "تم إكمال كل المهام لهذه المرحلة. راقبي تحديثات الأتمتة.",
@@ -385,7 +385,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "تمت مزامنة إجابات الاستبيان. تفاصيل الترخيص جاهزة الآن.",
       description:
         "أطلقي محادثة موجهة لتأكيد فكرة مشروعك قبل إنشاء مسار الترخيص.",
-      startCta: "ابدئي الاستبيان مع ��لذكاء الاصطناعي",
+      startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
       pendingLicenseLabel: "متاح بعد الاستبيان",
@@ -1311,10 +1311,20 @@ export default function ApplicantPortal() {
   >({});
 
   const handleOpenChat = useCallback(() => {
+    if (questionnaireProgress === "not_started") {
+      setQuestionnaireProgress("in_progress");
+      setActiveStageId(QUESTIONNAIRE_STAGE_ID);
+    }
     setBusinessAIView("modal");
     setIsTimelineBackgroundBlurred(false);
     setFocusContext(null);
-  }, [setBusinessAIView, setFocusContext, setIsTimelineBackgroundBlurred]);
+  }, [
+    questionnaireProgress,
+    setQuestionnaireProgress,
+    setBusinessAIView,
+    setFocusContext,
+    setIsTimelineBackgroundBlurred,
+  ]);
   const handleCloseChat = useCallback(() => {
     setBusinessAIView("closed");
     setIsTimelineBackgroundBlurred(false);
