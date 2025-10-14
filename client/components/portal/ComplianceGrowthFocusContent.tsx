@@ -395,6 +395,12 @@ const DED_MEDIA = [
     alt: "Storage room shelving with detection overlays marking supplies and equipment",
     caption: "Storage room detection",
   },
+  {
+    id: "egress-detection",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fc8fe1f150a0c45b2a569f7afa7afa54c?format=webp&width=800",
+    alt: "Dining area emergency exits highlighted by computer vision overlays",
+    caption: "Emergency egress detection",
+  },
 ];
 
 const GROWTH_PROGRESS = 75;
