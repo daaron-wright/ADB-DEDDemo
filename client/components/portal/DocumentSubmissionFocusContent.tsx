@@ -257,6 +257,7 @@ export function DocumentSubmissionFocusContent({
                 source: "Ready",
                 sourceDetail: "Notarised via ADJD",
                 actionLabel: "Download notarised MOA",
+                isExpanded: false,
               }
             : item,
         ),
