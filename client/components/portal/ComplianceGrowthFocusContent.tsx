@@ -216,11 +216,26 @@ const TEXT_VERIFICATION_RESULTS: TextVerificationRow[] = [
     id: "arabic",
     language: "Arabic",
     registered: REGISTERED_TRADE_NAMES.arabic,
-    extracted: "مطعم مروى شركة ذات مسؤولية محدودة",
+    extracted: "مط��م مروى شركة ذات مسؤولية محدودة",
     matchScore: 0.96,
     status: "PASS",
   },
 ];
+
+const SUBMISSION_STATUS_TOKENS: Record<InspectionSubmissionStatus, { label: string; className: string }> = {
+  idle: {
+    label: "Awaiting upload",
+    className: "border-[#d8e4df] bg-white text-slate-600",
+  },
+  ready: {
+    label: "Ready to submit",
+    className: "border-amber-200 bg-amber-50 text-amber-700",
+  },
+  submitted: {
+    label: "Pending review",
+    className: "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
+  },
+};
 
 const COMPLIANCE_ITEMS: ComplianceItem[] = [
   { id: "civil-defence", label: "Civil Defence", status: "error", detail: "2 issues to resolve" },
