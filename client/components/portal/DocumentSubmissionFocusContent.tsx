@@ -83,7 +83,7 @@ const INITIAL_DOCUMENTS: DocumentVaultItem[] = [
     id: "founders-passports",
     title: "Shareholders’ Passports",
     description:
-      "Securely stored copies of all shareholders��� passports, validated through your TAMM account login.",
+      "Securely stored copies of all shareholders’ passports, validated through your TAMM account login.",
     source: "Available",
     sourceDetail: "Uploaded previously",
     status: "completed",
@@ -272,6 +272,16 @@ export function DocumentSubmissionFocusContent({
       return;
     }
 
+    setDocuments((previous) =>
+      previous.map((item) =>
+        item.status === "completed"
+          ? {
+              ...item,
+              isExpanded: false,
+            }
+          : item,
+      ),
+    );
     setProgress((value) => Math.max(value, 92));
   }, [documents]);
 
