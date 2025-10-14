@@ -230,6 +230,44 @@ export function ComplianceGrowthFocusContent({
     (item) => item.status === "error" || item.status === "warning",
   );
 
+  const handleInspectionUploadClick = React.useCallback(() => {
+    inspectionUploadInputRef.current?.click();
+  }, []);
+
+  const handleInspectionFileChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+
+      if (!file) {
+        return;
+      }
+
+      setInspectionEvidence((previous) => {
+        if (previous?.url) {
+          URL.revokeObjectURL(previous.url);
+        }
+
+        return {
+          id: `inspection-${Date.now()}`,
+          name: file.name,
+          url: URL.createObjectURL(file),
+          sizeLabel: formatFileSize(file.size),
+        };
+      });
+
+      event.target.value = "";
+    },
+    [],
+  );
+
+  React.useEffect(() => {
+    return () => {
+      if (inspectionEvidence?.url) {
+        URL.revokeObjectURL(inspectionEvidence.url);
+      }
+    };
+  }, [inspectionEvidence]);
+
   return (
     <div className="space-y-5">
       <div className="flex items-center gap-3">
