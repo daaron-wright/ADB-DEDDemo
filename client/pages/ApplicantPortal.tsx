@@ -257,7 +257,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة التالية.`,
     workspaceSupportBadge: "دعم مساحة ��لعمل",
-    supportHeading: "تحتاجين إلى مساعدة؟",
+    supportHeading: "تحتاجين إلى مساعد��؟",
     supportDescription: {
       preEmail:
         "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت الخليج. تواصلي عبر ",
@@ -330,7 +330,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       yourNextStep: "خطوت�� التالية",
       tasksCompleteMessage:
         "تم إكمال كل المهام لهذه المرحلة. راقبي تحديثات الأتمتة.",
-      automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً ع��ك.",
+      automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة التالية",
       reviewStage: "استعرضي المرحلة",
       timelineAriaLabel: "التنقل بين مراحل الرحلة",
@@ -917,10 +917,16 @@ export default function ApplicantPortal() {
 
   const [applicationWorkingTitle, setApplicationWorkingTitle] =
     useState<string>(DEFAULT_WORKSPACE_TITLE);
+  const [applicationStatus, setApplicationStatus] =
+    useState<ApplicationRecord["status"]>("In Review");
 
   const primaryApplication = useMemo(
-    () => ({ ...applications[0], title: applicationWorkingTitle }),
-    [applicationWorkingTitle],
+    () => ({
+      ...applications[0],
+      title: applicationWorkingTitle,
+      status: applicationStatus,
+    }),
+    [applicationWorkingTitle, applicationStatus],
   );
 
   const displayApplication = useMemo(() => {
