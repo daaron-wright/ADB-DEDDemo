@@ -256,8 +256,8 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة التالية.`,
-    workspaceSupportBadge: "دعم مساحة ��لعمل",
-    supportHeading: "تحتاجين إلى مساعد��؟",
+    workspaceSupportBadge: "دعم مساحة ����لعمل",
+    supportHeading: "تحتاجين إلى مساعدة؟",
     supportDescription: {
       preEmail:
         "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت الخليج. تواصلي عبر ",
@@ -276,7 +276,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
-      `عرض أو إ��فاء نظرة عامة للرحلة الخاصة بـ ${title}`,
+      `عرض أو إ��فاء نظرة عامة للر��لة الخاصة بـ ${title}`,
     fieldLabels: {
       beneficiary: "المستفيد",
       licenseType: "نوع الرخصة",
@@ -297,7 +297,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "In Review": "قيد المراجعة",
       "Awaiting Documents": "بانتظار المستندات",
       Approved: "موافق عليه",
-      Draft: "مسودة",
+      Draft: "مسو��ة",
     },
     licenseTypeLabels: {
       "Commercial License": "رخصة تجارية",
@@ -1525,6 +1525,44 @@ export default function ApplicantPortal() {
     setIsJourneyOverviewOpen,
     setIsTimelineBackgroundBlurred,
     journeyStages,
+    setIsStageManuallySelected,
+    setActiveStageId,
+    setJourneyAnimationIndex,
+    setJourneyProgressPercent,
+    updateCurrentJourneyStep,
+  ]);
+
+  const handleCompliancePassed = useCallback(() => {
+    setApplicationStatus("Compliant");
+    setStageProgress((previous) => ({
+      ...previous,
+      "compliance-growth": "done",
+    }));
+    setBusinessAIView("closed");
+    setFocusContext(null);
+    setIsTimelineBackgroundBlurred(false);
+    setPortalView("overview");
+    setIsJourneyOverviewOpen(true);
+    setIsStageManuallySelected(false);
+    setActiveStageId("compliance-growth");
+    const compliancePhaseIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
+      (phase) => phase.stageId === "compliance-growth",
+    );
+    if (compliancePhaseIndex >= 0) {
+      setJourneyAnimationIndex(compliancePhaseIndex);
+      setJourneyProgressPercent(
+        JOURNEY_ANIMATION_TIMELINE[compliancePhaseIndex]?.percent ?? 100,
+      );
+    }
+    updateCurrentJourneyStep("compliance-growth");
+  }, [
+    setApplicationStatus,
+    setStageProgress,
+    setBusinessAIView,
+    setFocusContext,
+    setIsTimelineBackgroundBlurred,
+    setPortalView,
+    setIsJourneyOverviewOpen,
     setIsStageManuallySelected,
     setActiveStageId,
     setJourneyAnimationIndex,
