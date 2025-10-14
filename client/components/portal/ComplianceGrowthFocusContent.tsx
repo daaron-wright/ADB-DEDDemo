@@ -1752,7 +1752,7 @@ function InspectionSupportingInfo({ checklistItems }: { checklistItems: Checklis
       <div className="space-y-2">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Checklist</p>
         <ul className="space-y-2">
-          {DED_CHECKLIST.map((item) => {
+          {checklistItems.map((item) => {
             const badge = CHECKLIST_BADGES[item.status];
             return (
               <li
