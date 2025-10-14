@@ -311,7 +311,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. ��ي بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -1691,6 +1691,49 @@ export default function ApplicantPortal() {
     setIsJourneyOverviewOpen,
     setIsTimelineBackgroundBlurred,
     journeyStages,
+    setIsStageManuallySelected,
+    setActiveStageId,
+    setJourneyAnimationIndex,
+    setJourneyProgressPercent,
+    updateCurrentJourneyStep,
+  ]);
+
+  const handleQuestionnaireComplete = useCallback(() => {
+    if (questionnaireProgress !== "in_progress") {
+      return;
+    }
+
+    setQuestionnaireProgress("completed");
+    setTodoCompletionState((previous) => ({
+      ...previous,
+      [QUESTIONNAIRE_TODO_ID]: true,
+    }));
+    setBusinessAIView("closed");
+    setFocusContext(null);
+    setIsTimelineBackgroundBlurred(false);
+    setPortalView("overview");
+    setIsJourneyOverviewOpen(true);
+    setIsStageManuallySelected(false);
+    setActiveStageId(TRADE_NAME_STAGE_ID);
+    const tradeNameIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
+      (phase) => phase.stageId === TRADE_NAME_STAGE_ID,
+    );
+    if (tradeNameIndex >= 0) {
+      setJourneyAnimationIndex(tradeNameIndex);
+      setJourneyProgressPercent(
+        JOURNEY_ANIMATION_TIMELINE[tradeNameIndex]?.percent ?? 0,
+      );
+    }
+    updateCurrentJourneyStep(TRADE_NAME_STAGE_ID);
+  }, [
+    questionnaireProgress,
+    setQuestionnaireProgress,
+    setTodoCompletionState,
+    setBusinessAIView,
+    setFocusContext,
+    setIsTimelineBackgroundBlurred,
+    setPortalView,
+    setIsJourneyOverviewOpen,
     setIsStageManuallySelected,
     setActiveStageId,
     setJourneyAnimationIndex,
