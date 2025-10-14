@@ -885,10 +885,17 @@ export function BusinessRegistrationFocusContent({
     ? "Result: available. Reserve it to keep it."
     : `Result: conflict found for ${activeEnglishTradeName}.`;
 
+  const scrollToVerification = React.useCallback(() => {
+    document.getElementById("registration-verification")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, []);
+
   const registrationCta = React.useMemo(() => {
     if (!hasActiveTradeName) {
       return {
-        headline: "Submit your trade names",
+        headline: "Add your trade names",
         description:
           "Enter your preferred English name with its Arabic equivalent so Omnis can validate availability.",
         buttonLabel: "Enter trade names",
