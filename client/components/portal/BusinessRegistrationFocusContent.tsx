@@ -396,7 +396,7 @@ function VerificationStepItem({
       : "0%";
 
   const helperMessage = isFailed
-    ? step.failureDetail ?? "This step needs a different trade name before you can continue."
+    ? "This step needs a different trade name before you can continue."
     : isCompleted
     ? "This check passed successfully."
     : isCurrent
