@@ -736,54 +736,19 @@ export function ComplianceGrowthFocusContent({
   return (
     <div className="space-y-6">
       <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as TabKey)} className="space-y-6">
-        <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_26px_60px_-50px_rgba(15,23,42,0.35)]">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Journey number</p>
-              <p className="text-lg font-semibold text-slate-900">{journeyNumber}</p>
-            </div>
-            <Badge className="inline-flex items-center gap-2 rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
-              {activeTab === "compliance" ? "Live sync" : "Omnis insights"}
-            </Badge>
-          </div>
-          <div className="mt-5 space-y-4">
-            <div className="space-y-2">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Stage 5 · Compliance & growth</p>
-              <h3 className="text-2xl font-semibold text-slate-900">
-                {activeTab === "compliance" ? "Stay inspection-ready" : "Unlock expansion plays"}
-              </h3>
-              <p className="text-sm text-slate-600">
-                {activeTab === "compliance"
-                  ? "Monitor obligations, evidence, and renewals before authorities request them."
-                  : "Use Omnis to surface high-value trends, partners, and regional expansion options."}
-              </p>
-            </div>
-            <div className="space-y-2">
-              <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
-                <div
-                  className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all"
-                  style={{ width: `${summaryProgress}%` }}
-                />
-              </div>
-              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                <span>{summaryLabel}</span>
-                <span>{summaryProgress}%</span>
-              </div>
-            </div>
-          </div>
-          <TabsList className="mt-4 inline-flex gap-2 rounded-full border border-[#d8e4df] bg-[#f5faf7] p-1">
-            <TabsTrigger value="compliance" className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]">
-              Compliance
+        <TabsList className="inline-flex gap-2 rounded-full border border-[#d8e4df] bg-[#f5faf7] p-1">
+          <TabsTrigger value="compliance" className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]">
+            Compliance
+          </TabsTrigger>
+          {showGrowthTab ? (
+            <TabsTrigger value="growth" className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]">
+              Growth
             </TabsTrigger>
-            {growthUnlocked ? (
-              <TabsTrigger value="growth" className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]">
-                Growth
-              </TabsTrigger>
-            ) : null}
-          </TabsList>
-        </div>
+          ) : null}
+        </TabsList>
 
         <TabsContent value="compliance" className="space-y-4">
+          {renderSummaryCard("compliance")}
           <Accordion
             type="multiple"
             value={complianceSections}
@@ -957,15 +922,16 @@ export function ComplianceGrowthFocusContent({
             </CollapsibleCard>
           </Accordion>
 
-          {!growthUnlocked ? (
+          {!showGrowthTab ? (
             <div className="rounded-3xl border border-dashed border-[#0f766e]/40 bg-[#f5faf7] p-5 text-sm text-[#0f766e]">
               Complete the earlier stages to unlock Omnis growth insights. Once the preceding steps are marked done, the Growth tab will appear automatically.
             </div>
           ) : null}
         </TabsContent>
 
-        {growthUnlocked ? (
+        {showGrowthTab ? (
           <TabsContent value="growth" className="space-y-4">
+            {renderSummaryCard("growth")}
             <Accordion
               type="multiple"
               value={growthSections}
