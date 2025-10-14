@@ -895,10 +895,9 @@ export function BusinessRegistrationFocusContent({
   const registrationCta = React.useMemo(() => {
     if (!hasActiveTradeName) {
       return {
-        headline: "Add your trade names",
-        description:
-          "Enter your preferred English name with its Arabic equivalent so Omnis can validate availability.",
-        buttonLabel: "Enter trade names",
+        headline: "Add trade names",
+        description: "Enter the English and Arabic versions to start the checks.",
+        buttonLabel: "Add names",
         onClick: focusTradeNameInput,
         disabled: isChecking,
       };
@@ -907,24 +906,18 @@ export function BusinessRegistrationFocusContent({
     if (isChecking) {
       return {
         headline: "Validation in progress",
-        description:
-          "Hold tight while we finish automated checks. You can review the verification steps anytime.",
-        buttonLabel: "View verification",
-        onClick: () => {
-          document.getElementById("registration-verification")?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        },
+        description: "Omnis is running the automated checks. Review the results below.",
+        buttonLabel: "View checks",
+        onClick: scrollToVerification,
         disabled: false,
       };
     }
 
     if (!isNameAvailable) {
       return {
-        headline: "Try another name",
+        headline: "Pick another name",
         description:
-          failureReason ?? "We couldn’t reserve the current name. Try a new unique variation.",
+          failureReason ?? "This name conflicts with another business. Try a new idea.",
         buttonLabel: "Choose new name",
         onClick: focusTradeNameInput,
         disabled: false,
@@ -934,18 +927,16 @@ export function BusinessRegistrationFocusContent({
     if (hasInitiatedPayment) {
       return {
         headline: "Payment in progress",
-        description:
-          "AD Pay opened in a new tab. Complete the reservation payment to lock your trade name.",
-        buttonLabel: "Payment complete with AD Pay",
+        description: "Finish the AD Pay checkout to lock the name.",
+        buttonLabel: "Awaiting AD Pay",
         onClick: () => undefined,
         disabled: true,
       };
     }
 
     return {
-      headline: "Reserve your approved name",
-      description:
-        "Pay the reservation fee now so the name stays exclusive to your application before licensing.",
+      headline: "Reserve this name",
+      description: "Pay now so the name stays reserved for your application.",
       buttonLabel: "Pay with AD Pay",
       onClick: handleInitiatePayment,
       disabled: false,
@@ -958,6 +949,7 @@ export function BusinessRegistrationFocusContent({
     hasInitiatedPayment,
     isChecking,
     isNameAvailable,
+    scrollToVerification,
   ]);
 
   const tradeCheckBadgeLabel = isChecking
