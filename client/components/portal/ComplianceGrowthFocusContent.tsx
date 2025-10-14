@@ -575,9 +575,22 @@ export function ComplianceGrowthFocusContent({
   }, [allDedChecklistComplete, isComplianceComplete]);
 
   React.useEffect(() => {
-    if (isCompliant) {
-      setIsComplianceComplete(true);
+    if (!isCompliant) {
+      return;
     }
+
+    setComplianceItems((items) =>
+      items.map((item) =>
+        item.id === "ded-inspection"
+          ? {
+              ...item,
+              status: "success",
+              detail: "Economic License for Restaurant is compliant",
+            }
+          : item,
+      ),
+    );
+    setIsComplianceComplete(true);
   }, [isCompliant]);
 
   React.useEffect(() => {
