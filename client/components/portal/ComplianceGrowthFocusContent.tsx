@@ -807,6 +807,11 @@ export function ComplianceGrowthFocusContent({
 
         <TabsContent value="compliance" className="space-y-4">
           {renderSummaryCard("compliance")}
+          {isComplianceComplete ? (
+            <div className="rounded-3xl border border-[#94d2c2] bg-[#eaf7f3] p-4 text-sm font-semibold text-[#0f766e]">
+              Economic License for Restaurant is compliant. Redirecting to your workspace...
+            </div>
+          ) : null}
           <Accordion
             type="multiple"
             value={complianceSections}
