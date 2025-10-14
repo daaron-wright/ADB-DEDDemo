@@ -591,8 +591,9 @@ export function ComplianceGrowthFocusContent({
   }, [pendingInspection, inspectionEvidence]);
 
   const urgentItems = React.useMemo(
-    () => COMPLIANCE_ITEMS.filter((item) => item.status === "error" || item.status === "warning"),
-    [],
+    () =>
+      complianceItems.filter((item) => item.status === "error" || item.status === "warning"),
+    [complianceItems],
   );
 
   const complianceSummary = React.useMemo(
@@ -614,7 +615,7 @@ export function ComplianceGrowthFocusContent({
   }, []);
 
   const complianceNextAction = React.useMemo(() => {
-    const dedItem = COMPLIANCE_ITEMS.find((item) => item.id === "ded-inspection");
+    const dedItem = complianceItems.find((item) => item.id === "ded-inspection");
     if (!dedItem) {
       return {
         subtitle: "All compliance tasks",
@@ -624,6 +625,17 @@ export function ComplianceGrowthFocusContent({
           ensureSectionOpen("compliance", "snapshot");
           scrollToElement("compliance-snapshot-card");
         },
+        disabled: false,
+      } as const;
+    }
+
+    if (dedItem.status === "success") {
+      return {
+        subtitle: dedItem.detail ?? "Economic License for Restaurant is compliant",
+        description:
+          "Great work, Layla. Your economic license is compliant and synced with DED. Redirecting you back to the workspace.",
+        buttonLabel: "Return to workspace",
+        onClick: () => window.location.assign("/portal/applicant"),
         disabled: false,
       } as const;
     }
@@ -641,7 +653,7 @@ export function ComplianceGrowthFocusContent({
       },
       disabled: false,
     } as const;
-  }, [ensureSectionOpen, scrollToElement]);
+  }, [ensureSectionOpen, scrollToElement, complianceItems]);
 
   const growthNextAction = React.useMemo(
     () => ({
