@@ -185,6 +185,8 @@ interface BusinessChatUIProps {
   mode?: "modal" | "side-panel";
   journeyFocusView?: JourneyStageFocusViewProps | null;
   suppressChatInterface?: boolean;
+  hasCompletedApplication?: boolean;
+  feedbackThreshold?: number;
 }
 
 type ChatView = "basic" | "investor-journey" | "discover-experience";
@@ -1043,7 +1045,7 @@ const CompetitorAnalysisSummaryTile = () => {
               </p>
               <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-600">
                 <li>��� Review detailed competitor pricing analysis</li>
-                <li>• Analyze menu positioning gaps</li>
+                <li>��� Analyze menu positioning gaps</li>
                 <li>• Schedule site visits for concept validation</li>
               </ul>
             </div>
