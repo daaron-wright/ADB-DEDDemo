@@ -106,7 +106,7 @@ type TextVerificationRow = {
 
 const REGISTERED_TRADE_NAMES = {
   english: "Marwah Restaurant Sole LLC",
-  arabic: "مطع�� مروى شركة ذات مسؤولية محدودة",
+  arabic: "مطعم مروى شركة ذات مسؤولية محدودة",
 } as const;
 
 const INSPECTION_PIPELINE_STEPS: PipelineStep[] = [
@@ -1818,6 +1818,37 @@ function RenewalItem({
       <span>{label}</span>
       <span className={cn("text-xs font-semibold uppercase tracking-[0.18em]", valueClass)}>{value}</span>
     </li>
+  );
+}
+
+function GrowthFeedbackCard({ prompts }: { prompts: readonly string[] }) {
+  return (
+    <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_22px_48px_-40px_rgba(15,23,42,0.32)]">
+      <div className="space-y-2">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Continuous feedback</p>
+        <h4 className="text-xl font-semibold text-slate-900">Tell us how licensing feels right now</h4>
+        <p className="text-sm text-slate-600">
+          Layla, share quick feedback so we can fine-tune regulations, inspections, and hand-offs. Pick a prompt
+          below or write your own note for the trade license service designers.
+        </p>
+      </div>
+      <div className="flex flex-wrap gap-3">
+        {prompts.map((prompt) => (
+          <Button
+            key={prompt}
+            variant="outline"
+            size="sm"
+            className="rounded-full border-[#0f766e]/30 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#0f766e] hover:bg-[#f5faf7]"
+          >
+            {prompt}
+          </Button>
+        ))}
+      </div>
+      <div className="rounded-2xl border border-dashed border-[#d8e4df] bg-[#f5faf7] p-4 text-xs text-slate-500">
+        Feedback is routed to Omnis service designers and the DED regulatory team. Expect follow-up within 2 business
+        days.
+      </div>
+    </div>
   );
 }
 
