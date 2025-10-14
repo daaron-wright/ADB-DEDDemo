@@ -5923,6 +5923,8 @@ export function BusinessChatUI({
   mode = "modal",
   journeyFocusView = null,
   suppressChatInterface = false,
+  hasCompletedApplication = false,
+  feedbackThreshold = 4,
 }: BusinessChatUIProps) {
   const [messages, setMessages] = useState<BusinessMessage[]>([]);
   const [view, setView] = useState<ChatView>("basic");
