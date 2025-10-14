@@ -103,7 +103,7 @@ const TRADE_NAME_IDEAS: ReadonlyArray<TradeNameIdeaSuggestion> = [
   {
     id: "marwah-restaurant-sole-llc",
     english: "Marwah Restaurant Sole LLC",
-    arabic: "مطعم مروة الفردي ذ.م.م",
+    arabic: "مطعم مرو�� الفردي ذ.م.م",
   },
   {
     id: "marwah-hospitality-sole-llc",
@@ -987,188 +987,157 @@ export function BusinessRegistrationFocusContent({
     : "Run the checks to see progress here.";
 
   return (
-    <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      <section
-        className={chatCardClass(
-          "border border-white/25 bg-white/90 p-6 backdrop-blur-2xl shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
-        )}
-      >
-        <div className="space-y-5">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Journey number
-              </p>
-              <p className="text-lg font-semibold text-slate-900">{journeyNumber}</p>
-            </div>
-            <Badge className={availabilityBadgeClasses}>
-              {badgeIcon}
-              {badgeLabel}
-            </Badge>
-          </div>
-
-          <div className="space-y-3 rounded-3xl border border-[#0f766e]/25 bg-[#0f766e]/5 p-5">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Current step
+    <div className="space-y-6">
+      <div className="rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_26px_60px_-50px_rgba(15,23,42,0.35)]">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+              Journey number
             </p>
-            <div className="space-y-1">
-              <h3 className="text-2xl font-semibold text-slate-900">
-                {activeEnglishTradeName || "Trade name pending"}
-              </h3>
-              {activeArabicTradeName ? (
-                <p className="text-base font-semibold text-[#0f766e]" dir="rtl">
-                  {activeArabicTradeName}
-                </p>
-              ) : null}
-            </div>
-            <p className="text-sm text-slate-700">{statusDescription}</p>
+            <p className="text-lg font-semibold text-slate-900">{journeyNumber}</p>
           </div>
+          <Badge className={availabilityBadgeClasses}>
+            {badgeIcon}
+            {badgeLabel}
+          </Badge>
+        </div>
+        <div className="mt-4 space-y-2">
+          <h3 className="text-xl font-semibold text-slate-900">
+            {activeEnglishTradeName || "Trade name pending"}
+          </h3>
+          {activeArabicTradeName ? (
+            <p className="text-base font-semibold text-[#0f766e]" dir="rtl">
+              {activeArabicTradeName}
+            </p>
+          ) : null}
+          <p className="text-sm text-slate-600">{statusDescription}</p>
+        </div>
+      </div>
 
-          <div className="space-y-3 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_18px_42px_-32px_rgba(15,118,110,0.25)]">
-            <div className="space-y-1">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                What happens next
-              </p>
-              <p className="text-base font-semibold text-slate-900">
-                {registrationCta.headline}
-              </p>
-              <p className="text-sm text-slate-600">{registrationCta.description}</p>
+      <Accordion
+        type="multiple"
+        defaultValue={defaultOpenSections}
+        className="space-y-4"
+      >
+        <CollapsibleCard
+          value="next-step"
+          title="Next action"
+          subtitle={registrationCta.headline}
+        >
+          <p className="text-sm text-slate-600">{registrationCta.description}</p>
+          <Button
+            type="button"
+            size="sm"
+            onClick={registrationCta.onClick}
+            disabled={registrationCta.disabled}
+            className="self-start rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
+          >
+            {registrationCta.buttonLabel}
+          </Button>
+        </CollapsibleCard>
+
+        <CollapsibleCard
+          value="submit"
+          title="Submit trade names"
+          subtitle="English and Arabic versions"
+        >
+          <p className="text-sm text-slate-600">
+            Enter the names, then run the automated checks.
+          </p>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                English trade name
+              </label>
+              <Input
+                ref={inputRef}
+                value={englishInputValue}
+                onChange={handleEnglishInputChange}
+                placeholder="Marwah Restaurant Sole LLC"
+                disabled={isChecking}
+                className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
+              />
+            </div>
+            <div className="space-y-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <label className="block text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                  Arabic trade name
+                </label>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleTransliterate}
+                  disabled={isChecking}
+                  className="rounded-full border-[#0f766e]/40 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  Transliterate
+                </Button>
+              </div>
+              <Input
+                value={arabicInputValue}
+                onChange={handleArabicInputChange}
+                placeholder="مطعم مروة الفردي ذ.م.م"
+                disabled={isChecking}
+                dir="rtl"
+                className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
+              />
             </div>
             <Button
-              type="button"
-              size="sm"
-              onClick={registrationCta.onClick}
-              disabled={registrationCta.disabled}
-              className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
+              type="submit"
+              className="h-11 w-full rounded-full bg-[#0f766e] px-5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_12px_28px_-18px_rgba(15,118,110,0.45)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+              disabled={isSubmitDisabled}
             >
-              {registrationCta.buttonLabel}
+              Run automated checks
             </Button>
-          </div>
-
-          <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-5">
-            <div className="space-y-1">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Submit your trade names
-              </p>
-              <p className="text-sm text-slate-600">
-                Enter the English name in the required format (e.g. “Marwah Restaurant Sole LLC”),
-                then mirror it in Arabic. Use transliteration if you need help with the Arabic spelling.
-              </p>
-            </div>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <label className="block text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  English trade name
-                </label>
-                <Input
-                  ref={inputRef}
-                  value={englishInputValue}
-                  onChange={handleEnglishInputChange}
-                  placeholder="Marwah Restaurant Sole LLC"
-                  disabled={isChecking}
-                  className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
-                />
-              </div>
-              <div className="space-y-2">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <label className="block text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                    Arabic trade name
-                  </label>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleTransliterate}
-                    disabled={isChecking}
-                    className="rounded-full border-[#0f766e]/40 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    Transliterate
-                  </Button>
-                </div>
-                <Input
-                  value={arabicInputValue}
-                  onChange={handleArabicInputChange}
-                  placeholder="مطعم مروة الفردي ذ.م.م"
-                  disabled={isChecking}
-                  dir="rtl"
-                  className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
-                />
-              </div>
-              <Button
-                type="submit"
-                className="h-11 w-full rounded-full bg-[#0f766e] px-5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_12px_28px_-18px_rgba(15,118,110,0.45)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
-                disabled={isSubmitDisabled}
-              >
-                Run automated checks
-              </Button>
-            </form>
-            <div className="flex flex-wrap items-center gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleGenerateAvailableIdeas}
-                disabled={isChecking}
-                className="rounded-full border-[#0f766e]/40 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                Get name recommendations
-              </Button>
-              {hasGeneratedSuggestions && tradeNameSuggestions.length === 0 ? (
-                <span className="text-xs text-slate-500">
-                  No approved suggestions yet��try again in a moment.
-                </span>
-              ) : null}
-            </div>
-            {tradeNameSuggestions.length > 0 && (
-              <div className="grid gap-2 sm:grid-cols-2">
-                {tradeNameSuggestions.slice(0, 4).map((idea) => (
-                  <button
-                    key={idea.id}
-                    type="button"
-                    onClick={() => handleIdeaSelect(idea)}
-                    className="rounded-2xl border border-[#0f766e]/40 bg-white px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
-                    disabled={isChecking}
-                  >
-                    <span className="block text-[12px] text-slate-900">{idea.english}</span>
-                    <span className="block text-[12px] text-[#0f766e]" dir="rtl">
-                      {idea.arabic}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            )}
-            {!isChecking && !isNameAvailable && failureReason ? (
-              <div className="rounded-2xl border border-rose-200 bg-rose-50/80 p-4 text-sm text-rose-700">
-                {failureReason}
-              </div>
+          </form>
+          <div className="flex flex-wrap items-center gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleGenerateAvailableIdeas}
+              disabled={isChecking}
+              className="rounded-full border-[#0f766e]/40 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              Get name recommendations
+            </Button>
+            {hasGeneratedSuggestions && tradeNameSuggestions.length === 0 ? (
+              <span className="text-xs text-slate-500">
+                No approved suggestions yet—try again in a moment.
+              </span>
             ) : null}
           </div>
-        </div>
-      </section>
+          {tradeNameSuggestions.length > 0 && (
+            <div className="grid gap-2 sm:grid-cols-2">
+              {tradeNameSuggestions.slice(0, 4).map((idea) => (
+                <button
+                  key={idea.id}
+                  type="button"
+                  onClick={() => handleIdeaSelect(idea)}
+                  className="rounded-2xl border border-[#0f766e]/40 bg-white px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
+                  disabled={isChecking}
+                >
+                  <span className="block text-[12px] text-slate-900">{idea.english}</span>
+                  <span className="block text-[12px] text-[#0f766e]" dir="rtl">
+                    {idea.arabic}
+                  </span>
+                </button>
+              ))}
+            </div>
+          )}
+          {!isChecking && !isNameAvailable && failureReason ? (
+            <div className="rounded-2xl border border-rose-200 bg-rose-50/80 p-4 text-sm text-rose-700">
+              {failureReason}
+            </div>
+          ) : null}
+        </CollapsibleCard>
 
-      <section
-        className={chatCardClass(
-          "space-y-5 border border-white/60 bg-white/90 p-6 text-slate-800 shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
-        )}
-      >
-        <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-5">
-          <div className="flex items-center gap-3">
-            <div className="relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-[#0f766e]/20 bg-white shadow-[0_12px_22px_-14px_rgba(15,118,110,0.45)]">
-              <AIBusinessOrb className="h-10 w-10" />
-              <span className="absolute -right-1 -bottom-1 flex h-5 w-5 items-center justify-center rounded-full border border-white bg-[#0f766e] text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
-                AI
-              </span>
-            </div>
-            <div className="space-y-1">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Omnis assistant
-              </p>
-              <p className="text-base font-semibold text-slate-900">
-                Preparing your paperwork
-              </p>
-            </div>
-          </div>
-          <p className="text-sm leading-relaxed text-slate-600">
-            {tradeCheckDescription}
-          </p>
+        <CollapsibleCard
+          value="automation"
+          title="Automation updates"
+          subtitle={statusSummary}
+        >
+          <Badge className={tradeCheckBadgeClasses}>{tradeCheckBadgeLabel}</Badge>
+          <p className="text-sm text-slate-600">{tradeCheckDescription}</p>
           <div className="space-y-2">
             <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
               <div
@@ -1180,107 +1149,101 @@ export function BusinessRegistrationFocusContent({
               <span>Automation progress</span>
               <span>{displayProgress}%</span>
             </div>
-            {isChecking && nowCheckingStep ? (
-              <div className="rounded-2xl border border-[#e6f2ed] bg-white/90 px-4 py-3 text-sm text-slate-600">
-                <p className="font-semibold text-slate-900">
-                  Checking now: {nowCheckingStep.title}
-                </p>
-                <p className="text-sm text-slate-600">
-                  {nowCheckingStep.description}
-                </p>
-              </div>
-            ) : flaggedVerificationStep ? (
-              <div className="rounded-2xl border border-rose-200 bg-rose-50/90 px-4 py-3 text-sm text-rose-700">
-                <p className="font-semibold text-rose-700">
-                  Flagged: {flaggedVerificationStep.title}
-                </p>
-                <p className="text-sm text-rose-600">
-                  {flaggedVerificationStep.failureDetail ?? flaggedVerificationStep.description}
-                </p>
-              </div>
-            ) : hasPerformedCheck && isNameAvailable ? (
-              <div className="rounded-2xl border border-[#94d2c2] bg-[#dff2ec] px-4 py-3 text-sm text-[#0b7d6f]">
-                All checks passed. Reserve the name with AD Pay to lock it in.
-              </div>
-            ) : null}
           </div>
-        </div>
-
-        <div className="space-y-3 rounded-3xl border border-[#d8e4df] bg-white p-5">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Trade name engine
+          {isChecking && nowCheckingStep ? (
+            <div className="rounded-2xl border border-[#e6f2ed] bg-white/90 px-4 py-3 text-sm text-slate-600">
+              <p className="font-semibold text-slate-900">
+                Checking now: {nowCheckingStep.title}
               </p>
-              <p className="text-base font-semibold text-slate-900">
-                Connected to Department of Economic Development
+              <p>{nowCheckingStep.description}</p>
+            </div>
+          ) : flaggedVerificationStep ? (
+            <div className="rounded-2xl border border-rose-200 bg-rose-50/90 px-4 py-3 text-sm text-rose-700">
+              <p className="font-semibold text-rose-700">
+                Flagged: {flaggedVerificationStep.title}
+              </p>
+              <p>
+                {flaggedVerificationStep.failureDetail ?? flaggedVerificationStep.description}
               </p>
             </div>
-            <Badge className={tradeCheckBadgeClasses}>{tradeCheckBadgeLabel}</Badge>
-          </div>
-          <p className="text-sm text-slate-600">{statusSummary}</p>
-          {isNameAvailable ? (
-            <div className="rounded-2xl border border-[#0f766e]/30 bg-[#0f766e]/5 p-4 text-sm text-[#0f766e]">
-              Reservation fee: AED 620 • Pay through AD Pay to secure the name for 90 days.
+          ) : hasPerformedCheck && isNameAvailable ? (
+            <div className="rounded-2xl border border-[#94d2c2] bg-[#dff2ec] px-4 py-3 text-sm text-[#0b7d6f]">
+              All checks passed. Reserve the name with AD Pay to lock it in.
             </div>
           ) : null}
-        </div>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={scrollToVerification}
+            className="self-start rounded-full border-[#0f766e]/40 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+          >
+            View verification
+          </Button>
+        </CollapsibleCard>
 
-        <div
-          id="registration-verification"
-          className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-5"
+        <CollapsibleCard
+          value="verification"
+          title="Verification checks"
+          subtitle={verificationSubtitle}
         >
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div className="space-y-1">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
-                Verification steps
-              </p>
-              <p className="text-sm text-slate-600">
-                Trade Name Engine runs {totalVerificationSteps} checks to confirm your name. Tap any bar to expand the details.
-              </p>
-            </div>
+          <p className="text-sm text-slate-600">
+            {showVerificationSteps
+              ? "Open any step to see what Omnis checked."
+              : "Run the automated checks to populate this list."}
+          </p>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={focusTradeNameInput}
+            className="self-start rounded-full border-[#0f766e]/40 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+          >
+            Edit trade name
+          </Button>
+          <div id="registration-verification" className="space-y-4">
             {showVerificationSteps ? (
-              <div className="flex flex-wrap items-center justify-end gap-2">
-                <span className="rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-xs font-semibold text-[#0b7d6f]">
-                  {completedVerificationSteps}/{totalVerificationSteps} passed
-                </span>
-                {flaggedVerificationStep ? (
-                  <span className="rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-600">
-                    Needs attention
+              <>
+                <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
+                  <span className="rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-xs font-semibold text-[#0b7d6f]">
+                    {completedVerificationSteps}/{totalVerificationSteps} passed
                   </span>
-                ) : null}
-                {nowCheckingStep ? (
-                  <span className="max-w-[220px] truncate rounded-full border border-[#0f766e]/30 bg-[#0f766e]/5 px-3 py-1 text-xs font-semibold text-[#0f766e]">
-                    Checking: {nowCheckingStep.title}
-                  </span>
-                ) : null}
+                  {flaggedVerificationStep ? (
+                    <span className="rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-600">
+                      Needs attention
+                    </span>
+                  ) : null}
+                  {nowCheckingStep ? (
+                    <span className="max-w-[220px] truncate rounded-full border border-[#0f766e]/30 bg-[#0f766e]/5 px-3 py-1 text-xs font-semibold text-[#0f766e]">
+                      Checking: {nowCheckingStep.title}
+                    </span>
+                  ) : null}
+                </div>
+                <Accordion
+                  type="multiple"
+                  key={accordionKey}
+                  defaultValue={accordionDefaultValues}
+                  className="space-y-3"
+                >
+                  {automationSteps.map((step, index) => (
+                    <VerificationStepItem
+                      key={step.title}
+                      step={step}
+                      index={index}
+                      totalSteps={automationSteps.length}
+                      value={`step-${index}`}
+                    />
+                  ))}
+                </Accordion>
+              </>
+            ) : (
+              <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-5 text-sm text-slate-500">
+                Run the automated checks to see each bar fill in. Tap a bar to expand the details.
               </div>
-            ) : null}
+            )}
           </div>
-          {showVerificationSteps ? (
-            <Accordion
-              type="multiple"
-              key={accordionKey}
-              defaultValue={accordionDefaultValues}
-              className="space-y-3"
-            >
-              {automationSteps.map((step, index) => (
-                <VerificationStepItem
-                  key={step.title}
-                  step={step}
-                  index={index}
-                  totalSteps={automationSteps.length}
-                  value={`step-${index}`}
-                />
-              ))}
-            </Accordion>
-          ) : (
-            <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-5 text-sm text-slate-500">
-              Run the automated checks to see each Trade Name Engine bar fill in. Tap a bar to expand the full explanation.
-            </div>
-          )}
-        </div>
-      </section>
+        </CollapsibleCard>
+      </Accordion>
     </div>
   );
 }
