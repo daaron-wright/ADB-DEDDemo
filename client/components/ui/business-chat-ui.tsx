@@ -5938,6 +5938,10 @@ export function BusinessChatUI({
     createInitialDialogueDocState,
   );
   const [inputValue, setInputValue] = useState("");
+  const [hasFeedbackPrompted, setHasFeedbackPrompted] = useState(false);
+  const [feedbackStats, setFeedbackStats] = useState<Record<string, { count: number; sample: string }>>({});
+  const feedbackTopicsNotifiedRef = useRef<Set<string>>(new Set());
+  const [feedbackTotal, setFeedbackTotal] = useState(0);
   const loginTriggerRef = useRef<HTMLElement | null>(null);
   const [shouldPromptLogin, setShouldPromptLogin] = useState(false);
   const [isInvestorLoginPending, setIsInvestorLoginPending] = useState(false);
