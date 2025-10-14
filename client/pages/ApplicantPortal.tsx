@@ -312,7 +312,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
       `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
-    heroButton: "استكشفي خيارا�� إضافية",
+    heroButton: "استكشف�� خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
       `عرض أو إ��فاء نظرة عامة للرحلة الخاصة بـ ${title}`,
@@ -386,7 +386,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       description:
         "أطلقي محادثة موجهة لتأكيد فكرة مشروعك قبل إنشاء مسار الترخيص.",
       startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
-      resumeCta: "افتحي مساحة الاستبيان",
+      resumeCta: "افتحي مساحة ا��استبيان",
       completeCta: "أتمي الاستبيان",
       pendingLicenseLabel: "متاح بعد الاستبيان",
       pendingSubmissionLabel: "يتم تخصيصه بعد إكمال ��لاستبيان",
@@ -2250,9 +2250,7 @@ export default function ApplicantPortal() {
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                 {languageCopy.fieldLabels.submissionId}
               </p>
-              <p className="mt-2 text-sm font-semibold text-slate-900">
-                {primaryApplication.id}
-              </p>
+              <p className={licenseValueClass}>{resolvedSubmissionId}</p>
             </div>
             <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
