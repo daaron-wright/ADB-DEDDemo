@@ -489,7 +489,7 @@ export function PreOperationalInspectionFocusContent({
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                 My TAMM documents
               </p>
-              <p className="text-base font-semibold text-slate-900">Latest synced files</p>
+              <p className="text-base font-semibold text-slate-900">Synced from "My Business Documents" Vault</p>
             </div>
             {showDocuments ? <ChevronUp className="h-6 w-6 text-slate-500" /> : <ChevronDown className="h-6 w-6 text-slate-500" />}
           </button>
