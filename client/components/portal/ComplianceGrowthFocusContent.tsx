@@ -547,7 +547,7 @@ export function ComplianceGrowthFocusContent({
                           <div className="space-y-3 rounded-2xl border border-[#e3eeea] bg-white px-4 py-3">
                             <div className="flex flex-wrap items-center justify-between gap-3">
                               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                                Inspection evidences library
+                                Inspection Evidences Library
                               </p>
                               {inspectionEvidence ? (
                                 <Badge className="rounded-full border border-[#f3dcb6] bg-[#fdf6e4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b97324]">
