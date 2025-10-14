@@ -69,6 +69,159 @@ type InspectionEvidence = {
   sizeLabel: string;
 };
 
+type InspectionSubmissionStatus = "idle" | "ready" | "submitted";
+type PipelineStatus = "complete" | "active" | "pending";
+
+type PipelineStep = {
+  id: string;
+  title: string;
+  description: string;
+  helper: string;
+};
+
+type BoundingBox = {
+  top: number;
+  left: number;
+  width: number;
+  height: number;
+};
+
+type ReadinessStatus = "pass" | "attention";
+
+type ReadinessItem = {
+  id: string;
+  label: string;
+  detail?: string;
+  status: ReadinessStatus;
+};
+
+type TextVerificationRow = {
+  id: string;
+  language: string;
+  registered: string;
+  extracted: string;
+  matchScore: number;
+  status: "PASS" | "REVIEW";
+};
+
+const REGISTERED_TRADE_NAMES = {
+  english: "Marwah Restaurant Sole LLC",
+  arabic: "مطعم مروى شركة ذات مسؤولية محدودة",
+} as const;
+
+const INSPECTION_PIPELINE_STEPS: PipelineStep[] = [
+  {
+    id: "ingest",
+    title: "Secure video intake",
+    description: "Video uploaded from Layla's workspace and encrypted for review.",
+    helper: "14:32 GST • SHA-256 checksum verified",
+  },
+  {
+    id: "sampling",
+    title: "Frame sampling",
+    description: "Extracting representative frames across exterior and interior walkthrough.",
+    helper: "64 key frames prepared",
+  },
+  {
+    id: "yolo",
+    title: "YOLO signboard detection",
+    description: "Detecting signage, Arabic lettering, and mounting compliance using CV model v8.2.",
+    helper: "Confidence threshold 0.85",
+  },
+  {
+    id: "ocr",
+    title: "OCR text extraction",
+    description: "Running Omnis OCR (Arabic + Latin) to capture bilingual trade name.",
+    helper: "Detected 3 high-signal lines",
+  },
+  {
+    id: "verification",
+    title: "Text verification & inspector queue",
+    description: "Cross-checking extracted text with registration records before inspector review.",
+    helper: "Routing to DED inspector queue",
+  },
+];
+
+const YOLO_DETECTION_SUMMARY = {
+  totalFrames: 742,
+  framesWithSignboard: 418,
+  bestFrameConfidence: 0.97,
+  bestFrame: {
+    imageUrl:
+      "https://images.pexels.com/photos/373541/pexels-photo-373541.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    alt: "Exterior signage of Marwah Restaurant illuminated at night",
+    boundingBox: {
+      top: 18,
+      left: 20,
+      width: 60,
+      height: 44,
+    } satisfies BoundingBox,
+  },
+};
+
+const SIGNBOARD_QUALITY_SUMMARY = {
+  status: "SUITABLE",
+  confidence: 0.94,
+  highlights: [
+    "Illuminance measured at 428 lux across lettering",
+    "High contrast between gold lettering and charcoal background",
+    "Arabic and English typography aligned within 1.4° tolerance",
+  ],
+};
+
+const OCR_TEXT_LINES = [
+  "Marwah Restaurant",
+  "Sole LLC",
+  "مطعم مروى شركة ذات مسؤولية محدودة",
+  "رقم الرخصة 784323",
+];
+
+const PREMISES_READINESS_ITEMS: ReadinessItem[] = [
+  {
+    id: "entrance",
+    label: "Entrance signboard illuminated",
+    detail: "Measured lux ≥ 420 across captured frames",
+    status: "pass",
+  },
+  {
+    id: "interior",
+    label: "Interior walkthrough recorded",
+    detail: "Kitchen, counter, and dining zones documented",
+    status: "pass",
+  },
+  {
+    id: "storage",
+    label: "Dry storage shelving labeling",
+    detail: "Shelf 3 requires refreshed expiry labels",
+    status: "attention",
+  },
+  {
+    id: "safety",
+    label: "Emergency egress routes visible",
+    detail: "Exit signage unobstructed in frames 195-212",
+    status: "pass",
+  },
+];
+
+const TEXT_VERIFICATION_RESULTS: TextVerificationRow[] = [
+  {
+    id: "english",
+    language: "English",
+    registered: REGISTERED_TRADE_NAMES.english,
+    extracted: "Marwah Restaurant Sole LLC",
+    matchScore: 0.98,
+    status: "PASS",
+  },
+  {
+    id: "arabic",
+    language: "Arabic",
+    registered: REGISTERED_TRADE_NAMES.arabic,
+    extracted: "مطعم مروى شركة ذات مسؤولية محدودة",
+    matchScore: 0.96,
+    status: "PASS",
+  },
+];
+
 const COMPLIANCE_ITEMS: ComplianceItem[] = [
   { id: "civil-defence", label: "Civil Defence", status: "error", detail: "2 issues to resolve" },
   { id: "ded-inspection", label: "DED inspection", status: "warning", detail: "29 days remaining" },
