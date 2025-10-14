@@ -3,10 +3,24 @@ import * as React from "react";
 import { Accordion } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CollapsibleCard } from "./StageCollapsibleCard";
 import { cn } from "@/lib/utils";
-import { AlertCircle, AlertTriangle, ArrowRight, CheckCircle, FileEdit } from "lucide-react";
+import {
+  AlertCircle,
+  AlertTriangle,
+  ArrowRight,
+  CheckCircle,
+  Circle,
+  FileEdit,
+  Home,
+  Loader2,
+  ScanText,
+  ShieldCheck,
+  UploadCloud,
+  Video,
+} from "lucide-react";
 
 interface ComplianceGrowthFocusContentProps {
   journeyNumber?: string;
