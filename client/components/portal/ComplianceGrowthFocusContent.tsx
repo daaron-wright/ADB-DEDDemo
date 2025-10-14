@@ -216,7 +216,7 @@ const TEXT_VERIFICATION_RESULTS: TextVerificationRow[] = [
     id: "arabic",
     language: "Arabic",
     registered: REGISTERED_TRADE_NAMES.arabic,
-    extracted: "مطعم مروى شركة ذات مسؤولية محدودة",
+    extracted: "مطعم م��وى شركة ذات مسؤولية محدودة",
     matchScore: 0.96,
     status: "PASS",
   },
@@ -1130,6 +1130,632 @@ function DedDetailCard({
         <InspectionAuditReportPlaceholder />
       )}
       <InspectionSupportingInfo />
+    </div>
+  );
+}
+
+function InspectionTaskHeader({
+  submissionStatus,
+}: {
+  submissionStatus: InspectionSubmissionStatus;
+}) {
+  const token = SUBMISSION_STATUS_TOKENS[submissionStatus];
+  return (
+    <div className="space-y-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="space-y-1">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+            DED inspection task
+          </p>
+          <h3 className="text-xl font-semibold text-slate-900">
+            DED Inspection - Signboard &amp; Premises Verification
+          </h3>
+        </div>
+        <Badge
+          className={cn(
+            "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+            token.className,
+          )}
+        >
+          {token.label}
+        </Badge>
+      </div>
+      <p className="text-sm text-slate-600">
+        Layla captures a short video of the exterior signboard and a guided interior walkthrough so inspectors can pre-verify compliance remotely.
+      </p>
+    </div>
+  );
+}
+
+function InspectionUploadModule({
+  pendingInspection,
+  submissionStatus,
+  onClickUpload,
+  onFileChange,
+  onSubmit,
+  onResetPending,
+  inputRef,
+}: {
+  pendingInspection: InspectionEvidence | null;
+  submissionStatus: InspectionSubmissionStatus;
+  onClickUpload: () => void;
+  onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: () => void;
+  onResetPending: () => void;
+  inputRef: React.RefObject<HTMLInputElement>;
+}) {
+  const hasPending = Boolean(pendingInspection);
+  const showSubmittedMessage =
+    submissionStatus === "submitted" && !hasPending;
+
+  return (
+    <div className="space-y-4 rounded-3xl border border-[#e3eeea] bg-[#f5faf7] p-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="space-y-1">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+            Signboard inspection upload
+          </p>
+          <p className="text-sm text-slate-600">
+            Upload a continuous clip that shows the exterior signboard, entrance, dining floor, and kitchen stations for the digital inspection.
+          </p>
+        </div>
+        <Badge className="rounded-full border border-[#0f766e]/25 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+          Investor view
+        </Badge>
+      </div>
+      <input
+        ref={inputRef}
+        type="file"
+        accept="video/*"
+        onChange={onFileChange}
+        className="hidden"
+      />
+      <div className="flex flex-wrap items-center gap-3">
+        <Button
+          type="button"
+          onClick={onClickUpload}
+          className="inline-flex items-center gap-2 rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_16px_32px_-22px_rgba(23,135,126,0.45)] hover:bg-[#128080]"
+        >
+          <UploadCloud className="h-4 w-4" />
+          Upload inspection video
+        </Button>
+        {hasPending ? (
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={onResetPending}
+            className="rounded-full border-[#0f766e]/30 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+          >
+            Remove selection
+          </Button>
+        ) : null}
+      </div>
+      {hasPending ? (
+        <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-white p-3">
+          <video
+            src={pendingInspection?.url ?? ""}
+            controls
+            className="h-52 w-full rounded-2xl bg-black/80 object-cover"
+          />
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold text-slate-900">
+                {pendingInspection?.name}
+              </p>
+              <p className="text-xs text-slate-500">
+                {pendingInspection?.sizeLabel}
+              </p>
+            </div>
+            <Badge className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-700">
+              Review before submitting
+            </Badge>
+          </div>
+        </div>
+      ) : null}
+      {showSubmittedMessage ? (
+        <div className="rounded-2xl border border-[#d8e4df] bg-white p-3 text-sm text-slate-600">
+          Video submitted. Omnis AI is analysing the frames while the inspector is notified.
+        </div>
+      ) : null}
+      <div className="grid gap-3 sm:grid-cols-2">
+        <LabeledReadOnlyField
+          id="trade-name-english"
+          label="Registered trade name (English)"
+          value={REGISTERED_TRADE_NAMES.english}
+        />
+        <LabeledReadOnlyField
+          id="trade-name-arabic"
+          label="Registered trade name (Arabic)"
+          value={REGISTERED_TRADE_NAMES.arabic}
+          lang="ar"
+        />
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button
+          type="button"
+          onClick={onSubmit}
+          disabled={!hasPending}
+          className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
+        >
+          Submit for verification
+        </Button>
+        <p className="text-xs text-slate-500">
+          Once submitted, Omnis queues YOLO detection, OCR, and text verification before the DED inspector reviews.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function LabeledReadOnlyField({
+  id,
+  label,
+  value,
+  lang,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  lang?: string;
+}) {
+  return (
+    <label htmlFor={id} className="space-y-2">
+      <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+        {label}
+      </span>
+      <Input
+        id={id}
+        value={value}
+        readOnly
+        lang={lang}
+        className="h-12 rounded-2xl border-[#d8e4df] bg-white/90 text-sm font-medium text-slate-900"
+      />
+    </label>
+  );
+}
+
+function InspectionEvidencesLibrary({
+  inspectionEvidence,
+}: {
+  inspectionEvidence: InspectionEvidence | null;
+}) {
+  return (
+    <div className="space-y-3 rounded-3xl border border-[#e3eeea] bg-white px-4 py-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+          Inspection evidences library
+        </p>
+        {inspectionEvidence ? (
+          <Badge className="rounded-full border border-[#f3dcb6] bg-[#fdf6e4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b97324]">
+            Pending review
+          </Badge>
+        ) : null}
+      </div>
+      {inspectionEvidence ? (
+        <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-[#f5faf7] p-3">
+          <video
+            src={inspectionEvidence.url}
+            controls
+            className="h-52 w-full rounded-2xl bg-black/80 object-cover"
+          />
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold text-slate-900">
+                {inspectionEvidence.name}
+              </p>
+              <p className="text-xs text-slate-500">
+                {inspectionEvidence.sizeLabel}
+              </p>
+            </div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">
+              Status: Pending review
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div className="rounded-2xl border border-dashed border-[#d8e4df] bg-[#f8fbfa] p-4 text-sm text-slate-600">
+          Submitted videos will appear here together with their automated audit status.
+        </div>
+      )}
+    </div>
+  );
+}
+
+function InspectionPipeline({
+  steps,
+  hasSubmission,
+}: {
+  steps: Array<PipelineStep & { status: PipelineStatus }>;
+  hasSubmission: boolean;
+}) {
+  return (
+    <div className="space-y-4 rounded-3xl border border-[#e3eeea] bg-white p-4">
+      <div className="space-y-1">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+          Automated analysis pipeline
+        </p>
+        <p className="text-sm text-slate-600">
+          {hasSubmission
+            ? "Omnis processes the video through each stage before the inspector completes the review."
+            : "Submit evidence to trigger the Omnis AI pipeline ahead of the inspector review."}
+        </p>
+      </div>
+      <div className="space-y-6">
+        {steps.map((step, index) => (
+          <PipelineStepItem
+            key={step.id}
+            step={step}
+            isLast={index === steps.length - 1}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PipelineStepItem({
+  step,
+  isLast,
+}: {
+  step: PipelineStep & { status: PipelineStatus };
+  isLast: boolean;
+}) {
+  const token = PIPELINE_STATUS_TOKENS[step.status];
+  const Icon = token.icon;
+
+  return (
+    <div className="relative pl-12">
+      <span
+        className={cn(
+          "absolute left-0 top-0 flex h-8 w-8 items-center justify-center rounded-full border",
+          token.wrapperClass,
+        )}
+      >
+        <Icon className={token.iconClass} aria-hidden="true" />
+        <span className="sr-only">{step.status}</span>
+      </span>
+      {!isLast ? (
+        <span
+          className={cn(
+            "absolute left-3.5 top-8 h-[calc(100%-24px)] w-px",
+            token.connectorClass,
+          )}
+          aria-hidden="true"
+        />
+      ) : null}
+      <div className="space-y-1">
+        <p className="text-sm font-semibold text-slate-900">{step.title}</p>
+        <p className="text-sm text-slate-600">{step.description}</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+          {step.helper}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function InspectionAuditReport({
+  inspectionEvidence,
+  yoloSummary,
+  qualitySummary,
+  ocrLines,
+  readinessItems,
+  verificationRows,
+}: {
+  inspectionEvidence: InspectionEvidence;
+  yoloSummary: typeof YOLO_DETECTION_SUMMARY;
+  qualitySummary: typeof SIGNBOARD_QUALITY_SUMMARY;
+  ocrLines: string[];
+  readinessItems: ReadinessItem[];
+  verificationRows: TextVerificationRow[];
+}) {
+  const bestFrameBox = yoloSummary.bestFrame.boundingBox;
+
+  return (
+    <div className="space-y-4 rounded-3xl border border-[#e3eeea] bg-white p-4">
+      <div className="space-y-1">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+          Detailed audit report
+        </p>
+        <p className="text-sm text-slate-600">
+          Automated computer vision, OCR, and text verification results for {inspectionEvidence.name}.
+        </p>
+      </div>
+      <div className="grid gap-4 lg:grid-cols-2">
+        <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-[#f5faf7] p-4">
+          <div className="flex items-center gap-2">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#94d2c2] bg-white text-[#0f766e]">
+              <Video className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="text-sm font-semibold text-slate-900">YOLO detection</p>
+              <p className="text-xs text-slate-500">Model v8.2 · Signboard localisation</p>
+            </div>
+          </div>
+          <div className="grid gap-3 text-sm text-slate-600 sm:grid-cols-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Total frames
+              </p>
+              <p className="text-lg font-semibold text-slate-900">{yoloSummary.totalFrames}</p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Frames with signboards
+              </p>
+              <p className="text-lg font-semibold text-slate-900">{yoloSummary.framesWithSignboard}</p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Best frame confidence
+              </p>
+              <p className="text-lg font-semibold text-slate-900">
+                {Math.round(yoloSummary.bestFrameConfidence * 100)}%
+              </p>
+            </div>
+          </div>
+          <div className="relative overflow-hidden rounded-xl border border-[#d8e4df]">
+            <img
+              src={yoloSummary.bestFrame.imageUrl}
+              alt={yoloSummary.bestFrame.alt}
+              className="h-48 w-full object-cover"
+            />
+            <span
+              className="absolute border-2 border-[#6ed6cc] bg-emerald-400/10"
+              style={{
+                top: `${bestFrameBox.top}%`,
+                left: `${bestFrameBox.left}%`,
+                width: `${bestFrameBox.width}%`,
+                height: `${bestFrameBox.height}%`,
+              }}
+              aria-hidden="true"
+            />
+          </div>
+        </div>
+        <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-white p-4">
+          <div className="flex items-center gap-2">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#94d2c2] bg-[#f5faf7] text-[#0f766e]">
+              <ShieldCheck className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="text-sm font-semibold text-slate-900">Signboard quality classification</p>
+              <p className="text-xs text-slate-500">Lighting &amp; legibility scoring</p>
+            </div>
+          </div>
+          <Badge className="rounded-full border border-[#94d2c2] bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+            {qualitySummary.status} · {Math.round(qualitySummary.confidence * 100)}%
+          </Badge>
+          <ul className="space-y-2 text-sm text-slate-600">
+            {qualitySummary.highlights.map((highlight) => (
+              <li key={highlight} className="flex items-start gap-2">
+                <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0f766e]" />
+                <span>{highlight}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-white p-4">
+          <div className="flex items-center gap-2">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#94d2c2] bg-[#f5faf7] text-[#0f766e]">
+              <ScanText className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="text-sm font-semibold text-slate-900">OCR text extraction</p>
+              <p className="text-xs text-slate-500">Omnis OCR · Arabic + Latin</p>
+            </div>
+          </div>
+          <ol className="space-y-2 text-sm text-slate-700">
+            {ocrLines.map((line) => (
+              <li key={line} className="rounded-xl bg-[#f5faf7] px-3 py-2">
+                {line}
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-[#f5faf7] p-4">
+          <div className="flex items-center gap-2">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#94d2c2] bg-white text-[#0f766e]">
+              <Home className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="text-sm font-semibold text-slate-900">Premises operational readiness</p>
+              <p className="text-xs text-slate-500">Interior walkthrough checklist</p>
+            </div>
+          </div>
+          <ul className="space-y-2 text-sm text-slate-700">
+            {readinessItems.map((item) => {
+              const token = READINESS_STATUS_TOKENS[item.status];
+              return (
+                <li
+                  key={item.id}
+                  className="flex flex-col gap-2 rounded-2xl border border-white/50 bg-white/70 p-3 sm:flex-row sm:items-center sm:justify-between"
+                >
+                  <div className="space-y-1">
+                    <p className="font-medium text-slate-900">{item.label}</p>
+                    {item.detail ? (
+                      <p className="text-xs text-slate-500">{item.detail}</p>
+                    ) : null}
+                  </div>
+                  <Badge
+                    className={cn(
+                      "self-start rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
+                      token.className,
+                    )}
+                  >
+                    {token.label}
+                  </Badge>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-white p-4 lg:col-span-2">
+          <div className="flex items-center gap-2">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#94d2c2] bg-[#f5faf7] text-[#0f766e]">
+              <CheckCircle className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="text-sm font-semibold text-slate-900">Text verification audit</p>
+              <p className="text-xs text-slate-500">Registered vs extracted trade names</p>
+            </div>
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-[#d8e4df]">
+            <table className="min-w-full divide-y divide-[#e3eeea] text-sm">
+              <thead className="bg-[#f5faf7] text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                <tr>
+                  <th className="px-4 py-3 text-left">Language</th>
+                  <th className="px-4 py-3 text-left">Registered</th>
+                  <th className="px-4 py-3 text-left">Extracted</th>
+                  <th className="px-4 py-3 text-left">Match</th>
+                  <th className="px-4 py-3 text-left">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#f0f5f3] text-slate-700">
+                {verificationRows.map((row) => {
+                  const statusClass =
+                    row.status === "PASS"
+                      ? "border-[#94d2c2] bg-[#eaf7f3] text-[#0f766e]"
+                      : "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]";
+
+                  return (
+                    <tr key={row.id}>
+                      <td className="px-4 py-3 font-medium text-slate-900">{row.language}</td>
+                      <td className="px-4 py-3">{row.registered}</td>
+                      <td className="px-4 py-3" lang={row.language === "Arabic" ? "ar" : undefined}>
+                        {row.extracted}
+                      </td>
+                      <td className="px-4 py-3">{Math.round(row.matchScore * 100)}%</td>
+                      <td className="px-4 py-3">
+                        <Badge
+                          className={cn(
+                            "rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
+                            statusClass,
+                          )}
+                        >
+                          {row.status}
+                        </Badge>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function InspectionAuditReportPlaceholder() {
+  return (
+    <div className="rounded-3xl border border-dashed border-[#d8e4df] bg-[#f8fbfa] p-4 text-sm text-slate-600">
+      Submit a video to unlock the automated detection, OCR, and text verification insights.
+    </div>
+  );
+}
+
+function InspectionSupportingInfo() {
+  return (
+    <div className="space-y-5">
+      <div className="space-y-2">
+        <p className="font-semibold text-slate-900">What DED needs</p>
+        <p className="text-sm text-slate-600">{DED_SUMMARY}</p>
+      </div>
+      <div className="space-y-2">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Highlights</p>
+        <ul className="space-y-2 text-sm text-slate-600">
+          {DED_HIGHLIGHTS.map((highlight) => (
+            <li key={highlight} className="flex items-start gap-2">
+              <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0f766e]" />
+              <span>{highlight}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="space-y-2">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Checklist</p>
+        <ul className="space-y-2">
+          {DED_CHECKLIST.map((item) => {
+            const badge = CHECKLIST_BADGES[item.status];
+            return (
+              <li
+                key={item.id}
+                className="flex flex-col gap-2 rounded-2xl border border-[#e3eeea] bg-[#f5faf7] p-3 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div className="space-y-1">
+                  <p className="text-sm font-medium text-slate-900">{item.label}</p>
+                  {item.helper ? (
+                    <p className="text-xs text-slate-500">{item.helper}</p>
+                  ) : null}
+                </div>
+                <Badge
+                  className={cn(
+                    "rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
+                    badge.className,
+                  )}
+                >
+                  {badge.label}
+                </Badge>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      <div className="space-y-2">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Supporting files</p>
+        <ul className="space-y-2">
+          {DED_DOCUMENTS.map((doc) => (
+            <li
+              key={doc.id}
+              className="flex flex-col gap-2 rounded-2xl border border-[#e3eeea] bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+            >
+              <div>
+                <p className="text-sm font-medium text-slate-900">{doc.label}</p>
+                <p className="text-xs text-slate-500">{doc.meta}</p>
+              </div>
+              <Badge className="rounded-full border border-[#d8e4df] bg-[#f5faf7] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                {doc.statusLabel}
+              </Badge>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="space-y-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Photo reference library</p>
+        <div className="grid gap-3 sm:grid-cols-3">
+          {DED_MEDIA.map((asset) => (
+            <figure
+              key={asset.id}
+              className="group overflow-hidden rounded-2xl border border-[#d8e4df] bg-[#f8fbfa]"
+            >
+              <img
+                src={asset.src}
+                alt={asset.alt}
+                className="h-32 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+              />
+              <figcaption className="px-3 py-2 text-center text-xs font-medium text-slate-600">
+                {asset.caption}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-col gap-3 rounded-2xl border border-[#e3eeea] bg-[#f5faf7] p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-start gap-3">
+          <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#94d2c2] bg-[#dff2ec]/70 text-[#0f766e]">
+            <ArrowRight className="h-5 w-5" />
+          </span>
+          <div className="space-y-1">
+            <p className="text-sm font-semibold text-slate-900">Follow up with DED inspector</p>
+            <p className="text-xs text-slate-600">Share evidence and confirm the onsite visit in one step.</p>
+          </div>
+        </div>
+        <Button className="rounded-full bg-[#169F9F] px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_32px_-24px_rgba(23,135,126,0.45)] hover:bg-[#128080]">
+          Follow up
+        </Button>
+      </div>
     </div>
   );
 }
