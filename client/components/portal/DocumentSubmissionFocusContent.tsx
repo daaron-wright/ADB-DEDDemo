@@ -77,6 +77,7 @@ const INITIAL_DOCUMENTS: DocumentVaultItem[] = [
     status: "requires_action",
     actionLabel: "Review with Omnis AI",
     integrationBadge: "ADJD",
+    isExpanded: true,
   },
   {
     id: "founders-passports",
