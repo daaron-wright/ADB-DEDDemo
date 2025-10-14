@@ -8047,54 +8047,63 @@ export function BusinessChatUI({
                             <>
                               {chatMessages.map((message) => (
                                 <MessageBubble
-                                  key={message.id}
-                                  message={message}
-                                  showUserAvatar={isInvestorAuthenticated}
-                                  onActionClick={handleAction}
-                                  dialogueDocProps={
-                                    message.type === "dialogue-doc"
-                                      ? {
-                                          title:
-                                            message.docTitle ??
-                                            "Investor dialogue workspace",
-                                          summary: message.content,
-                                          notes: dialogueDocState.notes,
-                                          highlights:
-                                            dialogueDocState.highlights,
-                                          onNotesChange:
-                                            handleDialogueDocNotesChange,
-                                          onToggleHighlight:
-                                            handleDialogueDocToggleHighlight,
-                                          onHighlightChange:
-                                            handleDialogueDocHighlightChange,
-                                          onHighlightRemove:
-                                            handleDialogueDocHighlightRemove,
-                                          onAddHighlight:
-                                            handleDialogueDocHighlightAdd,
-                                        }
-                                      : undefined
-                                  }
-                                  onHeatMapOpen={openHeatMapFullView}
-                                  onBudgetRangesOpen={openBudgetRangesFocus}
-                                  businessActivitiesProps={
-                                    message.type === "business-activities"
-                                      ? {
-                                          activities: activityOptions,
-                                          selectedActivityIds,
-                                          onToggleActivity:
-                                            handleToggleActivity,
-                                          onAddActivity: handleAddActivity,
-                                          maxSelection: MAX_LICENSE_ACTIVITIES,
-                                          physicalPlan: physicalSpacePlan,
-                                        }
-                                      : undefined
-                                  }
-                                  applicationProgressProps={
-                                    message.type === "application-progress"
-                                      ? { message: message.content }
-                                      : undefined
-                                  }
-                                />
+                                key={message.id}
+                                message={message}
+                                showUserAvatar={isInvestorAuthenticated}
+                                onActionClick={handleAction}
+                                dialogueDocProps={
+                                  message.type === "dialogue-doc"
+                                    ? {
+                                        title:
+                                          message.docTitle ??
+                                          "Investor dialogue workspace",
+                                        summary: message.content,
+                                        notes: dialogueDocState.notes,
+                                        highlights:
+                                          dialogueDocState.highlights,
+                                        onNotesChange:
+                                          handleDialogueDocNotesChange,
+                                        onToggleHighlight:
+                                          handleDialogueDocToggleHighlight,
+                                        onHighlightChange:
+                                          handleDialogueDocHighlightChange,
+                                        onHighlightRemove:
+                                          handleDialogueDocHighlightRemove,
+                                        onAddHighlight:
+                                          handleDialogueDocHighlightAdd,
+                                      }
+                                    : undefined
+                                }
+                                onHeatMapOpen={openHeatMapFullView}
+                                onBudgetRangesOpen={openBudgetRangesFocus}
+                                businessActivitiesProps={
+                                  message.type === "business-activities"
+                                    ? {
+                                        activities: activityOptions,
+                                        selectedActivityIds,
+                                        onToggleActivity:
+                                          handleToggleActivity,
+                                        onAddActivity: handleAddActivity,
+                                        maxSelection: MAX_LICENSE_ACTIVITIES,
+                                        physicalPlan: physicalSpacePlan,
+                                      }
+                                    : undefined
+                                }
+                                applicationProgressProps={
+                                  message.type === "application-progress"
+                                    ? { message: message.content }
+                                    : undefined
+                                }
+                                feedbackProps={
+                                  message.type === "feedback-prompt"
+                                    ? {
+                                        onSubmit: handleFeedbackSubmit,
+                                        suggestionCount: feedbackTotal,
+                                        threshold: feedbackThreshold,
+                                      }
+                                    : undefined
+                                }
+                              />
                               ))}
                               {chatMessages.length === 0 ? (
                                 <RegionExplorerPrompt
