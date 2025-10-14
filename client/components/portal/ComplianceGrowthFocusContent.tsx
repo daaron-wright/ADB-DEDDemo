@@ -869,6 +869,7 @@ export function ComplianceGrowthFocusContent({
                   inspectionEvidence={inspectionEvidence}
                   pendingInspection={pendingInspection}
                   submissionStatus={inspectionSubmissionStatus}
+                  checklistItems={dedChecklistItems}
                   onClickUpload={handleInspectionUploadClick}
                   onFileChange={handleInspectionFileChange}
                   onSubmitInspection={handleInspectionSubmit}
