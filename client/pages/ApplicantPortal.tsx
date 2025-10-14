@@ -95,7 +95,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require more clarification to ensure the right decisions are made.",
-  ar: "قبل البدء في مسار الترخيص، نحتاج إلى تحديد الشكل القانوني الأنسب، وأنشطة العمل، ومتطلبات الم��احة. قد تكون بعض العناصر محددة مسبقًا، لكن عناصر أخرى تتطلب توضيحًا إضافيًا لضمان اتخاذ القرارات الصحيحة.",
+  ar: "قبل البدء في مسار الترخيص، نحتاج إلى تحديد الشكل القانوني الأنسب، وأنشطة العمل، ومتطلبات الم��احة. قد تكون بعض العناصر محددة مس��قًا، لكن عناصر أخرى تتطلب توضيحًا إضافيًا لضمان اتخاذ القرارات الصحيحة.",
 };
 
 interface SupportDescriptionCopy {
@@ -206,6 +206,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "Awaiting Documents": "Awaiting Documents",
       Approved: "Approved",
       Draft: "Draft",
+      Compliant: "Compliant",
     },
     licenseTypeLabels: {
       "Commercial License": "Commercial License",
@@ -284,10 +285,10 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإجراء التالي",
-    nextActionButton: "انتقلي إلى ��لإجراء التالي",
+    nextActionButton: "انتقلي إلى ��ل��جراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ����قدك.",
+      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "مساع�� ��لأعمال الذكي",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نفس مجموعة الأعمال. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
