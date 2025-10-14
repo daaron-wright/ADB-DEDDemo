@@ -24,6 +24,7 @@ type DocumentVaultItem = {
   status: DocumentStatus;
   actionLabel: string;
   integrationBadge: string;
+  isExpanded: boolean;
 };
 
 type LicenseDetails = {
