@@ -9,9 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
-import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { useToast } from "@/hooks/use-toast";
-import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
 import { Check, X } from "lucide-react";
 
