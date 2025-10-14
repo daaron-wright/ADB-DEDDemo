@@ -151,6 +151,19 @@ interface PortalLanguageCopy {
   applicationSummaries: Record<string, string>;
   applicationNextActions: Record<string, string>;
   journey: JourneyOrchestrationPanelCopy;
+  questionnaireOnboarding: {
+    heading: string;
+    notStartedMessage: string;
+    inProgressMessage: string;
+    completedMessage: string;
+    description: string;
+    startCta: string;
+    resumeCta: string;
+    completeCta: string;
+    pendingLicenseLabel: string;
+    pendingSubmissionLabel: string;
+    chatIntro: string;
+  };
 }
 
 const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
