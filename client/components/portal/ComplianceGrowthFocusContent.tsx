@@ -1072,6 +1072,37 @@ function DedDetailCard({
   onResetPending: () => void;
   inputRef: React.RefObject<HTMLInputElement>;
 }) {
+  const pipelineSteps = React.useMemo(() => {
+    let completedCount = 0;
+    let activeIndex = 0;
+
+    if (submissionStatus === "idle" || submissionStatus === "ready") {
+      completedCount = 0;
+      activeIndex = 0;
+    } else if (submissionStatus === "submitted") {
+      if (inspectionEvidence) {
+        completedCount = 3;
+        activeIndex = 3;
+      } else {
+        completedCount = 1;
+        activeIndex = 1;
+      }
+    }
+
+    return INSPECTION_PIPELINE_STEPS.map((step, index) => {
+      let status: PipelineStatus = "pending";
+      if (index < completedCount) {
+        status = "complete";
+      } else if (index === activeIndex) {
+        status = "active";
+      }
+      return { ...step, status };
+    });
+  }, [inspectionEvidence, submissionStatus]);
+
+  const hasSubmission =
+    submissionStatus !== "idle" || inspectionEvidence !== null;
+
   return (
     <div className="space-y-5 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_20px_48px_-44px_rgba(15,23,42,0.4)]">
       <div className="space-y-2">
