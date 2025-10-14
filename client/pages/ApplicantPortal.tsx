@@ -290,7 +290,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     englishLabel: "English",
     arabicLabel: "العربية",
     englishBadge: "English",
-    arabicBadge: "العربية • ترجمة",
+    arabicBadge: "العربي�� • ترجمة",
     subtitle: "��وابة رخصة ال��عمال",
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
@@ -312,7 +312,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
       `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
-    heroButton: "استكشف�� خيارات إضافية",
+    heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
       `عرض أو إ��فاء نظرة عامة للرحلة الخاصة بـ ${title}`,
@@ -384,9 +384,9 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       completedMessage:
         "تمت مزامنة إجابات الاستبيان. تفاصيل الترخيص جاهزة الآن.",
       description:
-        "أطلقي محادثة موجهة لتأكيد فكرة مشروعك قبل إنشاء مسار الترخيص.",
+        "أطلقي محادثة موجهة لتأكيد فكرة مشروعك قبل إ��شاء مسار الترخيص.",
       startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
-      resumeCta: "افتحي مساحة ا��استبيان",
+      resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
       pendingLicenseLabel: "متاح بعد الاستبيان",
       pendingSubmissionLabel: "يتم تخصيصه بعد إكمال ��لاستبيان",
@@ -2343,7 +2343,7 @@ export default function ApplicantPortal() {
   const portalBrand =
     language === "ar"
       ? {
-          label: "خدمات حكومة أبوظبي",
+          label: "خدمات ح��ومة أبوظبي",
           logoAlt: "شعار تم",
           logoSrc:
             "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F397f9a8d2a3c4c8cb1d79ae828b476be",
@@ -2401,7 +2401,7 @@ export default function ApplicantPortal() {
           onClose={handleCloseChat}
           category="restaurants"
           title={languageCopy.businessAITitle}
-          initialMessage={businessAIIntroMessage}
+          initialMessage={chatInitialMessage}
           journeyFocusView={journeyFocusViewProps}
           suppressChatInterface={shouldSuppressChatInterface}
           hasCompletedApplication={isApplicationComplete}
