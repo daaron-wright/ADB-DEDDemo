@@ -6,13 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CollapsibleCard } from "./StageCollapsibleCard";
 import { cn } from "@/lib/utils";
-import {
-  AlertCircle,
-  AlertTriangle,
-  ArrowRight,
-  CheckCircle,
-  FileEdit,
-} from "lucide-react";
+import { AlertCircle, AlertTriangle, ArrowRight, CheckCircle, FileEdit } from "lucide-react";
 
 interface ComplianceGrowthFocusContentProps {
   journeyNumber?: string;
@@ -23,6 +17,7 @@ interface ComplianceGrowthFocusContentProps {
 type ComplianceStatus = "error" | "warning" | "success" | "info";
 type ChecklistStatus = "in_progress" | "complete";
 type ToggleView = "compliance" | "growth";
+type TabKey = "compliance" | "growth";
 
 type ComplianceItem = {
   id: string;
@@ -60,39 +55,12 @@ type InspectionEvidence = {
   sizeLabel: string;
 };
 
-type TabKey = "compliance" | "growth";
-
 const COMPLIANCE_ITEMS: ComplianceItem[] = [
-  {
-    id: "civil-defence",
-    label: "Civil Defence",
-    status: "error",
-    detail: "2 issues to resolve",
-  },
-  {
-    id: "ded-inspection",
-    label: "DED inspection",
-    status: "warning",
-    detail: "29 days remaining",
-  },
-  {
-    id: "food-safety",
-    label: "Food & Safety inspection",
-    status: "success",
-    detail: "Pass",
-  },
-  {
-    id: "employment-visas",
-    label: "6 Employment Visas",
-    status: "success",
-    detail: "Renewed",
-  },
-  {
-    id: "tawtheeq",
-    label: "Tawtheeq",
-    status: "info",
-    detail: "Expires in 320 days",
-  },
+  { id: "civil-defence", label: "Civil Defence", status: "error", detail: "2 issues to resolve" },
+  { id: "ded-inspection", label: "DED inspection", status: "warning", detail: "29 days remaining" },
+  { id: "food-safety", label: "Food & Safety inspection", status: "success", detail: "Pass" },
+  { id: "employment-visas", label: "6 Employment Visas", status: "success", detail: "Renewed" },
+  { id: "tawtheeq", label: "Tawtheeq", status: "info", detail: "Expires in 320 days" },
 ];
 
 const COMPLIANCE_STATUS_TOKENS: Record<
@@ -135,10 +103,7 @@ const COMPLIANCE_STATUS_TOKENS: Record<
   },
 };
 
-const CHECKLIST_BADGES: Record<
-  ChecklistStatus,
-  { label: string; className: string }
-> = {
+const CHECKLIST_BADGES: Record<ChecklistStatus, { label: string; className: string }> = {
   in_progress: {
     label: "In progress",
     className: "border-amber-200 bg-amber-50 text-amber-700",
@@ -186,24 +151,9 @@ const DED_CHECKLIST: ChecklistItem[] = [
 ];
 
 const DED_DOCUMENTS: DedDocument[] = [
-  {
-    id: "risk-assessment",
-    label: "Risk assessment checklist",
-    meta: "PDF • 3.2 MB",
-    statusLabel: "Updated",
-  },
-  {
-    id: "floor-plan",
-    label: "Revised kitchen floor plan",
-    meta: "DWG • 1.1 MB",
-    statusLabel: "Pending upload",
-  },
-  {
-    id: "certificates",
-    label: "Calibration certificates",
-    meta: "ZIP • 5 files",
-    statusLabel: "Ready",
-  },
+  { id: "risk-assessment", label: "Risk assessment checklist", meta: "PDF • 3.2 MB", statusLabel: "Updated" },
+  { id: "floor-plan", label: "Revised kitchen floor plan", meta: "DWG • 1.1 MB", statusLabel: "Pending upload" },
+  { id: "certificates", label: "Calibration certificates", meta: "ZIP • 5 files", statusLabel: "Ready" },
 ];
 
 const DED_MEDIA = [
@@ -235,19 +185,19 @@ const GROWTH_OPPORTUNITY_DEFINITIONS = [
   {
     id: "tourist-affluence",
     title: "Rising tourist affluence",
-    subtitle: "Average visitor spend is up 18% compared to last year",
+    subtitle: "Average visitor spend is up 18% compared with last year",
     buttonLabel: "Review trend insights",
   },
   {
     id: "catering-partner",
     title: "Partner with Emirates Culinary Catering",
-    subtitle: "Secure premium event contracts with a trusted catering ally",
+    subtitle: "Co-create premium events with an established catering ally",
     buttonLabel: "Connect with catering partner",
   },
   {
     id: "al-ain-franchise",
     title: "Franchise expansion in Al Ain",
-    subtitle: "Al Jimi Mall is offering incentives for new F&B concepts",
+    subtitle: "Al Jimi Mall is inviting new F&B concepts with incentives",
     buttonLabel: "Review franchise playbook",
   },
 ] as const;
@@ -297,10 +247,7 @@ const TOURISM_BREAKDOWN = [
           d="M1.5625 0L6.64583 3.77083L11.7083 0H13.3333V1.29167L8.33333 5.02083L13.3333 8.72917V10H11.6667L6.66667 6.27083L1.6875 10H0V8.75L4.97917 5.04167L0 1.33333V0H1.5625Z"
           fill="white"
         />
-        <path
-          d="M8.83333 5.85417L13.3333 9.16667V10L7.6875 5.85417H8.83333Z"
-          fill="#C8102E"
-        />
+        <path d="M8.83333 5.85417L13.3333 9.16667V10L7.6875 5.85417H8.83333Z" fill="#C8102E" />
       </svg>
     ),
   },
@@ -371,7 +318,6 @@ export function ComplianceGrowthFocusContent({
     () => `${urgentItems.length} urgent ${urgentItems.length === 1 ? "item" : "items"} • ${progressPercent}% compliant`,
     [progressPercent, urgentItems],
   );
-
   const growthSummary = `${GROWTH_OPPORTUNITY_DEFINITIONS.length} curated plays • ${GROWTH_ACTIONS} actions`;
 
   const scrollToElement = React.useCallback((elementId: string) => {
@@ -420,7 +366,7 @@ export function ComplianceGrowthFocusContent({
     () => ({
       subtitle: "Growth opportunities",
       description:
-        "Open the opportunities card to review tourist affluence trends, partner intros, and expansion leads.",
+        "Open the opportunities card to explore affluent tourist trends, partner intros, and regional expansion leads.",
       buttonLabel: "Show opportunities",
       onClick: () => {
         ensureSectionOpen("growth", "opportunities");
@@ -457,7 +403,7 @@ export function ComplianceGrowthFocusContent({
     event.target.value = "";
   }, []);
 
-  const growthOpportunities = React.useMemo<GrowtхонOpportunity[]>(
+  const growthOpportunities = React.useMemo<GrowthOpportunity[]>(
     () =>
       GROWTH_OPPORTUNITY_DEFINITIONS.map((definition) => ({
         id: definition.id,
@@ -478,17 +424,11 @@ export function ComplianceGrowthFocusContent({
 
   return (
     <div className="space-y-6">
-      <Tabs
-        value={activeTab}
-        onValueChange={(value) => setActiveTab(value as TabKey)}
-        className="space-y-6"
-      >
+      <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as TabKey)} className="space-y-6">
         <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_26px_60px_-50px_rgba(15,23,42,0.35)]">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Journey number
-              </p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Journey number</p>
               <p className="text-lg font-semibold text-slate-900">{journeyNumber}</p>
             </div>
             <Badge className="inline-flex items-center gap-2 rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
@@ -497,18 +437,14 @@ export function ComplianceGrowthFocusContent({
           </div>
           <div className="mt-5 space-y-4">
             <div className="space-y-2">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Stage 5 · Compliance & growth
-              </p>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Stage 5 · Compliance & growth</p>
               <h3 className="text-2xl font-semibold text-slate-900">
-                {activeTab === "compliance"
-                  ? "Stay inspection-ready"
-                  : "Unlock expansion plays"}
+                {activeTab === "compliance" ? "Stay inspection-ready" : "Unlock expansion plays"}
               </h3>
               <p className="text-sm text-slate-600">
                 {activeTab === "compliance"
-                  ? "Monitor active obligations and coordinate evidence before authorities request it."
-                  : "Use Omnis insights to explore affluent visitors, partner networks, and regional expansion."}
+                  ? "Monitor obligations, evidence, and renewals before authorities request them."
+                  : "Use Omnis to surface high-value trends, partners, and regional expansion options."}
               </p>
             </div>
             <div className="space-y-2">
@@ -624,9 +560,7 @@ export function ComplianceGrowthFocusContent({
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div className="space-y-1">
                     <p className="text-sm font-semibold text-slate-900">Calendar reminders</p>
-                    <p className="text-xs text-slate-500">
-                      Sync deadlines to your Outlook, Google, or Apple calendar.
-                    </p>
+                    <p className="text-xs text-slate-500">Sync deadlines to your Outlook, Google, or Apple calendar.</p>
                   </div>
                   <Button
                     size="sm"
@@ -661,24 +595,9 @@ export function ComplianceGrowthFocusContent({
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
-                      <path
-                        d="M6.66667 0.833374V4.16671"
-                        stroke="#0f766e"
-                        strokeWidth="1.4"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M13.3333 0.833374V4.16671"
-                        stroke="#0f766e"
-                        strokeWidth="1.4"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M3.33333 6.66663H16.6667"
-                        stroke="#0f766e"
-                        strokeWidth="1.4"
-                        strokeLinecap="round"
-                      />
+                      <path d="M6.66667 0.833374V4.16671" stroke="#0f766e" strokeWidth="1.4" strokeLinecap="round" />
+                      <path d="M13.3333 0.833374V4.16671" stroke="#0f766e" strokeWidth="1.4" strokeLinecap="round" />
+                      <path d="M3.33333 6.66663H16.6667" stroke="#0f766e" strokeWidth="1.4" strokeLinecap="round" />
                     </svg>
                   </span>
                   <div className="space-y-1">
@@ -689,7 +608,7 @@ export function ComplianceGrowthFocusContent({
                 <ul className="space-y-2 text-xs text-slate-600">
                   <li className="flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#0f766e]" />
-                    Whatsapp + email alerts when an inspection date changes
+                    WhatsApp + email alerts when an inspection date changes
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#0f766e]" />
@@ -809,31 +728,6 @@ export function ComplianceGrowthFocusContent({
   );
 }
 
-function ToggleButton({
-  label,
-  isActive,
-  onClick,
-}: {
-  label: string;
-  isActive: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <Button
-      type="button"
-      onClick={onClick}
-      className={cn(
-        "rounded-2xl border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition",
-        isActive
-          ? "border-[#169F9F] bg-[#169F9F] text-white shadow-[0_18px_36px_-24px_rgba(23,135,126,0.45)]"
-          : "border-[#d8e4df] bg-white text-slate-700 hover:border-[#169F9F]/50 hover:text-[#0f766e]",
-      )}
-    >
-      {label}
-    </Button>
-  );
-}
-
 function MetricSummary({
   label,
   value,
@@ -844,7 +738,7 @@ function MetricSummary({
   helper: string;
 }) {
   return (
-    <div className="rounded-3xl border border-[#d8e4df] bg-white/95 p-4 shadow-[0_18px_42px_-40px_rgба(15,118,110,0.25)]">
+    <div className="rounded-3xl border border-[#d8e4df] bg-white/95 p-4 shadow-[0_18px_42px_-40px_rgba(15,118,110,0.25)]">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">{label}</p>
       <p className="mt-1 text-3xl font-semibold text-slate-900">{value}</p>
       <p className="mt-1 text-sm text-slate-600">{helper}</p>
@@ -909,7 +803,7 @@ function DedDetailCard({
   inputRef: React.RefObject<HTMLInputElement>;
 }) {
   return (
-    <div className="space-y-5 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_20px_48px_-44px_rgба(15,23,42,0.4)]">
+    <div className="space-y-5 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_20px_48px_-44px_rgba(15,23,42,0.4)]">
       <div className="space-y-2">
         <p className="font-semibold text-slate-900">What DED needs</p>
         <p className="text-sm text-slate-600">{DED_SUMMARY}</p>
@@ -990,7 +884,7 @@ function DedDetailCard({
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Inspection evidences library</p>
             {inspectionEvidence ? (
-              <Badge className="rounded-full border border-[#f3dcb6] bg-[#fdf6e4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b97324]">
+              <Badge className="rounded-full border border-[#f3dcb6] bg-[#fdf6e4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18ем] text-[#b97324]">
                 Pending review
               </Badge>
             ) : null}
@@ -1038,7 +932,7 @@ function DedDetailCard({
             <p className="text-xs text-slate-600">Share evidence and confirm the onsite visit in one step.</p>
           </div>
         </div>
-        <Button className="rounded-full bg-[#169F9F] px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_32px_-24px_rgba(23,135,126,0.45)] hover:bg-[#128080]">
+        <Button className="rounded-full bg-[#169F9F] px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_32px_-24px_rgба(23,135,126,0.45)] hover:bg-[#128080]">
           Follow up
         </Button>
       </div>
@@ -1117,7 +1011,7 @@ function TourismInsight() {
       </div>
       <p className="text-4xl font-semibold text-slate-900">{TOURISM_TOTAL}</p>
       <div className="space-y-3 pt-2">
-        <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Nationalities</div>
+        <div className="text-xs font-semibold uppercase tracking-[0.18ем] text-slate-500">Nationalities</div>
         <div className="space-y-3">
           {TOURISM_BREAKDOWN.map((item) => (
             <div key={item.id} className="flex items-center gap-3">
@@ -1152,4 +1046,69 @@ function SocialInsight() {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d=...
+              d="M14.4901 16.1215H3.76074V14.5478C3.76074 13.7298 4.0855 12.9458 4.66229 12.369C5.23907 11.7922 6.02309 11.4674 6.84109 11.4674H11.4098C12.2278 11.4674 13.0118 11.7922 13.5886 12.369C14.1654 12.9458 14.4901 13.7298 14.4901 14.5478V16.1215Z"
+              fill="currentColor"
+            />
+            <path
+              d="M9.125 9.77758C10.7773 9.77758 12.118 8.43686 12.118 6.78458C12.118 5.1323 10.7773 3.79158 9.125 3.79158C7.47272 3.79158 6.13199 5.1323 6.13199 6.78458C6.13199 8.43686 7.47272 9.77758 9.125 9.77758Z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <div className="space-y-1">
+          <p className="text-sm font-semibold text-slate-900">Social media engagement</p>
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">{SOCIAL_GROWTH.toLocaleString()} new followers</p>
+        </div>
+      </div>
+      <div className="relative h-20">
+        <svg
+          className="absolute inset-0 h-full w-full"
+          preserveAspectRatio="none"
+          viewBox="0 0 226 77"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M33.06 46.849C17.5778 50 0 56 0 56V77H226V1.5C202.93 12.5777 201.578 18.8492 172.639 20C152.263 20.8103 140.622 21.5 121.161 25C99.2055 28.9486 89.1444 35 68.4278 40.5C48.2469 45.8577 53.9241 42.6026 33.06 46.849Z"
+            fill="url(#paint0_linear_social)"
+          />
+          <path
+            d="M1.07031 55C1.07031 55 19.7211 49.2895 33.7386 46.6824C50.8499 43.5 60.7437 44.1995 79.7277 37C102.955 28.1911 99.8166 29 119.905 25C138.911 21.2158 153.76 20.8056 173.894 20C202.491 18.8558 201.948 12.514 224.744 1.5"
+            stroke="#73CED0"
+            strokeWidth="1.3"
+            strokeLinecap="round"
+          />
+          <defs>
+            <linearGradient
+              id="paint0_linear_social"
+              x1="113.535"
+              y1="-11.6868"
+              x2="113.32"
+              y2="77.0007"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stopColor="#4BA2A4" />
+              <stop offset="1" stopColor="#041616" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <div className="absolute right-[30%] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-[#0f766e] ring-4 ring-[#6ed6cc]" />
+      </div>
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-600 hover:bg-slate-50"
+        >
+          Track insights
+        </Button>
+        <Button
+          size="sm"
+          className="rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgба(23,135,126,0.45)] hover:bg-[#128080]"
+        >
+          Download report
+        </Button>
+      </div>
+    </div>
+  );
+}
