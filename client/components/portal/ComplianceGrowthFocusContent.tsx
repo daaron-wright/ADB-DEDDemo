@@ -547,6 +547,31 @@ export function ComplianceGrowthFocusContent({
   }, [showGrowthTab, activeTab]);
 
   React.useEffect(() => {
+    if (!allDedChecklistComplete || hasScheduledWorkspaceReturn) {
+      return;
+    }
+
+    setComplianceItems((items) =>
+      items.map((item) =>
+        item.id === "ded-inspection"
+          ? {
+              ...item,
+              status: "success",
+              detail: "Economic License for Restaurant is compliant",
+            }
+          : item,
+      ),
+    );
+    setIsComplianceComplete(true);
+    const timeout = window.setTimeout(() => {
+      window.location.assign("/portal/applicant");
+    }, 2400);
+    setHasScheduledWorkspaceReturn(true);
+
+    return () => window.clearTimeout(timeout);
+  }, [allDedChecklistComplete, hasScheduledWorkspaceReturn]);
+
+  React.useEffect(() => {
     return () => {
       if (inspectionEvidence?.url) {
         URL.revokeObjectURL(inspectionEvidence.url);
