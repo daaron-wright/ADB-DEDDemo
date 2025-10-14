@@ -213,11 +213,6 @@ export function DocumentSubmissionFocusContent({
     };
   }, []);
 
-  const activeDocument = React.useMemo(
-    () => documents.find((item) => item.id === activeDocumentId) ?? documents[0],
-    [activeDocumentId, documents],
-  );
-
   const allDocumentsCompleted = React.useMemo(
     () => documents.every((item) => item.status === "completed"),
     [documents],
