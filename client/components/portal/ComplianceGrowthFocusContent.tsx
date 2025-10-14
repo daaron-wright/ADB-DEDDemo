@@ -26,6 +26,8 @@ interface ComplianceGrowthFocusContentProps {
   journeyNumber?: string;
   progressPercent?: number;
   growthUnlocked?: boolean;
+  onComplianceReturn?: () => void;
+  isCompliant?: boolean;
 }
 
 type ComplianceStatus = "error" | "warning" | "success" | "info";
@@ -508,6 +510,8 @@ export function ComplianceGrowthFocusContent({
   journeyNumber = "0987654321",
   progressPercent = 78,
   growthUnlocked = false,
+  onComplianceReturn,
+  isCompliant = false,
 }: ComplianceGrowthFocusContentProps) {
   const [activeTab, setActiveTab] = React.useState<TabKey>("compliance");
   const [complianceItems, setComplianceItems] = React.useState<ComplianceItem[]>(
@@ -535,8 +539,7 @@ export function ComplianceGrowthFocusContent({
   const [pendingInspection, setPendingInspection] = React.useState<InspectionEvidence | null>(null);
   const [inspectionSubmissionStatus, setInspectionSubmissionStatus] =
     React.useState<InspectionSubmissionStatus>("idle");
-  const [isComplianceComplete, setIsComplianceComplete] = React.useState(false);
-  const [hasScheduledWorkspaceReturn, setHasScheduledWorkspaceReturn] = React.useState(false);
+  const [isComplianceComplete, setIsComplianceComplete] = React.useState(isCompliant);
   const inspectionUploadInputRef = React.useRef<HTMLInputElement | null>(null);
 
   const allDedChecklistComplete = React.useMemo(
@@ -553,7 +556,7 @@ export function ComplianceGrowthFocusContent({
   }, [showGrowthTab, activeTab]);
 
   React.useEffect(() => {
-    if (!allDedChecklistComplete || hasScheduledWorkspaceReturn) {
+    if (!allDedChecklistComplete || isComplianceComplete) {
       return;
     }
 
@@ -569,13 +572,13 @@ export function ComplianceGrowthFocusContent({
       ),
     );
     setIsComplianceComplete(true);
-    const timeout = window.setTimeout(() => {
-      window.location.assign("/portal/applicant");
-    }, 2400);
-    setHasScheduledWorkspaceReturn(true);
+  }, [allDedChecklistComplete, isComplianceComplete]);
 
-    return () => window.clearTimeout(timeout);
-  }, [allDedChecklistComplete, hasScheduledWorkspaceReturn]);
+  React.useEffect(() => {
+    if (isCompliant) {
+      setIsComplianceComplete(true);
+    }
+  }, [isCompliant]);
 
   React.useEffect(() => {
     return () => {
@@ -675,6 +678,14 @@ export function ComplianceGrowthFocusContent({
     }) as const,
     [ensureSectionOpen, scrollToElement],
   );
+
+  const handleComplianceReturn = React.useCallback(() => {
+    if (onComplianceReturn) {
+      onComplianceReturn();
+      return;
+    }
+    window.location.assign("/portal/applicant");
+  }, [onComplianceReturn]);
 
   const handleInspectionUploadClick = React.useCallback(() => {
     inspectionUploadInputRef.current?.click();
@@ -814,8 +825,16 @@ export function ComplianceGrowthFocusContent({
         <TabsContent value="compliance" className="space-y-4">
           {renderSummaryCard("compliance")}
           {isComplianceComplete ? (
-            <div className="rounded-3xl border border-[#94d2c2] bg-[#eaf7f3] p-4 text-sm font-semibold text-[#0f766e]">
-              Economic License for Restaurant is compliant. Redirecting to your workspace...
+            <div className="flex flex-col gap-3 rounded-3xl border border-[#94d2c2] bg-[#eaf7f3] p-4 text-sm text-[#0f766e] sm:flex-row sm:items-center sm:justify-between">
+              <span className="font-semibold">Economic License for Restaurant is compliant.</span>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleComplianceReturn}
+                className="rounded-full border-[#0f766e] bg-white px-4 py-2 text-xs font-semibold text-[#0f766e] hover:bg-white/90 focus-visible:ring-[#0f766e]/40 sm:self-auto"
+              >
+                Compliance: passed, return to your workspace
+              </Button>
             </div>
           ) : null}
           <Accordion
