@@ -276,6 +276,11 @@ export function DocumentSubmissionFocusContent({
       return;
     }
 
+    if (!documents.some((item) => item.status === "completed" && item.isExpanded)) {
+      setProgress((value) => Math.max(value, 92));
+      return;
+    }
+
     setDocuments((previous) =>
       previous.map((item) =>
         item.status === "completed"
