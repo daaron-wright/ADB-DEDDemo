@@ -260,6 +260,24 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       reviewStage: "Review stage",
       timelineAriaLabel: "Journey stages navigation",
     },
+    questionnaireOnboarding: {
+      heading: "AI questionnaire intake",
+      notStartedMessage:
+        "Kick off the AI questionnaire to tailor your workspace.",
+      inProgressMessage:
+        "AI is capturing your details to configure the questionnaire.",
+      completedMessage:
+        "Questionnaire responses are synced. License details are ready.",
+      description:
+        "Launch a guided conversation so we can confirm your concept before generating the licensing workflow.",
+      startCta: "Start questionnaire with AI",
+      resumeCta: "Open questionnaire workspace",
+      completeCta: "Mark questionnaire as complete",
+      pendingLicenseLabel: "Available after questionnaire",
+      pendingSubmissionLabel: "Assigned after questionnaire completes",
+      chatIntro:
+        "Let's confirm a few details together. Once we finish this intake, I'll publish your license type and submission ID.",
+    },
   },
   ar: {
     languageLabel: "اللغة",
@@ -270,7 +288,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     subtitle: "��وابة رخصة ال��عمال",
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
-      `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة التالية.`,
+      `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة ��لتالية.`,
     workspaceSupportBadge: "دعم مساحة ��لعمل",
     supportHeading: "تحتاجين إلى مساعدة؟",
     supportDescription: {
