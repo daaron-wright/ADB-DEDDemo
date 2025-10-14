@@ -287,7 +287,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
-    businessAITitle: "مساع�� الأعمال الذكي",
+    businessAITitle: "مساع�� ��لأعمال الذكي",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نفس مجموعة الأعمال. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
@@ -316,7 +316,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك المدعوم ب��لذكاء الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك المدعوم ب��لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الموافقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
@@ -1858,19 +1858,6 @@ export default function ApplicantPortal() {
                 />
               </span>
             </div>
-            <div className="space-y-3">
-              <Button
-                type="button"
-                onClick={(event) => {
-                  event.stopPropagation();
-                  handleOpenChat();
-                }}
-                className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] bg-[#0f766e] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_14px_32px_-22px_rgba(11,64,55,0.4)] transition hover:bg-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30"
-              >
-                <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
-                {languageCopy.chatCta}
-              </Button>
-            </div>
           </div>
           <div className="grid gap-4 text-sm text-slate-600 sm:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
@@ -2023,6 +2010,16 @@ export default function ApplicantPortal() {
           </div>
         </section>
       </PortalPageLayout>
+
+      <button
+        type="button"
+        onClick={handleOpenChat}
+        className="fixed bottom-6 right-6 z-50 inline-flex h-16 w-16 items-center justify-center rounded-full border border-[#0f766e] bg-white text-[#0f766e] shadow-[0_26px_70px_-40px_rgba(15,23,42,0.35)] transition hover:bg-[#f4faf8] hover:text-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40"
+        aria-label={languageCopy.chatCta}
+      >
+        <span className="sr-only">{languageCopy.chatCta}</span>
+        <MessageCircle className="h-7 w-7" aria-hidden="true" />
+      </button>
       {isTimelineBackgroundBlurred ? (
         <div className="fixed inset-0 z-40 bg-white/40 backdrop-blur-lg transition-opacity duration-500" />
       ) : null}
