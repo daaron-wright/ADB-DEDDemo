@@ -1055,13 +1055,21 @@ function ComplianceChecklistItem({
 
 function DedDetailCard({
   inspectionEvidence,
+  pendingInspection,
+  submissionStatus,
   onClickUpload,
   onFileChange,
+  onSubmitInspection,
+  onResetPending,
   inputRef,
 }: {
   inspectionEvidence: InspectionEvidence | null;
+  pendingInspection: InspectionEvidence | null;
+  submissionStatus: InspectionSubmissionStatus;
   onClickUpload: () => void;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmitInspection: () => void;
+  onResetPending: () => void;
   inputRef: React.RefObject<HTMLInputElement>;
 }) {
   return (
