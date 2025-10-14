@@ -1,14 +1,15 @@
 import * as React from "react";
 
+import { Accordion } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { chatCardClass } from "@/lib/chat-style";
+import { CollapsibleCard } from "./StageCollapsibleCard";
 import { cn } from "@/lib/utils";
 import {
-  ArrowRight,
   AlertCircle,
-  CheckCircle,
   AlertTriangle,
+  ArrowRight,
+  CheckCircle,
   FileEdit,
 } from "lucide-react";
 
@@ -19,12 +20,45 @@ interface ComplianceGrowthFocusContentProps {
 
 type ComplianceStatus = "error" | "warning" | "success" | "info";
 
-interface ComplianceItem {
+type ToggleView = "compliance" | "growth";
+
+type ChecklistStatus = "in_progress" | "complete";
+
+type ComplianceItem = {
   id: string;
   label: string;
   status: ComplianceStatus;
   detail: string;
-}
+};
+
+type ChecklistItem = {
+  id: string;
+  label: string;
+  helper?: string;
+  status: ChecklistStatus;
+};
+
+type DedDocument = {
+  id: string;
+  label: string;
+  meta: string;
+  statusLabel: string;
+};
+
+type GrowthOpportunity = {
+  id: string;
+  title: string;
+  subtitle: string;
+  buttonLabel: string;
+  onClick: () => void;
+};
+
+type InspectionEvidence = {
+  id: string;
+  name: string;
+  url: string;
+  sizeLabel: string;
+};
 
 const COMPLIANCE_ITEMS: ComplianceItem[] = [
   {
@@ -65,111 +99,110 @@ const COMPLIANCE_STATUS_TOKENS: Record<
     Icon: React.ElementType;
     iconWrapperClass: string;
     iconClass: string;
-    textClass: string;
+    badgeClass: string;
+    badgeLabel: string;
   }
 > = {
   error: {
     Icon: AlertCircle,
     iconWrapperClass: "border border-red-400/40 bg-red-500/20 text-red-100",
     iconClass: "text-red-200",
-    textClass: "text-white",
+    badgeClass: "border-red-200 bg-red-100 text-red-700",
+    badgeLabel: "Urgent",
   },
   warning: {
     Icon: AlertTriangle,
-    iconWrapperClass:
-      "border border-yellow-300/40 bg-yellow-400/15 text-yellow-100",
-    iconClass: "text-yellow-200",
-    textClass: "text-white",
+    iconWrapperClass: "border border-amber-300/40 bg-amber-200/20 text-amber-100",
+    iconClass: "text-amber-200",
+    badgeClass: "border-amber-200 bg-amber-50 text-amber-700",
+    badgeLabel: "Action needed",
   },
   success: {
     Icon: CheckCircle,
-    iconWrapperClass: "border border-teal-200/50 bg-teal-400/15 text-teal-50",
-    iconClass: "text-[#54FFD4]",
-    textClass: "text-white",
+    iconWrapperClass: "border border-emerald-200/50 bg-emerald-400/15 text-emerald-50",
+    iconClass: "text-emerald-200",
+    badgeClass: "border-emerald-200 bg-emerald-50 text-emerald-700",
+    badgeLabel: "Compliant",
   },
   info: {
     Icon: FileEdit,
-    iconWrapperClass: "border border-white/30 bg-white/10 text-white/80",
-    iconClass: "text-white",
-    textClass: "text-white",
+    iconWrapperClass: "border border-slate-200/40 bg-slate-100/60 text-slate-500",
+    iconClass: "text-slate-500",
+    badgeClass: "border-slate-200 bg-slate-50 text-slate-600",
+    badgeLabel: "Information",
   },
 };
 
-type ToggleView = "compliance" | "growth";
-
-type InspectionEvidence = {
-  id: string;
-  name: string;
-  url: string;
-  sizeLabel: string;
-};
-
-const CHECKLIST_BADGES = {
+const CHECKLIST_BADGES: Record<
+  ChecklistStatus,
+  { label: string; className: string }
+> = {
   in_progress: {
-    className: "border-amber-200 bg-amber-50 text-amber-700",
     label: "In progress",
+    className: "border-amber-200 bg-amber-50 text-amber-700",
   },
   complete: {
-    className: "border-emerald-200 bg-emerald-50 text-emerald-700",
     label: "Complete",
+    className: "border-emerald-200 bg-emerald-50 text-emerald-700",
   },
 };
 
-const DED_DETAIL = {
-  summary:
-    "DED inspectors requested confirmation of updated kitchen layout, staff training logs, and calibration certificates before finalising the renewal.",
-  highlights: [
-    "Onsite visit slot still to be confirmed",
-    "Kitchen HACCP documentation needs upload",
-    "Staff training log awaiting shift lead signatures",
-  ],
-  checklist: [
-    {
-      id: "schedule-visit",
-      label: "Confirm onsite visit slot with inspector H. Al-Nuaimi",
-      helper: "Preferred window: 24–26 April",
-      status: "in_progress",
-    },
-    {
-      id: "upload-updates",
-      label: "Upload updated kitchen HACCP documents",
-      helper: "Draft prepared by operations team",
-      status: "in_progress",
-    },
-    {
-      id: "staff-logs",
-      label: "Collect staff training compliance log",
-      helper: "Shift leads to sign off",
-      status: "in_progress",
-    },
-    {
-      id: "previous-findings",
-      label: "Review previous inspection findings",
-      helper: "All corrective actions completed",
-      status: "complete",
-    },
-  ],
-  documents: [
-    {
-      id: "risk-assessment",
-      label: "Risk assessment checklist",
-      meta: "PDF • 3.2 MB",
-      statusLabel: "Updated",
-    },
-    {
-      id: "floor-plan",
-      label: "Revised kitchen floor plan",
-      meta: "DWG • 1.1 MB",
-      statusLabel: "Pending upload",
-    },
-    {
-      id: "certificates",
-      label: "Calibration certificates",
-      meta: "ZIP • 5 files",
-      statusLabel: "Ready",
-    },
-  ],
-};
+const DED_SUMMARY =
+  "DED inspectors asked for the updated kitchen layout, staff training logs, and calibration certificates before they close the renewal.";
+
+const DED_HIGHLIGHTS = [
+  "Onsite visit slot still needs confirmation",
+  "Upload the revised HACCP documentation",
+  "Collect shift lead signatures on the training log",
+];
+
+const DED_CHECKLIST: ChecklistItem[] = [
+  {
+    id: "schedule-visit",
+    label: "Confirm onsite visit slot with inspector H. Al-Nuaimi",
+    helper: "Preferred window: 24–26 April",
+    status: "in_progress",
+  },
+  {
+    id: "upload-updates",
+    label: "Upload updated kitchen HACCP documents",
+    helper: "Draft prepared by operations team",
+    status: "in_progress",
+  },
+  {
+    id: "staff-logs",
+    label: "Collect staff training compliance log",
+    helper: "Shift leads to sign off",
+    status: "in_progress",
+  },
+  {
+    id: "previous-findings",
+    label: "Review previous inspection findings",
+    helper: "All corrective actions completed",
+    status: "complete",
+  },
+];
+
+const DED_DOCUMENTS: DedDocument[] = [
+  {
+    id: "risk-assessment",
+    label: "Risk assessment checklist",
+    meta: "PDF • 3.2 MB",
+    statusLabel: "Updated",
+  },
+  {
+    id: "floor-plan",
+    label: "Revised kitchen floor plan",
+    meta: "DWG • 1.1 MB",
+    statusLabel: "Pending upload",
+  },
+  {
+    id: "certificates",
+    label: "Calibration certificates",
+    meta: "ZIP • 5 files",
+    statusLabel: "Ready",
+  },
+];
 
 const DED_MEDIA = [
   {
@@ -192,12 +225,93 @@ const DED_MEDIA = [
   },
 ];
 
+const GROWTH_PROGRESS = 75;
+const GROWTH_STEPS = 9;
+const GROWTH_ACTIONS = 3;
+
+const GROWTH_OPPORTUNITY_CONTENT = {
+  trends: {
+    id: "trends",
+    title: "5 new economic trends",
+    subtitle: "Curated for hospitality",
+    buttonLabel: "View report",
+  },
+  services: {
+    id: "services",
+    title: "3 relevant services",
+    subtitle: "Marketplace matches",
+    buttonLabel: "Explore services",
+  },
+  suppliers: {
+    id: "suppliers",
+    title: "Marketplace suppliers",
+    subtitle: "17 new matches",
+    buttonLabel: "Meet suppliers",
+  },
+};
+
+const TOURISM_DELTA = 12;
+const TOURISM_TOTAL = "5,932,234";
+
+const TOURISM_BREAKDOWN = [
+  {
+    id: "india",
+    label: "India",
+    value: "1,651,000",
+    progress: "83%",
+    barClass: "bg-[#0f766e]",
+    flag: (
+      <svg
+        width="27"
+        height="20"
+        viewBox="0 0 27 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M0 0H26.6667V6.66667H0V0Z" fill="#FF9933" />
+        <path d="M0 6.6665H26.6667V13.3332H0V6.6665Z" fill="white" />
+        <path d="M0 13.3335H26.6667V20.0002H0V13.3335Z" fill="#128807" />
+        <circle cx="13.3333" cy="10" r="2.66667" fill="#000088" />
+      </svg>
+    ),
+  },
+  {
+    id: "australia",
+    label: "Australia",
+    value: "1,221,498",
+    progress: "70%",
+    barClass: "bg-[#54FFD4]",
+    flag: (
+      <svg
+        width="27"
+        height="20"
+        viewBox="0 0 27 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="26.6667" height="20" fill="#000066" />
+        <path d="M0 0H13.3333V10H0V0Z" fill="#000066" />
+        <path
+          d="M1.5625 0L6.64583 3.77083L11.7083 0H13.3333V1.29167L8.33333 5.02083L13.3333 8.72917V10H11.6667L6.66667 6.27083L1.6875 10H0V8.75L4.97917 5.04167L0 1.33333V0H1.5625Z"
+          fill="white"
+        />
+        <path
+          d="M8.83333 5.85417L13.3333 9.16667V10L7.6875 5.85417H8.83333Z"
+          fill="#C8102E"
+        />
+      </svg>
+    ),
+  },
+];
+
+const SOCIAL_GROWTH = 14445;
+
 function formatFileSize(bytes: number) {
   if (!Number.isFinite(bytes) || bytes <= 0) {
     return "0 B";
   }
 
-  const units = ["B", "KB", "MB", "GB"];
+  const units = ["B", "KB", "MB", "GB"] as const;
   const exponent = Math.min(
     Math.floor(Math.log(bytes) / Math.log(1024)),
     units.length - 1,
@@ -213,52 +327,73 @@ export function ComplianceGrowthFocusContent({
   progressPercent = 78,
 }: ComplianceGrowthFocusContentProps) {
   const [activeView, setActiveView] = React.useState<ToggleView>("compliance");
-  const [expandedComplianceItem, setExpandedComplianceItem] = React.useState<
-    string | null
-  >(null);
-  const [inspectionEvidence, setInspectionEvidence] =
-    React.useState<InspectionEvidence | null>(null);
+  const [complianceSections, setComplianceSections] = React.useState<string[]>([
+    "action",
+    "snapshot",
+    "checklist",
+  ]);
+  const [growthSections, setGrowthSections] = React.useState<string[]>([
+    "action",
+    "snapshot",
+    "opportunities",
+  ]);
+  const [showDedDetail, setShowDedDetail] = React.useState<boolean>(false);
+  const [inspectionEvidence, setInspectionEvidence] = React.useState<InspectionEvidence | null>(null);
+
   const inspectionUploadInputRef = React.useRef<HTMLInputElement | null>(null);
 
-  const thingsToDo = 22;
-  const complete = 78;
-  const growthSteps = 9;
-  const growthActions = 3;
-  const growthProgress = 75;
-
-  const urgentItems = COMPLIANCE_ITEMS.filter(
-    (item) => item.status === "error" || item.status === "warning",
-  );
-
-  const handleInspectionUploadClick = React.useCallback(() => {
-    inspectionUploadInputRef.current?.click();
-  }, []);
-
-  const handleInspectionFileChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const file = event.target.files?.[0];
-
-      if (!file) {
-        return;
-      }
-
-      setInspectionEvidence((previous) => {
-        if (previous?.url) {
-          URL.revokeObjectURL(previous.url);
-        }
-
-        return {
-          id: `inspection-${Date.now()}`,
-          name: file.name,
-          url: URL.createObjectURL(file),
-          sizeLabel: formatFileSize(file.size),
-        };
-      });
-
-      event.target.value = "";
-    },
+  const urgentItems = React.useMemo(
+    () => COMPLIANCE_ITEMS.filter((item) => item.status === "error" || item.status === "warning"),
     [],
   );
+
+  const complianceSummary = React.useMemo(
+    () =>
+      `${urgentItems.length} urgent ${urgentItems.length === 1 ? "item" : "items"} • ${progressPercent}% compliant`,
+    [progressPercent, urgentItems.length],
+  );
+
+  const complianceNextAction = React.useMemo(() => {
+    const dedItem = COMPLIANCE_ITEMS.find((item) => item.id === "ded-inspection");
+    if (!dedItem) {
+      return {
+        subtitle: "All compliance tasks",
+        description: "Track authority updates and confirm each required inspection.",
+        buttonLabel: "View compliance snapshot",
+        onClick: () => ensureSectionOpen("compliance", "snapshot"),
+        disabled: false,
+      };
+    }
+
+    const token = COMPLIANCE_STATUS_TOKENS[dedItem.status];
+    return {
+      subtitle: `${dedItem.label} — ${token.badgeLabel}`,
+      description:
+        "Check the DED requirements and upload the requested evidence so the renewal can be cleared early.",
+      buttonLabel: "Open DED checklist",
+      onClick: () => {
+        ensureSectionOpen("compliance", "checklist");
+        setShowDedDetail(true);
+        scrollToElement("compliance-checklist-card");
+      },
+      disabled: false,
+    };
+  }, [ensureSectionOpen]);
+
+  const growthNextAction = React.useMemo(() => {
+    return {
+      subtitle: "Marketplace services",
+      description: "Review the three suggested services aligned to your growth plan this quarter.",
+      buttonLabel: "View opportunities",
+      onClick: () => {
+        ensureSectionOpen("growth", "opportunities");
+        scrollToElement("growth-opportunities-card");
+      },
+      disabled: false,
+    };
+  }, []);
+
+  const growthSummary = `${GROWTH_STEPS} new steps • ${GROWTH_ACTIONS} actions`;
 
   React.useEffect(() => {
     return () => {
@@ -268,831 +403,690 @@ export function ComplianceGrowthFocusContent({
     };
   }, [inspectionEvidence]);
 
+  const handleInspectionUploadClick = React.useCallback(() => {
+    inspectionUploadInputRef.current?.click();
+  }, []);
+
+  const handleInspectionFileChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (!file) {
+        return;
+      }
+      setInspectionEvidence((previous) => {
+        if (previous?.url) {
+          URL.revokeObjectURL(previous.url);
+        }
+        return {
+          id: `inspection-${Date.now()}`,
+          name: file.name,
+          url: URL.createObjectURL(file),
+          sizeLabel: formatFileSize(file.size),
+        };
+      });
+      event.target.value = "";
+    },
+    [],
+  );
+
+  function scrollToElement(elementId: string) {
+    document.getElementById(elementId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function ensureSectionOpen(view: ToggleView, sectionId: string) {
+    if (view === "compliance") {
+      setComplianceSections((previous) => (previous.includes(sectionId) ? previous : [...previous, sectionId]));
+    } else {
+      setGrowthSections((previous) => (previous.includes(sectionId) ? previous : [...previous, sectionId]));
+    }
+  }
+
+  function handleViewChange(view: ToggleView) {
+    setActiveView(view);
+    requestAnimationFrame(() => {
+      const anchor = view === "compliance" ? "compliance-action-card" : "growth-action-card";
+      scrollToElement(anchor);
+    });
+  }
+
+  const accordionValue = activeView === "compliance" ? complianceSections : growthSections;
+  const setAccordionValue = activeView === "compliance" ? setComplianceSections : setGrowthSections;
+
+  const nextAction = activeView === "compliance" ? complianceNextAction : growthNextAction;
+  const summarySubtitle = activeView === "compliance" ? complianceSummary : growthSummary;
+  const summaryProgress = activeView === "compliance" ? progressPercent : GROWTH_PROGRESS;
+  const summaryLabel = activeView === "compliance" ? "Compliance progress" : "Growth progress";
+
   return (
-    <div className="space-y-5">
-      <div className="flex items-center gap-3">
-        <Button
-          onClick={() => setActiveView("compliance")}
-          className={cn(
-            "flex-1 rounded-2xl border px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] transition-all",
-            activeView === "compliance"
-              ? "border-[#169F9F] bg-[#169F9F] text-white shadow-[0_18px_36px_-24px_rgba(23,135,126,0.45)]"
-              : "border-white/70 bg-white text-slate-900 hover:border-[#169F9F]/40 hover:bg-white/95 hover:text-[#0f766e]",
-          )}
-        >
-          Compliance
-        </Button>
-        <Button
-          onClick={() => setActiveView("growth")}
-          className={cn(
-            "flex-1 rounded-2xl border px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] transition-all",
-            activeView === "growth"
-              ? "border-[#169F9F] bg-[#169F9F] text-white shadow-[0_18px_36px_-24px_rgba(23,135,126,0.45)]"
-              : "border-white/70 bg-white text-slate-900 hover:border-[#169F9F]/40 hover:bg-white/95 hover:text-[#0f766e]",
-          )}
-        >
-          Growth
-        </Button>
+    <div className="space-y-6">
+      <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_26px_60px_-50px_rgba(15,23,42,0.35)]">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Journey number</p>
+            <p className="text-lg font-semibold text-slate-900">{journeyNumber}</p>
+          </div>
+          <Badge className="inline-flex items-center gap-2 rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
+            Live sync
+          </Badge>
+        </div>
+        <div className="mt-5 space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="space-y-1">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Stage 5 • Compliance & growth</p>
+              <h3 className="text-2xl font-semibold text-slate-900">Stay compliant while expanding</h3>
+              <p className="text-sm text-slate-600">Switch views to follow regulatory tasks or act on new expansion opportunities.</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <ToggleButton
+                label="Compliance"
+                isActive={activeView === "compliance"}
+                onClick={() => handleViewChange("compliance")}
+              />
+              <ToggleButton
+                label="Growth"
+                isActive={activeView === "growth"}
+                onClick={() => handleViewChange("growth")}
+              />
+            </div>
+          </div>
+          <div className="space-y-3">
+            <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+              <span>{summarySubtitle}</span>
+            </div>
+            <div className="space-y-2">
+              <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
+                <div
+                  className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all"
+                  style={{ width: `${summaryProgress}%` }}
+                />
+              </div>
+              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                <span>{summaryLabel}</span>
+                <span>{summaryProgress}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {activeView === "compliance" && (
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
-          <section
-            className={chatCardClass(
-              "space-y-6 border border-white/60 bg-white/95 p-6 text-slate-800 shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
-            )}
+      <Accordion type="multiple" value={accordionValue} onValueChange={setAccordionValue} className="space-y-4">
+        <CollapsibleCard
+          value="action"
+          title="Next action"
+          subtitle={nextAction.subtitle}
+          contentId={activeView === "compliance" ? "compliance-action-card" : "growth-action-card"}
+        >
+          <p className="text-sm text-slate-600">{nextAction.description}</p>
+          <Button
+            type="button"
+            size="sm"
+            onClick={nextAction.onClick}
+            disabled={nextAction.disabled}
+            className="self-start rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
           >
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="space-y-1">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Compliance tracker
-                </p>
-                <p className="text-lg font-semibold text-slate-900">
-                  Regulatory obligations
-                </p>
-              </div>
-              <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                {complete}% compliant
-              </Badge>
-            </div>
+            {nextAction.buttonLabel}
+          </Button>
+        </CollapsibleCard>
 
-            <div className="space-y-4 rounded-[32px] border border-[#0f766e]/25 bg-[#0f766e]/5 px-5 py-4">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div className="space-y-1">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                    Live compliance snapshot
-                  </p>
-                  <p className="text-2xl font-semibold text-slate-900">
-                    {progressPercent}% progress
-                  </p>
-                </div>
-                <Badge className="inline-flex items-center gap-2 border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
-                  AI monitoring
-                </Badge>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="space-y-1">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                    Things to do
-                  </p>
-                  <p className="text-3xl font-semibold text-slate-900">
-                    {thingsToDo}%
-                  </p>
-                  <p className="text-sm text-slate-600">
-                    Outstanding compliance actions
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                    Complete
-                  </p>
-                  <p className="text-3xl font-semibold text-slate-900">
-                    {complete}%
-                  </p>
-                  <p className="text-sm text-slate-600">Authorities synced</p>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
-                  <div
-                    className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] shadow-[0_1px_6px_rgba(15,118,110,0.35)] transition-all"
-                    style={{ width: `${progressPercent}%` }}
-                  />
-                </div>
-                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  <span>Compliance progress</span>
-                  <span>{progressPercent}%</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              {COMPLIANCE_ITEMS.map((item) => {
-                const token = COMPLIANCE_STATUS_TOKENS[item.status];
-                const { Icon } = token;
-                const statusLabel =
-                  item.status === "success"
-                    ? "Compliant"
-                    : item.status === "warning"
-                      ? "Action needed"
-                      : item.status === "error"
-                        ? "Urgent"
-                        : "Information";
-
-                return (
-                  <div
-                    key={item.id}
-                    className="space-y-3 rounded-2xl border border-[#d8e4df] bg-white/95 p-4"
-                  >
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                      <div className="flex items-start gap-3">
-                        <span
-                          className={cn(
-                            "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full",
-                            token.iconWrapperClass,
-                          )}
-                        >
-                          <Icon className={cn("h-5 w-5", token.iconClass)} />
-                        </span>
-                        <div className="space-y-1">
-                          <p className="text-sm font-semibold text-slate-900">
-                            {item.label}
-                          </p>
-                          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">
-                            {item.detail}
-                          </p>
-                        </div>
-                      </div>
-                      {item.id === "ded-inspection" &&
-                      (item.status === "warning" || item.status === "error") ? (
-                        <button
-                          onClick={() =>
-                            setExpandedComplianceItem((current) =>
-                              current === "ded-inspection"
-                                ? null
-                                : "ded-inspection",
-                            )
-                          }
-                          className="self-start rounded-full border border-white/70 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition-colors hover:bg-[#0f766e]/10 sm:self-auto"
-                        >
-                          {expandedComplianceItem === "ded-inspection"
-                            ? "Hide details"
-                            : "View actions"}
-                        </button>
-                      ) : (
-                        <Badge className="self-start border-white/70 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] sm:self-auto">
-                          {statusLabel}
-                        </Badge>
-                      )}
-                    </div>
-
-                    {item.id === "ded-inspection" &&
-                    expandedComplianceItem === "ded-inspection" ? (
-                      <div className="space-y-5 rounded-2xl border border-[#d8e4df] bg-white p-4 text-sm text-slate-600">
-                        <div className="space-y-2">
-                          <p className="font-semibold text-slate-900">
-                            What DED needs
-                          </p>
-                          <p>{DED_DETAIL.summary}</p>
-                        </div>
-
-                        <div className="space-y-2">
-                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                            Highlights
-                          </p>
-                          <ul className="space-y-2">
-                            {DED_DETAIL.highlights.map((highlight, index) => (
-                              <li
-                                key={index}
-                                className="flex items-start gap-2"
-                              >
-                                <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0f766e]" />
-                                <span>{highlight}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        <div className="space-y-2">
-                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                            Checklist
-                          </p>
-                          <ul className="space-y-2">
-                            {DED_DETAIL.checklist.map((check) => {
-                              const badge = CHECKLIST_BADGES[check.status];
-
-                              return (
-                                <li
-                                  key={check.id}
-                                  className="flex flex-col gap-2 rounded-2xl border border-[#e3eeea] bg-[#f5faf7] p-3 sm:flex-row sm:items-center sm:justify-between"
-                                >
-                                  <div className="space-y-1">
-                                    <p className="text-sm font-medium text-slate-900">
-                                      {check.label}
-                                    </p>
-                                    {check.helper ? (
-                                      <p className="text-xs text-slate-500">
-                                        {check.helper}
-                                      </p>
-                                    ) : null}
-                                  </div>
-                                  <Badge
-                                    className={cn(
-                                      "self-start rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] sm:self-auto",
-                                      badge.className,
-                                    )}
-                                  >
-                                    {badge.label}
-                                  </Badge>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </div>
-
-                        <div className="space-y-2">
-                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                            Supporting files
-                          </p>
-                          <ul className="space-y-2">
-                            {DED_DETAIL.documents.map((doc) => (
-                              <li
-                                key={doc.id}
-                                className="flex flex-col gap-2 rounded-2xl border border-[#e3eeea] bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
-                              >
-                                <div>
-                                  <p className="text-sm font-medium text-slate-900">
-                                    {doc.label}
-                                  </p>
-                                  <p className="text-xs text-slate-500">
-                                    {doc.meta}
-                                  </p>
-                                </div>
-                                <Badge className="rounded-full border border-[#d8e4df] bg-[#f5faf7] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                                  {doc.statusLabel}
-                                </Badge>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        <div className="space-y-3">
-                          <div className="flex flex-wrap items-center justify-between gap-3">
-                            <div className="space-y-1">
-                              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                                Signboard inspection
-                              </p>
-                              <p className="text-sm text-slate-600">
-                                Upload a short video of the exterior signage so inspectors can review it remotely.
-                              </p>
-                            </div>
-                            <Badge className="rounded-full border border-[#0f766e]/25 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                              Investor view
-                            </Badge>
-                          </div>
-                          <input
-                            ref={inspectionUploadInputRef}
-                            type="file"
-                            accept="video/*"
-                            onChange={handleInspectionFileChange}
-                            className="hidden"
-                          />
-                          <button
-                            type="button"
-                            onClick={handleInspectionUploadClick}
-                            className="flex h-20 w-full items-center justify-center rounded-3xl border border-dashed border-[#0f766e] bg-[#f5faf7] text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#0f766e]/10"
-                          >
-                            Upload Inspection Video
-                          </button>
-                          <div className="space-y-3 rounded-2xl border border-[#e3eeea] bg-white px-4 py-3">
-                            <div className="flex flex-wrap items-center justify-between gap-3">
-                              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                                Inspection Evidences Library
-                              </p>
-                              {inspectionEvidence ? (
-                                <Badge className="rounded-full border border-[#f3dcb6] bg-[#fdf6e4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b97324]">
-                                  Pending review
-                                </Badge>
-                              ) : null}
-                            </div>
-                            {inspectionEvidence ? (
-                              <div className="space-y-3 rounded-2xl border border-[#e3eeea] bg-[#f5faf7] p-3">
-                                <video
-                                  src={inspectionEvidence.url}
-                                  controls
-                                  className="h-52 w-full rounded-2xl bg-black/80 object-cover"
-                                />
-                                <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-                                  <div>
-                                    <p className="text-sm font-semibold text-slate-900">
-                                      {inspectionEvidence.name}
-                                    </p>
-                                    <p className="text-xs text-slate-500">
-                                      {inspectionEvidence.sizeLabel}
-                                    </p>
-                                  </div>
-                                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">
-                                    Status: Pending Review
-                                  </p>
-                                </div>
-                              </div>
-                            ) : (
-                              <div className="rounded-2xl border border-dashed border-[#e3eeea] bg-[#f8fbfa] p-4 text-sm text-slate-500">
-                                No inspection videos yet. Upload evidence to trigger the remote review.
-                              </div>
-                            )}
-                          </div>
-                        </div>
-
-                        <div className="space-y-3">
-                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                            Photo reference library
-                          </p>
-                          <div className="grid gap-3 sm:grid-cols-3">
-                            {DED_MEDIA.map((asset) => (
-                              <figure
-                                key={asset.id}
-                                className="group overflow-hidden rounded-2xl border border-[#d8e4df] bg-[#f8fbfa]"
-                              >
-                                <img
-                                  src={asset.src}
-                                  alt={asset.alt}
-                                  className="h-32 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                                />
-                                <figcaption className="px-3 py-2 text-center text-xs font-medium text-slate-600">
-                                  {asset.caption}
-                                </figcaption>
-                              </figure>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div className="flex flex-col gap-3 rounded-2xl border border-[#e3eeea] bg-[#f5faf7] p-4 sm:flex-row sm:items-center sm:justify-between">
-                          <div className="flex items-start gap-3">
-                            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#94d2c2] bg-[#dff2ec]/70 text-[#0f766e]">
-                              <ArrowRight className="h-5 w-5" />
-                            </span>
-                            <div className="space-y-1">
-                              <p className="text-sm font-semibold text-slate-900">
-                                Follow up with DED inspector
-                              </p>
-                              <p className="text-xs text-slate-600">
-                                Share photo evidence and confirm the onsite
-                                visit schedule in one step.
-                              </p>
-                            </div>
-                          </div>
-                          <Button className="rounded-full bg-[#169F9F] px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_32px_-24px_rgba(23,135,126,0.45)] hover:bg-[#128080]">
-                            Follow up
-                          </Button>
-                        </div>
-                      </div>
-                    ) : null}
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-
-          <div className="space-y-5">
-            <section
-              className={chatCardClass(
-                "space-y-4 border border-white/60 bg-white/95 p-6 text-slate-800 shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
-              )}
+        {activeView === "compliance" ? (
+          <>
+            <CollapsibleCard
+              value="snapshot"
+              title="Compliance snapshot"
+              subtitle="Live monitoring across authorities"
+              contentId="compliance-snapshot-card"
             >
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b91c1c]">
-                  Compliance alerts
-                </p>
-                <Badge className="border-red-200 bg-red-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-red-700">
-                  {urgentItems.length} open
-                </Badge>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <MetricSummary label="Outstanding actions" value="22%" helper="Items Omnis is tracking" />
+                <MetricSummary label="Authorities synced" value="78%" helper="Latest authority responses" />
               </div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                Omnis updates these metrics each time an authority responds.
+              </p>
+            </CollapsibleCard>
 
+            <CollapsibleCard
+              value="checklist"
+              title="Compliance checklist"
+              subtitle="Track each requirement"
+              contentId="compliance-checklist-card"
+            >
+              <p className="text-sm text-slate-600">
+                Review outstanding tasks, then share evidence so inspectors can approve everything in one visit.
+              </p>
+              <div className="space-y-3">
+                {COMPLIANCE_ITEMS.map((item) => (
+                  <ComplianceChecklistItem
+                    key={item.id}
+                    item={item}
+                    isDedDetailOpen={showDedDetail}
+                    onToggleDedDetail={() => setShowDedDetail((value) => !value)}
+                  />
+                ))}
+              </div>
+              {showDedDetail ? (
+                <DedDetailCard
+                  inspectionEvidence={inspectionEvidence}
+                  onClickUpload={handleInspectionUploadClick}
+                  onFileChange={handleInspectionFileChange}
+                  inputRef={inspectionUploadInputRef}
+                />
+              ) : null}
+            </CollapsibleCard>
+
+            <CollapsibleCard
+              value="alerts"
+              title="Compliance alerts"
+              subtitle={`${urgentItems.length} open`}
+              contentId="compliance-alerts-card"
+            >
               {urgentItems.length > 0 ? (
                 <div className="space-y-3">
-                  {urgentItems.map((item) => {
-                    const token = COMPLIANCE_STATUS_TOKENS[item.status];
-                    const { Icon } = token;
-
-                    return (
-                      <div
-                        key={`alert-${item.id}`}
-                        className="flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50/70 p-4"
-                      >
-                        <span className="flex h-9 w-9 items-center justify-center rounded-full border border-red-200 bg-white text-red-500">
-                          <Icon className="h-5 w-5" />
-                        </span>
-                        <div className="flex-1 space-y-1">
-                          <p className="text-sm font-semibold text-red-800">
-                            {item.label}
-                          </p>
-                          <p className="text-xs text-red-600">{item.detail}</p>
-                        </div>
-                        <Button
-                          size="sm"
-                          className="rounded-full border border-red-200 bg-red-500 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(185,28,28,0.45)] hover:bg-red-600"
-                        >
-                          Follow up
-                        </Button>
-                      </div>
-                    );
-                  })}
+                  {urgentItems.map((item) => (
+                    <ComplianceAlert key={item.id} item={item} />
+                  ))}
                 </div>
               ) : (
-                <p className="text-sm text-slate-600">
-                  All compliance checks are clear.
-                </p>
+                <p className="text-sm text-slate-600">All compliance checks are clear.</p>
               )}
-            </section>
+            </CollapsibleCard>
 
-            <section
-              className={chatCardClass(
-                "space-y-4 border border-white/60 bg-white/95 p-6 text-slate-800 shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
-              )}
+            <CollapsibleCard
+              value="renewals"
+              title="Upcoming renewals"
+              subtitle="Keep documents current"
+              contentId="compliance-renewals-card"
             >
-              <div className="space-y-1">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Upcoming renewals
-                </p>
-                <p className="text-base font-semibold text-slate-900">
-                  Keep your documents current
-                </p>
-              </div>
               <ul className="space-y-2 text-sm text-slate-600">
-                <li className="flex items-center justify-between rounded-2xl border border-[#d8e4df] bg-white/95 px-4 py-3">
-                  <span>DED inspection follow-up</span>
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">
-                    29 days
-                  </span>
-                </li>
-                <li className="flex items-center justify-between rounded-2xl border border-[#d8e4df] bg-white/95 px-4 py-3">
-                  <span>Visa renewals status</span>
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                    Renewed
-                  </span>
-                </li>
-                <li className="flex items-center justify-between rounded-2xl border border-[#d8e4df] bg-white/95 px-4 py-3">
-                  <span>Tawtheeq certificate</span>
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                    320 days remaining
-                  </span>
-                </li>
+                <RenewalItem label="DED inspection follow-up" value="29 days" valueClass="text-[#b97324]" />
+                <RenewalItem label="Visa renewals status" value="Renewed" valueClass="text-[#0f766e]" />
+                <RenewalItem label="Tawtheeq certificate" value="320 days remaining" valueClass="text-slate-500" />
               </ul>
-            </section>
-          </div>
-        </div>
-      )}
-
-      {activeView === "growth" && (
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.85fr)]">
-          <section
-            className={chatCardClass(
-              "space-y-6 border border-white/60 bg-white/95 p-6 text-slate-800 shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)]",
-            )}
-          >
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="space-y-1">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Growth dashboard
-                </p>
-                <p className="text-lg font-semibold text-slate-900">
-                  Opportunities & insights
-                </p>
-              </div>
-              <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                {growthSteps} new steps
-              </Badge>
-            </div>
-
-            <div className="space-y-4 rounded-[32px] border border-[#0f766e]/25 bg-[#0f766e]/5 px-5 py-4">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div className="space-y-1">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                    Growth status
-                  </p>
-                  <p className="text-2xl font-semibold text-slate-900">
-                    {growthProgress}% momentum
-                  </p>
-                </div>
-                <Badge className="inline-flex items-center gap-2 border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
-                  AI recommendations
-                </Badge>
-              </div>
+            </CollapsibleCard>
+          </>
+        ) : (
+          <>
+            <CollapsibleCard
+              value="snapshot"
+              title="Growth snapshot"
+              subtitle="Momentum across insights"
+              contentId="growth-snapshot-card"
+            >
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="space-y-1">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                    New growth steps
-                  </p>
-                  <p className="text-3xl font-semibold text-slate-900">
-                    {growthSteps}
-                  </p>
-                  <p className="text-sm text-slate-600">
-                    Expansion paths identified
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                    Actions to take
-                  </p>
-                  <p className="text-3xl font-semibold text-slate-900">
-                    {growthActions}
-                  </p>
-                  <p className="text-sm text-slate-600">
-                    High impact follow-ups
-                  </p>
-                </div>
+                <MetricSummary label="New growth steps" value={`${GROWTH_STEPS}`} helper="Expansion paths identified" />
+                <MetricSummary label="Actions to take" value={`${GROWTH_ACTIONS}`} helper="High impact follow-ups" />
               </div>
-              <div className="space-y-2">
-                <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
-                  <div
-                    className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] shadow-[0_1px_6px_rgba(15,118,110,0.35)] transition-all"
-                    style={{ width: `${growthProgress}%` }}
-                  />
-                </div>
-                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  <span>Growth progress</span>
-                  <span>{growthProgress}%</span>
-                </div>
-              </div>
-            </div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                Omnis refreshes the growth plan with market signals and partner data.
+              </p>
+            </CollapsibleCard>
 
-            <div className="space-y-3">
-              <div className="flex flex-col gap-3 rounded-2xl border border-[#d8e4df] bg-white/95 p-4 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-start gap-3">
-                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#94d2c2] bg-[#dff2ec]/70 text-[#0f766e]">
-                    <svg
-                      width="16"
-                      height="19"
-                      viewBox="0 0 16 19"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M10.75 0.875C11.1147 0.875 11.4648 1.01948 11.7227 1.27734C11.9805 1.53521 12.125 1.88533 12.125 2.25V2.9375H14.1875C14.5522 2.9375 14.9023 3.08198 15.1602 3.33984C15.418 3.59771 15.5625 3.94783 15.5625 4.3125V18.75C15.5625 19.1147 15.418 19.4648 15.1602 19.7227C14.9023 19.9805 14.5522 20.125 14.1875 20.125H1.8125C1.44783 20.125 1.09771 19.9805 0.839844 19.7227C0.581981 19.4648 0.4375 19.1147 0.4375 18.75V4.3125C0.4375 3.94783 0.581981 3.59771 0.839844 3.33984C1.09771 3.08198 1.44783 2.9375 1.8125 2.9375H3.875V2.25C3.875 1.88533 4.01948 1.53521 4.27734 1.27734C4.53521 1.01948 4.88533 0.875 5.25 0.875H10.75Z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                  </span>
-                  <div className="space-y-1">
-                    <p className="text-sm font-semibold text-slate-900">
-                      5 new economic trends
-                    </p>
-                    <p className="text-xs uppercase tracking-[0.16em] text-slate-500">
-                      Curated for hospitality
-                    </p>
-                  </div>
-                </div>
-                <Button
-                  size="sm"
-                  className="rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(23,135,126,0.45)] hover:bg-[#128080]"
-                >
-                  View report
-                </Button>
-              </div>
-
-              <div className="flex flex-col gap-3 rounded-2xl border border-[#d8e4df] bg-white/95 p-4 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-start gap-3">
-                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#94d2c2] bg-[#dff2ec]/70 text-[#0f766e]">
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M17.5 5H15.8333V2.5H14.1667V5H5.83333V2.5H4.16667V5H2.5C1.81083 5 1.25 5.56083 1.25 6.25V17.5C1.25 18.1892 1.81083 18.75 2.5 18.75H17.5C18.1892 18.75 18.75 18.1892 18.75 17.5V6.25C18.75 5.56083 18.1892 5 17.5 5ZM17.5 17.5H2.5V8.33333H17.5V17.5Z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                  </span>
-                  <div className="space-y-1">
-                    <p className="text-sm font-semibold text-slate-900">
-                      3 relevant services
-                    </p>
-                    <p className="text-xs uppercase tracking-[0.16em] text-slate-500">
-                      Marketplace matches
-                    </p>
-                  </div>
-                </div>
-                <Button
-                  size="sm"
-                  className="rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(23,135,126,0.45)] hover:bg-[#128080]"
-                >
-                  Explore services
-                </Button>
-              </div>
-
-              <div className="flex flex-col gap-3 rounded-2xl border border-[#d8e4df] bg-white/95 p-4 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-start gap-3">
-                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#94d2c2] bg-[#dff2ec]/70 text-[#0f766e]">
-                    <svg
-                      width="22"
-                      height="22"
-                      viewBox="0 0 22 22"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M6.875 20.625C7.63439 20.625 8.25 20.0094 8.25 19.25C8.25 18.4906 7.63439 17.875 6.875 17.875C6.11561 17.875 5.5 18.4906 5.5 19.25C5.5 20.0094 6.11561 20.625 6.875 20.625Z"
-                        fill="currentColor"
-                      />
-                      <path
-                        d="M16.5 20.625C17.2594 20.625 17.875 20.0094 17.875 19.25C17.875 18.4906 17.2594 17.875 16.5 17.875C15.7406 17.875 15.125 18.4906 15.125 19.25C15.125 20.0094 15.7406 20.625 16.5 20.625Z"
-                        fill="currentColor"
-                      />
-                      <path
-                        d="M19.25 4.81264H4.00125L3.4375 1.92514C3.40536 1.76751 3.31896 1.62615 3.19334 1.52565C3.06772 1.42516 2.91084 1.3719 2.75 1.37514H0V2.75014H2.18625L4.8125 15.9501C4.84464 16.1078 4.93104 16.2491 5.05666 16.3496C5.18228 16.4501 5.33916 16.5034 5.5 16.5001H17.875V15.1251H6.06375L5.5 12.3751H17.875C18.0339 12.379 18.1893 12.3277 18.3146 12.2299C18.44 12.1322 18.5276 11.994 18.5625 11.8389L19.9375 5.65139C19.9605 5.54938 19.96 5.44346 19.9359 5.34169C19.9119 5.23992 19.8649 5.14499 19.7986 5.06411C19.7323 4.98323 19.6484 4.91854 19.5534 4.87496C19.4583 4.83139 19.3545 4.81007 19.25 4.81264Z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                  </span>
-                  <div className="space-y-1">
-                    <p className="text-sm font-semibold text-slate-900">
-                      Marketplace suppliers
-                    </p>
-                    <p className="text-xs uppercase tracking-[0.16em] text-slate-500">
-                      17 new matches
-                    </p>
-                  </div>
-                </div>
-                <Button
-                  size="sm"
-                  className="rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(23,135,126,0.45)] hover:bg-[#128080]"
-                >
-                  Meet suppliers
-                </Button>
-              </div>
-            </div>
-          </section>
-
-          <div className="space-y-5">
-            <section
-              className={chatCardClass(
-                "space-y-4 border border-[#d8e4df] bg-white/95 p-5 text-slate-800 shadow-[0_20px_60px_-55px_rgba(15,23,42,0.35)]",
-              )}
+            <CollapsibleCard
+              value="opportunities"
+              title="Opportunities"
+              subtitle="Act on the highest impact items"
+              contentId="growth-opportunities-card"
             >
-              <div className="flex items-start justify-between gap-4">
-                <div className="space-y-1">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                    Visitors to Abu Dhabi
-                  </p>
-                  <p className="text-xs text-slate-500">
-                    Latest tourism intelligence
-                  </p>
-                </div>
-                <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  +12%
-                </Badge>
+              <div className="space-y-3">
+                {buildGrowthOpportunities().map((opportunity) => (
+                  <GrowthOpportunityCard key={opportunity.id} opportunity={opportunity} />
+                ))}
               </div>
-              <p className="text-4xl font-semibold text-slate-900">5,932,234</p>
-              <div className="space-y-3 pt-2">
-                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                  Nationalities
-                </div>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-2">
-                      <svg
-                        width="27"
-                        height="20"
-                        viewBox="0 0 27 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M0 0H26.6667V6.66667H0V0Z" fill="#FF9933" />
-                        <path
-                          d="M0 6.6665H26.6667V13.3332H0V6.6665Z"
-                          fill="white"
-                        />
-                        <path
-                          d="M0 13.3335H26.6667V20.0002H0V13.3335Z"
-                          fill="#128807"
-                        />
-                        <circle
-                          cx="13.3333"
-                          cy="10"
-                          r="2.66667"
-                          fill="#000088"
-                        />
-                      </svg>
-                      <span className="text-sm font-medium text-slate-700">
-                        India
-                      </span>
-                    </div>
-                    <div className="flex flex-1 items-center gap-3">
-                      <div className="relative h-2 flex-1 overflow-hidden rounded-full bg-[#e6f2ed]">
-                        <div className="absolute h-full w-[83%] rounded-full bg-[#0f766e]" />
-                      </div>
-                      <span className="text-sm font-semibold text-slate-900">
-                        1,651,000
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-2">
-                      <svg
-                        width="27"
-                        height="20"
-                        viewBox="0 0 27 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect width="26.6667" height="20" fill="#000066" />
-                        <path d="M0 0H13.3333V10H0V0Z" fill="#000066" />
-                        <path
-                          d="M1.5625 0L6.64583 3.77083L11.7083 0H13.3333V1.29167L8.33333 5.02083L13.3333 8.72917V10H11.6667L6.66667 6.27083L1.6875 10H0V8.75L4.97917 5.04167L0 1.33333V0H1.5625Z"
-                          fill="white"
-                        />
-                        <path
-                          d="M8.83333 5.85417L13.3333 9.16667V10L7.6875 5.85417H8.83333Z"
-                          fill="#C8102E"
-                        />
-                      </svg>
-                      <span className="text-sm font-medium text-slate-700">
-                        Australia
-                      </span>
-                    </div>
-                    <div className="flex flex-1 items-center gap-3">
-                      <div className="relative h-2 flex-1 overflow-hidden rounded-full bg-[#e6f2ed]">
-                        <div className="absolute h-full w-[70%] rounded-full bg-[#54FFD4]" />
-                      </div>
-                      <span className="text-sm font-semibold text-slate-900">
-                        1,221,498
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
+            </CollapsibleCard>
 
-            <section
-              className={chatCardClass(
-                "space-y-4 border border-[#d8e4df] bg-white/95 p-5 text-slate-800 shadow-[0_20px_60px_-55px_rgba(15,23,42,0.35)]",
-              )}
+            <CollapsibleCard
+              value="tourism"
+              title="Tourism insight"
+              subtitle="Latest visitor data"
+              contentId="growth-tourism-card"
             >
-              <div className="flex items-start gap-3">
-                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#94d2c2] bg-[#dff2ec]/70 text-[#0f766e]">
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 18 18"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M14.4901 16.1215H3.76074V14.5478C3.76074 13.7298 4.0855 12.9458 4.66229 12.369C5.23907 11.7922 6.02309 11.4674 6.84109 11.4674H11.4098C12.2278 11.4674 13.0118 11.7922 13.5886 12.369C14.1654 12.9458 14.4901 13.7298 14.4901 14.5478V16.1215Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M9.125 9.77758C10.7773 9.77758 12.118 8.43686 12.118 6.78458C12.118 5.1323 10.7773 3.79158 9.125 3.79158C7.47272 3.79158 6.13199 5.1323 6.13199 6.78458C6.13199 8.43686 7.47272 9.77758 9.125 9.77758Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </span>
-                <div className="space-y-1">
-                  <p className="text-sm font-semibold text-slate-900">
-                    Social media engagement
-                  </p>
-                  <p className="text-xs uppercase tracking-[0.16em] text-slate-500">
-                    14,445 new followers
-                  </p>
-                </div>
-              </div>
-              <div className="relative h-20">
-                <svg
-                  className="absolute inset-0 h-full w-full"
-                  preserveAspectRatio="none"
-                  viewBox="0 0 226 77"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M33.06 46.849C17.5778 50 0 56 0 56V77H226V1.5C202.93 12.5777 201.578 18.8492 172.639 20C152.263 20.8103 140.622 21.5 121.161 25C99.2055 28.9486 89.1444 35 68.4278 40.5C48.2469 45.8577 53.9241 42.6026 33.06 46.849Z"
-                    fill="url(#paint0_linear_growth)"
-                  />
-                  <path
-                    d="M1.07031 55C1.07031 55 19.7211 49.2895 33.7386 46.6824C50.8499 43.5 60.7437 44.1995 79.7277 37C102.955 28.1911 99.8166 29 119.905 25C138.911 21.2158 153.76 20.8056 173.894 20C202.491 18.8558 201.948 12.514 224.744 1.5"
-                    stroke="#73CED0"
-                    strokeWidth="1.3"
-                    strokeLinecap="round"
-                  />
-                  <defs>
-                    <linearGradient
-                      id="paint0_linear_growth"
-                      x1="113.535"
-                      y1="-11.6868"
-                      x2="113.32"
-                      y2="77.0007"
-                      gradientUnits="userSpaceOnUse"
-                    >
-                      <stop stopColor="#4BA2A4" />
-                      <stop offset="1" stopColor="#041616" stopOpacity="0" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <div className="absolute right-[30%] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-[#0f766e] ring-4 ring-[#6ed6cc]" />
-              </div>
-              <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-600 hover:bg-slate-50"
-                >
-                  Track insights
-                </Button>
-                <Button
-                  size="sm"
-                  className="rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(23,135,126,0.45)] hover:bg-[#128080]"
-                >
-                  Download report
-                </Button>
-              </div>
-            </section>
+              <TourismInsight />
+            </CollapsibleCard>
+
+            <CollapsibleCard
+              value="engagement"
+              title="Engagement trends"
+              subtitle="Social reach this month"
+              contentId="growth-engagement-card"
+            >
+              <SocialInsight />
+            </CollapsibleCard>
+          </>
+        )}
+      </Accordion>
+    </div>
+  );
+
+  function buildGrowthOpportunities(): GrowthOpportunity[] {
+    return [
+      {
+        ...GROWTH_OPPORTUNITY_CONTENT.trends,
+        onClick: () => {
+          ensureSectionOpen("growth", "opportunities");
+        },
+      },
+      {
+        ...GROWTH_OPPORTUNITY_CONTENT.services,
+        onClick: () => {
+          ensureSectionOpen("growth", "opportunities");
+        },
+      },
+      {
+        ...GROWTH_OPPORTUNITY_CONTENT.suppliers,
+        onClick: () => {
+          ensureSectionOpen("growth", "opportunities");
+        },
+      },
+    ];
+  }
+}
+
+function ToggleButton({
+  label,
+  isActive,
+  onClick,
+}: {
+  label: string;
+  isActive: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <Button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        "rounded-2xl border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition",
+        isActive
+          ? "border-[#169F9F] bg-[#169F9F] text-white shadow-[0_18px_36px_-24px_rgba(23,135,126,0.45)]"
+          : "border-[#d8e4df] bg-white text-slate-700 hover:border-[#169F9F]/50 hover:text-[#0f766e]",
+      )}
+    >
+      {label}
+    </Button>
+  );
+}
+
+function MetricSummary({
+  label,
+  value,
+  helper,
+}: {
+  label: string;
+  value: string;
+  helper: string;
+}) {
+  return (
+    <div className="rounded-3xl border border-[#d8e4df] bg-white/95 p-4 shadow-[0_18px_42px_-40px_rgba(15,118,110,0.25)]">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">{label}</p>
+      <p className="mt-1 text-3xl font-semibold text-slate-900">{value}</p>
+      <p className="mt-1 text-sm text-slate-600">{helper}</p>
+    </div>
+  );
+}
+
+function ComplianceChecklistItem({
+  item,
+  isDedDetailOpen,
+  onToggleDedDetail,
+}: {
+  item: ComplianceItem;
+  isDedDetailOpen: boolean;
+  onToggleDedDetail: () => void;
+}) {
+  const token = COMPLIANCE_STATUS_TOKENS[item.status];
+  const { Icon } = token;
+  const isDedItem = item.id === "ded-inspection";
+
+  return (
+    <div className="rounded-3xl border border-[#d8e4df] bg-white/95 p-4 shadow-[0_20px_45px_-40px_rgba(15,118,110,0.25)]">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div className="flex items-start gap-3">
+          <span className={cn("flex h-10 w-10 items-center justify-center rounded-full", token.iconWrapperClass)}>
+            <Icon className={cn("h-5 w-5", token.iconClass)} />
+          </span>
+          <div className="space-y-1">
+            <p className="text-sm font-semibold text-slate-900">{item.label}</p>
+            <p className="text-xs uppercase tracking-[0.16em] text-slate-500">{item.detail}</p>
           </div>
         </div>
-      )}
+        {isDedItem ? (
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={onToggleDedDetail}
+            className="rounded-full border-[#0f766e]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+          >
+            {isDedDetailOpen ? "Hide DED actions" : "View DED actions"}
+          </Button>
+        ) : (
+          <Badge className={cn("self-start rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]", token.badgeClass)}>
+            {token.badgeLabel}
+          </Badge>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function DedDetailCard({
+  inspectionEvidence,
+  onClickUpload,
+  onFileChange,
+  inputRef,
+}: {
+  inspectionEvidence: InspectionEvidence | null;
+  onClickUpload: () => void;
+  onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  inputRef: React.RefObject<HTMLInputElement>;
+}) {
+  return (
+    <div className="space-y-5 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_20px_48px_-44px_rgba(15,23,42,0.4)]">
+      <div className="space-y-2">
+        <p className="font-semibold text-slate-900">What DED needs</p>
+        <p className="text-sm text-slate-600">{DED_SUMMARY}</p>
+      </div>
+      <div className="space-y-2">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Highlights</p>
+        <ul className="space-y-2">
+          {DED_HIGHLIGHTS.map((highlight) => (
+            <li key={highlight} className="flex items-start gap-2 text-sm text-slate-600">
+              <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0f766e]" />
+              <span>{highlight}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="space-y-2">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Checklist</p>
+        <ul className="space-y-2">
+          {DED_CHECKLIST.map((item) => {
+            const badge = CHECKLIST_BADGES[item.status];
+            return (
+              <li
+                key={item.id}
+                className="flex flex-col gap-2 rounded-2xl border border-[#e3eeea] bg-[#f5faf7] p-3 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div className="space-y-1">
+                  <p className="text-sm font-medium text-slate-900">{item.label}</p>
+                  {item.helper ? <p className="text-xs text-slate-500">{item.helper}</p> : null}
+                </div>
+                <Badge className={cn("rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]", badge.className)}>
+                  {badge.label}
+                </Badge>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      <div className="space-y-2">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Supporting files</p>
+        <ul className="space-y-2">
+          {DED_DOCUMENTS.map((doc) => (
+            <li
+              key={doc.id}
+              className="flex flex-col gap-2 rounded-2xl border border-[#e3eeea] bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+            >
+              <div>
+                <p className="text-sm font-medium text-slate-900">{doc.label}</p>
+                <p className="text-xs text-slate-500">{doc.meta}</p>
+              </div>
+              <Badge className="rounded-full border border-[#d8e4df] bg-[#f5faf7] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                {doc.statusLabel}
+              </Badge>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="space-y-1">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Signboard inspection</p>
+            <p className="text-sm text-slate-600">
+              Upload a short video of the exterior signage so inspectors can review it remotely.
+            </p>
+          </div>
+          <Badge className="rounded-full border border-[#0f766e]/25 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+            Investor view
+          </Badge>
+        </div>
+        <input ref={inputRef} type="file" accept="video/*" onChange={onFileChange} className="hidden" />
+        <button
+          type="button"
+          onClick={onClickUpload}
+          className="flex h-20 w-full items-center justify-center rounded-3xl border border-dashed border-[#0f766e] bg-[#f5faf7] text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#0f766e]/10"
+        >
+          Upload inspection video
+        </button>
+        <div className="space-y-3 rounded-2xl border border-[#e3eeea] bg-white px-4 py-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Inspection evidences library</p>
+            {inspectionEvidence ? (
+              <Badge className="rounded-full border border-[#f3dcb6] bg-[#fdf6e4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b97324]">
+                Pending review
+              </Badge>
+            ) : null}
+          </div>
+          {inspectionEvidence ? (
+            <div className="space-y-3 rounded-2xl border border-[#e3eeea] bg-[#f5faf7] p-3">
+              <video src={inspectionEvidence.url} controls className="h-52 w-full rounded-2xl bg-black/80 object-cover" />
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-sm font-semibold text-slate-900">{inspectionEvidence.name}</p>
+                  <p className="text-xs text-slate-500">{inspectionEvidence.sizeLabel}</p>
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">Status: Pending review</p>
+              </div>
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-[#e3eeea] bg-[#f8fbfa] p-4 text-sm text-slate-500">
+              No inspection videos yet. Upload evidence to trigger the remote review.
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="space-y-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Photo reference library</p>
+        <div className="grid gap-3 sm:grid-cols-3">
+          {DED_MEDIA.map((asset) => (
+            <figure key={asset.id} className="group overflow-hidden rounded-2xl border border-[#d8e4df] bg-[#f8fbfa]">
+              <img
+                src={asset.src}
+                alt={asset.alt}
+                className="h-32 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+              />
+              <figcaption className="px-3 py-2 text-center text-xs font-medium text-slate-600">{asset.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-col gap-3 rounded-2xl border border-[#e3eeea] bg-[#f5faf7] p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-start gap-3">
+          <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#94d2c2] bg-[#dff2ec]/70 text-[#0f766e]">
+            <ArrowRight className="h-5 w-5" />
+          </span>
+          <div className="space-y-1">
+            <p className="text-sm font-semibold text-slate-900">Follow up with DED inspector</p>
+            <p className="text-xs text-slate-600">Share evidence and confirm the onsite visit in one step.</p>
+          </div>
+        </div>
+        <Button className="rounded-full bg-[#169F9F] px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_32px_-24px_rgba(23,135,126,0.45)] hover:bg-[#128080]">
+          Follow up
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function ComplianceAlert({ item }: { item: ComplianceItem }) {
+  const token = COMPLIANCE_STATUS_TOKENS[item.status];
+  const { Icon } = token;
+  return (
+    <div className="flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50/70 p-4">
+      <span className="flex h-9 w-9 items-center justify-center rounded-full border border-red-200 bg-white text-red-500">
+        <Icon className="h-5 w-5" />
+      </span>
+      <div className="flex-1 space-y-1">
+        <p className="text-sm font-semibold text-red-800">{item.label}</p>
+        <p className="text-xs text-red-600">{item.detail}</p>
+      </div>
+      <Button
+        size="sm"
+        className="rounded-full border border-red-200 bg-red-500 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(185,28,28,0.45)] hover:bg-red-600"
+      >
+        Follow up
+      </Button>
+    </div>
+  );
+}
+
+function RenewalItem({
+  label,
+  value,
+  valueClass,
+}: {
+  label: string;
+  value: string;
+  valueClass: string;
+}) {
+  return (
+    <li className="flex items-center justify-between rounded-2xl border border-[#d8e4df] bg-white/95 px-4 py-3">
+      <span>{label}</span>
+      <span className={cn("text-xs font-semibold uppercase tracking-[0.18em]", valueClass)}>{value}</span>
+    </li>
+  );
+}
+
+function GrowthOpportunityCard({ opportunity }: { opportunity: GrowthOpportunity }) {
+  return (
+    <div className="flex flex-col gap-3 rounded-2xl border border-[#d8e4df] bg-white/95 p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="space-y-1">
+        <p className="text-sm font-semibold text-slate-900">{opportunity.title}</p>
+        <p className="text-xs uppercase tracking-[0.16em] text-slate-500">{opportunity.subtitle}</p>
+      </div>
+      <Button
+        size="sm"
+        onClick={opportunity.onClick}
+        className="rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(23,135,126,0.45)] hover:bg-[#128080]"
+      >
+        {opportunity.buttonLabel}
+      </Button>
+    </div>
+  );
+}
+
+function TourismInsight() {
+  return (
+    <div className="space-y-4">
+      <div className="flex items-start justify-between gap-4">
+        <div className="space-y-1">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Visitors to Abu Dhabi</p>
+          <p className="text-xs text-slate-500">Latest tourism intelligence</p>
+        </div>
+        <Badge className="border-white/70 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+          +{TOURISM_DELTA}%
+        </Badge>
+      </div>
+      <p className="text-4xl font-semibold text-slate-900">{TOURISM_TOTAL}</p>
+      <div className="space-y-3 pt-2">
+        <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Nationalities</div>
+        <div className="space-y-3">
+          {TOURISM_BREAKDOWN.map((item) => (
+            <div key={item.id} className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                {item.flag}
+                <span className="text-sm font-medium text-slate-700">{item.label}</span>
+              </div>
+              <div className="flex flex-1 items-center gap-3">
+                <div className="relative h-2 flex-1 overflow-hidden rounded-full bg-[#e6f2ed]">
+                  <div className={cn("absolute h-full rounded-full", item.barClass)} style={{ width: item.progress }} />
+                </div>
+                <span className="text-sm font-semibold text-slate-900">{item.value}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SocialInsight() {
+  return (
+    <div className="space-y-4">
+      <div className="flex items-start gap-3">
+        <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#94d2c2] bg-[#dff2ec]/70 text-[#0f766e]">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.4901 16.1215H3.76074V14.5478C3.76074 13.7298 4.0855 12.9458 4.66229 12.369C5.23907 11.7922 6.02309 11.4674 6.84109 11.4674H11.4098C12.2278 11.4674 13.0118 11.7922 13.5886 12.369C14.1654 12.9458 14.4901 13.7298 14.4901 14.5478V16.1215Z"
+              fill="currentColor"
+            />
+            <path
+              d="M9.125 9.77758C10.7773 9.77758 12.118 8.43686 12.118 6.78458C12.118 5.1323 10.7773 3.79158 9.125 3.79158C7.47272 3.79158 6.13199 5.1323 6.13199 6.78458C6.13199 8.43686 7.47272 9.77758 9.125 9.77758Z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <div className="space-y-1">
+          <p className="text-sm font-semibold text-slate-900">Social media engagement</p>
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">{SOCIAL_GROWTH.toLocaleString()} new followers</p>
+        </div>
+      </div>
+      <div className="relative h-20">
+        <svg
+          className="absolute inset-0 h-full w-full"
+          preserveAspectRatio="none"
+          viewBox="0 0 226 77"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M33.06 46.849C17.5778 50 0 56 0 56V77H226V1.5C202.93 12.5777 201.578 18.8492 172.639 20C152.263 20.8103 140.622 21.5 121.161 25C99.2055 28.9486 89.1444 35 68.4278 40.5C48.2469 45.8577 53.9241 42.6026 33.06 46.849Z"
+            fill="url(#paint0_linear_growth)"
+          />
+          <path
+            d="M1.07031 55C1.07031 55 19.7211 49.2895 33.7386 46.6824C50.8499 43.5 60.7437 44.1995 79.7277 37C102.955 28.1911 99.8166 29 119.905 25C138.911 21.2158 153.76 20.8056 173.894 20C202.491 18.8558 201.948 12.514 224.744 1.5"
+            stroke="#73CED0"
+            strokeWidth="1.3"
+            strokeLinecap="round"
+          />
+          <defs>
+            <linearGradient
+              id="paint0_linear_growth"
+              x1="113.535"
+              y1="-11.6868"
+              x2="113.32"
+              y2="77.0007"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stopColor="#4BA2A4" />
+              <stop offset="1" stopColor="#041616" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <div className="absolute right-[30%] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-[#0f766e] ring-4 ring-[#6ed6cc]" />
+      </div>
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-600 hover:bg-slate-50"
+        >
+          Track insights
+        </Button>
+        <Button
+          size="sm"
+          className="rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(23,135,126,0.45)] hover:bg-[#128080]"
+        >
+          Download report
+        </Button>
+      </div>
     </div>
   );
 }
