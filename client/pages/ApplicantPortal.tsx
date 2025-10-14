@@ -311,7 +311,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. ��ي بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -329,7 +329,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "مساع�� ��لأعمال الذكي",
     businessActivityGuidance:
-      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نفس مجموعة الأعمال. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
+      "يمكنك اخ��يار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نفس مجموعة الأعمال. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
       "أضيفي إرشادات الترخيص إلى استبيان الأنشطة التجارية",
     statusLabelMap: {
@@ -357,7 +357,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك المدعوم ب��لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك المدعوم ب��لذكا�� الاصطناعي على تنسيق حج�� الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الم��افقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
@@ -2006,6 +2006,42 @@ export default function ApplicantPortal() {
       </div>
     </div>
   );
+
+  const shouldShowLicenseDetails = hasQuestionnaireCompleted;
+  const resolvedLicenseType = shouldShowLicenseDetails
+    ? displayLicenseType
+    : languageCopy.questionnaireOnboarding.pendingLicenseLabel;
+  const resolvedSubmissionId = shouldShowLicenseDetails
+    ? primaryApplication.id
+    : languageCopy.questionnaireOnboarding.pendingSubmissionLabel;
+  const licenseValueClass = cn(
+    "mt-2 text-sm font-semibold text-slate-900",
+    !shouldShowLicenseDetails && "text-slate-400",
+  );
+
+  const questionnaireStatusMessage = hasQuestionnaireCompleted
+    ? languageCopy.questionnaireOnboarding.completedMessage
+    : hasQuestionnaireStarted
+      ? languageCopy.questionnaireOnboarding.inProgressMessage
+      : languageCopy.questionnaireOnboarding.notStartedMessage;
+  const questionnairePrimaryCtaLabel = hasQuestionnaireStarted
+    ? languageCopy.questionnaireOnboarding.resumeCta
+    : languageCopy.questionnaireOnboarding.startCta;
+  const questionnaireStatusBadgeClass = hasQuestionnaireCompleted
+    ? "border-[#94d2c2] bg-[#eaf7f3] text-[#0b7d6f]"
+    : hasQuestionnaireStarted
+      ? "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]"
+      : "border-[#d8e4df] bg-[#f9fbfa] text-slate-600";
+  const questionnaireProgressValue = hasQuestionnaireCompleted
+    ? 100
+    : hasQuestionnaireStarted
+      ? 55
+      : 0;
+
+  const chatInitialMessage =
+    questionnaireProgress === "not_started"
+      ? languageCopy.questionnaireOnboarding.chatIntro
+      : businessAIIntroMessage;
 
   if (portalView === "journey") {
     return (
