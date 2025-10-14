@@ -422,6 +422,13 @@ const GROWTH_OPPORTUNITY_DEFINITIONS = [
   },
 ] as const;
 
+const GROWTH_FEEDBACK_PROMPTS = [
+  "Share the smoothest part of your trade license journey so far.",
+  "Describe any regulation that still feels unclear or slow.",
+  "Suggest one digital touchpoint that could speed up inspections or renewals.",
+  "List the top customer moments that suffer when licensing steps stall.",
+] as const;
+
 const TOURISM_DELTA = 12;
 const TOURISM_TOTAL = "5,932,234";
 
