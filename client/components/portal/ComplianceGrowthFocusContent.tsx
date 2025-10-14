@@ -423,10 +423,10 @@ const GROWTH_OPPORTUNITY_DEFINITIONS = [
 ] as const;
 
 const GROWTH_FEEDBACK_PROMPTS = [
-  "Share the smoothest part of your trade license journey so far.",
-  "Describe any regulation that still feels unclear or slow.",
-  "Suggest one digital touchpoint that could speed up inspections or renewals.",
-  "List the top customer moments that suffer when licensing steps stall.",
+  "Here's what felt smooth in my trade license journey today.",
+  "I'm still confused about this regulation or step.",
+  "I spotted a digital touchpoint that could make inspections faster.",
+  "When licensing stalls, these customer moments suffer.",
 ] as const;
 
 const TOURISM_DELTA = 12;
@@ -1825,11 +1825,11 @@ function GrowthFeedbackCard({ prompts }: { prompts: readonly string[] }) {
   return (
     <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_22px_48px_-40px_rgba(15,23,42,0.32)]">
       <div className="space-y-2">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Continuous feedback</p>
-        <h4 className="text-xl font-semibold text-slate-900">Tell us how licensing feels right now</h4>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">We'd love your feedback</p>
+        <h4 className="text-xl font-semibold text-slate-900">How should we improve the licensing experience?</h4>
         <p className="text-sm text-slate-600">
-          Layla, share quick feedback so we can fine-tune regulations, inspections, and hand-offs. Pick a prompt
-          below or write your own note for the trade license service designers.
+          Tap a note below to capture what you're experiencing, or add your own insight so we can evolve the regulations
+          and service journey.
         </p>
       </div>
       <div className="flex flex-wrap gap-3">
