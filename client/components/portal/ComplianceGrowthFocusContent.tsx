@@ -1135,6 +1135,7 @@ function DedDetailCard({
   inspectionEvidence,
   pendingInspection,
   submissionStatus,
+  checklistItems,
   onClickUpload,
   onFileChange,
   onSubmitInspection,
@@ -1144,6 +1145,7 @@ function DedDetailCard({
   inspectionEvidence: InspectionEvidence | null;
   pendingInspection: InspectionEvidence | null;
   submissionStatus: InspectionSubmissionStatus;
+  checklistItems: ChecklistItem[];
   onClickUpload: () => void;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmitInspection: () => void;
