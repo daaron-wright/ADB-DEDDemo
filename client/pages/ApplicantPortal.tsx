@@ -36,7 +36,7 @@ interface ApplicationRecord {
   title: string;
   directorate: string;
   beneficiary: "Citizen" | "Resident" | "Investor" | "Visitor";
-  status: "In Review" | "Awaiting Documents" | "Approved" | "Draft";
+  status: "In Review" | "Awaiting Documents" | "Approved" | "Draft" | "Compliant";
   licenseType: "Commercial License" | "Dual License";
   progress: number;
   submissionDate: string;
