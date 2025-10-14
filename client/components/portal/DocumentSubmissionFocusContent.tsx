@@ -339,6 +339,41 @@ export function DocumentSubmissionFocusContent({
     [documents],
   );
 
+  const handleInitiatePayment = React.useCallback(() => {
+    if (isPaying || hasPaid || !allDocumentsCompleted) {
+      return;
+    }
+
+    setIsPaying(true);
+    toast({
+      title: "Opening AD Pay",
+      description: "Pay the final licence issuance fee to move into operations.",
+    });
+
+    paymentTimeoutRef.current = window.setTimeout(() => {
+      setIsPaying(false);
+      setHasPaid(true);
+      setProgress(100);
+      const issuedLicense: LicenseDetails = {
+        licenseNumber: "CN-7845126",
+        issueDate: new Date().toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        }),
+        expiryDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString(
+          "en-GB",
+          { day: "2-digit", month: "short", year: "numeric" },
+        ),
+      };
+      setLicenseDetails(issuedLicense);
+      toast({
+        title: "Licence issued",
+        description: "We pushed the licence PDF to your AD Locker and digital wallet.",
+      });
+    }, 1600);
+  }, [allDocumentsCompleted, hasPaid, isPaying, toast]);
+
   const defaultOpenSections = React.useMemo(() => {
     const sections = ["action", "vault"];
     if (showMoaAssistant) {
