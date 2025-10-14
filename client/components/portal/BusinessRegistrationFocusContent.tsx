@@ -974,6 +974,18 @@ export function BusinessRegistrationFocusContent({
       "border-rose-200 bg-rose-50 text-rose-600",
   );
 
+  const defaultOpenSections = React.useMemo(() => {
+    const sections = ["next-step", "submit"];
+    if (hasActiveTradeName || isChecking) {
+      sections.push("automation", "verification");
+    }
+    return sections;
+  }, [hasActiveTradeName, isChecking]);
+
+  const verificationSubtitle = showVerificationSteps
+    ? `${completedVerificationSteps}/${totalVerificationSteps} checks passed`
+    : "Run the checks to see progress here.";
+
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
       <section
