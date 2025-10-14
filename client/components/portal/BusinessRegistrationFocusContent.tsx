@@ -1247,16 +1247,22 @@ export function BusinessRegistrationFocusContent({
             ) : null}
           </div>
           {showVerificationSteps ? (
-            <ul className="grid gap-3 sm:grid-cols-2">
+            <Accordion
+              type="multiple"
+              key={accordionKey}
+              defaultValue={accordionDefaultValues}
+              className="space-y-3"
+            >
               {automationSteps.map((step, index) => (
                 <VerificationStepItem
                   key={step.title}
                   step={step}
                   index={index}
                   totalSteps={automationSteps.length}
+                  value={`step-${index}`}
                 />
               ))}
-            </ul>
+            </Accordion>
           ) : (
             <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-5 text-sm text-slate-500">
               Run the automated checks to view how each Trade Name Engine step progresses in real time.
