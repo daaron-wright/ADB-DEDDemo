@@ -269,7 +269,7 @@ const READINESS_STATUS_TOKENS: Record<ReadinessStatus, { label: string; classNam
   },
 };
 
-const COMPLIANCE_ITEMS: ComplianceItem[] = [
+const DEFAULT_COMPLIANCE_ITEMS: ComplianceItem[] = [
   { id: "civil-defence", label: "Civil Defence", status: "error", detail: "2 issues to resolve" },
   { id: "ded-inspection", label: "DED inspection", status: "warning", detail: "29 days remaining" },
   { id: "food-safety", label: "Food & Safety inspection", status: "success", detail: "Pass" },
@@ -337,7 +337,7 @@ const DED_HIGHLIGHTS = [
   "Collect shift lead signatures on the training log",
 ];
 
-const DED_CHECKLIST: ChecklistItem[] = [
+const DEFAULT_DED_CHECKLIST: ChecklistItem[] = [
   {
     id: "schedule-visit",
     label: "Confirm onsite visit slot with inspector H. Al-Nuaimi",
@@ -367,7 +367,7 @@ const DED_CHECKLIST: ChecklistItem[] = [
 const DED_DOCUMENTS: DedDocument[] = [
   { id: "risk-assessment", label: "Risk assessment checklist", meta: "PDF • 3.2 MB", statusLabel: "Updated" },
   { id: "floor-plan", label: "Revised kitchen floor plan", meta: "DWG • 1.1 MB", statusLabel: "Pending upload" },
-  { id: "certificates", label: "Calibration certificates", meta: "ZIP • 5 files", statusLabel: "Ready" },
+  { id: "certificates", label: "Calibration certificates", meta: "ZIP ��� 5 files", statusLabel: "Ready" },
 ];
 
 const DED_MEDIA = [
