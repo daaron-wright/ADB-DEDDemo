@@ -97,6 +97,13 @@ const COMPLIANCE_STATUS_TOKENS: Record<
 
 type ToggleView = "compliance" | "growth";
 
+type InspectionEvidence = {
+  id: string;
+  name: string;
+  url: string;
+  sizeLabel: string;
+};
+
 const CHECKLIST_BADGES = {
   in_progress: {
     className: "border-amber-200 bg-amber-50 text-amber-700",
