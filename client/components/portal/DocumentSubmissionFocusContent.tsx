@@ -484,41 +484,6 @@ export function DocumentSubmissionFocusContent({
   const paymentSubtitle = hasPaid ? "Paid via AD Pay" : "AED 3,120 via AD Pay";
   const licenceSubtitle = licenseDetails ? "Stored in AD Locker" : "Issued after payment";
 
-  const handleInitiatePayment = React.useCallback(() => {
-    if (isPaying || hasPaid || !allDocumentsCompleted) {
-      return;
-    }
-
-    setIsPaying(true);
-    toast({
-      title: "Opening AD Pay",
-      description: "Pay the final licence issuance fee to move into operations.",
-    });
-
-    paymentTimeoutRef.current = window.setTimeout(() => {
-      setIsPaying(false);
-      setHasPaid(true);
-      setProgress(100);
-      const issuedLicense: LicenseDetails = {
-        licenseNumber: "CN-7845126",
-        issueDate: new Date().toLocaleDateString("en-GB", {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-        }),
-        expiryDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString(
-          "en-GB",
-          { day: "2-digit", month: "short", year: "numeric" },
-        ),
-      };
-      setLicenseDetails(issuedLicense);
-      toast({
-        title: "Licence issued",
-        description: "We pushed the licence PDF to your AD Locker and digital wallet.",
-      });
-    }, 1600);
-  }, [allDocumentsCompleted, hasPaid, isPaying, toast]);
-
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
       <section
@@ -701,7 +666,7 @@ export function DocumentSubmissionFocusContent({
             {hasPaid ? "Payment complete with AD Pay" : isPaying ? "Processing via AD Pay..." : "Pay and issue licence"}
           </Button>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
-            Tenancy (AD Connect) • MOA (ADJD) • Payment (AD Pay)
+            Tenancy (AD Connect) ��� MOA (ADJD) • Payment (AD Pay)
           </p>
         </div>
 
