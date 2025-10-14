@@ -192,8 +192,8 @@ const PREMISES_READINESS_ITEMS: ReadinessItem[] = [
   {
     id: "storage",
     label: "Dry storage shelving labeling",
-    detail: "Shelf 3 requires refreshed expiry labels",
-    status: "attention",
+    detail: "Shelf 3 expiry labels refreshed",
+    status: "pass",
   },
   {
     id: "safety",
