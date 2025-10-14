@@ -300,7 +300,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     supportDescription: {
       preEmail:
         "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت الخليج. تواصلي عبر ",
-      postEmailPrePhone: " أو اتصلي عل���� ",
+      postEmailPrePhone: " أو اتصلي عل�� ",
       postPhone: ".",
     },
     keyDatesHeading: "التواري�� الرئيسية",
@@ -323,7 +323,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإجراء التالي",
-    nextActionButton: "ان��قلي إلى ��لإجراء التالي",
+    nextActionButton: "انتقلي إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
@@ -391,7 +391,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       pendingLicenseLabel: "متاح بعد الاستبيان",
       pendingSubmissionLabel: "يتم تخصيصه بعد إكمال ��لاستبيان",
       chatIntro:
-        "لنؤكد بعض التفاصيل معًا. بعد إنهاء هذ�� الاستبيان، سأعرض نوع التر��يص ومعرّف الطلب.",
+        "لنؤكد بعض التفاصيل معًا. بعد إنهاء هذا الاستبيان، سأعرض نوع التر��يص ومعرّف الطلب.",
     },
   },
 };
@@ -2208,8 +2208,15 @@ export default function ApplicantPortal() {
                   >
                     {displayStatus}
                   </Badge>
-                  <span className="text-xs text-slate-500">
-                    {primaryApplication.id}
+                  <span
+                    className={cn(
+                      "text-xs",
+                      shouldShowLicenseDetails
+                        ? "text-slate-500"
+                        : "text-slate-400",
+                    )}
+                  >
+                    {resolvedSubmissionId}
                   </span>
                 </div>
               </div>
