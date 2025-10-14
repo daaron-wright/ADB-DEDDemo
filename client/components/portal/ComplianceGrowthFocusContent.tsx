@@ -1209,7 +1209,7 @@ function DedDetailCard({
       ) : (
         <InspectionAuditReportPlaceholder />
       )}
-      <InspectionSupportingInfo />
+      <InspectionSupportingInfo checklistItems={checklistItems} />
     </div>
   );
 }
