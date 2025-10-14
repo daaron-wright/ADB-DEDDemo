@@ -347,10 +347,25 @@ export function ComplianceGrowthFocusContent({
     [],
   );
 
+  const scrollToElement = React.useCallback((elementId: string) => {
+    document.getElementById(elementId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
+
+  const ensureSectionOpen = React.useCallback(
+    (view: ToggleView, sectionId: string) => {
+      if (view === "compliance") {
+        setComplianceSections((previous) => (previous.includes(sectionId) ? previous : [...previous, sectionId]));
+      } else {
+        setGrowthSections((previous) => (previous.includes(sectionId) ? previous : [...previous, sectionId]));
+      }
+    },
+    [setComplianceSections, setGrowthSections],
+  );
+
   const complianceSummary = React.useMemo(
     () =>
       `${urgentItems.length} urgent ${urgentItems.length === 1 ? "item" : "items"} • ${progressPercent}% compliant`,
-    [progressPercent, urgentItems.length],
+    [progressPercent, urgentItems],
   );
 
   const complianceNextAction = React.useMemo(() => {
@@ -378,7 +393,7 @@ export function ComplianceGrowthFocusContent({
       },
       disabled: false,
     };
-  }, [ensureSectionOpen]);
+  }, [ensureSectionOpen, scrollToElement]);
 
   const growthNextAction = React.useMemo(() => {
     return {
@@ -391,7 +406,7 @@ export function ComplianceGrowthFocusContent({
       },
       disabled: false,
     };
-  }, []);
+  }, [ensureSectionOpen, scrollToElement]);
 
   const growthSummary = `${GROWTH_STEPS} new steps • ${GROWTH_ACTIONS} actions`;
 
@@ -429,17 +444,32 @@ export function ComplianceGrowthFocusContent({
     [],
   );
 
-  function scrollToElement(elementId: string) {
-    document.getElementById(elementId)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
-  function ensureSectionOpen(view: ToggleView, sectionId: string) {
-    if (view === "compliance") {
-      setComplianceSections((previous) => (previous.includes(sectionId) ? previous : [...previous, sectionId]));
-    } else {
-      setGrowthSections((previous) => (previous.includes(sectionId) ? previous : [...previous, sectionId]));
-    }
-  }
+  const growthOpportunities = React.useMemo<GrowthOpportunity[]>(
+    () => [
+      {
+        ...GROWTH_OPPORTUNITY_CONTENT.trends,
+        onClick: () => {
+          ensureSectionOpen("growth", "opportunities");
+          scrollToElement("growth-opportunities-card");
+        },
+      },
+      {
+        ...GROWTH_OPPORTUNITY_CONTENT.services,
+        onClick: () => {
+          ensureSectionOpen("growth", "opportunities");
+          scrollToElement("growth-opportunities-card");
+        },
+      },
+      {
+        ...GROWTH_OPPORTUNITY_CONTENT.suppliers,
+        onClick: () => {
+          ensureSectionOpen("growth", "opportunities");
+          scrollToElement("growth-opportunities-card");
+        },
+      },
+    ],
+    [ensureSectionOpen, scrollToElement],
+  );
 
   function handleViewChange(view: ToggleView) {
     setActiveView(view);
@@ -628,7 +658,7 @@ export function ComplianceGrowthFocusContent({
               contentId="growth-opportunities-card"
             >
               <div className="space-y-3">
-                {buildGrowthOpportunities().map((opportunity) => (
+                {growthOpportunities.map((opportunity) => (
                   <GrowthOpportunityCard key={opportunity.id} opportunity={opportunity} />
                 ))}
               </div>
@@ -657,28 +687,6 @@ export function ComplianceGrowthFocusContent({
     </div>
   );
 
-  function buildGrowthOpportunities(): GrowthOpportunity[] {
-    return [
-      {
-        ...GROWTH_OPPORTUNITY_CONTENT.trends,
-        onClick: () => {
-          ensureSectionOpen("growth", "opportunities");
-        },
-      },
-      {
-        ...GROWTH_OPPORTUNITY_CONTENT.services,
-        onClick: () => {
-          ensureSectionOpen("growth", "opportunities");
-        },
-      },
-      {
-        ...GROWTH_OPPORTUNITY_CONTENT.suppliers,
-        onClick: () => {
-          ensureSectionOpen("growth", "opportunities");
-        },
-      },
-    ];
-  }
 }
 
 function ToggleButton({
