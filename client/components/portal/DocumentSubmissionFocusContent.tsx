@@ -392,7 +392,7 @@ export function DocumentSubmissionFocusContent({
                 <DocumentVaultCard
                   key={item.id}
                   item={item}
-                  isActive={activeDocumentId === item.id}
+                  isActive={item.isExpanded}
                   onSelect={handleSelectDocument}
                   disabled={isFinalisingMoa && item.id === "memorandum-of-association"}
                 />
