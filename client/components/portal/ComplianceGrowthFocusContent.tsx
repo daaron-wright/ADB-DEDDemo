@@ -1104,139 +1104,32 @@ function DedDetailCard({
     submissionStatus !== "idle" || inspectionEvidence !== null;
 
   return (
-    <div className="space-y-5 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_20px_48px_-44px_rgba(15,23,42,0.4)]">
-      <div className="space-y-2">
-        <p className="font-semibold text-slate-900">What DED needs</p>
-        <p className="text-sm text-slate-600">{DED_SUMMARY}</p>
-      </div>
-      <div className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Highlights</p>
-        <ul className="space-y-2">
-          {DED_HIGHLIGHTS.map((highlight) => (
-            <li key={highlight} className="flex items-start gap-2 text-sm text-slate-600">
-              <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#0f766e]" />
-              <span>{highlight}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Checklist</p>
-        <ul className="space-y-2">
-          {DED_CHECKLIST.map((item) => {
-            const badge = CHECKLIST_BADGES[item.status];
-            return (
-              <li
-                key={item.id}
-                className="flex flex-col gap-2 rounded-2xl border border-[#e3eeea] bg-[#f5faf7] p-3 sm:flex-row sm:items-center sm:justify-between"
-              >
-                <div className="space-y-1">
-                  <p className="text-sm font-medium text-slate-900">{item.label}</p>
-                  {item.helper ? <p className="text-xs text-slate-500">{item.helper}</p> : null}
-                </div>
-                <Badge className={cn("rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]", badge.className)}>
-                  {badge.label}
-                </Badge>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-      <div className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Supporting files</p>
-        <ul className="space-y-2">
-          {DED_DOCUMENTS.map((doc) => (
-            <li
-              key={doc.id}
-              className="flex flex-col gap-2 rounded-2xl border border-[#e3eeea] bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
-            >
-              <div>
-                <p className="text-sm font-medium text-slate-900">{doc.label}</p>
-                <p className="text-xs text-slate-500">{doc.meta}</p>
-              </div>
-              <Badge className="rounded-full border border-[#d8e4df] bg-[#f5faf7] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                {doc.statusLabel}
-              </Badge>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="space-y-3">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="space-y-1">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Signboard inspection</p>
-            <p className="text-sm text-slate-600">
-              Upload a short video of the exterior signage so inspectors can review it remotely.
-            </p>
-          </div>
-          <Badge className="rounded-full border border-[#0f766e]/25 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-            Investor view
-          </Badge>
-        </div>
-        <input ref={inputRef} type="file" accept="video/*" onChange={onFileChange} className="hidden" />
-        <button
-          type="button"
-          onClick={onClickUpload}
-          className="flex h-20 w-full items-center justify-center rounded-3xl border border-dashed border-[#0f766e] bg-[#f5faf7] text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#0f766e]/10"
-        >
-          Upload inspection video
-        </button>
-        <div className="space-y-3 rounded-2xl border border-[#e3eeea] bg-white px-4 py-3">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Inspection evidences library</p>
-            {inspectionEvidence ? (
-              <Badge className="rounded-full border border-[#f3dcb6] bg-[#fdf6e4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b97324]">
-                Pending review
-              </Badge>
-            ) : null}
-          </div>
-          {inspectionEvidence ? (
-            <div className="space-y-3 rounded-2xl border border-[#e3eeea] bg-[#f5faf7] p-3">
-              <video src={inspectionEvidence.url} controls className="h-52 w-full rounded-2xl bg-black/80 object-cover" />
-              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <p className="text-sm font-semibold text-slate-900">{inspectionEvidence.name}</p>
-                  <p className="text-xs text-slate-500">{inspectionEvidence.sizeLabel}</p>
-                </div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">Status: Pending review</p>
-              </div>
-            </div>
-          ) : (
-            <div className="rounded-2xl border border-dashed border-[#e3eeea] bg-[#f8fbfa] p-4 text-sm text-slate-500">
-              No inspection videos yet. Upload evidence to trigger the remote review.
-            </div>
-          )}
-        </div>
-      </div>
-      <div className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Photo reference library</p>
-        <div className="grid gap-3 sm:grid-cols-3">
-          {DED_MEDIA.map((asset) => (
-            <figure key={asset.id} className="group overflow-hidden rounded-2xl border border-[#d8e4df] bg-[#f8fbfa]">
-              <img
-                src={asset.src}
-                alt={asset.alt}
-                className="h-32 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-              />
-              <figcaption className="px-3 py-2 text-center text-xs font-medium text-slate-600">{asset.caption}</figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-      <div className="flex flex-col gap-3 rounded-2xl border border-[#e3eeea] bg-[#f5faf7] p-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-start gap-3">
-          <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#94d2c2] bg-[#dff2ec]/70 text-[#0f766e]">
-            <ArrowRight className="h-5 w-5" />
-          </span>
-          <div className="space-y-1">
-            <p className="text-sm font-semibold text-slate-900">Follow up with DED inspector</p>
-            <p className="text-xs text-slate-600">Share evidence and confirm the onsite visit in one step.</p>
-          </div>
-        </div>
-        <Button className="rounded-full bg-[#169F9F] px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_32px_-24px_rgba(23,135,126,0.45)] hover:bg-[#128080]">
-          Follow up
-        </Button>
-      </div>
+    <div className="space-y-6 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_20px_48px_-44px_rgba(15,23,42,0.4)]">
+      <InspectionTaskHeader submissionStatus={submissionStatus} />
+      <InspectionUploadModule
+        pendingInspection={pendingInspection}
+        submissionStatus={submissionStatus}
+        onClickUpload={onClickUpload}
+        onFileChange={onFileChange}
+        onSubmit={onSubmitInspection}
+        onResetPending={onResetPending}
+        inputRef={inputRef}
+      />
+      <InspectionEvidencesLibrary inspectionEvidence={inspectionEvidence} />
+      <InspectionPipeline steps={pipelineSteps} hasSubmission={hasSubmission} />
+      {inspectionEvidence ? (
+        <InspectionAuditReport
+          inspectionEvidence={inspectionEvidence}
+          yoloSummary={YOLO_DETECTION_SUMMARY}
+          qualitySummary={SIGNBOARD_QUALITY_SUMMARY}
+          ocrLines={OCR_TEXT_LINES}
+          readinessItems={PREMISES_READINESS_ITEMS}
+          verificationRows={TEXT_VERIFICATION_RESULTS}
+        />
+      ) : (
+        <InspectionAuditReportPlaceholder />
+      )}
+      <InspectionSupportingInfo />
     </div>
   );
 }
