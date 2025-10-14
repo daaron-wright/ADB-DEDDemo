@@ -884,7 +884,7 @@ function DedDetailCard({
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Inspection evidences library</p>
             {inspectionEvidence ? (
-              <Badge className="rounded-full border border-[#f3dcb6] bg-[#fdf6e4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18ем] text-[#b97324]">
+              <Badge className="rounded-full border border-[#f3dcb6] bg-[#fdf6e4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b97324]">
                 Pending review
               </Badge>
             ) : null}
@@ -932,7 +932,7 @@ function DedDetailCard({
             <p className="text-xs text-slate-600">Share evidence and confirm the onsite visit in one step.</p>
           </div>
         </div>
-        <Button className="rounded-full bg-[#169F9F] px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_32px_-24px_rgба(23,135,126,0.45)] hover:bg-[#128080]">
+        <Button className="rounded-full bg-[#169F9F] px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_32px_-24px_rgba(23,135,126,0.45)] hover:bg-[#128080]">
           Follow up
         </Button>
       </div>
@@ -954,7 +954,7 @@ function ComplianceAlert({ item }: { item: ComplianceItem }) {
       </div>
       <Button
         size="sm"
-        className="rounded-full border border-red-200 bg-red-500 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgба(185,28,28,0.45)] hover:bg-red-600"
+        className="rounded-full border border-red-200 bg-red-500 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(185,28,28,0.45)] hover:bg-red-600"
       >
         Follow up
       </Button>
@@ -989,7 +989,7 @@ function GrowthOpportunityCard({ opportunity }: { opportunity: GrowthOpportunity
       <Button
         size="sm"
         onClick={opportunity.onClick}
-        className="rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgба(23,135,126,0.45)] hover:bg-[#128080]"
+        className="rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(23,135,126,0.45)] hover:bg-[#128080]"
       >
         {opportunity.buttonLabel}
       </Button>
@@ -1011,7 +1011,7 @@ function TourismInsight() {
       </div>
       <p className="text-4xl font-semibold text-slate-900">{TOURISM_TOTAL}</p>
       <div className="space-y-3 pt-2">
-        <div className="text-xs font-semibold uppercase tracking-[0.18ем] text-slate-500">Nationalities</div>
+        <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Nationalities</div>
         <div className="space-y-3">
           {TOURISM_BREAKDOWN.map((item) => (
             <div key={item.id} className="flex items-center gap-3">
@@ -1104,7 +1104,7 @@ function SocialInsight() {
         </Button>
         <Button
           size="sm"
-          className="rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgба(23,135,126,0.45)] hover:bg-[#128080]"
+          className="rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(23,135,126,0.45)] hover:bg-[#128080]"
         >
           Download report
         </Button>
