@@ -714,6 +714,7 @@ export function ComplianceGrowthFocusContent({
     });
     setInspectionSubmissionStatus("submitted");
     setPendingInspection(null);
+    setDedChecklistItems((items) => items.map((item) => ({ ...item, status: "complete" })));
   }, [pendingInspection]);
 
   const handleResetPendingInspection = React.useCallback(() => {
