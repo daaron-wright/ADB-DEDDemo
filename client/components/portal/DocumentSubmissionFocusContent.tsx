@@ -89,6 +89,7 @@ const INITIAL_DOCUMENTS: DocumentVaultItem[] = [
     status: "completed",
     actionLabel: "Preview passport pack",
     integrationBadge: "TAMM",
+    isExpanded: false,
   },
 ];
 
