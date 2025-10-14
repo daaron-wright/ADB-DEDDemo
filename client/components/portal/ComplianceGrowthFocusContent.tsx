@@ -372,22 +372,28 @@ const DED_DOCUMENTS: DedDocument[] = [
 
 const DED_MEDIA = [
   {
-    id: "smart-kitchen-monitoring",
-    src: "https://api.builder.io/api/v1/image/assets/TEMP/b8e81338fc04dbb1961cecf6a6b349e10dd288d5?width=824",
-    alt: "DED inspector observing smart kitchen monitoring data on screen",
-    caption: "Kitchen monitoring feed",
+    id: "signboard-detection",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F4a6693266af74024a2dcab5cb492078f?format=webp&width=800",
+    alt: "YOLO overlay highlighting the Marwah Restaurant exterior signboard with bounding boxes",
+    caption: "Exterior signboard detection",
   },
   {
-    id: "dining-floor-analytics",
-    src: "https://api.builder.io/api/v1/image/assets/TEMP/35354ebad5489f0ffae354b2521357c0e9b5d5fa?width=918",
-    alt: "Analytics overlay highlighting compliance metrics across dining floor",
-    caption: "Dining floor analytics",
+    id: "kitchen-detection",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F2331744306ad40c49e1cb65014f8c71a?format=webp&width=800",
+    alt: "Computer vision detection of kitchen stations and equipment inside Marwah Restaurant",
+    caption: "Kitchen station detection",
   },
   {
-    id: "storage-zone-alert",
-    src: "https://api.builder.io/api/v1/image/assets/TEMP/37e3d308bae6fa63163fe9e0bbe47135f19cab55?width=824",
-    alt: "Alert shown for storage zone breach captured by surveillance",
-    caption: "Storage zone alert",
+    id: "dining-room-detection",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F34a4ec9d31c84b2987a5bad7d5d23889?format=webp&width=800",
+    alt: "Dining room view with YOLO detection labels across tables and seating",
+    caption: "Dining room detection",
+  },
+  {
+    id: "storage-room-detection",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F539b8c625fe247caa6b2c7b389922091?format=webp&width=800",
+    alt: "Storage room shelving with detection overlays marking supplies and equipment",
+    caption: "Storage room detection",
   },
 ];
 
