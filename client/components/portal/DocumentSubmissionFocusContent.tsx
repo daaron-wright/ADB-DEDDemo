@@ -2,17 +2,13 @@ import * as React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Accordion } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { Check, Download, FileText, Wallet } from "lucide-react";
+import { CollapsibleCard } from "./StageCollapsibleCard";
 
 interface DocumentSubmissionFocusContentProps {
   journeyNumber?: string;
@@ -190,39 +186,6 @@ function DocumentVaultCard({
         />
       </span>
     </button>
-  );
-}
-
-function CollapsibleCard({
-  value,
-  title,
-  subtitle,
-  contentId,
-  children,
-}: {
-  value: string;
-  title: string;
-  subtitle?: React.ReactNode;
-  contentId?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <AccordionItem
-      value={value}
-      className="overflow-hidden rounded-3xl border border-[#d8e4df] bg-white shadow-[0_26px_60px_-50px_rgba(15,23,42,0.35)]"
-    >
-      <AccordionTrigger className="flex w-full items-center justify-between gap-3 px-5 py-4 text-left text-base font-semibold text-slate-900 hover:no-underline">
-        <div className="flex flex-1 flex-col text-left">
-          <span>{title}</span>
-          {subtitle ? (
-            <span className="mt-1 text-sm font-normal text-slate-500">{subtitle}</span>
-          ) : null}
-        </div>
-      </AccordionTrigger>
-      <AccordionContent id={contentId} className="px-5 pb-5 pt-0">
-        <div className="space-y-4 pt-4">{children}</div>
-      </AccordionContent>
-    </AccordionItem>
   );
 }
 
