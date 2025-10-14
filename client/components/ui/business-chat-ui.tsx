@@ -6008,6 +6008,56 @@ export function BusinessChatUI({
     });
   }, [navigate]);
 
+  const handleFeedbackSubmit = useCallback(
+    (rawValue: string) => {
+      const trimmed = rawValue.trim();
+      if (!trimmed) {
+        toast({
+          title: "Add a suggestion",
+          description: "Share a quick note before submitting feedback.",
+        });
+        return;
+      }
+
+      const normalizedKey = trimmed.toLowerCase();
+      setFeedbackStats((previous) => {
+        const existing = previous[normalizedKey];
+        const updatedCount = (existing?.count ?? 0) + 1;
+        const sample = existing?.sample ?? trimmed;
+        const next = {
+          ...previous,
+          [normalizedKey]: { count: updatedCount, sample },
+        };
+
+        if (
+          feedbackThreshold > 0 &&
+          updatedCount >= feedbackThreshold &&
+          !feedbackTopicsNotifiedRef.current.has(normalizedKey)
+        ) {
+          feedbackTopicsNotifiedRef.current.add(normalizedKey);
+          setMessages((current) => [
+            ...current,
+            {
+              id: `feedback-policy-${Date.now()}`,
+              content: `Policy insight queued: ${updatedCount} investors highlighted “${sample}”. Omnis alerted the policy team.`,
+              isAI: true,
+              timestamp: new Date(),
+              type: "feedback-notification",
+            },
+          ]);
+        }
+
+        return next;
+      });
+      setFeedbackTotal((count) => count + 1);
+      toast({
+        title: "Suggestion submitted",
+        description: "Thanks for helping improve the journey.",
+      });
+    },
+    [feedbackThreshold, toast],
+  );
+
   const selectedActivities = useMemo(
     () =>
       activityOptions.filter((activity) =>
