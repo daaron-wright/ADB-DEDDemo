@@ -216,6 +216,9 @@ export function ComplianceGrowthFocusContent({
   const [expandedComplianceItem, setExpandedComplianceItem] = React.useState<
     string | null
   >(null);
+  const [inspectionEvidence, setInspectionEvidence] =
+    React.useState<InspectionEvidence | null>(null);
+  const inspectionUploadInputRef = React.useRef<HTMLInputElement | null>(null);
 
   const thingsToDo = 22;
   const complete = 78;
