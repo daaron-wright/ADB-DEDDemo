@@ -3,12 +3,13 @@ import * as React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Accordion } from "@/components/ui/accordion";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { Check, Download, FileText, Wallet } from "lucide-react";
 import { CollapsibleCard } from "./StageCollapsibleCard";
+import { MyTAMMDocuments } from "./MyTAMMDocuments";
 
 interface DocumentSubmissionFocusContentProps {
   journeyNumber?: string;
