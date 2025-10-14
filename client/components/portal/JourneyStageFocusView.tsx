@@ -15,7 +15,6 @@ import type {
 import type { BusinessActivity } from "./BusinessActivitiesSelection";
 import { BusinessRegistrationFocusContent } from "./BusinessRegistrationFocusContent";
 import { DocumentSubmissionFocusContent } from "./DocumentSubmissionFocusContent";
-import { BusinessLicensingFocusContent } from "./BusinessLicensingFocusContent";
 import { PreOperationalInspectionFocusContent } from "./PreOperationalInspectionFocusContent";
 import { ComplianceGrowthFocusContent } from "./ComplianceGrowthFocusContent";
 
@@ -183,7 +182,6 @@ export function JourneyStageFocusView({
   const isBusinessRegistrationStage = stage?.id === "trade-name-activities";
   const isDocumentSubmissionStage =
     stage?.id === "document-submissions" || stage?.id === "submissions";
-  const isBusinessLicensingStage = stage?.id === "license";
   const isPreOperationalInspectionStage = stage?.id === "inspections";
   const isComplianceGrowthStage = stage?.id === "compliance-growth";
 
@@ -371,18 +369,6 @@ export function JourneyStageFocusView({
         <PreOperationalInspectionFocusContent
           journeyNumber="0987654321"
           progressPercent={83}
-        />
-        {navigationControls}
-      </div>
-    );
-  }
-
-  if (isBusinessLicensingStage) {
-    return (
-      <div className="space-y-5 sm:space-y-6">
-        <BusinessLicensingFocusContent
-          journeyNumber="0987654321"
-          progressPercent={64}
         />
         {navigationControls}
       </div>
