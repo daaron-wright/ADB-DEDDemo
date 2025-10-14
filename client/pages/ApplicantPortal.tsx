@@ -299,7 +299,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     supportHeading: "تحتاجين إلى مساعدة؟",
     supportDescription: {
       preEmail:
-        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتو��يت الخليج. تواصلي عبر ",
+        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت الخليج. تواصلي عبر ",
       postEmailPrePhone: " أو اتصلي عل�� ",
       postPhone: ".",
     },
@@ -389,7 +389,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
       pendingLicenseLabel: "متاح بعد الاستبيان",
-      pendingSubmissionLabel: "يتم تخصيصه بعد إكمال الاستبيان",
+      pendingSubmissionLabel: "يتم تخصيصه بعد إكمال ��لاستبيان",
       chatIntro:
         "لنؤكد بعض التفاصيل معًا. بعد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
     },
@@ -1419,6 +1419,13 @@ export default function ApplicantPortal() {
       updateCurrentJourneyStep,
     ],
   );
+
+  const handleQuestionnairePrimaryAction = useCallback(() => {
+    if (questionnaireProgress === "not_started") {
+      setQuestionnaireProgress("in_progress");
+    }
+    handleViewJourney(QUESTIONNAIRE_STAGE_ID);
+  }, [questionnaireProgress, setQuestionnaireProgress, handleViewJourney]);
 
   const todoBankItems = useMemo<NextActionItem[]>(() => {
     const findStageIdByTitle = (title: string) => {
