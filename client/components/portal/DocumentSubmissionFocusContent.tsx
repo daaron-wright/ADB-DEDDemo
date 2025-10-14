@@ -2,9 +2,15 @@ import * as React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { useToast } from "@/hooks/use-toast";
-import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
 import { Check, Download, FileText, Wallet } from "lucide-react";
 
