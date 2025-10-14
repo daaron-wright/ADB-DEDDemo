@@ -33,6 +33,8 @@ type LicenseDetails = {
   expiryDate: string;
 };
 
+const DOCUMENT_VAULT_SOURCE_LABEL = 'Synced from "My Business Documents" Vault';
+
 const statusTokens: Record<
   DocumentStatus,
   { label: string; badgeClass: string; dotClass: string }
@@ -60,8 +62,8 @@ const INITIAL_DOCUMENTS: DocumentVaultItem[] = [
     title: "Tenancy Contract",
     description:
       "Omnis pulled your stamped tenancy contract directly from Tamkeen via AD Connect.",
-    source: "Auto-fetched",
-    sourceDetail: "Synced by AD Connect",
+    source: DOCUMENT_VAULT_SOURCE_LABEL,
+    sourceDetail: DOCUMENT_VAULT_SOURCE_LABEL,
     status: "completed",
     actionLabel: "View contract",
     integrationBadge: "AD Connect",
@@ -72,8 +74,8 @@ const INITIAL_DOCUMENTS: DocumentVaultItem[] = [
     title: "Memorandum of Association (MOA)",
     description:
       "Drafted with your shareholder details and ready for notarisation with the Abu Dhabi Judicial Department.",
-    source: "Awaiting notarisation",
-    sourceDetail: "Prepared for ADJD",
+    source: DOCUMENT_VAULT_SOURCE_LABEL,
+    sourceDetail: DOCUMENT_VAULT_SOURCE_LABEL,
     status: "requires_action",
     actionLabel: "Review with Omnis AI",
     integrationBadge: "ADJD",
@@ -84,8 +86,8 @@ const INITIAL_DOCUMENTS: DocumentVaultItem[] = [
     title: "Shareholders’ Passports",
     description:
       "Securely stored copies of all shareholders’ passports, validated through your TAMM account login.",
-    source: "Available",
-    sourceDetail: "Uploaded previously",
+    source: DOCUMENT_VAULT_SOURCE_LABEL,
+    sourceDetail: DOCUMENT_VAULT_SOURCE_LABEL,
     status: "completed",
     actionLabel: "Preview passport pack",
     integrationBadge: "TAMM",
@@ -164,7 +166,7 @@ function DocumentVaultCard({
           {item.integrationBadge}
         </span>
         <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
-          {isCompleted ? "Securely stored" : item.sourceDetail}
+          {item.sourceDetail}
         </span>
       </div>
       <span
@@ -249,8 +251,8 @@ export function DocumentSubmissionFocusContent({
             ? {
                 ...item,
                 status: "completed" as const,
-                source: "Ready",
-                sourceDetail: "Notarised via ADJD",
+                source: DOCUMENT_VAULT_SOURCE_LABEL,
+                sourceDetail: DOCUMENT_VAULT_SOURCE_LABEL,
                 actionLabel: "Download notarised MOA",
                 isExpanded: false,
               }
@@ -383,7 +385,7 @@ export function DocumentSubmissionFocusContent({
                   My business documents
                 </p>
                 <p className="text-base font-semibold text-slate-900">
-                  Vault is pre-populated for Layla
+                  {DOCUMENT_VAULT_SOURCE_LABEL}
                 </p>
               </div>
               <Badge className="rounded-full border border-[#0f766e]/25 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
