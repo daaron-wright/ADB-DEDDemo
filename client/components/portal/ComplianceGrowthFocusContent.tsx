@@ -572,7 +572,7 @@ export function ComplianceGrowthFocusContent({
                                     </p>
                                   </div>
                                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">
-                                    Status: pending review
+                                    Status: Pending Review
                                   </p>
                                 </div>
                               </div>
