@@ -3664,6 +3664,11 @@ interface MessageBubbleProps {
   applicationProgressProps?: {
     message: string;
   };
+  feedbackProps?: {
+    onSubmit: (value: string) => void;
+    suggestionCount: number;
+    threshold: number | undefined;
+  };
   showUserAvatar?: boolean;
 }
 
@@ -3675,6 +3680,7 @@ const MessageBubble = ({
   onBudgetRangesOpen,
   businessActivitiesProps,
   applicationProgressProps,
+  feedbackProps,
   showUserAvatar = false,
 }: MessageBubbleProps) => {
   const bubbleContainerClasses = message.isAI
