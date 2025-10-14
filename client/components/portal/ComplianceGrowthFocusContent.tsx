@@ -1196,18 +1196,13 @@ function InspectionUploadModule({
 
   return (
     <div className="space-y-4 rounded-3xl border border-[#e3eeea] bg-[#f5faf7] p-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="space-y-1">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-            Signboard inspection upload
-          </p>
-          <p className="text-sm text-slate-600">
-            Upload a continuous clip that shows the exterior signboard, entrance, dining floor, and kitchen stations for the digital inspection.
-          </p>
-        </div>
-        <Badge className="rounded-full border border-[#0f766e]/25 bg-[#0f766e]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-          Investor view
-        </Badge>
+      <div className="space-y-1">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+          Signboard inspection upload
+        </p>
+        <p className="text-sm text-slate-600">
+          Upload a continuous clip that shows the exterior signboard, entrance, dining floor, and kitchen stations for the digital inspection.
+        </p>
       </div>
       <input
         ref={inputRef}
