@@ -79,7 +79,7 @@ const INITIAL_DOCUMENTS: DocumentVaultItem[] = [
     source: DOCUMENT_VAULT_SOURCE_LABEL,
     sourceDetail: DOCUMENT_VAULT_SOURCE_LABEL,
     status: "requires_action",
-    actionLabel: "Review with Omnis AI",
+    actionLabel: "Review with Omnis",
     integrationBadge: "ADJD",
     isExpanded: true,
   },
