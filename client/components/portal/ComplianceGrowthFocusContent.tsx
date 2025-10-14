@@ -684,9 +684,54 @@ export function ComplianceGrowthFocusContent({
     [ensureSectionOpen, scrollToElement],
   );
 
-  const summarySubtitle = activeTab === "compliance" ? complianceSummary : growthSummary;
-  const summaryProgress = activeTab === "compliance" ? progressPercent : GROWTH_PROGRESS;
-  const summaryLabel = activeTab === "compliance" ? "Compliance progress" : "Growth momentum";
+  const renderSummaryCard = React.useCallback(
+    (tab: TabKey) => {
+      const isCompliance = tab === "compliance";
+      const badgeLabel = isCompliance ? "Live sync" : "Omnis insights";
+      const heading = isCompliance ? "Stay inspection-ready" : "Unlock expansion plays";
+      const description = isCompliance
+        ? "Monitor obligations, evidence, and renewals before authorities request them."
+        : "Use Omnis to surface high-value trends, partners, and regional expansion options.";
+      const progress = isCompliance ? progressPercent : GROWTH_PROGRESS;
+      const progressLabel = isCompliance ? "Compliance progress" : "Growth momentum";
+      const summary = isCompliance ? complianceSummary : growthSummary;
+
+      return (
+        <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_26px_60px_-50px_rgba(15,23,42,0.35)]">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Journey number</p>
+              <p className="text-lg font-semibold text-slate-900">{journeyNumber}</p>
+            </div>
+            <Badge className="inline-flex items-center gap-2 rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
+              {badgeLabel}
+            </Badge>
+          </div>
+          <div className="mt-5 space-y-4">
+            <div className="space-y-2">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Stage 5 · Compliance & growth</p>
+              <h3 className="text-2xl font-semibold text-slate-900">{heading}</h3>
+              <p className="text-sm text-slate-600">{description}</p>
+            </div>
+            <div className="space-y-2">
+              <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
+                <div
+                  className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                <span>{progressLabel}</span>
+                <span>{progress}%</span>
+              </div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">{summary}</p>
+            </div>
+          </div>
+        </div>
+      );
+    },
+    [journeyNumber, complianceSummary, growthSummary, progressPercent],
+  );
 
   return (
     <div className="space-y-6">
