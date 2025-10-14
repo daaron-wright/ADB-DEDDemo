@@ -259,6 +259,7 @@ export function DocumentSubmissionFocusContent({
         ),
       );
       setIsFinalisingMoa(false);
+      setShowMoaAssistant(false);
       setProgress((value) => Math.max(value, 88));
       toast({
         title: "MOA notarised",
