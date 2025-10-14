@@ -373,7 +373,7 @@ const DED_DOCUMENTS: DedDocument[] = [
 const DED_MEDIA = [
   {
     id: "signboard-detection",
-    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F4a6693266af74024a2dcab5cb492078f?format=webp&width=800",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F308acad36dd540dca76cbdde33c3212d?format=webp&width=800",
     alt: "YOLO overlay highlighting the Marwah Restaurant exterior signboard with bounding boxes",
     caption: "Exterior signboard detection",
   },
