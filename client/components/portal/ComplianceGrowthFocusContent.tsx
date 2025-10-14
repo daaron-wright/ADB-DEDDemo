@@ -745,8 +745,12 @@ export function ComplianceGrowthFocusContent({
               {showDedDetail ? (
                 <DedDetailCard
                   inspectionEvidence={inspectionEvidence}
+                  pendingInspection={pendingInspection}
+                  submissionStatus={inspectionSubmissionStatus}
                   onClickUpload={handleInspectionUploadClick}
                   onFileChange={handleInspectionFileChange}
+                  onSubmitInspection={handleInspectionSubmit}
+                  onResetPending={handleResetPendingInspection}
                   inputRef={inspectionUploadInputRef}
                 />
               ) : null}
