@@ -805,6 +805,29 @@ export function BusinessRegistrationFocusContent({
     ? automationSteps.find((step) => step.status === "current") ?? null
     : null;
 
+  const flaggedStepIndexValue = flaggedVerificationStep
+    ? automationSteps.findIndex((step) => step === flaggedVerificationStep)
+    : -1;
+  const checkingStepIndexValue = nowCheckingStep
+    ? automationSteps.findIndex((step) => step === nowCheckingStep)
+    : -1;
+
+  const accordionDefaultValues = React.useMemo(() => {
+    const defaults: string[] = [];
+    if (flaggedStepIndexValue >= 0) {
+      defaults.push(`step-${flaggedStepIndexValue}`);
+    } else if (checkingStepIndexValue >= 0) {
+      defaults.push(`step-${checkingStepIndexValue}`);
+    }
+    return defaults;
+  }, [flaggedStepIndexValue, checkingStepIndexValue]);
+
+  const accordionKey = React.useMemo(
+    () =>
+      `${flaggedStepIndexValue}-${checkingStepIndexValue}-${isChecking ? "checking" : "idle"}`,
+    [flaggedStepIndexValue, checkingStepIndexValue, isChecking],
+  );
+
   const hasActiveTradeName = activeEnglishTradeName.length > 0;
 
   const badgeLabel = isChecking
