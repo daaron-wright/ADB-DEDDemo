@@ -106,7 +106,7 @@ type TextVerificationRow = {
 
 const REGISTERED_TRADE_NAMES = {
   english: "Marwah Restaurant Sole LLC",
-  arabic: "مطعم مروى شركة ذات مسؤولية محدودة",
+  arabic: "مطع�� مروى شركة ذات مسؤولية محدودة",
 } as const;
 
 const INSPECTION_PIPELINE_STEPS: PipelineStep[] = [
@@ -939,6 +939,7 @@ export function ComplianceGrowthFocusContent({
         {showGrowthTab ? (
           <TabsContent value="growth" className="space-y-4">
             {renderSummaryCard("growth")}
+            <GrowthFeedbackCard prompts={GROWTH_FEEDBACK_PROMPTS} />
             <Accordion
               type="multiple"
               value={growthSections}
