@@ -431,10 +431,10 @@ const GROWTH_OPPORTUNITY_DEFINITIONS = [
 ] as const;
 
 const GROWTH_FEEDBACK_PROMPTS = [
-  "Reservation calendar reset my slot despite DED Circular 14/2023 requiring a five-day notice window.",
-  "Payment portal double-charged inspection fees even though Regulation 7 promises automatic reversal on failure.",
-  "Checklist skipped the Ejari upload flagged as mandatory in Licensing Policy Annex B before reservation review.",
-  "SMS confirmation arrived after the Service Charter Article 12 SLA, so the inspector recorded a no-show.",
+  "Calendar keeps dropping my chosen slot, so I miss the five-day notice window the regulation expects.",
+  "Payment page froze after charging me, leaving no proof the inspection fee was actually recorded for auditors.",
+  "Reservation checklist never mentioned the Ejari upload, meaning our file hits the compliance queue incomplete.",
+  "Confirmation SMS landed hours late, so the inspector marked us absent and escalated it as a service breach.",
 ] as const;
 
 const TOURISM_DELTA = 12;
