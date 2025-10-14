@@ -63,8 +63,7 @@ function buildFallbackCompatibilityResponse(
       is_consistent: isConsistent,
       reason: `${payload.trade_name} remains ${
         isConsistent ? "aligned" : "partially aligned"
-      } with ${activity} based on cached compatibility guidance for Abu Dhabi F&B concepts.
-`,
+      } with ${activity} based on cached compatibility guidance for Abu Dhabi F&B concepts.`,
       threshold: FALLBACK_COMPATIBILITY_THRESHOLD,
     };
   });
