@@ -391,7 +391,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       pendingLicenseLabel: "متاح بعد الاستبيان",
       pendingSubmissionLabel: "يتم تخصيصه بعد إكمال ��لاستبيان",
       chatIntro:
-        "لنؤكد بعض التفاصيل معًا. بعد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
+        "لنؤكد بعض التفاصيل معًا. بعد إنهاء هذا الاستبيان، سأعرض نوع التر��يص ومعرّف الطلب.",
     },
   },
 };
@@ -1426,6 +1426,63 @@ export default function ApplicantPortal() {
     }
     handleViewJourney(QUESTIONNAIRE_STAGE_ID);
   }, [questionnaireProgress, setQuestionnaireProgress, handleViewJourney]);
+
+  useEffect(() => {
+    const questionnaireIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
+      (phase) => phase.stageId === QUESTIONNAIRE_STAGE_ID,
+    );
+    if (questionnaireProgress === "completed") {
+      const tradeNameIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
+        (phase) => phase.stageId === TRADE_NAME_STAGE_ID,
+      );
+      setActiveStageId((current) =>
+        current === TRADE_NAME_STAGE_ID ? current : TRADE_NAME_STAGE_ID,
+      );
+      if (tradeNameIndex >= 0) {
+        setJourneyAnimationIndex(tradeNameIndex);
+        setJourneyProgressPercent(
+          JOURNEY_ANIMATION_TIMELINE[tradeNameIndex]?.percent ?? 0,
+        );
+      }
+      setIsStageManuallySelected(false);
+    } else {
+      setActiveStageId((current) =>
+        current === QUESTIONNAIRE_STAGE_ID ? current : QUESTIONNAIRE_STAGE_ID,
+      );
+      if (questionnaireIndex >= 0) {
+        setJourneyAnimationIndex(questionnaireIndex);
+        setJourneyProgressPercent(
+          JOURNEY_ANIMATION_TIMELINE[questionnaireIndex]?.percent ?? 0,
+        );
+      }
+    }
+  }, [
+    questionnaireProgress,
+    setActiveStageId,
+    setJourneyAnimationIndex,
+    setJourneyProgressPercent,
+    setIsStageManuallySelected,
+  ]);
+
+  useEffect(() => {
+    if (questionnaireProgress === "completed") {
+      updateCurrentJourneyStep(TRADE_NAME_STAGE_ID);
+    } else {
+      updateCurrentJourneyStep(QUESTIONNAIRE_STAGE_ID);
+    }
+  }, [questionnaireProgress, updateCurrentJourneyStep]);
+
+  useEffect(() => {
+    if (questionnaireProgress !== "completed") {
+      return;
+    }
+    setTodoCompletionState((previous) => {
+      if (previous[QUESTIONNAIRE_TODO_ID]) {
+        return previous;
+      }
+      return { ...previous, [QUESTIONNAIRE_TODO_ID]: true };
+    });
+  }, [questionnaireProgress, setTodoCompletionState]);
 
   const todoBankItems = useMemo<NextActionItem[]>(() => {
     const findStageIdByTitle = (title: string) => {
