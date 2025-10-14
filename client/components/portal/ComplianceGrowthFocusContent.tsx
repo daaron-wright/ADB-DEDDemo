@@ -1723,7 +1723,7 @@ function InspectionSupportingInfo() {
         </ul>
       </div>
       <div className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Photo reference library</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Inspection evidence library</p>
         <div className="grid gap-3 sm:grid-cols-3">
           {DED_MEDIA.map((asset) => (
             <figure
