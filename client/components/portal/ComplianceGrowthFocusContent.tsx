@@ -518,11 +518,13 @@ export function ComplianceGrowthFocusContent({
     React.useState<InspectionSubmissionStatus>("idle");
   const inspectionUploadInputRef = React.useRef<HTMLInputElement | null>(null);
 
+  const showGrowthTab = Boolean(growthUnlocked);
+
   React.useEffect(() => {
-    if (!growthUnlocked && activeTab === "growth") {
+    if (!showGrowthTab && activeTab === "growth") {
       setActiveTab("compliance");
     }
-  }, [growthUnlocked, activeTab]);
+  }, [showGrowthTab, activeTab]);
 
   React.useEffect(() => {
     return () => {
