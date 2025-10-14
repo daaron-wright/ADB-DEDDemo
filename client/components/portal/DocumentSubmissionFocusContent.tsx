@@ -65,6 +65,7 @@ const INITIAL_DOCUMENTS: DocumentVaultItem[] = [
     status: "completed",
     actionLabel: "View contract",
     integrationBadge: "AD Connect",
+    isExpanded: false,
   },
   {
     id: "memorandum-of-association",
