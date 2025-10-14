@@ -405,7 +405,7 @@ function VerificationStepItem({
 
   return (
     <AccordionItem value={value} className="border-none">
-      <AccordionTrigger className="group rounded-2xl border border-[#e6f2ed] bg-white/90 px-4 py-4 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30 data-[state=open]:border-[#0f766e]/40">
+      <AccordionTrigger className="group gap-4 rounded-2xl border border-[#e6f2ed] bg-white/90 px-4 py-4 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30 data-[state=open]:border-[#0f766e]/40">
         <div className="flex flex-1 flex-col gap-3">
           <div className="flex w-full items-center gap-3">
             <span className={indicatorClasses} aria-hidden>
