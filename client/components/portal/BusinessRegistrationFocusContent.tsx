@@ -121,7 +121,7 @@ const TRADE_NAME_IDEAS: ReadonlyArray<TradeNameIdeaSuggestion> = [
   {
     id: "harbor-lights-supper-club-sole-llc",
     english: "Harbor Lights Supper Club Sole LLC",
-    arabic: "نادي عشاء أضواء الميناء الفردي ذ.م.م",
+    arabic: "نادي عشاء أضواء الميناء ال��ردي ذ.م.م",
   },
   {
     id: "corniche-culinary-collective-sole-llc",
@@ -793,6 +793,7 @@ export function BusinessRegistrationFocusContent({
       setFailureReason(null);
       setAutomationProgress(0);
       setHasInitiatedPayment(false);
+      setFollowUpSuggestion(null);
       notifyTradeNameChange(idea.english);
 
       requestAnimationFrame(() => {
