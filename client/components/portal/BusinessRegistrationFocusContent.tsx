@@ -945,65 +945,68 @@ export function BusinessRegistrationFocusContent({
           </div>
         </div>
 
-        <div className="rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.32)]">
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                Verification checks
-              </p>
-              <h4 className="text-lg font-semibold text-slate-900">{verificationStatusLabel}</h4>
-              <p className="text-sm text-slate-600">{verificationSubtitle}</p>
-            </div>
-            <Badge className={cn(
-              "inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-              isNameAvailable
-                ? "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]"
-                : isChecking
-                ? "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]"
-                : hasPerformedCheck
-                ? "border-rose-200 bg-rose-50 text-rose-600"
-                : "border-slate-200 bg-white text-slate-500",
-            )}>
-              {completedVerificationSteps}/{TRADE_NAME_CHECKS.length}
-            </Badge>
-          </div>
+        <Accordion type="single" collapsible>
+          <AccordionItem value="verification-card" className="overflow-hidden rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_60px_-40px_rgba(15,23,42,0.32)]">
+            <AccordionTrigger className="flex w-full items-start justify-between gap-3 px-5 py-4 text-left">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                  Verification checks
+                </p>
+                <h4 className="text-lg font-semibold text-slate-900">{verificationStatusLabel}</h4>
+                <p className="text-sm text-slate-600">{verificationSubtitle}</p>
+              </div>
+              <Badge className={cn(
+                "inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                isNameAvailable
+                  ? "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]"
+                  : isChecking
+                  ? "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]"
+                  : hasPerformedCheck
+                  ? "border-rose-200 bg-rose-50 text-rose-600"
+                  : "border-slate-200 bg-white text-slate-500",
+              )}>
+                {completedVerificationSteps}/{TRADE_NAME_CHECKS.length}
+              </Badge>
+            </AccordionTrigger>
+            <AccordionContent className="px-5 pb-5 pt-0">
+              <div className="space-y-3 pt-4">
+                <div className="space-y-2">
+                  <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
+                    <div
+                      className={cn(
+                        "absolute inset-y-0 left-0 rounded-full transition-all",
+                        isNameAvailable ? "bg-[#0f766e]" : "bg-[#0f766e]",
+                      )}
+                      style={{ width: `${displayProgress}%` }}
+                    />
+                  </div>
+                  <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                    <span>Overall progress</span>
+                    <span>{displayProgress}%</span>
+                  </div>
+                </div>
 
-          <div className="mt-4 space-y-3">
-            <div className="space-y-2">
-              <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
-                <div
-                  className={cn(
-                    "absolute inset-y-0 left-0 rounded-full transition-all",
-                    isNameAvailable ? "bg-[#0f766e]" : "bg-[#0f766e]",
-                  )}
-                  style={{ width: `${displayProgress}%` }}
-                />
+                {showVerificationSteps ? (
+                  <Accordion type="multiple" className="space-y-3">
+                    {automationSteps.map((step, index) => (
+                      <VerificationStepItem
+                        key={step.title}
+                        step={step}
+                        index={index}
+                        totalSteps={automationSteps.length}
+                        value={`step-${index}`}
+                      />
+                    ))}
+                  </Accordion>
+                ) : (
+                  <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-5 text-sm text-slate-500">
+                    Run the automated checks to populate each verification step.
+                  </div>
+                )}
               </div>
-              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                <span>Overall progress</span>
-                <span>{displayProgress}%</span>
-              </div>
-            </div>
-
-            {showVerificationSteps ? (
-              <Accordion type="multiple" className="space-y-3">
-                {automationSteps.map((step, index) => (
-                  <VerificationStepItem
-                    key={step.title}
-                    step={step}
-                    index={index}
-                    totalSteps={automationSteps.length}
-                    value={`step-${index}`}
-                  />
-                ))}
-              </Accordion>
-            ) : (
-              <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-5 text-sm text-slate-500">
-                Run the automated checks to populate each verification step.
-              </div>
-            )}
-          </div>
-        </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
     </div>
   );
