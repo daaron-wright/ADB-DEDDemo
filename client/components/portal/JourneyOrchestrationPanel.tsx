@@ -84,6 +84,8 @@ export function JourneyOrchestrationPanel({
     [copy, defaultCopy],
   );
 
+  const vaultContext = useDocumentVaultContext();
+
   const [selectedTimelineId, setSelectedTimelineId] = React.useState<string>(
     () => {
       const prioritized =
