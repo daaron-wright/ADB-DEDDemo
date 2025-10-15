@@ -96,7 +96,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before we display your license summary, let's confirm the right legal structure, business activities, and physical space requirements together. Once we complete this intake, I'll publish your license type and submission ID.",
-  ar: "قبل أن أعرض تفاصيل الترخيص، دعينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطلبات المساحة. بمجرد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
+  ar: "قبل أن أعرض تفاصيل الترخيص، دعينا نؤكد معًا الشكل القانوني الأنسب�� وأنشطة العمل، ومتطلبات المساحة. بمجرد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
 };
 
 type QuestionnaireProgress = "not_started" | "in_progress" | "completed";
@@ -353,7 +353,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "Department of Economic Development": "دائرة التنمية الاقتصادية",
     },
     applicationTitles: {
-      "APP-48291": "رحلة المطعم (الأطعمة والمشروب��ت)",
+      "APP-48291": "رحلة المطعم (الأطعمة والمشروبات)",
     },
     applicationSummaries: {
       "APP-48291":
@@ -370,24 +370,24 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       yourNextStep: "خطوت�� التالية",
       tasksCompleteMessage:
         "تم إكمال كل المهام لهذه المرحلة. راقبي تحديثات الأتمتة.",
-      automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
+      automationMessage: "ا����تمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة التالية",
       reviewStage: "استعرضي المرحلة",
       timelineAriaLabel: "التنقل بين مراحل الرحلة",
     },
     questionnaireOnboarding: {
-      heading: "تهيئة الاستب��ان الذكي",
+      heading: "ابدأ رحلة ترخيصك",
       notStartedMessage:
-        "ابدئي الاستبيان الموجّه بالذكاء الاصطناعي لتخصيص مساحة عملك.",
+        "ابدأ من هنا للإجابة عن أسئلة موجهة حول نشاطك كي نضبط مسار الترخيص لك.",
       inProgressMessage:
         "يعمل الذكاء الاصطناعي على جمع التفاصيل لإعداد الاستبيان.",
       completedMessage:
-        "تمت مزامنة إجابات الاستبيان. تفاصيل الترخيص جاهزة الآن.",
+        "هذه هي نقطة انطلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
-        "أطلقي محادثة موجهة لتأكيد فكرة مشروعك قبل إنشاء مسار الترخيص.",
-      startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
-      resumeCta: "افتحي مساحة الاستبيان",
-      completeCta: "أتمي الاستبيان",
+        "مرحبًا بك—شاركني تفاصيل فكرتك لنصمم معًا رحلة الترخيص التي تطلق مشروعك التجاري.",
+      startCta: "ابدأ الاستبيان مع الذكاء الاصطناعي",
+      resumeCta: "افتح مساحة الاستبيان",
+      completeCta: "أتم الاستبيان",
       pendingLicenseLabel: "متاح بعد الاستبيان",
       pendingSubmissionLabel: "يتم تخصيصه بعد إكمال ��لاستبيان",
       chatIntro:
