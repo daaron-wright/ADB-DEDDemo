@@ -80,10 +80,6 @@ export function DocumentSubmissionFocusContent({
       if (paymentTimeoutRef.current) {
         window.clearTimeout(paymentTimeoutRef.current);
       }
-      if (vaultSyncTimeoutRef.current) {
-        window.clearTimeout(vaultSyncTimeoutRef.current);
-        vaultSyncTimeoutRef.current = null;
-      }
     };
   }, []);
 
