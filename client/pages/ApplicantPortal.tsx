@@ -296,7 +296,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة ��لتالية.`,
-    workspaceSupportBadge: "دعم مساحة ���لعمل",
+    workspaceSupportBadge: "دعم مسا��ة ��لعمل",
     supportHeading: "تحتاجين إلى مساع��ة؟",
     supportDescription: {
       preEmail:
@@ -2352,7 +2352,8 @@ export default function ApplicantPortal() {
       : undefined;
 
   return (
-    <div className="relative" lang={language === "ar" ? "ar" : "en"}>
+    <DocumentVaultProvider>
+      <div className="relative" lang={language === "ar" ? "ar" : "en"}>
       <PortalPageLayout
         title={workspaceHeroTitle}
         subtitle={languageCopy.subtitle}
@@ -2411,5 +2412,6 @@ export default function ApplicantPortal() {
         />
       </div>
     </div>
+    </DocumentVaultProvider>
   );
 }
