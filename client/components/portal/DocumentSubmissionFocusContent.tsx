@@ -41,7 +41,7 @@ const INITIAL_MOA_CLAUSE_DRAFT = `Article 7 — Capital contributions & profit d
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise.`;
 const OMNIS_RECOMMENDED_MOA_CLAUSE = `Article 7 — Capital contributions & profit distribution
-المادة 7 — ا���مساهمات الرأسمالية وتوزيع الأرباح
+المادة 7 — ا��مساهمات الرأسمالية وتوزيع الأرب��ح
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise. Distributions shall be supported by audited management accounts and bilingual notices issued at least five (5) working days in advance.`;
 
@@ -472,9 +472,6 @@ export function DocumentSubmissionFocusContent({
           subtitle={vaultSubtitle}
           contentId="submit-stage-vault"
         >
-          <p className="text-sm text-slate-600">
-            Documents stay in sync automatically. Open any item to review or download it.
-          </p>
           <div className="space-y-3">
             {documents.map((item) => (
               <DocumentVaultCard
