@@ -263,7 +263,7 @@ export function DocumentSubmissionFocusContent({
     [ensureSectionOpen, handleSelectDocument, scrollToElement],
   );
 
-  const vaultSubtitle = `${completedDocumentsCount}/${documents.length} documents ready`;
+  const vaultSubtitle = `${completedDocuments}/${totalDocuments} documents ready`;
   const moaSubtitle = showMoaAssistant
     ? "Omnis guidance for notarisation"
     : "Assistant closed — reopen anytime";
