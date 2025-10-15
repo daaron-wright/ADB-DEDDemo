@@ -17,14 +17,14 @@ export function MyTAMMDocuments({
   return (
     <div
       className={chatCardClass(
-        "space-y-6 border border-white/60 bg-gradient-to-br from-[#54ffd4]/30 via-[#54ffd4]/20 to-[#54ffd4]/25 p-6 backdrop-blur-xl shadow-[0_36px_80px_-60px_rgba(15,23,42,0.45)] sm:p-8",
+        "space-y-6 border border-slate-200 bg-white p-6 shadow-[0_36px_80px_-60px_rgba(15,23,42,0.18)] sm:p-8",
       )}
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h3 className="text-base font-semibold text-white">My TAMM Documents</h3>
+        <h3 className="text-base font-semibold text-slate-900">My TAMM Documents</h3>
         <button
           type="button"
-          className="flex h-6 w-6 items-center justify-center rounded-lg text-white transition hover:bg-white/20"
+          className="flex h-6 w-6 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
         >
           <svg
             className="h-6 w-6"
@@ -48,21 +48,21 @@ export function MyTAMMDocuments({
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/6874f52d79db5dff4a42886b0395ffbe0cf14b5d?width=174"
               alt="Document 1"
-              className="h-28 w-20 rounded-lg border border-white/40 object-cover shadow-[0_8px_24px_-12px_rgba(0,0,0,0.3)]"
+              className="h-28 w-20 rounded-lg border border-slate-200 object-cover shadow-[0_8px_24px_-12px_rgba(0,0,0,0.3)]"
             />
           </div>
           <div className="relative flex-shrink-0">
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/f4db5140ddd80fde530b18c48457b833a2fdbdfc?width=164"
               alt="Document 2"
-              className="h-28 w-20 rounded-lg border border-white/40 object-cover shadow-[0_8px_24px_-12px_rgba(0,0,0,0.3)]"
+              className="h-28 w-20 rounded-lg border border-slate-200 object-cover shadow-[0_8px_24px_-12px_rgba(0,0,0,0.3)]"
             />
           </div>
           <div className="relative flex-shrink-0">
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/170ef7e3e49b30637afc0c58c2de19a1200601c3?width=164"
               alt="Document 3"
-              className="h-28 w-20 rounded-lg border border-white/40 object-cover opacity-60 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.3)]"
+              className="h-28 w-20 rounded-lg border border-slate-200 object-cover opacity-60 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.3)]"
             />
             {isGenerating ? (
               <div className="absolute inset-0 flex items-center justify-center">
@@ -77,12 +77,12 @@ export function MyTAMMDocuments({
             <div className="relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border-2 border-[#54ffd4] bg-white shadow-[0_12px_22px_-14px_rgba(84,255,212,0.45)]">
               <AIBusinessOrb className="h-11 w-11" />
             </div>
-            <p className="text-base font-normal text-white">
+            <p className="text-base font-normal text-slate-700">
               Helping you generate your MOA...
             </p>
           </div>
 
-          <div className="relative overflow-hidden rounded-2xl border border-white/40 bg-white shadow-[0_24px_56px_-32px_rgba(0,0,0,0.3)]">
+          <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_24px_56px_-32px_rgba(0,0,0,0.3)]">
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/f98d23b4e255bb8e215c7cdca82a59e914647937?width=1256"
               alt="Memorandum of Association preview"
@@ -100,7 +100,7 @@ export function MyTAMMDocuments({
             </div>
           </div>
 
-          <div className="flex items-center justify-between rounded-xl bg-white/20 px-4 py-2 backdrop-blur-sm">
+          <div className="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-2 backdrop-blur-sm">
             <p className="text-xs text-slate-900">{companyName}</p>
           </div>
         </div>
