@@ -367,7 +367,7 @@ export function DocumentSubmissionFocusContent({
   }, [allDocumentsCompleted, hasPaid, isPaying, toast]);
 
   const defaultOpenSections = React.useMemo(() => {
-    const sections = ["action", "vault"];
+    const sections = ["vault"];
     if (showMoaAssistant) {
       sections.push("moa");
     }
