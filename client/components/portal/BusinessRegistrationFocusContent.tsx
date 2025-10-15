@@ -35,14 +35,6 @@ type TradeNameVerificationStepWithStatus = TradeNameVerificationStep & {
   progress: number;
 };
 
-type TradeNameIdeaSuggestion = {
-  id: string;
-  english: string;
-  arabic: string;
-};
-
-const MAX_TRADE_NAME_SUGGESTIONS = 4;
-
 const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
   {
     title: "Character normalization",
