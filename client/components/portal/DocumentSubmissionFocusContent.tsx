@@ -40,12 +40,6 @@ export function DocumentSubmissionFocusContent({
   progressPercent = 72,
 }: DocumentSubmissionFocusContentProps) {
   const { toast } = useToast();
-  const vaultContext = useDocumentVaultContext();
-
-  if (!vaultContext) {
-    throw new Error("DocumentSubmissionFocusContent must be used within a DocumentVaultProvider.");
-  }
-
   const {
     documents,
     setDocuments,
@@ -54,7 +48,7 @@ export function DocumentSubmissionFocusContent({
     totalDocuments,
     completedDocuments,
     allDocumentsCompleted,
-  } = vaultContext;
+  } = useDocumentVault();
 
   const [activeDocumentId, setActiveDocumentId] = React.useState<string>("memorandum-of-association");
   const [showMoaAssistant, setShowMoaAssistant] = React.useState(true);
