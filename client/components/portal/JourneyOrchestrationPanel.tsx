@@ -4,6 +4,10 @@ import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+import { DocumentVaultCard } from "./DocumentVaultCard";
+import { DocumentVaultLayout } from "./DocumentVaultLayout";
+import { useDocumentVaultContext } from "./DocumentVaultContext";
+
 import type {
   JourneyAnimationPhase,
   JourneyTimelineItem,
