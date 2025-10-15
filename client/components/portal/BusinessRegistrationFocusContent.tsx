@@ -736,7 +736,7 @@ export function BusinessRegistrationFocusContent({
       trimmedEnglishInput,
       trimmedArabicInput,
       toast,
-      notifyTradeNameChange,
+      startAutomatedCheck,
     ],
   );
 
