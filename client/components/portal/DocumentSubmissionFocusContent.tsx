@@ -41,7 +41,7 @@ const INITIAL_MOA_CLAUSE_DRAFT = `Article 7 — Capital contributions & profit d
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise.`;
 const OMNIS_RECOMMENDED_MOA_CLAUSE = `Article 7 — Capital contributions & profit distribution
-المادة 7 — ا��مساهمات الرأسمالية وتوزيع الأرباح
+المادة 7 — ا���مساهمات الرأسمالية وتوزيع الأرباح
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise. Distributions shall be supported by audited management accounts and bilingual notices issued at least five (5) working days in advance.`;
 
@@ -444,9 +444,6 @@ export function DocumentSubmissionFocusContent({
             <h3 className="text-2xl font-semibold text-slate-900">
               Everything synced in your vault
             </h3>
-            <p className="text-sm text-slate-600">
-              Omnis keeps documents current through AD Connect, ADJD, TAMM, and AD Pay. Review any flagged items, then finish with payment.
-            </p>
           </div>
           <div className="space-y-2">
             <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
