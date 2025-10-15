@@ -626,6 +626,37 @@ export function BusinessRegistrationFocusContent({
     }
   }, [isEditing]);
 
+  const runChecksWithNames = React.useCallback(
+    (englishName: string, arabicName: string) => {
+      const formattedEnglish = formatTradeName(englishName);
+      const formattedArabic = formatArabicName(arabicName);
+
+      if (!formattedEnglish || !formattedArabic) {
+        return false;
+      }
+
+      setEnglishDraft(formattedEnglish);
+      setArabicDraft(formattedArabic);
+      setActiveEnglishTradeName(formattedEnglish);
+      setActiveArabicTradeName(formattedArabic);
+      setPendingSubmission({
+        english: formattedEnglish,
+        arabic: formattedArabic,
+        normalized: formattedEnglish.toUpperCase(),
+      });
+      setAutomationProgress(0);
+      setIsChecking(true);
+      setIsNameAvailable(false);
+      setFailedStepIndex(null);
+      setFailureReason(null);
+      setHasPerformedCheck(true);
+      setIsEditing(false);
+      onTradeNameChange?.(formattedEnglish);
+      return true;
+    },
+    [onTradeNameChange],
+  );
+
   const handleRunChecks = React.useCallback(() => {
     if (isChecking) {
       return;
@@ -641,42 +672,27 @@ export function BusinessRegistrationFocusContent({
       return;
     }
 
-    const formattedEnglish = formatTradeName(englishDraft);
-    const formattedArabic = formatArabicName(arabicDraft);
+    const succeeded = runChecksWithNames(englishDraft, arabicDraft);
 
-    if (!formattedEnglish || !formattedArabic) {
+    if (!succeeded) {
       toast({
         title: "Invalid trade name",
         description: "Enter valid characters for both the English and Arabic names.",
         variant: "destructive",
       });
-      return;
     }
+  }, [arabicDraft, englishDraft, isChecking, runChecksWithNames, toast]);
 
-    setEnglishDraft(formattedEnglish);
-    setArabicDraft(formattedArabic);
-    setActiveEnglishTradeName(formattedEnglish);
-    setActiveArabicTradeName(formattedArabic);
-    setPendingSubmission({
-      english: formattedEnglish,
-      arabic: formattedArabic,
-      normalized: formattedEnglish.toUpperCase(),
-    });
-    setAutomationProgress(0);
-    setIsChecking(true);
-    setIsNameAvailable(false);
-    setFailedStepIndex(null);
-    setFailureReason(null);
-    setHasPerformedCheck(true);
-    setIsEditing(false);
-    onTradeNameChange?.(formattedEnglish);
-  }, [
-    arabicDraft,
-    englishDraft,
-    isChecking,
-    onTradeNameChange,
-    toast,
-  ]);
+  const handleApplySuggestion = React.useCallback(
+    (suggestion: TradeNameSuggestion) => {
+      if (isChecking) {
+        return;
+      }
+
+      runChecksWithNames(suggestion.english, suggestion.arabic);
+    },
+    [isChecking, runChecksWithNames],
+  );
 
   const handleTransliterate = React.useCallback(() => {
     if (!englishDraft.trim()) {
