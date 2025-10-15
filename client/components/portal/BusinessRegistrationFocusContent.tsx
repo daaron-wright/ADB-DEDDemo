@@ -121,7 +121,7 @@ const TRADE_NAME_IDEAS: ReadonlyArray<TradeNameIdeaSuggestion> = [
   {
     id: "harbor-lights-supper-club-sole-llc",
     english: "Harbor Lights Supper Club Sole LLC",
-    arabic: "نادي عشاء أضواء الميناء الفردي ذ.م.م",
+    arabic: "ناد�� عشاء أضواء الميناء الفردي ذ.م.م",
   },
   {
     id: "corniche-culinary-collective-sole-llc",
@@ -192,7 +192,7 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["q", "ق"],
   ["r", "ر"],
   ["s", "س"],
-  ["t", "��"],
+  ["t", "ت"],
   ["u", "و"],
   ["v", "ف"],
   ["w", "و"],
@@ -709,6 +709,7 @@ export function BusinessRegistrationFocusContent({
     trimmedEnglishInput,
     trimmedArabicInput,
     approvedNameSet,
+    availableTradeNameIdeas,
   ]);
 
   const handleSubmit = React.useCallback(
