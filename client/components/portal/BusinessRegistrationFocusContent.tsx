@@ -142,6 +142,9 @@ const APPROVED_TRADE_NAMES = [
   "PEARL HORIZON DINING SOLE LLC",
 ] as const;
 
+const DEFAULT_FAIL_ENGLISH_TRADE_NAME = "Corniche Dining Group LLC";
+const DEFAULT_FAIL_ARABIC_TRADE_NAME = "مجموعة كورنيش دايننج ذ.م.م";
+
 const UPPERCASE_EXCEPTIONS = new Set([
   "LLC",
   "L.L.C.",
