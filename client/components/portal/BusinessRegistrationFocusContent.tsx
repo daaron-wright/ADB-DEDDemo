@@ -550,6 +550,9 @@ export function BusinessRegistrationFocusContent({
     TradeNameIdeaSuggestion[]
   >([]);
   const [hasGeneratedSuggestions, setHasGeneratedSuggestions] = React.useState(false);
+  const [followUpSuggestion, setFollowUpSuggestion] = React.useState<
+    TradeNameIdeaSuggestion | null
+  >(null);
 
   const notifyTradeNameChange = React.useCallback(
     (value: string | null) => {
