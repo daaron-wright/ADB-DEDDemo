@@ -71,15 +71,6 @@ export function MyTAMMDocuments({
         </div>
 
         <div className="space-y-4">
-          <div className="rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
-              AI workspace update
-            </p>
-            <p className="mt-1 text-base font-medium text-slate-700">
-              Helping you generate your MOA...
-            </p>
-          </div>
-
           <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_24px_56px_-32px_rgba(0,0,0,0.3)]">
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/f98d23b4e255bb8e215c7cdca82a59e914647937?width=1256"
