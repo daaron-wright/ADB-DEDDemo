@@ -470,24 +470,6 @@ export function DocumentSubmissionFocusContent({
         className="space-y-4"
       >
         <CollapsibleCard
-          value="action"
-          title="Next action"
-          subtitle={nextAction.subtitle}
-          contentId="submit-stage-action"
-        >
-          <p className="text-sm text-slate-600">{nextAction.description}</p>
-          <Button
-            type="button"
-            size="sm"
-            onClick={nextAction.onClick}
-            disabled={nextAction.disabled}
-            className="self-start rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
-          >
-            {nextAction.buttonLabel}
-          </Button>
-        </CollapsibleCard>
-
-        <CollapsibleCard
           value="vault"
           title="Document vault"
           subtitle={vaultSubtitle}
