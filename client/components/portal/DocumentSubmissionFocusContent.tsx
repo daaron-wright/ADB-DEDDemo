@@ -83,11 +83,6 @@ export function DocumentSubmissionFocusContent({
     };
   }, []);
 
-  const allDocumentsCompleted = React.useMemo(
-    () => documents.every((item) => item.status === "completed"),
-    [documents],
-  );
-
   const handleSelectDocument = React.useCallback((id: string) => {
     setDocuments((previous) =>
       previous.map((item) =>
