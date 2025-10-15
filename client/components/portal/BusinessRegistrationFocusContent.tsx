@@ -89,44 +89,6 @@ const DEFAULT_FAILURE_STEP_INDEX = (() => {
   return index === -1 ? 3 : index;
 })();
 
-const TRADE_NAME_IDEAS: ReadonlyArray<TradeNameIdeaSuggestion> = [
-  {
-    id: "marwah-restaurant-sole-llc",
-    english: "Marwah Restaurant Sole LLC",
-    arabic: "مطعم مرو�� الفردي ذ.م.م",
-  },
-  {
-    id: "marwah-hospitality-sole-llc",
-    english: "Marwah Hospitality Sole LLC",
-    arabic: "ضيافة مروة الفردية ذ.م.م",
-  },
-  {
-    id: "azure-coast-kitchen-sole-llc",
-    english: "Azure Coast Kitchen Sole LLC",
-    arabic: "مطبخ السا��ل اللازوردي الفردي ذ.م.م",
-  },
-  {
-    id: "pearl-horizon-dining-sole-llc",
-    english: "Pearl Horizon Dining Sole LLC",
-    arabic: "مطعم أفق اللؤلؤ الفردي ذ.م.م",
-  },
-  {
-    id: "harbor-lights-supper-club-sole-llc",
-    english: "Harbor Lights Supper Club Sole LLC",
-    arabic: "نادي عشاء أضواء الميناء الفردي ذ.م.م",
-  },
-  {
-    id: "corniche-culinary-collective-sole-llc",
-    english: "Corniche Culinary Collective Sole LLC",
-    arabic: "مجموعة كورنيش للطهي الفردي ذ.م.م",
-  },
-  {
-    id: "gulf-breeze-gastronomy-sole-llc",
-    english: "Gulf Breeze Gastronomy Sole LLC",
-    arabic: "مذاقات نسيم الخليج الفردي ذ.م.م",
-  },
-];
-
 const APPROVED_TRADE_NAMES = [
   "MARWAH RESTAURANT SOLE LLC",
   "MARWAH HOSPITALITY SOLE LLC",
