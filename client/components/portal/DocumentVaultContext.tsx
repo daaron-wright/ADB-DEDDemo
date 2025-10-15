@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import * as React from "react";
+
 import { INITIAL_DOCUMENTS } from "./document-vault-data";
 import type { DocumentVaultItem } from "./document-vault-types";
 
