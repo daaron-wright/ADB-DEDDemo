@@ -192,7 +192,7 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["q", "ق"],
   ["r", "ر"],
   ["s", "س"],
-  ["t", "ت"],
+  ["t", "��"],
   ["u", "و"],
   ["v", "ف"],
   ["w", "و"],
@@ -662,17 +662,33 @@ export function BusinessRegistrationFocusContent({
           const arabicDisplay = evaluationSource?.arabic ?? trimmedArabicInput ?? "";
           const isSuccess =
             Boolean(normalizedName) && approvedNameSet.has(normalizedName);
+          const suggestedFallback = !isSuccess
+            ? availableTradeNameIdeas.find(
+                (idea) => idea.english.trim().toUpperCase() !== normalizedName,
+              ) ?? availableTradeNameIdeas[0] ?? null
+            : null;
+          const newFailureReason = isSuccess
+            ? null
+            : normalizedName
+            ? suggestedFallback
+              ? `We couldn’t reserve ${englishDisplay}. Try ${suggestedFallback.english} or another unique variation aligned to your activity.`
+              : `We couldn’t reserve ${englishDisplay}. Try another unique variation aligned to your activity.`
+            : "Please enter English and Arabic names to run the automated checks.";
 
           setIsChecking(false);
           setIsNameAvailable(isSuccess);
           setFailedStepIndex(isSuccess ? null : DEFAULT_FAILURE_STEP_INDEX);
-          setFailureReason(
-            isSuccess
-              ? null
-              : normalizedName
-              ? `We couldn’t reserve ${englishDisplay}. Try Marwah Restaurant Sole LLC, Marwah Hospitality Sole LLC, or another unique variation aligned to your activity.`
-              : "Please enter English and Arabic names to run the automated checks.",
-          );
+          setFailureReason(newFailureReason);
+          setFollowUpSuggestion(suggestedFallback);
+          if (isSuccess) {
+            setTradeNameSuggestions([]);
+            setHasGeneratedSuggestions(false);
+          } else if (suggestedFallback) {
+            setTradeNameSuggestions((current) =>
+              current.length > 0 ? current : sampleTradeNameIdeas(availableTradeNameIdeas),
+            );
+            setHasGeneratedSuggestions(true);
+          }
           setPendingSubmission(null);
           setHasPerformedCheck(true);
           setActiveEnglishTradeName(englishDisplay);
