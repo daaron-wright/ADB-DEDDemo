@@ -21,6 +21,7 @@ import {
   JourneyOrchestrationPanel,
   type JourneyOrchestrationPanelCopy,
 } from "@/components/portal/JourneyOrchestrationPanel";
+import { DocumentVaultProvider } from "@/components/portal/DocumentVaultContext";
 import type { JourneyStageFocusViewProps } from "@/components/portal/JourneyStageFocusView";
 import type {
   JourneyAnimationPhase,
@@ -295,7 +296,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة ��لتالية.`,
-    workspaceSupportBadge: "دعم مساحة ��لعمل",
+    workspaceSupportBadge: "دعم مساحة ���لعمل",
     supportHeading: "تحتاجين إلى مساع��ة؟",
     supportDescription: {
       preEmail:
