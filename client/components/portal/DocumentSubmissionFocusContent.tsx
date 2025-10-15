@@ -40,8 +40,23 @@ export function DocumentSubmissionFocusContent({
   progressPercent = 72,
 }: DocumentSubmissionFocusContentProps) {
   const { toast } = useToast();
-  const [documents, setDocuments] = React.useState<DocumentVaultItem[]>(INITIAL_DOCUMENTS);
-  const [activeDocumentId, setActiveDocumentId] = React.useState<string>(INITIAL_DOCUMENTS[1].id);
+  const vaultContext = useDocumentVaultContext();
+
+  if (!vaultContext) {
+    throw new Error("DocumentSubmissionFocusContent must be used within a DocumentVaultProvider.");
+  }
+
+  const {
+    documents,
+    setDocuments,
+    isVaultSyncing,
+    triggerVaultSync,
+    totalDocuments,
+    completedDocuments,
+    allDocumentsCompleted,
+  } = vaultContext;
+
+  const [activeDocumentId, setActiveDocumentId] = React.useState<string>("memorandum-of-association");
   const [showMoaAssistant, setShowMoaAssistant] = React.useState(true);
   const [isFinalisingMoa, setIsFinalisingMoa] = React.useState(false);
   const [isPaying, setIsPaying] = React.useState(false);
@@ -53,12 +68,9 @@ export function DocumentSubmissionFocusContent({
     "Omnis highlighted the bilingual clause to align with ADJD templates before notarisation.",
   );
   const [hasAppliedOmnisRevision, setHasAppliedOmnisRevision] = React.useState(false);
-  const [isVaultSyncing, setIsVaultSyncing] = React.useState(false);
 
   const completionTimeoutRef = React.useRef<number | null>(null);
   const paymentTimeoutRef = React.useRef<number | null>(null);
-  const vaultSyncTimeoutRef = React.useRef<number | null>(null);
-  const previousDocumentsRef = React.useRef<DocumentVaultItem[]>(INITIAL_DOCUMENTS);
 
   React.useEffect(() => {
     return () => {
