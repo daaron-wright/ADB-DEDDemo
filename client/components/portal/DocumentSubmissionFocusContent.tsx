@@ -180,11 +180,6 @@ export function DocumentSubmissionFocusContent({
     }
   }, [documents]);
 
-  const completedDocumentsCount = React.useMemo(
-    () => documents.filter((item) => item.status === "completed").length,
-    [documents],
-  );
-
   const handleInitiatePayment = React.useCallback(() => {
     if (isPaying || hasPaid || !allDocumentsCompleted) {
       return;
