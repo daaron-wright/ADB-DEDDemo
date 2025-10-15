@@ -803,6 +803,14 @@ export function BusinessRegistrationFocusContent({
     [notifyTradeNameChange],
   );
 
+  const handleApplySuggestionAndRun = React.useCallback(() => {
+    if (!followUpSuggestion) {
+      return;
+    }
+
+    startAutomatedCheck(followUpSuggestion.english, followUpSuggestion.arabic);
+  }, [followUpSuggestion, startAutomatedCheck]);
+
   const handleTransliterate = React.useCallback(() => {
     if (!trimmedEnglishInput) {
       toast({
