@@ -20,18 +20,6 @@ interface DocumentSubmissionFocusContentProps {
   progressPercent?: number;
 }
 
-type DocumentVaultItem = {
-  id: string;
-  title: string;
-  description: string;
-  source: string;
-  sourceDetail: string;
-  status: DocumentStatus;
-  actionLabel: string;
-  integrationBadge: string;
-  isExpanded: boolean;
-};
-
 type LicenseDetails = {
   licenseNumber: string;
   issueDate: string;
