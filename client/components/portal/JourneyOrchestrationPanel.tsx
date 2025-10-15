@@ -217,6 +217,52 @@ export function JourneyOrchestrationPanel({
     setSelectedTimelineId(id);
   };
 
+  const isDocumentVaultStage = selectedTimelineItem?.id === "document-submissions";
+  const shouldShowVaultSummary = Boolean(vaultContext) && isDocumentVaultStage;
+
+  const vaultSubtitle = vaultContext && vaultContext.totalDocuments > 0
+    ? `${vaultContext.completedDocuments}/${vaultContext.totalDocuments} documents ready`
+    : "Documents syncing";
+  const vaultProcessing = Boolean(vaultContext?.isVaultSyncing);
+  const vaultStatusHeading = vaultContext
+    ? vaultProcessing
+      ? "Syncing your documents"
+      : vaultContext.allDocumentsCompleted
+        ? "Vault up to date"
+        : "Sync in progress"
+    : "";
+  const vaultStatusDescription = vaultContext
+    ? vaultProcessing
+      ? "Omnis is syncing new files from your journey stages."
+      : vaultContext.allDocumentsCompleted
+        ? "Every document is stored with the latest updates."
+        : "Documents update automatically whenever you finish a stage."
+    : "";
+
+  const handleVaultDocumentSelect = React.useCallback(
+    (id: string) => {
+      if (!vaultContext) {
+        return;
+      }
+      handleTimelineSelect("document-submissions");
+      onViewJourney("document-submissions");
+      vaultContext.setDocuments((previous) =>
+        previous.map((item) =>
+          item.id === id
+            ? {
+                ...item,
+                isExpanded: item.status !== "completed",
+              }
+            : {
+                ...item,
+                isExpanded: false,
+              },
+        ),
+      );
+    },
+    [handleTimelineSelect, onViewJourney, vaultContext],
+  );
+
   const tabIdPrefix = "journey-timeline-tab";
   const panelIdPrefix = "journey-timeline-panel";
 
