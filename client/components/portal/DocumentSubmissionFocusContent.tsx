@@ -7,9 +7,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import { Check, Download, FileText, Loader2, Wallet } from "lucide-react";
+import { Check, Wallet } from "lucide-react";
 import { CollapsibleCard } from "./StageCollapsibleCard";
 import { MyTAMMDocuments } from "./MyTAMMDocuments";
+import { DocumentVaultCard } from "./DocumentVaultCard";
+import { DocumentVaultLayout } from "./DocumentVaultLayout";
+import { useDocumentVaultContext } from "./DocumentVaultContext";
 
 interface DocumentSubmissionFocusContentProps {
   journeyNumber?: string;
