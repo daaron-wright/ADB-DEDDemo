@@ -1,8 +1,6 @@
 import * as React from "react";
 
-import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { chatCardClass } from "@/lib/chat-style";
-import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 
 interface MyTAMMDocumentsProps {
@@ -73,11 +71,11 @@ export function MyTAMMDocuments({
         </div>
 
         <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border-2 border-[#54ffd4] bg-white shadow-[0_12px_22px_-14px_rgba(84,255,212,0.45)]">
-              <AIBusinessOrb className="h-11 w-11" />
-            </div>
-            <p className="text-base font-normal text-slate-700">
+          <div className="rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
+              AI workspace update
+            </p>
+            <p className="mt-1 text-base font-medium text-slate-700">
               Helping you generate your MOA...
             </p>
           </div>
