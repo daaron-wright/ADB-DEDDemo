@@ -160,7 +160,7 @@ export function DocumentSubmissionFocusContent({
   }, [activeDocumentId, isFinalisingMoa, toast, triggerVaultSync]);
 
   React.useEffect(() => {
-    if (documents.some((item) => item.status !== "completed")) {
+    if (!allDocumentsCompleted) {
       return;
     }
 
@@ -178,7 +178,7 @@ export function DocumentSubmissionFocusContent({
         ),
       );
     }
-  }, [documents]);
+  }, [allDocumentsCompleted, documents, setDocuments]);
 
   const handleInitiatePayment = React.useCallback(() => {
     if (isPaying || hasPaid || !allDocumentsCompleted) {
