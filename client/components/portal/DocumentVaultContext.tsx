@@ -1,11 +1,9 @@
 import * as React from "react";
 
-import * as React from "react";
-
 import { INITIAL_DOCUMENTS } from "./document-vault-data";
 import type { DocumentVaultItem } from "./document-vault-types";
 
-interface DocumentVaultContextValue {
+export interface DocumentVaultContextValue {
   documents: DocumentVaultItem[];
   setDocuments: React.Dispatch<React.SetStateAction<DocumentVaultItem[]>>;
   isVaultSyncing: boolean;
@@ -17,7 +15,7 @@ interface DocumentVaultContextValue {
 
 const DocumentVaultContext = React.createContext<DocumentVaultContextValue | null>(null);
 
-export function DocumentVaultProvider({ children }: { children: React.ReactNode }) {
+function useDocumentVaultState(): DocumentVaultContextValue {
   const [documents, setDocuments] = React.useState<DocumentVaultItem[]>(INITIAL_DOCUMENTS);
   const [isVaultSyncing, setIsVaultSyncing] = React.useState(false);
   const timeoutRef = React.useRef<number | null>(null);
@@ -71,7 +69,7 @@ export function DocumentVaultProvider({ children }: { children: React.ReactNode 
   const totalDocuments = documents.length;
   const allDocumentsCompleted = completedDocuments === totalDocuments && totalDocuments > 0;
 
-  const contextValue = React.useMemo<DocumentVaultContextValue>(
+  return React.useMemo<DocumentVaultContextValue>(
     () => ({
       documents,
       setDocuments,
@@ -91,14 +89,22 @@ export function DocumentVaultProvider({ children }: { children: React.ReactNode 
       allDocumentsCompleted,
     ],
   );
+}
+
+export function DocumentVaultProvider({ children }: { children: React.ReactNode }) {
+  const vaultState = useDocumentVaultState();
 
   return (
-    <DocumentVaultContext.Provider value={contextValue}>
-      {children}
-    </DocumentVaultContext.Provider>
+    <DocumentVaultContext.Provider value={vaultState}>{children}</DocumentVaultContext.Provider>
   );
 }
 
 export function useDocumentVaultContext() {
   return React.useContext(DocumentVaultContext);
+}
+
+export function useDocumentVault() {
+  const context = useDocumentVaultContext();
+  const fallbackState = useDocumentVaultState();
+  return context ?? fallbackState;
 }
