@@ -1205,8 +1205,31 @@ export function BusinessRegistrationFocusContent({
             </div>
           )}
           {!isChecking && !isNameAvailable && failureReason ? (
-            <div className="rounded-2xl border border-rose-200 bg-rose-50/80 p-4 text-sm text-rose-700">
-              {failureReason}
+            <div className="space-y-3 rounded-2xl border border-rose-200 bg-rose-50/80 p-4 text-sm text-rose-700">
+              <p>{failureReason}</p>
+              {followUpSuggestion ? (
+                <div className="space-y-3 rounded-2xl border border-[#0f766e]/30 bg-white p-4 text-slate-700 shadow-sm">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
+                      Recommended available name
+                    </p>
+                    <p className="mt-2 text-base font-semibold text-slate-900">
+                      {followUpSuggestion.english}
+                    </p>
+                    <p className="text-base font-semibold text-[#0f766e]" dir="rtl">
+                      {followUpSuggestion.arabic}
+                    </p>
+                  </div>
+                  <Button
+                    type="button"
+                    onClick={handleApplySuggestionAndRun}
+                    disabled={isChecking}
+                    className="h-11 w-full rounded-full bg-[#0f766e] px-5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_12px_28px_-18px_rgba(15,118,110,0.45)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    Use this name & rerun checks
+                  </Button>
+                </div>
+              ) : null}
             </div>
           ) : null}
         </CollapsibleCard>
