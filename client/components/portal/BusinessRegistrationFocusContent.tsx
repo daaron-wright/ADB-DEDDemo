@@ -158,25 +158,6 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["z", "ز"],
 ]);
 
-function sampleTradeNameIdeas(
-  source: ReadonlyArray<TradeNameIdeaSuggestion>,
-): TradeNameIdeaSuggestion[] {
-  if (source.length <= MAX_TRADE_NAME_SUGGESTIONS) {
-    return [...source];
-  }
-
-  const shuffled = [...source];
-  for (let index = shuffled.length - 1; index > 0; index -= 1) {
-    const swapIndex = Math.floor(Math.random() * (index + 1));
-    [shuffled[index], shuffled[swapIndex]] = [
-      shuffled[swapIndex],
-      shuffled[index],
-    ];
-  }
-
-  return shuffled.slice(0, MAX_TRADE_NAME_SUGGESTIONS);
-}
-
 function normalizeUppercaseWord(word: string) {
   return word.replace(/[^a-zA-Z]/g, "").toUpperCase();
 }
