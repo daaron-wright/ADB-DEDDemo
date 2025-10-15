@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import { Check, Download, FileText, Wallet } from "lucide-react";
+import { Check, Download, FileText, Loader2, Wallet } from "lucide-react";
 import { CollapsibleCard } from "./StageCollapsibleCard";
 import { MyTAMMDocuments } from "./MyTAMMDocuments";
 
@@ -37,6 +37,8 @@ type LicenseDetails = {
 };
 
 const DOCUMENT_VAULT_SOURCE_LABEL = 'Synced from "My Business Documents" Vault';
+const DOCUMENT_VAULT_IMAGE_URL =
+  "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fdcbbbf1fba0441838566c6e2d3105aa0?format=webp&width=800";
 const INITIAL_MOA_CLAUSE_DRAFT = `Article 7 — Capital contributions & profit distribution
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise.`;
@@ -215,18 +217,24 @@ export function DocumentSubmissionFocusContent({
     "Omnis highlighted the bilingual clause to align with ADJD templates before notarisation.",
   );
   const [hasAppliedOmnisRevision, setHasAppliedOmnisRevision] = React.useState(false);
+const [isVaultSyncing, setIsVaultSyncing] = React.useState(false);
 
-  const completionTimeoutRef = React.useRef<number | null>(null);
-  const paymentTimeoutRef = React.useRef<number | null>(null);
+const completionTimeoutRef = React.useRef<number | null>(null);
+const paymentTimeoutRef = React.useRef<number | null>(null);
+const vaultSyncTimeoutRef = React.useRef<number | null>(null);
+const previousDocumentsRef = React.useRef<DocumentVaultItem[]>(INITIAL_DOCUMENTS);
 
   React.useEffect(() => {
     return () => {
       if (completionTimeoutRef.current) {
-        window.clearTimeout(completionTimeoutRef.current);
-      }
-      if (paymentTimeoutRef.current) {
-        window.clearTimeout(paymentTimeoutRef.current);
-      }
+      window.clearTimeout(completionTimeoutRef.current);
+    }
+    if (paymentTimeoutRef.current) {
+      window.clearTimeout(paymentTimeoutRef.current);
+    }
+    if (vaultSyncTimeoutRef.current) {
+      window.clearTimeout(vaultSyncTimeoutRef.current);
+    }
     };
   }, []);
 
@@ -280,6 +288,7 @@ export function DocumentSubmissionFocusContent({
     }
 
     setIsFinalisingMoa(true);
+    setIsVaultSyncing(true);
     completionTimeoutRef.current = window.setTimeout(() => {
       setDocuments((previous) =>
         previous.map((item) =>
@@ -306,6 +315,25 @@ export function DocumentSubmissionFocusContent({
   }, [activeDocumentId, isFinalisingMoa, toast]);
 
   React.useEffect(() => {
+  const previous = previousDocumentsRef.current;
+  const previousStatuses = previous.map((item) => item.status).join("|");
+  const currentStatuses = documents.map((item) => item.status).join("|");
+
+  if (previousStatuses !== currentStatuses) {
+    setIsVaultSyncing(true);
+    if (vaultSyncTimeoutRef.current) {
+      window.clearTimeout(vaultSyncTimeoutRef.current);
+    }
+    vaultSyncTimeoutRes.current = window.setTimeout(() => {
+      setIsVaultSyncing(false);
+      vaultSyncTimeoutRef.current = null;
+    }, 1200);
+  }
+
+  previousDocumentsRef.current = documents;
+}, [documents]);
+
+React.useEffect(() => {
     if (documents.some((item) => item.status !== "completed")) {
       return;
     }
@@ -420,6 +448,17 @@ export function DocumentSubmissionFocusContent({
     : "Assistant closed — reopen anytime";
   const paymentSubtitle = hasPaid ? "Paid via AD Pay" : "AED 3,120 via AD Pay";
   const licenceSubtitle = licenseDetails ? "Stored in AD Locker" : "Issued after payment";
+  const isVaultProcessing = isVaultSyncing || isFinalisingMoa;
+  const vaultStatusHeading = isVaultProcessing
+    ? "Syncing your documents"
+    : allDocumentsCompleted
+      ? "Vault up to date"
+      : "Sync in progress";
+  const vaultStatusDescription = isVaultProcessing
+    ? "Omnis is syncing new files from your journey stages."
+    : allDocumentsCompleted
+      ? "Every document is stored with the latest updates."
+      : "Documents update automatically whenever you finish a stage.";
 
   return (
     <div className="space-y-6">
@@ -472,22 +511,43 @@ export function DocumentSubmissionFocusContent({
           subtitle={vaultSubtitle}
           contentId="submit-stage-vault"
         >
-          <div className="space-y-3">
-            {documents.map((item) => (
-              <DocumentVaultCard
-                key={item.id}
-                item={item}
-                isActive={item.isExpanded}
-                onSelect={handleDocumentClick}
-                disabled={isFinalisingMoa && item.id === "memorandum-of-association"}
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+            <div className="relative min-h-[220px] overflow-hidden rounded-3xl border border-[#d8e4df] bg-white">
+              <img
+                src={DOCUMENT_VAULT_IMAGE_URL}
+                alt="Documents syncing in the vault"
+                className="h-full w-full object-cover"
               />
-            ))}
-          </div>
-          {allDocumentsCompleted ? (
-            <div className="rounded-3xl border border-[#94d2c2] bg-[#dff2ec]/70 p-4 text-sm font-semibold text-[#0b7d6f]">
-              Every document is signed and stored. You can issue the licence.
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white via-white/60 to-transparent" />
+              <div className="absolute inset-x-4 bottom-4 flex items-center justify-between gap-3 rounded-2xl border border-white/70 bg-white/90 px-4 py-3 shadow-[0_18px_40px_-32px_rgba(15,23,42,0.45)] backdrop-blur">
+                <div className="space-y-1">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    {isVaultProcessing ? "Live sync" : "Auto-sync"}
+                  </p>
+                  <p className="text-sm font-semibold text-slate-900">{vaultStatusHeading}</p>
+                  <p className="text-xs text-slate-600">{vaultStatusDescription}</p>
+                </div>
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#0f766e]/30 bg-white text-[#0f766e]">
+                  {isVaultProcessing ? (
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                  ) : (
+                    <Check className="h-5 w-5" strokeWidth={3} />
+                  )}
+                </span>
+              </div>
             </div>
-          ) : null}
+            <div className="space-y-3">
+              {documents.map((item) => (
+                <DocumentVaultCard
+                  key={item.id}
+                  item={item}
+                  isActive={item.isExpanded}
+                  onSelect={handleDocumentClick}
+                  disabled={isFinalisingMoa && item.id === "memorandum-of-association"}
+                />
+              ))}
+            </div>
+          </div>
         </CollapsibleCard>
 
         <CollapsibleCard
