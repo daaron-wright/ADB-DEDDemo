@@ -218,7 +218,8 @@ export function JourneyOrchestrationPanel({
   };
 
   const isDocumentVaultStage = selectedTimelineItem?.id === "document-submissions";
-  const shouldShowVaultSummary = Boolean(vaultContext) && isDocumentVaultStage;
+  const hasVaultDocuments = Boolean(vaultContext?.totalDocuments);
+  const shouldShowVaultSummary = Boolean(vaultContext) && hasVaultDocuments && isDocumentVaultStage;
 
   const vaultSubtitle = vaultContext && vaultContext.totalDocuments > 0
     ? `${vaultContext.completedDocuments}/${vaultContext.totalDocuments} documents ready`
