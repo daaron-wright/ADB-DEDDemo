@@ -425,6 +425,38 @@ export function JourneyOrchestrationPanel({
                 ) : null}
               </div>
 
+              {shouldShowVaultSummary ? (
+                <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white/95 p-4 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)]">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                      Document vault
+                    </p>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                      {vaultSubtitle}
+                    </span>
+                  </div>
+                  <DocumentVaultLayout
+                    isProcessing={vaultProcessing}
+                    statusHeading={vaultStatusHeading}
+                    statusDescription={vaultStatusDescription}
+                  >
+                    {vaultContext?.documents.map((item) => (
+                      <DocumentVaultCard
+                        key={item.id}
+                        item={item}
+                        isActive={item.isExpanded}
+                        onSelect={handleVaultDocumentSelect}
+                      />
+                    ))}
+                  </DocumentVaultLayout>
+                  {vaultContext?.allDocumentsCompleted ? (
+                    <div className="rounded-2xl border border-[#94d2c2] bg-[#dff2ec]/60 p-3 text-xs font-semibold text-[#0b7d6f]">
+                      Every document is signed and stored. You can issue the licence.
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
+
               {selectedTimelineItem.showProgress && chatPhase ? (
                 <div className="space-y-3 rounded-2xl bg-[#f4faf8] p-4">
                   <div className="h-2 w-full overflow-hidden rounded-full bg-[#e6f2ed]">
