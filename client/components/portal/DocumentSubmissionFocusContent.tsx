@@ -12,7 +12,7 @@ import { CollapsibleCard } from "./StageCollapsibleCard";
 import { MyTAMMDocuments } from "./MyTAMMDocuments";
 import { DocumentVaultCard } from "./DocumentVaultCard";
 import { DocumentVaultLayout } from "./DocumentVaultLayout";
-import { useDocumentVaultContext } from "./DocumentVaultContext";
+import { useDocumentVault } from "./DocumentVaultContext";
 import { DOCUMENT_VAULT_SOURCE_LABEL } from "./document-vault-data";
 
 interface DocumentSubmissionFocusContentProps {
