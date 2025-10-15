@@ -414,61 +414,6 @@ export function DocumentSubmissionFocusContent({
     [ensureSectionOpen, handleSelectDocument, scrollToElement],
   );
 
-  const nextAction = React.useMemo(
-    () => {
-      if (pendingDocument) {
-        const isMoa = pendingDocument.id === "memorandum-of-association";
-        return {
-          subtitle: pendingDocument.title,
-          description: isMoa
-            ? "Open the MOA to review and notarise it."
-            : "Open the document and confirm it is ready.",
-          buttonLabel: `Review ${pendingDocument.title}`,
-          onClick: () => {
-            handleDocumentClick(pendingDocument.id);
-          },
-          disabled: false,
-        } as const;
-      }
-
-      if (!hasPaid) {
-        return {
-          subtitle: "Pay the issuance fee",
-          description: "All documents are ready. Complete payment to issue the licence.",
-          buttonLabel: isPaying ? "Processing via AD Pay..." : "Pay with AD Pay",
-          onClick: () => {
-            ensureSectionOpen("payment");
-            scrollToElement("submit-stage-payment");
-            if (!isPaying) {
-              handleInitiatePayment();
-            }
-          },
-          disabled: isPaying,
-        } as const;
-      }
-
-      return {
-        subtitle: "Licence issued",
-        description: "View the licence number and download your documents.",
-        buttonLabel: "View licence details",
-        onClick: () => {
-          ensureSectionOpen("license");
-          scrollToElement("submit-stage-license");
-        },
-        disabled: false,
-      } as const;
-    },
-    [
-      ensureSectionOpen,
-      handleDocumentClick,
-      handleInitiatePayment,
-      hasPaid,
-      isPaying,
-      pendingDocument,
-      scrollToElement,
-    ],
-  );
-
   const vaultSubtitle = `${completedDocumentsCount}/${documents.length} documents ready`;
   const moaSubtitle = showMoaAssistant
     ? "Omnis guidance for notarisation"
