@@ -267,15 +267,15 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       timelineAriaLabel: "Journey stages navigation",
     },
     questionnaireOnboarding: {
-      heading: "AI questionnaire intake",
+      heading: "Start your license journey",
       notStartedMessage:
-        "Kick off the AI questionnaire to tailor your workspace.",
+        "Begin here to answer a few guided questions so we can tailor your licensing path.",
       inProgressMessage:
         "AI is capturing your details to configure the questionnaire.",
       completedMessage:
-        "Questionnaire responses are synced. License details are ready.",
+        "This is your starting point to shape the right licensing pathway for your business.",
       description:
-        "Launch a guided conversation so we can confirm your concept before generating the licensing workflow.",
+        "Welcome—share your concept with us and we’ll co-create the licensing workflow that brings your business to life.",
       startCta: "Start questionnaire with AI",
       resumeCta: "Open questionnaire workspace",
       completeCta: "Mark questionnaire as complete",
@@ -353,7 +353,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "Department of Economic Development": "دائرة التنمية الاقتصادية",
     },
     applicationTitles: {
-      "APP-48291": "رحلة المطعم (الأطعمة والمشروبات)",
+      "APP-48291": "رحلة المطعم (الأطعمة والمشروب��ت)",
     },
     applicationSummaries: {
       "APP-48291":
@@ -376,7 +376,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       timelineAriaLabel: "التنقل بين مراحل الرحلة",
     },
     questionnaireOnboarding: {
-      heading: "تهيئة الاستبيان الذكي",
+      heading: "تهيئة الاستب��ان الذكي",
       notStartedMessage:
         "ابدئي الاستبيان الموجّه بالذكاء الاصطناعي لتخصيص مساحة عملك.",
       inProgressMessage:
