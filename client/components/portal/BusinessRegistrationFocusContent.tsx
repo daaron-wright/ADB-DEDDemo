@@ -162,7 +162,7 @@ const DOUBLE_CHAR_MAP = new Map<string, string>([
   ["ay", "اي"],
   ["ch", "تش"],
   ["dh", "ذ"],
-  ["gh", "غ"],
+  ["gh", "��"],
   ["kh", "خ"],
   ["ph", "ف"],
   ["qu", "قو"],
@@ -502,10 +502,13 @@ export function BusinessRegistrationFocusContent({
 }: BusinessRegistrationFocusContentProps) {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const { toast } = useToast();
-  const [englishInputValue, setEnglishInputValue] = React.useState(() =>
-    formatTradeName(tradeName),
+  const [englishInputValue, setEnglishInputValue] = React.useState(() => {
+    const formatted = formatTradeName(tradeName);
+    return formatted || DEFAULT_FAIL_ENGLISH_TRADE_NAME;
+  });
+  const [arabicInputValue, setArabicInputValue] = React.useState(() =>
+    formatTradeName(tradeName) ? "" : DEFAULT_FAIL_ARABIC_TRADE_NAME,
   );
-  const [arabicInputValue, setArabicInputValue] = React.useState("");
   const [activeEnglishTradeName, setActiveEnglishTradeName] = React.useState(() =>
     formatTradeName(tradeName),
   );
