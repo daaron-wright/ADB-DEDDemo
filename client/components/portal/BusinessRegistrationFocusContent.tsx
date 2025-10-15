@@ -88,12 +88,41 @@ const DEFAULT_FAILURE_STEP_INDEX = (() => {
   return index === -1 ? 3 : index;
 })();
 
+type TradeNameSuggestion = {
+  id: string;
+  english: string;
+  arabic: string;
+};
+
 const APPROVED_TRADE_NAMES = [
   "MARWAH RESTAURANT SOLE LLC",
   "MARWAH HOSPITALITY SOLE LLC",
   "CORNICHE CULINARY COLLECTIVE SOLE LLC",
   "PEARL HORIZON DINING SOLE LLC",
 ] as const;
+
+const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
+  {
+    id: "marwah-restaurant",
+    english: "Marwah Restaurant Sole LLC",
+    arabic: "مطعم مروة الفردي ذ.م.م",
+  },
+  {
+    id: "marwah-hospitality",
+    english: "Marwah Hospitality Sole LLC",
+    arabic: "ضيافة مروة الفردية ذ.م.م",
+  },
+  {
+    id: "azure-coast",
+    english: "Azure Coast Kitchen Sole LLC",
+    arabic: "مطبخ الساحل اللازوردي الفردي ذ.م.م",
+  },
+  {
+    id: "pearl-horizon",
+    english: "Pearl Horizon Dining Sole LLC",
+    arabic: "مطعم أفق اللؤلؤ الفردي ذ.م.م",
+  },
+];
 
 const UPPERCASE_EXCEPTIONS = new Set([
   "LLC",
