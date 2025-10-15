@@ -623,10 +623,13 @@ export function BusinessRegistrationFocusContent({
     }
 
     const formatted = formatTradeName(tradeName);
+    const englishSeed = formatted || DEFAULT_FAIL_ENGLISH_TRADE_NAME;
+    const arabicSeed = formatted ? "" : DEFAULT_FAIL_ARABIC_TRADE_NAME;
+
     setActiveEnglishTradeName(formatted);
-    setEnglishInputValue(formatted);
+    setEnglishInputValue(englishSeed);
     setActiveArabicTradeName("");
-    setArabicInputValue("");
+    setArabicInputValue(arabicSeed);
     setPendingSubmission(null);
     setIsNameAvailable(Boolean(tradeName) && isTradeNameAvailable);
     setFailedStepIndex(
@@ -636,7 +639,15 @@ export function BusinessRegistrationFocusContent({
     setAutomationProgress(clampProgress(progressPercent));
     setHasPerformedCheck(Boolean(tradeName));
     setHasInitiatedPayment(false);
-  }, [hasUserOverride, tradeName, isTradeNameAvailable, progressPercent]);
+    setTradeNameSuggestions([]);
+    setHasGeneratedSuggestions(false);
+    setFollowUpSuggestion(null);
+  }, [
+    hasUserOverride,
+    tradeName,
+    isTradeNameAvailable,
+    progressPercent,
+  ]);
 
   React.useEffect(() => {
     setHasUserOverride(false);
