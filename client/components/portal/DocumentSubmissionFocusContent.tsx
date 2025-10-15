@@ -331,11 +331,6 @@ export function DocumentSubmissionFocusContent({
     [documents],
   );
 
-  const pendingDocument = React.useMemo(
-    () => documents.find((item) => item.status !== "completed") ?? null,
-    [documents],
-  );
-
   const handleInitiatePayment = React.useCallback(() => {
     if (isPaying || hasPaid || !allDocumentsCompleted) {
       return;
