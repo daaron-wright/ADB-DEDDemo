@@ -217,24 +217,25 @@ export function DocumentSubmissionFocusContent({
     "Omnis highlighted the bilingual clause to align with ADJD templates before notarisation.",
   );
   const [hasAppliedOmnisRevision, setHasAppliedOmnisRevision] = React.useState(false);
-const [isVaultSyncing, setIsVaultSyncing] = React.useState(false);
+  const [isVaultSyncing, setIsVaultSyncing] = React.useState(false);
 
-const completionTimeoutRef = React.useRef<number | null>(null);
-const paymentTimeoutRef = React.useRef<number | null>(null);
-const vaultSyncTimeoutRef = React.useRef<number | null>(null);
-const previousDocumentsRef = React.useRef<DocumentVaultItem[]>(INITIAL_DOCUMENTS);
+  const completionTimeoutRef = React.useRef<number | null>(null);
+  const paymentTimeoutRef = React.useRef<number | null>(null);
+  const vaultSyncTimeoutRef = React.useRef<number | null>(null);
+  const previousDocumentsRef = React.useRef<DocumentVaultItem[]>(INITIAL_DOCUMENTS);
 
   React.useEffect(() => {
     return () => {
       if (completionTimeoutRef.current) {
-      window.clearTimeout(completionTimeoutRef.current);
-    }
-    if (paymentTimeoutRef.current) {
-      window.clearTimeout(paymentTimeoutRef.current);
-    }
-    if (vaultSyncTimeoutRef.current) {
-      window.clearTimeout(vaultSyncTimeoutRef.current);
-    }
+        window.clearTimeout(completionTimeoutRef.current);
+      }
+      if (paymentTimeoutRef.current) {
+        window.clearTimeout(paymentTimeoutRef.current);
+      }
+      if (vaultSyncTimeoutRef.current) {
+        window.clearTimeout(vaultSyncTimeoutRef.current);
+        vaultSyncTimeoutRef.current = null;
+      }
     };
   }, []);
 
@@ -314,26 +315,26 @@ const previousDocumentsRef = React.useRef<DocumentVaultItem[]>(INITIAL_DOCUMENTS
     }, 1200);
   }, [activeDocumentId, isFinalisingMoa, toast]);
 
-  React.useEffect(() => {
-  const previous = previousDocumentsRef.current;
-  const previousStatuses = previous.map((item) => item.status).join("|");
-  const currentStatuses = documents.map((item) => item.status).join("|");
+    React.useEffect(() => {
+    const previous = previousDocumentsRef.current;
+    const previousStatuses = previous.map((item) => item.status).join("|");
+    const currentStatuses = documents.map((item) => item.status).join("|");
 
-  if (previousStatuses !== currentStatuses) {
-    setIsVaultSyncing(true);
-    if (vaultSyncTimeoutRef.current) {
-      window.clearTimeout(vaultSyncTimeoutRef.current);
+    if (previousStatuses !== currentStatuses) {
+      setIsVaultSyncing(true);
+      if (vaultSyncTimeoutRef.current) {
+        window.clearTimeout(vaultSyncTimeoutRef.current);
+      }
+      vaultSyncTimeoutRef.current = window.setTimeout(() => {
+        setIsVaultSyncing(false);
+        vaultSyncTimeoutRef.current = null;
+      }, 1200);
     }
-    vaultSyncTimeoutRes.current = window.setTimeout(() => {
-      setIsVaultSyncing(false);
-      vaultSyncTimeoutRef.current = null;
-    }, 1200);
-  }
 
-  previousDocumentsRef.current = documents;
-}, [documents]);
+    previousDocumentsRef.current = documents;
+  }, [documents]);
 
-React.useEffect(() => {
+  React.useEffect(() => {
     if (documents.some((item) => item.status !== "completed")) {
       return;
     }
