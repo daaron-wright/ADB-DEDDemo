@@ -34,16 +34,21 @@ export function DocumentVaultProvider({ children }: { children: React.ReactNode 
     }
   }, []);
 
-  const triggerVaultSync = React.useCallback((duration = 1200) => {
-    setIsVaultSyncing(true);
-    if (typeof window !== "undefined") {
-      clearSyncTimeout();
-      timeoutRef.current = window.setTimeout(() => {
+  const triggerVaultSync = React.useCallback(
+    (duration = 1200) => {
+      setIsVaultSyncing(true);
+      if (typeof window !== "undefined") {
+        clearSyncTimeout();
+        timeoutRef.current = window.setTimeout(() => {
+          setIsVaultSyncing(false);
+          timeoutRef.current = null;
+        }, duration);
+      } else {
         setIsVaultSyncing(false);
-        timeoutRef.current = null;
-      }, duration);
-    }
-  }, [clearSyncTimeout]);
+      }
+    },
+    [clearSyncTimeout],
+  );
 
   React.useEffect(() => {
     return () => {
