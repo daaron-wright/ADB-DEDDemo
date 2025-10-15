@@ -1,5 +1,4 @@
-import * as React from "react";
-
+import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -96,9 +95,6 @@ const APPROVED_TRADE_NAMES = [
   "PEARL HORIZON DINING SOLE LLC",
 ] as const;
 
-const DEFAULT_FAIL_ENGLISH_TRADE_NAME = "Corniche Dining Group LLC";
-const DEFAULT_FAIL_ARABIC_TRADE_NAME = "مجموعة كورنيش دايننج ذ.م.م";
-
 const UPPERCASE_EXCEPTIONS = new Set([
   "LLC",
   "L.L.C.",
@@ -116,7 +112,7 @@ const DOUBLE_CHAR_MAP = new Map<string, string>([
   ["ay", "اي"],
   ["ch", "تش"],
   ["dh", "ذ"],
-  ["gh", "��"],
+  ["gh", "غ"],
   ["kh", "خ"],
   ["ph", "ف"],
   ["qu", "قو"],
@@ -220,6 +216,10 @@ function transliterateToArabic(input: string) {
   return result.replace(/\s+/g, " ").trim();
 }
 
+function clampProgress(value: number) {
+  return Math.min(Math.max(value, 0), 100);
+}
+
 function getStepStatus(
   progressPercent: number,
   stepIndex: number,
@@ -278,10 +278,6 @@ function getStepStatus(
   return { status: "current", progress: normalizedProgress };
 }
 
-function clampProgress(value: number) {
-  return Math.min(Math.max(value, 0), 100);
-}
-
 function VerificationStepItem({
   step,
   index,
@@ -332,12 +328,12 @@ function VerificationStepItem({
       : "0%";
 
   const helperMessage = isFailed
-    ? "This step needs a different trade name before you can continue."
+    ? "Enter a different trade name before continuing."
     : isCompleted
     ? "This check passed successfully."
     : isCurrent
     ? "We’re processing this check right now."
-    : "This check will run automatically once the previous ones finish.";
+    : "This check runs automatically after the previous ones.";
 
   return (
     <AccordionItem value={value} className="border-none">
@@ -397,37 +393,6 @@ function VerificationStepItem({
   );
 }
 
-function CollapsibleCard({
-  value,
-  title,
-  subtitle,
-  children,
-}: {
-  value: string;
-  title: string;
-  subtitle?: React.ReactNode;
-  children: React.ReactNode;
-}) {
-  return (
-    <AccordionItem
-      value={value}
-      className="overflow-hidden rounded-3xl border border-[#d8e4df] bg-white shadow-[0_26px_60px_-50px_rgba(15,23,42,0.35)]"
-    >
-      <AccordionTrigger className="flex w-full items-center justify-between gap-3 px-5 py-4 text-left text-base font-semibold text-slate-900 hover:no-underline">
-        <div className="flex flex-1 flex-col text-left">
-          <span>{title}</span>
-          {subtitle ? (
-            <span className="mt-1 text-sm font-normal text-slate-500">{subtitle}</span>
-          ) : null}
-        </div>
-      </AccordionTrigger>
-      <AccordionContent className="px-5 pb-5 pt-0">
-        <div className="space-y-4 pt-4">{children}</div>
-      </AccordionContent>
-    </AccordionItem>
-  );
-}
-
 export function BusinessRegistrationFocusContent({
   journeyNumber = "0987654321",
   tradeName = "",
@@ -435,19 +400,17 @@ export function BusinessRegistrationFocusContent({
   progressPercent = 46,
   onTradeNameChange,
 }: BusinessRegistrationFocusContentProps) {
-  const inputRef = React.useRef<HTMLInputElement | null>(null);
   const { toast } = useToast();
-  const [englishInputValue, setEnglishInputValue] = React.useState(() => {
-    const formatted = formatTradeName(tradeName);
-    return formatted || DEFAULT_FAIL_ENGLISH_TRADE_NAME;
-  });
-  const [arabicInputValue, setArabicInputValue] = React.useState(() =>
-    formatTradeName(tradeName) ? "" : DEFAULT_FAIL_ARABIC_TRADE_NAME,
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
+
+  const initialFormattedName = formatTradeName(tradeName);
+
+  const [activeEnglishTradeName, setActiveEnglishTradeName] = React.useState(initialFormattedName);
+  const [activeArabicTradeName, setActiveArabicTradeName] = React.useState(""
   );
-  const [activeEnglishTradeName, setActiveEnglishTradeName] = React.useState(() =>
-    formatTradeName(tradeName),
-  );
-  const [activeArabicTradeName, setActiveArabicTradeName] = React.useState("");
+  const [englishDraft, setEnglishDraft] = React.useState(initialFormattedName);
+  const [arabicDraft, setArabicDraft] = React.useState("");
+  const [isEditing, setIsEditing] = React.useState(false);
   const [pendingSubmission, setPendingSubmission] = React.useState<
     | {
         english: string;
@@ -457,7 +420,7 @@ export function BusinessRegistrationFocusContent({
     | null
   >(null);
   const [isChecking, setIsChecking] = React.useState(false);
-  const [hasPerformedCheck, setHasPerformedCheck] = React.useState(false);
+  const [hasPerformedCheck, setHasPerformedCheck] = React.useState(Boolean(tradeName));
   const [isNameAvailable, setIsNameAvailable] = React.useState(
     Boolean(tradeName) && isTradeNameAvailable,
   );
@@ -468,8 +431,6 @@ export function BusinessRegistrationFocusContent({
     Boolean(tradeName) && !isTradeNameAvailable ? DEFAULT_FAILURE_STEP_INDEX : null,
   );
   const [failureReason, setFailureReason] = React.useState<string | null>(null);
-  const [hasUserOverride, setHasUserOverride] = React.useState(false);
-  const [hasInitiatedPayment, setHasInitiatedPayment] = React.useState(false);
 
   const approvedNameSet = React.useMemo(
     () =>
@@ -479,325 +440,48 @@ export function BusinessRegistrationFocusContent({
     [],
   );
 
-  const availableTradeNameIdeas = React.useMemo(() => {
-    const filtered = TRADE_NAME_IDEAS.filter((idea) =>
-      approvedNameSet.has(idea.english.trim().toUpperCase()),
-    );
-
-    return filtered.length > 0 ? filtered : TRADE_NAME_IDEAS;
-  }, [approvedNameSet]);
-
-  const [tradeNameSuggestions, setTradeNameSuggestions] = React.useState<
-    TradeNameIdeaSuggestion[]
-  >([]);
-  const [hasGeneratedSuggestions, setHasGeneratedSuggestions] = React.useState(false);
-  const [followUpSuggestion, setFollowUpSuggestion] = React.useState<
-    TradeNameIdeaSuggestion | null
-  >(null);
-
-  const notifyTradeNameChange = React.useCallback(
-    (value: string | null) => {
-      onTradeNameChange?.(value);
-    },
-    [onTradeNameChange],
-  );
-
-  const startAutomatedCheck = React.useCallback(
-    (englishName: string, arabicName: string) => {
-      const formattedEnglish = formatTradeName(englishName);
-      const formattedArabic = formatArabicName(arabicName);
-
-      if (!formattedEnglish || !formattedArabic) {
-        return;
-      }
-
-      const normalizedEnglish = formattedEnglish.toUpperCase();
-
-      setEnglishInputValue(formattedEnglish);
-      setArabicInputValue(formattedArabic);
-      setActiveEnglishTradeName(formattedEnglish);
-      setActiveArabicTradeName(formattedArabic);
-      setPendingSubmission({
-        english: formattedEnglish,
-        arabic: formattedArabic,
-        normalized: normalizedEnglish,
-      });
-      setAutomationProgress(0);
-      setIsChecking(true);
-      setIsNameAvailable(false);
-      setFailedStepIndex(null);
-      setFailureReason(null);
-      setHasUserOverride(true);
-      setHasPerformedCheck(true);
-      setHasInitiatedPayment(false);
-      setFollowUpSuggestion(null);
-      notifyTradeNameChange(formattedEnglish);
-    },
-    [notifyTradeNameChange],
-  );
-
-  const handleGenerateAvailableIdeas = React.useCallback(() => {
-    const generated = sampleTradeNameIdeas(availableTradeNameIdeas);
-    setTradeNameSuggestions(generated);
-    setHasGeneratedSuggestions(true);
-    setHasUserOverride(true);
-    setHasInitiatedPayment(false);
-  }, [availableTradeNameIdeas]);
-
-  const trimmedEnglishInput = englishInputValue.trim();
-  const trimmedArabicInput = arabicInputValue.trim();
-  const isSubmitDisabled =
-    isChecking ||
-    trimmedEnglishInput.length === 0 ||
-    trimmedArabicInput.length === 0;
+  const showVerificationSteps = hasPerformedCheck || isChecking;
   const displayProgress = Math.round(automationProgress);
 
-  React.useEffect(() => {
-    if (hasUserOverride) {
-      return;
+  const tradeNameStatusToken = React.useMemo(() => {
+    if (isChecking) {
+      return {
+        label: "Checking",
+        className: "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]",
+      };
     }
 
-    const formatted = formatTradeName(tradeName);
-    const englishSeed = formatted || DEFAULT_FAIL_ENGLISH_TRADE_NAME;
-    const arabicSeed = formatted ? "" : DEFAULT_FAIL_ARABIC_TRADE_NAME;
-
-    setActiveEnglishTradeName(formatted);
-    setEnglishInputValue(englishSeed);
-    setActiveArabicTradeName("");
-    setArabicInputValue(arabicSeed);
-    setPendingSubmission(null);
-    setIsNameAvailable(Boolean(tradeName) && isTradeNameAvailable);
-    setFailedStepIndex(
-      Boolean(tradeName) && !isTradeNameAvailable ? DEFAULT_FAILURE_STEP_INDEX : null,
-    );
-    setFailureReason(null);
-    setAutomationProgress(clampProgress(progressPercent));
-    setHasPerformedCheck(Boolean(tradeName));
-    setHasInitiatedPayment(false);
-    setTradeNameSuggestions([]);
-    setHasGeneratedSuggestions(false);
-    setFollowUpSuggestion(null);
-  }, [
-    hasUserOverride,
-    tradeName,
-    isTradeNameAvailable,
-    progressPercent,
-  ]);
-
-  React.useEffect(() => {
-    setHasUserOverride(false);
-  }, [tradeName, isTradeNameAvailable, progressPercent]);
-
-  React.useEffect(() => {
-    if (!isChecking) {
-      return;
+    if (isNameAvailable) {
+      return {
+        label: "Approved",
+        className: "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
+      };
     }
 
-    const interval = window.setInterval(() => {
-      setAutomationProgress((previous) => {
-        const next = Math.min(previous + 14, 100);
-
-        if (next >= 100) {
-          window.clearInterval(interval);
-
-          const evaluationSource = pendingSubmission ??
-            (activeEnglishTradeName
-              ? {
-                  english: activeEnglishTradeName,
-                  arabic: activeArabicTradeName,
-                  normalized: activeEnglishTradeName.trim().toUpperCase(),
-                }
-              : null);
-
-          const normalizedName = evaluationSource?.normalized ?? "";
-          const englishDisplay = evaluationSource?.english ?? trimmedEnglishInput ?? "";
-          const arabicDisplay = evaluationSource?.arabic ?? trimmedArabicInput ?? "";
-          const isSuccess =
-            Boolean(normalizedName) && approvedNameSet.has(normalizedName);
-          const suggestedFallback = !isSuccess
-            ? availableTradeNameIdeas.find(
-                (idea) => idea.english.trim().toUpperCase() !== normalizedName,
-              ) ?? availableTradeNameIdeas[0] ?? null
-            : null;
-          const newFailureReason = isSuccess
-            ? null
-            : normalizedName
-            ? suggestedFallback
-              ? `We couldn’t reserve ${englishDisplay}. Try ${suggestedFallback.english} or another unique variation aligned to your activity.`
-              : `We couldn’t reserve ${englishDisplay}. Try another unique variation aligned to your activity.`
-            : "Please enter English and Arabic names to run the automated checks.";
-
-          setIsChecking(false);
-          setIsNameAvailable(isSuccess);
-          setFailedStepIndex(isSuccess ? null : DEFAULT_FAILURE_STEP_INDEX);
-          setFailureReason(newFailureReason);
-          setFollowUpSuggestion(suggestedFallback);
-          if (isSuccess) {
-            setTradeNameSuggestions([]);
-            setHasGeneratedSuggestions(false);
-          } else if (suggestedFallback) {
-            setTradeNameSuggestions((current) =>
-              current.length > 0 ? current : sampleTradeNameIdeas(availableTradeNameIdeas),
-            );
-            setHasGeneratedSuggestions(true);
-          }
-          setPendingSubmission(null);
-          setHasPerformedCheck(true);
-          setActiveEnglishTradeName(englishDisplay);
-          setActiveArabicTradeName(arabicDisplay);
-          setHasInitiatedPayment(false);
-        }
-
-        return next;
-      });
-    }, 420);
-
-    return () => window.clearInterval(interval);
-  }, [
-    isChecking,
-    pendingSubmission,
-    activeEnglishTradeName,
-    activeArabicTradeName,
-    trimmedEnglishInput,
-    trimmedArabicInput,
-    approvedNameSet,
-    availableTradeNameIdeas,
-  ]);
-
-  const handleSubmit = React.useCallback(
-    (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-
-      if (isChecking) {
-        return;
-      }
-
-      if (!trimmedEnglishInput || !trimmedArabicInput) {
-        toast({
-          title: "Add both names",
-          description: "Enter the English and Arabic trade names before running the checks.",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      startAutomatedCheck(trimmedEnglishInput, trimmedArabicInput);
-    },
-    [
-      isChecking,
-      trimmedEnglishInput,
-      trimmedArabicInput,
-      toast,
-      startAutomatedCheck,
-    ],
-  );
-
-  const handleEnglishInputChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const nextValue = event.target.value;
-      setEnglishInputValue(nextValue);
-      setHasUserOverride(true);
-      setHasPerformedCheck(false);
-      setIsNameAvailable(false);
-      setFailedStepIndex(null);
-      setFailureReason(null);
-      setAutomationProgress(0);
-      setHasInitiatedPayment(false);
-      setTradeNameSuggestions([]);
-      setHasGeneratedSuggestions(false);
-      setFollowUpSuggestion(null);
-      notifyTradeNameChange(nextValue.trim() ? formatTradeName(nextValue) : null);
-    },
-    [notifyTradeNameChange],
-  );
-
-  const handleArabicInputChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const nextValue = event.target.value;
-      setArabicInputValue(nextValue);
-      setHasUserOverride(true);
-      setHasPerformedCheck(false);
-      setIsNameAvailable(false);
-      setFailedStepIndex(null);
-      setFailureReason(null);
-      setAutomationProgress(0);
-      setHasInitiatedPayment(false);
-      setTradeNameSuggestions([]);
-      setHasGeneratedSuggestions(false);
-      setFollowUpSuggestion(null);
-    },
-    [],
-  );
-
-  const focusTradeNameInput = React.useCallback(() => {
-    inputRef.current?.focus();
-  }, []);
-
-  const handleIdeaSelect = React.useCallback(
-    (idea: TradeNameIdeaSuggestion) => {
-      setEnglishInputValue(idea.english);
-      setArabicInputValue(idea.arabic);
-      setHasUserOverride(true);
-      setPendingSubmission(null);
-      setHasPerformedCheck(false);
-      setIsNameAvailable(false);
-      setFailedStepIndex(null);
-      setFailureReason(null);
-      setAutomationProgress(0);
-      setHasInitiatedPayment(false);
-      setFollowUpSuggestion(null);
-      notifyTradeNameChange(idea.english);
-
-      requestAnimationFrame(() => {
-        inputRef.current?.focus();
-      });
-    },
-    [notifyTradeNameChange],
-  );
-
-  const handleApplySuggestionAndRun = React.useCallback(() => {
-    if (!followUpSuggestion) {
-      return;
+    if (hasPerformedCheck) {
+      return {
+        label: "Needs attention",
+        className: "border-rose-200 bg-rose-50 text-rose-600",
+      };
     }
 
-    startAutomatedCheck(followUpSuggestion.english, followUpSuggestion.arabic);
-  }, [followUpSuggestion, startAutomatedCheck]);
+    return {
+      label: "Not started",
+      className: "border-slate-200 bg-white text-slate-500",
+    };
+  }, [hasPerformedCheck, isChecking, isNameAvailable]);
 
-  const handleTransliterate = React.useCallback(() => {
-    if (!trimmedEnglishInput) {
-      toast({
-        title: "Enter an English name",
-        description: "Add the English trade name first so we can transliterate it for you.",
-      });
-      return;
-    }
+  const verificationStatusLabel = isChecking
+    ? "Checks running"
+    : isNameAvailable
+    ? "All checks passed"
+    : hasPerformedCheck
+    ? "Needs attention"
+    : "No checks yet";
 
-    const transliterated = transliterateToArabic(trimmedEnglishInput);
-    setArabicInputValue(transliterated);
-    setHasUserOverride(true);
-    setHasPerformedCheck(false);
-    setIsNameAvailable(false);
-    setFailedStepIndex(null);
-    setFailureReason(null);
-    setAutomationProgress(0);
-    setHasInitiatedPayment(false);
-    setFollowUpSuggestion(null);
-  }, [toast, trimmedEnglishInput]);
-
-  const handleInitiatePayment = React.useCallback(() => {
-    if (!isNameAvailable) {
-      focusTradeNameInput();
-      return;
-    }
-
-    setHasInitiatedPayment(true);
-    toast({
-      title: "AD Pay checkout started",
-      description: `We opened AD Pay so you can reserve ${activeEnglishTradeName}. Complete the payment to lock the name before licensing.`,
-    });
-  }, [toast, isNameAvailable, activeEnglishTradeName, focusTradeNameInput]);
-
-  const showVerificationSteps = hasPerformedCheck || isChecking;
+  const verificationSubtitle = showVerificationSteps
+    ? `${TRADE_NAME_CHECKS.length} automated checks`
+    : "Run automated checks to populate this list.";
 
   const automationSteps = React.useMemo<TradeNameVerificationStepWithStatus[]>(() => {
     const totalSteps = TRADE_NAME_CHECKS.length;
@@ -827,200 +511,168 @@ export function BusinessRegistrationFocusContent({
     });
   }, [automationProgress, failedStepIndex, isNameAvailable, showVerificationSteps]);
 
-  const totalVerificationSteps = automationSteps.length;
   const completedVerificationSteps = automationSteps.filter(
     (step) => step.status === "completed",
   ).length;
-  const flaggedVerificationStep =
-    automationSteps.find((step) => step.status === "failed") ?? null;
-  const nowCheckingStep = isChecking
-    ? automationSteps.find((step) => step.status === "current") ?? null
-    : null;
 
-  const flaggedStepIndexValue = flaggedVerificationStep
-    ? automationSteps.findIndex((step) => step === flaggedVerificationStep)
-    : -1;
-  const checkingStepIndexValue = nowCheckingStep
-    ? automationSteps.findIndex((step) => step === nowCheckingStep)
-    : -1;
-
-  const accordionDefaultValues = React.useMemo(() => {
-    const defaults: string[] = [];
-    if (flaggedStepIndexValue >= 0) {
-      defaults.push(`step-${flaggedStepIndexValue}`);
-    } else if (checkingStepIndexValue >= 0) {
-      defaults.push(`step-${checkingStepIndexValue}`);
-    }
-    return defaults;
-  }, [flaggedStepIndexValue, checkingStepIndexValue]);
-
-  const accordionKey = React.useMemo(
-    () =>
-      `${flaggedStepIndexValue}-${checkingStepIndexValue}-${isChecking ? "checking" : "idle"}`,
-    [flaggedStepIndexValue, checkingStepIndexValue, isChecking],
-  );
-
-  const hasActiveTradeName = activeEnglishTradeName.length > 0;
-
-  const badgeLabel = isChecking
-    ? "Checking..."
-    : !hasActiveTradeName
-    ? "Awaiting name"
-    : isNameAvailable
-    ? "Available"
-    : "Unavailable";
-
-  const availabilityBadgeClasses = cn(
-    "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] shadow-sm transition-colors",
-    isChecking && "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
-    !isChecking && !hasActiveTradeName && "border-slate-200 bg-white text-slate-400",
-    !isChecking && hasActiveTradeName && isNameAvailable &&
-      "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
-    !isChecking && hasActiveTradeName && !isNameAvailable &&
-      "border-rose-200 bg-rose-50 text-rose-600",
-  );
-
-  const badgeIcon = isChecking ? (
-    <span className="relative flex h-3.5 w-3.5 items-center justify-center">
-      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-60" />
-      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
-    </span>
-  ) : !hasActiveTradeName ? (
-    <span className="h-2 w-2 rounded-full bg-current" />
-  ) : isNameAvailable ? (
-    <Check className="h-3.5 w-3.5" strokeWidth={3} />
-  ) : (
-    <X className="h-3.5 w-3.5" strokeWidth={3} />
-  );
-
-  const statusDescription = isChecking
-    ? "Omnis is checking the English and Arabic names."
-    : !hasActiveTradeName
-    ? "Enter both versions of the trade name to start the review."
-    : isNameAvailable
-    ? "This name is approved. Reserve it before moving forward."
-    : "This name conflicts with another business. Try a different option.";
-
-  const tradeCheckDescription = isChecking
-    ? "We’re syncing with the Department of Economic Development."
-    : !hasActiveTradeName
-    ? "Add your trade names so we can run the automated checks."
-    : isNameAvailable
-    ? "All checks passed. Reserve the name with AD Pay."
-    : "The checks flagged a conflict. Choose a different name.";
-
-  const statusSummary = isChecking
-    ? `Running checks for ${activeEnglishTradeName || "your trade name"}.`
-    : !hasActiveTradeName
-    ? "Waiting for a trade name submission."
-    : isNameAvailable
-    ? "Result: available. Reserve it to keep it."
-    : `Result: conflict found for ${activeEnglishTradeName}.`;
-
-  const scrollToVerification = React.useCallback(() => {
-    document.getElementById("registration-verification")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }, []);
-
-  const registrationCta = React.useMemo(() => {
-    if (!hasActiveTradeName) {
-      return {
-        headline: "Add trade names",
-        description: "Enter the English and Arabic versions to start the checks.",
-        buttonLabel: "Add names",
-        onClick: focusTradeNameInput,
-        disabled: isChecking,
-      };
+  React.useEffect(() => {
+    if (!isChecking) {
+      return;
     }
 
-    if (isChecking) {
-      return {
-        headline: "Validation in progress",
-        description: "Omnis is running the automated checks. Review the results below.",
-        buttonLabel: "View checks",
-        onClick: scrollToVerification,
-        disabled: false,
-      };
-    }
+    const interval = window.setInterval(() => {
+      setAutomationProgress((previous) => {
+        const next = Math.min(previous + 18, 100);
 
-    if (!isNameAvailable) {
-      return {
-        headline: "Pick another name",
-        description:
-          failureReason ?? "This name conflicts with another business. Try a new idea.",
-        buttonLabel: "Choose new name",
-        onClick: focusTradeNameInput,
-        disabled: false,
-      };
-    }
+        if (next >= 100) {
+          window.clearInterval(interval);
 
-    if (hasInitiatedPayment) {
-      return {
-        headline: "Payment in progress",
-        description: "Finish the AD Pay checkout to lock the name.",
-        buttonLabel: "Awaiting AD Pay",
-        onClick: () => undefined,
-        disabled: true,
-      };
-    }
+          const evaluationSource = pendingSubmission ??
+            (activeEnglishTradeName
+              ? {
+                  english: activeEnglishTradeName,
+                  arabic: activeArabicTradeName,
+                  normalized: activeEnglishTradeName.trim().toUpperCase(),
+                }
+              : null);
 
-    return {
-      headline: "Reserve this name",
-      description: "Pay now so the name stays reserved for your application.",
-      buttonLabel: "Pay with AD Pay",
-      onClick: handleInitiatePayment,
-      disabled: false,
-    };
+          const normalizedName = evaluationSource?.normalized ?? "";
+          const englishDisplay = evaluationSource?.english ?? englishDraft ?? "";
+          const arabicDisplay = evaluationSource?.arabic ?? arabicDraft ?? "";
+          const isSuccess =
+            Boolean(normalizedName) && approvedNameSet.has(normalizedName);
+
+          setIsChecking(false);
+          setIsNameAvailable(isSuccess);
+          setFailedStepIndex(isSuccess ? null : DEFAULT_FAILURE_STEP_INDEX);
+          setFailureReason(
+            isSuccess
+              ? null
+              : normalizedName
+              ? `We couldn’t reserve ${englishDisplay}. Try a unique variation that aligns with your selected activity.`
+              : "Add English and Arabic trade names before running the automated checks.",
+          );
+          setPendingSubmission(null);
+          setHasPerformedCheck(true);
+          setActiveEnglishTradeName(englishDisplay);
+          setActiveArabicTradeName(arabicDisplay);
+        }
+
+        return next;
+      });
+    }, 420);
+
+    return () => window.clearInterval(interval);
   }, [
-    failureReason,
-    focusTradeNameInput,
-    handleInitiatePayment,
-    hasActiveTradeName,
-    hasInitiatedPayment,
     isChecking,
-    isNameAvailable,
-    scrollToVerification,
+    pendingSubmission,
+    activeEnglishTradeName,
+    activeArabicTradeName,
+    englishDraft,
+    arabicDraft,
+    approvedNameSet,
   ]);
 
-  const tradeCheckBadgeLabel = isChecking
-    ? "Checking"
-    : !hasActiveTradeName
-    ? "Awaiting input"
-    : isNameAvailable
-    ? hasInitiatedPayment
-      ? "Payment complete with AD Pay"
-      : "Ready to pay"
-    : "Action needed";
+  React.useEffect(() => {
+    const formatted = formatTradeName(tradeName);
+    setActiveEnglishTradeName(formatted);
+    setEnglishDraft(formatted);
+    setActiveArabicTradeName("");
+    setArabicDraft("");
+    setIsNameAvailable(Boolean(tradeName) && isTradeNameAvailable);
+    setFailedStepIndex(
+      Boolean(tradeName) && !isTradeNameAvailable ? DEFAULT_FAILURE_STEP_INDEX : null,
+    );
+    setFailureReason(null);
+    setAutomationProgress(clampProgress(progressPercent));
+    setHasPerformedCheck(Boolean(tradeName));
+    setIsEditing(false);
+  }, [tradeName, isTradeNameAvailable, progressPercent]);
 
-  const tradeCheckBadgeClasses = cn(
-    "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]",
-    isChecking && "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]",
-    !isChecking && !hasActiveTradeName && "border-slate-200 bg-white text-slate-400",
-    !isChecking && hasActiveTradeName && isNameAvailable &&
-      !hasInitiatedPayment && "border-white/70 bg-[#0f766e]/10 text-[#0f766e]",
-    !isChecking && hasActiveTradeName && isNameAvailable && hasInitiatedPayment &&
-      "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
-    !isChecking && hasActiveTradeName && !isNameAvailable &&
-      "border-rose-200 bg-rose-50 text-rose-600",
-  );
-
-  const defaultOpenSections = React.useMemo(() => {
-    const sections = ["next-step", "submit"];
-    if (hasActiveTradeName || isChecking) {
-      sections.push("automation", "verification");
+  React.useEffect(() => {
+    if (isEditing) {
+      requestAnimationFrame(() => {
+        inputRef.current?.focus();
+      });
     }
-    return sections;
-  }, [hasActiveTradeName, isChecking]);
+  }, [isEditing]);
 
-  const verificationSubtitle = showVerificationSteps
-    ? `${completedVerificationSteps}/${totalVerificationSteps} checks passed`
-    : "Run the checks to see progress here.";
+  const handleRunChecks = React.useCallback(() => {
+    if (isChecking) {
+      return;
+    }
+
+    if (!englishDraft.trim() || !arabicDraft.trim()) {
+      setIsEditing(true);
+      toast({
+        title: "Add trade names",
+        description: "Provide both English and Arabic names before running the checks.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const formattedEnglish = formatTradeName(englishDraft);
+    const formattedArabic = formatArabicName(arabicDraft);
+
+    if (!formattedEnglish || !formattedArabic) {
+      toast({
+        title: "Invalid trade name",
+        description: "Enter valid characters for both the English and Arabic names.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setEnglishDraft(formattedEnglish);
+    setArabicDraft(formattedArabic);
+    setActiveEnglishTradeName(formattedEnglish);
+    setActiveArabicTradeName(formattedArabic);
+    setPendingSubmission({
+      english: formattedEnglish,
+      arabic: formattedArabic,
+      normalized: formattedEnglish.toUpperCase(),
+    });
+    setAutomationProgress(0);
+    setIsChecking(true);
+    setIsNameAvailable(false);
+    setFailedStepIndex(null);
+    setFailureReason(null);
+    setHasPerformedCheck(true);
+    setIsEditing(false);
+    onTradeNameChange?.(formattedEnglish);
+  }, [
+    arabicDraft,
+    englishDraft,
+    isChecking,
+    onTradeNameChange,
+    toast,
+  ]);
+
+  const handleTransliterate = React.useCallback(() => {
+    if (!englishDraft.trim()) {
+      toast({
+        title: "Add English name",
+        description: "Enter the English trade name first so we can transliterate it.",
+      });
+      inputRef.current?.focus();
+      return;
+    }
+
+    setArabicDraft(transliterateToArabic(englishDraft));
+  }, [englishDraft, toast]);
+
+  const tradeNameStatusMessage = isChecking
+    ? "We’re running the automated checks now."
+    : isNameAvailable
+    ? "All checks passed. Reserve the name to lock it in."
+    : hasPerformedCheck
+    ? "The last run flagged this trade name. Try updating and run the checks again."
+    : "Provide a trade name and run the automated checks to continue.";
 
   return (
     <div className="space-y-6">
-      <div className="rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_26px_60px_-50px_rgba(15,23,42,0.35)]">
+      <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_26px_60px_-50px_rgba(15,23,42,0.35)]">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
@@ -1028,176 +680,28 @@ export function BusinessRegistrationFocusContent({
             </p>
             <p className="text-lg font-semibold text-slate-900">{journeyNumber}</p>
           </div>
-          <Badge className={availabilityBadgeClasses}>
-            {badgeIcon}
-            {badgeLabel}
+          <Badge className="inline-flex items-center gap-2 rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
+            <Check className="h-3.5 w-3.5" strokeWidth={3} />
+            Trade name workflow
           </Badge>
         </div>
-        <div className="mt-4 space-y-2">
-          <h3 className="text-xl font-semibold text-slate-900">
-            {activeEnglishTradeName || "Trade name pending"}
-          </h3>
-          {activeArabicTradeName ? (
-            <p className="text-base font-semibold text-[#0f766e]" dir="rtl">
-              {activeArabicTradeName}
+        <div className="mt-5 space-y-4">
+          <div className="space-y-2">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+              Business registration
             </p>
-          ) : null}
-          <p className="text-sm text-slate-600">{statusDescription}</p>
-        </div>
-      </div>
-
-      <Accordion
-        type="multiple"
-        defaultValue={defaultOpenSections}
-        className="space-y-4"
-      >
-        <CollapsibleCard
-          value="next-step"
-          title="Next action"
-          subtitle={registrationCta.headline}
-        >
-          <p className="text-sm text-slate-600">{registrationCta.description}</p>
-          <Button
-            type="button"
-            size="sm"
-            onClick={registrationCta.onClick}
-            disabled={registrationCta.disabled}
-            className="self-start rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
-          >
-            {registrationCta.buttonLabel}
-          </Button>
-        </CollapsibleCard>
-
-        <CollapsibleCard
-          value="submit"
-          title="Submit trade names"
-          subtitle="English and Arabic versions"
-        >
-          <p className="text-sm text-slate-600">
-            Enter the names, then run the automated checks.
-          </p>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <label className="block text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                English trade name
-              </label>
-              <Input
-                ref={inputRef}
-                value={englishInputValue}
-                onChange={handleEnglishInputChange}
-                placeholder="Marwah Restaurant Sole LLC"
-                disabled={isChecking}
-                className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
-              />
-            </div>
-            <div className="space-y-2">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <label className="block text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  Arabic trade name
-                </label>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={handleTransliterate}
-                  disabled={isChecking}
-                  className="rounded-full border-[#0f766e]/40 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
-                >
-                  Transliterate
-                </Button>
-              </div>
-              <Input
-                value={arabicInputValue}
-                onChange={handleArabicInputChange}
-                placeholder="مطعم مروة الفردي ذ.م.م"
-                disabled={isChecking}
-                dir="rtl"
-                className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
-              />
-            </div>
-            <Button
-              type="submit"
-              className="h-11 w-full rounded-full bg-[#0f766e] px-5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_12px_28px_-18px_rgba(15,118,110,0.45)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
-              disabled={isSubmitDisabled}
-            >
-              Run automated checks
-            </Button>
-          </form>
-          <div className="flex flex-wrap items-center gap-2">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleGenerateAvailableIdeas}
-              disabled={isChecking}
-              className="rounded-full border-[#0f766e]/40 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              Get name recommendations
-            </Button>
-            {hasGeneratedSuggestions && tradeNameSuggestions.length === 0 ? (
-              <span className="text-xs text-slate-500">
-                No approved suggestions yet—try again in a moment.
-              </span>
-            ) : null}
+            <h3 className="text-2xl font-semibold text-slate-900">
+              Keep the trade name checks on track
+            </h3>
+            <p className="text-sm text-slate-600">
+              Review the current trade name status and run the automated verification when you’re ready to move forward.
+            </p>
           </div>
-          {tradeNameSuggestions.length > 0 && (
-            <div className="grid gap-2 sm:grid-cols-2">
-              {tradeNameSuggestions.slice(0, 4).map((idea) => (
-                <button
-                  key={idea.id}
-                  type="button"
-                  onClick={() => handleIdeaSelect(idea)}
-                  className="rounded-2xl border border-[#0f766e]/40 bg-white px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
-                  disabled={isChecking}
-                >
-                  <span className="block text-[12px] text-slate-900">{idea.english}</span>
-                  <span className="block text-[12px] text-[#0f766e]" dir="rtl">
-                    {idea.arabic}
-                  </span>
-                </button>
-              ))}
-            </div>
-          )}
-          {!isChecking && !isNameAvailable && failureReason ? (
-            <div className="space-y-3 rounded-2xl border border-rose-200 bg-rose-50/80 p-4 text-sm text-rose-700">
-              <p>{failureReason}</p>
-              {followUpSuggestion ? (
-                <div className="space-y-3 rounded-2xl border border-[#0f766e]/30 bg-white p-4 text-slate-700 shadow-sm">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0f766e]">
-                      Recommended available name
-                    </p>
-                    <p className="mt-2 text-base font-semibold text-slate-900">
-                      {followUpSuggestion.english}
-                    </p>
-                    <p className="text-base font-semibold text-[#0f766e]" dir="rtl">
-                      {followUpSuggestion.arabic}
-                    </p>
-                  </div>
-                  <Button
-                    type="button"
-                    onClick={handleApplySuggestionAndRun}
-                    disabled={isChecking}
-                    className="h-11 w-full rounded-full bg-[#0f766e] px-5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_12px_28px_-18px_rgba(15,118,110,0.45)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    Use this name & rerun checks
-                  </Button>
-                </div>
-              ) : null}
-            </div>
-          ) : null}
-        </CollapsibleCard>
-
-        <CollapsibleCard
-          value="automation"
-          title="Automation updates"
-          subtitle={statusSummary}
-        >
-          <Badge className={tradeCheckBadgeClasses}>{tradeCheckBadgeLabel}</Badge>
-          <p className="text-sm text-slate-600">{tradeCheckDescription}</p>
           <div className="space-y-2">
             <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
               <div
-                className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all duration-500 ease-out"
-                style={{ width: `${automationProgress}%` }}
+                className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all"
+                style={{ width: `${displayProgress}%` }}
               />
             </div>
             <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
@@ -1205,100 +709,216 @@ export function BusinessRegistrationFocusContent({
               <span>{displayProgress}%</span>
             </div>
           </div>
-          {isChecking && nowCheckingStep ? (
-            <div className="rounded-2xl border border-[#e6f2ed] bg-white/90 px-4 py-3 text-sm text-slate-600">
-              <p className="font-semibold text-slate-900">
-                Checking now: {nowCheckingStep.title}
-              </p>
-              <p>{nowCheckingStep.description}</p>
-            </div>
-          ) : flaggedVerificationStep ? (
-            <div className="rounded-2xl border border-rose-200 bg-rose-50/90 px-4 py-3 text-sm text-rose-700">
-              <p className="font-semibold text-rose-700">
-                Flagged: {flaggedVerificationStep.title}
-              </p>
-              <p>
-                {flaggedVerificationStep.failureDetail ?? flaggedVerificationStep.description}
-              </p>
-            </div>
-          ) : hasPerformedCheck && isNameAvailable ? (
-            <div className="rounded-2xl border border-[#94d2c2] bg-[#dff2ec] px-4 py-3 text-sm text-[#0b7d6f]">
-              All checks passed. Reserve the name with AD Pay to lock it in.
-            </div>
-          ) : null}
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={scrollToVerification}
-            className="self-start rounded-full border-[#0f766e]/40 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
-          >
-            View verification
-          </Button>
-        </CollapsibleCard>
+        </div>
+      </div>
 
-        <CollapsibleCard
-          value="verification"
-          title="Verification checks"
-          subtitle={verificationSubtitle}
-        >
-          <p className="text-sm text-slate-600">
-            {showVerificationSteps
-              ? "Open any step to see what Omnis checked."
-              : "Run the automated checks to populate this list."}
-          </p>
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={focusTradeNameInput}
-            className="self-start rounded-full border-[#0f766e]/40 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
-          >
-            Edit trade name
-          </Button>
-          <div id="registration-verification" className="space-y-4">
-            {showVerificationSteps ? (
-              <>
-                <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
-                  <span className="rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-xs font-semibold text-[#0b7d6f]">
-                    {completedVerificationSteps}/{totalVerificationSteps} passed
-                  </span>
-                  {flaggedVerificationStep ? (
-                    <span className="rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-600">
-                      Needs attention
-                    </span>
-                  ) : null}
-                  {nowCheckingStep ? (
-                    <span className="max-w-[220px] truncate rounded-full border border-[#0f766e]/30 bg-[#0f766e]/5 px-3 py-1 text-xs font-semibold text-[#0f766e]">
-                      Checking: {nowCheckingStep.title}
-                    </span>
-                  ) : null}
+      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+        <div className="space-y-5">
+          <div className="rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.32)]">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div className="space-y-1">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                  Trade name details
+                </p>
+                <h4 className="text-xl font-semibold text-slate-900">
+                  {activeEnglishTradeName || "Trade name pending"}
+                </h4>
+                {activeArabicTradeName ? (
+                  <p className="text-base font-semibold text-[#0f766e]" dir="rtl">
+                    {activeArabicTradeName}
+                  </p>
+                ) : null}
+              </div>
+              <Badge className={cn(
+                "inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                tradeNameStatusToken.className,
+              )}>
+                {tradeNameStatusToken.label}
+              </Badge>
+            </div>
+
+            <div className="mt-4 space-y-3 text-sm text-slate-600">
+              <p className="rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                {tradeNameStatusMessage}
+              </p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                    English name
+                  </p>
+                  <p className="mt-1 text-sm font-semibold text-slate-900">
+                    {activeEnglishTradeName || "Not provided"}
+                  </p>
                 </div>
-                <Accordion
-                  type="multiple"
-                  key={accordionKey}
-                  defaultValue={accordionDefaultValues}
-                  className="space-y-3"
-                >
-                  {automationSteps.map((step, index) => (
-                    <VerificationStepItem
-                      key={step.title}
-                      step={step}
-                      index={index}
-                      totalSteps={automationSteps.length}
-                      value={`step-${index}`}
-                    />
-                  ))}
-                </Accordion>
-              </>
+                <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                    Arabic name
+                  </p>
+                  <p className="mt-1 text-sm font-semibold text-[#0f766e]" dir="rtl">
+                    {activeArabicTradeName || "—"}
+                  </p>
+                </div>
+              </div>
+              {failureReason && !isNameAvailable ? (
+                <div className="rounded-2xl border border-rose-200 bg-rose-50/80 px-4 py-3 text-sm text-rose-700">
+                  {failureReason}
+                </div>
+              ) : null}
+            </div>
+
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  if (!isEditing) {
+                    setEnglishDraft(activeEnglishTradeName);
+                    setArabicDraft(activeArabicTradeName);
+                  }
+                  setIsEditing((previous) => !previous);
+                }}
+                className="rounded-full border-[#0f766e]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+              >
+                {isEditing ? "Close editor" : "Edit trade name"}
+              </Button>
+              <Button
+                type="button"
+                onClick={handleRunChecks}
+                disabled={isChecking}
+                className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isChecking ? "Running checks..." : "Run automated checks"}
+              </Button>
+            </div>
+
+            {isEditing ? (
+              <form
+                className="mt-4 space-y-3"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  handleRunChecks();
+                }}
+              >
+                <div className="space-y-2">
+                  <label className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                    English trade name
+                  </label>
+                  <Input
+                    ref={inputRef}
+                    value={englishDraft}
+                    onChange={(event) => setEnglishDraft(event.target.value)}
+                    placeholder="Marwah Restaurant Sole LLC"
+                    className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
+                    disabled={isChecking}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <label className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                      Arabic trade name
+                    </label>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleTransliterate}
+                      disabled={isChecking}
+                      className="rounded-full border-[#0f766e]/40 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      Transliterate
+                    </Button>
+                  </div>
+                  <Input
+                    value={arabicDraft}
+                    onChange={(event) => setArabicDraft(event.target.value)}
+                    placeholder="مطعم مروى الفردي ذ.م.م"
+                    dir="rtl"
+                    className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
+                    disabled={isChecking}
+                  />
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button
+                    type="submit"
+                    disabled={isChecking}
+                    className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {isChecking ? "Checking..." : "Save & rerun checks"}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => setIsEditing(false)}
+                    disabled={isChecking}
+                    className="px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 hover:text-slate-700"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </form>
+            ) : null}
+          </div>
+        </div>
+
+        <div className="rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.32)]">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                Verification checks
+              </p>
+              <h4 className="text-lg font-semibold text-slate-900">{verificationStatusLabel}</h4>
+              <p className="text-sm text-slate-600">{verificationSubtitle}</p>
+            </div>
+            <Badge className={cn(
+              "inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+              isNameAvailable
+                ? "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]"
+                : isChecking
+                ? "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]"
+                : hasPerformedCheck
+                ? "border-rose-200 bg-rose-50 text-rose-600"
+                : "border-slate-200 bg-white text-slate-500",
+            )}>
+              {completedVerificationSteps}/{TRADE_NAME_CHECKS.length}
+            </Badge>
+          </div>
+
+          <div className="mt-4 space-y-3">
+            <div className="space-y-2">
+              <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
+                <div
+                  className={cn(
+                    "absolute inset-y-0 left-0 rounded-full transition-all",
+                    isNameAvailable ? "bg-[#0f766e]" : "bg-[#0f766e]",
+                  )}
+                  style={{ width: `${displayProgress}%` }}
+                />
+              </div>
+              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                <span>Overall progress</span>
+                <span>{displayProgress}%</span>
+              </div>
+            </div>
+
+            {showVerificationSteps ? (
+              <Accordion type="multiple" className="space-y-3">
+                {automationSteps.map((step, index) => (
+                  <VerificationStepItem
+                    key={step.title}
+                    step={step}
+                    index={index}
+                    totalSteps={automationSteps.length}
+                    value={`step-${index}`}
+                  />
+                ))}
+              </Accordion>
             ) : (
               <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-5 text-sm text-slate-500">
-                Run the automated checks to see each bar fill in. Tap a bar to expand the details.
+                Run the automated checks to populate each verification step.
               </div>
             )}
           </div>
-        </CollapsibleCard>
-      </Accordion>
+        </div>
+      </div>
     </div>
   );
 }
