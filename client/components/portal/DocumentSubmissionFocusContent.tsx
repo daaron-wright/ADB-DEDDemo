@@ -26,9 +26,6 @@ type LicenseDetails = {
   expiryDate: string;
 };
 
-const DOCUMENT_VAULT_SOURCE_LABEL = 'Synced from "My Business Documents" Vault';
-const DOCUMENT_VAULT_IMAGE_URL =
-  "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fdcbbbf1fba0441838566c6e2d3105aa0?format=webp&width=800";
 const INITIAL_MOA_CLAUSE_DRAFT = `Article 7 — Capital contributions & profit distribution
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise.`;
