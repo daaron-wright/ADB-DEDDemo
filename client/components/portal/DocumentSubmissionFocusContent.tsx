@@ -133,7 +133,7 @@ export function DocumentSubmissionFocusContent({
     }
 
     setIsFinalisingMoa(true);
-    setIsVaultSyncing(true);
+    triggerVaultSync();
     completionTimeoutRef.current = window.setTimeout(() => {
       setDocuments((previous) =>
         previous.map((item) =>
@@ -157,7 +157,7 @@ export function DocumentSubmissionFocusContent({
         description: "ADJD sent back the stamped memorandum. We added it to your vault.",
       });
     }, 1200);
-  }, [activeDocumentId, isFinalisingMoa, toast]);
+  }, [activeDocumentId, isFinalisingMoa, toast, triggerVaultSync]);
 
   React.useEffect(() => {
     if (documents.some((item) => item.status !== "completed")) {
