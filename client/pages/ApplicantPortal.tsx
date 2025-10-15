@@ -96,7 +96,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before we display your license summary, let's confirm the right legal structure, business activities, and physical space requirements together. Once we complete this intake, I'll publish your license type and submission ID.",
-  ar: "قبل أن أعرض تفاصيل الترخيص، دعينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطلبات المساحة. بمجرد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
+  ar: "قبل أن أعرض تفاصيل الترخيص، دعينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل��ات المساحة. بمجرد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
 };
 
 type QuestionnaireProgress = "not_started" | "in_progress" | "completed";
@@ -296,7 +296,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة ��لتالية.`,
     workspaceSupportBadge: "دعم مساحة ��لعمل",
-    supportHeading: "تحتاجين إلى مساعدة؟",
+    supportHeading: "تحتاجين إلى مساع��ة؟",
     supportDescription: {
       preEmail:
         "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت ��لخليج. تواصلي عبر ",
@@ -322,7 +322,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       submissionId: "معرّف الطلب",
       lastUpdate: "آخر تحديث",
     },
-    nextActionHeading: "الإجراء التالي",
+    nextActionHeading: "الإ��راء التالي",
     nextActionButton: "انتقلي إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
@@ -412,23 +412,23 @@ const journeyStages: JourneyStage[] = [
       {
         id: "questionnaire-business-profile",
         label: "Start AI questionnaire intake",
-        status: "pending",
+        status: "completed",
         owner: "Applicant",
-        dueDate: isoDate(daysFromToday(0)),
+        completedOn: isoDate(daysFromToday(-3)),
       },
       {
         id: "questionnaire-location-plan",
         label: "Confirm preferred location insights",
-        status: "pending",
+        status: "completed",
         owner: "Applicant",
-        dueDate: isoDate(daysFromToday(1)),
+        completedOn: isoDate(daysFromToday(-2)),
       },
       {
         id: "questionnaire-automation-sync",
         label: "Sync questionnaire with automation engine",
-        status: "pending",
+        status: "completed",
         owner: "Applicant",
-        dueDate: isoDate(daysFromToday(2)),
+        completedOn: isoDate(daysFromToday(-1)),
       },
     ],
   },
