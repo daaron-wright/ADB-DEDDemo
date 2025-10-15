@@ -707,11 +707,6 @@ export function DocumentSubmissionFocusContent({
                   Hide assistant
                 </Button>
               </div>
-              {!hasAppliedOmnisRevision ? (
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">
-                  Apply Omnis' revision before notarisation.
-                </p>
-              ) : null}
             </div>
           ) : (
             <div className="space-y-3">
