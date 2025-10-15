@@ -160,25 +160,6 @@ export function DocumentSubmissionFocusContent({
   }, [activeDocumentId, isFinalisingMoa, toast]);
 
   React.useEffect(() => {
-    const previous = previousDocumentsRef.current;
-    const previousStatuses = previous.map((item) => item.status).join("|");
-    const currentStatuses = documents.map((item) => item.status).join("|");
-
-    if (previousStatuses !== currentStatuses) {
-      setIsVaultSyncing(true);
-      if (vaultSyncTimeoutRef.current) {
-        window.clearTimeout(vaultSyncTimeoutRef.current);
-      }
-      vaultSyncTimeoutRef.current = window.setTimeout(() => {
-        setIsVaultSyncing(false);
-        vaultSyncTimeoutRef.current = null;
-      }, 1200);
-    }
-
-    previousDocumentsRef.current = documents;
-  }, [documents]);
-
-  React.useEffect(() => {
     if (documents.some((item) => item.status !== "completed")) {
       return;
     }
