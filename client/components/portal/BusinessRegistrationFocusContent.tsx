@@ -121,7 +121,7 @@ const TRADE_NAME_IDEAS: ReadonlyArray<TradeNameIdeaSuggestion> = [
   {
     id: "harbor-lights-supper-club-sole-llc",
     english: "Harbor Lights Supper Club Sole LLC",
-    arabic: "ناد�� عشاء أضواء الميناء الفردي ذ.م.م",
+    arabic: "نادي عشاء أضواء الميناء الفردي ذ.م.م",
   },
   {
     id: "corniche-culinary-collective-sole-llc",
@@ -729,26 +729,7 @@ export function BusinessRegistrationFocusContent({
         return;
       }
 
-      const formattedEnglish = formatTradeName(trimmedEnglishInput);
-      const formattedArabic = formatArabicName(trimmedArabicInput);
-      const normalizedEnglish = formattedEnglish.toUpperCase();
-
-      setActiveEnglishTradeName(formattedEnglish);
-      setActiveArabicTradeName(formattedArabic);
-      setPendingSubmission({
-        english: formattedEnglish,
-        arabic: formattedArabic,
-        normalized: normalizedEnglish,
-      });
-      setAutomationProgress(0);
-      setIsChecking(true);
-      setIsNameAvailable(false);
-      setFailedStepIndex(null);
-      setFailureReason(null);
-      setHasUserOverride(true);
-      setHasPerformedCheck(true);
-      setHasInitiatedPayment(false);
-      notifyTradeNameChange(formattedEnglish);
+      startAutomatedCheck(trimmedEnglishInput, trimmedArabicInput);
     },
     [
       isChecking,
