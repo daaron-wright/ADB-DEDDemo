@@ -20,8 +20,6 @@ interface DocumentSubmissionFocusContentProps {
   progressPercent?: number;
 }
 
-type DocumentStatus = "ready" | "requires_action" | "completed";
-
 type DocumentVaultItem = {
   id: string;
   title: string;
