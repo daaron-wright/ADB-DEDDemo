@@ -770,6 +770,9 @@ export function BusinessRegistrationFocusContent({
       setFailureReason(null);
       setAutomationProgress(0);
       setHasInitiatedPayment(false);
+      setTradeNameSuggestions([]);
+      setHasGeneratedSuggestions(false);
+      setFollowUpSuggestion(null);
     },
     [],
   );
