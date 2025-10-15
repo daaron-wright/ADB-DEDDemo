@@ -561,6 +561,40 @@ export function BusinessRegistrationFocusContent({
     [onTradeNameChange],
   );
 
+  const startAutomatedCheck = React.useCallback(
+    (englishName: string, arabicName: string) => {
+      const formattedEnglish = formatTradeName(englishName);
+      const formattedArabic = formatArabicName(arabicName);
+
+      if (!formattedEnglish || !formattedArabic) {
+        return;
+      }
+
+      const normalizedEnglish = formattedEnglish.toUpperCase();
+
+      setEnglishInputValue(formattedEnglish);
+      setArabicInputValue(formattedArabic);
+      setActiveEnglishTradeName(formattedEnglish);
+      setActiveArabicTradeName(formattedArabic);
+      setPendingSubmission({
+        english: formattedEnglish,
+        arabic: formattedArabic,
+        normalized: normalizedEnglish,
+      });
+      setAutomationProgress(0);
+      setIsChecking(true);
+      setIsNameAvailable(false);
+      setFailedStepIndex(null);
+      setFailureReason(null);
+      setHasUserOverride(true);
+      setHasPerformedCheck(true);
+      setHasInitiatedPayment(false);
+      setFollowUpSuggestion(null);
+      notifyTradeNameChange(formattedEnglish);
+    },
+    [notifyTradeNameChange],
+  );
+
   const handleGenerateAvailableIdeas = React.useCallback(() => {
     const generated = sampleTradeNameIdeas(availableTradeNameIdeas);
     setTradeNameSuggestions(generated);
