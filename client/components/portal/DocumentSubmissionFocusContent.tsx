@@ -30,7 +30,7 @@ const INITIAL_MOA_CLAUSE_DRAFT = `Article 7 — Capital contributions & profit d
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise.`;
 const POLARIS_RECOMMENDED_MOA_CLAUSE = `Article 7 — Capital contributions & profit distribution
-المادة 7 — ا��مساهمات ا��رأسمالية وتوزيع الأرب��ح
+المادة 7 — ا��مساهمات ا��رأسمالية وتوزيع الأرب����ح
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise. Distributions shall be supported by audited management accounts and bilingual notices issued at least five (5) working days in advance.`;
 
@@ -96,7 +96,7 @@ export function DocumentSubmissionFocusContent({
   }, []);
 
   const handleApplyPolarisRevision = React.useCallback(() => {
-    setMoaClauseDraft(OMNIS_RECOMMENDED_MOA_CLAUSE);
+    setMoaClauseDraft(POLARIS_RECOMMENDED_MOA_CLAUSE);
     setHasAppliedPolarisRevision(true);
     setMoaEditorNotes(
       "Polaris inserted the bilingual clause and aligned profit notices with ADJD templates.",
