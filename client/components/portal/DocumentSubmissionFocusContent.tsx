@@ -270,7 +270,7 @@ export function DocumentSubmissionFocusContent({
 
   const handleDocumentClick = React.useCallback(
     (id: string) => {
-      ensureSectionOpen("vault");
+      ensureSectionOpen("vault", { bypassCollapsedGuard: true });
       handleSelectDocument(id);
       if (id === "memorandum-of-association") {
         ensureSectionOpen("moa");
