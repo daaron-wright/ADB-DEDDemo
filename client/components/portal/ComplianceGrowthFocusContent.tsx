@@ -173,9 +173,9 @@ const SIGNBOARD_QUALITY_SUMMARY = {
 };
 
 const OCR_TEXT_LINES = [
-  "Marwah Restaurant",
-  "Sole LLC",
-  "مطعم مروى شركة ذات مسؤولية محدودة",
+  PRIMARY_TRADE_NAME_EN,
+  "Company Proprietorship Sole - Limited Liability Company",
+  PRIMARY_TRADE_NAME_AR,
   "رقم الرخصة 784323",
 ];
 
