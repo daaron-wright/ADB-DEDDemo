@@ -211,10 +211,10 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
             >
               <div className="text-center lg:text-left">
                 <h2 className="text-2xl font-bold text-slate-900 mb-4">
-                  Great news—Omnis has everything it needs for your shortlisted spot.
+                  Great news—Polaris has everything it needs for your shortlisted spot.
                 </h2>
                 <p className="text-slate-600 mb-8">
-                  We&apos;ll hop back into the chat so Omnis can celebrate the win, share a quick viability update, and check if you want us to reserve the trade name and fast-track the application.
+                  We&apos;ll hop back into the chat so Polaris can celebrate the win, share a quick viability update, and check if you want us to reserve the trade name and fast-track the application.
                 </p>
               </div>
 
@@ -238,7 +238,7 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                     <path d="M12 12v8" />
                     <path d="M5 21h14" />
                   </svg>
-                  Continue to your workspace with Omnis
+                  Continue to your workspace with Polaris
                 </button>
                 <button
                   type="button"
