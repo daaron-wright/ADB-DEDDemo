@@ -317,7 +317,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفك��رهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -372,7 +372,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     journey: {
       heading: "تنسيق الرحلة",
       timelineLabel: "الجدول الزمني للرحلة",
-      activePrefix: "الحالة الحالي��:",
+      activePrefix: "الحالة الحالية:",
       activeStage: "المرحلة النشطة",
       yourNextStep: "خطوت�� التالية",
       tasksCompleteMessage:
@@ -392,7 +392,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "هذه هي نقطة انطلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
         "مرحبًا بكِ—شاركينا تفاصيل فكرتك لنصمم معًا رحلة الترخيص التي تطلق مشروعك التجاري.",
-      startCta: "ابدئي الاستب��ان مع الذكاء الاصطناعي",
+      startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
       pendingLicenseLabel: "متاح بعد الاستبيان",
@@ -1939,6 +1939,12 @@ export default function ApplicantPortal() {
       onTradeNameChange: handleTradeNameChange,
       growthUnlocked: stageId === "compliance-growth" ? priorStagesComplete : undefined,
     };
+
+    if (stageId === "questionnaire") {
+      focusViewProps.legalFormOptions = DEFAULT_LEGAL_FORM_OPTIONS;
+      focusViewProps.selectedLegalFormId = selectedLegalFormId;
+      focusViewProps.onLegalFormSelect = setSelectedLegalFormId;
+    }
 
     if (stageId === "compliance-growth") {
       focusViewProps.onComplianceReturn = handleCompliancePassed;
