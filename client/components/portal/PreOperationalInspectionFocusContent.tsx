@@ -147,6 +147,7 @@ export function PreOperationalInspectionFocusContent({
   const [showDocuments, setShowDocuments] = React.useState(true);
   const [progress, setProgress] = React.useState(progressPercent);
   const [openSections, setOpenSections] = React.useState<string[]>(["action", "checklist", "automation"]);
+  const hasAutomationAvatar = POLARIS_AUTOMATION_AVATAR_URL.length > 0;
 
   const ensureSectionOpen = React.useCallback((sectionId: string) => {
     setOpenSections((previous) => (previous.includes(sectionId) ? previous : [...previous, sectionId]));
