@@ -745,6 +745,62 @@ export function BusinessRegistrationFocusContent({
     setArabicDraft(transliterateToArabic(englishDraft));
   }, [englishDraft, toast]);
 
+  const handleSelectApprovedTradeName = React.useCallback(() => {
+    if (
+      !isNameAvailable ||
+      hasSelectedApprovedTradeName ||
+      hasSubmittedReservationApplication ||
+      isSubmittingReservation
+    ) {
+      return;
+    }
+
+    setHasSelectedApprovedTradeName(true);
+    toast({
+      title: "Trade name selected",
+      description: "We’ll prepare the reservation submission next.",
+    });
+  }, [
+    hasSelectedApprovedTradeName,
+    hasSubmittedReservationApplication,
+    isNameAvailable,
+    isSubmittingReservation,
+    toast,
+  ]);
+
+  const handleSubmitReservationApplication = React.useCallback(() => {
+    if (
+      !canSubmitReservation ||
+      isSubmittingReservation ||
+      hasSubmittedReservationApplication
+    ) {
+      return;
+    }
+
+    setIsSubmittingReservation(true);
+    toast({
+      title: "Submitting reservation",
+      description: "Processing your trade name reservation payment.",
+    });
+    if (reservationTimeoutRef.current) {
+      window.clearTimeout(reservationTimeoutRef.current);
+    }
+    reservationTimeoutRef.current = window.setTimeout(() => {
+      setIsSubmittingReservation(false);
+      setHasSubmittedReservationApplication(true);
+      toast({
+        title: "Trade name reserved",
+        description: "Reservation application and payment submitted. Document submissions unlocked.",
+      });
+      setAutomationProgress((value) => Math.max(value, 100));
+    }, 1200);
+  }, [
+    canSubmitReservation,
+    hasSubmittedReservationApplication,
+    isSubmittingReservation,
+    toast,
+  ]);
+
   const tradeNameStatusMessage = isChecking
     ? "We’re running the automated checks now."
     : hasSubmittedReservationApplication
