@@ -30,7 +30,7 @@ const INITIAL_MOA_CLAUSE_DRAFT = `Custom Article 7 — Capital contributions & p
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise.`;
 const POLARIS_RECOMMENDED_MOA_CLAUSE = `Custom Article 7 — Capital contributions & profit distribution
-المادة 7 — ا��مساهمات ا��رأسمالية وتوزيع الأر������ح
+المادة 7 — ا��مساهمات ا��رأسمالية وتوزيع الأرب����ح
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise. Distributions shall be supported by audited management accounts and bilingual notices issued at least five (5) working days in advance. Polaris simulation includes bilingual notices and an ADJD review cover letter.`;
 
@@ -367,7 +367,7 @@ export function DocumentSubmissionFocusContent({
                 </div>
               </div>
               <p className="text-sm text-slate-600">
-                We filled the memorandum with shareholders, activities, and translations. Review and sign before we send it to ADJD.
+                Polaris is simulating edits on your custom memorandum and preparing the ADJD review submission. Review the draft before we forward it.
               </p>
               <div className="rounded-3xl border border-[#0f766e]/20 bg-[#0f766e]/5 p-4 text-sm text-[#0f766e]">
                 <ul className="space-y-2">
