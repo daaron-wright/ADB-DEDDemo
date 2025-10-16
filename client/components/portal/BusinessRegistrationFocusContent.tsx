@@ -111,8 +111,8 @@ const APPROVED_TRADE_NAMES = [
 const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   {
     id: "marwah-restaurant",
-    english: "MARWA RESTAURANT",
-    arabic: "ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة",
+    english: PRIMARY_TRADE_NAME_EN,
+    arabic: PRIMARY_TRADE_NAME_AR,
   },
   {
     id: "marwah-hospitality",
