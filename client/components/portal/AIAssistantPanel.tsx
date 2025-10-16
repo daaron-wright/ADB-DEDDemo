@@ -23,6 +23,8 @@ export function AIAssistantPanel({
   className,
 }: AIAssistantPanelProps) {
   const [animationKey, setAnimationKey] = useState(0);
+  const resolvedAvatarUrl = (avatarUrl ?? AI_ASSISTANT_PROFILE.avatar).trim();
+  const hasAvatarImage = resolvedAvatarUrl.length > 0;
 
   // Reset animation when status changes
   useEffect(() => {
@@ -79,9 +81,9 @@ export function AIAssistantPanel({
         <div className="flex items-center gap-4 mb-6">
           {/* Avatar */}
           <div className="relative">
-            {avatarUrl ? (
+            {hasAvatarImage ? (
               <img
-                src={avatarUrl}
+                src={resolvedAvatarUrl}
                 alt={assistantName}
                 className="h-16 w-16 rounded-full border-2 border-[#0E766E] object-cover"
               />
