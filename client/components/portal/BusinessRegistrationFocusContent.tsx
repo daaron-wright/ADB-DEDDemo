@@ -958,7 +958,7 @@ export function BusinessRegistrationFocusContent({
                   Trade name details
                 </p>
                 <h4 className="text-xl font-semibold text-slate-900">
-                  {activeEnglishTradeName || "MARWA RESTAURANT"}
+                  {activeEnglishTradeName || PRIMARY_TRADE_NAME_EN}
                 </h4>
                 {activeArabicTradeName ? (
                   <p className="text-base font-semibold text-[#0f766e]" dir="rtl">
