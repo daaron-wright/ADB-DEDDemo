@@ -490,14 +490,6 @@ export function JourneyStageFocusView({
 
           {showRecommendedSelector ? (
             <div className="flex flex-wrap items-start justify-between gap-4 rounded-2xl border border-white/30 bg-white/14 p-4">
-              <div className="space-y-1">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Recommended focus
-                </p>
-                <p className="text-sm text-slate-600">
-                  Tailored actions to accelerate this stage.
-                </p>
-              </div>
               <div className="flex min-w-[240px] max-w-full flex-col gap-3">
                 <div className="flex flex-wrap gap-2">
                   {recommendedActivities.map((activity) => {
