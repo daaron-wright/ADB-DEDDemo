@@ -212,6 +212,10 @@ function formatTradeName(value: string | undefined) {
         return word;
       }
 
+      if (word === word.toUpperCase() && /[A-Z]/.test(word)) {
+        return word.toUpperCase();
+      }
+
       const lower = word.toLowerCase();
       return lower.charAt(0).toUpperCase() + lower.slice(1);
     })
