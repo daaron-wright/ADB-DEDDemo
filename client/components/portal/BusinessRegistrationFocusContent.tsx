@@ -496,7 +496,7 @@ export function BusinessRegistrationFocusContent({
     clampProgress(progressPercent),
   );
   const [failedStepIndex, setFailedStepIndex] = React.useState<number | null>(
-    Boolean(tradeName) && !isTradeNameAvailable ? DEFAULT_FAILURE_STEP_INDEX : null,
+    isTradeNameAvailable ? null : DEFAULT_FAILURE_STEP_INDEX,
   );
   const [failureReason, setFailureReason] = React.useState<string | null>(null);
 
