@@ -164,6 +164,9 @@ export function JourneyStageFocusView({
   growthUnlocked = false,
   onComplianceReturn,
   isCompliancePassed,
+  legalFormOptions = DEFAULT_LEGAL_FORM_OPTIONS,
+  selectedLegalFormId,
+  onLegalFormSelect,
 }: JourneyStageFocusViewProps) {
   const highlightToken = stage ? highlightTokens[stage.state] : null;
   const stagedTasks = stage?.tasks ?? [];
