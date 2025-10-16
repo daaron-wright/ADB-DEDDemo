@@ -384,7 +384,7 @@ export function DocumentSubmissionFocusContent({
               </div>
               <div className="grid gap-5 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
                 <MyTAMMDocuments
-                  companyName="Marwah Restaurant Sole LLC"
+                  companyName={PRIMARY_TRADE_NAME_EN}
                   isGenerating={isFinalisingMoa}
                 />
                 <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
