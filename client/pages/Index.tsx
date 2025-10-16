@@ -10,7 +10,6 @@ import { motion } from "framer-motion";
 import { MessageCircle, Headset, ArrowUpRight, X } from "lucide-react";
 import { Tooltip } from "@aegov/design-system-react";
 import { BusinessChatUI } from "@/components/ui/business-chat-ui";
-import { UAEPassLogin } from "@/components/ui/uae-pass-login";
 import { PolarisIcon } from "@/components/ui/polaris-icon";
 import { cn } from "@/lib/utils";
 
@@ -207,15 +206,9 @@ export default function Index() {
     };
   }, []);
 
-  // UAE PASS Login Handler
-  const handleUAEPassLogin = (
-    userType: "applicant" | "reviewer",
-    userData: any,
-  ) => {
-    const destination =
-      userType === "applicant" ? "/portal/applicant" : "/portal/reviewer";
-    navigate(destination, { state: { user: userData } });
-  };
+  const handleSignOut = () => {
+  navigate("/portal/applicant");
+};
 
   const businessCategories = useMemo(
     () => [
@@ -514,18 +507,15 @@ export default function Index() {
             </div>
 
             {/* Sign in button */}
-            <div className="flex justify-end">
-              <UAEPassLogin
-                mode="full"
-                defaultUserType="applicant"
-                trigger={
-                  <span className="inline-flex items-center justify-center rounded-full bg-teal-gradient px-6 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
-                    Sing Out
-                  </span>
-                }
-                onLogin={handleUAEPassLogin}
-              />
-            </div>
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="inline-flex items-center justify-center rounded-full bg-teal-gradient px-6 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90"
+            >
+              Sign Out
+            </button>
+          </div>
           </header>
 
           {/* Hero Section */}
