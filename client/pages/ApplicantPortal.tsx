@@ -334,7 +334,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     nextActionButton: "انتقلي إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
+      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أب��ظبي فور تسجيل ��قدك.",
     businessAITitle: "مساع�� ��لأعمال الذكي",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نفس مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
@@ -365,7 +365,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك المدعوم ب������ذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك المدعوم ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الم��افقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
@@ -386,7 +386,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     questionnaireOnboarding: {
       heading: "ابدئي رحلة ترخيصك",
       notStartedMessage:
-        "ابدئي من هنا للإجابة عن أسئلة ��وجهة حول نشاطك كي نضبط مسار الترخيص لكِ.",
+        "ابدئي من هنا للإجابة عن أسئلة موجهة حول نشاطك كي نضبط مسار الترخيص لكِ.",
       inProgressMessage:
         "يعمل الذكاء الاصطناعي على جمع التفاصيل لإعداد الاستبيان.",
       completedMessage:
@@ -1618,6 +1618,16 @@ export default function ApplicantPortal() {
     );
     return fallbackStage?.title ?? "Journey stage";
   }, [journeyTimelineItems, journeyStages, activeStageId]);
+
+  const phaseNavigation = useMemo(
+    () => (
+      <JourneyPhaseBreadcrumb
+        activePhase={currentPhase}
+        currentStageLabel={currentStageLabel}
+      />
+    ),
+    [currentPhase, currentStageLabel],
+  );
 
   useEffect(() => {
     setTodoCompletionState((prev) => {
