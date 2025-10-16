@@ -395,7 +395,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
-      pendingLicenseLabel: "متاح بعد الاستبيان",
+      pendingLicenseLabel: "م��اح بعد الاستبيان",
       pendingSubmissionLabel: "",
       chatIntro:
         "لنؤكد بعض التفاصي�� معًا. بعد إنهاء هذا الاستبيان، سأعرض نوع التر��يص ومعرّف الطلب.",
@@ -491,7 +491,7 @@ const journeyStages: JourneyStage[] = [
         status: "in_progress",
         label: "Submission of documents in progress",
         detail:
-          "Coordinating notarized MOA, tenancy confirmation, and ADAFSA technical consultation.",
+          "Coordinating guided notarization with Polaris for documents needing edits, tenancy confirmation, and ADAFSA technical consultation.",
         timestamp: isoDate(daysFromToday(-1)),
       },
       {
