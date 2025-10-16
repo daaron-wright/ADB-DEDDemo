@@ -673,7 +673,7 @@ export function BusinessRegistrationFocusContent({
 
           const normalizedName = evaluationSource?.normalized ?? "";
           const englishDisplay = evaluationSource?.english ?? englishDraft ?? "";
-          const arabicDisplay = evaluationSource?.arabic ?? arabicDraft ?? "ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم ��روة";
+          const arabicDisplay = evaluationSource?.arabic ?? arabicDraft ?? "ﺍ���ﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم ��روة";
           const isSuccess =
             Boolean(normalizedName) && approvedNameSet.has(normalizedName);
 
@@ -900,6 +900,7 @@ export function BusinessRegistrationFocusContent({
     hasSubmittedReservationApplication,
     isSubmittingReservation,
     toast,
+    upsertTradeNameReceipt,
   ]);
 
   const trimmedEnglishDraft = englishDraft.trim();
