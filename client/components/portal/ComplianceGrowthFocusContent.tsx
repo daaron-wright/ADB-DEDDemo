@@ -108,8 +108,8 @@ type TextVerificationRow = {
 };
 
 const REGISTERED_TRADE_NAMES = {
-  english: "Marwah Restaurant Sole LLC",
-  arabic: "مطعم مروى شركة ذات مسؤولية محدودة",
+  english: PRIMARY_TRADE_NAME_EN,
+  arabic: PRIMARY_TRADE_NAME_AR,
 } as const;
 
 const INSPECTION_PIPELINE_STEPS: PipelineStep[] = [
