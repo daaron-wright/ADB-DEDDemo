@@ -428,7 +428,7 @@ export function DocumentSubmissionFocusContent({
                       className="resize-none border-slate-200 bg-white text-sm leading-relaxed text-slate-700"
                     />
                     <p className="text-xs text-slate-500">
-                      Polaris captures translation checks and board approvals inline with ADJD fields.
+                      Polaris tracks translation checks and review requirements for ADJD submission.
                     </p>
                   </div>
                   <div className="flex flex-wrap items-center gap-3">
