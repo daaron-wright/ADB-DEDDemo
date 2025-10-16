@@ -441,6 +441,7 @@ export function BusinessRegistrationFocusContent({
   onTradeNameChange,
 }: BusinessRegistrationFocusContentProps) {
   const { toast } = useToast();
+  const { setDocuments } = useDocumentVault();
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const reservationTimeoutRef = React.useRef<number | null>(null);
 
@@ -696,7 +697,7 @@ export function BusinessRegistrationFocusContent({
     const formatted = formatTradeName(tradeName);
     setActiveEnglishTradeName(formatted);
     setEnglishDraft(formatted);
-    setActiveArabicTradeName("���ﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
+    setActiveArabicTradeName("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
     setArabicDraft("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
     setIsNameAvailable(Boolean(tradeName) && isTradeNameAvailable);
     setFailedStepIndex(
