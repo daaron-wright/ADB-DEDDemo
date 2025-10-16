@@ -484,6 +484,13 @@ export function BusinessRegistrationFocusContent({
       };
     }
 
+    if (hasSubmittedReservationApplication) {
+      return {
+        label: "Reserved",
+        className: "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
+      };
+    }
+
     if (isNameAvailable) {
       return {
         label: "Approved",
@@ -502,7 +509,7 @@ export function BusinessRegistrationFocusContent({
       label: "Not started",
       className: "border-slate-200 bg-white text-slate-500",
     };
-  }, [hasPerformedCheck, isChecking, isNameAvailable]);
+  }, [hasPerformedCheck, hasSubmittedReservationApplication, isChecking, isNameAvailable]);
 
   const verificationStatusLabel = isChecking
     ? "Checks running"
