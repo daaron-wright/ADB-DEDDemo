@@ -26,7 +26,7 @@ const summaryPoints = [
 ];
 
 const nextSteps = [
-  "Reserve the trade name Omnis suggested",
+  "Reserve the trade name Polaris suggested",
   "Auto-fill the investor workspace and checklist",
   "Sync Bayut spaces to the applicant portal for due diligence",
 ];
@@ -46,7 +46,7 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
           Layla&apos;s ideation journey is complete—time to move into application
         </h3>
         <p className="text-sm text-slate-600">
-          Omnis consolidates the findings, generates a business-plan ready export, and keeps the chat experience as the
+          Polaris consolidates the findings, generates a business-plan ready export, and keeps the chat experience as the
           primary call to action for the next phase.
         </p>
       </header>
@@ -81,7 +81,7 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
               <ul className="space-y-2 text-sm leading-relaxed text-slate-600">
                 <li>• Corniche and Saadiyat competitors cluster around prix-fixe hotel dining with limited immersive storytelling.</li>
                 <li>• Marketplace chatter shows 22% unmet demand for chef-led tasting rooms with concierge-level service.</li>
-                <li>• Layla&apos;s concept packages coastal provenance, terrace rituals, and omakase-style flights—directly filling the gap Omnis surfaced.</li>
+                <li>• Layla&apos;s concept packages coastal provenance, terrace rituals, and omakase-style flights—directly filling the gap Polaris surfaced.</li>
               </ul>
             </div>
           </div>
@@ -94,7 +94,7 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
               Review competitor evidence
             </button>
             <p className="max-w-xs text-xs leading-relaxed text-slate-500">
-              Omnis keeps the competitor landscape refreshed, so this gap statement updates as new operators appear or pricing shifts.
+              Polaris keeps the competitor landscape refreshed, so this gap statement updates as new operators appear or pricing shifts.
             </p>
           </div>
         </div>
@@ -135,7 +135,7 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
             <MessageCircle className="h-4 w-4" aria-hidden="true" />
           </span>
           <div className="space-y-2">
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#0F766E]">Omnis conversational handoff</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#0F766E]">Polaris conversational handoff</p>
             <div className="rounded-2xl border border-[#e2ece8] bg-[#f8fbfa] px-4 py-3 text-sm leading-relaxed text-slate-700">
               "Congratulations, Layla. Your concept is highly viable. Ready for me to carry this into the formal
               application with the investor workspace?"
@@ -162,7 +162,7 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
           </button>
         </div>
         <p className="text-xs text-slate-500">
-          Choosing the affirmative option above triggers the application workspace handoff in Omnis and syncs Lyla&apos;s
+          Choosing the affirmative option above triggers the application workspace handoff in Polaris and syncs Lyla&apos;s
           progress with the formal applicant portal.
         </p>
       </section>
