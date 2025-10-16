@@ -278,7 +278,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       completedMessage:
         "This is your starting point to shape the right licensing pathway for your business.",
       description:
-        "Welcome—share your concept with us and we’ll co-create the licensing workflow that brings your business to life.",
+        "Welcome��share your concept with us and we’ll co-create the licensing workflow that brings your business to life.",
       startCta: "Start questionnaire with AI",
       resumeCta: "Open questionnaire workspace",
       completeCta: "Mark questionnaire as complete",
@@ -302,7 +302,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     supportHeading: "تحتاجين إلى مساع��ة؟",
     supportDescription: {
       preEmail:
-        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت ��لخليج. تواصل�� عبر ",
+        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت ���لخليج. تواصلي عبر ",
       postEmailPrePhone: " أو اتصلي عل�� ",
       postPhone: ".",
     },
@@ -375,7 +375,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       tasksCompleteMessage:
         "تم إكمال كل المهام لهذه المرحلة. راقب�� تحديثات الأتمتة.",
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
-      openNextTask: "افتحي المهمة التال��ة",
+      openNextTask: "افتحي المهمة ال��ال��ة",
       reviewStage: "استعرضي المرحلة",
       timelineAriaLabel: "التنقل بين مراحل الرحلة",
     },
@@ -393,9 +393,9 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
       pendingLicenseLabel: "متاح بعد الاستبيان",
-      pendingSubmissionLabel: "يتم تخصيصه بعد إكمال ��لاستبيان",
+      pendingSubmissionLabel: "",
       chatIntro:
-        "لنؤكد بعض التفاصي�� معًا. بعد إنهاء هذا الاستبيا��، سأعرض نوع التر��يص ومعرّف الطلب.",
+        "لنؤكد بعض التفاصي�� معًا. بعد إنهاء هذا الاستبيان، سأعرض نوع التر��يص ومعرّف الطلب.",
     },
   },
 };
@@ -2351,7 +2351,7 @@ export default function ApplicantPortal() {
     language === "ar"
       ? {
           label: "خدمات حكومة أبوظبي",
-          logoAlt: "شع��ر تم",
+          logoAlt: "شعار تم",
           logoSrc:
             "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F397f9a8d2a3c4c8cb1d79ae828b476be",
         }
