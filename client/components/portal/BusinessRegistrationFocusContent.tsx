@@ -685,8 +685,8 @@ export function BusinessRegistrationFocusContent({
     const formatted = formatTradeName(tradeName);
     setActiveEnglishTradeName(formatted);
     setEnglishDraft(formatted);
-    setActiveArabicTradeName("");
-    setArabicDraft("");
+    setActiveArabicTradeName("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
+    setArabicDraft("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
     setIsNameAvailable(Boolean(tradeName) && isTradeNameAvailable);
     setFailedStepIndex(
       Boolean(tradeName) && !isTradeNameAvailable ? DEFAULT_FAILURE_STEP_INDEX : null,
@@ -939,7 +939,7 @@ export function BusinessRegistrationFocusContent({
                     Arabic name
                   </p>
                   <p className="mt-1 text-sm font-semibold text-[#0f766e]" dir="rtl">
-                    {activeArabicTradeName || "ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭ�� مطعم مروة"}
+                    {activeArabicTradeName || "ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة"}
                   </p>
                 </div>
               </div>
