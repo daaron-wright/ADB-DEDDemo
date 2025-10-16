@@ -690,7 +690,7 @@ const BASE_ACTIVITY_LIBRARY: ChatActivityOption[] = [
       ventilation: "Confectionery hood with humidity control",
       utilities: ["Temperature-controlled storage", "3-phase power"],
       notes: [
-        "Maintain 18°C cold room for pastry ingredients and finished goods.",
+        "Maintain 18��C cold room for pastry ingredients and finished goods.",
         "Install food-grade flooring with coved skirting for easy wash-down.",
       ],
     },
@@ -7944,12 +7944,22 @@ export function BusinessChatUI({
                       <div className="relative">
                         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                           <div className="flex items-center gap-3 sm:gap-4">
+                          {hasAssistantAvatar ? (
+                            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/50 bg-white shadow-[0_18px_38px_-28px_rgba(11,64,55,0.28)] sm:h-16 sm:w-16">
+                              <img
+                                src={assistantAvatarUrl}
+                                alt={assistantName}
+                                className="h-10 w-10 object-contain sm:h-14 sm:w-14"
+                              />
+                            </span>
+                          ) : (
                             <AIBusinessOrb className="h-12 w-12 sm:h-16 sm:w-16" />
-                            <div className="min-w-0 flex-1 text-left">
-                              <div className="flex w-full flex-wrap items-center gap-2 sm:gap-4">
-                                <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
-                                  Polaris
-                                </h3>
+                          )}
+                          <div className="min-w-0 flex-1 text-left">
+                            <div className="flex w-full flex-wrap items-center gap-2 sm:gap-4">
+                              <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
+                                {assistantName}
+                              </h3>
                                 {topicsAvailable ? (
                                   <div className="flex-shrink-0 ml-auto pl-4 sm:pl-10">
                                     <Popover
