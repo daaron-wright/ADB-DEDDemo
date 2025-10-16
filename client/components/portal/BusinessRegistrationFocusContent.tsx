@@ -10,6 +10,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { useDocumentVault } from "./DocumentVaultContext";
+import { DOCUMENT_VAULT_SOURCE_LABEL } from "./document-vault-data";
+import type { DocumentVaultItem } from "./document-vault-types";
 import { Check, X } from "lucide-react";
 
 interface BusinessRegistrationFocusContentProps {
