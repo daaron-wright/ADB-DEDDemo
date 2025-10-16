@@ -66,6 +66,11 @@ export function DocumentSubmissionFocusContent({
   );
   const [hasAppliedPolarisRevision, setHasAppliedPolarisRevision] = React.useState(false);
 
+  const activeDocument = React.useMemo(
+    () => documents.find((item) => item.id === activeDocumentId),
+    [documents, activeDocumentId],
+  );
+
   const completionTimeoutRef = React.useRef<number | null>(null);
   const paymentTimeoutRef = React.useRef<number | null>(null);
 
