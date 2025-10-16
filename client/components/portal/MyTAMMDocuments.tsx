@@ -10,7 +10,7 @@ interface MyTAMMDocumentsProps {
 }
 
 export function MyTAMMDocuments({
-  companyName = "Marwah Emirati Fusion LLC",
+  companyName = PRIMARY_TRADE_NAME_EN,
   isGenerating = true,
 }: MyTAMMDocumentsProps) {
   return (
