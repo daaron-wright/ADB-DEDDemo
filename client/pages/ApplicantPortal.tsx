@@ -365,7 +365,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك المدعوم ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك المدعوم ب������ذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الم��افقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
@@ -386,7 +386,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     questionnaireOnboarding: {
       heading: "ابدئي رحلة ترخيصك",
       notStartedMessage:
-        "ابدئي من هنا للإجابة عن أسئلة موجهة حول نشاطك كي نضبط مسار الترخيص لكِ.",
+        "ابدئي من هنا للإجابة عن أسئلة ��وجهة حول نشاطك كي نضبط مسار الترخيص لكِ.",
       inProgressMessage:
         "يعمل الذكاء الاصطناعي على جمع التفاصيل لإعداد الاستبيان.",
       completedMessage:
@@ -1875,6 +1875,25 @@ export default function ApplicantPortal() {
     stageProgress,
     handleViewJourney,
   ]);
+
+  const currentPhase = useMemo<JourneyPhaseId>(() => {
+    const focusStageId =
+      focusViewContext?.stage?.id ??
+      focusViewContext?.timelineItem?.id ??
+      (focusContext?.type === "automation" ? "generating-application" : null);
+
+    const candidate = focusStageId ?? activeStageId;
+
+    if (candidate && STAGE_PHASE_MAP[candidate]) {
+      return STAGE_PHASE_MAP[candidate];
+    }
+
+    if (candidate && TIMELINE_PHASE_MAP[candidate]) {
+      return TIMELINE_PHASE_MAP[candidate];
+    }
+
+    return "ideate";
+  }, [activeStageId, focusContext, focusViewContext]);
 
   const handleRecommendedActivityChange = useCallback(
     (stageId: string, activityId: string) => {
