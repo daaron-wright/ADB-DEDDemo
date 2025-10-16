@@ -97,7 +97,7 @@ export function TradeNameReceiptDetail() {
             </p>
             <p
               className={cn(
-                "BreakWords text-sm font-semibold text-slate-900",
+                "break-words text-sm font-semibold text-slate-900",
                 item.direction === "rtl" && "text-[#0f766e]",
               )}
               dir={item.direction}
