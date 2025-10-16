@@ -367,7 +367,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "يعمل طلبك المدعوم ب��لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
-      "APP-48291": "قدمي حزمة الم��افقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
+      "APP-48291": "��دمي حزمة الم��افقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
     },
     journey: {
       heading: "تنسيق الرحلة",
@@ -954,6 +954,11 @@ const JOURNEY_ANIMATION_TIMELINE: JourneyAnimationPhase[] = [
     dataTags: ["Compliance status", "Growth opportunities", "Renewal dates"],
   },
 ];
+
+const DEFAULT_LEGAL_FORM_SELECTION =
+  DEFAULT_LEGAL_FORM_OPTIONS.find((option) => option.id === "llc-sole")?.id ??
+  DEFAULT_LEGAL_FORM_OPTIONS[0]?.id ??
+  "";
 
 export default function ApplicantPortal() {
   const location = useLocation();
