@@ -485,10 +485,10 @@ export function BusinessRegistrationFocusContent({
     | null
   >(null);
   const [isChecking, setIsChecking] = React.useState(false);
-  const [hasPerformedCheck, setHasPerformedCheck] = React.useState(Boolean(tradeName));
-  const [isNameAvailable, setIsNameAvailable] = React.useState(
-    Boolean(tradeName) && isTradeNameAvailable,
+  const [hasPerformedCheck, setHasPerformedCheck] = React.useState(
+    Boolean(tradeName) || isTradeNameAvailable,
   );
+  const [isNameAvailable, setIsNameAvailable] = React.useState(isTradeNameAvailable);
   const [hasSelectedApprovedTradeName, setHasSelectedApprovedTradeName] = React.useState(false);
   const [hasSubmittedReservationApplication, setHasSubmittedReservationApplication] = React.useState(false);
   const [isSubmittingReservation, setIsSubmittingReservation] = React.useState(false);
