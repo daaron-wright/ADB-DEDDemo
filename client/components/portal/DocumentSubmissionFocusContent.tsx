@@ -29,7 +29,7 @@ type LicenseDetails = {
 const INITIAL_MOA_CLAUSE_DRAFT = `Article 7 — Capital contributions & profit distribution
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise.`;
-const OMNIS_RECOMMENDED_MOA_CLAUSE = `Article 7 — Capital contributions & profit distribution
+const POLARIS_RECOMMENDED_MOA_CLAUSE = `Article 7 — Capital contributions & profit distribution
 المادة 7 — ا��مساهمات ا��رأسمالية وتوزيع الأرب��ح
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise. Distributions shall be supported by audited management accounts and bilingual notices issued at least five (5) working days in advance.`;
