@@ -70,6 +70,7 @@ export function DocumentSubmissionFocusContent({
     [documents, activeDocumentId],
   );
 
+  const receiptAutoFocusRef = React.useRef(false);
   const completionTimeoutRef = React.useRef<number | null>(null);
   const paymentTimeoutRef = React.useRef<number | null>(null);
 
