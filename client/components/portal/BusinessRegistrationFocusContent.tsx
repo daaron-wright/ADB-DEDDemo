@@ -793,6 +793,7 @@ export function BusinessRegistrationFocusContent({
         description: "Reservation application and payment submitted. Document submissions unlocked.",
       });
       setAutomationProgress((value) => Math.max(value, 100));
+      reservationTimeoutRef.current = null;
     }, 1200);
   }, [
     canSubmitReservation,
