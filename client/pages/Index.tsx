@@ -10,8 +10,8 @@ import { motion } from "framer-motion";
 import { MessageCircle, Headset, ArrowUpRight, X } from "lucide-react";
 import { Tooltip } from "@aegov/design-system-react";
 import { BusinessChatUI } from "@/components/ui/business-chat-ui";
-import { PolarisIcon } from "@/components/ui/polaris-icon";
 import { cn } from "@/lib/utils";
+import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 
 const FALLBACK_FOCUS = { x: 640, y: 360 };
 
