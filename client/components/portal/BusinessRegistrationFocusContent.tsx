@@ -431,6 +431,7 @@ export function BusinessRegistrationFocusContent({
 }: BusinessRegistrationFocusContentProps) {
   const { toast } = useToast();
   const inputRef = React.useRef<HTMLInputElement | null>(null);
+  const reservationTimeoutRef = React.useRef<number | null>(null);
 
   const initialFormattedName = formatTradeName(tradeName);
 
