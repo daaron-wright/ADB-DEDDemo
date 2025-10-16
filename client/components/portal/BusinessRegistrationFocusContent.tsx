@@ -436,8 +436,7 @@ export function BusinessRegistrationFocusContent({
   const initialFormattedName = formatTradeName(tradeName);
 
   const [activeEnglishTradeName, setActiveEnglishTradeName] = React.useState(initialFormattedName);
-  const [activeArabicTradeName, setActiveArabicTradeName] = React.useState(""
-  );
+  const [activeArabicTradeName, setActiveArabicTradeName] = React.useState("");
   const [englishDraft, setEnglishDraft] = React.useState(initialFormattedName);
   const [arabicDraft, setArabicDraft] = React.useState("");
   const [isEditing, setIsEditing] = React.useState(false);
