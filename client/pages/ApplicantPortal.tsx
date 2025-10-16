@@ -97,7 +97,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before we display your license summary, let's confirm the right legal structure, business activities, and physical space requirements together. Once we complete this intake, I'll publish your license type and submission ID.",
-  ar: "قبل أن أعرض تفاصيل الترخيص، دعينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل��ات المساحة. بمجرد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
+  ar: "قبل أن أعرض تفاصيل الترخيص، دعينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل���ات المساحة. بمجرد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
 };
 
 type QuestionnaireProgress = "not_started" | "in_progress" | "completed";
@@ -207,6 +207,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     chatCta: "Chat with AI",
     journeyToggleLabel: (title: string) =>
       `Toggle journey overview for ${title}`,
+    journeyIdLabel: "Journey ID",
     fieldLabels: {
       beneficiary: "Beneficiary",
       licenseType: "License type",
@@ -297,7 +298,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة ��لتالية.`,
-    workspaceSupportBadge: "دعم مسا��ة ��لعمل",
+    workspaceSupportBadge: "دعم مسا��ة ����لعمل",
     supportHeading: "تحتاجين إلى مساع��ة؟",
     supportDescription: {
       preEmail:
@@ -317,7 +318,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
-      `عرض أو إ��فاء نظرة عامة للرحلة الخاصة بـ ${title}`,
+      `عرض أو إ��فاء نظرة عا��ة للرحلة الخاصة بـ ${title}`,
     fieldLabels: {
       beneficiary: "المستفيد",
       licenseType: "نوع الرخصة",
@@ -371,7 +372,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       activeStage: "المرحلة النشطة",
       yourNextStep: "خطوت�� التالية",
       tasksCompleteMessage:
-        "تم إكمال كل المهام لهذه المرحلة. راقبي تحديثات الأتمتة.",
+        "تم إكمال كل المهام لهذه المرحلة. راقب�� تحديثات الأتمتة.",
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة التال��ة",
       reviewStage: "استعرضي المرحلة",
