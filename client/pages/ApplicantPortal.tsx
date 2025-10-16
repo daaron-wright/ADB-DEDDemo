@@ -317,7 +317,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -364,7 +364,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك المدعوم ب��لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك المدعوم ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الم��افقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
@@ -443,34 +443,34 @@ const journeyStages: JourneyStage[] = [
     id: "trade-name-activities",
     title: "Business Registration",
     highlight: {
-      label: "Registration packet in progress",
-      detail: "Awaiting shareholder confirmations",
+      label: "Trade name approved",
+      detail: "Select and submit reservation payment",
     },
     description:
-      "Trade name reservation, ownership structure setup, and registration documents are being finalized with AI guidance.",
+      "Choose the approved trade name and complete the reservation application and payment before moving into document submissions.",
     state: "current",
-    statusDetail: "Registration documents awaiting signatures",
+    statusDetail: "Trade name reservation payment pending",
     tasks: [
       {
-        id: "registration-trade-name",
-        label: "Reserve Restaurant (F&B) Journey trade name",
+        id: "registration-trade-name-approved",
+        label: "Trade name approved by DED",
         status: "completed",
-        owner: "Applicant",
-        completedOn: isoDate(daysFromToday(-3)),
+        owner: "Department of Economic Development",
+        completedOn: isoDate(daysFromToday(-1)),
       },
       {
-        id: "registration-ownership-structure",
-        label: "Confirm ownership structure and shareholder records",
+        id: "registration-select-trade-name",
+        label: "Select approved trade name",
         status: "in_progress",
         owner: "Applicant",
         dueDate: isoDate(daysFromToday(1)),
       },
       {
-        id: "registration-initial-approvals",
-        label: "Generate initial registration documents",
+        id: "registration-submit-reservation",
+        label: "Submit trade name reservation application & payment",
         status: "pending",
-        owner: "Department of Economic Development",
-        dueDate: isoDate(daysFromToday(3)),
+        owner: "Applicant",
+        dueDate: isoDate(daysFromToday(2)),
       },
     ],
   },
