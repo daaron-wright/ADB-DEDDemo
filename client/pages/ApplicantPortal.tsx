@@ -97,7 +97,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before we display your license summary, let's confirm the right legal structure, business activities, and physical space requirements together. Once we complete this intake, I'll publish your license type and submission ID.",
-  ar: "قبل أن أعرض تفاصيل ال��رخيص، دعينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل���ات المساحة. بمجرد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
+  ar: "قبل أن أعرض تفاصيل الترخيص، دعينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل���ات المساحة. بمجرد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
 };
 
 type QuestionnaireProgress = "not_started" | "in_progress" | "completed";
@@ -283,7 +283,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       resumeCta: "Open questionnaire workspace",
       completeCta: "Mark questionnaire as complete",
       pendingLicenseLabel: "Available after questionnaire",
-      pendingSubmissionLabel: "Assigned after questionnaire completes",
+      pendingSubmissionLabel: "",
       chatIntro:
         "Let's confirm a few details together. Once we finish this intake, I'll publish your license type and submission ID.",
     },
@@ -302,7 +302,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     supportHeading: "تحتاجين إلى مساع��ة؟",
     supportDescription: {
       preEmail:
-        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت ��لخليج. تواصلي عبر ",
+        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت ��لخليج. تواصل�� عبر ",
       postEmailPrePhone: " أو اتصلي عل�� ",
       postPhone: ".",
     },
@@ -316,10 +316,10 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroDescription: (name: string) =>
       `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
-    chatCta: "الدردشة مع ��لذكاء الاص��ناعي",
+    chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
       `عرض أو إ��فاء نظرة عا��ة للرحلة الخاصة بـ ${title}`,
-    journeyIdLabel: "مع��ّف الرحلة",
+    journeyIdLabel: "معرّف الرحلة",
     fieldLabels: {
       beneficiary: "المستفيد",
       licenseType: "نوع الرخصة",
@@ -395,7 +395,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       pendingLicenseLabel: "متاح بعد الاستبيان",
       pendingSubmissionLabel: "يتم تخصيصه بعد إكمال ��لاستبيان",
       chatIntro:
-        "لنؤكد بعض التفاصي�� معًا. بعد إنهاء هذا الاستبيان، سأعرض نوع التر��يص ومعرّف الطلب.",
+        "لنؤكد بعض التفاصي�� معًا. بعد إنهاء هذا الاستبيا��، سأعرض نوع التر��يص ومعرّف الطلب.",
     },
   },
 };
@@ -2351,7 +2351,7 @@ export default function ApplicantPortal() {
     language === "ar"
       ? {
           label: "خدمات حكومة أبوظبي",
-          logoAlt: "شعار تم",
+          logoAlt: "شع��ر تم",
           logoSrc:
             "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F397f9a8d2a3c4c8cb1d79ae828b476be",
         }
