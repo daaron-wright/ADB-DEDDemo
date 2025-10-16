@@ -207,7 +207,7 @@ const ChatInput = ({ onSend }: { onSend: (message: string) => void }) => {
 export function SimpleChatUI({
   isOpen,
   onClose,
-  title = "Omnis",
+  title = "Polaris",
 }: SimpleChatUIProps) {
   const [messages, setMessages] =
     useState<SimpleChatMessage[]>(INITIAL_MESSAGES);
