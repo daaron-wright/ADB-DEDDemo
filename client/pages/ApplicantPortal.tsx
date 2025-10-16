@@ -317,7 +317,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إمكانات ��لسوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -380,7 +380,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة ال��ال��ة",
       reviewStage: "استعرضي المرحلة",
-      timelineAriaLabel: "التنقل بين مراحل الرحلة",
+      timelineAriaLabel: "التنقل ��ين مراحل الرحلة",
     },
     questionnaireOnboarding: {
       heading: "ابدئي رحلة ترخيصك",
@@ -414,7 +414,7 @@ const journeyStages: JourneyStage[] = [
     description:
       "Use the guided AI questionnaire to capture business objectives, ownership preferences, and operating parameters before generating your licensing workspace.",
     state: "current",
-    statusDetail: "Awaiting AI questionnaire kickoff",
+    statusDetail: "",
     tasks: [
       {
         id: "questionnaire-business-profile",
