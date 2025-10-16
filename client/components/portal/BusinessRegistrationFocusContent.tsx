@@ -115,7 +115,7 @@ const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   {
     id: "azure-coast",
     english: "Azure Coast Kitchen Sole LLC",
-    arabic: "مطبخ الساحل اللازوردي الفردي ذ.م.م",
+    arabic: "مطبخ الساحل اللازور��ي الفردي ذ.م.م",
   },
   {
     id: "pearl-horizon",
@@ -906,7 +906,7 @@ export function BusinessRegistrationFocusContent({
                     </Button>
                   </div>
                 </form>
-                {hasEnglishDraft ? (
+                {hasEnglishDraft && hasPerformedCheck && !isNameAvailable ? (
                   <div className="space-y-2">
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
                       Suggested trade names
