@@ -317,7 +317,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفك��رهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إمكانات ��لسوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -1967,6 +1967,7 @@ export default function ApplicantPortal() {
     stageProgress,
     handleCompliancePassed,
     applicationStatus,
+    selectedLegalFormId,
   ]);
 
   const isApplicationComplete = useMemo(() => {
