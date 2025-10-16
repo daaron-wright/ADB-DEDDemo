@@ -356,7 +356,21 @@ export function DocumentSubmissionFocusContent({
       <Accordion
         type="multiple"
         value={openSections}
-        onValueChange={(values) => setOpenSections(values)}
+        onValueChange={(values) =>
+          setOpenSections((previous) => {
+            const wasVaultOpen = previous.includes("vault");
+            const isVaultOpen = values.includes("vault");
+
+            if (wasVaultOpen && !isVaultOpen) {
+              vaultManuallyCollapsedRef.current = true;
+            }
+            if (!wasVaultOpen && isVaultOpen) {
+              vaultManuallyCollapsedRef.current = false;
+            }
+
+            return values;
+          })
+        }
         className="space-y-4"
       >
         <CollapsibleCard
