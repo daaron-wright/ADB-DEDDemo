@@ -228,20 +228,39 @@ export function DocumentSubmissionFocusContent({
   }, [allDocumentsCompleted, licenseDetails, showMoaAssistant]);
 
   const [openSections, setOpenSections] = React.useState<string[]>(defaultOpenSections);
+  const vaultManuallyCollapsedRef = React.useRef(false);
 
   React.useEffect(() => {
     setOpenSections((previous) => {
       const merged = new Set(previous);
-      defaultOpenSections.forEach((section) => merged.add(section));
+      defaultOpenSections.forEach((section) => {
+        if (section === "vault" && vaultManuallyCollapsedRef.current) {
+          return;
+        }
+        merged.add(section);
+      });
       return Array.from(merged);
     });
   }, [defaultOpenSections]);
 
-  const ensureSectionOpen = React.useCallback((sectionId: string) => {
-    setOpenSections((previous) =>
-      previous.includes(sectionId) ? previous : [...previous, sectionId],
-    );
-  }, []);
+  const ensureSectionOpen = React.useCallback(
+    (sectionId: string, options?: { bypassCollapsedGuard?: boolean }) => {
+      setOpenSections((previous) => {
+        const isVault = sectionId === "vault";
+        if (isVault && vaultManuallyCollapsedRef.current && !options?.bypassCollapsedGuard) {
+          return previous;
+        }
+        if (previous.includes(sectionId)) {
+          return previous;
+        }
+        if (isVault) {
+          vaultManuallyCollapsedRef.current = false;
+        }
+        return [...previous, sectionId];
+      });
+    },
+    [],
+  );
 
   const scrollToElement = React.useCallback((elementId: string) => {
     document
