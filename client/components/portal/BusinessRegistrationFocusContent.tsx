@@ -115,7 +115,7 @@ const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   {
     id: "azure-coast",
     english: "Azure Coast Kitchen Sole LLC",
-    arabic: "مطبخ الساحل اللازور��ي الفردي ذ.م.م",
+    arabic: "مطب�� الساحل اللازور��ي الفردي ذ.م.م",
   },
   {
     id: "pearl-horizon",
@@ -436,9 +436,9 @@ export function BusinessRegistrationFocusContent({
   const initialFormattedName = formatTradeName(tradeName);
 
   const [activeEnglishTradeName, setActiveEnglishTradeName] = React.useState(initialFormattedName);
-  const [activeArabicTradeName, setActiveArabicTradeName] = React.useState("");
+  const [activeArabicTradeName, setActiveArabicTradeName] = React.useState("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
   const [englishDraft, setEnglishDraft] = React.useState(initialFormattedName);
-  const [arabicDraft, setArabicDraft] = React.useState("");
+  const [arabicDraft, setArabicDraft] = React.useState("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
   const [isEditing, setIsEditing] = React.useState(false);
   const [pendingSubmission, setPendingSubmission] = React.useState<
     | {
