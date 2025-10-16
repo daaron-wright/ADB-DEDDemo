@@ -842,69 +842,111 @@ export function BusinessRegistrationFocusContent({
             </div>
 
             {isEditing ? (
-              <form
-                className="mt-4 space-y-3"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  handleRunChecks();
-                }}
-              >
-                <div className="space-y-2">
-                  <label className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                    English trade name
-                  </label>
-                  <Input
-                    ref={inputRef}
-                    value={englishDraft}
-                    onChange={(event) => setEnglishDraft(event.target.value)}
-                    placeholder="Marwah Restaurant Sole LLC"
-                    className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
-                    disabled={isChecking}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between gap-2">
+              <div className="mt-4 space-y-4">
+                <form
+                  className="space-y-3"
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    handleRunChecks();
+                  }}
+                >
+                  <div className="space-y-2">
                     <label className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                      Arabic trade name
+                      English trade name
                     </label>
+                    <Input
+                      ref={inputRef}
+                      value={englishDraft}
+                      onChange={(event) => setEnglishDraft(event.target.value)}
+                      placeholder="Marwah Restaurant Sole LLC"
+                      className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
+                      disabled={isChecking}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <label className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                        Arabic trade name
+                      </label>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleTransliterate}
+                        disabled={isChecking}
+                        className="rounded-full border-[#0f766e]/40 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
+                      >
+                        Transliterate
+                      </Button>
+                    </div>
+                    <Input
+                      value={arabicDraft}
+                      onChange={(event) => setArabicDraft(event.target.value)}
+                      placeholder="مطعم مروى الفردي ذ.م.م"
+                      dir="rtl"
+                      className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
+                      disabled={isChecking}
+                    />
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Button
+                      type="submit"
+                      disabled={isChecking}
+                      className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {isChecking ? "Checking..." : "Save & rerun checks"}
+                    </Button>
                     <Button
                       type="button"
-                      variant="outline"
-                      onClick={handleTransliterate}
+                      variant="ghost"
+                      onClick={() => setIsEditing(false)}
                       disabled={isChecking}
-                      className="rounded-full border-[#0f766e]/40 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 hover:text-slate-700"
                     >
-                      Transliterate
+                      Cancel
                     </Button>
                   </div>
-                  <Input
-                    value={arabicDraft}
-                    onChange={(event) => setArabicDraft(event.target.value)}
-                    placeholder="مطعم مروى الفردي ذ.م.م"
-                    dir="rtl"
-                    className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
-                    disabled={isChecking}
-                  />
-                </div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <Button
-                    type="submit"
-                    disabled={isChecking}
-                    className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    {isChecking ? "Checking..." : "Save & rerun checks"}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    onClick={() => setIsEditing(false)}
-                    disabled={isChecking}
-                    className="px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 hover:text-slate-700"
-                  >
-                    Cancel
-                  </Button>
-                </div>
-              </form>
+                </form>
+                {hasEnglishDraft ? (
+                  <div className="space-y-2">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                      Suggested trade names
+                    </p>
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      {TRADE_NAME_SUGGESTIONS.map((suggestion) => {
+                        const isCurrentSuggestion =
+                          normalizedEnglishDraft === suggestion.english.toUpperCase();
+
+                        return (
+                          <button
+                            key={suggestion.id}
+                            type="button"
+                            onClick={() => handleApplySuggestion(suggestion)}
+                            disabled={isChecking}
+                            className={cn(
+                              "rounded-2xl border px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] transition",
+                              "shadow-sm",
+                              isCurrentSuggestion
+                                ? "border-[#0f766e] bg-[#0f766e]/10 text-[#0f766e]"
+                                : "border-[#0f766e]/30 bg-white text-[#0f766e] hover:bg-[#0f766e]/10",
+                              isChecking && "cursor-not-allowed opacity-60",
+                            )}
+                          >
+                            <span className="block text-[12px] font-semibold normal-case text-slate-900">
+                              {suggestion.english}
+                            </span>
+                            <span className="block text-[12px] font-semibold normal-case text-[#0f766e]" dir="rtl">
+                              {suggestion.arabic}
+                            </span>
+                            <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                              {isCurrentSuggestion ? "In review" : "Use this name"}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : null}
+              </div>
             ) : null}
           </div>
         </div>
