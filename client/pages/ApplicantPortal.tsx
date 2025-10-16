@@ -317,7 +317,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} و��ستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -1137,12 +1137,8 @@ export default function ApplicantPortal() {
 
   const handleTradeNameChange = useCallback(
     (tradeName: string | null) => {
-      const normalized = tradeName?.trim().toLowerCase() ?? "";
-      setApplicationWorkingTitle(
-        normalized === TARGET_TRADE_NAME_LOWER
-          ? TARGET_TRADE_NAME
-          : DEFAULT_WORKSPACE_TITLE,
-      );
+      const normalized = tradeName?.trim();
+      setApplicationWorkingTitle(normalized && normalized.length > 0 ? normalized : DEFAULT_WORKSPACE_TITLE);
     },
     [setApplicationWorkingTitle],
   );
