@@ -75,6 +75,9 @@ export interface JourneyStageFocusViewProps {
   growthUnlocked?: boolean;
   onComplianceReturn?: () => void;
   isCompliancePassed?: boolean;
+  legalFormOptions?: LegalFormOption[];
+  selectedLegalFormId?: string | null;
+  onLegalFormSelect?: (legalFormId: string) => void;
 }
 
 const TASK_CARD_BASE =
