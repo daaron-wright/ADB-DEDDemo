@@ -74,8 +74,8 @@ export function MyTAMMDocuments({
         <div className="space-y-4">
           <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_24px_56px_-32px_rgba(0,0,0,0.3)]">
             <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/f98d23b4e255bb8e215c7cdca82a59e914647937?width=1256"
-              alt="Memorandum of Association preview"
+              src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fee137034581f487e985a3286267255c8?format=webp&width=1256"
+              alt="Memorandum of Association preview for MARWA RESTAURANT"
               className="h-auto w-full"
             />
             <div className="absolute left-[14%] top-[8.6%] w-[39%]">
