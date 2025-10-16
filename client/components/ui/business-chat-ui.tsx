@@ -690,7 +690,7 @@ const BASE_ACTIVITY_LIBRARY: ChatActivityOption[] = [
       ventilation: "Confectionery hood with humidity control",
       utilities: ["Temperature-controlled storage", "3-phase power"],
       notes: [
-        "Maintain 18��C cold room for pastry ingredients and finished goods.",
+        "Maintain 18°C cold room for pastry ingredients and finished goods.",
         "Install food-grade flooring with coved skirting for easy wash-down.",
       ],
     },
@@ -4495,7 +4495,7 @@ const CompetitorBreakoutModal = ({
   const competitorHighlights = [
     {
       name: "Shurfa Bay",
-      rating: "4.8���������",
+      rating: "4.8����������",
       tier: "Premium waterfront",
       insight:
         "Sunset terrace has maintained 98% capacity across the past four evenings.",
@@ -7945,11 +7945,11 @@ export function BusinessChatUI({
                         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                           <div className="flex items-center gap-3 sm:gap-4">
                           {hasAssistantAvatar ? (
-                            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/50 bg-white shadow-[0_18px_38px_-28px_rgba(11,64,55,0.28)] sm:h-16 sm:w-16">
+                            <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-white/50 bg-white shadow-[0_18px_38px_-28px_rgba(11,64,55,0.28)] sm:h-16 sm:w-16">
                               <img
                                 src={assistantAvatarUrl}
                                 alt={assistantName}
-                                className="h-10 w-10 object-contain sm:h-14 sm:w-14"
+                                className="h-full w-full rounded-full object-contain p-2"
                               />
                             </span>
                           ) : (
