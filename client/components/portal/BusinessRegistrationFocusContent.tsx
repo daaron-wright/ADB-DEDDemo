@@ -158,7 +158,7 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["a", "ا"],
   ["b", "ب"],
   ["c", "ك"],
-  ["d", "��"],
+  ["d", "د"],
   ["e", "ي"],
   ["f", "ف"],
   ["g", "ج"],
@@ -605,6 +605,26 @@ export function BusinessRegistrationFocusContent({
     arabicDraft,
     approvedNameSet,
   ]);
+
+  React.useEffect(() => {
+    return () => {
+      if (reservationTimeoutRef.current) {
+        window.clearTimeout(reservationTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  React.useEffect(() => {
+    if (!isNameAvailable) {
+      if (reservationTimeoutRef.current) {
+        window.clearTimeout(reservationTimeoutRef.current);
+        reservationTimeoutRef.current = null;
+      }
+      setHasSelectedApprovedTradeName(false);
+      setHasSubmittedReservationApplication(false);
+      setIsSubmittingReservation(false);
+    }
+  }, [isNameAvailable]);
 
   React.useEffect(() => {
     const formatted = formatTradeName(tradeName);
