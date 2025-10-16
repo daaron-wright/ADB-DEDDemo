@@ -255,7 +255,7 @@ export function DocumentSubmissionFocusContent({
   const vaultSubtitle = `${completedDocuments}/${totalDocuments} documents ready`;
   const moaSubtitle = showMoaAssistant
     ? "Polaris guidance for notarisation"
-    : "Assistant closed — reopen anytime";
+    : "Polaris guidance for notarisation — reopen anytime";
   const paymentSubtitle = hasPaid ? "Paid via AD Pay" : "AED 3,120 via AD Pay";
   const licenceSubtitle = licenseDetails ? "Stored in AD Locker" : "Issued after payment";
   const isVaultProcessing = isVaultSyncing || isFinalisingMoa;
