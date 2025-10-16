@@ -102,7 +102,7 @@ const PRIMARY_TRADE_NAME_AR = "ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مر�
 const TRADE_NAME_RECEIPT_DOCUMENT_ID = "trade-name-reservation-receipt";
 
 const APPROVED_TRADE_NAMES = [
-  "MARWA RESTAURANT",
+  PRIMARY_TRADE_NAME_EN,
   "MARWAH HOSPITALITY SOLE LLC",
   "CORNICHE CULINARY COLLECTIVE SOLE LLC",
   "PEARL HORIZON DINING SOLE LLC",
