@@ -460,10 +460,10 @@ export function DocumentSubmissionFocusContent({
                   className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {isFinalisingMoa
-                    ? "Finalising with ADJD..."
+                    ? "Sending to ADJD..."
                     : hasAppliedPolarisRevision
-                      ? "Sign & notarise MOA"
-                      : "Apply revisions to continue"}
+                      ? "Send to ADJD for review"
+                      : "Simulate edits to continue"}
                 </Button>
                 <Button
                   type="button"
