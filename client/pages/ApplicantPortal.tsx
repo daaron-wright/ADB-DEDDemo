@@ -97,7 +97,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before we display your license summary, let's confirm the right legal structure, business activities, and physical space requirements together. Once we complete this intake, I'll publish your license type and submission ID.",
-  ar: "قبل أن أعرض تفاصيل الترخيص، دعينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل���ات المساحة. بمجرد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
+  ar: "قبل أن أعرض تفاصيل ال��رخيص، دعينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل���ات المساحة. بمجرد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
 };
 
 type QuestionnaireProgress = "not_started" | "in_progress" | "completed";
@@ -316,10 +316,10 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroDescription: (name: string) =>
       `اكتشفي مسارًا واضحًا لدراسة إمكانات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فقط، شاهدي كيف يحول ${name} ومستث��رون آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارات إضافية",
-    chatCta: "الدردشة مع الذكاء الاص��ناعي",
+    chatCta: "الدردشة مع ��لذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
       `عرض أو إ��فاء نظرة عا��ة للرحلة الخاصة بـ ${title}`,
-    journeyIdLabel: "معرّف الرحلة",
+    journeyIdLabel: "مع��ّف الرحلة",
     fieldLabels: {
       beneficiary: "المستفيد",
       licenseType: "نوع الرخصة",
@@ -2211,6 +2211,9 @@ export default function ApplicantPortal() {
                     )}
                   >
                     {displayStatus}
+                  </Badge>
+                  <Badge className="border border-[#0f766e] bg-[#eaf7f3] px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#0f766e]">
+                    {languageCopy.journeyIdLabel}: {JOURNEY_NUMBER}
                   </Badge>
                   <span
                     className={cn(
