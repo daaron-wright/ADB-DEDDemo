@@ -7,7 +7,7 @@ export const ENTREPRENEUR_PROFILE = {
 } as const;
 
 export const AI_ASSISTANT_PROFILE = {
-  name: "Omnis",
+  name: "Polaris",
   title: "Guiding your Abu Dhabi investment journey",
   avatar: "",
 } as const;
