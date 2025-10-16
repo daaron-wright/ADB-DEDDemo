@@ -579,22 +579,6 @@ export function BusinessRegistrationFocusContent({
     isNameAvailable,
   ]);
 
-  const reservationActionHelper = React.useMemo(() => {
-    if (!isNameAvailable) {
-      return null;
-    }
-
-    if (hasSubmittedReservationApplication) {
-      return "Trade name reservation receipt stored in Document Vault.";
-    }
-
-    if (hasSelectedApprovedTradeName) {
-      return "Submit the reservation application and payment to unlock document submissions.";
-    }
-
-    return "Select the approved trade name to prepare the reservation application and payment.";
-  }, [hasSelectedApprovedTradeName, hasSubmittedReservationApplication, isNameAvailable]);
-
   const upsertTradeNameReceipt = React.useCallback(() => {
     const receiptDocument = createTradeNameReceiptDocument();
 
@@ -1076,12 +1060,6 @@ export function BusinessRegistrationFocusContent({
                 </Button>
               )}
             </div>
-
-            {reservationActionHelper ? (
-              <div className="rounded-2xl border border-[#0f766e]/20 bg-[#0f766e]/5 px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                {reservationActionHelper}
-              </div>
-            ) : null}
 
             {isEditing ? (
               <div className="mt-4 space-y-4">
