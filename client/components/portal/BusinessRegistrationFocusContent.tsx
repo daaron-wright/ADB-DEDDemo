@@ -805,47 +805,6 @@ export function BusinessRegistrationFocusContent({
                 </div>
               </div>
 
-              {activeEnglishTradeName ? (
-                <div className="space-y-2">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                    Suggested trade names
-                  </p>
-                  <div className="grid gap-2 sm:grid-cols-2">
-                    {TRADE_NAME_SUGGESTIONS.map((suggestion) => {
-                      const isCurrentSuggestion =
-                        activeEnglishTradeName?.trim().toUpperCase() ===
-                        suggestion.english.toUpperCase();
-
-                      return (
-                        <button
-                          key={suggestion.id}
-                          type="button"
-                          onClick={() => handleApplySuggestion(suggestion)}
-                          disabled={isChecking}
-                          className={cn(
-                            "rounded-2xl border px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] transition",
-                            "shadow-sm",
-                            isCurrentSuggestion
-                              ? "border-[#0f766e] bg-[#0f766e]/10 text-[#0f766e]"
-                              : "border-[#0f766e]/30 bg-white text-[#0f766e] hover:bg-[#0f766e]/10",
-                            isChecking && "cursor-not-allowed opacity-60",
-                          )}
-                        >
-                          <span className="block text-[12px] font-semibold normal-case text-slate-900">
-                            {suggestion.english}
-                          </span>
-                          <span className="block text-[12px] font-semibold normal-case text-[#0f766e]" dir="rtl">
-                            {suggestion.arabic}
-                          </span>
-                          <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                            {isCurrentSuggestion ? "In review" : "Use this name"}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              ) : null}
 
               {failureReason && !isNameAvailable ? (
                 <div className="rounded-2xl border border-rose-200 bg-rose-50/80 px-4 py-3 text-sm text-rose-700">
