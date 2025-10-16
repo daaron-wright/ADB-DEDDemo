@@ -246,7 +246,7 @@ const BudgetRangesView: React.FC<BudgetRangesViewProps> = ({ onBack }) => {
                   Support actions
                 </span>
                 <ul className="space-y-1">
-                  <li>• Schedule cost workshop with Omnis concierge</li>
+                  <li>• Schedule cost workshop with Polaris concierge</li>
                   <li>• Receive landlord shortlist with rent benchmarks</li>
                   <li>• Request financing deck tailored to chosen concept</li>
                 </ul>
