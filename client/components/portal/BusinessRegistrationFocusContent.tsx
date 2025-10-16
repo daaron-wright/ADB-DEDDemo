@@ -550,7 +550,7 @@ export function BusinessRegistrationFocusContent({
     }
 
     if (hasSubmittedReservationApplication) {
-      return "Trade name reservation submitted. Document submissions will begin next.";
+      return null;
     }
 
     if (hasSelectedApprovedTradeName) {
