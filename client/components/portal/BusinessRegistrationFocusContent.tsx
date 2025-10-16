@@ -586,6 +586,26 @@ export function BusinessRegistrationFocusContent({
     return "Select the approved trade name to prepare the reservation application and payment.";
   }, [hasSelectedApprovedTradeName, hasSubmittedReservationApplication, isNameAvailable]);
 
+  const upsertTradeNameReceipt = React.useCallback(() => {
+    const receiptDocument = createTradeNameReceiptDocument();
+
+    setDocuments((previous) => {
+      const existingIndex = previous.findIndex(
+        (item) => item.id === TRADE_NAME_RECEIPT_DOCUMENT_ID,
+      );
+
+      if (existingIndex >= 0) {
+        return previous.map((item, index) =>
+          index === existingIndex
+            ? { ...receiptDocument, isExpanded: item.isExpanded }
+            : item,
+        );
+      }
+
+      return [receiptDocument, ...previous];
+    });
+  }, [setDocuments]);
+
   const verificationStatusLabel = isChecking
     ? "Checks running"
     : isNameAvailable
