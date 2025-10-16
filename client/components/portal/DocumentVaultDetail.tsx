@@ -39,10 +39,16 @@ export function DocumentVaultDetail({ document }: DocumentVaultDetailProps) {
             "inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
             document.status === "completed"
               ? "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]"
-              : "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
+              : document.status === "ready"
+                ? "border-[#0f766e]/30 bg-[#0f766e]/5 text-[#0f766e]"
+                : "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
           )}
         >
-          {document.status === "completed" ? "Stored" : "Needs review"}
+          {document.status === "completed"
+            ? "Stored"
+            : document.status === "ready"
+              ? "Ready"
+              : "Needs review"}
         </Badge>
       </header>
       <p className="text-sm text-slate-600">{document.description}</p>
