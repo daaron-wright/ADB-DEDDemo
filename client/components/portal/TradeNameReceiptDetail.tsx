@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { FileText, ScrollText } from "lucide-react";
 
@@ -131,6 +132,17 @@ export function TradeNameReceiptDetail() {
             </p>
           </div>
         ))}
+      </div>
+
+      <div className="flex flex-wrap items-center gap-3">
+        <Button asChild className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059]">
+          <a href={TRADE_NAME_RECEIPT_IMAGE_URL} target="_blank" rel="noreferrer">
+            Open digital receipt
+          </a>
+        </Button>
+        <p className="text-xs text-slate-500">
+          Polaris saved the signed receipt exactly as issued by ADRA. Open it above to view or download the original file.
+        </p>
       </div>
 
       <div className="space-y-4">
