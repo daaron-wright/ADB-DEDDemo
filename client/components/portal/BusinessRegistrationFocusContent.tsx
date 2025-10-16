@@ -672,8 +672,10 @@ export function BusinessRegistrationFocusContent({
               : null);
 
           const normalizedName = evaluationSource?.normalized ?? "";
-          const englishDisplay = evaluationSource?.english ?? englishDraft ?? "";
-          const arabicDisplay = evaluationSource?.arabic ?? arabicDraft ?? "ﺍ���ﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم ��روة";
+          const englishDisplay =
+            evaluationSource?.english ?? englishDraft ?? PRIMARY_TRADE_NAME_EN;
+          const arabicDisplay =
+            evaluationSource?.arabic ?? arabicDraft ?? PRIMARY_TRADE_NAME_AR;
           const isSuccess =
             Boolean(normalizedName) && approvedNameSet.has(normalizedName);
 
@@ -689,8 +691,8 @@ export function BusinessRegistrationFocusContent({
           );
           setPendingSubmission(null);
           setHasPerformedCheck(true);
-          setActiveEnglishTradeName(englishDisplay);
-          setActiveArabicTradeName(arabicDisplay);
+          setActiveEnglishTradeName(englishDisplay || PRIMARY_TRADE_NAME_EN);
+          setActiveArabicTradeName(arabicDisplay || PRIMARY_TRADE_NAME_AR);
         }
 
         return next;
