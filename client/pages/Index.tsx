@@ -11,7 +11,7 @@ import { MessageCircle, Headset, ArrowUpRight, X } from "lucide-react";
 import { Tooltip } from "@aegov/design-system-react";
 import { BusinessChatUI } from "@/components/ui/business-chat-ui";
 import { UAEPassLogin } from "@/components/ui/uae-pass-login";
-import { PolarisIcon } from "@/components/ui/omnis-icon";
+import { PolarisIcon } from "@/components/ui/polaris-icon";
 import { cn } from "@/lib/utils";
 
 const FALLBACK_FOCUS = { x: 640, y: 360 };
