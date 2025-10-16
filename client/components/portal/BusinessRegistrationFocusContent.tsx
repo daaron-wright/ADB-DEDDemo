@@ -115,7 +115,7 @@ const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   {
     id: "azure-coast",
     english: "Azure Coast Kitchen Sole LLC",
-    arabic: "مطب�� الساحل اللازور��ي الفردي ذ.م.م",
+    arabic: "مطبخ الساحل اللازور��ي الفردي ذ.م.م",
   },
   {
     id: "pearl-horizon",
@@ -1058,7 +1058,7 @@ export function BusinessRegistrationFocusContent({
                     <Input
                       value={arabicDraft}
                       onChange={(event) => setArabicDraft(event.target.value)}
-                      placeholder="مطعم مروى الفردي ذ.م.م"
+                      placeholder="ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة"
                       dir="rtl"
                       className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
                       disabled={isChecking}
