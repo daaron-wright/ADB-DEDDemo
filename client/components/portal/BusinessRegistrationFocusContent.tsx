@@ -145,7 +145,7 @@ function createTradeNameReceiptDocument(): DocumentVaultItem {
   return {
     id: TRADE_NAME_RECEIPT_DOCUMENT_ID,
     title: "Trade Name Reservation Receipt",
-    description: `Receipt for ${PRIMARY_TRADE_NAME_EN} confirming reservation ${transactionNumber} with AED ${paymentAmountAed} processed on ${paymentDate}.`,
+    description: `Receipt for ${PRIMARY_TRADE_NAME_EN} confirming reservation ${transactionNumber} with AED ${paymentAmountAed} processed on ${paymentDate}. Abu Dhabi Registration & Licensing Authority may amend the trade name if reservation conditions are not met.`,
     source: authority,
     sourceDetail: `Receipt ${receiptNumber} · ${transactionNumber}`,
     status: "completed",
