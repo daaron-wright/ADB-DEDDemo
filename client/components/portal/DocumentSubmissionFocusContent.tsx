@@ -11,7 +11,6 @@ import { Check, Wallet } from "lucide-react";
 import { CollapsibleCard } from "./StageCollapsibleCard";
 import { MyTAMMDocuments } from "./MyTAMMDocuments";
 import { DocumentVaultCard } from "./DocumentVaultCard";
-import { DocumentVaultDetail } from "./DocumentVaultDetail";
 import { DocumentVaultLayout } from "./DocumentVaultLayout";
 import { useDocumentVault } from "./DocumentVaultContext";
 import { DOCUMENT_VAULT_SOURCE_LABEL } from "./document-vault-data";
@@ -64,11 +63,6 @@ export function DocumentSubmissionFocusContent({
     "Polaris is ready to simulate bilingual clauses and prepare the ADJD review packet.",
   );
   const [hasAppliedPolarisRevision, setHasAppliedPolarisRevision] = React.useState(false);
-
-  const activeDocument = React.useMemo(
-    () => documents.find((item) => item.id === activeDocumentId),
-    [documents, activeDocumentId],
-  );
 
   const receiptAutoFocusRef = React.useRef(false);
   const completionTimeoutRef = React.useRef<number | null>(null);
@@ -362,7 +356,6 @@ export function DocumentSubmissionFocusContent({
               />
             ))}
           </DocumentVaultLayout>
-          <DocumentVaultDetail document={activeDocument} />
           {allDocumentsCompleted ? (
             <div className="rounded-3xl border border-[#94d2c2] bg-[#dff2ec]/70 p-4 text-sm font-semibold text-[#0b7d6f]">
               Every document is signed and stored. You can issue the licence.
