@@ -851,10 +851,10 @@ export function BusinessRegistrationFocusContent({
     }
 
     setHasSelectedApprovedTradeName(true);
-    setActiveEnglishTradeName("MARWA RESTAURANT");
-    setActiveArabicTradeName("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
-    setEnglishDraft("MARWA RESTAURANT");
-    setArabicDraft("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
+    setActiveEnglishTradeName(PRIMARY_TRADE_NAME_EN);
+    setActiveArabicTradeName(PRIMARY_TRADE_NAME_AR);
+    setEnglishDraft(PRIMARY_TRADE_NAME_EN);
+    setArabicDraft(PRIMARY_TRADE_NAME_AR);
     toast({
       title: "Trade name selected",
       description: "We’ll prepare the reservation submission next.",
