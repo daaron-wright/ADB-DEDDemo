@@ -1,5 +1,7 @@
 import { cn } from "@/lib/utils";
 
+import { cn } from "@/lib/utils";
+
 export interface PolarisIconProps extends React.SVGAttributes<SVGSVGElement> {
   variant?: "default" | "badge";
 }
