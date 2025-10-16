@@ -380,7 +380,7 @@ const CONVERSATION_BLUEPRINT: Record<
         id: "handoff-automation",
         label: "Automate my application",
         description:
-          "Let Omnis pre-fill documents, submit requests, and sync your applicant portal timeline.",
+          "Let Polaris pre-fill documents, submit requests, and sync your applicant portal timeline.",
         icon: Gauge,
         type: "conversation",
         action: "confirm-retail-automation",
@@ -1399,13 +1399,13 @@ const CuisinePopularityBreakout = ({
                   "w-full h-full bg-white/14 backdrop-blur-md",
                 )}
               >
-                {/* Omnis Header */}
+                {/* Polaris Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <AIBusinessOrb className="h-16 w-16" />
                     <div>
                       <div className="text-white text-lg font-semibold">
-                        Omnis
+                        Polaris
                       </div>
                       <div className="flex items-center gap-1">
                         {[
@@ -1650,13 +1650,13 @@ const CompetitorAnalysisBreakout = ({
                   "w-full h-full bg-white/14 backdrop-blur-md",
                 )}
               >
-                {/* Omnis Header */}
+                {/* Polaris Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <AIBusinessOrb className="h-16 w-16" />
                     <div>
                       <div className="text-white text-lg font-semibold">
-                        Omnis
+                        Polaris
                       </div>
                       <div className="flex items-center gap-1">
                         {[
@@ -1925,13 +1925,13 @@ const GapAnalysisBreakout = ({
                   "w-full h-full bg-white/14 backdrop-blur-md",
                 )}
               >
-                {/* Omnis Header */}
+                {/* Polaris Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <AIBusinessOrb className="h-16 w-16" />
                     <div>
                       <div className="text-white text-lg font-semibold">
-                        Omnis
+                        Polaris
                       </div>
                       <div className="flex items-center gap-1">
                         {[
@@ -2385,7 +2385,7 @@ const DashboardView = ({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
         {/* Left Column */}
         <div className="space-y-6">
-          {/* Omnis Chat Interface */}
+          {/* Polaris Chat Interface */}
           <motion.div
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -2398,7 +2398,7 @@ const DashboardView = ({
               <AIBusinessOrb className="h-16 w-16" />
               <div>
                 <h3 className="text-white text-lg font-semibold">
-                  Omnis
+                  Polaris
                 </h3>
                 <motion.div
                   className="flex items-center gap-1 mt-2"
@@ -2889,13 +2889,13 @@ const DiscoveryCompilationCard = ({
           "sm:rounded-3xl",
         )}
       >
-        {/* Omnis Header */}
+        {/* Polaris Header */}
         <div className="flex flex-col p-6 pb-8">
           <div className="flex items-center gap-2 mb-8">
             <AIBusinessOrb className="h-16 w-16" />
             <div className="flex-1">
               <h3 className="text-white text-lg font-semibold mb-2">
-                Omnis
+                Polaris
               </h3>
               <motion.div
                 className="flex items-center gap-1"
@@ -5933,7 +5933,7 @@ export function BusinessChatUI({
   isOpen,
   onClose,
   category,
-  title = "Omnis",
+  title = "Polaris",
   initialMessage,
   mode = "modal",
   journeyFocusView = null,
@@ -5986,7 +5986,7 @@ export function BusinessChatUI({
           {
             id: "feedback-loop-prompt",
             content:
-              "Your licence journey is complete. Share any suggestions on improving regulations or the process and Omnis will relay themes to policy makers once they reach a threshold.",
+              "Your licence journey is complete. Share any suggestions on improving regulations or the process and Polaris will relay themes to policy makers once they reach a threshold.",
             isAI: true,
             timestamp: new Date(),
             type: "feedback-prompt",
@@ -6054,7 +6054,7 @@ export function BusinessChatUI({
             ...current,
             {
               id: `feedback-policy-${Date.now()}`,
-              content: `Policy insight queued: ${updatedCount} investors highlighted “${sample}”. Omnis alerted the policy team.`,
+              content: `Policy insight queued: ${updatedCount} investors highlighted “${sample}”. Polaris alerted the policy team.`,
               isAI: true,
               timestamp: new Date(),
               type: "feedback-notification",
@@ -6822,7 +6822,7 @@ export function BusinessChatUI({
       toast({
         title: "Connecting you with TAMM advisors",
         description:
-          "We'll transition to a human specialist and keep your Omnis workspace updated.",
+          "We'll transition to a human specialist and keep your Polaris workspace updated.",
       });
 
       if (prompt) {
@@ -7388,7 +7388,7 @@ export function BusinessChatUI({
     const trimmedInitial = initialMessage?.trim();
     const hasInitialPrompt = Boolean(trimmedInitial);
     const baseGreeting =
-      "Welcome, Layla. I'm Omnis—here to keep momentum on your concept.";
+      "Welcome, Layla. I'm Polaris—here to keep momentum on your concept.";
 
     const conversation: BusinessMessage[] = [];
 
@@ -7945,7 +7945,7 @@ export function BusinessChatUI({
                             <div className="min-w-0 flex-1 text-left">
                               <div className="flex w-full flex-wrap items-center gap-2 sm:gap-4">
                                 <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
-                                  Omnis
+                                  Polaris
                                 </h3>
                                 {topicsAvailable ? (
                                   <div className="flex-shrink-0 ml-auto pl-4 sm:pl-10">
