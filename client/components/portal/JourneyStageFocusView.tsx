@@ -196,9 +196,7 @@ export function JourneyStageFocusView({
   const selectedRecommendedId = selectedRecommendedActivity?.id ?? null;
 
   const [showActivityCatalog, setShowActivityCatalog] = useState(false);
-  const [licenseEvaluations, setLicenseEvaluations] = useState<Record<string, LicenseEvaluation>>({});
-  const [isLicenseEvaluationLoading, setIsLicenseEvaluationLoading] = useState(false);
-  const [licenseEvaluationError, setLicenseEvaluationError] = useState<string | null>(null);
+  const [internalLegalFormId, setInternalLegalFormId] = useState<string | null>(null);
 
   useEffect(() => {
     if (selectedRecommendedId !== "activity-curation") {
@@ -206,97 +204,25 @@ export function JourneyStageFocusView({
     }
   }, [selectedRecommendedId]);
 
-  const effectiveTradeName =
-    tradeName && tradeName.trim().length > 0
-      ? tradeName.trim()
-      : timelineItem.title;
+  const effectiveLegalFormOptions =
+    legalFormOptions.length > 0 ? legalFormOptions : DEFAULT_LEGAL_FORM_OPTIONS;
+  const effectiveLegalFormId =
+    selectedLegalFormId ?? internalLegalFormId ?? effectiveLegalFormOptions[0]?.id ?? null;
 
-  useEffect(() => {
-    if (selectedRecommendedId !== "license-types") {
-      return;
-    }
+  const handleLegalFormSelect = useCallback(
+    (legalFormId: string) => {
+      if (onLegalFormSelect) {
+        onLegalFormSelect(legalFormId);
+      } else {
+        setInternalLegalFormId(legalFormId);
+      }
+    },
+    [onLegalFormSelect],
+  );
 
-    if (!LICENSE_TYPE_PROFILES.length) {
-      setLicenseEvaluations({});
-      return;
-    }
-
-    const controller = new AbortController();
-    let isCancelled = false;
-
-    const tradeNameForEvaluation =
-      effectiveTradeName && effectiveTradeName.length > 0
-        ? effectiveTradeName
-        : "Trade License";
-
-    setIsLicenseEvaluationLoading(true);
-    setLicenseEvaluationError(null);
-    setLicenseEvaluations({});
-
-    validateActivityCompatibility(
-      {
-        trade_name: tradeNameForEvaluation,
-        business_activities: LICENSE_TYPE_PROFILES.map(
-          (profile) => profile.evaluationPrompt,
-        ),
-        language: "english",
-        enable_llm_judge: false,
-      },
-      { signal: controller.signal },
-    )
-      .then((response) => {
-        if (isCancelled) {
-          return;
-        }
-
-        const mappedEvaluations: Record<string, LicenseEvaluation> = {};
-        const resultMap = new Map(
-          response.results.map((item) => [item.activity_description, item]),
-        );
-
-        LICENSE_TYPE_PROFILES.forEach((profile) => {
-          const match = resultMap.get(profile.evaluationPrompt);
-          if (!match) {
-            return;
-          }
-
-          mappedEvaluations[profile.id] = {
-            compatibilityScore: match.compatibility_score,
-            isConsistent: match.is_consistent,
-            reason: match.reason ?? null,
-            threshold: match.threshold ?? response.threshold_used,
-          };
-        });
-
-        setLicenseEvaluations(mappedEvaluations);
-      })
-      .catch((error) => {
-        if (isCancelled) {
-          return;
-        }
-
-        const errorObject = error as Error | DOMException;
-        const errorName = errorObject?.name ?? "";
-        const errorMessage = (errorObject?.message ?? "").toLowerCase();
-
-        if (errorName === "AbortError" || errorMessage.includes("aborted")) {
-          return;
-        }
-
-        console.error("Failed to load license compatibility", error);
-        setLicenseEvaluationError("Unable to load license compatibility insights.");
-      })
-      .finally(() => {
-        if (!isCancelled) {
-          setIsLicenseEvaluationLoading(false);
-        }
-      });
-
-    return () => {
-      isCancelled = true;
-      controller.abort();
-    };
-  }, [effectiveTradeName, selectedRecommendedId]);
+  const activeLegalForm = effectiveLegalFormId
+    ? effectiveLegalFormOptions.find((option) => option.id === effectiveLegalFormId) ?? null
+    : null;
 
   const navigationControls = hasNavigationControls ? (
     <div className="flex flex-wrap items-center justify-end gap-3">
