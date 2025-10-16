@@ -131,7 +131,7 @@ export function DocumentSubmissionFocusContent({
                 status: "completed" as const,
                 source: DOCUMENT_VAULT_SOURCE_LABEL,
                 sourceDetail: DOCUMENT_VAULT_SOURCE_LABEL,
-                actionLabel: "Download notarised MOA",
+                actionLabel: "Download ADJD review packet",
                 isExpanded: false,
               }
             : item,
@@ -141,8 +141,8 @@ export function DocumentSubmissionFocusContent({
       setShowMoaAssistant(false);
       setProgress((value) => Math.max(value, 88));
       toast({
-        title: "MOA notarised",
-        description: "ADJD sent back the stamped memorandum. We added it to your vault.",
+        title: "Custom MOA sent to ADJD",
+        description: "Polaris submitted the custom memorandum for review and saved a copy in your vault.",
       });
     }, 1200);
   }, [activeDocumentId, isFinalisingMoa, toast, triggerVaultSync]);
