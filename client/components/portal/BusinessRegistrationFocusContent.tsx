@@ -436,7 +436,7 @@ export function BusinessRegistrationFocusContent({
   const initialFormattedName = formatTradeName(tradeName);
 
   const [activeEnglishTradeName, setActiveEnglishTradeName] = React.useState(initialFormattedName);
-  const [activeArabicTradeName, setActiveArabicTradeName] = React.useState("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
+  const [activeArabicTradeName, setActiveArabicTradeName] = React.useState("ﺍﻹﺳﻢ ﺍﻟﺘ��ﺎﺭﻱ مطعم مروة");
   const [englishDraft, setEnglishDraft] = React.useState(initialFormattedName);
   const [arabicDraft, setArabicDraft] = React.useState("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
   const [isEditing, setIsEditing] = React.useState(false);
@@ -626,7 +626,7 @@ export function BusinessRegistrationFocusContent({
 
           const normalizedName = evaluationSource?.normalized ?? "";
           const englishDisplay = evaluationSource?.english ?? englishDraft ?? "";
-          const arabicDisplay = evaluationSource?.arabic ?? arabicDraft ?? "";
+          const arabicDisplay = evaluationSource?.arabic ?? arabicDraft ?? "ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة";
           const isSuccess =
             Boolean(normalizedName) && approvedNameSet.has(normalizedName);
 
