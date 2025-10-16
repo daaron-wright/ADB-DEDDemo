@@ -158,7 +158,7 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["a", "ا"],
   ["b", "ب"],
   ["c", "ك"],
-  ["d", "د"],
+  ["d", "��"],
   ["e", "ي"],
   ["f", "ف"],
   ["g", "ج"],
@@ -454,6 +454,9 @@ export function BusinessRegistrationFocusContent({
   const [isNameAvailable, setIsNameAvailable] = React.useState(
     Boolean(tradeName) && isTradeNameAvailable,
   );
+  const [hasSelectedApprovedTradeName, setHasSelectedApprovedTradeName] = React.useState(false);
+  const [hasSubmittedReservationApplication, setHasSubmittedReservationApplication] = React.useState(false);
+  const [isSubmittingReservation, setIsSubmittingReservation] = React.useState(false);
   const [automationProgress, setAutomationProgress] = React.useState(() =>
     clampProgress(progressPercent),
   );
