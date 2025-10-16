@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
 
-export interface OmnisIconProps extends React.SVGAttributes<SVGSVGElement> {
+export interface PolarisIconProps extends React.SVGAttributes<SVGSVGElement> {
   variant?: "default" | "badge";
 }
 
-export function OmnisIcon({ className, variant = "default", ...props }: OmnisIconProps) {
+export function PolarisIcon({ className, variant = "default", ...props }: PolarisIconProps) {
   const sizeClasses = variant === "badge" ? "h-14 w-14" : "h-16 w-16";
 
   return (
