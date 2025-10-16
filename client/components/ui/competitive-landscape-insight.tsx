@@ -130,7 +130,7 @@ export const CompetitiveLandscapeInsight: React.FC<CompetitiveLandscapeInsightPr
         <h3 className="text-xl font-semibold text-slate-900">Filter the Corniche competition before budgeting</h3>
         <p className="text-sm text-slate-600">
           Layla selects the Corniche cluster and applies checkboxes to surface concepts that mirror her positioning.
-          Omnis instantly removes outliers and spotlights the remaining white space on the investor compass.
+          Polaris instantly removes outliers and spotlights the remaining white space on the investor compass.
         </p>
       </header>
 
