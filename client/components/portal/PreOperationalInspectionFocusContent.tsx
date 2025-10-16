@@ -237,7 +237,7 @@ export function PreOperationalInspectionFocusContent({
           description:
             bankAccountPhase === "link"
               ? "Link your corporate bank account so we can verify payments and payroll readiness."
-              : "Omnis is linking your bank account. Keep an eye on the checklist for updates.",
+              : "Polaris is linking your bank account. Keep an eye on the checklist for updates.",
           buttonLabel,
           onClick: () => {
             ensureSectionOpen("checklist");
@@ -284,7 +284,7 @@ export function PreOperationalInspectionFocusContent({
     return {
       subtitle: "Inspection scheduling",
       description:
-        "All required items are complete. Omnis is coordinating with authorities for the final inspection visit.",
+        "All required items are complete. Polaris is coordinating with authorities for the final inspection visit.",
       buttonLabel: "View automation status",
       onClick: () => {
         ensureSectionOpen("automation");
@@ -321,7 +321,7 @@ export function PreOperationalInspectionFocusContent({
             </p>
             <h3 className="text-2xl font-semibold text-slate-900">Final checks before opening</h3>
             <p className="text-sm text-slate-600">
-              Omnis keeps compliance certificates, bank coordination, and optional services aligned so inspectors can clear your venue faster.
+              Polaris keeps compliance certificates, bank coordination, and optional services aligned so inspectors can clear your venue faster.
             </p>
           </div>
           <div className="space-y-2">
@@ -402,7 +402,7 @@ export function PreOperationalInspectionFocusContent({
             </div>
           </div>
           <p className="text-sm text-slate-600">
-            Omnis retrieves certificates, confirms inspectors, and updates your checklist in real time across ADCDA, ADAFSA, and service providers.
+            Polaris retrieves certificates, confirms inspectors, and updates your checklist in real time across ADCDA, ADAFSA, and service providers.
           </p>
           <div className="space-y-2">
             <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
