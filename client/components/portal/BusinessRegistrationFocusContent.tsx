@@ -940,7 +940,7 @@ export function BusinessRegistrationFocusContent({
                     Arabic name
                   </p>
                   <p className="mt-1 text-sm font-semibold text-[#0f766e]" dir="rtl">
-                    {activeArabicTradeName || "��"}
+                    {activeArabicTradeName || "—"}
                   </p>
                 </div>
               </div>
@@ -1036,7 +1036,7 @@ export function BusinessRegistrationFocusContent({
                       ref={inputRef}
                       value={englishDraft}
                       onChange={(event) => setEnglishDraft(event.target.value)}
-                      placeholder="Marwah Restaurant Sole LLC"
+                      placeholder="MARWA RESTAURANT"
                       className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
                       disabled={isChecking}
                     />
