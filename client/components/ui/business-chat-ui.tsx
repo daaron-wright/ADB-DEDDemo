@@ -62,7 +62,7 @@ import {
   X,
   ChevronDown,
 } from "lucide-react";
-import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
+import { AI_ASSISTANT_PROFILE, ENTREPRENEUR_PROFILE } from "@/lib/profile";
 
 type ConversationAction =
   | "show-summary"
