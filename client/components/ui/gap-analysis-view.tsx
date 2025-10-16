@@ -113,7 +113,7 @@ const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({
                   <AIBusinessOrb className="h-16 w-16" />
                   <div>
                     <div className="text-sm font-semibold text-slate-900">
-                      Omnis
+                      Polaris
                     </div>
                     <div className="text-xs uppercase tracking-[0.2em] text-[#0E766E]">
                       Gap analysis
