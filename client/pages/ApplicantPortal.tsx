@@ -367,12 +367,12 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "يعمل طلبك المدعوم ب��لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
-      "APP-48291": "��دمي حزمة الم��افقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
+      "APP-48291": "قدمي حزمة الم��افقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
     },
     journey: {
       heading: "تنسيق الرحلة",
       timelineLabel: "الجدول الزمني للرحلة",
-      activePrefix: "الحالة الحالية:",
+      activePrefix: "الحالة الحالي��:",
       activeStage: "المرحلة النشطة",
       yourNextStep: "خطوت�� التالية",
       tasksCompleteMessage:
@@ -392,7 +392,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "هذه هي نقطة انطلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
         "مرحبًا بكِ—شاركينا تفاصيل فكرتك لنصمم معًا رحلة الترخيص التي تطلق مشروعك التجاري.",
-      startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
+      startCta: "ابدئي الاستب��ان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
       pendingLicenseLabel: "متاح بعد الاستبيان",
@@ -1070,6 +1070,9 @@ export default function ApplicantPortal() {
   const [stageRecommendedSelections, setStageRecommendedSelections] = useState<
     Record<string, string | null>
   >({});
+  const [selectedLegalFormId, setSelectedLegalFormId] = useState<string>(
+    DEFAULT_LEGAL_FORM_SELECTION,
+  );
   const stageOrder = useMemo(() => journeyStages.map((stage) => stage.id), []);
   const [stageProgress, setStageProgress] = useState<
     Record<string, JourneyHighlightState>
