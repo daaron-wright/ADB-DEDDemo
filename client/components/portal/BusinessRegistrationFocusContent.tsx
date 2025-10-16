@@ -891,6 +891,7 @@ export function BusinessRegistrationFocusContent({
         title: "Trade name reserved",
         description: "Reservation application and payment submitted. Document submissions unlocked.",
       });
+      upsertTradeNameReceipt();
       setAutomationProgress((value) => Math.max(value, 100));
       reservationTimeoutRef.current = null;
     }, 1200);
