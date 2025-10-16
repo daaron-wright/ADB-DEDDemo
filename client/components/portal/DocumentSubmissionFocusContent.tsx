@@ -30,7 +30,7 @@ const INITIAL_MOA_CLAUSE_DRAFT = `Article 7 — Capital contributions & profit d
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise.`;
 const POLARIS_RECOMMENDED_MOA_CLAUSE = `Article 7 — Capital contributions & profit distribution
-المادة 7 — ا��مساهمات ا��رأسمالية وتوزيع الأرب����ح
+المادة 7 — ا��مساهمات ا��رأسمال��ة وتوزيع الأرب����ح
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise. Distributions shall be supported by audited management accounts and bilingual notices issued at least five (5) working days in advance.`;
 
@@ -480,7 +480,7 @@ export function DocumentSubmissionFocusContent({
           ) : (
             <div className="space-y-3">
               <p className="text-sm text-slate-600">
-                Reopen the assistant if you want Polaris to walk you through the MOA again.
+                Reopen the guidance if you want Polaris to walk you through the notarisation again.
               </p>
               <Button
                 type="button"
