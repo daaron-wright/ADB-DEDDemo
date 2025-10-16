@@ -155,7 +155,7 @@ export default function CompilationDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {/* Left Column */}
           <div className="space-y-6">
-            {/* Omnis Chat Interface */}
+            {/* Polaris Chat Interface */}
             <motion.div
               initial={{ x: -100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -166,7 +166,7 @@ export default function CompilationDashboard() {
                 <AIBusinessOrb className="h-16 w-16" />
                 <div>
                   <h3 className="text-white text-lg font-semibold">
-                    Omnis
+                    Polaris
                   </h3>
                   <motion.div
                     variants={barVariants}
