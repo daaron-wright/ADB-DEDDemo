@@ -4,7 +4,11 @@ export interface PolarisIconProps extends React.SVGAttributes<SVGSVGElement> {
   variant?: "default" | "badge";
 }
 
-export function PolarisIcon({ className, variant = "default", ...props }: PolarisIconProps) {
+export function PolarisIcon({
+  className,
+  variant = "default",
+  ...props
+}: PolarisIconProps) {
   const sizeClasses = variant === "badge" ? "h-14 w-14" : "h-16 w-16";
 
   return (
@@ -43,7 +47,13 @@ export function PolarisIcon({ className, variant = "default", ...props }: Polari
           <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.9" />
           <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
         </radialGradient>
-        <filter id="polarisMonoGlow" x="-20%" y="-20%" width="140%" height="140%">
+        <filter
+          id="polarisMonoGlow"
+          x="-20%"
+          y="-20%"
+          width="140%"
+          height="140%"
+        >
           <feGaussianBlur in="SourceGraphic" stdDeviation="3.6" result="blur" />
           <feMerge>
             <feMergeNode in="blur" />

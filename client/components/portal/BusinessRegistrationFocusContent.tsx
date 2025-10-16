@@ -85,7 +85,8 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     title: "Suggest names",
     description:
       "We generate alternatives, rerun every check, and surface the results with any failures explained.",
-    summary: "Offers compliant alternatives automatically if something is flagged.",
+    summary:
+      "Offers compliant alternatives automatically if something is flagged.",
   },
 ];
 
@@ -360,10 +361,10 @@ function VerificationStepItem({
   const statusLabel = isFailed
     ? "Needs attention"
     : isCompleted
-    ? "Passed"
-    : isCurrent
-    ? "Checking now"
-    : "Upcoming";
+      ? "Passed"
+      : isCurrent
+        ? "Checking now"
+        : "Upcoming";
 
   const indicatorClasses = cn(
     "flex h-9 w-9 items-center justify-center rounded-full border text-xs font-semibold",
@@ -386,18 +387,18 @@ function VerificationStepItem({
     isCompleted || isFailed
       ? "100%"
       : isCurrent
-      ? `${Math.max(progressPercent, 12)}%`
-      : progressPercent > 0
-      ? `${Math.max(progressPercent, 6)}%`
-      : "0%";
+        ? `${Math.max(progressPercent, 12)}%`
+        : progressPercent > 0
+          ? `${Math.max(progressPercent, 6)}%`
+          : "0%";
 
   const helperMessage = isFailed
     ? "Enter a different trade name before continuing."
     : isCompleted
-    ? "This check passed successfully."
-    : isCurrent
-    ? "We’re processing this check right now."
-    : "This check runs automatically after the previous ones.";
+      ? "This check passed successfully."
+      : isCurrent
+        ? "We’re processing this check right now."
+        : "This check runs automatically after the previous ones.";
 
   return (
     <AccordionItem value={value} className="border-none">
@@ -469,29 +470,36 @@ export function BusinessRegistrationFocusContent({
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const reservationTimeoutRef = React.useRef<number | null>(null);
 
-  const initialFormattedName = formatTradeName(tradeName) || PRIMARY_TRADE_NAME_EN;
+  const initialFormattedName =
+    formatTradeName(tradeName) || PRIMARY_TRADE_NAME_EN;
 
-  const [activeEnglishTradeName, setActiveEnglishTradeName] = React.useState(initialFormattedName);
-  const [activeArabicTradeName, setActiveArabicTradeName] = React.useState(PRIMARY_TRADE_NAME_AR);
+  const [activeEnglishTradeName, setActiveEnglishTradeName] =
+    React.useState(initialFormattedName);
+  const [activeArabicTradeName, setActiveArabicTradeName] = React.useState(
+    PRIMARY_TRADE_NAME_AR,
+  );
   const [englishDraft, setEnglishDraft] = React.useState(initialFormattedName);
   const [arabicDraft, setArabicDraft] = React.useState(PRIMARY_TRADE_NAME_AR);
   const [isEditing, setIsEditing] = React.useState(false);
-  const [pendingSubmission, setPendingSubmission] = React.useState<
-    | {
-        english: string;
-        arabic: string;
-        normalized: string;
-      }
-    | null
-  >(null);
+  const [pendingSubmission, setPendingSubmission] = React.useState<{
+    english: string;
+    arabic: string;
+    normalized: string;
+  } | null>(null);
   const [isChecking, setIsChecking] = React.useState(false);
   const [hasPerformedCheck, setHasPerformedCheck] = React.useState(
     Boolean(tradeName) || isTradeNameAvailable,
   );
-  const [isNameAvailable, setIsNameAvailable] = React.useState(isTradeNameAvailable);
-  const [hasSelectedApprovedTradeName, setHasSelectedApprovedTradeName] = React.useState(false);
-  const [hasSubmittedReservationApplication, setHasSubmittedReservationApplication] = React.useState(false);
-  const [isSubmittingReservation, setIsSubmittingReservation] = React.useState(false);
+  const [isNameAvailable, setIsNameAvailable] =
+    React.useState(isTradeNameAvailable);
+  const [hasSelectedApprovedTradeName, setHasSelectedApprovedTradeName] =
+    React.useState(false);
+  const [
+    hasSubmittedReservationApplication,
+    setHasSubmittedReservationApplication,
+  ] = React.useState(false);
+  const [isSubmittingReservation, setIsSubmittingReservation] =
+    React.useState(false);
   const [automationProgress, setAutomationProgress] = React.useState(() =>
     clampProgress(progressPercent),
   );
@@ -502,9 +510,7 @@ export function BusinessRegistrationFocusContent({
 
   const approvedNameSet = React.useMemo(
     () =>
-      new Set(
-        APPROVED_TRADE_NAMES.map((name) => name.trim().toUpperCase()),
-      ),
+      new Set(APPROVED_TRADE_NAMES.map((name) => name.trim().toUpperCase())),
     [],
   );
 
@@ -512,8 +518,15 @@ export function BusinessRegistrationFocusContent({
   const displayProgress = Math.round(automationProgress);
 
   const canSubmitReservation = React.useMemo(
-    () => isNameAvailable && hasSelectedApprovedTradeName && !hasSubmittedReservationApplication,
-    [hasSelectedApprovedTradeName, hasSubmittedReservationApplication, isNameAvailable],
+    () =>
+      isNameAvailable &&
+      hasSelectedApprovedTradeName &&
+      !hasSubmittedReservationApplication,
+    [
+      hasSelectedApprovedTradeName,
+      hasSubmittedReservationApplication,
+      isNameAvailable,
+    ],
   );
 
   const tradeNameStatusToken = React.useMemo(() => {
@@ -549,7 +562,12 @@ export function BusinessRegistrationFocusContent({
       label: "Not started",
       className: "border-slate-200 bg-white text-slate-500",
     };
-  }, [hasPerformedCheck, hasSubmittedReservationApplication, isChecking, isNameAvailable]);
+  }, [
+    hasPerformedCheck,
+    hasSubmittedReservationApplication,
+    isChecking,
+    isNameAvailable,
+  ]);
 
   const tradeNameStatusMessage = React.useMemo(() => {
     if (isChecking) {
@@ -605,16 +623,18 @@ export function BusinessRegistrationFocusContent({
   const verificationStatusLabel = isChecking
     ? "Checks running"
     : isNameAvailable
-    ? "All checks passed"
-    : hasPerformedCheck
-    ? "Needs attention"
-    : "No checks yet";
+      ? "All checks passed"
+      : hasPerformedCheck
+        ? "Needs attention"
+        : "No checks yet";
 
   const verificationSubtitle = showVerificationSteps
     ? `${TRADE_NAME_CHECKS.length} automated checks`
     : "Run automated checks to populate this list.";
 
-  const automationSteps = React.useMemo<TradeNameVerificationStepWithStatus[]>(() => {
+  const automationSteps = React.useMemo<
+    TradeNameVerificationStepWithStatus[]
+  >(() => {
     const totalSteps = TRADE_NAME_CHECKS.length;
 
     if (!showVerificationSteps) {
@@ -640,7 +660,12 @@ export function BusinessRegistrationFocusContent({
         progress,
       };
     });
-  }, [automationProgress, failedStepIndex, isNameAvailable, showVerificationSteps]);
+  }, [
+    automationProgress,
+    failedStepIndex,
+    isNameAvailable,
+    showVerificationSteps,
+  ]);
 
   const completedVerificationSteps = automationSteps.filter(
     (step) => step.status === "completed",
@@ -658,7 +683,8 @@ export function BusinessRegistrationFocusContent({
         if (next >= 100) {
           window.clearInterval(interval);
 
-          const evaluationSource = pendingSubmission ??
+          const evaluationSource =
+            pendingSubmission ??
             (activeEnglishTradeName
               ? {
                   english: activeEnglishTradeName,
@@ -682,8 +708,8 @@ export function BusinessRegistrationFocusContent({
             isSuccess
               ? null
               : normalizedName
-              ? `We couldn’t reserve ${englishDisplay}. Try a unique variation that aligns with your selected activity.`
-              : "Add English and Arabic trade names before running the automated checks.",
+                ? `We couldn’t reserve ${englishDisplay}. Try a unique variation that aligns with your selected activity.`
+                : "Add English and Arabic trade names before running the automated checks.",
           );
           setPendingSubmission(null);
           setHasPerformedCheck(true);
@@ -733,7 +759,9 @@ export function BusinessRegistrationFocusContent({
     setActiveArabicTradeName(PRIMARY_TRADE_NAME_AR);
     setArabicDraft(PRIMARY_TRADE_NAME_AR);
     setIsNameAvailable(isTradeNameAvailable);
-    setFailedStepIndex(isTradeNameAvailable ? null : DEFAULT_FAILURE_STEP_INDEX);
+    setFailedStepIndex(
+      isTradeNameAvailable ? null : DEFAULT_FAILURE_STEP_INDEX,
+    );
     setFailureReason(null);
     setAutomationProgress(clampProgress(progressPercent));
     setHasPerformedCheck(Boolean(tradeName) || isTradeNameAvailable);
@@ -795,7 +823,8 @@ export function BusinessRegistrationFocusContent({
       setIsEditing(true);
       toast({
         title: "Add trade names",
-        description: "Provide both English and Arabic names before running the checks.",
+        description:
+          "Provide both English and Arabic names before running the checks.",
         variant: "destructive",
       });
       return;
@@ -806,7 +835,8 @@ export function BusinessRegistrationFocusContent({
     if (!succeeded) {
       toast({
         title: "Invalid trade name",
-        description: "Enter valid characters for both the English and Arabic names.",
+        description:
+          "Enter valid characters for both the English and Arabic names.",
         variant: "destructive",
       });
     }
@@ -827,7 +857,8 @@ export function BusinessRegistrationFocusContent({
     if (!englishDraft.trim()) {
       toast({
         title: "Add English name",
-        description: "Enter the English trade name first so we can transliterate it.",
+        description:
+          "Enter the English trade name first so we can transliterate it.",
       });
       inputRef.current?.focus();
       return;
@@ -885,7 +916,8 @@ export function BusinessRegistrationFocusContent({
       setHasSubmittedReservationApplication(true);
       toast({
         title: "Trade name reserved",
-        description: "Reservation application and payment submitted. Document submissions unlocked.",
+        description:
+          "Reservation application and payment submitted. Document submissions unlocked.",
       });
       upsertTradeNameReceipt();
       setAutomationProgress((value) => Math.max(value, 100));
@@ -911,7 +943,9 @@ export function BusinessRegistrationFocusContent({
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
               Journey number
             </p>
-            <p className="text-lg font-semibold text-slate-900">{journeyNumber}</p>
+            <p className="text-lg font-semibold text-slate-900">
+              {journeyNumber}
+            </p>
           </div>
           <Badge className="inline-flex items-center gap-2 rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
             <Check className="h-3.5 w-3.5" strokeWidth={3} />
@@ -927,7 +961,8 @@ export function BusinessRegistrationFocusContent({
               Keep the trade name checks on track
             </h3>
             <p className="text-sm text-slate-600">
-              Review the current trade name status and run the automated verification when you’re ready to move forward.
+              Review the current trade name status and run the automated
+              verification when you’re ready to move forward.
             </p>
           </div>
           <div className="space-y-2">
@@ -957,15 +992,20 @@ export function BusinessRegistrationFocusContent({
                   {activeEnglishTradeName || PRIMARY_TRADE_NAME_EN}
                 </h4>
                 {activeArabicTradeName ? (
-                  <p className="text-base font-semibold text-[#0f766e]" dir="rtl">
+                  <p
+                    className="text-base font-semibold text-[#0f766e]"
+                    dir="rtl"
+                  >
                     {activeArabicTradeName}
                   </p>
                 ) : null}
               </div>
-              <Badge className={cn(
-                "inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                tradeNameStatusToken.className,
-              )}>
+              <Badge
+                className={cn(
+                  "inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                  tradeNameStatusToken.className,
+                )}
+              >
                 {tradeNameStatusToken.label}
               </Badge>
             </div>
@@ -987,12 +1027,14 @@ export function BusinessRegistrationFocusContent({
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
                     Arabic name
                   </p>
-                  <p className="mt-1 text-sm font-semibold text-[#0f766e]" dir="rtl">
+                  <p
+                    className="mt-1 text-sm font-semibold text-[#0f766e]"
+                    dir="rtl"
+                  >
                     {activeArabicTradeName || PRIMARY_TRADE_NAME_AR}
                   </p>
                 </div>
               </div>
-
 
               {failureReason && !isNameAvailable ? (
                 <div className="rounded-2xl border border-rose-200 bg-rose-50/80 px-4 py-3 text-sm text-rose-700">
@@ -1007,8 +1049,12 @@ export function BusinessRegistrationFocusContent({
                 variant="outline"
                 onClick={() => {
                   if (!isEditing) {
-                    setEnglishDraft(activeEnglishTradeName || PRIMARY_TRADE_NAME_EN);
-                    setArabicDraft(activeArabicTradeName || PRIMARY_TRADE_NAME_AR);
+                    setEnglishDraft(
+                      activeEnglishTradeName || PRIMARY_TRADE_NAME_EN,
+                    );
+                    setArabicDraft(
+                      activeArabicTradeName || PRIMARY_TRADE_NAME_AR,
+                    );
                   }
                   setIsEditing((previous) => !previous);
                 }}
@@ -1033,8 +1079,8 @@ export function BusinessRegistrationFocusContent({
                     {hasSubmittedReservationApplication
                       ? "Trade name reserved"
                       : hasSelectedApprovedTradeName
-                      ? "Trade name selected"
-                      : "Select trade name"}
+                        ? "Trade name selected"
+                        : "Select trade name"}
                   </Button>
                   <Button
                     type="button"
@@ -1045,15 +1091,19 @@ export function BusinessRegistrationFocusContent({
                     {hasSubmittedReservationApplication
                       ? "Reservation submitted"
                       : isSubmittingReservation
-                      ? "Submitting reservation..."
-                      : "Submit reservation & pay"}
+                        ? "Submitting reservation..."
+                        : "Submit reservation & pay"}
                   </Button>
                 </>
               ) : (
                 <Button
                   type="button"
                   onClick={handleRunChecks}
-                  disabled={isChecking || isSubmittingReservation || hasSubmittedReservationApplication}
+                  disabled={
+                    isChecking ||
+                    isSubmittingReservation ||
+                    hasSubmittedReservationApplication
+                  }
                   className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {isChecking ? "Running checks..." : "Run automated checks"}
@@ -1134,7 +1184,8 @@ export function BusinessRegistrationFocusContent({
                     <div className="grid gap-2 sm:grid-cols-2">
                       {TRADE_NAME_SUGGESTIONS.map((suggestion) => {
                         const isCurrentSuggestion =
-                          normalizedEnglishDraft === suggestion.english.toUpperCase();
+                          normalizedEnglishDraft ===
+                          suggestion.english.toUpperCase();
 
                         return (
                           <button
@@ -1154,11 +1205,16 @@ export function BusinessRegistrationFocusContent({
                             <span className="block text-[12px] font-semibold normal-case text-slate-900">
                               {suggestion.english}
                             </span>
-                            <span className="block text-[12px] font-semibold normal-case text-[#0f766e]" dir="rtl">
+                            <span
+                              className="block text-[12px] font-semibold normal-case text-[#0f766e]"
+                              dir="rtl"
+                            >
                               {suggestion.arabic}
                             </span>
                             <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                              {isCurrentSuggestion ? "In review" : "Use this name"}
+                              {isCurrentSuggestion
+                                ? "In review"
+                                : "Use this name"}
                             </span>
                           </button>
                         );
@@ -1172,25 +1228,32 @@ export function BusinessRegistrationFocusContent({
         </div>
 
         <Accordion type="single" collapsible>
-          <AccordionItem value="verification-card" className="overflow-hidden rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_60px_-40px_rgba(15,23,42,0.32)]">
+          <AccordionItem
+            value="verification-card"
+            className="overflow-hidden rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_60px_-40px_rgba(15,23,42,0.32)]"
+          >
             <AccordionTrigger className="flex w-full items-start justify-between gap-3 px-5 py-4 text-left">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
                   Verification checks
                 </p>
-                <h4 className="text-lg font-semibold text-slate-900">{verificationStatusLabel}</h4>
+                <h4 className="text-lg font-semibold text-slate-900">
+                  {verificationStatusLabel}
+                </h4>
                 <p className="text-sm text-slate-600">{verificationSubtitle}</p>
               </div>
-              <Badge className={cn(
-                "inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                isNameAvailable
-                  ? "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]"
-                  : isChecking
-                  ? "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]"
-                  : hasPerformedCheck
-                  ? "border-rose-200 bg-rose-50 text-rose-600"
-                  : "border-slate-200 bg-white text-slate-500",
-              )}>
+              <Badge
+                className={cn(
+                  "inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                  isNameAvailable
+                    ? "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]"
+                    : isChecking
+                      ? "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]"
+                      : hasPerformedCheck
+                        ? "border-rose-200 bg-rose-50 text-rose-600"
+                        : "border-slate-200 bg-white text-slate-500",
+                )}
+              >
                 {completedVerificationSteps}/{TRADE_NAME_CHECKS.length}
               </Badge>
             </AccordionTrigger>

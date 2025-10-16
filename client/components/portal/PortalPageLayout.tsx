@@ -89,7 +89,11 @@ export function PortalPageLayout({
                   </p>
                 ) : null}
               </div>
-              {phaseNavigation ? <div className="w-full max-w-lg lg:w-auto">{phaseNavigation}</div> : null}
+              {phaseNavigation ? (
+                <div className="w-full max-w-lg lg:w-auto">
+                  {phaseNavigation}
+                </div>
+              ) : null}
             </div>
           </div>
         </header>

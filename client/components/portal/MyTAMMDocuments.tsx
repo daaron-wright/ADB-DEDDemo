@@ -20,7 +20,9 @@ export function MyTAMMDocuments({
       )}
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h3 className="text-base font-semibold text-slate-900">My TAMM Documents</h3>
+        <h3 className="text-base font-semibold text-slate-900">
+          My TAMM Documents
+        </h3>
         <button
           type="button"
           className="flex h-6 w-6 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"

@@ -32,7 +32,10 @@ type JourneyPhaseBreadcrumbProps = {
 
 type PhaseStatus = "complete" | "current" | "upcoming";
 
-const PHASE_STATUS_STYLES: Record<PhaseStatus, { dot: string; label: string; helper: string }> = {
+const PHASE_STATUS_STYLES: Record<
+  PhaseStatus,
+  { dot: string; label: string; helper: string }
+> = {
   complete: {
     dot: "bg-[#0f766e] border-[#0f766e]",
     label: "text-[#0f766e]",
@@ -50,8 +53,13 @@ const PHASE_STATUS_STYLES: Record<PhaseStatus, { dot: string; label: string; hel
   },
 };
 
-function getPhaseStatus(phaseId: JourneyPhaseId, activePhase: JourneyPhaseId): PhaseStatus {
-  const activeIndex = JOURNEY_PHASES.findIndex((phase) => phase.id === activePhase);
+function getPhaseStatus(
+  phaseId: JourneyPhaseId,
+  activePhase: JourneyPhaseId,
+): PhaseStatus {
+  const activeIndex = JOURNEY_PHASES.findIndex(
+    (phase) => phase.id === activePhase,
+  );
   const phaseIndex = JOURNEY_PHASES.findIndex((phase) => phase.id === phaseId);
 
   if (phaseIndex === -1 || activeIndex === -1) {
@@ -69,7 +77,10 @@ function getPhaseStatus(phaseId: JourneyPhaseId, activePhase: JourneyPhaseId): P
   return "upcoming";
 }
 
-export function JourneyPhaseBreadcrumb({ activePhase, currentStageLabel }: JourneyPhaseBreadcrumbProps) {
+export function JourneyPhaseBreadcrumb({
+  activePhase,
+  currentStageLabel,
+}: JourneyPhaseBreadcrumbProps) {
   return (
     <nav
       aria-label="Journey phases"
@@ -101,7 +112,9 @@ export function JourneyPhaseBreadcrumb({ activePhase, currentStageLabel }: Journ
                   >
                     {phase.label}
                   </p>
-                  <p className={cn("text-[11px] leading-tight", token.helper)}>{phase.helper}</p>
+                  <p className={cn("text-[11px] leading-tight", token.helper)}>
+                    {phase.helper}
+                  </p>
                   {isCurrent && currentStageLabel ? (
                     <p className="text-xs font-semibold text-[#0f766e]">
                       Current focus: {currentStageLabel}

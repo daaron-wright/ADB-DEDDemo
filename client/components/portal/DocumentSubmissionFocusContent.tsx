@@ -14,7 +14,10 @@ import { DocumentVaultCard } from "./DocumentVaultCard";
 import { DocumentVaultLayout } from "./DocumentVaultLayout";
 import { useDocumentVault } from "./DocumentVaultContext";
 import { DOCUMENT_VAULT_SOURCE_LABEL } from "./document-vault-data";
-import { PRIMARY_TRADE_NAME_EN, TRADE_NAME_RECEIPT_DOCUMENT_ID } from "./trade-name-constants";
+import {
+  PRIMARY_TRADE_NAME_EN,
+  TRADE_NAME_RECEIPT_DOCUMENT_ID,
+} from "./trade-name-constants";
 
 interface DocumentSubmissionFocusContentProps {
   journeyNumber?: string;
@@ -35,7 +38,6 @@ const POLARIS_RECOMMENDED_MOA_CLAUSE = `Custom Article 7 — Capital contributio
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise. Distributions shall be supported by audited management accounts and bilingual notices issued at least five (5) working days in advance. Polaris simulation includes bilingual notices and an ADJD review cover letter.`;
 
-
 export function DocumentSubmissionFocusContent({
   journeyNumber = "0987654321",
   progressPercent = 72,
@@ -51,18 +53,24 @@ export function DocumentSubmissionFocusContent({
     allDocumentsCompleted,
   } = useDocumentVault();
 
-  const [activeDocumentId, setActiveDocumentId] = React.useState<string>("memorandum-of-association");
+  const [activeDocumentId, setActiveDocumentId] = React.useState<string>(
+    "memorandum-of-association",
+  );
   const [showMoaAssistant, setShowMoaAssistant] = React.useState(true);
   const [isFinalisingMoa, setIsFinalisingMoa] = React.useState(false);
   const [isPaying, setIsPaying] = React.useState(false);
   const [hasPaid, setHasPaid] = React.useState(false);
-  const [licenseDetails, setLicenseDetails] = React.useState<LicenseDetails | null>(null);
+  const [licenseDetails, setLicenseDetails] =
+    React.useState<LicenseDetails | null>(null);
   const [progress, setProgress] = React.useState(progressPercent);
-  const [moaClauseDraft, setMoaClauseDraft] = React.useState<string>(INITIAL_MOA_CLAUSE_DRAFT);
+  const [moaClauseDraft, setMoaClauseDraft] = React.useState<string>(
+    INITIAL_MOA_CLAUSE_DRAFT,
+  );
   const [moaEditorNotes, setMoaEditorNotes] = React.useState<string>(
     "Polaris is ready to simulate bilingual clauses and prepare the ADJD review packet.",
   );
-  const [hasAppliedPolarisRevision, setHasAppliedPolarisRevision] = React.useState(false);
+  const [hasAppliedPolarisRevision, setHasAppliedPolarisRevision] =
+    React.useState(false);
 
   const activeDocument = React.useMemo(
     () => documents.find((item) => item.id === activeDocumentId),
@@ -152,7 +160,8 @@ export function DocumentSubmissionFocusContent({
       setProgress((value) => Math.max(value, 88));
       toast({
         title: "Custom MOA sent to ADJD",
-        description: "Polaris submitted the custom memorandum for review and saved a copy in your vault.",
+        description:
+          "Polaris submitted the custom memorandum for review and saved a copy in your vault.",
       });
     }, 1200);
   }, [activeDocumentId, isFinalisingMoa, toast, triggerVaultSync]);
@@ -164,7 +173,9 @@ export function DocumentSubmissionFocusContent({
 
     setProgress((value) => Math.max(value, 92));
 
-    if (documents.some((item) => item.status === "completed" && item.isExpanded)) {
+    if (
+      documents.some((item) => item.status === "completed" && item.isExpanded)
+    ) {
       setDocuments((previous) =>
         previous.map((item) =>
           item.status === "completed"
@@ -186,7 +197,8 @@ export function DocumentSubmissionFocusContent({
     setIsPaying(true);
     toast({
       title: "Opening AD Pay",
-      description: "Pay the final licence issuance fee to move into operations.",
+      description:
+        "Pay the final licence issuance fee to move into operations.",
     });
 
     paymentTimeoutRef.current = window.setTimeout(() => {
@@ -200,15 +212,19 @@ export function DocumentSubmissionFocusContent({
           month: "short",
           year: "numeric",
         }),
-        expiryDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toLocaleDateString(
-          "en-GB",
-          { day: "2-digit", month: "short", year: "numeric" },
-        ),
+        expiryDate: new Date(
+          new Date().setFullYear(new Date().getFullYear() + 1),
+        ).toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        }),
       };
       setLicenseDetails(issuedLicense);
       toast({
         title: "Licence issued",
-        description: "We pushed the licence PDF to your AD Locker and digital wallet.",
+        description:
+          "We pushed the licence PDF to your AD Locker and digital wallet.",
       });
     }, 1600);
   }, [allDocumentsCompleted, hasPaid, isPaying, toast]);
@@ -227,7 +243,8 @@ export function DocumentSubmissionFocusContent({
     return sections;
   }, [allDocumentsCompleted, licenseDetails, showMoaAssistant]);
 
-  const [openSections, setOpenSections] = React.useState<string[]>(defaultOpenSections);
+  const [openSections, setOpenSections] =
+    React.useState<string[]>(defaultOpenSections);
   const vaultManuallyCollapsedRef = React.useRef(false);
 
   React.useEffect(() => {
@@ -247,7 +264,11 @@ export function DocumentSubmissionFocusContent({
     (sectionId: string, options?: { bypassCollapsedGuard?: boolean }) => {
       setOpenSections((previous) => {
         const isVault = sectionId === "vault";
-        if (isVault && vaultManuallyCollapsedRef.current && !options?.bypassCollapsedGuard) {
+        if (
+          isVault &&
+          vaultManuallyCollapsedRef.current &&
+          !options?.bypassCollapsedGuard
+        ) {
           return previous;
         }
         if (previous.includes(sectionId)) {
@@ -281,7 +302,9 @@ export function DocumentSubmissionFocusContent({
   );
 
   React.useEffect(() => {
-    const receiptDocument = documents.find((item) => item.id === TRADE_NAME_RECEIPT_DOCUMENT_ID);
+    const receiptDocument = documents.find(
+      (item) => item.id === TRADE_NAME_RECEIPT_DOCUMENT_ID,
+    );
     const hasReceipt = Boolean(receiptDocument);
 
     if (hasReceipt && !receiptAutoFocusRef.current) {
@@ -301,7 +324,9 @@ export function DocumentSubmissionFocusContent({
     ? "Polaris guidance for notarisation"
     : "Polaris simulation ready — reopen anytime";
   const paymentSubtitle = hasPaid ? "Paid via AD Pay" : "AED 3,120 via AD Pay";
-  const licenceSubtitle = licenseDetails ? "Stored in AD Locker" : "Issued after payment";
+  const licenceSubtitle = licenseDetails
+    ? "Stored in AD Locker"
+    : "Issued after payment";
   const isVaultProcessing = isVaultSyncing || isFinalisingMoa;
   const vaultStatusHeading = isVaultProcessing
     ? "Syncing your documents"
@@ -322,7 +347,9 @@ export function DocumentSubmissionFocusContent({
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
               Journey number
             </p>
-            <p className="text-lg font-semibold text-slate-900">{journeyNumber}</p>
+            <p className="text-lg font-semibold text-slate-900">
+              {journeyNumber}
+            </p>
           </div>
           <Badge className="inline-flex items-center gap-2 rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
             <Check className="h-3.5 w-3.5" strokeWidth={3} />
@@ -391,7 +418,9 @@ export function DocumentSubmissionFocusContent({
                 item={item}
                 isActive={item.isExpanded}
                 onSelect={handleDocumentClick}
-                disabled={isFinalisingMoa && item.id === "memorandum-of-association"}
+                disabled={
+                  isFinalisingMoa && item.id === "memorandum-of-association"
+                }
               />
             ))}
           </DocumentVaultLayout>
@@ -427,17 +456,26 @@ export function DocumentSubmissionFocusContent({
                 </div>
               </div>
               <p className="text-sm text-slate-600">
-                Polaris is simulating edits on your custom memorandum and preparing the ADJD review submission. Review the draft before we forward it.
+                Polaris is simulating edits on your custom memorandum and
+                preparing the ADJD review submission. Review the draft before we
+                forward it.
               </p>
               <div className="rounded-3xl border border-[#0f766e]/20 bg-[#0f766e]/5 p-4 text-sm text-[#0f766e]">
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={3} />
+                    <Check
+                      className="mt-0.5 h-4 w-4 shrink-0"
+                      strokeWidth={3}
+                    />
                     Simulated bilingual clauses aligned across the custom MOA.
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={3} />
-                    Polaris forwards the custom MOA to ADJD for review and tracks responses.
+                    <Check
+                      className="mt-0.5 h-4 w-4 shrink-0"
+                      strokeWidth={3}
+                    />
+                    Polaris forwards the custom MOA to ADJD for review and
+                    tracks responses.
                   </li>
                 </ul>
               </div>
@@ -452,7 +490,9 @@ export function DocumentSubmissionFocusContent({
                       Polaris simulated edit
                     </Badge>
                     <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
-                      {hasAppliedPolarisRevision ? "Updated moments ago" : "Awaiting confirmation"}
+                      {hasAppliedPolarisRevision
+                        ? "Updated moments ago"
+                        : "Awaiting confirmation"}
                     </span>
                   </div>
                   <div className="space-y-2">
@@ -483,12 +523,15 @@ export function DocumentSubmissionFocusContent({
                     <Textarea
                       id="moa-editor-notes"
                       value={moaEditorNotes}
-                      onChange={(event) => setMoaEditorNotes(event.target.value)}
+                      onChange={(event) =>
+                        setMoaEditorNotes(event.target.value)
+                      }
                       rows={4}
                       className="resize-none border-slate-200 bg-white text-sm leading-relaxed text-slate-700"
                     />
                     <p className="text-xs text-slate-500">
-                      Polaris tracks translation checks and review requirements for ADJD submission.
+                      Polaris tracks translation checks and review requirements
+                      for ADJD submission.
                     </p>
                   </div>
                   <div className="flex flex-wrap items-center gap-3">
@@ -498,7 +541,9 @@ export function DocumentSubmissionFocusContent({
                       disabled={isFinalisingMoa || hasAppliedPolarisRevision}
                       className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
                     >
-                      {hasAppliedPolarisRevision ? "Simulation prepared" : "Simulate Polaris edits"}
+                      {hasAppliedPolarisRevision
+                        ? "Simulation prepared"
+                        : "Simulate Polaris edits"}
                     </Button>
                     <Button
                       type="button"
@@ -539,7 +584,8 @@ export function DocumentSubmissionFocusContent({
           ) : (
             <div className="space-y-3">
               <p className="text-sm text-slate-600">
-                Reopen the guidance if you want Polaris to rerun the custom MOA simulation.
+                Reopen the guidance if you want Polaris to rerun the custom MOA
+                simulation.
               </p>
               <Button
                 type="button"
@@ -567,7 +613,8 @@ export function DocumentSubmissionFocusContent({
             AED 3,120
           </Badge>
           <p className="text-sm text-slate-600">
-            Pay once through AD Pay and we will push the licence to your wallet and AD Locker.
+            Pay once through AD Pay and we will push the licence to your wallet
+            and AD Locker.
           </p>
           <Button
             type="button"
@@ -581,7 +628,11 @@ export function DocumentSubmissionFocusContent({
             disabled={!allDocumentsCompleted || hasPaid || isPaying}
             className="w-full rounded-full bg-[#0f766e] px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {hasPaid ? "Payment complete with AD Pay" : isPaying ? "Processing via AD Pay..." : "Pay and issue licence"}
+            {hasPaid
+              ? "Payment complete with AD Pay"
+              : isPaying
+                ? "Processing via AD Pay..."
+                : "Pay and issue licence"}
           </Button>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
             Tenancy • MOA • Payment synced automatically
@@ -601,7 +652,9 @@ export function DocumentSubmissionFocusContent({
             <Badge
               className={cn(
                 "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                licenseDetails ? "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]" : "border-slate-200 bg-white text-slate-400",
+                licenseDetails
+                  ? "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]"
+                  : "border-slate-200 bg-white text-slate-400",
               )}
             >
               {licenseDetails ? "Issued" : "Pending"}
@@ -610,17 +663,29 @@ export function DocumentSubmissionFocusContent({
           {licenseDetails ? (
             <div className="space-y-3 rounded-3xl border border-[#94d2c2] bg-[#dff2ec]/60 p-5 text-sm text-[#0b7d6f]">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                <span className="font-semibold uppercase tracking-[0.18em]">Licence number</span>
-                <span className="text-base font-semibold">{licenseDetails.licenseNumber}</span>
+                <span className="font-semibold uppercase tracking-[0.18em]">
+                  Licence number
+                </span>
+                <span className="text-base font-semibold">
+                  {licenseDetails.licenseNumber}
+                </span>
               </div>
               <div className="grid gap-3 sm:grid-cols-2">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em]">Issued on</p>
-                  <p className="text-sm font-semibold">{licenseDetails.issueDate}</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em]">
+                    Issued on
+                  </p>
+                  <p className="text-sm font-semibold">
+                    {licenseDetails.issueDate}
+                  </p>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em]">Valid until</p>
-                  <p className="text-sm font-semibold">{licenseDetails.expiryDate}</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em]">
+                    Valid until
+                  </p>
+                  <p className="text-sm font-semibold">
+                    {licenseDetails.expiryDate}
+                  </p>
                 </div>
               </div>
               <p className="text-xs font-semibold uppercase tracking-[0.2em]">
@@ -629,7 +694,8 @@ export function DocumentSubmissionFocusContent({
             </div>
           ) : (
             <p className="text-sm text-slate-600">
-              Once the payment clears, we show the licence number here and sync it automatically.
+              Once the payment clears, we show the licence number here and sync
+              it automatically.
             </p>
           )}
         </CollapsibleCard>

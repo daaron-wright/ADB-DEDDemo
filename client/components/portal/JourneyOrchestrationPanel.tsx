@@ -217,13 +217,16 @@ export function JourneyOrchestrationPanel({
     setSelectedTimelineId(id);
   };
 
-  const isDocumentVaultStage = selectedTimelineItem?.id === "document-submissions";
+  const isDocumentVaultStage =
+    selectedTimelineItem?.id === "document-submissions";
   const hasVaultDocuments = Boolean(vaultContext?.totalDocuments);
-  const shouldShowVaultSummary = Boolean(vaultContext) && hasVaultDocuments && isDocumentVaultStage;
+  const shouldShowVaultSummary =
+    Boolean(vaultContext) && hasVaultDocuments && isDocumentVaultStage;
 
-  const vaultSubtitle = vaultContext && vaultContext.totalDocuments > 0
-    ? `${vaultContext.completedDocuments}/${vaultContext.totalDocuments} documents ready`
-    : "Documents syncing";
+  const vaultSubtitle =
+    vaultContext && vaultContext.totalDocuments > 0
+      ? `${vaultContext.completedDocuments}/${vaultContext.totalDocuments} documents ready`
+      : "Documents syncing";
   const vaultProcessing = Boolean(vaultContext?.isVaultSyncing);
   const vaultStatusHeading = vaultContext
     ? vaultProcessing
@@ -240,7 +243,9 @@ export function JourneyOrchestrationPanel({
         : "Documents update automatically whenever you finish a stage."
     : "";
 
-  const activeVaultDocument = vaultContext?.documents.find((item) => item.isExpanded);
+  const activeVaultDocument = vaultContext?.documents.find(
+    (item) => item.isExpanded,
+  );
 
   const handleVaultDocumentSelect = React.useCallback(
     (id: string) => {
@@ -455,7 +460,8 @@ export function JourneyOrchestrationPanel({
                   </DocumentVaultLayout>
                   {vaultContext?.allDocumentsCompleted ? (
                     <div className="rounded-2xl border border-[#94d2c2] bg-[#dff2ec]/60 p-3 text-xs font-semibold text-[#0b7d6f]">
-                      Every document is signed and stored. You can issue the licence.
+                      Every document is signed and stored. You can issue the
+                      licence.
                     </div>
                   ) : null}
                 </div>

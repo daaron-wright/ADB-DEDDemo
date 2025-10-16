@@ -1,6 +1,7 @@
 import type { DocumentStatus, DocumentVaultItem } from "./document-vault-types";
 
-export const DOCUMENT_VAULT_SOURCE_LABEL = 'Synced from "My Business Documents" Vault';
+export const DOCUMENT_VAULT_SOURCE_LABEL =
+  'Synced from "My Business Documents" Vault';
 
 export const DOCUMENT_VAULT_IMAGE_URL =
   "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fdcbbbf1fba0441838566c6e2d3105aa0?format=webp&width=800";

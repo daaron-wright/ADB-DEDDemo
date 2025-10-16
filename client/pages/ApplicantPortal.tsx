@@ -7,7 +7,10 @@ import { Progress } from "@/components/ui/progress";
 import { BusinessChatUI } from "@/components/ui/business-chat-ui";
 import { PortalPageLayout } from "@/components/portal/PortalPageLayout";
 import { PortalProfileMenu } from "@/components/portal/PortalProfileMenu";
-import { JourneyPhaseBreadcrumb, type JourneyPhaseId } from "@/components/portal/JourneyPhaseBreadcrumb";
+import {
+  JourneyPhaseBreadcrumb,
+  type JourneyPhaseId,
+} from "@/components/portal/JourneyPhaseBreadcrumb";
 import { JourneyView } from "@/components/portal/JourneyView";
 import type { JourneyStep } from "@/components/portal/JourneyStepper";
 import type {
@@ -42,7 +45,12 @@ interface ApplicationRecord {
   title: string;
   directorate: string;
   beneficiary: "Citizen" | "Resident" | "Investor" | "Visitor";
-  status: "In Review" | "Awaiting Documents" | "Approved" | "Draft" | "Compliant";
+  status:
+    | "In Review"
+    | "Awaiting Documents"
+    | "Approved"
+    | "Draft"
+    | "Compliant";
   licenseType: "Commercial License" | "Dual License";
   progress: number;
   submissionDate: string;
@@ -1144,7 +1152,11 @@ export default function ApplicantPortal() {
   const handleTradeNameChange = useCallback(
     (tradeName: string | null) => {
       const normalized = tradeName?.trim();
-      setApplicationWorkingTitle(normalized && normalized.length > 0 ? normalized : DEFAULT_WORKSPACE_TITLE);
+      setApplicationWorkingTitle(
+        normalized && normalized.length > 0
+          ? normalized
+          : DEFAULT_WORKSPACE_TITLE,
+      );
     },
     [setApplicationWorkingTitle],
   );
@@ -1943,12 +1955,17 @@ export default function ApplicantPortal() {
           }
         : undefined;
 
-    const stageIndex = stageId ? journeyStages.findIndex((stage) => stage.id === stageId) : -1;
+    const stageIndex = stageId
+      ? journeyStages.findIndex((stage) => stage.id === stageId)
+      : -1;
     const priorStagesComplete =
       stageId && stageIndex > 0
         ? journeyStages
             .slice(0, stageIndex)
-            .every((stage) => (stageProgress[stage.id] ?? deriveStageState(stage)) === "done")
+            .every(
+              (stage) =>
+                (stageProgress[stage.id] ?? deriveStageState(stage)) === "done",
+            )
         : true;
 
     const focusViewProps: JourneyStageFocusViewProps = {
@@ -1968,7 +1985,8 @@ export default function ApplicantPortal() {
       stageActivities: stageActivityContext,
       tradeName: applicationWorkingTitle,
       onTradeNameChange: handleTradeNameChange,
-      growthUnlocked: stageId === "compliance-growth" ? priorStagesComplete : undefined,
+      growthUnlocked:
+        stageId === "compliance-growth" ? priorStagesComplete : undefined,
     };
 
     if (stageId === "questionnaire") {
@@ -2409,65 +2427,65 @@ export default function ApplicantPortal() {
   return (
     <DocumentVaultProvider>
       <div className="relative" lang={language === "ar" ? "ar" : "en"}>
-      <PortalPageLayout
-        title={workspaceHeroTitle}
-        subtitle={languageCopy.subtitle}
-        description={workspaceDescription}
-        filters={filters}
-        headerActions={headerActions}
-        phaseNavigation={phaseNavigation}
-        fullWidthSection={
-          <>
-            {heroSection}
-            {questionnaireOnboardingSection}
-            {journeyOverviewSection}
-          </>
-        }
-        brand={portalBrand}
-      >
-        <section className="space-y-6">
-          <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 text-sm leading-relaxed text-slate-700">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              {languageCopy.applicationSummaryHeading}
-            </h3>
-            <p className="mt-3">{displayApplication.summary}</p>
-            <p className="mt-3 text-xs text-[#0f766e]">
-              {languageCopy.applicationSummaryNote}
-            </p>
-          </div>
-        </section>
-      </PortalPageLayout>
+        <PortalPageLayout
+          title={workspaceHeroTitle}
+          subtitle={languageCopy.subtitle}
+          description={workspaceDescription}
+          filters={filters}
+          headerActions={headerActions}
+          phaseNavigation={phaseNavigation}
+          fullWidthSection={
+            <>
+              {heroSection}
+              {questionnaireOnboardingSection}
+              {journeyOverviewSection}
+            </>
+          }
+          brand={portalBrand}
+        >
+          <section className="space-y-6">
+            <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 text-sm leading-relaxed text-slate-700">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                {languageCopy.applicationSummaryHeading}
+              </h3>
+              <p className="mt-3">{displayApplication.summary}</p>
+              <p className="mt-3 text-xs text-[#0f766e]">
+                {languageCopy.applicationSummaryNote}
+              </p>
+            </div>
+          </section>
+        </PortalPageLayout>
 
-      <button
-        type="button"
-        onClick={handleOpenChat}
-        className="fixed bottom-6 right-6 z-50 inline-flex h-16 w-16 items-center justify-center rounded-full border border-[#0f766e] bg-white text-[#0f766e] shadow-[0_26px_70px_-40px_rgba(15,23,42,0.35)] transition hover:bg-[#f4faf8] hover:text-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40"
-        aria-label={languageCopy.chatCta}
-      >
-        <span className="sr-only">{languageCopy.chatCta}</span>
-        <MessageCircle className="h-7 w-7" aria-hidden="true" />
-      </button>
-      {isTimelineBackgroundBlurred ? (
-        <div className="fixed inset-0 z-40 bg-white/40 backdrop-blur-lg transition-opacity duration-500" />
-      ) : null}
-      {isChatOpen && (
-        <div className="pointer-events-none fixed inset-0 z-60 bg-black/10 backdrop-blur-xl transition-opacity duration-300" />
-      )}
-      <div className="relative z-[70]">
-        <BusinessChatUI
-          isOpen={isChatOpen}
-          mode="modal"
-          onClose={handleCloseChat}
-          category="restaurants"
-          title={languageCopy.businessAITitle}
-          initialMessage={chatInitialMessage}
-          journeyFocusView={journeyFocusViewProps}
-          suppressChatInterface={shouldSuppressChatInterface}
-          hasCompletedApplication={isApplicationComplete}
-          feedbackThreshold={4}
-        />
+        <button
+          type="button"
+          onClick={handleOpenChat}
+          className="fixed bottom-6 right-6 z-50 inline-flex h-16 w-16 items-center justify-center rounded-full border border-[#0f766e] bg-white text-[#0f766e] shadow-[0_26px_70px_-40px_rgba(15,23,42,0.35)] transition hover:bg-[#f4faf8] hover:text-[#0c6059] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40"
+          aria-label={languageCopy.chatCta}
+        >
+          <span className="sr-only">{languageCopy.chatCta}</span>
+          <MessageCircle className="h-7 w-7" aria-hidden="true" />
+        </button>
+        {isTimelineBackgroundBlurred ? (
+          <div className="fixed inset-0 z-40 bg-white/40 backdrop-blur-lg transition-opacity duration-500" />
+        ) : null}
+        {isChatOpen && (
+          <div className="pointer-events-none fixed inset-0 z-60 bg-black/10 backdrop-blur-xl transition-opacity duration-300" />
+        )}
+        <div className="relative z-[70]">
+          <BusinessChatUI
+            isOpen={isChatOpen}
+            mode="modal"
+            onClose={handleCloseChat}
+            category="restaurants"
+            title={languageCopy.businessAITitle}
+            initialMessage={chatInitialMessage}
+            journeyFocusView={journeyFocusViewProps}
+            suppressChatInterface={shouldSuppressChatInterface}
+            hasCompletedApplication={isApplicationComplete}
+            feedbackThreshold={4}
+          />
+        </div>
       </div>
-    </div>
     </DocumentVaultProvider>
   );
 }

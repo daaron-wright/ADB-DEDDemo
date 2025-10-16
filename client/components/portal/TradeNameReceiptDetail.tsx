@@ -84,7 +84,11 @@ export function TradeNameReceiptDetail() {
     { label: "Activity name", value: activityName },
     { label: "Activity code", value: activityCode },
     { label: "Trade name (EN)", value: PRIMARY_TRADE_NAME_EN },
-    { label: "Trade name (AR)", value: PRIMARY_TRADE_NAME_AR, direction: "rtl" },
+    {
+      label: "Trade name (AR)",
+      value: PRIMARY_TRADE_NAME_AR,
+      direction: "rtl",
+    },
   ];
 
   return (
@@ -95,7 +99,9 @@ export function TradeNameReceiptDetail() {
             <FileText className="h-5 w-5" />
           </span>
           <div>
-            <p className="text-base font-semibold text-slate-900">Trade Name Reservation Document</p>
+            <p className="text-base font-semibold text-slate-900">
+              Trade Name Reservation Document
+            </p>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
               CONTRACT_main · Digitally signed
             </p>
@@ -135,13 +141,21 @@ export function TradeNameReceiptDetail() {
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        <Button asChild className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059]">
-          <a href={TRADE_NAME_RECEIPT_IMAGE_URL} target="_blank" rel="noreferrer">
+        <Button
+          asChild
+          className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059]"
+        >
+          <a
+            href={TRADE_NAME_RECEIPT_IMAGE_URL}
+            target="_blank"
+            rel="noreferrer"
+          >
             Open digital receipt
           </a>
         </Button>
         <p className="text-xs text-slate-500">
-          Polaris saved the signed receipt exactly as issued by ADRA. Open it above to view or download the original file.
+          Polaris saved the signed receipt exactly as issued by ADRA. Open it
+          above to view or download the original file.
         </p>
       </div>
 
