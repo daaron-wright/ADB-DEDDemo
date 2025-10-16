@@ -8,6 +8,10 @@ import { CollapsibleCard } from "./StageCollapsibleCard";
 import { cn } from "@/lib/utils";
 import { Check, Loader2 } from "lucide-react";
 
+const POLARIS_AUTOMATION_AVATAR_URL =
+  "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F12dc61b502f74026abe87288234cc2f1?format=webp&width=800";
+const POLARIS_AUTOMATION_AVATAR_ALT = "Polaris automation emblem";
+
 interface PreOperationalInspectionFocusContentProps {
   journeyNumber?: string;
   progressPercent?: number;
