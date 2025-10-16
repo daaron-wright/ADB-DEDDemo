@@ -640,6 +640,19 @@ export default function Index() {
                     className="inline-flex h-16 w-16 items-center justify-center rounded-full border border-[#0F766E] bg-white shadow-[0_26px_70px_-40px_rgba(15,23,42,0.35)] transition hover:bg-[#f7fffb] hover:shadow-[0_30px_80px_-45px_rgba(15,23,42,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E]/40"
                     aria-label="Show Polaris quick actions"
                   >
+                    {hasPolarisAvatar ? (
+                      <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-[#0F766E]/15 bg-white">
+                        <img
+                          src={polarisAvatarUrl}
+                          alt={polarisAvatarAlt}
+                          className="h-full w-full object-contain p-2"
+                        />
+                      </span>
+                    ) : (
+                      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0F766E]/10">
+                        <span className="h-6 w-6 rounded-full bg-[#0F766E]/40" />
+                      </span>
+                    )}
                     <span className="sr-only">Show Polaris quick actions</span>
                   </button>
                 )}
