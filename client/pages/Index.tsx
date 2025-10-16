@@ -32,6 +32,10 @@ export default function Index() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const polarisAvatarUrl = AI_ASSISTANT_PROFILE.avatar.trim();
+  const polarisAvatarAlt = AI_ASSISTANT_PROFILE.name;
+  const hasPolarisAvatar = polarisAvatarUrl.length > 0;
+
   const focusPointRef = useRef<{ x: number; y: number }>({
     ...FALLBACK_FOCUS,
   });
