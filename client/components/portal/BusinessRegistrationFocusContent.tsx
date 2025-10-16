@@ -1088,7 +1088,7 @@ export function BusinessRegistrationFocusContent({
                       ref={inputRef}
                       value={englishDraft}
                       onChange={(event) => setEnglishDraft(event.target.value)}
-                      placeholder="MARWA RESTAURANT"
+                      placeholder={PRIMARY_TRADE_NAME_EN}
                       className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
                       disabled={isChecking}
                     />
