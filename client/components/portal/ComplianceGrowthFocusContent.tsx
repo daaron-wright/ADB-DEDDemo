@@ -133,7 +133,7 @@ const INSPECTION_PIPELINE_STEPS: PipelineStep[] = [
   {
     id: "ocr",
     title: "OCR text extraction",
-    description: "Running Omnis OCR (Arabic + Latin) to capture bilingual trade name.",
+    description: "Running Polaris OCR (Arabic + Latin) to capture bilingual trade name.",
     helper: "Detected 3 high-signal lines",
   },
   {
@@ -775,11 +775,11 @@ export function ComplianceGrowthFocusContent({
   const renderSummaryCard = React.useCallback(
     (tab: TabKey) => {
       const isCompliance = tab === "compliance";
-      const badgeLabel = isCompliance ? "Live sync" : "Omnis insights";
+      const badgeLabel = isCompliance ? "Live sync" : "Polaris insights";
       const heading = isCompliance ? "Stay inspection-ready" : "Unlock expansion plays";
       const description = isCompliance
         ? "Monitor obligations, evidence, and renewals before authorities request them."
-        : "Use Omnis to surface high-value trends, partners, and regional expansion options.";
+        : "Use Polaris to surface high-value trends, partners, and regional expansion options.";
       const progress = isCompliance ? progressPercent : GROWTH_PROGRESS;
       const progressLabel = isCompliance ? "Compliance progress" : "Growth momentum";
       const summary = isCompliance ? complianceSummary : growthSummary;
@@ -881,11 +881,11 @@ export function ComplianceGrowthFocusContent({
               contentId="compliance-snapshot-card"
             >
               <div className="grid gap-4 sm:grid-cols-2">
-                <MetricSummary label="Outstanding actions" value="22%" helper="Items Omnis is tracking" />
+                <MetricSummary label="Outstanding actions" value="22%" helper="Items Polaris is tracking" />
                 <MetricSummary label="Authorities synced" value="78%" helper="Latest authority responses" />
               </div>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                Omnis updates these metrics each time an authority responds.
+                Polaris updates these metrics each time an authority responds.
               </p>
             </CollapsibleCard>
 
@@ -926,7 +926,7 @@ export function ComplianceGrowthFocusContent({
             <CollapsibleCard
               value="alerts"
               title="Compliance alerts"
-              subtitle={`${urgentItems.length} open • Calendar & Omnis`}
+              subtitle={`${urgentItems.length} open • Calendar & Polaris`}
               contentId="compliance-alerts-card"
             >
               {urgentItems.length > 0 ? (
@@ -983,8 +983,8 @@ export function ComplianceGrowthFocusContent({
                     </svg>
                   </span>
                   <div className="space-y-1">
-                    <p className="text-sm font-semibold text-slate-900">Proactive Omnis notifications</p>
-                    <p className="text-xs text-slate-600">Omnis monitors authority responses and pings you instantly.</p>
+                    <p className="text-sm font-semibold text-slate-900">Proactive Polaris notifications</p>
+                    <p className="text-xs text-slate-600">Polaris monitors authority responses and pings you instantly.</p>
                   </div>
                 </div>
                 <ul className="space-y-2 text-xs text-slate-600">
@@ -1005,7 +1005,7 @@ export function ComplianceGrowthFocusContent({
                   size="sm"
                   className="self-start rounded-full bg-[#169F9F] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-20px_rgba(23,135,126,0.45)] hover:bg-[#128080]"
                 >
-                  Configure Omnis alerts
+                  Configure Polaris alerts
                 </Button>
               </div>
             </CollapsibleCard>
@@ -1026,7 +1026,7 @@ export function ComplianceGrowthFocusContent({
 
           {!showGrowthTab ? (
             <div className="rounded-3xl border border-dashed border-[#0f766e]/40 bg-[#f5faf7] p-5 text-sm text-[#0f766e]">
-              Complete the earlier stages to unlock Omnis growth insights. Once the preceding steps are marked done, the Growth tab will appear automatically.
+              Complete the earlier stages to unlock Polaris growth insights. Once the preceding steps are marked done, the Growth tab will appear automatically.
             </div>
           ) : null}
         </TabsContent>
@@ -1070,7 +1070,7 @@ export function ComplianceGrowthFocusContent({
                   <MetricSummary label="Actions to take" value={`${GROWTH_ACTIONS}`} helper="High impact follow-ups" />
                 </div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                  Omnis refreshes the growth plan with market signals and partner data.
+                  Polaris refreshes the growth plan with market signals and partner data.
                 </p>
               </CollapsibleCard>
 
@@ -1374,7 +1374,7 @@ function InspectionUploadModule({
       ) : null}
       {showSubmittedMessage ? (
         <div className="rounded-2xl border border-[#d8e4df] bg-white p-3 text-sm text-slate-600">
-          Video submitted. Omnis AI is analysing the frames while the inspector is notified.
+          Video submitted. Polaris AI is analysing the frames while the inspector is notified.
         </div>
       ) : null}
       <div className="grid gap-3 sm:grid-cols-2">
@@ -1400,7 +1400,7 @@ function InspectionUploadModule({
           Submit for verification
         </Button>
         <p className="text-xs text-slate-500">
-          Once submitted, Omnis queues YOLO detection, OCR, and text verification before the DED inspector reviews.
+          Once submitted, Polaris queues YOLO detection, OCR, and text verification before the DED inspector reviews.
         </p>
       </div>
     </div>
@@ -1496,8 +1496,8 @@ function InspectionPipeline({
         </p>
         <p className="text-sm text-slate-600">
           {hasSubmission
-            ? "Omnis processes the video through each stage before the inspector completes the review."
-            : "Submit evidence to trigger the Omnis AI pipeline ahead of the inspector review."}
+            ? "Polaris processes the video through each stage before the inspector completes the review."
+            : "Submit evidence to trigger the Polaris AI pipeline ahead of the inspector review."}
         </p>
       </div>
       <div className="space-y-6">
@@ -1661,7 +1661,7 @@ function InspectionAuditReport({
             </span>
             <div>
               <p className="text-sm font-semibold text-slate-900">OCR text extraction</p>
-              <p className="text-xs text-slate-500">Omnis OCR · Arabic + Latin</p>
+              <p className="text-xs text-slate-500">Polaris OCR · Arabic + Latin</p>
             </div>
           </div>
           <ol className="space-y-2 text-sm text-slate-700">
@@ -1942,7 +1942,7 @@ function GrowthFeedbackCard({ prompts }: { prompts: readonly string[] }) {
         ))}
       </div>
       <div className="rounded-2xl border border-dashed border-[#d8e4df] bg-[#f5faf7] p-4 text-xs text-slate-500">
-        Feedback is routed to Omnis service designers and the DED regulatory team. Expect follow-up within 2 business
+        Feedback is routed to Polaris service designers and the DED regulatory team. Expect follow-up within 2 business
         days.
       </div>
     </div>
