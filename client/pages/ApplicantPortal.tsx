@@ -142,6 +142,7 @@ interface PortalLanguageCopy {
   heroButton: string;
   chatCta: string;
   journeyToggleLabel: (title: string) => string;
+  journeyIdLabel: string;
   fieldLabels: FieldLabelsCopy;
   nextActionHeading: string;
   nextActionButton: string;
@@ -320,7 +321,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     fieldLabels: {
       beneficiary: "المستفيد",
       licenseType: "نوع الرخصة",
-      submissionId: "معرّف الطلب",
+      submissionId: "معرّف ال��لب",
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإ��راء التالي",
@@ -372,7 +373,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       tasksCompleteMessage:
         "تم إكمال كل المهام لهذه المرحلة. راقبي تحديثات الأتمتة.",
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
-      openNextTask: "افتحي المهمة التالية",
+      openNextTask: "افتحي المهمة التال��ة",
       reviewStage: "استعرضي المرحلة",
       timelineAriaLabel: "التنقل بين مراحل الرحلة",
     },
