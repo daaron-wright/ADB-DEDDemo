@@ -32,7 +32,7 @@ const INITIAL_MOA_CLAUSE_DRAFT = `Custom Article 7 — Capital contributions & p
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise.`;
 const POLARIS_RECOMMENDED_MOA_CLAUSE = `Custom Article 7 — Capital contributions & profit distribution
-المادة 7 — ا��مساهمات ا����رأسمالية وتو��يع الأرب����ح
+المادة 7 — ا��مساهمات ا��رأسمالية وتو��يع الأرب����ح
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise. Distributions shall be supported by audited management accounts and bilingual notices issued at least five (5) working days in advance. Polaris simulation includes bilingual notices and an ADJD review cover letter.`;
 
@@ -362,6 +362,7 @@ export function DocumentSubmissionFocusContent({
               />
             ))}
           </DocumentVaultLayout>
+          <DocumentVaultDetail document={activeDocument} />
           {allDocumentsCompleted ? (
             <div className="rounded-3xl border border-[#94d2c2] bg-[#dff2ec]/70 p-4 text-sm font-semibold text-[#0b7d6f]">
               Every document is signed and stored. You can issue the licence.
