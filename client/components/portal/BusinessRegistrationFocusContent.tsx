@@ -1020,8 +1020,8 @@ export function BusinessRegistrationFocusContent({
                 variant="outline"
                 onClick={() => {
                   if (!isEditing) {
-                    setEnglishDraft(activeEnglishTradeName);
-                    setArabicDraft(activeArabicTradeName || "ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
+                    setEnglishDraft(activeEnglishTradeName || PRIMARY_TRADE_NAME_EN);
+                    setArabicDraft(activeArabicTradeName || PRIMARY_TRADE_NAME_AR);
                   }
                   setIsEditing((previous) => !previous);
                 }}
