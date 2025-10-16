@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { chatCardClass } from "@/lib/chat-style";
 import { Loader2 } from "lucide-react";
+import { PRIMARY_TRADE_NAME_EN } from "./trade-name-constants";
 
 interface MyTAMMDocumentsProps {
   companyName?: string;
