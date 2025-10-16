@@ -639,6 +639,13 @@ export function BusinessRegistrationFocusContent({
     setFailureReason(null);
     setAutomationProgress(clampProgress(progressPercent));
     setHasPerformedCheck(Boolean(tradeName));
+    if (reservationTimeoutRef.current) {
+      window.clearTimeout(reservationTimeoutRef.current);
+      reservationTimeoutRef.current = null;
+    }
+    setHasSelectedApprovedTradeName(false);
+    setHasSubmittedReservationApplication(false);
+    setIsSubmittingReservation(false);
     setIsEditing(false);
   }, [tradeName, isTradeNameAvailable, progressPercent]);
 
