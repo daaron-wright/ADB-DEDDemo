@@ -240,6 +240,8 @@ export function JourneyOrchestrationPanel({
         : "Documents update automatically whenever you finish a stage."
     : "";
 
+  const activeVaultDocument = vaultContext?.documents.find((item) => item.isExpanded);
+
   const handleVaultDocumentSelect = React.useCallback(
     (id: string) => {
       if (!vaultContext) {
