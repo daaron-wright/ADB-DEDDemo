@@ -395,8 +395,16 @@ export function PreOperationalInspectionFocusContent({
           contentId="preop-stage-automation"
         >
           <div className="flex flex-wrap items-center gap-4">
-            <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-[#0f766e]/20 bg-white">
-              <AIBusinessOrb className="h-9 w-9" />
+            <div className="relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-[#0f766e]/20 bg-white">
+              {hasAutomationAvatar ? (
+                <img
+                  src={POLARIS_AUTOMATION_AVATAR_URL}
+                  alt={POLARIS_AUTOMATION_AVATAR_ALT}
+                  className="h-full w-full object-contain p-2"
+                />
+              ) : (
+                <AIBusinessOrb className="h-9 w-9" />
+              )}
               <span className="absolute -right-1 -bottom-1 flex h-5 w-5 items-center justify-center rounded-full border border-white bg-[#0f766e] text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
                 AI
               </span>
