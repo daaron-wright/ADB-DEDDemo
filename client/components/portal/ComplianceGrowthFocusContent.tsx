@@ -152,7 +152,7 @@ const YOLO_DETECTION_SUMMARY = {
   bestFrame: {
     imageUrl:
       "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F29240359124f4852af554fef46d3b702?format=webp&width=800",
-    alt: "YOLO overlay confirming Marwah Restaurant exterior signboard compliance",
+    alt: "YOLO overlay confirming MARWA RESTAURANT exterior signboard compliance",
     boundingBox: {
       top: 18,
       left: 20,
