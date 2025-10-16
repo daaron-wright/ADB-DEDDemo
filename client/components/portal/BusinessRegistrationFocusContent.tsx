@@ -476,6 +476,11 @@ export function BusinessRegistrationFocusContent({
   const showVerificationSteps = hasPerformedCheck || isChecking;
   const displayProgress = Math.round(automationProgress);
 
+  const canSubmitReservation = React.useMemo(
+    () => isNameAvailable && hasSelectedApprovedTradeName && !hasSubmittedReservationApplication,
+    [hasSelectedApprovedTradeName, hasSubmittedReservationApplication, isNameAvailable],
+  );
+
   const tradeNameStatusToken = React.useMemo(() => {
     if (isChecking) {
       return {
@@ -510,6 +515,50 @@ export function BusinessRegistrationFocusContent({
       className: "border-slate-200 bg-white text-slate-500",
     };
   }, [hasPerformedCheck, hasSubmittedReservationApplication, isChecking, isNameAvailable]);
+
+  const tradeNameStatusMessage = React.useMemo(() => {
+    if (isChecking) {
+      return "We’re running the automated checks now.";
+    }
+
+    if (hasSubmittedReservationApplication) {
+      return "Reservation submitted. Continue with the document submission stage.";
+    }
+
+    if (isNameAvailable) {
+      return hasSelectedApprovedTradeName
+        ? "Trade name selected. Submit the reservation application and payment to continue."
+        : "Trade name approved. Select it to move forward.";
+    }
+
+    if (hasPerformedCheck) {
+      return "The last run flagged this trade name. Try updating and run the checks again.";
+    }
+
+    return "Provide a trade name and run the automated checks to continue.";
+  }, [
+    hasPerformedCheck,
+    hasSelectedApprovedTradeName,
+    hasSubmittedReservationApplication,
+    isChecking,
+    isNameAvailable,
+  ]);
+
+  const reservationActionHelper = React.useMemo(() => {
+    if (!isNameAvailable) {
+      return null;
+    }
+
+    if (hasSubmittedReservationApplication) {
+      return "Trade name reservation submitted. Document submissions will begin next.";
+    }
+
+    if (hasSelectedApprovedTradeName) {
+      return "Submit the reservation application and payment to unlock document submissions.";
+    }
+
+    return "Select the approved trade name to prepare the reservation application and payment.";
+  }, [hasSelectedApprovedTradeName, hasSubmittedReservationApplication, isNameAvailable]);
 
   const verificationStatusLabel = isChecking
     ? "Checks running"
