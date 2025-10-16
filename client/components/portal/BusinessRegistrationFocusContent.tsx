@@ -934,18 +934,53 @@ export function BusinessRegistrationFocusContent({
                   }
                   setIsEditing((previous) => !previous);
                 }}
+                disabled={isSubmittingReservation}
                 className="rounded-full border-[#0f766e]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
               >
                 {isEditing ? "Close editor" : "Edit trade name"}
               </Button>
-              <Button
-                type="button"
-                onClick={handleRunChecks}
-                disabled={isChecking}
-                className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {isChecking ? "Running checks..." : "Run automated checks"}
-              </Button>
+              {isNameAvailable ? (
+                <>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleSelectApprovedTradeName}
+                    disabled={
+                      hasSelectedApprovedTradeName ||
+                      hasSubmittedReservationApplication ||
+                      isSubmittingReservation
+                    }
+                    className="rounded-full border-[#0f766e]/40 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {hasSubmittedReservationApplication
+                      ? "Trade name reserved"
+                      : hasSelectedApprovedTradeName
+                      ? "Trade name selected"
+                      : "Select trade name"}
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={handleSubmitReservationApplication}
+                    disabled={!canSubmitReservation || isSubmittingReservation}
+                    className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {hasSubmittedReservationApplication
+                      ? "Reservation submitted"
+                      : isSubmittingReservation
+                      ? "Submitting reservation..."
+                      : "Submit reservation & pay"}
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  type="button"
+                  onClick={handleRunChecks}
+                  disabled={isChecking || isSubmittingReservation || hasSubmittedReservationApplication}
+                  className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {isChecking ? "Running checks..." : "Run automated checks"}
+                </Button>
+              )}
             </div>
 
             {isEditing ? (
