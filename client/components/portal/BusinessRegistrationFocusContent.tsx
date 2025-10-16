@@ -939,7 +939,7 @@ export function BusinessRegistrationFocusContent({
                     Arabic name
                   </p>
                   <p className="mt-1 text-sm font-semibold text-[#0f766e]" dir="rtl">
-                    {activeArabicTradeName || "—"}
+                    {activeArabicTradeName || "ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭ�� مطعم مروة"}
                   </p>
                 </div>
               </div>
