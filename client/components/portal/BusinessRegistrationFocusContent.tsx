@@ -1111,7 +1111,7 @@ export function BusinessRegistrationFocusContent({
                     <Input
                       value={arabicDraft}
                       onChange={(event) => setArabicDraft(event.target.value)}
-                      placeholder="ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة"
+                      placeholder={PRIMARY_TRADE_NAME_AR}
                       dir="rtl"
                       className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
                       disabled={isChecking}
