@@ -14,6 +14,7 @@ import { DocumentVaultCard } from "./DocumentVaultCard";
 import { DocumentVaultLayout } from "./DocumentVaultLayout";
 import { useDocumentVault } from "./DocumentVaultContext";
 import { DOCUMENT_VAULT_SOURCE_LABEL } from "./document-vault-data";
+import { PRIMARY_TRADE_NAME_EN } from "./trade-name-constants";
 
 interface DocumentSubmissionFocusContentProps {
   journeyNumber?: string;
