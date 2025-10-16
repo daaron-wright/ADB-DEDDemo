@@ -10,7 +10,7 @@ export const INITIAL_DOCUMENTS: DocumentVaultItem[] = [
     id: "tenancy-contract",
     title: "Tenancy Contract",
     description:
-      "Omnis pulled your stamped tenancy contract directly from Tamkeen via AD Connect.",
+      "Polaris pulled your stamped tenancy contract directly from Tamkeen via AD Connect.",
     source: DOCUMENT_VAULT_SOURCE_LABEL,
     sourceDetail: DOCUMENT_VAULT_SOURCE_LABEL,
     status: "completed",
@@ -26,7 +26,7 @@ export const INITIAL_DOCUMENTS: DocumentVaultItem[] = [
     source: DOCUMENT_VAULT_SOURCE_LABEL,
     sourceDetail: DOCUMENT_VAULT_SOURCE_LABEL,
     status: "requires_action",
-    actionLabel: "Review with Omnis",
+    actionLabel: "Review with Polaris",
     integrationBadge: "ADJD",
     isExpanded: true,
   },
