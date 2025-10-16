@@ -106,6 +106,14 @@ export function TradeNameReceiptDetail() {
         </Badge>
       </header>
 
+      <div className="overflow-hidden rounded-2xl border border-[#e6f2ed] bg-white/95">
+        <img
+          src={TRADE_NAME_RECEIPT_IMAGE_URL}
+          alt="Trade name reservation receipt for MARWA RESTAURANT"
+          className="w-full object-cover"
+        />
+      </div>
+
       <div className="grid gap-3 rounded-2xl border border-[#e6f2ed] bg-[#f8fbfa] p-4 text-sm text-slate-600 sm:grid-cols-2 lg:grid-cols-4">
         {metadataItems.map((item) => (
           <div key={item.label} className="space-y-1">
