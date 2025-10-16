@@ -75,20 +75,28 @@ export function PortalPageLayout({
               ) : null}
             </div>
 
-            <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-              <div className="max-w-3xl space-y-3 text-slate-900">
-                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  {subtitle}
-                </p>
-                <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
-                  {title}
-                </h1>
-                {description ? (
-                  <p className="text-base leading-relaxed text-slate-600">
-                    {description}
+            <div className="flex flex-col gap-6 lg:gap-8">
+              <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+                <div className="max-w-3xl space-y-3 text-slate-900">
+                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    {subtitle}
                   </p>
-                ) : null}
+                  <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+                    {title}
+                  </h1>
+                  {description ? (
+                    <p className="text-base leading-relaxed text-slate-600">
+                      {description}
+                    </p>
+                  ) : null}
+                </div>
+                {phaseNavigation ? <div className="w-full max-w-lg lg:w-auto">{phaseNavigation}</div> : null}
               </div>
+              {!phaseNavigation ? null : (
+                <div className="lg:hidden">
+                  {/* spacer to keep gap structure on small screens */}
+                </div>
+              )}
             </div>
           </div>
         </header>
