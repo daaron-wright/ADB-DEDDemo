@@ -11,10 +11,11 @@ import { Check, Wallet } from "lucide-react";
 import { CollapsibleCard } from "./StageCollapsibleCard";
 import { MyTAMMDocuments } from "./MyTAMMDocuments";
 import { DocumentVaultCard } from "./DocumentVaultCard";
+import { DocumentVaultDetail } from "./DocumentVaultDetail";
 import { DocumentVaultLayout } from "./DocumentVaultLayout";
 import { useDocumentVault } from "./DocumentVaultContext";
 import { DOCUMENT_VAULT_SOURCE_LABEL } from "./document-vault-data";
-import { PRIMARY_TRADE_NAME_EN } from "./trade-name-constants";
+import { PRIMARY_TRADE_NAME_EN, TRADE_NAME_RECEIPT_DOCUMENT_ID } from "./trade-name-constants";
 
 interface DocumentSubmissionFocusContentProps {
   journeyNumber?: string;
