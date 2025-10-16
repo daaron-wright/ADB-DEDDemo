@@ -606,12 +606,15 @@ export function BusinessRegistrationFocusContent({
       if (existingIndex >= 0) {
         return previous.map((item, index) =>
           index === existingIndex
-            ? { ...receiptDocument, isExpanded: item.isExpanded }
-            : item,
+            ? { ...receiptDocument, isExpanded: true }
+            : { ...item, isExpanded: false },
         );
       }
 
-      return [receiptDocument, ...previous];
+      return [
+        { ...receiptDocument, isExpanded: true },
+        ...previous.map((item) => ({ ...item, isExpanded: false })),
+      ];
     });
   }, [setDocuments]);
 
