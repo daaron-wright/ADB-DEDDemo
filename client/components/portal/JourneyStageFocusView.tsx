@@ -102,44 +102,48 @@ const STAGE_STATUS_TOKENS: Record<JourneyStageStatusState, {
   },
 };
 
-function normalizeCompatibilityPercent(score?: number | null): number | null {
-  if (typeof score !== "number" || Number.isNaN(score) || !Number.isFinite(score)) {
-    return null;
-  }
-
-  const scaled =
-    score > 1 && score <= 100
-      ? score
-      : score * 100;
-
-  const clamped = Math.min(Math.max(scaled, 0), 100);
-  return Math.round(clamped);
-}
-
-const LICENSE_TYPE_PROFILES: LicenseTypeProfile[] = [
+export const DEFAULT_LEGAL_FORM_OPTIONS: LegalFormOption[] = [
   {
-    id: "commercial",
-    title: "Commercial license",
-    summary: "Full trading privileges for dine-in, delivery, and catering services.",
-    feeEstimate: "AED 3,000 – 8,000",
+    id: "establishment",
+    title: "Establishment",
     highlights: [
-      "Allows bundling of multiple restaurant activities",
-      "Supports investor visas and banking onboarding",
+      "Entity owned by one individual who assumes all of its financial responsibilities.",
     ],
-    evaluationPrompt:
-      "Commercial license scenario: Operate a dine-in restaurant in Abu Dhabi with delivery and catering under a commercial Department of Economic Development license.",
   },
   {
-    id: "professional",
-    title: "Professional license",
-    summary: "Ideal for consultancy-led or niche culinary services.",
-    feeEstimate: "AED 3,000 – 8,000",
+    id: "llc-sole",
+    title: "Sole Proprietorship Company",
     highlights: [
-      "Lower upfront cost and flexible ownership structures",
-      "Suited for chef-driven or boutique concepts",
+      "Limited liability company owned by one individual whose liability is limited to their shares.",
     ],
-    evaluationPrompt:
-      "Professional license scenario: Offer consultancy-led culinary services and boutique concepts with flexible ownership under a professional license structure.",
+  },
+  {
+    id: "llc",
+    title: "Limited Liability Company",
+    highlights: [
+      "Entity owned by at least 2 people with liability limited to their shares.",
+    ],
+  },
+  {
+    id: "pjsc",
+    title: "Public Joint Stock Company",
+    highlights: [
+      "Entity owned by at least 3 shareholders with liability limited to their shares.",
+    ],
+  },
+  {
+    id: "prjsc",
+    title: "Private Joint Stock Company",
+    highlights: [
+      "Entity owned by at least 10 shareholders where 55% of shares are offered to the public.",
+    ],
+  },
+  {
+    id: "single-shareholder-jsc",
+    title: "Single Shareholder Joint Stock Company",
+    highlights: [
+      "Entity founded by a UAE national with liability limited to their shares.",
+    ],
   },
 ];
 
