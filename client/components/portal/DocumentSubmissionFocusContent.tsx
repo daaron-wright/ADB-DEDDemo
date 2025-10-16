@@ -31,7 +31,7 @@ const INITIAL_MOA_CLAUSE_DRAFT = `Custom Article 7 — Capital contributions & p
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise.`;
 const POLARIS_RECOMMENDED_MOA_CLAUSE = `Custom Article 7 — Capital contributions & profit distribution
-المادة 7 — ا��مساهمات ا��رأسمالية وتو��يع الأرب����ح
+المادة 7 — ا���مساهمات ا��رأسمالية وتو��يع الأرب����ح
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise. Distributions shall be supported by audited management accounts and bilingual notices issued at least five (5) working days in advance. Polaris simulation includes bilingual notices and an ADJD review cover letter.`;
 
@@ -63,6 +63,11 @@ export function DocumentSubmissionFocusContent({
     "Polaris is ready to simulate bilingual clauses and prepare the ADJD review packet.",
   );
   const [hasAppliedPolarisRevision, setHasAppliedPolarisRevision] = React.useState(false);
+
+  const activeDocument = React.useMemo(
+    () => documents.find((item) => item.id === activeDocumentId),
+    [documents, activeDocumentId],
+  );
 
   const receiptAutoFocusRef = React.useRef(false);
   const completionTimeoutRef = React.useRef<number | null>(null);
