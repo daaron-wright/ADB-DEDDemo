@@ -447,7 +447,7 @@ export function DocumentSubmissionFocusContent({
                       disabled={isFinalisingMoa}
                       className="rounded-full border-[#0f766e]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
                     >
-                      Reset draft
+                      Reset simulation
                     </Button>
                   </div>
                 </div>
