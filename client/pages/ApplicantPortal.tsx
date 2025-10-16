@@ -100,7 +100,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before we display your license summary, let's confirm the right legal structure, business activities, and physical space requirements together. Once we complete this intake, I'll publish your license type and submission ID.",
-  ar: "قبل أن أعرض تفاصيل الترخيص، دعينا ن��كد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل���ات المساحة. بمجرد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
+  ar: "قبل أن أعرض تفاصيل الترخيص، دعينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل���ات المساحة. بمجرد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
 };
 
 type QuestionnaireProgress = "not_started" | "in_progress" | "completed";
@@ -300,7 +300,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     subtitle: "��وابة رخصة ال��عمال",
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
-      `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة ��لت��لية.`,
+      `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة ��لتالية.`,
     workspaceSupportBadge: "دعم مسا��ة ����لعمل",
     supportHeading: "تحتاجين إلى مساع��ة؟",
     supportDescription: {
@@ -340,7 +340,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     businessActivityGuidanceLabel:
       "أضيفي إرشادات الترخيص إلى استبيان الأنشطة التجارية",
     statusLabelMap: {
-      "In Review": "قيد المر��جعة",
+      "In Review": "قيد المراجعة",
       "Awaiting Documents": "بانتظار المستندات",
       Approved: "موافق عليه",
       Draft: "مسودة",
@@ -817,10 +817,10 @@ const RECOMMENDED_STAGE_ACTIVITIES: Record<
       type: "general",
     },
     {
-      id: "license-types",
-      label: "License types",
+      id: "legal-forms",
+      label: "Legal forms",
       description:
-        "Compare commercial versus professional pathways for your concept.",
+        "Review entity structures to align with your ownership and liability preferences.",
       type: "licensing",
     },
   ],
