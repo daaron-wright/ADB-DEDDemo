@@ -479,7 +479,7 @@ export function DocumentSubmissionFocusContent({
           ) : (
             <div className="space-y-3">
               <p className="text-sm text-slate-600">
-                Reopen the guidance if you want Polaris to walk you through the notarisation again.
+                Reopen the guidance if you want Polaris to rerun the custom MOA simulation.
               </p>
               <Button
                 type="button"
