@@ -373,11 +373,11 @@ export function DocumentSubmissionFocusContent({
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
                     <Check className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={3} />
-                    Key clauses aligned in Arabic and English.
+                    Simulated bilingual clauses aligned across the custom MOA.
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={3} />
-                    Polaris sends the signed MOA to ADJD and stores the notarised copy.
+                    Polaris forwards the custom MOA to ADJD for review and tracks responses.
                   </li>
                 </ul>
               </div>
