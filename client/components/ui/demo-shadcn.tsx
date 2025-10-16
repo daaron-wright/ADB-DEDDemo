@@ -116,7 +116,7 @@ export const ShadCNDemo = () => {
             <div className="flex items-center space-x-4">
               <AIBusinessOrb className="h-12 w-12" />
               <div>
-                <p className="font-medium">Omnis Assistant</p>
+                <p className="font-medium">Polaris Assistant</p>
                 <p className="text-sm text-muted-foreground">AI-powered business guide</p>
               </div>
             </div>
