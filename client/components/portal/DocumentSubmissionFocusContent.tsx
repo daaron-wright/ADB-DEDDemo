@@ -85,23 +85,26 @@ export function DocumentSubmissionFocusContent({
     };
   }, []);
 
-  const handleSelectDocument = React.useCallback((id: string) => {
-    setDocuments((previous) =>
-      previous.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              isExpanded: item.status !== "completed",
-            }
-          : {
-              ...item,
-              isExpanded: false,
-            },
-      ),
-    );
-    setActiveDocumentId(id);
-    setShowMoaAssistant(id === "memorandum-of-association");
-  }, []);
+  const handleSelectDocument = React.useCallback(
+    (id: string) => {
+      setDocuments((previous) =>
+        previous.map((item) =>
+          item.id === id
+            ? {
+                ...item,
+                isExpanded: true,
+              }
+            : {
+                ...item,
+                isExpanded: false,
+              },
+        ),
+      );
+      setActiveDocumentId(id);
+      setShowMoaAssistant(id === "memorandum-of-association");
+    },
+    [setDocuments],
+  );
 
   const handleApplyPolarisRevision = React.useCallback(() => {
     setMoaClauseDraft(POLARIS_RECOMMENDED_MOA_CLAUSE);
