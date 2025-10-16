@@ -5974,6 +5974,9 @@ export function BusinessChatUI({
   const [isAdvisorPanelOpen, setAdvisorPanelOpen] = useState(false);
   const [hasTriggeredSuggestedTopics, setHasTriggeredSuggestedTopics] =
     useState(false);
+  const assistantName = title || AI_ASSISTANT_PROFILE.name;
+  const assistantAvatarUrl = AI_ASSISTANT_PROFILE.avatar.trim();
+  const hasAssistantAvatar = assistantAvatarUrl.length > 0;
 
   useEffect(() => {
     if (hasCompletedApplication && !hasFeedbackPrompted) {
