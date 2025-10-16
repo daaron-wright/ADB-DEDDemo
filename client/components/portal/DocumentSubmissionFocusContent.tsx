@@ -59,9 +59,9 @@ export function DocumentSubmissionFocusContent({
   const [progress, setProgress] = React.useState(progressPercent);
   const [moaClauseDraft, setMoaClauseDraft] = React.useState<string>(INITIAL_MOA_CLAUSE_DRAFT);
   const [moaEditorNotes, setMoaEditorNotes] = React.useState<string>(
-    "Omnis highlighted the bilingual clause to align with ADJD templates before notarisation.",
+    "Polaris highlighted the bilingual clause to align with ADJD templates before notarisation.",
   );
-  const [hasAppliedOmnisRevision, setHasAppliedOmnisRevision] = React.useState(false);
+  const [hasAppliedPolarisRevision, setHasAppliedPolarisRevision] = React.useState(false);
 
   const completionTimeoutRef = React.useRef<number | null>(null);
   const paymentTimeoutRef = React.useRef<number | null>(null);
@@ -95,14 +95,14 @@ export function DocumentSubmissionFocusContent({
     setShowMoaAssistant(id === "memorandum-of-association");
   }, []);
 
-  const handleApplyOmnisRevision = React.useCallback(() => {
+  const handleApplyPolarisRevision = React.useCallback(() => {
     setMoaClauseDraft(OMNIS_RECOMMENDED_MOA_CLAUSE);
-    setHasAppliedOmnisRevision(true);
+    setHasAppliedPolarisRevision(true);
     setMoaEditorNotes(
-      "Omnis inserted the bilingual clause and aligned profit notices with ADJD templates.",
+      "Polaris inserted the bilingual clause and aligned profit notices with ADJD templates.",
     );
     toast({
-      title: "Omnis revisions applied",
+      title: "Polaris revisions applied",
       description:
         "Arabic translation and profit notice standards were merged into the draft.",
     });
@@ -111,9 +111,9 @@ export function DocumentSubmissionFocusContent({
   const handleResetMoaRevision = React.useCallback(() => {
     setMoaClauseDraft(INITIAL_MOA_CLAUSE_DRAFT);
     setMoaEditorNotes(
-      "Omnis highlighted the bilingual clause to align with ADJD templates before notarisation.",
+      "Polaris highlighted the bilingual clause to align with ADJD templates before notarisation.",
     );
-    setHasAppliedOmnisRevision(false);
+    setHasAppliedPolarisRevision(false);
   }, []);
 
   const handleCompleteMoa = React.useCallback(() => {
@@ -254,7 +254,7 @@ export function DocumentSubmissionFocusContent({
 
   const vaultSubtitle = `${completedDocuments}/${totalDocuments} documents ready`;
   const moaSubtitle = showMoaAssistant
-    ? "Omnis guidance for notarisation"
+    ? "Polaris guidance for notarisation"
     : "Assistant closed — reopen anytime";
   const paymentSubtitle = hasPaid ? "Paid via AD Pay" : "AED 3,120 via AD Pay";
   const licenceSubtitle = licenseDetails ? "Stored in AD Locker" : "Issued after payment";
@@ -265,7 +265,7 @@ export function DocumentSubmissionFocusContent({
       ? "Vault up to date"
       : "Sync in progress";
   const vaultStatusDescription = isVaultProcessing
-    ? "Omnis is syncing new files from your journey stages."
+    ? "Polaris is syncing new files from your journey stages."
     : allDocumentsCompleted
       ? "Every document is stored with the latest updates."
       : "Documents update automatically whenever you finish a stage.";
@@ -360,7 +360,7 @@ export function DocumentSubmissionFocusContent({
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-slate-900">
-                    Guided notarisation with Omnis
+                    Guided notarisation with Polaris
                   </p>
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                     Live collaboration mode
@@ -378,7 +378,7 @@ export function DocumentSubmissionFocusContent({
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={3} />
-                    Omnis sends the signed MOA to ADJD and stores the notarised copy.
+                    Polaris sends the signed MOA to ADJD and stores the notarised copy.
                   </li>
                 </ul>
               </div>
@@ -390,10 +390,10 @@ export function DocumentSubmissionFocusContent({
                 <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <Badge className="inline-flex items-center gap-2 rounded-full border border-[#0f766e]/20 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                      Omnis live edit
+                      Polaris live edit
                     </Badge>
                     <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
-                      {hasAppliedOmnisRevision ? "Updated moments ago" : "Awaiting confirmation"}
+                      {hasAppliedPolarisRevision ? "Updated moments ago" : "Awaiting confirmation"}
                     </span>
                   </div>
                   <div className="space-y-2">
@@ -408,7 +408,7 @@ export function DocumentSubmissionFocusContent({
                       value={moaClauseDraft}
                       onChange={(event) => {
                         setMoaClauseDraft(event.target.value);
-                        setHasAppliedOmnisRevision(false);
+                        setHasAppliedPolarisRevision(false);
                       }}
                       rows={10}
                       className="min-h-[200px] resize-none border-[#0f766e]/20 bg-[#f9fbfa] text-sm leading-relaxed text-slate-700"
@@ -419,7 +419,7 @@ export function DocumentSubmissionFocusContent({
                       htmlFor="moa-editor-notes"
                       className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500"
                     >
-                      Omnis reviewer notes
+                      Polaris reviewer notes
                     </label>
                     <Textarea
                       id="moa-editor-notes"
@@ -429,17 +429,17 @@ export function DocumentSubmissionFocusContent({
                       className="resize-none border-slate-200 bg-white text-sm leading-relaxed text-slate-700"
                     />
                     <p className="text-xs text-slate-500">
-                      Omnis captures translation checks and board approvals inline with ADJD fields.
+                      Polaris captures translation checks and board approvals inline with ADJD fields.
                     </p>
                   </div>
                   <div className="flex flex-wrap items-center gap-3">
                     <Button
                       type="button"
-                      onClick={handleApplyOmnisRevision}
-                      disabled={isFinalisingMoa || hasAppliedOmnisRevision}
+                      onClick={handleApplyPolarisRevision}
+                      disabled={isFinalisingMoa || hasAppliedPolarisRevision}
                       className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
                     >
-                      {hasAppliedOmnisRevision ? "Revision applied" : "Apply Omnis revision"}
+                      {hasAppliedPolarisRevision ? "Revision applied" : "Apply Polaris revision"}
                     </Button>
                     <Button
                       type="button"
@@ -457,12 +457,12 @@ export function DocumentSubmissionFocusContent({
                 <Button
                   type="button"
                   onClick={handleCompleteMoa}
-                  disabled={isFinalisingMoa || !hasAppliedOmnisRevision}
+                  disabled={isFinalisingMoa || !hasAppliedPolarisRevision}
                   className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {isFinalisingMoa
                     ? "Finalising with ADJD..."
-                    : hasAppliedOmnisRevision
+                    : hasAppliedPolarisRevision
                       ? "Sign & notarise MOA"
                       : "Apply revisions to continue"}
                 </Button>
@@ -480,7 +480,7 @@ export function DocumentSubmissionFocusContent({
           ) : (
             <div className="space-y-3">
               <p className="text-sm text-slate-600">
-                Reopen the assistant if you want Omnis to walk you through the MOA again.
+                Reopen the assistant if you want Polaris to walk you through the MOA again.
               </p>
               <Button
                 type="button"
