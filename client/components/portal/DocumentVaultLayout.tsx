@@ -4,7 +4,7 @@ import { Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-import { DOCUMENT_VAULT_IMAGE_URL } from "./document-vault-data";
+import { DOCUMENT_VAULT_IMAGE_URL, MOA_PREVIEW_IMAGE_URL } from "./document-vault-data";
 import type { DocumentVaultItem } from "./document-vault-types";
 import {
   TRADE_NAME_RECEIPT_DOCUMENT_ID,
@@ -28,10 +28,13 @@ export function DocumentVaultLayout({
   className,
   activeDocument,
 }: DocumentVaultLayoutProps) {
-  const previewImageSrc =
-    activeDocument?.id === TRADE_NAME_RECEIPT_DOCUMENT_ID
-      ? TRADE_NAME_RECEIPT_IMAGE_URL
-      : DOCUMENT_VAULT_IMAGE_URL;
+  let previewImageSrc = DOCUMENT_VAULT_IMAGE_URL;
+
+  if (activeDocument?.id === "memorandum-of-association") {
+    previewImageSrc = MOA_PREVIEW_IMAGE_URL;
+  } else if (activeDocument?.id === TRADE_NAME_RECEIPT_DOCUMENT_ID) {
+    previewImageSrc = TRADE_NAME_RECEIPT_IMAGE_URL;
+  }
 
   const previewAlt = activeDocument
     ? `${activeDocument.title} preview`
