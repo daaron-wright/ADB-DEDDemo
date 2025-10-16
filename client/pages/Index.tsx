@@ -11,7 +11,7 @@ import { MessageCircle, Headset, ArrowUpRight, X } from "lucide-react";
 import { Tooltip } from "@aegov/design-system-react";
 import { BusinessChatUI } from "@/components/ui/business-chat-ui";
 import { UAEPassLogin } from "@/components/ui/uae-pass-login";
-import { OmnisIcon } from "@/components/ui/omnis-icon";
+import { PolarisIcon } from "@/components/ui/omnis-icon";
 import { cn } from "@/lib/utils";
 
 const FALLBACK_FOCUS = { x: 640, y: 360 };
@@ -318,7 +318,7 @@ export default function Index() {
     );
     return category
       ? `${category.subtitle} for ${category.title}`
-      : "Omnis";
+      : "Polaris";
   };
 
   const pageRef = useRef<HTMLDivElement>(null);
@@ -342,7 +342,7 @@ export default function Index() {
     }
   };
 
-  const openOmnisChat = useCallback((prompt?: string | null) => {
+  const openPolarisChat = useCallback((prompt?: string | null) => {
     setChatState({
       isOpen: true,
       category: "general",
@@ -567,7 +567,7 @@ export default function Index() {
                           <span className="text-sm font-semibold text-slate-900">Hi, Lyla</span>
                           <span className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-700">
                             <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.32)] animate-pulse" />
-                            Omnis Live
+                            Polaris Live
                           </span>
                         </div>
                         <p className="mt-1 text-xs text-slate-600">
@@ -578,7 +578,7 @@ export default function Index() {
                         type="button"
                         onClick={() => setLauncherExpanded(false)}
                         className="inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/20 text-slate-500 transition hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
-                        aria-label="Collapse Omnis quick actions"
+                        aria-label="Collapse Polaris quick actions"
                       >
                         <X className="h-4 w-4" aria-hidden="true" />
                       </button>
@@ -586,10 +586,10 @@ export default function Index() {
 
                     <button
                       type="button"
-                      onClick={() => openOmnisChat()}
+                      onClick={() => openPolarisChat()}
                       className="mt-4 inline-flex w-full items-center justify-between rounded-2xl border border-white/25 bg-white/14 px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-emerald-200/60 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
                     >
-                      <span>Open Omnis workspace</span>
+                      <span>Open Polaris workspace</span>
                       <ArrowUpRight className="h-4 w-4 text-emerald-600" aria-hidden="true" />
                     </button>
 
@@ -598,7 +598,7 @@ export default function Index() {
                         <button
                           key={action.id}
                           type="button"
-                          onClick={() => openOmnisChat(action.prompt)}
+                          onClick={() => openPolarisChat(action.prompt)}
                           className="group inline-flex w-full items-center justify-between rounded-2xl border border-white/20 bg-white/12 px-4 py-3 text-sm font-medium text-slate-800 transition hover:border-emerald-200/55 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/30"
                         >
                           <span className="flex items-center gap-2 text-left">
@@ -617,11 +617,11 @@ export default function Index() {
                       side="top"
                       sideOffset={10}
                       className="aegov-tooltip max-w-xs rounded-xl border border-white/30 bg-white/90 px-3 py-2 text-xs text-slate-700 shadow-[0_20px_45px_-28px_rgba(15,23,42,0.3)] backdrop-blur-xl"
-                      content="Prefer a person? We'll alert the TAMM call centre and keep your Omnis workspace synced."
+                      content="Prefer a person? We'll alert the TAMM call centre and keep your Polaris workspace synced."
                     >
                       <button
                         type="button"
-                        onClick={() => openOmnisChat("I'd like to speak with someone from the call centre about my business setup.")}
+                        onClick={() => openPolarisChat("I'd like to speak with someone from the call centre about my business setup.")}
                         className="mt-4 inline-flex items-center gap-2 self-start rounded-full border border-white/35 bg-white/20 px-3 py-1.5 text-[11px] font-semibold text-emerald-700 shadow-[0_16px_40px_-30px_rgba(14,118,110,0.55)] transition hover:border-emerald-200/55 hover:bg-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/35"
                       >
                         <span className="inline-flex h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.32)]" />
@@ -634,9 +634,9 @@ export default function Index() {
                     type="button"
                     onClick={() => setLauncherExpanded(true)}
                     className="inline-flex h-16 w-16 items-center justify-center rounded-full border border-[#0F766E] bg-white shadow-[0_26px_70px_-40px_rgba(15,23,42,0.35)] transition hover:bg-[#f7fffb] hover:shadow-[0_30px_80px_-45px_rgba(15,23,42,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E]/40"
-                    aria-label="Show Omnis quick actions"
+                    aria-label="Show Polaris quick actions"
                   >
-                    <span className="sr-only">Show Omnis quick actions</span>
+                    <span className="sr-only">Show Polaris quick actions</span>
                   </button>
                 )}
               </motion.div>
