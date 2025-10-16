@@ -97,6 +97,10 @@ type TradeNameSuggestion = {
   arabic: string;
 };
 
+const PRIMARY_TRADE_NAME_EN = "MARWA RESTAURANT";
+const PRIMARY_TRADE_NAME_AR = "ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة";
+const TRADE_NAME_RECEIPT_DOCUMENT_ID = "trade-name-reservation-receipt";
+
 const APPROVED_TRADE_NAMES = [
   "MARWA RESTAURANT",
   "MARWAH HOSPITALITY SOLE LLC",
