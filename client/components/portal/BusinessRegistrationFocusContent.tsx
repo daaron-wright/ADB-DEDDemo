@@ -714,6 +714,9 @@ export function BusinessRegistrationFocusContent({
     : hasPerformedCheck
     ? "The last run flagged this trade name. Try updating and run the checks again."
     : "Provide a trade name and run the automated checks to continue.";
+  const trimmedEnglishDraft = englishDraft.trim();
+  const normalizedEnglishDraft = trimmedEnglishDraft.toUpperCase();
+  const hasEnglishDraft = trimmedEnglishDraft.length > 0;
 
   return (
     <div className="space-y-6">
