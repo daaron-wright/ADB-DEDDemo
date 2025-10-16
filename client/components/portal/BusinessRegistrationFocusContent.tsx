@@ -444,12 +444,12 @@ export function BusinessRegistrationFocusContent({
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const reservationTimeoutRef = React.useRef<number | null>(null);
 
-  const initialFormattedName = formatTradeName(tradeName);
+  const initialFormattedName = formatTradeName(tradeName) || PRIMARY_TRADE_NAME_EN;
 
   const [activeEnglishTradeName, setActiveEnglishTradeName] = React.useState(initialFormattedName);
-  const [activeArabicTradeName, setActiveArabicTradeName] = React.useState("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
+  const [activeArabicTradeName, setActiveArabicTradeName] = React.useState(PRIMARY_TRADE_NAME_AR);
   const [englishDraft, setEnglishDraft] = React.useState(initialFormattedName);
-  const [arabicDraft, setArabicDraft] = React.useState("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
+  const [arabicDraft, setArabicDraft] = React.useState(PRIMARY_TRADE_NAME_AR);
   const [isEditing, setIsEditing] = React.useState(false);
   const [pendingSubmission, setPendingSubmission] = React.useState<
     | {
@@ -696,7 +696,7 @@ export function BusinessRegistrationFocusContent({
     const formatted = formatTradeName(tradeName);
     setActiveEnglishTradeName(formatted);
     setEnglishDraft(formatted);
-    setActiveArabicTradeName("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
+    setActiveArabicTradeName("���ﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
     setArabicDraft("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
     setIsNameAvailable(Boolean(tradeName) && isTradeNameAvailable);
     setFailedStepIndex(
