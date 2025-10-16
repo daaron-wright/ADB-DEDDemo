@@ -585,7 +585,7 @@ export function BusinessRegistrationFocusContent({
     }
 
     if (hasSubmittedReservationApplication) {
-      return null;
+      return "Trade name reservation receipt stored in Document Vault.";
     }
 
     if (hasSelectedApprovedTradeName) {
