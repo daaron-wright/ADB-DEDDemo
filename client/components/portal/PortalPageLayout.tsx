@@ -16,6 +16,7 @@ interface PortalPageLayoutProps {
   children: ReactNode;
   fullWidthSection?: ReactNode;
   brand?: PortalBranding;
+  phaseNavigation?: ReactNode;
 }
 
 export function PortalPageLayout({
@@ -27,6 +28,7 @@ export function PortalPageLayout({
   children,
   fullWidthSection,
   brand,
+  phaseNavigation,
 }: PortalPageLayoutProps) {
   const defaultBrand = {
     href: "https://www.tamm.abudhabi/",
