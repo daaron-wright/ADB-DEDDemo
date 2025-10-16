@@ -438,7 +438,7 @@ export function DocumentSubmissionFocusContent({
                       disabled={isFinalisingMoa || hasAppliedPolarisRevision}
                       className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
                     >
-                      {hasAppliedPolarisRevision ? "Revision applied" : "Apply Polaris revision"}
+                      {hasAppliedPolarisRevision ? "Simulation prepared" : "Simulate Polaris edits"}
                     </Button>
                     <Button
                       type="button"
