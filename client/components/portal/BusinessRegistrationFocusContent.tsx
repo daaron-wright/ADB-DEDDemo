@@ -104,8 +104,8 @@ const APPROVED_TRADE_NAMES = [
 const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   {
     id: "marwah-restaurant",
-    english: "Marwah Restaurant Sole LLC",
-    arabic: "مطعم مروة الفردي ذ.م.م",
+    english: "MARWA RESTAURANT",
+    arabic: "ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة",
   },
   {
     id: "marwah-hospitality",
@@ -940,7 +940,7 @@ export function BusinessRegistrationFocusContent({
                     Arabic name
                   </p>
                   <p className="mt-1 text-sm font-semibold text-[#0f766e]" dir="rtl">
-                    {activeArabicTradeName || "—"}
+                    {activeArabicTradeName || "��"}
                   </p>
                 </div>
               </div>
