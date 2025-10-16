@@ -54,7 +54,6 @@ export function DocumentSubmissionFocusContent({
 
   const [activeDocumentId, setActiveDocumentId] = React.useState<string>("memorandum-of-association");
   const [showMoaAssistant, setShowMoaAssistant] = React.useState(true);
-  const [pendingReceiptFocus, setPendingReceiptFocus] = React.useState(false);
   const [isFinalisingMoa, setIsFinalisingMoa] = React.useState(false);
   const [isPaying, setIsPaying] = React.useState(false);
   const [hasPaid, setHasPaid] = React.useState(false);
