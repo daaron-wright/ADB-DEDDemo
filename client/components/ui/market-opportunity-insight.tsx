@@ -131,7 +131,7 @@ export const MarketOpportunityInsight: React.FC<MarketOpportunityInsightProps> =
           Interactive demand intelligence for Layla&apos;s Corniche concept
         </h3>
         <p className="text-sm text-slate-600">
-          Omnis visualises the total addressable market and demographic depth before highlighting the most
+          Polaris visualises the total addressable market and demographic depth before highlighting the most
           investable zones along Abu Dhabi&apos;s waterfront.
         </p>
       </header>
@@ -181,7 +181,7 @@ export const MarketOpportunityInsight: React.FC<MarketOpportunityInsightProps> =
 
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-[0.22em] text-[#0F766E]">
-              Priority zones surfaced by Omnis
+              Priority zones surfaced by Polaris
             </h4>
             <ul className="mt-2 space-y-2 text-sm text-slate-600">
               {PRIORITY_ZONES.map((zone) => (
