@@ -690,7 +690,7 @@ export function JourneyStageFocusView({
                   </div>
                 ) : null}
 
-                {selectedRecommendedId !== "license-types" &&
+                {selectedRecommendedId !== "legal-forms" &&
                 selectedRecommendedId !== "activity-curation"
                   ? renderGuidanceSummary(
                       selectedRecommendedActivity,
