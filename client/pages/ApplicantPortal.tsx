@@ -297,7 +297,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     englishLabel: "English",
     arabicLabel: "العربية",
     englishBadge: "English",
-    arabicBadge: "العربية • ترجمة",
+    arabicBadge: "العربية • تر��مة",
     subtitle: "��وابة رخصة ال��عمال",
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
@@ -319,7 +319,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
       `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث��ر��ن آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
-    heroButton: "استكشفي خيارات إضافية",
+    heroButton: "استكشفي خيارا�� إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
       `عرض أو إ��فاء نظرة عا��ة للرحلة الخاصة بـ ${title}`,
@@ -368,7 +368,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "يعمل طلبك المدعوم ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأكيد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
-      "APP-48291": "قدمي حزمة الم��افقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
+      "APP-48291": "قدمي حزمة الم��افقات ��لموحدة لـ ADAFSA وبلدية أبوظبي.",
     },
     journey: {
       heading: "تنسيق الرحلة",
@@ -1619,16 +1619,6 @@ export default function ApplicantPortal() {
     return fallbackStage?.title ?? "Journey stage";
   }, [journeyTimelineItems, journeyStages, activeStageId]);
 
-  const phaseNavigation = useMemo(
-    () => (
-      <JourneyPhaseBreadcrumb
-        activePhase={currentPhase}
-        currentStageLabel={currentStageLabel}
-      />
-    ),
-    [currentPhase, currentStageLabel],
-  );
-
   useEffect(() => {
     setTodoCompletionState((prev) => {
       let hasChange = false;
@@ -1904,6 +1894,16 @@ export default function ApplicantPortal() {
 
     return "ideate";
   }, [activeStageId, focusContext, focusViewContext]);
+
+  const phaseNavigation = useMemo(
+    () => (
+      <JourneyPhaseBreadcrumb
+        activePhase={currentPhase}
+        currentStageLabel={currentStageLabel}
+      />
+    ),
+    [currentPhase, currentStageLabel],
+  );
 
   const handleRecommendedActivityChange = useCallback(
     (stageId: string, activityId: string) => {
