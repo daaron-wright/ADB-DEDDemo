@@ -3,7 +3,7 @@ import { Check, Loader2 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-import { DOCUMENT_VAULT_IMAGE_URL } from "./document-vault-data";
+import { TRADE_NAME_RECEIPT_IMAGE_URL } from "./trade-name-constants";
 
 interface DocumentVaultLayoutProps {
   isProcessing: boolean;
@@ -24,8 +24,8 @@ export function DocumentVaultLayout({
     <div className={cn("grid gap-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]", className)}>
       <div className="relative min-h-[220px] overflow-hidden rounded-3xl border border-[#d8e4df] bg-white">
         <img
-          src={DOCUMENT_VAULT_IMAGE_URL}
-          alt="Documents syncing in the vault"
+          src={TRADE_NAME_RECEIPT_IMAGE_URL}
+          alt="Trade name reservation receipt stored in the vault"
           className="h-full w-full object-cover"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white via-white/60 to-transparent" />
