@@ -506,7 +506,7 @@ export default function Index() {
               <span className="text-black text-base font-medium">Welcome, Layla</span>
             </div>
 
-            {/* Sign in button */}
+            {/* Sign out button */}
           <div className="flex justify-end">
             <button
               type="button"
