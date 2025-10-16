@@ -235,13 +235,13 @@ export const PropertyMapModal: React.FC<PropertyMapModalProps> = ({ isOpen, onCl
               </p>
             </div>
 
-            {/* Omnis Chat - centered position */}
+            {/* Polaris Chat - centered position */}
             <div className="absolute top-1/2 right-8 transform -translate-y-1/2 w-[380px] h-[280px]">
               <div className="bg-white/14 backdrop-blur-sm rounded-3xl p-6 h-full border border-white/20">
                 <div className="flex items-center gap-3 mb-4">
                   <AIBusinessOrb className="h-16 w-16" />
                   <div>
-                    <h3 className="text-white text-lg font-semibold">Omnis</h3>
+                    <h3 className="text-white text-lg font-semibold">Polaris</h3>
                     <div className="flex items-center gap-1 mt-1">
                       {Array.from({ length: 9 }, (_, i) => (
                         <div
