@@ -729,18 +729,16 @@ export function BusinessRegistrationFocusContent({
   }, [isNameAvailable]);
 
   React.useEffect(() => {
-    const formatted = formatTradeName(tradeName);
+    const formatted = formatTradeName(tradeName) || PRIMARY_TRADE_NAME_EN;
     setActiveEnglishTradeName(formatted);
     setEnglishDraft(formatted);
-    setActiveArabicTradeName("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
-    setArabicDraft("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
-    setIsNameAvailable(Boolean(tradeName) && isTradeNameAvailable);
-    setFailedStepIndex(
-      Boolean(tradeName) && !isTradeNameAvailable ? DEFAULT_FAILURE_STEP_INDEX : null,
-    );
+    setActiveArabicTradeName(PRIMARY_TRADE_NAME_AR);
+    setArabicDraft(PRIMARY_TRADE_NAME_AR);
+    setIsNameAvailable(isTradeNameAvailable);
+    setFailedStepIndex(isTradeNameAvailable ? null : DEFAULT_FAILURE_STEP_INDEX);
     setFailureReason(null);
     setAutomationProgress(clampProgress(progressPercent));
-    setHasPerformedCheck(Boolean(tradeName));
+    setHasPerformedCheck(Boolean(tradeName) || isTradeNameAvailable);
     if (reservationTimeoutRef.current) {
       window.clearTimeout(reservationTimeoutRef.current);
       reservationTimeoutRef.current = null;
