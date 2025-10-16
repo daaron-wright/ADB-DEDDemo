@@ -12,6 +12,12 @@ import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { useDocumentVault } from "./DocumentVaultContext";
 import type { DocumentVaultItem } from "./document-vault-types";
+import {
+  PRIMARY_TRADE_NAME_EN,
+  PRIMARY_TRADE_NAME_AR,
+  TRADE_NAME_RECEIPT_DOCUMENT_ID,
+  TRADE_NAME_RECEIPT_METADATA,
+} from "./trade-name-constants";
 import { Check, X } from "lucide-react";
 
 interface BusinessRegistrationFocusContentProps {
