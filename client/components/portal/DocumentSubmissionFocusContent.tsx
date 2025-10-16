@@ -418,7 +418,7 @@ export function DocumentSubmissionFocusContent({
                       htmlFor="moa-editor-notes"
                       className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500"
                     >
-                      Polaris reviewer notes
+                      Polaris simulation notes
                     </label>
                     <Textarea
                       id="moa-editor-notes"
