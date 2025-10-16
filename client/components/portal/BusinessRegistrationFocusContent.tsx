@@ -626,7 +626,7 @@ export function BusinessRegistrationFocusContent({
 
           const normalizedName = evaluationSource?.normalized ?? "";
           const englishDisplay = evaluationSource?.english ?? englishDraft ?? "";
-          const arabicDisplay = evaluationSource?.arabic ?? arabicDraft ?? "ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة";
+          const arabicDisplay = evaluationSource?.arabic ?? arabicDraft ?? "ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم ��روة";
           const isSuccess =
             Boolean(normalizedName) && approvedNameSet.has(normalizedName);
 
@@ -804,6 +804,10 @@ export function BusinessRegistrationFocusContent({
     }
 
     setHasSelectedApprovedTradeName(true);
+    setActiveEnglishTradeName("MARWA RESTAURANT");
+    setActiveArabicTradeName("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
+    setEnglishDraft("MARWA RESTAURANT");
+    setArabicDraft("ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة");
     toast({
       title: "Trade name selected",
       description: "We’ll prepare the reservation submission next.",
