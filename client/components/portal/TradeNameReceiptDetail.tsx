@@ -5,6 +5,7 @@ import { FileText, ScrollText } from "lucide-react";
 import {
   PRIMARY_TRADE_NAME_AR,
   PRIMARY_TRADE_NAME_EN,
+  TRADE_NAME_RECEIPT_IMAGE_URL,
   TRADE_NAME_RECEIPT_METADATA,
 } from "./trade-name-constants";
 import { CONTRACT_MAIN_SECTIONS } from "./trade-name-receipt-content";
@@ -52,6 +53,14 @@ export function TradeNameReceiptDetail() {
     paymentAmountAed,
     paymentMethod,
     authority,
+    posNumber,
+    legalForm,
+    issueDate,
+    expiryDate,
+    applicationNumber,
+    economicRegistryNumber,
+    activityName,
+    activityCode,
   } = TRADE_NAME_RECEIPT_METADATA;
 
   const metadataItems: Array<{
@@ -64,7 +73,15 @@ export function TradeNameReceiptDetail() {
     { label: "Payment date", value: paymentDate },
     { label: "Amount (AED)", value: paymentAmountAed },
     { label: "Payment method", value: paymentMethod },
+    { label: "POS", value: posNumber },
     { label: "Authority", value: authority },
+    { label: "Legal form", value: legalForm },
+    { label: "Issue date", value: issueDate },
+    { label: "Expiry date", value: expiryDate },
+    { label: "Application no.", value: applicationNumber },
+    { label: "Economic registry", value: economicRegistryNumber },
+    { label: "Activity name", value: activityName },
+    { label: "Activity code", value: activityCode },
     { label: "Trade name (EN)", value: PRIMARY_TRADE_NAME_EN },
     { label: "Trade name (AR)", value: PRIMARY_TRADE_NAME_AR, direction: "rtl" },
   ];
