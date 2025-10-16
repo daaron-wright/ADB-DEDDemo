@@ -931,7 +931,7 @@ export function BusinessRegistrationFocusContent({
                     English name
                   </p>
                   <p className="mt-1 text-sm font-semibold text-slate-900">
-                    {activeEnglishTradeName || "Not provided"}
+                    {activeEnglishTradeName || "MARWA RESTAURANT"}
                   </p>
                 </div>
                 <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">
