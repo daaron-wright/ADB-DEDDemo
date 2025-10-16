@@ -557,7 +557,7 @@ export function BusinessRegistrationFocusContent({
     }
 
     if (hasSubmittedReservationApplication) {
-      return "Reservation submitted. Continue with the document submission stage.";
+      return "Reservation submitted. Receipt stored in your Document Vault—continue with the document submission stage.";
     }
 
     if (isNameAvailable) {
