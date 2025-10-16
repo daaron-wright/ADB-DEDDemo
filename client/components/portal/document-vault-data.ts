@@ -5,6 +5,9 @@ export const DOCUMENT_VAULT_SOURCE_LABEL = 'Synced from "My Business Documents" 
 export const DOCUMENT_VAULT_IMAGE_URL =
   "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fdcbbbf1fba0441838566c6e2d3105aa0?format=webp&width=800";
 
+export const MOA_PREVIEW_IMAGE_URL =
+  "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Ff6c45fad637f4b3ba637c5a69026ba4c?format=webp&width=1256";
+
 export const INITIAL_DOCUMENTS: DocumentVaultItem[] = [
   {
     id: "tenancy-contract",
