@@ -747,8 +747,12 @@ export function BusinessRegistrationFocusContent({
 
   const tradeNameStatusMessage = isChecking
     ? "We’re running the automated checks now."
+    : hasSubmittedReservationApplication
+    ? "Reservation submitted. Continue with the document submission stage."
     : isNameAvailable
-    ? "All checks passed. Reserve the name to lock it in."
+    ? hasSelectedApprovedTradeName
+      ? "Trade name selected. Submit the reservation application and payment to continue."
+      : "Trade name approved. Select it to move forward."
     : hasPerformedCheck
     ? "The last run flagged this trade name. Try updating and run the checks again."
     : "Provide a trade name and run the automated checks to continue.";
