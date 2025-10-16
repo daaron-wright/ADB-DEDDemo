@@ -133,16 +133,24 @@ const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
 ];
 
 function createTradeNameReceiptDocument(): DocumentVaultItem {
+  const {
+    receiptNumber,
+    transactionNumber,
+    paymentDate,
+    paymentAmountAed,
+    paymentMethod,
+    authority,
+  } = TRADE_NAME_RECEIPT_METADATA;
+
   return {
     id: TRADE_NAME_RECEIPT_DOCUMENT_ID,
     title: "Trade Name Reservation Receipt",
-    description:
-      "Receipt for MARWA RESTAURANT confirming reservation TN-4993803 with AED 65.14 processed via ADPAY on 29/09/2025.",
-    source: "Abu Dhabi Registration & Licensing Authority",
-    sourceDetail: "Receipt 2112500002178 · TN-4993803",
+    description: `Receipt for ${PRIMARY_TRADE_NAME_EN} confirming reservation ${transactionNumber} with AED ${paymentAmountAed} processed on ${paymentDate}.`,
+    source: authority,
+    sourceDetail: `Receipt ${receiptNumber} · ${transactionNumber}`,
     status: "completed",
     actionLabel: "Download trade name receipt",
-    integrationBadge: "DED",
+    integrationBadge: paymentMethod,
     isExpanded: true,
   };
 }
