@@ -21,6 +21,7 @@ import {
   UploadCloud,
   Video,
 } from "lucide-react";
+import { PRIMARY_TRADE_NAME_AR, PRIMARY_TRADE_NAME_EN } from "./trade-name-constants";
 
 interface ComplianceGrowthFocusContentProps {
   journeyNumber?: string;
