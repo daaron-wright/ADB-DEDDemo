@@ -442,6 +442,7 @@ export function JourneyOrchestrationPanel({
                     isProcessing={vaultProcessing}
                     statusHeading={vaultStatusHeading}
                     statusDescription={vaultStatusDescription}
+                    activeDocument={activeVaultDocument}
                   >
                     {vaultContext?.documents.map((item) => (
                       <DocumentVaultCard
