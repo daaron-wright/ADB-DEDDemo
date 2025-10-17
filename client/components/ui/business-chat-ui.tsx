@@ -3964,7 +3964,7 @@ const MessageBubble = ({
               {message.actions.map((action) => (
                 <button
                   key={action.id}
-                  onClick={() => onActionClick(action.action, action.label)}
+                  onClick={() => onActionClick?.(action.action, action.label, action.id)}
                   className={CHAT_ACTION_BUTTON_CLASSES}
                 >
                   {action.label}
@@ -6313,7 +6313,7 @@ export function BusinessChatUI({
     : stageMeta?.label ?? "Current stage";
 
   const stagePanelMessage = followUpRecommendations.length > 0
-    ? followUpRecommendations[0]?.description ?? "Choose what you����d like to explore next."
+    ? followUpRecommendations[0]?.description ?? "Choose what you���d like to explore next."
     : stageBlueprint?.message ?? "";
 
   useEffect(() => {
