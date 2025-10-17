@@ -7004,29 +7004,20 @@ export function BusinessChatUI({
 
         if (action === "confirm-retail-automation") {
           setCurrentStep("handoff");
-
-          if (isInvestorAuthenticated) {
-            setView("investor-journey");
-            const acknowledgement = buildMessage(
-              "Perfect — I’m triggering automation, reserving your trade name, and opening the applicant portal timeline for you now.",
-              true,
-            );
-            const handoffMessage = buildStepMessage("handoff");
-            setTimeout(() => {
-              openApplicantPortal();
-            }, 200);
-            return [...updated, acknowledgement, handoffMessage];
-          }
-
-          setIsInvestorAuthenticated(false);
-          setIsInvestorLoginPending(true);
-          setShouldPromptLogin(true);
+          setIsInvestorAuthenticated(true);
+          setIsInvestorLoginPending(false);
+          setShouldPromptLogin(false);
           setShouldOpenInvestorView(true);
-          const approvalMessage = buildMessage(
-            "Great choice. Let’s sign you in with UAE PASS so I can automate everything for you.",
+          setView("investor-journey");
+          const acknowledgement = buildMessage(
+            "Perfect — I’m triggering automation, reserving your trade name, and opening the applicant portal timeline for you now.",
             true,
           );
-          return [...updated, approvalMessage];
+          const handoffMessage = buildStepMessage("handoff");
+          setTimeout(() => {
+            openApplicantPortal();
+          }, 200);
+          return [...updated, acknowledgement, handoffMessage];
         }
 
         if (action === "decline-retail-automation") {
