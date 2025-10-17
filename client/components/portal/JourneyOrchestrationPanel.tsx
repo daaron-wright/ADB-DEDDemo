@@ -178,6 +178,14 @@ export function JourneyOrchestrationPanel({
     );
   }, [stageSpecificActions, completionState]);
 
+  const isHighlightedNextStep = React.useMemo(() => {
+    if (!highlightedActionId) {
+      return false;
+    }
+
+    return primaryOutstandingAction?.id === highlightedActionId;
+  }, [highlightedActionId, primaryOutstandingAction]);
+
   const nextActionMessage = React.useMemo(() => {
     if (primaryOutstandingAction) {
       return primaryOutstandingAction.label;
