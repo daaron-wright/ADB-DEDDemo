@@ -332,13 +332,13 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     keyDatesHeading: "التواري�� الرئيسية",
     keyDates: {
-      submitted: "تم ال��قديم",
+      submitted: "تم التقديم",
       lastUpdated: "آخر تحديث",
     },
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث��ر��ن آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسار��ا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث��ر��ن آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارا�� إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -357,7 +357,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "مساع�� ��لأعمال الذكي",
     businessActivityGuidance:
-      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
+      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� ��جموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
       "أضيفي إرشادات الترخيص إلى استبيان ��لأنشطة التجارية",
     statusLabelMap: {
@@ -381,11 +381,11 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "Department of Economic Development": "دائرة التنمية الاقتصادية",
     },
     applicationTitles: {
-      "APP-48291": "رحلة المطعم (الأطعمة والم��روبات)",
+      "APP-48291": "رحلة المطعم (الأطعمة والمشروبات)",
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك المدعوم ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأ��يد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك المدعوم ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأ����يد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الم��افقات ��لموحدة لـ ADAFSA وبلدية أبوظبي.",
@@ -2357,6 +2357,7 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
         onKeyDown={handleJourneyOverviewKeyDown}
         className={cn(
           "space-y-8 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30",
+          focusClasses.journeySummary,
           isTimelineBackgroundBlurred && "relative overflow-hidden",
         )}
       >
