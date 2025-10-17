@@ -6313,7 +6313,7 @@ export function BusinessChatUI({
     : stageMeta?.label ?? "Current stage";
 
   const stagePanelMessage = followUpRecommendations.length > 0
-    ? followUpRecommendations[0]?.description ?? "Choose what you���d like to explore next."
+    ? followUpRecommendations[0]?.description ?? "Choose what you����d like to explore next."
     : stageBlueprint?.message ?? "";
 
   useEffect(() => {
@@ -6845,7 +6845,27 @@ export function BusinessChatUI({
   );
 
   const handleAction = useCallback(
-    (action: ConversationAction, label: string) => {
+    (action: ConversationAction, label: string, actionId?: string) => {
+      const trimmedLabel = label.trim();
+      const normalizedLabel = trimmedLabel.toLowerCase();
+      const resolvedId =
+        actionId ??
+        persistentQuickActions.find(
+          (item) =>
+            item.action === action &&
+            item.label.trim().toLowerCase() === normalizedLabel,
+        )?.id ?? null;
+
+      if (resolvedId) {
+        setSelectedQuickActionId(resolvedId);
+        setPersistentQuickActions((previous) => {
+          if (previous.some((item) => item.id === resolvedId)) {
+            return previous;
+          }
+          return [...previous, { id: resolvedId, label: trimmedLabel, action }];
+        });
+      }
+
       setMessages((prev) => {
         const sanitized = prev.map((message) =>
           message.actions ? { ...message, actions: undefined } : message,
@@ -6924,7 +6944,6 @@ export function BusinessChatUI({
         }
 
         if (action === "open-investor-journey") {
-          const normalizedLabel = label.trim().toLowerCase();
           const isSignInCta = normalizedLabel === "sign in with uae pass";
           const isSetupCta = normalizedLabel === "set up business";
           const isReserveTradeName =
@@ -7051,12 +7070,16 @@ export function BusinessChatUI({
       buildMessage,
       buildStepMessage,
       currentStep,
+      handleHumanFallback,
       isInvestorAuthenticated,
       openApplicantPortal,
+      persistentQuickActions,
       setCurrentStep,
       setIsInvestorAuthenticated,
       setIsInvestorLoginPending,
       setModalView,
+      setPersistentQuickActions,
+      setSelectedQuickActionId,
       setShouldOpenInvestorView,
       setShouldPromptLogin,
       setView,
