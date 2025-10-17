@@ -576,7 +576,7 @@ export function ComplianceGrowthFocusContent({
       toast({
         title: "Policy update: compliance fast-tracked",
         description:
-          "DED accepted Layla's lower-risk classification request. Compliance requirements are reduced and your renewal timeline is now faster.",
+          "DED accepted Layla's lower-risk classification request. Compliance steps were cut by 3 and the renewal timeline now completes within 48 hours.",
       });
     }, 1800);
 
