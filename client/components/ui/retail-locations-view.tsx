@@ -1,4 +1,5 @@
 import { useEffect, useState, type CSSProperties } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -26,6 +27,7 @@ type ModalState = "locations" | "automation-prompt";
 const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
   onBack,
 }) => {
+  const navigate = useNavigate();
   const [showContent, setShowContent] = useState(false);
   const [selectedLocationId, setSelectedLocationId] = useState<number | null>(
     null,
@@ -80,11 +82,7 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
       return;
     }
 
-    window.dispatchEvent(
-      new CustomEvent("retailLocationSelected", {
-        detail: { ...selectedLocation, automationPromptRequested: true },
-      }),
-    );
+    navigate("/portal/applicant");
   };
 
   const handleExportBusinessPlan = () => {
