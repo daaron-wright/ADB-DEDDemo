@@ -186,6 +186,18 @@ interface PortalLanguageCopy {
   };
 }
 
+type DemoFocusClassMap = {
+  hero: string;
+  filters: string;
+  summary: string;
+  questionnaire: string;
+  journeySection: string;
+  journeySummary: string;
+  journeyPanel: string;
+  questionnairePrimaryCta: string;
+  nextActionButton: string;
+};
+
 const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
   en: {
     languageLabel: "Language",
@@ -340,7 +352,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     nextActionHeading: "الإ��راء التالي",
     nextActionButton: "انتقلي إلى ��لإجراء التالي",
-    applicationSummaryHeading: "ملخص الطلب",
+    applicationSummaryHeading: "ملخص الط��ب",
     applicationSummaryNote:
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "مساع�� ��لأعمال الذكي",
@@ -392,7 +404,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       timelineAriaLabel: "التنقل ��ين مراحل الرحلة",
     },
     questionnaireOnboarding: {
-      heading: "ابدئي رحلة ترخيصك",
+      heading: "ابدئي رحلة ��رخيصك",
       notStartedMessage:
         "ابدئي من هنا للإجابة عن أسئلة موجهة حول نشاطك كي نضبط مسار الترخيص لكِ.",
       inProgressMessage:
