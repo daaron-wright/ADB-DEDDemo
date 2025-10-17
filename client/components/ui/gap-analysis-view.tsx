@@ -195,6 +195,28 @@ const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({
                   </svg>
                   Here are some retail locations available to rent
                 </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    window.dispatchEvent(
+                      new CustomEvent("openBusinessPlanWorkspace"),
+                    )
+                  }
+                  className="mt-3 inline-flex items-center gap-2 rounded-full border border-[#0E766E]/25 bg-white px-4 py-2 text-sm font-semibold text-[#0E766E] shadow-[0_18px_36px_-28px_rgba(14,118,110,0.32)] transition hover:bg-[#f1f9f6]"
+                >
+                  <svg
+                    className="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M7 2h10a1 1 0 0 1 1 1v16l-6-3-6 3V3a1 1 0 0 1 1-1z" />
+                  </svg>
+                  Continue to business plan workspace
+                </button>
               </div>
             </div>
           </div>
