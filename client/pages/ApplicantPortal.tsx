@@ -355,9 +355,9 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
-    businessAITitle: "مساع�� ��لأعمال الذكي",
+    businessAITitle: "مساع�� ��لأعمال ا��ذكي",
     businessActivityGuidance:
-      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
+      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك ��دراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
       "أضيفي إرشادات الترخيص إلى استبيان ��لأنشطة التجارية",
     statusLabelMap: {
@@ -2282,7 +2282,12 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
   );
 
   const questionnaireOnboardingSection = (
-    <section className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)] sm:p-7">
+    <section
+      className={cn(
+        "rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)] sm:p-7",
+        focusClasses.questionnaire,
+      )}
+    >
       <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex-1 space-y-4">
           <Badge
