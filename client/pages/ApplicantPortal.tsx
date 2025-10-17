@@ -338,7 +338,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث��ر��ن آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث���ر��ن آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارا�� إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -352,7 +352,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     nextActionHeading: "الإ��راء التالي",
     nextActionButton: "انتقلي إلى ��لإجراء التالي",
-    applicationSummaryHeading: "ملخص الط��ب",
+    applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "مساع�� ��لأعمال الذكي",
@@ -404,11 +404,11 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       timelineAriaLabel: "التنقل ��ين مراحل الرحلة",
     },
     questionnaireOnboarding: {
-      heading: "ابدئي رحلة ��رخيصك",
+      heading: "ابدئي رحلة ترخيصك",
       notStartedMessage:
         "ابدئي من هنا للإجابة عن أسئلة موجهة حول نشاطك كي نضبط مسار الترخيص لكِ.",
       inProgressMessage:
-        "يعمل الذكاء الاصطناعي على جمع التفاصيل لإعداد الاستبيان.",
+        "يعمل الذكاء الاصطناعي على جمع التفاصيل لإعداد ال��ستبيان.",
       completedMessage:
         "هذه هي نقطة انطلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
@@ -1609,12 +1609,90 @@ export default function ApplicantPortal() {
   ]);
 
   const remainingTodoCount = useMemo(() => {
-    return todoBankItems.reduce((count, item) => {
-      return todoCompletionState[item.id] ? count : count + 1;
-    }, 0);
-  }, [todoBankItems, todoCompletionState]);
+  return todoBankItems.reduce((count, item) => {
+    return todoCompletionState[item.id] ? count : count + 1;
+  }, 0);
+}, [todoBankItems, todoCompletionState]);
 
-  const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
+const activeNextAction = useMemo(() => {
+  return (
+    todoBankItems.find((item) => (todoCompletionState[item.id] ?? false) === false) ??
+    null
+  );
+}, [todoBankItems, todoCompletionState]);
+
+const demoFocusKey = useMemo<"questionnaire" | "journey" | null>(() => {
+  if (!activeNextAction) {
+    return null;
+  }
+
+  const normalizedStageId = (activeNextAction.stageId ?? "").toLowerCase();
+  const normalizedStageTitle = (activeNextAction.stageTitle ?? "").toLowerCase();
+
+  if (
+    normalizedStageId === QUESTIONNAIRE_STAGE_ID ||
+    normalizedStageTitle === "questionnaire"
+  ) {
+    return "questionnaire";
+  }
+
+  return "journey";
+}, [activeNextAction]);
+
+const focusClasses = useMemo<DemoFocusClassMap>(() => {
+  const base: DemoFocusClassMap = {
+    hero: "",
+    filters: "",
+    summary: "",
+    questionnaire: "",
+    journeySection: "",
+    journeySummary: "",
+    journeyPanel: "",
+    questionnairePrimaryCta: "",
+    nextActionButton: "",
+  };
+
+  if (!demoFocusKey) {
+    return base;
+  }
+
+  const baseTransition = "transition duration-500 ease-out";
+  const dimClass = `${baseTransition} opacity-60 saturate-[0.85]`;
+  const highlightPrimary = `${baseTransition} ring-2 ring-[#0f766e] ring-offset-2 ring-offset-[#f5f8f6] shadow-[0_26px_52px_-34px_rgba(11,64,55,0.42)]`;
+  const highlightSecondary = `${baseTransition} ring-1 ring-[#0f766e]/70 ring-offset-2 ring-offset-white shadow-[0_18px_40px_-28px_rgba(11,64,55,0.3)]`;
+  const highlightButton =
+    "border-transparent bg-[#0f766e] text-white shadow-[0_24px_48px_-28px_rgba(11,64,55,0.42)] hover:bg-[#0d5e57] focus-visible:ring-[#0f766e]/60";
+  const focusButton =
+    "bg-[#0f766e] text-white shadow-[0_22px_46px_-26px_rgba(11,64,55,0.4)] hover:bg-[#0d5e57] focus-visible:ring-[#0f766e]/60";
+
+  if (demoFocusKey === "questionnaire") {
+    return {
+      hero: dimClass,
+      filters: dimClass,
+      summary: dimClass,
+      questionnaire: highlightSecondary,
+      journeySection: "",
+      journeySummary: dimClass,
+      journeyPanel: highlightPrimary,
+      questionnairePrimaryCta: focusButton,
+      nextActionButton: "",
+    };
+  }
+
+  return {
+    hero: dimClass,
+    filters: dimClass,
+    summary: dimClass,
+    questionnaire: dimClass,
+    journeySection: highlightSecondary,
+    journeySummary: highlightSecondary,
+    journeyPanel: highlightPrimary,
+    questionnairePrimaryCta: "",
+    nextActionButton: highlightButton,
+  };
+}, [demoFocusKey]);
+
+const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
     return journeyStages.map<JourneyTimelineItem>((stage) => {
       const resolvedState = stageProgress[stage.id] ?? deriveStageState(stage);
       const tokens = journeyHighlightTokens[resolvedState];
