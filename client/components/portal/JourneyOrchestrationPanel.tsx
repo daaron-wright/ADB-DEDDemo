@@ -417,7 +417,13 @@ export function JourneyOrchestrationPanel({
                 </div>
               </div>
 
-              <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-white p-4 shadow-[0_16px_32px_-28px_rgba(11,64,55,0.28)]">
+              <div
+                className={cn(
+                  "space-y-3 rounded-2xl border border-[#d8e4df] bg-white p-4 shadow-[0_16px_32px_-28px_rgba(11,64,55,0.28)]",
+                  isHighlightedNextStep &&
+                    "ring-2 ring-[#0f766e] ring-offset-2 ring-offset-white shadow-[0_22px_46px_-28px_rgba(11,64,55,0.38)]",
+                )}
+              >
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
