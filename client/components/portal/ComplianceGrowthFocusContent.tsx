@@ -2165,7 +2165,7 @@ function GrowthFeedbackStatusPanel({
       <div className="space-y-1">
         <p className="text-sm font-semibold text-[#0f766e]">Policy update delivered</p>
         <p className="text-xs text-[#0f766e]/80">
-          DED accepted your lower-risk classification request. Compliance steps are reduced and your renewal timeline is now fast-tracked.
+          DED accepted your lower-risk classification request. Compliance steps dropped by three and your renewal now finalises within 48 hours.
         </p>
         {submittedFeedback ? (
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0f766e]/70">
