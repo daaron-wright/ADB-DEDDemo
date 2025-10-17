@@ -8200,6 +8200,50 @@ export function BusinessChatUI({
                           ) : null}
                         </div>
 
+                        {showChatInterface && persistentQuickActions.length > 0 ? (
+                          <div
+                            className={cn(
+                              "mt-6 rounded-[24px] border border-white/20 bg-white/12 p-4 backdrop-blur-xl shadow-[0_30px_80px_-58px_rgba(15,23,42,0.35)]",
+                              isSidePanel &&
+                                "border-slate-200 bg-white shadow-[0_20px_48px_-40px_rgba(15,23,42,0.18)] backdrop-blur-none",
+                            )}
+                          >
+                            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                              <div className="space-y-1">
+                                <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]">
+                                  Quick actions
+                                </span>
+                                <p className="text-xs text-slate-500">
+                                  Reopen any workspace without losing your place.
+                                </p>
+                              </div>
+                              <div className="flex flex-wrap gap-2">
+                                {persistentQuickActions.map((action) => {
+                                  const isSelected = selectedQuickActionId === action.id;
+                                  return (
+                                    <button
+                                      key={action.id}
+                                      type="button"
+                                      onClick={() => handlePersistentQuickAction(action)}
+                                      aria-pressed={isSelected}
+                                      className={cn(
+                                        "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]",
+                                        isSelected
+                                          ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_18px_40px_-26px_rgba(15,118,110,0.58)]"
+                                          : isSidePanel
+                                              ? "border-slate-200 bg-white text-[#0F766E] hover:bg-[#f5faf7]"
+                                              : "border-white/40 bg-white/70 text-[#0F766E] hover:bg-white/90",
+                                      )}
+                                    >
+                                      {action.label}
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          </div>
+                        ) : null}
+
                         {showChatInterface && view === "investor-journey" && (
                           <div
                             className={cn(
