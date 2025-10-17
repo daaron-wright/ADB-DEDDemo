@@ -1999,7 +1999,70 @@ function RenewalItem({
   );
 }
 
-function GrowthFeedbackCard({ prompts }: { prompts: readonly string[] }) {
+function GrowthFeedbackCard({
+  prompts,
+  status,
+  isProcessing,
+  submittedFeedback,
+  onSubmit,
+}: {
+  prompts: readonly string[];
+  status: FeedbackWorkflowStatus;
+  isProcessing: boolean;
+  submittedFeedback: string | null;
+  onSubmit: (message: string) => void;
+}) {
+  const [draft, setDraft] = React.useState("");
+  const [activePrompt, setActivePrompt] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    if (status === "responded") {
+      setDraft("");
+      setActivePrompt(null);
+    }
+  }, [status]);
+
+  const handlePromptClick = React.useCallback(
+    (prompt: string) => {
+      if (isProcessing) {
+        return;
+      }
+      setActivePrompt(prompt);
+      setDraft(prompt);
+    },
+    [isProcessing],
+  );
+
+  const handleDraftChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      if (isProcessing) {
+        return;
+      }
+      setDraft(event.target.value);
+      setActivePrompt(null);
+    },
+    [isProcessing],
+  );
+
+  const handleSubmit = React.useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      const trimmed = draft.trim();
+      if (!trimmed || isProcessing) {
+        return;
+      }
+      onSubmit(trimmed);
+    },
+    [draft, isProcessing, onSubmit],
+  );
+
+  const submitLabel =
+    status === "responded"
+      ? "Share another insight"
+      : status === "submitted"
+        ? "Submitting..."
+        : "Submit to policy team";
+
   return (
     <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_22px_48px_-40px_rgba(15,23,42,0.32)]">
       <div className="space-y-2">
@@ -2010,21 +2073,105 @@ function GrowthFeedbackCard({ prompts }: { prompts: readonly string[] }) {
           and service journey.
         </p>
       </div>
-      <div className="flex flex-wrap gap-3">
-        {prompts.map((prompt) => (
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        <div className="flex flex-wrap gap-3">
+          {prompts.map((prompt) => {
+            const isSelected = activePrompt === prompt;
+            return (
+              <Button
+                key={prompt}
+                type="button"
+                onClick={() => handlePromptClick(prompt)}
+                disabled={isProcessing}
+                variant="outline"
+                size="sm"
+                className={cn(
+                  "rounded-full border-[#0f766e]/30 px-4 py-2 text-xs konto font-semibold uppercase tracking-[0.16em] text-[#0f766e] hover:bg-[#f5faf7]",
+                  isSelected ? "border-[#0f766e] bg-[#0f766e] text-white hover:bg-[#0d5e57]" : "",
+                )}
+              >
+                {prompt}
+              </Button>
+            );
+          })}
+        </div>
+        <Textarea
+          value={draft}
+          onChange={handleDraftChange}
+          disabled={isProcessing}
+          placeholder="Explain how Polaris could streamline this requirement for your restaurant."
+          className="min-h-[140px] rounded-2xl border-[#d8e4df] bg-[#f5faf7] text-sm text-slate-900 placeholder:text-slate-400 focus-visible:ring-[#0f766e]"
+        />
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <Button
-            key={prompt}
-            variant="outline"
-            size="sm"
-            className="rounded-full border-[#0f766e]/30 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#0f766e] hover:bg-[#f5faf7]"
+            type="submit"
+            disabled={isProcessing || draft.trim().length === 0}
+            className="rounded-full bg-[#169F9F] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-24px_rgba(23,135,126,0.45)] hover:bg-[#128080] disabled:opacity-70"
           >
-            {prompt}
+            {submitLabel}
           </Button>
-        ))}
-      </div>
+          <p className="text-xs text-slate-500">
+            Polaris forwards your note to the regulatory design team and keeps you updated.
+          </p>
+        </div>
+      </form>
+      <GrowthFeedbackStatusPanel status={status} submittedFeedback={submittedFeedback} />
+    </div>
+  );
+}
+
+function GrowthFeedbackStatusPanel({
+  status,
+  submittedFeedback,
+}: {
+  status: FeedbackWorkflowStatus;
+  submittedFeedback: string | null;
+}) {
+  if (status === "draft") {
+    return (
       <div className="rounded-2xl border border-dashed border-[#d8e4df] bg-[#f5faf7] p-4 text-xs text-slate-500">
-        Feedback is routed to Polaris service designers and the DED regulatory team. Expect follow-up within 2 business
-        days.
+        Feedback is routed to Polaris service designers and the DED regulatory team. Expect follow-up within 2 business days.
+      </div>
+    );
+  }
+
+  if (status === "submitted") {
+    return (
+      <div className="flex items-start gap-3 rounded-2xl border border-[#f3dcb6] bg-[#fdf6e4] p-4">
+        <span className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-[#f3dcb6] bg-white text-[#b97324]">
+          <Loader2 className="h-4 w-4 animate-spin" />
+        </span>
+        <div className="space-y-1">
+          <p className="text-sm font-semibold text-[#b97324]">Shared with Abu Dhabi policy team</p>
+          <p className="text-xs text-[#b97324]/80">
+            Polaris is reviewing your request
+            {submittedFeedback ? (
+              <>
+                : <span className="font-medium text-[#b97324]">"{submittedFeedback}"</span>
+              </>
+            ) : null}
+            {" and coordinating a response."}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-start gap-3 rounded-2xl border border-[#94d2c2] bg-[#eaf7f3] p-4">
+      <span className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-[#94d2c2] bg-white text-[#0f766e]">
+        <CheckCircle className="h-4 w-4" />
+      </span>
+      <div className="space-y-1">
+        <p className="text-sm font-semibold text-[#0f766e]">Policy update delivered</p>
+        <p className="text-xs text-[#0f766e]/80">
+          DED accepted your lower-risk classification request. Compliance steps are reduced and your renewal timeline is now fast-tracked.
+        </p>
+        {submittedFeedback ? (
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0f766e]/70">
+            Last note: "{submittedFeedback}"
+          </p>
+        ) : null}
       </div>
     </div>
   );
