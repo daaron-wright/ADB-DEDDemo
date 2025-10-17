@@ -38,6 +38,8 @@ type ChecklistStatus = "in_progress" | "complete";
 type ToggleView = "compliance" | "growth";
 type TabKey = "compliance" | "growth";
 
+type FeedbackWorkflowStatus = "draft" | "submitted" | "responded";
+
 type ComplianceItem = {
   id: string;
   label: string;
