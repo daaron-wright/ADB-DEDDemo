@@ -566,6 +566,49 @@ export function ComplianceGrowthFocusContent({
   }, [showGrowthTab, activeTab]);
 
   React.useEffect(() => {
+    if (feedbackStatus !== "submitted") {
+      return undefined;
+    }
+
+    feedbackResponseTimerRef.current = window.setTimeout(() => {
+      feedbackResponseTimerRef.current = null;
+      setFeedbackStatus("responded");
+      toast({
+        title: "Policy update: compliance fast-tracked",
+        description:
+          "DED accepted Layla's lower-risk classification request. Compliance requirements are reduced and your renewal timeline is now faster.",
+      });
+    }, 1800);
+
+    return () => {
+      if (feedbackResponseTimerRef.current !== null) {
+        window.clearTimeout(feedbackResponseTimerRef.current);
+        feedbackResponseTimerRef.current = null;
+      }
+    };
+  }, [feedbackStatus, toast]);
+
+  React.useEffect(() => {
+    if (feedbackStatus !== "responded") {
+      return;
+    }
+
+    setIsComplianceComplete(true);
+    setComplianceItems((items) =>
+      items.map((item) =>
+        item.id === "ded-inspection"
+          ? {
+              ...item,
+              status: "success",
+              detail: "DED reclassified your restaurant as lower risk — compliance fast-tracked",
+            }
+          : item,
+      ),
+    );
+    setDedChecklistItems((items) => items.map((item) => ({ ...item, status: "complete" })));
+  }, [feedbackStatus]);
+
+  React.useEffect(() => {
     if (!allDedChecklistComplete || isComplianceComplete) {
       return;
     }
