@@ -35,7 +35,7 @@ export function PortalAIDock() {
     if (hasVisited) {
       return "Chat ready";
     }
-    return "Business AI ready";
+    return "Polaris ready";
   }, [hasVisited, isOpen]);
 
   const handleOpen = () => {
@@ -58,7 +58,7 @@ export function PortalAIDock() {
             <div className="space-y-3">
               <div className="space-y-2">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0f766e]">
-                  Business AI
+                  Polaris
                 </p>
                 <p className="text-sm font-medium leading-relaxed text-slate-800">
                   Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require more clarification to ensure the right decisions are made.
@@ -131,7 +131,7 @@ export function PortalAIDock() {
         isOpen={isOpen}
         onClose={handleClose}
         category="restaurants"
-        title="Business AI"
+        title="Polaris"
         initialMessage="Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require some more clarification to ensure the right decisions are made."
       />
     </>
