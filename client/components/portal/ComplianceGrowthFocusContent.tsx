@@ -600,7 +600,7 @@ export function ComplianceGrowthFocusContent({
           ? {
               ...item,
               status: "success",
-              detail: "DED reclassified your restaurant as lower risk — compliance fast-tracked",
+              detail: "DED reclassified your restaurant as lower risk — 3 steps removed and review in 48 hours",
             }
           : item,
       ),
