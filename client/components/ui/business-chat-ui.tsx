@@ -3649,7 +3649,7 @@ const CHAT_ACTION_BUTTON_CLASSES =
 
 interface MessageBubbleProps {
   message: BusinessMessage;
-  onActionClick?: (action: ConversationAction, label: string) => void;
+  onActionClick?: (action: ConversationAction, label: string, actionId?: string) => void;
   dialogueDocProps?: DialogueDocProps;
   onHeatMapOpen?: () => void;
   onBudgetRangesOpen?: () => void;
