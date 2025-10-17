@@ -332,13 +332,13 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     keyDatesHeading: "التواري�� الرئيسية",
     keyDates: {
-      submitted: "تم التقديم",
+      submitted: "تم ال��قديم",
       lastUpdated: "آخر تحديث",
     },
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `ا��تشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث��ر��ن آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث��ر��ن آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارا�� إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -381,7 +381,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "Department of Economic Development": "دائرة التنمية الاقتصادية",
     },
     applicationTitles: {
-      "APP-48291": "رحلة المطعم (الأطعمة والمشروبات)",
+      "APP-48291": "رحلة المطعم (الأطعمة والم��روبات)",
     },
     applicationSummaries: {
       "APP-48291":
@@ -2342,6 +2342,7 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
       className={cn(
         "rounded-3xl border border-[#d8e4df] bg-white p-8 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)]",
         "transition-all duration-500",
+        focusClasses.journeySection,
         isTimelineBackgroundBlurred &&
           "relative z-[60] shadow-[0_32px_70px_-36px_rgba(11,64,55,0.32)]",
       )}
