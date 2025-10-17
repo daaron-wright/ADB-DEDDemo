@@ -518,6 +518,10 @@ export function ComplianceGrowthFocusContent({
   onComplianceReturn,
   isCompliant = false,
 }: ComplianceGrowthFocusContentProps) {
+  const { toast } = useToast();
+  const feedbackResponseTimerRef = React.useRef<number | null>(null);
+  const [feedbackStatus, setFeedbackStatus] = React.useState<FeedbackWorkflowStatus>("draft");
+  const [submittedFeedback, setSubmittedFeedback] = React.useState<string | null>(null);
   const [activeTab, setActiveTab] = React.useState<TabKey>("compliance");
   const [complianceItems, setComplianceItems] = React.useState<ComplianceItem[]>(
     DEFAULT_COMPLIANCE_ITEMS,
