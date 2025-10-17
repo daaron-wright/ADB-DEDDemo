@@ -109,7 +109,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before we display your license summary, let's confirm the right legal structure, business activities, and physical space requirements together. Once we complete this intake, I'll publish your license type and submission ID.",
-  ar: "قبل أن أعرض تفاصيل الترخيص، دعينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل���ات المساحة. بمجرد إ��هاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطل��.",
+  ar: "قبل أن أعرض تفاصيل الترخيص، دعينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل���ات المساحة. بمجرد إ��هاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
 };
 
 type QuestionnaireProgress = "not_started" | "in_progress" | "completed";
@@ -321,7 +321,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     subtitle: "��وابة رخصة ال��عمال",
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
-      `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامً�� ما هي الخطوة ��لتالية.`,
+      `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة ��لتالية.`,
     workspaceSupportBadge: "دعم مسا��ة ����لعمل",
     supportHeading: "تحتاجين إلى مساع��ة؟",
     supportDescription: {
@@ -332,7 +332,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     keyDatesHeading: "التواري�� الرئيسية",
     keyDates: {
-      submitted: "تم التقديم",
+      submitted: "تم ��لتقديم",
       lastUpdated: "آخر تحديث",
     },
     heroBadge: "رحلة المستثمر",
@@ -340,10 +340,10 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroDescription: (name: string) =>
       `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث��ر��ن آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارا�� إضافية",
-    chatCta: "الدردشة مع ا��ذكاء الاص��ناعي",
+    chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
       `عرض أو إ��فاء نظرة عا��ة للرحلة الخاصة بـ ${title}`,
-    journeyIdLabel: "معر��ف الرحلة",
+    journeyIdLabel: "معرّف الرحلة",
     fieldLabels: {
       beneficiary: "المستفيد",
       licenseType: "نوع الرخصة",
@@ -381,7 +381,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "Department of Economic Development": "دائرة التنمية الاقتصادية",
     },
     applicationTitles: {
-      "APP-48291": "رحلة المطعم (الأطعمة والمشروبات)",
+      "APP-48291": "رحلة المطعم (الأطعمة وا��مشروبات)",
     },
     applicationSummaries: {
       "APP-48291":
@@ -2492,6 +2492,7 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
           id="journey-overview-panel"
           className={cn(
             "relative mt-6 rounded-3xl border border-[#d8e4df] bg-white/95 p-6 shadow-[0_16px_36px_-28px_rgba(11,64,55,0.22)] sm:p-7",
+            focusClasses.journeyPanel,
             isTimelineBackgroundBlurred &&
               "pointer-events-none select-none filter blur-sm lg:blur-md",
           )}
