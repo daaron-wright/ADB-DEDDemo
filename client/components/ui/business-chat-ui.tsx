@@ -7356,7 +7356,7 @@ export function BusinessChatUI({
           description:
             task.status === "in_progress"
               ? "Marked in progress—ask me if you'd like me to chase blockers or provide supporting material."
-              : "Still outstanding���let me know when you're ready for checklists or document templates.",
+              : "Still outstanding�����let me know when you're ready for checklists or document templates.",
           category: "Task",
         }));
       }
@@ -7456,28 +7456,7 @@ export function BusinessChatUI({
       ),
     );
 
-    if (!hasInitialPrompt) {
-      conversation.push(
-        buildMessage(
-          "Not sure where to start? I can surface the districts attracting the strongest demand right now—just tap \"Discover investment districts\" above and I'll walk you through the hotspots.",
-          true,
-        ),
-      );
-
-      conversation.push(
-        buildMessage(
-          "We'll move through market signals, competitive context, budget outlook, and eventually the viability summary. Jump to whichever focus suits your current thinking.",
-          true,
-        ),
-      );
-
-      conversation.push(
-        buildMessage(
-          "Suggested topics stay flexible, so you can branch into other tracks or come back to earlier ones. When you’re ready for the viability summary, just let me know and we’ll pivot into the application phase.",
-          true,
-        ),
-      );
-    } else {
+    if (hasInitialPrompt) {
       conversation.push(
         buildMessage(
           "I'll pull together the right insights for that. Let me know if you want market signals, competitor context, or budget next.",
