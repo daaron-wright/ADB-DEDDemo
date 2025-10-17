@@ -2086,7 +2086,7 @@ function GrowthFeedbackCard({
                 variant="outline"
                 size="sm"
                 className={cn(
-                  "rounded-full border-[#0f766e]/30 px-4 py-2 text-xs konto font-semibold uppercase tracking-[0.16em] text-[#0f766e] hover:bg-[#f5faf7]",
+                  "rounded-full border-[#0f766e]/30 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#0f766e] hover:bg-[#f5faf7]",
                   isSelected ? "border-[#0f766e] bg-[#0f766e] text-white hover:bg-[#0d5e57]" : "",
                 )}
               >
