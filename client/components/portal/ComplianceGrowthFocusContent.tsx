@@ -557,6 +557,7 @@ export function ComplianceGrowthFocusContent({
   );
 
   const showGrowthTab = Boolean(growthUnlocked);
+  const isFeedbackProcessing = feedbackStatus === "submitted";
 
   React.useEffect(() => {
     if (!showGrowthTab && activeTab === "growth") {
