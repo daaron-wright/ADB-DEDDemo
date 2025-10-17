@@ -60,6 +60,7 @@ export function JourneyOrchestrationPanel({
   onTimelineFocusChange,
   stageNumberOffset = 0,
   copy,
+  highlightedActionId,
 }: JourneyOrchestrationPanelProps) {
   const hasTimelineSection = timelineItems.length > 0;
 
