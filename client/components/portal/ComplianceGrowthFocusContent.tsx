@@ -1109,7 +1109,13 @@ export function ComplianceGrowthFocusContent({
         {showGrowthTab ? (
           <TabsContent value="growth" className="space-y-4">
             {renderSummaryCard("growth")}
-            <GrowthFeedbackCard prompts={GROWTH_FEEDBACK_PROMPTS} />
+            <GrowthFeedbackCard
+              prompts={GROWTH_FEEDBACK_PROMPTS}
+              status={feedbackStatus}
+              isProcessing={isFeedbackProcessing}
+              submittedFeedback={submittedFeedback}
+              onSubmit={handleGrowthFeedbackSubmit}
+            />
             <Accordion
               type="multiple"
               value={growthSections}
