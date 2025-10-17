@@ -6829,6 +6829,13 @@ export function BusinessChatUI({
     applyFollowUps([]);
   }, [applyFollowUps, setAdvisorPanelOpen, setCurrentStep]);
 
+  const handlePersistentQuickAction = useCallback(
+    (action: MessageAction) => {
+      handleAction(action.action, action.label, action.id);
+    },
+    [handleAction],
+  );
+
   const handleHumanFallback = useCallback(
     (prompt?: string) => {
       toast({
