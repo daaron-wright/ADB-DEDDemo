@@ -6820,6 +6820,13 @@ export function BusinessChatUI({
     applyFollowUps([]);
   }, [applyFollowUps, setCurrentStep]);
 
+  const openViabilitySummary = useCallback(() => {
+    setModalView("viability-summary");
+    setAdvisorPanelOpen(false);
+    setCurrentStep("summary");
+    applyFollowUps([]);
+  }, [applyFollowUps, setCurrentStep]);
+
   const handleHumanFallback = useCallback(
     (prompt?: string) => {
       toast({
