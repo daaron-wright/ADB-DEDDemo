@@ -243,7 +243,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     applicationSummaryHeading: "Application summary",
     applicationSummaryNote:
       "Your AI assistant will automatically pull the tenancy contract from ADM as soon as you register your lease.",
-    businessAITitle: "Business AI",
+    businessAITitle: "Polaris",
     businessActivityGuidance:
       "You can select multiple business activities for a restaurant, provided they fall under the same business group. You can list a maximum of 10 activities on a single trade license.",
     businessActivityGuidanceLabel:
@@ -355,7 +355,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
-    businessAITitle: "مساع�� ��لأعمال الذكي",
+    businessAITitle: "بولاريس",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
