@@ -689,6 +689,28 @@ export function ComplianceGrowthFocusContent({
     }
   }, []);
 
+  const handleGrowthFeedbackSubmit = React.useCallback(
+    (message: string) => {
+      if (feedbackStatus === "submitted") {
+        return;
+      }
+
+      const trimmed = message.trim();
+      if (!trimmed) {
+        return;
+      }
+
+      if (feedbackResponseTimerRef.current !== null) {
+        window.clearTimeout(feedbackResponseTimerRef.current);
+        feedbackResponseTimerRef.current = null;
+      }
+
+      setSubmittedFeedback(trimmed);
+      setFeedbackStatus("submitted");
+    },
+    [feedbackStatus],
+  );
+
   const complianceNextAction = React.useMemo(() => {
     const dedItem = complianceItems.find((item) => item.id === "ded-inspection");
     if (!dedItem) {
