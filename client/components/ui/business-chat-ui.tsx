@@ -7087,6 +7087,13 @@ export function BusinessChatUI({
     ],
   );
 
+  const handlePersistentQuickAction = useCallback(
+    (action: MessageAction) => {
+      handleAction(action.action, action.label, action.id);
+    },
+    [handleAction],
+  );
+
   const appendUserSelectionLog = useCallback(
     (label: string | undefined) => {
       if (!label || label.trim().length === 0) {
