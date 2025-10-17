@@ -6825,7 +6825,7 @@ export function BusinessChatUI({
     setAdvisorPanelOpen(false);
     setCurrentStep("summary");
     applyFollowUps([]);
-  }, [applyFollowUps, setCurrentStep]);
+  }, [applyFollowUps, setAdvisorPanelOpen, setCurrentStep]);
 
   const handleHumanFallback = useCallback(
     (prompt?: string) => {
