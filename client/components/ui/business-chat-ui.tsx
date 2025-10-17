@@ -7074,6 +7074,7 @@ export function BusinessChatUI({
       isInvestorAuthenticated,
       openApplicantPortal,
       persistentQuickActions,
+      setAdvisorPanelOpen,
       setCurrentStep,
       setIsInvestorAuthenticated,
       setIsInvestorLoginPending,
