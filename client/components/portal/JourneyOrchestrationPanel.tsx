@@ -42,6 +42,7 @@ interface JourneyOrchestrationPanelProps {
   onTimelineFocusChange?: (isFocused: boolean) => void;
   stageNumberOffset?: number;
   copy?: Partial<JourneyOrchestrationPanelCopy>;
+  highlightedActionId?: string | null;
 }
 
 export function JourneyOrchestrationPanel({
