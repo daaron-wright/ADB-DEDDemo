@@ -437,7 +437,11 @@ export function JourneyOrchestrationPanel({
                     type="button"
                     size="sm"
                     onClick={() => onViewJourney(selectedTimelineItem.id)}
-                    className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
+                    className={cn(
+                      "rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]",
+                      isHighlightedNextStep &&
+                        "border-transparent bg-[#0f766e] text-white shadow-[0_22px_46px_-26px_rgba(11,64,55,0.4)] hover:bg-[#0d5e57] focus-visible:ring-[#0f766e]/60",
+                    )}
                   >
                     {ctaButtonLabel}
                   </Button>
