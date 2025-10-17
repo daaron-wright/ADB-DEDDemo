@@ -332,13 +332,13 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     keyDatesHeading: "التواري�� الرئيسية",
     keyDates: {
-      submitted: "تم ��لتقديم",
+      submitted: "تم التقديم",
       lastUpdated: "آخر تحديث",
     },
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث��ر��ن آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساند�� الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث��ر��ن آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارا�� إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -357,7 +357,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "مساع�� ��لأعمال الذكي",
     businessActivityGuidance:
-      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
+      "يمكنك اختيار عدة أنشطة تجارية لل��طعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
       "أضيفي إرشادات الترخيص إلى استبيان ��لأنشطة التجارية",
     statusLabelMap: {
@@ -381,7 +381,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "Department of Economic Development": "دائرة التنمية الاقتصادية",
     },
     applicationTitles: {
-      "APP-48291": "رحلة المطعم (الأطعمة وا��مشروبات)",
+      "APP-48291": "رحلة المطعم (الأطعمة والمشروبات)",
     },
     applicationSummaries: {
       "APP-48291":
@@ -2553,7 +2553,12 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
           brand={portalBrand}
         >
           <section className="space-y-6">
-            <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 text-sm leading-relaxed text-slate-700">
+            <div
+              className={cn(
+                "rounded-3xl border border-[#d8e4df] bg-white p-6 text-sm leading-relaxed text-slate-700",
+                focusClasses.summary,
+              )}
+            >
               <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                 {languageCopy.applicationSummaryHeading}
               </h3>
