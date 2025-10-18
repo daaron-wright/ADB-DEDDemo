@@ -1,5 +1,5 @@
 export const PRIMARY_TRADE_NAME_EN = "MARWA RESTAURANT";
-export const PRIMARY_TRADE_NAME_AR = "ﺍﻹﺳﻢ ﺍﻟﺘﺠﺎﺭﻱ مطعم مروة";
+export const PRIMARY_TRADE_NAME_AR = "مطعم مروة";
 
 export const TRADE_NAME_RECEIPT_DOCUMENT_ID = "trade-name-reservation-receipt";
 
