@@ -14,7 +14,6 @@ const POLARIS_AUTOMATION_AVATAR_ALT = "Polaris automation emblem";
 
 interface PreOperationalInspectionFocusContentProps {
   journeyNumber?: string;
-  progressPercent?: number;
 }
 
 type SubStepStatus =
@@ -120,14 +119,12 @@ const SUB_STEP_TOKENS: Record<
 
 export function PreOperationalInspectionFocusContent({
   journeyNumber = "0987654321",
-  progressPercent = 83,
 }: PreOperationalInspectionFocusContentProps) {
   const [checklistItems, setChecklistItems] = React.useState<SubStep[]>(() =>
     INITIAL_SUB_STEPS.map((item) => ({ ...item })),
   );
   const [bankAccountPhase, setBankAccountPhase] =
     React.useState<BankAccountPhase>("link");
-  const [progress, setProgress] = React.useState(progressPercent);
   const [activeSlideId, setActiveSlideId] = React.useState<StageSlide["id"]>(
     "overview",
   );
