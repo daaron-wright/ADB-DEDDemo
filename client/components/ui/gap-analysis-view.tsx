@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
+import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
 
 interface GapAnalysisViewProps {
   onBack?: () => void;
@@ -203,9 +204,10 @@ const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({
                     navigate("/portal/applicant", {
                       state: {
                         user: {
-                          name: "Layla",
-                          role: "Entrepreneur",
-                          email: "layla@marwah.ae",
+                          name: ENTREPRENEUR_PROFILE.name,
+                          role: ENTREPRENEUR_PROFILE.title,
+                          email: ENTREPRENEUR_PROFILE.email,
+                          avatarUrl: ENTREPRENEUR_PROFILE.avatar,
                         },
                       },
                     })
