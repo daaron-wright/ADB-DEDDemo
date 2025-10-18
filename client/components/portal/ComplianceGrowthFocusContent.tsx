@@ -1192,7 +1192,7 @@ export function ComplianceGrowthFocusContent({
                               >
                                 {frameToken.label}
                               </span>
-                              <div className="absolute inset-x-2 bottom-2 rounded-lg bg-slate-900/70 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
+                              <div className="absolute inset-x-2 bottom-2 rounded-lg bg-slate-900/70 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white truncate">
                                 {item.videoFilename}
                               </div>
                             </div>
