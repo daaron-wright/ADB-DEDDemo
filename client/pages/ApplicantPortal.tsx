@@ -353,7 +353,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     journeyIdLabel: "معرّف الرحلة",
     fieldLabels: {
       beneficiary: "المستفيد",
-      licenseType: "نوع الرخصة",
+      licenseType: "نوع الرخص��",
       submissionId: "معرّف ال��لب",
       lastUpdate: "آخر تحديث",
     },
@@ -382,7 +382,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       Citizen: "مواطن",
       Resident: "مقيم",
       Investor: "مستثمر",
-      Visitor: "زائر",
+      Visitor: "زا��ر",
     },
     directorateLabels: {
       "Department of Economic Development": "دائرة التنمية الاقتصادية",
@@ -1011,6 +1011,7 @@ export default function ApplicantPortal() {
     useState<ApplicationNextActionState>("default");
   const [hasTradeNameReservationSubmitted, setHasTradeNameReservationSubmitted] =
     useState(false);
+  const [hasLicenseIssued, setHasLicenseIssued] = useState(false);
   const [questionnaireProgress, setQuestionnaireProgress] =
     usePersistentState<QuestionnaireProgress>(
       "portal-questionnaire-progress",
