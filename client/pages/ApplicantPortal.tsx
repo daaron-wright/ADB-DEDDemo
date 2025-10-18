@@ -110,7 +110,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before we display your license summary, let's confirm the right legal structure, business activities, and physical space requirements together. Once we complete this intake, I'll publish your license type and submission ID.",
-  ar: "قبل أن أعرض تفاصيل الترخيص، ��عينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل���ات المسا��ة. بمجرد إ��هاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
+  ar: "قبل أن أعرض تفاصيل الترخيص، ��عين�� نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل���ات المسا��ة. بمجرد إ��هاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
 };
 
 type QuestionnaireProgress = "not_started" | "in_progress" | "completed";
@@ -361,10 +361,10 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيق��م مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
+      "سيق��م مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من ن��ام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "بولاريس",
     businessActivityGuidance:
-      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
+      "يمكنك اختيار عدة أنشطة تجارية للم��عم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
       "أضيفي إرشادات الترخيص إلى استبيان ��لأنشطة التجارية",
     statusLabelMap: {
@@ -392,7 +392,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك ال��دع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأ��يد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك ال��دع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم ��لتجاري، وإدخال ا��شركاء، وتأ��يد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الموافقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
@@ -411,7 +411,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة ال��ال��ة",
       reviewStage: "اس��عرضي المرحلة",
-      timelineAriaLabel: "التنقل ��ين مراحل الرحلة",
+      timelineAriaLabel: "التنقل ��ين مر��حل الرحلة",
     },
     questionnaireOnboarding: {
       heading: "ابدئي رحلة ترخيصك",
@@ -1485,6 +1485,8 @@ export default function ApplicantPortal() {
       setJourneyAnimationIndex,
       setJourneyProgressPercent,
       updateCurrentJourneyStep,
+      canAccessInspections,
+      toast,
     ],
   );
 
