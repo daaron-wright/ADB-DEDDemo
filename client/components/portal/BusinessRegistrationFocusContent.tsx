@@ -124,7 +124,7 @@ const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   {
     id: "pearl-horizon",
     english: "Pearl Horizon Dining Sole LLC",
-    arabic: "مطعم أفق اللؤلؤ الفردي ذ.م.م",
+    arabic: "مطعم أفق اللؤلؤ الفرد�� ذ.م.م",
   },
 ];
 
@@ -835,7 +835,7 @@ export function BusinessRegistrationFocusContent({
       setFailedStepIndex(null);
       setFailureReason(null);
       setHasPerformedCheck(true);
-      setIsEditing(false);
+      setIsEditing(true);
       setActiveSlideId("verification");
       onTradeNameChange?.(formattedEnglish);
       return true;
