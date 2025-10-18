@@ -629,7 +629,7 @@ export function BusinessRegistrationFocusContent({
 
     if (isNameAvailable) {
       return hasSelectedApprovedTradeName
-        ? `${payAndIssueStepLabel} (${TRADE_NAME_PAYMENT_DISPLAY_AMOUNT}) to unlock document submissions.`
+        ? `${payAndIssueStepLabel} (${TRADE_NAME_PAYMENT_DISPLAY_AMOUNT}).`
         : "Trade name approved. Select it to move forward.";
     }
 
