@@ -133,6 +133,7 @@ export function PortalAIDock() {
         category="restaurants"
         title="Polaris"
         initialMessage="Before initiating the licensing process, we need to identify the most suitable legal structure, business activities, and physical space requirements. While certain aspects may already be predefined, others require some more clarification to ensure the right decisions are made."
+        showQuickActions={false}
       />
     </>
   );
