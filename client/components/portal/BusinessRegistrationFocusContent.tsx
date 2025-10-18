@@ -935,14 +935,17 @@ export function BusinessRegistrationFocusContent({
     setArabicDraft(PRIMARY_TRADE_NAME_AR);
     toast({
       title: "Trade name selected",
-      description: "We’ll prepare the reservation submission next.",
+      description: tradeNamePaymentToastMessage,
     });
+    onTradeNameSelected?.();
   }, [
     hasSelectedApprovedTradeName,
     hasSubmittedReservationApplication,
     isNameAvailable,
     isSubmittingReservation,
+    onTradeNameSelected,
     toast,
+    tradeNamePaymentToastMessage,
   ]);
 
   const handleSubmitReservationApplication = React.useCallback(() => {
