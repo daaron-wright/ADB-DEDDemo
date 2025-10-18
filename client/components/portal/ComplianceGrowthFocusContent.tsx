@@ -77,6 +77,15 @@ type GrowthOpportunity = {
   buttonLabel: string;
 };
 
+type EvidenceFrameStatus = "pass" | "pending" | "flagged";
+
+type EvidenceFrame = {
+  id: string;
+  src: string;
+  alt: string;
+  status: EvidenceFrameStatus;
+};
+
 type VideoEvidenceStatus = "processing" | "queued" | "synced";
 
 type VideoEvidence = {
@@ -88,6 +97,7 @@ type VideoEvidence = {
   status: VideoEvidenceStatus;
   source: string;
   note: string;
+  frames: EvidenceFrame[];
 };
 
 interface ComplianceGrowthFocusContentProps {
@@ -310,6 +320,90 @@ const VIDEO_STATUS_TOKENS: Record<
     helper: "Available in the TAMM evidence vault for future checks.",
   },
 };
+
+const EVIDENCE_FRAME_STATUS_TOKENS: Record<
+  EvidenceFrameStatus,
+  { label: string; badgeClass: string; helper: string }
+> = {
+  pass: {
+    label: "Pass",
+    badgeClass: "bg-emerald-500/95 text-white border border-emerald-300/60",
+    helper: "Automation cleared this frame.",
+  },
+  pending: {
+    label: "Analyzing",
+    badgeClass: "bg-amber-500/95 text-white border border-amber-300/60",
+    helper: "Frame is still being reviewed.",
+  },
+  flagged: {
+    label: "Flagged",
+    badgeClass: "bg-rose-500/95 text-white border border-rose-300/60",
+    helper: "Inspector follow-up required for this frame.",
+  },
+};
+
+const SIGNBOARD_FRAME_IMAGE_SETS: ReadonlyArray<ReadonlyArray<EvidenceFrame>> = [
+  [
+    {
+      id: "frame-entrance-daylight",
+      src: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=640&q=80",
+      alt: "Exterior restaurant signboard during daylight",
+      status: "pass",
+    },
+    {
+      id: "frame-night-illumination",
+      src: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=640&q=80",
+      alt: "Illuminated signboard captured at night",
+      status: "pass",
+    },
+    {
+      id: "frame-closeup-arabic",
+      src: "https://images.unsplash.com/photo-1529429617124-aee0a9cea41f?auto=format&fit=crop&w=640&q=80",
+      alt: "Close-up of bilingual lettering on signage",
+      status: "pass",
+    },
+  ],
+  [
+    {
+      id: "frame-interior-menu",
+      src: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=640&q=80",
+      alt: "Interior counter with illuminated menu",
+      status: "pass",
+    },
+    {
+      id: "frame-glare-check",
+      src: "https://images.unsplash.com/photo-1522199993-ffe49272d1b1?auto=format&fit=crop&w=640&q=80",
+      alt: "Inspector reviewing signage glare levels",
+      status: "flagged",
+    },
+    {
+      id: "frame-exit-sign",
+      src: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=640&q=80",
+      alt: "Exterior signage captured from street level",
+      status: "pass",
+    },
+  ],
+  [
+    {
+      id: "frame-mounting-check",
+      src: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=640&q=80",
+      alt: "Inspector verifying mounting height of signboard",
+      status: "pending",
+    },
+    {
+      id: "frame-lux-reading",
+      src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=640&q=80",
+      alt: "Lux meter capturing signboard illumination",
+      status: "pass",
+    },
+    {
+      id: "frame-entrance-wide",
+      src: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=640&q=80",
+      alt: "Wide shot of restaurant entrance signage",
+      status: "pass",
+    },
+  ],
+];
 
 const DEFAULT_VIDEO_LIBRARY: VideoEvidence[] = [
   {
