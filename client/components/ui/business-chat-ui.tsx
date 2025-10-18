@@ -7566,7 +7566,7 @@ export function BusinessChatUI({
             : "this Corniche opportunity";
 
           const celebration = buildMessage(
-            `Congratulations, Lyla — this concept is reading as highly viable. I’ve bookmarked ${locationLabel} so we can keep momentum and move straight into your trade name reservation.`,
+            `Congratulations, Layla — this concept is reading as highly viable. I’ve bookmarked ${locationLabel} so we can keep momentum and move straight into your trade name reservation.`,
             true,
           );
 
