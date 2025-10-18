@@ -568,7 +568,7 @@ export default function Index() {
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center justify-between gap-3">
-                          <span className="text-sm font-semibold text-slate-900">Hi, Lyla</span>
+                          <span className="text-sm font-semibold text-slate-900">Hi, Layla</span>
                           <span className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-700">
                             <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.32)] animate-pulse" />
                             Polaris Live
