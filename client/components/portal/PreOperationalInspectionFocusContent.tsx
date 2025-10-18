@@ -82,29 +82,6 @@ const INITIAL_SUB_STEPS: SubStep[] = [
   },
 ];
 
-const CERTIFICATIONS = [
-  {
-    id: "adcda",
-    src: "https://api.builder.io/api/v1/image/assets/TEMP/65efb322c17c0c898b0d7f62a8594d539ea99380?width=384",
-    alt: "Abu Dhabi Civil Defence",
-  },
-  {
-    id: "adafsa",
-    src: "https://api.builder.io/api/v1/image/assets/TEMP/34a6ee9d8c89d380fc61f0ce59ce20d319f4ba50?width=384",
-    alt: "Abu Dhabi Agriculture and Food Safety Authority",
-  },
-  {
-    id: "fab",
-    src: "https://api.builder.io/api/v1/image/assets/TEMP/2c1eed059d09c72f13959f5658792c98a78bd9e1?width=384",
-    alt: "First Abu Dhabi Bank",
-  },
-  {
-    id: "etisalat",
-    src: "https://api.builder.io/api/v1/image/assets/TEMP/1e83f2e721687676d83cf73e4a7e5e455ff2f837?width=384",
-    alt: "e&",
-  },
-];
-
 const SUB_STEP_TOKENS: Record<
   SubStepStatus,
   { label: string; badgeClass: string; iconClass: string; dotClass: string }
@@ -150,7 +127,6 @@ export function PreOperationalInspectionFocusContent({
   );
   const [bankAccountPhase, setBankAccountPhase] =
     React.useState<BankAccountPhase>("link");
-  const [showDocuments, setShowDocuments] = React.useState(true);
   const [progress, setProgress] = React.useState(progressPercent);
   const [activeSlideId, setActiveSlideId] = React.useState<StageSlide["id"]>(
     "overview",
@@ -444,76 +420,6 @@ export function PreOperationalInspectionFocusContent({
           </div>
         ),
       },
-      {
-        id: "certifications",
-        heading: "Certification sources",
-        description: "Active connections",
-        content: (
-          <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
-            <p className="text-sm text-slate-600">
-              We pull confirmations directly from each authority so you always have the latest approvals.
-            </p>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {CERTIFICATIONS.map((cert) => (
-                <div
-                  key={cert.id}
-                  className="flex items-center justify-center rounded-full border border-[#e6f2ed] bg-white px-4 py-3 shadow-[0_18px_42px_-40px_rgba(15,118,110,0.25)]"
-                >
-                  <img
-                    src={cert.src}
-                    alt={cert.alt}
-                    className="h-auto max-h-[32px] w-auto max-w-full object-contain"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        ),
-      },
-      {
-        id: "documents",
-        heading: "My TAMM documents",
-        description: "Synced from \"My Business Documents\" Vault",
-        content: (
-          <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
-            <p className="text-sm text-slate-600">
-              Certificates and permits stay available here. Toggle the previews to confirm what inspectors can see in TAMM.
-            </p>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setShowDocuments((value) => !value)}
-              className="w-fit rounded-full border-[#0f766e]/40 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
-            >
-              {showDocuments ? "Hide previews" : "Show previews"}
-            </Button>
-            {showDocuments ? (
-              <div className="grid gap-4 sm:grid-cols-2">
-                <img
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/f4db5140ddd80fde530b18c48457b833a2fdbdfc?width=164"
-                  alt="Certificate preview"
-                  className="h-32 w-full rounded-xl border border-white/70 object-cover shadow-[0_8px_24px_-12px_rgba(15,23,42,0.25)]"
-                />
-                <img
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/6874f52d79db5dff4a42886b0395ffbe0cf14b5d?width=174"
-                  alt="Permit preview"
-                  className="h-32 w-full rounded-xl border border-white/70 object-cover shadow-[0_8px_24px_-12px_rgba(15,23,42,0.25)]"
-                />
-                <img
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/f4db5140ddd80fde530b18c48457b833a2fdbdfc?width=164"
-                  alt="Compliance document preview"
-                  className="h-32 w-full rounded-xl border border-white/70 object-cover shadow-[0_8px_24px_-12px_rgba(15,23,42,0.25)]"
-                />
-                <img
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/6874f52d79db5dff4a42886b0395ffbe0cf14b5d?width=174"
-                  alt="Supporting document preview"
-                  className="h-32 w-full rounded-xl border border-white/70 object-cover shadow-[0_8px_24px_-12px_rgba(15,23,42,0.25)]"
-                />
-              </div>
-            ) : null}
-          </div>
-        ),
-      },
     ],
     [
       automationSubtitle,
@@ -524,7 +430,6 @@ export function PreOperationalInspectionFocusContent({
       journeyNumber,
       nextAction,
       progress,
-      showDocuments,
     ],
   );
 
