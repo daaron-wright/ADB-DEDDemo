@@ -4191,15 +4191,15 @@ const SuggestedTopicsPanel = ({
       </div>
       {groupedRecommendations.length > 0 ? (
         <Tabs value={activeTab} onValueChange={setActiveTab} className="flex flex-col gap-5">
-          <TabsList className="grid w-full auto-rows-fr grid-cols-1 gap-2 rounded-[32px] border border-emerald-100/80 bg-[#f0f9f6] p-3 sm:grid-cols-2 lg:grid-cols-4">
+          <TabsList className="grid w-full auto-rows-fr grid-cols-1 gap-1.5 rounded-[32px] border border-emerald-100/80 bg-[#f0f9f6] p-3 sm:grid-cols-2 lg:grid-cols-4">
             <TabsTrigger
               value="summary"
-              className="group flex h-full w-full items-center justify-center gap-3 rounded-[24px] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0F766E]/80 transition-all duration-200 ease-out hover:text-[#0F766E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:text-xs"
+              className="group flex h-full w-full items-center justify-start gap-2.5 rounded-[24px] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0F766E]/80 transition-all duration-200 ease-out hover:text-[#0F766E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:text-xs"
             >
               <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[#0F766E]/10 bg-white/70 text-[#0F766E] shadow-[0_14px_32px_-26px_rgba(14,118,110,0.35)]">
                 <Sparkles className="h-4 w-4" aria-hidden="true" />
               </span>
-              <span className="text-center uppercase leading-tight tracking-[0.24em] sm:text-left">
+              <span className="text-left uppercase leading-tight tracking-[0.22em]">
                 Overview
               </span>
             </TabsTrigger>
@@ -4209,12 +4209,12 @@ const SuggestedTopicsPanel = ({
                 <TabsTrigger
                   key={group.id}
                   value={group.id}
-                  className="group flex h-full w-full items-center justify-center gap-3 rounded-[24px] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0F766E]/80 transition-all duration-200 ease-out hover:text-[#0F766E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:text-xs"
+                  className="group flex h-full w-full items-center justify-start gap-2.5 rounded-[24px] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0F766E]/80 transition-all duration-200 ease-out hover:text-[#0F766E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40 data-[state=active]:bg-white data-[state=active]:text-[#0F766E] data-[state=active]:shadow-[0_18px_40px_-26px_rgba(14,118,110,0.45)] sm:text-xs"
                 >
                   <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[#0F766E]/10 bg-white/70 text-[#0F766E] shadow-[0_14px_32px_-26px_rgba(14,118,110,0.35)]">
                     <GroupIcon className="h-4 w-4" aria-hidden="true" />
                   </span>
-                  <span className="text-center uppercase leading-tight tracking-[0.24em] sm:text-left">
+                  <span className="text-left uppercase leading-tight tracking-[0.22em]">
                     {group.label}
                   </span>
                 </TabsTrigger>
