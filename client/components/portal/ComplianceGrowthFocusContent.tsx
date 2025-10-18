@@ -1028,31 +1028,61 @@ export function ComplianceGrowthFocusContent({
                             return (
                               <div
                                 key={item.id}
-                                className="flex items-start justify-between gap-3 rounded-2xl border border-[#e6f2ed] bg-[#f9fbfd] p-4"
+                                className="space-y-3 rounded-2xl border border-[#e6f2ed] bg-[#f9fbfd] p-4"
                               >
-                                <div className="flex items-start gap-3">
-                                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#0f766e]/15 bg-[#f5faf7] text-[#0f766e]">
-                                    <PlayCircle className="h-5 w-5" />
-                                  </span>
-                                  <div className="space-y-1">
-                                    <p className="text-sm font-semibold text-slate-900">{item.filename}</p>
-                                    <p className="text-xs text-slate-500">
-                                      {formatMegabytes(item.sizeMb)} • {item.durationLabel}
-                                    </p>
-                                    <p className="text-xs text-slate-500">{item.note}</p>
-                                    <p className="text-xs text-slate-400">
-                                      Uploaded {formatEvidenceTimestamp(item.capturedOn)} • {item.source}
-                                    </p>
+                                <div className="flex flex-wrap items-start justify-between gap-3">
+                                  <div className="flex items-start gap-3">
+                                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#0f766e]/15 bg-[#f5faf7] text-[#0f766e]">
+                                      <PlayCircle className="h-5 w-5" />
+                                    </span>
+                                    <div className="space-y-1">
+                                      <p className="text-sm font-semibold text-slate-900">{item.filename}</p>
+                                      <p className="text-xs text-slate-500">
+                                        {formatMegabytes(item.sizeMb)} • {item.durationLabel}
+                                      </p>
+                                      <p className="text-xs text-slate-500">{item.note}</p>
+                                      <p className="text-xs text-slate-400">
+                                        Uploaded {formatEvidenceTimestamp(item.capturedOn)} • {item.source}
+                                      </p>
+                                    </div>
                                   </div>
+                                  <Badge
+                                    className={cn(
+                                      "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                                      token.className,
+                                    )}
+                                  >
+                                    {token.label}
+                                  </Badge>
                                 </div>
-                                <Badge
-                                  className={cn(
-                                    "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                                    token.className,
-                                  )}
-                                >
-                                  {token.label}
-                                </Badge>
+                                {item.frames.length > 0 ? (
+                                  <div className="grid grid-cols-3 gap-2">
+                                    {item.frames.map((frame) => {
+                                      const frameToken = EVIDENCE_FRAME_STATUS_TOKENS[frame.status];
+                                      return (
+                                        <div
+                                          key={frame.id}
+                                          className="group relative overflow-hidden rounded-xl border border-[#e6f2ed] bg-white"
+                                          title={frameToken.helper}
+                                        >
+                                          <img
+                                            src={frame.src}
+                                            alt={frame.alt}
+                                            className="h-24 w-full object-cover transition duration-300 group-hover:scale-105"
+                                          />
+                                          <span
+                                            className={cn(
+                                              "absolute left-2 top-2 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
+                                              frameToken.badgeClass,
+                                            )}
+                                          >
+                                            {frameToken.label}
+                                          </span>
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                ) : null}
                               </div>
                             );
                           })}
