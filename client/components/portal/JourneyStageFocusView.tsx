@@ -73,6 +73,10 @@ export interface JourneyStageFocusViewProps {
   stageActivities?: StageActivitiesContext;
   tradeName?: string;
   onTradeNameChange?: (tradeName: string | null) => void;
+  onTradeNameSelected?: () => void;
+  onTradeNameReservationSubmitted?: () => void;
+  tradeNamePayAndIssueLabel?: string;
+  tradeNamePayAndIssueToast?: string;
   growthUnlocked?: boolean;
   onComplianceReturn?: () => void;
   isCompliancePassed?: boolean;
