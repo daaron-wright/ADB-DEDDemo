@@ -171,6 +171,8 @@ interface PortalLanguageCopy {
   applicationTitles: Record<string, string>;
   applicationSummaries: Record<string, string>;
   applicationNextActions: Record<string, string>;
+  tradeNamePaymentNextStep: string;
+  tradeNamePaymentToast: string;
   journey: JourneyOrchestrationPanelCopy;
   questionnaireOnboarding: {
     heading: string;
@@ -338,7 +340,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث������ر��ن آخ��ون أفكارهم إلى ����طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارا�� إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
