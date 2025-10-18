@@ -553,6 +553,11 @@ export function BusinessRegistrationFocusContent({
     "trade-name",
   );
 
+  const payAndIssueStepLabel = payAndIssueLabel ?? "Pay and Issue Trade Name";
+  const tradeNamePaymentToastMessage =
+    payAndIssueToast ??
+    `Pay and issue the trade name for ${TRADE_NAME_PAYMENT_DISPLAY_AMOUNT} so Polaris can sync the receipt and unlock document submissions.`;
+
   const approvedNameSet = React.useMemo(
     () =>
       new Set(APPROVED_TRADE_NAMES.map((name) => name.trim().toUpperCase())),
