@@ -353,7 +353,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     journeyIdLabel: "معرّف الرحلة",
     fieldLabels: {
       beneficiary: "المستفيد",
-      licenseType: "نوع الرخص��",
+      licenseType: "نوع الرخصة",
       submissionId: "معرّف ال��لب",
       lastUpdate: "آخر تحديث",
     },
@@ -361,7 +361,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
+      "سيق��م مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "بولاريس",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
@@ -382,7 +382,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       Citizen: "مواطن",
       Resident: "مقيم",
       Investor: "مستثمر",
-      Visitor: "زا��ر",
+      Visitor: "زائر",
     },
     directorateLabels: {
       "Department of Economic Development": "دائرة التنمية الاقتصادية",
@@ -392,7 +392,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك المدع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأ��يد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك ال��دع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأ��يد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الموافقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
@@ -1100,6 +1100,8 @@ export default function ApplicantPortal() {
     DEFAULT_LEGAL_FORM_SELECTION,
   );
   const stageOrder = useMemo(() => journeyStages.map((stage) => stage.id), []);
+  const canAccessInspections =
+    hasTradeNameReservationSubmitted && hasLicenseIssued;
 
   useEffect(() => {
     if (!activeStageId) {
