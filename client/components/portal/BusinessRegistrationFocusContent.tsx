@@ -1249,7 +1249,7 @@ export function BusinessRegistrationFocusContent({
               defaultValue="verification"
             >
               <AccordionItem value="verification" className="border-none">
-                <AccordionTrigger className="px-5 py-4 text-left hover:no-underline">
+                <AccordionTrigger className="px-5 py-4 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
                   <div className="flex w-full flex-wrap items-start justify-between gap-3">
                     <div className="space-y-1 text-left">
                       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
