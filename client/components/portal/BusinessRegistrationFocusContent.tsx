@@ -507,7 +507,6 @@ export function BusinessRegistrationFocusContent({
   );
 
   const showVerificationSteps = hasPerformedCheck || isChecking;
-  const displayProgress = Math.round(automationProgress);
 
   const canSubmitReservation = React.useMemo(
     () =>
