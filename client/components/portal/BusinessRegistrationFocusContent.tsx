@@ -896,6 +896,7 @@ export function BusinessRegistrationFocusContent({
       return;
     }
 
+    setActiveSlideId("verification");
     setIsSubmittingReservation(true);
     toast({
       title: "Submitting reservation",
