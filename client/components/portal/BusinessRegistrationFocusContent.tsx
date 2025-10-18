@@ -118,7 +118,7 @@ const APPROVED_TRADE_NAMES = [
 
 const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   {
-    id: "marwah-restaurant",
+    id: "bait-el-khetyar",
     english: PRIMARY_TRADE_NAME_EN,
     arabic: PRIMARY_TRADE_NAME_AR,
   },
