@@ -71,8 +71,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     description:
       "We confirm there are no existing businesses with confusingly similar names.",
     summary: "Prevents duplicates or confusingly similar business names.",
-    failureDetail:
-      "Matches an existing company chartered as Corniche Culinary Collective Trading.",
+    failureDetail: `Matches an existing trade name registered as ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}).`,
   },
   {
     title: "Transliteration check",
