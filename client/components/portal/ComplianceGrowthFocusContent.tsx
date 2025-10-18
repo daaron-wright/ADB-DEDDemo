@@ -452,16 +452,98 @@ export function ComplianceGrowthFocusContent({
     setActiveSlideId("automation");
   }, [onComplianceReturn, toast]);
 
-  const handleAdvancePipeline = React.useCallback(() => {
+  const resetPendingVideo = React.useCallback(() => {
+    setPendingVideo(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }, []);
+
+  const handleVideoSelect = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (!file) {
+        return;
+      }
+
+      if (!file.type.startsWith("video/")) {
+        toast({
+          title: "Unsupported file type",
+          description: "Upload MP4, MOV, or WebM walkthroughs for signboard verification.",
+          variant: "destructive",
+        });
+        resetPendingVideo();
+        setSubmissionStatus("idle");
+        return;
+      }
+
+      if (file.size > MAX_VIDEO_SIZE_BYTES) {
+        toast({
+          title: "Video exceeds size limit",
+          description: "Each walkthrough must be 2 GB or smaller before encryption.",
+          variant: "destructive",
+        });
+        resetPendingVideo();
+        setSubmissionStatus("idle");
+        return;
+      }
+
+      setPendingVideo(file);
+      setSubmissionStatus("ready");
+    },
+    [resetPendingVideo, toast],
+  );
+
+  const handleRemovePendingVideo = React.useCallback(() => {
+    if (!pendingVideo) {
+      return;
+    }
+
+    resetPendingVideo();
+    setSubmissionStatus("idle");
+    toast({
+      title: "Upload cleared",
+      description: "Select a new walkthrough to keep inspectors updated.",
+    });
+  }, [pendingVideo, resetPendingVideo, toast]);
+
+  const handleSubmitVideoEvidence = React.useCallback(() => {
+    if (!pendingVideo) {
+      toast({
+        title: "Add a walkthrough video",
+        description: "Select a signboard capture before submitting to inspectors.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmittingVideo(true);
+    const videoToSubmit = pendingVideo;
+    const newEvidence: VideoEvidence = {
+      id: `upload-${Date.now()}`,
+      filename: videoToSubmit.name,
+      sizeMb: bytesToMegabytes(videoToSubmit.size),
+      durationLabel: "Duration pending analysis",
+      capturedOn: new Date().toISOString(),
+      status: "queued",
+      source: "Workspace upload",
+      note: "Polaris is extracting frames and forwarding the footage to inspectors.",
+    };
+
+    setVideoLibrary((previous) => [newEvidence, ...previous]);
+    setSubmissionStatus("submitted");
     setPipelineIndex((previous) =>
       previous >= INSPECTION_PIPELINE_STEPS.length - 1 ? previous : previous + 1,
     );
-    setSubmissionStatus("submitted");
     toast({
-      title: "Inspection evidence submitted",
-      description: "Polaris shared your signboard verification bundle with the inspector queue.",
+      title: "Video submitted",
+      description: `${videoToSubmit.name} is syncing to the inspector queue.`,
     });
-  }, [toast]);
+    resetPendingVideo();
+    setTimeout(() => {
+      setIsSubmittingVideo(false);
+    }, 600);
+  }, [pendingVideo, resetPendingVideo, toast]);
 
   const handleSubmitFeedback = React.useCallback(() => {
     if (!feedbackNotes.trim()) {
