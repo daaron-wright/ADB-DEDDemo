@@ -124,7 +124,7 @@ const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   {
     id: "pearl-horizon",
     english: "Pearl Horizon Dining Sole LLC",
-    arabic: "مطعم أفق اللؤلؤ الفرد�� ذ.م.م",
+    arabic: "مطعم ��فق اللؤلؤ الفردي ذ.م.م",
   },
 ];
 
@@ -951,6 +951,7 @@ export function BusinessRegistrationFocusContent({
       });
       upsertTradeNameReceipt();
       setAutomationProgress((value) => Math.max(value, 100));
+      setIsEditing(true);
       reservationTimeoutRef.current = null;
     }, 1200);
   }, [
