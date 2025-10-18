@@ -776,6 +776,7 @@ export function DocumentSubmissionFocusContent({
       slides={slides}
       activeSlideId={activeSlideId}
       onSlideChange={handleSlideSelection}
+      className="mt-6"
     />
   );
 }
