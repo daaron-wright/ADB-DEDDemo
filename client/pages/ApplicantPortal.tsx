@@ -351,7 +351,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإ��راء التالي",
-    nextActionButton: "انتقلي إلى ��لإجراء التالي",
+    nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
@@ -419,7 +419,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       pendingLicenseLabel: "م��اح بعد الاستبيان",
       pendingSubmissionLabel: "",
       chatIntro:
-        "لنؤكد بعض التفاصي�� معًا. بعد إنهاء هذا الاستبيان، سأعرض نوع التر��يص ومعرّف الطلب.",
+        "لنؤكد بعض التفاصي�� معًا. بعد إنها�� هذا الاستبيان، سأعرض نوع التر��يص ومعرّف الطلب.",
     },
   },
 };
@@ -2598,6 +2598,7 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
             suppressChatInterface={shouldSuppressChatInterface}
             hasCompletedApplication={isApplicationComplete}
             feedbackThreshold={4}
+            showQuickActions={false}
           />
         </div>
       </div>
