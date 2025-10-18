@@ -616,18 +616,37 @@ export function ComplianceGrowthFocusContent({
 
     setIsSubmittingVideo(true);
     const videoToSubmit = pendingVideo;
-    const newEvidence: VideoEvidence = {
-      id: `upload-${Date.now()}`,
+    const evidenceId = `upload-${Date.now()}`;
+    const capturedOn = new Date().toISOString();
+    const baseVideo: Omit<VideoEvidence, "frames"> = {
+      id: evidenceId,
       filename: videoToSubmit.name,
       sizeMb: bytesToMegabytes(videoToSubmit.size),
       durationLabel: "Duration pending analysis",
-      capturedOn: new Date().toISOString(),
+      capturedOn,
       status: "queued",
       source: "Workspace upload",
       note: "Polaris is extracting frames and forwarding the footage to inspectors.",
     };
 
-    setVideoLibrary((previous) => [newEvidence, ...previous]);
+    setVideoLibrary((previous) => {
+      const frameSource =
+        SIGNBOARD_FRAME_IMAGE_SETS[previous.length % SIGNBOARD_FRAME_IMAGE_SETS.length] ??
+        SIGNBOARD_FRAME_IMAGE_SETS[0];
+      const frames = frameSource.map((frame, index) => ({
+        ...frame,
+        id: `${frame.id}-${evidenceId}-${index}`,
+        status: index === 0 ? "pending" : frame.status,
+      }));
+
+      const newEvidence: VideoEvidence = {
+        ...baseVideo,
+        frames,
+      };
+
+      return [newEvidence, ...previous];
+    });
+
     setSubmissionStatus("submitted");
     setPipelineIndex((previous) =>
       previous >= INSPECTION_PIPELINE_STEPS.length - 1 ? previous : previous + 1,
@@ -637,6 +656,42 @@ export function ComplianceGrowthFocusContent({
       description: `${videoToSubmit.name} is syncing to the inspector queue.`,
     });
     resetPendingVideo();
+
+    const processingTimer = window.setTimeout(() => {
+      setVideoLibrary((current) =>
+        current.map((item) =>
+          item.id === evidenceId
+            ? {
+                ...item,
+                status: "processing",
+                note: "Automation is sampling frames and preparing OCR checks.",
+              }
+            : item,
+        ),
+      );
+    }, 1200);
+
+    const syncedTimer = window.setTimeout(() => {
+      setVideoLibrary((current) =>
+        current.map((item) =>
+          item.id === evidenceId
+            ? {
+                ...item,
+                status: "synced",
+                note: "Frames cleared and synced to the TAMM evidence vault.",
+                frames: item.frames.map((frame) =>
+                  frame.status === "pending"
+                    ? { ...frame, status: "pass" as EvidenceFrameStatus }
+                    : frame,
+                ),
+              }
+            : item,
+        ),
+      );
+    }, 2900);
+
+    frameTimersRef.current.push(processingTimer, syncedTimer);
+
     setTimeout(() => {
       setIsSubmittingVideo(false);
     }, 600);
