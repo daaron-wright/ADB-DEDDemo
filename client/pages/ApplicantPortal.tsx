@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import type { KeyboardEvent } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
@@ -18,6 +18,7 @@ import type {
   BusinessActivity,
 } from "@/components/portal/BusinessActivitiesSelection";
 import { usePersistentState } from "@/hooks/use-persistent-state";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
 import { Plus, ChevronDown } from "lucide-react";
@@ -353,10 +354,10 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
+      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجي�� ��قدك.",
     businessAITitle: "بولاريس",
     businessActivityGuidance:
-      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
+      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف��� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
       "أضيفي إرشادات الترخيص إلى استبيان ��لأنشطة التجارية",
     statusLabelMap: {
