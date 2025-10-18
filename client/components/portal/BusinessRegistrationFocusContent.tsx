@@ -1234,19 +1234,6 @@ export function BusinessRegistrationFocusContent({
           </div>
 
           <div className="space-y-3">
-            <div className="space-y-2">
-              <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
-                <div
-                  className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all"
-                  style={{ width: `${displayProgress}%` }}
-                />
-              </div>
-              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                <span>Overall progress</span>
-                <span>{displayProgress}%</span>
-              </div>
-            </div>
-
             {showVerificationSteps ? (
               <div className="space-y-3">
                 {automationSteps.map((step, index) => (
