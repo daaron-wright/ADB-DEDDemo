@@ -1160,6 +1160,47 @@ export function ComplianceGrowthFocusContent({
                       );
                     })}
                   </div>
+                  {evidenceGallery.length > 0 ? (
+                    <div className="space-y-2 pt-2">
+                      <div className="flex items-center justify-between gap-2">
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                          Analyzed frames
+                        </p>
+                        <p className="text-xs text-slate-500">
+                          Showing {evidenceGallery.length} recent frames
+                        </p>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 md:grid-cols-4">
+                        {evidenceGallery.map((item) => {
+                          const frameToken = EVIDENCE_FRAME_STATUS_TOKENS[item.frame.status];
+                          return (
+                            <div
+                              key={item.key}
+                              className="group relative overflow-hidden rounded-xl border border-[#e6f2ed] bg-white"
+                              title={frameToken.helper}
+                            >
+                              <img
+                                src={item.frame.src}
+                                alt={item.frame.alt}
+                                className="h-20 w-full object-cover transition duration-300 group-hover:scale-105"
+                              />
+                              <span
+                                className={cn(
+                                  "absolute left-2 top-2 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
+                                  frameToken.badgeClass,
+                                )}
+                              >
+                                {frameToken.label}
+                              </span>
+                              <div className="absolute inset-x-2 bottom-2 rounded-lg bg-slate-900/70 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
+                                {item.videoFilename}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : null}
                   {videoLibrary.length > libraryPreview.length ? (
                     <p className="text-xs text-slate-500">
                       {videoLibrary.length - libraryPreview.length} more walkthrough
