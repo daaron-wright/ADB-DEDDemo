@@ -162,7 +162,7 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
           </button>
         </div>
         <p className="text-xs text-slate-500">
-          Choosing the affirmative option above triggers the application workspace handoff in Polaris and syncs Lyla&apos;s
+          Choosing the affirmative option above triggers the application workspace handoff in Polaris and syncs Layla&apos;s
           progress with the formal applicant portal.
         </p>
       </section>
