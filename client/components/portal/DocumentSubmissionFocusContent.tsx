@@ -23,6 +23,7 @@ import {
 
 interface DocumentSubmissionFocusContentProps {
   journeyNumber?: string;
+  onLicenseIssued?: () => void;
 }
 
 type LicenseDetails = {
@@ -87,6 +88,7 @@ const TAMM_DOCUMENT_PREVIEWS = [
 
 export function DocumentSubmissionFocusContent({
   journeyNumber = "0987654321",
+  onLicenseIssued,
 }: DocumentSubmissionFocusContentProps) {
   const { toast } = useToast();
   const {
@@ -294,6 +296,14 @@ export function DocumentSubmissionFocusContent({
       );
     }
   }, [allDocumentsCompleted, hasPaid]);
+
+  React.useEffect(() => {
+    if (!hasPaid || !licenseDetails) {
+      return;
+    }
+
+    onLicenseIssued?.();
+  }, [hasPaid, licenseDetails, onLicenseIssued]);
 
   const vaultSubtitle = `${completedDocuments}/${totalDocuments} documents ready`;
   const moaSubtitle = showMoaAssistant
