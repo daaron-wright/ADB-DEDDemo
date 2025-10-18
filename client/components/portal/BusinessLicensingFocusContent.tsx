@@ -284,18 +284,9 @@ export function BusinessLicensingFocusContent({
                 {stageToken.badgeLabel}
               </Badge>
             </div>
-            <div className="space-y-2">
-              <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
-                <div
-                  className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] shadow-[0_1px_6px_rgba(15,118,110,0.35)] transition-all"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                <span>License generation</span>
-                <span>{progress}%</span>
-              </div>
-            </div>
+            <p className="text-sm text-slate-600">
+              Polaris submits updates to DED automatically. Any actions you need to complete will surface in the checklist below.
+            </p>
           </div>
 
           <div className="space-y-4 rounded-3xl border border-white/60 bg-white p-5 shadow-[0_28px_60px_-54px_rgba(15,23,42,0.4)]">
