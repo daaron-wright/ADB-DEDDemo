@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { Accordion } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,9 +9,10 @@ import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { Check, Wallet } from "lucide-react";
 
-import { StageSlideNavigator, type StageSlide } from "./StageSlideNavigator";
 import { DocumentVaultCard } from "./DocumentVaultCard";
 import { DocumentVaultLayout } from "./DocumentVaultLayout";
+import { StageSlideNavigator, type StageSlide } from "./StageSlideNavigator";
+import { CollapsibleCard } from "./StageCollapsibleCard";
 import { useDocumentVault } from "./DocumentVaultContext";
 import { DOCUMENT_VAULT_SOURCE_LABEL } from "./document-vault-data";
 import { MyTAMMDocuments } from "./MyTAMMDocuments";
@@ -37,6 +39,52 @@ const POLARIS_RECOMMENDED_MOA_CLAUSE = `Custom Article 7 — Capital contributio
 المادة 7 — المساهمات الرأسمالية وتوزيع الأرباح
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise. Distributions shall be supported by audited management accounts and bilingual notices issued at least five (5) working days in advance. Polaris simulation includes bilingual notices and an ADJD review cover letter.`;
+
+const CERTIFICATION_SOURCES = [
+  {
+    id: "adcda",
+    src: "https://api.builder.io/api/v1/image/assets/TEMP/65efb322c17c0c898b0d7f62a8594d539ea99380?width=384",
+    alt: "Abu Dhabi Civil Defence",
+  },
+  {
+    id: "adafsa",
+    src: "https://api.builder.io/api/v1/image/assets/TEMP/34a6ee9d8c89d380fc61f0ce59ce20d319f4ba50?width=384",
+    alt: "Abu Dhabi Agriculture and Food Safety Authority",
+  },
+  {
+    id: "fab",
+    src: "https://api.builder.io/api/v1/image/assets/TEMP/2c1eed059d09c72f13959f5658792c98a78bd9e1?width=384",
+    alt: "First Abu Dhabi Bank",
+  },
+  {
+    id: "etisalat",
+    src: "https://api.builder.io/api/v1/image/assets/TEMP/1e83f2e721687676d83cf73e4a7e5e455ff2f837?width=384",
+    alt: "e&",
+  },
+];
+
+const TAMM_DOCUMENT_PREVIEWS = [
+  {
+    id: "certificate",
+    src: "https://api.builder.io/api/v1/image/assets/TEMP/f4db5140ddd80fde530b18c48457b833a2fdbdfc?width=164",
+    alt: "Certificate preview",
+  },
+  {
+    id: "permit",
+    src: "https://api.builder.io/api/v1/image/assets/TEMP/6874f52d79db5dff4a42886b0395ffbe0cf14b5d?width=174",
+    alt: "Permit preview",
+  },
+  {
+    id: "compliance",
+    src: "https://api.builder.io/api/v1/image/assets/TEMP/f4db5140ddd80fde530b18c48457b833a2fdbdfc?width=164",
+    alt: "Compliance document preview",
+  },
+  {
+    id: "supporting",
+    src: "https://api.builder.io/api/v1/image/assets/TEMP/6874f52d79db5dff4a42886b0395ffbe0cf14b5d?width=174",
+    alt: "Supporting document preview",
+  },
+];
 
 export function DocumentSubmissionFocusContent({
   journeyNumber = "0987654321",
@@ -326,7 +374,7 @@ export function DocumentSubmissionFocusContent({
         heading: "Document vault",
         description: vaultSubtitle,
         content: (
-          <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-40px_rgba(15,23,42,0.28)]">
+          <div className="space-y-5 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-40px_rgba(15,23,42,0.28)]">
             <DocumentVaultLayout
               isProcessing={isVaultProcessing}
               statusHeading={vaultStatusHeading}
@@ -350,6 +398,54 @@ export function DocumentSubmissionFocusContent({
                 Every document is signed and stored. You can issue the licence.
               </div>
             ) : null}
+            <Accordion
+              type="multiple"
+              defaultValue={["certifications"]}
+              className="space-y-3"
+            >
+              <CollapsibleCard
+                value="certifications"
+                title="Certification sources"
+                subtitle="Active connections"
+              >
+                <p className="text-sm text-slate-600">
+                  We pull confirmations directly from each authority so you always have the latest approvals.
+                </p>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {CERTIFICATION_SOURCES.map((cert) => (
+                    <div
+                      key={cert.id}
+                      className="flex items-center justify-center rounded-full border border-[#e6f2ed] bg-white px-4 py-3 shadow-[0_18px_42px_-40px_rgba(15,118,110,0.25)]"
+                    >
+                      <img
+                        src={cert.src}
+                        alt={cert.alt}
+                        className="h-auto max-h-[32px] w-auto max-w-full object-contain"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </CollapsibleCard>
+              <CollapsibleCard
+                value="tamm-documents"
+                title="My TAMM documents"
+                subtitle='Synced from "My Business Documents" Vault'
+              >
+                <p className="text-sm text-slate-600">
+                  Certificates and permits stay available here. Expand previews to confirm what inspectors can see in TAMM.
+                </p>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {TAMM_DOCUMENT_PREVIEWS.map((preview) => (
+                    <img
+                      key={preview.id}
+                      src={preview.src}
+                      alt={preview.alt}
+                      className="h-32 w-full rounded-xl border border-white/70 object-cover shadow-[0_8px_24px_-12px_rgba(15,23,42,0.25)]"
+                    />
+                  ))}
+                </div>
+              </CollapsibleCard>
+            </Accordion>
           </div>
         ),
       },
