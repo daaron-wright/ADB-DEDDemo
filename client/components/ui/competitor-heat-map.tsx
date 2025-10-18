@@ -206,7 +206,7 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                   Corniche map view
                 </h3>
                 <p className="text-xs text-white/70">
-                  Pins surface Investor Compass insight for waterfront competitors meeting Lyla&apos;s filters.
+                  Pins surface Investor Compass insight for waterfront competitors meeting Layla&apos;s filters.
                 </p>
               </div>
               <div className="text-right text-xs text-white/70">
