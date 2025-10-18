@@ -1135,7 +1135,9 @@ export function BusinessRegistrationFocusContent({
                       ? "Reservation submitted"
                       : isSubmittingReservation
                         ? "Submitting reservation..."
-                        : "Submit reservation & pay"}
+                        : hasSelectedApprovedTradeName
+                          ? payAndIssueStepLabel
+                          : "Submit reservation & pay"}
                   </Button>
                 </>
               ) : (
