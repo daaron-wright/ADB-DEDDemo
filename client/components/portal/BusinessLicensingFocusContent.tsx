@@ -9,7 +9,6 @@ import { Check, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
 
 interface BusinessLicensingFocusContentProps {
   journeyNumber?: string;
-  progressPercent?: number;
 }
 
 type StepStatus = "completed" | "current" | "pending";
@@ -160,7 +159,6 @@ const LICENSING_USER_ACTIONS = [
 
 export function BusinessLicensingFocusContent({
   journeyNumber = "0987654321",
-  progressPercent: initialProgressPercent = 64,
 }: BusinessLicensingFocusContentProps) {
   const [showDocuments, setShowDocuments] = React.useState(true);
   const [stageStatus, setStageStatus] = React.useState<StageStatus>("request");
@@ -170,7 +168,6 @@ export function BusinessLicensingFocusContent({
       subSteps: step.subSteps?.map((subStep) => ({ ...subStep })),
     })),
   );
-  const [progress, setProgress] = React.useState(() => Math.min(initialProgressPercent, 28));
   const timersRef = React.useRef<number[]>([]);
 
   const clearTimers = React.useCallback(() => {
