@@ -405,18 +405,9 @@ export function ComplianceGrowthFocusContent({
                   Polaris watches every renewal, inspection, and dependency so you focus on operating the restaurant.
                 </p>
               </div>
-              <div className="space-y-2">
-                <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
-                  <div
-                    className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all"
-                    style={{ width: `${progressPercent}%` }}
-                  />
-                </div>
-                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  <span>Automation progress</span>
-                  <span>{progressPercent}%</span>
-                </div>
-              </div>
+              <p className="text-sm text-slate-600">
+                Polaris keeps obligations in sync across every authority. When something needs your attention, it moves to the top of this list.
+              </p>
             </div>
           </div>
 
