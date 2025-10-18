@@ -930,53 +930,56 @@ export function BusinessRegistrationFocusContent({
   const normalizedEnglishDraft = trimmedEnglishDraft.toUpperCase();
   const hasEnglishDraft = trimmedEnglishDraft.length > 0;
 
-  return (
-    <div className="space-y-6">
-      <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_26px_60px_-50px_rgba(15,23,42,0.35)]">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Journey number
-            </p>
-            <p className="text-lg font-semibold text-slate-900">
-              {journeyNumber}
-            </p>
-          </div>
-          <Badge className="inline-flex items-center gap-2 rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
-            <Check className="h-3.5 w-3.5" strokeWidth={3} />
-            Trade name workflow
-          </Badge>
-        </div>
-        <div className="mt-5 space-y-4">
-          <div className="space-y-2">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Business registration
-            </p>
-            <h3 className="text-2xl font-semibold text-slate-900">
-              Keep the trade name checks on track
-            </h3>
-            <p className="text-sm text-slate-600">
-              Review the current trade name status and run the automated
-              verification when you’re ready to move forward.
-            </p>
-          </div>
-          <div className="space-y-2">
-            <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
-              <div
-                className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all"
-                style={{ width: `${displayProgress}%` }}
-              />
-            </div>
-            <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-              <span>Automation progress</span>
-              <span>{displayProgress}%</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+  const slides: StageSlide[] = [
+    {
+      id: "trade-name",
+      heading: "Trade name workspace",
+      description:
+        "Review the current status, edit details, and submit your reservation when ready.",
+      content: (
         <div className="space-y-5">
+          <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_26px_60px_-50px_rgba(15,23,42,0.35)]">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Journey number
+                </p>
+                <p className="text-lg font-semibold text-slate-900">
+                  {journeyNumber}
+                </p>
+              </div>
+              <Badge className="inline-flex items-center gap-2 rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
+                <Check className="h-3.5 w-3.5" strokeWidth={3} />
+                Trade name workflow
+              </Badge>
+            </div>
+            <div className="mt-5 space-y-4">
+              <div className="space-y-2">
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Business registration
+                </p>
+                <h3 className="text-2xl font-semibold text-slate-900">
+                  Keep the trade name checks on track
+                </h3>
+                <p className="text-sm text-slate-600">
+                  Review the current trade name status and run the automated verification when you’re ready to move forward.
+                </p>
+              </div>
+              <div className="space-y-2">
+                <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
+                  <div
+                    className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all"
+                    style={{ width: `${displayProgress}%` }}
+                  />
+                </div>
+                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                  <span>Automation progress</span>
+                  <span>{displayProgress}%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.32)]">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div className="space-y-1">
@@ -987,10 +990,7 @@ export function BusinessRegistrationFocusContent({
                   {activeEnglishTradeName || PRIMARY_TRADE_NAME_EN}
                 </h4>
                 {activeArabicTradeName ? (
-                  <p
-                    className="text-base font-semibold text-[#0f766e]"
-                    dir="rtl"
-                  >
+                  <p className="text-base font-semibold text-[#0f766e]" dir="rtl">
                     {activeArabicTradeName}
                   </p>
                 ) : null}
@@ -1022,10 +1022,7 @@ export function BusinessRegistrationFocusContent({
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
                     Arabic name
                   </p>
-                  <p
-                    className="mt-1 text-sm font-semibold text-[#0f766e]"
-                    dir="rtl"
-                  >
+                  <p className="mt-1 text-sm font-semibold text-[#0f766e]" dir="rtl">
                     {activeArabicTradeName || PRIMARY_TRADE_NAME_AR}
                   </p>
                 </div>
@@ -1044,12 +1041,8 @@ export function BusinessRegistrationFocusContent({
                 variant="outline"
                 onClick={() => {
                   if (!isEditing) {
-                    setEnglishDraft(
-                      activeEnglishTradeName || PRIMARY_TRADE_NAME_EN,
-                    );
-                    setArabicDraft(
-                      activeArabicTradeName || PRIMARY_TRADE_NAME_AR,
-                    );
+                    setEnglishDraft(activeEnglishTradeName || PRIMARY_TRADE_NAME_EN);
+                    setArabicDraft(activeArabicTradeName || PRIMARY_TRADE_NAME_AR);
                   }
                   setIsEditing((previous) => !previous);
                 }}
@@ -1066,8 +1059,8 @@ export function BusinessRegistrationFocusContent({
                     onClick={handleSelectApprovedTradeName}
                     disabled={
                       hasSelectedApprovedTradeName ||
-                      hasSubmittedReservationApplication ||
-                      isSubmittingReservation
+                        hasSubmittedReservationApplication ||
+                        isSubmittingReservation
                     }
                     className="rounded-full border-[#0f766e]/40 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] disabled:cursor-not-allowed disabled:opacity-60"
                   >
@@ -1200,16 +1193,11 @@ export function BusinessRegistrationFocusContent({
                             <span className="block text-[12px] font-semibold normal-case text-slate-900">
                               {suggestion.english}
                             </span>
-                            <span
-                              className="block text-[12px] font-semibold normal-case text-[#0f766e]"
-                              dir="rtl"
-                            >
+                            <span className="block text-[12px] font-semibold normal-case text-[#0f766e]" dir="rtl">
                               {suggestion.arabic}
                             </span>
                             <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                              {isCurrentSuggestion
-                                ? "In review"
-                                : "Use this name"}
+                              {isCurrentSuggestion ? "In review" : "Use this name"}
                             </span>
                           </button>
                         );
@@ -1221,77 +1209,81 @@ export function BusinessRegistrationFocusContent({
             ) : null}
           </div>
         </div>
+      ),
+    },
+    {
+      id: "verification",
+      heading: "Verification checks",
+      description: verificationSubtitle,
+      content: (
+        <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.32)]">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                Verification checks
+              </p>
+              <h4 className="text-lg font-semibold text-slate-900">
+                {verificationStatusLabel}
+              </h4>
+              <p className="text-sm text-slate-600">{verificationSubtitle}</p>
+            </div>
+            <Badge
+              className={cn(
+                "inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                isNameAvailable
+                  ? "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]"
+                  : isChecking
+                    ? "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]"
+                    : hasPerformedCheck
+                      ? "border-rose-200 bg-rose-50 text-rose-600"
+                      : "border-slate-200 bg-white text-slate-500",
+              )}
+            >
+              {completedVerificationSteps}/{TRADE_NAME_CHECKS.length}
+            </Badge>
+          </div>
 
-        <Accordion type="single" collapsible>
-          <AccordionItem
-            value="verification-card"
-            className="overflow-hidden rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_60px_-40px_rgba(15,23,42,0.32)]"
-          >
-            <AccordionTrigger className="flex w-full items-start justify-between gap-3 px-5 py-4 text-left">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                  Verification checks
-                </p>
-                <h4 className="text-lg font-semibold text-slate-900">
-                  {verificationStatusLabel}
-                </h4>
-                <p className="text-sm text-slate-600">{verificationSubtitle}</p>
+          <div className="space-y-3">
+            <div className="space-y-2">
+              <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
+                <div
+                  className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all"
+                  style={{ width: `${displayProgress}%` }}
+                />
               </div>
-              <Badge
-                className={cn(
-                  "inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                  isNameAvailable
-                    ? "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]"
-                    : isChecking
-                      ? "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]"
-                      : hasPerformedCheck
-                        ? "border-rose-200 bg-rose-50 text-rose-600"
-                        : "border-slate-200 bg-white text-slate-500",
-                )}
-              >
-                {completedVerificationSteps}/{TRADE_NAME_CHECKS.length}
-              </Badge>
-            </AccordionTrigger>
-            <AccordionContent className="px-5 pb-5 pt-0">
-              <div className="space-y-3 pt-4">
-                <div className="space-y-2">
-                  <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
-                    <div
-                      className={cn(
-                        "absolute inset-y-0 left-0 rounded-full transition-all",
-                        isNameAvailable ? "bg-[#0f766e]" : "bg-[#0f766e]",
-                      )}
-                      style={{ width: `${displayProgress}%` }}
-                    />
-                  </div>
-                  <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                    <span>Overall progress</span>
-                    <span>{displayProgress}%</span>
-                  </div>
-                </div>
+              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                <span>Overall progress</span>
+                <span>{displayProgress}%</span>
+              </div>
+            </div>
 
-                {showVerificationSteps ? (
-                  <Accordion type="multiple" className="space-y-3">
-                    {automationSteps.map((step, index) => (
-                      <VerificationStepItem
-                        key={step.title}
-                        step={step}
-                        index={index}
-                        totalSteps={automationSteps.length}
-                        value={`step-${index}`}
-                      />
-                    ))}
-                  </Accordion>
-                ) : (
-                  <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-5 text-sm text-slate-500">
-                    Run the automated checks to populate each verification step.
-                  </div>
-                )}
+            {showVerificationSteps ? (
+              <div className="space-y-3">
+                {automationSteps.map((step, index) => (
+                  <VerificationStepItem
+                    key={step.title}
+                    step={step}
+                    index={index}
+                    totalSteps={automationSteps.length}
+                  />
+                ))}
               </div>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </div>
-    </div>
+            ) : (
+              <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-5 text-sm text-slate-500">
+                Run the automated checks to populate each verification step.
+              </div>
+            )}
+          </div>
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <StageSlideNavigator
+      slides={slides}
+      activeSlideId={activeSlideId}
+      onSlideChange={setActiveSlideId}
+    />
   );
 }
