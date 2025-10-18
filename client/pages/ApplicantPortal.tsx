@@ -333,7 +333,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     supportHeading: "تحتاجين إلى مساع��ة؟",
     supportDescription: {
       preEmail:
-        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت ���لخليج. تواصلي عبر ",
+        "فريق الترخيص مت��ح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت ���لخليج. تواصلي عبر ",
       postEmailPrePhone: " أو اتصلي عل�� ",
       postPhone: ".",
     },
@@ -349,7 +349,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroButton: "استكشفي خيارا�� إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
-      `عرض أو إ��فاء نظرة عا��ة للرحلة ا��خاصة بـ ${title}`,
+      `عرض أو إ��فاء نظرة عا��ة للرحلة الخاصة بـ ${title}`,
     journeyIdLabel: "معرّف الرحلة",
     fieldLabels: {
       beneficiary: "المستفيد",
@@ -357,7 +357,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       submissionId: "معرّف ال��لب",
       lastUpdate: "آخر تحديث",
     },
-    nextActionHeading: "الإ��راء التالي",
+    nextActionHeading: "ا��إ��راء التالي",
     nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
@@ -370,7 +370,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     statusLabelMap: {
       "In Review": "قيد المراجعة",
       "Awaiting Documents": "بانتظار المستندات",
-      Approved: "مو��فق عليه",
+      Approved: "موافق عليه",
       Draft: "مسودة",
       Compliant: "متوافق",
     },
@@ -399,7 +399,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     tradeNamePaymentNextStep: "سددي رسوم الاسم التجاري وأصدريه",
     tradeNamePaymentToast:
-      "سددي رسوم الاسم الت��اري البالغة 65 درهماً لإصدار الاسم وتمكين رفع المستندات.",
+      "سددي رسوم الاسم التجاري البالغة 65 درهماً لإصدار الاسم وتمكين رفع المستندات.",
     journey: {
       heading: "تنسيق الرحلة",
       timelineLabel: "الجدول الزمني للرحلة",
@@ -423,7 +423,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "هذه هي نقطة ا��طلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
         "مرحبًا بكِ—شاركي��ا تفاصيل فكرتك لنصمم معًا رحلة الترخيص التي تطلق مشروعك التجاري.",
-      startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
+      startCta: "ابدئي الاستبيان مع الذك��ء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
       pendingLicenseLabel: "م��اح بعد الاستبيان",
@@ -1481,11 +1481,19 @@ export default function ApplicantPortal() {
   }, []);
 
   const handleTradeNameReservationSubmitted = useCallback(() => {
+    if (hasTradeNameReservationSubmitted) {
+      handleViewJourney("document-submissions");
+      return;
+    }
+
     setHasTradeNameReservationSubmitted(true);
     setApplicationStatus("Awaiting Documents");
     setApplicationNextActionState("default");
     handleViewJourney("document-submissions");
-  }, [handleViewJourney]);
+  }, [
+    handleViewJourney,
+    hasTradeNameReservationSubmitted,
+  ]);
 
   const handleQuestionnairePrimaryAction = useCallback(() => {
     if (questionnaireProgress === "not_started") {
