@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { BusinessChatUI } from "@/components/ui/business-chat-ui";
+import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { PortalPageLayout } from "@/components/portal/PortalPageLayout";
 import { PortalProfileMenu } from "@/components/portal/PortalProfileMenu";
 import {
@@ -20,7 +21,7 @@ import type {
 import { usePersistentState } from "@/hooks/use-persistent-state";
 import { cn } from "@/lib/utils";
 import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
-import { MessageCircle, Plus, ChevronDown } from "lucide-react";
+import { Plus, ChevronDown } from "lucide-react";
 import {
   JourneyOrchestrationPanel,
   type JourneyOrchestrationPanelCopy,
@@ -350,7 +351,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإ��راء التالي",
-    nextActionButton: "انتقل�� إلى ��لإجراء التالي",
+    nextActionButton: "��نتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
@@ -400,7 +401,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة ال��ال��ة",
       reviewStage: "استعرضي المرحلة",
-      timelineAriaLabel: "التنقل ��ين مراحل الرحلة",
+      timelineAriaLabel: "التنقل ��ين مراحل الرح��ة",
     },
     questionnaireOnboarding: {
       heading: "ابدئي رحلة ترخيصك",
@@ -2518,7 +2519,7 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
           aria-label={languageCopy.chatCta}
         >
           <span className="sr-only">{languageCopy.chatCta}</span>
-          <MessageCircle className="h-7 w-7" aria-hidden="true" />
+          <AIBusinessOrb className="h-9 w-9 ring-[#0f766e]/35" />
         </button>
         {isTimelineBackgroundBlurred ? (
           <div className="fixed inset-0 z-40 bg-white/40 backdrop-blur-lg transition-opacity duration-500" />
