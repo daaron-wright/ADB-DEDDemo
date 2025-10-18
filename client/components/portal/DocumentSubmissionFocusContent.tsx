@@ -321,6 +321,190 @@ export function DocumentSubmissionFocusContent({
       ? "Every document is stored with the latest updates."
       : "Documents update automatically whenever you finish a stage.";
 
+  const renderPolarisGuidanceContent = React.useCallback(
+    (variant: "card" | "inline" = "card") => {
+      const content = showMoaAssistant ? (
+        <>
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="relative flex h-12 w-12 items-center justify-center rounded-full border border-[#0f766e]/25 bg-white">
+              <AIBusinessOrb className="h-8 w-8" />
+              <span className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border border-white bg-[#0f766e] text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
+                AI
+              </span>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-slate-900">
+                Custom MOA simulation with Polaris
+              </p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Live collaboration mode
+              </p>
+            </div>
+          </div>
+          <p className="text-sm text-slate-600">
+            Polaris is simulating edits on your custom memorandum and preparing the ADJD review submission. Review the draft before we forward it.
+          </p>
+          <div className="rounded-3xl border border-[#0f766e]/20 bg-[#0f766e]/5 p-4 text-sm text-[#0f766e]">
+            <ul className="space-y-2">
+              <li className="flex items-start gap-2">
+                <Check className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={3} />
+                Simulated bilingual clauses aligned across the custom MOA.
+              </li>
+              <li className="flex items-start gap-2">
+                <Check className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={3} />
+                Polaris forwards the custom MOA to ADJD for review and tracks responses.
+              </li>
+            </ul>
+          </div>
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+            <MyTAMMDocuments
+              companyName={PRIMARY_TRADE_NAME_EN}
+              isGenerating={isFinalisingMoa}
+            />
+            <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <Badge className="inline-flex items-center gap-2 rounded-full border border-[#0f766e]/20 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                  Polaris simulated edit
+                </Badge>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                  {hasAppliedPolarisRevision
+                    ? "Updated moments ago"
+                    : "Awaiting confirmation"}
+                </span>
+              </div>
+              <div className="space-y-2">
+                <label
+                  htmlFor="moa-clause-draft"
+                  className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+                >
+                  Clause preview
+                </label>
+                <Textarea
+                  id="moa-clause-draft"
+                  value={moaClauseDraft}
+                  onChange={(event) => {
+                    setMoaClauseDraft(event.target.value);
+                    setHasAppliedPolarisRevision(false);
+                  }}
+                  rows={10}
+                  className="min-h-[200px] resize-none border-[#0f766e]/20 bg-[#f9fbfa] text-sm leading-relaxed text-slate-700"
+                />
+              </div>
+              <div className="space-y-2">
+                <label
+                  htmlFor="moa-editor-notes"
+                  className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500"
+                >
+                  Polaris simulation notes
+                </label>
+                <Textarea
+                  id="moa-editor-notes"
+                  value={moaEditorNotes}
+                  onChange={(event) => setMoaEditorNotes(event.target.value)}
+                  rows={4}
+                  className="resize-none border-slate-200 bg-white text-sm leading-relaxed text-slate-700"
+                />
+                <p className="text-xs text-slate-500">
+                  Polaris tracks translation checks and review requirements for ADJD submission.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button
+                  type="button"
+                  onClick={handleApplyPolarisRevision}
+                  disabled={isFinalisingMoa}
+                  className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {hasAppliedPolarisRevision
+                    ? "Simulation prepared"
+                    : "Simulate Polaris edits"}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleResetMoaRevision}
+                  disabled={isFinalisingMoa}
+                  className="rounded-full border-[#0f766e]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+                >
+                  Reset simulation
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button
+              type="button"
+              onClick={handleCompleteMoa}
+              disabled={isFinalisingMoa || !hasAppliedPolarisRevision}
+              className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {isFinalisingMoa
+                ? "Sending to ADJD..."
+                : hasAppliedPolarisRevision
+                  ? "Send to ADJD for review"
+                  : "Simulate edits to continue"}
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                setShowMoaAssistant(false);
+                setActiveSlideId("vault");
+              }}
+              disabled={isFinalisingMoa}
+              className="rounded-full border-[#0f766e]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+            >
+              Hide guidance
+            </Button>
+          </div>
+        </>
+      ) : (
+        <div className="space-y-3">
+          <p className="text-sm text-slate-600">
+            Reopen the guidance if you want Polaris to rerun the custom MOA simulation.
+          </p>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => {
+              setShowMoaAssistant(true);
+              setActiveSlideId("moa");
+              handleResetMoaRevision();
+            }}
+            className="self-start rounded-full border-[#0f766e]/40 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+          >
+            Reopen guidance
+          </Button>
+        </div>
+      );
+
+      if (variant === "inline") {
+        return <div className="space-y-6">{content}</div>;
+      }
+
+      return (
+        <div className="space-y-6 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
+          {content}
+        </div>
+      );
+    },
+    [
+      handleApplyPolarisRevision,
+      handleCompleteMoa,
+      handleResetMoaRevision,
+      hasAppliedPolarisRevision,
+      isFinalisingMoa,
+      moaClauseDraft,
+      moaEditorNotes,
+      setActiveSlideId,
+      setHasAppliedPolarisRevision,
+      setMoaClauseDraft,
+      setMoaEditorNotes,
+      setShowMoaAssistant,
+      showMoaAssistant,
+    ],
+  );
+
   const slides = React.useMemo<StageSlide[]>(
     () => [
       {
@@ -400,9 +584,16 @@ export function DocumentSubmissionFocusContent({
             ) : null}
             <Accordion
               type="multiple"
-              defaultValue={["certifications"]}
+              defaultValue={["moa-guidance", "certifications"]}
               className="space-y-3"
             >
+              <CollapsibleCard
+                value="moa-guidance"
+                title="Polaris guidance"
+                subtitle="Custom MOA simulation and ADJD routing"
+              >
+                {renderPolarisGuidanceContent("inline")}
+              </CollapsibleCard>
               <CollapsibleCard
                 value="certifications"
                 title="Certification sources"
@@ -453,164 +644,7 @@ export function DocumentSubmissionFocusContent({
         id: "moa",
         heading: "Polaris guidance",
         description: moaSubtitle,
-        content: (
-          <div className="space-y-6 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
-            {showMoaAssistant ? (
-              <>
-                <div className="flex flex-wrap items-center gap-3">
-                  <div className="relative flex h-12 w-12 items-center justify-center rounded-full border border-[#0f766e]/25 bg-white">
-                    <AIBusinessOrb className="h-8 w-8" />
-                    <span className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border border-white bg-[#0f766e] text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
-                      AI
-                    </span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-900">
-                      Custom MOA simulation with Polaris
-                    </p>
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                      Live collaboration mode
-                    </p>
-                  </div>
-                </div>
-                <p className="text-sm text-slate-600">
-                  Polaris is simulating edits on your custom memorandum and preparing the ADJD review submission. Review the draft before we forward it.
-                </p>
-                <div className="rounded-3xl border border-[#0f766e]/20 bg-[#0f766e]/5 p-4 text-sm text-[#0f766e]">
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-2">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={3} />
-                      Simulated bilingual clauses aligned across the custom MOA.
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={3} />
-                      Polaris forwards the custom MOA to ADJD for review and tracks responses.
-                    </li>
-                  </ul>
-                </div>
-                <div className="grid gap-5 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
-                  <MyTAMMDocuments
-                    companyName={PRIMARY_TRADE_NAME_EN}
-                    isGenerating={isFinalisingMoa}
-                  />
-                  <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <Badge className="inline-flex items-center gap-2 rounded-full border border-[#0f766e]/20 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                        Polaris simulated edit
-                      </Badge>
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
-                        {hasAppliedPolarisRevision
-                          ? "Updated moments ago"
-                          : "Awaiting confirmation"}
-                      </span>
-                    </div>
-                    <div className="space-y-2">
-                      <label
-                        htmlFor="moa-clause-draft"
-                        className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
-                      >
-                        Clause preview
-                      </label>
-                      <Textarea
-                        id="moa-clause-draft"
-                        value={moaClauseDraft}
-                        onChange={(event) => {
-                          setMoaClauseDraft(event.target.value);
-                          setHasAppliedPolarisRevision(false);
-                        }}
-                        rows={10}
-                        className="min-h-[200px] resize-none border-[#0f766e]/20 bg-[#f9fbfa] text-sm leading-relaxed text-slate-700"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label
-                        htmlFor="moa-editor-notes"
-                        className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500"
-                      >
-                        Polaris simulation notes
-                      </label>
-                      <Textarea
-                        id="moa-editor-notes"
-                        value={moaEditorNotes}
-                        onChange={(event) => setMoaEditorNotes(event.target.value)}
-                        rows={4}
-                        className="resize-none border-slate-200 bg-white text-sm leading-relaxed text-slate-700"
-                      />
-                      <p className="text-xs text-slate-500">
-                        Polaris tracks translation checks and review requirements for ADJD submission.
-                      </p>
-                    </div>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <Button
-                        type="button"
-                        onClick={handleApplyPolarisRevision}
-                        disabled={isFinalisingMoa}
-                        className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
-                      >
-                        {hasAppliedPolarisRevision
-                          ? "Simulation prepared"
-                          : "Simulate Polaris edits"}
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={handleResetMoaRevision}
-                        disabled={isFinalisingMoa}
-                        className="rounded-full border-[#0f766e]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
-                      >
-                        Reset simulation
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex flex-wrap items-center gap-3">
-                  <Button
-                    type="button"
-                    onClick={handleCompleteMoa}
-                    disabled={isFinalisingMoa || !hasAppliedPolarisRevision}
-                    className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    {isFinalisingMoa
-                      ? "Sending to ADJD..."
-                      : hasAppliedPolarisRevision
-                        ? "Send to ADJD for review"
-                        : "Simulate edits to continue"}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => {
-                      setShowMoaAssistant(false);
-                      setActiveSlideId("vault");
-                    }}
-                    disabled={isFinalisingMoa}
-                    className="rounded-full border-[#0f766e]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
-                  >
-                    Hide guidance
-                  </Button>
-                </div>
-              </>
-            ) : (
-              <div className="space-y-3">
-                <p className="text-sm text-slate-600">
-                  Reopen the guidance if you want Polaris to rerun the custom MOA simulation.
-                </p>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => {
-                    setShowMoaAssistant(true);
-                    setActiveSlideId("moa");
-                    handleResetMoaRevision();
-                  }}
-                  className="self-start rounded-full border-[#0f766e]/40 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
-                >
-                  Reopen guidance
-                </Button>
-              </div>
-            )}
-          </div>
-        ),
+        content: renderPolarisGuidanceContent(),
       },
       {
         id: "payment",
