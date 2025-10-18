@@ -96,7 +96,7 @@ const applications: ApplicationRecord[] = [
 
 const TARGET_TRADE_NAME = applications[0].title;
 const TARGET_TRADE_NAME_LOWER = TARGET_TRADE_NAME.trim().toLowerCase();
-const DEFAULT_WORKSPACE_TITLE = "Commercial License for Restaurant in Corniche";
+const DEFAULT_WORKSPACE_TITLE = "Bait El Khetyar";
 
 const statusStyles: Record<ApplicationRecord["status"], string> = {
   "In Review": "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
@@ -392,7 +392,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك ال��دع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأ��ي�� العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك ال����ع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأ��ي�� العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الموافقات الموح��ة لـ ADAFSA وبلدية أبوظبي.",
