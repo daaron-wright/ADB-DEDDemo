@@ -2157,6 +2157,10 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
       focusViewProps.isCompliancePassed = applicationStatus === "Compliant";
     }
 
+    if (stageId === "document-submissions") {
+      focusViewProps.onLicenseIssued = handleLicenseIssued;
+    }
+
     return focusViewProps;
   }, [
     focusViewContext,
