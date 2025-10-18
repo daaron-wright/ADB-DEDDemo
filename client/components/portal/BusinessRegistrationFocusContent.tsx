@@ -119,7 +119,7 @@ const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   {
     id: "azure-coast",
     english: "Azure Coast Kitchen Sole LLC",
-    arabic: "مطبخ الساحل اللازور��ي الفردي ذ.م.م",
+    arabic: "مط��خ الساحل اللازور��ي الفردي ذ.م.م",
   },
   {
     id: "pearl-horizon",
@@ -800,6 +800,7 @@ export function BusinessRegistrationFocusContent({
       setFailureReason(null);
       setHasPerformedCheck(true);
       setIsEditing(false);
+      setActiveSlideId("verification");
       onTradeNameChange?.(formattedEnglish);
       return true;
     },
