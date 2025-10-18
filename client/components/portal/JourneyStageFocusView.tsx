@@ -288,7 +288,6 @@ export function JourneyStageFocusView({
       <div className="space-y-5 sm:space-y-6">
         <ComplianceGrowthFocusContent
           journeyNumber="0987654321"
-          progressPercent={78}
           growthUnlocked={growthUnlocked}
           onComplianceReturn={onComplianceReturn}
           isCompliant={isCompliancePassed}
@@ -303,7 +302,6 @@ export function JourneyStageFocusView({
       <div className="space-y-5 sm:space-y-6">
         <PreOperationalInspectionFocusContent
           journeyNumber="0987654321"
-          progressPercent={83}
         />
         {navigationControls}
       </div>
@@ -320,7 +318,6 @@ export function JourneyStageFocusView({
         {shouldShowDocuments ? (
           <DocumentSubmissionFocusContent
             journeyNumber="0987654321"
-            progressPercent={90}
           />
         ) : (
           renderGuidanceSummary(
