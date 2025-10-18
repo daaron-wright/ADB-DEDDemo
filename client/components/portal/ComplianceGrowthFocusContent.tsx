@@ -391,7 +391,7 @@ export function ComplianceGrowthFocusContent({
   );
   const [pipelineIndex, setPipelineIndex] = React.useState<number>(2);
   const [submissionStatus, setSubmissionStatus] =
-    React.useState<InspectionSubmissionStatus>("ready");
+    React.useState<InspectionSubmissionStatus>("idle");
   const [feedbackStatus, setFeedbackStatus] =
     React.useState<FeedbackWorkflowStatus>("draft");
   const [feedbackNotes, setFeedbackNotes] = React.useState("");
