@@ -977,12 +977,14 @@ export function BusinessRegistrationFocusContent({
       upsertTradeNameReceipt();
       setAutomationProgress((value) => Math.max(value, 100));
       setIsEditing(true);
+      onTradeNameReservationSubmitted?.();
       reservationTimeoutRef.current = null;
     }, 1200);
   }, [
     canSubmitReservation,
     hasSubmittedReservationApplication,
     isSubmittingReservation,
+    onTradeNameReservationSubmitted,
     toast,
     upsertTradeNameReceipt,
     setActiveSlideId,
