@@ -923,6 +923,7 @@ export function BusinessRegistrationFocusContent({
     isSubmittingReservation,
     toast,
     upsertTradeNameReceipt,
+    setActiveSlideId,
   ]);
 
   const trimmedEnglishDraft = englishDraft.trim();
