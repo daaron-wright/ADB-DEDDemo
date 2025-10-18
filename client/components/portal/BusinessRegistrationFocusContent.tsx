@@ -210,6 +210,17 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["z", "ز"],
 ]);
 
+const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
+  ["marwa restaurant", "مطعم مروة"],
+  ["marwah restaurant", "مطعم مروة"],
+]);
+
+const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
+  ["marwa", "مروة"],
+  ["marwah", "مروة"],
+  ["restaurant", "مطعم"],
+]);
+
 function normalizeUppercaseWord(word: string) {
   return word.replace(/[^a-zA-Z]/g, "").toUpperCase();
 }
