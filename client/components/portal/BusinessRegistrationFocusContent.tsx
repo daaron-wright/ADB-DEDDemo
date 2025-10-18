@@ -427,7 +427,7 @@ function VerificationStepItem({
     : isCompleted
       ? "This check passed successfully."
       : isCurrent
-        ? "We’re processing this check right now."
+        ? "We���re processing this check right now."
         : "This check runs automatically after the previous ones.";
 
   return (
@@ -932,7 +932,7 @@ export function BusinessRegistrationFocusContent({
       return;
     }
 
-    setActiveSlideId("verification");
+    setActiveSlideId("trade-name");
     setIsSubmittingReservation(true);
     toast({
       title: "Submitting reservation",
