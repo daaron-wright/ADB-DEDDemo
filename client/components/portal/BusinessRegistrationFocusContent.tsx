@@ -1242,58 +1242,60 @@ export function BusinessRegistrationFocusContent({
               </div>
             ) : null}
           </div>
-        </div>
-      ),
-    },
-    {
-      id: "verification",
-      heading: "Verification checks",
-      description: verificationSubtitle,
-      content: (
-        <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.32)]">
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                Verification checks
-              </p>
-              <h4 className="text-lg font-semibold text-slate-900">
-                {verificationStatusLabel}
-              </h4>
-              <p className="text-sm text-slate-600">{verificationSubtitle}</p>
-            </div>
-            <Badge
-              className={cn(
-                "inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                isNameAvailable
-                  ? "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]"
-                  : isChecking
-                    ? "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]"
-                    : hasPerformedCheck
-                      ? "border-rose-200 bg-rose-50 text-rose-600"
-                      : "border-slate-200 bg-white text-slate-500",
-              )}
+          <div className="rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_60px_-40px_rgba(15,23,42,0.32)]">
+            <Accordion
+              type="single"
+              collapsible
+              defaultValue="verification"
             >
-              {completedVerificationSteps}/{TRADE_NAME_CHECKS.length}
-            </Badge>
-          </div>
-
-          <div className="space-y-3">
-            {showVerificationSteps ? (
-              <div className="space-y-3">
-                {automationSteps.map((step, index) => (
-                  <VerificationStepItem
-                    key={step.title}
-                    step={step}
-                    index={index}
-                    totalSteps={automationSteps.length}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-5 text-sm text-slate-500">
-                Run the automated checks to populate each verification step.
-              </div>
-            )}
+              <AccordionItem value="verification" className="border-none">
+                <AccordionTrigger className="px-5 py-4 text-left hover:no-underline">
+                  <div className="flex w-full flex-wrap items-start justify-between gap-3">
+                    <div className="space-y-1 text-left">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                        Verification checks
+                      </p>
+                      <h4 className="text-lg font-semibold text-slate-900">
+                        {verificationStatusLabel}
+                      </h4>
+                      <p className="text-sm text-slate-600">{verificationSubtitle}</p>
+                    </div>
+                    <Badge
+                      className={cn(
+                        "inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                        isNameAvailable
+                          ? "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]"
+                          : isChecking
+                            ? "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]"
+                            : hasPerformedCheck
+                              ? "border-rose-200 bg-rose-50 text-rose-600"
+                              : "border-slate-200 bg-white text-slate-500",
+                      )}
+                    >
+                      {completedVerificationSteps}/{TRADE_NAME_CHECKS.length}
+                    </Badge>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-5 pt-3 space-y-3">
+                  {showVerificationSteps ? (
+                    <div className="space-y-3">
+                      {automationSteps.map((step, index) => (
+                        <VerificationStepItem
+                          key={step.title}
+                          step={step}
+                          index={index}
+                          totalSteps={automationSteps.length}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-5 text-sm text-slate-500">
+                      Run the automated checks to populate each verification step.
+                    </div>
+                  )}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       ),
