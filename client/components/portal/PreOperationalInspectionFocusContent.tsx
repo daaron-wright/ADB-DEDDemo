@@ -438,6 +438,7 @@ export function PreOperationalInspectionFocusContent({
       slides={slides}
       activeSlideId={activeSlideId}
       onSlideChange={setActiveSlideId}
+      className="mt-6"
     />
   );
 }
