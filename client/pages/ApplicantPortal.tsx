@@ -326,7 +326,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     englishBadge: "English",
     arabicBadge: "العربية • تر��مة",
     subtitle: "��وابة رخصة ال��عمال",
-    workspaceTitle: (name: string) => `مساحة عمل ${name}`,
+    workspaceTitle: (name: string) => `مساحة ع��ل ${name}`,
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة ��لتالية.`,
     workspaceSupportBadge: "دعم مسا��ة ����لعمل",
@@ -418,7 +418,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       notStartedMessage:
         "ابدئي من هنا للإجابة عن أسئلة موجهة حول نشاطك كي نضبط مسار الترخيص لكِ.",
       inProgressMessage:
-        "يعمل الذكاء الاصطناعي على جمع التفاصيل لإعداد الاستبيان.",
+        "يعمل الذكاء الاصطناعي على جمع التفاصيل لإعداد ا��استبيان.",
       completedMessage:
         "هذه هي نقطة ا��طلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
@@ -1031,17 +1031,21 @@ export default function ApplicantPortal() {
 
   const displayApplication = useMemo(() => {
     const id = primaryApplication.id;
+    const defaultNextAction =
+      languageCopy.applicationNextActions[id] ?? primaryApplication.nextAction;
+    const resolvedNextAction =
+      applicationNextActionState === "pay-trade-name"
+        ? languageCopy.tradeNamePaymentNextStep
+        : defaultNextAction;
 
     return {
       ...primaryApplication,
       title: languageCopy.applicationTitles[id] ?? primaryApplication.title,
       summary:
         languageCopy.applicationSummaries[id] ?? primaryApplication.summary,
-      nextAction:
-        languageCopy.applicationNextActions[id] ??
-        primaryApplication.nextAction,
+      nextAction: resolvedNextAction,
     };
-  }, [languageCopy, primaryApplication]);
+  }, [languageCopy, primaryApplication, applicationNextActionState]);
 
   const displayDirectorate =
     languageCopy.directorateLabels[primaryApplication.directorate] ??
