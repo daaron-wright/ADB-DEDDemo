@@ -337,7 +337,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث����ر��ن آخرون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث����ر��ن آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارا�� إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -353,7 +353,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
+      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب ع��د الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "بولاريس",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
@@ -535,26 +535,24 @@ const journeyStages: JourneyStage[] = [
     title: "Pre-Operational Inspection",
     highlight: {
       label: "Inspections underway",
-      detail: `Processing ${formatDisplayDate(daysFromToday(0))}`,
+      detail: "Final checks scheduled",
     },
-    description:
-      "Pre-operational inspections and certifications by Civil Defense, ADAFSA, banking, and utility providers.",
+    description: "Coordinate pre-opening inspections and service activations.",
     state: "current",
-    statusDetail: "Certifications in progress",
+    statusDetail: "Final certifications underway.",
     statusTransitions: [
       {
         id: "inspections-in-progress",
         status: "in_progress",
         label: "Pre-operational inspections in progress",
-        detail:
-          "Civil Defense and ADAFSA clearances secured; utilities coordination underway.",
+        detail: "Civil Defense and ADAFSA clearances secured; utilities next.",
         timestamp: isoDate(daysFromToday(-1)),
       },
       {
         id: "inspections-scheduled",
         status: "scheduled",
         label: "Final walkthrough scheduled",
-        detail: `Telecommunication activation on ${formatDisplayDate(daysFromToday(2))}`,
+        detail: `Telecom activation ${formatDisplayDate(daysFromToday(2))}`,
         timestamp: isoDate(daysFromToday(2)),
       },
     ],
@@ -575,17 +573,10 @@ const journeyStages: JourneyStage[] = [
       },
       {
         id: "bank-account-opening",
-        label: "Corporate Bank Account Opening",
+        label: "Confirm corporate bank account activation",
         status: "in_progress",
         owner: "Applicant",
         dueDate: isoDate(daysFromToday(1)),
-      },
-      {
-        id: "telecom-services",
-        label: "Telecommunication Services (e&)",
-        status: "pending",
-        owner: "Applicant",
-        dueDate: isoDate(daysFromToday(2)),
       },
     ],
   },
