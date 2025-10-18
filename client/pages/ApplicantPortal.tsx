@@ -284,6 +284,9 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     applicationNextActions: {
       "APP-48291": "Submit ADAFSA and ADM approvals package.",
     },
+    tradeNamePaymentNextStep: "Pay and Issue Trade Name",
+    tradeNamePaymentToast:
+      "Pay and issue the trade name for 65 AED so Polaris can sync the receipt and unlock document submissions.",
     journey: {
       heading: "Journey orchestration",
       timelineLabel: "Journey timeline",
@@ -358,7 +361,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��ق��ك.",
+      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "بولاريس",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
