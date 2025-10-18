@@ -396,6 +396,13 @@ export function ComplianceGrowthFocusContent({
     React.useState<FeedbackWorkflowStatus>("draft");
   const [feedbackNotes, setFeedbackNotes] = React.useState("");
   const [contactEmail, setContactEmail] = React.useState("layla@marwah.ae");
+  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+  const [pendingVideo, setPendingVideo] = React.useState<File | null>(null);
+  const [videoLibrary, setVideoLibrary] = React.useState<VideoEvidence[]>(
+    () => DEFAULT_VIDEO_LIBRARY,
+  );
+  const [libraryDialogOpen, setLibraryDialogOpen] = React.useState(false);
+  const [isSubmittingVideo, setIsSubmittingVideo] = React.useState(false);
 
   const compliantCount = React.useMemo(() => {
     return complianceItems.filter((item) => item.status === "success").length;
