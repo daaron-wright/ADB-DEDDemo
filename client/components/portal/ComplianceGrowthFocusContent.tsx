@@ -77,6 +77,19 @@ type GrowthOpportunity = {
   buttonLabel: string;
 };
 
+type VideoEvidenceStatus = "processing" | "queued" | "synced";
+
+type VideoEvidence = {
+  id: string;
+  filename: string;
+  sizeMb: number;
+  durationLabel: string;
+  capturedOn: string;
+  status: VideoEvidenceStatus;
+  source: string;
+  note: string;
+};
+
 interface ComplianceGrowthFocusContentProps {
   journeyNumber?: string;
   growthUnlocked?: boolean;
