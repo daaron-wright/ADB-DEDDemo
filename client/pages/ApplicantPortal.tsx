@@ -1194,25 +1194,6 @@ export default function ApplicantPortal() {
   }, []);
 
   useEffect(() => {
-    if (portalView !== "overview" || isStageManuallySelected) {
-      return;
-    }
-
-    const timelineLength = JOURNEY_ANIMATION_TIMELINE.length;
-    if (timelineLength <= 1) {
-      return;
-    }
-
-    const interval = window.setInterval(() => {
-      setJourneyAnimationIndex((prev) => (prev + 1) % timelineLength);
-    }, 5500);
-
-    return () => {
-      window.clearInterval(interval);
-    };
-  }, [portalView, isStageManuallySelected]);
-
-  useEffect(() => {
     const phase =
       JOURNEY_ANIMATION_TIMELINE[journeyAnimationIndex] ??
       JOURNEY_ANIMATION_TIMELINE[0];
