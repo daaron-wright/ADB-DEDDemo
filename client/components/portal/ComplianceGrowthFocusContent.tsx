@@ -500,6 +500,7 @@ export function ComplianceGrowthFocusContent({
   );
   const [libraryDialogOpen, setLibraryDialogOpen] = React.useState(false);
   const [isSubmittingVideo, setIsSubmittingVideo] = React.useState(false);
+  const frameTimersRef = React.useRef<number[]>([]);
 
   const compliantCount = React.useMemo(() => {
     return complianceItems.filter((item) => item.status === "success").length;
