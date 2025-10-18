@@ -717,6 +717,13 @@ export function ComplianceGrowthFocusContent({
     }, 600);
   }, [pendingVideo, resetPendingVideo, toast]);
 
+  React.useEffect(() => {
+    return () => {
+      frameTimersRef.current.forEach((timerId) => window.clearTimeout(timerId));
+      frameTimersRef.current = [];
+    };
+  }, []);
+
   const handleSubmitFeedback = React.useCallback(() => {
     if (!feedbackNotes.trim()) {
       toast({
