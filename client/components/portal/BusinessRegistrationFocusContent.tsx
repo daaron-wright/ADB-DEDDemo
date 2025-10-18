@@ -624,12 +624,12 @@ export function BusinessRegistrationFocusContent({
     }
 
     if (hasSubmittedReservationApplication) {
-      return "Reservation submitted. Receipt stored in your Document Vault—continue with the document submission stage.";
+      return "Trade name issued. Submit your documents to continue.";
     }
 
     if (isNameAvailable) {
       return hasSelectedApprovedTradeName
-        ? "Trade name selected. Submit the reservation application and payment to continue."
+        ? `${payAndIssueStepLabel} (${TRADE_NAME_PAYMENT_DISPLAY_AMOUNT}) to unlock document submissions.`
         : "Trade name approved. Select it to move forward.";
     }
 
@@ -644,6 +644,7 @@ export function BusinessRegistrationFocusContent({
     hasSubmittedReservationApplication,
     isChecking,
     isNameAvailable,
+    payAndIssueStepLabel,
   ]);
 
   const upsertTradeNameReceipt = React.useCallback(() => {
