@@ -257,25 +257,20 @@ function formatArabicName(value: string) {
   return value.replace(/\s+/g, " ").trim();
 }
 
-function transliterateToArabic(input: string) {
-  const trimmed = input.trim().toLowerCase();
-
-  if (!trimmed) {
-    return "";
-  }
-
+function transliterateSegment(segment: string) {
+  const normalized = segment.toLowerCase();
   let result = "";
   let index = 0;
 
-  while (index < trimmed.length) {
-    const pair = trimmed.slice(index, index + 2);
+  while (index < normalized.length) {
+    const pair = normalized.slice(index, index + 2);
     if (DOUBLE_CHAR_MAP.has(pair)) {
       result += DOUBLE_CHAR_MAP.get(pair);
       index += 2;
       continue;
     }
 
-    const char = trimmed[index];
+    const char = normalized[index];
     if (SINGLE_CHAR_MAP.has(char)) {
       result += SINGLE_CHAR_MAP.get(char);
     } else {
@@ -284,7 +279,38 @@ function transliterateToArabic(input: string) {
     index += 1;
   }
 
-  return result.replace(/\s+/g, " ").trim();
+  return result;
+}
+
+function transliterateToArabic(input: string) {
+  const trimmed = input.trim();
+
+  if (!trimmed) {
+    return "";
+  }
+
+  const normalizedPhrase = trimmed.replace(/[-\s]+/g, " ").toLowerCase().trim();
+  const phraseOverride = TRANSLITERATION_PHRASE_OVERRIDES.get(normalizedPhrase);
+  if (phraseOverride) {
+    return phraseOverride;
+  }
+
+  const transliteratedTokens = normalizedPhrase
+    .split(" ")
+    .map((token) => {
+      const normalizedToken = token.replace(/[^a-z]/g, "");
+      if (normalizedToken) {
+        const override = TRANSLITERATION_WORD_OVERRIDES.get(normalizedToken);
+        if (override) {
+          return override;
+        }
+      }
+
+      return transliterateSegment(token);
+    })
+    .filter(Boolean);
+
+  return transliteratedTokens.join(" ").replace(/\s+/g, " ").trim();
 }
 
 function clampProgress(value: number) {
