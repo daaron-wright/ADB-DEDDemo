@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Check, Loader2 } from "lucide-react";
 
 import { StageSlideNavigator, type StageSlide } from "./StageSlideNavigator";
+import { PRIMARY_TRADE_NAME_AR } from "./trade-name-constants";
 
 const POLARIS_AUTOMATION_AVATAR_URL =
   "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F12dc61b502f74026abe87288234cc2f1?format=webp&width=800";
@@ -40,6 +41,8 @@ interface NextAction {
   onClick: () => void;
   disabled: boolean;
 }
+
+const TRADE_NAME_AR = PRIMARY_TRADE_NAME_AR ?? "";
 
 const INITIAL_SUB_STEPS: SubStep[] = [
   {
@@ -291,6 +294,11 @@ export function PreOperationalInspectionFocusContent({
                 <p className="text-lg font-semibold text-slate-900">
                   {journeyNumber}
                 </p>
+                {TRADE_NAME_AR ? (
+                  <p className="mt-1 text-sm font-semibold text-[#0f766e]" dir="rtl">
+                    {TRADE_NAME_AR}
+                  </p>
+                ) : null}
               </div>
               <Badge className="inline-flex items-center gap-2 rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
                 <Loader2 className="h-3.5 w-3.5 animate-spin" />
