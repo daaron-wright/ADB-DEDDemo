@@ -101,6 +101,8 @@ const DEFAULT_FAILURE_STEP_INDEX = (() => {
   return index === -1 ? 3 : index;
 })();
 
+const CONFLICTING_TRADE_NAME_NORMALIZED = PRIMARY_TRADE_NAME_EN.trim().toUpperCase();
+
 type TradeNameSuggestion = {
   id: string;
   english: string;
@@ -763,7 +765,9 @@ export function BusinessRegistrationFocusContent({
             isSuccess
               ? null
               : normalizedName
-                ? `We couldn’t reserve ${englishDisplay}. Try a unique variation that aligns with your selected activity.`
+                ? normalizedName === CONFLICTING_TRADE_NAME_NORMALIZED
+                  ? `We couldn’t reserve ${englishDisplay}. ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}) is already registered. Try a unique variation that aligns with your selected activity.`
+                  : `We couldn’t reserve ${englishDisplay}. Try a unique variation that aligns with your selected activity.`
                 : "Add English and Arabic trade names before running the automated checks.",
           );
           setPendingSubmission(null);
