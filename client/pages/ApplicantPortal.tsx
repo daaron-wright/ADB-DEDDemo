@@ -1442,6 +1442,15 @@ export default function ApplicantPortal() {
 
   const handleViewJourney = useCallback(
     (stageId: string) => {
+      if (stageId === "inspections" && !canAccessInspections) {
+        toast({
+          title: "Finish licensing first",
+          description:
+            "Pay the reservation fee and issue the licence to unlock pre-operational inspections.",
+        });
+        return;
+      }
+
       setBusinessAIView("focus");
       setIsTimelineBackgroundBlurred(true);
       setFocusContext({ type: "stage", stageId });
