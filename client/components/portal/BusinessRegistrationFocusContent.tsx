@@ -342,12 +342,10 @@ function VerificationStepItem({
   step,
   index,
   totalSteps,
-  value,
 }: {
   step: TradeNameVerificationStepWithStatus;
   index: number;
   totalSteps: number;
-  value: string;
 }) {
   const isFailed = step.status === "failed";
   const isCompleted = step.status === "completed";
@@ -396,60 +394,56 @@ function VerificationStepItem({
         : "This check runs automatically after the previous ones.";
 
   return (
-    <AccordionItem value={value} className="border-none">
-      <AccordionTrigger className="group gap-4 rounded-2xl border border-[#e6f2ed] bg-white/90 px-4 py-4 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30 data-[state=open]:border-[#0f766e]/40">
-        <div className="flex flex-1 flex-col gap-3">
-          <div className="flex w-full items-center gap-3">
-            <span className={indicatorClasses} aria-hidden>
-              {isFailed ? (
-                <X className="h-4 w-4" strokeWidth={3} />
-              ) : isCompleted ? (
-                <Check className="h-4 w-4" strokeWidth={3} />
-              ) : isCurrent ? (
-                <span className="relative flex h-3 w-3 items-center justify-center">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current/70" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
-                </span>
-              ) : (
-                <span className="h-2 w-2 rounded-full bg-current/60" />
-              )}
-            </span>
-            <div className="flex flex-1 flex-col gap-1">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-sm font-semibold text-slate-900">
-                  {`Step ${index + 1}/${totalSteps}: ${step.title}`}
-                </p>
-                <span className={statusBadgeClasses}>{statusLabel}</span>
-              </div>
-              <p className="text-xs text-slate-500">{step.summary}</p>
+    <div className="space-y-3 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4 shadow-[0_20px_48px_-36px_rgba(15,23,42,0.25)]">
+      <div className="flex flex-col gap-3">
+        <div className="flex w-full items-center gap-3">
+          <span className={indicatorClasses} aria-hidden>
+            {isFailed ? (
+              <X className="h-4 w-4" strokeWidth={3} />
+            ) : isCompleted ? (
+              <Check className="h-4 w-4" strokeWidth={3} />
+            ) : isCurrent ? (
+              <span className="relative flex h-3 w-3 items-center justify-center">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current/70" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
+              </span>
+            ) : (
+              <span className="h-2 w-2 rounded-full bg-current/60" />
+            )}
+          </span>
+          <div className="flex flex-1 flex-col gap-1">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <p className="text-sm font-semibold text-slate-900">
+                {`Step ${index + 1}/${totalSteps}: ${step.title}`}
+              </p>
+              <span className={statusBadgeClasses}>{statusLabel}</span>
             </div>
-          </div>
-          <div className="relative h-2 w-full overflow-hidden rounded-full bg-[#eef5f2]">
-            <span
-              className={cn(
-                "absolute inset-y-0 left-0 rounded-full transition-all duration-500",
-                isFailed ? "bg-rose-500" : "bg-[#0f766e]",
-                isCurrent && "animate-pulse",
-              )}
-              style={{ width: barFillWidth }}
-            />
+            <p className="text-xs text-slate-500">{step.summary}</p>
           </div>
         </div>
-      </AccordionTrigger>
-      <AccordionContent className="pt-0">
-        <div className="space-y-3 rounded-2xl border border-dashed border-[#e6f2ed] bg-white px-4 py-3 text-sm text-slate-600">
-          <p>{step.description}</p>
-          <div className="rounded-xl bg-[#0f766e]/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-            {helperMessage}
-          </div>
-          {isFailed && step.failureDetail ? (
-            <div className="rounded-xl border border-rose-200 bg-rose-50/80 px-3 py-2 text-sm text-rose-700">
-              {step.failureDetail}
-            </div>
-          ) : null}
+        <div className="relative h-2 w-full overflow-hidden rounded-full bg-[#eef5f2]">
+          <span
+            className={cn(
+              "absolute inset-y-0 left-0 rounded-full transition-all duration-500",
+              isFailed ? "bg-rose-500" : "bg-[#0f766e]",
+              isCurrent && "animate-pulse",
+            )}
+            style={{ width: barFillWidth }}
+          />
         </div>
-      </AccordionContent>
-    </AccordionItem>
+      </div>
+      <div className="space-y-3 rounded-2xl border border-dashed border-[#e6f2ed] bg-white px-4 py-3 text-sm text-slate-600">
+        <p>{step.description}</p>
+        <div className="rounded-xl bg-[#0f766e]/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+          {helperMessage}
+        </div>
+        {isFailed && step.failureDetail ? (
+          <div className="rounded-xl border border-rose-200 bg-rose-50/80 px-3 py-2 text-sm text-rose-700">
+            {step.failureDetail}
+          </div>
+        ) : null}
+      </div>
+    </div>
   );
 }
 
