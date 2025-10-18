@@ -109,7 +109,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before we display your license summary, let's confirm the right legal structure, business activities, and physical space requirements together. Once we complete this intake, I'll publish your license type and submission ID.",
-  ar: "قبل أن أعرض تفاصيل ال��رخيص، دعينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل���ات المساحة. بمجرد إ��هاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
+  ar: "قبل أن أعرض تفاصيل الترخيص، دعينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل���ات المساحة. بمجرد إ��هاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
 };
 
 type QuestionnaireProgress = "not_started" | "in_progress" | "completed";
@@ -317,7 +317,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     arabicLabel: "العربية",
     englishBadge: "English",
     arabicBadge: "العربية • تر��مة",
-    subtitle: "��وابة رخصة ال��ع��ال",
+    subtitle: "��وابة رخصة ال��عمال",
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة ��لتالية.`,
@@ -407,11 +407,11 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       notStartedMessage:
         "ابدئي من هنا للإجابة عن أسئلة موجهة حول نشاطك كي نضبط مسار الترخيص لكِ.",
       inProgressMessage:
-        "يعمل الذكاء الاصطناعي على جمع التفاصيل لإعداد الاستبيان.",
+        "يعمل الذكاء ا��اصطناعي على جمع التفاصيل لإعداد الاستبيان.",
       completedMessage:
         "هذه هي نقطة انطلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
-        "مرحبًا بكِ��شاركي��ا تفاصيل فكرتك لنصمم معًا رحلة الترخيص التي تطلق مشروعك التجاري.",
+        "مرحبًا بكِ—شاركي��ا تفاصيل فكرتك لنصمم معًا رحلة الترخيص التي تطلق مشروعك التجاري.",
       startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
@@ -464,10 +464,10 @@ const journeyStages: JourneyStage[] = [
     title: "Business Registration",
     highlight: {
       label: "Trade name approved",
-      detail: "Select and submit reservation payment",
+      detail: "Pay reservation fee",
     },
     description:
-      "Choose the approved trade name and complete the reservation application and payment before moving into document submissions.",
+      "Submit the approved trade name reservation and payment.",
     state: "current",
     statusDetail: "Trade name reservation payment pending",
     tasks: [
@@ -479,18 +479,11 @@ const journeyStages: JourneyStage[] = [
         completedOn: isoDate(daysFromToday(-1)),
       },
       {
-        id: "registration-select-trade-name",
-        label: "Select approved trade name",
+        id: "registration-submit-reservation",
+        label: "Submit trade name reservation payment",
         status: "in_progress",
         owner: "Applicant",
         dueDate: isoDate(daysFromToday(1)),
-      },
-      {
-        id: "registration-submit-reservation",
-        label: "Submit trade name reservation application & payment",
-        status: "pending",
-        owner: "Applicant",
-        dueDate: isoDate(daysFromToday(2)),
       },
     ],
   },
