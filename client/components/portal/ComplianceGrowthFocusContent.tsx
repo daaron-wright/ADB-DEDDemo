@@ -690,62 +690,246 @@ export function ComplianceGrowthFocusContent({
         "See how Polaris validates your evidence and routes it to inspectors.",
       content: (
         <div className="space-y-5">
-          <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
+          <div className="space-y-6 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h4 className="text-base font-semibold text-slate-900">Inspection pipeline</h4>
-              <Badge className={cn(
-                "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                SUBMISSION_STATUS_TOKENS[submissionStatus].className,
-              )}>
+              <Badge
+                className={cn(
+                  "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                  SUBMISSION_STATUS_TOKENS[submissionStatus].className,
+                )}
+              >
                 {SUBMISSION_STATUS_TOKENS[submissionStatus].label}
               </Badge>
             </div>
-            <div className="grid gap-4 md:grid-cols-5">
-              {pipelineStatuses.map((step, index) => {
-                const token = PIPELINE_STATUS_TOKENS[step.status];
-                const isLast = index === pipelineStatuses.length - 1;
-                return (
-                  <div key={step.id} className="flex flex-col items-start gap-3">
-                    <div className="flex items-center gap-3">
-                      <span
-                        className={cn(
-                          "flex h-10 w-10 items-center justify-center rounded-full border",
-                          token.wrapperClass,
-                        )}
-                      >
-                        <token.Icon className={token.iconClass} />
+            <div className="grid gap-6 xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+              <div className="space-y-4">
+                <div className="grid gap-4 md:grid-cols-5">
+                  {pipelineStatuses.map((step, index) => {
+                    const token = PIPELINE_STATUS_TOKENS[step.status];
+                    const isLast = index === pipelineStatuses.length - 1;
+                    return (
+                      <div key={step.id} className="flex flex-col items-start gap-3">
+                        <div className="flex items-center gap-3">
+                          <span
+                            className={cn(
+                              "flex h-10 w-10 items-center justify-center rounded-full border",
+                              token.wrapperClass,
+                            )}
+                          >
+                            <token.Icon className={token.iconClass} />
+                          </span>
+                          {!isLast ? (
+                            <span
+                              className={cn(
+                                "h-0.5 w-16 rounded-full",
+                                token.connectorClass,
+                              )}
+                              aria-hidden
+                            />
+                          ) : null}
+                        </div>
+                        <div className="space-y-1">
+                          <p className="text-sm font-semibold text-slate-900">{step.title}</p>
+                          <p className="text-xs text-slate-500">{step.description}</p>
+                          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                            {step.helper}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="rounded-2xl border border-[#d8e4df] bg-[#f5faf7] p-4 text-sm text-[#0f766e]">
+                  {latestVideoEvidence ? (
+                    <div className="space-y-1 text-sm">
+                      <span className="font-semibold text-slate-900">
+                        Latest submission: {latestVideoEvidence.filename}
                       </span>
-                      {!isLast ? (
-                        <span
-                          className={cn(
-                            "h-0.5 w-16 rounded-full",
-                            token.connectorClass,
-                          )}
-                          aria-hidden
-                        />
-                      ) : null}
+                      <div className="text-xs text-[#0f766e]">
+                        Uploaded {formatEvidenceTimestamp(latestVideoEvidence.capturedOn)} • {latestVideoEvidence.source}
+                      </div>
+                      <div className="text-xs text-[#0f766e]">{latestVideoEvidence.note}</div>
                     </div>
-                    <div className="space-y-1">
-                      <p className="text-sm font-semibold text-slate-900">{step.title}</p>
-                      <p className="text-xs text-slate-500">{step.description}</p>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
-                        {step.helper}
-                      </p>
-                    </div>
+                  ) : (
+                    "Upload a walkthrough to trigger Polaris encryption and inspector routing."
+                  )}
+                </div>
+              </div>
+              <div className="space-y-4 rounded-2xl border border-[#e6f2ed] bg-white/95 p-5">
+                <div className="space-y-1">
+                  <p className="text-sm font-semibold text-slate-900">Upload signboard walkthrough</p>
+                  <p className="text-xs text-slate-500">
+                    Provide a continuous exterior and interior capture so Polaris can validate signage, illuminance, and bilingual text.
+                  </p>
+                </div>
+                <label
+                  htmlFor="signboard-video-upload"
+                  className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-[#0f766e]/40 bg-white/85 px-4 py-6 text-center transition hover:border-[#0f766e] hover:bg-[#f5faf7]"
+                >
+                  <UploadCloud className="h-6 w-6 text-[#0f766e]" />
+                  <div>
+                    <p className="text-sm font-semibold text-slate-900">Drop video or browse</p>
+                    <p className="text-xs text-slate-500">MP4, MOV, or WebM up to 2 GB</p>
                   </div>
-                );
-              })}
+                </label>
+                <Input
+                  id="signboard-video-upload"
+                  ref={fileInputRef}
+                  type="file"
+                  accept="video/*"
+                  className="hidden"
+                  onChange={handleVideoSelect}
+                />
+                {pendingVideo ? (
+                  <div className="space-y-2 rounded-xl border border-[#d8e4df] bg-white/90 p-4 text-left">
+                    <div className="flex items-center justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-semibold text-slate-900">{pendingVideo.name}</p>
+                        <p className="text-xs text-slate-500">
+                          {formatFileSize(pendingVideo.size)} • Ready for submission
+                        </p>
+                      </div>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="rounded-full px-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 hover:text-slate-900"
+                        onClick={handleRemovePendingVideo}
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                    <p className="text-xs text-slate-500">
+                      Polaris will encrypt the footage and extract annotated frames before inspectors review it.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="rounded-xl border border-dashed border-[#d8e4df] bg-white/70 p-4 text-xs text-slate-500">
+                    No new walkthrough selected.
+                  </div>
+                )}
+                <div className="flex flex-wrap items-center gap-3">
+                  <Button
+                    type="button"
+                    onClick={handleSubmitVideoEvidence}
+                    disabled={!pendingVideo || isSubmittingVideo}
+                    className="flex-1 rounded-full bg-[#0f766e] px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_42px_-30px_rgba(15,118,110,0.45)] disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {isSubmittingVideo ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : null}
+                    Submit to inspectors
+                  </Button>
+                  <Dialog open={libraryDialogOpen} onOpenChange={setLibraryDialogOpen}>
+                    <DialogTrigger asChild>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="flex items-center gap-2 rounded-full border-[#0f766e]/40 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+                      >
+                        <FolderOpen className="h-4 w-4" />
+                        View library
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-2xl rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-30px_rgba(15,23,42,0.24)]">
+                      <DialogHeader className="space-y-2 text-left">
+                        <DialogTitle className="text-xl font-semibold text-slate-900">
+                          Signboard evidence library
+                        </DialogTitle>
+                        <DialogDescription className="text-sm text-slate-600">
+                          Every submitted walkthrough stays available for inspectors and TAMM audits.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <ScrollArea className="max-h-[420px] pr-2">
+                        <div className="space-y-3">
+                          {videoLibrary.map((item) => {
+                            const token = VIDEO_STATUS_TOKENS[item.status];
+                            return (
+                              <div
+                                key={item.id}
+                                className="flex items-start justify-between gap-3 rounded-2xl border border-[#e6f2ed] bg-[#f9fbfd] p-4"
+                              >
+                                <div className="flex items-start gap-3">
+                                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#0f766e]/15 bg-[#f5faf7] text-[#0f766e]">
+                                    <PlayCircle className="h-5 w-5" />
+                                  </span>
+                                  <div className="space-y-1">
+                                    <p className="text-sm font-semibold text-slate-900">{item.filename}</p>
+                                    <p className="text-xs text-slate-500">
+                                      {formatMegabytes(item.sizeMb)} • {item.durationLabel}
+                                    </p>
+                                    <p className="text-xs text-slate-500">{item.note}</p>
+                                    <p className="text-xs text-slate-400">
+                                      Uploaded {formatEvidenceTimestamp(item.capturedOn)} • {item.source}
+                                    </p>
+                                  </div>
+                                </div>
+                                <Badge
+                                  className={cn(
+                                    "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                                    token.className,
+                                  )}
+                                >
+                                  {token.label}
+                                </Badge>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </ScrollArea>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                      Library preview
+                    </p>
+                    <p className="text-xs text-slate-500">
+                      Latest {libraryPreview.length} of {videoLibrary.length}
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    {libraryPreview.map((item) => {
+                      const token = VIDEO_STATUS_TOKENS[item.status];
+                      return (
+                        <div
+                          key={item.id}
+                          className="flex items-start justify-between gap-3 rounded-xl border border-[#e6f2ed] bg-white/90 p-4"
+                        >
+                          <div className="space-y-1">
+                            <p className="text-sm font-semibold text-slate-900">{item.filename}</p>
+                            <p className="text-xs text-slate-500">
+                              {formatMegabytes(item.sizeMb)} • {item.durationLabel}
+                            </p>
+                            <p className="text-xs text-slate-500">{token.helper}</p>
+                            <p className="text-xs text-slate-400">
+                              Uploaded {formatEvidenceTimestamp(item.capturedOn)} • {item.source}
+                            </p>
+                          </div>
+                          <Badge
+                            className={cn(
+                              "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                              token.className,
+                            )}
+                          >
+                            {token.label}
+                          </Badge>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  {videoLibrary.length > libraryPreview.length ? (
+                    <p className="text-xs text-slate-500">
+                      {videoLibrary.length - libraryPreview.length} more walkthrough
+                      {videoLibrary.length - libraryPreview.length > 1 ? "s" : ""} stored in the evidence library.
+                    </p>
+                  ) : null}
+                </div>
+              </div>
             </div>
-            <Button
-              type="button"
-              onClick={handleAdvancePipeline}
-              disabled={pipelineIndex >= INSPECTION_PIPELINE_STEPS.length - 1}
-              className="w-full rounded-full bg-[#0f766e] px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_42px_-30px_rgba(15,118,110,0.45)] disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {pipelineIndex >= INSPECTION_PIPELINE_STEPS.length - 1
-                ? "Pipeline complete"
-                : "Submit inspection evidence"}
-            </Button>
           </div>
 
           <div className="grid gap-5 lg:grid-cols-2">
