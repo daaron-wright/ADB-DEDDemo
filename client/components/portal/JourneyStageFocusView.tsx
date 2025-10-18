@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { StageSlideNavigator, type StageSlide } from "./StageSlideNavigator";
 import { chatCardClass } from "@/lib/chat-style";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
