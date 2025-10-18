@@ -322,7 +322,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة ��لتالية.`,
-    workspaceSupportBadge: "دعم مسا��ة �����لعمل",
+    workspaceSupportBadge: "دعم مسا��ة ����لعمل",
     supportHeading: "تحتاجين إلى مساع��ة؟",
     supportDescription: {
       preEmail:
@@ -338,7 +338,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث����ر��ن آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث����ر��ن آخ��ون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارا�� إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -972,6 +972,7 @@ export default function ApplicantPortal() {
     "en",
   );
   const [portalView, setPortalView] = useState<PortalView>("overview");
+  const { toast } = useToast();
   const portalUser = (
     location.state as
       | {
