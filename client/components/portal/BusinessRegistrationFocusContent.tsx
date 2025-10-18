@@ -502,6 +502,10 @@ export function BusinessRegistrationFocusContent({
   isTradeNameAvailable = false,
   progressPercent = 46,
   onTradeNameChange,
+  onTradeNameSelected,
+  onTradeNameReservationSubmitted,
+  payAndIssueLabel,
+  payAndIssueToast,
 }: BusinessRegistrationFocusContentProps) {
   const { toast } = useToast();
   const { setDocuments } = useDocumentVault();
