@@ -415,6 +415,7 @@ const DEFAULT_VIDEO_LIBRARY: VideoEvidence[] = [
     status: "synced",
     source: "Polaris field kit",
     note: "Exterior signage capture with calibrated lux readings and multilingual text checks.",
+    frames: SIGNBOARD_FRAME_IMAGE_SETS[0].map((frame) => ({ ...frame })),
   },
   {
     id: "sync-20240312",
@@ -425,6 +426,7 @@ const DEFAULT_VIDEO_LIBRARY: VideoEvidence[] = [
     status: "synced",
     source: "Workspace upload",
     note: "Interior walkthrough covering kitchen, storage, and guest areas for compliance snapshots.",
+    frames: SIGNBOARD_FRAME_IMAGE_SETS[1].map((frame) => ({ ...frame })),
   },
   {
     id: "sync-20240228",
@@ -435,6 +437,7 @@ const DEFAULT_VIDEO_LIBRARY: VideoEvidence[] = [
     status: "queued",
     source: "Workspace upload",
     note: "Nighttime contrast capture staged for inspector acknowledgement and OCR validation.",
+    frames: SIGNBOARD_FRAME_IMAGE_SETS[2].map((frame) => ({ ...frame })),
   },
 ];
 
