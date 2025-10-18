@@ -763,6 +763,7 @@ export function DocumentSubmissionFocusContent({
       vaultStatusHeading,
       vaultSubtitle,
       activeDocument,
+      renderPolarisGuidanceContent,
     ],
   );
 
