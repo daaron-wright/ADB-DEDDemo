@@ -287,6 +287,74 @@ const GROWTH_OPPORTUNITIES: GrowthOpportunity[] = [
   },
 ];
 
+const MAX_VIDEO_SIZE_BYTES = 2 * 1024 * 1024 * 1024;
+const MEGABYTE = 1024 * 1024;
+
+const VIDEO_STATUS_TOKENS: Record<
+  VideoEvidenceStatus,
+  { label: string; className: string; helper: string }
+> = {
+  processing: {
+    label: "Processing",
+    className: "border-amber-200 bg-amber-50 text-amber-700",
+    helper: "Encrypting upload and preparing frame samples for inspectors.",
+  },
+  queued: {
+    label: "Inspector queue",
+    className: "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
+    helper: "Awaiting inspector acknowledgement in the DED review queue.",
+  },
+  synced: {
+    label: "Synced",
+    className: "border-[#94d2c2] bg-[#eaf7f3] text-[#0f766e]",
+    helper: "Available in the TAMM evidence vault for future checks.",
+  },
+};
+
+const DEFAULT_VIDEO_LIBRARY: VideoEvidence[] = [
+  {
+    id: "sync-20240321",
+    filename: "marwah_exterior_walkthrough.mp4",
+    sizeMb: 284.32,
+    durationLabel: "04:18",
+    capturedOn: "2024-03-21T09:20:00.000Z",
+    status: "synced",
+    source: "Polaris field kit",
+    note: "Exterior signage capture with calibrated lux readings and multilingual text checks.",
+  },
+  {
+    id: "sync-20240312",
+    filename: "kitchen_operational_check.mov",
+    sizeMb: 312.71,
+    durationLabel: "05:02",
+    capturedOn: "2024-03-12T12:05:00.000Z",
+    status: "synced",
+    source: "Workspace upload",
+    note: "Interior walkthrough covering kitchen, storage, and guest areas for compliance snapshots.",
+  },
+  {
+    id: "sync-20240228",
+    filename: "signboard_night_inspection.webm",
+    sizeMb: 198.42,
+    durationLabel: "03:45",
+    capturedOn: "2024-02-28T18:40:00.000Z",
+    status: "queued",
+    source: "Workspace upload",
+    note: "Nighttime contrast capture staged for inspector acknowledgement and OCR validation.",
+  },
+];
+
+const evidenceTimestampFormatter = new Intl.DateTimeFormat("en-GB", {
+  dateStyle: "medium",
+  timeStyle: "short",
+});
+
+const bytesToMegabytes = (bytes: number) => Number((bytes / MEGABYTE).toFixed(2));
+const formatMegabytes = (value: number) => `${value.toFixed(2)} MB`;
+const formatFileSize = (bytes: number) => formatMegabytes(bytesToMegabytes(bytes));
+const formatEvidenceTimestamp = (iso: string) =>
+  evidenceTimestampFormatter.format(new Date(iso));
+
 const SUBMISSION_STATUS_TOKENS: Record<InspectionSubmissionStatus, { label: string; className: string }> = {
   idle: {
     label: "Awaiting upload",
