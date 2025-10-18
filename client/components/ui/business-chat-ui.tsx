@@ -3433,7 +3433,7 @@ const SetupBusinessCTA = ({
 }) => (
   <div
     className={chatCardClass(
-      "relative w-full max-w-[593px] overflow-hidden border border-black bg-white/14 backdrop-blur-sm",
+      "relative w-full max-w-[593px] overflow-hidden border border-[#d8e4df] bg-white shadow-[0_32px_72px_-52px_rgba(15,23,42,0.35)]",
       "rounded-[24px]",
     )}
   >
