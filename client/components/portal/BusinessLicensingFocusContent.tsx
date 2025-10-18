@@ -229,19 +229,14 @@ export function BusinessLicensingFocusContent({
       }),
     );
 
-    if (stageStatus === "request") {
-      setProgress(Math.min(initialProgressPercent, 28));
-      clearTimers();
-    } else if (stageStatus === "in_progress") {
-      setProgress(Math.max(initialProgressPercent, 68));
-      if (timersRef.current.length === 0 && stageStatus === "in_progress") {
+    if (stageStatus === "in_progress") {
+      if (timersRef.current.length === 0) {
         queuePendingTransition();
       }
     } else {
-      setProgress(Math.max(initialProgressPercent, 78));
       clearTimers();
     }
-  }, [stageStatus, initialProgressPercent, clearTimers, queuePendingTransition]);
+  }, [stageStatus, clearTimers, queuePendingTransition]);
 
   const stageToken = STAGE_STATUS_TOKENS[stageStatus];
   const rightPanelToken = RIGHT_PANEL_TOKENS[stageStatus];
