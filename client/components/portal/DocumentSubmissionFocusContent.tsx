@@ -584,7 +584,7 @@ export function DocumentSubmissionFocusContent({
             ) : null}
             <Accordion
               type="multiple"
-              defaultValue={["moa-guidance", "certifications"]}
+              defaultValue={["moa-guidance"]}
               className="space-y-3"
             >
               <CollapsibleCard
