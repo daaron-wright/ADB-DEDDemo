@@ -354,7 +354,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     fieldLabels: {
       beneficiary: "المستفيد",
       licenseType: "نوع الرخصة",
-      submissionId: "معرّف ال��ل��",
+      submissionId: "معرّف ال��لب",
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإ��راء التالي",
@@ -1007,6 +1007,10 @@ export default function ApplicantPortal() {
     useState<string>(DEFAULT_WORKSPACE_TITLE);
   const [applicationStatus, setApplicationStatus] =
     useState<ApplicationRecord["status"]>("In Review");
+  const [applicationNextActionState, setApplicationNextActionState] =
+    useState<ApplicationNextActionState>("default");
+  const [hasTradeNameReservationSubmitted, setHasTradeNameReservationSubmitted] =
+    useState(false);
   const [questionnaireProgress, setQuestionnaireProgress] =
     usePersistentState<QuestionnaireProgress>(
       "portal-questionnaire-progress",
@@ -2534,7 +2538,7 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
   const portalBrand =
     language === "ar"
       ? {
-          label: "خدمات حكوم�� أ��وظبي",
+          label: "خدمات حكومة أ��وظبي",
           logoAlt: "شعار تم",
           logoSrc:
             "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F397f9a8d2a3c4c8cb1d79ae828b476be",
