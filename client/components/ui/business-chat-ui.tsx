@@ -578,6 +578,19 @@ const MODAL_CHAT_PLACEHOLDERS: Partial<Record<ModalView, string>> = {
     "Ask about any section of the viability recap or request an export.",
 };
 
+const JOURNEY_STAGE_CHAT_PLACEHOLDERS: Record<string, string> = {
+  questionnaire:
+    "Ask Polaris to pre-fill answers, validate documents, or explain what's next in the questionnaire.",
+  "trade-name-activities":
+    "Ask for trade name checks, activity guidance, or how Polaris can auto-complete this section.",
+  "document-submissions":
+    "Tell Polaris which documents you want reviewed or auto-attached for this submission.",
+  inspections:
+    "Ask Polaris to prepare inspection checklists or coordinate booking support.",
+  "compliance-growth":
+    "Ask Polaris to watch compliance tasks or recommend growth actions while you operate.",
+};
+
 const HEAT_MAP_THUMBNAIL_URL =
   "https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=386";
 
@@ -6446,12 +6459,19 @@ export function BusinessChatUI({
       return modalPlaceholder;
     }
 
+    const journeyStageId =
+      journeyFocusView?.stage?.id ?? journeyFocusView?.timelineItem.id ?? null;
+    if (journeyStageId && JOURNEY_STAGE_CHAT_PLACEHOLDERS[journeyStageId]) {
+      return JOURNEY_STAGE_CHAT_PLACEHOLDERS[journeyStageId];
+    }
+
     return STEP_CHAT_PLACEHOLDERS[currentStep] ?? DEFAULT_CHAT_PLACEHOLDER;
   }, [
     interactionMode,
     followUpRecommendations,
     modalView,
     currentStep,
+    journeyFocusView,
   ]);
 
   const handleInputChange = (value: string) => {
