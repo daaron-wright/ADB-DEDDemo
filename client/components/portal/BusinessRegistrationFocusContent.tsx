@@ -506,7 +506,7 @@ export function BusinessRegistrationFocusContent({
   );
   const [englishDraft, setEnglishDraft] = React.useState(initialFormattedName);
   const [arabicDraft, setArabicDraft] = React.useState(PRIMARY_TRADE_NAME_AR);
-  const [isEditing, setIsEditing] = React.useState(false);
+  const [isEditing, setIsEditing] = React.useState(true);
   const [pendingSubmission, setPendingSubmission] = React.useState<{
     english: string;
     arabic: string;
@@ -800,7 +800,7 @@ export function BusinessRegistrationFocusContent({
     setHasSelectedApprovedTradeName(false);
     setHasSubmittedReservationApplication(false);
     setIsSubmittingReservation(false);
-    setIsEditing(false);
+    setIsEditing(true);
   }, [tradeName, isTradeNameAvailable, progressPercent]);
 
   React.useEffect(() => {
