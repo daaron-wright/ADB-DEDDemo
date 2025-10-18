@@ -6460,7 +6460,7 @@ export function BusinessChatUI({
     }
 
     const journeyStageId =
-      journeyFocusView?.stage?.id ?? journeyFocusView?.timelineItem.id ?? null;
+      journeyFocusView?.stage?.id ?? journeyFocusView?.timelineItem?.id ?? null;
     if (journeyStageId && JOURNEY_STAGE_CHAT_PLACEHOLDERS[journeyStageId]) {
       return JOURNEY_STAGE_CHAT_PLACEHOLDERS[journeyStageId];
     }
