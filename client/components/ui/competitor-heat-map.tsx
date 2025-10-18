@@ -290,8 +290,8 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
           </div>
         </div>
 
-        <aside className="flex w-full max-h-[620px] flex-col overflow-hidden rounded-3xl border border-[#d8e4df] bg-white/95 text-slate-700 shadow-[0_28px_70px_-48px_rgba(14,118,110,0.24)] lg:w-[360px]">
-          <ScrollArea className="h-full">
+        <aside className="flex w-full flex-col overflow-visible rounded-3xl border border-[#d8e4df] bg-white/95 text-slate-700 shadow-[0_28px_70px_-48px_rgba(14,118,110,0.24)] lg:w-[360px]">
+          <ScrollArea className="h-auto max-h-none">
             <div className="space-y-5 p-6 pr-4">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
