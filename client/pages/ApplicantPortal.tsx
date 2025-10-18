@@ -2182,6 +2182,7 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
     handleCompliancePassed,
     applicationStatus,
     selectedLegalFormId,
+    handleLicenseIssued,
   ]);
 
   const isApplicationComplete = useMemo(() => {
