@@ -1284,6 +1284,7 @@ export function BusinessRegistrationFocusContent({
       slides={slides}
       activeSlideId={activeSlideId}
       onSlideChange={setActiveSlideId}
+      className="mt-6"
     />
   );
 }
