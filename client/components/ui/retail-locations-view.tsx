@@ -216,11 +216,11 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-start sm:gap-3">
                 <button
                   type="button"
                   onClick={handleAutomationDiscuss}
-                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#0F766E] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0a5a55] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
+                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#0F766E] px-5 py-2.5 text-[13px] font-semibold text-white shadow-sm transition hover:bg-[#0a5a55] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
                 >
                   <svg
                     width="16"
@@ -241,7 +241,7 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                 <button
                   type="button"
                   onClick={() => setModalState("locations")}
-                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-[#d8e4df] bg-white px-6 py-3 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55]"
+                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-[#d8e4df] bg-white px-5 py-2.5 text-[13px] font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55]"
                 >
                   Keep exploring
                 </button>
