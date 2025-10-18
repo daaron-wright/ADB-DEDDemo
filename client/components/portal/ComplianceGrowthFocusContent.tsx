@@ -68,7 +68,6 @@ type GrowthOpportunity = {
 
 interface ComplianceGrowthFocusContentProps {
   journeyNumber?: string;
-  progressPercent?: number;
   growthUnlocked?: boolean;
   onComplianceReturn?: () => void;
   isCompliant?: boolean;
@@ -287,7 +286,6 @@ const FEEDBACK_STATUS_LABEL: Record<FeedbackWorkflowStatus, string> = {
 
 export function ComplianceGrowthFocusContent({
   journeyNumber = "0987654321",
-  progressPercent = 78,
   growthUnlocked = false,
   onComplianceReturn,
   isCompliant = false,
