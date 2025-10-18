@@ -23,7 +23,6 @@ import {
 
 interface DocumentSubmissionFocusContentProps {
   journeyNumber?: string;
-  progressPercent?: number;
 }
 
 type LicenseDetails = {
@@ -88,7 +87,6 @@ const TAMM_DOCUMENT_PREVIEWS = [
 
 export function DocumentSubmissionFocusContent({
   journeyNumber = "0987654321",
-  progressPercent = 72,
 }: DocumentSubmissionFocusContentProps) {
   const { toast } = useToast();
   const {
@@ -114,7 +112,6 @@ export function DocumentSubmissionFocusContent({
   const [licenseDetails, setLicenseDetails] = React.useState<LicenseDetails | null>(
     null,
   );
-  const [progress, setProgress] = React.useState(progressPercent);
   const [moaClauseDraft, setMoaClauseDraft] = React.useState<string>(
     INITIAL_MOA_CLAUSE_DRAFT,
   );
@@ -218,7 +215,6 @@ export function DocumentSubmissionFocusContent({
       );
       setIsFinalisingMoa(false);
       setShowMoaAssistant(false);
-      setProgress((value) => Math.max(value, 88));
       setActiveSlideId("payment");
       toast({
         title: "Custom MOA sent to ADJD",
@@ -233,7 +229,6 @@ export function DocumentSubmissionFocusContent({
       return;
     }
 
-    setProgress((value) => Math.max(value, 92));
   }, [allDocumentsCompleted]);
 
   const handleInitiatePayment = React.useCallback(() => {
@@ -250,8 +245,7 @@ export function DocumentSubmissionFocusContent({
     paymentTimeoutRef.current = window.setTimeout(() => {
       setIsPaying(false);
       setHasPaid(true);
-      setProgress(100);
-      const issuedLicense: LicenseDetails = {
+    const issuedLicense: LicenseDetails = {
         licenseNumber: "CN-7845126",
         issueDate: new Date().toLocaleDateString("en-GB", {
           day: "2-digit",
@@ -537,18 +531,9 @@ export function DocumentSubmissionFocusContent({
                   Everything synced in your vault
                 </h3>
               </div>
-              <div className="space-y-2">
-                <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
-                  <div
-                    className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
-                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  <span>Automation progress</span>
-                  <span>{progress}%</span>
-                </div>
-              </div>
+              <p className="text-sm text-slate-600">
+                Polaris keeps your submissions, signatures, and payments aligned automatically. Anything needing action will appear in the tasks below.
+              </p>
             </div>
           </div>
         ),
@@ -757,7 +742,6 @@ export function DocumentSubmissionFocusContent({
       moaSubtitle,
       paymentSubtitle,
       licenceSubtitle,
-      progress,
       showMoaAssistant,
       vaultStatusDescription,
       vaultStatusHeading,
