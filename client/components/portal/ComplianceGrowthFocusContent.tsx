@@ -526,6 +526,25 @@ export function ComplianceGrowthFocusContent({
     return videoLibrary[0];
   }, [videoLibrary]);
 
+  const evidenceGallery = React.useMemo(
+    () =>
+      videoLibrary
+        .flatMap((item) =>
+          item.frames.map((frame) => ({
+            key: `${item.id}-${frame.id}`,
+            frame,
+            videoFilename: item.filename,
+            capturedOn: item.capturedOn,
+          })),
+        )
+        .sort(
+          (a, b) =>
+            new Date(b.capturedOn).getTime() - new Date(a.capturedOn).getTime(),
+        )
+        .slice(0, 6),
+    [videoLibrary],
+  );
+
   const handleDismissCompliance = React.useCallback(
     (id: string) => {
       setComplianceItems((previous) =>
