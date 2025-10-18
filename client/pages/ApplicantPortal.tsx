@@ -410,13 +410,13 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       inProgressMessage:
         "يعمل الذكاء الاصطناعي على جمع التفاصيل لإعداد الاستبيان.",
       completedMessage:
-        "هذه هي نقطة انطلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
+        "هذه هي نقطة ا��طلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
         "مرحبًا بكِ—شاركي��ا تفاصيل فكرتك لنصمم معًا رحلة الترخيص التي تطلق مشروعك التجاري.",
       startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
-      pendingLicenseLabel: "م���اح بعد الاستبيان",
+      pendingLicenseLabel: "م��اح بعد الاستبيان",
       pendingSubmissionLabel: "",
       chatIntro:
         "لنؤكد بعض التفاصي�� معًا. بعد إنها�� هذا الاستبيان، سأعرض نوع التر��يص ومعرّف الطلب.",
@@ -1100,7 +1100,8 @@ export default function ApplicantPortal() {
     }
     const currentFocusLabel =
       JOURNEY_STEPS_CONFIG.find((step) => step.id === activeStageId)?.label ??
-      "Current focus";
+      journeyStages.find((stage) => stage.id === activeStageId)?.title ??
+      activeStageId;
 
     toast({
       title: copy.title,
