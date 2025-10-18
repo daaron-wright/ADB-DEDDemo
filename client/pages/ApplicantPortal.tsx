@@ -322,7 +322,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة ��لتالية.`,
-    workspaceSupportBadge: "دعم مسا��ة ����لعمل",
+    workspaceSupportBadge: "دعم مسا��ة �����لعمل",
     supportHeading: "تحتاجين إلى مساع��ة؟",
     supportDescription: {
       preEmail:
@@ -354,10 +354,10 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجي�� ��قدك.",
+      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "بولاريس",
     businessActivityGuidance:
-      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف��� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
+      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
       "أضيفي إرشادات الترخيص إلى استبيان ��لأنشطة التجارية",
     statusLabelMap: {
@@ -609,6 +609,25 @@ const STAGE_PHASE_MAP: Record<string, JourneyPhaseId> = {
   "document-submissions": "apply",
   inspections: "operate",
   "compliance-growth": "collaborate",
+};
+
+const PHASE_TOAST_COPY: Record<JourneyPhaseId, { title: string; helper: string }> = {
+  ideate: {
+    title: "IDEATE",
+    helper: "Shape your concept, AI intake, and automation setup",
+  },
+  apply: {
+    title: "APPLY",
+    helper: "Reserve your trade name and submit the application package",
+  },
+  operate: {
+    title: "OPERATE",
+    helper: "Prepare inspections, utilities, and compliance handoffs",
+  },
+  collaborate: {
+    title: "COLLABORATE",
+    helper: "Scale with ongoing compliance and growth partners",
+  },
 };
 
 const TIMELINE_PHASE_MAP: Record<string, JourneyPhaseId> = {
