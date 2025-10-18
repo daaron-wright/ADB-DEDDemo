@@ -77,6 +77,7 @@ export interface JourneyStageFocusViewProps {
   onTradeNameReservationSubmitted?: () => void;
   tradeNamePayAndIssueLabel?: string;
   tradeNamePayAndIssueToast?: string;
+  onLicenseIssued?: () => void;
   growthUnlocked?: boolean;
   onComplianceReturn?: () => void;
   isCompliancePassed?: boolean;
@@ -173,6 +174,7 @@ export function JourneyStageFocusView({
   onTradeNameReservationSubmitted,
   tradeNamePayAndIssueLabel,
   tradeNamePayAndIssueToast,
+  onLicenseIssued,
   growthUnlocked = false,
   onComplianceReturn,
   isCompliancePassed,
@@ -326,6 +328,7 @@ export function JourneyStageFocusView({
         {shouldShowDocuments ? (
           <DocumentSubmissionFocusContent
             journeyNumber="0987654321"
+            onLicenseIssued={onLicenseIssued}
           />
         ) : (
           renderGuidanceSummary(
