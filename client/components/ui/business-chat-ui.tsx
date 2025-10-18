@@ -189,6 +189,7 @@ interface BusinessChatUIProps {
   suppressChatInterface?: boolean;
   hasCompletedApplication?: boolean;
   feedbackThreshold?: number;
+  showQuickActions?: boolean;
 }
 
 type ChatView = "basic" | "investor-journey" | "discover-experience";
@@ -5976,6 +5977,7 @@ export function BusinessChatUI({
   suppressChatInterface = false,
   hasCompletedApplication = false,
   feedbackThreshold = 4,
+  showQuickActions = true,
 }: BusinessChatUIProps) {
   const [messages, setMessages] = useState<BusinessMessage[]>([]);
   const [view, setView] = useState<ChatView>("basic");
@@ -8233,7 +8235,7 @@ export function BusinessChatUI({
                           ) : null}
                         </div>
 
-                        {showChatInterface && persistentQuickActions.length > 0 ? (
+                        {showChatInterface && showQuickActions && persistentQuickActions.length > 0 ? (
                           <div
                             className={cn(
                               "mt-6 rounded-[24px] border border-white/20 bg-white/12 p-4 backdrop-blur-xl shadow-[0_30px_80px_-58px_rgba(15,23,42,0.35)]",
