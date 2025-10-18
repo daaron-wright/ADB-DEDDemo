@@ -964,18 +964,9 @@ export function BusinessRegistrationFocusContent({
                   Review the current trade name status and run the automated verification when you’re ready to move forward.
                 </p>
               </div>
-              <div className="space-y-2">
-                <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
-                  <div
-                    className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all"
-                    style={{ width: `${displayProgress}%` }}
-                  />
-                </div>
-                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  <span>Automation progress</span>
-                  <span>{displayProgress}%</span>
-                </div>
-              </div>
+              <p className="text-sm text-slate-600">
+                Polaris handles each verification step automatically and flags anything that needs your approval here.
+              </p>
             </div>
           </div>
 
