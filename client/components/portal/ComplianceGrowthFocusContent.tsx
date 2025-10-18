@@ -420,6 +420,14 @@ export function ComplianceGrowthFocusContent({
     });
   }, [pipelineIndex]);
 
+  const libraryPreview = React.useMemo(() => {
+    return videoLibrary.slice(0, 3);
+  }, [videoLibrary]);
+
+  const latestVideoEvidence = React.useMemo(() => {
+    return videoLibrary[0];
+  }, [videoLibrary]);
+
   const handleDismissCompliance = React.useCallback(
     (id: string) => {
       setComplianceItems((previous) =>
