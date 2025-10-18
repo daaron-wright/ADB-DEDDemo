@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 
@@ -14,6 +15,7 @@ const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({
   onClose,
   category,
 }) => {
+  const navigate = useNavigate();
   const [showContent, setShowContent] = useState(false);
   const handleDismiss = onClose ?? onBack ?? (() => {});
 
@@ -198,9 +200,15 @@ const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({
                 <button
                   type="button"
                   onClick={() =>
-                    window.dispatchEvent(
-                      new CustomEvent("openBusinessPlanWorkspace"),
-                    )
+                    navigate("/portal/applicant", {
+                      state: {
+                        user: {
+                          name: "Layla",
+                          role: "Entrepreneur",
+                          email: "layla@marwah.ae",
+                        },
+                      },
+                    })
                   }
                   className="mt-3 inline-flex items-center gap-2 rounded-full border border-[#0E766E]/25 bg-white px-4 py-2 text-sm font-semibold text-[#0E766E] shadow-[0_18px_36px_-28px_rgba(14,118,110,0.32)] transition hover:bg-[#f1f9f6]"
                 >
