@@ -138,6 +138,8 @@ const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   },
 ];
 
+const TRADE_NAME_PAYMENT_DISPLAY_AMOUNT = "65 AED";
+
 function createTradeNameReceiptDocument(): DocumentVaultItem {
   const {
     receiptNumber,
