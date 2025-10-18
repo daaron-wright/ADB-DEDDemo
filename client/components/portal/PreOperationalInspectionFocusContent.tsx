@@ -309,18 +309,9 @@ export function PreOperationalInspectionFocusContent({
                   Polaris keeps compliance certificates, bank coordination, and optional services aligned so inspectors can clear your venue faster.
                 </p>
               </div>
-              <div className="space-y-2">
-                <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
-                  <div
-                    className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
-                <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  <span>Automation progress</span>
-                  <span>{progress}%</span>
-                </div>
-              </div>
+              <p className="text-sm text-slate-600">
+                Automation runs in the background—when something needs you, it appears in the checklist immediately.
+              </p>
             </div>
           </div>
         ),
