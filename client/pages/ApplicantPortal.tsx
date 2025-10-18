@@ -302,7 +302,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       completedMessage:
         "This is your starting point to shape the right licensing pathway for your business.",
       description:
-        "Welcome��share your concept with us and we’ll co-create the licensing workflow that brings your business to life.",
+        "Welcome—share your concept with us and we’ll co-create the licensing workflow that brings your business to life.",
       startCta: "Start questionnaire with AI",
       resumeCta: "Open questionnaire workspace",
       completeCta: "Mark questionnaire as complete",
@@ -338,7 +338,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث��ر��ن آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث����ر��ن آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارا�� إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -412,7 +412,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       completedMessage:
         "هذه هي نقطة انطلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
-        "مرحبًا بكِ—شاركينا تفاصيل فكرتك لنصمم معًا رحلة الترخيص التي تطلق مشروعك التجاري.",
+        "مرحبًا بكِ—شاركي��ا تفاصيل فكرتك لنصمم معًا رحلة الترخيص التي تطلق مشروعك التجاري.",
       startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
