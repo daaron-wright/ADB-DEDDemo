@@ -701,7 +701,7 @@ export function ComplianceGrowthFocusContent({
                 note: "Frames cleared and synced to the TAMM evidence vault.",
                 frames: item.frames.map((frame) =>
                   frame.status === "pending"
-                    ? { ...frame, status: "pass" as EvidenceFrameStatus }
+                    ? { ...frame, status: "pass" }
                     : frame,
                 ),
               }
