@@ -109,7 +109,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before we display your license summary, let's confirm the right legal structure, business activities, and physical space requirements together. Once we complete this intake, I'll publish your license type and submission ID.",
-  ar: "قبل أن أعرض تفاصيل الترخيص، دعينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل���ات المساحة. بمجرد إ��هاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
+  ar: "قبل أن أعرض تفاصيل الترخيص، دعينا نؤكد معًا الشكل القانوني الأنسب، وأنشطة العمل، ومتطل���ات المسا��ة. بمجرد إ��هاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
 };
 
 type QuestionnaireProgress = "not_started" | "in_progress" | "completed";
@@ -353,7 +353,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب ع��د الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
+      "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "بولاريس",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
@@ -585,33 +585,18 @@ const journeyStages: JourneyStage[] = [
     title: "Compliance / Growth",
     highlight: {
       label: "Ongoing compliance",
-      detail: "78% compliant",
+      detail: "Automated tracking",
     },
-    description:
-      "Monitor compliance status, manage renewals, and explore growth opportunities for your business.",
+    description: "Stay compliant and request growth support once you launch.",
     state: "upcoming",
     statusDetail: "Compliance tracking active",
     tasks: [
       {
-        id: "compliance-civil-defence",
-        label: "Resolve Civil Defence issues",
+        id: "compliance-calendar",
+        label: "Set recurring compliance reminders",
         status: "pending",
         owner: "Applicant",
-        dueDate: isoDate(daysFromToday(5)),
-      },
-      {
-        id: "compliance-ded-inspection",
-        label: "DED inspection renewal",
-        status: "pending",
-        owner: "Department of Economic Development",
-        dueDate: isoDate(daysFromToday(29)),
-      },
-      {
-        id: "compliance-visa-renewal",
-        label: "Employment visa renewals",
-        status: "pending",
-        owner: "Applicant",
-        dueDate: isoDate(daysFromToday(14)),
+        dueDate: isoDate(daysFromToday(30)),
       },
     ],
   },
