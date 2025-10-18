@@ -397,6 +397,11 @@ export function PreOperationalInspectionFocusContent({
                 <p className="text-base font-semibold text-slate-900">
                   Coordinating inspections
                 </p>
+                {TRADE_NAME_AR ? (
+                  <p className="text-sm font-semibold text-[#0f766e]" dir="rtl">
+                    {TRADE_NAME_AR}
+                  </p>
+                ) : null}
               </div>
             </div>
             <p className="text-sm text-slate-600">
