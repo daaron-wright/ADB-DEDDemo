@@ -689,6 +689,9 @@ export function ComplianceGrowthFocusContent({
             : item,
         ),
       );
+      frameTimersRef.current = frameTimersRef.current.filter(
+        (timerId) => timerId !== processingTimer,
+      );
     }, 1200);
 
     const syncedTimer = window.setTimeout(() => {
@@ -707,6 +710,9 @@ export function ComplianceGrowthFocusContent({
               }
             : item,
         ),
+      );
+      frameTimersRef.current = frameTimersRef.current.filter(
+        (timerId) => timerId !== syncedTimer,
       );
     }, 2900);
 
