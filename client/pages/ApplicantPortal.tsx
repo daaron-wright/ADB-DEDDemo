@@ -333,7 +333,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     supportHeading: "تحتاجين إلى مساع��ة؟",
     supportDescription: {
       preEmail:
-        "فريق الترخيص مت��ح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت ���لخليج. تواصلي عبر ",
+        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت ���لخليج. تواصلي عبر ",
       postEmailPrePhone: " أو اتصلي عل�� ",
       postPhone: ".",
     },
@@ -357,7 +357,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       submissionId: "معرّف ال��لب",
       lastUpdate: "آخر تحديث",
     },
-    nextActionHeading: "ا��إ��راء التالي",
+    nextActionHeading: "الإ��راء التالي",
     nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
@@ -392,7 +392,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك المدعوم ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأ��يد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك المدع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأ��يد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الموافقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
@@ -410,7 +410,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "تم إكمال كل المهام لهذه المرحلة. راقب�� تحديثات الأتمتة.",
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة ال��ال��ة",
-      reviewStage: "استعرضي المرحلة",
+      reviewStage: "اس��عرضي المرحلة",
       timelineAriaLabel: "التنقل ��ين مراحل الرحلة",
     },
     questionnaireOnboarding: {
@@ -423,13 +423,13 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "هذه هي نقطة ا��طلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
         "مرحبًا بكِ—شاركي��ا تفاصيل فكرتك لنصمم معًا رحلة الترخيص التي تطلق مشروعك التجاري.",
-      startCta: "ابدئي الاستبيان مع الذك��ء الاصطناعي",
+      startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
       pendingLicenseLabel: "م��اح بعد الاستبيان",
       pendingSubmissionLabel: "",
       chatIntro:
-        "لنؤكد بعض التفاصي�� معًا. بعد إنها�� هذا الاستبيان، سأعرض نوع التر��يص ومعرّف الطلب.",
+        "لنؤكد بعض التفاصي�� معًا. بعد إنها�� هذا الاستبيان، سأعرض نوع التر��يص ومعرّف ا��طلب.",
     },
   },
 };
@@ -1478,6 +1478,7 @@ export default function ApplicantPortal() {
 
   const handleTradeNameSelectedNotification = useCallback(() => {
     setApplicationNextActionState("pay-trade-name");
+    setHasTradeNameReservationSubmitted(false);
   }, []);
 
   const handleTradeNameReservationSubmitted = useCallback(() => {
