@@ -394,18 +394,6 @@ export function PreOperationalInspectionFocusContent({
             <p className="text-sm text-slate-600">
               Polaris retrieves certificates, confirms inspectors, and updates your checklist in real time across ADCDA, ADAFSA, and service providers.
             </p>
-            <div className="space-y-2">
-              <div className="relative h-2 overflow-hidden rounded-full bg-[#e6f2ed]">
-                <div
-                  className="absolute inset-y-0 left-0 rounded-full bg-[#0f766e] transition-all"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                <span>Automation progress</span>
-                <span>{progress}%</span>
-              </div>
-            </div>
           </div>
         ),
       },
