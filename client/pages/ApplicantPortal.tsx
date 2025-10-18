@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { BusinessChatUI } from "@/components/ui/business-chat-ui";
-import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { PortalPageLayout } from "@/components/portal/PortalPageLayout";
 import { PortalProfileMenu } from "@/components/portal/PortalProfileMenu";
 import {
@@ -351,7 +350,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإ��راء التالي",
-    nextActionButton: "��نتقل�� إلى ��لإجراء التالي",
+    nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
       "سيقوم مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
@@ -401,7 +400,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة ال��ال��ة",
       reviewStage: "استعرضي المرحلة",
-      timelineAriaLabel: "التنقل ��ين مراحل الرح��ة",
+      timelineAriaLabel: "التنقل ��ين مراحل الرحلة",
     },
     questionnaireOnboarding: {
       heading: "ابدئي رحلة ترخيصك",
@@ -2519,7 +2518,11 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
           aria-label={languageCopy.chatCta}
         >
           <span className="sr-only">{languageCopy.chatCta}</span>
-          <AIBusinessOrb className="h-9 w-9 ring-[#0f766e]/35" />
+          <img
+            src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fe09a49bae3bf4c05a9f1cac0580f528a?format=webp&width=800"
+            alt="Polaris"
+            className="h-9 w-9 object-contain"
+          />
         </button>
         {isTimelineBackgroundBlurred ? (
           <div className="fixed inset-0 z-40 bg-white/40 backdrop-blur-lg transition-opacity duration-500" />
