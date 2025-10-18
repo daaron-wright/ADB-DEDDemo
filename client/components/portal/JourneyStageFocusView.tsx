@@ -825,5 +825,5 @@ export function JourneyStageFocusView({
     };
   }
 
-  return <StageSlideNavigator slides={slides} />;
+  return <StageSlideNavigator slides={slides} className="mt-6" />;
 }
