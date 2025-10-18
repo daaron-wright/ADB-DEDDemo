@@ -135,21 +135,26 @@ export function StageSlideNavigator({
           <Button
             type="button"
             variant="outline"
+            size="icon"
             onClick={handlePrevious}
             disabled={isFirst}
-            className="inline-flex items-center gap-2 rounded-full border-[#0f766e]/35 bg-white px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#ecf7f3] disabled:cursor-not-allowed disabled:opacity-60"
+            className="h-11 w-11 rounded-full border-slate-200 bg-white text-slate-500 shadow-[0_12px_32px_-18px_rgba(15,23,42,0.35)] transition-colors duration-150 hover:bg-slate-100 hover:text-slate-700 disabled:cursor-not-allowed disabled:border-slate-200 disabled:text-slate-300 disabled:shadow-none"
+            aria-label="Previous step"
           >
             <ChevronLeft className="h-4 w-4" aria-hidden="true" />
-            Back
+            <span className="sr-only">Previous step</span>
           </Button>
           <Button
             type="button"
+            variant="outline"
+            size="icon"
             onClick={handleNext}
             disabled={isLast}
-            className="inline-flex items-center gap-2 rounded-full bg-[#0f766e] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_42px_-30px_rgba(15,118,110,0.55)] transition hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+            className="h-11 w-11 rounded-full border-slate-200 bg-white text-slate-500 shadow-[0_12px_32px_-18px_rgba(15,23,42,0.35)] transition-colors duration-150 hover:bg-slate-100 hover:text-slate-700 disabled:cursor-not-allowed disabled:border-slate-200 disabled:text-slate-300 disabled:shadow-none"
+            aria-label="Next step"
           >
-            Next
             <ChevronRight className="h-4 w-4" aria-hidden="true" />
+            <span className="sr-only">Next step</span>
           </Button>
         </div>
       ) : null}
