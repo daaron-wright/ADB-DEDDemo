@@ -346,7 +346,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
       `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
-    heroButton: "استكشفي خيارا�� إضافية",
+    heroButton: "استكشفي خيارا��� إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
       `عرض أو إ��فاء نظرة عا��ة للرحلة الخاصة بـ ${title}`,
@@ -395,7 +395,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "يعمل طلبك ال��دع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأ��يد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
-      "APP-48291": "قدمي حزمة الموافقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
+      "APP-48291": "قدمي حزمة الموافقات الموح��ة لـ ADAFSA وبلدية أبوظبي.",
     },
     tradeNamePaymentNextStep: "سددي رسوم الاسم التجاري وأصدريه",
     tradeNamePaymentToast:
@@ -408,7 +408,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       yourNextStep: "خطوت�� التالية",
       tasksCompleteMessage:
         "تم إكمال كل المهام لهذه المرحلة. راقب�� تحديثات الأتمتة.",
-      automationMessage: "ا��أتمتة تتولى بقية الع��ل نيابةً عنك.",
+      automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة ال��ال��ة",
       reviewStage: "اس��عرضي المرحلة",
       timelineAriaLabel: "التنقل ��ين مراحل الرحلة",
@@ -1510,6 +1510,13 @@ export default function ApplicantPortal() {
     handleViewJourney,
     hasTradeNameReservationSubmitted,
   ]);
+
+  const handleLicenseIssued = useCallback(() => {
+    setHasLicenseIssued(true);
+    setApplicationStatus((previous) =>
+      previous === "Compliant" ? previous : "Approved",
+    );
+  }, [setApplicationStatus]);
 
   const handleQuestionnairePrimaryAction = useCallback(() => {
     if (questionnaireProgress === "not_started") {
