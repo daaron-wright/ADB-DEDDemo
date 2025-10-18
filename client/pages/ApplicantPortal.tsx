@@ -354,7 +354,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     fieldLabels: {
       beneficiary: "المستفيد",
       licenseType: "نوع الرخصة",
-      submissionId: "معرّف ال��لب",
+      submissionId: "معرّف ال��ل��",
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإ��راء التالي",
@@ -395,8 +395,11 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "يعمل طلبك المدعوم ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأ��يد العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
-      "APP-48291": "قدمي حزمة الم��افقات ��لموحدة لـ ADAFSA وبلدية أبوظبي.",
+      "APP-48291": "قدمي حزمة الموافقات الموحدة لـ ADAFSA وبلدية أبوظبي.",
     },
+    tradeNamePaymentNextStep: "سددي رسوم الاسم التجاري وأصدريه",
+    tradeNamePaymentToast:
+      "سددي رسوم الاسم التجاري البالغة 65 درهماً لإصدار الاسم وتمكين رفع المستندات.",
     journey: {
       heading: "تنسيق الرحلة",
       timelineLabel: "الجدول الزمني للرحلة",
@@ -2531,7 +2534,7 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
   const portalBrand =
     language === "ar"
       ? {
-          label: "خدمات حكومة أ��وظبي",
+          label: "خدمات حكوم�� أ��وظبي",
           logoAlt: "شعار تم",
           logoSrc:
             "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F397f9a8d2a3c4c8cb1d79ae828b476be",
