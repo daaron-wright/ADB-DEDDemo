@@ -4,6 +4,15 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { StageSlideNavigator, type StageSlide } from "./StageSlideNavigator";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -14,7 +23,9 @@ import {
   Check,
   CheckCircle,
   Circle,
+  FolderOpen,
   Loader2,
+  PlayCircle,
   ShieldCheck,
   UploadCloud,
 } from "lucide-react";
