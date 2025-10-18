@@ -1242,7 +1242,7 @@ export function BusinessRegistrationFocusContent({
               </div>
             ) : null}
           </div>
-          <div className="rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_60px_-40px_rgba(15,23,42,0.32)]">
+          <div className="rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_60px_-40px_rgba(15,23,42,0.32)] overflow-hidden">
             <Accordion
               type="single"
               collapsible
