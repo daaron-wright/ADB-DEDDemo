@@ -785,6 +785,7 @@ export function ComplianceGrowthFocusContent({
       slides={slides}
       activeSlideId={activeSlideId}
       onSlideChange={setActiveSlideId}
+      className="mt-6"
     />
   );
 }
