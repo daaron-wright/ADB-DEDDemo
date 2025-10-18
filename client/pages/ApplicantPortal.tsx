@@ -337,7 +337,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث����ر��ن آخرون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق��، شاهدي كيف يحول ${name} و��ستث����ر��ن آخرون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
     heroButton: "استكشفي خيارا�� إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -407,7 +407,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       notStartedMessage:
         "ابدئي من هنا للإجابة عن أسئلة موجهة حول نشاطك كي نضبط مسار الترخيص لكِ.",
       inProgressMessage:
-        "يعمل الذكاء ا��اصطناعي على جمع التفاصيل لإعداد الاستبيان.",
+        "يعمل الذكاء الاصطناعي على جمع التفاصيل لإعداد الاستبيان.",
       completedMessage:
         "هذه هي نقطة انطلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
@@ -492,26 +492,24 @@ const journeyStages: JourneyStage[] = [
     title: "Submit Documents",
     highlight: {
       label: "Document package underway",
-      detail: "Coordinating authority submissions",
+      detail: "Route ADAFSA & ADM filings",
     },
-    description:
-      "Gathering and submitting required documents from ADJD, ADM, and ADAFSA with automated reminders for each authority.",
+    description: "Upload the remaining ADAFSA and ADM documents.",
     state: "current",
-    statusDetail: "Authority submissions in progress",
+    statusDetail: "Polaris is routing filings.",
     statusTransitions: [
       {
         id: "document-submissions-in-progress",
         status: "in_progress",
         label: "Submission of documents in progress",
-        detail:
-          "Coordinating guided notarization with Polaris for documents needing edits, tenancy confirmation, and ADAFSA technical consultation.",
+        detail: "Polaris queued ADJD and ADAFSA filings.",
         timestamp: isoDate(daysFromToday(-1)),
       },
       {
         id: "document-submissions-scheduled",
         status: "scheduled",
         label: "Awaiting authority acknowledgements",
-        detail: `Expected updates by ${formatDisplayDate(daysFromToday(3))}`,
+        detail: `Acknowledgements expected ${formatDisplayDate(daysFromToday(3))}`,
         timestamp: isoDate(daysFromToday(3)),
       },
     ],
@@ -525,17 +523,10 @@ const journeyStages: JourneyStage[] = [
       },
       {
         id: "site-plan-review-adafsa",
-        label: "Site Plan Review and Technical Consultation (ADAFSA)",
+        label: "Send site plan package to ADAFSA",
         status: "in_progress",
         owner: "Applicant",
         dueDate: isoDate(daysFromToday(2)),
-      },
-      {
-        id: "convert-property-adm",
-        label: "Convert Residential to Commercial property (ADM)",
-        status: "pending",
-        owner: "Applicant",
-        dueDate: isoDate(daysFromToday(4)),
       },
     ],
   },
