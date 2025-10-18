@@ -225,12 +225,18 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
 const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
   ["marwa restaurant", "مطعم مروة"],
   ["marwah restaurant", "مطعم مروة"],
+  ["bait el khetyar", "بيت الختيار"],
+  ["bait al khetyar", "بيت الختيار"],
 ]);
 
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
   ["marwa", "مروة"],
   ["marwah", "مروة"],
   ["restaurant", "مطعم"],
+  ["bait", "بيت"],
+  ["el", "ال"],
+  ["al", "ال"],
+  ["khetyar", "الختيار"],
 ]);
 
 function normalizeUppercaseWord(word: string) {
