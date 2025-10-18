@@ -119,7 +119,7 @@ const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   {
     id: "azure-coast",
     english: "Azure Coast Kitchen Sole LLC",
-    arabic: "مط��خ الساحل اللازور��ي الفردي ذ.م.م",
+    arabic: "مطبخ الساحل اللازور��ي الفردي ذ.م.م",
   },
   {
     id: "pearl-horizon",
@@ -804,7 +804,7 @@ export function BusinessRegistrationFocusContent({
       onTradeNameChange?.(formattedEnglish);
       return true;
     },
-    [onTradeNameChange],
+    [onTradeNameChange, setActiveSlideId],
   );
 
   const handleRunChecks = React.useCallback(() => {
