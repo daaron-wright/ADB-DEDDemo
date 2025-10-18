@@ -505,7 +505,7 @@ export function DocumentSubmissionFocusContent({
         id: "overview",
         heading: "Stage overview",
         description:
-          "Track automation progress before you jump into vault updates or payment steps.",
+          "Review synced updates before you jump into vault details or payment steps.",
         content: (
           <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_26px_60px_-50px_rgba(15,23,42,0.35)]">
             <div className="flex flex-wrap items-center justify-between gap-3">
