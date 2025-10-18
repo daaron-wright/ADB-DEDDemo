@@ -210,7 +210,10 @@ export function PreOperationalInspectionFocusContent({
   );
 
   const checklistSummary = `${completedRequiredCount} of ${totalRequired} required complete`;
-  const automationSubtitle = `${progress}% synced`;
+  const automationSubtitle =
+    bankAccountPhase === "account_linked"
+      ? "Automation synced with every authority"
+      : "Automation keeps certificates aligned";
 
   const nextAction = React.useMemo<NextAction>(() => {
     if (outstandingRequired) {
