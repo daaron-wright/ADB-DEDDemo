@@ -555,6 +555,29 @@ const CONVERSATION_STEPS: Array<{ id: ConversationStep; label: string }> = [
 const DEFAULT_CHAT_PLACEHOLDER =
   "Layla, describe the concept you want to open next so I can map the steps.";
 
+const STEP_CHAT_PLACEHOLDERS: Record<ConversationStep, string> = {
+  intro:
+    "Ask Polaris about market signals, competition, or budget to kick off your plan.",
+  summary:
+    "Ask for a recap or clarify any insight before we move into the application phase.",
+  handoff:
+    "Let Polaris know which approvals to automate or what to queue in your workspace next.",
+};
+
+const MODAL_CHAT_PLACEHOLDERS: Partial<Record<ModalView, string>> = {
+  "heat-map": "Ask about specific districts or compare demand across this map.",
+  "budget-ranges":
+    "Request adjustments to assumptions or compare cost ranges for this concept.",
+  "gap-analysis":
+    "Ask Polaris to translate these gaps into actions or request supporting data.",
+  "retail-locations":
+    "Request more detail on a property or ask for additional listings.",
+  "competitor-map":
+    "Ask to refine filters or compare a competitor you see highlighted.",
+  "viability-summary":
+    "Ask about any section of the viability recap or request an export.",
+};
+
 const HEAT_MAP_THUMBNAIL_URL =
   "https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=386";
 
@@ -6418,8 +6441,18 @@ export function BusinessChatUI({
       }
     }
 
-    return DEFAULT_CHAT_PLACEHOLDER;
-  }, [interactionMode, followUpRecommendations]);
+    const modalPlaceholder = MODAL_CHAT_PLACEHOLDERS[modalView];
+    if (modalPlaceholder) {
+      return modalPlaceholder;
+    }
+
+    return STEP_CHAT_PLACEHOLDERS[currentStep] ?? DEFAULT_CHAT_PLACEHOLDER;
+  }, [
+    interactionMode,
+    followUpRecommendations,
+    modalView,
+    currentStep,
+  ]);
 
   const handleInputChange = (value: string) => {
     setInputValue(value);
