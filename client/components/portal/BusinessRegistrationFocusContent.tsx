@@ -27,6 +27,10 @@ interface BusinessRegistrationFocusContentProps {
   isTradeNameAvailable?: boolean;
   progressPercent?: number;
   onTradeNameChange?: (tradeName: string | null) => void;
+  onTradeNameSelected?: () => void;
+  onTradeNameReservationSubmitted?: () => void;
+  payAndIssueLabel?: string;
+  payAndIssueToast?: string;
 }
 
 type TradeNameCheckStatus = "completed" | "current" | "pending" | "failed";
