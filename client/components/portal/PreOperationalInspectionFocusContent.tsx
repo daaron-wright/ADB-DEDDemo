@@ -144,7 +144,6 @@ export function PreOperationalInspectionFocusContent({
             : item,
         ),
       );
-      setProgress((value) => Math.max(value, 87));
       return "in_progress";
     });
   }, []);
@@ -169,7 +168,6 @@ export function PreOperationalInspectionFocusContent({
         }),
       );
       setBankAccountPhase("account_linked");
-      setProgress((value) => Math.max(value, 94));
       setActiveSlideId((current) =>
         current === "overview" ? current : "automation",
       );
