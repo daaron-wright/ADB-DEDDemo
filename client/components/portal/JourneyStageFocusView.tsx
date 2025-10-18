@@ -351,6 +351,10 @@ export function JourneyStageFocusView({
             progressPercent={46}
             tradeName={tradeName}
             onTradeNameChange={onTradeNameChange}
+            onTradeNameSelected={onTradeNameSelected}
+            onTradeNameReservationSubmitted={onTradeNameReservationSubmitted}
+            payAndIssueLabel={tradeNamePayAndIssueLabel}
+            payAndIssueToast={tradeNamePayAndIssueToast}
           />
         ) : (
           renderGuidanceSummary(
