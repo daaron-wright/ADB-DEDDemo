@@ -416,7 +416,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
-      pendingLicenseLabel: "م��اح بعد الاستبيان",
+      pendingLicenseLabel: "م���اح بعد الاستبيان",
       pendingSubmissionLabel: "",
       chatIntro:
         "لنؤكد بعض التفاصي�� معًا. بعد إنها�� هذا الاستبيان، سأعرض نوع التر��يص ومعرّف الطلب.",
@@ -1081,6 +1081,40 @@ export default function ApplicantPortal() {
     DEFAULT_LEGAL_FORM_SELECTION,
   );
   const stageOrder = useMemo(() => journeyStages.map((stage) => stage.id), []);
+
+  useEffect(() => {
+    if (!activeStageId) {
+      return;
+    }
+    const phase = STAGE_PHASE_MAP[activeStageId];
+    if (!phase) {
+      return;
+    }
+    if (phaseToastRef.current === phase) {
+      return;
+    }
+    phaseToastRef.current = phase;
+    const copy = PHASE_TOAST_COPY[phase];
+    if (!copy) {
+      return;
+    }
+    const currentFocusLabel =
+      JOURNEY_STEPS_CONFIG.find((step) => step.id === activeStageId)?.label ??
+      "Current focus";
+
+    toast({
+      title: copy.title,
+      description: (
+        <div className="space-y-1 text-sm text-slate-600">
+          <p>{copy.helper}</p>
+          <p className="font-semibold text-[#0f766e]">
+            Current focus: {currentFocusLabel}
+          </p>
+        </div>
+      ),
+    });
+  }, [activeStageId, toast]);
+
   const [stageProgress, setStageProgress] = useState<
     Record<string, JourneyHighlightState>
   >(() => {
