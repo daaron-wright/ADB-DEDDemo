@@ -349,12 +349,12 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroButton: "استكشفي خيارا��� إضافية",
     chatCta: "الدردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
-      `عرض أو إ��فاء نظرة عا��ة للرحلة الخاصة بـ ${title}`,
+      `عرض أو إ��فاء نظرة عا��ة للرحلة الخ��صة بـ ${title}`,
     journeyIdLabel: "معرّف الرحلة",
     fieldLabels: {
       beneficiary: "المستفيد",
       licenseType: "نوع الرخصة",
-      submissionId: "معرّف ال��لب",
+      submissionId: "معر��ف ال��لب",
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإ��راء التالي",
@@ -376,7 +376,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     licenseTypeLabels: {
       "Commercial License": "رخصة تجارية",
-      "Dual License": "ر��صة مزدوجة",
+      "Dual License": "ر����صة مزدوجة",
     },
     beneficiaryLabels: {
       Citizen: "مواطن",
@@ -422,7 +422,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       completedMessage:
         "هذه هي نقطة ا��طلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
-        "مرحبًا بكِ—شاركي��ا تفاصيل فكرتك لنصمم معًا رحلة الترخيص التي تطلق مشروعك التجاري.",
+        "مرحبًا بكِ—شاركي��ا تفاصيل فكرتك لنصمم معًا رحلة ا��ترخيص التي تطلق مشروعك التجاري.",
       startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
@@ -1516,7 +1516,7 @@ export default function ApplicantPortal() {
     setApplicationStatus((previous) =>
       previous === "Compliant" ? previous : "Approved",
     );
-  }, [setApplicationStatus]);
+  }, [setApplicationStatus, setHasLicenseIssued]);
 
   const handleQuestionnairePrimaryAction = useCallback(() => {
     if (questionnaireProgress === "not_started") {
