@@ -193,7 +193,7 @@ const DOUBLE_CHAR_MAP = new Map<string, string>([
   ["ae", "اي"],
   ["ai", "اي"],
   ["ay", "اي"],
-  ["ch", "تش"],
+  ["ch", "��ش"],
   ["dh", "ذ"],
   ["gh", "غ"],
   ["kh", "خ"],
@@ -1221,7 +1221,12 @@ export function BusinessRegistrationFocusContent({
                     type="button"
                     onClick={handleSubmitReservationApplication}
                     disabled={!canSubmitReservation || isSubmittingReservation}
-                    className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+                    className={cn(
+                      baseCtaClasses,
+                      nextPrimaryAction === "submitReservation"
+                        ? primaryCtaClasses
+                        : secondaryCtaClasses,
+                    )}
                   >
                     {hasSubmittedReservationApplication
                       ? "Reservation submitted"
