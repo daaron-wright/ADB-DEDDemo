@@ -407,7 +407,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       activeStage: "المرحلة النشطة",
       yourNextStep: "خطوت�� التالية",
       tasksCompleteMessage:
-        "تم إكمال كل المهام لهذه المرحلة. راقب�� تحديثات الأتمتة.",
+        "تم إكمال كل المهام لهذه ا��مرحلة. راقب�� تحديثات الأتمتة.",
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة ال��ال��ة",
       reviewStage: "اس��عرضي المرحلة",
@@ -1714,7 +1714,7 @@ const focusClasses = useMemo<DemoFocusClassMap>(() => {
   }
 
   const baseTransition = "transition duration-500 ease-out";
-  const dimClass = `${baseTransition} opacity-60 saturate-[0.85]`;
+  const dimClass = baseTransition;
   const highlightPrimary = `${baseTransition} ring-2 ring-[#0f766e] ring-offset-2 ring-offset-[#f5f8f6] shadow-[0_26px_52px_-34px_rgba(11,64,55,0.42)]`;
   const highlightSecondary = `${baseTransition} ring-1 ring-[#0f766e]/70 ring-offset-2 ring-offset-white shadow-[0_18px_40px_-28px_rgba(11,64,55,0.3)]`;
   const highlightButton =
