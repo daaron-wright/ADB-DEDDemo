@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { chatCardClass } from "@/lib/chat-style";
 import { Loader2 } from "lucide-react";
-import { PRIMARY_TRADE_NAME_EN } from "./trade-name-constants";
+import { PRIMARY_TRADE_NAME_EN, MARWA_TRADE_NAME_EN } from "./trade-name-constants";
 
 interface MyTAMMDocumentsProps {
   companyName?: string;
@@ -77,7 +77,7 @@ export function MyTAMMDocuments({
           <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_24px_56px_-32px_rgba(0,0,0,0.3)]">
             <img
               src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fee137034581f487e985a3286267255c8?format=webp&width=1256"
-              alt={`Memorandum of Association preview for ${PRIMARY_TRADE_NAME_EN.toUpperCase()}`}
+              alt={`Memorandum of Association preview for ${MARWA_TRADE_NAME_EN.toUpperCase()}`}
               className="h-auto w-full"
             />
             <div className="absolute left-[14%] top-[8.6%] w-[39%]">
