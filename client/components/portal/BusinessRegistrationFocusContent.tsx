@@ -556,6 +556,8 @@ export function BusinessRegistrationFocusContent({
   const [hasPerformedCheck, setHasPerformedCheck] = React.useState(
     Boolean(tradeName) || isTradeNameAvailable,
   );
+  const [hasRequestedSuggestions, setHasRequestedSuggestions] =
+    React.useState(false);
   const [isNameAvailable, setIsNameAvailable] =
     React.useState(isTradeNameAvailable);
   const [hasSelectedApprovedTradeName, setHasSelectedApprovedTradeName] =
