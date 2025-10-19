@@ -16,6 +16,8 @@ import type { DocumentVaultItem } from "./document-vault-types";
 import {
   PRIMARY_TRADE_NAME_EN,
   PRIMARY_TRADE_NAME_AR,
+  MARWA_TRADE_NAME_EN,
+  MARWA_TRADE_NAME_AR,
   TRADE_NAME_RECEIPT_DOCUMENT_ID,
   TRADE_NAME_RECEIPT_METADATA,
 } from "./trade-name-constants";
@@ -238,10 +240,10 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
 ]);
 
 const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
-  ["marwa restaurant", "مطعم مروة"],
-  ["marwah restaurant", "مطعم مروة"],
-  ["bait el khetyar", "بيت الختيار"],
-  ["bait al khetyar", "بيت الختيار"],
+  [MARWA_TRADE_NAME_EN.toLowerCase(), MARWA_TRADE_NAME_AR],
+  ["marwah restaurant", MARWA_TRADE_NAME_AR],
+  ["bait el khetyar", PRIMARY_TRADE_NAME_AR],
+  ["bait al khetyar", PRIMARY_TRADE_NAME_AR],
 ]);
 
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
