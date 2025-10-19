@@ -342,68 +342,57 @@ const EVIDENCE_FRAME_STATUS_TOKENS: Record<
   },
 };
 
+const INSPECTION_EVIDENCE_IMAGES = [
+  {
+    id: "inspection-evidence-exterior",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fff05a88e849e4b6d92be288131e17239?format=webp&width=800",
+    alt: "Exterior view of Marwah Restaurant signboard with detection overlays",
+    caption: "Exterior signboard detection view",
+  },
+  {
+    id: "inspection-evidence-dining-overview",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F917fd001495640468cc0b57b4a90beb8?format=webp&width=800",
+    alt: "Dining room walkthrough annotated with compliance detections",
+    caption: "Dining area walkthrough capture",
+  },
+  {
+    id: "inspection-evidence-storage",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F376ee5cec4e8415c8a993ebbbe764879?format=webp&width=800",
+    alt: "Storage shelves with annotations for cleaning supplies and dry goods",
+    caption: "Storage compliance snapshot",
+  },
+  {
+    id: "inspection-evidence-egress",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F560a466b672c40c5b9eea38c5cb30493?format=webp&width=800",
+    alt: "Emergency exit routes highlighted within the dining area",
+    caption: "Emergency egress confirmation",
+  },
+  {
+    id: "inspection-evidence-kitchen",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F4bc52f802a844bc1956968eb744f64ae?format=webp&width=800",
+    alt: "Kitchen compliance view with annotated equipment checks",
+    caption: "Kitchen readiness view",
+  },
+] as const;
+
+const INSPECTION_EVIDENCE_FRAMES: EvidenceFrame[] = INSPECTION_EVIDENCE_IMAGES.map(
+  ({ id, src, alt }) => ({
+    id,
+    src,
+    alt,
+    status: "pass",
+  }),
+);
+
 const SIGNBOARD_FRAME_IMAGE_SETS: ReadonlyArray<ReadonlyArray<EvidenceFrame>> = [
-  [
-    {
-      id: "frame-entrance-daylight",
-      src: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=640&q=80",
-      alt: "Exterior restaurant signboard during daylight",
-      status: "pass",
-    },
-    {
-      id: "frame-night-illumination",
-      src: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=640&q=80",
-      alt: "Illuminated signboard captured at night",
-      status: "pass",
-    },
-    {
-      id: "frame-closeup-arabic",
-      src: "https://images.unsplash.com/photo-1529429617124-aee0a9cea41f?auto=format&fit=crop&w=640&q=80",
-      alt: "Close-up of bilingual lettering on signage",
-      status: "pass",
-    },
-  ],
-  [
-    {
-      id: "frame-interior-menu",
-      src: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=640&q=80",
-      alt: "Interior counter with illuminated menu",
-      status: "pass",
-    },
-    {
-      id: "frame-glare-check",
-      src: "https://images.unsplash.com/photo-1522199993-ffe49272d1b1?auto=format&fit=crop&w=640&q=80",
-      alt: "Inspector reviewing signage glare levels",
-      status: "flagged",
-    },
-    {
-      id: "frame-exit-sign",
-      src: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=640&q=80",
-      alt: "Exterior signage captured from street level",
-      status: "pass",
-    },
-  ],
-  [
-    {
-      id: "frame-mounting-check",
-      src: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=640&q=80",
-      alt: "Inspector verifying mounting height of signboard",
-      status: "pending",
-    },
-    {
-      id: "frame-lux-reading",
-      src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=640&q=80",
-      alt: "Lux meter capturing signboard illumination",
-      status: "pass",
-    },
-    {
-      id: "frame-entrance-wide",
-      src: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=640&q=80",
-      alt: "Wide shot of restaurant entrance signage",
-      status: "pass",
-    },
-  ],
-];
+  [0, 1, 2],
+  [3, 4, 0],
+  [1, 2, 3],
+].map((indices) =>
+  indices.map((index) => ({
+    ...INSPECTION_EVIDENCE_FRAMES[index % INSPECTION_EVIDENCE_FRAMES.length],
+  })),
+);
 
 const DEFAULT_VIDEO_LIBRARY: VideoEvidence[] = [
   {
