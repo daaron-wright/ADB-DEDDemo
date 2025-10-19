@@ -1,6 +1,9 @@
 export const PRIMARY_TRADE_NAME_EN = "Bait El Khetyar";
 export const PRIMARY_TRADE_NAME_AR = "بيت الختيار";
 
+export const MARWA_TRADE_NAME_EN = "Marwa Restaurant";
+export const MARWA_TRADE_NAME_AR = "مطعم مروة";
+
 export const TRADE_NAME_RECEIPT_DOCUMENT_ID = "trade-name-reservation-receipt";
 
 export const TRADE_NAME_RECEIPT_METADATA = {
