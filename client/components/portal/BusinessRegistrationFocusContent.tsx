@@ -130,7 +130,7 @@ const SUGGESTION_AVAILABILITY_META: Record<
 };
 
 const APPROVED_TRADE_NAMES = [
-  "MARWA RESTAURANT",
+  MARWA_TRADE_NAME_EN.toUpperCase(),
   "MARWAH HOSPITALITY SOLE LLC",
   "CORNICHE CULINARY COLLECTIVE SOLE LLC",
   "PEARL HORIZON DINING SOLE LLC",
@@ -140,7 +140,7 @@ const APPROVED_TRADE_NAMES = [
 const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   {
     id: "marwa-restaurant",
-    english: "Marwa Restaurant",
+    english: MARWA_TRADE_NAME_EN,
     availability: "available",
   },
   {
@@ -1002,9 +1002,11 @@ export function BusinessRegistrationFocusContent({
     );
     const resolvedArabic = activeArabicTradeName
       ? formatArabicName(activeArabicTradeName)
-      : formattedEnglish
-        ? formatArabicName(transliterateToArabic(formattedEnglish))
-        : "";
+      : formattedEnglish === MARWA_TRADE_NAME_EN
+        ? MARWA_TRADE_NAME_AR
+        : formattedEnglish
+          ? formatArabicName(transliterateToArabic(formattedEnglish))
+          : "";
 
     setHasSelectedApprovedTradeName(true);
     setActiveEnglishTradeName(formattedEnglish);
