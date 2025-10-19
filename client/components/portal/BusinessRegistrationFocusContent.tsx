@@ -767,8 +767,7 @@ export function BusinessRegistrationFocusContent({
           const normalizedName = evaluationSource?.normalized ?? "";
           const englishDisplay =
             evaluationSource?.english ?? englishDraft ?? PRIMARY_TRADE_NAME_EN;
-          const arabicDisplay =
-            evaluationSource?.arabic ?? arabicDraft ?? PRIMARY_TRADE_NAME_AR;
+          const arabicDisplay = evaluationSource?.arabic ?? arabicDraft ?? "";
           const isSuccess =
             Boolean(normalizedName) && approvedNameSet.has(normalizedName);
 
@@ -787,7 +786,7 @@ export function BusinessRegistrationFocusContent({
           setPendingSubmission(null);
           setHasPerformedCheck(true);
           setActiveEnglishTradeName(englishDisplay || PRIMARY_TRADE_NAME_EN);
-          setActiveArabicTradeName(arabicDisplay || PRIMARY_TRADE_NAME_AR);
+          setActiveArabicTradeName(arabicDisplay);
         }
 
         return next;
