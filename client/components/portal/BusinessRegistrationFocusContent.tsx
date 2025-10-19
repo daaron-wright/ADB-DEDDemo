@@ -922,9 +922,24 @@ export function BusinessRegistrationFocusContent({
         return;
       }
 
-      runChecksWithNames(suggestion.english, suggestion.arabic);
+      const formattedEnglish = formatTradeName(suggestion.english);
+      setEnglishDraft(formattedEnglish);
+      setActiveEnglishTradeName(formattedEnglish);
+      setArabicDraft("");
+      setActiveArabicTradeName("");
+      setPendingSubmission(null);
+      setAutomationProgress(0);
+      setIsNameAvailable(false);
+      setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
+      setFailureReason(null);
+      setHasSelectedApprovedTradeName(false);
+      setHasSubmittedReservationApplication(false);
+      setIsSubmittingReservation(false);
+      setIsEditing(true);
+      setActiveSlideId("trade-name");
+      onTradeNameChange?.(formattedEnglish);
     },
-    [isChecking, runChecksWithNames],
+    [isChecking, onTradeNameChange, setActiveSlideId],
   );
 
   const handleTransliterate = React.useCallback(() => {
