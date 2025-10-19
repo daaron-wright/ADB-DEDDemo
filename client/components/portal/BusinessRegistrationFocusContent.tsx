@@ -1122,8 +1122,16 @@ export function BusinessRegistrationFocusContent({
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
                     Arabic name
                   </p>
-                  <p className="mt-1 text-sm font-semibold text-[#0f766e]" dir="rtl">
-                    {activeArabicTradeName || PRIMARY_TRADE_NAME_AR}
+                  <p
+                    className={cn(
+                      "mt-1 text-sm font-semibold",
+                      activeArabicTradeName
+                        ? "text-[#0f766e]"
+                        : "text-slate-400",
+                    )}
+                    dir={activeArabicTradeName ? "rtl" : "ltr"}
+                  >
+                    {activeArabicTradeName || "Transliterate to populate Arabic name"}
                   </p>
                 </div>
               </div>
@@ -1142,7 +1150,7 @@ export function BusinessRegistrationFocusContent({
                 onClick={() => {
                   if (!isEditing) {
                     setEnglishDraft(activeEnglishTradeName || PRIMARY_TRADE_NAME_EN);
-                    setArabicDraft(activeArabicTradeName || PRIMARY_TRADE_NAME_AR);
+                    setArabicDraft(activeArabicTradeName || "");
                   }
                   setIsEditing((previous) => !previous);
                 }}
