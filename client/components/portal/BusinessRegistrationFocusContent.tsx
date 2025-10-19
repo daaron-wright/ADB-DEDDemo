@@ -1189,7 +1189,7 @@ export function BusinessRegistrationFocusContent({
                   setIsEditing((previous) => !previous);
                 }}
                 disabled={isSubmittingReservation}
-                className="rounded-full border-[#0f766e]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+                className="rounded-full border-[#0f766e]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isEditing ? "Close editor" : "Edit trade name"}
               </Button>
