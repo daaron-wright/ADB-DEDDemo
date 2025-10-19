@@ -1024,6 +1024,7 @@ export function BusinessRegistrationFocusContent({
     isNameAvailable,
     isSubmittingReservation,
     onTradeNameSelected,
+    onTradeNameChange,
     toast,
     tradeNamePaymentToastMessage,
   ]);
