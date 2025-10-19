@@ -1252,45 +1252,83 @@ export function BusinessRegistrationFocusContent({
                     </Button>
                   </div>
                 </form>
-                {hasEnglishDraft && hasPerformedCheck && !isNameAvailable ? (
-                  <div className="space-y-2">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                      Suggested trade names
-                    </p>
-                    <div className="grid gap-2 sm:grid-cols-2">
-                      {TRADE_NAME_SUGGESTIONS.map((suggestion) => {
-                        const isCurrentSuggestion =
-                          normalizedEnglishDraft ===
-                          suggestion.english.toUpperCase();
-
-                        return (
-                          <button
-                            key={suggestion.id}
-                            type="button"
-                            onClick={() => handleApplySuggestion(suggestion)}
-                            disabled={isChecking}
-                            className={cn(
-                              "rounded-2xl border px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] transition",
-                              "shadow-sm",
-                              isCurrentSuggestion
-                                ? "border-[#0f766e] bg-[#0f766e]/10 text-[#0f766e]"
-                                : "border-[#0f766e]/30 bg-white text-[#0f766e] hover:bg-[#0f766e]/10",
-                              isChecking && "cursor-not-allowed opacity-60",
-                            )}
-                          >
-                            <span className="block text-[12px] font-semibold normal-case text-slate-900">
-                              {suggestion.english}
-                            </span>
-                            <span className="block text-[12px] font-semibold normal-case text-[#0f766e]" dir="rtl">
-                              {suggestion.arabic}
-                            </span>
-                            <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                              {isCurrentSuggestion ? "In review" : "Use this name"}
-                            </span>
-                          </button>
-                        );
-                      })}
+                {shouldShowSuggestionSection ? (
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                        Suggested trade names
+                      </p>
+                      {!hasRequestedSuggestions ? (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => setHasRequestedSuggestions(true)}
+                          disabled={isChecking}
+                          className="rounded-full border-[#0f766e]/40 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
+                        >
+                          Show suggested names
+                        </Button>
+                      ) : null}
                     </div>
+                    {hasRequestedSuggestions ? (
+                      <div className="grid gap-2 sm:grid-cols-2">
+                        {TRADE_NAME_SUGGESTIONS.map((suggestion) => {
+                          const isCurrentSuggestion =
+                            normalizedEnglishDraft ===
+                            suggestion.english.toUpperCase();
+                          const availabilityMeta =
+                            SUGGESTION_AVAILABILITY_META[suggestion.availability];
+
+                          return (
+                            <button
+                              key={suggestion.id}
+                              type="button"
+                              onClick={() => handleApplySuggestion(suggestion)}
+                              disabled={isChecking}
+                              className={cn(
+                                "flex flex-col gap-2 rounded-2xl border px-4 py-3 text-left transition shadow-sm",
+                                isCurrentSuggestion
+                                  ? "border-[#0f766e] bg-[#0f766e]/10 text-[#0f766e]"
+                                  : "border-[#0f766e]/30 bg-white text-[#0f766e] hover:bg-[#0f766e]/10",
+                                isChecking && "cursor-not-allowed opacity-60",
+                              )}
+                            >
+                              <div className="flex items-center justify-between">
+                                <Badge
+                                  className={cn(
+                                    "inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                                    availabilityMeta.className,
+                                  )}
+                                >
+                                  {availabilityMeta.label}
+                                </Badge>
+                                {isCurrentSuggestion ? (
+                                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                                    {isChecking ? "Checking..." : "Selected"}
+                                  </span>
+                                ) : null}
+                              </div>
+                              <span className="block text-[12px] font-semibold normal-case text-slate-900">
+                                {suggestion.english}
+                              </span>
+                              <span
+                                className="block text-[12px] font-semibold normal-case text-[#0f766e]"
+                                dir="rtl"
+                              >
+                                {suggestion.arabic}
+                              </span>
+                              <span className="mt-1 inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                                {isCurrentSuggestion ? "In review" : "Use this name"}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <div className="rounded-2xl border border-dashed border-[#0f766e]/30 bg-[#0f766e]/5 px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                        Click “Show suggested names” to review compliant alternatives.
+                      </div>
+                    )}
                   </div>
                 ) : null}
               </div>
