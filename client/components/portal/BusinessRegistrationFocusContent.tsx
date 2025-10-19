@@ -955,9 +955,12 @@ export function BusinessRegistrationFocusContent({
 
     setHasSelectedApprovedTradeName(true);
     setActiveEnglishTradeName(PRIMARY_TRADE_NAME_EN);
-    setActiveArabicTradeName(PRIMARY_TRADE_NAME_AR);
+    const transliteratedPrimary = formatArabicName(
+      transliterateToArabic(PRIMARY_TRADE_NAME_EN),
+    );
+    setActiveArabicTradeName(transliteratedPrimary);
     setEnglishDraft(PRIMARY_TRADE_NAME_EN);
-    setArabicDraft(PRIMARY_TRADE_NAME_AR);
+    setArabicDraft(transliteratedPrimary);
     toast({
       title: "Trade name selected",
       description: tradeNamePaymentToastMessage,
