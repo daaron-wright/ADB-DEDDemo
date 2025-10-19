@@ -25,7 +25,6 @@ import {
   Circle,
   FolderOpen,
   Loader2,
-  PlayCircle,
   ShieldCheck,
   UploadCloud,
 } from "lucide-react";
