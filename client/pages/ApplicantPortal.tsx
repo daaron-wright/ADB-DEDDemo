@@ -344,7 +344,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       lastUpdated: "آخر تحديث",
     },
     heroBadge: "رحلة المستثمر",
-    heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
+    heroTitle: "رحلتك مدعومة بالذكاء ا���اصطناعي",
     heroDescription: (name: string) =>
       `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، شاهدي كيف يحول ${name} و��س��ث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارا��� إضافية",
@@ -365,7 +365,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "سيق��م مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "بولاريس",
     businessActivityGuidance:
-      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
+      "يمكنك اختيار عد�� أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
       "أضيفي إرشادات الترخيص إلى استبيان ��لأنشطة ال��جارية",
     statusLabelMap: {
@@ -393,7 +393,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك ال����ع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأ��ي�� العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك ال����ع��م ب����لذكا�� الاصطنا��ي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأ��ي�� العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الموافقات الموح��ة لـ ADAFSA وبلدية أبوظبي.",
@@ -1530,7 +1530,38 @@ export default function ApplicantPortal() {
     setApplicationStatus((previous) =>
       previous === "Compliant" ? previous : "Approved",
     );
-  }, [setApplicationStatus, setHasLicenseIssued]);
+    setStageProgress((previous) => ({
+      ...previous,
+      [TRADE_NAME_STAGE_ID]: "done",
+      "document-submissions": "done",
+      inspections: "current",
+    }));
+    setPortalView("overview");
+    setIsJourneyOverviewOpen(true);
+    setIsStageManuallySelected(false);
+    setActiveStageId("inspections");
+    const inspectionPhaseIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
+      (phase) => phase.stageId === "inspections",
+    );
+    if (inspectionPhaseIndex >= 0) {
+      setJourneyAnimationIndex(inspectionPhaseIndex);
+      setJourneyProgressPercent(
+        JOURNEY_ANIMATION_TIMELINE[inspectionPhaseIndex]?.percent ?? 0,
+      );
+    }
+    updateCurrentJourneyStep("inspections");
+  }, [
+    setActiveStageId,
+    setApplicationStatus,
+    setHasLicenseIssued,
+    setIsJourneyOverviewOpen,
+    setIsStageManuallySelected,
+    setJourneyAnimationIndex,
+    setJourneyProgressPercent,
+    setPortalView,
+    setStageProgress,
+    updateCurrentJourneyStep,
+  ]);
 
   const handleQuestionnairePrimaryAction = useCallback(() => {
     if (questionnaireProgress === "not_started") {
