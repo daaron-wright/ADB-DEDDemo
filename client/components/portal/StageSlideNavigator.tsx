@@ -47,6 +47,8 @@ export function StageSlideNavigator({
 
   const currentIndex = controlledIndex ?? internalIndex;
   const currentSlide = slides[currentIndex] ?? slides[0];
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
+  const previousIndexRef = React.useRef(currentIndex);
 
   React.useEffect(() => {
     if (controlledIndex === null) {
@@ -56,6 +58,24 @@ export function StageSlideNavigator({
       setInternalIndex(controlledIndex);
     }
   }, [controlledIndex, internalIndex]);
+
+  React.useEffect(() => {
+    if (previousIndexRef.current === currentIndex) {
+      return;
+    }
+
+    previousIndexRef.current = currentIndex;
+
+    if (!containerRef.current) {
+      return;
+    }
+
+    containerRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "nearest",
+    });
+  }, [currentIndex]);
 
   const handleSlideChange = React.useCallback(
     (nextIndex: number) => {
@@ -91,7 +111,7 @@ export function StageSlideNavigator({
   const isLast = currentIndex === slides.length - 1;
 
   return (
-    <div className={cn("space-y-6", className)}>
+    <div ref={containerRef} className={cn("flex flex-col gap-6", className)}>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="space-y-1">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
@@ -126,7 +146,9 @@ export function StageSlideNavigator({
         ) : null}
       </div>
 
-      <div>{currentSlide.content}</div>
+      <div className="flex min-h-[420px] flex-col justify-center">
+        <div className="w-full">{currentSlide.content}</div>
+      </div>
 
       {currentSlide.footer ? <div>{currentSlide.footer}</div> : null}
 
