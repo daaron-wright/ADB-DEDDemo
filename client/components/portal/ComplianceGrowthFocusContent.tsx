@@ -1032,75 +1032,41 @@ export function ComplianceGrowthFocusContent({
                     </DialogContent>
                   </Dialog>
                 </div>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                      Library preview
-                    </p>
-                    <p className="text-xs text-slate-500">
-                      Latest {libraryPreview.length} of {videoLibrary.length}
-                    </p>
+                <div className="space-y-4">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="space-y-1">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                        Inspection Evidence Library
+                      </p>
+                      <p className="text-xs text-slate-500">
+                        Curated captures Polaris validated for inspector review.
+                      </p>
+                    </div>
+                    <Badge className="rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
+                      PASS
+                    </Badge>
                   </div>
-                  <div className="space-y-3">
-                    {libraryPreview.map((item) => {
-                      const token = VIDEO_STATUS_TOKENS[item.status];
-                      return (
-                        <div
-                          key={item.id}
-                          className="space-y-3 rounded-xl border border-[#e6f2ed] bg-white/90 p-4"
-                        >
-                          <div className="flex flex-wrap items-start justify-between gap-3">
-                            <div className="space-y-1">
-                              <p className="text-sm font-semibold text-slate-900">{item.filename}</p>
-                              <p className="text-xs text-slate-500">
-                                {formatMegabytes(item.sizeMb)} • {item.durationLabel}
-                              </p>
-                              <p className="text-xs text-slate-500">{token.helper}</p>
-                              <p className="text-xs text-slate-400">
-                                Uploaded {formatEvidenceTimestamp(item.capturedOn)} • {item.source}
-                              </p>
-                            </div>
-                            <Badge
-                              className={cn(
-                                "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                                token.className,
-                              )}
-                            >
-                              {token.label}
-                            </Badge>
-                          </div>
-                          {item.frames.length > 0 ? (
-                            <div className="grid grid-cols-3 gap-2">
-                              {item.frames.slice(0, 3).map((frame) => {
-                                const frameToken = EVIDENCE_FRAME_STATUS_TOKENS[frame.status];
-                                return (
-                                  <div
-                                    key={frame.id}
-                                    className="group relative overflow-hidden rounded-xl border border-[#e6f2ed] bg-white"
-                                    title={frameToken.helper}
-                                  >
-                                    <img
-                                      src={frame.src}
-                                      alt={frame.alt}
-                                      className="h-20 w-full object-cover transition duration-300 group-hover:scale-105"
-                                    />
-                                    <span
-                                      className={cn(
-                                        "absolute left-2 top-2 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
-                                        frameToken.badgeClass,
-                                      )}
-                                    >
-                                      {frameToken.label}
-                                    </span>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          ) : null}
-                        </div>
-                      );
-                    })}
+                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+                    {INSPECTION_EVIDENCE_IMAGES.map((image) => (
+                      <div
+                        key={image.id}
+                        className="group relative overflow-hidden rounded-xl border border-[#e6f2ed] bg-white shadow-[0_14px_36px_-24px_rgba(15,23,42,0.28)]"
+                        title={image.alt}
+                      >
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          className="h-32 w-full object-cover transition duration-500 group-hover:scale-105 md:h-36"
+                        />
+                        <span className="absolute left-2 top-2 rounded-full bg-[#0f766e] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
+                          PASS
+                        </span>
+                      </div>
+                    ))}
                   </div>
+                  <p className="text-xs text-slate-500">
+                    Polaris retains the full-resolution captures inside the inspection evidence vault.
+                  </p>
                   {evidenceGallery.length > 0 ? (
                     <div className="space-y-2 pt-2">
                       <div className="flex items-center justify-between gap-2">
@@ -1141,12 +1107,6 @@ export function ComplianceGrowthFocusContent({
                         })}
                       </div>
                     </div>
-                  ) : null}
-                  {videoLibrary.length > libraryPreview.length ? (
-                    <p className="text-xs text-slate-500">
-                      {videoLibrary.length - libraryPreview.length} more walkthrough
-                      {videoLibrary.length - libraryPreview.length > 1 ? "s" : ""} stored in the evidence library.
-                    </p>
                   ) : null}
                 </div>
               </div>
