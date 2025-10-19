@@ -325,7 +325,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     arabicLabel: "العربية",
     englishBadge: "English",
     arabicBadge: "العربية • تر��مة",
-    subtitle: "��وابة رخصة ال��عمال",
+    subtitle: "��وابة رخصة ال��عم��ل",
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
       `تابعي تقدم رخصة عملك يا ${name}، واعرفي تمامًا ما هي الخطوة ��لتالية.`,
@@ -345,9 +345,9 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، شاهدي كيف يحول ${name} و��ستث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، شاهدي كيف يحول ${name} و��س��ث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
     heroButton: "استكشفي خيارا��� إضافية",
-    chatCta: "الدردشة مع الذكاء الاص��ناعي",
+    chatCta: "ال��ردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
       `عرض أو إ��فاء نظرة عا��ة للرحلة الخ��صة بـ ${title}`,
     journeyIdLabel: "معرّف الرحلة",
@@ -366,7 +366,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
-      "أضيفي إرشادات الترخيص إلى استبيان ��لأنشطة التجارية",
+      "أضيفي إرشادات الترخيص إلى استبيان ��لأنشطة ال��جارية",
     statusLabelMap: {
       "In Review": "قيد المراجعة",
       "Awaiting Documents": "بانتظار المستندات",
@@ -1355,12 +1355,25 @@ export default function ApplicantPortal() {
   const [businessAIView, setBusinessAIView] = usePersistentState<
     "closed" | "modal" | "focus"
   >("portal-business-ai-view", "closed");
+  const chatViewInitializedRef = useRef(false);
 
   const [focusContext, setFocusContext] =
     useState<BusinessAIFocusContext | null>(null);
   const [isJourneyOverviewOpen, setIsJourneyOverviewOpen] = useState(false);
 
   const isChatOpen = businessAIView !== "closed";
+
+  useEffect(() => {
+    if (chatViewInitializedRef.current) {
+      return;
+    }
+
+    chatViewInitializedRef.current = true;
+
+    if (businessAIView !== "closed") {
+      setBusinessAIView("closed");
+    }
+  }, [businessAIView, setBusinessAIView]);
 
   const [focusedNextActionId, setFocusedNextActionId] = useState<string | null>(
     null,
