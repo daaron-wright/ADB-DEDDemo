@@ -991,80 +991,42 @@ export function ComplianceGrowthFocusContent({
                         View library
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="max-w-2xl rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-30px_rgba(15,23,42,0.24)]">
-                      <DialogHeader className="space-y-2 text-left">
-                        <DialogTitle className="text-xl font-semibold text-slate-900">
-                          Signboard evidence library
-                        </DialogTitle>
-                        <DialogDescription className="text-sm text-slate-600">
-                          Every submitted walkthrough stays available for inspectors and TAMM audits.
-                        </DialogDescription>
+                    <DialogContent className="max-w-4xl rounded-3xl border border-[#d8e4df] bg-white p-7 shadow-[0_28px_70px_-36px_rgba(15,23,42,0.3)]">
+                      <DialogHeader className="space-y-4 text-left">
+                        <div className="flex flex-wrap items-center justify-between gap-3">
+                          <div className="space-y-1">
+                            <DialogTitle className="text-2xl font-semibold text-slate-900">
+                              Inspection Evidence Library
+                            </DialogTitle>
+                            <DialogDescription className="text-sm text-slate-600">
+                              Polaris-approved captures from your latest walkthrough, ready for inspector review.
+                            </DialogDescription>
+                          </div>
+                          <Badge className="rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
+                            PASS
+                          </Badge>
+                        </div>
                       </DialogHeader>
-                      <ScrollArea className="max-h-[420px] pr-2">
-                        <div className="space-y-3">
-                          {videoLibrary.map((item) => {
-                            const token = VIDEO_STATUS_TOKENS[item.status];
-                            return (
-                              <div
-                                key={item.id}
-                                className="space-y-3 rounded-2xl border border-[#e6f2ed] bg-[#f9fbfd] p-4"
-                              >
-                                <div className="flex flex-wrap items-start justify-between gap-3">
-                                  <div className="flex items-start gap-3">
-                                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#0f766e]/15 bg-[#f5faf7] text-[#0f766e]">
-                                      <PlayCircle className="h-5 w-5" />
-                                    </span>
-                                    <div className="space-y-1">
-                                      <p className="text-sm font-semibold text-slate-900">{item.filename}</p>
-                                      <p className="text-xs text-slate-500">
-                                        {formatMegabytes(item.sizeMb)} • {item.durationLabel}
-                                      </p>
-                                      <p className="text-xs text-slate-500">{item.note}</p>
-                                      <p className="text-xs text-slate-400">
-                                        Uploaded {formatEvidenceTimestamp(item.capturedOn)} • {item.source}
-                                      </p>
-                                    </div>
-                                  </div>
-                                  <Badge
-                                    className={cn(
-                                      "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                                      token.className,
-                                    )}
-                                  >
-                                    {token.label}
-                                  </Badge>
-                                </div>
-                                {item.frames.length > 0 ? (
-                                  <div className="grid grid-cols-3 gap-2">
-                                    {item.frames.map((frame) => {
-                                      const frameToken = EVIDENCE_FRAME_STATUS_TOKENS[frame.status];
-                                      return (
-                                        <div
-                                          key={frame.id}
-                                          className="group relative overflow-hidden rounded-xl border border-[#e6f2ed] bg-white"
-                                          title={frameToken.helper}
-                                        >
-                                          <img
-                                            src={frame.src}
-                                            alt={frame.alt}
-                                            className="h-24 w-full object-cover transition duration-300 group-hover:scale-105"
-                                          />
-                                          <span
-                                            className={cn(
-                                              "absolute left-2 top-2 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
-                                              frameToken.badgeClass,
-                                            )}
-                                          >
-                                            {frameToken.label}
-                                          </span>
-                                        </div>
-                                      );
-                                    })}
-                                  </div>
-                                ) : null}
-                              </div>
-                            );
-                          })}
+                      <ScrollArea className="max-h-[540px] pr-3">
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                          {INSPECTION_EVIDENCE_IMAGES.map((image) => (
+                            <div
+                              key={image.id}
+                              className="group relative overflow-hidden rounded-2xl border border-[#e6f2ed] bg-white shadow-[0_18px_42px_-32px_rgba(15,23,42,0.35)]"
+                            >
+                              <img
+                                src={image.src}
+                                alt={image.alt}
+                                className="h-60 w-full object-cover transition duration-500 group-hover:scale-105"
+                              />
+                              <span className="absolute left-3 top-3 rounded-full bg-[#0f766e] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
+                                PASS
+                              </span>
+                              <p className="absolute inset-x-3 bottom-3 rounded-lg bg-slate-900/75 px-3 py-2 text-xs font-semibold leading-snug text-white">
+                                {image.caption}
+                              </p>
+                            </div>
+                          ))}
                         </div>
                       </ScrollArea>
                     </DialogContent>
