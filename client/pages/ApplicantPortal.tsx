@@ -40,12 +40,7 @@ import type {
   JourneyTaskStatus,
   NextActionItem,
 } from "@/components/portal/journey-types";
-import {
-  PRIMARY_TRADE_NAME_EN,
-  PRIMARY_TRADE_NAME_AR,
-  MARWA_TRADE_NAME_EN,
-  MARWA_TRADE_NAME_AR,
-} from "@/components/portal/trade-name-constants";
+import { PRIMARY_TRADE_NAME_EN } from "@/components/portal/trade-name-constants";
 
 interface ApplicationRecord {
   id: string;
@@ -348,7 +343,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       submitted: "تم التقديم",
       lastUpdated: "آخر تحديث",
     },
-    heroBadge: "رحلة المستثمر",
+    heroBadge: "رحلة ��لمستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
       `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، شاهدي كيف يحول ${name} و��س��ث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزدهرة في أبوظبي.`,
@@ -356,7 +351,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     chatCta: "ال��ردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
       `عرض أو إ��فاء نظرة عا��ة للرحلة الخ��صة بـ ${title}`,
-    journeyIdLabel: "معرّف الرحل��",
+    journeyIdLabel: "معرّف الرحلة",
     fieldLabels: {
       beneficiary: "المستفيد",
       licenseType: "نوع الرخصة",
@@ -428,7 +423,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       completedMessage:
         "هذه هي نقطة ا��طلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
-        "مرحبًا بكِ—شاركي��ا تفاصيل فكرتك لنصمم معًا رحلة ا��ترخيص التي تطلق مشروع�� التجاري.",
+        "مرحبًا بكِ—شاركي��ا تفاصيل فكرتك لنصمم معًا رحلة ا��ترخيص التي تطلق مشروعك التجاري.",
       startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
