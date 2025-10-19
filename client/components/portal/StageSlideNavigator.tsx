@@ -111,7 +111,10 @@ export function StageSlideNavigator({
   const isLast = currentIndex === slides.length - 1;
 
   return (
-    <div ref={containerRef} className={cn("flex flex-col gap-6", className)}>
+    <div
+      ref={containerRef}
+      className={cn("flex flex-1 flex-col justify-center gap-6", className)}
+    >
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="space-y-1">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
