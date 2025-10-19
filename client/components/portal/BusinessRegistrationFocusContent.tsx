@@ -995,20 +995,29 @@ export function BusinessRegistrationFocusContent({
       return;
     }
 
-    setHasSelectedApprovedTradeName(true);
-    setActiveEnglishTradeName(PRIMARY_TRADE_NAME_EN);
-    const transliteratedPrimary = formatArabicName(
-      transliterateToArabic(PRIMARY_TRADE_NAME_EN),
+    const formattedEnglish = formatTradeName(
+      activeEnglishTradeName || englishDraft || PRIMARY_TRADE_NAME_EN,
     );
-    setActiveArabicTradeName(transliteratedPrimary);
-    setEnglishDraft(PRIMARY_TRADE_NAME_EN);
-    setArabicDraft(transliteratedPrimary);
+    const resolvedArabic = activeArabicTradeName
+      ? formatArabicName(activeArabicTradeName)
+      : formattedEnglish
+        ? formatArabicName(transliterateToArabic(formattedEnglish))
+        : "";
+
+    setHasSelectedApprovedTradeName(true);
+    setActiveEnglishTradeName(formattedEnglish);
+    setActiveArabicTradeName(resolvedArabic);
+    setEnglishDraft(formattedEnglish);
+    setArabicDraft(resolvedArabic);
     toast({
       title: "Trade name selected",
       description: tradeNamePaymentToastMessage,
     });
     onTradeNameSelected?.();
   }, [
+    activeArabicTradeName,
+    activeEnglishTradeName,
+    englishDraft,
     hasSelectedApprovedTradeName,
     hasSubmittedReservationApplication,
     isNameAvailable,
