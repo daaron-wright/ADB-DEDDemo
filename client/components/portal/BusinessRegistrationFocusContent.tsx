@@ -1325,11 +1325,8 @@ export function BusinessRegistrationFocusContent({
                               <span className="block text-[12px] font-semibold normal-case text-slate-900">
                                 {suggestion.english}
                               </span>
-                              <span
-                                className="block text-[12px] font-semibold normal-case text-[#0f766e]"
-                                dir="rtl"
-                              >
-                                {suggestion.arabic}
+                              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                                Arabic generates after transliteration
                               </span>
                               <span className="mt-1 inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                                 {isCurrentSuggestion ? "In review" : "Use this name"}
