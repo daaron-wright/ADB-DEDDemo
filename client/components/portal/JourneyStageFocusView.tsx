@@ -837,5 +837,12 @@ export function JourneyStageFocusView({
     };
   }
 
-  return <StageSlideNavigator slides={slides} className="mt-6" />;
+  const isQuestionnaireStage =
+    (stage?.id ?? timelineItem.id) === "questionnaire";
+  const filteredSlides =
+    isQuestionnaireStage && slides.length > 1
+      ? slides.filter((slide) => slide.id !== "overview")
+      : slides;
+
+  return <StageSlideNavigator slides={filteredSlides} className="mt-6" />;
 }
