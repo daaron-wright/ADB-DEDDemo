@@ -1022,6 +1022,8 @@ export function BusinessRegistrationFocusContent({
   const trimmedEnglishDraft = englishDraft.trim();
   const normalizedEnglishDraft = trimmedEnglishDraft.toUpperCase();
   const hasEnglishDraft = trimmedEnglishDraft.length > 0;
+  const shouldShowSuggestionSection =
+    hasEnglishDraft && hasPerformedCheck && !isNameAvailable;
 
   const slides: StageSlide[] = [
     {
