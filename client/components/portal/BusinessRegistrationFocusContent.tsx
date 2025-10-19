@@ -538,11 +538,9 @@ export function BusinessRegistrationFocusContent({
 
   const [activeEnglishTradeName, setActiveEnglishTradeName] =
     React.useState(initialFormattedName);
-  const [activeArabicTradeName, setActiveArabicTradeName] = React.useState(
-    PRIMARY_TRADE_NAME_AR,
-  );
+  const [activeArabicTradeName, setActiveArabicTradeName] = React.useState("");
   const [englishDraft, setEnglishDraft] = React.useState(initialFormattedName);
-  const [arabicDraft, setArabicDraft] = React.useState(PRIMARY_TRADE_NAME_AR);
+  const [arabicDraft, setArabicDraft] = React.useState("");
   const [isEditing, setIsEditing] = React.useState(true);
   const [pendingSubmission, setPendingSubmission] = React.useState<{
     english: string;
@@ -831,8 +829,8 @@ export function BusinessRegistrationFocusContent({
     const formatted = formatTradeName(tradeName) || PRIMARY_TRADE_NAME_EN;
     setActiveEnglishTradeName(formatted);
     setEnglishDraft(formatted);
-    setActiveArabicTradeName(PRIMARY_TRADE_NAME_AR);
-    setArabicDraft(PRIMARY_TRADE_NAME_AR);
+    setActiveArabicTradeName("");
+    setArabicDraft("");
     setIsNameAvailable(isTradeNameAvailable);
     setFailedStepIndex(
       isTradeNameAvailable ? null : DEFAULT_FAILURE_STEP_INDEX,
