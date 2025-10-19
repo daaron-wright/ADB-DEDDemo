@@ -116,7 +116,7 @@ export function TradeNameReceiptDetail() {
       <div className="overflow-hidden rounded-2xl border border-[#e6f2ed] bg-white/95">
         <img
           src={TRADE_NAME_RECEIPT_IMAGE_URL}
-          alt="Trade name reservation receipt for MARWA RESTAURANT"
+          alt={`Trade name reservation receipt for ${PRIMARY_TRADE_NAME_EN.toUpperCase()}`}
           className="w-full object-cover"
         />
       </div>
