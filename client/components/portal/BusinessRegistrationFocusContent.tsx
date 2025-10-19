@@ -195,7 +195,7 @@ const DOUBLE_CHAR_MAP = new Map<string, string>([
   ["ae", "اي"],
   ["ai", "اي"],
   ["ay", "اي"],
-  ["ch", "تش"],
+  ["ch", "��ش"],
   ["dh", "ذ"],
   ["gh", "غ"],
   ["kh", "خ"],
@@ -1338,7 +1338,7 @@ export function BusinessRegistrationFocusContent({
                 </form>
                 {shouldShowSuggestionSection ? (
                   <div className="space-y-3">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="space-y-2">
                       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
                         Suggested trade names
                       </p>
@@ -1348,7 +1348,7 @@ export function BusinessRegistrationFocusContent({
                           variant="outline"
                           onClick={() => setHasRequestedSuggestions(true)}
                           disabled={isChecking}
-                          className="rounded-full border-[#0f766e]/40 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
+                          className="w-fit rounded-full border-[#0f766e]/40 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
                         >
                           Show suggested names
                         </Button>
@@ -1405,11 +1405,7 @@ export function BusinessRegistrationFocusContent({
                           );
                         })}
                       </div>
-                    ) : (
-                      <div className="rounded-2xl border border-dashed border-[#0f766e]/30 bg-[#0f766e]/5 px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                        Click “Show suggested names” to review compliant alternatives.
-                      </div>
-                    )}
+                    ) : null}
                   </div>
                 ) : null}
               </div>
