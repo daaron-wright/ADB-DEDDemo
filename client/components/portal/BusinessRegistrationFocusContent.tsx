@@ -1002,11 +1002,9 @@ export function BusinessRegistrationFocusContent({
     );
     const resolvedArabic = activeArabicTradeName
       ? formatArabicName(activeArabicTradeName)
-      : formattedEnglish === MARWA_TRADE_NAME_EN
-        ? MARWA_TRADE_NAME_AR
-        : formattedEnglish
-          ? formatArabicName(transliterateToArabic(formattedEnglish))
-          : "";
+      : formattedEnglish
+        ? formatArabicName(transliterateToArabic(formattedEnglish))
+        : "";
 
     setHasSelectedApprovedTradeName(true);
     setActiveEnglishTradeName(formattedEnglish);
