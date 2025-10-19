@@ -350,16 +350,6 @@ export function DocumentSubmissionFocusContent({
               isGenerating={isFinalisingMoa}
             />
             <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <Badge className="inline-flex items-center gap-2 rounded-full border border-[#0f766e]/20 bg-[#0f766e]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Polaris simulated edit
-                </Badge>
-                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
-                  {hasAppliedPolarisRevision
-                    ? "Updated moments ago"
-                    : "Awaiting confirmation"}
-                </span>
-              </div>
               <div className="space-y-2">
                 <label
                   htmlFor="moa-clause-draft"
