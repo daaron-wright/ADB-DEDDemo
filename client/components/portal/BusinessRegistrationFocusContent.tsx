@@ -938,7 +938,9 @@ export function BusinessRegistrationFocusContent({
       return;
     }
 
-    setArabicDraft(transliterateToArabic(englishDraft));
+    const transliterated = formatArabicName(transliterateToArabic(englishDraft));
+    setArabicDraft(transliterated);
+    setActiveArabicTradeName(transliterated);
   }, [englishDraft, toast]);
 
   const handleSelectApprovedTradeName = React.useCallback(() => {
