@@ -111,7 +111,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before we display your license summary, let's confirm the right legal structure, business activities, and physical space requirements together. Once we complete this intake, I'll publish your license type and submission ID.",
-  ar: "قبل أن أعرض تفاصيل الترخيص، ��عينا نؤكد معًا ا��شكل القانوني الأنسب، وأ��شطة العمل، ومتطل���ات المسا��ة. بمجرد إ��هاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
+  ar: "قبل أن أعرض تفاصيل الترخيص، ��عينا نؤكد معًا الشكل القانوني الأنسب، وأ��شطة العمل، ومتطل���ات المسا��ة. بمجرد إ��هاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
 };
 
 type QuestionnaireProgress = "not_started" | "in_progress" | "completed";
@@ -362,7 +362,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيق��م مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار ��ن نظام بلدية أبوظبي فور تسجيل ��قدك.",
+      "سيق��م مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "بولاريس",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
@@ -393,7 +393,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك ال����ع��م ب����لذكا�� الاصطناعي على تنسي�� حجز الاسم التجاري، وإدخال ا��شركاء، وتأ��ي�� العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك ال����ع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإدخال ا��شركاء، وتأ��ي�� العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الموافقات الموح��ة لـ ADAFSA وبلدية أبوظبي.",
@@ -423,7 +423,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       completedMessage:
         "هذه هي نقطة ا��طلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
-        "مرحبًا بكِ—شاركي��ا تفاصيل فكرتك لنصمم معًا رحلة ا��ترخيص التي تطلق مشروعك التجاري.",
+        "مرحبًا بكِ—شاركي��ا تفاصيل فكرتك ��نصمم معًا رحلة ا��ترخيص التي تطلق مشروعك التجاري.",
       startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
@@ -1960,6 +1960,39 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
     setBusinessAIView,
     setFocusContext,
     setIsTimelineBackgroundBlurred,
+    setPortalView,
+    setIsJourneyOverviewOpen,
+    setIsStageManuallySelected,
+    setActiveStageId,
+    setJourneyAnimationIndex,
+    setJourneyProgressPercent,
+    updateCurrentJourneyStep,
+  ]);
+
+  const handleLicenseIssued = useCallback(() => {
+    setApplicationStatus("Approved");
+    setStageProgress((previous) => ({
+      ...previous,
+      [TRADE_NAME_STAGE_ID]: "done",
+      inspections: "in_progress",
+    }));
+    setPortalView("overview");
+    setIsJourneyOverviewOpen(true);
+    setIsStageManuallySelected(false);
+    setActiveStageId("inspections");
+    const inspectionPhaseIndex = JOURNEY_ANIMATION_TIMELINE.findIndex(
+      (phase) => phase.stageId === "inspections",
+    );
+    if (inspectionPhaseIndex >= 0) {
+      setJourneyAnimationIndex(inspectionPhaseIndex);
+      setJourneyProgressPercent(
+        JOURNEY_ANIMATION_TIMELINE[inspectionPhaseIndex]?.percent ?? 0,
+      );
+    }
+    updateCurrentJourneyStep("inspections");
+  }, [
+    setApplicationStatus,
+    setStageProgress,
     setPortalView,
     setIsJourneyOverviewOpen,
     setIsStageManuallySelected,
