@@ -850,6 +850,7 @@ export function BusinessRegistrationFocusContent({
     setHasSelectedApprovedTradeName(false);
     setHasSubmittedReservationApplication(false);
     setIsSubmittingReservation(false);
+    setHasRequestedSuggestions(false);
     setIsEditing(true);
   }, [tradeName, isTradeNameAvailable, progressPercent]);
 
