@@ -1241,7 +1241,12 @@ export function BusinessRegistrationFocusContent({
                     isSubmittingReservation ||
                     hasSubmittedReservationApplication
                   }
-                  className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
+                  className={cn(
+                    baseCtaClasses,
+                    nextPrimaryAction === "runChecks"
+                      ? primaryCtaClasses
+                      : secondaryCtaClasses,
+                  )}
                 >
                   {isChecking ? "Running checks..." : "Run automated checks"}
                 </Button>
