@@ -862,7 +862,7 @@ export function ComplianceGrowthFocusContent({
             </div>
             <div className="grid gap-6 xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
               <div className="space-y-4">
-                <div className="grid gap-4 md:grid-cols-5">
+                <div className="grid gap-4 md:grid-cols-3">
                   {pipelineStatuses.map((step, index) => {
                     const token = PIPELINE_STATUS_TOKENS[step.status];
                     const isLast = index === pipelineStatuses.length - 1;
@@ -880,7 +880,7 @@ export function ComplianceGrowthFocusContent({
                           {!isLast ? (
                             <span
                               className={cn(
-                                "h-0.5 w-16 rounded-full",
+                                "h-0.5 w-14 rounded-full",
                                 token.connectorClass,
                               )}
                               aria-hidden
@@ -890,9 +890,6 @@ export function ComplianceGrowthFocusContent({
                         <div className="space-y-1">
                           <p className="text-sm font-semibold text-slate-900">{step.title}</p>
                           <p className="text-xs text-slate-500">{step.description}</p>
-                          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
-                            {step.helper}
-                          </p>
                         </div>
                       </div>
                     );
