@@ -200,6 +200,7 @@ export function DocumentSubmissionFocusContent({
     }
 
     setIsFinalisingMoa(true);
+    setActiveSlideId("payment");
     triggerVaultSync();
     completionTimeoutRef.current = window.setTimeout(() => {
       setDocuments((previous) =>
