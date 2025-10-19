@@ -196,7 +196,7 @@ const DOUBLE_CHAR_MAP = new Map<string, string>([
   ["ch", "تش"],
   ["dh", "ذ"],
   ["gh", "غ"],
-  ["kh", "��"],
+  ["kh", "خ"],
   ["ph", "ف"],
   ["qu", "قو"],
   ["sh", "ش"],
@@ -1204,7 +1204,12 @@ export function BusinessRegistrationFocusContent({
                         hasSubmittedReservationApplication ||
                         isSubmittingReservation
                     }
-                    className="rounded-full border-[#0f766e]/40 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] disabled:cursor-not-allowed disabled:opacity-60"
+                    className={cn(
+                      baseCtaClasses,
+                      nextPrimaryAction === "selectName"
+                        ? primaryCtaClasses
+                        : secondaryCtaClasses,
+                    )}
                   >
                     {hasSubmittedReservationApplication
                       ? "Trade name reserved"
