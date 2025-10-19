@@ -196,7 +196,7 @@ const DOUBLE_CHAR_MAP = new Map<string, string>([
   ["ch", "تش"],
   ["dh", "ذ"],
   ["gh", "غ"],
-  ["kh", "خ"],
+  ["kh", "��"],
   ["ph", "ف"],
   ["qu", "قو"],
   ["sh", "ش"],
@@ -1065,6 +1065,13 @@ export function BusinessRegistrationFocusContent({
   const hasEnglishDraft = trimmedEnglishDraft.length > 0;
   const shouldShowSuggestionSection =
     hasEnglishDraft && hasPerformedCheck && !isNameAvailable;
+
+  const baseCtaClasses =
+    "rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] disabled:cursor-not-allowed disabled:opacity-60";
+  const primaryCtaClasses =
+    "bg-[#0f766e] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059]";
+  const secondaryCtaClasses =
+    "border border-[#0f766e]/40 bg-white text-[#0f766e] hover:bg-[#0f766e]/10";
 
   const slides: StageSlide[] = [
     {
