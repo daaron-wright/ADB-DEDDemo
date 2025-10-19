@@ -1416,11 +1416,7 @@ export function BusinessRegistrationFocusContent({
             ) : null}
           </div>
           <div className="rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_60px_-40px_rgba(15,23,42,0.32)] overflow-hidden">
-            <Accordion
-              type="single"
-              collapsible
-              defaultValue="verification"
-            >
+            <Accordion type="single" collapsible>
               <AccordionItem value="verification" className="border-none">
                 <AccordionTrigger className="px-5 py-4 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
                   <div className="flex w-full flex-wrap items-start justify-between gap-3">
