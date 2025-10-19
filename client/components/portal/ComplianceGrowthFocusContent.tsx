@@ -157,34 +157,22 @@ const COMPLIANCE_STATUS_TOKENS: Record<
 
 const INSPECTION_PIPELINE_STEPS: PipelineStep[] = [
   {
-    id: "ingest",
-    title: "Secure video intake",
-    description: "Video uploaded from Layla's workspace and encrypted for review.",
-    helper: "14:32 GST • SHA-256 checksum verified",
+    id: "intake",
+    title: "Secure intake",
+    description: "Encrypted walkthrough received and verified.",
+    helper: "Polaris receipt logged",
   },
   {
-    id: "sampling",
-    title: "Frame sampling",
-    description: "Extracting representative frames across exterior and interior walkthrough.",
-    helper: "64 key frames prepared",
+    id: "analysis",
+    title: "Evidence analysis",
+    description: "Models validate signage, text, and storage compliance automatically.",
+    helper: "Computer vision + OCR checks",
   },
   {
-    id: "yolo",
-    title: "YOLO signboard detection",
-    description: "Detecting signage, Arabic lettering, and mounting compliance using CV model v8.2.",
-    helper: "Confidence threshold 0.85",
-  },
-  {
-    id: "ocr",
-    title: "OCR text extraction",
-    description: "Capturing bilingual trade name and license references with Polaris OCR.",
-    helper: "Detected 3 high-signal lines",
-  },
-  {
-    id: "verification",
-    title: "Inspector queue",
-    description: "Cross-checking extracted text with registration records before inspector review.",
-    helper: "Routing to DED inspector queue",
+    id: "handoff",
+    title: "Inspector handoff",
+    description: "Package synced to the DED inspector workspace for acknowledgement.",
+    helper: "PASS",
   },
 ];
 
