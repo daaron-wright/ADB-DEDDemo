@@ -249,7 +249,7 @@ export function DocumentSubmissionFocusContent({
     paymentTimeoutRef.current = window.setTimeout(() => {
       setIsPaying(false);
       setHasPaid(true);
-    const issuedLicense: LicenseDetails = {
+      const issuedLicense: LicenseDetails = {
         licenseNumber: "CN-7845126",
         issueDate: new Date().toLocaleDateString("en-GB", {
           day: "2-digit",
@@ -271,6 +271,7 @@ export function DocumentSubmissionFocusContent({
         description:
           "We pushed the licence PDF to your AD Locker and digital wallet.",
       });
+      onLicenseIssued?.();
     }, 1600);
   }, [allDocumentsCompleted, hasPaid, isPaying, toast]);
 
