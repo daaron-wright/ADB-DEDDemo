@@ -288,27 +288,6 @@ const GROWTH_OPPORTUNITIES: GrowthOpportunity[] = [
 const MAX_VIDEO_SIZE_BYTES = 2 * 1024 * 1024 * 1024;
 const MEGABYTE = 1024 * 1024;
 
-const VIDEO_STATUS_TOKENS: Record<
-  VideoEvidenceStatus,
-  { label: string; className: string; helper: string }
-> = {
-  processing: {
-    label: "Processing",
-    className: "border-amber-200 bg-amber-50 text-amber-700",
-    helper: "Encrypting upload and preparing frame samples for inspectors.",
-  },
-  queued: {
-    label: "Inspector queue",
-    className: "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
-    helper: "Awaiting inspector acknowledgement in the DED review queue.",
-  },
-  synced: {
-    label: "Synced",
-    className: "border-[#94d2c2] bg-[#eaf7f3] text-[#0f766e]",
-    helper: "Available in the TAMM evidence vault for future checks.",
-  },
-};
-
 const EVIDENCE_FRAME_STATUS_TOKENS: Record<
   EvidenceFrameStatus,
   { label: string; badgeClass: string; helper: string }
