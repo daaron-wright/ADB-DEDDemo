@@ -107,6 +107,25 @@ type TradeNameSuggestion = {
   id: string;
   english: string;
   arabic: string;
+  availability: "available" | "needs_review" | "not_recommended";
+};
+
+const SUGGESTION_AVAILABILITY_META: Record<
+  TradeNameSuggestion["availability"],
+  { label: string; className: string }
+> = {
+  available: {
+    label: "Available",
+    className: "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
+  },
+  needs_review: {
+    label: "Needs review",
+    className: "border-amber-200 bg-amber-50 text-amber-700",
+  },
+  not_recommended: {
+    label: "Not recommended",
+    className: "border-rose-200 bg-rose-50 text-rose-600",
+  },
 };
 
 const APPROVED_TRADE_NAMES = [
@@ -118,24 +137,22 @@ const APPROVED_TRADE_NAMES = [
 
 const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   {
-    id: "bait-el-khetyar",
-    english: PRIMARY_TRADE_NAME_EN,
-    arabic: PRIMARY_TRADE_NAME_AR,
-  },
-  {
     id: "marwah-hospitality",
     english: "Marwah Hospitality Sole LLC",
     arabic: "ضيافة مروة الفردية ذ.م.م",
+    availability: "available",
   },
   {
     id: "azure-coast",
     english: "Azure Coast Kitchen Sole LLC",
-    arabic: "مطبخ الساحل اللازور��ي الفردي ذ.م.م",
+    arabic: "مطبخ الساحل اللازوردي الفردي ذ.م.م",
+    availability: "needs_review",
   },
   {
     id: "pearl-horizon",
     english: "Pearl Horizon Dining Sole LLC",
     arabic: "مطعم أفق اللؤلؤ الفردي ذ.م.م",
+    availability: "needs_review",
   },
 ];
 
