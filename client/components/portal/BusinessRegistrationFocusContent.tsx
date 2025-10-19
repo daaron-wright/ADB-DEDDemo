@@ -106,7 +106,6 @@ const CONFLICTING_TRADE_NAME_NORMALIZED = PRIMARY_TRADE_NAME_EN.trim().toUpperCa
 type TradeNameSuggestion = {
   id: string;
   english: string;
-  arabic: string;
   availability: "available" | "needs_review" | "not_recommended";
 };
 
@@ -140,19 +139,16 @@ const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   {
     id: "marwa-restaurant",
     english: "Marwa Restaurant",
-    arabic: "مطعم مروة",
     availability: "available",
   },
   {
     id: "azure-coast",
     english: "Azure Coast Kitchen Sole LLC",
-    arabic: "مطبخ الساحل اللازوردي ا��فردي ذ.م.م",
     availability: "needs_review",
   },
   {
     id: "pearl-horizon",
     english: "Pearl Horizon Dining Sole LLC",
-    arabic: "مطعم أفق اللؤلؤ الفردي ذ.م.م",
     availability: "needs_review",
   },
 ];
