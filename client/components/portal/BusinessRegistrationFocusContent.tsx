@@ -599,6 +599,33 @@ export function BusinessRegistrationFocusContent({
     ],
   );
 
+  const nextPrimaryAction = React.useMemo<
+    "runChecks" | "selectName" | "submitReservation" | null
+  >(() => {
+    if (isChecking) {
+      return null;
+    }
+
+    if (!isNameAvailable) {
+      return "runChecks";
+    }
+
+    if (!hasSelectedApprovedTradeName) {
+      return "selectName";
+    }
+
+    if (!hasSubmittedReservationApplication) {
+      return "submitReservation";
+    }
+
+    return null;
+  }, [
+    hasSelectedApprovedTradeName,
+    hasSubmittedReservationApplication,
+    isChecking,
+    isNameAvailable,
+  ]);
+
   const tradeNameStatusToken = React.useMemo(() => {
     if (isChecking) {
       return {
