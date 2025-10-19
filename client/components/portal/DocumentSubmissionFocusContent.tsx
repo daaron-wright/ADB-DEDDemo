@@ -329,22 +329,6 @@ export function DocumentSubmissionFocusContent({
     (variant: "card" | "inline" = "card") => {
       const content = showMoaAssistant ? (
         <>
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="relative flex h-12 w-12 items-center justify-center rounded-full border border-[#0f766e]/25 bg-white">
-              <AIBusinessOrb className="h-8 w-8" />
-              <span className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border border-white bg-[#0f766e] text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
-                AI
-              </span>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-slate-900">
-                Custom MOA simulation with Polaris
-              </p>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Live collaboration mode
-              </p>
-            </div>
-          </div>
           <p className="text-sm text-slate-600">
             Polaris is simulating edits on your custom memorandum and preparing the ADJD review submission. Review the draft before we forward it.
           </p>
