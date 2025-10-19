@@ -129,6 +129,7 @@ const SUGGESTION_AVAILABILITY_META: Record<
 };
 
 const APPROVED_TRADE_NAMES = [
+  "MARWA RESTAURANT",
   "MARWAH HOSPITALITY SOLE LLC",
   "CORNICHE CULINARY COLLECTIVE SOLE LLC",
   "PEARL HORIZON DINING SOLE LLC",
@@ -137,15 +138,15 @@ const APPROVED_TRADE_NAMES = [
 
 const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   {
-    id: "marwah-hospitality",
-    english: "Marwah Hospitality Sole LLC",
-    arabic: "ضيافة مروة الفردية ذ.م.م",
+    id: "marwa-restaurant",
+    english: "Marwa Restaurant",
+    arabic: "مطعم مروة",
     availability: "available",
   },
   {
     id: "azure-coast",
     english: "Azure Coast Kitchen Sole LLC",
-    arabic: "مطبخ الساحل اللازوردي الفردي ذ.م.م",
+    arabic: "مطبخ الساحل اللازوردي ا��فردي ذ.م.م",
     availability: "needs_review",
   },
   {
