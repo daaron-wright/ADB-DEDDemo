@@ -1,4 +1,6 @@
-export type ContractSection = {
+export import { MARWA_TRADE_NAME_EN, MARWA_TRADE_NAME_AR } from "./trade-name-constants";
+
+type ContractSection = {
   heading: string;
   english: string;
   arabic: string;
@@ -8,16 +10,16 @@ export const CONTRACT_MAIN_SECTIONS: readonly ContractSection[] = [
   {
     heading: "Receipt overview",
     english:
-      "Trade Name Reservation Receipt issued by the Abu Dhabi Registration & Licensing Authority on 29/09/2025. The trade name MARWA RESTAURANT was successfully reserved and the receipt was generated after payment through ADPAY.",
+      `Trade Name Reservation Receipt issued by the Abu Dhabi Registration & Licensing Authority on 29/09/2025. The trade name ${MARWA_TRADE_NAME_EN.toUpperCase()} was successfully reserved and the receipt was generated after payment through ADPAY.`,
     arabic:
-      "إيصال حجز اسم تجاري صادر عن هيئة التسجيل والترخيص في أبوظبي بتاريخ 29/09/2025. تم حجز الاسم التجاري مطعم مروة بنجاح وتم إصدار الإيصال بعد إتمام الدفع عبر أدباي.",
+      `إيصال حجز اسم تجاري صادر عن هيئة التسجيل والترخيص في أبوظبي بتاريخ 29/09/2025. تم حجز الاسم التجاري ${MARWA_TRADE_NAME_AR} بنجاح وتم إصدار الإيصال بعد إتمام الدفع عبر أدباي.`,
   },
   {
     heading: "Payment details",
     english:
       "Receipt No. 2112500002178 · Transaction No. TN-4993803 · POS No. 558 · Paid amount AED 65.14 · Payment method Credit Card · Application submitted to the General Directorate of Residence and Foreigners Affairs.",
     arabic:
-      "رقم الإيصال 2112500002178 · رقم المعاملة TN-4993803 · جهاز نقاط البيع 558 · المبلغ المدفوع 65.14 درهم إماراتي · طريقة الدفع بطاقة ائتمان · تم تقديم الطلب إلى الإدارة العامة للإقامة وشؤون الأجانب.",
+      "رقم ��لإيصال 2112500002178 · رقم المعاملة TN-4993803 · جهاز نقاط البيع 558 · المبلغ المدفوع 65.14 درهم إماراتي · طريقة الدفع بطاقة ائتمان · تم تقديم الطلب إلى الإدارة العامة للإقامة وشؤون الأجانب.",
   },
   {
     heading: "Ownership & representatives",
@@ -31,7 +33,7 @@ export const CONTRACT_MAIN_SECTIONS: readonly ContractSection[] = [
     english:
       "Activity: Restaurant · Activity code 5610001. The approval covers the F&B operation under the reserved trade name and must stay aligned with Department of Economic Development regulations.",
     arabic:
-      "النشاط: مطعم · رمز النشاط 5610001. تشمل الموافقة نشاط الأغذية والمشروبات تحت الاسم التجاري المحجوز ويجب أن تتوافق مع لوائح دائرة التنمية الاقتصادية.",
+      "النشاط: مطعم · رمز النشاط 5610001. تشمل الموافقة نشاط الأغذية والم��روبات تحت الاسم التجاري المحجوز ويجب أن تتوافق مع لوائح دائرة التنمية الاقتصادية.",
   },
   {
     heading: "Important notices",
