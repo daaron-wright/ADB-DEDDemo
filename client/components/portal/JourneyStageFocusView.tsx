@@ -81,6 +81,8 @@ export interface JourneyStageFocusViewProps {
   growthUnlocked?: boolean;
   onComplianceReturn?: () => void;
   isCompliancePassed?: boolean;
+  policyUpdateAcknowledged?: boolean;
+  onPolicyUpdateAcknowledged?: () => void;
   onExitJourney?: () => void;
   legalFormOptions?: LegalFormOption[];
   selectedLegalFormId?: string | null;
@@ -179,6 +181,8 @@ export function JourneyStageFocusView({
   growthUnlocked = false,
   onComplianceReturn,
   isCompliancePassed,
+  policyUpdateAcknowledged = false,
+  onPolicyUpdateAcknowledged,
   onExitJourney,
   legalFormOptions = DEFAULT_LEGAL_FORM_OPTIONS,
   selectedLegalFormId,
@@ -316,6 +320,8 @@ export function JourneyStageFocusView({
           growthUnlocked={growthUnlocked}
           onComplianceReturn={onComplianceReturn}
           isCompliant={isCompliancePassed}
+          policyUpdateAcknowledged={policyUpdateAcknowledged}
+          onPolicyUpdateAcknowledged={onPolicyUpdateAcknowledged}
         />
         {navigationControls}
       </div>
