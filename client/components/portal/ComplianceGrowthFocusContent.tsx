@@ -1141,80 +1141,94 @@ export function ComplianceGrowthFocusContent({
             </div>
           </div>
 
-          <div className="grid gap-5 lg:grid-cols-2">
-            <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
-              <div className="flex flex-wrap items-center justify-between gap-3">
+          <Accordion type="multiple" className="space-y-3">
+            <AccordionItem
+              value="signboard-quality"
+              className="rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]"
+            >
+              <AccordionTrigger className="flex w-full flex-wrap items-center justify-between gap-3 rounded-3xl px-6 py-5 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
                 <h4 className="text-base font-semibold text-slate-900">Signboard quality summary</h4>
                 <Badge className="rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
                   {`${Math.round(SIGNBOARD_QUALITY_SUMMARY.confidence * 100)}% confidence`}
                 </Badge>
-              </div>
-              <ul className="space-y-2 text-sm text-slate-600">
-                {SIGNBOARD_QUALITY_SUMMARY.highlights.map((highlight) => (
-                  <li key={highlight} className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
-                    <span>{highlight}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="flex items-center gap-3 rounded-2xl border border-[#d8e4df] bg-[#f5faf7] p-4 text-sm text-[#0f766e]">
-                <UploadCloud className="h-5 w-5" />
-                Latest signboard footage and annotated frames are synced for inspectors.
-              </div>
-            </div>
-
-            <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
-              <h4 className="text-base font-semibold text-slate-900">Premises readiness</h4>
-              <div className="space-y-3">
-                {PREMIS_READINESS_ITEMS.map((item) => {
-                  const token = READINESS_STATUS_TOKENS[item.status];
-                  return (
-                    <div
-                      key={item.id}
-                      className="flex flex-col gap-2 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4"
-                    >
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <p className="text-sm font-semibold text-slate-900">{item.label}</p>
-                        <Badge className={cn(
-                          "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                          token.className,
-                        )}>
-                          {token.label}
-                        </Badge>
-                      </div>
-                      {item.detail ? (
-                        <p className="text-xs text-slate-500">{item.detail}</p>
-                      ) : null}
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="space-y-2 rounded-2xl border border-[#e6f2ed] bg-white/90 p-4">
-                <p className="text-sm font-semibold text-slate-900">Text verification</p>
-                <div className="space-y-2">
-                  {TEXT_VERIFICATION_RESULTS.map((row) => (
-                    <div
-                      key={row.id}
-                      className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#f0f4f8] bg-[#f9fbfd] px-4 py-3"
-                    >
-                      <div>
-                        <p className="text-sm font-semibold text-slate-900">{row.language}</p>
-                        <p className="text-xs text-slate-500">
-                          Registered: {row.registered}
-                        </p>
-                        <p className="text-xs text-slate-500">
-                          Extracted: {row.extracted}
-                        </p>
-                      </div>
-                      <Badge className="rounded-full border border-[#94d2c2] bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                        {row.status}
-                      </Badge>
-                    </div>
+              </AccordionTrigger>
+              <AccordionContent className="space-y-4 px-6 pb-6 pt-0">
+                <ul className="space-y-2 text-sm text-slate-600">
+                  {SIGNBOARD_QUALITY_SUMMARY.highlights.map((highlight) => (
+                    <li key={highlight} className="flex items-start gap-2">
+                      <Check className="mt-0.5 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
+                      <span>{highlight}</span>
+                    </li>
                   ))}
+                </ul>
+                <div className="flex items-center gap-3 rounded-2xl border border-[#d8e4df] bg-[#f5faf7] p-4 text-sm text-[#0f766e]">
+                  <UploadCloud className="h-5 w-5" />
+                  Latest signboard footage and annotated frames are synced for inspectors.
                 </div>
-              </div>
-            </div>
-          </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem
+              value="premises-readiness"
+              className="rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]"
+            >
+              <AccordionTrigger className="flex w-full flex-wrap items-center justify-between gap-3 rounded-3xl px-6 py-5 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
+                <h4 className="text-base font-semibold text-slate-900">Premises readiness</h4>
+              </AccordionTrigger>
+              <AccordionContent className="space-y-4 px-6 pb-6 pt-0">
+                <div className="space-y-3">
+                  {PREMIS_READINESS_ITEMS.map((item) => {
+                    const token = READINESS_STATUS_TOKENS[item.status];
+                    return (
+                      <div
+                        key={item.id}
+                        className="flex flex-col gap-2 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4"
+                      >
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <p className="text-sm font-semibold text-slate-900">{item.label}</p>
+                          <Badge className={cn(
+                            "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                            token.className,
+                          )}>
+                            {token.label}
+                          </Badge>
+                        </div>
+                        {item.detail ? (
+                          <p className="text-xs text-slate-500">{item.detail}</p>
+                        ) : null}
+                      </div>
+                    );
+                  })}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem
+              value="text-verification"
+              className="rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]"
+            >
+              <AccordionTrigger className="flex w-full flex-wrap items-center justify-between gap-3 rounded-3xl px-6 py-5 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
+                <h4 className="text-base font-semibold text-slate-900">Text verification</h4>
+              </AccordionTrigger>
+              <AccordionContent className="space-y-3 px-6 pb-6 pt-0">
+                {TEXT_VERIFICATION_RESULTS.map((row) => (
+                  <div
+                    key={row.id}
+                    className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#f0f4f8] bg-[#f9fbfd] px-4 py-3"
+                  >
+                    <div>
+                      <p className="text-sm font-semibold text-slate-900">{row.language}</p>
+                      <p className="text-xs text-slate-500">Registered: {row.registered}</p>
+                      <p className="text-xs text-slate-500">Extracted: {row.extracted}</p>
+                    </div>
+                    <Badge className="rounded-full border border-[#94d2c2] bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                      {row.status}
+                    </Badge>
+                  </div>
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
           </TabsContent>
           <TabsContent
