@@ -471,10 +471,12 @@ const STAGE_QUICK_ACTION_DEFAULTS: Record<ConversationStep, string[]> = {
     "welcome-market-overview",
     "welcome-competition",
     "welcome-budget",
+    "welcome-demographics",
     "welcome-human-agent",
   ],
   summary: [
     "summary-open-viability",
+    "summary-generate-report",
     "summary-reserve-trade-name",
     "welcome-human-agent",
   ],
