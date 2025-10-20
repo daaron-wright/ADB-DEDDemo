@@ -45,6 +45,39 @@ interface NextAction {
 
 const TRADE_NAME_AR = PRIMARY_TRADE_NAME_AR ?? "";
 
+const PREOP_INSPECTION_IMAGES = [
+  {
+    id: "preop-exterior",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fff05a88e849e4b6d92be288131e17239?format=webp&width=1200",
+    alt: "Exterior signboard detection outside Marwah Restaurant",
+    caption: "Exterior signboard clearance",
+  },
+  {
+    id: "preop-dining",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F917fd001495640468cc0b57b4a90beb8?format=webp&width=1200",
+    alt: "Dining room walkthrough with detection overlays",
+    caption: "Dining zone readiness",
+  },
+  {
+    id: "preop-storage",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F376ee5cec4e8415c8a993ebbbe764879?format=webp&width=1200",
+    alt: "Storage shelves with compliance annotations",
+    caption: "Storage compliance",
+  },
+  {
+    id: "preop-egress",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F560a466b672c40c5b9eea38c5cb30493?format=webp&width=1200",
+    alt: "Emergency exit routes highlighted in dining room",
+    caption: "Egress validation",
+  },
+  {
+    id: "preop-kitchen",
+    src: "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F4bc52f802a844bc1956968eb744f64ae?format=webp&width=1200",
+    alt: "Kitchen equipment annotated for compliance",
+    caption: "Kitchen inspection",
+  },
+] as const;
+
 const INITIAL_SUB_STEPS: SubStep[] = [
   {
     id: "certificate-conformity",
