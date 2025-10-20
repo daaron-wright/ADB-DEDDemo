@@ -227,17 +227,61 @@ export function PreOperationalInspectionFocusContent({
     };
   }, [bankAccountPhase]);
 
-  const handleWalkthroughUpload = React.useCallback(() => {
-    if (walkthroughStatus !== "idle") {
+  const resetWalkthroughInput = React.useCallback(() => {
+    if (walkthroughInputRef.current) {
+      walkthroughInputRef.current.value = "";
+    }
+  }, []);
+
+  const handleWalkthroughButtonClick = React.useCallback(() => {
+    if (walkthroughStatus === "processing") {
       return;
     }
-    setWalkthroughStatus("processing");
-    const timer = window.setTimeout(() => {
-      setWalkthroughStatus("ready");
-      uploadTimerRef.current = null;
-    }, 900);
-    uploadTimerRef.current = timer;
+    walkthroughInputRef.current?.click();
   }, [walkthroughStatus]);
+
+  const handleWalkthroughSelect = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (!file) {
+        return;
+      }
+
+      if (!file.type.startsWith("video/")) {
+        setUploadError("Upload MP4, MOV, or WebM footage.");
+        setWalkthroughFile(null);
+        setWalkthroughStatus("idle");
+        resetWalkthroughInput();
+        return;
+      }
+
+      if (file.size > MAX_WALKTHROUGH_SIZE_BYTES) {
+        setUploadError("Each walkthrough must be 2 GB or smaller before encryption.");
+        setWalkthroughFile(null);
+        setWalkthroughStatus("idle");
+        resetWalkthroughInput();
+        return;
+      }
+
+      setUploadError(null);
+      setWalkthroughFile(file);
+      setWalkthroughStatus("processing");
+      setActiveGalleryIndex(0);
+
+      if (uploadTimerRef.current) {
+        window.clearTimeout(uploadTimerRef.current);
+      }
+
+      const timer = window.setTimeout(() => {
+        setWalkthroughStatus("ready");
+        uploadTimerRef.current = null;
+      }, 1200);
+
+      uploadTimerRef.current = timer;
+      resetWalkthroughInput();
+    },
+    [resetWalkthroughInput],
+  );
 
   React.useEffect(() => {
     return () => {
