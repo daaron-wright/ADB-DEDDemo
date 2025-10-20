@@ -773,8 +773,8 @@ const FOLLOW_UP_CORNICHE_DEEP_DIVE: ReadonlyArray<StageRecommendation> = [
     description:
       "Combine every insight so far into a board-ready market intelligence brief.",
     icon: ClipboardList,
-    type: "prompt",
-    prompt: "Can you go deeper and generate a summary on these areas",
+    type: "conversation",
+    action: "generate-market-summary",
   },
 ];
 
