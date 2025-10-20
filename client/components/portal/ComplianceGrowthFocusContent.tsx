@@ -11,6 +11,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
+import {
   Dialog,
   DialogTrigger,
   DialogContent,
