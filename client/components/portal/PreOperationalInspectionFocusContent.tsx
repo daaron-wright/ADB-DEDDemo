@@ -245,6 +245,23 @@ export function PreOperationalInspectionFocusContent({
     walkthroughInputRef.current?.click();
   }, [walkthroughStatus]);
 
+  const handleAdvanceGallery = React.useCallback(() => {
+    setActiveGalleryIndex((previousIndex) => {
+      if (previousIndex === -1) {
+        return -1;
+      }
+      const nextIndex = (previousIndex + 1) % galleryLength;
+      setReviewedImageIndices((prev) => {
+        const updated = new Set(prev);
+        if (previousIndex >= 0) {
+          updated.add(previousIndex);
+        }
+        return updated;
+      });
+      return nextIndex;
+    });
+  }, [galleryLength]);
+
   const handleWalkthroughSelect = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0];
