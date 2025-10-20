@@ -111,6 +111,15 @@ type VideoEvidence = {
   frames: EvidenceFrame[];
 };
 
+type AutomationTabValue = "overview" | "inspection-evidence";
+
+type EvidenceGalleryItem = {
+  key: string;
+  frame: EvidenceFrame;
+  videoFilename: string;
+  capturedOn: string;
+};
+
 interface ComplianceGrowthFocusContentProps {
   journeyNumber?: string;
   growthUnlocked?: boolean;
