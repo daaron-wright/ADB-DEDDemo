@@ -120,6 +120,17 @@ type EvidenceGalleryItem = {
   capturedOn: string;
 };
 
+interface InspectionEvidenceLibrarySectionProps {
+  images: ReadonlyArray<{
+    id: string;
+    src: string;
+    alt: string;
+    caption: string;
+  }>;
+  evidenceGallery: EvidenceGalleryItem[];
+  defaultExpanded?: boolean;
+}
+
 interface ComplianceGrowthFocusContentProps {
   journeyNumber?: string;
   growthUnlocked?: boolean;
