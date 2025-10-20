@@ -31,7 +31,6 @@ import {
   Check,
   CheckCircle,
   Circle,
-  FolderOpen,
   Loader2,
   ShieldCheck,
   UploadCloud,
