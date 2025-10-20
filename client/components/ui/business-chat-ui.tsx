@@ -570,18 +570,6 @@ const resolveQuickActionRecommendation = (id: string): StageRecommendation | nul
   return recommendation;
 };
 
-const addUniqueAction = (target: MessageAction[], action?: MessageAction) => {
-  if (!action) {
-    return;
-  }
-
-  if (target.some((item) => item.id === action.id)) {
-    return;
-  }
-
-  target.push(action);
-};
-
 const mergeRecommendations = (
   ...groups: ReadonlyArray<StageRecommendation>[]
 ): StageRecommendation[] => {
