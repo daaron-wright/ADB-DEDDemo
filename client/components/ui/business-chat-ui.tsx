@@ -828,11 +828,15 @@ const ACTION_FOLLOW_UPS: Partial<Record<ConversationAction, ReadonlyArray<StageR
 const RECOMMENDATION_FOLLOW_UPS: Partial<Record<string, ReadonlyArray<StageRecommendation>>> = {
   "intro-market-overview": LOCATION_INTELLIGENCE_FOLLOW_UPS,
   "welcome-market-overview": LOCATION_INTELLIGENCE_FOLLOW_UPS,
+  "welcome-demographics": FOLLOW_UP_DEMOGRAPHICS_FOCUS,
   "intro-competitive-landscape": FOLLOW_UP_COMPETITOR_ANALYSIS,
   "welcome-competition": FOLLOW_UP_COMPETITOR_ANALYSIS,
   "intro-gap-analysis": FOLLOW_UP_SUMMARY_COMPLETION,
+  "follow-up-location-demographics": FOLLOW_UP_DEMOGRAPHICS_FOCUS,
   "follow-up-location-budget": FOLLOW_UP_BUDGET_DISCUSSION,
   "follow-up-gap-analysis": FOLLOW_UP_SUMMARY_COMPLETION,
+  "follow-up-generate-summary": FOLLOW_UP_SUMMARY_COMPLETION,
+  "summary-generate-report": FOLLOW_UP_SUMMARY_COMPLETION,
   "summary-budget-refresh": FOLLOW_UP_BUDGET_DISCUSSION,
 };
 
