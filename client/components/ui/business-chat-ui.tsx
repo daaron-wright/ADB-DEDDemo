@@ -7474,11 +7474,19 @@ export function BusinessChatUI({
       },
     ];
 
-    const defaultActionIds = new Set(defaultActions.map((action) => action.id));
-
-    setPersistentQuickActions((previous) =>
-      previous.filter((action) => !defaultActionIds.has(action.id)),
-    );
+    setPersistentQuickActions((previous) => {
+      const existingIds = new Set(previous.map((action) => action.id));
+      if (defaultActions.every((action) => existingIds.has(action.id))) {
+        return previous;
+      }
+      const merged = [...previous];
+      defaultActions.forEach((action) => {
+        if (!existingIds.has(action.id)) {
+          merged.push(action);
+        }
+      });
+      return merged;
+    });
 
     const trimmedInitial = initialMessage?.trim();
     const hasInitialPrompt = Boolean(trimmedInitial);
@@ -7497,9 +7505,6 @@ export function BusinessChatUI({
           ? `${defaultGreeting} Once we cover that, I'll handle the follow-up steps.`
           : defaultGreeting,
         true,
-        {
-          actions: defaultActions,
-        },
       ),
     );
 
