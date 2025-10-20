@@ -493,6 +493,7 @@ const QUICK_ACTION_RECOMMENDATION_DETAILS: Record<
     type?: RecommendationInteraction;
     prompt?: string;
     nextStep?: ConversationStep;
+    quickAction?: boolean;
   }
 > = {
   "welcome-market-overview": {
@@ -510,9 +511,21 @@ const QUICK_ACTION_RECOMMENDATION_DETAILS: Record<
       "Check indicative setup and operating budgets tailored to your concept.",
     icon: Gauge,
   },
+  "welcome-demographics": {
+    description:
+      "Surface population density, resident mixes, and visitor flows for priority districts.",
+    icon: MapPin,
+  },
   "summary-open-viability": {
     description:
       "Reopen the viability recap to review or export the consolidated insights.",
+    icon: ClipboardList,
+    nextStep: "handoff",
+    quickAction: false,
+  },
+  "summary-generate-report": {
+    description:
+      "Compile every insight gathered so far into a market intelligence summary.",
     icon: ClipboardList,
     nextStep: "handoff",
   },
