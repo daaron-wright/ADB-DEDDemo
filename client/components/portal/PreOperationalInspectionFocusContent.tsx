@@ -344,6 +344,50 @@ export function PreOperationalInspectionFocusContent({
   ]);
 
   React.useEffect(() => {
+    if (walkthroughStatus !== "ready") {
+      setReviewedImageIndices(() => new Set());
+      setHasInspectionApproval(false);
+      setActiveGalleryIndex(0);
+    }
+  }, [walkthroughStatus]);
+
+  React.useEffect(() => {
+    if (
+      !hasInspectionApproval &&
+      galleryLength > 0 &&
+      reviewedImageIndices.size >= galleryLength
+    ) {
+      setHasInspectionApproval(true);
+    }
+  }, [hasInspectionApproval, reviewedImageIndices, galleryLength]);
+
+  React.useEffect(() => {
+    if (!hasInspectionApproval) {
+      return;
+    }
+
+    if (galleryTimerRef.current) {
+      window.clearInterval(galleryTimerRef.current);
+      galleryTimerRef.current = null;
+    }
+
+    setReviewedImageIndices((prev) => {
+      if (prev.size >= galleryLength) {
+        return prev;
+      }
+      const completed = new Set<number>();
+      for (let index = 0; index < galleryLength; index += 1) {
+        completed.add(index);
+      }
+      return completed;
+    });
+
+    if (activeGalleryIndex !== -1) {
+      setActiveGalleryIndex(-1);
+    }
+  }, [hasInspectionApproval, galleryLength, activeGalleryIndex]);
+
+  React.useEffect(() => {
     return () => {
       if (uploadTimerRef.current) {
         window.clearTimeout(uploadTimerRef.current);
