@@ -346,7 +346,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدراسة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، شاهدي كيف يحول ${name} و��س��ث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدرا��ة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، شاهدي كيف يحول ${name} و��س��ث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
     heroButton: "استكشفي خيارا��� إضافية",
     chatCta: "ال��ردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -430,7 +430,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       pendingLicenseLabel: "م��اح بعد الاستبيان",
       pendingSubmissionLabel: "",
       chatIntro:
-        "لنؤكد بعض التفاصي�� معًا. بعد إنها�� هذا الاستبيان، سأعرض نوع التر��يص ومعرّف ا��طلب.",
+        "لنؤكد بعض التفاصي�� معًا. بع�� إنها�� هذا الاستبيان، سأعرض نوع التر��يص ومعرّف ا��طلب.",
     },
   },
 };
@@ -1998,6 +1998,20 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
     setJourneyAnimationIndex,
     setJourneyProgressPercent,
     updateCurrentJourneyStep,
+  ]);
+
+  const handleExitJourneyFocus = useCallback(() => {
+    setBusinessAIView("closed");
+    setFocusContext(null);
+    setIsTimelineBackgroundBlurred(false);
+    setIsJourneyOverviewOpen(true);
+    setIsStageManuallySelected(false);
+  }, [
+    setBusinessAIView,
+    setFocusContext,
+    setIsTimelineBackgroundBlurred,
+    setIsJourneyOverviewOpen,
+    setIsStageManuallySelected,
   ]);
 
   const handleResumeAutomation = useCallback(() => {
