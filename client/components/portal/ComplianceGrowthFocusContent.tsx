@@ -570,23 +570,15 @@ export function ComplianceGrowthFocusContent({
           item.id === id ? { ...item, status: "success", detail: "Resolved" } : item,
         ),
       );
-      toast({
-        title: "Marked as resolved",
-        description: "We'll keep monitoring this obligation as automation progresses.",
-      });
     },
-    [toast],
+    [],
   );
 
   const handleComplianceReturn = React.useCallback(() => {
     onComplianceReturn?.();
-    toast({
-      title: "Compliance action logged",
-      description: "A licensing specialist will confirm once the authority acknowledges your submission.",
-    });
     setAutomationTab("overview");
     setActiveSlideId("automation");
-  }, [onComplianceReturn, setAutomationTab, toast]);
+  }, [onComplianceReturn]);
 
   const resetPendingVideo = React.useCallback(() => {
     setPendingVideo(null);
@@ -637,11 +629,7 @@ export function ComplianceGrowthFocusContent({
 
     resetPendingVideo();
     setSubmissionStatus("idle");
-    toast({
-      title: "Upload cleared",
-      description: "Select a new walkthrough to keep inspectors updated.",
-    });
-  }, [pendingVideo, resetPendingVideo, toast]);
+  }, [pendingVideo, resetPendingVideo]);
 
   const handleSubmitVideoEvidence = React.useCallback(() => {
     if (!pendingVideo) {
@@ -690,10 +678,6 @@ export function ComplianceGrowthFocusContent({
     setPipelineIndex((previous) =>
       previous >= INSPECTION_PIPELINE_STEPS.length - 1 ? previous : previous + 1,
     );
-    toast({
-      title: "Video submitted",
-      description: `${videoToSubmit.name} is syncing to the inspector queue.`,
-    });
     resetPendingVideo();
 
     const processingTimer = window.setTimeout(() => {
@@ -769,19 +753,10 @@ export function ComplianceGrowthFocusContent({
     if (matchesPolicyRequest) {
       acknowledgePolicyUpdate();
       setFeedbackStatus("responded");
-      toast({
-        title: "DED fast-tracked your policy",
-        description:
-          "DED has incorporated your low-risk F&B submission into the New Trade Name policy.",
-      });
       return;
     }
 
     setFeedbackStatus("submitted");
-    toast({
-      title: "Feedback sent",
-      description: "Growth desk will respond within one business day.",
-    });
   }, [feedbackNotes, acknowledgePolicyUpdate, setFeedbackStatus, toast]);
 
   const slides: StageSlide[] = [
@@ -1276,16 +1251,15 @@ export function ComplianceGrowthFocusContent({
                               type="button"
                               disabled={!growthUnlocked}
                               className="inline-flex items-center gap-2 rounded-full bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.45)] disabled:cursor-not-allowed disabled:bg-[#0f766e]/20"
-                              onClick={() =>
-                                toast({
-                                  title: growthUnlocked
-                                    ? "Growth workflow initiated"
-                                    : "Complete compliance first",
-                                  description: growthUnlocked
-                                    ? `${opportunity.title} is underway. Polaris will guide you through each step.`
-                                    : "Finish outstanding compliance tasks to unlock growth playbooks.",
-                                })
-                              }
+                              onClick={() => {
+                                if (!growthUnlocked) {
+                                  return;
+                                }
+                                setActiveOpportunityMessage({
+                                  id: opportunity.id,
+                                  message: `${opportunity.title} is underway. Polaris will guide you through each step.`,
+                                });
+                              }}
                             >
                               {opportunity.buttonLabel}
                               <ArrowRight className="h-4 w-4" />
