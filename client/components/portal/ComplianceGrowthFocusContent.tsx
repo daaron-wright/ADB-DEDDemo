@@ -507,7 +507,7 @@ export function ComplianceGrowthFocusContent({
     return videoLibrary[0];
   }, [videoLibrary]);
 
-  const evidenceGallery = React.useMemo(
+  const evidenceGallery = React.useMemo<EvidenceGalleryItem[]>(
     () =>
       videoLibrary
         .flatMap((item) =>
