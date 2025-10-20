@@ -596,6 +596,19 @@ const deriveQuickActions = ({
   return recommended.slice(0, MAX_RECOMMENDED_QUICK_ACTIONS);
 };
 
+const findQuickActionId = (
+  action: ConversationAction,
+  normalizedLabel: string,
+): string | null => {
+  const libraryMatch = Object.values(QUICK_ACTION_LIBRARY).find(
+    (item) =>
+      item.action === action &&
+      item.label.trim().toLowerCase() === normalizedLabel,
+  );
+
+  return libraryMatch?.id ?? null;
+};
+
 const LOCATION_INTELLIGENCE_FOLLOW_UPS: ReadonlyArray<StageRecommendation> = [
   {
     id: "follow-up-location-demographics",
