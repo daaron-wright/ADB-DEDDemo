@@ -517,7 +517,6 @@ export function ComplianceGrowthFocusContent({
   const [automationTab, setAutomationTab] =
     React.useState<AutomationTabValue>("overview");
   const frameTimersRef = React.useRef<number[]>([]);
-  const policyAcknowledgementTimerRef = React.useRef<number | null>(null);
 
   React.useEffect(() => {
     if (activeSlideId !== "automation") {
@@ -748,19 +747,10 @@ export function ComplianceGrowthFocusContent({
     return () => {
       frameTimersRef.current.forEach((timerId) => window.clearTimeout(timerId));
       frameTimersRef.current = [];
-      if (policyAcknowledgementTimerRef.current) {
-        window.clearTimeout(policyAcknowledgementTimerRef.current);
-        policyAcknowledgementTimerRef.current = null;
-      }
     };
   }, []);
 
   const handleSubmitFeedback = React.useCallback(() => {
-    if (policyAcknowledgementTimerRef.current) {
-      window.clearTimeout(policyAcknowledgementTimerRef.current);
-      policyAcknowledgementTimerRef.current = null;
-    }
-
     if (!feedbackNotes.trim()) {
       toast({
         title: "Add feedback notes",
@@ -791,26 +781,7 @@ export function ComplianceGrowthFocusContent({
       title: "Feedback sent",
       description: "Growth desk will respond within one business day.",
     });
-
-    if (!resolvedPolicyUpdateAcknowledged) {
-      policyAcknowledgementTimerRef.current = window.setTimeout(() => {
-        acknowledgePolicyUpdate();
-        setFeedbackStatus("responded");
-        toast({
-          title: "DED fast-tracked your policy",
-          description:
-            "DED has incorporated your low-risk F&B submission into the New Trade Name policy.",
-        });
-        policyAcknowledgementTimerRef.current = null;
-      }, 1400);
-    }
-  }, [
-    feedbackNotes,
-    acknowledgePolicyUpdate,
-    resolvedPolicyUpdateAcknowledged,
-    setFeedbackStatus,
-    toast,
-  ]);
+  }, [feedbackNotes, acknowledgePolicyUpdate, setFeedbackStatus, toast]);
 
   const slides: StageSlide[] = [
     {
