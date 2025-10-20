@@ -372,7 +372,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     statusLabelMap: {
       "In Review": "قيد المراجعة",
       "Awaiting Documents": "بانتظار المستندات",
-      Approved: "موافق عليه",
+      Approved: "موافق علي��",
       Draft: "مسودة",
       Compliant: "متوافق",
     },
@@ -401,7 +401,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     tradeNamePaymentNextStep: "سددي رسوم الاسم التجاري وأصدريه",
     tradeNamePaymentToast:
-      "سددي رسوم الاسم التجاري البالغة 65 درهماً لإصدار الاسم وتمكين رفع المستندات.",
+      "سددي رسوم ال��سم التجاري البالغة 65 درهماً لإصدار الاسم وتمكين رفع المستندات.",
     journey: {
       heading: "تنسيق الرحلة",
       timelineLabel: "الجدول الزمني للرحلة",
@@ -1014,6 +1014,8 @@ export default function ApplicantPortal() {
   const [hasTradeNameReservationSubmitted, setHasTradeNameReservationSubmitted] =
     useState(false);
   const [hasLicenseIssued, setHasLicenseIssued] = useState(false);
+  const [policyUpdateAcknowledged, setPolicyUpdateAcknowledged] =
+    usePersistentState<boolean>("portal-policy-update-acknowledged", false);
   const [questionnaireProgress, setQuestionnaireProgress] =
     usePersistentState<QuestionnaireProgress>(
       "portal-questionnaire-progress",
