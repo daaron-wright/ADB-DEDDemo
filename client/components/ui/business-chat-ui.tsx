@@ -4747,7 +4747,7 @@ const CompetitorBreakoutModal = ({
   const competitorHighlights = [
     {
       name: "Shurfa Bay",
-      rating: "4.8����������",
+      rating: "4.8������������",
       tier: "Premium waterfront",
       insight:
         "Sunset terrace has maintained 98% capacity across the past four evenings.",
@@ -7388,7 +7388,7 @@ export function BusinessChatUI({
   const handleRecommendationSelect = useCallback(
     (recommendation: StageRecommendation) => {
       if (recommendation.type === "conversation" && recommendation.action) {
-        handleAction(recommendation.action, recommendation.label);
+        handleAction(recommendation.action, recommendation.label, recommendation.id);
       } else if (recommendation.type === "prompt" && recommendation.prompt) {
         handleSendMessage(recommendation.prompt);
       } else if (recommendation.type === "modal" && recommendation.modal) {
