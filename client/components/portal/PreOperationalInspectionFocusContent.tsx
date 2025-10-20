@@ -468,6 +468,65 @@ export function PreOperationalInspectionFocusContent({
             <p className="text-sm text-slate-600">
               Polaris retrieves certificates, confirms inspectors, and updates your checklist in real time across ADCDA, ADAFSA, and service providers.
             </p>
+            <div className="overflow-hidden rounded-3xl border border-[#d8e4df] bg-white shadow-[0_20px_52px_-38px_rgba(15,23,42,0.28)]">
+              <div className="flex flex-wrap items-center justify-between gap-3 p-6">
+                <div className="space-y-1">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                    Inspection photo library
+                  </p>
+                  <p className="text-sm text-slate-600">
+                    Full-width captures sync after your walkthrough upload completes.
+                  </p>
+                </div>
+                <Button
+                  type="button"
+                  onClick={handleWalkthroughUpload}
+                  disabled={isWalkthroughProcessing || isWalkthroughReady}
+                  className="inline-flex items-center gap-2 rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_42px_-30px_rgba(15,118,110,0.55)] transition hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:bg-[#0f766e]/30"
+                >
+                  {isWalkthroughReady ? (
+                    <>
+                      <Check className="h-4 w-4" />
+                      <span>Walkthrough synced</span>
+                    </>
+                  ) : (
+                    <>
+                      {isWalkthroughProcessing ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : null}
+                      <span>{isWalkthroughProcessing ? "Processing..." : "Upload walkthrough"}</span>
+                    </>
+                  )}
+                </Button>
+              </div>
+              {isWalkthroughReady ? (
+                <div className="grid grid-cols-1 gap-[2px] bg-[#d8e4df]/40 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  {PREOP_INSPECTION_IMAGES.map((image) => (
+                    <figure key={image.id} className="relative bg-white">
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        className="h-56 w-full object-cover"
+                      />
+                      <figcaption className="absolute inset-x-0 bottom-0 bg-slate-900/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white">
+                        {image.caption}
+                      </figcaption>
+                    </figure>
+                  ))}
+                </div>
+              ) : (
+                <div className="border-t border-[#d8e4df]/80 bg-[#f9fbfd] px-6 py-12">
+                  <div className="mx-auto flex max-w-xl flex-col items-center gap-3 rounded-2xl border-2 border-dashed border-[#d8e4df] bg-white/70 p-8 text-center">
+                    <p className="text-sm font-semibold text-slate-900">
+                      No walkthrough uploaded yet
+                    </p>
+                    <p className="text-xs text-slate-500">
+                      Upload your pre-operational video walkthrough to unlock the inspection photo gallery. Polaris auto-populates frames once the footage syncs.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         ),
       },
