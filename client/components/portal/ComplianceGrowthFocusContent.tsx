@@ -1067,58 +1067,6 @@ export function ComplianceGrowthFocusContent({
                     ) : null}
                     Submit to inspectors
                   </Button>
-                  <Dialog open={libraryDialogOpen} onOpenChange={setLibraryDialogOpen}>
-                    <DialogTrigger asChild>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="flex items-center gap-2 rounded-full border-[#0f766e]/40 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
-                      >
-                        <FolderOpen className="h-4 w-4" />
-                        View library
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-4xl rounded-3xl border border-[#d8e4df] bg-white p-7 shadow-[0_28px_70px_-36px_rgba(15,23,42,0.3)]">
-                      <DialogHeader className="space-y-4 text-left">
-                        <div className="flex flex-wrap items-center justify-between gap-3">
-                          <div className="space-y-1">
-                            <DialogTitle className="text-2xl font-semibold text-slate-900">
-                              Inspection Evidence Library
-                            </DialogTitle>
-                            <DialogDescription className="text-sm text-slate-600">
-                              Polaris-approved captures from your latest walkthrough, ready for inspector review.
-                            </DialogDescription>
-                          </div>
-                          <Badge className="rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
-                            PASS
-                          </Badge>
-                        </div>
-                      </DialogHeader>
-                      <ScrollArea className="max-h-[540px] pr-3">
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                          {INSPECTION_EVIDENCE_IMAGES.map((image) => (
-                            <div
-                              key={image.id}
-                              className="group relative overflow-hidden rounded-2xl border border-[#e6f2ed] bg-white shadow-[0_18px_42px_-32px_rgba(15,23,42,0.35)]"
-                            >
-                              <img
-                                src={image.src}
-                                alt={image.alt}
-                                className="h-60 w-full object-cover transition duration-500 group-hover:scale-105"
-                              />
-                              <span className="absolute left-3 top-3 rounded-full bg-[#0f766e] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
-                                PASS
-                              </span>
-                              <p className="absolute inset-x-3 bottom-3 rounded-lg bg-slate-900/75 px-3 py-2 text-xs font-semibold leading-snug text-white">
-                                {image.caption}
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-                      </ScrollArea>
-                    </DialogContent>
-                  </Dialog>
                 </div>
                 <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#d8e4df] bg-[#f5faf7] p-4">
                   <div className="max-w-[360px] space-y-1">
