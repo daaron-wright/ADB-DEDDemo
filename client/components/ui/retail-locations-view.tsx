@@ -226,89 +226,91 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                   className="w-full h-auto"
                 />
               </div>
-              <Tabs defaultValue="business-plan" className="mt-4 w-full">
-                <TabsList className="grid grid-cols-1 gap-2 rounded-2xl border border-[#0F766E]/25 bg-white/70 p-2 shadow-sm sm:grid-cols-2">
-                  <TabsTrigger
-                    value="business-plan"
-                    className="rounded-xl px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition data-[state=active]:bg-[#0F766E] data-[state=active]:text-white"
-                  >
-                    Export your business plan
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="ded-data"
-                    className="rounded-xl px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition data-[state=active]:bg-[#0F766E] data-[state=active]:text-white"
-                  >
-                    Download Abu Dhabi DED data packs
-                  </TabsTrigger>
-                </TabsList>
-                <TabsContent value="business-plan" className="mt-4 focus-visible:outline-none focus-visible:ring-0">
-                  <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-white/85 p-4 text-sm text-slate-600 shadow-sm">
-                    <p>
-                      Generate a tailored business plan for your selected location with Polaris insights on costs and next steps.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={handleExportBusinessPlan}
-                      disabled={!selectedLocation}
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#0F766E]/35 bg-white px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition hover:bg-[#eff6f3] hover:text-[#0a5a55] disabled:cursor-not-allowed disabled:opacity-60"
+              <div className="mt-4 w-full rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_24px_48px_-36px_rgba(15,23,42,0.32)]">
+                <Tabs defaultValue="business-plan" className="w-full">
+                  <TabsList className="grid grid-cols-1 gap-2 rounded-2xl bg-[#f2f7f5] p-2 shadow-inner sm:grid-cols-2">
+                    <TabsTrigger
+                      value="business-plan"
+                      className="rounded-xl px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition data-[state=active]:bg-[#0F766E] data-[state=active]:text-white"
                     >
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="7 10 12 15 17 10" />
-                        <line x1="12" x2="12" y1="3" y2="15" />
-                      </svg>
-                      Export plan
-                    </button>
-                    {!selectedLocation ? (
-                      <p className="text-xs text-[#0F766E]">
-                        Select a retail location to enable downloads.
-                      </p>
-                    ) : null}
-                  </div>
-                </TabsContent>
-                <TabsContent value="ded-data" className="mt-4 focus-visible:outline-none focus-visible:ring-0">
-                  <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-white/85 p-4 text-sm text-slate-600 shadow-sm">
-                    <p>
-                      Access curated DED datasets covering licensing history, inspection benchmarks, and Polaris footfall indices for your shortlisted spot.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={handleDownloadDedDataPacks}
-                      disabled={!selectedLocation}
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#0F766E]/35 bg-white px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition hover:bg-[#eff6f3] hover:text-[#0a5a55] disabled:cursor-not-allowed disabled:opacity-60"
+                      Export your business plan
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="ded-data"
+                      className="rounded-xl px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition data-[state=active]:bg-[#0F766E] data-[state=active]:text-white"
                     >
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M12 5v14" />
-                        <path d="M5 12h14" />
-                      </svg>
-                      Download data packs
-                    </button>
-                    {!selectedLocation ? (
-                      <p className="text-xs text-[#0F766E]">
-                        Choose a location to download the latest DED data packs.
+                      Download Abu Dhabi DED data packs
+                    </TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="business-plan" className="mt-4 focus-visible:outline-none focus-visible:ring-0">
+                    <div className="space-y-3 text-sm leading-relaxed text-slate-600">
+                      <p>
+                        Generate a tailored business plan for your selected location with Polaris insights on costs and next steps.
                       </p>
-                    ) : null}
-                  </div>
-                </TabsContent>
-              </Tabs>
+                      <button
+                        type="button"
+                        onClick={handleExportBusinessPlan}
+                        disabled={!selectedLocation}
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#0F766E]/35 bg-white px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition hover:bg-[#eff6f3] hover:text-[#0a5a55] disabled:cursor-not-allowed disabled:opacity-60"
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                          <polyline points="7 10 12 15 17 10" />
+                          <line x1="12" x2="12" y1="3" y2="15" />
+                        </svg>
+                        Export plan
+                      </button>
+                      {!selectedLocation ? (
+                        <p className="text-xs text-[#0F766E]">
+                          Select a retail location to enable downloads.
+                        </p>
+                      ) : null}
+                    </div>
+                  </TabsContent>
+                  <TabsContent value="ded-data" className="mt-4 focus-visible:outline-none focus-visible:ring-0">
+                    <div className="space-y-3 text-sm leading-relaxed text-slate-600">
+                      <p>
+                        Access curated DED datasets covering licensing history, inspection benchmarks, and Polaris footfall indices for your shortlisted spot.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={handleDownloadDedDataPacks}
+                        disabled={!selectedLocation}
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#0F766E]/35 bg-white px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition hover:bg-[#eff6f3] hover:text-[#0a5a55] disabled:cursor-not-allowed disabled:opacity-60"
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M12 5v14" />
+                          <path d="M5 12h14" />
+                        </svg>
+                        Download data packs
+                      </button>
+                      {!selectedLocation ? (
+                        <p className="text-xs text-[#0F766E]">
+                          Choose a location to download the latest DED data packs.
+                        </p>
+                      ) : null}
+                    </div>
+                  </TabsContent>
+                </Tabs>
+              </div>
             </motion.div>
 
             {/* Automation Prompt */}
