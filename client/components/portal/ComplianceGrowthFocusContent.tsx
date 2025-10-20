@@ -781,7 +781,7 @@ export function ComplianceGrowthFocusContent({
       title: "Feedback sent",
       description: "Growth desk will respond within one business day.",
     });
-  }, [feedbackNotes, setFeedbackStatus, setPolicyUpdateAcknowledged, toast]);
+  }, [feedbackNotes, setFeedbackStatus, acknowledgePolicyUpdate, toast]);
 
   const slides: StageSlide[] = [
     {
