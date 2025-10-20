@@ -81,6 +81,7 @@ export interface JourneyStageFocusViewProps {
   growthUnlocked?: boolean;
   onComplianceReturn?: () => void;
   isCompliancePassed?: boolean;
+  onExitJourney?: () => void;
   legalFormOptions?: LegalFormOption[];
   selectedLegalFormId?: string | null;
   onLegalFormSelect?: (legalFormId: string) => void;
@@ -178,6 +179,7 @@ export function JourneyStageFocusView({
   growthUnlocked = false,
   onComplianceReturn,
   isCompliancePassed,
+  onExitJourney,
   legalFormOptions = DEFAULT_LEGAL_FORM_OPTIONS,
   selectedLegalFormId,
   onLegalFormSelect,
@@ -201,9 +203,13 @@ export function JourneyStageFocusView({
   const isPreOperationalInspectionStage = stage?.id === "inspections";
   const isComplianceGrowthStage = stage?.id === "compliance-growth";
 
-  const hasNavigationControls = Boolean(
-    navigation && (navigation.onNext || navigation.onPrevious),
-  );
+  const shouldShowExitButton =
+    isComplianceGrowthStage && typeof onExitJourney === "function";
+  const shouldShowPreviousButton =
+    Boolean(navigation?.onPrevious) && !shouldShowExitButton;
+  const shouldShowNextButton = Boolean(navigation?.onNext);
+  const hasNavigationControls =
+    shouldShowPreviousButton || shouldShowNextButton || shouldShowExitButton;
   const selectedRecommendedActivity = recommendedActivities.find(
     (activity) => activity.id === activeRecommendedActivityId,
   );
@@ -240,7 +246,7 @@ export function JourneyStageFocusView({
 
   const navigationControls = hasNavigationControls ? (
     <div className="flex flex-wrap items-center justify-end gap-3">
-      {navigation?.onPrevious ? (
+      {shouldShowPreviousButton && navigation?.onPrevious ? (
         <Button
           type="button"
           variant="outline"
@@ -253,7 +259,16 @@ export function JourneyStageFocusView({
             : "Previous stage"}
         </Button>
       ) : null}
-      {navigation?.onNext ? (
+      {shouldShowExitButton && onExitJourney ? (
+        <Button
+          type="button"
+          onClick={onExitJourney}
+          className="inline-flex items-center gap-2 rounded-full bg-[#0f766e] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_42px_-30px_rgba(15,118,110,0.55)] transition hover:bg-[#0c6059]"
+        >
+          Exit your journey
+        </Button>
+      ) : null}
+      {shouldShowNextButton && navigation?.onNext ? (
         <Button
           type="button"
           onClick={navigation.onNext}
