@@ -399,6 +399,203 @@ const CONVERSATION_BLUEPRINT: Record<
   },
 };
 
+const QUICK_ACTION_LIBRARY: Record<string, MessageAction> = {
+  "welcome-market-overview": {
+    id: "welcome-market-overview",
+    label: "Discover Opportunities",
+    action: "open-market-overview",
+  },
+  "welcome-competition": {
+    id: "welcome-competition",
+    label: "Assess Competition",
+    action: "open-competition-analysis",
+  },
+  "welcome-budget": {
+    id: "welcome-budget",
+    label: "Identify Your Location",
+    action: "open-budget-analysis",
+  },
+  "welcome-human-agent": {
+    id: "welcome-human-agent",
+    label: "Human Assistance",
+    action: "contact-human",
+  },
+  "summary-open-viability": {
+    id: "summary-open-viability",
+    label: "View viability summary",
+    action: "open-viability-summary",
+  },
+  "summary-reserve-trade-name": {
+    id: "summary-reserve-trade-name",
+    label: "Reserve trade name",
+    action: "open-investor-journey",
+  },
+  "handoff-automation": {
+    id: "handoff-automation",
+    label: "Automate my application",
+    action: "confirm-retail-automation",
+  },
+  "handoff-open-portal": {
+    id: "handoff-open-portal",
+    label: "Open applicant workspace",
+    action: "open-investor-journey",
+  },
+};
+
+const STAGE_QUICK_ACTION_DEFAULTS: Record<ConversationStep, string[]> = {
+  intro: [
+    "welcome-market-overview",
+    "welcome-competition",
+    "welcome-budget",
+    "welcome-human-agent",
+  ],
+  summary: [
+    "summary-open-viability",
+    "summary-reserve-trade-name",
+    "welcome-human-agent",
+  ],
+  handoff: [
+    "handoff-open-portal",
+    "handoff-automation",
+    "welcome-human-agent",
+  ],
+};
+
+const MODAL_VIEW_ACTION_MAP: Partial<Record<ModalView, string>> = {
+  "heat-map": "welcome-market-overview",
+  "retail-locations": "welcome-market-overview",
+  "competitor-map": "welcome-competition",
+  "budget-ranges": "welcome-budget",
+  "viability-summary": "summary-open-viability",
+};
+
+const KEYWORD_ACTION_RULES: ReadonlyArray<{
+  id: string;
+  test: (value: string) => boolean;
+}> = [
+  {
+    id: "welcome-competition",
+    test: (value) =>
+      /(competition|competitor|competitive|market share|rival)/.test(value),
+  },
+  {
+    id: "welcome-budget",
+    test: (value) => /(budget|cost|pricing|finance|lease|rent|capital)/.test(value),
+  },
+  {
+    id: "welcome-market-overview",
+    test: (value) =>
+      /(location|district|area|spot|footfall|opportunity|market)/.test(value),
+  },
+  {
+    id: "summary-open-viability",
+    test: (value) => /(summary|plan|viability|report|export)/.test(value),
+  },
+  {
+    id: "summary-reserve-trade-name",
+    test: (value) => /(trade name|application|licen[cs]e|reserve)/.test(value),
+  },
+  {
+    id: "welcome-human-agent",
+    test: (value) => /(human|agent|person|representative|help)/.test(value),
+  },
+];
+
+const MAX_RECOMMENDED_QUICK_ACTIONS = 4;
+
+const resolveQuickAction = (id: string): MessageAction | undefined =>
+  QUICK_ACTION_LIBRARY[id];
+
+const addUniqueAction = (target: MessageAction[], action?: MessageAction) => {
+  if (!action) {
+    return;
+  }
+
+  if (target.some((item) => item.id === action.id)) {
+    return;
+  }
+
+  target.push(action);
+};
+
+const areQuickActionListsEqual = (
+  previous: ReadonlyArray<MessageAction>,
+  next: ReadonlyArray<MessageAction>,
+) =>
+  previous.length === next.length &&
+  previous.every((action, index) => action.id === next[index]?.id);
+
+const deriveQuickActions = ({
+  messages,
+  currentStep,
+  modalView,
+  followUpRecommendations,
+  view,
+  isInvestorAuthenticated,
+}: {
+  messages: ReadonlyArray<BusinessMessage>;
+  currentStep: ConversationStep;
+  modalView: ModalView;
+  followUpRecommendations: ReadonlyArray<StageRecommendation>;
+  view: ChatView;
+  isInvestorAuthenticated: boolean;
+}): MessageAction[] => {
+  const recommended: MessageAction[] = [];
+
+  const lastUserMessage = [...messages]
+    .reverse()
+    .find((message) => !message.isAI && message.content.trim().length > 0);
+
+  const normalizedUserInput = lastUserMessage
+    ? normalizeMessageContent(lastUserMessage.content)
+    : "";
+
+  if (normalizedUserInput.length > 0) {
+    KEYWORD_ACTION_RULES.forEach(({ id, test }) => {
+      if (test(normalizedUserInput)) {
+        addUniqueAction(recommended, resolveQuickAction(id));
+      }
+    });
+  }
+
+  const modalActionId = MODAL_VIEW_ACTION_MAP[modalView];
+  if (modalActionId) {
+    addUniqueAction(recommended, resolveQuickAction(modalActionId));
+  }
+
+  followUpRecommendations
+    .filter((recommendation) => recommendation.type === "conversation" && recommendation.action)
+    .forEach((recommendation) => {
+      addUniqueAction(recommended, {
+        id: recommendation.id,
+        label: recommendation.label,
+        action: recommendation.action!,
+      });
+    });
+
+  if (currentStep === "summary" || view === "discover-experience") {
+    addUniqueAction(recommended, resolveQuickAction("summary-open-viability"));
+  }
+
+  if (currentStep === "handoff" || view === "investor-journey") {
+    addUniqueAction(recommended, resolveQuickAction("handoff-open-portal"));
+    if (isInvestorAuthenticated) {
+      addUniqueAction(recommended, resolveQuickAction("handoff-automation"));
+    }
+  }
+
+  const stageDefaults = STAGE_QUICK_ACTION_DEFAULTS[currentStep] ?? [];
+  stageDefaults.forEach((id) => addUniqueAction(recommended, resolveQuickAction(id)));
+
+  if (recommended.length === 0) {
+    STAGE_QUICK_ACTION_DEFAULTS.intro.forEach((id) =>
+      addUniqueAction(recommended, resolveQuickAction(id)),
+    );
+  }
+
+  return recommended.slice(0, MAX_RECOMMENDED_QUICK_ACTIONS);
+};
+
 const LOCATION_INTELLIGENCE_FOLLOW_UPS: ReadonlyArray<StageRecommendation> = [
   {
     id: "follow-up-location-demographics",
