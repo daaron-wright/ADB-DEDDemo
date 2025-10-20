@@ -7451,47 +7451,21 @@ export function BusinessChatUI({
       return;
     }
 
-    const defaultActions: MessageAction[] = [
-      {
-        id: "welcome-market-overview",
-        label: "Discover Opportunities",
-        action: "open-market-overview",
-      },
-      {
-        id: "welcome-competition",
-        label: "Assess Competition",
-        action: "open-competition-analysis",
-      },
-      {
-        id: "welcome-budget",
-        label: "Identify Your Location",
-        action: "open-budget-analysis",
-      },
-      {
-        id: "welcome-human-agent",
-        label: "Human Assistance",
-        action: "contact-human",
-      },
-    ];
+    const deprecatedActionIds = new Set([
+      "welcome-market-overview",
+      "welcome-competition",
+      "welcome-budget",
+      "welcome-human-agent",
+    ]);
 
-    setPersistentQuickActions((previous) => {
-      const existingIds = new Set(previous.map((action) => action.id));
-      if (defaultActions.every((action) => existingIds.has(action.id))) {
-        return previous;
-      }
-      const merged = [...previous];
-      defaultActions.forEach((action) => {
-        if (!existingIds.has(action.id)) {
-          merged.push(action);
-        }
-      });
-      return merged;
-    });
+    setPersistentQuickActions((previous) =>
+      previous.filter((action) => !deprecatedActionIds.has(action.id)),
+    );
 
     const trimmedInitial = initialMessage?.trim();
     const hasInitialPrompt = Boolean(trimmedInitial);
-    const baseGreeting =
-      "Welcome, Layla. I'm Polaris—here to keep momentum on your concept.";
+    const defaultGreeting =
+      "Welcome, Layla. Im Polaris—here to keep momentum going. Tell me more about your business concept.";
 
     const conversation: BusinessMessage[] = [];
 
@@ -7502,19 +7476,16 @@ export function BusinessChatUI({
     conversation.push(
       buildMessage(
         hasInitialPrompt
-          ? `${baseGreeting} Let me line up what you asked for.`
-          : `${baseGreeting} Where would you like to start?`,
+          ? `${defaultGreeting} Once we cover that, I'll handle the follow-up steps.`
+          : defaultGreeting,
         true,
-        {
-          actions: defaultActions,
-        },
       ),
     );
 
     if (hasInitialPrompt) {
       conversation.push(
         buildMessage(
-          "I'll pull together the right insights for that. Let me know if you want market signals, competitor context, or budget next.",
+          "I'll pull together the right insights for that and keep you posted along the way.",
           true,
         ),
       );
