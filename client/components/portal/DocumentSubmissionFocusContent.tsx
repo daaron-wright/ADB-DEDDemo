@@ -8,6 +8,7 @@ import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { cn } from "@/lib/utils";
 import { Check, Wallet } from "lucide-react";
 
+import { toast } from "@/hooks/use-toast";
 import { DocumentVaultCard } from "./DocumentVaultCard";
 import { DocumentVaultLayout } from "./DocumentVaultLayout";
 import { StageSlideNavigator, type StageSlide } from "./StageSlideNavigator";
@@ -39,6 +40,10 @@ const POLARIS_RECOMMENDED_MOA_CLAUSE = `Custom Article 7 — Capital contributio
 المادة 7 — المساهمات الرأسمالية وتوزيع الأرباح
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise. Distributions shall be supported by audited management accounts and bilingual notices issued at least five (5) working days in advance. Polaris simulation includes bilingual notices and an ADJD review cover letter.`;
+
+const ADJD_SOURCE_LABEL = "Abu Dhabi Judicial Department (ADJD)";
+const ADJD_REVIEW_DETAIL = "Submitted for ADJD review • Pending approval";
+const ADJD_APPROVED_DETAIL = "ADJD approval recorded • Notarised copy synced";
 
 const CERTIFICATION_SOURCES = [
   {
@@ -194,7 +199,30 @@ export function DocumentSubmissionFocusContent({
     }
 
     setIsFinalisingMoa(true);
-    setActiveSlideId("payment");
+    setActiveSlideId("moa");
+
+    setDocuments((previous) =>
+      previous.map((item) =>
+        item.id === "memorandum-of-association"
+          ? {
+              ...item,
+              status: "ready",
+              source: ADJD_SOURCE_LABEL,
+              sourceDetail: ADJD_REVIEW_DETAIL,
+              actionLabel: "Track ADJD review",
+              description:
+                "Polaris submitted your bilingual MOA to ADJD for notarisation and is monitoring the review.",
+            }
+          : item,
+      ),
+    );
+
+    toast({
+      title: "MOA submitted for ADJD review",
+      description:
+        "Polaris forwarded your memorandum to ADJD. We'll notify you as soon as the approval lands.",
+    });
+
     triggerVaultSync();
     completionTimeoutRef.current = window.setTimeout(() => {
       setDocuments((previous) =>
@@ -203,18 +231,25 @@ export function DocumentSubmissionFocusContent({
             ? {
                 ...item,
                 status: "completed" as const,
-                source: DOCUMENT_VAULT_SOURCE_LABEL,
-                sourceDetail: DOCUMENT_VAULT_SOURCE_LABEL,
-                actionLabel: "Download ADJD review packet",
+                source: ADJD_SOURCE_LABEL,
+                sourceDetail: ADJD_APPROVED_DETAIL,
+                actionLabel: "Download ADJD approved MOA",
+                description:
+                  "ADJD approved the notarised MOA. Polaris synced the stamped copy into your vault.",
                 isExpanded: false,
               }
             : item,
         ),
       );
+      toast({
+        title: "ADJD approved your MOA",
+        description:
+          "Your notarised memorandum is now stored in the vault. You're clear to proceed to licence issuance.",
+      });
       setIsFinalisingMoa(false);
       setShowMoaAssistant(false);
       setActiveSlideId("payment");
-    }, 1200);
+    }, 1400);
   }, [activeDocumentId, isFinalisingMoa, triggerVaultSync, setDocuments]);
 
   React.useEffect(() => {
