@@ -1274,16 +1274,6 @@ export function ComplianceGrowthFocusContent({
                     Explore automation-ready growth playbooks handpicked for your concept.
                   </p>
                 </div>
-                <Badge
-                  className={cn(
-                    "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                    growthUnlocked
-                      ? "border-[#94d2c2] bg-[#eaf7f3] text-[#0f766e]"
-                      : "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
-                  )}
-                >
-                  {growthUnlocked ? "Unlocked" : "Locked"}
-                </Badge>
               </AccordionTrigger>
               <AccordionContent className="space-y-4 px-6 pb-6 pt-0">
                 <Accordion type="multiple" className="space-y-3">
