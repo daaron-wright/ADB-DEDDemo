@@ -326,6 +326,8 @@ export function PreOperationalInspectionFocusContent({
 
   const isWalkthroughProcessing = walkthroughStatus === "processing";
   const isWalkthroughReady = walkthroughStatus === "ready";
+  const activeInspectionImage =
+    PREOP_INSPECTION_IMAGES[activeGalleryIndex] ?? null;
 
   const requiredItems = React.useMemo(
     () => checklistItems.filter((item) => !item.isOptional),
