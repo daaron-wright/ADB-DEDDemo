@@ -1257,7 +1257,7 @@ export function BusinessRegistrationFocusContent({
                           : "Submit reservation & pay"}
                   </Button>
                   {tradeNameGuidance ? (
-                    <p className="text-xs text-[#0f766e]">{tradeNameGuidance}</p>
+                    <p className="w-full text-xs text-[#0f766e]">{tradeNameGuidance}</p>
                   ) : null}
                 </>
               ) : (
