@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
-import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { Check, Wallet } from "lucide-react";
 
@@ -91,7 +90,6 @@ export function DocumentSubmissionFocusContent({
   journeyNumber = "0987654321",
   onLicenseIssued,
 }: DocumentSubmissionFocusContentProps) {
-  const { toast } = useToast();
   const {
     documents,
     setDocuments,
