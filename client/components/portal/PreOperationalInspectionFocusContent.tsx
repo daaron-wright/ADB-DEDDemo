@@ -284,10 +284,42 @@ export function PreOperationalInspectionFocusContent({
   );
 
   React.useEffect(() => {
+    if (walkthroughStatus !== "ready") {
+      setActiveGalleryIndex(0);
+      if (galleryTimerRef.current) {
+        window.clearInterval(galleryTimerRef.current);
+        galleryTimerRef.current = null;
+      }
+      return;
+    }
+
+    if (galleryTimerRef.current) {
+      window.clearInterval(galleryTimerRef.current);
+    }
+
+    const timer = window.setInterval(() => {
+      setActiveGalleryIndex((previousIndex) =>
+        (previousIndex + 1) % PREOP_INSPECTION_IMAGES.length,
+      );
+    }, 2600);
+
+    galleryTimerRef.current = timer;
+
+    return () => {
+      window.clearInterval(timer);
+      galleryTimerRef.current = null;
+    };
+  }, [walkthroughStatus]);
+
+  React.useEffect(() => {
     return () => {
       if (uploadTimerRef.current) {
         window.clearTimeout(uploadTimerRef.current);
         uploadTimerRef.current = null;
+      }
+      if (galleryTimerRef.current) {
+        window.clearInterval(galleryTimerRef.current);
+        galleryTimerRef.current = null;
       }
     };
   }, []);
