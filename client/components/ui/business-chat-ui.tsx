@@ -364,6 +364,17 @@ const CONVERSATION_BLUEPRINT: Record<
         type: "conversation",
         action: "open-viability-summary",
         nextStep: "handoff",
+        quickAction: false,
+      },
+      {
+        id: "summary-generate-report",
+        label: "Generate market summary",
+        description:
+          "Compile every insight so far into a concise market intelligence brief for stakeholders.",
+        icon: ClipboardList,
+        type: "conversation",
+        action: "generate-market-summary",
+        nextStep: "handoff",
       },
       {
         id: "summary-budget-refresh",
