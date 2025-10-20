@@ -527,6 +527,12 @@ export function ComplianceGrowthFocusContent({
     setAutomationTab("overview");
   }, [activeSlideId]);
 
+  React.useEffect(() => {
+    if (!growthUnlocked) {
+      setActiveOpportunityMessage(null);
+    }
+  }, [growthUnlocked]);
+
   const compliantCount = React.useMemo(() => {
     return complianceItems.filter((item) => item.status === "success").length;
   }, [complianceItems]);
