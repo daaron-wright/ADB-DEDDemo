@@ -761,6 +761,11 @@ export function ComplianceGrowthFocusContent({
 
     if (matchesPolicyRequest) {
       acknowledgePolicyUpdate();
+      toast({
+        title: "DED is reviewing your feedback",
+        description:
+          "Polaris flagged your low-risk pathway request for policy review. Updates will appear in this workspace.",
+      });
       setFeedbackStatus("responded");
       return;
     }
