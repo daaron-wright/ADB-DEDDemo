@@ -746,6 +746,22 @@ export function ComplianceGrowthFocusContent({
       return;
     }
 
+    const normalizedNotes = feedbackNotes.toLowerCase();
+    const matchesPolicyRequest = POLICY_FEEDBACK_MATCHERS.every((matcher) =>
+      normalizedNotes.includes(matcher),
+    );
+
+    if (matchesPolicyRequest) {
+      setPolicyUpdateAcknowledged(true);
+      setFeedbackStatus("responded");
+      toast({
+        title: "DED fast-tracked your policy",
+        description:
+          "DED has incorporated your low-risk F&B submission into the New Trade Name policy.",
+      });
+      return;
+    }
+
     setFeedbackStatus("submitted");
     toast({
       title: "Feedback sent",
