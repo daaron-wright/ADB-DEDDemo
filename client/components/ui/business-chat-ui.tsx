@@ -819,7 +819,9 @@ const ACTION_FOLLOW_UPS: Partial<Record<ConversationAction, ReadonlyArray<StageR
   "open-market-overview": LOCATION_INTELLIGENCE_FOLLOW_UPS,
   "open-competition-analysis": FOLLOW_UP_COMPETITOR_ANALYSIS,
   "open-budget-analysis": FOLLOW_UP_BUDGET_DISCUSSION,
+  "open-demographics-insights": FOLLOW_UP_DEMOGRAPHICS_FOCUS,
   "open-viability-summary": FOLLOW_UP_SUMMARY_COMPLETION,
+  "generate-market-summary": FOLLOW_UP_SUMMARY_COMPLETION,
   "show-summary": FOLLOW_UP_SUMMARY_COMPLETION,
 };
 
@@ -6384,7 +6386,7 @@ export function BusinessChatUI({
             ...current,
             {
               id: `feedback-policy-${Date.now()}`,
-              content: `Policy insight queued: ${updatedCount} investors highlighted “${sample}”. Polaris alerted the policy team.`,
+              content: `Policy insight queued: ${updatedCount} investors highlighted ���${sample}”. Polaris alerted the policy team.`,
               isAI: true,
               timestamp: new Date(),
               type: "feedback-notification",
