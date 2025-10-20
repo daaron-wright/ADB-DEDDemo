@@ -73,6 +73,8 @@ type ConversationAction =
   | "open-competition-analysis"
   | "open-budget-analysis"
   | "open-viability-summary"
+  | "open-demographics-insights"
+  | "generate-market-summary"
   | "contact-human";
 
 interface MessageAction {
@@ -220,6 +222,7 @@ interface StageRecommendation {
   prompt?: string;
   modal?: ModalView;
   nextStep?: ConversationStep;
+  quickAction?: boolean;
 }
 
 const normalizeRecommendationText = (recommendation: StageRecommendation) =>
