@@ -547,8 +547,9 @@ export function ComplianceGrowthFocusContent({
       title: "Compliance action logged",
       description: "A licensing specialist will confirm once the authority acknowledges your submission.",
     });
+    setAutomationTab("overview");
     setActiveSlideId("automation");
-  }, [onComplianceReturn, toast]);
+  }, [onComplianceReturn, setAutomationTab, toast]);
 
   const resetPendingVideo = React.useCallback(() => {
     setPendingVideo(null);
