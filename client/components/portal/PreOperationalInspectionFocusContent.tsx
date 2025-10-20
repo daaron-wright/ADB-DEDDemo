@@ -687,13 +687,21 @@ export function PreOperationalInspectionFocusContent({
       },
     ],
     [
+      activeGalleryIndex,
+      activeInspectionImage,
       automationSubtitle,
       bankAccountPhase,
       checklistItems,
       checklistSummary,
       handleBankAccountAdvance,
+      handleWalkthroughButtonClick,
+      handleWalkthroughSelect,
+      isWalkthroughProcessing,
+      isWalkthroughReady,
       journeyNumber,
       nextAction,
+      uploadError,
+      walkthroughFile,
     ],
   );
 
