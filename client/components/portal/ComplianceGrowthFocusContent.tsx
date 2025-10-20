@@ -516,6 +516,9 @@ export function ComplianceGrowthFocusContent({
   const [automationTab, setAutomationTab] =
     React.useState<AutomationTabValue>("overview");
   const frameTimersRef = React.useRef<number[]>([]);
+  const [activeOpportunityMessage, setActiveOpportunityMessage] = React.useState<
+    { id: string; message: string } | null
+  >(null);
 
   React.useEffect(() => {
     if (activeSlideId !== "automation") {
