@@ -212,6 +212,12 @@ const INSPECTION_PIPELINE_STEPS: PipelineStep[] = [
     description: "Package synced to the DED inspector workspace for acknowledgement.",
     helper: "PASS",
   },
+  {
+    id: "approval",
+    title: "DED approval",
+    description: "Inspector acknowledgement recorded and compliance package approved.",
+    helper: "Approved",
+  },
 ];
 
 const PIPELINE_STATUS_TOKENS: Record<PipelineStatus, { wrapperClass: string; connectorClass: string; Icon: React.ElementType; iconClass: string }> = {
