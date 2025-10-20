@@ -112,7 +112,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before we display your license summary, let's confirm the right legal structure, business activities, and physical space requirements together. Once we complete this intake, I'll publish your license type and submission ID.",
-  ar: "قبل أن أعرض تفاصيل الترخيص، ��عينا نؤكد معًا الشكل القانوني الأنسب، وأ��شطة العمل، ومتطل���ات المسا��ة. بمجرد إ��هاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
+  ar: "قبل أن أعرض تفاصيل الترخيص، ��عينا نؤكد معًا الشكل القا��وني الأنسب، وأ��شطة العمل، ومتطل���ات المسا��ة. بمجرد إ��هاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
 };
 
 type QuestionnaireProgress = "not_started" | "in_progress" | "completed";
@@ -326,7 +326,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     englishLabel: "English",
     arabicLabel: "العربية",
     englishBadge: "English",
-    arabicBadge: "العربية • تر��مة",
+    arabicBadge: "ال��ربية • تر��مة",
     subtitle: "��وابة رخصة ال��عم��ل",
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
@@ -347,7 +347,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا واضحًا لدرا��ة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، شاهدي كيف يحول ${name} و��س��ث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
+      `اكتشفي مسارًا واضحًا لدرا��ة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء ا��اصطناعي. في بضع مراحل فق���، شاهدي كيف يحول ${name} و��س��ث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
     heroButton: "استكشفي خيارا��� إضافية",
     chatCta: "ال��ردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -366,13 +366,13 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "سيق��م مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فور تسجيل ��قدك.",
     businessAITitle: "بولاريس",
     businessActivityGuidance:
-      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
+      "يمكنك اختيار عدة أنشطة تجارية ل��مطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
       "أضيفي إرشادات الترخيص إلى استبيان ��لأنشطة ال��جارية",
     statusLabelMap: {
       "In Review": "قيد المراجعة",
       "Awaiting Documents": "بانتظار المستندات",
-      Approved: "موافق علي��",
+      Approved: "موافق عليه",
       Draft: "مسودة",
       Compliant: "متوافق",
     },
@@ -401,7 +401,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     tradeNamePaymentNextStep: "سددي رسوم الاسم التجاري وأصدريه",
     tradeNamePaymentToast:
-      "سددي رسوم ال��سم التجاري البالغة 65 درهماً لإصدار الاسم وتمكين رفع المستندات.",
+      "سددي رسوم الاسم التجاري البالغة 65 درهماً لإصدار الاسم وتمكين رفع المستندات.",
     journey: {
       heading: "تنسيق الرحلة",
       timelineLabel: "الجدول الزمني للرحلة",
@@ -413,7 +413,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة ال��ال��ة",
       reviewStage: "اس��عرضي المرحلة",
-      timelineAriaLabel: "التنقل ��ين مراحل الرحلة",
+      timelineAriaLabel: "ال��نقل ��ين مراحل الرحلة",
     },
     questionnaireOnboarding: {
       heading: "ابدئي رحلة ترخيصك",
@@ -1565,6 +1565,10 @@ export default function ApplicantPortal() {
     setStageProgress,
     updateCurrentJourneyStep,
   ]);
+
+  const handlePolicyUpdateAcknowledged = useCallback(() => {
+    setPolicyUpdateAcknowledged(true);
+  }, [setPolicyUpdateAcknowledged]);
 
   const handleQuestionnairePrimaryAction = useCallback(() => {
     if (questionnaireProgress === "not_started") {
