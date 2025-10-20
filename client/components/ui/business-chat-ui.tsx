@@ -762,6 +762,14 @@ const FOLLOW_UP_SUMMARY_COMPLETION: ReadonlyArray<StageRecommendation> = [
   },
 ];
 
+const ACTION_FOLLOW_UPS: Partial<Record<ConversationAction, ReadonlyArray<StageRecommendation>>> = {
+  "open-market-overview": LOCATION_INTELLIGENCE_FOLLOW_UPS,
+  "open-competition-analysis": FOLLOW_UP_COMPETITOR_ANALYSIS,
+  "open-budget-analysis": FOLLOW_UP_BUDGET_DISCUSSION,
+  "open-viability-summary": FOLLOW_UP_SUMMARY_COMPLETION,
+  "show-summary": FOLLOW_UP_SUMMARY_COMPLETION,
+};
+
 const CONVERSATION_STEPS: Array<{ id: ConversationStep; label: string }> = [
   { id: "intro", label: "Start" },
   { id: "summary", label: "Market Summary" },
@@ -4747,7 +4755,7 @@ const CompetitorBreakoutModal = ({
   const competitorHighlights = [
     {
       name: "Shurfa Bay",
-      rating: "4.8������������",
+      rating: "4.8����������",
       tier: "Premium waterfront",
       insight:
         "Sunset terrace has maintained 98% capacity across the past four evenings.",
