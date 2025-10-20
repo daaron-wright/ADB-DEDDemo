@@ -531,9 +531,6 @@ const QUICK_ACTION_RECOMMENDATION_DETAILS: Record<
 
 const MAX_RECOMMENDED_QUICK_ACTIONS = 4;
 
-const resolveQuickAction = (id: string): MessageAction | undefined =>
-  QUICK_ACTION_LIBRARY[id];
-
 const resolveQuickActionRecommendation = (id: string): StageRecommendation | null => {
   if (id === "welcome-human-agent") {
     return { ...HUMAN_ASSISTANCE_RECOMMENDATION };
