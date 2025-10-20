@@ -6442,6 +6442,20 @@ export function BusinessChatUI({
     return merged;
   }, [followUpRecommendations, stageBlueprint, currentStep]);
 
+  const quickActions = useMemo(
+    () => deriveQuickActions({ recommendations: activeRecommendations }),
+    [activeRecommendations],
+  );
+
+  useEffect(() => {
+    if (
+      selectedQuickActionId &&
+      quickActions.every((action) => action.id !== selectedQuickActionId)
+    ) {
+      setSelectedQuickActionId(null);
+    }
+  }, [quickActions, selectedQuickActionId]);
+
   const buildThemeGroups = useCallback(
     (recommendations: StageRecommendation[]): SuggestedThemeGroup[] => {
       if (recommendations.length === 0) {
