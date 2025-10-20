@@ -7358,7 +7358,6 @@ export function BusinessChatUI({
       }
     },
     [
-      ACTION_FOLLOW_UPS,
       applyFollowUps,
       buildMessage,
       buildStepMessage,
