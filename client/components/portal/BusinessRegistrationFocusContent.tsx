@@ -1041,7 +1041,7 @@ export function BusinessRegistrationFocusContent({
     isSubmittingReservation,
     onTradeNameSelected,
     onTradeNameChange,
-    toast,
+    setTradeNameGuidance,
     tradeNamePaymentToastMessage,
   ]);
 
@@ -1075,7 +1075,7 @@ export function BusinessRegistrationFocusContent({
     hasSubmittedReservationApplication,
     isSubmittingReservation,
     onTradeNameReservationSubmitted,
-    toast,
+    setTradeNameGuidance,
     upsertTradeNameReceipt,
     setActiveSlideId,
   ]);
@@ -1256,6 +1256,9 @@ export function BusinessRegistrationFocusContent({
                           ? payAndIssueStepLabel
                           : "Submit reservation & pay"}
                   </Button>
+                  {tradeNameGuidance ? (
+                    <p className="text-xs text-[#0f766e]">{tradeNameGuidance}</p>
+                  ) : null}
                 </>
               ) : (
                 <Button
