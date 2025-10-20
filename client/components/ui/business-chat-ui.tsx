@@ -472,14 +472,6 @@ const STAGE_QUICK_ACTION_DEFAULTS: Record<ConversationStep, string[]> = {
   ],
 };
 
-const MODAL_VIEW_ACTION_MAP: Partial<Record<ModalView, string>> = {
-  "heat-map": "welcome-market-overview",
-  "retail-locations": "welcome-market-overview",
-  "competitor-map": "welcome-competition",
-  "budget-ranges": "welcome-budget",
-  "viability-summary": "summary-open-viability",
-};
-
 const QUICK_ACTION_RECOMMENDATION_DETAILS: Record<
   string,
   {
