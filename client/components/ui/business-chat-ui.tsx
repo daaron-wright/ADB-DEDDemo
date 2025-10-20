@@ -7349,13 +7349,16 @@ export function BusinessChatUI({
         return updated;
       });
 
-      if (action === "open-market-overview") {
-        applyFollowUps(LOCATION_INTELLIGENCE_FOLLOW_UPS);
+      const mappedFollowUps = ACTION_FOLLOW_UPS[action];
+
+      if (mappedFollowUps) {
+        applyFollowUps(mappedFollowUps);
       } else {
         applyFollowUps([]);
       }
     },
     [
+      ACTION_FOLLOW_UPS,
       applyFollowUps,
       buildMessage,
       buildStepMessage,
