@@ -1461,14 +1461,16 @@ function InspectionEvidenceLibrarySection({
                           alt={item.frame.alt}
                           className="h-20 w-full object-cover transition duration-300 group-hover:scale-105"
                         />
-                        <span
-                          className={cn(
-                            "absolute left-2 top-2 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
-                            frameToken.badgeClass,
-                          )}
-                        >
-                          {frameToken.label}
-                        </span>
+                        {frameToken.label.toLowerCase() !== "pass" ? (
+                          <span
+                            className={cn(
+                              "absolute left-2 top-2 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
+                              frameToken.badgeClass,
+                            )}
+                          >
+                            {frameToken.label}
+                          </span>
+                        ) : null}
                         <div className="absolute inset-x-2 bottom-2 truncate rounded-lg bg-slate-900/70 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
                           {item.videoFilename}
                         </div>
