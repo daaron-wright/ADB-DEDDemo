@@ -531,6 +531,9 @@ export function BusinessRegistrationFocusContent({
   payAndIssueToast,
 }: BusinessRegistrationFocusContentProps) {
   const { toast } = useToast();
+  const [tradeNameGuidance, setTradeNameGuidance] = React.useState<string | null>(
+    null,
+  );
   const { setDocuments } = useDocumentVault();
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const reservationTimeoutRef = React.useRef<number | null>(null);
@@ -933,6 +936,7 @@ export function BusinessRegistrationFocusContent({
       return;
     }
 
+    setTradeNameGuidance(null);
     const succeeded = runChecksWithNames(englishDraft, arabicDraft);
 
     if (!succeeded) {
@@ -943,7 +947,14 @@ export function BusinessRegistrationFocusContent({
         variant: "destructive",
       });
     }
-  }, [arabicDraft, englishDraft, isChecking, runChecksWithNames, toast]);
+  }, [
+    arabicDraft,
+    englishDraft,
+    isChecking,
+    runChecksWithNames,
+    toast,
+    setTradeNameGuidance,
+  ]);
 
   const handleApplySuggestion = React.useCallback(
     (suggestion: TradeNameSuggestion) => {
@@ -966,9 +977,15 @@ export function BusinessRegistrationFocusContent({
       setIsSubmittingReservation(false);
       setIsEditing(true);
       setActiveSlideId("trade-name");
+      setTradeNameGuidance(null);
       onTradeNameChange?.(formattedEnglish);
     },
-    [isChecking, onTradeNameChange, setActiveSlideId],
+    [
+      isChecking,
+      onTradeNameChange,
+      setActiveSlideId,
+      setTradeNameGuidance,
+    ],
   );
 
   const handleTransliterate = React.useCallback(() => {
@@ -1011,10 +1028,7 @@ export function BusinessRegistrationFocusContent({
     setActiveArabicTradeName(resolvedArabic);
     setEnglishDraft(formattedEnglish);
     setArabicDraft(resolvedArabic);
-    toast({
-      title: "Trade name selected",
-      description: tradeNamePaymentToastMessage,
-    });
+    setTradeNameGuidance(tradeNamePaymentToastMessage ?? null);
     onTradeNameChange?.(formattedEnglish);
     onTradeNameSelected?.();
   }, [
@@ -1042,25 +1056,18 @@ export function BusinessRegistrationFocusContent({
 
     setActiveSlideId("trade-name");
     setIsSubmittingReservation(true);
-    toast({
-      title: "Submitting reservation",
-      description: "Processing your trade name reservation payment.",
-    });
+    setTradeNameGuidance(null);
     if (reservationTimeoutRef.current) {
       window.clearTimeout(reservationTimeoutRef.current);
     }
     reservationTimeoutRef.current = window.setTimeout(() => {
       setIsSubmittingReservation(false);
       setHasSubmittedReservationApplication(true);
-      toast({
-        title: "Trade name reserved",
-        description:
-          "Reservation application and payment submitted. Document submissions unlocked.",
-      });
       upsertTradeNameReceipt();
       setAutomationProgress((value) => Math.max(value, 100));
       setIsEditing(true);
       onTradeNameReservationSubmitted?.();
+      setTradeNameGuidance(null);
       reservationTimeoutRef.current = null;
     }, 1200);
   }, [
