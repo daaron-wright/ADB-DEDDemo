@@ -1053,7 +1053,7 @@ export function ComplianceGrowthFocusContent({
                     {isSubmittingVideo ? (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     ) : null}
-                    Submit to inspectors
+                    Submit another video for inspection
                   </Button>
                 </div>
                 <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#d8e4df] bg-[#f5faf7] p-4">
