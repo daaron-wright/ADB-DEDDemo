@@ -8439,13 +8439,16 @@ export function BusinessChatUI({
                                 </p>
                               </div>
                               <div className="flex flex-wrap gap-2">
-                                {quickActions.map((action) => {
-                                  const isSelected = selectedQuickActionId === action.id;
+                                {quickActions.map((recommendation) => {
+                                  const isSelected = selectedQuickActionId === recommendation.id;
                                   return (
                                     <button
-                                      key={action.id}
+                                      key={recommendation.id}
                                       type="button"
-                                      onClick={() => handlePersistentQuickAction(action)}
+                                      onClick={() => {
+                                        setSelectedQuickActionId(recommendation.id);
+                                        handleRecommendationSelect(recommendation);
+                                      }}
                                       aria-pressed={isSelected}
                                       className={cn(
                                         "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]",
@@ -8456,7 +8459,7 @@ export function BusinessChatUI({
                                               : "border-white/40 bg-white/70 text-[#0F766E] hover:bg-white/90",
                                       )}
                                     >
-                                      {action.label}
+                                      {recommendation.label}
                                     </button>
                                   );
                                 })}
