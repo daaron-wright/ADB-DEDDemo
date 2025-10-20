@@ -418,6 +418,11 @@ const QUICK_ACTION_LIBRARY: Record<string, MessageAction> = {
     label: "Identify Your Location",
     action: "open-budget-analysis",
   },
+  "welcome-demographics": {
+    id: "welcome-demographics",
+    label: "View Demographics",
+    action: "open-demographics-insights",
+  },
   "welcome-human-agent": {
     id: "welcome-human-agent",
     label: "Human Assistance",
@@ -427,6 +432,11 @@ const QUICK_ACTION_LIBRARY: Record<string, MessageAction> = {
     id: "summary-open-viability",
     label: "View viability summary",
     action: "open-viability-summary",
+  },
+  "summary-generate-report": {
+    id: "summary-generate-report",
+    label: "Generate summary",
+    action: "generate-market-summary",
   },
   "summary-reserve-trade-name": {
     id: "summary-reserve-trade-name",
