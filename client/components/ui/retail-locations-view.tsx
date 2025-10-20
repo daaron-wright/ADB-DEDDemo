@@ -1,6 +1,7 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
 interface RetailLocationsViewProps {
@@ -121,6 +122,54 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
     );
   };
 
+  const handleDownloadDedDataPacks = () => {
+    if (!selectedLocation) {
+      return;
+    }
+
+    const dataPackContent = {
+      locationId: selectedLocation.id,
+      locationTitle: selectedLocation.title,
+      annualLease: selectedLocation.price,
+      datasets: [
+        {
+          name: "DED trade license history",
+          coverage: "2019-2024",
+          highlight: "Active F&B licences within 1.5km radius",
+        },
+        {
+          name: "Inspection cadence benchmarks",
+          coverage: "Rolling 12 months",
+          highlight: "Average inspection clearance time for low-risk venues",
+        },
+        {
+          name: "Footfall and spend index",
+          coverage: "Quarterly",
+          highlight: "Polaris weighted score for tourism and residential catchments",
+        },
+      ],
+      generatedAt: new Date().toISOString(),
+    };
+
+    const blob = new Blob([JSON.stringify(dataPackContent, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `ded-data-pack-${selectedLocation.id}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    window.dispatchEvent(
+      new CustomEvent("retailLocationDataPackRequested", {
+        detail: { ...selectedLocation },
+      }),
+    );
+  };
+
   if (modalState === "automation-prompt") {
     return (
       <div className="relative flex h-full min-h-[640px] flex-col overflow-x-hidden overflow-y-auto bg-[#f5f8f6]">
@@ -177,27 +226,89 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                   className="w-full h-auto"
                 />
               </div>
-              <button
-                type="button"
-                onClick={handleExportBusinessPlan}
-                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#0F766E]/35 bg-white/80 px-6 py-3 text-sm font-semibold text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] hover:text-[#0a5a55] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" x2="12" y1="3" y2="15" />
-                </svg>
-                Export your business plan
-              </button>
+              <Tabs defaultValue="business-plan" className="mt-4 w-full">
+                <TabsList className="grid grid-cols-1 gap-2 rounded-2xl border border-[#0F766E]/25 bg-white/70 p-2 shadow-sm sm:grid-cols-2">
+                  <TabsTrigger
+                    value="business-plan"
+                    className="rounded-xl px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition data-[state=active]:bg-[#0F766E] data-[state=active]:text-white"
+                  >
+                    Export your business plan
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="ded-data"
+                    className="rounded-xl px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition data-[state=active]:bg-[#0F766E] data-[state=active]:text-white"
+                  >
+                    Download Abu Dhabi DED data packs
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="business-plan" className="mt-4 focus-visible:outline-none focus-visible:ring-0">
+                  <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-white/85 p-4 text-sm text-slate-600 shadow-sm">
+                    <p>
+                      Generate a tailored business plan for your selected location with Polaris insights on costs and next steps.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={handleExportBusinessPlan}
+                      disabled={!selectedLocation}
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#0F766E]/35 bg-white px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition hover:bg-[#eff6f3] hover:text-[#0a5a55] disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" x2="12" y1="3" y2="15" />
+                      </svg>
+                      Export plan
+                    </button>
+                    {!selectedLocation ? (
+                      <p className="text-xs text-[#0F766E]">
+                        Select a retail location to enable downloads.
+                      </p>
+                    ) : null}
+                  </div>
+                </TabsContent>
+                <TabsContent value="ded-data" className="mt-4 focus-visible:outline-none focus-visible:ring-0">
+                  <div className="space-y-3 rounded-2xl border border-[#d8e4df] bg-white/85 p-4 text-sm text-slate-600 shadow-sm">
+                    <p>
+                      Access curated DED datasets covering licensing history, inspection benchmarks, and Polaris footfall indices for your shortlisted spot.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={handleDownloadDedDataPacks}
+                      disabled={!selectedLocation}
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#0F766E]/35 bg-white px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition hover:bg-[#eff6f3] hover:text-[#0a5a55] disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M12 5v14" />
+                        <path d="M5 12h14" />
+                      </svg>
+                      Download data packs
+                    </button>
+                    {!selectedLocation ? (
+                      <p className="text-xs text-[#0F766E]">
+                        Choose a location to download the latest DED data packs.
+                      </p>
+                    ) : null}
+                  </div>
+                </TabsContent>
+              </Tabs>
             </motion.div>
 
             {/* Automation Prompt */}
