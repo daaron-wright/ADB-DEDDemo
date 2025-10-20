@@ -174,10 +174,15 @@ export function PreOperationalInspectionFocusContent({
   const [walkthroughFile, setWalkthroughFile] = React.useState<File | null>(null);
   const [uploadError, setUploadError] = React.useState<string | null>(null);
   const [activeGalleryIndex, setActiveGalleryIndex] = React.useState(0);
+  const [reviewedImageIndices, setReviewedImageIndices] = React.useState<
+    Set<number>
+  >(() => new Set());
+  const [hasInspectionApproval, setHasInspectionApproval] = React.useState(false);
   const [activeSlideId, setActiveSlideId] = React.useState<StageSlide["id"]>(
     "overview",
   );
   const hasAutomationAvatar = POLARIS_AUTOMATION_AVATAR_URL.length > 0;
+  const galleryLength = PREOP_INSPECTION_IMAGES.length;
 
   const handleBankAccountAdvance = React.useCallback(() => {
     setActiveSlideId("checklist");
