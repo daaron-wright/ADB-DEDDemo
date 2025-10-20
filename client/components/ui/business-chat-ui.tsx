@@ -584,40 +584,38 @@ const mergeRecommendations = (
   return Array.from(registry.values());
 };
 
-const deriveQuickActions = ({
+const deriveQuickActionRecommendations = ({
   recommendations,
 }: {
   recommendations: ReadonlyArray<StageRecommendation>;
-}): MessageAction[] => {
-  const actions: MessageAction[] = [];
+}): StageRecommendation[] => {
+  const eligibleTypes: RecommendationInteraction[] = [
+    "conversation",
+    "modal",
+    "human",
+  ];
+
+  const unique = new Map<string, StageRecommendation>();
 
   recommendations.forEach((recommendation) => {
-    let mappedAction: ConversationAction | null = null;
-
-    if (recommendation.type === "conversation" && recommendation.action) {
-      mappedAction = recommendation.action;
-    } else if (recommendation.type === "modal" && recommendation.modal) {
-      const quickActionId = MODAL_VIEW_ACTION_MAP[recommendation.modal];
-      if (quickActionId) {
-        const quickAction = resolveQuickAction(quickActionId);
-        mappedAction = quickAction?.action ?? null;
-      }
-    } else if (recommendation.type === "human") {
-      mappedAction = "contact-human";
-    }
-
-    if (!mappedAction) {
+    if (!eligibleTypes.includes(recommendation.type)) {
       return;
     }
 
-    addUniqueAction(actions, {
-      id: recommendation.id,
-      label: recommendation.label,
-      action: mappedAction,
-    });
+    if (recommendation.type === "conversation" && !recommendation.action) {
+      return;
+    }
+
+    if (recommendation.type === "modal" && !recommendation.modal) {
+      return;
+    }
+
+    if (!unique.has(recommendation.id)) {
+      unique.set(recommendation.id, recommendation);
+    }
   });
 
-  return actions.slice(0, MAX_RECOMMENDED_QUICK_ACTIONS);
+  return Array.from(unique.values()).slice(0, MAX_RECOMMENDED_QUICK_ACTIONS);
 };
 
 const findQuickActionId = (
