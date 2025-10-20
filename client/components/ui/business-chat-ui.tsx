@@ -665,13 +665,12 @@ const findQuickActionId = (
 const LOCATION_INTELLIGENCE_FOLLOW_UPS: ReadonlyArray<StageRecommendation> = [
   {
     id: "follow-up-location-demographics",
-    label: "Look at demographics of a particular area",
+    label: "View demographics for this area",
     description:
       "Highlight resident and visitor patterns by zooming into the district you want to evaluate next.",
     icon: MapPin,
-    type: "prompt",
-    prompt:
-      "Show me the demographics for the Corniche area, including resident and visitor breakdowns.",
+    type: "conversation",
+    action: "open-demographics-insights",
   },
   {
     id: "follow-up-location-budget",
