@@ -452,7 +452,7 @@ const QUICK_ACTION_LIBRARY: Record<string, MessageAction> = {
   },
   "summary-generate-report": {
     id: "summary-generate-report",
-    label: "Generate summary",
+    label: "Generate market summary",
     action: "generate-market-summary",
   },
   "summary-reserve-trade-name": {
