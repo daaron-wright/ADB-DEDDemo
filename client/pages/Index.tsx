@@ -507,7 +507,7 @@ export default function Index() {
 
             {/* Welcome heading */}
             <div className="flex items-center justify-center">
-              <span className="text-black text-base font-medium">Welcome, Layla</span>
+              <span className="text-black text-3xl font-semibold tracking-tight">Marhaba, Laya</span>
             </div>
 
             {/* Sign out button */}
