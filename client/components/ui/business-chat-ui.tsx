@@ -158,7 +158,7 @@ interface DialogueDocProps {
 
 const createInitialDialogueDocState = (): DialogueDocState => ({
   notes:
-    "Capture next steps, decisions, and follow-ups here.\n• Define target district and audience\n• Outline licensing documents\n�� Track stakeholder approvals",
+    "Capture next steps, decisions, and follow-ups here.\n�� Define target district and audience\n• Outline licensing documents\n�� Track stakeholder approvals",
   highlights: [
     {
       id: "dialogue-highlight-1",
@@ -7451,16 +7451,42 @@ export function BusinessChatUI({
       return;
     }
 
-    const deprecatedActionIds = new Set([
-      "welcome-market-overview",
-      "welcome-competition",
-      "welcome-budget",
-      "welcome-human-agent",
-    ]);
+    const defaultActions: MessageAction[] = [
+      {
+        id: "welcome-market-overview",
+        label: "Discover Opportunities",
+        action: "open-market-overview",
+      },
+      {
+        id: "welcome-competition",
+        label: "Assess Competition",
+        action: "open-competition-analysis",
+      },
+      {
+        id: "welcome-budget",
+        label: "Identify Your Location",
+        action: "open-budget-analysis",
+      },
+      {
+        id: "welcome-human-agent",
+        label: "Human Assistance",
+        action: "contact-human",
+      },
+    ];
 
-    setPersistentQuickActions((previous) =>
-      previous.filter((action) => !deprecatedActionIds.has(action.id)),
-    );
+    setPersistentQuickActions((previous) => {
+      const existingIds = new Set(previous.map((action) => action.id));
+      if (defaultActions.every((action) => existingIds.has(action.id))) {
+        return previous;
+      }
+      const merged = [...previous];
+      defaultActions.forEach((action) => {
+        if (!existingIds.has(action.id)) {
+          merged.push(action);
+        }
+      });
+      return merged;
+    });
 
     const trimmedInitial = initialMessage?.trim();
     const hasInitialPrompt = Boolean(trimmedInitial);
@@ -7479,6 +7505,9 @@ export function BusinessChatUI({
           ? `${defaultGreeting} Once we cover that, I'll handle the follow-up steps.`
           : defaultGreeting,
         true,
+        {
+          actions: defaultActions,
+        },
       ),
     );
 
