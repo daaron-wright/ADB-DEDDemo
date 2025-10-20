@@ -489,6 +489,8 @@ export function ComplianceGrowthFocusContent({
     React.useState<InspectionSubmissionStatus>("idle");
   const [feedbackStatus, setFeedbackStatus] =
     React.useState<FeedbackWorkflowStatus>("draft");
+  const [policyUpdateAcknowledged, setPolicyUpdateAcknowledged] =
+    React.useState(false);
   const [feedbackNotes, setFeedbackNotes] = React.useState("");
   const [contactEmail, setContactEmail] = React.useState("layla@marwah.ae");
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
