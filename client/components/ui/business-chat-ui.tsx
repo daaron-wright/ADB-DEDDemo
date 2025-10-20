@@ -6459,15 +6459,25 @@ export function BusinessChatUI({
   const activeRecommendations = useMemo<StageRecommendation[]>(() => {
     const base =
       followUpRecommendations.length > 0
-        ? [...followUpRecommendations]
-        : [...(stageBlueprint?.recommendations ?? [])];
+        ? followUpRecommendations
+        : stageBlueprint?.recommendations ?? [];
 
-    if (!base.some((recommendation) => recommendation.type === "human")) {
-      base.push(HUMAN_ASSISTANCE_RECOMMENDATION);
+    const quickActionRecommendations = (
+      STAGE_QUICK_ACTION_DEFAULTS[currentStep] ?? []
+    )
+      .map((id) => resolveQuickActionRecommendation(id))
+      .filter(
+        (recommendation): recommendation is StageRecommendation => recommendation !== null,
+      );
+
+    let merged = mergeRecommendations(base, quickActionRecommendations);
+
+    if (!merged.some((recommendation) => recommendation.type === "human")) {
+      merged = mergeRecommendations(merged, [HUMAN_ASSISTANCE_RECOMMENDATION]);
     }
 
-    return base;
-  }, [followUpRecommendations, stageBlueprint]);
+    return merged;
+  }, [followUpRecommendations, stageBlueprint, currentStep]);
 
   const buildThemeGroups = useCallback(
     (recommendations: StageRecommendation[]): SuggestedThemeGroup[] => {
