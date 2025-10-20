@@ -7454,17 +7454,17 @@ export function BusinessChatUI({
     const defaultActions: MessageAction[] = [
       {
         id: "welcome-market-overview",
-        label: "Discover investment districts",
+        label: "Discover opportunities",
         action: "open-market-overview",
       },
       {
         id: "welcome-competition",
-        label: "Assess competitive landscape",
+        label: "Assess competition",
         action: "open-competition-analysis",
       },
       {
         id: "welcome-budget",
-        label: "Review budget outlook",
+        label: "Identify your location",
         action: "open-budget-analysis",
       },
       {
