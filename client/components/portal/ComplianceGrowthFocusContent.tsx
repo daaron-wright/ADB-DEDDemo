@@ -21,15 +21,6 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { StageSlideNavigator, type StageSlide } from "./StageSlideNavigator";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -1043,7 +1034,7 @@ export function ComplianceGrowthFocusContent({
                       <div>
                         <p className="text-sm font-semibold text-slate-900">{pendingVideo.name}</p>
                         <p className="text-xs text-slate-500">
-                          {formatFileSize(pendingVideo.size)} • Ready for submission
+                          {formatFileSize(pendingVideo.size)} ��� Ready for submission
                         </p>
                       </div>
                       <Button
