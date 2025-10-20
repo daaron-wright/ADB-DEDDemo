@@ -824,7 +824,10 @@ export function ComplianceGrowthFocusContent({
                           type="button"
                           size="sm"
                           className="rounded-full bg-[#0f766e] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.35)]"
-                          onClick={() => setActiveSlideId("automation")}
+                          onClick={() => {
+                            setAutomationTab("overview");
+                            setActiveSlideId("automation");
+                          }}
                         >
                           View evidence
                         </Button>
