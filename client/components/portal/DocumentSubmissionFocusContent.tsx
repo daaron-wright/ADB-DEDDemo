@@ -180,11 +180,7 @@ export function DocumentSubmissionFocusContent({
       "Polaris simulated bilingual clauses and prepared the ADJD review packet.",
     );
     setActiveSlideId("moa");
-    toast({
-      title: "Polaris simulation ready",
-      description: "Custom MOA edits packaged for ADJD review.",
-    });
-  }, [toast]);
+  }, []);
 
   const handleResetMoaRevision = React.useCallback(() => {
     setMoaClauseDraft(INITIAL_MOA_CLAUSE_DRAFT);
@@ -220,13 +216,8 @@ export function DocumentSubmissionFocusContent({
       setIsFinalisingMoa(false);
       setShowMoaAssistant(false);
       setActiveSlideId("payment");
-      toast({
-        title: "Custom MOA sent to ADJD",
-        description:
-          "Polaris submitted the custom memorandum for review and saved a copy in your vault.",
-      });
     }, 1200);
-  }, [activeDocumentId, isFinalisingMoa, toast, triggerVaultSync, setDocuments]);
+  }, [activeDocumentId, isFinalisingMoa, triggerVaultSync, setDocuments]);
 
   React.useEffect(() => {
     if (!allDocumentsCompleted) {
@@ -241,10 +232,6 @@ export function DocumentSubmissionFocusContent({
     }
 
     setIsPaying(true);
-    toast({
-      title: "Opening AD Pay",
-      description: "Pay the final licence issuance fee to move into operations.",
-    });
 
     paymentTimeoutRef.current = window.setTimeout(() => {
       setIsPaying(false);
@@ -266,14 +253,9 @@ export function DocumentSubmissionFocusContent({
       };
       setLicenseDetails(issuedLicense);
       setActiveSlideId("license");
-      toast({
-        title: "Licence issued",
-        description:
-          "We pushed the licence PDF to your AD Locker and digital wallet.",
-      });
       onLicenseIssued?.();
     }, 1600);
-  }, [allDocumentsCompleted, hasPaid, isPaying, toast]);
+  }, [allDocumentsCompleted, hasPaid, isPaying, onLicenseIssued]);
 
   React.useEffect(() => {
     const receiptDocument = documents.find(
