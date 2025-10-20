@@ -465,6 +465,10 @@ const SUBMISSION_STATUS_TOKENS: Record<InspectionSubmissionStatus, { label: stri
     label: "Pending review",
     className: "border-[#94d2c2] bg-[#eaf7f3] text-[#0f766e]",
   },
+  approved: {
+    label: "Approved",
+    className: "border-emerald-200 bg-[#eaf7f3] text-[#0f766e]",
+  },
 };
 
 const FEEDBACK_STATUS_LABEL: Record<FeedbackWorkflowStatus, string> = {
