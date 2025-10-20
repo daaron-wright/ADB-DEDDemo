@@ -51,7 +51,7 @@ import {
 } from "./trade-name-constants";
 
 type ComplianceStatus = "error" | "warning" | "success" | "info";
-type InspectionSubmissionStatus = "idle" | "ready" | "submitted";
+type InspectionSubmissionStatus = "idle" | "ready" | "submitted" | "approved";
 type PipelineStatus = "complete" | "active" | "pending";
 type FeedbackWorkflowStatus = "draft" | "submitted" | "responded";
 type ReadinessStatus = "pass" | "attention";
