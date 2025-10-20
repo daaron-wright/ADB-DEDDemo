@@ -859,7 +859,30 @@ export function ComplianceGrowthFocusContent({
       description:
         "See how Polaris validates your evidence and routes it to inspectors.",
       content: (
-        <div className="space-y-5">
+        <Tabs
+          value={automationTab}
+          onValueChange={(value) => setAutomationTab(value as AutomationTabValue)}
+          className="space-y-5"
+        >
+          <TabsList className="inline-flex flex-wrap gap-1 rounded-full border border-[#d8e4df] bg-white/80 p-1 shadow-[0_18px_42px_-32px_rgba(15,23,42,0.25)]">
+            <TabsTrigger
+              value="overview"
+              className="rounded-full px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 transition data-[state=active]:bg-[#0f766e] data-[state=active]:text-white data-[state=active]:shadow-[0_18px_36px_-28px_rgba(15,118,110,0.45)]"
+            >
+              Automation workflow
+            </TabsTrigger>
+            <TabsTrigger
+              value="inspection-evidence"
+              className="rounded-full px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 transition data-[state=active]:bg-[#0f766e] data-[state=active]:text-white data-[state=active]:shadow-[0_18px_36px_-28px_rgba(15,118,110,0.45)]"
+            >
+              Inspection evidence library
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent
+            value="overview"
+            className="mt-0 space-y-5 focus-visible:outline-none focus-visible:ring-0"
+          >
+            <div className="space-y-5">
           <div className="space-y-6 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h4 className="text-base font-semibold text-slate-900">Inspection pipeline</h4>
@@ -1139,6 +1162,23 @@ export function ComplianceGrowthFocusContent({
             </div>
           </div>
         </div>
+          </TabsContent>
+          <TabsContent
+            value="inspection-evidence"
+            className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+          >
+            <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
+              <InspectionEvidenceLibrarySection
+                images={INSPECTION_EVIDENCE_IMAGES}
+                evidenceGallery={evidenceGallery}
+                defaultExpanded
+              />
+              <p className="text-xs text-slate-500">
+                Polaris keeps these captures synced with the inspector workspace. Expand the tab to browse full-resolution frames and recent analyzed snippets.
+              </p>
+            </div>
+          </TabsContent>
+        </Tabs>
       ),
     },
     {
