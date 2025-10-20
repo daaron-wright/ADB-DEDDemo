@@ -225,7 +225,7 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["l", "ل"],
   ["m", "م"],
   ["n", "ن"],
-  ["o", "و"],
+  ["o", "��"],
   ["p", "ب"],
   ["q", "ق"],
   ["r", "ر"],
@@ -1257,7 +1257,7 @@ export function BusinessRegistrationFocusContent({
                           : "Submit reservation & pay"}
                   </Button>
                   {tradeNameGuidance ? (
-                    <p className="w-full text-xs text-[#0f766e]">{tradeNameGuidance}</p>
+                    <p className="mt-1 w-full text-xs text-[#0f766e]">{tradeNameGuidance}</p>
                   ) : null}
                 </>
               ) : (
