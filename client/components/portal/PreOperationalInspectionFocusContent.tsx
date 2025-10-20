@@ -218,6 +218,27 @@ export function PreOperationalInspectionFocusContent({
     };
   }, [bankAccountPhase]);
 
+  const handleWalkthroughUpload = React.useCallback(() => {
+    if (walkthroughStatus !== "idle") {
+      return;
+    }
+    setWalkthroughStatus("processing");
+    const timer = window.setTimeout(() => {
+      setWalkthroughStatus("ready");
+      uploadTimerRef.current = null;
+    }, 900);
+    uploadTimerRef.current = timer;
+  }, [walkthroughStatus]);
+
+  React.useEffect(() => {
+    return () => {
+      if (uploadTimerRef.current) {
+        window.clearTimeout(uploadTimerRef.current);
+        uploadTimerRef.current = null;
+      }
+    };
+  }, []);
+
   const requiredItems = React.useMemo(
     () => checklistItems.filter((item) => !item.isOptional),
     [checklistItems],
