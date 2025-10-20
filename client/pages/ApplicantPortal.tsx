@@ -407,7 +407,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       timelineLabel: "الجدول الزمني للرحلة",
       activePrefix: "الحالة الحالية:",
       activeStage: "المرحلة النشطة",
-      yourNextStep: "خطوت�� التالية",
+      yourNextStep: "خطوت�� التالي��",
       tasksCompleteMessage:
         "تم إكمال كل المهام لهذه ا��مرحلة. راقب�� تحديثات الأتمتة.",
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
@@ -2249,6 +2249,8 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
     journeyStages,
     stageProgress,
     handleCompliancePassed,
+    policyUpdateAcknowledged,
+    handlePolicyUpdateAcknowledged,
     handleExitJourneyFocus,
     applicationStatus,
     selectedLegalFormId,
