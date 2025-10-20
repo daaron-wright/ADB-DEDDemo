@@ -112,7 +112,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before we display your license summary, let's confirm the right legal structure, business activities, and physical space requirements together. Once we complete this intake, I'll publish your license type and submission ID.",
-  ar: "قبل أن أعرض تفاصيل الترخيص، ��عينا نؤكد معًا الشكل القانوني الأنسب، وأ��شطة العمل، ومتطل���ات المسا��ة. بمجرد إ��هاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
+  ar: "قبل أن أعرض تفاصيل الترخيص، ��عينا نؤكد معًا الشكل القانوني الأنسب، وأ��شطة العمل، ومتطل���ات المسا��ة. بمجرد إ��هاء ه��ا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
 };
 
 type QuestionnaireProgress = "not_started" | "in_progress" | "completed";
@@ -407,7 +407,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       timelineLabel: "الجدول الزمني للرحلة",
       activePrefix: "الحالة الحالية:",
       activeStage: "المرحلة النشطة",
-      yourNextStep: "خطوت�� التالي��",
+      yourNextStep: "خطوت�� التالية",
       tasksCompleteMessage:
         "تم إكمال كل المهام لهذه ا��مرحلة. راقب�� تحديثات الأتمتة.",
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
@@ -2557,6 +2557,22 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
                 />
               </span>
             </div>
+            {policyUpdateAcknowledged ? (
+              <Alert className="flex items-start gap-3 rounded-2xl border border-[#94d2c2] bg-[#eaf7f3] px-4 py-3 text-sm text-[#0f766e]">
+                <CheckCircle
+                  className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#0f766e]"
+                  aria-hidden="true"
+                />
+                <div className="space-y-1">
+                  <AlertTitle className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    DED acknowledged your feedback
+                  </AlertTitle>
+                  <AlertDescription className="text-sm leading-relaxed text-[#0b7d6f]">
+                    DED has reviewed and adjusted the New Trade Name policy to incorporate your feedback on low-risk F&amp;B concepts.
+                  </AlertDescription>
+                </div>
+              </Alert>
+            ) : null}
           </div>
           <div className="grid gap-4 text-sm text-slate-600 sm:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
@@ -2675,7 +2691,7 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
   const portalBrand =
     language === "ar"
       ? {
-          label: "خدمات حكومة أ��وظبي",
+          label: "خدمات حكومة أ����وظبي",
           logoAlt: "شعار تم",
           logoSrc:
             "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F397f9a8d2a3c4c8cb1d79ae828b476be",
