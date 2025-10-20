@@ -724,7 +724,7 @@ export function ComplianceGrowthFocusContent({
         ),
       );
       setSubmissionStatus("approved");
-      setPipelineIndex(INSPECTION_PIPELINE_STEPS.length - 1);
+      setPipelineIndex(INSPECTION_PIPELINE_STEPS.length);
       frameTimersRef.current = frameTimersRef.current.filter(
         (timerId) => timerId !== syncedTimer,
       );
