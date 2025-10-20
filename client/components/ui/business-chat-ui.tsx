@@ -318,7 +318,7 @@ const CONVERSATION_BLUEPRINT: Record<
     recommendations: [
       {
         id: "intro-market-overview",
-        label: "Open market intelligence view",
+        label: "Discover Opportunities",
         description:
           "Surface addressable market ranges, highlight zones like Saadiyat, and inspect live trend sliders.",
         icon: MapIcon,
