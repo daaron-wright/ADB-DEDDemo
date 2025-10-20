@@ -25,6 +25,7 @@ type SubStepStatus =
   | "account_linked";
 
 type BankAccountPhase = "link" | "in_progress" | "account_linked";
+type WalkthroughSyncStatus = "idle" | "processing" | "ready";
 
 interface SubStep {
   id: string;
