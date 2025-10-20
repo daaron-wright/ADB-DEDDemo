@@ -563,42 +563,110 @@ export function PreOperationalInspectionFocusContent({
                     Full-width captures sync after your walkthrough upload completes.
                   </p>
                 </div>
-                <Button
-                  type="button"
-                  onClick={handleWalkthroughUpload}
-                  disabled={isWalkthroughProcessing || isWalkthroughReady}
-                  className="inline-flex items-center gap-2 rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_42px_-30px_rgba(15,118,110,0.55)] transition hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:bg-[#0f766e]/30"
-                >
-                  {isWalkthroughReady ? (
-                    <>
-                      <Check className="h-4 w-4" />
-                      <span>Walkthrough synced</span>
-                    </>
-                  ) : (
-                    <>
-                      {isWalkthroughProcessing ? (
+                <div className="flex w-full flex-col items-stretch gap-2 sm:w-auto sm:items-end">
+                  <Button
+                    type="button"
+                    onClick={handleWalkthroughButtonClick}
+                    disabled={isWalkthroughProcessing}
+                    className="inline-flex items-center gap-2 rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_42px_-30px_rgba(15,118,110,0.55)] transition hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:bg-[#0f766e]/30"
+                  >
+                    {isWalkthroughProcessing ? (
+                      <>
                         <Loader2 className="h-4 w-4 animate-spin" />
+                        <span>Processing...</span>
+                      </>
+                    ) : isWalkthroughReady ? (
+                      <>
+                        <Check className="h-4 w-4" />
+                        <span>Walkthrough synced</span>
+                      </>
+                    ) : (
+                      <span>Upload walkthrough</span>
+                    )}
+                  </Button>
+                  <input
+                    ref={walkthroughInputRef}
+                    type="file"
+                    accept="video/mp4,video/webm,video/quicktime,video/mov,video/*"
+                    className="hidden"
+                    onChange={handleWalkthroughSelect}
+                  />
+                  <p className="text-[11px] text-slate-400 sm:text-right">
+                    Accepted formats: MP4, MOV, WebM · Max 2 GB
+                  </p>
+                  {walkthroughFile ? (
+                    <p className="text-[11px] text-slate-500 sm:text-right">
+                      Selected
+                      {" "}
+                      <span className="font-semibold text-slate-900">
+                        {walkthroughFile.name}
+                      </span>
+                      {" "}· {formatWalkthroughSize(walkthroughFile.size)}
+                      {isWalkthroughProcessing ? (
+                        <span className="text-[#0f766e]"> · Syncing...</span>
                       ) : null}
-                      <span>{isWalkthroughProcessing ? "Processing..." : "Upload walkthrough"}</span>
-                    </>
-                  )}
-                </Button>
+                      {isWalkthroughReady ? (
+                        <span className="text-[#0f766e]"> · Synced</span>
+                      ) : null}
+                    </p>
+                  ) : null}
+                  {uploadError ? (
+                    <p aria-live="polite" className="text-[11px] font-semibold text-[#b91c1c] sm:text-right">
+                      {uploadError}
+                    </p>
+                  ) : null}
+                </div>
               </div>
               {isWalkthroughReady ? (
-                <div className="grid grid-cols-1 gap-[2px] bg-[#d8e4df]/40 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {PREOP_INSPECTION_IMAGES.map((image) => (
-                    <figure key={image.id} className="relative bg-white">
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        className="h-56 w-full object-cover"
-                      />
-                      <figcaption className="absolute inset-x-0 bottom-0 bg-slate-900/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white">
-                        {image.caption}
-                      </figcaption>
-                    </figure>
-                  ))}
-                </div>
+                <>
+                  <div className="border-t border-[#d8e4df]/80 bg-[#f9fbfd] px-6 py-4">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div className="space-y-1">
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                          Inspection walkthrough in progress
+                        </p>
+                        <p className="text-sm text-slate-600">
+                          Polaris is stepping through {PREOP_INSPECTION_IMAGES.length} synced captures automatically.
+                        </p>
+                      </div>
+                      {activeInspectionImage ? (
+                        <Badge className="rounded-full border border-[#94d2c2] bg-[#eaf7f3] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                          {activeInspectionImage.caption}
+                        </Badge>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 gap-[2px] bg-[#d8e4df]/40 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    {PREOP_INSPECTION_IMAGES.map((image, index) => {
+                      const isActive = index === activeGalleryIndex;
+                      return (
+                        <figure
+                          key={image.id}
+                          className={cn(
+                            "group relative overflow-hidden border border-[#d8e4df]/80 bg-white transition duration-500",
+                            isActive
+                              ? "z-[1] scale-[1.01] shadow-[0_30px_68px_-42px_rgba(15,23,42,0.45)] ring-2 ring-[#0f766e]"
+                              : "opacity-80 hover:opacity-100",
+                          )}
+                        >
+                          <img
+                            src={image.src}
+                            alt={image.alt}
+                            className="h-56 w-full object-cover transition duration-500 group-hover:scale-105"
+                          />
+                          <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-slate-900/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white">
+                            <span>{image.caption}</span>
+                            {isActive ? (
+                              <span className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#94d2c2]">
+                                Now reviewing
+                              </span>
+                            ) : null}
+                          </figcaption>
+                        </figure>
+                      );
+                    })}
+                  </div>
+                </>
               ) : (
                 <div className="border-t border-[#d8e4df]/80 bg-[#f9fbfd] px-6 py-12">
                   <div className="mx-auto flex max-w-xl flex-col items-center gap-3 rounded-2xl border-2 border-dashed border-[#d8e4df] bg-white/70 p-8 text-center">
