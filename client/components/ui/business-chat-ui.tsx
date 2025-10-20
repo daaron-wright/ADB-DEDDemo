@@ -633,6 +633,10 @@ const deriveQuickActionRecommendations = ({
       return;
     }
 
+    if (recommendation.quickAction === false) {
+      return;
+    }
+
     if (recommendation.type === "conversation" && !recommendation.action) {
       return;
     }
