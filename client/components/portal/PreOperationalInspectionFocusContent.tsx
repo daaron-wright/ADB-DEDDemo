@@ -176,7 +176,7 @@ export function PreOperationalInspectionFocusContent({
   const [activeGalleryIndex, setActiveGalleryIndex] = React.useState(0);
   const [reviewedImageIndices, setReviewedImageIndices] = React.useState<
     Set<number>
-  >(() => new Set());
+  >(() => new Set<number>());
   const [hasInspectionApproval, setHasInspectionApproval] = React.useState(false);
   const [activeSlideId, setActiveSlideId] = React.useState<StageSlide["id"]>(
     "overview",
@@ -274,7 +274,7 @@ export function PreOperationalInspectionFocusContent({
         setWalkthroughFile(null);
         setWalkthroughStatus("idle");
         setHasInspectionApproval(false);
-        setReviewedImageIndices(() => new Set());
+        setReviewedImageIndices(() => new Set<number>());
         setActiveGalleryIndex(0);
         resetWalkthroughInput();
         return;
@@ -285,7 +285,7 @@ export function PreOperationalInspectionFocusContent({
         setWalkthroughFile(null);
         setWalkthroughStatus("idle");
         setHasInspectionApproval(false);
-        setReviewedImageIndices(() => new Set());
+        setReviewedImageIndices(() => new Set<number>());
         setActiveGalleryIndex(0);
         resetWalkthroughInput();
         return;
@@ -293,7 +293,7 @@ export function PreOperationalInspectionFocusContent({
 
       setUploadError(null);
       setHasInspectionApproval(false);
-      setReviewedImageIndices(() => new Set());
+      setReviewedImageIndices(() => new Set<number>());
       setWalkthroughFile(file);
       setWalkthroughStatus("processing");
       setActiveGalleryIndex(0);
@@ -345,7 +345,7 @@ export function PreOperationalInspectionFocusContent({
 
   React.useEffect(() => {
     if (walkthroughStatus !== "ready") {
-      setReviewedImageIndices(() => new Set());
+      setReviewedImageIndices(() => new Set<number>());
       setHasInspectionApproval(false);
       setActiveGalleryIndex(0);
     }
