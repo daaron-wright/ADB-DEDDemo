@@ -46,8 +46,8 @@ import {
   UploadCloud,
 } from "lucide-react";
 import {
-  PRIMARY_TRADE_NAME_AR,
-  PRIMARY_TRADE_NAME_EN,
+  MARWA_DISPLAY_NAME_AR,
+  MARWA_DISPLAY_NAME_EN,
 } from "./trade-name-constants";
 
 type ComplianceStatus = "error" | "warning" | "success" | "info";
@@ -287,16 +287,16 @@ const TEXT_VERIFICATION_RESULTS: TextVerificationRow[] = [
   {
     id: "english",
     language: "English",
-    registered: PRIMARY_TRADE_NAME_EN,
-    extracted: PRIMARY_TRADE_NAME_EN,
+    registered: MARWA_DISPLAY_NAME_EN,
+    extracted: MARWA_DISPLAY_NAME_EN,
     matchScore: 0.98,
     status: "PASS",
   },
   {
     id: "arabic",
     language: "Arabic",
-    registered: PRIMARY_TRADE_NAME_AR,
-    extracted: PRIMARY_TRADE_NAME_AR,
+    registered: MARWA_DISPLAY_NAME_AR,
+    extracted: MARWA_DISPLAY_NAME_AR,
     matchScore: 0.96,
     status: "PASS",
   },
