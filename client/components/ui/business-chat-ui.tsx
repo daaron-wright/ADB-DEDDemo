@@ -789,6 +789,7 @@ const FOLLOW_UP_SUMMARY_COMPLETION: ReadonlyArray<StageRecommendation> = [
     type: "conversation",
     action: "open-viability-summary",
     nextStep: "handoff",
+    quickAction: false,
   },
   {
     id: "follow-up-talk-to-advisor",
