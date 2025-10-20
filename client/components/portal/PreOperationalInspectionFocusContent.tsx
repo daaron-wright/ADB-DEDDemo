@@ -703,22 +703,49 @@ export function PreOperationalInspectionFocusContent({
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <div className="space-y-1">
                         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                          Inspection walkthrough in progress
+                          {hasInspectionApproval
+                            ? "Inspection walkthrough approved"
+                            : "Inspection walkthrough in progress"}
                         </p>
                         <p className="text-sm text-slate-600">
-                          Polaris is stepping through {PREOP_INSPECTION_IMAGES.length} synced captures automatically.
+                          {hasInspectionApproval
+                            ? "Polaris confirmed coverage across every capture. Proceed to compliance when you're ready."
+                            : `Polaris is stepping through ${galleryLength} synced captures automatically.`}
                         </p>
                       </div>
-                      {activeInspectionImage ? (
-                        <Badge className="rounded-full border border-[#94d2c2] bg-[#eaf7f3] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                          {activeInspectionImage.caption}
+                      {hasInspectionApproval ? (
+                        <Badge className="rounded-full border border-[#0f766e]/35 bg-[#0f766e] px-4 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
+                          Inspection approved
+                        </Badge>
+                      ) : activeInspectionImage ? (
+                        <Badge className="flex items-center gap-2 rounded-full border border-[#94d2c2] bg-[#eaf7f3] px-4 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                          <span>Now reviewing</span>
+                          <span className="text-[#0f766e]/80">
+                            {activeInspectionImage.caption}
+                          </span>
                         </Badge>
                       ) : null}
                     </div>
                   </div>
+                  {hasInspectionApproval ? (
+                    <div className="border-t border-[#d8e4df]/80 bg-[#ecfdf5] px-6 py-4">
+                      <div className="flex items-start gap-3 rounded-2xl border border-[#0f766e]/25 bg-white/70 p-4 text-sm text-[#0f766e] shadow-[0_26px_58px_-48px_rgba(15,118,110,0.4)]">
+                        <Check className="mt-0.5 h-4 w-4" strokeWidth={3} />
+                        <div className="space-y-1">
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em]">
+                            Inspection approval received
+                          </p>
+                          <p className="text-sm">
+                            Walkthrough evidence is filed with DED inspectors. Continue to the compliance stage when ready.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
                   <div className="grid grid-cols-1 gap-[2px] bg-[#d8e4df]/40 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {PREOP_INSPECTION_IMAGES.map((image, index) => {
-                      const isActive = index === activeGalleryIndex;
+                      const isActive = !hasInspectionApproval && index === activeGalleryIndex;
+                      const hasBeenReviewed = reviewedImageIndices.has(index);
                       return (
                         <figure
                           key={image.id}
@@ -726,7 +753,9 @@ export function PreOperationalInspectionFocusContent({
                             "group relative overflow-hidden border border-[#d8e4df]/80 bg-white transition duration-500",
                             isActive
                               ? "z-[1] scale-[1.01] shadow-[0_30px_68px_-42px_rgba(15,23,42,0.45)] ring-2 ring-[#0f766e]"
-                              : "opacity-80 hover:opacity-100",
+                              : hasBeenReviewed
+                                ? "opacity-100 shadow-[0_18px_46px_-40px_rgba(15,23,42,0.32)]"
+                                : "opacity-70 hover:opacity-100",
                           )}
                         >
                           <img
@@ -737,14 +766,19 @@ export function PreOperationalInspectionFocusContent({
                           <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-slate-900/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white">
                             <span>{image.caption}</span>
                             <div className="flex items-center gap-2">
-                              <span className="rounded-full bg-[#0f766e] px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.2em] text-white">
-                                Pass
-                              </span>
                               {isActive ? (
-                                <span className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#94d2c2]">
+                                <span className="rounded-full border border-[#94d2c2] bg-[#0f766e]/20 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.22em] text-[#94d2c2]">
                                   Now reviewing
                                 </span>
-                              ) : null}
+                              ) : hasBeenReviewed ? (
+                                <span className="rounded-full bg-[#0f766e] px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.2em] text-white">
+                                  Pass
+                                </span>
+                              ) : (
+                                <span className="rounded-full border border-white/50 bg-white/15 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.22em] text-white/80">
+                                  Queued
+                                </span>
+                              )}
                             </div>
                           </figcaption>
                         </figure>
