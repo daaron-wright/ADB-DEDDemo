@@ -162,6 +162,9 @@ export function PreOperationalInspectionFocusContent({
   );
   const [bankAccountPhase, setBankAccountPhase] =
     React.useState<BankAccountPhase>("link");
+  const [walkthroughStatus, setWalkthroughStatus] =
+    React.useState<WalkthroughSyncStatus>("idle");
+  const uploadTimerRef = React.useRef<number | null>(null);
   const [activeSlideId, setActiveSlideId] = React.useState<StageSlide["id"]>(
     "overview",
   );
