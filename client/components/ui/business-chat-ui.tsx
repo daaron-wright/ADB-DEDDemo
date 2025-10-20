@@ -6426,7 +6426,7 @@ export function BusinessChatUI({
   }, [followUpRecommendations, stageBlueprint, currentStep]);
 
   const quickActions = useMemo(
-    () => deriveQuickActions({ recommendations: activeRecommendations }),
+    () => deriveQuickActionRecommendations({ recommendations: activeRecommendations }),
     [activeRecommendations],
   );
 
