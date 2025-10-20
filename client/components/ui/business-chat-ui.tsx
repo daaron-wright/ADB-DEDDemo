@@ -7263,6 +7263,31 @@ export function BusinessChatUI({
           ];
         }
 
+        if (action === "open-demographics-insights") {
+          setModalView("chat");
+          setAdvisorPanelOpen(false);
+          return [
+            ...updated,
+            buildMessage(DEMOGRAPHICS_OVERVIEW_MESSAGE, true, {
+              type: "demographics",
+            }),
+          ];
+        }
+
+        if (action === "generate-market-summary") {
+          setModalView("chat");
+          setAdvisorPanelOpen(false);
+          if (currentStep !== "summary") {
+            setCurrentStep("summary");
+          }
+          return [
+            ...updated,
+            buildMessage(COMPREHENSIVE_REPORT_MESSAGE, true, {
+              type: "comprehensive-report",
+            }),
+          ];
+        }
+
         if (action === "open-viability-summary" || action === "show-summary") {
           setModalView("viability-summary");
           setAdvisorPanelOpen(false);
