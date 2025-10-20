@@ -1273,6 +1273,12 @@ export function ComplianceGrowthFocusContent({
                               </span>
                             ) : null}
                           </div>
+                          {growthUnlocked &&
+                          activeOpportunityMessage?.id === opportunity.id ? (
+                            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                              {activeOpportunityMessage.message}
+                            </p>
+                          ) : null}
                         </div>
                       </AccordionContent>
                     </AccordionItem>
