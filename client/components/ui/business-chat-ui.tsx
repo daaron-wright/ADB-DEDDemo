@@ -598,6 +598,10 @@ const resolveQuickActionRecommendation = (id: string): StageRecommendation | nul
     recommendation.nextStep = details.nextStep;
   }
 
+  if (typeof details.quickAction !== "undefined") {
+    recommendation.quickAction = details.quickAction;
+  }
+
   return recommendation;
 };
 
