@@ -442,6 +442,17 @@ const QUICK_ACTION_LIBRARY: Record<string, MessageAction> = {
   },
 };
 
+const HUMAN_ASSISTANCE_RECOMMENDATION: StageRecommendation = {
+  id: "persistent-human-assistance",
+  label: "Human Assistance",
+  description:
+    "Reach a TAMM specialist instantly while I keep your workspace updated.",
+  icon: Headset,
+  type: "human",
+  prompt:
+    "Please connect me with a TAMM advisor to review my setup and next steps.",
+};
+
 const STAGE_QUICK_ACTION_DEFAULTS: Record<ConversationStep, string[]> = {
   intro: [
     "welcome-market-overview",
@@ -469,42 +480,98 @@ const MODAL_VIEW_ACTION_MAP: Partial<Record<ModalView, string>> = {
   "viability-summary": "summary-open-viability",
 };
 
-const KEYWORD_ACTION_RULES: ReadonlyArray<{
-  id: string;
-  test: (value: string) => boolean;
-}> = [
+const QUICK_ACTION_RECOMMENDATION_DETAILS: Record<
+  string,
   {
-    id: "welcome-competition",
-    test: (value) =>
-      /(competition|competitor|competitive|market share|rival)/.test(value),
+    description: string;
+    icon: LucideIcon;
+    type?: RecommendationInteraction;
+    prompt?: string;
+    nextStep?: ConversationStep;
+  }
+> = {
+  "welcome-market-overview": {
+    description:
+      "Open the location intelligence workspace to compare demand across Abu Dhabi districts.",
+    icon: MapIcon,
   },
-  {
-    id: "welcome-budget",
-    test: (value) => /(budget|cost|pricing|finance|lease|rent|capital)/.test(value),
+  "welcome-competition": {
+    description:
+      "Review competitive signals and benchmark similar operators before choosing a site.",
+    icon: TrendingUp,
   },
-  {
-    id: "welcome-market-overview",
-    test: (value) =>
-      /(location|district|area|spot|footfall|opportunity|market)/.test(value),
+  "welcome-budget": {
+    description:
+      "Check indicative setup and operating budgets tailored to your concept.",
+    icon: Gauge,
   },
-  {
-    id: "summary-open-viability",
-    test: (value) => /(summary|plan|viability|report|export)/.test(value),
+  "summary-open-viability": {
+    description:
+      "Reopen the viability recap to review or export the consolidated insights.",
+    icon: ClipboardList,
+    nextStep: "handoff",
   },
-  {
-    id: "summary-reserve-trade-name",
-    test: (value) => /(trade name|application|licen[cs]e|reserve)/.test(value),
+  "summary-reserve-trade-name": {
+    description:
+      "Continue into the investor workspace to reserve your trade name and begin automation.",
+    icon: Sparkles,
+    nextStep: "handoff",
   },
-  {
-    id: "welcome-human-agent",
-    test: (value) => /(human|agent|person|representative|help)/.test(value),
+  "handoff-open-portal": {
+    description:
+      "Jump to the applicant workspace timeline synced with Polaris.",
+    icon: MapPin,
   },
-];
+  "handoff-automation": {
+    description:
+      "Let Polaris automate filings, reservations, and document preparation for you.",
+    icon: Sparkles,
+  },
+};
 
 const MAX_RECOMMENDED_QUICK_ACTIONS = 4;
 
 const resolveQuickAction = (id: string): MessageAction | undefined =>
   QUICK_ACTION_LIBRARY[id];
+
+const resolveQuickActionRecommendation = (id: string): StageRecommendation | null => {
+  if (id === "welcome-human-agent") {
+    return { ...HUMAN_ASSISTANCE_RECOMMENDATION };
+  }
+
+  const quickAction = QUICK_ACTION_LIBRARY[id];
+  const details = QUICK_ACTION_RECOMMENDATION_DETAILS[id];
+
+  if (!quickAction || !details) {
+    return null;
+  }
+
+  const type = details.type ?? "conversation";
+
+  if (type === "conversation" && !quickAction.action) {
+    return null;
+  }
+
+  const recommendation: StageRecommendation = {
+    id,
+    label: quickAction.label,
+    description: details.description,
+    icon: details.icon,
+    type,
+  };
+
+  if (type === "conversation") {
+    recommendation.action = quickAction.action;
+  } else if (type === "human") {
+    recommendation.prompt = details.prompt ?? quickAction.label;
+  }
+
+  if (details.nextStep) {
+    recommendation.nextStep = details.nextStep;
+  }
+
+  return recommendation;
+};
 
 const addUniqueAction = (target: MessageAction[], action?: MessageAction) => {
   if (!action) {
@@ -518,82 +585,54 @@ const addUniqueAction = (target: MessageAction[], action?: MessageAction) => {
   target.push(action);
 };
 
-const areQuickActionListsEqual = (
-  previous: ReadonlyArray<MessageAction>,
-  next: ReadonlyArray<MessageAction>,
-) =>
-  previous.length === next.length &&
-  previous.every((action, index) => action.id === next[index]?.id);
-
-const deriveQuickActions = ({
-  messages,
-  currentStep,
-  modalView,
-  followUpRecommendations,
-  view,
-  isInvestorAuthenticated,
-}: {
-  messages: ReadonlyArray<BusinessMessage>;
-  currentStep: ConversationStep;
-  modalView: ModalView;
-  followUpRecommendations: ReadonlyArray<StageRecommendation>;
-  view: ChatView;
-  isInvestorAuthenticated: boolean;
-}): MessageAction[] => {
-  const recommended: MessageAction[] = [];
-
-  const lastUserMessage = [...messages]
-    .reverse()
-    .find((message) => !message.isAI && message.content.trim().length > 0);
-
-  const normalizedUserInput = lastUserMessage
-    ? normalizeMessageContent(lastUserMessage.content)
-    : "";
-
-  if (normalizedUserInput.length > 0) {
-    KEYWORD_ACTION_RULES.forEach(({ id, test }) => {
-      if (test(normalizedUserInput)) {
-        addUniqueAction(recommended, resolveQuickAction(id));
+const mergeRecommendations = (
+  ...groups: ReadonlyArray<StageRecommendation>[]
+): StageRecommendation[] => {
+  const registry = new Map<string, StageRecommendation>();
+  groups.forEach((group) => {
+    group.forEach((recommendation) => {
+      if (!registry.has(recommendation.id)) {
+        registry.set(recommendation.id, recommendation);
       }
     });
-  }
+  });
+  return Array.from(registry.values());
+};
 
-  const modalActionId = MODAL_VIEW_ACTION_MAP[modalView];
-  if (modalActionId) {
-    addUniqueAction(recommended, resolveQuickAction(modalActionId));
-  }
+const deriveQuickActions = ({
+  recommendations,
+}: {
+  recommendations: ReadonlyArray<StageRecommendation>;
+}): MessageAction[] => {
+  const actions: MessageAction[] = [];
 
-  followUpRecommendations
-    .filter((recommendation) => recommendation.type === "conversation" && recommendation.action)
-    .forEach((recommendation) => {
-      addUniqueAction(recommended, {
-        id: recommendation.id,
-        label: recommendation.label,
-        action: recommendation.action!,
-      });
-    });
+  recommendations.forEach((recommendation) => {
+    let mappedAction: ConversationAction | null = null;
 
-  if (currentStep === "summary" || view === "discover-experience") {
-    addUniqueAction(recommended, resolveQuickAction("summary-open-viability"));
-  }
-
-  if (currentStep === "handoff" || view === "investor-journey") {
-    addUniqueAction(recommended, resolveQuickAction("handoff-open-portal"));
-    if (isInvestorAuthenticated) {
-      addUniqueAction(recommended, resolveQuickAction("handoff-automation"));
+    if (recommendation.type === "conversation" && recommendation.action) {
+      mappedAction = recommendation.action;
+    } else if (recommendation.type === "modal" && recommendation.modal) {
+      const quickActionId = MODAL_VIEW_ACTION_MAP[recommendation.modal];
+      if (quickActionId) {
+        const quickAction = resolveQuickAction(quickActionId);
+        mappedAction = quickAction?.action ?? null;
+      }
+    } else if (recommendation.type === "human") {
+      mappedAction = "contact-human";
     }
-  }
 
-  const stageDefaults = STAGE_QUICK_ACTION_DEFAULTS[currentStep] ?? [];
-  stageDefaults.forEach((id) => addUniqueAction(recommended, resolveQuickAction(id)));
+    if (!mappedAction) {
+      return;
+    }
 
-  if (recommended.length === 0) {
-    STAGE_QUICK_ACTION_DEFAULTS.intro.forEach((id) =>
-      addUniqueAction(recommended, resolveQuickAction(id)),
-    );
-  }
+    addUniqueAction(actions, {
+      id: recommendation.id,
+      label: recommendation.label,
+      action: mappedAction,
+    });
+  });
 
-  return recommended.slice(0, MAX_RECOMMENDED_QUICK_ACTIONS);
+  return actions.slice(0, MAX_RECOMMENDED_QUICK_ACTIONS);
 };
 
 const findQuickActionId = (
@@ -747,15 +786,6 @@ const FOLLOW_UP_SUMMARY_COMPLETION: ReadonlyArray<StageRecommendation> = [
     prompt: "Please connect me with a TAMM advisor to review my summary.",
   },
 ];
-
-const HUMAN_ASSISTANCE_RECOMMENDATION: StageRecommendation = {
-  id: "persistent-human-assistance",
-  label: "Human Assistance",
-  description: "Reach a TAMM specialist instantly while I keep your workspace updated.",
-  icon: Headset,
-  type: "human",
-  prompt: "Please connect me with a TAMM advisor to review my setup and next steps.",
-};
 
 const CONVERSATION_STEPS: Array<{ id: ConversationStep; label: string }> = [
   { id: "intro", label: "Start" },
