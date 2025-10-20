@@ -1268,37 +1268,68 @@ export function ComplianceGrowthFocusContent({
                 {growthUnlocked ? "Unlocked" : "Locked"}
               </Badge>
             </div>
-            <div className="space-y-3">
+            <Accordion type="multiple" className="space-y-3">
               {GROWTH_OPPORTUNITIES.map((opportunity) => (
-                <div
+                <AccordionItem
                   key={opportunity.id}
-                  className="flex flex-col gap-3 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4"
+                  value={opportunity.id}
+                  className="rounded-2xl border border-[#e6f2ed] bg-white/95"
                 >
-                  <div className="space-y-1">
-                    <p className="text-sm font-semibold text-slate-900">{opportunity.title}</p>
-                    <p className="text-xs text-slate-500">{opportunity.subtitle}</p>
-                  </div>
-                  <Button
-                    type="button"
-                    disabled={!growthUnlocked}
-                    className="inline-flex items-center gap-2 rounded-full bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.45)] disabled:cursor-not-allowed disabled:bg-[#0f766e]/20"
-                    onClick={() =>
-                      toast({
-                        title: growthUnlocked
-                          ? "Growth workflow initiated"
-                          : "Complete compliance first",
-                        description: growthUnlocked
-                          ? `${opportunity.title} is underway. Polaris will guide you through each step.`
-                          : "Finish outstanding compliance tasks to unlock growth playbooks.",
-                      })
-                    }
-                  >
-                    {opportunity.buttonLabel}
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </div>
+                  <AccordionTrigger className="rounded-2xl px-4 py-3 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
+                    <div className="flex w-full flex-wrap items-center justify-between gap-2 text-left">
+                      <div className="flex-1 space-y-1">
+                        <p className="text-sm font-semibold text-slate-900">
+                          {opportunity.title}
+                        </p>
+                        <p className="text-xs text-slate-500 truncate">
+                          {opportunity.subtitle}
+                        </p>
+                      </div>
+                      <Badge
+                        className={cn(
+                          "flex-shrink-0 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
+                          growthUnlocked
+                            ? "border-[#94d2c2] bg-[#eaf7f3] text-[#0f766e]"
+                            : "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
+                        )}
+                      >
+                        {growthUnlocked ? "Unlocked" : "Locked"}
+                      </Badge>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-4 pb-4 pt-0">
+                    <div className="space-y-3 text-sm leading-relaxed text-slate-600">
+                      <p>{opportunity.subtitle}</p>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <Button
+                          type="button"
+                          disabled={!growthUnlocked}
+                          className="inline-flex items-center gap-2 rounded-full bg-[#0f766e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.45)] disabled:cursor-not-allowed disabled:bg-[#0f766e]/20"
+                          onClick={() =>
+                            toast({
+                              title: growthUnlocked
+                                ? "Growth workflow initiated"
+                                : "Complete compliance first",
+                              description: growthUnlocked
+                                ? `${opportunity.title} is underway. Polaris will guide you through each step.`
+                                : "Finish outstanding compliance tasks to unlock growth playbooks.",
+                            })
+                          }
+                        >
+                          {opportunity.buttonLabel}
+                          <ArrowRight className="h-4 w-4" />
+                        </Button>
+                        {!growthUnlocked ? (
+                          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">
+                            Complete compliance actions to unlock this playbook.
+                          </span>
+                        ) : null}
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-            </div>
+            </Accordion>
           </div>
 
           <div className="space-y-3 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
