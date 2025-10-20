@@ -314,8 +314,7 @@ export function PreOperationalInspectionFocusContent({
   );
 
   React.useEffect(() => {
-    if (walkthroughStatus !== "ready") {
-      setActiveGalleryIndex(0);
+    if (walkthroughStatus !== "ready" || hasInspectionApproval || galleryLength === 0) {
       if (galleryTimerRef.current) {
         window.clearInterval(galleryTimerRef.current);
         galleryTimerRef.current = null;
@@ -328,9 +327,7 @@ export function PreOperationalInspectionFocusContent({
     }
 
     const timer = window.setInterval(() => {
-      setActiveGalleryIndex((previousIndex) =>
-        (previousIndex + 1) % PREOP_INSPECTION_IMAGES.length,
-      );
+      handleAdvanceGallery();
     }, 2600);
 
     galleryTimerRef.current = timer;
@@ -339,7 +336,12 @@ export function PreOperationalInspectionFocusContent({
       window.clearInterval(timer);
       galleryTimerRef.current = null;
     };
-  }, [walkthroughStatus]);
+  }, [
+    walkthroughStatus,
+    hasInspectionApproval,
+    galleryLength,
+    handleAdvanceGallery,
+  ]);
 
   React.useEffect(() => {
     return () => {
