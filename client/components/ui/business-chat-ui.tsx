@@ -8445,7 +8445,7 @@ export function BusinessChatUI({
                           ) : null}
                         </div>
 
-                        {showChatInterface && showQuickActions && persistentQuickActions.length > 0 ? (
+                        {showChatInterface && showQuickActions && quickActions.length > 0 ? (
                           <div
                             className={cn(
                               "mt-6 rounded-[24px] border border-white/20 bg-white/12 p-4 backdrop-blur-xl shadow-[0_30px_80px_-58px_rgba(15,23,42,0.35)]",
@@ -8463,7 +8463,7 @@ export function BusinessChatUI({
                                 </p>
                               </div>
                               <div className="flex flex-wrap gap-2">
-                                {persistentQuickActions.map((action) => {
+                                {quickActions.map((action) => {
                                   const isSelected = selectedQuickActionId === action.id;
                                   return (
                                     <button
