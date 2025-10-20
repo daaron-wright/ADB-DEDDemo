@@ -513,7 +513,6 @@ export function ComplianceGrowthFocusContent({
   const [videoLibrary, setVideoLibrary] = React.useState<VideoEvidence[]>(
     () => DEFAULT_VIDEO_LIBRARY,
   );
-  const [libraryDialogOpen, setLibraryDialogOpen] = React.useState(false);
   const [isSubmittingVideo, setIsSubmittingVideo] = React.useState(false);
   const [automationTab, setAutomationTab] =
     React.useState<AutomationTabValue>("overview");
@@ -1034,7 +1033,7 @@ export function ComplianceGrowthFocusContent({
                       <div>
                         <p className="text-sm font-semibold text-slate-900">{pendingVideo.name}</p>
                         <p className="text-xs text-slate-500">
-                          {formatFileSize(pendingVideo.size)} ��� Ready for submission
+                          {formatFileSize(pendingVideo.size)} • Ready for submission
                         </p>
                       </div>
                       <Button
