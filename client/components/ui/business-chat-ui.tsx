@@ -560,7 +560,7 @@ const QUICK_ACTION_RECOMMENDATION_DETAILS: Record<
   },
 };
 
-const MAX_RECOMMENDED_QUICK_ACTIONS = 4;
+const MAX_RECOMMENDED_QUICK_ACTIONS = 6;
 
 const resolveQuickActionRecommendation = (id: string): StageRecommendation | null => {
   if (id === "welcome-human-agent") {
