@@ -5,6 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
   Dialog,
   DialogTrigger,
   DialogContent,
@@ -1007,83 +1013,95 @@ export function ComplianceGrowthFocusContent({
                     </DialogContent>
                   </Dialog>
                 </div>
-                <div className="space-y-4">
-                  <div className="flex flex-wrap items-center justify-between gap-3">
-                    <div className="space-y-1">
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                        Inspection Evidence Library
-                      </p>
-                      <p className="text-xs text-slate-500">
-                        Curated captures Polaris validated for inspector review.
-                      </p>
-                    </div>
-                    <Badge className="rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
-                      PASS
-                    </Badge>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-                    {INSPECTION_EVIDENCE_IMAGES.map((image) => (
-                      <div
-                        key={image.id}
-                        className="group relative overflow-hidden rounded-xl border border-[#e6f2ed] bg-white shadow-[0_14px_36px_-24px_rgba(15,23,42,0.28)]"
-                        title={image.alt}
-                      >
-                        <img
-                          src={image.src}
-                          alt={image.alt}
-                          className="h-32 w-full object-cover transition duration-500 group-hover:scale-105 md:h-36"
-                        />
-                        <span className="absolute left-2 top-2 rounded-full bg-[#0f766e] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
+                <Accordion
+                  type="single"
+                  collapsible
+                  className="rounded-2xl border border-[#e6f2ed] bg-white/95"
+                >
+                  <AccordionItem value="inspection-evidence">
+                    <AccordionTrigger className="rounded-2xl px-5 py-4 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
+                      <div className="flex w-full flex-wrap items-center justify-between gap-3 text-left">
+                        <div className="space-y-1">
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                            INSPECTION EVIDENCE LIBRARY
+                          </p>
+                          <p className="text-xs text-slate-500">
+                            Curated captures Polaris validated for inspector review.
+                          </p>
+                        </div>
+                        <Badge className="rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
                           PASS
-                        </span>
+                        </Badge>
                       </div>
-                    ))}
-                  </div>
-                  <p className="text-xs text-slate-500">
-                    Polaris retains the full-resolution captures inside the inspection evidence vault.
-                  </p>
-                  {evidenceGallery.length > 0 ? (
-                    <div className="space-y-2 pt-2">
-                      <div className="flex items-center justify-between gap-2">
-                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                          Analyzed frames
-                        </p>
-                        <p className="text-xs text-slate-500">
-                          Showing {evidenceGallery.length} recent frames
-                        </p>
-                      </div>
-                      <div className="grid grid-cols-3 gap-2 md:grid-cols-4">
-                        {evidenceGallery.map((item) => {
-                          const frameToken = EVIDENCE_FRAME_STATUS_TOKENS[item.frame.status];
-                          return (
+                    </AccordionTrigger>
+                    <AccordionContent className="px-5 pb-5 pt-0">
+                      <div className="space-y-4">
+                        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+                          {INSPECTION_EVIDENCE_IMAGES.map((image) => (
                             <div
-                              key={item.key}
-                              className="group relative overflow-hidden rounded-xl border border-[#e6f2ed] bg-white"
-                              title={frameToken.helper}
+                              key={image.id}
+                              className="group relative overflow-hidden rounded-xl border border-[#e6f2ed] bg-white shadow-[0_14px_36px_-24px_rgba(15,23,42,0.28)]"
+                              title={image.alt}
                             >
                               <img
-                                src={item.frame.src}
-                                alt={item.frame.alt}
-                                className="h-20 w-full object-cover transition duration-300 group-hover:scale-105"
+                                src={image.src}
+                                alt={image.alt}
+                                className="h-32 w-full object-cover transition duration-500 group-hover:scale-105 md:h-36"
                               />
-                              <span
-                                className={cn(
-                                  "absolute left-2 top-2 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
-                                  frameToken.badgeClass,
-                                )}
-                              >
-                                {frameToken.label}
+                              <span className="absolute left-2 top-2 rounded-full bg-[#0f766e] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
+                                PASS
                               </span>
-                              <div className="absolute inset-x-2 bottom-2 rounded-lg bg-slate-900/70 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white truncate">
-                                {item.videoFilename}
-                              </div>
                             </div>
-                          );
-                        })}
+                          ))}
+                        </div>
+                        <p className="text-xs text-slate-500">
+                          Polaris retains the full-resolution captures inside the inspection evidence vault.
+                        </p>
+                        {evidenceGallery.length > 0 ? (
+                          <div className="space-y-2 pt-2">
+                            <div className="flex items-center justify-between gap-2">
+                              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                                Analyzed frames
+                              </p>
+                              <p className="text-xs text-slate-500">
+                                Showing {evidenceGallery.length} recent frames
+                              </p>
+                            </div>
+                            <div className="grid grid-cols-3 gap-2 md:grid-cols-4">
+                              {evidenceGallery.map((item) => {
+                                const frameToken = EVIDENCE_FRAME_STATUS_TOKENS[item.frame.status];
+                                return (
+                                  <div
+                                    key={item.key}
+                                    className="group relative overflow-hidden rounded-xl border border-[#e6f2ed] bg-white"
+                                    title={frameToken.helper}
+                                  >
+                                    <img
+                                      src={item.frame.src}
+                                      alt={item.frame.alt}
+                                      className="h-20 w-full object-cover transition duration-300 group-hover:scale-105"
+                                    />
+                                    <span
+                                      className={cn(
+                                        "absolute left-2 top-2 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
+                                        frameToken.badgeClass,
+                                      )}
+                                    >
+                                      {frameToken.label}
+                                    </span>
+                                    <div className="absolute inset-x-2 bottom-2 truncate rounded-lg bg-slate-900/70 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
+                                      {item.videoFilename}
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        ) : null}
                       </div>
-                    </div>
-                  ) : null}
-                </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
               </div>
             </div>
           </div>
