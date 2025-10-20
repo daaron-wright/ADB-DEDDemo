@@ -3,6 +3,8 @@ export const PRIMARY_TRADE_NAME_AR = "بيت الختيار";
 
 export const MARWA_TRADE_NAME_EN = "Marwa Restaurant";
 export const MARWA_TRADE_NAME_AR = "مطعم مروة";
+export const MARWA_DISPLAY_NAME_EN = "Marwa";
+export const MARWA_DISPLAY_NAME_AR = "مروة";
 
 export const TRADE_NAME_RECEIPT_DOCUMENT_ID = "trade-name-reservation-receipt";
 
