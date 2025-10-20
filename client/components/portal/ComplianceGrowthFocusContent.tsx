@@ -476,7 +476,16 @@ export function ComplianceGrowthFocusContent({
   );
   const [libraryDialogOpen, setLibraryDialogOpen] = React.useState(false);
   const [isSubmittingVideo, setIsSubmittingVideo] = React.useState(false);
+  const [automationTab, setAutomationTab] =
+    React.useState<AutomationTabValue>("overview");
   const frameTimersRef = React.useRef<number[]>([]);
+
+  React.useEffect(() => {
+    if (activeSlideId !== "automation") {
+      return;
+    }
+    setAutomationTab("overview");
+  }, [activeSlideId]);
 
   const compliantCount = React.useMemo(() => {
     return complianceItems.filter((item) => item.status === "success").length;
