@@ -1322,7 +1322,9 @@ export function ComplianceGrowthFocusContent({
                     variant="outline"
                     onClick={() => {
                       setFeedbackNotes("");
-                      setFeedbackStatus("draft");
+                      if (feedbackStatus !== "responded") {
+                        setFeedbackStatus("draft");
+                      }
                     }}
                     className="rounded-full border-[#0f766e]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
                   >
