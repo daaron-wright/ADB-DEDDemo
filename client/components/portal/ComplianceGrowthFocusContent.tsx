@@ -1229,6 +1229,19 @@ export function ComplianceGrowthFocusContent({
         : "Complete outstanding compliance actions to unlock proactive growth support.",
       content: (
         <div className="space-y-5">
+          {policyUpdateAcknowledged ? (
+            <Alert className="flex flex-col gap-2 rounded-3xl border border-[#94d2c2] bg-[#eaf7f3] p-6 text-slate-700 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
+              <CheckCircle className="h-5 w-5 text-[#0f766e]" aria-hidden="true" />
+              <div>
+                <AlertTitle className="text-base font-semibold text-[#0f766e]">
+                  DED fast-tracked New Trade Name policy
+                </AlertTitle>
+                <AlertDescription className="text-sm text-slate-600">
+                  DED incorporated your low-risk F&amp;B pathway feedback. Qualifying assembly, baking, and reheating concepts now receive lighter upfront inspections and standard post-opening checks.
+                </AlertDescription>
+              </div>
+            </Alert>
+          ) : null}
           <div className="space-y-3 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h4 className="text-base font-semibold text-slate-900">Opportunities curated for you</h4>
