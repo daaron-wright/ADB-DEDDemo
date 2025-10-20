@@ -7439,7 +7439,11 @@ export function BusinessChatUI({
         handleHumanFallback(recommendation.prompt);
       }
 
-      if (followUpRecommendations.length > 0) {
+      const mappedFollowUps = RECOMMENDATION_FOLLOW_UPS[recommendation.id];
+
+      if (mappedFollowUps) {
+        applyFollowUps(mappedFollowUps);
+      } else if (followUpRecommendations.length > 0) {
         const remaining = followUpRecommendations.filter(
           (item) => item.id !== recommendation.id,
         );
