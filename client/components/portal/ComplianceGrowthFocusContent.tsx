@@ -141,6 +141,8 @@ interface ComplianceGrowthFocusContentProps {
   growthUnlocked?: boolean;
   onComplianceReturn?: () => void;
   isCompliant?: boolean;
+  policyUpdateAcknowledged?: boolean;
+  onPolicyUpdateAcknowledged?: () => void;
 }
 
 const DEFAULT_COMPLIANCE_ITEMS: ComplianceItem[] = [
@@ -476,6 +478,8 @@ export function ComplianceGrowthFocusContent({
   growthUnlocked = false,
   onComplianceReturn,
   isCompliant = false,
+  policyUpdateAcknowledged: externalPolicyUpdateAcknowledged,
+  onPolicyUpdateAcknowledged,
 }: ComplianceGrowthFocusContentProps) {
   const { toast } = useToast();
   const [activeSlideId, setActiveSlideId] = React.useState<StageSlide["id"]>(
@@ -489,11 +493,21 @@ export function ComplianceGrowthFocusContent({
     React.useState<InspectionSubmissionStatus>("idle");
   const [feedbackStatus, setFeedbackStatus] =
     React.useState<FeedbackWorkflowStatus>("draft");
-  const [policyUpdateAcknowledged, setPolicyUpdateAcknowledged] =
+  const [localPolicyUpdateAcknowledged, setLocalPolicyUpdateAcknowledged] =
     React.useState(false);
   const [feedbackNotes, setFeedbackNotes] = React.useState("");
   const [contactEmail, setContactEmail] = React.useState("layla@marwah.ae");
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+  const resolvedPolicyUpdateAcknowledged =
+    externalPolicyUpdateAcknowledged ?? localPolicyUpdateAcknowledged;
+
+  const acknowledgePolicyUpdate = React.useCallback(() => {
+    if (onPolicyUpdateAcknowledged) {
+      onPolicyUpdateAcknowledged();
+      return;
+    }
+    setLocalPolicyUpdateAcknowledged(true);
+  }, [onPolicyUpdateAcknowledged]);
   const [pendingVideo, setPendingVideo] = React.useState<File | null>(null);
   const [videoLibrary, setVideoLibrary] = React.useState<VideoEvidence[]>(
     () => DEFAULT_VIDEO_LIBRARY,
@@ -752,7 +766,7 @@ export function ComplianceGrowthFocusContent({
     );
 
     if (matchesPolicyRequest) {
-      setPolicyUpdateAcknowledged(true);
+      acknowledgePolicyUpdate();
       setFeedbackStatus("responded");
       toast({
         title: "DED fast-tracked your policy",
@@ -1229,7 +1243,7 @@ export function ComplianceGrowthFocusContent({
         : "Complete outstanding compliance actions to unlock proactive growth support.",
       content: (
         <div className="space-y-5">
-          {policyUpdateAcknowledged ? (
+          {resolvedPolicyUpdateAcknowledged ? (
             <Alert className="flex flex-col gap-2 rounded-3xl border border-[#94d2c2] bg-[#eaf7f3] p-6 text-slate-700 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
               <CheckCircle className="h-5 w-5 text-[#0f766e]" aria-hidden="true" />
               <div>
