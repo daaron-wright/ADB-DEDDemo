@@ -574,14 +574,14 @@ export function ComplianceGrowthFocusContent({
         ),
       );
     },
-    [],
+    [setComplianceItems],
   );
 
   const handleComplianceReturn = React.useCallback(() => {
     onComplianceReturn?.();
     setAutomationTab("overview");
     setActiveSlideId("automation");
-  }, [onComplianceReturn]);
+  }, [onComplianceReturn, setAutomationTab, setActiveSlideId]);
 
   const resetPendingVideo = React.useCallback(() => {
     setPendingVideo(null);
@@ -632,7 +632,7 @@ export function ComplianceGrowthFocusContent({
 
     resetPendingVideo();
     setSubmissionStatus("idle");
-  }, [pendingVideo, resetPendingVideo]);
+  }, [pendingVideo, resetPendingVideo, setSubmissionStatus]);
 
   const handleSubmitVideoEvidence = React.useCallback(() => {
     if (!pendingVideo) {
