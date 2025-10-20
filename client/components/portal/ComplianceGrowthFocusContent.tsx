@@ -1275,7 +1275,7 @@ export function ComplianceGrowthFocusContent({
                           </div>
                           {growthUnlocked &&
                           activeOpportunityMessage?.id === opportunity.id ? (
-                            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                            <p className="text-xs font-medium text-[#0f766e]">
                               {activeOpportunityMessage.message}
                             </p>
                           ) : null}
