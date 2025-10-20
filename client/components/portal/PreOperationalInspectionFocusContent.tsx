@@ -658,11 +658,16 @@ export function PreOperationalInspectionFocusContent({
                           />
                           <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-slate-900/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white">
                             <span>{image.caption}</span>
-                            {isActive ? (
-                              <span className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#94d2c2]">
-                                Now reviewing
+                            <div className="flex items-center gap-2">
+                              <span className="rounded-full bg-[#0f766e] px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.2em] text-white">
+                                Pass
                               </span>
-                            ) : null}
+                              {isActive ? (
+                                <span className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#94d2c2]">
+                                  Now reviewing
+                                </span>
+                              ) : null}
+                            </div>
                           </figcaption>
                         </figure>
                       );
