@@ -256,6 +256,9 @@ export function PreOperationalInspectionFocusContent({
         setUploadError("Upload MP4, MOV, or WebM footage.");
         setWalkthroughFile(null);
         setWalkthroughStatus("idle");
+        setHasInspectionApproval(false);
+        setReviewedImageIndices(() => new Set());
+        setActiveGalleryIndex(0);
         resetWalkthroughInput();
         return;
       }
@@ -264,11 +267,16 @@ export function PreOperationalInspectionFocusContent({
         setUploadError("Each walkthrough must be 2 GB or smaller before encryption.");
         setWalkthroughFile(null);
         setWalkthroughStatus("idle");
+        setHasInspectionApproval(false);
+        setReviewedImageIndices(() => new Set());
+        setActiveGalleryIndex(0);
         resetWalkthroughInput();
         return;
       }
 
       setUploadError(null);
+      setHasInspectionApproval(false);
+      setReviewedImageIndices(() => new Set());
       setWalkthroughFile(file);
       setWalkthroughStatus("processing");
       setActiveGalleryIndex(0);
