@@ -6254,6 +6254,39 @@ export function BusinessChatUI({
     },
     [setAdvisorPanelOpen, setFollowUpRecommendations, setHasTriggeredSuggestedTopics],
   );
+
+  useEffect(() => {
+    const nextQuickActions = deriveQuickActions({
+      messages,
+      currentStep,
+      modalView,
+      followUpRecommendations,
+      view,
+      isInvestorAuthenticated,
+    });
+
+    setPersistentQuickActions((previous) =>
+      areQuickActionListsEqual(previous, nextQuickActions)
+        ? previous
+        : nextQuickActions,
+    );
+
+    if (
+      selectedQuickActionId &&
+      nextQuickActions.every((action) => action.id !== selectedQuickActionId)
+    ) {
+      setSelectedQuickActionId(null);
+    }
+  }, [
+    messages,
+    currentStep,
+    modalView,
+    followUpRecommendations,
+    view,
+    isInvestorAuthenticated,
+    selectedQuickActionId,
+  ]);
+
   const openApplicantPortal = useCallback(() => {
     navigate("/portal/applicant", {
       state: {
