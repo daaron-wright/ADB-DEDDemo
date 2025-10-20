@@ -2214,6 +2214,7 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
     if (stageId === "compliance-growth") {
       focusViewProps.onComplianceReturn = handleCompliancePassed;
       focusViewProps.isCompliancePassed = applicationStatus === "Compliant";
+      focusViewProps.onExitJourney = handleExitJourneyFocus;
     }
 
     if (stageId === "document-submissions") {
@@ -2239,6 +2240,7 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
     journeyStages,
     stageProgress,
     handleCompliancePassed,
+    handleExitJourneyFocus,
     applicationStatus,
     selectedLegalFormId,
     handleLicenseIssued,
