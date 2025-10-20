@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { BusinessChatUI } from "@/components/ui/business-chat-ui";
 import { PortalPageLayout } from "@/components/portal/PortalPageLayout";
 import { PortalProfileMenu } from "@/components/portal/PortalProfileMenu";
@@ -21,7 +22,7 @@ import { usePersistentState } from "@/hooks/use-persistent-state";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
-import { Plus, ChevronDown } from "lucide-react";
+import { Plus, ChevronDown, CheckCircle } from "lucide-react";
 import {
   JourneyOrchestrationPanel,
   type JourneyOrchestrationPanelCopy,
