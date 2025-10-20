@@ -465,6 +465,12 @@ const FEEDBACK_STATUS_LABEL: Record<FeedbackWorkflowStatus, string> = {
   responded: "Responded",
 };
 
+const POLICY_FEEDBACK_MATCHERS = [
+  "qualifying f&b concepts",
+  "low risk fast path",
+  "assembly, baking, and reheating",
+] as const;
+
 export function ComplianceGrowthFocusContent({
   journeyNumber = "0987654321",
   growthUnlocked = false,
