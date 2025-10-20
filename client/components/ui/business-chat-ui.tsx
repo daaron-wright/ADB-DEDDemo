@@ -7029,7 +7029,7 @@ export function BusinessChatUI({
       } else if (mentionsDemographics) {
         responses.push(
           buildMessage(
-            "Abu Dhabi's dining potential varies by zone, each offering unique demographics and population density drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island ��� 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).",
+            "Abu Dhabi's dining potential varies by zone, each offering unique demographics and population density drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island ��� 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island �� 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).",
             true,
             {
               type: "demographics",
@@ -7683,43 +7683,6 @@ export function BusinessChatUI({
       setAdvisorPanelOpen(false);
       return;
     }
-
-    const defaultActions: MessageAction[] = [
-      {
-        id: "welcome-market-overview",
-        label: "Discover Opportunities",
-        action: "open-market-overview",
-      },
-      {
-        id: "welcome-competition",
-        label: "Assess Competition",
-        action: "open-competition-analysis",
-      },
-      {
-        id: "welcome-budget",
-        label: "Identify Your Location",
-        action: "open-budget-analysis",
-      },
-      {
-        id: "welcome-human-agent",
-        label: "Human Assistance",
-        action: "contact-human",
-      },
-    ];
-
-    setPersistentQuickActions((previous) => {
-      const existingIds = new Set(previous.map((action) => action.id));
-      if (defaultActions.every((action) => existingIds.has(action.id))) {
-        return previous;
-      }
-      const merged = [...previous];
-      defaultActions.forEach((action) => {
-        if (!existingIds.has(action.id)) {
-          merged.push(action);
-        }
-      });
-      return merged;
-    });
 
     const trimmedInitial = initialMessage?.trim();
     const hasInitialPrompt = Boolean(trimmedInitial);
