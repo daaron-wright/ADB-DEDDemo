@@ -894,7 +894,7 @@ export function ComplianceGrowthFocusContent({
             className="mt-0 space-y-5 focus-visible:outline-none focus-visible:ring-0"
           >
             <div className="space-y-5">
-          <div className="space-y-6 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
+            <div className="space-y-6 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h4 className="text-base font-semibold text-slate-900">Inspection pipeline</h4>
               <Badge
