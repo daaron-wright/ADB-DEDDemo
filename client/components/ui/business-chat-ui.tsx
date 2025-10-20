@@ -7150,22 +7150,10 @@ export function BusinessChatUI({
     (action: ConversationAction, label: string, actionId?: string) => {
       const trimmedLabel = label.trim();
       const normalizedLabel = trimmedLabel.toLowerCase();
-      const resolvedId =
-        actionId ??
-        persistentQuickActions.find(
-          (item) =>
-            item.action === action &&
-            item.label.trim().toLowerCase() === normalizedLabel,
-        )?.id ?? null;
+      const resolvedId = actionId ?? findQuickActionId(action, normalizedLabel);
 
       if (resolvedId) {
         setSelectedQuickActionId(resolvedId);
-        setPersistentQuickActions((previous) => {
-          if (previous.some((item) => item.id === resolvedId)) {
-            return previous;
-          }
-          return [...previous, { id: resolvedId, label: trimmedLabel, action }];
-        });
       }
 
       setMessages((prev) => {
