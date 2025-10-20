@@ -425,7 +425,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "هذه هي نقطة ا��طلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
         "مرحب��ا بكِ—شاركي��ا تفاصيل فكرتك ��نصمم معًا رحلة ا��ترخيص التي تطلق مشروعك التجاري.",
-      startCta: "ابدئي الاستبيان مع الذكاء الاصطناعي",
+      startCta: "ابدئي الاس��بيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
       pendingLicenseLabel: "م��اح بعد الاستبيان",
@@ -1015,7 +1015,7 @@ export default function ApplicantPortal() {
     useState(false);
   const [hasLicenseIssued, setHasLicenseIssued] = useState(false);
   const [policyUpdateAcknowledged, setPolicyUpdateAcknowledged] =
-    usePersistentState<boolean>("portal-policy-update-acknowledged", false);
+    useState(false);
   const [questionnaireProgress, setQuestionnaireProgress] =
     usePersistentState<QuestionnaireProgress>(
       "portal-questionnaire-progress",
