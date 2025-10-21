@@ -6582,6 +6582,16 @@ export function BusinessChatUI({
   ]);
 
   useEffect(() => {
+    if (selectedQuickActionId) {
+      setCompletedQuickActionIds((prev) => {
+        if (prev.has(selectedQuickActionId)) {
+          return prev;
+        }
+        const next = new Set(prev);
+        next.add(selectedQuickActionId);
+        return next;
+      });
+    }
     if (
       selectedQuickActionId &&
       quickActions.every((action) => action.id !== selectedQuickActionId)
