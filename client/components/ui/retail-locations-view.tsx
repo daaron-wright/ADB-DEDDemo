@@ -349,7 +349,7 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                     <path d="M12 12v8" />
                     <path d="M5 21h14" />
                   </svg>
-                  Continue to your workspace
+                  Continue to workspace
                 </button>
                 <button
                   type="button"
