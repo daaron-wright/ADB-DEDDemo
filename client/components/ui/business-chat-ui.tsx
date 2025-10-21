@@ -841,6 +841,7 @@ const FOLLOW_UP_SUMMARY_COMPLETION: ReadonlyArray<StageRecommendation> = [
     icon: Headset,
     type: "human",
     prompt: "Please connect me with a TAMM advisor to review my summary.",
+    quickAction: false,
   },
 ];
 
