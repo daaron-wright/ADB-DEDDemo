@@ -7872,6 +7872,20 @@ export function BusinessChatUI({
       );
     }
 
+    if (
+      initialUnlocksQuickActions &&
+      primaryQuickAction &&
+      !hasProvidedQuickActionIntro
+    ) {
+      conversation.push(
+        buildMessage(
+          `I've unlocked quick actions for you—start with "${primaryQuickAction.label}" to open the market intelligence workspace and explore demand hotspots for your concept.`,
+          true,
+        ),
+      );
+      setHasProvidedQuickActionIntro(true);
+    }
+
     setMessages(conversation);
     setAdvisorPanelOpen(true);
   }, [
@@ -7881,6 +7895,9 @@ export function BusinessChatUI({
     initialMessage,
     shouldSuppressChat,
     journeyFocusView,
+    initialUnlocksQuickActions,
+    primaryQuickAction,
+    hasProvidedQuickActionIntro,
   ]);
 
   useEffect(() => {
