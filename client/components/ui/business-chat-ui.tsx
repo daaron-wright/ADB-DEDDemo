@@ -6357,6 +6357,7 @@ export function BusinessChatUI({
     useState(false);
   const [selectedQuickActionId, setSelectedQuickActionId] = useState<string | null>(null);
   const [completedQuickActionIds, setCompletedQuickActionIds] = useState<Set<string>>(new Set());
+  const conversationSeedKeyRef = useRef<string | null>(null);
   const assistantName = title || AI_ASSISTANT_PROFILE.name;
   const assistantAvatarUrl = AI_ASSISTANT_PROFILE.avatar.trim();
   const hasAssistantAvatar = assistantAvatarUrl.length > 0;
