@@ -317,6 +317,9 @@ const NORMALIZED_QUICK_ACTION_UNLOCK_PROMPTS = new Set(
   QUICK_ACTION_UNLOCK_PROMPTS.map((prompt) => normalizeMessageContent(prompt)),
 );
 
+const buildQuickActionIntroMessage = (label: string) =>
+  `I've unlocked quick actions for you—start with "${label}" to open the market intelligence workspace. After you've explored the demand hotspots, ask me about budgets or competition so we can plan the next steps together.`;
+
 const CONVERSATION_BLUEPRINT: Record<
   ConversationStep,
   {
@@ -7496,7 +7499,7 @@ export function BusinessChatUI({
           setShouldOpenInvestorView(true);
           setView("investor-journey");
           const acknowledgement = buildMessage(
-            "Perfect — I’m triggering automation, reserving your trade name, and opening the applicant portal timeline for you now.",
+            "Perfect ��� I’m triggering automation, reserving your trade name, and opening the applicant portal timeline for you now.",
             true,
           );
           const handoffMessage = buildStepMessage("handoff");
