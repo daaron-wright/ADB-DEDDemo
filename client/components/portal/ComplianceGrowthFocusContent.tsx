@@ -1407,6 +1407,19 @@ export function ComplianceGrowthFocusContent({
                   placeholder="Share the next initiative you want Polaris to help with..."
                   className="resize-none border-slate-200 bg-white text-sm leading-relaxed text-slate-700"
                 />
+                {feedbackAcknowledgement ? (
+                  <div className="flex items-start gap-3 rounded-2xl border border-[#94d2c2] bg-[#eaf7f3] p-4 text-sm text-[#0f766e] shadow-[0_20px_52px_-38px_rgba(15,23,42,0.28)]">
+                    <CheckCircle className="mt-0.5 h-5 w-5" aria-hidden="true" />
+                    <div className="space-y-1">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em]">
+                        {feedbackAcknowledgement.title}
+                      </p>
+                      <p className="text-sm leading-relaxed text-[#0b7d6f]">
+                        {feedbackAcknowledgement.message}
+                      </p>
+                    </div>
+                  </div>
+                ) : null}
                 <div className="flex flex-wrap items-center gap-3">
                   <Button
                     type="button"
