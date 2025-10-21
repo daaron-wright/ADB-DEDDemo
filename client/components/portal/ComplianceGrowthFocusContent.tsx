@@ -1361,6 +1361,7 @@ export function ComplianceGrowthFocusContent({
                 <Textarea
                   value={feedbackNotes}
                   onChange={(event) => setFeedbackNotes(event.target.value)}
+                  onKeyDown={handleFeedbackHotkey}
                   rows={6}
                   placeholder="Share the next initiative you want Polaris to help with..."
                   className="resize-none border-slate-200 bg-white text-sm leading-relaxed text-slate-700"
