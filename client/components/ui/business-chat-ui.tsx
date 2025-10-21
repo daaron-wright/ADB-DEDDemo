@@ -7945,7 +7945,7 @@ export function BusinessChatUI({
       );
 
       setMessages(stageConversation);
-      setAdvisorPanelOpen(false);
+      conversationSeedKeyRef.current = stageSeedKey;
       return;
     }
 
