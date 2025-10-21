@@ -751,6 +751,15 @@ export function ComplianceGrowthFocusContent({
     };
   }, []);
 
+  React.useEffect(() => {
+    return () => {
+      if (feedbackAcknowledgementTimerRef.current) {
+        window.clearTimeout(feedbackAcknowledgementTimerRef.current);
+        feedbackAcknowledgementTimerRef.current = null;
+      }
+    };
+  }, []);
+
   const handleSubmitFeedback = React.useCallback(() => {
     if (!feedbackNotes.trim()) {
       toast({
