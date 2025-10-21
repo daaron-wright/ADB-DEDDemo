@@ -7846,6 +7846,7 @@ export function BusinessChatUI({
     if (shouldSuppressChat) {
       setMessages([]);
       setAdvisorPanelOpen(false);
+      conversationSeedKeyRef.current = null;
       return;
     }
 
