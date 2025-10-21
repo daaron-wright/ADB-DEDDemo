@@ -458,22 +458,6 @@ export function ComplianceGrowthFocusContent({
     return complianceItems.filter((item) => item.status === "success").length;
   }, [complianceItems]);
 
-  const pipelineStatuses = React.useMemo(() => {
-    return INSPECTION_PIPELINE_STEPS.map((step, index) => {
-      if (index < pipelineIndex) {
-        return { ...step, status: "complete" as PipelineStatus };
-      }
-      if (index === pipelineIndex) {
-        return { ...step, status: "active" as PipelineStatus };
-      }
-      return { ...step, status: "pending" as PipelineStatus };
-    });
-  }, [pipelineIndex]);
-
-  const latestVideoEvidence = React.useMemo(() => {
-    return videoLibrary[0];
-  }, [videoLibrary]);
-
   const evidenceGallery = React.useMemo<EvidenceGalleryItem[]>(
     () =>
       videoLibrary
