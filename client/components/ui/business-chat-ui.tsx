@@ -311,6 +311,9 @@ const NORMALIZED_SUGGESTED_TOPICS_TRIGGER = normalizeMessageContent(
   SUGGESTED_TOPICS_TRIGGER_MESSAGE,
 );
 
+const CHAT_INPUT_HOTKEY_PROMPT =
+  "I'm interested in starting an Emerati-fusion restaurant";
+
 const QUICK_ACTION_UNLOCK_PROMPTS = [
   "I'm interested in starting an Emirati-fusion restaurant",
   "I'm interested in starting an Emerati-fusion restaurant",
