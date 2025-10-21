@@ -10,17 +10,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/components/ui/alert";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { StageSlideNavigator, type StageSlide } from "./StageSlideNavigator";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -126,11 +117,36 @@ interface ComplianceGrowthFocusContentProps {
 }
 
 const DEFAULT_COMPLIANCE_ITEMS: ComplianceItem[] = [
-  { id: "civil-defence", label: "Civil Defence", status: "success", detail: "Compliant" },
-  { id: "ded-inspection", label: "DED inspection", status: "warning", detail: "29 days remaining" },
-  { id: "food-safety", label: "Food & Safety inspection", status: "success", detail: "Pass" },
-  { id: "employment-visas", label: "Employment visas", status: "success", detail: "Renewed" },
-  { id: "tawtheeq", label: "Tawtheeq lease", status: "info", detail: "Expires in 320 days" },
+  {
+    id: "civil-defence",
+    label: "Civil Defence",
+    status: "success",
+    detail: "Compliant",
+  },
+  {
+    id: "ded-inspection",
+    label: "DED inspection",
+    status: "warning",
+    detail: "29 days remaining",
+  },
+  {
+    id: "food-safety",
+    label: "Food & Safety inspection",
+    status: "success",
+    detail: "Pass",
+  },
+  {
+    id: "employment-visas",
+    label: "Employment visas",
+    status: "success",
+    detail: "Renewed",
+  },
+  {
+    id: "tawtheeq",
+    label: "Tawtheeq lease",
+    status: "info",
+    detail: "Expires in 320 days",
+  },
 ];
 
 const COMPLIANCE_STATUS_TOKENS: Record<
@@ -152,21 +168,24 @@ const COMPLIANCE_STATUS_TOKENS: Record<
   },
   warning: {
     Icon: AlertTriangle,
-    iconWrapperClass: "border border-amber-300/40 bg-amber-200/20 text-amber-100",
+    iconWrapperClass:
+      "border border-amber-300/40 bg-amber-200/20 text-amber-100",
     iconClass: "text-amber-200",
     badgeClass: "border-amber-200 bg-amber-50 text-amber-700",
     badgeLabel: "Action needed",
   },
   success: {
     Icon: CheckCircle,
-    iconWrapperClass: "border border-emerald-200/50 bg-emerald-400/15 text-emerald-50",
+    iconWrapperClass:
+      "border border-emerald-200/50 bg-emerald-400/15 text-emerald-50",
     iconClass: "text-emerald-200",
     badgeClass: "border-emerald-200 bg-emerald-50 text-emerald-700",
     badgeLabel: "Compliant",
   },
   info: {
     Icon: ShieldCheck,
-    iconWrapperClass: "border border-slate-200/40 bg-slate-100/60 text-slate-500",
+    iconWrapperClass:
+      "border border-slate-200/40 bg-slate-100/60 text-slate-500",
     iconClass: "text-slate-500",
     badgeClass: "border-slate-200 bg-white text-slate-500",
     badgeLabel: "Monitoring",
@@ -210,7 +229,10 @@ const PREMIS_READINESS_ITEMS: ReadinessItem[] = [
   },
 ];
 
-const READINESS_STATUS_TOKENS: Record<ReadinessStatus, { label: string; className: string }> = {
+const READINESS_STATUS_TOKENS: Record<
+  ReadinessStatus,
+  { label: string; className: string }
+> = {
   pass: {
     label: "Pass",
     className: "border-[#94d2c2] bg-[#eaf7f3] text-[#0f766e]",
@@ -244,19 +266,22 @@ const GROWTH_OPPORTUNITIES: GrowthOpportunity[] = [
   {
     id: "delivery-expansion",
     title: "Activate delivery-only kitchen",
-    subtitle: "Add a virtual brand with ADM and ADAFSA checks handled automatically.",
+    subtitle:
+      "Add a virtual brand with ADM and ADAFSA checks handled automatically.",
     buttonLabel: "Explore virtual kitchen",
   },
   {
     id: "event-catering",
     title: "Launch catering program",
-    subtitle: "Onboard catering permits, vehicle endorsements, and staffing support.",
+    subtitle:
+      "Onboard catering permits, vehicle endorsements, and staffing support.",
     buttonLabel: "Configure catering",
   },
   {
     id: "second-location",
     title: "Plan second location",
-    subtitle: "Clone compliant documentation and run Polaris feasibility modeling.",
+    subtitle:
+      "Clone compliant documentation and run Polaris feasibility modeling.",
     buttonLabel: "Start expansion plan",
   },
 ];
@@ -321,24 +346,24 @@ const INSPECTION_EVIDENCE_IMAGES = [
   },
 ] as const;
 
-const INSPECTION_EVIDENCE_FRAMES: EvidenceFrame[] = INSPECTION_EVIDENCE_IMAGES.map(
-  ({ id, src, alt }) => ({
+const INSPECTION_EVIDENCE_FRAMES: EvidenceFrame[] =
+  INSPECTION_EVIDENCE_IMAGES.map(({ id, src, alt }) => ({
     id,
     src,
     alt,
     status: "pass",
-  }),
-);
+  }));
 
-const SIGNBOARD_FRAME_IMAGE_SETS: ReadonlyArray<ReadonlyArray<EvidenceFrame>> = [
-  [0, 1, 2],
-  [3, 4, 0],
-  [1, 2, 3],
-].map((indices) =>
-  indices.map((index) => ({
-    ...INSPECTION_EVIDENCE_FRAMES[index % INSPECTION_EVIDENCE_FRAMES.length],
-  })),
-);
+const SIGNBOARD_FRAME_IMAGE_SETS: ReadonlyArray<ReadonlyArray<EvidenceFrame>> =
+  [
+    [0, 1, 2],
+    [3, 4, 0],
+    [1, 2, 3],
+  ].map((indices) =>
+    indices.map((index) => ({
+      ...INSPECTION_EVIDENCE_FRAMES[index % INSPECTION_EVIDENCE_FRAMES.length],
+    })),
+  );
 
 const DEFAULT_VIDEO_LIBRARY: VideoEvidence[] = [
   {
@@ -376,9 +401,11 @@ const DEFAULT_VIDEO_LIBRARY: VideoEvidence[] = [
   },
 ];
 
-const bytesToMegabytes = (bytes: number) => Number((bytes / MEGABYTE).toFixed(2));
+const bytesToMegabytes = (bytes: number) =>
+  Number((bytes / MEGABYTE).toFixed(2));
 const formatMegabytes = (value: number) => `${value.toFixed(2)} MB`;
-const formatFileSize = (bytes: number) => formatMegabytes(bytesToMegabytes(bytes));
+const formatFileSize = (bytes: number) =>
+  formatMegabytes(bytesToMegabytes(bytes));
 
 const FEEDBACK_STATUS_LABEL: Record<FeedbackWorkflowStatus, string> = {
   draft: "Draft",
@@ -401,21 +428,22 @@ export function ComplianceGrowthFocusContent({
   onPolicyUpdateAcknowledged,
 }: ComplianceGrowthFocusContentProps) {
   const { toast } = useToast();
-  const [activeSlideId, setActiveSlideId] = React.useState<StageSlide["id"]>(
-    "compliance",
-  );
-  const [complianceItems, setComplianceItems] = React.useState<ComplianceItem[]>(
-    () => DEFAULT_COMPLIANCE_ITEMS,
-  );
+  const [activeSlideId, setActiveSlideId] =
+    React.useState<StageSlide["id"]>("compliance");
+  const [complianceItems, setComplianceItems] = React.useState<
+    ComplianceItem[]
+  >(() => DEFAULT_COMPLIANCE_ITEMS);
   const [feedbackStatus, setFeedbackStatus] =
     React.useState<FeedbackWorkflowStatus>("draft");
   const [localPolicyUpdateAcknowledged, setLocalPolicyUpdateAcknowledged] =
     React.useState(false);
   const [feedbackNotes, setFeedbackNotes] = React.useState("");
   const [contactEmail, setContactEmail] = React.useState("layla@marwah.ae");
-  const [feedbackAcknowledgement, setFeedbackAcknowledgement] = React.useState<
-    { id: string; title: string; message: string } | null
-  >(null);
+  const [feedbackAcknowledgement, setFeedbackAcknowledgement] = React.useState<{
+    id: string;
+    title: string;
+    message: string;
+  } | null>(null);
   const feedbackAcknowledgementTimerRef = React.useRef<number | null>(null);
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
   const resolvedPolicyUpdateAcknowledged =
@@ -436,9 +464,8 @@ export function ComplianceGrowthFocusContent({
   const [automationTab, setAutomationTab] =
     React.useState<AutomationTabValue>("overview");
   const frameTimersRef = React.useRef<number[]>([]);
-  const [activeOpportunityMessage, setActiveOpportunityMessage] = React.useState<
-    { id: string; message: string } | null
-  >(null);
+  const [activeOpportunityMessage, setActiveOpportunityMessage] =
+    React.useState<{ id: string; message: string } | null>(null);
 
   React.useEffect(() => {
     if (activeSlideId !== "automation") {
@@ -480,7 +507,9 @@ export function ComplianceGrowthFocusContent({
     (id: string) => {
       setComplianceItems((previous) =>
         previous.map((item) =>
-          item.id === id ? { ...item, status: "success", detail: "Resolved" } : item,
+          item.id === id
+            ? { ...item, status: "success", detail: "Resolved" }
+            : item,
         ),
       );
     },
@@ -510,7 +539,8 @@ export function ComplianceGrowthFocusContent({
       if (!file.type.startsWith("video/")) {
         toast({
           title: "Unsupported file type",
-          description: "Upload MP4, MOV, or WebM walkthroughs for signboard verification.",
+          description:
+            "Upload MP4, MOV, or WebM walkthroughs for signboard verification.",
           variant: "destructive",
         });
         resetPendingVideo();
@@ -520,7 +550,8 @@ export function ComplianceGrowthFocusContent({
       if (file.size > MAX_VIDEO_SIZE_BYTES) {
         toast({
           title: "Video exceeds size limit",
-          description: "Each walkthrough must be 2 GB or smaller before encryption.",
+          description:
+            "Each walkthrough must be 2 GB or smaller before encryption.",
           variant: "destructive",
         });
         resetPendingVideo();
@@ -544,7 +575,8 @@ export function ComplianceGrowthFocusContent({
     if (!pendingVideo) {
       toast({
         title: "Add a walkthrough video",
-        description: "Select a signboard capture before submitting to inspectors.",
+        description:
+          "Select a signboard capture before submitting to inspectors.",
         variant: "destructive",
       });
       return;
@@ -567,8 +599,9 @@ export function ComplianceGrowthFocusContent({
 
     setVideoLibrary((previous) => {
       const frameSource =
-        SIGNBOARD_FRAME_IMAGE_SETS[previous.length % SIGNBOARD_FRAME_IMAGE_SETS.length] ??
-        SIGNBOARD_FRAME_IMAGE_SETS[0];
+        SIGNBOARD_FRAME_IMAGE_SETS[
+          previous.length % SIGNBOARD_FRAME_IMAGE_SETS.length
+        ] ?? SIGNBOARD_FRAME_IMAGE_SETS[0];
       const frames = frameSource.map((frame, index) => ({
         ...frame,
         id: `${frame.id}-${evidenceId}-${index}`,
@@ -734,7 +767,9 @@ export function ComplianceGrowthFocusContent({
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                   Journey number
                 </p>
-                <p className="text-lg font-semibold text-slate-900">{journeyNumber}</p>
+                <p className="text-lg font-semibold text-slate-900">
+                  {journeyNumber}
+                </p>
               </div>
               <Badge className="inline-flex items-center gap-2 rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
                 <ShieldCheck className="h-3.5 w-3.5" />
@@ -750,24 +785,31 @@ export function ComplianceGrowthFocusContent({
                   Stay compliant after launch
                 </h3>
                 <p className="text-sm text-slate-600">
-                  Polaris watches every renewal, inspection, and dependency so you focus on operating the restaurant.
+                  Polaris watches every renewal, inspection, and dependency so
+                  you focus on operating the restaurant.
                 </p>
               </div>
               <p className="text-sm text-slate-600">
-                Polaris keeps obligations in sync across every authority. When something needs your attention, it moves to the top of this list.
+                Polaris keeps obligations in sync across every authority. When
+                something needs your attention, it moves to the top of this
+                list.
               </p>
             </div>
           </div>
 
           <div className="space-y-3 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <h4 className="text-base font-semibold text-slate-900">Authority obligations</h4>
-              <Badge className={cn(
-                "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                isCompliant
-                  ? "border-[#94d2c2] bg-[#eaf7f3] text-[#0f766e]"
-                  : "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
-              )}>
+              <h4 className="text-base font-semibold text-slate-900">
+                Authority obligations
+              </h4>
+              <Badge
+                className={cn(
+                  "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                  isCompliant
+                    ? "border-[#94d2c2] bg-[#eaf7f3] text-[#0f766e]"
+                    : "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
+                )}
+              >
                 {isCompliant ? "Compliant" : "Action required"}
               </Badge>
             </div>
@@ -786,15 +828,21 @@ export function ComplianceGrowthFocusContent({
                           token.iconWrapperClass,
                         )}
                       >
-                        <token.Icon className={cn("h-4 w-4", token.iconClass)} />
+                        <token.Icon
+                          className={cn("h-4 w-4", token.iconClass)}
+                        />
                       </span>
                       <div className="flex-1">
                         <div className="flex flex-wrap items-center justify-between gap-2">
-                          <p className="text-sm font-semibold text-slate-900">{item.label}</p>
-                          <Badge className={cn(
-                            "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                            token.badgeClass,
-                          )}>
+                          <p className="text-sm font-semibold text-slate-900">
+                            {item.label}
+                          </p>
+                          <Badge
+                            className={cn(
+                              "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                              token.badgeClass,
+                            )}
+                          >
                             {token.badgeLabel}
                           </Badge>
                         </div>
@@ -853,7 +901,9 @@ export function ComplianceGrowthFocusContent({
       content: (
         <Tabs
           value={automationTab}
-          onValueChange={(value) => setAutomationTab(value as AutomationTabValue)}
+          onValueChange={(value) =>
+            setAutomationTab(value as AutomationTabValue)
+          }
           className="space-y-5"
         >
           <TabsList className="inline-flex flex-wrap gap-1 rounded-full border border-[#d8e4df] bg-white/80 p-1 shadow-[0_18px_42px_-32px_rgba(15,23,42,0.25)]">
@@ -875,184 +925,218 @@ export function ComplianceGrowthFocusContent({
             className="mt-0 space-y-5 focus-visible:outline-none focus-visible:ring-0"
           >
             <div className="space-y-5">
-            <div className="space-y-5 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
-              <div className="space-y-2">
-                <h4 className="text-base font-semibold text-slate-900">Upload signboard walkthrough</h4>
-                <p className="text-sm text-slate-600">
-                  Polaris encrypts each submission and forwards it to inspectors once frames clear automation checks.
-                </p>
-              </div>
-              <div className="space-y-4">
-                <label
-                  htmlFor="signboard-video-upload"
-                  className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-[#0f766e]/40 bg-white/85 px-4 py-6 text-center transition hover:border-[#0f766e] hover:bg-[#f5faf7]"
-                >
-                  <UploadCloud className="h-6 w-6 text-[#0f766e]" />
-                  <div>
-                    <p className="text-sm font-semibold text-slate-900">Drop video or browse</p>
-                    <p className="text-xs text-slate-500">MP4, MOV, or WebM up to 2 GB</p>
-                  </div>
-                </label>
-                <Input
-                  id="signboard-video-upload"
-                  ref={fileInputRef}
-                  type="file"
-                  accept="video/*"
-                  className="hidden"
-                  onChange={handleVideoSelect}
-                />
-                {pendingVideo ? (
-                  <div className="space-y-2 rounded-xl border border-[#d8e4df] bg-white/90 p-4 text-left">
-                    <div className="flex items-center justify-between gap-3">
-                      <div>
-                        <p className="text-sm font-semibold text-slate-900">{pendingVideo.name}</p>
-                        <p className="text-xs text-slate-500">
-                          {formatFileSize(pendingVideo.size)} • Ready for submission
-                        </p>
-                      </div>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        className="rounded-full px-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 hover:text-slate-900"
-                        onClick={handleRemovePendingVideo}
-                      >
-                        Remove
-                      </Button>
-                    </div>
-                    <p className="text-xs text-slate-500">
-                      Polaris encrypts the footage and extracts annotated frames before inspectors review it.
-                    </p>
-                  </div>
-                ) : (
-                  <div className="rounded-xl border border-dashed border-[#d8e4df] bg-white/70 p-4 text-xs text-slate-500">
-                    No new walkthrough selected.
-                  </div>
-                )}
-                <div className="flex flex-wrap items-center gap-3">
-                  <Button
-                    type="button"
-                    onClick={handleSubmitVideoEvidence}
-                    disabled={!pendingVideo || isSubmittingVideo}
-                    className="flex-1 rounded-full bg-[#0f766e] px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_42px_-30px_rgba(15,118,110,0.45)] disabled:cursor-not-allowed disabled:opacity-60"
+              <div className="space-y-5 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
+                <div className="space-y-2">
+                  <h4 className="text-base font-semibold text-slate-900">
+                    Upload signboard walkthrough
+                  </h4>
+                  <p className="text-sm text-slate-600">
+                    Polaris encrypts each submission and forwards it to
+                    inspectors once frames clear automation checks.
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <label
+                    htmlFor="signboard-video-upload"
+                    className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-[#0f766e]/40 bg-white/85 px-4 py-6 text-center transition hover:border-[#0f766e] hover:bg-[#f5faf7]"
                   >
-                    {isSubmittingVideo ? (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    ) : null}
-                    Submit walkthrough for inspection
-                  </Button>
-                </div>
-                <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#d8e4df] bg-[#f5faf7] p-4">
-                  <div className="max-w-[360px] space-y-1">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                      Inspection evidence library
-                    </p>
-                    <p className="text-xs text-slate-500">
-                      Open the dedicated tab to review curated captures and analyzed frames.
-                    </p>
-                  </div>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    className="rounded-full border-[#0f766e]/40 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
-                    onClick={() => setAutomationTab("inspection-evidence")}
-                  >
-                    Go to library
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-          <Accordion type="multiple" className="space-y-3">
-            <AccordionItem
-              value="sign-board-verification"
-              className="rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]"
-            >
-              <AccordionTrigger className="flex w-full flex-wrap items-center justify-between gap-3 rounded-3xl px-6 py-5 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
-                <h4 className="text-base font-semibold text-slate-900">Sign board verification</h4>
-                <Badge className="rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
-                  {`${Math.round(SIGNBOARD_QUALITY_SUMMARY.confidence * 100)}% confidence`}
-                </Badge>
-              </AccordionTrigger>
-              <AccordionContent className="space-y-4 px-6 pb-6 pt-0">
-                <ul className="space-y-2 text-sm text-slate-600">
-                  {SIGNBOARD_QUALITY_SUMMARY.highlights.map((highlight) => (
-                    <li key={highlight} className="flex items-start gap-2">
-                      <Check className="mt-0.5 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
-                      <span>{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex items-center gap-3 rounded-2xl border border-[#d8e4df] bg-[#f5faf7] p-4 text-sm text-[#0f766e]">
-                  <UploadCloud className="h-5 w-5" />
-                  Latest signboard footage and annotated frames are synced for inspectors.
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem
-              value="premises-readiness"
-              className="rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]"
-            >
-              <AccordionTrigger className="flex w-full flex-wrap items-center justify-between gap-3 rounded-3xl px-6 py-5 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
-                <h4 className="text-base font-semibold text-slate-900">Premises readiness</h4>
-              </AccordionTrigger>
-              <AccordionContent className="space-y-4 px-6 pb-6 pt-0">
-                <div className="space-y-3">
-                  {PREMIS_READINESS_ITEMS.map((item) => {
-                    const token = READINESS_STATUS_TOKENS[item.status];
-                    return (
-                      <div
-                        key={item.id}
-                        className="flex flex-col gap-2 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4"
-                      >
-                        <div className="flex flex-wrap items-center justify-between gap-2">
-                          <p className="text-sm font-semibold text-slate-900">{item.label}</p>
-                          <Badge className={cn(
-                            "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                            token.className,
-                          )}>
-                            {token.label}
-                          </Badge>
-                        </div>
-                        {item.detail ? (
-                          <p className="text-xs text-slate-500">{item.detail}</p>
-                        ) : null}
-                      </div>
-                    );
-                  })}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem
-              value="activity-matching-verification"
-              className="rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]"
-            >
-              <AccordionTrigger className="flex w-full flex-wrap items-center justify-between gap-3 rounded-3xl px-6 py-5 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
-                <h4 className="text-base font-semibold text-slate-900">Activity matching verification</h4>
-              </AccordionTrigger>
-              <AccordionContent className="space-y-3 px-6 pb-6 pt-0">
-                {TEXT_VERIFICATION_RESULTS.map((row) => (
-                  <div
-                    key={row.id}
-                    className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#f0f4f8] bg-[#f9fbfd] px-4 py-3"
-                  >
+                    <UploadCloud className="h-6 w-6 text-[#0f766e]" />
                     <div>
-                      <p className="text-sm font-semibold text-slate-900">{row.language}</p>
-                      <p className="text-xs text-slate-500">Registered: {row.registered}</p>
-                      <p className="text-xs text-slate-500">Extracted: {row.extracted}</p>
+                      <p className="text-sm font-semibold text-slate-900">
+                        Drop video or browse
+                      </p>
+                      <p className="text-xs text-slate-500">
+                        MP4, MOV, or WebM up to 2 GB
+                      </p>
                     </div>
-                    <Badge className="rounded-full border border-[#94d2c2] bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                      {row.status}
-                    </Badge>
+                  </label>
+                  <Input
+                    id="signboard-video-upload"
+                    ref={fileInputRef}
+                    type="file"
+                    accept="video/*"
+                    className="hidden"
+                    onChange={handleVideoSelect}
+                  />
+                  {pendingVideo ? (
+                    <div className="space-y-2 rounded-xl border border-[#d8e4df] bg-white/90 p-4 text-left">
+                      <div className="flex items-center justify-between gap-3">
+                        <div>
+                          <p className="text-sm font-semibold text-slate-900">
+                            {pendingVideo.name}
+                          </p>
+                          <p className="text-xs text-slate-500">
+                            {formatFileSize(pendingVideo.size)} • Ready for
+                            submission
+                          </p>
+                        </div>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          className="rounded-full px-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 hover:text-slate-900"
+                          onClick={handleRemovePendingVideo}
+                        >
+                          Remove
+                        </Button>
+                      </div>
+                      <p className="text-xs text-slate-500">
+                        Polaris encrypts the footage and extracts annotated
+                        frames before inspectors review it.
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="rounded-xl border border-dashed border-[#d8e4df] bg-white/70 p-4 text-xs text-slate-500">
+                      No new walkthrough selected.
+                    </div>
+                  )}
+                  <div className="flex flex-wrap items-center gap-3">
+                    <Button
+                      type="button"
+                      onClick={handleSubmitVideoEvidence}
+                      disabled={!pendingVideo || isSubmittingVideo}
+                      className="flex-1 rounded-full bg-[#0f766e] px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_42px_-30px_rgba(15,118,110,0.45)] disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {isSubmittingVideo ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      ) : null}
+                      Submit walkthrough for inspection
+                    </Button>
                   </div>
-                ))}
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
+                  <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#d8e4df] bg-[#f5faf7] p-4">
+                    <div className="max-w-[360px] space-y-1">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                        Inspection evidence library
+                      </p>
+                      <p className="text-xs text-slate-500">
+                        Open the dedicated tab to review curated captures and
+                        analyzed frames.
+                      </p>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="rounded-full border-[#0f766e]/40 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+                      onClick={() => setAutomationTab("inspection-evidence")}
+                    >
+                      Go to library
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              <Accordion type="multiple" className="space-y-3">
+                <AccordionItem
+                  value="sign-board-verification"
+                  className="rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]"
+                >
+                  <AccordionTrigger className="flex w-full flex-wrap items-center justify-between gap-3 rounded-3xl px-6 py-5 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
+                    <h4 className="text-base font-semibold text-slate-900">
+                      Sign board verification
+                    </h4>
+                    <Badge className="rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
+                      {`${Math.round(SIGNBOARD_QUALITY_SUMMARY.confidence * 100)}% confidence`}
+                    </Badge>
+                  </AccordionTrigger>
+                  <AccordionContent className="space-y-4 px-6 pb-6 pt-0">
+                    <ul className="space-y-2 text-sm text-slate-600">
+                      {SIGNBOARD_QUALITY_SUMMARY.highlights.map((highlight) => (
+                        <li key={highlight} className="flex items-start gap-2">
+                          <Check
+                            className="mt-0.5 h-4 w-4 text-[#0f766e]"
+                            strokeWidth={3}
+                          />
+                          <span>{highlight}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="flex items-center gap-3 rounded-2xl border border-[#d8e4df] bg-[#f5faf7] p-4 text-sm text-[#0f766e]">
+                      <UploadCloud className="h-5 w-5" />
+                      Latest signboard footage and annotated frames are synced
+                      for inspectors.
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem
+                  value="premises-readiness"
+                  className="rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]"
+                >
+                  <AccordionTrigger className="flex w-full flex-wrap items-center justify-between gap-3 rounded-3xl px-6 py-5 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
+                    <h4 className="text-base font-semibold text-slate-900">
+                      Premises readiness
+                    </h4>
+                  </AccordionTrigger>
+                  <AccordionContent className="space-y-4 px-6 pb-6 pt-0">
+                    <div className="space-y-3">
+                      {PREMIS_READINESS_ITEMS.map((item) => {
+                        const token = READINESS_STATUS_TOKENS[item.status];
+                        return (
+                          <div
+                            key={item.id}
+                            className="flex flex-col gap-2 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4"
+                          >
+                            <div className="flex flex-wrap items-center justify-between gap-2">
+                              <p className="text-sm font-semibold text-slate-900">
+                                {item.label}
+                              </p>
+                              <Badge
+                                className={cn(
+                                  "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                                  token.className,
+                                )}
+                              >
+                                {token.label}
+                              </Badge>
+                            </div>
+                            {item.detail ? (
+                              <p className="text-xs text-slate-500">
+                                {item.detail}
+                              </p>
+                            ) : null}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem
+                  value="activity-matching-verification"
+                  className="rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]"
+                >
+                  <AccordionTrigger className="flex w-full flex-wrap items-center justify-between gap-3 rounded-3xl px-6 py-5 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
+                    <h4 className="text-base font-semibold text-slate-900">
+                      Activity matching verification
+                    </h4>
+                  </AccordionTrigger>
+                  <AccordionContent className="space-y-3 px-6 pb-6 pt-0">
+                    {TEXT_VERIFICATION_RESULTS.map((row) => (
+                      <div
+                        key={row.id}
+                        className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#f0f4f8] bg-[#f9fbfd] px-4 py-3"
+                      >
+                        <div>
+                          <p className="text-sm font-semibold text-slate-900">
+                            {row.language}
+                          </p>
+                          <p className="text-xs text-slate-500">
+                            Registered: {row.registered}
+                          </p>
+                          <p className="text-xs text-slate-500">
+                            Extracted: {row.extracted}
+                          </p>
+                        </div>
+                        <Badge className="rounded-full border border-[#94d2c2] bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                          {row.status}
+                        </Badge>
+                      </div>
+                    ))}
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
           </TabsContent>
           <TabsContent
             value="inspection-evidence"
@@ -1065,7 +1149,9 @@ export function ComplianceGrowthFocusContent({
                 defaultExpanded
               />
               <p className="text-xs text-slate-500">
-                Polaris keeps these captures synced with the inspector workspace. Expand the tab to browse full-resolution frames and recent analyzed snippets.
+                Polaris keeps these captures synced with the inspector
+                workspace. Expand the tab to browse full-resolution frames and
+                recent analyzed snippets.
               </p>
             </div>
           </TabsContent>
@@ -1082,13 +1168,19 @@ export function ComplianceGrowthFocusContent({
         <div className="space-y-5">
           {resolvedPolicyUpdateAcknowledged ? (
             <Alert className="flex flex-col gap-2 rounded-3xl border border-[#94d2c2] bg-[#eaf7f3] p-6 text-slate-700 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
-              <CheckCircle className="h-5 w-5 text-[#0f766e]" aria-hidden="true" />
+              <CheckCircle
+                className="h-5 w-5 text-[#0f766e]"
+                aria-hidden="true"
+              />
               <div>
                 <AlertTitle className="text-base font-semibold text-[#0f766e]">
                   DED fast-tracked New Trade Name policy
                 </AlertTitle>
                 <AlertDescription className="text-sm text-slate-600">
-                  DED incorporated your low-risk F&amp;B pathway feedback. Qualifying assembly, baking, and reheating concepts now receive lighter upfront inspections and standard post-opening checks.
+                  DED incorporated your low-risk F&amp;B pathway feedback.
+                  Qualifying assembly, baking, and reheating concepts now
+                  receive lighter upfront inspections and standard post-opening
+                  checks.
                 </AlertDescription>
               </div>
             </Alert>
@@ -1101,14 +1193,16 @@ export function ComplianceGrowthFocusContent({
           >
             <AccordionItem
               value="curated-opportunities"
-              className="border-none">
+              className="border-none"
+            >
               <AccordionTrigger className="flex w-full flex-wrap items-center justify-between gap-3 rounded-3xl px-6 py-5 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
                 <div className="space-y-1">
                   <h4 className="text-base font-semibold text-slate-900">
                     Opportunities curated for you
                   </h4>
                   <p className="text-xs text-slate-500">
-                    Explore automation-ready growth playbooks handpicked for your concept.
+                    Explore automation-ready growth playbooks handpicked for
+                    your concept.
                   </p>
                 </div>
               </AccordionTrigger>
@@ -1165,7 +1259,8 @@ export function ComplianceGrowthFocusContent({
                             </Button>
                             {!growthUnlocked ? (
                               <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">
-                                Complete compliance actions to unlock this playbook.
+                                Complete compliance actions to unlock this
+                                playbook.
                               </span>
                             ) : null}
                           </div>
@@ -1222,7 +1317,10 @@ export function ComplianceGrowthFocusContent({
                 />
                 {feedbackAcknowledgement ? (
                   <div className="flex items-start gap-3 rounded-2xl border border-[#94d2c2] bg-[#eaf7f3] p-4 text-sm text-[#0f766e] shadow-[0_20px_52px_-38px_rgba(15,23,42,0.28)]">
-                    <CheckCircle className="mt-0.5 h-5 w-5" aria-hidden="true" />
+                    <CheckCircle
+                      className="mt-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
                     <div className="space-y-1">
                       <p className="text-xs font-semibold uppercase tracking-[0.18em]">
                         {feedbackAcknowledgement.title}
@@ -1247,7 +1345,9 @@ export function ComplianceGrowthFocusContent({
                     onClick={() => {
                       setFeedbackNotes("");
                       if (feedbackAcknowledgementTimerRef.current) {
-                        window.clearTimeout(feedbackAcknowledgementTimerRef.current);
+                        window.clearTimeout(
+                          feedbackAcknowledgementTimerRef.current,
+                        );
                         feedbackAcknowledgementTimerRef.current = null;
                       }
                       setFeedbackAcknowledgement(null);
@@ -1262,18 +1362,30 @@ export function ComplianceGrowthFocusContent({
                 </div>
               </div>
               <div className="space-y-3 rounded-2xl border border-[#e6f2ed] bg-[#f9fbfd] p-5 text-sm text-slate-600">
-                <p className="font-semibold text-slate-900">What happens next?</p>
+                <p className="font-semibold text-slate-900">
+                  What happens next?
+                </p>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
+                    <Check
+                      className="mt-0.5 h-4 w-4 text-[#0f766e]"
+                      strokeWidth={3}
+                    />
                     Growth desk reviews your request within one business day.
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
-                    Polaris drafts an execution plan with dependencies and approvals.
+                    <Check
+                      className="mt-0.5 h-4 w-4 text-[#0f766e]"
+                      strokeWidth={3}
+                    />
+                    Polaris drafts an execution plan with dependencies and
+                    approvals.
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4 text-[#0f766e]" strokeWidth={3} />
+                    <Check
+                      className="mt-0.5 h-4 w-4 text-[#0f766e]"
+                      strokeWidth={3}
+                    />
                     You track progress here, the same way you do for compliance.
                   </li>
                 </ul>
@@ -1344,7 +1456,8 @@ function InspectionEvidenceLibrarySection({
               ))}
             </div>
             <p className="text-xs text-slate-500">
-              Polaris retains the full-resolution captures inside the inspection evidence vault.
+              Polaris retains the full-resolution captures inside the inspection
+              evidence vault.
             </p>
             {evidenceGallery.length > 0 ? (
               <div className="space-y-2 pt-2">
@@ -1358,7 +1471,8 @@ function InspectionEvidenceLibrarySection({
                 </div>
                 <div className="grid grid-cols-3 gap-2 md:grid-cols-4">
                   {evidenceGallery.map((item) => {
-                    const frameToken = EVIDENCE_FRAME_STATUS_TOKENS[item.frame.status];
+                    const frameToken =
+                      EVIDENCE_FRAME_STATUS_TOKENS[item.frame.status];
                     return (
                       <div
                         key={item.key}

@@ -5,7 +5,11 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
@@ -206,11 +210,7 @@ type ModalView =
 
 type ConversationStep = "intro" | "summary" | "handoff";
 
-type RecommendationInteraction =
-  | "conversation"
-  | "prompt"
-  | "modal"
-  | "human";
+type RecommendationInteraction = "conversation" | "prompt" | "modal" | "human";
 
 interface StageRecommendation {
   id: string;
@@ -339,7 +339,10 @@ const CONVERSATION_BLUEPRINT: Record<
       "Choose a topic below to open the right workspace or insight for your restaurant planning.",
     actions: [
       { label: "Explore market signals", action: "open-market-overview" },
-      { label: "Shift to competitive context", action: "open-competition-analysis" },
+      {
+        label: "Shift to competitive context",
+        action: "open-competition-analysis",
+      },
       { label: "Jump into budget outlook", action: "open-budget-analysis" },
     ],
     recommendations: [
@@ -515,11 +518,7 @@ const STAGE_QUICK_ACTION_DEFAULTS: Record<ConversationStep, string[]> = {
     "summary-reserve-trade-name",
     "welcome-human-agent",
   ],
-  handoff: [
-    "handoff-open-portal",
-    "handoff-automation",
-    "welcome-human-agent",
-  ],
+  handoff: ["handoff-open-portal", "handoff-automation", "welcome-human-agent"],
 };
 
 const QUICK_ACTION_RECOMMENDATION_DETAILS: Record<
@@ -586,7 +585,9 @@ const QUICK_ACTION_RECOMMENDATION_DETAILS: Record<
 
 const MAX_RECOMMENDED_QUICK_ACTIONS = 6;
 
-const resolveQuickActionRecommendation = (id: string): StageRecommendation | null => {
+const resolveQuickActionRecommendation = (
+  id: string,
+): StageRecommendation | null => {
   if (id === "welcome-human-agent") {
     return { ...HUMAN_ASSISTANCE_RECOMMENDATION };
   }
@@ -665,7 +666,10 @@ const deriveQuickActionRecommendations = ({
       return;
     }
 
-    if (recommendation.quickAction === false || completed.has(recommendation.id)) {
+    if (
+      recommendation.quickAction === false ||
+      completed.has(recommendation.id)
+    ) {
       return;
     }
 
@@ -750,8 +754,7 @@ const FOLLOW_UP_EXISTING_ESTABLISHMENTS: ReadonlyArray<StageRecommendation> = [
       "Surface a ranked view of Emirati fusion concepts near your preferred districts.",
     icon: Target,
     type: "prompt",
-    prompt:
-      "Who are the top competitors in the area, with the same cuisine?",
+    prompt: "Who are the top competitors in the area, with the same cuisine?",
   },
 ];
 
@@ -848,7 +851,9 @@ const FOLLOW_UP_SUMMARY_COMPLETION: ReadonlyArray<StageRecommendation> = [
   },
 ];
 
-const ACTION_FOLLOW_UPS: Partial<Record<ConversationAction, ReadonlyArray<StageRecommendation>>> = {
+const ACTION_FOLLOW_UPS: Partial<
+  Record<ConversationAction, ReadonlyArray<StageRecommendation>>
+> = {
   "open-market-overview": LOCATION_INTELLIGENCE_FOLLOW_UPS,
   "open-competition-analysis": FOLLOW_UP_COMPETITOR_ANALYSIS,
   "open-budget-analysis": FOLLOW_UP_BUDGET_DISCUSSION,
@@ -858,7 +863,9 @@ const ACTION_FOLLOW_UPS: Partial<Record<ConversationAction, ReadonlyArray<StageR
   "show-summary": FOLLOW_UP_SUMMARY_COMPLETION,
 };
 
-const RECOMMENDATION_FOLLOW_UPS: Partial<Record<string, ReadonlyArray<StageRecommendation>>> = {
+const RECOMMENDATION_FOLLOW_UPS: Partial<
+  Record<string, ReadonlyArray<StageRecommendation>>
+> = {
   "intro-market-overview": LOCATION_INTELLIGENCE_FOLLOW_UPS,
   "welcome-market-overview": LOCATION_INTELLIGENCE_FOLLOW_UPS,
   "welcome-demographics": FOLLOW_UP_DEMOGRAPHICS_FOCUS,
@@ -1398,10 +1405,13 @@ const CompetitorAnalysisSummaryTile = () => {
                 Competitive Analysis Summary
               </p>
               <h4 className="mt-1 text-base font-semibold text-slate-900">
-                These establishments represent your primary competition in the Corniche area.
+                These establishments represent your primary competition in the
+                Corniche area.
               </h4>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Each offers unique positioning in cuisine, price point, and customer experience that can inform your differentiation strategy.
+                Each offers unique positioning in cuisine, price point, and
+                customer experience that can inform your differentiation
+                strategy.
               </p>
             </div>
             <div>
@@ -2760,9 +2770,7 @@ const DashboardView = ({
             <div className="flex items-center gap-4 mb-6">
               <AIBusinessOrb className="h-16 w-16" />
               <div>
-                <h3 className="text-white text-lg font-semibold">
-                  Polaris
-                </h3>
+                <h3 className="text-white text-lg font-semibold">Polaris</h3>
                 <motion.div
                   className="flex items-center gap-1 mt-2"
                   animate={{
@@ -3257,9 +3265,7 @@ const DiscoveryCompilationCard = ({
           <div className="flex items-center gap-2 mb-8">
             <AIBusinessOrb className="h-16 w-16" />
             <div className="flex-1">
-              <h3 className="text-white text-lg font-semibold mb-2">
-                Polaris
-              </h3>
+              <h3 className="text-white text-lg font-semibold mb-2">Polaris</h3>
               <motion.div
                 className="flex items-center gap-1"
                 animate={{
@@ -3896,7 +3902,8 @@ const StageOverviewMessage = ({
           <span
             className={cn(
               "inline-flex items-center rounded-full border px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.22em]",
-              statusBadgeClass ?? "border-[#0E766E]/40 bg-[#0E766E]/10 text-[#0E766E]",
+              statusBadgeClass ??
+                "border-[#0E766E]/40 bg-[#0E766E]/10 text-[#0E766E]",
             )}
           >
             {statusLabel}
@@ -3992,11 +3999,7 @@ const StageRecommendationsMessage = ({
   </div>
 );
 
-const RegionExplorerPrompt = ({
-  onExplore,
-}: {
-  onExplore: () => void;
-}) => (
+const RegionExplorerPrompt = ({ onExplore }: { onExplore: () => void }) => (
   <div className="flex w-full justify-center">
     <div
       className={chatCardClass(
@@ -4013,7 +4016,9 @@ const RegionExplorerPrompt = ({
             Let’s decide where to open a restaurant.
           </h3>
           <p className="text-sm leading-relaxed text-slate-600">
-            Ask about resident density, tourist flows, zoning overlays, district demographics, or even demand drivers, seasonal triggers, and spend behavior before diving deeper into licensing or budgeting.
+            Ask about resident density, tourist flows, zoning overlays, district
+            demographics, or even demand drivers, seasonal triggers, and spend
+            behavior before diving deeper into licensing or budgeting.
           </p>
         </div>
       </div>
@@ -4026,7 +4031,11 @@ const CHAT_ACTION_BUTTON_CLASSES =
 
 interface MessageBubbleProps {
   message: BusinessMessage;
-  onActionClick?: (action: ConversationAction, label: string, actionId?: string) => void;
+  onActionClick?: (
+    action: ConversationAction,
+    label: string,
+    actionId?: string,
+  ) => void;
   dialogueDocProps?: DialogueDocProps;
   onHeatMapOpen?: () => void;
   onBudgetRangesOpen?: () => void;
@@ -4250,9 +4259,7 @@ const MessageBubble = ({
               <CompetitorInvestorCompassCTA
                 description={message.content}
                 onViewCompetitors={() =>
-                  window.dispatchEvent(
-                    new CustomEvent("openCompetitorHeatMap"),
-                  )
+                  window.dispatchEvent(new CustomEvent("openCompetitorHeatMap"))
                 }
               />
             </div>
@@ -4341,7 +4348,9 @@ const MessageBubble = ({
               {message.actions.map((action) => (
                 <button
                   key={action.id}
-                  onClick={() => onActionClick?.(action.action, action.label, action.id)}
+                  onClick={() =>
+                    onActionClick?.(action.action, action.label, action.id)
+                  }
                   className={CHAT_ACTION_BUTTON_CLASSES}
                 >
                   {action.label}
@@ -4362,7 +4371,6 @@ const MessageBubble = ({
   );
 };
 
-
 const RECOMMENDATION_TYPE_LABELS: Record<RecommendationInteraction, string> = {
   conversation: "Chat action",
   prompt: "AI prompt",
@@ -4370,7 +4378,10 @@ const RECOMMENDATION_TYPE_LABELS: Record<RecommendationInteraction, string> = {
   human: "Human assist",
 };
 
-const RECOMMENDATION_TYPE_BADGE_CLASSES: Record<RecommendationInteraction, string> = {
+const RECOMMENDATION_TYPE_BADGE_CLASSES: Record<
+  RecommendationInteraction,
+  string
+> = {
   conversation: "border border-emerald-100 bg-emerald-50 text-emerald-700",
   prompt: "border border-sky-100 bg-sky-50 text-sky-700",
   modal: "border border-amber-100 bg-amber-50 text-amber-700",
@@ -4496,7 +4507,9 @@ const SuggestedTopicsPanel = ({
     [groupedRecommendations],
   );
 
-  const [activeTab, setActiveTab] = useState(() => availableTabs[0] ?? "summary");
+  const [activeTab, setActiveTab] = useState(
+    () => availableTabs[0] ?? "summary",
+  );
 
   useEffect(() => {
     setActiveTab(availableTabs[0] ?? "summary");
@@ -4530,7 +4543,11 @@ const SuggestedTopicsPanel = ({
         ) : null}
       </div>
       {groupedRecommendations.length > 0 ? (
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="flex flex-col gap-5">
+        <Tabs
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="flex flex-col gap-5"
+        >
           <TabsList className="grid w-full auto-rows-fr grid-cols-1 gap-1.5 rounded-[32px] border border-emerald-100/80 bg-[#f0f9f6] p-3 sm:grid-cols-2 lg:grid-cols-4">
             <TabsTrigger
               value="summary"
@@ -4571,9 +4588,7 @@ const SuggestedTopicsPanel = ({
             const GroupIcon = group.icon;
             return (
               <TabsContent key={group.id} value={group.id} className="m-0">
-                <section
-                  className="flex flex-col gap-4 rounded-[28px] border border-emerald-100/70 bg-white/95 px-5 py-5 shadow-[0_32px_110px_-72px_rgba(14,118,110,0.4)] sm:px-6 sm:py-6"
-                >
+                <section className="flex flex-col gap-4 rounded-[28px] border border-emerald-100/70 bg-white/95 px-5 py-5 shadow-[0_32px_110px_-72px_rgba(14,118,110,0.4)] sm:px-6 sm:py-6">
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                     <div className="flex items-start gap-3">
                       <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0F766E]/12 text-[#0F766E]">
@@ -4589,7 +4604,8 @@ const SuggestedTopicsPanel = ({
                       </div>
                     </div>
                     <span className="inline-flex items-center rounded-full border border-emerald-100/70 bg-[#f4fbf8] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-[#0F766E]">
-                      {group.items.length} {group.items.length === 1 ? "suggestion" : "suggestions"}
+                      {group.items.length}{" "}
+                      {group.items.length === 1 ? "suggestion" : "suggestions"}
                     </span>
                   </div>
                   <div className="flex flex-col gap-3">
@@ -4608,7 +4624,8 @@ const SuggestedTopicsPanel = ({
         </Tabs>
       ) : (
         <div className="rounded-3xl border border-emerald-100 bg-white p-6 text-sm leading-relaxed text-slate-600 shadow-[0_28px_72px_-56px_rgba(15,23,42,0.32)]">
-          More guided themes are on the way. In the meantime, continue with the quick actions below.
+          More guided themes are on the way. In the meantime, continue with the
+          quick actions below.
         </div>
       )}
     </div>
@@ -4851,7 +4868,8 @@ const BudgetRangesModal = ({
               ))}
             </div>
             <p className="mt-4 text-xs text-slate-500">
-              Cost shown is indicative and subject to change based on the business activity and other regulatory requirements.
+              Cost shown is indicative and subject to change based on the
+              business activity and other regulatory requirements.
             </p>
           </div>
         </div>
@@ -5628,8 +5646,9 @@ const DiscoverExperienceView = ({
                       Abu Dhabi F&B Hotspot Density
                     </h3>
                     <p className="max-w-2xl text-base text-slate-600">
-                      Compare licensing concentration and live population density signals
-                      across the city&apos;s restaurant districts.
+                      Compare licensing concentration and live population
+                      density signals across the city&apos;s restaurant
+                      districts.
                     </p>
                   </div>
                 </div>
@@ -5731,7 +5750,10 @@ const DiscoverExperienceView = ({
                                   {insightById["khalifa-city"]?.trend}
                                 </p>
                                 <p className="text-xs text-slate-600">
-                                  {insightById["khalifa-city"]?.populationDensity}
+                                  {
+                                    insightById["khalifa-city"]
+                                      ?.populationDensity
+                                  }
                                 </p>
                               </div>
                             )}
@@ -6332,7 +6354,9 @@ export function BusinessChatUI({
   );
   const [inputValue, setInputValue] = useState("");
   const [hasFeedbackPrompted, setHasFeedbackPrompted] = useState(false);
-  const [feedbackStats, setFeedbackStats] = useState<Record<string, { count: number; sample: string }>>({});
+  const [feedbackStats, setFeedbackStats] = useState<
+    Record<string, { count: number; sample: string }>
+  >({});
   const feedbackTopicsNotifiedRef = useRef<Set<string>>(new Set());
   const [feedbackTotal, setFeedbackTotal] = useState(0);
   const loginTriggerRef = useRef<HTMLElement | null>(null);
@@ -6355,8 +6379,12 @@ export function BusinessChatUI({
   const [hasUnlockedQuickActions, setHasUnlockedQuickActions] = useState(false);
   const [hasProvidedQuickActionIntro, setHasProvidedQuickActionIntro] =
     useState(false);
-  const [selectedQuickActionId, setSelectedQuickActionId] = useState<string | null>(null);
-  const [completedQuickActionIds, setCompletedQuickActionIds] = useState<Set<string>>(new Set());
+  const [selectedQuickActionId, setSelectedQuickActionId] = useState<
+    string | null
+  >(null);
+  const [completedQuickActionIds, setCompletedQuickActionIds] = useState<
+    Set<string>
+  >(new Set());
   const conversationSeedKeyRef = useRef<string | null>(null);
   const assistantName = title || AI_ASSISTANT_PROFILE.name;
   const assistantAvatarUrl = AI_ASSISTANT_PROFILE.avatar.trim();
@@ -6403,7 +6431,9 @@ export function BusinessChatUI({
   }, [hasCompletedApplication, hasFeedbackPrompted, setMessages]);
 
   const themeGroupsRef = useRef<SuggestedThemeGroup[]>([]);
-  const [followUpRecommendations, setFollowUpRecommendations] = useState<StageRecommendation[]>([]);
+  const [followUpRecommendations, setFollowUpRecommendations] = useState<
+    StageRecommendation[]
+  >([]);
   const applyFollowUps = useCallback(
     (items: ReadonlyArray<StageRecommendation>) => {
       const next = Array.from(items);
@@ -6413,7 +6443,11 @@ export function BusinessChatUI({
         setHasTriggeredSuggestedTopics(true);
       }
     },
-    [setAdvisorPanelOpen, setFollowUpRecommendations, setHasTriggeredSuggestedTopics],
+    [
+      setAdvisorPanelOpen,
+      setFollowUpRecommendations,
+      setHasTriggeredSuggestedTopics,
+    ],
   );
 
   const openApplicantPortal = useCallback(() => {
@@ -6565,14 +6599,15 @@ export function BusinessChatUI({
     const base =
       followUpRecommendations.length > 0
         ? followUpRecommendations
-        : stageBlueprint?.recommendations ?? [];
+        : (stageBlueprint?.recommendations ?? []);
 
     const quickActionRecommendations = (
       STAGE_QUICK_ACTION_DEFAULTS[currentStep] ?? []
     )
       .map((id) => resolveQuickActionRecommendation(id))
       .filter(
-        (recommendation): recommendation is StageRecommendation => recommendation !== null,
+        (recommendation): recommendation is StageRecommendation =>
+          recommendation !== null,
       );
 
     let merged = mergeRecommendations(base, quickActionRecommendations);
@@ -6589,24 +6624,29 @@ export function BusinessChatUI({
       return [];
     }
 
-    const introCompleted = completedQuickActionIds.has("welcome-market-overview");
-    const competitionCompleted = completedQuickActionIds.has("welcome-competition");
-    const demographicsCompleted = completedQuickActionIds.has("welcome-demographics");
+    const introCompleted = completedQuickActionIds.has(
+      "welcome-market-overview",
+    );
+    const competitionCompleted = completedQuickActionIds.has(
+      "welcome-competition",
+    );
+    const demographicsCompleted = completedQuickActionIds.has(
+      "welcome-demographics",
+    );
     const locationCompleted = completedQuickActionIds.has("welcome-budget");
 
     const summaryReady =
-      introCompleted && competitionCompleted && demographicsCompleted && locationCompleted;
+      introCompleted &&
+      competitionCompleted &&
+      demographicsCompleted &&
+      locationCompleted;
 
     return deriveQuickActionRecommendations({
       recommendations: activeRecommendations,
       summaryReady,
       completed: completedQuickActionIds,
     });
-  }, [
-    activeRecommendations,
-    completedQuickActionIds,
-    hasUnlockedQuickActions,
-  ]);
+  }, [activeRecommendations, completedQuickActionIds, hasUnlockedQuickActions]);
 
   useEffect(() => {
     if (selectedQuickActionId) {
@@ -6656,7 +6696,8 @@ export function BusinessChatUI({
         {
           id: "interactive-map",
           label: "Interactive map",
-          description: "Open the location intelligence workspace for Abu Dhabi districts.",
+          description:
+            "Open the location intelligence workspace for Abu Dhabi districts.",
           icon: MapIcon,
           predicate: (recommendation: StageRecommendation) => {
             const text = normalizeRecommendationText(recommendation);
@@ -6673,7 +6714,8 @@ export function BusinessChatUI({
         {
           id: "demographics",
           label: "Demographics",
-          description: "Audience mixes, visitor flows, and population insights by zone.",
+          description:
+            "Audience mixes, visitor flows, and population insights by zone.",
           icon: MapPin,
           predicate: (recommendation: StageRecommendation) => {
             const text = normalizeRecommendationText(recommendation);
@@ -6690,7 +6732,8 @@ export function BusinessChatUI({
         {
           id: "budget",
           label: "Budget",
-          description: "Setup envelopes, operating costs, and capital planning guidance.",
+          description:
+            "Setup envelopes, operating costs, and capital planning guidance.",
           icon: Gauge,
           predicate: (recommendation: StageRecommendation) => {
             const text = normalizeRecommendationText(recommendation);
@@ -6708,7 +6751,8 @@ export function BusinessChatUI({
         {
           id: "competitor-analysis",
           label: "Competitor analysis",
-          description: "Launch the competitor benchmarking view for comparisons and mapping.",
+          description:
+            "Launch the competitor benchmarking view for comparisons and mapping.",
           icon: Target,
           predicate: (recommendation: StageRecommendation) => {
             const text = normalizeRecommendationText(recommendation);
@@ -6726,7 +6770,8 @@ export function BusinessChatUI({
         {
           id: "gap-analysis",
           label: "Gap analysis",
-          description: "Review gap analysis insights to spot underserved concepts.",
+          description:
+            "Review gap analysis insights to spot underserved concepts.",
           icon: Layers,
           predicate: (recommendation: StageRecommendation) => {
             const text = normalizeRecommendationText(recommendation);
@@ -6757,11 +6802,14 @@ export function BusinessChatUI({
       ];
 
       const fallbackGroup =
-        definitions.find((definition) => definition.id === "interactive-map") ?? definitions[0];
+        definitions.find((definition) => definition.id === "interactive-map") ??
+        definitions[0];
 
       filteredRecommendations.forEach((recommendation) => {
         const group =
-          definitions.find((definition) => definition.predicate(recommendation)) ?? fallbackGroup;
+          definitions.find((definition) =>
+            definition.predicate(recommendation),
+          ) ?? fallbackGroup;
         group.items.push(recommendation);
       });
 
@@ -6781,13 +6829,16 @@ export function BusinessChatUI({
     () => CONVERSATION_STEPS.find((item) => item.id === currentStep),
     [currentStep],
   );
-  const stagePanelLabel = followUpRecommendations.length > 0
-    ? "Next suggested topics"
-    : stageMeta?.label ?? "Current stage";
+  const stagePanelLabel =
+    followUpRecommendations.length > 0
+      ? "Next suggested topics"
+      : (stageMeta?.label ?? "Current stage");
 
-  const stagePanelMessage = followUpRecommendations.length > 0
-    ? followUpRecommendations[0]?.description ?? "Choose what you���d like to explore next."
-    : stageBlueprint?.message ?? "";
+  const stagePanelMessage =
+    followUpRecommendations.length > 0
+      ? (followUpRecommendations[0]?.description ??
+        "Choose what you���d like to explore next.")
+      : (stageBlueprint?.message ?? "");
 
   useEffect(() => {
     if (groupedThemeRecommendations.length > 0) {
@@ -6805,8 +6856,7 @@ export function BusinessChatUI({
 
   const hasThemeInventory = displayedThemeRecommendations.length > 0;
 
-  const topicsAvailable =
-    hasThemeInventory || hasTriggeredSuggestedTopics;
+  const topicsAvailable = hasThemeInventory || hasTriggeredSuggestedTopics;
 
   const [isTopicsPanelOpen, setIsTopicsPanelOpen] = useState(false);
 
@@ -7227,13 +7277,9 @@ export function BusinessChatUI({
         nextFollowUps = FOLLOW_UP_BUDGET_DISCUSSION;
       } else if (mentionsDemographics) {
         responses.push(
-          buildMessage(
-            DEMOGRAPHICS_OVERVIEW_MESSAGE,
-            true,
-            {
-              type: "demographics",
-            },
-          ),
+          buildMessage(DEMOGRAPHICS_OVERVIEW_MESSAGE, true, {
+            type: "demographics",
+          }),
         );
         nextFollowUps = FOLLOW_UP_DEMOGRAPHICS_FOCUS;
       } else if (mentionsTargetMarket) {
@@ -7254,13 +7300,9 @@ export function BusinessChatUI({
         nextFollowUps = FOLLOW_UP_CORNICHE_DEEP_DIVE;
       } else if (mentionsReports) {
         responses.push(
-          buildMessage(
-            COMPREHENSIVE_REPORT_MESSAGE,
-            true,
-            {
-              type: "comprehensive-report",
-            },
-          ),
+          buildMessage(COMPREHENSIVE_REPORT_MESSAGE, true, {
+            type: "comprehensive-report",
+          }),
         );
         nextFollowUps = FOLLOW_UP_SUMMARY_COMPLETION;
       } else if (mentionsCorniche) {
@@ -7288,9 +7330,16 @@ export function BusinessChatUI({
         nextFollowUps = [];
       }
 
-      if (unlockedByMessage && primaryQuickAction && !hasProvidedQuickActionIntro) {
+      if (
+        unlockedByMessage &&
+        primaryQuickAction &&
+        !hasProvidedQuickActionIntro
+      ) {
         responses.push(
-          buildMessage(buildQuickActionIntroMessage(primaryQuickAction.label), true),
+          buildMessage(
+            buildQuickActionIntroMessage(primaryQuickAction.label),
+            true,
+          ),
         );
         if (nextFollowUps.length === 0) {
           nextFollowUps = LOCATION_INTELLIGENCE_FOLLOW_UPS;
@@ -7477,7 +7526,10 @@ export function BusinessChatUI({
 
         if (action === "contact-human") {
           handleHumanFallback();
-          return [...updated, buildMessage("Connecting you with a TAMM specialist now.", true)];
+          return [
+            ...updated,
+            buildMessage("Connecting you with a TAMM specialist now.", true),
+          ];
         }
 
         if (action === "open-investor-journey") {
@@ -7645,7 +7697,11 @@ export function BusinessChatUI({
   const handleRecommendationSelect = useCallback(
     (recommendation: StageRecommendation) => {
       if (recommendation.type === "conversation" && recommendation.action) {
-        handleAction(recommendation.action, recommendation.label, recommendation.id);
+        handleAction(
+          recommendation.action,
+          recommendation.label,
+          recommendation.id,
+        );
       } else if (recommendation.type === "prompt" && recommendation.prompt) {
         handleSendMessage(recommendation.prompt);
       } else if (recommendation.type === "modal" && recommendation.modal) {
@@ -7788,22 +7844,22 @@ export function BusinessChatUI({
       setIsInvestorAuthenticated(true);
       if (shouldOpenInvestorView) {
         setView("investor-journey");
-      setShouldOpenInvestorView(false);
-    }
-    setCurrentStep("handoff");
-    applyFollowUps([]);
-  },
-  [
-    applyFollowUps,
-    isInvestorLoginPending,
-    shouldOpenInvestorView,
-    buildMessage,
-    buildStepMessage,
-    setView,
-    setCurrentStep,
-    setIsInvestorAuthenticated,
-  ],
-);
+        setShouldOpenInvestorView(false);
+      }
+      setCurrentStep("handoff");
+      applyFollowUps([]);
+    },
+    [
+      applyFollowUps,
+      isInvestorLoginPending,
+      shouldOpenInvestorView,
+      buildMessage,
+      buildStepMessage,
+      setView,
+      setCurrentStep,
+      setIsInvestorAuthenticated,
+    ],
+  );
 
   useEffect(() => {
     if (!isOpen) {
@@ -7816,12 +7872,12 @@ export function BusinessChatUI({
       setShouldPromptLogin(false);
       setIsInvestorAuthenticated(false);
       setShouldOpenInvestorView(false);
-    setAdvisorPanelOpen(false);
-    setModalView("chat");
-    applyFollowUps([]);
-    conversationSeedKeyRef.current = null;
-    return;
-  }
+      setAdvisorPanelOpen(false);
+      setModalView("chat");
+      applyFollowUps([]);
+      conversationSeedKeyRef.current = null;
+      return;
+    }
 
     setView("basic");
     setModalView("chat");
@@ -7842,20 +7898,27 @@ export function BusinessChatUI({
 
     if (journeyFocusView) {
       setAdvisorPanelOpen(false);
-      const stageId = journeyFocusView.stage?.id ?? journeyFocusView.timelineItem.id;
+      const stageId =
+        journeyFocusView.stage?.id ?? journeyFocusView.timelineItem.id;
       const stageTitle =
         journeyFocusView.stage?.title ?? journeyFocusView.timelineItem.title;
-      const stageIdentifier = stageId ?? journeyFocusView.timelineItem.id ?? "stage";
+      const stageIdentifier =
+        stageId ?? journeyFocusView.timelineItem.id ?? "stage";
       const stageSeedKey = `stage-${stageIdentifier}`;
 
       if (conversationSeedKeyRef.current === stageSeedKey) {
         return;
       }
-      const stageHighlightLabel = journeyFocusView.stage?.highlight?.label ?? null;
-      const stageHighlightDetail = journeyFocusView.stage?.highlight?.detail ?? null;
+      const stageHighlightLabel =
+        journeyFocusView.stage?.highlight?.label ?? null;
+      const stageHighlightDetail =
+        journeyFocusView.stage?.highlight?.detail ?? null;
       const stageDescription =
-        journeyFocusView.stage?.description ?? journeyFocusView.timelineItem.description ?? null;
-      const stageStatusLabel = journeyFocusView.timelineItem.statusLabel ?? null;
+        journeyFocusView.stage?.description ??
+        journeyFocusView.timelineItem.description ??
+        null;
+      const stageStatusLabel =
+        journeyFocusView.timelineItem.statusLabel ?? null;
       const stageStatusBadgeClass =
         journeyFocusView.timelineItem.statusBadgeClass ?? null;
       const stageStatusHelperClass =
@@ -7879,7 +7942,9 @@ export function BusinessChatUI({
         stageMeta,
       });
 
-      let stageRecommendations: StageRecommendationSummary[] = (journeyFocusView.recommendedActivities ?? [])
+      let stageRecommendations: StageRecommendationSummary[] = (
+        journeyFocusView.recommendedActivities ?? []
+      )
         .slice(0, 3)
         .map((activity) => ({
           id: activity.id,
@@ -7926,12 +7991,16 @@ export function BusinessChatUI({
       const stageConversation: BusinessMessage[] = [overviewMessage];
 
       stageConversation.push(
-        buildMessage("Here are the quick wins I suggest while we’re here:", true, {
-          type: "stage-recommendations",
-          stageId,
-          stageTitle,
-          stageRecommendations,
-        }),
+        buildMessage(
+          "Here are the quick wins I suggest while we’re here:",
+          true,
+          {
+            type: "stage-recommendations",
+            stageId,
+            stageTitle,
+            stageRecommendations,
+          },
+        ),
       );
 
       setMessages(stageConversation);
@@ -7975,7 +8044,12 @@ export function BusinessChatUI({
       primaryQuickAction &&
       !hasProvidedQuickActionIntro
     ) {
-      conversation.push(buildMessage(buildQuickActionIntroMessage(primaryQuickAction.label), true));
+      conversation.push(
+        buildMessage(
+          buildQuickActionIntroMessage(primaryQuickAction.label),
+          true,
+        ),
+      );
       setHasProvidedQuickActionIntro(true);
     }
 
@@ -8024,9 +8098,10 @@ export function BusinessChatUI({
         );
 
         if (automationPromptRequested) {
-          const locationLabel = typeof selectedTitle === "string" && selectedTitle
-            ? selectedTitle
-            : "this Corniche opportunity";
+          const locationLabel =
+            typeof selectedTitle === "string" && selectedTitle
+              ? selectedTitle
+              : "this Corniche opportunity";
 
           const celebration = buildMessage(
             `Congratulations, Layla — this concept is reading as highly viable. I’ve bookmarked ${locationLabel} so we can keep momentum and move straight into your trade name reservation.`,
@@ -8125,7 +8200,12 @@ export function BusinessChatUI({
         handleBusinessPlanWorkspace,
       );
     };
-  }, [openCompetitorMap, openGapAnalysis, openRetailLocations, openViabilitySummary]);
+  }, [
+    openCompetitorMap,
+    openGapAnalysis,
+    openRetailLocations,
+    openViabilitySummary,
+  ]);
 
   if (!isOpen) return null;
 
@@ -8231,8 +8311,15 @@ export function BusinessChatUI({
                   "I’m packaging the market, competition, and budget insights into a PDF for you, alongside the DED CX data-packs.",
               })
             }
-            onBeginApplication={() => handleAction("open-investor-journey", "Yes, reserve the trade name")}
-            onMaybeLater={() => handleAction("decline-retail-automation", "Maybe later")}
+            onBeginApplication={() =>
+              handleAction(
+                "open-investor-journey",
+                "Yes, reserve the trade name",
+              )
+            }
+            onMaybeLater={() =>
+              handleAction("decline-retail-automation", "Maybe later")
+            }
           />
         </div>
       </div>
@@ -8424,7 +8511,6 @@ export function BusinessChatUI({
                         fill="black"
                       />
                     </svg>
-
                   </div>
 
                   <div className="mx-auto flex flex-1 flex-col items-center gap-1 text-center">
@@ -8435,7 +8521,6 @@ export function BusinessChatUI({
                       Guided insights tailored to {categoryName} licensing.
                     </p>
                   </div>
-
                 </div>
               </div>
 
@@ -8495,22 +8580,22 @@ export function BusinessChatUI({
                       <div className="relative">
                         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                           <div className="flex items-center gap-3 sm:gap-4">
-                          {hasAssistantAvatar ? (
-                            <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-white/50 bg-white shadow-[0_18px_38px_-28px_rgba(11,64,55,0.28)] sm:h-16 sm:w-16">
-                              <img
-                                src={assistantAvatarUrl}
-                                alt={assistantName}
-                                className="h-full w-full rounded-full object-contain p-2"
-                              />
-                            </span>
-                          ) : (
-                            <AIBusinessOrb className="h-12 w-12 sm:h-16 sm:w-16" />
-                          )}
-                          <div className="min-w-0 flex-1 text-left">
-                            <div className="flex w-full flex-wrap items-center gap-2 sm:gap-4">
-                              <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
-                                {assistantName}
-                              </h3>
+                            {hasAssistantAvatar ? (
+                              <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-white/50 bg-white shadow-[0_18px_38px_-28px_rgba(11,64,55,0.28)] sm:h-16 sm:w-16">
+                                <img
+                                  src={assistantAvatarUrl}
+                                  alt={assistantName}
+                                  className="h-full w-full rounded-full object-contain p-2"
+                                />
+                              </span>
+                            ) : (
+                              <AIBusinessOrb className="h-12 w-12 sm:h-16 sm:w-16" />
+                            )}
+                            <div className="min-w-0 flex-1 text-left">
+                              <div className="flex w-full flex-wrap items-center gap-2 sm:gap-4">
+                                <h3 className="truncate text-base font-semibold text-slate-900 sm:text-lg">
+                                  {assistantName}
+                                </h3>
                                 {topicsAvailable ? (
                                   <div className="flex-shrink-0 ml-auto pl-4 sm:pl-10">
                                     <Popover
@@ -8528,7 +8613,9 @@ export function BusinessChatUI({
                                           <ChevronDown
                                             className={cn(
                                               "h-3 w-3 transition-transform",
-                                              isTopicsPanelOpen ? "rotate-180" : "rotate-0",
+                                              isTopicsPanelOpen
+                                                ? "rotate-180"
+                                                : "rotate-0",
                                             )}
                                             aria-hidden="true"
                                           />
@@ -8542,10 +8629,16 @@ export function BusinessChatUI({
                                         <SuggestedTopicsPanel
                                           stageLabel={stagePanelLabel}
                                           stageMessage={stagePanelMessage}
-                                          groupedRecommendations={displayedThemeRecommendations}
+                                          groupedRecommendations={
+                                            displayedThemeRecommendations
+                                          }
                                           onClose={closeTopicsPanel}
-                                          onRecommendationSelect={(recommendation) => {
-                                            handleRecommendationSelect(recommendation);
+                                          onRecommendationSelect={(
+                                            recommendation,
+                                          ) => {
+                                            handleRecommendationSelect(
+                                              recommendation,
+                                            );
                                             closeTopicsPanel();
                                           }}
                                           variant="popover"
@@ -8621,71 +8714,69 @@ export function BusinessChatUI({
                       <div className={conversationContainerClass}>
                         <div className={messageListClass}>
                           {journeyFocusView ? (
-                            <JourneyStageFocusView
-                              {...journeyFocusView}
-                            />
+                            <JourneyStageFocusView {...journeyFocusView} />
                           ) : null}
                           {!journeyFocusView && showChatInterface ? (
                             <>
                               {chatMessages.map((message) => (
                                 <MessageBubble
-                                key={message.id}
-                                message={message}
-                                showUserAvatar={isInvestorAuthenticated}
-                                onActionClick={handleAction}
-                                dialogueDocProps={
-                                  message.type === "dialogue-doc"
-                                    ? {
-                                        title:
-                                          message.docTitle ??
-                                          "Investor dialogue workspace",
-                                        summary: message.content,
-                                        notes: dialogueDocState.notes,
-                                        highlights:
-                                          dialogueDocState.highlights,
-                                        onNotesChange:
-                                          handleDialogueDocNotesChange,
-                                        onToggleHighlight:
-                                          handleDialogueDocToggleHighlight,
-                                        onHighlightChange:
-                                          handleDialogueDocHighlightChange,
-                                        onHighlightRemove:
-                                          handleDialogueDocHighlightRemove,
-                                        onAddHighlight:
-                                          handleDialogueDocHighlightAdd,
-                                      }
-                                    : undefined
-                                }
-                                onHeatMapOpen={openHeatMapFullView}
-                                onBudgetRangesOpen={openBudgetRangesFocus}
-                                businessActivitiesProps={
-                                  message.type === "business-activities"
-                                    ? {
-                                        activities: activityOptions,
-                                        selectedActivityIds,
-                                        onToggleActivity:
-                                          handleToggleActivity,
-                                        onAddActivity: handleAddActivity,
-                                        maxSelection: MAX_LICENSE_ACTIVITIES,
-                                        physicalPlan: physicalSpacePlan,
-                                      }
-                                    : undefined
-                                }
-                                applicationProgressProps={
-                                  message.type === "application-progress"
-                                    ? { message: message.content }
-                                    : undefined
-                                }
-                                feedbackProps={
-                                  message.type === "feedback-prompt"
-                                    ? {
-                                        onSubmit: handleFeedbackSubmit,
-                                        suggestionCount: feedbackTotal,
-                                        threshold: feedbackThreshold,
-                                      }
-                                    : undefined
-                                }
-                              />
+                                  key={message.id}
+                                  message={message}
+                                  showUserAvatar={isInvestorAuthenticated}
+                                  onActionClick={handleAction}
+                                  dialogueDocProps={
+                                    message.type === "dialogue-doc"
+                                      ? {
+                                          title:
+                                            message.docTitle ??
+                                            "Investor dialogue workspace",
+                                          summary: message.content,
+                                          notes: dialogueDocState.notes,
+                                          highlights:
+                                            dialogueDocState.highlights,
+                                          onNotesChange:
+                                            handleDialogueDocNotesChange,
+                                          onToggleHighlight:
+                                            handleDialogueDocToggleHighlight,
+                                          onHighlightChange:
+                                            handleDialogueDocHighlightChange,
+                                          onHighlightRemove:
+                                            handleDialogueDocHighlightRemove,
+                                          onAddHighlight:
+                                            handleDialogueDocHighlightAdd,
+                                        }
+                                      : undefined
+                                  }
+                                  onHeatMapOpen={openHeatMapFullView}
+                                  onBudgetRangesOpen={openBudgetRangesFocus}
+                                  businessActivitiesProps={
+                                    message.type === "business-activities"
+                                      ? {
+                                          activities: activityOptions,
+                                          selectedActivityIds,
+                                          onToggleActivity:
+                                            handleToggleActivity,
+                                          onAddActivity: handleAddActivity,
+                                          maxSelection: MAX_LICENSE_ACTIVITIES,
+                                          physicalPlan: physicalSpacePlan,
+                                        }
+                                      : undefined
+                                  }
+                                  applicationProgressProps={
+                                    message.type === "application-progress"
+                                      ? { message: message.content }
+                                      : undefined
+                                  }
+                                  feedbackProps={
+                                    message.type === "feedback-prompt"
+                                      ? {
+                                          onSubmit: handleFeedbackSubmit,
+                                          suggestionCount: feedbackTotal,
+                                          threshold: feedbackThreshold,
+                                        }
+                                      : undefined
+                                  }
+                                />
                               ))}
                               {chatMessages.length === 0 ? (
                                 <RegionExplorerPrompt
@@ -8701,7 +8792,9 @@ export function BusinessChatUI({
                           ) : null}
                         </div>
 
-                        {showChatInterface && showQuickActions && quickActions.length > 0 ? (
+                        {showChatInterface &&
+                        showQuickActions &&
+                        quickActions.length > 0 ? (
                           <div
                             className={cn(
                               "mt-6 rounded-[24px] border border-white/20 bg-white/12 p-4 backdrop-blur-xl shadow-[0_30px_80px_-58px_rgba(15,23,42,0.35)]",
@@ -8715,18 +8808,22 @@ export function BusinessChatUI({
                                   Quick actions
                                 </span>
                                 <p className="text-xs text-slate-500">
-                                  Reopen any workspace without losing your place.
+                                  Reopen any workspace without losing your
+                                  place.
                                 </p>
                               </div>
                               <div className="flex flex-wrap gap-2">
                                 {quickActions.map((recommendation) => {
-                                  const isSelected = selectedQuickActionId === recommendation.id;
+                                  const isSelected =
+                                    selectedQuickActionId === recommendation.id;
                                   return (
                                     <button
                                       key={recommendation.id}
                                       type="button"
                                       onClick={() => {
-                                        setSelectedQuickActionId(recommendation.id);
+                                        setSelectedQuickActionId(
+                                          recommendation.id,
+                                        );
                                         setCompletedQuickActionIds((prev) => {
                                           if (prev.has(recommendation.id)) {
                                             return prev;
@@ -8735,7 +8832,9 @@ export function BusinessChatUI({
                                           next.add(recommendation.id);
                                           return next;
                                         });
-                                        handleRecommendationSelect(recommendation);
+                                        handleRecommendationSelect(
+                                          recommendation,
+                                        );
                                       }}
                                       aria-pressed={isSelected}
                                       className={cn(
@@ -8743,8 +8842,8 @@ export function BusinessChatUI({
                                         isSelected
                                           ? "border-[#0F766E] bg-[#0F766E] text-white shadow-[0_18px_40px_-26px_rgba(15,118,110,0.58)]"
                                           : isSidePanel
-                                              ? "border-slate-200 bg-white text-[#0F766E] hover:bg-[#f5faf7]"
-                                              : "border-white/40 bg-white/70 text-[#0F766E] hover:bg-white/90",
+                                            ? "border-slate-200 bg-white text-[#0F766E] hover:bg-[#f5faf7]"
+                                            : "border-white/40 bg-white/70 text-[#0F766E] hover:bg-white/90",
                                       )}
                                     >
                                       {recommendation.label}

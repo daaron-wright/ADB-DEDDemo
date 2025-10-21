@@ -1,6 +1,11 @@
 import * as React from "react";
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
@@ -81,7 +86,8 @@ const PREOP_INSPECTION_IMAGES = [
 
 const MEGABYTE = 1024 * 1024;
 const MAX_WALKTHROUGH_SIZE_BYTES = 2 * 1024 * 1024 * 1024;
-const formatWalkthroughSize = (bytes: number) => `${(bytes / MEGABYTE).toFixed(2)} MB`;
+const formatWalkthroughSize = (bytes: number) =>
+  `${(bytes / MEGABYTE).toFixed(2)} MB`;
 
 const INITIAL_SUB_STEPS: SubStep[] = [
   {
@@ -172,16 +178,18 @@ export function PreOperationalInspectionFocusContent({
     React.useState<WalkthroughSyncStatus>("idle");
   const uploadTimerRef = React.useRef<number | null>(null);
   const galleryTimerRef = React.useRef<number | null>(null);
-  const [walkthroughFile, setWalkthroughFile] = React.useState<File | null>(null);
+  const [walkthroughFile, setWalkthroughFile] = React.useState<File | null>(
+    null,
+  );
   const [uploadError, setUploadError] = React.useState<string | null>(null);
   const [activeGalleryIndex, setActiveGalleryIndex] = React.useState(0);
   const [reviewedImageIndices, setReviewedImageIndices] = React.useState<
     Set<number>
   >(() => new Set<number>());
-  const [hasInspectionApproval, setHasInspectionApproval] = React.useState(false);
-  const [activeSlideId, setActiveSlideId] = React.useState<StageSlide["id"]>(
-    "overview",
-  );
+  const [hasInspectionApproval, setHasInspectionApproval] =
+    React.useState(false);
+  const [activeSlideId, setActiveSlideId] =
+    React.useState<StageSlide["id"]>("overview");
   const hasAutomationAvatar = POLARIS_AUTOMATION_AVATAR_URL.length > 0;
   const galleryLength = PREOP_INSPECTION_IMAGES.length;
 
@@ -282,7 +290,9 @@ export function PreOperationalInspectionFocusContent({
       }
 
       if (file.size > MAX_WALKTHROUGH_SIZE_BYTES) {
-        setUploadError("Each walkthrough must be 2 GB or smaller before encryption.");
+        setUploadError(
+          "Each walkthrough must be 2 GB or smaller before encryption.",
+        );
         setWalkthroughFile(null);
         setWalkthroughStatus("idle");
         setHasInspectionApproval(false);
@@ -315,7 +325,11 @@ export function PreOperationalInspectionFocusContent({
   );
 
   React.useEffect(() => {
-    if (walkthroughStatus !== "ready" || hasInspectionApproval || galleryLength === 0) {
+    if (
+      walkthroughStatus !== "ready" ||
+      hasInspectionApproval ||
+      galleryLength === 0
+    ) {
       if (galleryTimerRef.current) {
         window.clearInterval(galleryTimerRef.current);
         galleryTimerRef.current = null;
@@ -405,7 +419,7 @@ export function PreOperationalInspectionFocusContent({
   const isWalkthroughReady = walkthroughStatus === "ready";
   const activeInspectionImage =
     activeGalleryIndex >= 0
-      ? PREOP_INSPECTION_IMAGES[activeGalleryIndex] ?? null
+      ? (PREOP_INSPECTION_IMAGES[activeGalleryIndex] ?? null)
       : null;
 
   const requiredItems = React.useMemo(
@@ -432,7 +446,8 @@ export function PreOperationalInspectionFocusContent({
   const outstandingRequired = React.useMemo(
     () =>
       requiredItems.find(
-        (item) => item.status !== "completed" && item.status !== "account_linked",
+        (item) =>
+          item.status !== "completed" && item.status !== "account_linked",
       ) ?? null,
     [requiredItems],
   );
@@ -544,11 +559,14 @@ export function PreOperationalInspectionFocusContent({
                   Final checks before opening
                 </h3>
                 <p className="text-sm text-slate-600">
-                  Polaris keeps compliance certificates, bank coordination, and optional services aligned so inspectors can clear your venue faster.
+                  Polaris keeps compliance certificates, bank coordination, and
+                  optional services aligned so inspectors can clear your venue
+                  faster.
                 </p>
               </div>
               <p className="text-sm text-slate-600">
-                Automation runs in the background—when something needs you, it appears in the checklist immediately.
+                Automation runs in the background—when something needs you, it
+                appears in the checklist immediately.
               </p>
             </div>
           </div>
@@ -580,7 +598,8 @@ export function PreOperationalInspectionFocusContent({
         content: (
           <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.24)]">
             <p className="text-sm text-slate-600">
-              We keep each certificate and service in sync with the issuing authority. Review any items that need your input.
+              We keep each certificate and service in sync with the issuing
+              authority. Review any items that need your input.
             </p>
             <div className="space-y-3">
               {requiredItems.map((item) => (
@@ -603,7 +622,8 @@ export function PreOperationalInspectionFocusContent({
                     Non-mandatory services
                   </p>
                   <p className="text-sm text-slate-600">
-                    These optional services stay coordinated with their authorities and can be reviewed whenever you need them.
+                    These optional services stay coordinated with their
+                    authorities and can be reviewed whenever you need them.
                   </p>
                 </div>
                 <div className="mt-4 space-y-3">
@@ -638,7 +658,9 @@ export function PreOperationalInspectionFocusContent({
                           </Badge>
                         </div>
                         <p className="text-xs text-slate-500">
-                          Polaris keeps this optional service scheduled with the relevant authority. Update details anytime before your inspections.
+                          Polaris keeps this optional service scheduled with the
+                          relevant authority. Update details anytime before your
+                          inspections.
                         </p>
                       </div>
                     );
@@ -685,7 +707,9 @@ export function PreOperationalInspectionFocusContent({
               </div>
             </div>
             <p className="text-sm text-slate-600">
-              Polaris retrieves certificates, confirms inspectors, and updates your checklist in real time across ADCDA, ADAFSA, and service providers.
+              Polaris retrieves certificates, confirms inspectors, and updates
+              your checklist in real time across ADCDA, ADAFSA, and service
+              providers.
             </p>
             <div className="overflow-hidden rounded-3xl border border-[#d8e4df] bg-white shadow-[0_20px_52px_-38px_rgba(15,23,42,0.28)]">
               <div className="flex flex-wrap items-center justify-between gap-3 p-6">
@@ -694,7 +718,8 @@ export function PreOperationalInspectionFocusContent({
                     Inspection photo library
                   </p>
                   <p className="text-sm text-slate-600">
-                    Full-width captures sync after your walkthrough upload completes.
+                    Full-width captures sync after your walkthrough upload
+                    completes.
                   </p>
                 </div>
                 <div className="flex w-full flex-col items-stretch gap-2 sm:w-auto sm:items-end">
@@ -730,12 +755,11 @@ export function PreOperationalInspectionFocusContent({
                   </p>
                   {walkthroughFile ? (
                     <p className="text-[11px] text-slate-500 sm:text-right">
-                      Selected
-                      {" "}
+                      Selected{" "}
                       <span className="font-semibold text-slate-900">
                         {walkthroughFile.name}
-                      </span>
-                      {" "}· {formatWalkthroughSize(walkthroughFile.size)}
+                      </span>{" "}
+                      · {formatWalkthroughSize(walkthroughFile.size)}
                       {isWalkthroughProcessing ? (
                         <span className="text-[#0f766e]"> · Syncing...</span>
                       ) : null}
@@ -745,7 +769,10 @@ export function PreOperationalInspectionFocusContent({
                     </p>
                   ) : null}
                   {uploadError ? (
-                    <p aria-live="polite" className="text-[11px] font-semibold text-[#b91c1c] sm:text-right">
+                    <p
+                      aria-live="polite"
+                      className="text-[11px] font-semibold text-[#b91c1c] sm:text-right"
+                    >
                       {uploadError}
                     </p>
                   ) : null}
@@ -790,7 +817,8 @@ export function PreOperationalInspectionFocusContent({
                             Inspection approval received
                           </p>
                           <p className="text-sm">
-                            Walkthrough evidence is filed with DED inspectors. Continue to the compliance stage when ready.
+                            Walkthrough evidence is filed with DED inspectors.
+                            Continue to the compliance stage when ready.
                           </p>
                         </div>
                       </div>
@@ -798,7 +826,8 @@ export function PreOperationalInspectionFocusContent({
                   ) : null}
                   <div className="grid grid-cols-1 gap-[2px] bg-[#d8e4df]/40 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {PREOP_INSPECTION_IMAGES.map((image, index) => {
-                      const isActive = !hasInspectionApproval && index === activeGalleryIndex;
+                      const isActive =
+                        !hasInspectionApproval && index === activeGalleryIndex;
                       const hasBeenReviewed = reviewedImageIndices.has(index);
                       return (
                         <figure
@@ -847,7 +876,9 @@ export function PreOperationalInspectionFocusContent({
                       No walkthrough uploaded yet
                     </p>
                     <p className="text-xs text-slate-500">
-                      Upload your pre-operational video walkthrough to unlock the inspection photo gallery. Polaris auto-populates frames once the footage syncs.
+                      Upload your pre-operational video walkthrough to unlock
+                      the inspection photo gallery. Polaris auto-populates
+                      frames once the footage syncs.
                     </p>
                   </div>
                 </div>
@@ -901,9 +932,7 @@ function ChecklistItem({
   const token = SUB_STEP_TOKENS[item.status];
   const isBankAccount = item.id === "bank-account";
   const badgeLabel =
-    isBankAccount && bankAccountPhase === "link"
-      ? "Link account"
-      : token.label;
+    isBankAccount && bankAccountPhase === "link" ? "Link account" : token.label;
 
   return (
     <div className="flex flex-col gap-3 rounded-3xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_26px_60px_-52px_rgba(15,23,42,0.35)]">
@@ -912,7 +941,8 @@ function ChecklistItem({
           <span
             className={cn(
               "flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border",
-              (item.status === "completed" || item.status === "account_linked") &&
+              (item.status === "completed" ||
+                item.status === "account_linked") &&
                 "border-[#0f766e]/20 bg-[#0f766e]/10 text-[#0f766e]",
               item.status === "in_progress" &&
                 "border-[#94d2c2] bg-[#dff2ec]/70 text-[#0b7d6f]",
@@ -923,11 +953,19 @@ function ChecklistItem({
             )}
           >
             {item.status === "in_progress" ? (
-              <Loader2 className={cn("h-4 w-4 animate-spin", token.iconClass)} />
-            ) : item.status === "completed" || item.status === "account_linked" ? (
-              <Check className={cn("h-4 w-4", token.iconClass)} strokeWidth={3} />
+              <Loader2
+                className={cn("h-4 w-4 animate-spin", token.iconClass)}
+              />
+            ) : item.status === "completed" ||
+              item.status === "account_linked" ? (
+              <Check
+                className={cn("h-4 w-4", token.iconClass)}
+                strokeWidth={3}
+              />
             ) : (
-              <span className={cn("block h-2.5 w-2.5 rounded-full", token.dotClass)} />
+              <span
+                className={cn("block h-2.5 w-2.5 rounded-full", token.dotClass)}
+              />
             )}
           </span>
           <div className="space-y-2">
@@ -990,7 +1028,8 @@ function ChecklistItem({
           className={cn(
             "self-start border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
             token.badgeClass,
-            isBankAccount && bankAccountPhase === "link" &&
+            isBankAccount &&
+              bankAccountPhase === "link" &&
               "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
           )}
         >
