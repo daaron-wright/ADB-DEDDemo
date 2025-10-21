@@ -7321,28 +7321,29 @@ export function BusinessChatUI({
           message.actions ? { ...message, actions: undefined } : message,
         );
 
-        const appendedMessages =
-          action === "open-market-overview"
-            ? [
-                buildMessage(
-                  "I'm interested in starting an Emirati-fusion restaurant.",
-                  true,
-                ),
-              ]
-            : [];
-
         const updated = [...sanitized, buildMessage(label, false)];
 
         if (action === "open-market-overview") {
           setModalView("heat-map");
           setAdvisorPanelOpen(false);
-          return [
+          const nextMessages = [
             ...updated,
             buildMessage(
               "Opening the market opportunity workspace. Explore the demographics heat map, then ask me about competition when you're ready.",
               true,
             ),
           ];
+
+          if (!hasProvidedQuickActionIntro) {
+            nextMessages.push(
+              buildMessage(
+                "I'm interested in starting an Emirati-fusion restaurant.",
+                true,
+              ),
+            );
+          }
+
+          return nextMessages;
         }
 
         if (action === "open-competition-analysis") {
