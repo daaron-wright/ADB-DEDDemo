@@ -4864,7 +4864,7 @@ const CompetitorBreakoutModal = ({
       rating: "4.3★",
       tier: "Elevated casual",
       insight:
-        "Experiential tasting flights outperform �� la carte by 1.6x revenue.",
+        "Experiential tasting flights outperform ���� la carte by 1.6x revenue.",
     },
   ];
 
@@ -6331,6 +6331,7 @@ export function BusinessChatUI({
   const [hasProvidedQuickActionIntro, setHasProvidedQuickActionIntro] =
     useState(false);
   const [selectedQuickActionId, setSelectedQuickActionId] = useState<string | null>(null);
+  const [completedQuickActionIds, setCompletedQuickActionIds] = useState<Set<string>>(new Set());
   const assistantName = title || AI_ASSISTANT_PROFILE.name;
   const assistantAvatarUrl = AI_ASSISTANT_PROFILE.avatar.trim();
   const hasAssistantAvatar = assistantAvatarUrl.length > 0;
@@ -7904,7 +7905,7 @@ export function BusinessChatUI({
     const trimmedInitial = initialMessage?.trim();
     const hasInitialPrompt = Boolean(trimmedInitial);
     const defaultGreeting =
-      "Welcome, Layla. Im Polaris��here to keep momentum going. Tell me more about your business concept.";
+      "Welcome, Layla. Im Polaris—here to keep momentum going. Tell me more about your business concept.";
 
     const conversation: BusinessMessage[] = [];
 
