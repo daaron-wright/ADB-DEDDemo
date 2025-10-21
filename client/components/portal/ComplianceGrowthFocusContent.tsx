@@ -790,7 +790,7 @@ export function ComplianceGrowthFocusContent({
         setFeedbackNotes(FEEDBACK_POLICY_HOTKEY_TEXT);
       }
     },
-    [feedbackNotes],
+    [feedbackNotes, setFeedbackNotes],
   );
 
   const slides: StageSlide[] = [
