@@ -642,8 +642,10 @@ const mergeRecommendations = (
 
 const deriveQuickActionRecommendations = ({
   recommendations,
+  summaryReady = false,
 }: {
   recommendations: ReadonlyArray<StageRecommendation>;
+  summaryReady?: boolean;
 }): StageRecommendation[] => {
   const eligibleTypes: RecommendationInteraction[] = [
     "conversation",
@@ -663,7 +665,12 @@ const deriveQuickActionRecommendations = ({
     }
 
     if (recommendation.type === "conversation" && !recommendation.action) {
-      return;
+      if (recommendation.id === "summary-generate-report" && summaryReady) {
+        recommendation.action = "generate-market-summary";
+        recommendation.nextStep = "summary";
+      } else {
+        return;
+      }
     }
 
     if (recommendation.type === "modal" && !recommendation.modal) {
