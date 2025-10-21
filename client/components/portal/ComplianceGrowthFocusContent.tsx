@@ -776,6 +776,23 @@ export function ComplianceGrowthFocusContent({
     setFeedbackStatus("submitted");
   }, [feedbackNotes, acknowledgePolicyUpdate, setFeedbackStatus, toast]);
 
+  const handleFeedbackHotkey = React.useCallback(
+    (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (
+        (event.key === " " || event.code === "Space") &&
+        !event.shiftKey &&
+        !event.altKey &&
+        !event.metaKey &&
+        !event.ctrlKey &&
+        feedbackNotes.trim().length === 0
+      ) {
+        event.preventDefault();
+        setFeedbackNotes(FEEDBACK_POLICY_HOTKEY_TEXT);
+      }
+    },
+    [feedbackNotes],
+  );
+
   const slides: StageSlide[] = [
     {
       id: "compliance",
