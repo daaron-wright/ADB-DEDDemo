@@ -7851,9 +7851,16 @@ export function BusinessChatUI({
     }
 
     if (journeyFocusView) {
+      setAdvisorPanelOpen(false);
       const stageId = journeyFocusView.stage?.id ?? journeyFocusView.timelineItem.id;
       const stageTitle =
         journeyFocusView.stage?.title ?? journeyFocusView.timelineItem.title;
+      const stageIdentifier = stageId ?? journeyFocusView.timelineItem.id ?? "stage";
+      const stageSeedKey = `stage-${stageIdentifier}`;
+
+      if (conversationSeedKeyRef.current === stageSeedKey) {
+        return;
+      }
       const stageHighlightLabel = journeyFocusView.stage?.highlight?.label ?? null;
       const stageHighlightDetail = journeyFocusView.stage?.highlight?.detail ?? null;
       const stageDescription =
