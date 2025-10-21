@@ -5211,7 +5211,7 @@ const DiscoverExperienceView = ({
       name: "Coastal district",
       summary:
         "Lifestyle beachfront with active tourism calendar and family day-trip itineraries.",
-      populationDensity: "35–50K weekly visits",
+      populationDensity: "35��50K weekly visits",
       density: "Seasonal peaks",
       trend: "+5% holiday uplift",
       focus: "Beach clubs, ice cream bars, casual dining",
@@ -7953,6 +7953,11 @@ export function BusinessChatUI({
     const hasInitialPrompt = Boolean(trimmedInitial);
     const defaultGreeting =
       "Welcome, Layla. Im Polaris—here to keep momentum going. Tell me more about your business concept.";
+    const conversationSeedKey = `default-${trimmedInitial ?? ""}-${initialUnlocksQuickActions ? "unlock" : "basic"}`;
+
+    if (conversationSeedKeyRef.current === conversationSeedKey) {
+      return;
+    }
 
     const conversation: BusinessMessage[] = [];
 
