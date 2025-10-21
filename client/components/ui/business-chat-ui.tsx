@@ -7107,10 +7107,16 @@ export function BusinessChatUI({
         (lower.includes("best areas") ||
           lower.includes("best area") ||
           lower.includes("best place") ||
-          lower.includes("best places")) &&
-        (lower.includes("new restaurant") ||
-          lower.includes("modern emirati") ||
-          lower.includes("emirati fusion"));
+          lower.includes("best places") ||
+          lower.includes("interested in starting") ||
+          lower.includes("start") ||
+          lower.includes("opening")) &&
+        (lower.includes("modern emirati") ||
+          lower.includes("emirati fusion") ||
+          lower.includes("emirati-fusion") ||
+          lower.includes("emerati fusion") ||
+          lower.includes("emerati-fusion") ||
+          (lower.includes("fusion") && lower.includes("restaurant")));
       const mentionsExistingEstablishments =
         lower.includes("existing") && lower.includes("establish");
 
