@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { Check, Loader2 } from "lucide-react";
 
 import { StageSlideNavigator, type StageSlide } from "./StageSlideNavigator";
-import { PRIMARY_TRADE_NAME_AR } from "./trade-name-constants";
+import { MARWA_DISPLAY_NAME_EN } from "./trade-name-constants";
 
 const POLARIS_AUTOMATION_AVATAR_URL =
   "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F12dc61b502f74026abe87288234cc2f1?format=webp&width=800";
@@ -44,7 +44,7 @@ interface NextAction {
   disabled: boolean;
 }
 
-const TRADE_NAME_AR = PRIMARY_TRADE_NAME_AR ?? "";
+const AUTOMATION_ASSISTANT_NAME = MARWA_DISPLAY_NAME_EN;
 
 const PREOP_INSPECTION_IMAGES = [
   {
@@ -524,9 +524,9 @@ export function PreOperationalInspectionFocusContent({
                 <p className="text-lg font-semibold text-slate-900">
                   {journeyNumber}
                 </p>
-                {TRADE_NAME_AR ? (
-                  <p className="mt-1 text-sm font-semibold text-[#0f766e]" dir="rtl">
-                    {TRADE_NAME_AR}
+                {AUTOMATION_ASSISTANT_NAME ? (
+                  <p className="mt-1 text-sm font-semibold text-[#0f766e]">
+                    {AUTOMATION_ASSISTANT_NAME}
                   </p>
                 ) : null}
               </div>
@@ -677,9 +677,9 @@ export function PreOperationalInspectionFocusContent({
                 <p className="text-base font-semibold text-slate-900">
                   Coordinating inspections
                 </p>
-                {TRADE_NAME_AR ? (
-                  <p className="text-sm font-semibold text-[#0f766e]" dir="rtl">
-                    {TRADE_NAME_AR}
+                {AUTOMATION_ASSISTANT_NAME ? (
+                  <p className="text-sm font-semibold text-[#0f766e]">
+                    {AUTOMATION_ASSISTANT_NAME}
                   </p>
                 ) : null}
               </div>
