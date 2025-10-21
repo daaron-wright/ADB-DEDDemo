@@ -30,7 +30,6 @@ import {
   ArrowRight,
   Check,
   CheckCircle,
-  Circle,
   Loader2,
   ShieldCheck,
   UploadCloud,
