@@ -7321,6 +7321,16 @@ export function BusinessChatUI({
           message.actions ? { ...message, actions: undefined } : message,
         );
 
+        const appendedMessages =
+          action === "open-market-overview"
+            ? [
+                buildMessage(
+                  "I'm interested in starting an Emirati-fusion restaurant.",
+                  true,
+                ),
+              ]
+            : [];
+
         const updated = [...sanitized, buildMessage(label, false)];
 
         if (action === "open-market-overview") {
