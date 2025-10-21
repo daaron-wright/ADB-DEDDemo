@@ -7873,7 +7873,7 @@ export function BusinessChatUI({
           description:
             task.status === "in_progress"
               ? "Marked in progress—ask me if you'd like me to chase blockers or provide supporting material."
-              : "Still outstanding�����let me know when you're ready for checklists or document templates.",
+              : "Still outstanding�������let me know when you're ready for checklists or document templates.",
           category: "Task",
         }));
       }
@@ -8698,6 +8698,14 @@ export function BusinessChatUI({
                                       type="button"
                                       onClick={() => {
                                         setSelectedQuickActionId(recommendation.id);
+                                        setCompletedQuickActionIds((prev) => {
+                                          if (prev.has(recommendation.id)) {
+                                            return prev;
+                                          }
+                                          const next = new Set(prev);
+                                          next.add(recommendation.id);
+                                          return next;
+                                        });
                                         handleRecommendationSelect(recommendation);
                                       }}
                                       aria-pressed={isSelected}
