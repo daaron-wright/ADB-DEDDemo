@@ -8531,7 +8531,10 @@ export function BusinessChatUI({
                     </div>
                   </div>
 
-                  <div className={bodyWrapperClass}>
+                  <div
+                    className={bodyWrapperClass}
+                    style={{ scrollbarGutter: "stable", overscrollBehavior: "contain" }}
+                  >
                     <div className={bodyContentClass}>
                       <div className={conversationContainerClass}>
                         <div className={messageListClass}>
