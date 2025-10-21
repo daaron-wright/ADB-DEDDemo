@@ -7229,8 +7229,10 @@ export function BusinessChatUI({
       applyFollowUps,
       buildMessage,
       buildStepMessage,
+      hasProvidedQuickActionIntro,
       hasUnlockedQuickActions,
       openApplicantPortal,
+      primaryQuickAction,
       setCurrentStep,
     ],
   );
