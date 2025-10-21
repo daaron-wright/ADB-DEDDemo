@@ -7826,11 +7826,12 @@ export function BusinessChatUI({
       setShouldPromptLogin(false);
       setIsInvestorAuthenticated(false);
       setShouldOpenInvestorView(false);
-      setAdvisorPanelOpen(false);
-      setModalView("chat");
-      applyFollowUps([]);
-      return;
-    }
+    setAdvisorPanelOpen(false);
+    setModalView("chat");
+    applyFollowUps([]);
+    conversationSeedKeyRef.current = null;
+    return;
+  }
 
     setView("basic");
     setModalView("chat");
