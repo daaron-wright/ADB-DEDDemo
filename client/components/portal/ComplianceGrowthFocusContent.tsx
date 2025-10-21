@@ -515,7 +515,6 @@ export function ComplianceGrowthFocusContent({
           variant: "destructive",
         });
         resetPendingVideo();
-        setSubmissionStatus("idle");
         return;
       }
 
@@ -526,12 +525,10 @@ export function ComplianceGrowthFocusContent({
           variant: "destructive",
         });
         resetPendingVideo();
-        setSubmissionStatus("idle");
         return;
       }
 
       setPendingVideo(file);
-      setSubmissionStatus("ready");
     },
     [resetPendingVideo, toast],
   );
@@ -542,8 +539,7 @@ export function ComplianceGrowthFocusContent({
     }
 
     resetPendingVideo();
-    setSubmissionStatus("idle");
-  }, [pendingVideo, resetPendingVideo, setSubmissionStatus]);
+  }, [pendingVideo, resetPendingVideo]);
 
   const handleSubmitVideoEvidence = React.useCallback(() => {
     if (!pendingVideo) {
@@ -588,10 +584,6 @@ export function ComplianceGrowthFocusContent({
       return [newEvidence, ...previous];
     });
 
-    setSubmissionStatus("submitted");
-    setPipelineIndex((previous) =>
-      previous >= INSPECTION_PIPELINE_STEPS.length - 1 ? previous : previous + 1,
-    );
     resetPendingVideo();
 
     const processingTimer = window.setTimeout(() => {
@@ -628,8 +620,6 @@ export function ComplianceGrowthFocusContent({
             : item,
         ),
       );
-      setSubmissionStatus("approved");
-      setPipelineIndex(INSPECTION_PIPELINE_STEPS.length);
       frameTimersRef.current = frameTimersRef.current.filter(
         (timerId) => timerId !== syncedTimer,
       );
