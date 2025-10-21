@@ -225,7 +225,7 @@ const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({
                   >
                     <path d="M7 2h10a1 1 0 0 1 1 1v16l-6-3-6 3V3a1 1 0 0 1 1-1z" />
                   </svg>
-                  Continue to business plan workspace
+                  Automate my licensing process and take me to my workspace.
                 </button>
               </div>
             </div>
