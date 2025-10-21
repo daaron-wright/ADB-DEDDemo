@@ -255,7 +255,7 @@ const HEAT_MAP_PROMPT =
   "Where are existing establishments located for specific activities (on a heat map)?";
 
 const DEMOGRAPHICS_OVERVIEW_MESSAGE =
-  "Abu Dhabi's dining potential varies by zone, each offering unique demographics and population density drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island ��� 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island �� 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).";
+  "Abu Dhabi's dining potential varies by zone, each offering unique demographics and population density drivers: Yas Island – ~10k residents, 25k+ daily visitors; strong tourist hub (index 8/10). Al Maryah Island – 7k residents, 20k workers/visitors; luxury and business dining (7/10). Saadiyat Island – 5k residents, 15k visitors; cultural/tourist draw (6/10). Al Reem Island – 30k residents, 35k daytime; dense community market (7/10). Al Zahiyah – 12k residents, 20k+ daily; hotels and nightlife (8/10). Corniche – ~20k daily leisure visitors; scenic high-traffic zone (8/10). Al Raha / Khalifa City – 20k residents, 25k daily; family-focused community (6/10).";
 
 const COMPREHENSIVE_REPORT_MESSAGE =
   "Generating comprehensive market analysis combining all previous insights. This report synthesizes location data, demographic patterns, budget requirements, and taste preferences into actionable business intelligence.";
