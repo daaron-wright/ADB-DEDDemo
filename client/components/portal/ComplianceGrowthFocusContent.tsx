@@ -500,6 +500,10 @@ export function ComplianceGrowthFocusContent({
     React.useState(false);
   const [feedbackNotes, setFeedbackNotes] = React.useState("");
   const [contactEmail, setContactEmail] = React.useState("layla@marwah.ae");
+  const [feedbackAcknowledgement, setFeedbackAcknowledgement] = React.useState<
+    { id: string; title: string; message: string } | null
+  >(null);
+  const feedbackAcknowledgementTimerRef = React.useRef<number | null>(null);
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
   const resolvedPolicyUpdateAcknowledged =
     externalPolicyUpdateAcknowledged ?? localPolicyUpdateAcknowledged;
