@@ -7159,13 +7159,9 @@ export function BusinessChatUI({
         nextFollowUps = FOLLOW_UP_COMPETITOR_ANALYSIS;
       } else if (mentionsCost) {
         responses.push(
-          buildMessage(
-            "Estimated setup costs for the trade license typically fall between AED 3,000 and AED 8,000. Figures below this band usually reflect limited permits, while a full Commercial License that enables restaurant operations generally sits within the AED 3,000 to AED 8,000 range. Cost shown is indicative and subject to change based on the business activity and other regulatory requirements.",
-            true,
-            {
-              type: "budget-ranges",
-            },
-          ),
+          buildMessage(BUDGET_RANGES_MESSAGE, true, {
+            type: "budget-ranges",
+          }),
         );
         nextFollowUps = FOLLOW_UP_BUDGET_DISCUSSION;
       } else if (mentionsDemographics) {
