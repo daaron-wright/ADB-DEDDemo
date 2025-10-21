@@ -5211,7 +5211,7 @@ const DiscoverExperienceView = ({
       name: "Coastal district",
       summary:
         "Lifestyle beachfront with active tourism calendar and family day-trip itineraries.",
-      populationDensity: "35��50K weekly visits",
+      populationDensity: "35–50K weekly visits",
       density: "Seasonal peaks",
       trend: "+5% holiday uplift",
       focus: "Beach clubs, ice cream bars, casual dining",
@@ -7991,6 +7991,7 @@ export function BusinessChatUI({
 
     setMessages(conversation);
     setAdvisorPanelOpen(true);
+    conversationSeedKeyRef.current = conversationSeedKey;
   }, [
     applyFollowUps,
     isOpen,
