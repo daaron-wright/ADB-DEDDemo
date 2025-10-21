@@ -308,6 +308,15 @@ const NORMALIZED_SUGGESTED_TOPICS_TRIGGER = normalizeMessageContent(
   SUGGESTED_TOPICS_TRIGGER_MESSAGE,
 );
 
+const QUICK_ACTION_UNLOCK_PROMPTS = [
+  "I'm interested in starting an Emirati-fusion restaurant",
+  "I'm interested in starting an Emerati-fusion restaurant",
+] as const;
+
+const NORMALIZED_QUICK_ACTION_UNLOCK_PROMPTS = new Set(
+  QUICK_ACTION_UNLOCK_PROMPTS.map((prompt) => normalizeMessageContent(prompt)),
+);
+
 const CONVERSATION_BLUEPRINT: Record<
   ConversationStep,
   {
