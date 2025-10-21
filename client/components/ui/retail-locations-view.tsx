@@ -228,16 +228,16 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
               </div>
               <div className="mt-4 w-full rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_24px_48px_-36px_rgba(15,23,42,0.32)]">
                 <Tabs defaultValue="business-plan" className="w-full">
-                  <TabsList className="grid grid-cols-1 gap-2 rounded-2xl bg-[#f2f7f5] p-2 shadow-inner sm:grid-cols-2">
+                  <TabsList className="flex flex-col gap-3">
                     <TabsTrigger
                       value="business-plan"
-                      className="rounded-xl px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition data-[state=active]:bg-[#0F766E] data-[state=active]:text-white"
+                      className="w-full rounded-full border border-[#0F766E]/30 bg-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition whitespace-normal text-center leading-[1.6] shadow-sm hover:bg-[#eff6f3] hover:text-[#0a5a55] data-[state=active]:border-[#0F766E] data-[state=active]:bg-[#0F766E] data-[state=active]:text-white"
                     >
                       Export your business plan
                     </TabsTrigger>
                     <TabsTrigger
                       value="ded-data"
-                      className="rounded-xl px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition data-[state=active]:bg-[#0F766E] data-[state=active]:text-white"
+                      className="w-full rounded-full border border-[#0F766E]/30 bg-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition whitespace-normal text-center leading-[1.6] shadow-sm hover:bg-[#eff6f3] hover:text-[#0a5a55] data-[state=active]:border-[#0F766E] data-[state=active]:bg-[#0F766E] data-[state=active]:text-white"
                     >
                       Download Abu Dhabi DED data packs
                     </TabsTrigger>
