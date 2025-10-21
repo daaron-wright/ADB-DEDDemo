@@ -41,8 +41,6 @@ import {
 } from "./trade-name-constants";
 
 type ComplianceStatus = "error" | "warning" | "success" | "info";
-type InspectionSubmissionStatus = "idle" | "ready" | "submitted" | "approved";
-type PipelineStatus = "complete" | "active" | "pending";
 type FeedbackWorkflowStatus = "draft" | "submitted" | "responded";
 type ReadinessStatus = "pass" | "attention";
 
@@ -51,13 +49,6 @@ type ComplianceItem = {
   label: string;
   status: ComplianceStatus;
   detail: string;
-};
-
-type PipelineStep = {
-  id: string;
-  title: string;
-  description: string;
-  helper: string;
 };
 
 type ReadinessItem = {
