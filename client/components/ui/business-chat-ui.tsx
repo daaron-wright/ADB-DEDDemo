@@ -6988,14 +6988,15 @@ export function BusinessChatUI({
         unlockedByMessage = true;
       }
 
-      const appendedMessages = unlockedByMessage
-        ? [
-            buildMessage(
-              "I'm interested in starting an Emirati-fusion restaurant.",
-              true,
-            ),
-          ]
-        : [];
+      const appendedMessages =
+        unlockedByMessage && !hasProvidedQuickActionIntro
+          ? [
+              buildMessage(
+                "I'm interested in starting an Emirati-fusion restaurant.",
+                true,
+              ),
+            ]
+          : [];
 
       if (normalizedText === NORMALIZED_SUGGESTED_TOPICS_TRIGGER) {
         const interactiveMapMessage = buildMessage(
