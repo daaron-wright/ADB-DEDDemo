@@ -7049,16 +7049,6 @@ export function BusinessChatUI({
         unlockedByMessage = true;
       }
 
-      const appendedMessages =
-        unlockedByMessage && !hasProvidedQuickActionIntro
-          ? [
-              buildMessage(
-                "I'm interested in starting an Emirati-fusion restaurant.",
-                true,
-              ),
-            ]
-          : [];
-
       if (normalizedText === NORMALIZED_SUGGESTED_TOPICS_TRIGGER) {
         const interactiveMapMessage = buildMessage(
           "Highlighting the Abu Dhabi districts attracting modern Emirati fusion dining concepts right now.",
@@ -7308,7 +7298,7 @@ export function BusinessChatUI({
         setHasProvidedQuickActionIntro(true);
       }
 
-      setMessages((prev) => [...prev, userMessage, ...responses, ...appendedMessages]);
+      setMessages((prev) => [...prev, userMessage, ...responses]);
       setInputValue("");
       applyFollowUps(nextFollowUps);
     },
