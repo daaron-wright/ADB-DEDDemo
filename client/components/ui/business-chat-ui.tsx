@@ -3437,10 +3437,24 @@ const ChatInputField = ({
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const isSpaceKey = e.key === " " || e.code === "Space";
+    if (
+      isSpaceKey &&
+      value.trim().length === 0 &&
+      !e.shiftKey &&
+      !e.altKey &&
+      !e.metaKey &&
+      !e.ctrlKey
+    ) {
+      e.preventDefault();
+      onChange(CHAT_INPUT_HOTKEY_PROMPT);
+      return;
+    }
+
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      handleSubmit(e as any);
+      handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
     }
   };
 
@@ -3454,7 +3468,7 @@ const ChatInputField = ({
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyDown}
           placeholder={placeholder}
           className="flex-1 border-0 bg-transparent text-[13px] font-normal leading-[140%] text-black placeholder-black/50 outline-none caret-black focus:border-0 focus:outline-none focus:ring-0"
           style={{
