@@ -6371,12 +6371,13 @@ export function BusinessChatUI({
 
   useEffect(() => {
     if (!initialMessage) {
+      setHasUnlockedQuickActions(false);
       return;
     }
     const normalizedInitial = normalizeMessageContent(initialMessage);
-    if (NORMALIZED_QUICK_ACTION_UNLOCK_PROMPTS.has(normalizedInitial)) {
-      setHasUnlockedQuickActions(true);
-    }
+    setHasUnlockedQuickActions(
+      NORMALIZED_QUICK_ACTION_UNLOCK_PROMPTS.has(normalizedInitial),
+    );
   }, [initialMessage]);
 
   const handleFeedbackSubmit = useCallback(
@@ -6410,7 +6411,7 @@ export function BusinessChatUI({
             ...current,
             {
               id: `feedback-policy-${Date.now()}`,
-              content: `Policy insight queued: ${updatedCount} investors highlighted ���${sample}”. Polaris alerted the policy team.`,
+              content: `Policy insight queued: ${updatedCount} investors highlighted ���${sample}���. Polaris alerted the policy team.`,
               isAI: true,
               timestamp: new Date(),
               type: "feedback-notification",
