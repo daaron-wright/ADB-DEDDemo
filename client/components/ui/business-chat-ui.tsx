@@ -260,6 +260,9 @@ const DEMOGRAPHICS_OVERVIEW_MESSAGE =
 const COMPREHENSIVE_REPORT_MESSAGE =
   "Generating comprehensive market analysis combining all previous insights. This report synthesizes location data, demographic patterns, budget requirements, and taste preferences into actionable business intelligence.";
 
+const BUDGET_RANGES_MESSAGE =
+  "Estimated setup costs for the trade license typically fall between AED 3,000 and AED 8,000. Figures below this band usually reflect limited permits, while a full Commercial License that enables restaurant operations generally sits within the AED 3,000 and AED 8,000 range. Cost shown is indicative and subject to change based on the business activity and other regulatory requirements.\n\nBudget ranges\nZONE BOUTIQUE FLAGSHIP\nCorniche Waterfront – High street or lifestyle hub positioning AED 950K – 1.35M AED 1.65M – 2.25M\nAl Maryah Island – High street or lifestyle hub positioning AED 1.05M – 1.48M AED 1.8M – 2.4M\nAl Reem Island – High street or lifestyle hub positioning AED 780K – 1.12M –\nYas Island – High street or lifestyle hub positioning AED 860K – 1.26M AED 1.7M – 2.3M\nSaadiyat Island – High street or lifestyle hub positioning AED 840K – 1.18M AED 1.55M – 2.1M\nAl Zahiyah – High street or lifestyle hub positioning AED 820K – 1.14M AED 1.45M – 1.98M\n\nTap the budget ranges pill to open an interactive view with detailed breakdowns, timelines, and recommended next steps for each district.";
+
 // Preloaded prompts for different business categories
 const PRELOADED_PROMPTS = {
   restaurants: [
