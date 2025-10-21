@@ -766,6 +766,12 @@ export function ComplianceGrowthFocusContent({
       normalizedNotes.includes(matcher),
     );
 
+    if (feedbackAcknowledgementTimerRef.current) {
+      window.clearTimeout(feedbackAcknowledgementTimerRef.current);
+      feedbackAcknowledgementTimerRef.current = null;
+    }
+    setFeedbackAcknowledgement(null);
+
     if (matchesPolicyRequest) {
       acknowledgePolicyUpdate();
       toast({
@@ -774,11 +780,33 @@ export function ComplianceGrowthFocusContent({
           "Polaris flagged your low-risk pathway request for policy review. Updates will appear in this workspace.",
       });
       setFeedbackStatus("responded");
+      feedbackAcknowledgementTimerRef.current = window.setTimeout(() => {
+        setFeedbackAcknowledgement({
+          id: "ded-implementation",
+          title: "DED implemented your feedback",
+          message:
+            "DED confirmed the low-risk fast path updates for qualifying F&B concepts. Polaris will surface new automation steps shortly.",
+        });
+      }, 10000);
       return;
     }
 
     setFeedbackStatus("submitted");
-  }, [feedbackNotes, acknowledgePolicyUpdate, setFeedbackStatus, toast]);
+    feedbackAcknowledgementTimerRef.current = window.setTimeout(() => {
+      setFeedbackAcknowledgement({
+        id: "ded-review",
+        title: "DED is acting on your feedback",
+        message:
+          "DED acknowledged your submission and scheduled policy adjustments. Expect automation guidance to update soon.",
+      });
+    }, 10000);
+  }, [
+    feedbackNotes,
+    acknowledgePolicyUpdate,
+    setFeedbackStatus,
+    toast,
+    setFeedbackAcknowledgement,
+  ]);
 
   const handleFeedbackHotkey = React.useCallback(
     (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
