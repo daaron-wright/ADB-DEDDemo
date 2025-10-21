@@ -174,54 +174,6 @@ const COMPLIANCE_STATUS_TOKENS: Record<
   },
 };
 
-const INSPECTION_PIPELINE_STEPS: PipelineStep[] = [
-  {
-    id: "intake",
-    title: "Secure intake",
-    description: "Encrypted walkthrough received and verified.",
-    helper: "Polaris receipt logged",
-  },
-  {
-    id: "analysis",
-    title: "Evidence analysis",
-    description: "Models validate signage, text, and storage compliance automatically.",
-    helper: "Computer vision + OCR checks",
-  },
-  {
-    id: "handoff",
-    title: "Inspector handoff",
-    description: "Package synced to the DED inspector workspace for acknowledgement.",
-    helper: "PASS",
-  },
-  {
-    id: "approval",
-    title: "DED approval",
-    description: "Inspector acknowledgement recorded and compliance package approved.",
-    helper: "Approved",
-  },
-];
-
-const PIPELINE_STATUS_TOKENS: Record<PipelineStatus, { wrapperClass: string; connectorClass: string; Icon: React.ElementType; iconClass: string }> = {
-  complete: {
-    wrapperClass: "border-[#0f766e] bg-[#0f766e] text-white",
-    connectorClass: "bg-[#0f766e]/30",
-    Icon: Check,
-    iconClass: "h-4 w-4",
-  },
-  active: {
-    wrapperClass: "border-[#0f766e] bg-[#f5faf7] text-[#0f766e]",
-    connectorClass: "bg-[#0f766e]/30",
-    Icon: Loader2,
-    iconClass: "h-4 w-4 animate-spin",
-  },
-  pending: {
-    wrapperClass: "border-[#d8e4df] bg-white text-[#d8e4df]",
-    connectorClass: "bg-[#d8e4df]",
-    Icon: Circle,
-    iconClass: "h-3.5 w-3.5",
-  },
-};
-
 const SIGNBOARD_QUALITY_SUMMARY = {
   status: "Suitable",
   confidence: 0.94,
