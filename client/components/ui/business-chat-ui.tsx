@@ -6314,6 +6314,7 @@ export function BusinessChatUI({
   const [isAdvisorPanelOpen, setAdvisorPanelOpen] = useState(false);
   const [hasTriggeredSuggestedTopics, setHasTriggeredSuggestedTopics] =
     useState(false);
+  const [hasUnlockedQuickActions, setHasUnlockedQuickActions] = useState(false);
   const [selectedQuickActionId, setSelectedQuickActionId] = useState<string | null>(null);
   const assistantName = title || AI_ASSISTANT_PROFILE.name;
   const assistantAvatarUrl = AI_ASSISTANT_PROFILE.avatar.trim();
