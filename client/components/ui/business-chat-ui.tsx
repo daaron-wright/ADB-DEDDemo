@@ -8178,7 +8178,7 @@ export function BusinessChatUI({
       "mx-auto w-full max-w-6xl overflow-visible border border-white/25 bg-white/15 backdrop-blur-3xl shadow-[0_55px_140px_-65px_rgba(15,23,42,0.45)] ring-1 ring-white/10",
       "sm:rounded-[28px]",
     ),
-    "flex max-h-[90vh] flex-col overflow-hidden",
+    "flex max-h-[calc(100vh-32px)] flex-col overflow-hidden sm:max-h-[calc(100vh-48px)] lg:max-h-[calc(100vh-64px)]",
     isSidePanel &&
       "mx-0 h-full max-h-none max-w-none flex-col rounded-none border-l border-slate-200 bg-white/95 shadow-[0_35px_90px_-45px_rgba(15,23,42,0.35)] backdrop-blur-none ring-0",
   );
