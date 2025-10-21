@@ -6315,6 +6315,8 @@ export function BusinessChatUI({
   const [hasTriggeredSuggestedTopics, setHasTriggeredSuggestedTopics] =
     useState(false);
   const [hasUnlockedQuickActions, setHasUnlockedQuickActions] = useState(false);
+  const [hasProvidedQuickActionIntro, setHasProvidedQuickActionIntro] =
+    useState(false);
   const [selectedQuickActionId, setSelectedQuickActionId] = useState<string | null>(null);
   const assistantName = title || AI_ASSISTANT_PROFILE.name;
   const assistantAvatarUrl = AI_ASSISTANT_PROFILE.avatar.trim();
@@ -6411,7 +6413,7 @@ export function BusinessChatUI({
             ...current,
             {
               id: `feedback-policy-${Date.now()}`,
-              content: `Policy insight queued: ${updatedCount} investors highlighted ���${sample}���. Polaris alerted the policy team.`,
+              content: `Policy insight queued: ${updatedCount} investors highlighted ���${sample}”. Polaris alerted the policy team.`,
               isAI: true,
               timestamp: new Date(),
               type: "feedback-notification",
