@@ -377,35 +377,9 @@ const DEFAULT_VIDEO_LIBRARY: VideoEvidence[] = [
   },
 ];
 
-const evidenceTimestampFormatter = new Intl.DateTimeFormat("en-GB", {
-  dateStyle: "medium",
-  timeStyle: "short",
-});
-
 const bytesToMegabytes = (bytes: number) => Number((bytes / MEGABYTE).toFixed(2));
 const formatMegabytes = (value: number) => `${value.toFixed(2)} MB`;
 const formatFileSize = (bytes: number) => formatMegabytes(bytesToMegabytes(bytes));
-const formatEvidenceTimestamp = (iso: string) =>
-  evidenceTimestampFormatter.format(new Date(iso));
-
-const SUBMISSION_STATUS_TOKENS: Record<InspectionSubmissionStatus, { label: string; className: string }> = {
-  idle: {
-    label: "Awaiting upload",
-    className: "border-[#d8e4df] bg-white text-slate-600",
-  },
-  ready: {
-    label: "Ready to submit",
-    className: "border-amber-200 bg-amber-50 text-amber-700",
-  },
-  submitted: {
-    label: "Pending review",
-    className: "border-[#94d2c2] bg-[#eaf7f3] text-[#0f766e]",
-  },
-  approved: {
-    label: "Approved",
-    className: "border-emerald-200 bg-[#eaf7f3] text-[#0f766e]",
-  },
-};
 
 const FEEDBACK_STATUS_LABEL: Record<FeedbackWorkflowStatus, string> = {
   draft: "Draft",
