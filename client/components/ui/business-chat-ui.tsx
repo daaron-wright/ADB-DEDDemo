@@ -7211,6 +7211,16 @@ export function BusinessChatUI({
         nextFollowUps = [];
       }
 
+      if (unlockedByMessage && primaryQuickAction && !hasProvidedQuickActionIntro) {
+        responses.push(
+          buildMessage(
+            `I've unlocked quick actions for you—tap "${primaryQuickAction.label}" to open the market intelligence workspace and explore the demand insights I recommend starting with.`,
+            true,
+          ),
+        );
+        setHasProvidedQuickActionIntro(true);
+      }
+
       setMessages((prev) => [...prev, userMessage, ...responses]);
       setInputValue("");
       applyFollowUps(nextFollowUps);
