@@ -6322,6 +6322,24 @@ export function BusinessChatUI({
   const assistantAvatarUrl = AI_ASSISTANT_PROFILE.avatar.trim();
   const hasAssistantAvatar = assistantAvatarUrl.length > 0;
 
+  const initialUnlocksQuickActions = useMemo(() => {
+    if (!initialMessage) {
+      return false;
+    }
+    const normalizedInitial = normalizeMessageContent(initialMessage);
+    return NORMALIZED_QUICK_ACTION_UNLOCK_PROMPTS.has(normalizedInitial);
+  }, [initialMessage]);
+
+  const primaryQuickAction = useMemo(() => {
+    const introDefaults = STAGE_QUICK_ACTION_DEFAULTS.intro ?? [];
+    if (introDefaults.length === 0) {
+      return null;
+    }
+
+    const recommendation = resolveQuickActionRecommendation(introDefaults[0]);
+    return recommendation ?? null;
+  }, []);
+
   useEffect(() => {
     if (hasCompletedApplication && !hasFeedbackPrompted) {
       setMessages((previous) => {
