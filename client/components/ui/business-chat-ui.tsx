@@ -6563,10 +6563,10 @@ export function BusinessChatUI({
       return [];
     }
 
-    const introCompleted = selectedQuickActionId === "welcome-market-overview";
-    const competitionCompleted = selectedQuickActionId === "welcome-competition";
-    const demographicsCompleted = selectedQuickActionId === "welcome-demographics";
-    const locationCompleted = selectedQuickActionId === "welcome-budget";
+    const introCompleted = completedQuickActionIds.has("welcome-market-overview");
+    const competitionCompleted = completedQuickActionIds.has("welcome-competition");
+    const demographicsCompleted = completedQuickActionIds.has("welcome-demographics");
+    const locationCompleted = completedQuickActionIds.has("welcome-budget");
 
     const summaryReady =
       introCompleted && competitionCompleted && demographicsCompleted && locationCompleted;
@@ -6577,8 +6577,8 @@ export function BusinessChatUI({
     });
   }, [
     activeRecommendations,
+    completedQuickActionIds,
     hasUnlockedQuickActions,
-    selectedQuickActionId,
   ]);
 
   useEffect(() => {
