@@ -1092,11 +1092,11 @@ export function ComplianceGrowthFocusContent({
 
           <Accordion type="multiple" className="space-y-3">
             <AccordionItem
-              value="signboard-quality"
+              value="sign-board-verification"
               className="rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]"
             >
               <AccordionTrigger className="flex w-full flex-wrap items-center justify-between gap-3 rounded-3xl px-6 py-5 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
-                <h4 className="text-base font-semibold text-slate-900">Signboard quality summary</h4>
+                <h4 className="text-base font-semibold text-slate-900">Sign board verification</h4>
                 <Badge className="rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
                   {`${Math.round(SIGNBOARD_QUALITY_SUMMARY.confidence * 100)}% confidence`}
                 </Badge>
@@ -1153,11 +1153,11 @@ export function ComplianceGrowthFocusContent({
             </AccordionItem>
 
             <AccordionItem
-              value="text-verification"
+              value="activity-matching-verification"
               className="rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]"
             >
               <AccordionTrigger className="flex w-full flex-wrap items-center justify-between gap-3 rounded-3xl px-6 py-5 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
-                <h4 className="text-base font-semibold text-slate-900">Text verification</h4>
+                <h4 className="text-base font-semibold text-slate-900">Activity matching verification</h4>
               </AccordionTrigger>
               <AccordionContent className="space-y-3 px-6 pb-6 pt-0">
                 {TEXT_VERIFICATION_RESULTS.map((row) => (
