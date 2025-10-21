@@ -7339,14 +7339,13 @@ export function BusinessChatUI({
         }
 
         if (action === "open-budget-analysis") {
-          setModalView("budget-ranges");
+          setModalView("chat");
           setAdvisorPanelOpen(false);
           return [
             ...updated,
-            buildMessage(
-              "Opening the Corniche budget benchmarks so you can validate operating ranges and fit-out assumptions.",
-              true,
-            ),
+            buildMessage(BUDGET_RANGES_MESSAGE, true, {
+              type: "budget-ranges",
+            }),
           ];
         }
 
