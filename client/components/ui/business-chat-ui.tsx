@@ -7224,11 +7224,11 @@ export function BusinessChatUI({
 
       if (unlockedByMessage && primaryQuickAction && !hasProvidedQuickActionIntro) {
         responses.push(
-          buildMessage(
-            `I've unlocked quick actions for you—tap "${primaryQuickAction.label}" to open the market intelligence workspace and explore the demand insights I recommend starting with.`,
-            true,
-          ),
+          buildMessage(buildQuickActionIntroMessage(primaryQuickAction.label), true),
         );
+        if (nextFollowUps.length === 0) {
+          nextFollowUps = LOCATION_INTELLIGENCE_FOLLOW_UPS;
+        }
         setHasProvidedQuickActionIntro(true);
       }
 
@@ -7499,7 +7499,7 @@ export function BusinessChatUI({
           setShouldOpenInvestorView(true);
           setView("investor-journey");
           const acknowledgement = buildMessage(
-            "Perfect ��� I’m triggering automation, reserving your trade name, and opening the applicant portal timeline for you now.",
+            "Perfect — I’m triggering automation, reserving your trade name, and opening the applicant portal timeline for you now.",
             true,
           );
           const handoffMessage = buildStepMessage("handoff");
