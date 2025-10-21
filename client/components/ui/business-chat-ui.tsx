@@ -6581,6 +6581,7 @@ export function BusinessChatUI({
     return deriveQuickActionRecommendations({
       recommendations: activeRecommendations,
       summaryReady,
+      completed: completedQuickActionIds,
     });
   }, [
     activeRecommendations,
