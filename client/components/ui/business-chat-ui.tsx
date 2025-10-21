@@ -6390,8 +6390,16 @@ export function BusinessChatUI({
   }, [navigate]);
 
   useEffect(() => {
-    setHasUnlockedQuickActions(initialUnlocksQuickActions);
-  }, [initialUnlocksQuickActions]);
+    if (!isOpen) {
+      setHasUnlockedQuickActions(false);
+      setHasProvidedQuickActionIntro(false);
+      return;
+    }
+
+    if (initialUnlocksQuickActions) {
+      setHasUnlockedQuickActions(true);
+    }
+  }, [isOpen, initialUnlocksQuickActions]);
 
   useEffect(() => {
     if (!hasUnlockedQuickActions) {
