@@ -606,45 +606,44 @@ export function PreOperationalInspectionFocusContent({
                     These optional services stay coordinated with their authorities and can be reviewed whenever you need them.
                   </p>
                 </div>
-                <Accordion type="single" collapsible className="mt-4 space-y-3">
+                <div className="mt-4 space-y-3">
                   {optionalItems.map((item) => {
                     const token = SUB_STEP_TOKENS[item.status];
                     return (
-                      <AccordionItem
+                      <div
                         key={item.id}
-                        value={item.id}
-                        className="overflow-hidden rounded-2xl border border-[#e6f2ed] bg-white"
+                        className="flex flex-col gap-2 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4"
                       >
-                        <AccordionTrigger className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm font-semibold text-slate-900 hover:no-underline">
-                          <div className="flex flex-col gap-1 text-left">
-                            <span>
+                        <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                          <div className="space-y-1">
+                            <p className="text-sm font-semibold text-slate-900">
                               {item.label}
                               {item.authority ? (
                                 <span className="ml-1 text-xs font-normal uppercase tracking-[0.16em] text-slate-500">
                                   {`(${item.authority})`}
                                 </span>
                               ) : null}
-                            </span>
+                            </p>
                             <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">
                               Optional service
                             </span>
                           </div>
                           <Badge
                             className={cn(
-                              "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                              "ml-auto rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
                               token.badgeClass,
                             )}
                           >
                             {token.label}
                           </Badge>
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4 pb-4 pt-0 text-sm text-slate-600">
-                          Polaris keeps this optional service scheduled with the relevant authority. Expand whenever you want to update details or confirm readiness.
-                        </AccordionContent>
-                      </AccordionItem>
+                        </div>
+                        <p className="text-xs text-slate-500">
+                          Polaris keeps this optional service scheduled with the relevant authority. Update details anytime before your inspections.
+                        </p>
+                      </div>
                     );
                   })}
-                </Accordion>
+                </div>
               </div>
             ) : null}
           </div>
