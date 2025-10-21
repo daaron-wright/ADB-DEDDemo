@@ -7946,10 +7946,6 @@ export function BusinessChatUI({
 
     const conversation: BusinessMessage[] = [];
 
-    if (hasInitialPrompt) {
-      conversation.push(buildMessage(trimmedInitial!, false));
-    }
-
     conversation.push(
       buildMessage(
         hasInitialPrompt
@@ -7960,6 +7956,7 @@ export function BusinessChatUI({
     );
 
     if (hasInitialPrompt) {
+      conversation.push(buildMessage(trimmedInitial!, false));
       conversation.push(
         buildMessage(
           "I'll pull together the right insights for that and keep you posted along the way.",
