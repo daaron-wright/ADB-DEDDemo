@@ -6965,11 +6965,13 @@ export function BusinessChatUI({
 
       const normalizedText = normalizeMessageContent(trimmed);
 
+      let unlockedByMessage = false;
       if (
         !hasUnlockedQuickActions &&
         NORMALIZED_QUICK_ACTION_UNLOCK_PROMPTS.has(normalizedText)
       ) {
         setHasUnlockedQuickActions(true);
+        unlockedByMessage = true;
       }
 
       if (normalizedText === NORMALIZED_SUGGESTED_TOPICS_TRIGGER) {
