@@ -4864,7 +4864,7 @@ const CompetitorBreakoutModal = ({
       rating: "4.3★",
       tier: "Elevated casual",
       insight:
-        "Experiential tasting flights outperform ���� la carte by 1.6x revenue.",
+        "Experiential tasting flights outperform �� la carte by 1.6x revenue.",
     },
   ];
 
@@ -6407,6 +6407,7 @@ export function BusinessChatUI({
     if (!isOpen) {
       setHasUnlockedQuickActions(false);
       setHasProvidedQuickActionIntro(false);
+      setCompletedQuickActionIds(new Set());
       return;
     }
 
