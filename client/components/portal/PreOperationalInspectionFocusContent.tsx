@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
@@ -412,6 +413,11 @@ export function PreOperationalInspectionFocusContent({
     [checklistItems],
   );
 
+  const optionalItems = React.useMemo(
+    () => checklistItems.filter((item) => item.isOptional),
+    [checklistItems],
+  );
+
   const completedRequiredCount = React.useMemo(
     () =>
       requiredItems.filter(
@@ -432,10 +438,8 @@ export function PreOperationalInspectionFocusContent({
   );
 
   const outstandingOptional = React.useMemo(
-    () =>
-      checklistItems.find((item) => item.isOptional && item.status !== "completed") ??
-      null,
-    [checklistItems],
+    () => optionalItems.find((item) => item.status !== "completed") ?? null,
+    [optionalItems],
   );
 
   const checklistSummary = `${completedRequiredCount} of ${totalRequired} required complete`;
@@ -579,7 +583,7 @@ export function PreOperationalInspectionFocusContent({
               We keep each certificate and service in sync with the issuing authority. Review any items that need your input.
             </p>
             <div className="space-y-3">
-              {checklistItems.map((item) => (
+              {requiredItems.map((item) => (
                 <ChecklistItem
                   key={item.id}
                   item={item}
@@ -592,6 +596,57 @@ export function PreOperationalInspectionFocusContent({
                 />
               ))}
             </div>
+            {optionalItems.length > 0 ? (
+              <div className="rounded-3xl border border-[#d8e4df] bg-[#f8fbfa] p-5 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
+                <div className="flex flex-col gap-1">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                    Non-mandatory services
+                  </p>
+                  <p className="text-sm text-slate-600">
+                    These optional services stay coordinated with their authorities and can be reviewed whenever you need them.
+                  </p>
+                </div>
+                <Accordion type="single" collapsible className="mt-4 space-y-3">
+                  {optionalItems.map((item) => {
+                    const token = SUB_STEP_TOKENS[item.status];
+                    return (
+                      <AccordionItem
+                        key={item.id}
+                        value={item.id}
+                        className="overflow-hidden rounded-2xl border border-[#e6f2ed] bg-white"
+                      >
+                        <AccordionTrigger className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm font-semibold text-slate-900 hover:no-underline">
+                          <div className="flex flex-col gap-1 text-left">
+                            <span>
+                              {item.label}
+                              {item.authority ? (
+                                <span className="ml-1 text-xs font-normal uppercase tracking-[0.16em] text-slate-500">
+                                  {`(${item.authority})`}
+                                </span>
+                              ) : null}
+                            </span>
+                            <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">
+                              Optional service
+                            </span>
+                          </div>
+                          <Badge
+                            className={cn(
+                              "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                              token.badgeClass,
+                            )}
+                          >
+                            {token.label}
+                          </Badge>
+                        </AccordionTrigger>
+                        <AccordionContent className="px-4 pb-4 pt-0 text-sm text-slate-600">
+                          Polaris keeps this optional service scheduled with the relevant authority. Expand whenever you want to update details or confirm readiness.
+                        </AccordionContent>
+                      </AccordionItem>
+                    );
+                  })}
+                </Accordion>
+              </div>
+            ) : null}
           </div>
         ),
       },
