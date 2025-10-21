@@ -6390,15 +6390,14 @@ export function BusinessChatUI({
   }, [navigate]);
 
   useEffect(() => {
-    if (!initialMessage) {
-      setHasUnlockedQuickActions(false);
-      return;
+    setHasUnlockedQuickActions(initialUnlocksQuickActions);
+  }, [initialUnlocksQuickActions]);
+
+  useEffect(() => {
+    if (!hasUnlockedQuickActions) {
+      setHasProvidedQuickActionIntro(false);
     }
-    const normalizedInitial = normalizeMessageContent(initialMessage);
-    setHasUnlockedQuickActions(
-      NORMALIZED_QUICK_ACTION_UNLOCK_PROMPTS.has(normalizedInitial),
-    );
-  }, [initialMessage]);
+  }, [hasUnlockedQuickActions]);
 
   const handleFeedbackSubmit = useCallback(
     (rawValue: string) => {
