@@ -322,6 +322,9 @@ const GROWTH_OPPORTUNITIES: GrowthOpportunity[] = [
 const MAX_VIDEO_SIZE_BYTES = 2 * 1024 * 1024 * 1024;
 const MEGABYTE = 1024 * 1024;
 
+const FEEDBACK_POLICY_HOTKEY_TEXT =
+  "I’m requesting that qualifying F&B concepts be assessed as low risk to speed up licensing where appropriate. Our model is limited to assembly, baking, and reheating only, no raw/high-risk items. For businesses meeting these clear criteria, a ‘low risk fast path’, with lighter upfront inspection and standard post-opening checks, would reduce time to license while letting inspectors focus on truly high-risk venues";
+
 const EVIDENCE_FRAME_STATUS_TOKENS: Record<
   EvidenceFrameStatus,
   { label: string; badgeClass: string; helper: string }
