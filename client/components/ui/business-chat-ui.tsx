@@ -6556,13 +6556,28 @@ export function BusinessChatUI({
     return merged;
   }, [followUpRecommendations, stageBlueprint, currentStep]);
 
-  const quickActions = useMemo(
-    () =>
-      hasUnlockedQuickActions
-        ? deriveQuickActionRecommendations({ recommendations: activeRecommendations })
-        : [],
-    [activeRecommendations, hasUnlockedQuickActions],
-  );
+  const quickActions = useMemo(() => {
+    if (!hasUnlockedQuickActions) {
+      return [];
+    }
+
+    const introCompleted = selectedQuickActionId === "welcome-market-overview";
+    const competitionCompleted = selectedQuickActionId === "welcome-competition";
+    const demographicsCompleted = selectedQuickActionId === "welcome-demographics";
+    const locationCompleted = selectedQuickActionId === "welcome-budget";
+
+    const summaryReady =
+      introCompleted && competitionCompleted && demographicsCompleted && locationCompleted;
+
+    return deriveQuickActionRecommendations({
+      recommendations: activeRecommendations,
+      summaryReady,
+    });
+  }, [
+    activeRecommendations,
+    hasUnlockedQuickActions,
+    selectedQuickActionId,
+  ]);
 
   useEffect(() => {
     if (
@@ -7889,7 +7904,7 @@ export function BusinessChatUI({
     const trimmedInitial = initialMessage?.trim();
     const hasInitialPrompt = Boolean(trimmedInitial);
     const defaultGreeting =
-      "Welcome, Layla. Im Polaris—here to keep momentum going. Tell me more about your business concept.";
+      "Welcome, Layla. Im Polaris��here to keep momentum going. Tell me more about your business concept.";
 
     const conversation: BusinessMessage[] = [];
 
