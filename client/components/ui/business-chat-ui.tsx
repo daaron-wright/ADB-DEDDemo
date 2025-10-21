@@ -6945,6 +6945,13 @@ export function BusinessChatUI({
 
       const normalizedText = normalizeMessageContent(trimmed);
 
+      if (
+        !hasUnlockedQuickActions &&
+        NORMALIZED_QUICK_ACTION_UNLOCK_PROMPTS.has(normalizedText)
+      ) {
+        setHasUnlockedQuickActions(true);
+      }
+
       if (normalizedText === NORMALIZED_SUGGESTED_TOPICS_TRIGGER) {
         const interactiveMapMessage = buildMessage(
           "Highlighting the Abu Dhabi districts attracting modern Emirati fusion dining concepts right now.",
