@@ -7888,12 +7888,7 @@ export function BusinessChatUI({
       primaryQuickAction &&
       !hasProvidedQuickActionIntro
     ) {
-      conversation.push(
-        buildMessage(
-          `I've unlocked quick actions for you—start with "${primaryQuickAction.label}" to open the market intelligence workspace and explore demand hotspots for your concept.`,
-          true,
-        ),
-      );
+      conversation.push(buildMessage(buildQuickActionIntroMessage(primaryQuickAction.label), true));
       setHasProvidedQuickActionIntro(true);
     }
 
