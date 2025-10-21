@@ -7246,7 +7246,7 @@ export function BusinessChatUI({
         setHasProvidedQuickActionIntro(true);
       }
 
-      setMessages((prev) => [...prev, userMessage, ...responses]);
+      setMessages((prev) => [...prev, userMessage, ...responses, ...appendedMessages]);
       setInputValue("");
       applyFollowUps(nextFollowUps);
     },
