@@ -408,9 +408,6 @@ export function ComplianceGrowthFocusContent({
   const [complianceItems, setComplianceItems] = React.useState<ComplianceItem[]>(
     () => DEFAULT_COMPLIANCE_ITEMS,
   );
-  const [pipelineIndex, setPipelineIndex] = React.useState<number>(2);
-  const [submissionStatus, setSubmissionStatus] =
-    React.useState<InspectionSubmissionStatus>("idle");
   const [feedbackStatus, setFeedbackStatus] =
     React.useState<FeedbackWorkflowStatus>("draft");
   const [localPolicyUpdateAcknowledged, setLocalPolicyUpdateAcknowledged] =
