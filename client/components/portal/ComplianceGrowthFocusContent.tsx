@@ -1433,6 +1433,11 @@ export function ComplianceGrowthFocusContent({
                     variant="outline"
                     onClick={() => {
                       setFeedbackNotes("");
+                      if (feedbackAcknowledgementTimerRef.current) {
+                        window.clearTimeout(feedbackAcknowledgementTimerRef.current);
+                        feedbackAcknowledgementTimerRef.current = null;
+                      }
+                      setFeedbackAcknowledgement(null);
                       if (feedbackStatus !== "responded") {
                         setFeedbackStatus("draft");
                       }
