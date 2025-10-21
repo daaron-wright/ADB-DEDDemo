@@ -6369,6 +6369,16 @@ export function BusinessChatUI({
     });
   }, [navigate]);
 
+  useEffect(() => {
+    if (!initialMessage) {
+      return;
+    }
+    const normalizedInitial = normalizeMessageContent(initialMessage);
+    if (NORMALIZED_QUICK_ACTION_UNLOCK_PROMPTS.has(normalizedInitial)) {
+      setHasUnlockedQuickActions(true);
+    }
+  }, [initialMessage]);
+
   const handleFeedbackSubmit = useCallback(
     (rawValue: string) => {
       const trimmed = rawValue.trim();
