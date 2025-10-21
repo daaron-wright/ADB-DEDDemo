@@ -6988,6 +6988,15 @@ export function BusinessChatUI({
         unlockedByMessage = true;
       }
 
+      const appendedMessages = unlockedByMessage
+        ? [
+            buildMessage(
+              "I'm interested in starting an Emirati-fusion restaurant.",
+              true,
+            ),
+          ]
+        : [];
+
       if (normalizedText === NORMALIZED_SUGGESTED_TOPICS_TRIGGER) {
         const interactiveMapMessage = buildMessage(
           "Highlighting the Abu Dhabi districts attracting modern Emirati fusion dining concepts right now.",
