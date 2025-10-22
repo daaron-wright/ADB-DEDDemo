@@ -387,7 +387,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       Visitor: "زائر",
     },
     directorateLabels: {
-      "Department of Economic Development": "دائرة التنمية الاقتصادية",
+      "Department of Economic Development": "دائرة التنمية الاقتص��دية",
     },
     applicationTitles: {
       "APP-48291": "رحلة المطعم (الأطعمة والمشروبات)",
@@ -2597,12 +2597,6 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
                 {languageCopy.fieldLabels.licenseType}
               </p>
               <p className={licenseValueClass}>{resolvedLicenseType}</p>
-            </div>
-            <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                {languageCopy.fieldLabels.submissionId}
-              </p>
-              <p className={licenseValueClass}>{resolvedSubmissionId}</p>
             </div>
             <div className="rounded-2xl border border-[#d8e4df] bg-[#f9fbfa] px-4 py-3">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
