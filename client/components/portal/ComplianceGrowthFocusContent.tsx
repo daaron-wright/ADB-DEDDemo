@@ -166,6 +166,10 @@ const GOLDEN_VISA_OVERVIEW = {
       status: "Eligible for Golden Visa concierge service",
     },
   ],
+  summary: [
+    "4 of 5 residency files are fully up to date.",
+    "1 of 5 employees remains on a standard work visa (renewal scheduled for November 2024).",
+  ],
 } as const;
 
 const COMPLIANCE_STATUS_TOKENS: Record<
