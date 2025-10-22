@@ -90,7 +90,6 @@ type VideoEvidence = {
 };
 
 type AutomationTabValue = "overview" | "inspection-evidence";
-type AuthorityTabValue = "overview" | "golden-visa";
 
 type EvidenceGalleryItem = {
   key: string;
