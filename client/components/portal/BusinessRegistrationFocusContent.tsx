@@ -179,6 +179,9 @@ function createTradeNameReceiptDocument(): DocumentVaultItem {
     actionLabel: "Download trade name receipt",
     integrationBadge: paymentMethod,
     isExpanded: true,
+    previewImageUrl: TRADE_NAME_RECEIPT_IMAGE_URL,
+    previewHref: TRADE_NAME_RECEIPT_IMAGE_URL,
+    previewButtonLabel: "Open digital receipt",
   };
 }
 
