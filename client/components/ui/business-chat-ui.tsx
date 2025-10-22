@@ -7101,7 +7101,7 @@ export function BusinessChatUI({
 
       if (normalizedText === NORMALIZED_SUGGESTED_TOPICS_TRIGGER) {
         const interactiveMapMessage = buildMessage(
-          "Highlighting the Abu Dhabi districts attracting modern Emirati fusion dining concepts right now.",
+          "Highlighting the Abu Dhabi districts attracting modern Emirati fusion dining concepts right now, specifically in Corniche.",
           true,
           {
             type: "heat-map",
