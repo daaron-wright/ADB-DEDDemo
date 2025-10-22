@@ -122,31 +122,28 @@ export default function Index() {
     [],
   );
 
-  const updateGradient = useCallback(
-    (point?: { x: number; y: number }) => {
-      const targetPoint = point ?? focusPointRef.current;
-      focusPointRef.current = targetPoint;
+  const updateGradient = useCallback((point?: { x: number; y: number }) => {
+    const targetPoint = point ?? focusPointRef.current;
+    focusPointRef.current = targetPoint;
 
-      const gradientElement = gradientRef.current;
-      if (!gradientElement) {
-        return;
-      }
+    const gradientElement = gradientRef.current;
+    if (!gradientElement) {
+      return;
+    }
 
-      const hasFocus = hasCategoryFocusRef.current;
-      const focusIntensity = hasFocus ? 0.36 : 0.22;
-      const haloIntensity = hasFocus ? 0.24 : 0.14;
+    const hasFocus = hasCategoryFocusRef.current;
+    const focusIntensity = hasFocus ? 0.36 : 0.22;
+    const haloIntensity = hasFocus ? 0.24 : 0.14;
 
-      const background = [
-        `radial-gradient(520px circle at ${targetPoint.x}px ${targetPoint.y}px, rgba(152, 103, 255, ${focusIntensity}) 0%, rgba(255, 255, 255, 0.38) 55%, transparent 82%)`,
-        `radial-gradient(640px circle at ${targetPoint.x + 260}px ${targetPoint.y - 220}px, rgba(222, 206, 255, ${haloIntensity}) 0%, transparent 78%)`,
-        `radial-gradient(700px circle at ${targetPoint.x - 280}px ${targetPoint.y + 240}px, rgba(237, 233, 255, ${haloIntensity * 0.9}) 0%, transparent 84%)`,
-      ].join(",");
+    const background = [
+      `radial-gradient(520px circle at ${targetPoint.x}px ${targetPoint.y}px, rgba(152, 103, 255, ${focusIntensity}) 0%, rgba(255, 255, 255, 0.38) 55%, transparent 82%)`,
+      `radial-gradient(640px circle at ${targetPoint.x + 260}px ${targetPoint.y - 220}px, rgba(222, 206, 255, ${haloIntensity}) 0%, transparent 78%)`,
+      `radial-gradient(700px circle at ${targetPoint.x - 280}px ${targetPoint.y + 240}px, rgba(237, 233, 255, ${haloIntensity * 0.9}) 0%, transparent 84%)`,
+    ].join(",");
 
-      gradientElement.style.background = background;
-      gradientElement.style.opacity = hasFocus ? "0.92" : "0.7";
-    },
-    [],
-  );
+    gradientElement.style.background = background;
+    gradientElement.style.opacity = hasFocus ? "0.92" : "0.7";
+  }, []);
 
   const queueFocusPoint = useCallback(
     (point: { x: number; y: number }) => {
@@ -211,8 +208,8 @@ export default function Index() {
   }, []);
 
   const handleSignOut = () => {
-  navigate("/portal/applicant");
-};
+    navigate("/portal/applicant");
+  };
 
   const businessCategories = useMemo(
     () => [
@@ -313,9 +310,7 @@ export default function Index() {
     const category = businessCategories.find(
       (cat) => cat.id === chatState.category,
     );
-    return category
-      ? `${category.subtitle} for ${category.title}`
-      : "Polaris";
+    return category ? `${category.subtitle} for ${category.title}` : "Polaris";
   };
 
   const pageRef = useRef<HTMLDivElement>(null);
@@ -507,19 +502,21 @@ export default function Index() {
 
             {/* Welcome heading */}
             <div className="flex items-center justify-center">
-              <span className="text-black text-3xl font-semibold tracking-tight">Marhaba, Layla</span>
+              <span className="text-black text-3xl font-semibold tracking-tight">
+                Marhaba, Layla
+              </span>
             </div>
 
             {/* Sign out button */}
-          <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={handleSignOut}
-              className="inline-flex items-center justify-center rounded-full bg-teal-gradient px-6 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90"
-            >
-              Sign Out
-            </button>
-          </div>
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className="inline-flex items-center justify-center rounded-full bg-teal-gradient px-6 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90"
+              >
+                Sign Out
+              </button>
+            </div>
           </header>
 
           {/* Hero Section */}
@@ -568,14 +565,17 @@ export default function Index() {
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center justify-between gap-3">
-                          <span className="text-sm font-semibold text-slate-900">Hi, Layla</span>
+                          <span className="text-sm font-semibold text-slate-900">
+                            Hi, Layla
+                          </span>
                           <span className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-700">
                             <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.32)] animate-pulse" />
                             Polaris Live
                           </span>
                         </div>
                         <p className="mt-1 text-xs text-slate-600">
-                          Ask for market signals or licensing steps and I'll surface the right workspace.
+                          Ask for market signals or licensing steps and I'll
+                          surface the right workspace.
                         </p>
                       </div>
                       <button
@@ -594,7 +594,10 @@ export default function Index() {
                       className="mt-4 inline-flex w-full items-center justify-between rounded-2xl border border-white/25 bg-white/14 px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-emerald-200/60 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
                     >
                       <span>Open Polaris workspace</span>
-                      <ArrowUpRight className="h-4 w-4 text-emerald-600" aria-hidden="true" />
+                      <ArrowUpRight
+                        className="h-4 w-4 text-emerald-600"
+                        aria-hidden="true"
+                      />
                     </button>
 
                     <div className="mt-3 flex flex-col gap-2">
@@ -607,11 +610,17 @@ export default function Index() {
                         >
                           <span className="flex items-center gap-2 text-left">
                             <span className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-700 shadow-[0_18px_40px_-24px_rgba(16,185,129,0.65)]">
-                              <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                              <MessageCircle
+                                className="h-4 w-4"
+                                aria-hidden="true"
+                              />
                             </span>
                             <span>{action.label}</span>
                           </span>
-                          <ArrowUpRight className="h-4 w-4 text-slate-400 transition group-hover:text-emerald-600" aria-hidden="true" />
+                          <ArrowUpRight
+                            className="h-4 w-4 text-slate-400 transition group-hover:text-emerald-600"
+                            aria-hidden="true"
+                          />
                         </button>
                       ))}
                     </div>
@@ -625,7 +634,11 @@ export default function Index() {
                     >
                       <button
                         type="button"
-                        onClick={() => openPolarisChat("I'd like to speak with someone from the call centre about my business setup.")}
+                        onClick={() =>
+                          openPolarisChat(
+                            "I'd like to speak with someone from the call centre about my business setup.",
+                          )
+                        }
                         className="mt-4 inline-flex items-center gap-2 self-start rounded-full border border-white/35 bg-white/20 px-3 py-1.5 text-[11px] font-semibold text-emerald-700 shadow-[0_16px_40px_-30px_rgba(14,118,110,0.55)] transition hover:border-emerald-200/55 hover:bg-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/35"
                       >
                         <span className="inline-flex h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.32)]" />
