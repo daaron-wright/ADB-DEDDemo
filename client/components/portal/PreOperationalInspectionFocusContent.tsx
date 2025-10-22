@@ -237,19 +237,6 @@ export function PreOperationalInspectionFocusContent({
     };
   }, [bankAccountPhase]);
 
-  const resetWalkthroughInput = React.useCallback(() => {
-    if (walkthroughInputRef.current) {
-      walkthroughInputRef.current.value = "";
-    }
-  }, []);
-
-  const handleWalkthroughButtonClick = React.useCallback(() => {
-    if (walkthroughStatus === "processing") {
-      return;
-    }
-    walkthroughInputRef.current?.click();
-  }, [walkthroughStatus]);
-
   const handleAdvanceGallery = React.useCallback(() => {
     setActiveGalleryIndex((previousIndex) => {
       if (previousIndex === -1) {
@@ -266,59 +253,6 @@ export function PreOperationalInspectionFocusContent({
       return nextIndex;
     });
   }, [galleryLength]);
-
-  const handleWalkthroughSelect = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const file = event.target.files?.[0];
-      if (!file) {
-        return;
-      }
-
-      if (!file.type.startsWith("video/")) {
-        setUploadError("Upload MP4, MOV, or WebM footage.");
-        setWalkthroughFile(null);
-        setWalkthroughStatus("idle");
-        setHasInspectionApproval(false);
-        setReviewedImageIndices(() => new Set<number>());
-        setActiveGalleryIndex(0);
-        resetWalkthroughInput();
-        return;
-      }
-
-      if (file.size > MAX_WALKTHROUGH_SIZE_BYTES) {
-        setUploadError(
-          "Each walkthrough must be 2 GB or smaller before encryption.",
-        );
-        setWalkthroughFile(null);
-        setWalkthroughStatus("idle");
-        setHasInspectionApproval(false);
-        setReviewedImageIndices(() => new Set<number>());
-        setActiveGalleryIndex(0);
-        resetWalkthroughInput();
-        return;
-      }
-
-      setUploadError(null);
-      setHasInspectionApproval(false);
-      setReviewedImageIndices(() => new Set<number>());
-      setWalkthroughFile(file);
-      setWalkthroughStatus("processing");
-      setActiveGalleryIndex(0);
-
-      if (uploadTimerRef.current) {
-        window.clearTimeout(uploadTimerRef.current);
-      }
-
-      const timer = window.setTimeout(() => {
-        setWalkthroughStatus("ready");
-        uploadTimerRef.current = null;
-      }, 1200);
-
-      uploadTimerRef.current = timer;
-      resetWalkthroughInput();
-    },
-    [resetWalkthroughInput],
-  );
 
   React.useEffect(() => {
     if (
