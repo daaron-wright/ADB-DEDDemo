@@ -954,13 +954,13 @@ export function ComplianceGrowthFocusContent({
                 value="golden-visa"
                 className="mt-0 space-y-4 focus-visible:outline-none focus-visible:ring-0"
               >
-                <div className="space-y-3 rounded-2xl border border-[#f3dcb6] bg-[#fdf6e4]/60 p-4">
+                <div className="space-y-3 rounded-2xl border border-[#94d2c2] bg-white p-4">
                   <div className="flex flex-wrap items-center justify-between gap-3">
-                    <div className="flex items-center gap-2 text-sm font-semibold text-[#b97324]">
-                      <Sparkles className="h-4 w-4" aria-hidden="true" />
+                    <div className="flex items-center gap-2 text-sm font-semibold text-[#0f766e]">
+                      <Sparkles className="h-4 w-4 text-[#0f766e]" aria-hidden="true" />
                       <span>Golden Visa eligibility</span>
                     </div>
-                    <Badge className="rounded-full border border-[#f3dcb6]/70 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b97324]">
+                    <Badge className="rounded-full border border-[#94d2c2]/70 bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                       INFORMATIONAL
                     </Badge>
                   </div>
@@ -969,19 +969,19 @@ export function ComplianceGrowthFocusContent({
                     onClick={() =>
                       setIsGoldenVisaExpanded((previous) => !previous)
                     }
-                    className="flex w-full items-center justify-between gap-3 rounded-2xl border border-[#f3dcb6] bg-[#fdf6e4]/70 px-4 py-3 text-left text-sm font-medium text-[#b97324] transition hover:bg-[#fdf6e4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f3dcb6]"
+                    className="flex w-full items-center justify-between gap-3 rounded-2xl border border-[#94d2c2] bg-white px-4 py-3 text-left text-sm font-semibold text-[#0f766e] transition hover:bg-[#f5faf7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#94d2c2]"
                     aria-expanded={isGoldenVisaExpanded}
                     aria-controls={goldenVisaPanelId}
                   >
                     <span className="flex items-center gap-2">
-                      <Sparkles className="h-4 w-4 text-[#b97324]" aria-hidden="true" />
+                      <Sparkles className="h-4 w-4 text-[#0f766e]" aria-hidden="true" />
                       <span>
                         {GOLDEN_VISA_OVERVIEW.eligibleCount} of {GOLDEN_VISA_OVERVIEW.totalEmployees} team members flagged
                       </span>
                     </span>
                     <ChevronDown
                       className={cn(
-                        "h-4 w-4 text-[#b97324] transition-transform",
+                        "h-4 w-4 text-[#0f766e] transition-transform",
                         isGoldenVisaExpanded ? "rotate-180" : "rotate-0",
                       )}
                       aria-hidden="true"
@@ -990,44 +990,46 @@ export function ComplianceGrowthFocusContent({
                   {isGoldenVisaExpanded ? (
                     <div
                       id={goldenVisaPanelId}
-                      className="space-y-3 rounded-2xl border border-[#f3dcb6] bg-white/90 p-4 text-sm leading-relaxed text-slate-600"
+                      className="space-y-4 rounded-2xl border border-[#94d2c2] bg-white p-4 text-sm leading-relaxed text-slate-600"
                     >
-                      <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">
-                        <span>
-                          {GOLDEN_VISA_OVERVIEW.eligibleCount}/
-                          {GOLDEN_VISA_OVERVIEW.totalEmployees} eligible
-                        </span>
-                        <span className="h-1 w-1 rounded-full bg-[#b97324]" aria-hidden="true" />
-                        <span>
-                          {GOLDEN_VISA_OVERVIEW.upToDateCount}/
-                          {GOLDEN_VISA_OVERVIEW.totalEmployees} residency compliant
-                        </span>
-                        <span className="h-1 w-1 rounded-full bg-[#b97324]" aria-hidden="true" />
-                        <span>
-                          {GOLDEN_VISA_OVERVIEW.workVisaCount}/
-                          {GOLDEN_VISA_OVERVIEW.totalEmployees} on standard work visa
-                        </span>
+                      <div className="grid gap-3 sm:grid-cols-3">
+                        <div className="rounded-xl border border-[#94d2c2]/70 bg-white px-4 py-3 text-center">
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                            Eligible team members
+                          </p>
+                          <p className="mt-2 text-2xl font-semibold text-slate-900">
+                            {GOLDEN_VISA_OVERVIEW.eligibleCount}
+                          </p>
+                          <p className="text-xs text-slate-500">
+                            out of {GOLDEN_VISA_OVERVIEW.totalEmployees}
+                          </p>
+                        </div>
+                        <div className="rounded-xl border border-[#94d2c2]/70 bg-white px-4 py-3 text-center">
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                            Residency compliant
+                          </p>
+                          <p className="mt-2 text-2xl font-semibold text-slate-900">
+                            {GOLDEN_VISA_OVERVIEW.upToDateCount}
+                          </p>
+                          <p className="text-xs text-slate-500">
+                            files fully up to date
+                          </p>
+                        </div>
+                        <div className="rounded-xl border border-[#94d2c2]/70 bg-white px-4 py-3 text-center">
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                            On standard work visa
+                          </p>
+                          <p className="mt-2 text-2xl font-semibold text-slate-900">
+                            {GOLDEN_VISA_OVERVIEW.workVisaCount}
+                          </p>
+                          <p className="text-xs text-slate-500">
+                            monitored for renewal
+                          </p>
+                        </div>
                       </div>
-                      <ul className="space-y-2">
-                        {GOLDEN_VISA_OVERVIEW.employees.map((teamMember) => (
-                          <li
-                            key={teamMember.id}
-                            className="rounded-xl border border-[#f3dcb6]/70 bg-[#fdf6e4]/60 p-3"
-                          >
-                            <p className="text-sm font-semibold text-slate-900">
-                              {teamMember.name} • {teamMember.role}
-                            </p>
-                            <p className="text-xs text-slate-500">
-                              {teamMember.status}
-                            </p>
-                          </li>
-                        ))}
-                      </ul>
-                      <ul className="space-y-2 text-xs text-slate-500">
-                        {GOLDEN_VISA_OVERVIEW.summary.map((point, index) => (
-                          <li key={index}>{point}</li>
-                        ))}
-                      </ul>
+                      <div className="rounded-xl border border-[#94d2c2]/70 bg-[#f5faf7] px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                        Polaris keeps Golden Visa eligibility in sync with residency checks.
+                      </div>
                     </div>
                   ) : null}
                 </div>
