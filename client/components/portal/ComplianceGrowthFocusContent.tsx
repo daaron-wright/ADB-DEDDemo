@@ -502,6 +502,12 @@ export function ComplianceGrowthFocusContent({
   }, [activeSlideId]);
 
   React.useEffect(() => {
+    if (authorityTab !== "golden-visa") {
+      setIsGoldenVisaExpanded(false);
+    }
+  }, [authorityTab]);
+
+  React.useEffect(() => {
     if (!growthUnlocked) {
       setActiveOpportunityMessage(null);
     }
