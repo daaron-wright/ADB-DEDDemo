@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import CompetitorDataSection from "@/components/ui/competitor-data";
-import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 
 interface ComprehensiveReportProps {
   className?: string;
@@ -168,17 +167,6 @@ const CuisinePopularityCard: React.FC = () => {
             Demand clustering across the Corniche showcases which cuisine
             profiles are primed for a differentiated launch.
           </p>
-        </div>
-        <div className="inline-flex items-center gap-3 rounded-2xl border border-[#d7e3df] bg-slate-50/80 px-4 py-3">
-          <AIBusinessOrb className="h-12 w-12" />
-          <div>
-            <div className="text-sm font-semibold text-slate-900">
-              Polaris
-            </div>
-            <div className="text-xs uppercase tracking-[0.2em] text-slate-400">
-              Insight engine
-            </div>
-          </div>
         </div>
       </div>
 
