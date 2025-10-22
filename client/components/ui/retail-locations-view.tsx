@@ -1,6 +1,7 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface RetailLocationsViewProps {
@@ -337,21 +338,8 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                   onClick={handleAutomationDiscuss}
                   className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#0F766E] px-8 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0a5a55] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
                 >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M14 9l-3 3-3-3" />
-                    <path d="M12 12v8" />
-                    <path d="M5 21h14" />
-                  </svg>
                   Continue to workspace
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </button>
                 <button
                   type="button"
