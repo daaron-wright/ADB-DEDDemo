@@ -89,6 +89,12 @@ const PREOP_INSPECTION_IMAGES = [
   },
 ] as const;
 
+const WALKTHROUGH_LOCATION = {
+  address: "Al Ritaj Street, Madinat Zayed East 11, Abu Dhabi",
+  country: "United Arab Emirates",
+  coordinates: "24.4539° N, 54.3773° E",
+};
+
 const INITIAL_SUB_STEPS: SubStep[] = [
   {
     id: "certificate-conformity",
