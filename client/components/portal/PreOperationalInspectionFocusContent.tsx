@@ -704,34 +704,18 @@ export function PreOperationalInspectionFocusContent({
         description: automationSubtitle,
         content: (
           <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
-            <div className="flex flex-wrap items-center gap-4">
-              <div className="relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-[#0f766e]/20 bg-white">
-                {hasAutomationAvatar ? (
-                  <img
-                    src={POLARIS_AUTOMATION_AVATAR_URL}
-                    alt={POLARIS_AUTOMATION_AVATAR_ALT}
-                    className="h-full w-full object-contain p-2"
-                  />
-                ) : (
-                  <AIBusinessOrb className="h-9 w-9" />
-                )}
-                <span className="absolute -right-1 -bottom-1 flex h-5 w-5 items-center justify-center rounded-full border border-white bg-[#0f766e] text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
-                  AI
-                </span>
-              </div>
-              <div className="min-w-[160px] space-y-1">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Live automation
+            <div className="space-y-1">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Live automation
+              </p>
+              <p className="text-base font-semibold text-slate-900">
+                Coordinating inspections
+              </p>
+              {AUTOMATION_ASSISTANT_NAME ? (
+                <p className="text-sm font-semibold text-[#0f766e]">
+                  {AUTOMATION_ASSISTANT_NAME}
                 </p>
-                <p className="text-base font-semibold text-slate-900">
-                  Coordinating inspections
-                </p>
-                {AUTOMATION_ASSISTANT_NAME ? (
-                  <p className="text-sm font-semibold text-[#0f766e]">
-                    {AUTOMATION_ASSISTANT_NAME}
-                  </p>
-                ) : null}
-              </div>
+              ) : null}
             </div>
             <p className="text-sm text-slate-600">
               Polaris retrieves certificates, confirms inspectors, and updates
