@@ -19,6 +19,8 @@ export interface StageSlideNavigatorProps {
   initialSlideId?: string;
   activeSlideId?: string;
   onSlideChange?: (slideId: string) => void;
+  stepLabel?: string;
+  descriptionPrefix?: string;
 }
 
 export function StageSlideNavigator({
