@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { chatCardClass } from "@/lib/chat-style";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -163,20 +164,8 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
           type="button"
           onClick={onBack}
           className="inline-flex items-center gap-2 rounded-full border border-[#d8e4df] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E]/40"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M15 6L9 12L15 18" />
-            <path d="M19 12H5" />
-          </svg>
+>
+          <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           Back to summary
         </button>
       </header>
