@@ -72,7 +72,7 @@ export function DocumentVaultCard({
             <p
               className={cn(
                 "text-sm font-semibold",
-                isCompleted ? "text-slate-500 line-through decoration-[#94d2c2]" : "text-slate-900",
+                isCompleted ? "text-slate-600" : "text-slate-900",
               )}
             >
               {item.title}
