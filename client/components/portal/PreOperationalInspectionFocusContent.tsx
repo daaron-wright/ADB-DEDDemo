@@ -173,15 +173,11 @@ export function PreOperationalInspectionFocusContent({
   );
   const [bankAccountPhase, setBankAccountPhase] =
     React.useState<BankAccountPhase>("link");
-  const walkthroughInputRef = React.useRef<HTMLInputElement | null>(null);
-  const [walkthroughStatus, setWalkthroughStatus] =
-    React.useState<WalkthroughSyncStatus>("idle");
-  const uploadTimerRef = React.useRef<number | null>(null);
+  const [walkthroughStage, setWalkthroughStage] =
+    React.useState<WalkthroughFlowStage>("idle");
   const galleryTimerRef = React.useRef<number | null>(null);
-  const [walkthroughFile, setWalkthroughFile] = React.useState<File | null>(
-    null,
-  );
-  const [uploadError, setUploadError] = React.useState<string | null>(null);
+  const streamingTimerRef = React.useRef<number | null>(null);
+  const analyzingTimerRef = React.useRef<number | null>(null);
   const [activeGalleryIndex, setActiveGalleryIndex] = React.useState(0);
   const [reviewedImageIndices, setReviewedImageIndices] = React.useState<
     Set<number>
