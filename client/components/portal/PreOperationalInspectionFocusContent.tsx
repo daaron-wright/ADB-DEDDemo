@@ -122,6 +122,10 @@ const DED_MANDATORY_INSPECTION_IDS = [
   "ded-premise",
 ] as const;
 
+const DED_MANDATORY_INSPECTION_ID_SET = new Set<string>(
+  DED_MANDATORY_INSPECTION_IDS,
+);
+
 const getWalkthroughPlaceholderTitle = (stage: WalkthroughFlowStage) => {
   switch (stage) {
     case "confirm-location":
