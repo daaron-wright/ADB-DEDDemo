@@ -153,6 +153,21 @@ const DEFAULT_COMPLIANCE_ITEMS: ComplianceItem[] = [
   },
 ];
 
+const GOLDEN_VISA_OVERVIEW = {
+  totalEmployees: 5,
+  eligibleCount: 1,
+  workVisaCount: 1,
+  upToDateCount: 4,
+  employees: [
+    {
+      id: "reem-al-falasi",
+      name: "Reem Al Falasi",
+      role: "Operations Lead",
+      status: "Eligible for Golden Visa concierge service",
+    },
+  ],
+} as const;
+
 const COMPLIANCE_STATUS_TOKENS: Record<
   ComplianceStatus,
   {
