@@ -387,7 +387,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       Visitor: "زائر",
     },
     directorateLabels: {
-      "Department of Economic Development": "دائ��ة التنمية الاقتص��دية",
+      "Department of Economic Development": "دائرة التنمية الاقتص��دية",
     },
     applicationTitles: {
       "APP-48291": "رحلة المطعم (الأطعمة والمشروبات)",
@@ -409,7 +409,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       activeStage: "المرحلة النشطة",
       yourNextStep: "خطوت�� التالية",
       tasksCompleteMessage:
-        "تم إكمال ك�� المهام لهذه ا��مرحلة. راقب�� تحديثات الأتمتة.",
+        "تم إكمال كل المهام لهذه ا��مرحلة. راقب�� تحديثات الأتمتة.",
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة ال��ال��ة",
       reviewStage: "اس��عرضي المرحلة",
@@ -2331,7 +2331,6 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
   const resolvedLicenseType = shouldShowLicenseDetails
     ? displayLicenseType
     : languageCopy.questionnaireOnboarding.pendingLicenseLabel;
-  const resolvedSubmissionId = JOURNEY_NUMBER;
   const licenseValueClass = cn(
     "mt-2 text-sm font-semibold text-slate-900",
     !shouldShowLicenseDetails && "text-slate-400",
