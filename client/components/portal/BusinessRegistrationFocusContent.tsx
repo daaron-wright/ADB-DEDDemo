@@ -20,6 +20,7 @@ import {
   MARWA_TRADE_NAME_AR,
   TRADE_NAME_RECEIPT_DOCUMENT_ID,
   TRADE_NAME_RECEIPT_METADATA,
+  TRADE_NAME_RECEIPT_IMAGE_URL,
 } from "./trade-name-constants";
 import { Check, X } from "lucide-react";
 
