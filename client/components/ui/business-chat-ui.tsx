@@ -453,7 +453,7 @@ const QUICK_ACTION_LIBRARY: Record<string, MessageAction> = {
   },
   "welcome-budget": {
     id: "welcome-budget",
-    label: "Identify Your Location",
+    label: "View Budget Ranges",
     action: "open-budget-analysis",
   },
   "welcome-demographics": {
