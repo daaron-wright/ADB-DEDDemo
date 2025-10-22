@@ -326,7 +326,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     englishLabel: "English",
     arabicLabel: "العربية",
     englishBadge: "English",
-    arabicBadge: "العربية • تر���مة",
+    arabicBadge: "العربية • تر��مة",
     subtitle: "��وابة رخصة ال��عم��ل",
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
@@ -354,7 +354,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       `عرض أو إ��فاء نظرة عا��ة للرحلة الخ��صة بـ ${title}`,
     journeyIdLabel: "معرّف الرحلة",
     fieldLabels: {
-      beneficiary: "المستفيد",
+      beneficiary: "المست��يد",
       licenseType: "نوع الرخصة",
       submissionId: "معرّف الرحلة",
       lastUpdate: "آخر تحديث",
@@ -401,7 +401,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     tradeNamePaymentNextStep: "سددي رسوم الاسم التجاري وأصدريه",
     tradeNamePaymentToast:
-      "سددي رسوم الاسم التجاري البالغة 65 درهماً لإصدار الاسم وتمكين رفع المستندات.",
+      "سددي رسوم الاسم التجاري البالغة 65 درهماً لإصدار الاسم وتمكين رف�� المستندات.",
     journey: {
       heading: "تنسيق الرحلة",
       timelineLabel: "الجدول الزمني للرحلة",
@@ -1103,6 +1103,15 @@ export default function ApplicantPortal() {
   const [selectedLegalFormId, setSelectedLegalFormId] = useState<string>(
     DEFAULT_LEGAL_FORM_SELECTION,
   );
+  const selectedLegalFormTitle = useMemo(() => {
+    if (!selectedLegalFormId) {
+      return null;
+    }
+    const matchedOption = DEFAULT_LEGAL_FORM_OPTIONS.find(
+      (option) => option.id === selectedLegalFormId,
+    );
+    return matchedOption?.title ?? null;
+  }, [selectedLegalFormId]);
   const stageOrder = useMemo(() => journeyStages.map((stage) => stage.id), []);
   const canAccessInspections =
     hasTradeNameReservationSubmitted && hasLicenseIssued;
