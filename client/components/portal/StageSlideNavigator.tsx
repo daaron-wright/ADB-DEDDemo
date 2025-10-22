@@ -122,14 +122,14 @@ export function StageSlideNavigator({
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="space-y-1">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-            Step {currentIndex + 1} of {slides.length}
+            {stepLabel ?? `Step ${currentIndex + 1} of ${slides.length}`}
           </p>
           <h4 className="text-xl font-semibold text-slate-900">
             {currentSlide.heading}
           </h4>
           {currentSlide.description ? (
             <p className="max-w-[640px] text-sm text-slate-600">
-              {currentSlide.description}
+              {descriptionPrefix ? `${descriptionPrefix} — ${currentSlide.description}` : currentSlide.description}
             </p>
           ) : null}
         </div>
