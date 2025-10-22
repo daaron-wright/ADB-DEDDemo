@@ -10,4 +10,7 @@ export interface DocumentVaultItem {
   actionLabel: string;
   integrationBadge: string;
   isExpanded: boolean;
+  previewImageUrl?: string;
+  previewHref?: string;
+  previewButtonLabel?: string;
 }
