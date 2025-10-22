@@ -978,8 +978,9 @@ export function PreOperationalInspectionFocusContent({
                           className={cn(
                             "flex w-full flex-col gap-2 rounded-xl border border-[#d8e4df] bg-white/95 p-3 text-left shadow-[0_18px_44px_-38px_rgba(15,23,42,0.28)] transition sm:flex-row sm:items-center sm:justify-between",
                             isDisabled
-                              ? "cursor-not-allowed opacity-85"
+                              ? "cursor-not-allowed opacity-90"
                               : "hover:border-[#0f766e]/60 hover:shadow-[0_26px_58px_-42px_rgba(15,118,110,0.35)]",
+                            "disabled:cursor-not-allowed disabled:opacity-60",
                           )}
                         >
                           <div className="space-y-1">
