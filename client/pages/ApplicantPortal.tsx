@@ -347,7 +347,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا و��ضحًا لدرا��ة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، شاهدي كيف يحول ${name} و��س��ث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
+      `اكتشفي مسارًا و��ضحًا لدرا��ة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، شاهدي كيف يحول ${name} و��س��ث������ر��ن آ����ون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
     heroButton: "استكشفي خيارا��� إضافية",
     chatCta: "ال��ردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -366,7 +366,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       "سيق��م مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فو�� تسجيل ��قدك.",
     businessAITitle: "بولاريس",
     businessActivityGuidance:
-      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
+      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أ��شطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
       "أضيفي إرشادات الترخيص إلى استبيان ��لأنشطة ال��جارية",
     statusLabelMap: {
@@ -394,7 +394,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك ال����ع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإ��خال ا��شركاء، وتأ��ي�� العقار، والحصول على الموافقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك ال����ع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإ��خال ا��شركاء، وتأ��ي�� العقار، والحصول على الم��افقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الموافقات الموح��ة لـ ADAFSA وبلدية أبوظبي.",
@@ -1203,6 +1203,23 @@ export default function ApplicantPortal() {
       return hasChange ? next : previous;
     });
   }, [activeStageId, stageOrder]);
+
+  useEffect(() => {
+    if (questionnaireProgress === "completed") {
+      return;
+    }
+
+    const questionnaireStage = journeyStages.find(
+      (stage) => stage.id === QUESTIONNAIRE_STAGE_ID,
+    );
+    const questionnaireState =
+      stageProgress[QUESTIONNAIRE_STAGE_ID] ??
+      (questionnaireStage ? deriveStageState(questionnaireStage) : "upcoming");
+
+    if (questionnaireState === "done") {
+      setQuestionnaireProgress("completed");
+    }
+  }, [stageProgress, questionnaireProgress, setQuestionnaireProgress]);
 
   const updateCurrentJourneyStep = useCallback((stepId: string) => {
     if (!JOURNEY_STEPS_CONFIG.some((step) => step.id === stepId)) {
