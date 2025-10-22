@@ -965,11 +965,15 @@ export function PreOperationalInspectionFocusContent({
                       const description = hasInspectionApproval
                         ? "Awaiting final DED confirmation."
                         : walkthroughStage === "idle"
-                          ? "Kick off the remote walkthrough so Polaris can prep the inspectors."
+                          ? bankAccountPhase === "account_linked"
+                            ? "Kick off the remote walkthrough so Polaris can prep the inspectors."
+                            : "Link your corporate account to unlock Polaris scheduling."
                           : walkthroughStage === "ready"
                             ? "Walkthrough complete. Polaris is packaging the inspection evidence for DED."
                             : "Polaris is processing your walkthrough and lining up the DED bookings.";
-                      const isDisabled = walkthroughStage !== "idle";
+                      const isDisabled =
+                        walkthroughStage !== "idle" ||
+                        bankAccountPhase !== "account_linked";
 
                       return (
                         <button
