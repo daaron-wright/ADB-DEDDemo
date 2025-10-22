@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { ENTREPRENEUR_PROFILE } from "@/lib/profile";
 
 interface GapAnalysisViewProps {
@@ -112,15 +111,10 @@ const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({
 
             <div className="flex h-full flex-col justify-between gap-6 p-6 sm:p-8">
               <div className="rounded-2xl border border-[#d8e4df] bg-white/90 p-6 shadow-[0_12px_32px_-26px_rgba(11,64,55,0.3)]">
-                <div className="flex items-center gap-4">
-                  <AIBusinessOrb className="h-16 w-16" />
-                  <div>
-                    <div className="text-sm font-semibold text-slate-900">
-                      Polaris
-                    </div>
-                    <div className="text-xs uppercase tracking-[0.2em] text-[#0E766E]">
-                      Gap analysis
-                    </div>
+                <div className="space-y-1">
+                  <div className="text-sm font-semibold text-slate-900">Polaris</div>
+                  <div className="text-xs uppercase tracking-[0.2em] text-[#0E766E]">
+                    Gap analysis
                   </div>
                 </div>
 
