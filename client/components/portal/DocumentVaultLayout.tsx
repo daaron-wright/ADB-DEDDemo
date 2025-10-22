@@ -31,17 +31,30 @@ export function DocumentVaultLayout({
   className,
   activeDocument,
 }: DocumentVaultLayoutProps) {
-  let previewImageSrc = DOCUMENT_VAULT_IMAGE_URL;
+  let previewImageSrc = activeDocument?.previewImageUrl ?? DOCUMENT_VAULT_IMAGE_URL;
 
-  if (activeDocument?.id === "memorandum-of-association") {
-    previewImageSrc = MOA_PREVIEW_IMAGE_URL;
-  } else if (activeDocument?.id === TRADE_NAME_RECEIPT_DOCUMENT_ID) {
-    previewImageSrc = TRADE_NAME_RECEIPT_IMAGE_URL;
+  if (!activeDocument?.previewImageUrl) {
+    if (activeDocument?.id === "memorandum-of-association") {
+      previewImageSrc = MOA_PREVIEW_IMAGE_URL;
+    } else if (activeDocument?.id === TRADE_NAME_RECEIPT_DOCUMENT_ID) {
+      previewImageSrc = TRADE_NAME_RECEIPT_IMAGE_URL;
+    }
   }
 
   const previewAlt = activeDocument
     ? `${activeDocument.title} preview`
     : "Documents syncing in the vault";
+
+  const previewHref = activeDocument?.previewHref ??
+    (activeDocument?.id === TRADE_NAME_RECEIPT_DOCUMENT_ID
+      ? TRADE_NAME_RECEIPT_IMAGE_URL
+      : undefined);
+
+  const previewButtonLabel =
+    activeDocument?.previewButtonLabel ??
+    (activeDocument?.id === TRADE_NAME_RECEIPT_DOCUMENT_ID
+      ? "Open digital receipt"
+      : activeDocument?.actionLabel ?? "Open document");
 
   return (
     <div
