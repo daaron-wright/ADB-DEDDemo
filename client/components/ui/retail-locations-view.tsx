@@ -211,7 +211,7 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-8 items-center">
+          <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-start">
             {/* Summary Image */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
