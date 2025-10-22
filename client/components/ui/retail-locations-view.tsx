@@ -228,25 +228,11 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                 />
               </div>
               <div className="mt-4 w-full rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_24px_48px_-36px_rgba(15,23,42,0.32)]">
-                <Tabs defaultValue="business-plan" className="w-full">
-                  <TabsList className="flex flex-col gap-3">
-                    <TabsTrigger
-                      value="business-plan"
-                      className="w-full rounded-full border border-[#0F766E]/30 bg-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition whitespace-normal text-center leading-[1.6] shadow-sm hover:bg-[#eff6f3] hover:text-[#0a5a55] data-[state=active]:border-[#0F766E] data-[state=active]:bg-[#0F766E] data-[state=active]:text-white"
-                    >
+                <div className="space-y-6">
+                  <div className="space-y-2">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E]">
                       Export your business plan
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="ded-data"
-                      className="w-full rounded-full border border-[#0F766E]/30 bg-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E] transition whitespace-normal text-center leading-[1.6] shadow-sm hover:bg-[#eff6f3] hover:text-[#0a5a55] data-[state=active]:border-[#0F766E] data-[state=active]:bg-[#0F766E] data-[state=active]:text-white"
-                    >
-                      Download Abu Dhabi DED data packs
-                    </TabsTrigger>
-                  </TabsList>
-                  <TabsContent
-                    value="business-plan"
-                    className="mt-4 focus-visible:outline-none focus-visible:ring-0"
-                  >
+                    </p>
                     <div className="space-y-3 text-sm leading-relaxed text-slate-600">
                       <p>
                         Generate a tailored business plan for your selected
@@ -280,11 +266,14 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                         </p>
                       ) : null}
                     </div>
-                  </TabsContent>
-                  <TabsContent
-                    value="ded-data"
-                    className="mt-4 focus-visible:outline-none focus-visible:ring-0"
-                  >
+                  </div>
+
+                  <div className="h-px w-full bg-[#d8e4df]/60" />
+
+                  <div className="space-y-2">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E]">
+                      Download Abu Dhabi DED data packs
+                    </p>
                     <div className="space-y-3 text-sm leading-relaxed text-slate-600">
                       <p>
                         Access curated DED datasets covering licensing history,
@@ -319,8 +308,8 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                         </p>
                       ) : null}
                     </div>
-                  </TabsContent>
-                </Tabs>
+                  </div>
+                </div>
               </div>
             </motion.div>
 
