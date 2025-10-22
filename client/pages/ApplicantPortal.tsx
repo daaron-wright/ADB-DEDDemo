@@ -407,10 +407,10 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       timelineLabel: "الجدول الزمني للرحلة",
       activePrefix: "الحالة الحالية:",
       activeStage: "المرحلة النشطة",
-      yourNextStep: "خطوت�� التالية",
+      yourNextStep: "خط��ت�� التالية",
       tasksCompleteMessage:
         "تم إكمال كل المهام لهذه ا��مرحلة. راقب�� تحديثات الأتمتة.",
-      automationMessage: "ا��أتمت�� تتولى بقية العمل نيابةً عنك.",
+      automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة ال��ال��ة",
       reviewStage: "اس��عرضي المرحلة",
       timelineAriaLabel: "التنقل ��ين مراحل ا��رحلة",
@@ -1134,7 +1134,7 @@ export default function ApplicantPortal() {
         <div className="space-y-2 text-sm text-slate-600">
           <p>{copy.helper}</p>
           <p>
-            Submission ID
+            Journey ID
             <span className="ml-1 font-semibold text-slate-900">
               {primaryApplication.id}
             </span>
@@ -2702,7 +2702,7 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
   const portalBrand =
     language === "ar"
       ? {
-          label: "خدمات حكومة أ����وظبي",
+          label: "خدمات حكومة أ������وظبي",
           logoAlt: "شعار تم",
           logoSrc:
             "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2F397f9a8d2a3c4c8cb1d79ae828b476be",
