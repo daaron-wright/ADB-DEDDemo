@@ -189,6 +189,27 @@ export function PreOperationalInspectionFocusContent({
   const hasAutomationAvatar = POLARIS_AUTOMATION_AVATAR_URL.length > 0;
   const galleryLength = PREOP_INSPECTION_IMAGES.length;
 
+  const handleStreamInitiate = React.useCallback(() => {
+    if (walkthroughStage !== "idle") {
+      return;
+    }
+    setWalkthroughStage("confirm-location");
+  }, [walkthroughStage]);
+
+  const handleConfirmLocation = React.useCallback(() => {
+    if (walkthroughStage !== "confirm-location") {
+      return;
+    }
+    setWalkthroughStage("streaming");
+  }, [walkthroughStage]);
+
+  const handleRestartWalkthrough = React.useCallback(() => {
+    setWalkthroughStage("confirm-location");
+    setHasInspectionApproval(false);
+    setReviewedImageIndices(() => new Set<number>());
+    setActiveGalleryIndex(0);
+  }, []);
+
   const handleBankAccountAdvance = React.useCallback(() => {
     setActiveSlideId("checklist");
     setBankAccountPhase((previousPhase) => {
