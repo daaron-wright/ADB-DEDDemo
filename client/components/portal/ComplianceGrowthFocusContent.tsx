@@ -820,6 +820,70 @@ export function ComplianceGrowthFocusContent({
                 something needs your attention, it moves to the top of this
                 list.
               </p>
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => setIsGoldenVisaExpanded((previous) => !previous)}
+                  className="flex w-full items-center justify-between gap-3 rounded-2xl border border-[#f3dcb6] bg-[#fdf6e4]/70 px-4 py-3 text-left text-sm font-medium text-[#b97324] transition hover:bg-[#fdf6e4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f3dcb6]"
+                  aria-expanded={isGoldenVisaExpanded}
+                  aria-controls={goldenVisaPanelId}
+                >
+                  <span className="flex items-center gap-2">
+                    <Sparkles className="h-4 w-4 text-[#b97324]" aria-hidden="true" />
+                    <span>
+                      Golden Visa eligibility · {GOLDEN_VISA_OVERVIEW.eligibleCount} of {GOLDEN_VISA_OVERVIEW.totalEmployees} team members flagged
+                    </span>
+                  </span>
+                  <ChevronDown
+                    className={cn(
+                      "h-4 w-4 text-[#b97324] transition-transform",
+                      isGoldenVisaExpanded ? "rotate-180" : "rotate-0",
+                    )}
+                    aria-hidden="true"
+                  />
+                </button>
+                {isGoldenVisaExpanded ? (
+                  <div
+                    id={goldenVisaPanelId}
+                    className="mt-3 space-y-3 rounded-2xl border border-[#f3dcb6] bg-white/90 p-4 text-sm leading-relaxed text-slate-600"
+                  >
+                    <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">
+                      <span>
+                        {GOLDEN_VISA_OVERVIEW.eligibleCount}/
+                        {GOLDEN_VISA_OVERVIEW.totalEmployees} eligible
+                      </span>
+                      <span className="h-1 w-1 rounded-full bg-[#b97324]" aria-hidden="true" />
+                      <span>
+                        {GOLDEN_VISA_OVERVIEW.upToDateCount}/
+                        {GOLDEN_VISA_OVERVIEW.totalEmployees} residency compliant
+                      </span>
+                      <span className="h-1 w-1 rounded-full bg-[#b97324]" aria-hidden="true" />
+                      <span>
+                        {GOLDEN_VISA_OVERVIEW.workVisaCount}/
+                        {GOLDEN_VISA_OVERVIEW.totalEmployees} on standard work visa
+                      </span>
+                    </div>
+                    <ul className="space-y-2">
+                      {GOLDEN_VISA_OVERVIEW.employees.map((teamMember) => (
+                        <li
+                          key={teamMember.id}
+                          className="rounded-xl border border-[#f3dcb6]/70 bg-[#fdf6e4]/60 p-3"
+                        >
+                          <p className="text-sm font-semibold text-slate-900">
+                            {teamMember.name} • {teamMember.role}
+                          </p>
+                          <p className="text-xs text-slate-500">{teamMember.status}</p>
+                        </li>
+                      ))}
+                    </ul>
+                    <ul className="space-y-2 text-xs text-slate-500">
+                      {GOLDEN_VISA_OVERVIEW.summary.map((point, index) => (
+                        <li key={index}>{point}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
             </div>
           </div>
 
