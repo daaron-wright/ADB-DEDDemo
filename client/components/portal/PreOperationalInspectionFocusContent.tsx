@@ -163,13 +163,13 @@ const INITIAL_SUB_STEPS: SubStep[] = [
     id: "ded-signboard",
     label: "DED Mandatory Inspection — Signboard",
     authority: "DED",
-    status: "scheduled",
+    status: "pending",
   },
   {
     id: "ded-premise",
     label: "DED Mandatory Inspection — Premise readiness",
     authority: "DED",
-    status: "scheduled",
+    status: "pending",
   },
   {
     id: "bank-account",
@@ -271,6 +271,13 @@ export function PreOperationalInspectionFocusContent({
     setWalkthroughStage("streaming");
   }, [walkthroughStage]);
 
+  const handleDedInspectionPreparation = React.useCallback(() => {
+    if (walkthroughStage === "idle") {
+      handleStreamInitiate();
+    }
+    setActiveSlideId("automation");
+  }, [handleStreamInitiate, walkthroughStage]);
+
   const handleRestartWalkthrough = React.useCallback(() => {
     setWalkthroughStage("confirm-location");
     setHasInspectionApproval(false);
@@ -308,7 +315,10 @@ export function PreOperationalInspectionFocusContent({
             return { ...item, status: "account_linked" };
           }
 
-          if (item.status === "pending") {
+          if (
+            item.status === "pending" &&
+            !DED_MANDATORY_INSPECTION_ID_SET.has(item.id)
+          ) {
             return { ...item, status: "scheduled" };
           }
 
@@ -428,6 +438,25 @@ export function PreOperationalInspectionFocusContent({
     setReviewedImageIndices(() => new Set<number>());
     setHasInspectionApproval(false);
     setActiveGalleryIndex(0);
+  }, [walkthroughStage]);
+
+  React.useEffect(() => {
+    setChecklistItems((previous) => {
+      let changed = false;
+      const updated = previous.map((item) => {
+        if (!DED_MANDATORY_INSPECTION_ID_SET.has(item.id)) {
+          return item;
+        }
+        const desiredStatus =
+          walkthroughStage === "idle" ? "pending" : "in_progress";
+        if (item.status === desiredStatus) {
+          return item;
+        }
+        changed = true;
+        return { ...item, status: desiredStatus };
+      });
+      return changed ? updated : previous;
+    });
   }, [walkthroughStage]);
 
   React.useEffect(() => {
@@ -933,10 +962,25 @@ export function PreOperationalInspectionFocusContent({
                   <div className="space-y-2">
                     {dedInspectionItems.map((item) => {
                       const token = SUB_STEP_TOKENS[item.status];
+                      const description = hasInspectionApproval
+                        ? "Awaiting final DED confirmation."
+                        : walkthroughStage === "idle"
+                          ? "Kick off the remote walkthrough so Polaris can prep the inspectors."
+                          : "Polaris is processing your walkthrough and lining up the DED bookings.";
+                      const isDisabled = walkthroughStage !== "idle";
+
                       return (
-                        <div
+                        <button
                           key={item.id}
-                          className="flex flex-col gap-2 rounded-xl border border-[#d8e4df] bg-white/95 p-3 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.28)] sm:flex-row sm:items-center sm:justify-between"
+                          type="button"
+                          onClick={() => handleDedInspectionPreparation()}
+                          disabled={isDisabled}
+                          className={cn(
+                            "flex w-full flex-col gap-2 rounded-xl border border-[#d8e4df] bg-white/95 p-3 text-left shadow-[0_18px_44px_-38px_rgba(15,23,42,0.28)] transition sm:flex-row sm:items-center sm:justify-between",
+                            isDisabled
+                              ? "cursor-not-allowed opacity-85"
+                              : "hover:border-[#0f766e]/60 hover:shadow-[0_26px_58px_-42px_rgba(15,118,110,0.35)]",
+                          )}
                         >
                           <div className="space-y-1">
                             <p className="text-sm font-semibold text-slate-900">
@@ -947,11 +991,7 @@ export function PreOperationalInspectionFocusContent({
                                 </span>
                               ) : null}
                             </p>
-                            <p className="text-xs text-slate-500">
-                              {hasInspectionApproval
-                                ? "Awaiting final DED confirmation."
-                                : "Polaris will confirm availability as soon as the walkthrough review passes."}
-                            </p>
+                            <p className="text-xs text-slate-500">{description}</p>
                           </div>
                           <Badge
                             className={cn(
@@ -961,7 +1001,7 @@ export function PreOperationalInspectionFocusContent({
                           >
                             {token.label}
                           </Badge>
-                        </div>
+                        </button>
                       );
                     })}
                   </div>
@@ -1120,9 +1160,11 @@ export function PreOperationalInspectionFocusContent({
       automationSubtitle,
       bankAccountPhase,
       checklistSummary,
+      dedInspectionItems,
       galleryLength,
       handleBankAccountAdvance,
       handleConfirmLocation,
+      handleDedInspectionPreparation,
       handleRestartWalkthrough,
       handleStreamInitiate,
       hasInspectionApproval,
