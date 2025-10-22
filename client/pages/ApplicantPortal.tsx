@@ -335,7 +335,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     supportHeading: "تحتاجين إلى مساع��ة؟",
     supportDescription: {
       preEmail:
-        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت ���لخليج. تواصلي عبر ",
+        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إ��ى 18:00 بتوقيت ���لخليج. تواصلي عبر ",
       postEmailPrePhone: " أو اتصلي عل�� ",
       postPhone: ".",
     },
@@ -347,7 +347,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا و��ضحًا لدرا��ة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، ش��هدي كيف يحول ${name} و��س��ث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
+      `اكتشفي مسارًا و��ضحًا لدرا��ة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، شاهدي كيف يحول ${name} و��س��ث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
     heroButton: "استكشفي خيارا��� إضافية",
     chatCta: "ال��ردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -359,7 +359,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       submissionId: "معرّف الرحلة",
       lastUpdate: "آخر تحديث",
     },
-    nextActionHeading: "الإ��راء التالي",
+    nextActionHeading: "الإ��راء التال��",
     nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
@@ -2339,8 +2339,8 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
   );
 
   const shouldShowLicenseDetails = hasQuestionnaireCompleted;
-  const resolvedLicenseType = shouldShowLicenseDetails
-    ? displayLicenseType
+  const resolvedLicenseType = hasQuestionnaireCompleted
+    ? selectedLegalFormTitle ?? displayLicenseType
     : languageCopy.questionnaireOnboarding.pendingLicenseLabel;
   const licenseValueClass = cn(
     "mt-2 text-sm font-semibold text-slate-900",
