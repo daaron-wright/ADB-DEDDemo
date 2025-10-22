@@ -90,6 +90,33 @@ const WALKTHROUGH_LOCATION = {
   coordinates: "24.4539° N, 54.3773° E",
 };
 
+const DED_INSPECTION_RESULT_AREAS = [
+  {
+    id: "signboard-match",
+    title: "Signboard match",
+    description:
+      "Exterior signage captured in the walkthrough aligns with the approved artwork, placement, and Arabic/English pairing.",
+  },
+  {
+    id: "signboard-quality",
+    title: "Signboard quality check",
+    description:
+      "Lighting, fabrication, and mounting meet DED quality requirements with no distortions across the verified frames.",
+  },
+  {
+    id: "premise-readiness",
+    title: "Premise readiness",
+    description:
+      "Front and back of house areas are staged for opening with clear circulation routes and safety markers in place.",
+  },
+  {
+    id: "activity-match",
+    title: "Activity match",
+    description:
+      "Captured operations align with the licensed F&B activity, staged menu, and staffing mix approved by DED.",
+  },
+] as const;
+
 const getWalkthroughPlaceholderTitle = (stage: WalkthroughFlowStage) => {
   switch (stage) {
     case "confirm-location":
@@ -896,20 +923,59 @@ export function PreOperationalInspectionFocusContent({
                     </div>
                   </div>
                   {hasInspectionApproval ? (
-                    <div className="border-t border-[#d8e4df]/80 bg-[#ecfdf5] px-6 py-4">
-                      <div className="flex items-start gap-3 rounded-2xl border border-[#0f766e]/25 bg-white/70 p-4 text-sm text-[#0f766e] shadow-[0_26px_58px_-48px_rgba(15,118,110,0.4)]">
-                        <Check className="mt-0.5 h-4 w-4" strokeWidth={3} />
-                        <div className="space-y-1">
-                          <p className="text-xs font-semibold uppercase tracking-[0.18em]">
-                            Inspection approval received
-                          </p>
-                          <p className="text-sm">
-                            Walkthrough evidence is filed with DED inspectors.
-                            Continue to the compliance stage when ready.
-                          </p>
+                    <>
+                      <div className="border-t border-[#d8e4df]/80 bg-[#ecfdf5] px-6 py-4">
+                        <div className="flex items-start gap-3 rounded-2xl border border-[#0f766e]/25 bg-white/70 p-4 text-sm text-[#0f766e] shadow-[0_26px_58px_-48px_rgba(15,118,110,0.4)]">
+                          <Check className="mt-0.5 h-4 w-4" strokeWidth={3} />
+                          <div className="space-y-1">
+                            <p className="text-xs font-semibold uppercase tracking-[0.18em]">
+                              Inspection approval received
+                            </p>
+                            <p className="text-sm">
+                              Walkthrough evidence is filed with DED inspectors.
+                              Continue to the compliance stage when ready.
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                      <div className="border-t border-[#d8e4df]/80 bg-white px-6 py-5">
+                        <div className="space-y-4 rounded-2xl border border-[#0f766e]/20 bg-white/85 p-4 shadow-[0_26px_58px_-48px_rgba(15,118,110,0.3)]">
+                          <div className="flex flex-wrap items-center justify-between gap-3">
+                            <div className="space-y-1">
+                              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                                DED inspection results
+                              </p>
+                              <p className="text-sm text-slate-600">
+                                Key frame review confirms inspectors cleared the critical focus areas for opening.
+                              </p>
+                            </div>
+                            <Badge className="rounded-full border border-[#0f766e]/30 bg-[#0f766e]/10 px-4 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                              Key frames verified
+                            </Badge>
+                          </div>
+                          <div className="grid gap-3 sm:grid-cols-2">
+                            {DED_INSPECTION_RESULT_AREAS.map((area) => (
+                              <div
+                                key={area.id}
+                                className="flex items-start gap-3 rounded-xl border border-[#0f766e]/25 bg-white/90 p-4 shadow-[0_22px_44px_-40px_rgba(15,118,110,0.28)]"
+                              >
+                                <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#0f766e] text-white shadow-sm">
+                                  <Check className="h-4 w-4" strokeWidth={3} />
+                                </span>
+                                <div className="space-y-1">
+                                  <p className="text-sm font-semibold text-slate-900">
+                                    {area.title}
+                                  </p>
+                                  <p className="text-xs text-slate-600">
+                                    {area.description}
+                                  </p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </>
                   ) : null}
                   <div className="grid grid-cols-1 gap-[2px] bg-[#d8e4df]/40 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {PREOP_INSPECTION_IMAGES.map((image, index) => {
