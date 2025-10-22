@@ -356,7 +356,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     fieldLabels: {
       beneficiary: "المستفيد",
       licenseType: "نوع الرخصة",
-      submissionId: "��عرّف الرحلة",
+      submissionId: "معرّف الرحلة",
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإ��راء التالي",
@@ -428,10 +428,10 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       startCta: "ابدئي الاس��بيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
-      pendingLicenseLabel: "م��اح بعد الاستبيان",
-      pendingSubmissionLabel: "",
+      pendingLicenseLabel: "متاح بعد الاستبيان",
+      pendingSubmissionLabel: "0987654321",
       chatIntro:
-        "لنؤكد بعض التفاصي�� معًا. بع�� إنها�� هذا الاستبيان، سأعرض نوع التر��يص ومعرّف ا��طلب.",
+        "لنؤكد بعض التفاصيل معًا. بعد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الرحلة.",
     },
   },
 };
