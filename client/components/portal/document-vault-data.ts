@@ -38,6 +38,9 @@ export const INITIAL_DOCUMENTS: DocumentVaultItem[] = [
     actionLabel: "Review with Polaris",
     integrationBadge: "ADJD",
     isExpanded: true,
+    previewImageUrl: MOA_PREVIEW_IMAGE_URL,
+    previewHref: MOA_PREVIEW_IMAGE_URL,
+    previewButtonLabel: "Open drafted MOA",
   },
   {
     id: "founders-passports",
