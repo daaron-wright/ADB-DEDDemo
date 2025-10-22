@@ -1425,6 +1425,56 @@ export function BusinessRegistrationFocusContent({
               </AccordionItem>
             </Accordion>
           </div>
+          {isNameAvailable ? (
+            <div className="rounded-3xl border border-[#d8e4df] bg-white p-5 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.32)]">
+              <div className="flex flex-wrap items-center gap-3">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleSelectApprovedTradeName}
+                  disabled={
+                    hasSelectedApprovedTradeName ||
+                    hasSubmittedReservationApplication ||
+                    isSubmittingReservation
+                  }
+                  className={cn(
+                    baseCtaClasses,
+                    nextPrimaryAction === "selectName"
+                      ? primaryCtaClasses
+                      : secondaryCtaClasses,
+                  )}
+                >
+                  {hasSubmittedReservationApplication
+                    ? "Trade name reserved"
+                    : hasSelectedApprovedTradeName
+                      ? "Trade name selected"
+                      : "Select trade name"}
+                </Button>
+                <Button
+                  type="button"
+                  onClick={handleSubmitReservationApplication}
+                  disabled={!canSubmitReservation || isSubmittingReservation}
+                  className={cn(
+                    baseCtaClasses,
+                    nextPrimaryAction === "submitReservation"
+                      ? primaryCtaClasses
+                      : secondaryCtaClasses,
+                  )}
+                >
+                  {hasSubmittedReservationApplication
+                    ? "Reservation submitted"
+                    : isSubmittingReservation
+                      ? "Submitting reservation..."
+                      : hasSelectedApprovedTradeName
+                        ? payAndIssueStepLabel
+                        : "Submit reservation & pay"}
+                </Button>
+              </div>
+              {tradeNameGuidance ? (
+                <p className="mt-2 w-full text-xs text-[#0f766e]">{tradeNameGuidance}</p>
+              ) : null}
+            </div>
+          ) : null}
         </div>
       ),
     },
