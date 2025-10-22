@@ -449,8 +449,6 @@ export function PreOperationalInspectionFocusContent({
     };
   }, []);
 
-  const isWalkthroughProcessing =
-    walkthroughStage === "streaming" || walkthroughStage === "analyzing";
   const isWalkthroughReady = walkthroughStage === "ready";
   const activeInspectionImage =
     activeGalleryIndex >= 0
