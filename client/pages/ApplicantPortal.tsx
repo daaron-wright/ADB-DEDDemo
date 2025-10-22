@@ -335,7 +335,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     supportHeading: "تحتاجين إلى مساع��ة؟",
     supportDescription: {
       preEmail:
-        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بت��قيت ���لخليج. تواصلي عبر ",
+        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت ���لخليج. تواصلي عبر ",
       postEmailPrePhone: " أو اتصلي عل�� ",
       postPhone: ".",
     },
@@ -425,7 +425,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "هذه هي نقطة ا��طلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
         "مرحب��ا بكِ—شاركي��ا تفاصيل فكرتك ��نصمم معًا رحلة ا��ترخيص التي تطلق مشروعك التجاري.",
-      startCta: "ابدئي ال��س��بيان مع الذكاء الاصطناعي",
+      startCta: "ابدئي الاس��بيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
       pendingLicenseLabel: "متاح بعد الاستبيان",
@@ -1150,7 +1150,7 @@ export default function ApplicantPortal() {
         </div>
       ),
     });
-  }, [activeStageId, primaryApplication.id, toast]);
+  }, [activeStageId, toast]);
 
   const [stageProgress, setStageProgress] = useState<
     Record<string, JourneyHighlightState>
