@@ -185,7 +185,7 @@ const COMPLIANCE_STATUS_TOKENS: Record<
     iconWrapperClass: "border border-red-400/40 bg-red-500/20 text-red-100",
     iconClass: "text-red-200",
     badgeClass: "border-red-200 bg-red-100 text-red-700",
-    badgeLabel: "Urgent",
+    badgeLabel: "URGENT",
   },
   warning: {
     Icon: AlertTriangle,
@@ -193,7 +193,7 @@ const COMPLIANCE_STATUS_TOKENS: Record<
       "border border-amber-300/40 bg-amber-200/20 text-amber-100",
     iconClass: "text-amber-200",
     badgeClass: "border-amber-200 bg-amber-50 text-amber-700",
-    badgeLabel: "Action needed",
+    badgeLabel: "ACTION NEEDED",
   },
   success: {
     Icon: CheckCircle,
@@ -201,7 +201,7 @@ const COMPLIANCE_STATUS_TOKENS: Record<
       "border border-emerald-200/50 bg-emerald-400/15 text-emerald-50",
     iconClass: "text-emerald-200",
     badgeClass: "border-emerald-200 bg-emerald-50 text-emerald-700",
-    badgeLabel: "Compliant",
+    badgeLabel: "COMPLIANT",
   },
   info: {
     Icon: ShieldCheck,
@@ -209,7 +209,7 @@ const COMPLIANCE_STATUS_TOKENS: Record<
       "border border-slate-200/40 bg-slate-100/60 text-slate-500",
     iconClass: "text-slate-500",
     badgeClass: "border-slate-200 bg-white text-slate-500",
-    badgeLabel: "Monitoring",
+    badgeLabel: "MONITORING",
   },
 };
 
