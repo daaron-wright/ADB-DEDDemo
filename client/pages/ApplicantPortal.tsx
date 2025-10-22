@@ -347,8 +347,8 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا و��ضحًا لدرا��ة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، شاهدي كيف يحول ${name} و��س��ث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
-    heroButton: "استكشفي خيارا��� إضافية",
+      `اكتشفي مسارًا و��ضحًا لدرا��ة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل ��ق���، شاهدي كيف يحول ${name} و��س��ث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
+    heroButton: "ا��تكشفي خيارا��� إضافية",
     chatCta: "ال��ردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
       `عرض أو إ��فاء نظرة عا��ة للرحلة الخ��صة بـ ${title}`,
@@ -418,7 +418,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     questionnaireOnboarding: {
       heading: "ابدئي رحلة ترخيصك",
       notStartedMessage:
-        "ابدئي من هنا للإجابة عن أسئلة موجهة حول نشاطك كي نضبط مسار الترخيص لكِ.",
+        "ابدئي من هنا للإجابة عن أسئلة ��وجهة حول نشاطك كي نضبط مسار الترخيص لكِ.",
       inProgressMessage:
         "يعمل الذكاء الاصطناعي على جمع ال��فاصيل لإعداد الاستبيان.",
       completedMessage:
@@ -1131,10 +1131,21 @@ export default function ApplicantPortal() {
     toast({
       title: copy.title,
       description: (
-        <div className="space-y-1 text-sm text-slate-600">
+        <div className="space-y-2 text-sm text-slate-600">
           <p>{copy.helper}</p>
+          <p>
+            Submission ID
+            <span className="ml-1 font-semibold text-slate-900">
+              {primaryApplication.id}
+            </span>
+            {" "}was generated based on your conversation with Polaris.
+          </p>
           <p className="font-semibold text-[#0f766e]">
             Current focus: {currentFocusLabel}
+          </p>
+          <p className="text-xs text-slate-500">
+            Complete your application to keep automation aligned and move to the
+            next phase.
           </p>
         </div>
       ),
