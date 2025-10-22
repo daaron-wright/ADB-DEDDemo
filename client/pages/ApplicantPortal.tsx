@@ -347,7 +347,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     heroBadge: "رحلة المستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
-      `اكتشفي مسارًا و��ضحًا لدرا��ة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، شاهدي كيف يحول ${name} و��س��ث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
+      `اكتشفي مسارًا و��ضحًا لدرا��ة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، ش��هدي كيف يحول ${name} و��س��ث������ر��ن آخ��ون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
     heroButton: "استكشفي خيارا��� إضافية",
     chatCta: "ال��ردشة مع الذكاء الاص��ناعي",
     journeyToggleLabel: (title: string) =>
@@ -1064,6 +1064,15 @@ export default function ApplicantPortal() {
   const displayLicenseType =
     languageCopy.licenseTypeLabels[primaryApplication.licenseType] ??
     primaryApplication.licenseType;
+  const selectedLegalFormTitle = useMemo(() => {
+    if (!selectedLegalFormId) {
+      return null;
+    }
+    const matchedOption = DEFAULT_LEGAL_FORM_OPTIONS.find(
+      (option) => option.id === selectedLegalFormId,
+    );
+    return matchedOption?.title ?? null;
+  }, [selectedLegalFormId]);
   const profileEmail = portalUser?.email ?? ENTREPRENEUR_PROFILE.email;
   const profileAvatar = portalUser?.avatarUrl ?? ENTREPRENEUR_PROFILE.avatar;
   const profileStatus: "online" | "offline" | "none" = "online";
