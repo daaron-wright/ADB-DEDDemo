@@ -129,7 +129,9 @@ export function StageSlideNavigator({
           </h4>
           {currentSlide.description ? (
             <p className="max-w-[640px] text-sm text-slate-600">
-              {descriptionPrefix ? `${descriptionPrefix} — ${currentSlide.description}` : currentSlide.description}
+              {descriptionPrefix
+                ? `${descriptionPrefix} — ${currentSlide.description}`
+                : currentSlide.description}
             </p>
           ) : null}
         </div>
