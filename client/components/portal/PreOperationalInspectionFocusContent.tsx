@@ -157,6 +157,18 @@ const INITIAL_SUB_STEPS: SubStep[] = [
     status: "completed",
   },
   {
+    id: "ded-signboard",
+    label: "DED Mandatory Inspection — Signboard",
+    authority: "DED",
+    status: "scheduled",
+  },
+  {
+    id: "ded-premise",
+    label: "DED Mandatory Inspection — Premise readiness",
+    authority: "DED",
+    status: "scheduled",
+  },
+  {
     id: "bank-account",
     label: "Corporate Bank Account Opening",
     status: "pending",
