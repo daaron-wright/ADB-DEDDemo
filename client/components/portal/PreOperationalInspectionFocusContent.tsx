@@ -272,10 +272,10 @@ export function PreOperationalInspectionFocusContent({
   }, [walkthroughStage]);
 
   const handleDedInspectionPreparation = React.useCallback(() => {
+    setActiveSlideId("automation");
     if (walkthroughStage === "idle") {
       handleStreamInitiate();
     }
-    setActiveSlideId("automation");
   }, [handleStreamInitiate, walkthroughStage]);
 
   const handleRestartWalkthrough = React.useCallback(() => {
