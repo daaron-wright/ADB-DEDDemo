@@ -14,9 +14,9 @@ export const INITIAL_DOCUMENTS: DocumentVaultItem[] = [
     id: "tenancy-contract",
     title: "Tenancy Contract",
     description:
-      "Polaris pulled your stamped tenancy contract directly from Tamkeen via AD Connect.",
+      "Polaris pulled your stamped tenancy contract directly from Abu Dhabi Municipality (ADM) via AD Connect.",
     source: DOCUMENT_VAULT_SOURCE_LABEL,
-    sourceDetail: DOCUMENT_VAULT_SOURCE_LABEL,
+    sourceDetail: "Abu Dhabi Municipality (ADM)",
     status: "completed",
     actionLabel: "View contract",
     integrationBadge: "AD Connect",
