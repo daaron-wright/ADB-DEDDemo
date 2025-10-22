@@ -111,10 +111,7 @@ const DED_INSPECTION_RESULT_AREAS = [
   },
 ] as const;
 
-const DED_MANDATORY_INSPECTION_IDS = [
-  "ded-signboard",
-  "ded-premise",
-] as const;
+const DED_MANDATORY_INSPECTION_IDS = ["ded-signboard", "ded-premise"] as const;
 
 const DED_MANDATORY_INSPECTION_ID_SET = new Set<string>(
   DED_MANDATORY_INSPECTION_IDS,
@@ -451,7 +448,8 @@ export function PreOperationalInspectionFocusContent({
     setActiveGalleryIndex(0);
   }, [walkthroughStage]);
 
-  const shouldSyncDedStatus = walkthroughStage !== "idle" || hasInspectionApproval;
+  const shouldSyncDedStatus =
+    walkthroughStage !== "idle" || hasInspectionApproval;
 
   React.useEffect(() => {
     setChecklistItems((previous) => {
@@ -1021,7 +1019,9 @@ export function PreOperationalInspectionFocusContent({
                                 </span>
                               ) : null}
                             </p>
-                            <p className="text-xs text-slate-500">{description}</p>
+                            <p className="text-xs text-slate-500">
+                              {description}
+                            </p>
                           </div>
                           <Badge
                             className={cn(
@@ -1091,7 +1091,8 @@ export function PreOperationalInspectionFocusContent({
                                 DED inspection results
                               </p>
                               <p className="text-sm text-slate-600">
-                                Key frame review confirms inspectors cleared the critical focus areas for opening.
+                                Key frame review confirms inspectors cleared the
+                                critical focus areas for opening.
                               </p>
                             </div>
                             <Badge className="rounded-full border border-[#0f766e]/30 bg-[#0f766e]/10 px-4 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
@@ -1256,9 +1257,7 @@ function ChecklistItem({
       : token.label;
 
   const isInteractive = isDedMandatory && Boolean(onDedInspection);
-  const CardElement = (isInteractive ? "button" : "div") as
-    | "button"
-    | "div";
+  const CardElement = (isInteractive ? "button" : "div") as "button" | "div";
 
   return (
     <CardElement
