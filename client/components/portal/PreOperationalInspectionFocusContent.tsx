@@ -286,7 +286,7 @@ export function PreOperationalInspectionFocusContent({
   }, []);
 
   const handleBankAccountAdvance = React.useCallback(() => {
-    setActiveSlideId("automation");
+    setActiveSlideId("checklist");
     setBankAccountPhase((previousPhase) => {
       if (previousPhase !== "link") {
         return previousPhase;
