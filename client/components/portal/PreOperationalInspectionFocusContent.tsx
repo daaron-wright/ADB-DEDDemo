@@ -505,6 +505,14 @@ export function PreOperationalInspectionFocusContent({
     [checklistItems],
   );
 
+  const dedInspectionItems = React.useMemo(
+    () =>
+      checklistItems.filter((item) =>
+        DED_MANDATORY_INSPECTION_ID_SET.has(item.id),
+      ),
+    [checklistItems],
+  );
+
   const completedRequiredCount = React.useMemo(
     () =>
       requiredItems.filter(
