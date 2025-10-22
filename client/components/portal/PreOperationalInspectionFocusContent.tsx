@@ -454,11 +454,16 @@ export function PreOperationalInspectionFocusContent({
     setActiveGalleryIndex(0);
   }, [walkthroughStage]);
 
+  const shouldSyncDedStatus = walkthroughStage !== "idle" || hasInspectionApproval;
+
   React.useEffect(() => {
     setChecklistItems((previous) => {
       let changed = false;
       const updated = previous.map((item) => {
         if (!DED_MANDATORY_INSPECTION_ID_SET.has(item.id)) {
+          return item;
+        }
+        if (!shouldSyncDedStatus) {
           return item;
         }
         const desiredStatus: SubStepStatus = hasInspectionApproval
@@ -474,7 +479,7 @@ export function PreOperationalInspectionFocusContent({
       });
       return changed ? updated : previous;
     });
-  }, [walkthroughStage, hasInspectionApproval]);
+  }, [walkthroughStage, hasInspectionApproval, shouldSyncDedStatus]);
 
   React.useEffect(() => {
     if (
@@ -674,7 +679,7 @@ export function PreOperationalInspectionFocusContent({
             <div className="mt-5 space-y-4">
               <div className="space-y-2">
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                  Step 4 • Pre-operational inspection
+                  Step 3 • Pre-operational inspection
                 </p>
                 <h3 className="text-2xl font-semibold text-slate-900">
                   Final checks before opening
@@ -1201,6 +1206,8 @@ export function PreOperationalInspectionFocusContent({
       activeSlideId={activeSlideId}
       onSlideChange={setActiveSlideId}
       className="mt-6"
+      stepLabel={"Step 3 of 4"}
+      descriptionPrefix="Step 3 of 4"
     />
   );
 }
