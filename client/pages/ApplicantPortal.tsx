@@ -411,7 +411,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       tasksCompleteMessage:
         "تم إكمال كل المهام لهذه ا��مرحلة. راقب�� تحديثات الأتمتة.",
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
-      openNextTask: "افتحي المهمة ال��ال��ة",
+      openNextTask: "اف��حي المهمة ال��ال��ة",
       reviewStage: "اس��عرضي المرحلة",
       timelineAriaLabel: "التنقل ��ين مراحل ا��رحلة",
     },
@@ -431,7 +431,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       pendingLicenseLabel: "متاح بعد الاستبيان",
       pendingSubmissionLabel: "0987654321",
       chatIntro:
-        "لنؤكد بعض التفاصيل معًا. بعد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الرحلة.",
+        "لنؤكد بعض التفاصيل معًا. ��عد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الرحلة.",
     },
   },
 };
@@ -1133,13 +1133,15 @@ export default function ApplicantPortal() {
       description: (
         <div className="space-y-2 text-sm text-slate-600">
           <p>{copy.helper}</p>
-          <p>
-            Journey ID:
-            <span className="ml-1 font-semibold text-slate-900">
-              {JOURNEY_NUMBER}
-            </span>
-            {" "}was generated based on your conversation with Polaris.
-          </p>
+          {phase === "ideate" ? (
+            <p>
+              Journey ID:
+              <span className="ml-1 font-semibold text-slate-900">
+                {JOURNEY_NUMBER}
+              </span>
+              {" "}was generated based on your conversation with Polaris.
+            </p>
+          ) : null}
           <p className="font-semibold text-[#0f766e]">
             Current focus: {currentFocusLabel}
           </p>
