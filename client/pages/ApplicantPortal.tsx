@@ -326,7 +326,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     englishLabel: "English",
     arabicLabel: "العربية",
     englishBadge: "English",
-    arabicBadge: "العربية • تر��مة",
+    arabicBadge: "العربية • تر���مة",
     subtitle: "��وابة رخصة ال��عم��ل",
     workspaceTitle: (name: string) => `مساحة عمل ${name}`,
     workspaceDescription: (name: string) =>
@@ -1064,15 +1064,6 @@ export default function ApplicantPortal() {
   const displayLicenseType =
     languageCopy.licenseTypeLabels[primaryApplication.licenseType] ??
     primaryApplication.licenseType;
-  const selectedLegalFormTitle = useMemo(() => {
-    if (!selectedLegalFormId) {
-      return null;
-    }
-    const matchedOption = DEFAULT_LEGAL_FORM_OPTIONS.find(
-      (option) => option.id === selectedLegalFormId,
-    );
-    return matchedOption?.title ?? null;
-  }, [selectedLegalFormId]);
   const profileEmail = portalUser?.email ?? ENTREPRENEUR_PROFILE.email;
   const profileAvatar = portalUser?.avatarUrl ?? ENTREPRENEUR_PROFILE.avatar;
   const profileStatus: "online" | "offline" | "none" = "online";
