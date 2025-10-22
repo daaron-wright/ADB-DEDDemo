@@ -103,7 +103,8 @@ const DEFAULT_FAILURE_STEP_INDEX = (() => {
   return index === -1 ? 3 : index;
 })();
 
-const CONFLICTING_TRADE_NAME_NORMALIZED = PRIMARY_TRADE_NAME_EN.trim().toUpperCase();
+const CONFLICTING_TRADE_NAME_NORMALIZED =
+  PRIMARY_TRADE_NAME_EN.trim().toUpperCase();
 
 type TradeNameSuggestion = {
   id: string;
@@ -324,7 +325,10 @@ function transliterateToArabic(input: string) {
     return "";
   }
 
-  const normalizedPhrase = trimmed.replace(/[-\s]+/g, " ").toLowerCase().trim();
+  const normalizedPhrase = trimmed
+    .replace(/[-\s]+/g, " ")
+    .toLowerCase()
+    .trim();
   const phraseOverride = TRANSLITERATION_PHRASE_OVERRIDES.get(normalizedPhrase);
   if (phraseOverride) {
     return phraseOverride;
@@ -531,9 +535,9 @@ export function BusinessRegistrationFocusContent({
   payAndIssueToast,
 }: BusinessRegistrationFocusContentProps) {
   const { toast } = useToast();
-  const [tradeNameGuidance, setTradeNameGuidance] = React.useState<string | null>(
-    null,
-  );
+  const [tradeNameGuidance, setTradeNameGuidance] = React.useState<
+    string | null
+  >(null);
   const { setDocuments } = useDocumentVault();
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const reservationTimeoutRef = React.useRef<number | null>(null);
@@ -575,9 +579,8 @@ export function BusinessRegistrationFocusContent({
     isTradeNameAvailable ? null : DEFAULT_FAILURE_STEP_INDEX,
   );
   const [failureReason, setFailureReason] = React.useState<string | null>(null);
-  const [activeSlideId, setActiveSlideId] = React.useState<StageSlide["id"]>(
-    "trade-name",
-  );
+  const [activeSlideId, setActiveSlideId] =
+    React.useState<StageSlide["id"]>("trade-name");
 
   const payAndIssueStepLabel = payAndIssueLabel ?? "Pay and Issue Trade Name";
   const tradeNamePaymentToastMessage =
@@ -980,12 +983,7 @@ export function BusinessRegistrationFocusContent({
       setTradeNameGuidance(null);
       onTradeNameChange?.(formattedEnglish);
     },
-    [
-      isChecking,
-      onTradeNameChange,
-      setActiveSlideId,
-      setTradeNameGuidance,
-    ],
+    [isChecking, onTradeNameChange, setActiveSlideId, setTradeNameGuidance],
   );
 
   const handleTransliterate = React.useCallback(() => {
@@ -999,7 +997,9 @@ export function BusinessRegistrationFocusContent({
       return;
     }
 
-    const transliterated = formatArabicName(transliterateToArabic(englishDraft));
+    const transliterated = formatArabicName(
+      transliterateToArabic(englishDraft),
+    );
     setArabicDraft(transliterated);
     setActiveArabicTradeName(transliterated);
   }, [englishDraft, toast]);
@@ -1125,11 +1125,13 @@ export function BusinessRegistrationFocusContent({
                   Keep the trade name checks on track
                 </h3>
                 <p className="text-sm text-slate-600">
-                  Review the current trade name status and run the automated verification when you’re ready to move forward.
+                  Review the current trade name status and run the automated
+                  verification when you’re ready to move forward.
                 </p>
               </div>
               <p className="text-sm text-slate-600">
-                Polaris handles each verification step automatically and flags anything that needs your approval here.
+                Polaris handles each verification step automatically and flags
+                anything that needs your approval here.
               </p>
             </div>
           </div>
@@ -1144,7 +1146,10 @@ export function BusinessRegistrationFocusContent({
                   {activeEnglishTradeName || PRIMARY_TRADE_NAME_EN}
                 </h4>
                 {activeArabicTradeName ? (
-                  <p className="text-base font-semibold text-[#0f766e]" dir="rtl">
+                  <p
+                    className="text-base font-semibold text-[#0f766e]"
+                    dir="rtl"
+                  >
                     {activeArabicTradeName}
                   </p>
                 ) : null}
@@ -1185,7 +1190,8 @@ export function BusinessRegistrationFocusContent({
                     )}
                     dir={activeArabicTradeName ? "rtl" : "ltr"}
                   >
-                    {activeArabicTradeName || "Transliterate to populate Arabic name"}
+                    {activeArabicTradeName ||
+                      "Transliterate to populate Arabic name"}
                   </p>
                 </div>
               </div>
@@ -1203,7 +1209,9 @@ export function BusinessRegistrationFocusContent({
                 variant="outline"
                 onClick={() => {
                   if (!isEditing) {
-                    setEnglishDraft(activeEnglishTradeName || PRIMARY_TRADE_NAME_EN);
+                    setEnglishDraft(
+                      activeEnglishTradeName || PRIMARY_TRADE_NAME_EN,
+                    );
                     setArabicDraft(activeArabicTradeName || "");
                   }
                   setIsEditing((previous) => !previous);
@@ -1324,7 +1332,9 @@ export function BusinessRegistrationFocusContent({
                             normalizedEnglishDraft ===
                             suggestion.english.toUpperCase();
                           const availabilityMeta =
-                            SUGGESTION_AVAILABILITY_META[suggestion.availability];
+                            SUGGESTION_AVAILABILITY_META[
+                              suggestion.availability
+                            ];
 
                           return (
                             <button
@@ -1362,7 +1372,9 @@ export function BusinessRegistrationFocusContent({
                                 Arabic generates after transliteration
                               </span>
                               <span className="mt-1 inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                                {isCurrentSuggestion ? "In review" : "Use this name"}
+                                {isCurrentSuggestion
+                                  ? "In review"
+                                  : "Use this name"}
                               </span>
                             </button>
                           );
@@ -1386,7 +1398,9 @@ export function BusinessRegistrationFocusContent({
                       <h4 className="text-lg font-semibold text-slate-900">
                         {verificationStatusLabel}
                       </h4>
-                      <p className="text-sm text-slate-600">{verificationSubtitle}</p>
+                      <p className="text-sm text-slate-600">
+                        {verificationSubtitle}
+                      </p>
                     </div>
                     <Badge
                       className={cn(
@@ -1418,7 +1432,8 @@ export function BusinessRegistrationFocusContent({
                     </div>
                   ) : (
                     <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-5 text-sm text-slate-500">
-                      Run the automated checks to populate each verification step.
+                      Run the automated checks to populate each verification
+                      step.
                     </div>
                   )}
                 </AccordionContent>
@@ -1471,7 +1486,9 @@ export function BusinessRegistrationFocusContent({
                 </Button>
               </div>
               {tradeNameGuidance ? (
-                <p className="mt-2 w-full text-xs text-[#0f766e]">{tradeNameGuidance}</p>
+                <p className="mt-2 w-full text-xs text-[#0f766e]">
+                  {tradeNameGuidance}
+                </p>
               ) : null}
             </div>
           ) : null}

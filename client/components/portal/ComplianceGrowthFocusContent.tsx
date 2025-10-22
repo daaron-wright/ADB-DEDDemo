@@ -490,8 +490,7 @@ export function ComplianceGrowthFocusContent({
   const frameTimersRef = React.useRef<number[]>([]);
   const [activeOpportunityMessage, setActiveOpportunityMessage] =
     React.useState<{ id: string; message: string } | null>(null);
-  const [isGoldenVisaExpanded, setIsGoldenVisaExpanded] =
-    React.useState(false);
+  const [isGoldenVisaExpanded, setIsGoldenVisaExpanded] = React.useState(false);
   const goldenVisaPanelId = React.useId();
 
   React.useEffect(() => {
@@ -957,7 +956,10 @@ export function ComplianceGrowthFocusContent({
                 <div className="space-y-3 rounded-2xl border border-[#94d2c2] bg-white p-4">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div className="flex items-center gap-2 text-sm font-semibold text-[#0f766e]">
-                      <Sparkles className="h-4 w-4 text-[#0f766e]" aria-hidden="true" />
+                      <Sparkles
+                        className="h-4 w-4 text-[#0f766e]"
+                        aria-hidden="true"
+                      />
                       <span>Golden Visa eligibility</span>
                     </div>
                     <Badge className="rounded-full border border-[#94d2c2]/70 bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
@@ -974,9 +976,14 @@ export function ComplianceGrowthFocusContent({
                     aria-controls={goldenVisaPanelId}
                   >
                     <span className="flex items-center gap-2">
-                      <Sparkles className="h-4 w-4 text-[#0f766e]" aria-hidden="true" />
+                      <Sparkles
+                        className="h-4 w-4 text-[#0f766e]"
+                        aria-hidden="true"
+                      />
                       <span>
-                        {GOLDEN_VISA_OVERVIEW.eligibleCount} of {GOLDEN_VISA_OVERVIEW.totalEmployees} team members flagged
+                        {GOLDEN_VISA_OVERVIEW.eligibleCount} of{" "}
+                        {GOLDEN_VISA_OVERVIEW.totalEmployees} team members
+                        flagged
                       </span>
                     </span>
                     <ChevronDown
@@ -1028,7 +1035,8 @@ export function ComplianceGrowthFocusContent({
                         </div>
                       </div>
                       <div className="rounded-xl border border-[#94d2c2]/70 bg-[#f5faf7] px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                        Polaris keeps Golden Visa eligibility in sync with residency checks.
+                        Polaris keeps Golden Visa eligibility in sync with
+                        residency checks.
                       </div>
                     </div>
                   ) : null}
