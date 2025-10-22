@@ -1071,106 +1071,111 @@ export function ComplianceGrowthFocusContent({
             className="mt-0 space-y-5 focus-visible:outline-none focus-visible:ring-0"
           >
             <div className="space-y-5">
-              <div className="space-y-5 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
-                <div className="space-y-2">
-                  <h4 className="text-base font-semibold text-slate-900">
-                    Upload signboard walkthrough
-                  </h4>
-                  <p className="text-sm text-slate-600">
-                    Polaris encrypts each submission and forwards it to
-                    inspectors once frames clear automation checks.
-                  </p>
-                </div>
-                <div className="space-y-4">
-                  <label
-                    htmlFor="signboard-video-upload"
-                    className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-[#0f766e]/40 bg-white/85 px-4 py-6 text-center transition hover:border-[#0f766e] hover:bg-[#f5faf7]"
-                  >
-                    <UploadCloud className="h-6 w-6 text-[#0f766e]" />
-                    <div>
-                      <p className="text-sm font-semibold text-slate-900">
-                        Drop video or browse
-                      </p>
-                      <p className="text-xs text-slate-500">
-                        MP4, MOV, or WebM up to 2 GB
-                      </p>
+              <Accordion type="single" collapsible className="space-y-3">
+                <AccordionItem
+                  value="add-walkthrough"
+                  className="overflow-hidden rounded-3xl border border-[#d8e4df] bg-white shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]"
+                >
+                  <AccordionTrigger className="flex w-full items-center justify-between gap-3 px-6 py-5 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/30">
+                    <div className="flex flex-col text-left">
+                      <span className="text-base font-semibold text-slate-900">
+                        Add another walkthrough
+                      </span>
+                      <span className="mt-1 text-sm text-slate-600">
+                        Polaris encrypts each submission and forwards it to inspectors once frames clear automation checks.
+                      </span>
                     </div>
-                  </label>
-                  <Input
-                    id="signboard-video-upload"
-                    ref={fileInputRef}
-                    type="file"
-                    accept="video/*"
-                    className="hidden"
-                    onChange={handleVideoSelect}
-                  />
-                  {pendingVideo ? (
-                    <div className="space-y-2 rounded-xl border border-[#d8e4df] bg-white/90 p-4 text-left">
-                      <div className="flex items-center justify-between gap-3">
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-6 pt-0">
+                    <div className="space-y-4 pt-4">
+                      <label
+                        htmlFor="signboard-video-upload"
+                        className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-[#0f766e]/40 bg-white/85 px-4 py-6 text-center transition hover:border-[#0f766e] hover:bg-[#f5faf7]"
+                      >
+                        <UploadCloud className="h-6 w-6 text-[#0f766e]" />
                         <div>
                           <p className="text-sm font-semibold text-slate-900">
-                            {pendingVideo.name}
+                            Drop video or browse
                           </p>
                           <p className="text-xs text-slate-500">
-                            {formatFileSize(pendingVideo.size)} • Ready for
-                            submission
+                            MP4, MOV, or WebM up to 2 GB
+                          </p>
+                        </div>
+                      </label>
+                      <Input
+                        id="signboard-video-upload"
+                        ref={fileInputRef}
+                        type="file"
+                        accept="video/*"
+                        className="hidden"
+                        onChange={handleVideoSelect}
+                      />
+                      {pendingVideo ? (
+                        <div className="space-y-2 rounded-xl border border-[#d8e4df] bg-white/90 p-4 text-left">
+                          <div className="flex items-center justify-between gap-3">
+                            <div>
+                              <p className="text-sm font-semibold text-slate-900">
+                                {pendingVideo.name}
+                              </p>
+                              <p className="text-xs text-slate-500">
+                                {formatFileSize(pendingVideo.size)} • Ready for submission
+                              </p>
+                            </div>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              className="rounded-full px-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 hover:text-slate-900"
+                              onClick={handleRemovePendingVideo}
+                            >
+                              Remove
+                            </Button>
+                          </div>
+                          <p className="text-xs text-slate-500">
+                            Polaris encrypts the footage and extracts annotated frames before inspectors review it.
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="rounded-xl border border-dashed border-[#d8e4df] bg-white/70 p-4 text-xs text-slate-500">
+                          No walkthrough queued.
+                        </div>
+                      )}
+                      <div className="flex flex-wrap items-center gap-3">
+                        <Button
+                          type="button"
+                          onClick={handleSubmitVideoEvidence}
+                          disabled={!pendingVideo || isSubmittingVideo}
+                          className="flex-1 rounded-full bg-[#0f766e] px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_42px_-30px_rgba(15,118,110,0.45)] disabled:cursor-not-allowed disabled:opacity-60"
+                        >
+                          {isSubmittingVideo ? (
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          ) : null}
+                          Submit walkthrough for inspection
+                        </Button>
+                      </div>
+                      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#d8e4df] bg-[#f5faf7] p-4">
+                        <div className="max-w-[360px] space-y-1">
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                            Inspection evidence library
+                          </p>
+                          <p className="text-xs text-slate-500">
+                            Open the dedicated tab to review curated captures and analyzed frames.
                           </p>
                         </div>
                         <Button
                           type="button"
-                          variant="ghost"
+                          variant="outline"
                           size="sm"
-                          className="rounded-full px-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 hover:text-slate-900"
-                          onClick={handleRemovePendingVideo}
+                          className="rounded-full border-[#0f766e]/40 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+                          onClick={() => setAutomationTab("inspection-evidence")}
                         >
-                          Remove
+                          Go to library
                         </Button>
                       </div>
-                      <p className="text-xs text-slate-500">
-                        Polaris encrypts the footage and extracts annotated
-                        frames before inspectors review it.
-                      </p>
                     </div>
-                  ) : (
-                    <div className="rounded-xl border border-dashed border-[#d8e4df] bg-white/70 p-4 text-xs text-slate-500">
-                      No new walkthrough selected.
-                    </div>
-                  )}
-                  <div className="flex flex-wrap items-center gap-3">
-                    <Button
-                      type="button"
-                      onClick={handleSubmitVideoEvidence}
-                      disabled={!pendingVideo || isSubmittingVideo}
-                      className="flex-1 rounded-full bg-[#0f766e] px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_42px_-30px_rgba(15,118,110,0.45)] disabled:cursor-not-allowed disabled:opacity-60"
-                    >
-                      {isSubmittingVideo ? (
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      ) : null}
-                      Submit walkthrough for inspection
-                    </Button>
-                  </div>
-                  <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#d8e4df] bg-[#f5faf7] p-4">
-                    <div className="max-w-[360px] space-y-1">
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                        Inspection evidence library
-                      </p>
-                      <p className="text-xs text-slate-500">
-                        Open the dedicated tab to review curated captures and
-                        analyzed frames.
-                      </p>
-                    </div>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      className="rounded-full border-[#0f766e]/40 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
-                      onClick={() => setAutomationTab("inspection-evidence")}
-                    >
-                      Go to library
-                    </Button>
-                  </div>
-                </div>
-              </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
 
               <Accordion type="multiple" className="space-y-3">
                 <AccordionItem
