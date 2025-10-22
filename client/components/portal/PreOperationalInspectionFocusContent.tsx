@@ -978,12 +978,10 @@ export function PreOperationalInspectionFocusContent({
                 <div className="border-t border-[#d8e4df]/80 bg-[#f9fbfd] px-6 py-12">
                   <div className="mx-auto flex max-w-xl flex-col items-center gap-3 rounded-2xl border-2 border-dashed border-[#d8e4df] bg-white/70 p-8 text-center">
                     <p className="text-sm font-semibold text-slate-900">
-                      No walkthrough uploaded yet
+                      {getWalkthroughPlaceholderTitle(walkthroughStage)}
                     </p>
                     <p className="text-xs text-slate-500">
-                      Upload your pre-operational video walkthrough to unlock
-                      the inspection photo gallery. Polaris auto-populates
-                      frames once the footage syncs.
+                      {getWalkthroughPlaceholderDescription(walkthroughStage)}
                     </p>
                   </div>
                 </div>
