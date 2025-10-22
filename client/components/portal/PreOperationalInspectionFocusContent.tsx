@@ -1226,19 +1226,54 @@ export function PreOperationalInspectionFocusContent({
 function ChecklistItem({
   item,
   bankAccountPhase,
+  walkthroughStage,
+  hasInspectionApproval,
+  onDedInspection,
   onLinkAccount,
 }: {
   item: SubStep;
   bankAccountPhase: BankAccountPhase;
+  walkthroughStage: WalkthroughFlowStage;
+  hasInspectionApproval: boolean;
+  onDedInspection?: () => void;
   onLinkAccount: () => void;
 }) {
   const token = SUB_STEP_TOKENS[item.status];
   const isBankAccount = item.id === "bank-account";
+  const isDedMandatory = DED_MANDATORY_INSPECTION_ID_SET.has(item.id);
   const badgeLabel =
     isBankAccount && bankAccountPhase === "link" ? "Link account" : token.label;
 
+  const helperCopy = isBankAccount
+    ? bankAccountPhase === "link"
+      ? "Connect the account used for operations."
+      : token.label
+    : isDedMandatory
+      ? hasInspectionApproval
+        ? "Inspection walkthrough approved."
+        : walkthroughStage === "idle"
+          ? "Tap to launch the remote walkthrough and prep DED inspectors."
+          : walkthroughStage === "ready"
+            ? "Walkthrough complete. Polaris is packaging the inspection evidence for DED."
+            : "Remote walkthrough underway. Polaris is lining up DED bookings."
+      : token.label;
+
+  const isInteractive = isDedMandatory && Boolean(onDedInspection);
+  const CardElement = (isInteractive ? "button" : "div") as
+    | "button"
+    | "div";
+
   return (
-    <div className="flex flex-col gap-3 rounded-3xl border border-[#d8e4df] bg-white/95 p-5 shadow-[0_26px_60px_-52px_rgba(15,23,42,0.35)]">
+    <CardElement
+      type={isInteractive ? "button" : undefined}
+      onClick={isInteractive ? onDedInspection : undefined}
+      className={cn(
+        "flex flex-col gap-3 rounded-3xl border border-[#d8e4df] bg-white/95 p-5 text-left shadow-[0_26px_60px_-52px_rgba(15,23,42,0.35)]",
+        isInteractive
+          ? "transition hover:border-[#0f766e]/60 hover:shadow-[0_30px_70px_-48px_rgba(15,118,110,0.32)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0f766e]"
+          : undefined,
+      )}
+    >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex items-start gap-3">
           <span
@@ -1282,11 +1317,7 @@ function ChecklistItem({
                 ) : null}
               </p>
               <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
-                <span>
-                  {isBankAccount && bankAccountPhase === "link"
-                    ? "Connect the account used for operations."
-                    : token.label}
-                </span>
+                <span>{helperCopy}</span>
                 {item.isOptional ? (
                   <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
                     Optional
@@ -1339,6 +1370,6 @@ function ChecklistItem({
           {badgeLabel}
         </Badge>
       </div>
-    </div>
+    </CardElement>
   );
 }
