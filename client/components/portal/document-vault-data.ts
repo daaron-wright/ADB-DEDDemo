@@ -9,6 +9,8 @@ export const DOCUMENT_VAULT_IMAGE_URL =
 export const MOA_PREVIEW_IMAGE_URL =
   "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Ff6c45fad637f4b3ba637c5a69026ba4c?format=webp&width=1256";
 
+export const TENANCY_CONTRACT_IMAGE_URL = "/img/document_vault/tenancy-contract.svg";
+
 export const INITIAL_DOCUMENTS: DocumentVaultItem[] = [
   {
     id: "tenancy-contract",
@@ -21,6 +23,9 @@ export const INITIAL_DOCUMENTS: DocumentVaultItem[] = [
     actionLabel: "View contract",
     integrationBadge: "AD Connect",
     isExpanded: false,
+    previewImageUrl: TENANCY_CONTRACT_IMAGE_URL,
+    previewHref: TENANCY_CONTRACT_IMAGE_URL,
+    previewButtonLabel: "Open tenancy contract",
   },
   {
     id: "memorandum-of-association",
