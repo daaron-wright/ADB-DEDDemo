@@ -975,8 +975,7 @@ export function ComplianceGrowthFocusContent({
                   >
                     <span>
                       {GOLDEN_VISA_OVERVIEW.eligibleCount} of{" "}
-                      {GOLDEN_VISA_OVERVIEW.totalEmployees} team members
-                      flagged
+                      {GOLDEN_VISA_OVERVIEW.totalEmployees} team members flagged
                     </span>
                     <ChevronDown
                       className={cn(
@@ -1082,7 +1081,8 @@ export function ComplianceGrowthFocusContent({
                         Add another walkthrough
                       </span>
                       <span className="mt-1 text-sm text-slate-600">
-                        Polaris encrypts each submission and forwards it to inspectors once frames clear automation checks.
+                        Polaris encrypts each submission and forwards it to
+                        inspectors once frames clear automation checks.
                       </span>
                     </div>
                   </AccordionTrigger>
@@ -1118,7 +1118,8 @@ export function ComplianceGrowthFocusContent({
                                 {pendingVideo.name}
                               </p>
                               <p className="text-xs text-slate-500">
-                                {formatFileSize(pendingVideo.size)} • Ready for submission
+                                {formatFileSize(pendingVideo.size)} • Ready for
+                                submission
                               </p>
                             </div>
                             <Button
@@ -1132,7 +1133,8 @@ export function ComplianceGrowthFocusContent({
                             </Button>
                           </div>
                           <p className="text-xs text-slate-500">
-                            Polaris encrypts the footage and extracts annotated frames before inspectors review it.
+                            Polaris encrypts the footage and extracts annotated
+                            frames before inspectors review it.
                           </p>
                         </div>
                       ) : (
@@ -1159,7 +1161,8 @@ export function ComplianceGrowthFocusContent({
                             Inspection evidence library
                           </p>
                           <p className="text-xs text-slate-500">
-                            Open the dedicated tab to review curated captures and analyzed frames.
+                            Open the dedicated tab to review curated captures
+                            and analyzed frames.
                           </p>
                         </div>
                         <Button
@@ -1167,7 +1170,9 @@ export function ComplianceGrowthFocusContent({
                           variant="outline"
                           size="sm"
                           className="rounded-full border-[#0f766e]/40 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
-                          onClick={() => setAutomationTab("inspection-evidence")}
+                          onClick={() =>
+                            setAutomationTab("inspection-evidence")
+                          }
                         >
                           Go to library
                         </Button>

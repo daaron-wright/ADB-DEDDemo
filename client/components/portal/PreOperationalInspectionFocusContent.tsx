@@ -103,9 +103,7 @@ const getWalkthroughPlaceholderTitle = (stage: WalkthroughFlowStage) => {
   }
 };
 
-const getWalkthroughPlaceholderDescription = (
-  stage: WalkthroughFlowStage,
-) => {
+const getWalkthroughPlaceholderDescription = (stage: WalkthroughFlowStage) => {
   switch (stage) {
     case "confirm-location":
       return "Confirm the location so inspectors can trust the walkthrough feed.";
@@ -729,7 +727,8 @@ export function PreOperationalInspectionFocusContent({
                     Remote walkthrough
                   </p>
                   <p className="text-sm text-slate-600">
-                    Polaris orchestrates remote walkthroughs and syncs inspection evidence automatically.
+                    Polaris orchestrates remote walkthroughs and syncs
+                    inspection evidence automatically.
                   </p>
                 </div>
                 <div className="space-y-4">
@@ -739,7 +738,8 @@ export function PreOperationalInspectionFocusContent({
                         Stream video for the walkthrough inspection
                       </p>
                       <p className="text-xs text-slate-500">
-                        Start a remote session to capture your location and walkthrough footage in real time.
+                        Start a remote session to capture your location and
+                        walkthrough footage in real time.
                       </p>
                       <Button
                         type="button"
@@ -776,7 +776,10 @@ export function PreOperationalInspectionFocusContent({
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(15,118,110,0.12),_transparent_65%)]" />
                         <div className="absolute inset-0 grid grid-cols-8 grid-rows-8 opacity-30">
                           {Array.from({ length: 64 }).map((_, index) => (
-                            <span key={index} className="border border-white/40" />
+                            <span
+                              key={index}
+                              className="border border-white/40"
+                            />
                           ))}
                         </div>
                         <div className="absolute top-4 left-4 rounded-full bg-white/90 px-4 py-1 text-xs font-semibold text-slate-600 shadow-sm">
@@ -811,7 +814,8 @@ export function PreOperationalInspectionFocusContent({
                         </span>
                       </div>
                       <p className="text-sm text-slate-600">
-                        Polaris is capturing the live walkthrough feed from your inspector device.
+                        Polaris is capturing the live walkthrough feed from your
+                        inspector device.
                       </p>
                       <div className="h-2 w-full overflow-hidden rounded-full bg-[#94d2c2]/40">
                         <div className="h-full w-2/3 origin-left animate-pulse rounded-full bg-[#0f766e]" />
@@ -823,7 +827,8 @@ export function PreOperationalInspectionFocusContent({
                       <div className="flex items-center gap-3 text-[#0f766e]">
                         <Loader2 className="h-5 w-5 animate-spin" />
                         <span className="text-sm font-semibold">
-                          Analysing the uploads, this should only take a moment. Hang tight!
+                          Analysing the uploads, this should only take a moment.
+                          Hang tight!
                         </span>
                       </div>
                       <div className="space-y-2">
@@ -842,7 +847,8 @@ export function PreOperationalInspectionFocusContent({
                         </span>
                       </div>
                       <p className="text-sm text-slate-600">
-                        Polaris aligned the footage into shareable inspection key frames.
+                        Polaris aligned the footage into shareable inspection
+                        key frames.
                       </p>
                       <div className="flex flex-wrap gap-2">
                         <Button

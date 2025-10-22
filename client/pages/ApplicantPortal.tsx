@@ -479,8 +479,7 @@ const journeyStages: JourneyStage[] = [
       label: "Trade name approved",
       detail: "Pay reservation fee",
     },
-    description:
-      "Submit the approved trade name reservation and payment.",
+    description: "Submit the approved trade name reservation and payment.",
     state: "current",
     statusDetail: "Trade name reservation payment pending",
     tasks: [
@@ -623,7 +622,10 @@ const STAGE_PHASE_MAP: Record<string, JourneyPhaseId> = {
   "compliance-growth": "collaborate",
 };
 
-const PHASE_TOAST_COPY: Record<JourneyPhaseId, { title: string; helper: string }> = {
+const PHASE_TOAST_COPY: Record<
+  JourneyPhaseId,
+  { title: string; helper: string }
+> = {
   ideate: {
     title: "IDEATE",
     helper: "Shape your concept, AI intake, and automation setup",
@@ -1011,8 +1013,10 @@ export default function ApplicantPortal() {
     useState<ApplicationRecord["status"]>("In Review");
   const [applicationNextActionState, setApplicationNextActionState] =
     useState<ApplicationNextActionState>("default");
-  const [hasTradeNameReservationSubmitted, setHasTradeNameReservationSubmitted] =
-    useState(false);
+  const [
+    hasTradeNameReservationSubmitted,
+    setHasTradeNameReservationSubmitted,
+  ] = useState(false);
   const [hasLicenseIssued, setHasLicenseIssued] = useState(false);
   const [policyUpdateAcknowledged, setPolicyUpdateAcknowledged] =
     useState(false);
@@ -1147,8 +1151,8 @@ export default function ApplicantPortal() {
               Journey ID:
               <span className="ml-1 font-semibold text-slate-900">
                 {JOURNEY_NUMBER}
-              </span>
-              {" "}was generated based on your conversation with Polaris.
+              </span>{" "}
+              was generated based on your conversation with Polaris.
             </p>
           ) : null}
           <p className="font-semibold text-[#0f766e]">
@@ -1545,10 +1549,7 @@ export default function ApplicantPortal() {
     setApplicationStatus("Awaiting Documents");
     setApplicationNextActionState("default");
     handleViewJourney("document-submissions");
-  }, [
-    handleViewJourney,
-    hasTradeNameReservationSubmitted,
-  ]);
+  }, [handleViewJourney, hasTradeNameReservationSubmitted]);
 
   const handleLicenseIssued = useCallback(() => {
     setHasLicenseIssued(true);
@@ -1740,90 +1741,93 @@ export default function ApplicantPortal() {
   ]);
 
   const remainingTodoCount = useMemo(() => {
-  return todoBankItems.reduce((count, item) => {
-    return todoCompletionState[item.id] ? count : count + 1;
-  }, 0);
-}, [todoBankItems, todoCompletionState]);
+    return todoBankItems.reduce((count, item) => {
+      return todoCompletionState[item.id] ? count : count + 1;
+    }, 0);
+  }, [todoBankItems, todoCompletionState]);
 
-const activeNextAction = useMemo(() => {
-  return (
-    todoBankItems.find((item) => (todoCompletionState[item.id] ?? false) === false) ??
-    null
-  );
-}, [todoBankItems, todoCompletionState]);
+  const activeNextAction = useMemo(() => {
+    return (
+      todoBankItems.find(
+        (item) => (todoCompletionState[item.id] ?? false) === false,
+      ) ?? null
+    );
+  }, [todoBankItems, todoCompletionState]);
 
-const demoFocusKey = useMemo<"questionnaire" | "journey" | null>(() => {
-  if (!activeNextAction) {
-    return null;
-  }
+  const demoFocusKey = useMemo<"questionnaire" | "journey" | null>(() => {
+    if (!activeNextAction) {
+      return null;
+    }
 
-  const normalizedStageId = (activeNextAction.stageId ?? "").toLowerCase();
-  const normalizedStageTitle = (activeNextAction.stageTitle ?? "").toLowerCase();
+    const normalizedStageId = (activeNextAction.stageId ?? "").toLowerCase();
+    const normalizedStageTitle = (
+      activeNextAction.stageTitle ?? ""
+    ).toLowerCase();
 
-  if (
-    normalizedStageId === QUESTIONNAIRE_STAGE_ID ||
-    normalizedStageTitle === "questionnaire"
-  ) {
-    return "questionnaire";
-  }
+    if (
+      normalizedStageId === QUESTIONNAIRE_STAGE_ID ||
+      normalizedStageTitle === "questionnaire"
+    ) {
+      return "questionnaire";
+    }
 
-  return "journey";
-}, [activeNextAction]);
+    return "journey";
+  }, [activeNextAction]);
 
-const focusClasses = useMemo<DemoFocusClassMap>(() => {
-  const base: DemoFocusClassMap = {
-    hero: "",
-    filters: "",
-    summary: "",
-    questionnaire: "",
-    journeySection: "",
-    journeySummary: "",
-    journeyPanel: "",
-    questionnairePrimaryCta: "",
-    nextActionButton: "",
-  };
+  const focusClasses = useMemo<DemoFocusClassMap>(() => {
+    const base: DemoFocusClassMap = {
+      hero: "",
+      filters: "",
+      summary: "",
+      questionnaire: "",
+      journeySection: "",
+      journeySummary: "",
+      journeyPanel: "",
+      questionnairePrimaryCta: "",
+      nextActionButton: "",
+    };
 
-  if (!demoFocusKey) {
-    return base;
-  }
+    if (!demoFocusKey) {
+      return base;
+    }
 
-  const baseTransition = "transition duration-500 ease-out";
-  const dimClass = baseTransition;
-  const highlightPrimary = `${baseTransition} ring-2 ring-[#0f766e] ring-offset-2 ring-offset-[#f5f8f6] shadow-[0_26px_52px_-34px_rgba(11,64,55,0.42)]`;
-  const highlightSecondary = `${baseTransition} ring-1 ring-[#0f766e]/70 ring-offset-2 ring-offset-white shadow-[0_18px_40px_-28px_rgba(11,64,55,0.3)]`;
-  const highlightButton =
-    "border-transparent bg-[#0f766e] text-white shadow-[0_24px_48px_-28px_rgba(11,64,55,0.42)] hover:bg-[#0d5e57] focus-visible:ring-[#0f766e]/60";
-  const focusButton =
-    "bg-[#0f766e] text-white shadow-[0_22px_46px_-26px_rgba(11,64,55,0.4)] hover:bg-[#0d5e57] focus-visible:ring-[#0f766e]/60";
+    const baseTransition = "transition duration-500 ease-out";
+    const dimClass = baseTransition;
+    const highlightPrimary = `${baseTransition} ring-2 ring-[#0f766e] ring-offset-2 ring-offset-[#f5f8f6] shadow-[0_26px_52px_-34px_rgba(11,64,55,0.42)]`;
+    const highlightSecondary = `${baseTransition} ring-1 ring-[#0f766e]/70 ring-offset-2 ring-offset-white shadow-[0_18px_40px_-28px_rgba(11,64,55,0.3)]`;
+    const highlightButton =
+      "border-transparent bg-[#0f766e] text-white shadow-[0_24px_48px_-28px_rgba(11,64,55,0.42)] hover:bg-[#0d5e57] focus-visible:ring-[#0f766e]/60";
+    const focusButton =
+      "bg-[#0f766e] text-white shadow-[0_22px_46px_-26px_rgba(11,64,55,0.4)] hover:bg-[#0d5e57] focus-visible:ring-[#0f766e]/60";
 
-  if (demoFocusKey === "questionnaire") {
+    if (demoFocusKey === "questionnaire") {
+      return {
+        hero: dimClass,
+        filters: dimClass,
+        summary: dimClass,
+        questionnaire: highlightSecondary,
+        journeySection: "",
+        journeySummary: dimClass,
+        journeyPanel: highlightPrimary,
+        questionnairePrimaryCta: focusButton,
+        nextActionButton: "",
+      };
+    }
+
     return {
       hero: dimClass,
       filters: dimClass,
       summary: dimClass,
-      questionnaire: highlightSecondary,
-      journeySection: "",
-      journeySummary: dimClass,
+      questionnaire: dimClass,
+      journeySection: highlightSecondary,
+      journeySummary: highlightSecondary,
       journeyPanel: highlightPrimary,
-      questionnairePrimaryCta: focusButton,
-      nextActionButton: "",
+      questionnairePrimaryCta: "",
+      nextActionButton: highlightButton,
     };
-  }
+  }, [demoFocusKey]);
 
-  return {
-    hero: dimClass,
-    filters: dimClass,
-    summary: dimClass,
-    questionnaire: dimClass,
-    journeySection: highlightSecondary,
-    journeySummary: highlightSecondary,
-    journeyPanel: highlightPrimary,
-    questionnairePrimaryCta: "",
-    nextActionButton: highlightButton,
-  };
-}, [demoFocusKey]);
-
-const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
+  const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
     return journeyStages.map<JourneyTimelineItem>((stage) => {
       const resolvedState = stageProgress[stage.id] ?? deriveStageState(stage);
       const tokens = journeyHighlightTokens[resolvedState];
@@ -2244,7 +2248,8 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
       focusViewProps.onComplianceReturn = handleCompliancePassed;
       focusViewProps.isCompliancePassed = applicationStatus === "Compliant";
       focusViewProps.policyUpdateAcknowledged = policyUpdateAcknowledged;
-      focusViewProps.onPolicyUpdateAcknowledged = handlePolicyUpdateAcknowledged;
+      focusViewProps.onPolicyUpdateAcknowledged =
+        handlePolicyUpdateAcknowledged;
       focusViewProps.onExitJourney = handleExitJourneyFocus;
     }
 
@@ -2340,7 +2345,7 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
 
   const shouldShowLicenseDetails = hasQuestionnaireCompleted;
   const resolvedLicenseType = hasQuestionnaireCompleted
-    ? selectedLegalFormTitle ?? displayLicenseType
+    ? (selectedLegalFormTitle ?? displayLicenseType)
     : languageCopy.questionnaireOnboarding.pendingLicenseLabel;
   const licenseValueClass = cn(
     "mt-2 text-sm font-semibold text-slate-900",
@@ -2577,7 +2582,8 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
                     DED acknowledged your feedback
                   </AlertTitle>
                   <AlertDescription className="text-sm leading-relaxed text-[#0b7d6f]">
-                    DED has reviewed and adjusted the New Trade Name policy to incorporate your feedback on low-risk F&amp;B concepts.
+                    DED has reviewed and adjusted the New Trade Name policy to
+                    incorporate your feedback on low-risk F&amp;B concepts.
                   </AlertDescription>
                 </div>
               </Alert>
