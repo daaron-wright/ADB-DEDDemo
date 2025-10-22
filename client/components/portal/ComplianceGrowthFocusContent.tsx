@@ -956,9 +956,6 @@ export function ComplianceGrowthFocusContent({
                 <div className="space-y-3 rounded-2xl border border-[#94d2c2] bg-white p-4">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#94d2c2] bg-[#f5faf7] text-[#0f766e] shadow-[0_18px_42px_-30px_rgba(15,118,110,0.45)]">
-                        <Sparkles className="h-5 w-5" aria-hidden="true" />
-                      </span>
                       <span className="text-sm font-semibold text-[#0f766e]">
                         Golden Visa eligibility
                       </span>
