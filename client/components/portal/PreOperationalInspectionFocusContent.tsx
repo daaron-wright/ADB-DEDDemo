@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { cn } from "@/lib/utils";
 import { Check, Loader2, MapPin, Radio, RefreshCw, Video } from "lucide-react";
 
