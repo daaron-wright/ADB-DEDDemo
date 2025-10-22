@@ -316,7 +316,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       resumeCta: "Open questionnaire workspace",
       completeCta: "Mark questionnaire as complete",
       pendingLicenseLabel: "Available after questionnaire",
-      pendingSubmissionLabel: "",
+      pendingSubmissionLabel: "0987654321",
       chatIntro:
         "Let's confirm a few details together. Once we finish this intake, I'll publish your license type and submission ID.",
     },
@@ -363,10 +363,10 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيق��م مساعد الذكاء الاصطناعي تلق��ئيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فو�� تسجيل ��قدك.",
+      "سيق��م مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فو�� تسجيل ��قدك.",
     businessAITitle: "بولاريس",
     businessActivityGuidance:
-      "يمكن�� اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
+      "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أنشطة في رخصة تجارية واحدة.",
     businessActivityGuidanceLabel:
       "أضيفي إرشادات الترخيص إلى استبيان ��لأنشطة ال��جارية",
     statusLabelMap: {
@@ -412,7 +412,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "تم إكمال كل المهام لهذه ا��مرحلة. راقب�� تحديثات الأتمتة.",
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة ال��ال��ة",
-      reviewStage: "اس����رضي المرحلة",
+      reviewStage: "اس��عرضي المرحلة",
       timelineAriaLabel: "التنقل ��ين مراحل ا��رحلة",
     },
     questionnaireOnboarding: {
@@ -431,7 +431,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       pendingLicenseLabel: "م��اح بعد الاستبيان",
       pendingSubmissionLabel: "",
       chatIntro:
-        "لنؤكد بعض التفاصي�� معًا. بع�� إنها�� هذا الاستبيان، سأعرض نوع التر����يص ومعرّف ا��طلب.",
+        "لنؤكد بعض التفاصي�� معًا. بع�� إنها�� هذا الاستبيان، سأعرض نوع التر��يص ومعرّف ا��طلب.",
     },
   },
 };
