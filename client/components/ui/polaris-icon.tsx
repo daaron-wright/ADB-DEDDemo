@@ -2,21 +2,36 @@ import { cn } from "@/lib/utils";
 
 export interface PolarisIconProps extends React.SVGAttributes<SVGSVGElement> {
   variant?: "default" | "badge";
+  scale?: number;
 }
 
 export function PolarisIcon({
   className,
   variant = "default",
+  scale = 1.65,
+  style,
   ...props
 }: PolarisIconProps) {
   const sizeClasses = variant === "badge" ? "h-14 w-14" : "h-16 w-16";
+  const transformValue =
+    scale !== 1
+      ? `${scale ? `scale(${scale})` : ""}${style?.transform ? ` ${style.transform}` : ""}`.trim()
+      : style?.transform;
+  const mergedStyle = {
+    ...style,
+    ...(transformValue ? { transform: transformValue } : {}),
+    ...(scale !== 1 && !style?.transformOrigin
+      ? { transformOrigin: "center" as const }
+      : {}),
+  };
 
   return (
     <svg
       viewBox="0 0 64 64"
       fill="none"
-      className={cn("shrink-0", sizeClasses, className)}
+      className={cn("shrink-0 origin-center", sizeClasses, className)}
       aria-hidden="true"
+      style={mergedStyle}
       {...props}
     >
       <defs>
