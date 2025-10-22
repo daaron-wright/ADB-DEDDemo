@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AIBusinessOrb } from "@/components/ui/ai-business-orb";
 import { cn } from "@/lib/utils";
-import { Check, Loader2 } from "lucide-react";
+import { Check, Loader2, MapPin, Radio, RefreshCw, Video } from "lucide-react";
 
 import { StageSlideNavigator, type StageSlide } from "./StageSlideNavigator";
 import { MARWA_DISPLAY_NAME_EN } from "./trade-name-constants";
@@ -31,7 +31,12 @@ type SubStepStatus =
   | "account_linked";
 
 type BankAccountPhase = "link" | "in_progress" | "account_linked";
-type WalkthroughSyncStatus = "idle" | "processing" | "ready";
+type WalkthroughFlowStage =
+  | "idle"
+  | "confirm-location"
+  | "streaming"
+  | "analyzing"
+  | "ready";
 
 interface SubStep {
   id: string;
