@@ -1,3 +1,4 @@
+import { PolarisIcon } from "@/components/ui/polaris-icon";
 import { cn } from "@/lib/utils";
 
 interface AIBusinessOrbProps {
@@ -15,7 +16,7 @@ export function AIBusinessOrb({
     <span
       aria-hidden="true"
       className={cn(
-        "relative inline-flex h-12 w-12 items-center justify-center rounded-full bg-white",
+        "relative inline-flex h-12 w-12 items-center justify-center overflow-visible rounded-full bg-white",
         "ring-1 ring-neutral-200",
         className,
       )}
@@ -24,7 +25,9 @@ export function AIBusinessOrb({
         <span className="relative text-[11px] font-semibold uppercase tracking-[0.42em] text-neutral-600">
           {label}
         </span>
-      ) : null}
+      ) : (
+        <PolarisIcon className="h-full w-full" scale={1.65} />
+      )}
     </span>
   );
 }
