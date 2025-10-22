@@ -877,10 +877,10 @@ export function ComplianceGrowthFocusContent({
                         </div>
                       </div>
                       {isEmploymentVisa ? (
-                        <div className="space-y-3 rounded-2xl border border-[#94d2c2] bg-white p-4">
+                        <div className="space-y-3 border-t border-dashed border-[#d8e4df] pt-4">
                           <div className="flex flex-wrap items-center justify-between gap-3">
-                            <span className="text-sm font-semibold text-[#0f766e]">
-                              Golden Visa eligibility
+                            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                              Golden Visa insights
                             </span>
                             <Badge className="rounded-full border border-[#94d2c2]/70 bg-[#eaf7f3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
                               INFORMATIONAL
@@ -891,7 +891,7 @@ export function ComplianceGrowthFocusContent({
                             onClick={() =>
                               setIsGoldenVisaExpanded((previous) => !previous)
                             }
-                            className="flex w-full items-center justify-between gap-3 rounded-2xl border border-[#94d2c2] bg-white px-4 py-3 text-left text-sm font-semibold text-[#0f766e] transition hover:bg-[#f5faf7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#94d2c2]"
+                            className="flex w-full items-center justify-between gap-3 rounded-2xl bg-[#f5faf7] px-4 py-3 text-left text-sm font-semibold text-[#0f766e] transition hover:bg-[#ecf7f3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#94d2c2]"
                             aria-expanded={isGoldenVisaExpanded}
                             aria-controls={goldenVisaPanelId}
                           >
@@ -913,7 +913,7 @@ export function ComplianceGrowthFocusContent({
                           {isGoldenVisaExpanded ? (
                             <div
                               id={goldenVisaPanelId}
-                              className="space-y-4 rounded-2xl border border-[#94d2c2] bg-white p-4 text-sm leading-relaxed text-slate-600"
+                              className="space-y-4 rounded-2xl border border-[#94d2c2]/70 bg-white p-4 text-sm leading-relaxed text-slate-600"
                             >
                               <div className="grid gap-3 sm:grid-cols-3">
                                 <div className="rounded-xl border border-[#94d2c2]/70 bg-white px-4 py-3 text-center">
