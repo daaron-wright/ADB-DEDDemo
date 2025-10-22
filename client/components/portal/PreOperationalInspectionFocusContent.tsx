@@ -276,8 +276,52 @@ export function PreOperationalInspectionFocusContent({
   }, [galleryLength]);
 
   React.useEffect(() => {
+    if (walkthroughStage !== "streaming") {
+      return;
+    }
+
+    if (streamingTimerRef.current) {
+      window.clearTimeout(streamingTimerRef.current);
+    }
+
+    const timer = window.setTimeout(() => {
+      setWalkthroughStage("analyzing");
+      streamingTimerRef.current = null;
+    }, 2000);
+
+    streamingTimerRef.current = timer;
+
+    return () => {
+      window.clearTimeout(timer);
+      streamingTimerRef.current = null;
+    };
+  }, [walkthroughStage]);
+
+  React.useEffect(() => {
+    if (walkthroughStage !== "analyzing") {
+      return;
+    }
+
+    if (analyzingTimerRef.current) {
+      window.clearTimeout(analyzingTimerRef.current);
+    }
+
+    const timer = window.setTimeout(() => {
+      setWalkthroughStage("ready");
+      analyzingTimerRef.current = null;
+    }, 2200);
+
+    analyzingTimerRef.current = timer;
+
+    return () => {
+      window.clearTimeout(timer);
+      analyzingTimerRef.current = null;
+    };
+  }, [walkthroughStage]);
+
+  React.useEffect(() => {
     if (
-      walkthroughStatus !== "ready" ||
+      walkthroughStage !== "ready" ||
       hasInspectionApproval ||
       galleryLength === 0
     ) {
@@ -303,19 +347,20 @@ export function PreOperationalInspectionFocusContent({
       galleryTimerRef.current = null;
     };
   }, [
-    walkthroughStatus,
+    walkthroughStage,
     hasInspectionApproval,
     galleryLength,
     handleAdvanceGallery,
   ]);
 
   React.useEffect(() => {
-    if (walkthroughStatus !== "ready") {
-      setReviewedImageIndices(() => new Set<number>());
-      setHasInspectionApproval(false);
-      setActiveGalleryIndex(0);
+    if (walkthroughStage === "ready") {
+      return;
     }
-  }, [walkthroughStatus]);
+    setReviewedImageIndices(() => new Set<number>());
+    setHasInspectionApproval(false);
+    setActiveGalleryIndex(0);
+  }, [walkthroughStage]);
 
   React.useEffect(() => {
     if (
