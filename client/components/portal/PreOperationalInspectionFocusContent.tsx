@@ -340,9 +340,6 @@ export function PreOperationalInspectionFocusContent({
         }),
       );
       setBankAccountPhase("account_linked");
-      setActiveSlideId((current) =>
-        current === "overview" ? current : "automation",
-      );
     }, 800);
 
     return () => {
