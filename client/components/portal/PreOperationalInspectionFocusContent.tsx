@@ -966,7 +966,9 @@ export function PreOperationalInspectionFocusContent({
                         ? "Awaiting final DED confirmation."
                         : walkthroughStage === "idle"
                           ? "Kick off the remote walkthrough so Polaris can prep the inspectors."
-                          : "Polaris is processing your walkthrough and lining up the DED bookings.";
+                          : walkthroughStage === "ready"
+                            ? "Walkthrough complete. Polaris is packaging the inspection evidence for DED."
+                            : "Polaris is processing your walkthrough and lining up the DED bookings.";
                       const isDisabled = walkthroughStage !== "idle";
 
                       return (
