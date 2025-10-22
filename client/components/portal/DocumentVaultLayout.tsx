@@ -81,18 +81,14 @@ export function DocumentVaultLayout({
             <p className="text-xs text-slate-600">{statusDescription}</p>
           </div>
           <div className="flex items-center gap-2 self-start sm:self-auto">
-            {activeDocument?.id === TRADE_NAME_RECEIPT_DOCUMENT_ID ? (
+            {previewHref ? (
               <Button
                 asChild
                 size="sm"
                 className="rounded-full bg-[#0f766e] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white hover:bg-[#0c6059]"
               >
-                <a
-                  href={TRADE_NAME_RECEIPT_IMAGE_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Open digital receipt
+                <a href={previewHref} target="_blank" rel="noreferrer">
+                  {previewButtonLabel}
                 </a>
               </Button>
             ) : null}
