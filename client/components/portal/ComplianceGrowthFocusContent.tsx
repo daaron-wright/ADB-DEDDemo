@@ -485,6 +485,8 @@ export function ComplianceGrowthFocusContent({
   const [isSubmittingVideo, setIsSubmittingVideo] = React.useState(false);
   const [automationTab, setAutomationTab] =
     React.useState<AutomationTabValue>("overview");
+  const [authorityTab, setAuthorityTab] =
+    React.useState<AuthorityTabValue>("overview");
   const frameTimersRef = React.useRef<number[]>([]);
   const [activeOpportunityMessage, setActiveOpportunityMessage] =
     React.useState<{ id: string; message: string } | null>(null);
