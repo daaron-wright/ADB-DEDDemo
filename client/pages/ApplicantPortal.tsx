@@ -2331,9 +2331,7 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
   const resolvedLicenseType = shouldShowLicenseDetails
     ? displayLicenseType
     : languageCopy.questionnaireOnboarding.pendingLicenseLabel;
-  const resolvedSubmissionId = shouldShowLicenseDetails
-    ? `Submission ID ${primaryApplication.id}`
-    : languageCopy.questionnaireOnboarding.pendingSubmissionLabel;
+  const resolvedSubmissionId = JOURNEY_NUMBER;
   const licenseValueClass = cn(
     "mt-2 text-sm font-semibold text-slate-900",
     !shouldShowLicenseDetails && "text-slate-400",
