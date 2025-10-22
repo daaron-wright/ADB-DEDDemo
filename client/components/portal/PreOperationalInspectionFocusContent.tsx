@@ -728,18 +728,29 @@ export function PreOperationalInspectionFocusContent({
               authority. Review any items that need your input.
             </p>
             <div className="space-y-3">
-              {requiredItems.map((item) => (
-                <ChecklistItem
-                  key={item.id}
-                  item={item}
-                  bankAccountPhase={bankAccountPhase}
-                  onLinkAccount={() => {
-                    if (bankAccountPhase === "link") {
-                      handleBankAccountAdvance();
-                    }
-                  }}
-                />
-              ))}
+              {requiredItems.map((item) => {
+                const onDedInspection = DED_MANDATORY_INSPECTION_ID_SET.has(
+                  item.id,
+                )
+                  ? () => handleDedInspectionPreparation()
+                  : undefined;
+
+                return (
+                  <ChecklistItem
+                    key={item.id}
+                    item={item}
+                    bankAccountPhase={bankAccountPhase}
+                    walkthroughStage={walkthroughStage}
+                    hasInspectionApproval={hasInspectionApproval}
+                    onDedInspection={onDedInspection}
+                    onLinkAccount={() => {
+                      if (bankAccountPhase === "link") {
+                        handleBankAccountAdvance();
+                      }
+                    }}
+                  />
+                );
+              })}
             </div>
             {optionalItems.length > 0 ? (
               <div className="rounded-3xl border border-[#d8e4df] bg-[#f8fbfa] p-5 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
