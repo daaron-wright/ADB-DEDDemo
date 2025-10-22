@@ -485,6 +485,9 @@ export function ComplianceGrowthFocusContent({
   const frameTimersRef = React.useRef<number[]>([]);
   const [activeOpportunityMessage, setActiveOpportunityMessage] =
     React.useState<{ id: string; message: string } | null>(null);
+  const [isGoldenVisaExpanded, setIsGoldenVisaExpanded] =
+    React.useState(false);
+  const goldenVisaPanelId = React.useId();
 
   React.useEffect(() => {
     if (activeSlideId !== "automation") {
