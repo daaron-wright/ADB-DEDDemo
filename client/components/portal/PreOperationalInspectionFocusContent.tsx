@@ -215,7 +215,6 @@ export function PreOperationalInspectionFocusContent({
     React.useState(false);
   const [activeSlideId, setActiveSlideId] =
     React.useState<StageSlide["id"]>("overview");
-  const hasAutomationAvatar = POLARIS_AUTOMATION_AVATAR_URL.length > 0;
   const galleryLength = PREOP_INSPECTION_IMAGES.length;
 
   const handleStreamInitiate = React.useCallback(() => {
