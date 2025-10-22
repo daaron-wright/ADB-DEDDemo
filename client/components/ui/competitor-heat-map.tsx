@@ -30,21 +30,28 @@ const filterOptions: Array<{
   {
     id: "relevant",
     label: "Relevant to my business concept (Emirati Fusion)",
-    description: "Pins that mirror Layla's experiential Emirati fusion positioning.",
+    description:
+      "Pins that mirror Layla's experiential Emirati fusion positioning.",
   },
   {
     id: "highDemand",
     label: "High demand / Trendy",
-    description: "Venues trending across social chatter and high booking momentum.",
+    description:
+      "Venues trending across social chatter and high booking momentum.",
   },
 ];
 
-const metricOrder: CompetitorMetricId[] = ["googleRating", "socialBuzz", "sentiment"];
+const metricOrder: CompetitorMetricId[] = [
+  "googleRating",
+  "socialBuzz",
+  "sentiment",
+];
 
 const mapBackgroundImage =
   "https://api.builder.io/api/v1/image/assets/TEMP/436526069b5bab3e7ba658945420b54fe23552ba?width=2048";
 
-const formatPosition = (value: number) => `${Math.min(Math.max(value, 4), 96)}%`;
+const formatPosition = (value: number) =>
+  `${Math.min(Math.max(value, 4), 96)}%`;
 
 const hotspotPalettes = {
   highDemandRelevant: {
@@ -69,7 +76,7 @@ const hotspotPalettes = {
   },
 } as const;
 
-type HotspotPalette = typeof hotspotPalettes[keyof typeof hotspotPalettes];
+type HotspotPalette = (typeof hotspotPalettes)[keyof typeof hotspotPalettes];
 
 const getHotspotPalette = (point: CompetitorPoint): HotspotPalette => {
   const hasRelevant = point.attributes.includes("relevant");
@@ -88,14 +95,20 @@ const getHotspotPalette = (point: CompetitorPoint): HotspotPalette => {
 };
 
 const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
-  const [activeFilters, setActiveFilters] = useState<Record<CompetitorFilter, boolean>>({
+  const [activeFilters, setActiveFilters] = useState<
+    Record<CompetitorFilter, boolean>
+  >({
     relevant: false,
     highDemand: false,
   });
-  const [activePointId, setActivePointId] = useState<string>(competitorMapPoints[0]?.id ?? "");
+  const [activePointId, setActivePointId] = useState<string>(
+    competitorMapPoints[0]?.id ?? "",
+  );
 
   const filteredPoints = useMemo(() => {
-    const selectedFilters = (Object.entries(activeFilters) as Array<[CompetitorFilter, boolean]>)
+    const selectedFilters = (
+      Object.entries(activeFilters) as Array<[CompetitorFilter, boolean]>
+    )
       .filter(([, isActive]) => isActive)
       .map(([filterId]) => filterId);
 
@@ -116,7 +129,9 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
       return;
     }
 
-    const stillVisible = filteredPoints.some((point) => point.id === activePointId);
+    const stillVisible = filteredPoints.some(
+      (point) => point.id === activePointId,
+    );
     if (!stillVisible) {
       setActivePointId(filteredPoints[0].id);
     }
@@ -126,7 +141,10 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
     if (filteredPoints.length === 0) {
       return null;
     }
-    return filteredPoints.find((point) => point.id === activePointId) ?? filteredPoints[0];
+    return (
+      filteredPoints.find((point) => point.id === activePointId) ??
+      filteredPoints[0]
+    );
   }, [filteredPoints, activePointId]);
 
   const toggleFilter = (filterId: CompetitorFilter) => {
@@ -154,17 +172,22 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
 
       <header className="relative z-10 flex items-center justify-between border-b border-[#d8e4df] bg-white/90 px-6 py-4 backdrop-blur">
         <div className="space-y-1">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">Investor Compass</p>
-          <h2 className="text-lg font-semibold text-slate-900">Corniche competitive landscape</h2>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+            Investor Compass
+          </p>
+          <h2 className="text-lg font-semibold text-slate-900">
+            Corniche competitive landscape
+          </h2>
           <p className="text-xs text-slate-600">
-            Analyze Investor Compass signals to locate white space across Corniche waterfront dining.
+            Analyze Investor Compass signals to locate white space across
+            Corniche waterfront dining.
           </p>
         </div>
         <button
           type="button"
           onClick={onBack}
           className="inline-flex items-center gap-2 rounded-full border border-[#d8e4df] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#0F766E] shadow-sm transition hover:bg-[#eff6f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E]/40"
->
+        >
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           Back to summary
         </button>
@@ -195,11 +218,13 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                   Corniche map view
                 </h3>
                 <p className="text-xs text-white/70">
-                  Pins surface Investor Compass insight for waterfront competitors meeting Layla&apos;s filters.
+                  Pins surface Investor Compass insight for waterfront
+                  competitors meeting Layla&apos;s filters.
                 </p>
               </div>
               <div className="text-right text-xs text-white/70">
-                {filteredPoints.length} of {competitorMapPoints.length} venues shown
+                {filteredPoints.length} of {competitorMapPoints.length} venues
+                shown
               </div>
             </div>
 
@@ -274,7 +299,6 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                   </div>
                 </div>
               )}
-
             </div>
           </div>
         </div>
@@ -286,9 +310,12 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                 <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
                   Filter competitors
                 </p>
-                <h3 className="mt-1 text-xl font-semibold text-slate-900">Surface white space</h3>
+                <h3 className="mt-1 text-xl font-semibold text-slate-900">
+                  Surface white space
+                </h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Select the attributes that matter most to Layla&apos;s concept to narrow in on comparable venues.
+                  Select the attributes that matter most to Layla&apos;s concept
+                  to narrow in on comparable venues.
                 </p>
               </div>
 
@@ -338,8 +365,12 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                         </svg>
                       </span>
                       <span className="flex-1">
-                        <span className="text-sm font-semibold text-slate-900">{option.label}</span>
-                        <p className="text-xs text-slate-500">{option.description}</p>
+                        <span className="text-sm font-semibold text-slate-900">
+                          {option.label}
+                        </span>
+                        <p className="text-xs text-slate-500">
+                          {option.description}
+                        </p>
                       </span>
                       <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0F766E]">
                         {matches}
@@ -378,17 +409,27 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                         <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#0F766E]">
                           Investor Compass signals
                         </p>
-                        <h4 className="text-lg font-semibold text-slate-900">{activePoint.name}</h4>
-                        <p className="text-xs text-slate-500">{activePoint.location}</p>
+                        <h4 className="text-lg font-semibold text-slate-900">
+                          {activePoint.name}
+                        </h4>
+                        <p className="text-xs text-slate-500">
+                          {activePoint.location}
+                        </p>
                       </div>
                       <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0F766E] shadow">
                         {activePoint.cuisine}
                       </span>
                     </div>
 
-                    <p className="text-sm leading-relaxed text-slate-600">{activePoint.summary}</p>
+                    <p className="text-sm leading-relaxed text-slate-600">
+                      {activePoint.summary}
+                    </p>
 
-                    <Accordion type="multiple" defaultValue={[]} className="space-y-3">
+                    <Accordion
+                      type="multiple"
+                      defaultValue={[]}
+                      className="space-y-3"
+                    >
                       {metricOrder.map((metricId) => {
                         const metric = activePoint.metrics[metricId];
                         const meta = competitorMetricsMeta[metricId];
@@ -413,9 +454,15 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                               </span>
                             </AccordionTrigger>
                             <AccordionContent className="border-t border-[#e2ece8] bg-white px-4 py-3 text-sm text-slate-600">
-                              <p className="font-medium text-slate-800">{metric.description}</p>
-                              <p className="mt-2 text-xs uppercase tracking-[0.18em] text-slate-400">{meta.legend}</p>
-                              <p className="mt-1 text-xs text-slate-500">{meta.subtitle}</p>
+                              <p className="font-medium text-slate-800">
+                                {metric.description}
+                              </p>
+                              <p className="mt-2 text-xs uppercase tracking-[0.18em] text-slate-400">
+                                {meta.legend}
+                              </p>
+                              <p className="mt-1 text-xs text-slate-500">
+                                {meta.subtitle}
+                              </p>
                             </AccordionContent>
                           </AccordionItem>
                         );
@@ -432,13 +479,19 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                     </div>
 
                     <p className="text-xs text-slate-500">
-                      Locations refresh directly from the Investor Compass explorer every 48 hours.
+                      Locations refresh directly from the Investor Compass
+                      explorer every 48 hours.
                     </p>
                   </div>
                 ) : (
                   <div className="space-y-2 text-sm text-slate-600">
-                    <p>Filters removed all visible competitors. Reset to review the full landscape.</p>
-                    <p className="text-xs text-slate-500">Investor Compass sync resumes once filters are cleared.</p>
+                    <p>
+                      Filters removed all visible competitors. Reset to review
+                      the full landscape.
+                    </p>
+                    <p className="text-xs text-slate-500">
+                      Investor Compass sync resumes once filters are cleared.
+                    </p>
                   </div>
                 )}
               </div>
@@ -469,8 +522,12 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                           )}
                         >
                           <span className="flex-1">
-                            <span className="block font-semibold">{point.name}</span>
-                            <span className="text-xs text-slate-500">{point.location}</span>
+                            <span className="block font-semibold">
+                              {point.name}
+                            </span>
+                            <span className="text-xs text-slate-500">
+                              {point.location}
+                            </span>
                           </span>
                           <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0F766E]">
                             View
@@ -480,7 +537,8 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                     })
                   ) : (
                     <div className="rounded-xl border border-dashed border-[#d0e2dd] bg-white/70 px-3 py-4 text-center text-xs text-slate-500">
-                      No venues meet the selected criteria yet. Widen your filters to continue the journey before budgeting.
+                      No venues meet the selected criteria yet. Widen your
+                      filters to continue the journey before budgeting.
                     </div>
                   )}
                 </div>
