@@ -31,7 +31,8 @@ export function DocumentVaultLayout({
   className,
   activeDocument,
 }: DocumentVaultLayoutProps) {
-  let previewImageSrc = activeDocument?.previewImageUrl ?? DOCUMENT_VAULT_IMAGE_URL;
+  let previewImageSrc =
+    activeDocument?.previewImageUrl ?? DOCUMENT_VAULT_IMAGE_URL;
 
   if (!activeDocument?.previewImageUrl) {
     if (activeDocument?.id === "memorandum-of-association") {
@@ -45,7 +46,8 @@ export function DocumentVaultLayout({
     ? `${activeDocument.title} preview`
     : "Documents syncing in the vault";
 
-  const previewHref = activeDocument?.previewHref ??
+  const previewHref =
+    activeDocument?.previewHref ??
     (activeDocument?.id === TRADE_NAME_RECEIPT_DOCUMENT_ID
       ? TRADE_NAME_RECEIPT_IMAGE_URL
       : undefined);
@@ -54,7 +56,7 @@ export function DocumentVaultLayout({
     activeDocument?.previewButtonLabel ??
     (activeDocument?.id === TRADE_NAME_RECEIPT_DOCUMENT_ID
       ? "Open digital receipt"
-      : activeDocument?.actionLabel ?? "Open document");
+      : (activeDocument?.actionLabel ?? "Open document"));
 
   return (
     <div

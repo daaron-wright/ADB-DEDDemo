@@ -77,7 +77,14 @@ export function DocumentVaultCard({
             >
               {item.title}
             </p>
-            <p className={cn("text-xs", isCompleted ? "text-slate-400" : "text-slate-500")}>{item.source}</p>
+            <p
+              className={cn(
+                "text-xs",
+                isCompleted ? "text-slate-400" : "text-slate-500",
+              )}
+            >
+              {item.source}
+            </p>
           </div>
         </div>
         <Badge
@@ -91,12 +98,21 @@ export function DocumentVaultCard({
           {isCompleted ? "Stored" : token.label}
         </Badge>
       </div>
-      <p className={cn("text-sm", isCompleted ? "text-slate-500" : "text-slate-600")}>{item.description}</p>
+      <p
+        className={cn(
+          "text-sm",
+          isCompleted ? "text-slate-500" : "text-slate-600",
+        )}
+      >
+        {item.description}
+      </p>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <span
           className={cn(
             "inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-            isCompleted ? "border-[#d8e4df] bg-white text-slate-400" : "border-[#0f766e]/30 bg-[#0f766e]/5 text-[#0f766e]",
+            isCompleted
+              ? "border-[#d8e4df] bg-white text-slate-400"
+              : "border-[#0f766e]/30 bg-[#0f766e]/5 text-[#0f766e]",
           )}
         >
           {item.integrationBadge}

@@ -871,7 +871,9 @@ export function ComplianceGrowthFocusContent({
                               {token.badgeLabel}
                             </Badge>
                           </div>
-                          <p className="text-xs text-slate-500">{item.detail}</p>
+                          <p className="text-xs text-slate-500">
+                            {item.detail}
+                          </p>
                         </div>
                       </div>
                       {isEmploymentVisa ? (
@@ -895,12 +897,15 @@ export function ComplianceGrowthFocusContent({
                           >
                             <span>
                               {GOLDEN_VISA_OVERVIEW.eligibleCount} of{" "}
-                              {GOLDEN_VISA_OVERVIEW.totalEmployees} team members flagged
+                              {GOLDEN_VISA_OVERVIEW.totalEmployees} team members
+                              flagged
                             </span>
                             <ChevronDown
                               className={cn(
                                 "h-4 w-4 text-[#0f766e] transition-transform",
-                                isGoldenVisaExpanded ? "rotate-180" : "rotate-0",
+                                isGoldenVisaExpanded
+                                  ? "rotate-180"
+                                  : "rotate-0",
                               )}
                               aria-hidden="true"
                             />
@@ -947,14 +952,18 @@ export function ComplianceGrowthFocusContent({
                               </div>
                               <ul className="space-y-2 text-left">
                                 {GOLDEN_VISA_OVERVIEW.summary.map((line) => (
-                                  <li key={line} className="flex items-start gap-2">
+                                  <li
+                                    key={line}
+                                    className="flex items-start gap-2"
+                                  >
                                     <span className="mt-1 inline-flex h-1.5 w-1.5 rounded-full bg-[#0f766e]" />
                                     <span>{line}</span>
                                   </li>
                                 ))}
                               </ul>
                               <div className="rounded-xl border border-[#94d2c2]/70 bg-[#f5faf7] px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                                Polaris keeps Golden Visa eligibility in sync with residency checks.
+                                Polaris keeps Golden Visa eligibility in sync
+                                with residency checks.
                               </div>
                             </div>
                           ) : null}
