@@ -971,9 +971,7 @@ export function PreOperationalInspectionFocusContent({
                           : walkthroughStage === "ready"
                             ? "Walkthrough complete. Polaris is packaging the inspection evidence for DED."
                             : "Polaris is processing your walkthrough and lining up the DED bookings.";
-                      const isDisabled =
-                        walkthroughStage !== "idle" ||
-                        bankAccountPhase !== "account_linked";
+                      const isDisabled = false;
 
                       return (
                         <button
