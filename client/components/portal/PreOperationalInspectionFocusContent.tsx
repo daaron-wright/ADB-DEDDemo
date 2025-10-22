@@ -810,7 +810,7 @@ export function PreOperationalInspectionFocusContent({
                               <MapPin className="h-5 w-5" />
                             </span>
                             <span className="rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
-                              Polaris anchor
+                              {WALKTHROUGH_LOCATION.coordinates}
                             </span>
                           </div>
                         </div>
