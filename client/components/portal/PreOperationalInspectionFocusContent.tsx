@@ -273,6 +273,20 @@ export function PreOperationalInspectionFocusContent({
 
   const handleDedInspectionPreparation = React.useCallback(() => {
     setActiveSlideId("automation");
+    setChecklistItems((previous) => {
+      let changed = false;
+      const updated = previous.map((item) => {
+        if (!DED_MANDATORY_INSPECTION_ID_SET.has(item.id)) {
+          return item;
+        }
+        if (item.status === "in_progress" || item.status === "completed") {
+          return item;
+        }
+        changed = true;
+        return { ...item, status: "in_progress" };
+      });
+      return changed ? updated : previous;
+    });
     if (walkthroughStage === "idle") {
       handleStreamInitiate();
     }
@@ -447,8 +461,11 @@ export function PreOperationalInspectionFocusContent({
         if (!DED_MANDATORY_INSPECTION_ID_SET.has(item.id)) {
           return item;
         }
-        const desiredStatus =
-          walkthroughStage === "idle" ? "pending" : "in_progress";
+        const desiredStatus: SubStepStatus = hasInspectionApproval
+          ? "completed"
+          : walkthroughStage === "idle"
+            ? "pending"
+            : "in_progress";
         if (item.status === desiredStatus) {
           return item;
         }
@@ -457,7 +474,7 @@ export function PreOperationalInspectionFocusContent({
       });
       return changed ? updated : previous;
     });
-  }, [walkthroughStage]);
+  }, [walkthroughStage, hasInspectionApproval]);
 
   React.useEffect(() => {
     if (
