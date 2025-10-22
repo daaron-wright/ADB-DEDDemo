@@ -117,6 +117,11 @@ const DED_INSPECTION_RESULT_AREAS = [
   },
 ] as const;
 
+const DED_MANDATORY_INSPECTION_IDS = [
+  "ded-signboard",
+  "ded-premise",
+] as const;
+
 const getWalkthroughPlaceholderTitle = (stage: WalkthroughFlowStage) => {
   switch (stage) {
     case "confirm-location":
