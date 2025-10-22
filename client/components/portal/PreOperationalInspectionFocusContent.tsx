@@ -89,11 +89,6 @@ const PREOP_INSPECTION_IMAGES = [
   },
 ] as const;
 
-const MEGABYTE = 1024 * 1024;
-const MAX_WALKTHROUGH_SIZE_BYTES = 2 * 1024 * 1024 * 1024;
-const formatWalkthroughSize = (bytes: number) =>
-  `${(bytes / MEGABYTE).toFixed(2)} MB`;
-
 const INITIAL_SUB_STEPS: SubStep[] = [
   {
     id: "certificate-conformity",
