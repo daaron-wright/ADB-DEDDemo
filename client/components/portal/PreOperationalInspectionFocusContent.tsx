@@ -920,6 +920,58 @@ export function PreOperationalInspectionFocusContent({
                     </div>
                   ) : null}
                 </div>
+                <div className="space-y-3 rounded-2xl border border-[#0f766e]/20 bg-[#f8fbfa] p-4">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="space-y-1">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                        Next step · DED mandatory inspections
+                      </p>
+                      <p className="text-xs text-slate-600">
+                        {hasInspectionApproval
+                          ? "Polaris is locking DED on-site clearance slots now that the key frames are verified."
+                          : "Once the key frames are verified, Polaris schedules DED's mandatory inspections. Track their readiness below."}
+                      </p>
+                    </div>
+                    <Badge className="rounded-full border border-[#0f766e]/30 bg-white px-4 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                      Next step
+                    </Badge>
+                  </div>
+                  <div className="space-y-2">
+                    {dedInspectionItems.map((item) => {
+                      const token = SUB_STEP_TOKENS[item.status];
+                      return (
+                        <div
+                          key={item.id}
+                          className="flex flex-col gap-2 rounded-xl border border-[#d8e4df] bg-white/95 p-3 shadow-[0_18px_44px_-38px_rgba(15,23,42,0.28)] sm:flex-row sm:items-center sm:justify-between"
+                        >
+                          <div className="space-y-1">
+                            <p className="text-sm font-semibold text-slate-900">
+                              {item.label}
+                              {item.authority ? (
+                                <span className="ml-1 text-xs font-normal uppercase tracking-[0.16em] text-slate-500">
+                                  ({item.authority})
+                                </span>
+                              ) : null}
+                            </p>
+                            <p className="text-xs text-slate-500">
+                              {hasInspectionApproval
+                                ? "Awaiting final DED confirmation."
+                                : "Polaris will confirm availability as soon as the walkthrough review passes."}
+                            </p>
+                          </div>
+                          <Badge
+                            className={cn(
+                              "w-fit rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                              token.badgeClass,
+                            )}
+                          >
+                            {token.label}
+                          </Badge>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
               {isWalkthroughReady ? (
                 <>
