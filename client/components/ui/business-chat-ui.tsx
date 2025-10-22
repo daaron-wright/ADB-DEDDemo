@@ -7238,7 +7238,7 @@ export function BusinessChatUI({
 
       if (mentionsConceptDiscovery) {
         appendHeatMapResponse(
-          "Highlighting the Abu Dhabi districts attracting modern Emirati fusion dining concepts right now.",
+          "Highlighting the Abu Dhabi districts attracting modern Emirati fusion dining concepts right now, specifically in Corniche.",
         );
         nextFollowUps = FOLLOW_UP_CONCEPT_DISCOVERY;
       } else if (mentionsExistingEstablishments) {
