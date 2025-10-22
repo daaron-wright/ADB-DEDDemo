@@ -719,69 +719,139 @@ export function PreOperationalInspectionFocusContent({
               providers.
             </p>
             <div className="overflow-hidden rounded-3xl border border-[#d8e4df] bg-white shadow-[0_20px_52px_-38px_rgba(15,23,42,0.28)]">
-              <div className="flex flex-wrap items-center justify-between gap-3 p-6">
+              <div className="space-y-5 p-6">
                 <div className="space-y-1">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                    Inspection photo library
+                    Remote walkthrough
                   </p>
                   <p className="text-sm text-slate-600">
-                    Full-width captures sync after your walkthrough upload
-                    completes.
+                    Polaris orchestrates remote walkthroughs and syncs inspection evidence automatically.
                   </p>
                 </div>
-                <div className="flex w-full flex-col items-stretch gap-2 sm:w-auto sm:items-end">
-                  <Button
-                    type="button"
-                    onClick={handleWalkthroughButtonClick}
-                    disabled={isWalkthroughProcessing}
-                    className="inline-flex items-center gap-2 rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_42px_-30px_rgba(15,118,110,0.55)] transition hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:bg-[#0f766e]/30"
-                  >
-                    {isWalkthroughProcessing ? (
-                      <>
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        <span>Processing...</span>
-                      </>
-                    ) : isWalkthroughReady ? (
-                      <>
-                        <Check className="h-4 w-4" />
-                        <span>Walkthrough synced</span>
-                      </>
-                    ) : (
-                      <span>Upload walkthrough</span>
-                    )}
-                  </Button>
-                  <input
-                    ref={walkthroughInputRef}
-                    type="file"
-                    accept="video/mp4,video/webm,video/quicktime,video/mov,video/*"
-                    className="hidden"
-                    onChange={handleWalkthroughSelect}
-                  />
-                  <p className="text-[11px] text-slate-400 sm:text-right">
-                    Accepted formats: MP4, MOV, WebM · Max 2 GB
-                  </p>
-                  {walkthroughFile ? (
-                    <p className="text-[11px] text-slate-500 sm:text-right">
-                      Selected{" "}
-                      <span className="font-semibold text-slate-900">
-                        {walkthroughFile.name}
-                      </span>{" "}
-                      · {formatWalkthroughSize(walkthroughFile.size)}
-                      {isWalkthroughProcessing ? (
-                        <span className="text-[#0f766e]"> · Syncing...</span>
-                      ) : null}
-                      {isWalkthroughReady ? (
-                        <span className="text-[#0f766e]"> · Synced</span>
-                      ) : null}
-                    </p>
+                <div className="space-y-4">
+                  {walkthroughStage === "idle" ? (
+                    <div className="space-y-3 rounded-2xl border border-dashed border-[#94d2c2] bg-[#f5faf7] p-5 text-center">
+                      <p className="text-sm font-semibold text-slate-900">
+                        Stream video for the walkthrough inspection
+                      </p>
+                      <p className="text-xs text-slate-500">
+                        Start a remote session to capture your location and walkthrough footage in real time.
+                      </p>
+                      <Button
+                        type="button"
+                        onClick={handleStreamInitiate}
+                        className="mx-auto inline-flex items-center gap-2 rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_42px_-30px_rgba(15,118,110,0.55)] transition hover:bg-[#0c6059]"
+                      >
+                        <Video className="h-4 w-4" />
+                        <span>Start streaming session</span>
+                      </Button>
+                    </div>
                   ) : null}
-                  {uploadError ? (
-                    <p
-                      aria-live="polite"
-                      className="text-[11px] font-semibold text-[#b91c1c] sm:text-right"
-                    >
-                      {uploadError}
-                    </p>
+                  {walkthroughStage === "confirm-location" ? (
+                    <div className="space-y-4 rounded-2xl border border-[#d8e4df] bg-[#f9fbfd] p-5">
+                      <div className="flex flex-wrap items-start gap-3">
+                        <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#94d2c2] bg-white text-[#0f766e] shadow-sm">
+                          <MapPin className="h-5 w-5" />
+                        </span>
+                        <div className="space-y-1">
+                          <p className="text-sm font-semibold text-slate-900">
+                            Confirm inspection location
+                          </p>
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                            {WALKTHROUGH_LOCATION.coordinates}
+                          </p>
+                          <p className="text-xs text-slate-500">
+                            {WALKTHROUGH_LOCATION.address}
+                          </p>
+                          <p className="text-xs text-slate-400">
+                            {WALKTHROUGH_LOCATION.country}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="relative h-56 w-full overflow-hidden rounded-2xl border border-[#d8e4df]/60 bg-gradient-to-br from-slate-100 via-white to-slate-200">
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(15,118,110,0.12),_transparent_65%)]" />
+                        <div className="absolute inset-0 grid grid-cols-8 grid-rows-8 opacity-30">
+                          {Array.from({ length: 64 }).map((_, index) => (
+                            <span key={index} className="border border-white/40" />
+                          ))}
+                        </div>
+                        <div className="absolute top-4 left-4 rounded-full bg-white/90 px-4 py-1 text-xs font-semibold text-slate-600 shadow-sm">
+                          Drag the map and reposition the pin
+                        </div>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="flex flex-col items-center gap-2">
+                            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0f766e] text-white shadow-lg">
+                              <MapPin className="h-5 w-5" />
+                            </span>
+                            <span className="rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+                              Polaris anchor
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <Button
+                        type="button"
+                        onClick={handleConfirmLocation}
+                        className="inline-flex items-center gap-2 self-start rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_42px_-30px_rgba(15,118,110,0.55)] transition hover:bg-[#0c6059]"
+                      >
+                        <span>Confirm location & start streaming</span>
+                      </Button>
+                    </div>
+                  ) : null}
+                  {walkthroughStage === "streaming" ? (
+                    <div className="space-y-3 rounded-2xl border border-[#94d2c2] bg-gradient-to-br from-[#e4f8f0] via-white to-[#f4fbf7] p-5">
+                      <div className="flex items-center gap-2 text-[#0f766e]">
+                        <Radio className="h-5 w-5 animate-pulse" />
+                        <span className="text-sm font-semibold uppercase tracking-[0.18em]">
+                          Streaming video on connected device
+                        </span>
+                      </div>
+                      <p className="text-sm text-slate-600">
+                        Polaris is capturing the live walkthrough feed from your inspector device.
+                      </p>
+                      <div className="h-2 w-full overflow-hidden rounded-full bg-[#94d2c2]/40">
+                        <div className="h-full w-2/3 origin-left animate-pulse rounded-full bg-[#0f766e]" />
+                      </div>
+                    </div>
+                  ) : null}
+                  {walkthroughStage === "analyzing" ? (
+                    <div className="space-y-4 rounded-2xl border border-[#94d2c2] bg-gradient-to-b from-white via-[#eef9f5] to-white p-5">
+                      <div className="flex items-center gap-3 text-[#0f766e]">
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        <span className="text-sm font-semibold">
+                          Analysing the uploads, this should only take a moment. Hang tight!
+                        </span>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="h-3 rounded-full bg-[#dcefe9] animate-pulse" />
+                        <div className="h-3 w-4/5 rounded-full bg-[#dcefe9] animate-pulse" />
+                        <div className="h-3 w-2/3 rounded-full bg-[#dcefe9] animate-pulse" />
+                      </div>
+                    </div>
+                  ) : null}
+                  {walkthroughStage === "ready" ? (
+                    <div className="space-y-3 rounded-2xl border border-[#94d2c2] bg-[#f5faf7] p-5">
+                      <div className="flex items-center gap-2 text-[#0f766e]">
+                        <Check className="h-5 w-5" />
+                        <span className="text-sm font-semibold uppercase tracking-[0.18em]">
+                          Walkthrough complete
+                        </span>
+                      </div>
+                      <p className="text-sm text-slate-600">
+                        Polaris aligned the footage into shareable inspection key frames.
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={handleRestartWalkthrough}
+                          className="inline-flex items-center gap-2 rounded-full border-[#0f766e]/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] hover:bg-[#f5faf7]"
+                        >
+                          <RefreshCw className="h-4 w-4" />
+                          <span>Run another walkthrough</span>
+                        </Button>
+                      </div>
+                    </div>
                   ) : null}
                 </div>
               </div>
