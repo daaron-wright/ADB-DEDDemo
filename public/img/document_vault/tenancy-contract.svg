@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1280" role="img" aria-labelledby="title desc">
+  <title id="title">Tawtheeq Tenancy Contract Preview</title>
+  <desc id="desc">Stylised preview of a tenancy contract issued by Abu Dhabi Municipality.</desc>
+  <defs>
+    <linearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0F766E" />
+      <stop offset="100%" stop-color="#169F9F" />
+    </linearGradient>
+    <linearGradient id="stampGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0F766E" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#0F766E" stop-opacity="0.55" />
+    </linearGradient>
+  </defs>
+
+  <rect x="20" y="20" width="860" height="1240" rx="28" fill="#ffffff" stroke="#dbe7e1" stroke-width="3" />
+
+  <rect x="40" y="40" width="820" height="160" rx="24" fill="url(#headerGradient)" />
+  <text x="80" y="110" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="38" font-weight="700" fill="#ffffff">Abu Dhabi Municipality</text>
+  <text x="80" y="155" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="20" fill="#dff2ec">Tawtheeq Tenancy Contract</text>
+  <text x="80" y="185" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="18" fill="#dff2ec">Automated sync via Polaris · Contract No. ADM-2025-44821</text>
+
+  <g transform="translate(60 240)">
+    <text font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="600" fill="#0F111A">Property & Parties</text>
+    <rect y="24" width="780" height="220" rx="18" fill="#f5faf7" stroke="#d7ebe4" />
+
+    <g font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="16" fill="#1f2933">
+      <text x="24" y="62" font-weight="600">Landlord</text>
+      <text x="24" y="92">Basem Layla Al Mansouri</text>
+      <text x="24" y="128" font-weight="600">Tenant</text>
+      <text x="24" y="158">Marwa Restaurant LLC</text>
+
+      <text x="320" y="62" font-weight="600">Property</text>
+      <text x="320" y="92">Corniche Tower, Level 18, Suite 1802</text>
+      <text x="320" y="128" font-weight="600">Licence Link</text>
+      <text x="320" y="158">CN-4993808 · Restaurant (5610001)</text>
+
+      <text x="24" y="198" font-weight="600">Contract Period</text>
+      <text x="24" y="228">01 Oct 2025 – 30 Sep 2026</text>
+      <text x="320" y="198" font-weight="600">Annual Rent</text>
+      <text x="320" y="228">AED 640,000 (inclusive of service charges)</text>
+    </g>
+  </g>
+
+  <g transform="translate(60 520)">
+    <text font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="600" fill="#0F111A">Authority Metadata</text>
+    <rect y="24" width="780" height="200" rx="18" fill="#ffffff" stroke="#dbe7e1" />
+    <g font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="16" fill="#1f2933">
+      <text x="24" y="68" font-weight="600">Tawtheeq Registration No.</text>
+      <text x="24" y="98">TQ-558-2025-001472</text>
+      <text x="24" y="138" font-weight="600">Issued On</text>
+      <text x="24" y="168">29 September 2025</text>
+
+      <text x="320" y="68" font-weight="600">Payment Reference</text>
+      <text x="320" y="98">ADPAY-REF-552190</text>
+      <text x="320" y="138" font-weight="600">Deposit</text>
+      <text x="320" y="168">AED 160,000 (refundable)</text>
+    </g>
+  </g>
+
+  <g transform="translate(60 760)">
+    <text font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="600" fill="#0F111A">Key Clauses</text>
+    <rect y="24" width="780" height="220" rx="18" fill="#ffffff" stroke="#dbe7e1" />
+    <g font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#1f2933">
+      <text x="24" y="70">• Tenant to maintain insurance coverage for public liability and fixtures.</text>
+      <text x="24" y="110">• Fit-out approvals managed through Abu Dhabi Civil Defence and ADM.</text>
+      <text x="24" y="150">• Early termination subject to 90 day notice with landlord consent.</text>
+      <text x="24" y="190">• Polaris syncs renewed Tawtheeq certificates 45 days before expiry.</text>
+    </g>
+  </g>
+
+  <g transform="translate(60 1020)">
+    <rect width="240" height="160" rx="80" fill="url(#stampGradient)" opacity="0.18" />
+    <circle cx="120" cy="80" r="68" stroke="#0F766E" stroke-width="6" fill="none" />
+    <text x="120" y="86" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="28" font-weight="700" fill="#0F766E" text-anchor="middle">ADM</text>
+    <text x="120" y="114" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#0F766E" text-anchor="middle">Digitally Stamped</text>
+
+    <g transform="translate(320 -10)">
+      <text font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="16" fill="#475569">Signed electronically by</text>
+      <text y="34" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="600" fill="#0F111A">Abu Dhabi Municipality</text>
+      <text y="68" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#64748b">Authorised Signatory · 29 September 2025</text>
+      <line x1="0" y1="96" x2="360" y2="96" stroke="#dbe7e1" stroke-width="3" stroke-linecap="round" />
+    </g>
+  </g>
+</svg>
