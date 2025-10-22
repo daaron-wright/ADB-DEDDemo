@@ -29,6 +29,8 @@ export function StageSlideNavigator({
   initialSlideId,
   activeSlideId,
   onSlideChange,
+  stepLabel,
+  descriptionPrefix,
 }: StageSlideNavigatorProps) {
   const initialIndex = React.useMemo(() => {
     if (!initialSlideId) {
