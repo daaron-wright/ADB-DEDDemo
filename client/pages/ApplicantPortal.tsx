@@ -356,7 +356,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     fieldLabels: {
       beneficiary: "المستفيد",
       licenseType: "نوع الرخصة",
-      submissionId: "معر��ف ال��لب",
+      submissionId: "��عرّف الرحلة",
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإ��راء التالي",
