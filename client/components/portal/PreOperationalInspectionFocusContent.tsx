@@ -400,9 +400,13 @@ export function PreOperationalInspectionFocusContent({
 
   React.useEffect(() => {
     return () => {
-      if (uploadTimerRef.current) {
-        window.clearTimeout(uploadTimerRef.current);
-        uploadTimerRef.current = null;
+      if (streamingTimerRef.current) {
+        window.clearTimeout(streamingTimerRef.current);
+        streamingTimerRef.current = null;
+      }
+      if (analyzingTimerRef.current) {
+        window.clearTimeout(analyzingTimerRef.current);
+        analyzingTimerRef.current = null;
       }
       if (galleryTimerRef.current) {
         window.clearInterval(galleryTimerRef.current);
@@ -411,8 +415,9 @@ export function PreOperationalInspectionFocusContent({
     };
   }, []);
 
-  const isWalkthroughProcessing = walkthroughStatus === "processing";
-  const isWalkthroughReady = walkthroughStatus === "ready";
+  const isWalkthroughProcessing =
+    walkthroughStage === "streaming" || walkthroughStage === "analyzing";
+  const isWalkthroughReady = walkthroughStage === "ready";
   const activeInspectionImage =
     activeGalleryIndex >= 0
       ? (PREOP_INSPECTION_IMAGES[activeGalleryIndex] ?? null)
