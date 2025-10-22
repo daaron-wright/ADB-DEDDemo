@@ -171,7 +171,7 @@ function createTradeNameReceiptDocument(): DocumentVaultItem {
   return {
     id: TRADE_NAME_RECEIPT_DOCUMENT_ID,
     title: "Trade Name Reservation Receipt",
-    description: `Receipt for ${PRIMARY_TRADE_NAME_EN} confirming reservation ${transactionNumber} with AED ${paymentAmountAed} processed on ${paymentDate}. ${authority} may amend the trade name if reservation conditions are not met.`,
+    description: `Receipt for ${MARWA_TRADE_NAME_EN} confirming reservation ${transactionNumber} with AED ${paymentAmountAed} processed on ${paymentDate}. ${authority} may amend the trade name if reservation conditions are not met.`,
     source: authority,
     sourceDetail: `Receipt ${receiptNumber} · ${transactionNumber}`,
     status: "completed",
@@ -196,7 +196,7 @@ const DOUBLE_CHAR_MAP = new Map<string, string>([
   ["ae", "اي"],
   ["ai", "اي"],
   ["ay", "اي"],
-  ["ch", "��ش"],
+  ["ch", "����ش"],
   ["dh", "ذ"],
   ["gh", "غ"],
   ["kh", "خ"],
