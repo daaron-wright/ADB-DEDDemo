@@ -95,6 +95,34 @@ const WALKTHROUGH_LOCATION = {
   coordinates: "24.4539° N, 54.3773° E",
 };
 
+const getWalkthroughPlaceholderTitle = (stage: WalkthroughFlowStage) => {
+  switch (stage) {
+    case "confirm-location":
+      return "Confirm your location to begin";
+    case "streaming":
+      return "Streaming remote walkthrough";
+    case "analyzing":
+      return "Processing your walkthrough";
+    default:
+      return "Remote walkthrough not started";
+  }
+};
+
+const getWalkthroughPlaceholderDescription = (
+  stage: WalkthroughFlowStage,
+) => {
+  switch (stage) {
+    case "confirm-location":
+      return "Confirm the location so inspectors can trust the walkthrough feed.";
+    case "streaming":
+      return "Once the live capture finishes, Polaris will analyse the uploads automatically.";
+    case "analyzing":
+      return "Polaris is extracting key frames and syncing them with the inspection library.";
+    default:
+      return "Start streaming to unlock automated inspection evidence.";
+  }
+};
+
 const INITIAL_SUB_STEPS: SubStep[] = [
   {
     id: "certificate-conformity",
