@@ -387,7 +387,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       Visitor: "زائر",
     },
     directorateLabels: {
-      "Department of Economic Development": "دائرة التنمية الاقتص��دية",
+      "Department of Economic Development": "دائ��ة التنمية الاقتص��دية",
     },
     applicationTitles: {
       "APP-48291": "رحلة المطعم (الأطعمة والمشروبات)",
@@ -409,7 +409,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       activeStage: "المرحلة النشطة",
       yourNextStep: "خطوت�� التالية",
       tasksCompleteMessage:
-        "تم إكمال كل المهام لهذه ا��مرحلة. راقب�� تحديثات الأتمتة.",
+        "تم إكمال ك�� المهام لهذه ا��مرحلة. راقب�� تحديثات الأتمتة.",
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "افتحي المهمة ال��ال��ة",
       reviewStage: "اس��عرضي المرحلة",
@@ -2544,16 +2544,6 @@ const journeyTimelineItems = useMemo<JourneyTimelineItem[]>(() => {
                   <Badge className="border border-[#0f766e] bg-[#eaf7f3] px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#0f766e]">
                     {languageCopy.journeyIdLabel}: {JOURNEY_NUMBER}
                   </Badge>
-                  <span
-                    className={cn(
-                      "text-xs",
-                      shouldShowLicenseDetails
-                        ? "text-slate-500"
-                        : "text-slate-400",
-                    )}
-                  >
-                    {resolvedSubmissionId}
-                  </span>
                 </div>
               </div>
               <span className="absolute right-0 top-0 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#d8e4df] bg-white text-[#0f766e] shadow-[0_12px_24px_-20px_rgba(11,64,55,0.28)]">
