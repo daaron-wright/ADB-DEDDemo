@@ -1213,54 +1213,7 @@ export function BusinessRegistrationFocusContent({
               >
                 {isEditing ? "Close editor" : "Edit trade name"}
               </Button>
-              {isNameAvailable ? (
-                <>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleSelectApprovedTradeName}
-                    disabled={
-                      hasSelectedApprovedTradeName ||
-                        hasSubmittedReservationApplication ||
-                        isSubmittingReservation
-                    }
-                    className={cn(
-                      baseCtaClasses,
-                      nextPrimaryAction === "selectName"
-                        ? primaryCtaClasses
-                        : secondaryCtaClasses,
-                    )}
-                  >
-                    {hasSubmittedReservationApplication
-                      ? "Trade name reserved"
-                      : hasSelectedApprovedTradeName
-                        ? "Trade name selected"
-                        : "Select trade name"}
-                  </Button>
-                  <Button
-                    type="button"
-                    onClick={handleSubmitReservationApplication}
-                    disabled={!canSubmitReservation || isSubmittingReservation}
-                    className={cn(
-                      baseCtaClasses,
-                      nextPrimaryAction === "submitReservation"
-                        ? primaryCtaClasses
-                        : secondaryCtaClasses,
-                    )}
-                  >
-                    {hasSubmittedReservationApplication
-                      ? "Reservation submitted"
-                      : isSubmittingReservation
-                        ? "Submitting reservation..."
-                        : hasSelectedApprovedTradeName
-                          ? payAndIssueStepLabel
-                          : "Submit reservation & pay"}
-                  </Button>
-                  {tradeNameGuidance ? (
-                    <p className="mt-1 w-full text-xs text-[#0f766e]">{tradeNameGuidance}</p>
-                  ) : null}
-                </>
-              ) : (
+              {!isNameAvailable ? (
                 <Button
                   type="button"
                   onClick={handleRunChecks}
@@ -1278,7 +1231,7 @@ export function BusinessRegistrationFocusContent({
                 >
                   {isChecking ? "Running checks..." : "Run automated checks"}
                 </Button>
-              )}
+              ) : null}
             </div>
 
             {isEditing ? (
