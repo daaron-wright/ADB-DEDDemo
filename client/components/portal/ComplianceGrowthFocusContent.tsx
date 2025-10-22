@@ -973,15 +973,10 @@ export function ComplianceGrowthFocusContent({
                     aria-expanded={isGoldenVisaExpanded}
                     aria-controls={goldenVisaPanelId}
                   >
-                    <span className="flex items-center gap-3">
-                      <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#94d2c2] bg-[#f5faf7] text-[#0f766e] shadow-[0_18px_42px_-30px_rgba(15,118,110,0.45)]">
-                        <Sparkles className="h-4 w-4" aria-hidden="true" />
-                      </span>
-                      <span>
-                        {GOLDEN_VISA_OVERVIEW.eligibleCount} of{" "}
-                        {GOLDEN_VISA_OVERVIEW.totalEmployees} team members
-                        flagged
-                      </span>
+                    <span>
+                      {GOLDEN_VISA_OVERVIEW.eligibleCount} of{" "}
+                      {GOLDEN_VISA_OVERVIEW.totalEmployees} team members
+                      flagged
                     </span>
                     <ChevronDown
                       className={cn(
