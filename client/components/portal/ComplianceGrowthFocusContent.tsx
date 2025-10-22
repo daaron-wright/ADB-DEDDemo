@@ -824,7 +824,7 @@ export function ComplianceGrowthFocusContent({
             </div>
           </div>
 
-          <div className="space-y-3 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
+          <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h4 className="text-base font-semibold text-slate-900">
                 Authority obligations
@@ -837,85 +837,196 @@ export function ComplianceGrowthFocusContent({
                     : "border-[#f3dcb6] bg-[#fdf6e4] text-[#b97324]",
                 )}
               >
-                {isCompliant ? "Compliant" : "Action required"}
+                {isCompliant ? "COMPLIANT" : "ACTION REQUIRED"}
               </Badge>
             </div>
-            <div className="space-y-3">
-              {complianceItems.map((item) => {
-                const token = COMPLIANCE_STATUS_TOKENS[item.status];
-                return (
-                  <div
-                    key={item.id}
-                    className="flex flex-col gap-3 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4 shadow-[0_24px_56px_-40px_rgba(15,23,42,0.2)]"
-                  >
-                    <div className="flex items-start gap-3">
-                      <span
-                        className={cn(
-                          "flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border",
-                          token.iconWrapperClass,
-                        )}
+            <Tabs
+              value={authorityTab}
+              onValueChange={(value) =>
+                setAuthorityTab(value as AuthorityTabValue)
+              }
+              className="mt-4 space-y-4"
+            >
+              <TabsList className="inline-flex flex-wrap gap-1 rounded-full border border-[#d8e4df] bg-white/80 p-1 shadow-[0_18px_42px_-32px_rgba(15,23,42,0.25)]">
+                <TabsTrigger
+                  value="overview"
+                  className="rounded-full px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 transition data-[state=active]:bg-[#0f766e] data-[state=active]:text-white data-[state=active]:shadow-[0_18px_36px_-28px_rgba(15,118,110,0.45)]"
+                >
+                  Obligations overview
+                </TabsTrigger>
+                <TabsTrigger
+                  value="golden-visa"
+                  className="rounded-full px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 transition data-[state=active]:bg-[#0f766e] data-[state=active]:text-white data-[state=active]:shadow-[0_18px_36px_-28px_rgba(15,118,110,0.45)]"
+                >
+                  Golden Visa eligibility
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent
+                value="overview"
+                className="mt-0 space-y-3 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <div className="space-y-3">
+                  {complianceItems.map((item) => {
+                    const token = COMPLIANCE_STATUS_TOKENS[item.status];
+                    return (
+                      <div
+                        key={item.id}
+                        className="flex flex-col gap-3 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4 shadow-[0_24px_56px_-40px_rgba(15,23,42,0.2)]"
                       >
-                        <token.Icon
-                          className={cn("h-4 w-4", token.iconClass)}
-                        />
-                      </span>
-                      <div className="flex-1">
-                        <div className="flex flex-wrap items-center justify-between gap-2">
-                          <p className="text-sm font-semibold text-slate-900">
-                            {item.label}
-                          </p>
-                          <Badge
+                        <div className="flex items-start gap-3">
+                          <span
                             className={cn(
-                              "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                              token.badgeClass,
+                              "flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border",
+                              token.iconWrapperClass,
                             )}
                           >
-                            {token.badgeLabel}
-                          </Badge>
+                            <token.Icon
+                              className={cn("h-4 w-4", token.iconClass)}
+                            />
+                          </span>
+                          <div className="flex-1">
+                            <div className="flex flex-wrap items-center justify-between gap-2">
+                              <p className="text-sm font-semibold text-slate-900">
+                                {item.label}
+                              </p>
+                              <Badge
+                                className={cn(
+                                  "rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+                                  token.badgeClass,
+                                )}
+                              >
+                                {token.badgeLabel}
+                              </Badge>
+                            </div>
+                            <p className="text-xs text-slate-500">
+                              {item.detail}
+                            </p>
+                          </div>
                         </div>
-                        <p className="text-xs text-slate-500">{item.detail}</p>
+                        {item.status !== "success" ? (
+                          <div className="flex flex-wrap items-center justify-between gap-3">
+                            <Button
+                              type="button"
+                              size="sm"
+                              variant="outline"
+                              className="rounded-full border-[#0f766e]/40 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
+                              onClick={() => handleDismissCompliance(item.id)}
+                            >
+                              MARK AS RESOLVED
+                            </Button>
+                            <Button
+                              type="button"
+                              size="sm"
+                              className="rounded-full bg-[#0f766e] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.35)]"
+                              onClick={() => {
+                                setAutomationTab("overview");
+                                setActiveSlideId("automation");
+                              }}
+                            >
+                              VIEW EVIDENCE
+                            </Button>
+                          </div>
+                        ) : null}
                       </div>
-                    </div>
-                    {item.status !== "success" ? (
-                      <div className="flex flex-wrap items-center justify-between gap-3">
-                        <Button
-                          type="button"
-                          size="sm"
-                          variant="outline"
-                          className="rounded-full border-[#0f766e]/40 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]"
-                          onClick={() => handleDismissCompliance(item.id)}
-                        >
-                          Mark as resolved
-                        </Button>
-                        <Button
-                          type="button"
-                          size="sm"
-                          className="rounded-full bg-[#0f766e] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.35)]"
-                          onClick={() => {
-                            setAutomationTab("overview");
-                            setActiveSlideId("automation");
-                          }}
-                        >
-                          View evidence
-                        </Button>
-                      </div>
-                    ) : null}
+                    );
+                  })}
+                </div>
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                    Automation covers renewals and inspections.
                   </div>
-                );
-              })}
-            </div>
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                Automation covers renewals and inspections.
-              </div>
-              <Button
-                type="button"
-                onClick={handleComplianceReturn}
-                className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.45)]"
+                  <Button
+                    type="button"
+                    onClick={handleComplianceReturn}
+                    className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.45)]"
+                  >
+                    CONFIRM COMPLIANCE RETURN
+                  </Button>
+                </div>
+              </TabsContent>
+              <TabsContent
+                value="golden-visa"
+                className="mt-0 space-y-4 focus-visible:outline-none focus-visible:ring-0"
               >
-                Confirm compliance return
-              </Button>
-            </div>
+                <div className="space-y-3 rounded-2xl border border-[#f3dcb6] bg-[#fdf6e4]/60 p-4">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-[#b97324]">
+                      <Sparkles className="h-4 w-4" aria-hidden="true" />
+                      <span>Golden Visa eligibility</span>
+                    </div>
+                    <Badge className="rounded-full border border-[#f3dcb6]/70 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b97324]">
+                      INFORMATIONAL
+                    </Badge>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setIsGoldenVisaExpanded((previous) => !previous)
+                    }
+                    className="flex w-full items-center justify-between gap-3 rounded-2xl border border-[#f3dcb6] bg-[#fdf6e4]/70 px-4 py-3 text-left text-sm font-medium text-[#b97324] transition hover:bg-[#fdf6e4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f3dcb6]"
+                    aria-expanded={isGoldenVisaExpanded}
+                    aria-controls={goldenVisaPanelId}
+                  >
+                    <span className="flex items-center gap-2">
+                      <Sparkles className="h-4 w-4 text-[#b97324]" aria-hidden="true" />
+                      <span>
+                        {GOLDEN_VISA_OVERVIEW.eligibleCount} of {GOLDEN_VISA_OVERVIEW.totalEmployees} team members flagged
+                      </span>
+                    </span>
+                    <ChevronDown
+                      className={cn(
+                        "h-4 w-4 text-[#b97324] transition-transform",
+                        isGoldenVisaExpanded ? "rotate-180" : "rotate-0",
+                      )}
+                      aria-hidden="true"
+                    />
+                  </button>
+                  {isGoldenVisaExpanded ? (
+                    <div
+                      id={goldenVisaPanelId}
+                      className="space-y-3 rounded-2xl border border-[#f3dcb6] bg-white/90 p-4 text-sm leading-relaxed text-slate-600"
+                    >
+                      <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#b97324]">
+                        <span>
+                          {GOLDEN_VISA_OVERVIEW.eligibleCount}/
+                          {GOLDEN_VISA_OVERVIEW.totalEmployees} eligible
+                        </span>
+                        <span className="h-1 w-1 rounded-full bg-[#b97324]" aria-hidden="true" />
+                        <span>
+                          {GOLDEN_VISA_OVERVIEW.upToDateCount}/
+                          {GOLDEN_VISA_OVERVIEW.totalEmployees} residency compliant
+                        </span>
+                        <span className="h-1 w-1 rounded-full bg-[#b97324]" aria-hidden="true" />
+                        <span>
+                          {GOLDEN_VISA_OVERVIEW.workVisaCount}/
+                          {GOLDEN_VISA_OVERVIEW.totalEmployees} on standard work visa
+                        </span>
+                      </div>
+                      <ul className="space-y-2">
+                        {GOLDEN_VISA_OVERVIEW.employees.map((teamMember) => (
+                          <li
+                            key={teamMember.id}
+                            className="rounded-xl border border-[#f3dcb6]/70 bg-[#fdf6e4]/60 p-3"
+                          >
+                            <p className="text-sm font-semibold text-slate-900">
+                              {teamMember.name} • {teamMember.role}
+                            </p>
+                            <p className="text-xs text-slate-500">
+                              {teamMember.status}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+                      <ul className="space-y-2 text-xs text-slate-500">
+                        {GOLDEN_VISA_OVERVIEW.summary.map((point, index) => (
+                          <li key={index}>{point}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                </div>
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       ),
