@@ -335,7 +335,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     supportHeading: "تحتاجين إلى مساع��ة؟",
     supportDescription: {
       preEmail:
-        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بتوقيت ���لخليج. تواصلي عبر ",
+        "فريق الترخيص متاح من الأحد إلى الخميس، من 8:00 إلى 18:00 بت��قيت ���لخليج. تواصلي عبر ",
       postEmailPrePhone: " أو اتصلي عل�� ",
       postPhone: ".",
     },
@@ -425,7 +425,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "هذه هي نقطة ا��طلاقك لتشكيل مسار الترخيص الأنسب لمشروعك.",
       description:
         "مرحب��ا بكِ—شاركي��ا تفاصيل فكرتك ��نصمم معًا رحلة ا��ترخيص التي تطلق مشروعك التجاري.",
-      startCta: "ابدئي الاس��بيان مع الذكاء الاصطناعي",
+      startCta: "ابدئي ال��س��بيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
       completeCta: "أتمي الاستبيان",
       pendingLicenseLabel: "متاح بعد الاستبيان",
@@ -1134,9 +1134,9 @@ export default function ApplicantPortal() {
         <div className="space-y-2 text-sm text-slate-600">
           <p>{copy.helper}</p>
           <p>
-            Journey ID
+            Journey ID:
             <span className="ml-1 font-semibold text-slate-900">
-              {primaryApplication.id}
+              {JOURNEY_NUMBER}
             </span>
             {" "}was generated based on your conversation with Polaris.
           </p>
