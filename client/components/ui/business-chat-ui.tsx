@@ -1060,7 +1060,7 @@ const BASE_ACTIVITY_LIBRARY: ChatActivityOption[] = [
       ventilation: "Confectionery hood with humidity control",
       utilities: ["Temperature-controlled storage", "3-phase power"],
       notes: [
-        "Maintain 18°C cold room for pastry ingredients and finished goods.",
+        "Maintain 18��C cold room for pastry ingredients and finished goods.",
         "Install food-grade flooring with coved skirting for easy wash-down.",
       ],
     },
@@ -4170,9 +4170,6 @@ const MessageBubble = ({
         message.isAI ? "justify-start" : "justify-end",
       )}
     >
-      {message.isAI && (
-        <AIBusinessOrb className="mt-1 h-8 w-8 flex-shrink-0 shadow-sm ring-[#0E766E]/60 sm:h-10 sm:w-10" />
-      )}
       <div
         className={cn(
           "flex max-w-[80%] sm:max-w-[72%] flex-col gap-2 sm:gap-3",
