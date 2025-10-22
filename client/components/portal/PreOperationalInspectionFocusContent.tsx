@@ -970,7 +970,7 @@ export function PreOperationalInspectionFocusContent({
                             : "Link your corporate account to unlock Polaris scheduling."
                           : walkthroughStage === "ready"
                             ? "Walkthrough complete. Polaris is packaging the inspection evidence for DED."
-                            : "Polaris is processing your walkthrough and lining up the DED bookings.";
+                            : "Walkthrough in progress. Polaris is lining up the DED bookings.";
                       const isDisabled = false;
 
                       return (
