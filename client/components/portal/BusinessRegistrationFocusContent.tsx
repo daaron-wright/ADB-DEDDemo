@@ -38,7 +38,7 @@ interface BusinessRegistrationFocusContentProps {
 
 type TradeNameCheckStatus = "completed" | "current" | "pending" | "failed";
 
-type LocalizedFailureDetail = {
+type LocalizedAgentNarrative = {
   en: string;
   ar: string;
 };
@@ -47,7 +47,8 @@ type TradeNameVerificationStep = {
   title: string;
   description: string;
   summary: string;
-  failureDetail?: string | LocalizedFailureDetail;
+  failureDetail?: string | LocalizedAgentNarrative;
+  successDetail?: string | LocalizedAgentNarrative;
 };
 
 type TradeNameVerificationStepWithStatus = TradeNameVerificationStep & {
@@ -114,6 +115,28 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     description:
       "Aggregates every agent output, surfaces blockers, and records the approval decision trail.",
     summary: "Combines all agent signals into a single go / no-go result.",
+    successDetail: {
+      en: [
+        "Agent responses (English):",
+        "• Text normalizer / spell checker / cultural checker → Passed. Normalized \"Marwa Restaurant\" and confirmed cultural compliance.",
+        "• Prohibited words agent → Passed. No restricted terms detected across English and Arabic drafts.",
+        "• Similarity agent → Passed. Nearest registry match scored 0.12, below the 0.75 conflict threshold.",
+        "• Transliteration agent → Passed. Arabic transliteration \"مطعم مروة\" validated against phonetic rules.",
+        "• Activity compatibility agent → Passed. Name aligns with the licensed Food & Beverage restaurant activity.",
+        "• Final decision engine → Approved 2025-09-22T09:32Z (confidence: high, score: 0.98).",
+        "• Name suggester agent (rejected trade name) → No alternatives required; current name authorized.",
+      ].join("\n"),
+      ar: [
+        "استجابات الوكلاء (العربية):",
+        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأكد من الملاءمة الثقافية.",
+        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
+        "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ ‎0.12‎ وهو أقل من حد التعارض ‎0.75‎.",
+        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل \"مطعم مروة\" وفق القواعد الصوتية.",
+        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
+        "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: ‎0.98‎).",
+        "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
+      ].join("\n"),
+    },
   },
   {
     title: "Name suggester agent (rejected trade name)",
@@ -457,13 +480,81 @@ function VerificationStepItem({
   const isFailed = step.status === "failed";
   const isCompleted = step.status === "completed";
   const isCurrent = step.status === "current";
-  const [failureLanguage, setFailureLanguage] = React.useState<"en" | "ar">(
+  const [detailLanguage, setDetailLanguage] = React.useState<"en" | "ar">(
     "en",
   );
 
   React.useEffect(() => {
-    setFailureLanguage("en");
+    setDetailLanguage("en");
   }, [step.title, step.status]);
+
+  const detailVariantStyles = React.useMemo(
+    () => ({
+      failed: {
+        container:
+          "border-rose-200 bg-rose-50/80 px-3 py-2 text-sm text-rose-700",
+        label:
+          "text-xs font-semibold uppercase tracking-[0.18em] text-rose-500",
+        toggleWrap:
+          "inline-flex items-center gap-1 rounded-full border border-rose-200 bg-white/80 p-1",
+        toggleActive:
+          "min-w-[36px] rounded-full px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] bg-rose-500 text-white shadow-[0_8px_20px_-10px_rgba(225,29,72,0.45)]",
+        toggleInactive:
+          "min-w-[36px] rounded-full px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-rose-500 transition hover:bg-rose-100",
+      },
+      success: {
+        container:
+          "border-[#94d2c2] bg-[#dff2ec]/90 px-3 py-2 text-sm text-[#0f766e]",
+        label:
+          "text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]",
+        toggleWrap:
+          "inline-flex items-center gap-1 rounded-full border border-[#94d2c2] bg-white/80 p-1",
+        toggleActive:
+          "min-w-[36px] rounded-full px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] bg-[#0f766e] text-white shadow-[0_8px_20px_-10px_rgba(15,118,110,0.45)]",
+        toggleInactive:
+          "min-w-[36px] rounded-full px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#0f766e]/10",
+      },
+    }),
+    [],
+  );
+
+  const renderAgentNarrative = (
+    detail: string | LocalizedAgentNarrative,
+    variant: "failed" | "success",
+  ) => {
+    const styles = detailVariantStyles[variant];
+    const isLocalized = typeof detail !== "string";
+    const narrativeText =
+      typeof detail === "string" ? detail : detail[detailLanguage];
+
+    return (
+      <div className={cn("space-y-2 rounded-xl", styles.container)}>
+        {isLocalized ? (
+          <div className="flex items-center justify-between gap-2">
+            <span className={styles.label}>Agent responses</span>
+            <div className={styles.toggleWrap}>
+              {(["en", "ar"] as const).map((lang) => {
+                const isActive = detailLanguage === lang;
+                return (
+                  <button
+                    key={lang}
+                    type="button"
+                    onClick={() => setDetailLanguage(lang)}
+                    className={cn(
+                      isActive ? styles.toggleActive : styles.toggleInactive,
+                    )}
+                  >
+                    {lang === "en" ? "EN" : "AR"}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ) : null}
+        <p className="whitespace-pre-line">{narrativeText}</p>
+      </div>
+    );
+  };
 
   const statusLabel = isFailed
     ? "Needs attention"
@@ -551,42 +642,12 @@ function VerificationStepItem({
         <div className="rounded-xl bg-[#0f766e]/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
           {helperMessage}
         </div>
-        {isFailed && step.failureDetail ? (
-          <div className="space-y-2 rounded-xl border border-rose-200 bg-rose-50/80 px-3 py-2 text-sm text-rose-700">
-            {typeof step.failureDetail !== "string" ? (
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-500">
-                  Agent responses
-                </span>
-                <div className="inline-flex items-center gap-1 rounded-full border border-rose-200 bg-white/80 p-1">
-                  {(["en", "ar"] as const).map((lang) => {
-                    const isActive = failureLanguage === lang;
-                    return (
-                      <button
-                        key={lang}
-                        type="button"
-                        onClick={() => setFailureLanguage(lang)}
-                        className={cn(
-                          "min-w-[36px] rounded-full px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] transition",
-                          isActive
-                            ? "bg-rose-500 text-white shadow-[0_8px_20px_-10px_rgba(225,29,72,0.45)]"
-                            : "text-rose-500 hover:bg-rose-100",
-                        )}
-                      >
-                        {lang === "en" ? "EN" : "AR"}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : null}
-            <p className="whitespace-pre-line">
-              {typeof step.failureDetail === "string"
-                ? step.failureDetail
-                : step.failureDetail[failureLanguage]}
-            </p>
-          </div>
-        ) : null}
+        {isFailed && step.failureDetail
+          ? renderAgentNarrative(step.failureDetail, "failed")
+          : null}
+        {isCompleted && step.successDetail
+          ? renderAgentNarrative(step.successDetail, "success")
+          : null}
       </div>
     </div>
   );
