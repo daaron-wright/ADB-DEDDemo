@@ -730,6 +730,9 @@ export function BusinessRegistrationFocusContent({
     isTradeNameAvailable ? null : DEFAULT_FAILURE_STEP_INDEX,
   );
   const [failureReason, setFailureReason] = React.useState<string | null>(null);
+  const [escalatedStepIds, setEscalatedStepIds] = React.useState<Set<string>>(
+    () => new Set<string>(),
+  );
   const [activeSlideId, setActiveSlideId] =
     React.useState<StageSlide["id"]>("trade-name");
 
