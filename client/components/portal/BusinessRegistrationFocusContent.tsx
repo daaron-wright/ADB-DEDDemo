@@ -97,7 +97,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على أي مفردات محظورة في النسختين الع��بية والإنجليزية.",
         "• وكيل الت��ابه → فشل. تم ال��ثور على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه ‎0.81‎ (SIMILARITY_CONFLICT).",
         "• وكيل التحويل الصوتي → قيد الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
-        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشروبات.",
+        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشرو��ات.",
         "• محرك القرار النهائي → مرفوض. تم تسجيل القرار بتاريخ 22-09-2025 الساعة 09:32 بالمرجع 452-889-552-2947.",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: \"Marwa Culinary House\" و\"Marwa Coastal Kitchen\".",
       ].join("\n"),
@@ -159,7 +159,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على ��صطلحات محظورة في النسختين ��لعربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ ‎0.12‎ وهو أقل من حد التعارض ‎0.75‎.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل \"مطعم مروة\" وفق القواعد الصوتية.",
-        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
+        "• وكيل توافق النشاط → ناجح. الاس�� يتوافق مع نشاط المطعم المرخّص.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: ‎0.98‎).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
@@ -1165,17 +1165,16 @@ export function BusinessRegistrationFocusContent({
       setArabicDraft(formattedArabic);
       setActiveEnglishTradeName(formattedEnglish);
       setActiveArabicTradeName(formattedArabic);
-    setIsArabicSynced(true);
-    setPendingSubmission({
-      english: formattedEnglish,
-      arabic: formattedArabic,
-      normalized: formattedEnglish.toUpperCase(),
-    });
-    setAutomationProgress(0);
-    setEscalatedStepIds(() => new Set<string>());
-    setSelectedActivityId(null);
-    setIsArabicSynced(true);
-    setIsChecking(true);
+      setIsArabicSynced(true);
+      setPendingSubmission({
+        english: formattedEnglish,
+        arabic: formattedArabic,
+        normalized: formattedEnglish.toUpperCase(),
+      });
+      setAutomationProgress(0);
+      setEscalatedStepIds(() => new Set<string>());
+      setSelectedActivityId(null);
+      setIsChecking(true);
       setIsNameAvailable(false);
       setFailedStepIndex(null);
       setFailureReason(null);
