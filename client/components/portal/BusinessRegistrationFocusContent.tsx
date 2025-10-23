@@ -158,7 +158,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأكد من الملاءمة الثقافية.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشاب�� → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
-        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
+        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوت��ة.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
@@ -1326,7 +1326,7 @@ export function BusinessRegistrationFocusContent({
             if (normalizedName === CONFLICTING_TRADE_NAME_NORMALIZED) {
               setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
               setFailureReason(
-                `We couldn’t reserve ${englishDisplay}. ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}) is already registered. Try a unique variation that aligns with your selected activity.`,
+                `We couldn��t reserve ${englishDisplay}. ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}) is already registered. Try a unique variation that aligns with your selected activity.`,
               );
             } else if (normalizedName === ACTIVITY_COMPATIBILITY_NAME) {
               setFailedStepIndex(ACTIVITY_FAILURE_STEP_INDEX);
@@ -1613,6 +1613,50 @@ export function BusinessRegistrationFocusContent({
   const englishSummaryDisplay = hasDisplayedEnglishName
     ? trimmedActiveEnglish || trimmedEnglishDraft
     : "";
+
+  const handleEnglishHotkey = React.useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      const isSpaceKey =
+        event.key === " " || event.code === "Space" || event.key === "Spacebar";
+      if (!isSpaceKey) {
+        return;
+      }
+
+      if (isChecking) {
+        return;
+      }
+
+      const currentValue = event.currentTarget.value.trim();
+      if (currentValue.length > 0) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const formattedEnglish = formatTradeName(PRIMARY_TRADE_NAME_EN);
+      const transliteratedArabic = formatArabicName(
+        transliterateToArabic(formattedEnglish),
+      );
+
+      setEnglishDraft(formattedEnglish);
+      setActiveEnglishTradeName(formattedEnglish);
+      setArabicDraft(transliteratedArabic);
+      setActiveArabicTradeName(transliteratedArabic);
+      setPendingSubmission(null);
+      setAutomationProgress(0);
+      setEscalatedStepIds(() => new Set<string>());
+      setSelectedActivityId(null);
+      setIsArabicSynced(Boolean(transliteratedArabic));
+      setIsNameAvailable(false);
+      setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
+      setFailureReason(null);
+      setHasSelectedApprovedTradeName(false);
+      setHasSubmittedReservationApplication(false);
+      setIsSubmittingReservation(false);
+      setTradeNameGuidance(null);
+    },
+    [isChecking],
+  );
 
   const baseCtaClasses =
     "rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] disabled:cursor-not-allowed disabled:opacity-60";
