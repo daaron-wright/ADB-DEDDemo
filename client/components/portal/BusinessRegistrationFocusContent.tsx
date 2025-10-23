@@ -347,7 +347,7 @@ const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
   ["marwa", "مروة"],
   ["marwah", "مروة"],
-  ["restaurant", "مطعم"],
+  ["restaurant", "م��عم"],
   ["bait", "بيت"],
   ["el", "ال"],
   ["al", "ال"],
@@ -1513,20 +1513,9 @@ export function BusinessRegistrationFocusContent({
                     />
                   </div>
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between gap-2">
-                      <label className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                        Arabic trade name
-                      </label>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={handleTransliterate}
-                        disabled={isChecking}
-                        className="rounded-full border-[#0f766e]/40 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] shadow-sm transition hover:bg-[#0f766e]/10 disabled:cursor-not-allowed disabled:opacity-60"
-                      >
-                        Transliterate
-                      </Button>
-                    </div>
+                    <label className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                      Arabic trade name
+                    </label>
                     <Input
                       value={arabicDraft}
                       onChange={(event) => {
