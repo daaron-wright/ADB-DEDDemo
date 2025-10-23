@@ -94,7 +94,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. الاسم المعياري \"Marwa Restaurant\" متوافق.",
-        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على أي مفردات محظورة في النسختين العربية والإنجليزية.",
+        "• وكيل الكلما�� المحظورة → ناجح. لم يتم العثور على أي مفردات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → فشل. تم العثور على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه 0.81 (SIMILARITY_CONFLICT).",
         "• وكيل التحويل الصوتي → ق��د الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشروبات.",
@@ -161,7 +161,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
-        "• وكيل اقتراح الاسم (ا��اسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
+        "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
     },
   },
@@ -545,7 +545,7 @@ const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
   ["marwa", "مروة"],
   ["marwah", "مروة"],
-  ["restaurant", "مط��م"],
+  ["restaurant", "مطعم"],
   ["bait", "بيت"],
   ["el", "ال"],
   ["al", "ال"],
@@ -924,19 +924,19 @@ function VerificationStepItem({
               </div>
             ) : null}
             {onEscalate ? (
-              <Button
+              <button
                 type="button"
                 onClick={() => onEscalate(step.title)}
                 disabled={isEscalated}
                 className={cn(
-                  "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300 focus-visible:ring-offset-2",
+                  "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-90",
                   isEscalated
                     ? "border-rose-500 bg-rose-500 text-white shadow-[0_16px_34px_-22px_rgba(225,29,72,0.55)]"
-                    : "border-rose-400 bg-white text-rose-500 hover:bg-rose-50",
+                    : "border-rose-400 bg-white text-rose-500 hover:bg-rose-50 active:bg-rose-100",
                 )}
               >
                 {isEscalated ? "Escalation sent" : "Escalate to backend user"}
-              </Button>
+              </button>
             ) : null}
           </div>
         ) : null}
