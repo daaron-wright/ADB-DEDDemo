@@ -252,7 +252,7 @@ const DOUBLE_CHAR_MAP = new Map<string, string>([
   ["ay", "اي"],
   ["ch", "����ش"],
   ["dh", "ذ"],
-  ["gh", "غ"],
+  ["gh", "��"],
   ["kh", "خ"],
   ["ph", "ف"],
   ["qu", "قو"],
@@ -646,9 +646,26 @@ function VerificationStepItem({
         <div className="rounded-xl bg-[#0f766e]/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
           {helperMessage}
         </div>
-        {isFailed && step.failureDetail
-          ? renderAgentNarrative(step.failureDetail, "failed")
-          : null}
+        {isFailed && step.failureDetail ? (
+          <div className="space-y-3">
+            {renderAgentNarrative(step.failureDetail, "failed")}
+            {onEscalate ? (
+              <Button
+                type="button"
+                onClick={() => onEscalate(step.title)}
+                disabled={isEscalated}
+                className={cn(
+                  "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]",
+                  isEscalated
+                    ? "bg-rose-100 text-rose-500"
+                    : "bg-rose-500 text-white shadow-[0_16px_34px_-22px_rgba(225,29,72,0.55)] hover:bg-rose-600",
+                )}
+              >
+                {isEscalated ? "Escalation sent" : "Escalate to backend user"}
+              </Button>
+            ) : null}
+          </div>
+        ) : null}
         {isCompleted && step.successDetail
           ? renderAgentNarrative(step.successDetail, "success")
           : null}
