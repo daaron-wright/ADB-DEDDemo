@@ -93,7 +93,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. الاسم المعياري \"Marwa Restaurant\" متوافق.",
+        "• مدقق النص / التدقيق الإملائي / ��لفحص الثقافي → ناجح. الاسم المعياري \"Marwa Restaurant\" متوافق.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على أي مفردات محظورة في النسختين العربية والإنجليز��ة.",
         "• وكيل التشابه → فشل. تم العثور على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه 0.81 (SIMILARITY_CONFLICT).",
         "• وكيل التحويل الصوتي → قيد الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
@@ -155,7 +155,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأكد من الملاءمة الثقافية.",
+        "• مدقق النص / التد��يق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأكد من الملاءمة الثقافية.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات محظورة في الن��ختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
@@ -320,7 +320,7 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["i", "ي"],
   ["j", "ج"],
   ["k", "ك"],
-  ["l", "ل"],
+  ["l", "��"],
   ["m", "م"],
   ["n", "ن"],
   ["o", "و"],
@@ -707,8 +707,7 @@ export function BusinessRegistrationFocusContent({
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const reservationTimeoutRef = React.useRef<number | null>(null);
 
-  const initialFormattedName =
-    formatTradeName(tradeName) || PRIMARY_TRADE_NAME_EN;
+  const initialFormattedName = tradeName ? formatTradeName(tradeName) : "";
 
   const [activeEnglishTradeName, setActiveEnglishTradeName] =
     React.useState(initialFormattedName);
@@ -1053,7 +1052,7 @@ export function BusinessRegistrationFocusContent({
 
           const normalizedName = evaluationSource?.normalized ?? "";
           const englishDisplay =
-            evaluationSource?.english ?? englishDraft ?? PRIMARY_TRADE_NAME_EN;
+            evaluationSource?.english ?? englishDraft ?? "";
           const arabicDisplay = evaluationSource?.arabic ?? arabicDraft ?? "";
           const isSuccess =
             Boolean(normalizedName) && approvedNameSet.has(normalizedName);
@@ -1085,7 +1084,7 @@ export function BusinessRegistrationFocusContent({
           }
           setPendingSubmission(null);
           setHasPerformedCheck(true);
-          setActiveEnglishTradeName(englishDisplay || PRIMARY_TRADE_NAME_EN);
+          setActiveEnglishTradeName(englishDisplay);
           setActiveArabicTradeName(arabicDisplay);
         }
 
@@ -1125,7 +1124,7 @@ export function BusinessRegistrationFocusContent({
   }, [isNameAvailable]);
 
   React.useEffect(() => {
-    const formatted = formatTradeName(tradeName) || PRIMARY_TRADE_NAME_EN;
+    const formatted = tradeName ? formatTradeName(tradeName) : "";
     setActiveEnglishTradeName(formatted);
     setEnglishDraft(formatted);
     setActiveArabicTradeName("");
@@ -1277,7 +1276,7 @@ export function BusinessRegistrationFocusContent({
     }
 
     const formattedEnglish = formatTradeName(
-      activeEnglishTradeName || englishDraft || PRIMARY_TRADE_NAME_EN,
+      activeEnglishTradeName || englishDraft || "",
     );
     const resolvedArabic = activeArabicTradeName
       ? formatArabicName(activeArabicTradeName)
@@ -1348,6 +1347,12 @@ export function BusinessRegistrationFocusContent({
   const hasEnglishDraft = trimmedEnglishDraft.length > 0;
   const shouldShowSuggestionSection =
     hasEnglishDraft && hasPerformedCheck && !isNameAvailable;
+  const trimmedActiveEnglish = activeEnglishTradeName.trim();
+  const hasDisplayedEnglishName =
+    trimmedActiveEnglish.length > 0 || trimmedEnglishDraft.length > 0;
+  const englishSummaryDisplay = hasDisplayedEnglishName
+    ? trimmedActiveEnglish || trimmedEnglishDraft
+    : `Press space to insert "${PRIMARY_TRADE_NAME_EN}"`;
 
   const baseCtaClasses =
     "rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] disabled:cursor-not-allowed disabled:opacity-60";
@@ -1405,8 +1410,15 @@ export function BusinessRegistrationFocusContent({
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
                   Trade name details
                 </p>
-                <h4 className="text-xl font-semibold text-slate-900">
-                  {activeEnglishTradeName || PRIMARY_TRADE_NAME_EN}
+                <h4
+                  className={cn(
+                    "text-xl font-semibold",
+                    hasDisplayedEnglishName
+                      ? "text-slate-900"
+                      : "text-slate-400",
+                  )}
+                >
+                  {englishSummaryDisplay}
                 </h4>
                 {activeArabicTradeName ? (
                   <p
@@ -1436,8 +1448,15 @@ export function BusinessRegistrationFocusContent({
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
                     English name
                   </p>
-                  <p className="mt-1 text-sm font-semibold text-slate-900">
-                    {activeEnglishTradeName || PRIMARY_TRADE_NAME_EN}
+                  <p
+                    className={cn(
+                      "mt-1 text-sm font-semibold",
+                      hasDisplayedEnglishName
+                        ? "text-slate-900"
+                        : "text-slate-400",
+                    )}
+                  >
+                    {englishSummaryDisplay}
                   </p>
                 </div>
                 <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">
@@ -1472,9 +1491,9 @@ export function BusinessRegistrationFocusContent({
                 variant="outline"
                 onClick={() => {
                   if (!isEditing) {
-                    setEnglishDraft(
-                      activeEnglishTradeName || PRIMARY_TRADE_NAME_EN,
-                    );
+                    const restoredEnglish =
+                      activeEnglishTradeName || englishDraft || "";
+                    setEnglishDraft(restoredEnglish);
                     const restoredArabic = activeArabicTradeName || "";
                     setArabicDraft(restoredArabic);
                     setIsArabicSynced(Boolean(restoredArabic));
@@ -1524,7 +1543,7 @@ export function BusinessRegistrationFocusContent({
                       ref={inputRef}
                       value={englishDraft}
                       onChange={(event) => setEnglishDraft(event.target.value)}
-                      placeholder={PRIMARY_TRADE_NAME_EN}
+                      placeholder={`Press space to insert "${PRIMARY_TRADE_NAME_EN}"`}
                       className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
                       disabled={isChecking}
                     />
