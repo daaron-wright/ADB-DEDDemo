@@ -133,7 +133,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل \"بيت الختيار\" وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
-        "• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: \"Bait El Khetyar Restaurant\" و\"Khetyar Dining House\".",
+        "• وكيل اقتراح الا��م (الاسم المرفوض) → اقترح البدائل: \"Bait El Khetyar Restaurant\" و\"Khetyar Dining House\".",
       ].join("\n"),
     },
   },
@@ -296,7 +296,7 @@ const AGENT_OUTCOME_META: Record<
 };
 
 const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
-  passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
+  passed: ["pass", "passed", "approved", "ناجح", "معتم��"],
   failed: ["fail", "failed", "فشل"],
   pending: ["pending", "awaiting", "قيد الانتظار"],
   rejected: ["reject", "rejected", "مرفوض"],
@@ -929,10 +929,10 @@ function VerificationStepItem({
                 onClick={() => onEscalate(step.title)}
                 disabled={isEscalated}
                 className={cn(
-                  "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em]",
+                  "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition",
                   isEscalated
-                    ? "bg-rose-100 text-rose-500"
-                    : "bg-rose-500 text-white shadow-[0_16px_34px_-22px_rgba(225,29,72,0.55)] hover:bg-rose-600",
+                    ? "border-rose-500 bg-rose-500 text-white shadow-[0_16px_34px_-22px_rgba(225,29,72,0.55)]"
+                    : "border-rose-400 bg-white text-rose-500 hover:bg-rose-50",
                 )}
               >
                 {isEscalated ? "Escalation sent" : "Escalate to backend user"}
