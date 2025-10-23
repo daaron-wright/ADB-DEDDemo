@@ -127,7 +127,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"بيت الختيار\" دون تعارضات ثقافية.",
+        "• مدقق النص / التدقيق الإملائ�� / الفحص الثقافي → ناجح. تم توحيد \"بيت الختيار\" دون تعارضات ثقافية.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفرد��ت محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة ‎0.28‎ (أقل من الحد المطلوب).",
         "• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل \"بيت الختيار\" وفق القواعد الصوتية.",
@@ -155,7 +155,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأكد من الملاءمة الثقافية.",
+        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأك�� من الملاءمة الثقافية.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على ��صطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ ‎0.12‎ وهو أقل من حد التعارض ‎0.75‎.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل \"مطعم مروة\" وفق القواعد الصوتية.",
@@ -715,6 +715,7 @@ export function BusinessRegistrationFocusContent({
   const [activeArabicTradeName, setActiveArabicTradeName] = React.useState("");
   const [englishDraft, setEnglishDraft] = React.useState(initialFormattedName);
   const [arabicDraft, setArabicDraft] = React.useState("");
+  const [isArabicSynced, setIsArabicSynced] = React.useState(false);
   const [isEditing, setIsEditing] = React.useState(true);
   const [pendingSubmission, setPendingSubmission] = React.useState<{
     english: string;
