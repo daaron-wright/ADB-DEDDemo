@@ -96,7 +96,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. الاسم المعياري \"Marwa Restaurant\" متوافق.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على أي مفردات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → فشل. تم العثور على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه 0.81 (SIMILARITY_CONFLICT).",
-        "• وكيل التحويل الصوتي → قيد الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
+        "• وكيل التحويل الصوتي → ق��د الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشروبات.",
         "• محرك القرار النهائي → مرفوض. تم تسجيل القرار بتاريخ 22-09-2025 الساعة 09:32 بالمرجع 452-889-552-2947.",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: \"Marwa Culinary House\" و\"Marwa Coastal Kitchen\".",
@@ -128,8 +128,8 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"بيت الختيار\" دون تعارضات ثقافية.",
-        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية ��و العربية.",
-        "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
+        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
+        "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أق�� من الحد المطلوب).",
         "• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل \"بيت الختيار\" وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
@@ -157,7 +157,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "استجابات الوكلاء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأكد من الملاءمة الثقافية.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
-        "• وكيل التشابه → ناجح. أقرب تشابه ��ي السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
+        "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
@@ -316,7 +316,7 @@ const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
   info: [
     "suggested alternatives",
     "no alternatives required",
-    "��قتراح البدائل",
+    "اقتراح البدائل",
     "لا حاجة لبدائل",
   ],
 };
@@ -685,15 +685,15 @@ function VerificationStepItem({
     () => ({
       failed: {
         container:
-          "border-rose-200 bg-white px-3 py-2 text-sm text-rose-700",
+          "border-[#0f766e]/30 bg-white px-3 py-2 text-sm text-[#0f766e]",
         label:
-          "text-xs font-semibold uppercase tracking-[0.18em] text-rose-500",
+          "text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]",
         toggleWrap:
-          "inline-flex items-center gap-1 rounded-full border border-rose-200 bg-white/80 p-1",
+          "inline-flex items-center gap-1 rounded-full border border-[#0f766e]/30 bg-white/80 p-1",
         toggleActive:
-          "min-w-[36px] rounded-full px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] bg-rose-500 text-white shadow-[0_8px_20px_-10px_rgba(225,29,72,0.45)]",
+          "min-w-[36px] rounded-full px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] bg-[#0f766e] text-white shadow-[0_8px_20px_-10px_rgba(15,118,110,0.45)]",
         toggleInactive:
-          "min-w-[36px] rounded-full px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-rose-500 transition hover:bg-rose-100",
+          "min-w-[36px] rounded-full px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#0f766e]/10",
       },
       success: {
         container:
