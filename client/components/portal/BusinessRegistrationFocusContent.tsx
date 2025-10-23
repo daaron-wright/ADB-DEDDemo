@@ -88,7 +88,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "3. Similarity agent → Fail. Matched existing trade name \"Marwa Restaurant\" with similarity score 0.81 (SIMILARITY_CONFLICT).",
         "4. Transliteration agent → Pending. Awaiting Arabic submission to complete transliteration review.",
         "5. Activity compatibility agent → Pass. Name aligns with licensed activity: Food & Beverage Restaurant.",
-        "6. Final decision engine → Reject. Decision recorded 2025-09-22T09:32Z, reference 452-889-552-2947.",
+        "6. Final decision engine ��� Reject. Decision recorded 2025-09-22T09:32Z, reference 452-889-552-2947.",
         "7. Name suggester agent (rejected trade name) → Suggested alternatives: \"Marwa Culinary House\" and \"Marwa Coastal Kitchen\".",
       ].join("\n"),
       ar: [
@@ -98,7 +98,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → فشل. تم العثور على ��جل مسجل \"Marwa Restaurant\" بنسبة تشابه 0.81 (SIMILARITY_CONFLICT).",
         "• وكيل التحويل الصوتي → ق��د الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشروبات.",
-        "• محرك القرار النهائي → مرفوض. تم تسجيل القرار بتاريخ 22-09-2025 الساعة 09:32 بالمرجع 452-889-552-2947.",
+        "• محرك القرار النهائي → مرفوض. تم تسجيل القرار بتاريخ 22-09-2025 الساعة 09:32 ب��لمرجع 452-889-552-2947.",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: \"Marwa Culinary House\" و\"Marwa Coastal Kitchen\".",
       ].join("\n"),
     },
@@ -131,7 +131,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنج��يزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أق�� من الحد المطلوب).",
         "• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل \"بيت الختيار\" وفق القواعد الصوتية.",
-        "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
+        "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات ��لحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: \"Bait El Khetyar Restaurant\" و\"Khetyar Dining House\".",
       ].join("\n"),
@@ -158,7 +158,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأكد من الملاءمة الثقافية.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشاب�� → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
-        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوت��ة.",
+        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
@@ -1326,7 +1326,7 @@ export function BusinessRegistrationFocusContent({
             if (normalizedName === CONFLICTING_TRADE_NAME_NORMALIZED) {
               setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
               setFailureReason(
-                `We couldn��t reserve ${englishDisplay}. ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}) is already registered. Try a unique variation that aligns with your selected activity.`,
+                `We couldn’t reserve ${englishDisplay}. ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}) is already registered. Try a unique variation that aligns with your selected activity.`,
               );
             } else if (normalizedName === ACTIVITY_COMPATIBILITY_NAME) {
               setFailedStepIndex(ACTIVITY_FAILURE_STEP_INDEX);
@@ -1847,7 +1847,8 @@ export function BusinessRegistrationFocusContent({
                       ref={inputRef}
                       value={englishDraft}
                       onChange={(event) => setEnglishDraft(event.target.value)}
-                      placeholder={`Press space to insert "${PRIMARY_TRADE_NAME_EN}"`}
+                      onKeyDown={handleEnglishHotkey}
+                      placeholder="Enter English trade name"
                       className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
                       disabled={isChecking}
                     />
