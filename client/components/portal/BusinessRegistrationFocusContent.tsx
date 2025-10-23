@@ -987,8 +987,8 @@ export function BusinessRegistrationFocusContent({
         : "No checks yet";
 
   const verificationSubtitle = showVerificationSteps
-    ? `${TRADE_NAME_CHECKS.length} automated checks`
-    : "Run automated checks to populate this list.";
+    ? "Full agent decision flow with localized transcripts."
+    : "Run automated checks to populate the decision flow.";
 
   const automationSteps = React.useMemo<
     TradeNameVerificationStepWithStatus[]
