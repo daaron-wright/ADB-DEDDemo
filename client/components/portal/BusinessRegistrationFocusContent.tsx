@@ -1045,6 +1045,7 @@ export function BusinessRegistrationFocusContent({
     setFailureReason(null);
     setAutomationProgress(clampProgress(progressPercent));
     setHasPerformedCheck(Boolean(tradeName) || isTradeNameAvailable);
+    setEscalatedStepIds(() => new Set<string>());
     if (reservationTimeoutRef.current) {
       window.clearTimeout(reservationTimeoutRef.current);
       reservationTimeoutRef.current = null;
