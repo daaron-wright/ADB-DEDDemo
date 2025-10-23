@@ -131,7 +131,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفرد��ت محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة ‎0.28‎ (أقل من الحد المطلوب).",
         "• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل \"بيت الختيار\" وفق القواعد الصوتية.",
-        "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
+        "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة ولي�� نشاط مطعم ومشروبات الحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
         "• وكيل اقتر��ح الاسم (الاسم المرفوض) → اقترح البدائل: \"Bait El Khetyar Restaurant\" و\"Khetyar Dining House\".",
       ].join("\n"),
@@ -1165,7 +1165,10 @@ export function BusinessRegistrationFocusContent({
       setArabicDraft(formattedArabic);
       setActiveEnglishTradeName(formattedEnglish);
       setActiveArabicTradeName(formattedArabic);
-      setIsArabicSynced(true);
+      const autoArabic = formatArabicName(
+        transliterateToArabic(formattedEnglish),
+      );
+      setIsArabicSynced(autoArabic === formattedArabic);
       setPendingSubmission({
         english: formattedEnglish,
         arabic: formattedArabic,
