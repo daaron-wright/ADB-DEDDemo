@@ -156,7 +156,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأكد من الملاءمة الثقافية.",
-        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على ��صطلحات محظورة في النسختين ��لعربية والإنجليزية.",
+        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على ��صطلحات محظورة في النس��تين ��لعربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ ‎0.12‎ وهو أقل من حد التعارض ‎0.75‎.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل \"مطعم مروة\" وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاس�� يتوافق مع نشاط المطعم المرخّص.",
@@ -824,7 +824,7 @@ export function BusinessRegistrationFocusContent({
     setArabicDraft(transliterated);
     setActiveArabicTradeName(transliterated);
     setIsArabicSynced(true);
-  }, [arabicDraft, englishDraft, isArabicSynced]);
+  }, [arabicDraft, englishDraft, isArabicSynced, setActiveArabicTradeName, setArabicDraft, setIsArabicSynced]);
 
   const nextPrimaryAction = React.useMemo<
     "runChecks" | "selectName" | "submitReservation" | null
