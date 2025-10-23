@@ -300,15 +300,25 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
   failed: ["fail", "failed", "فشل"],
   pending: ["pending", "awaiting", "قيد الانتظار"],
   rejected: ["reject", "rejected", "مرفوض"],
-  info: ["suggested alternatives", "no alternatives required", "اقتراح البدائل"],
+  info: [
+    "suggested alternatives",
+    "no alternatives required",
+    "اقتراح البدائل",
+    "لا حاجة لبدائل",
+  ],
 };
 
 const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
-  passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
+  passed: ["pass", "passed", "approved", "ناجح", "��عتمد"],
   failed: ["fail", "failed", "فشل"],
-  pending: ["pending", "pending manual review", "awaiting", "قيد الانتظار"],
+  pending: ["pending manual review", "pending", "awaiting", "قيد الانتظار"],
   rejected: ["reject", "rejected", "مرفوض"],
-  info: ["suggested alternatives", "no alternatives required", "اقتراح البدائل"],
+  info: [
+    "suggested alternatives",
+    "no alternatives required",
+    "اقتراح البدائل",
+    "لا حاجة لبدائل",
+  ],
 };
 
 function escapeRegExp(value: string) {
