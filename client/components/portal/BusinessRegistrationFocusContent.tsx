@@ -51,6 +51,11 @@ type TradeNameVerificationStep = {
   successDetail?: string | LocalizedAgentNarrative;
 };
 
+type ActivityOption = {
+  id: string;
+  label: string;
+};
+
 type TradeNameVerificationStepWithStatus = TradeNameVerificationStep & {
   status: TradeNameCheckStatus;
   progress: number;
@@ -88,7 +93,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. الاسم المعياري \"Marwa Restaurant\" متوافق.",
+        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. الا��م المعياري \"Marwa Restaurant\" متوافق.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على أي مفردات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → فشل. تم العثور على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه ‎0.81‎ (SIMILARITY_CONFLICT).",
         "• وكيل التحويل الصوتي → قيد الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
@@ -109,6 +114,28 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     description:
       "Checks the proposed name against your selected activity list to ensure compliance.",
     summary: "Confirms the name fits the licensed activity scope.",
+    failureDetail: {
+      en: [
+        "Agent responses (English):",
+        "• Text normalizer / spell checker / cultural checker → Pass. Normalized \"Bait El Khetyar\" without cultural conflicts.",
+        "• Prohibited words agent → Pass. No prohibited lexicon detected in English or Arabic drafts.",
+        "• Similarity agent → Pass. Nearest registry match similarity score 0.28 (below threshold).",
+        "• Transliteration agent → Pass. Arabic transliteration \"بيت الختيار\" verified against phonetic rules.",
+        "• Activity compatibility agent → Fail. Proposed name signals a heritage retail concept, not the F&B restaurant activity currently selected.",
+        "• Final decision engine → Pending manual review. Escalation recommended or choose an aligned activity.",
+        "• Name suggester agent (rejected trade name) → Suggested alternatives: \"Bait El Khetyar Restaurant\", \"Khetyar Dining House\".",
+      ].join("\n"),
+      ar: [
+        "استجابات الوكلاء (العربية):",
+        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"بيت الختيار\" دون تعارضات ثقافية.",
+        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
+        "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة ‎0.28‎ (أقل من الحد المطلوب).",
+        "• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل \"بيت الختيار\" وفق القواعد الصوتية.",
+        "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
+        "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
+        "• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: \"Bait El Khetyar Restaurant\" و\"Khetyar Dining House\".",
+      ].join("\n"),
+    },
   },
   {
     title: "Final decision engine",
@@ -153,6 +180,22 @@ const DEFAULT_FAILURE_STEP_INDEX = (() => {
   );
   return index === -1 ? 3 : index;
 })();
+
+const ACTIVITY_FAILURE_STEP_INDEX = (() => {
+  const index = TRADE_NAME_CHECKS.findIndex(
+    (step) => step.title === "Activity compatibility agent",
+  );
+  return index === -1 ? DEFAULT_FAILURE_STEP_INDEX : index;
+})();
+
+const ACTIVITY_COMPATIBILITY_OPTIONS: ActivityOption[] = [
+  { id: "fnb-restaurant", label: "Food & Beverage Restaurant" },
+  { id: "heritage-retail", label: "Heritage Retail Concept" },
+  { id: "culinary-studio", label: "Culinary Studio & Classes" },
+  { id: "catering", label: "Catering & Events" },
+];
+
+const ACTIVITY_COMPATIBILITY_NAME = "BAIT EL KHETYAR";
 
 const CONFLICTING_TRADE_NAME_NORMALIZED =
   PRIMARY_TRADE_NAME_EN.trim().toUpperCase();
@@ -474,12 +517,18 @@ function VerificationStepItem({
   totalSteps,
   onEscalate,
   isEscalated = false,
+  activityOptions,
+  selectedActivityId,
+  onActivitySelect,
 }: {
   step: TradeNameVerificationStepWithStatus;
   index: number;
   totalSteps: number;
   onEscalate?: (stepTitle: string) => void;
   isEscalated?: boolean;
+  activityOptions?: ActivityOption[];
+  selectedActivityId?: string | null;
+  onActivitySelect?: (activityId: string) => void;
 }) {
   const isFailed = step.status === "failed";
   const isCompleted = step.status === "completed";
@@ -649,6 +698,29 @@ function VerificationStepItem({
         {isFailed && step.failureDetail ? (
           <div className="space-y-3">
             {renderAgentNarrative(step.failureDetail, "failed")}
+            {step.title === "Activity compatibility agent" && activityOptions ? (
+              <div className="flex flex-wrap gap-2">
+                {activityOptions.map((option) => {
+                  const isActive = option.id === selectedActivityId;
+                  return (
+                    <Button
+                      key={option.id}
+                      type="button"
+                      variant="outline"
+                      onClick={() => onActivitySelect?.(option.id)}
+                      className={cn(
+                        "rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition",
+                        isActive
+                          ? "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_18px_44px_-34px_rgba(15,118,110,0.45)]"
+                          : "border-[#0f766e]/30 text-[#0f766e] hover:bg-[#0f766e]/10",
+                      )}
+                    >
+                      {option.label}
+                    </Button>
+                  );
+                })}
+              </div>
+            ) : null}
             {onEscalate ? (
               <Button
                 type="button"
@@ -733,6 +805,9 @@ export function BusinessRegistrationFocusContent({
   const [escalatedStepIds, setEscalatedStepIds] = React.useState<Set<string>>(
     () => new Set<string>(),
   );
+  const [selectedActivityId, setSelectedActivityId] = React.useState<string | null>(
+    null,
+  );
   const [activeSlideId, setActiveSlideId] =
     React.useState<StageSlide["id"]>("trade-name");
 
@@ -779,6 +854,29 @@ export function BusinessRegistrationFocusContent({
     },
     [toast],
   );
+
+  const handleEscalation = React.useCallback(
+    (stepTitle: string) => {
+      setEscalatedStepIds((previous) => {
+        if (previous.has(stepTitle)) {
+          return previous;
+        }
+        const next = new Set(previous);
+        next.add(stepTitle);
+        return next;
+      });
+      toast({
+        title: "Escalation sent to DED",
+        description:
+          "DED operations acknowledged the escalation and is addressing it now.",
+      });
+    },
+    [toast],
+  );
+
+  const handleActivitySelect = React.useCallback((activityId: string) => {
+    setSelectedActivityId(activityId);
+  }, []);
 
   const nextPrimaryAction = React.useMemo<
     "runChecks" | "selectName" | "submitReservation" | null
@@ -981,16 +1079,29 @@ export function BusinessRegistrationFocusContent({
 
           setIsChecking(false);
           setIsNameAvailable(isSuccess);
-          setFailedStepIndex(isSuccess ? null : DEFAULT_FAILURE_STEP_INDEX);
-          setFailureReason(
-            isSuccess
-              ? null
-              : normalizedName
-                ? normalizedName === CONFLICTING_TRADE_NAME_NORMALIZED
-                  ? `We couldn’t reserve ${englishDisplay}. ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}) is already registered. Try a unique variation that aligns with your selected activity.`
-                  : `We couldn’t reserve ${englishDisplay}. Try a unique variation that aligns with your selected activity.`
-                : "Add English and Arabic trade names before running the automated checks.",
-          );
+          if (isSuccess) {
+            setFailedStepIndex(null);
+            setFailureReason(null);
+          } else {
+            if (normalizedName === CONFLICTING_TRADE_NAME_NORMALIZED) {
+              setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
+              setFailureReason(
+                `We couldn’t reserve ${englishDisplay}. ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}) is already registered. Try a unique variation that aligns with your selected activity.`,
+              );
+            } else if (normalizedName === ACTIVITY_COMPATIBILITY_NAME) {
+              setFailedStepIndex(ACTIVITY_FAILURE_STEP_INDEX);
+              setFailureReason(
+                `We couldn’t reserve ${englishDisplay}. Select the activity that best matches the heritage concept or adjust the trade name.`,
+              );
+            } else {
+              setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
+              setFailureReason(
+                normalizedName
+                  ? `We couldn’t reserve ${englishDisplay}. Try a unique variation that aligns with your selected activity.`
+                  : "Add English and Arabic trade names before running the automated checks.",
+              );
+            }
+          }
           setPendingSubmission(null);
           setHasPerformedCheck(true);
           setActiveEnglishTradeName(englishDisplay || PRIMARY_TRADE_NAME_EN);
@@ -1046,6 +1157,7 @@ export function BusinessRegistrationFocusContent({
     setAutomationProgress(clampProgress(progressPercent));
     setHasPerformedCheck(Boolean(tradeName) || isTradeNameAvailable);
     setEscalatedStepIds(() => new Set<string>());
+    setSelectedActivityId(null);
     if (reservationTimeoutRef.current) {
       window.clearTimeout(reservationTimeoutRef.current);
       reservationTimeoutRef.current = null;
@@ -1085,6 +1197,7 @@ export function BusinessRegistrationFocusContent({
       });
       setAutomationProgress(0);
       setEscalatedStepIds(() => new Set<string>());
+      setSelectedActivityId(null);
       setIsChecking(true);
       setIsNameAvailable(false);
       setFailedStepIndex(null);
@@ -1148,6 +1261,7 @@ export function BusinessRegistrationFocusContent({
       setPendingSubmission(null);
       setAutomationProgress(0);
       setEscalatedStepIds(() => new Set<string>());
+      setSelectedActivityId(null);
       setIsNameAvailable(false);
       setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
       setFailureReason(null);
@@ -1605,6 +1719,21 @@ export function BusinessRegistrationFocusContent({
                           totalSteps={automationSteps.length}
                           onEscalate={handleEscalation}
                           isEscalated={escalatedStepIds.has(step.title)}
+                          activityOptions={
+                            step.title === "Activity compatibility agent"
+                              ? ACTIVITY_COMPATIBILITY_OPTIONS
+                              : undefined
+                          }
+                          selectedActivityId={
+                            step.title === "Activity compatibility agent"
+                              ? selectedActivityId
+                              : undefined
+                          }
+                          onActivitySelect={
+                            step.title === "Activity compatibility agent"
+                              ? handleActivitySelect
+                              : undefined
+                          }
                         />
                       ))}
                     </div>
