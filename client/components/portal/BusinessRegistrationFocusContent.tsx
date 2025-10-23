@@ -1228,24 +1228,6 @@ export function BusinessRegistrationFocusContent({
     [isChecking, onTradeNameChange, setActiveSlideId, setTradeNameGuidance],
   );
 
-  const handleTransliterate = React.useCallback(() => {
-    if (!englishDraft.trim()) {
-      toast({
-        title: "Add English name",
-        description:
-          "Enter the English trade name first so we can transliterate it.",
-      });
-      inputRef.current?.focus();
-      return;
-    }
-
-    const transliterated = formatArabicName(
-      transliterateToArabic(englishDraft),
-    );
-    setArabicDraft(transliterated);
-    setActiveArabicTradeName(transliterated);
-  }, [englishDraft, toast]);
-
   const handleSelectApprovedTradeName = React.useCallback(() => {
     if (
       !isNameAvailable ||
