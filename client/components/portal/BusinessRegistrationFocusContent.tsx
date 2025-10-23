@@ -83,23 +83,23 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     failureDetail: {
       en: [
         "Agent responses sequence:",
-        "1. Text normalizer / spell checker / cultural checker → Pass. Normalized name \"Marwa Restaurant\" is compliant.",
+        '1. Text normalizer / spell checker / cultural checker → Pass. Normalized name "Marwa Restaurant" is compliant.',
         "2. Prohibited words agent → Pass. No restricted vocabulary detected across English and Arabic drafts.",
-        "3. Similarity agent → Fail. Matched existing trade name \"Marwa Restaurant\" with similarity score 0.81 (SIMILARITY_CONFLICT).",
+        '3. Similarity agent → Fail. Matched existing trade name "Marwa Restaurant" with similarity score 0.81 (SIMILARITY_CONFLICT).',
         "4. Transliteration agent → Pending. Awaiting Arabic submission to complete transliteration review.",
         "5. Activity compatibility agent → Pass. Name aligns with licensed activity: Food & Beverage Restaurant.",
         "6. Final decision engine ��� Reject. Decision recorded 2025-09-22T09:32Z, reference 452-889-552-2947.",
-        "7. Name suggester agent (rejected trade name) → Suggested alternatives: \"Marwa Culinary House\" and \"Marwa Coastal Kitchen\".",
+        '7. Name suggester agent (rejected trade name) → Suggested alternatives: "Marwa Culinary House" and "Marwa Coastal Kitchen".',
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. الاسم المعياري \"Marwa Restaurant\" متوافق.",
+        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. الاسم المعياري "Marwa Restaurant" متوافق.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على أي مفردات محظورة في النسختين العربية والإنجليزية.",
-        "• وكيل التشابه → فشل. تم العثور على ��جل مسجل \"Marwa Restaurant\" بنسبة تشابه 0.81 (SIMILARITY_CONFLICT).",
+        '• وكيل التشابه → فشل. تم العثور على ��جل مسجل "Marwa Restaurant" بنسبة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "• وكيل التحويل الصوتي → ق��د الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشروبات.",
         "• محرك القرار النهائي → مرفوض. تم تسجيل القرار بتاريخ 22-09-2025 الساعة 09:32 ب��لمرجع 452-889-552-2947.",
-        "• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: \"Marwa Culinary House\" و\"Marwa Coastal Kitchen\".",
+        '• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: "Marwa Culinary House" و"Marwa Coastal Kitchen".',
       ].join("\n"),
     },
   },
@@ -117,23 +117,23 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     failureDetail: {
       en: [
         "Agent responses sequence:",
-        "1. Text normalizer / spell checker / cultural checker → Pass. Normalized \"Bait El Khetyar\" without cultural conflicts.",
+        '1. Text normalizer / spell checker / cultural checker → Pass. Normalized "Bait El Khetyar" without cultural conflicts.',
         "2. Prohibited words agent → Pass. No prohibited lexicon detected in English or Arabic drafts.",
         "3. Similarity agent → Pass. Nearest registry match similarity score 0.28 (below threshold).",
-        "4. Transliteration agent → Pass. Arabic transliteration \"بيت الختيار\" verified against phonetic rules.",
+        '4. Transliteration agent → Pass. Arabic transliteration "بيت الختيار" verified against phonetic rules.',
         "5. Activity compatibility agent → Fail. Proposed name signals a heritage retail concept, not the F&B restaurant activity currently selected.",
         "6. Final decision engine → Pending manual review. Escalation recommended or choose an aligned activity.",
-        "7. Name suggester agent (rejected trade name) → Suggested alternatives: \"Bait El Khetyar Restaurant\", \"Khetyar Dining House\".",
+        '7. Name suggester agent (rejected trade name) → Suggested alternatives: "Bait El Khetyar Restaurant", "Khetyar Dining House".',
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"بيت الختيار\" دون تعارضات ثقافية.",
+        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضات ثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنج��يزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أق�� من الحد المطلوب).",
-        "• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل \"بيت الختيار\" وفق القواعد الصوتية.",
+        '• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات ��لحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
-        "• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: \"Bait El Khetyar Restaurant\" و\"Khetyar Dining House\".",
+        '• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
   },
@@ -145,17 +145,17 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     successDetail: {
       en: [
         "Agent responses sequence:",
-        "1. Text normalizer / spell checker / cultural checker → Passed. Normalized \"Marwa Restaurant\" and confirmed cultural compliance.",
+        '1. Text normalizer / spell checker / cultural checker → Passed. Normalized "Marwa Restaurant" and confirmed cultural compliance.',
         "2. Prohibited words agent → Passed. No restricted terms detected across English and Arabic drafts.",
         "3. Similarity agent → Passed. Nearest registry match scored 0.12, below the 0.75 conflict threshold.",
-        "4. Transliteration agent → Passed. Arabic transliteration \"مطعم مروة\" validated against phonetic rules.",
+        '4. Transliteration agent → Passed. Arabic transliteration "مطعم مروة" validated against phonetic rules.',
         "5. Activity compatibility agent → Passed. Name aligns with the licensed Food & Beverage restaurant activity.",
         "6. Final decision engine → Approved 2025-09-22T09:32Z (confidence: high, score: 0.98).",
         "7. Name suggester agent (rejected trade name) → No alternatives required; current name authorized.",
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأكد من الملاءمة الثقافية.",
+        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشاب�� → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
@@ -169,8 +169,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     title: "Name suggester agent (rejected trade name)",
     description:
       "Generates compliant alternatives, reruns the full agent pipeline, and highlights the best option to pursue next.",
-    summary:
-      "Keeps the journey moving with agent-reviewed fallback names.",
+    summary: "Keeps the journey moving with agent-reviewed fallback names.",
   },
 ];
 
@@ -327,9 +326,7 @@ function escapeRegExp(value: string) {
 
 function matchesAnyKeyword(source: string, keywords: string[]) {
   const normalized = source.trim().toLowerCase();
-  return keywords.some((keyword) =>
-    normalized.includes(keyword.toLowerCase()),
-  );
+  return keywords.some((keyword) => normalized.includes(keyword.toLowerCase()));
 }
 
 function normalizeAgentOutcome(rawStatus: string): AgentOutcome {
@@ -365,10 +362,7 @@ function stripStatusPhrase(detail: string, outcome: AgentOutcome) {
   const prefixes = AGENT_STATUS_STRIP_PREFIXES[outcome];
 
   for (const prefix of prefixes) {
-    const regex = new RegExp(
-      `^${escapeRegExp(prefix)}\\b[\\s.:;,-–—]*`,
-      "i",
-    );
+    const regex = new RegExp(`^${escapeRegExp(prefix)}\\b[\\s.:;,-–—]*`, "i");
     if (regex.test(result)) {
       result = result.replace(regex, "").trim();
       break;
@@ -397,7 +391,9 @@ function parseAgentNarrativeLine(
   const titleSegment = sanitizedLine.slice(0, arrowIndex).trim();
   const statusSegment = sanitizedLine.slice(arrowIndex + 1).trim();
   const orderMatch = titleSegment.match(/^(\d+)\.\s*(.+)$/);
-  const parsedOrder = orderMatch ? Number.parseInt(orderMatch[1], 10) : fallbackOrder;
+  const parsedOrder = orderMatch
+    ? Number.parseInt(orderMatch[1], 10)
+    : fallbackOrder;
   const order = Number.isNaN(parsedOrder) ? fallbackOrder : parsedOrder;
   const title = (orderMatch ? orderMatch[2] : titleSegment).trim();
   const outcome = normalizeAgentOutcome(statusSegment);
@@ -417,7 +413,10 @@ function parseAgentNarrative(text: string): ParsedAgentNarrative | null {
     return null;
   }
 
-  const lines = trimmed.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+  const lines = trimmed
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
   if (!lines.length) {
     return null;
   }
@@ -673,9 +672,7 @@ function VerificationStepItem({
   const isFailed = step.status === "failed";
   const isCompleted = step.status === "completed";
   const isCurrent = step.status === "current";
-  const [detailLanguage, setDetailLanguage] = React.useState<"en" | "ar">(
-    "en",
-  );
+  const [detailLanguage, setDetailLanguage] = React.useState<"en" | "ar">("en");
 
   React.useEffect(() => {
     setDetailLanguage("en");
@@ -780,9 +777,7 @@ function VerificationStepItem({
                       {item.order}
                     </span>
                     <div className="flex flex-1 flex-col gap-2">
-                      <div
-                        className="flex flex-wrap items-center justify-between gap-2"
-                      >
+                      <div className="flex flex-wrap items-center justify-between gap-2">
                         <p className="text-sm font-semibold text-slate-900">
                           {item.title}
                         </p>
@@ -874,7 +869,9 @@ function VerificationStepItem({
           <div className="flex flex-1 flex-col gap-1">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="text-sm font-semibold text-slate-900">
-                {index === 0 ? "Decision Flow" : `Step ${index + 1}/${totalSteps}: ${step.title}`}
+                {index === 0
+                  ? "Decision Flow"
+                  : `Step ${index + 1}/${totalSteps}: ${step.title}`}
               </p>
               <span className={statusBadgeClasses}>{statusLabel}</span>
             </div>
@@ -1007,9 +1004,9 @@ export function BusinessRegistrationFocusContent({
   const [escalatedStepIds, setEscalatedStepIds] = React.useState<Set<string>>(
     () => new Set<string>(),
   );
-  const [selectedActivityId, setSelectedActivityId] = React.useState<string | null>(
-    null,
-  );
+  const [selectedActivityId, setSelectedActivityId] = React.useState<
+    string | null
+  >(null);
   const [activeSlideId, setActiveSlideId] =
     React.useState<StageSlide["id"]>("trade-name");
 
@@ -1225,9 +1222,8 @@ export function BusinessRegistrationFocusContent({
 
   const finalDecisionSuccessDetail = React.useMemo(
     () =>
-      TRADE_NAME_CHECKS.find(
-        (step) => step.title === "Final decision engine",
-      )?.successDetail ?? null,
+      TRADE_NAME_CHECKS.find((step) => step.title === "Final decision engine")
+        ?.successDetail ?? null,
     [],
   );
 
@@ -1236,7 +1232,7 @@ export function BusinessRegistrationFocusContent({
   >(() => {
     const failureDetail =
       failedStepIndex !== null
-        ? TRADE_NAME_CHECKS[failedStepIndex]?.failureDetail ?? null
+        ? (TRADE_NAME_CHECKS[failedStepIndex]?.failureDetail ?? null)
         : null;
 
     const decisionStatus: TradeNameCheckStatus = isChecking
@@ -1996,7 +1992,7 @@ export function BusinessRegistrationFocusContent({
                               ? "border-rose-200 bg-rose-50 text-rose-600"
                               : "border-slate-200 bg-white text-slate-500",
                       )}
->
+                    >
                       {completedVerificationSteps}/{automationSteps.length}
                     </Badge>
                   </div>
