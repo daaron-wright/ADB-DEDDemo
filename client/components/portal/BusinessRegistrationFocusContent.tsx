@@ -38,11 +38,16 @@ interface BusinessRegistrationFocusContentProps {
 
 type TradeNameCheckStatus = "completed" | "current" | "pending" | "failed";
 
+type LocalizedFailureDetail = {
+  en: string;
+  ar: string;
+};
+
 type TradeNameVerificationStep = {
   title: string;
   description: string;
   summary: string;
-  failureDetail?: string;
+  failureDetail?: string | LocalizedFailureDetail;
 };
 
 type TradeNameVerificationStepWithStatus = TradeNameVerificationStep & {
@@ -69,7 +74,28 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     description:
       "Compares the proposed name against the full registry to prevent confusingly similar matches.",
     summary: "Prevents duplicates or confusingly similar business names.",
-    failureDetail: `Matches an existing trade name registered as ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}).`,
+    failureDetail: {
+      en: [
+        "Agent responses (English):",
+        "• Text normalizer / spell checker / cultural checker → Pass. Normalized name \"Marwa Restaurant\" is compliant.",
+        "• Prohibited words agent → Pass. No restricted vocabulary detected across English and Arabic drafts.",
+        "• Similarity agent → Fail. Matched existing trade name \"Marwa Restaurant\" with similarity score 0.81 (SIMILARITY_CONFLICT).",
+        "• Transliteration agent → Pending. Awaiting Arabic submission to complete transliteration review.",
+        "• Activity compatibility agent → Pass. Name aligns with licensed activity: Food & Beverage Restaurant.",
+        "• Final decision engine → Reject. Decision recorded 2025-09-22T09:32Z, reference 452-889-552-2947.",
+        "• Name suggester agent (rejected trade name) → Suggested alternatives: \"Marwa Culinary House\" and \"Marwa Coastal Kitchen\".",
+      ].join("\n"),
+      ar: [
+        "استجابات الوكلاء (العربية):",
+        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. الاسم المعياري \"Marwa Restaurant\" متوافق.",
+        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على أي مفردات محظورة في النسختين العربية والإنجليزية.",
+        "• وكيل التشابه → فشل. تم العثو�� على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه ‎0.81‎ (SIMILARITY_CONFLICT).",
+        "• وكيل التحويل الصوتي → قيد الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
+        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشروبات.",
+        "• محرك القرار النهائي → مرفوض. تم تسجيل القرار بتاريخ 22-09-2025 الساعة 09:32 بالمرجع 452-889-552-2947.",
+        "• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: \"Marwa Culinary House\" و\"Marwa Coastal Kitchen\".",
+      ].join("\n"),
+    },
   },
   {
     title: "Transliteration agent",
