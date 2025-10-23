@@ -126,7 +126,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "7. Name suggester agent (rejected trade name) → Suggested alternatives: \"Bait El Khetyar Restaurant\", \"Khetyar Dining House\".",
       ].join("\n"),
       ar: [
-        "استجابات الوكلاء (العربية):",
+        "استجابات الوك��اء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"بيت الختيار\" دون تعارضات ثقافية.",
         "• وكيل الكلمات المح��ورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
@@ -250,6 +250,194 @@ const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   },
 ];
 
+type AgentOutcome = "passed" | "failed" | "pending" | "rejected" | "info";
+
+type ParsedAgentResponse = {
+  order: number;
+  title: string;
+  status: AgentOutcome;
+  detail?: string;
+};
+
+type ParsedAgentNarrative = {
+  heading: string | null;
+  responses: ParsedAgentResponse[];
+};
+
+const AGENT_OUTCOME_META: Record<
+  AgentOutcome,
+  { label: string; badgeClassName: string; indicatorClassName: string }
+> = {
+  passed: {
+    label: "Passed",
+    badgeClassName: "border-emerald-200 bg-emerald-50 text-emerald-700",
+    indicatorClassName: "border-emerald-200 bg-emerald-50 text-emerald-700",
+  },
+  failed: {
+    label: "Failed",
+    badgeClassName: "border-rose-200 bg-rose-50 text-rose-600",
+    indicatorClassName: "border-rose-200 bg-rose-50 text-rose-600",
+  },
+  pending: {
+    label: "Pending",
+    badgeClassName: "border-amber-200 bg-amber-50 text-amber-700",
+    indicatorClassName: "border-amber-200 bg-amber-50 text-amber-700",
+  },
+  rejected: {
+    label: "Rejected",
+    badgeClassName: "border-rose-300 bg-rose-50 text-rose-600",
+    indicatorClassName: "border-rose-300 bg-rose-100 text-rose-600",
+  },
+  info: {
+    label: "Guidance",
+    badgeClassName: "border-slate-200 bg-slate-100 text-slate-600",
+    indicatorClassName: "border-slate-200 bg-slate-100 text-slate-600",
+  },
+};
+
+const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
+  passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
+  failed: ["fail", "failed", "فشل"],
+  pending: ["pending", "awaiting", "قيد الانتظار"],
+  rejected: ["reject", "rejected", "مرفوض"],
+  info: ["suggested alternatives", "no alternatives required", "اقتراح البدائل"],
+};
+
+const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
+  passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
+  failed: ["fail", "failed", "فشل"],
+  pending: ["pending", "pending manual review", "awaiting", "قيد الانتظار"],
+  rejected: ["reject", "rejected", "مرفوض"],
+  info: ["suggested alternatives", "no alternatives required", "اقتراح البدائل"],
+};
+
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function matchesAnyKeyword(source: string, keywords: string[]) {
+  const normalized = source.trim().toLowerCase();
+  return keywords.some((keyword) =>
+    normalized.includes(keyword.toLowerCase()),
+  );
+}
+
+function normalizeAgentOutcome(rawStatus: string): AgentOutcome {
+  if (!rawStatus.trim()) {
+    return "info";
+  }
+
+  if (matchesAnyKeyword(rawStatus, AGENT_OUTCOME_KEYWORDS.rejected)) {
+    return "rejected";
+  }
+
+  if (matchesAnyKeyword(rawStatus, AGENT_OUTCOME_KEYWORDS.failed)) {
+    return "failed";
+  }
+
+  if (matchesAnyKeyword(rawStatus, AGENT_OUTCOME_KEYWORDS.pending)) {
+    return "pending";
+  }
+
+  if (matchesAnyKeyword(rawStatus, AGENT_OUTCOME_KEYWORDS.passed)) {
+    return "passed";
+  }
+
+  if (matchesAnyKeyword(rawStatus, AGENT_OUTCOME_KEYWORDS.info)) {
+    return "info";
+  }
+
+  return "info";
+}
+
+function stripStatusPhrase(detail: string, outcome: AgentOutcome) {
+  let result = detail.trim();
+  const prefixes = AGENT_STATUS_STRIP_PREFIXES[outcome];
+
+  for (const prefix of prefixes) {
+    const regex = new RegExp(
+      `^${escapeRegExp(prefix)}\\b[\\s.:;,-–—]*`,
+      "i",
+    );
+    if (regex.test(result)) {
+      result = result.replace(regex, "").trim();
+      break;
+    }
+  }
+
+  result = result.replace(/^[\s.:;,-–—]+/, "").trim();
+
+  return result;
+}
+
+function parseAgentNarrativeLine(
+  line: string,
+  fallbackOrder: number,
+): ParsedAgentResponse | null {
+  const sanitizedLine = line.replace(/^•\s*/, "").trim();
+  if (!sanitizedLine) {
+    return null;
+  }
+
+  const arrowIndex = sanitizedLine.indexOf("→");
+  if (arrowIndex === -1) {
+    return null;
+  }
+
+  const titleSegment = sanitizedLine.slice(0, arrowIndex).trim();
+  const statusSegment = sanitizedLine.slice(arrowIndex + 1).trim();
+  const orderMatch = titleSegment.match(/^(\d+)\.\s*(.+)$/);
+  const parsedOrder = orderMatch ? Number.parseInt(orderMatch[1], 10) : fallbackOrder;
+  const order = Number.isNaN(parsedOrder) ? fallbackOrder : parsedOrder;
+  const title = (orderMatch ? orderMatch[2] : titleSegment).trim();
+  const outcome = normalizeAgentOutcome(statusSegment);
+  const detail = stripStatusPhrase(statusSegment, outcome);
+
+  return {
+    order,
+    title,
+    status: outcome,
+    detail: detail ? detail : undefined,
+  };
+}
+
+function parseAgentNarrative(text: string): ParsedAgentNarrative | null {
+  const trimmed = text.trim();
+  if (!trimmed) {
+    return null;
+  }
+
+  const lines = trimmed.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+  if (!lines.length) {
+    return null;
+  }
+
+  let heading: string | null = null;
+  const responses: ParsedAgentResponse[] = [];
+
+  lines.forEach((line, index) => {
+    if (!line.includes("→")) {
+      if (!heading) {
+        heading = line.replace(/^•\s*/, "");
+      }
+      return;
+    }
+
+    const parsed = parseAgentNarrativeLine(line, index + 1);
+    if (parsed) {
+      responses.push(parsed);
+    }
+  });
+
+  if (!responses.length) {
+    return null;
+  }
+
+  responses.sort((a, b) => a.order - b.order);
+
+  return { heading, responses };
+}
+
 const TRADE_NAME_PAYMENT_DISPLAY_AMOUNT = "65 AED";
 
 function createTradeNameReceiptDocument(): DocumentVaultItem {
@@ -312,7 +500,7 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["a", "ا"],
   ["b", "ب"],
   ["c", "ك"],
-  ["d", "د"],
+  ["d", "��"],
   ["e", "ي"],
   ["f", "ف"],
   ["g", "ج"],
