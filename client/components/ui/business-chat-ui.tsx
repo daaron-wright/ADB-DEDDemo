@@ -163,25 +163,8 @@ interface DialogueDocProps {
 }
 
 const createInitialDialogueDocState = (): DialogueDocState => ({
-  notes:
-    "Capture next steps, decisions, and follow-ups here.\n�� Define target district and audience\n• Outline licensing documents\n�� Track stakeholder approvals",
-  highlights: [
-    {
-      id: "dialogue-highlight-1",
-      text: "Clarify the preferred launch district and customer segment",
-      completed: false,
-    },
-    {
-      id: "dialogue-highlight-2",
-      text: "List documents needed before licensing submission",
-      completed: false,
-    },
-    {
-      id: "dialogue-highlight-3",
-      text: "Identify strategic partners to support setup and growth",
-      completed: false,
-    },
-  ],
+  notes: "",
+  highlights: [],
 });
 
 interface BusinessChatUIProps {
@@ -311,8 +294,7 @@ const NORMALIZED_SUGGESTED_TOPICS_TRIGGER = normalizeMessageContent(
   SUGGESTED_TOPICS_TRIGGER_MESSAGE,
 );
 
-const CHAT_INPUT_HOTKEY_PROMPT =
-  "I'm interested in starting an Emerati-fusion restaurant";
+const CHAT_INPUT_HOTKEY_PROMPT = "Bait El Khetyar";
 
 const QUICK_ACTION_UNLOCK_PROMPTS = [
   "I'm interested in starting an Emirati-fusion restaurant",
