@@ -95,7 +95,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "استجابات الوكلاء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. الا��م المعياري \"Marwa Restaurant\" متوافق.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على أي مفردات محظورة في النسختين الع��بية والإنجليزية.",
-        "• وكيل التشابه → فشل. تم العثور على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه ‎0.81‎ (SIMILARITY_CONFLICT).",
+        "• وكيل التشابه → فش��. تم العثور على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه ‎0.81‎ (SIMILARITY_CONFLICT).",
         "• وكيل التحويل الصوتي → قيد الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشروبات.",
         "• محرك القرار النهائي → مرفوض. تم تسجيل القرار بتاريخ 22-09-2025 الساعة 09:32 بالمرجع 452-889-552-2947.",
@@ -128,7 +128,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"بيت الختيار\" دون تعارضات ثقافية.",
-        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
+        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور ع��ى مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة ‎0.28‎ (أقل من الحد المطلوب).",
         "• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل \"بيت الختيار\" وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
@@ -156,7 +156,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأكد من الملاءمة الثقافية.",
-        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على ��صطلحات محظورة في النسختين العربية والإنجليزية.",
+        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على ��صطلحات محظورة في النسختين العربية والإنجل��زية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ ‎0.12‎ وهو أقل من حد التعارض ‎0.75‎.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل \"مطعم مروة\" وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
@@ -451,64 +451,6 @@ function transliterateToArabic(input: string) {
 
 function clampProgress(value: number) {
   return Math.min(Math.max(value, 0), 100);
-}
-
-function getStepStatus(
-  progressPercent: number,
-  stepIndex: number,
-  totalSteps: number,
-  isNameAvailable: boolean,
-  failedStepIndex: number | null,
-): { status: TradeNameCheckStatus; progress: number } {
-  if (totalSteps <= 0) {
-    return { status: "pending", progress: 0 };
-  }
-
-  const segmentSize = 100 / totalSteps;
-  const segmentStart = segmentSize * stepIndex;
-  const segmentEnd = segmentStart + segmentSize;
-  const normalizedProgress = Math.min(
-    Math.max((progressPercent - segmentStart) / segmentSize, 0),
-    1,
-  );
-
-  if (failedStepIndex !== null) {
-    if (stepIndex < failedStepIndex) {
-      if (progressPercent >= segmentEnd) {
-        return { status: "completed", progress: 1 };
-      }
-
-      if (progressPercent <= segmentStart) {
-        return { status: "pending", progress: 0 };
-      }
-
-      return { status: "current", progress: normalizedProgress };
-    }
-
-    if (stepIndex === failedStepIndex) {
-      if (!isNameAvailable && progressPercent >= segmentEnd) {
-        return { status: "failed", progress: 1 };
-      }
-
-      if (progressPercent <= segmentStart) {
-        return { status: "pending", progress: 0 };
-      }
-
-      return { status: "current", progress: normalizedProgress };
-    }
-
-    return { status: "pending", progress: 0 };
-  }
-
-  if (progressPercent >= segmentEnd) {
-    return { status: "completed", progress: 1 };
-  }
-
-  if (progressPercent <= segmentStart) {
-    return { status: "pending", progress: 0 };
-  }
-
-  return { status: "current", progress: normalizedProgress };
 }
 
 function VerificationStepItem({
