@@ -472,10 +472,14 @@ function VerificationStepItem({
   step,
   index,
   totalSteps,
+  onEscalate,
+  isEscalated = false,
 }: {
   step: TradeNameVerificationStepWithStatus;
   index: number;
   totalSteps: number;
+  onEscalate?: (stepTitle: string) => void;
+  isEscalated?: boolean;
 }) {
   const isFailed = step.status === "failed";
   const isCompleted = step.status === "completed";
