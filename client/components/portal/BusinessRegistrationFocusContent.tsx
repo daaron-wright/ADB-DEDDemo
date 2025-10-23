@@ -133,7 +133,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل \"بيت الختيار\" وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
-        "• وكيل اقتراح الا��م (الاسم المرفوض) → اقترح البدائل: \"Bait El Khetyar Restaurant\" و\"Khetyar Dining House\".",
+        "• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: \"Bait El Khetyar Restaurant\" و\"Khetyar Dining House\".",
       ].join("\n"),
     },
   },
@@ -161,7 +161,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
-        "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
+        "• وكيل اقتراح الاسم (ا��اسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
     },
   },
@@ -296,7 +296,7 @@ const AGENT_OUTCOME_META: Record<
 };
 
 const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
-  passed: ["pass", "passed", "approved", "ناجح", "معتم��"],
+  passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
   failed: ["fail", "failed", "فشل"],
   pending: ["pending", "awaiting", "قيد الانتظار"],
   rejected: ["reject", "rejected", "مرفوض"],
@@ -545,7 +545,7 @@ const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
   ["marwa", "مروة"],
   ["marwah", "مروة"],
-  ["restaurant", "مطعم"],
+  ["restaurant", "مط��م"],
   ["bait", "بيت"],
   ["el", "ال"],
   ["al", "ال"],
@@ -929,7 +929,7 @@ function VerificationStepItem({
                 onClick={() => onEscalate(step.title)}
                 disabled={isEscalated}
                 className={cn(
-                  "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition",
+                  "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300 focus-visible:ring-offset-2",
                   isEscalated
                     ? "border-rose-500 bg-rose-500 text-white shadow-[0_16px_34px_-22px_rgba(225,29,72,0.55)]"
                     : "border-rose-400 bg-white text-rose-500 hover:bg-rose-50",
