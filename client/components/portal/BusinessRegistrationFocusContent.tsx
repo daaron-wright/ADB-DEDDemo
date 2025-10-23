@@ -128,7 +128,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"بيت الختيار\" دون تعارضات ثقافية.",
-        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفرد��ت محظورة في النسخ الإنجليزية أو العربية.",
+        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفرد��ت محظورة في الن��خ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة ‎0.28‎ (أقل من الحد المطلوب).",
         "• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل \"بيت الختيار\" وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
@@ -1164,7 +1164,8 @@ export function BusinessRegistrationFocusContent({
       setArabicDraft(formattedArabic);
       setActiveEnglishTradeName(formattedEnglish);
       setActiveArabicTradeName(formattedArabic);
-      setPendingSubmission({
+    setIsArabicSynced(true);
+    setPendingSubmission({
       english: formattedEnglish,
       arabic: formattedArabic,
       normalized: formattedEnglish.toUpperCase(),
