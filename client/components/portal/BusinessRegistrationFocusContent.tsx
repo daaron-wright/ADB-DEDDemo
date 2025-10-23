@@ -299,7 +299,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
   failed: ["fail", "failed", "فشل"],
   pending: ["pending", "awaiting", "قيد الانتظار"],
-  rejected: ["reject", "rejected", "مرفوض"],
+  rejected: ["reject", "rejected", "مرفو��"],
   info: ["suggested alternatives", "no alternatives required", "اقتراح البدائل"],
 };
 
@@ -710,6 +710,9 @@ function VerificationStepItem({
     const narrativeText =
       typeof detail === "string" ? detail : detail[detailLanguage];
 
+    const parsedNarrative = parseAgentNarrative(narrativeText);
+    const isArabicNarrative = isLocalized && detailLanguage === "ar";
+
     return (
       <div className={cn("space-y-2 rounded-xl", styles.container)}>
         {isLocalized ? (
@@ -734,7 +737,70 @@ function VerificationStepItem({
             </div>
           </div>
         ) : null}
-        <p className="whitespace-pre-line">{narrativeText}</p>
+        {parsedNarrative ? (
+          <div
+            className={cn(
+              "space-y-3",
+              isArabicNarrative ? "text-right" : "text-left",
+            )}
+            dir={isArabicNarrative ? "rtl" : "ltr"}
+          >
+            {parsedNarrative.heading ? (
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                {parsedNarrative.heading}
+              </p>
+            ) : null}
+            <div className="space-y-2">
+              {parsedNarrative.responses.map((item) => {
+                const outcomeMeta = AGENT_OUTCOME_META[item.status];
+                return (
+                  <div
+                    key={`${item.order}-${item.title}`}
+                    className={cn(
+                      "flex items-start gap-3 rounded-2xl border border-[#e6f2ed] bg-white/80 p-3 shadow-sm",
+                      isArabicNarrative && "flex-row-reverse text-right",
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold",
+                        outcomeMeta.indicatorClassName,
+                      )}
+                    >
+                      {item.order}
+                    </span>
+                    <div className="flex flex-1 flex-col gap-2">
+                      <div
+                        className={cn(
+                          "flex flex-wrap items-center gap-2",
+                          isArabicNarrative && "flex-row-reverse",
+                        )}
+                      >
+                        <p className="text-sm font-semibold text-slate-900">
+                          {item.title}
+                        </p>
+                        <Badge
+                          className={cn(
+                            "rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
+                            outcomeMeta.badgeClassName,
+                            isArabicNarrative ? "mr-auto" : "ml-auto",
+                          )}
+                        >
+                          {outcomeMeta.label}
+                        </Badge>
+                      </div>
+                      {item.detail ? (
+                        <p className="text-sm text-slate-600">{item.detail}</p>
+                      ) : null}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <p className="whitespace-pre-line">{narrativeText}</p>
+        )}
       </div>
     );
   };
