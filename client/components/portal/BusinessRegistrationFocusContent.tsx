@@ -96,7 +96,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. الا��م المعياري \"Marwa Restaurant\" متوافق.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على أي مفردات محظورة في النسختين الع��بية والإنجليزية.",
         "• وكيل التشابه → فشل. تم العثور على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه ‎0.81‎ (SIMILARITY_CONFLICT).",
-        "• وكيل التحويل الصوتي → قيد الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
+        "• وكيل التحويل الصوتي → قيد الانتظ��ر. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشروبات.",
         "• محرك القرار النهائي → مرفوض. تم تسجيل القرار بتاريخ 22-09-2025 الساعة 09:32 بالمرجع 452-889-552-2947.",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: \"Marwa Culinary House\" و\"Marwa Coastal Kitchen\".",
@@ -129,7 +129,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "استجابات الوكلاء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"بيت الختيار\" دون تعارضات ثقافية.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
-        "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة ‎0.28‎ (أقل من الحد المطلوب).",
+        "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة ‎0.28‎ (أقل ��ن الحد المطلوب).",
         "• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل \"بيت الختيار\" وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
@@ -158,7 +158,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأكد من الملاءمة الثقافية.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على ��صطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ ‎0.12‎ وهو أقل من حد التعارض ‎0.75‎.",
-        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل \"مطعم مروة\" وفق القواعد الصوتية.",
+        "• وكيل الت��ويل الصوتي → ناجح. تمت المصادقة على التحويل \"مطعم مروة\" وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: ‎0.98‎).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
@@ -990,37 +990,63 @@ export function BusinessRegistrationFocusContent({
     ? "Full agent decision flow with localized transcripts."
     : "Run automated checks to populate the decision flow.";
 
+  const finalDecisionSuccessDetail = React.useMemo(
+    () =>
+      TRADE_NAME_CHECKS.find(
+        (step) => step.title === "Final decision engine",
+      )?.successDetail ?? null,
+    [],
+  );
+
   const automationSteps = React.useMemo<
     TradeNameVerificationStepWithStatus[]
   >(() => {
-    const totalSteps = TRADE_NAME_CHECKS.length;
+    const failureDetail =
+      failedStepIndex !== null
+        ? TRADE_NAME_CHECKS[failedStepIndex]?.failureDetail ?? null
+        : null;
 
-    if (!showVerificationSteps) {
-      return TRADE_NAME_CHECKS.map((step) => ({
-        ...step,
-        status: "pending" as TradeNameCheckStatus,
-        progress: 0,
-      }));
-    }
+    const decisionStatus: TradeNameCheckStatus = isChecking
+      ? "current"
+      : isNameAvailable
+        ? "completed"
+        : showVerificationSteps && failedStepIndex !== null
+          ? "failed"
+          : showVerificationSteps
+            ? "pending"
+            : "pending";
 
-    return TRADE_NAME_CHECKS.map((step, index) => {
-      const { status, progress } = getStepStatus(
-        automationProgress,
-        index,
-        totalSteps,
-        isNameAvailable,
-        failedStepIndex,
-      );
+    const baseProgress = showVerificationSteps ? automationProgress : 0;
+    const normalizedProgress =
+      decisionStatus === "completed" || decisionStatus === "failed"
+        ? 1
+        : decisionStatus === "current"
+          ? Math.max(baseProgress / 100, 0.12)
+          : baseProgress > 0
+            ? Math.max(baseProgress / 100, 0.06)
+            : 0;
 
-      return {
-        ...step,
-        status,
-        progress,
-      };
-    });
+    return [
+      {
+        title: "Full decision flow",
+        description:
+          decisionStatus === "completed"
+            ? "All agents approved the trade name."
+            : decisionStatus === "failed"
+              ? "Review the agent log to resolve the flagged issue."
+              : "Polaris is orchestrating each agent’s checks.",
+        summary: "Consolidated view of every agent verdict.",
+        status: decisionStatus,
+        progress: normalizedProgress,
+        failureDetail: failureDetail ?? undefined,
+        successDetail: finalDecisionSuccessDetail ?? undefined,
+      },
+    ];
   }, [
     automationProgress,
     failedStepIndex,
+    finalDecisionSuccessDetail,
+    isChecking,
     isNameAvailable,
     showVerificationSteps,
   ]);
