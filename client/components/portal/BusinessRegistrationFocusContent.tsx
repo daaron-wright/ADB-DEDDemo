@@ -89,7 +89,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. الاسم المعياري \"Marwa Restaurant\" متوافق.",
-        "• وكيل الكلمات المحظورة → ناجح. لم يت�� العثور على أي مفردات محظورة في النسختين العربية والإنجليزية.",
+        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على أي مفردات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → فشل. تم العثور على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه ‎0.81‎ (SIMILARITY_CONFLICT).",
         "• وكيل التحويل الصوتي → قيد الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشروبات.",
@@ -1146,6 +1146,7 @@ export function BusinessRegistrationFocusContent({
       setActiveArabicTradeName("");
       setPendingSubmission(null);
       setAutomationProgress(0);
+      setEscalatedStepIds(() => new Set<string>());
       setIsNameAvailable(false);
       setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
       setFailureReason(null);
