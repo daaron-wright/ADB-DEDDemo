@@ -98,7 +98,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → فشل. تم العثور على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه ‎0.81‎ (SIMILARITY_CONFLICT).",
         "• وكيل التحويل الصوتي → قيد الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشروبات.",
-        "• محرك ا��قرار النهائي → مرفوض. تم تسجيل القرار بتاريخ 22-09-2025 الساعة 09:32 بالمرجع 452-889-552-2947.",
+        "• محرك القرار النهائي → مرفوض. تم تسجيل القرار بتاريخ 22-09-2025 الساعة 09:32 بالمرجع 452-889-552-2947.",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: \"Marwa Culinary House\" و\"Marwa Coastal Kitchen\".",
       ].join("\n"),
     },
@@ -159,7 +159,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على ��صطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ ‎0.12‎ وهو أقل من حد التعارض ‎0.75‎.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل \"مطعم مروة\" وفق القواعد الصوتية.",
-        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم الم��خّص.",
+        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: ‎0.98‎).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
@@ -293,7 +293,7 @@ const DOUBLE_CHAR_MAP = new Map<string, string>([
   ["ae", "اي"],
   ["ai", "اي"],
   ["ay", "اي"],
-  ["ch", "�����ش"],
+  ["ch", "����ش"],
   ["dh", "ذ"],
   ["gh", "غ"],
   ["kh", "خ"],
@@ -698,7 +698,7 @@ function VerificationStepItem({
         {isFailed && step.failureDetail ? (
           <div className="space-y-3">
             {renderAgentNarrative(step.failureDetail, "failed")}
-            {step.title === "Activity compatibility agent" && activityOptions ? (
+            {activityOptions && activityOptions.length ? (
               <div className="flex flex-wrap gap-2">
                 {activityOptions.map((option) => {
                   const isActive = option.id === selectedActivityId;
