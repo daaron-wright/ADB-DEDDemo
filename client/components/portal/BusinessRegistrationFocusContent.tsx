@@ -94,7 +94,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. الا��م المعياري \"Marwa Restaurant\" متوافق.",
-        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على أي مفردات محظورة في النسختين الع��بية والإنجليزية.",
+        "• وكيل الكلمات المحظورة → نا��ح. لم يتم العثور على أي مفردات محظورة في النسختين الع��بية والإنجليزية.",
         "• وكيل الت��ابه → فشل. تم ال��ثور على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه ‎0.81‎ (SIMILARITY_CONFLICT).",
         "• وكيل التحويل الصوتي → قيد الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشرو��ات.",
@@ -127,7 +127,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"بيت الختيار\" دون تعارضات ثقافية.",
+        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي ��� ناجح. تم توحيد \"بيت الختيار\" دون تعارضات ثقافية.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثو�� على مفرد��ت محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة ‎0.28‎ (أقل من الحد المطلوب).",
         "• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل \"بيت الختيار\" وفق القواعد الصوتية.",
@@ -1240,15 +1240,18 @@ export function BusinessRegistrationFocusContent({
       }
 
       const formattedEnglish = formatTradeName(suggestion.english);
+      const transliteratedArabic = formatArabicName(
+        transliterateToArabic(formattedEnglish),
+      );
       setEnglishDraft(formattedEnglish);
       setActiveEnglishTradeName(formattedEnglish);
-      setArabicDraft("");
-    setActiveArabicTradeName("");
+      setArabicDraft(transliteratedArabic);
+      setActiveArabicTradeName(transliteratedArabic);
     setPendingSubmission(null);
     setAutomationProgress(0);
     setEscalatedStepIds(() => new Set<string>());
     setSelectedActivityId(null);
-    setIsArabicSynced(false);
+    setIsArabicSynced(Boolean(transliteratedArabic));
     setIsNameAvailable(false);
       setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
       setFailureReason(null);
@@ -1439,7 +1442,7 @@ export function BusinessRegistrationFocusContent({
                 </div>
                 <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                    Arabic name
+                    Arabic name (Transliteration)
                   </p>
                   <p
                     className={cn(
@@ -1451,7 +1454,7 @@ export function BusinessRegistrationFocusContent({
                     dir={activeArabicTradeName ? "rtl" : "ltr"}
                   >
                     {activeArabicTradeName ||
-                      "Transliterate to populate Arabic name"}
+                      "Transliteration will populate the Arabic name"}
                   </p>
                 </div>
               </div>
@@ -1528,7 +1531,7 @@ export function BusinessRegistrationFocusContent({
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                      Arabic trade name
+                      Arabic trade name (Transliteration)
                     </label>
                     <Input
                       value={arabicDraft}
@@ -1538,7 +1541,7 @@ export function BusinessRegistrationFocusContent({
                         setActiveArabicTradeName(value);
                         setIsArabicSynced(false);
                       }}
-                      placeholder="Arabic name appears after transliteration"
+                      placeholder="Transliteration auto-populates the Arabic name"
                       dir={arabicDraft ? "rtl" : "ltr"}
                       className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
                       disabled={isChecking}
