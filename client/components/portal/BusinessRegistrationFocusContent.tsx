@@ -93,7 +93,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        "• مدقق النص / التدقيق الإملائي / الف��ص الثقافي → ناجح. الا��م المعياري \"Marwa Restaurant\" متوافق.",
+        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. الا��م المعياري \"Marwa Restaurant\" متوافق.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على أي مفردات محظورة في النسختين الع��بية والإنجليزية.",
         "• وكيل التشابه → فشل. تم ال��ثور على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه ‎0.81‎ (SIMILARITY_CONFLICT).",
         "• وكيل التحويل الصوتي → قيد الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
@@ -1208,12 +1208,13 @@ export function BusinessRegistrationFocusContent({
       setEnglishDraft(formattedEnglish);
       setActiveEnglishTradeName(formattedEnglish);
       setArabicDraft("");
-      setActiveArabicTradeName("");
-      setPendingSubmission(null);
-      setAutomationProgress(0);
-      setEscalatedStepIds(() => new Set<string>());
-      setSelectedActivityId(null);
-      setIsNameAvailable(false);
+    setActiveArabicTradeName("");
+    setPendingSubmission(null);
+    setAutomationProgress(0);
+    setEscalatedStepIds(() => new Set<string>());
+    setSelectedActivityId(null);
+    setIsArabicSynced(false);
+    setIsNameAvailable(false);
       setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
       setFailureReason(null);
       setHasSelectedApprovedTradeName(false);
