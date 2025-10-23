@@ -347,7 +347,7 @@ const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
   ["marwa", "مروة"],
   ["marwah", "مروة"],
-  ["restaurant", "م��عم"],
+  ["restaurant", "مطعم"],
   ["bait", "بيت"],
   ["el", "ال"],
   ["al", "ال"],
@@ -1460,7 +1460,9 @@ export function BusinessRegistrationFocusContent({
                     setEnglishDraft(
                       activeEnglishTradeName || PRIMARY_TRADE_NAME_EN,
                     );
-                    setArabicDraft(activeArabicTradeName || "");
+                    const restoredArabic = activeArabicTradeName || "";
+                    setArabicDraft(restoredArabic);
+                    setIsArabicSynced(Boolean(restoredArabic));
                   }
                   setIsEditing((previous) => !previous);
                 }}
