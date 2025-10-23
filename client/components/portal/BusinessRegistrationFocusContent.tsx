@@ -89,7 +89,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "استجابات الوكلاء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. الاسم المعياري \"Marwa Restaurant\" متوافق.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على أي مفردات محظورة في النسختين العربية والإنجليزية.",
-        "• وكيل التشابه → فشل. تم العثو�� على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه ‎0.81‎ (SIMILARITY_CONFLICT).",
+        "• وكيل التشابه → فشل. تم العثور على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه ‎0.81‎ (SIMILARITY_CONFLICT).",
         "• وكيل التحويل الصوتي → قيد الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشروبات.",
         "• محرك القرار النهائي → مرفوض. تم تسجيل القرار بتاريخ 22-09-2025 الساعة 09:32 بالمرجع 452-889-552-2947.",
@@ -457,6 +457,13 @@ function VerificationStepItem({
   const isFailed = step.status === "failed";
   const isCompleted = step.status === "completed";
   const isCurrent = step.status === "current";
+  const [failureLanguage, setFailureLanguage] = React.useState<"en" | "ar">(
+    "en",
+  );
+
+  React.useEffect(() => {
+    setFailureLanguage("en");
+  }, [step.title, step.status]);
 
   const statusLabel = isFailed
     ? "Needs attention"
@@ -545,8 +552,39 @@ function VerificationStepItem({
           {helperMessage}
         </div>
         {isFailed && step.failureDetail ? (
-          <div className="rounded-xl border border-rose-200 bg-rose-50/80 px-3 py-2 text-sm text-rose-700">
-            {step.failureDetail}
+          <div className="space-y-2 rounded-xl border border-rose-200 bg-rose-50/80 px-3 py-2 text-sm text-rose-700">
+            {typeof step.failureDetail !== "string" ? (
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-500">
+                  Agent responses
+                </span>
+                <div className="inline-flex items-center gap-1 rounded-full border border-rose-200 bg-white/80 p-1">
+                  {(["en", "ar"] as const).map((lang) => {
+                    const isActive = failureLanguage === lang;
+                    return (
+                      <button
+                        key={lang}
+                        type="button"
+                        onClick={() => setFailureLanguage(lang)}
+                        className={cn(
+                          "min-w-[36px] rounded-full px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] transition",
+                          isActive
+                            ? "bg-rose-500 text-white shadow-[0_8px_20px_-10px_rgba(225,29,72,0.45)]"
+                            : "text-rose-500 hover:bg-rose-100",
+                        )}
+                      >
+                        {lang === "en" ? "EN" : "AR"}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
+            <p className="whitespace-pre-line">
+              {typeof step.failureDetail === "string"
+                ? step.failureDetail
+                : step.failureDetail[failureLanguage]}
+            </p>
           </div>
         ) : null}
       </div>
