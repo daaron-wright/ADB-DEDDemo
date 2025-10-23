@@ -99,7 +99,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التحويل الصوتي → قيد الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشروبات.",
         "• محرك القرار النهائي → مرفوض. تم تسجيل القرار بتاريخ 22-09-2025 الساعة 09:32 بالمرجع 452-889-552-2947.",
-        "• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: \"Marwa Culinary House\" و\"Marwa Coastal Kitchen\".",
+        "• وكيل اقتراح ال��سم (الاسم المرفوض) → اقترح البدائل: \"Marwa Culinary House\" و\"Marwa Coastal Kitchen\".",
       ].join("\n"),
     },
   },
@@ -801,6 +801,30 @@ export function BusinessRegistrationFocusContent({
   const handleActivitySelect = React.useCallback((activityId: string) => {
     setSelectedActivityId(activityId);
   }, []);
+
+  React.useEffect(() => {
+    const english = englishDraft.trim();
+    if (!english) {
+      if (isArabicSynced && arabicDraft) {
+        setArabicDraft("");
+        setActiveArabicTradeName("");
+      }
+      return;
+    }
+
+    if (!isArabicSynced && arabicDraft.trim()) {
+      return;
+    }
+
+    const transliterated = formatArabicName(transliterateToArabic(english));
+    if (transliterated === arabicDraft) {
+      return;
+    }
+
+    setArabicDraft(transliterated);
+    setActiveArabicTradeName(transliterated);
+    setIsArabicSynced(true);
+  }, [arabicDraft, englishDraft, isArabicSynced]);
 
   const nextPrimaryAction = React.useMemo<
     "runChecks" | "selectName" | "submitReservation" | null
