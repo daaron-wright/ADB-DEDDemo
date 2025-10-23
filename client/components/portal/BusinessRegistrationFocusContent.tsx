@@ -93,7 +93,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → فشل. تم العثور على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه ‎0.81‎ (SIMILARITY_CONFLICT).",
         "• وكيل التحويل الصوتي → قيد الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشروبات.",
-        "• محرك القرار النهائي → مرفوض. تم تسجيل القرار بتاريخ 22-09-2025 الساعة 09:32 بالمرجع 452-889-552-2947.",
+        "• محرك القرار النهائي → مرفوض. تم تسجي�� القرار بتاريخ 22-09-2025 الساعة 09:32 بالمرجع 452-889-552-2947.",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: \"Marwa Culinary House\" و\"Marwa Coastal Kitchen\".",
       ].join("\n"),
     },
@@ -131,7 +131,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأكد من الملاءمة الثقافية.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ ‎0.12‎ وهو أقل من حد التعارض ‎0.75‎.",
-        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل \"مطعم مروة\" وفق القواعد الصوتية.",
+        "• وكيل التحويل الصوتي → ناجح. تم�� المصادقة على التحويل \"مطعم مروة\" وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: ‎0.98‎).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
@@ -759,6 +759,25 @@ export function BusinessRegistrationFocusContent({
       hasSubmittedReservationApplication,
       isNameAvailable,
     ],
+  );
+
+  const handleEscalation = React.useCallback(
+    (stepTitle: string) => {
+      setEscalatedStepIds((previous) => {
+        if (previous.has(stepTitle)) {
+          return previous;
+        }
+        const next = new Set(previous);
+        next.add(stepTitle);
+        return next;
+      });
+      toast({
+        title: "Escalation sent to DED",
+        description:
+          "DED operations acknowledged the escalation and is addressing it now.",
+      });
+    },
+    [toast],
   );
 
   const nextPrimaryAction = React.useMemo<
