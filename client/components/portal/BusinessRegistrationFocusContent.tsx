@@ -252,7 +252,7 @@ const DOUBLE_CHAR_MAP = new Map<string, string>([
   ["ay", "اي"],
   ["ch", "����ش"],
   ["dh", "ذ"],
-  ["gh", "��"],
+  ["gh", "غ"],
   ["kh", "خ"],
   ["ph", "ف"],
   ["qu", "قو"],
@@ -1578,6 +1578,8 @@ export function BusinessRegistrationFocusContent({
                           step={step}
                           index={index}
                           totalSteps={automationSteps.length}
+                          onEscalate={handleEscalation}
+                          isEscalated={escalatedStepIds.has(step.title)}
                         />
                       ))}
                     </div>
