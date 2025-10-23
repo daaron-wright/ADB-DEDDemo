@@ -52,54 +52,55 @@ type TradeNameVerificationStepWithStatus = TradeNameVerificationStep & {
 
 const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
   {
-    title: "Character normalization",
+    title: "Text normalizer / spell checker / cultural checker",
     description:
-      "We detect attempts to bypass filters by swapping characters or using deliberate misspellings (e.g., 4bu Dh@b1).",
-    summary: "Catches disguised characters or leetspeak before approval.",
+      "Normalizes characters, corrects spelling, and screens for cultural or linguistic sensitivities in one pass.",
+    summary:
+      "Cleans the name and applies cultural guardrails before deeper analysis.",
   },
   {
-    title: "Prohibited word checks",
+    title: "Prohibited words agent",
     description:
-      "We look for explicit and subtle use of restricted terms across the entire name.",
+      "Scans for explicit, implicit, or obfuscated restricted terms across the full trade name.",
     summary: "Blocks restricted or sensitive words from the name.",
   },
   {
-    title: "Cultural checks",
+    title: "Similarity agent",
     description:
-      "We flag references with religious, geographic, royal, or political sensitivity.",
-    summary: "Confirms the name respects local cultural and religious norms.",
-  },
-  {
-    title: "Similar name checks",
-    description:
-      "We confirm there are no existing businesses with confusingly similar names.",
+      "Compares the proposed name against the full registry to prevent confusingly similar matches.",
     summary: "Prevents duplicates or confusingly similar business names.",
     failureDetail: `Matches an existing trade name registered as ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}).`,
   },
   {
-    title: "Transliteration check",
+    title: "Transliteration agent",
     description:
-      "We verify that the Arabic and English renditions align and read correctly.",
-    summary: "Aligns the English and Arabic spellings so they read the same.",
+      "Verifies Arabic and English spellings align phonetically and visually.",
+    summary: "Keeps translations synchronized across both languages.",
   },
   {
-    title: "Activity name check",
+    title: "Activity compatibility agent",
     description:
-      "We ensure the English name aligns with your selected business activity.",
-    summary: "Checks the name matches your chosen business activity.",
+      "Checks the proposed name against your selected activity list to ensure compliance.",
+    summary: "Confirms the name fits the licensed activity scope.",
   },
   {
-    title: "Suggest names",
+    title: "Final decision engine",
     description:
-      "We generate alternatives, rerun every check, and surface the results with any failures explained.",
+      "Aggregates every agent output, surfaces blockers, and records the approval decision trail.",
+    summary: "Combines all agent signals into a single go / no-go result.",
+  },
+  {
+    title: "Name suggester agent (rejected trade name)",
+    description:
+      "Generates compliant alternatives, reruns the full agent pipeline, and highlights the best option to pursue next.",
     summary:
-      "Offers compliant alternatives automatically if something is flagged.",
+      "Keeps the journey moving with agent-reviewed fallback names.",
   },
 ];
 
 const DEFAULT_FAILURE_STEP_INDEX = (() => {
   const index = TRADE_NAME_CHECKS.findIndex(
-    (step) => step.title === "Similar name checks",
+    (step) => step.title === "Similarity agent",
   );
   return index === -1 ? 3 : index;
 })();
