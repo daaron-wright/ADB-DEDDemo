@@ -128,7 +128,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"بيت الختيار\" دون تعارضات ثقافية.",
-        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
+        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية ��و العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         "• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل \"بيت الختيار\" وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
@@ -157,7 +157,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "استجابات الوكلاء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأكد من الملاءمة الثقافية.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
-        "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
+        "• وكيل التشابه → ناجح. أقرب تشابه ��ي السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
@@ -309,14 +309,14 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
 };
 
 const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
-  passed: ["pass", "passed", "approved", "ناجح", "��عتمد"],
+  passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
   failed: ["fail", "failed", "فشل"],
   pending: ["pending manual review", "pending", "awaiting", "قيد الانتظار"],
   rejected: ["reject", "rejected", "مرفوض"],
   info: [
     "suggested alternatives",
     "no alternatives required",
-    "اقتراح البدائل",
+    "��قتراح البدائل",
     "لا حاجة لبدائل",
   ],
 };
@@ -781,10 +781,7 @@ function VerificationStepItem({
                     </span>
                     <div className="flex flex-1 flex-col gap-2">
                       <div
-                        className={cn(
-                          "flex flex-wrap items-center gap-2",
-                          isArabicNarrative && "flex-row-reverse",
-                        )}
+                        className="flex flex-wrap items-center justify-between gap-2"
                       >
                         <p className="text-sm font-semibold text-slate-900">
                           {item.title}
@@ -793,7 +790,6 @@ function VerificationStepItem({
                           className={cn(
                             "rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
                             outcomeMeta.badgeClassName,
-                            isArabicNarrative ? "mr-auto" : "ml-auto",
                           )}
                         >
                           {outcomeMeta.label}
