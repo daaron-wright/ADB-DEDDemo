@@ -99,7 +99,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التحويل الصوتي → قيد الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشروبات.",
         "• محرك القرار النهائي → مرفوض. تم تسجيل القرار بتاريخ 22-09-2025 الساعة 09:32 بالمرجع 452-889-552-2947.",
-        "• وكيل اقتراح ال��سم (الاسم المرفوض) → اقترح البدائل: \"Marwa Culinary House\" و\"Marwa Coastal Kitchen\".",
+        "• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: \"Marwa Culinary House\" و\"Marwa Coastal Kitchen\".",
       ].join("\n"),
     },
   },
@@ -133,7 +133,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل \"بيت الختيار\" وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
-        "• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: \"Bait El Khetyar Restaurant\" و\"Khetyar Dining House\".",
+        "• وكيل اقتر��ح الاسم (الاسم المرفوض) → اقترح البدائل: \"Bait El Khetyar Restaurant\" و\"Khetyar Dining House\".",
       ].join("\n"),
     },
   },
@@ -1529,7 +1529,12 @@ export function BusinessRegistrationFocusContent({
                     </div>
                     <Input
                       value={arabicDraft}
-                      onChange={(event) => setArabicDraft(event.target.value)}
+                      onChange={(event) => {
+                        const value = event.target.value;
+                        setArabicDraft(value);
+                        setActiveArabicTradeName(value);
+                        setIsArabicSynced(false);
+                      }}
                       placeholder="Arabic name appears after transliteration"
                       dir={arabicDraft ? "rtl" : "ltr"}
                       className="h-11 rounded-full border-slate-200 bg-white px-4 text-sm tracking-wide text-slate-900 placeholder:text-slate-400"
