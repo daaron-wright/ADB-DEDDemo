@@ -320,7 +320,7 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["i", "ي"],
   ["j", "ج"],
   ["k", "ك"],
-  ["l", "ل"],
+  ["l", "��"],
   ["m", "م"],
   ["n", "ن"],
   ["o", "��"],
@@ -1247,12 +1247,12 @@ export function BusinessRegistrationFocusContent({
       setActiveEnglishTradeName(formattedEnglish);
       setArabicDraft(transliteratedArabic);
       setActiveArabicTradeName(transliteratedArabic);
-    setPendingSubmission(null);
-    setAutomationProgress(0);
-    setEscalatedStepIds(() => new Set<string>());
-    setSelectedActivityId(null);
-    setIsArabicSynced(Boolean(transliteratedArabic));
-    setIsNameAvailable(false);
+      setPendingSubmission(null);
+      setAutomationProgress(0);
+      setEscalatedStepIds(() => new Set<string>());
+      setSelectedActivityId(null);
+      setIsArabicSynced(Boolean(transliteratedArabic));
+      setIsNameAvailable(false);
       setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
       setFailureReason(null);
       setHasSelectedApprovedTradeName(false);
