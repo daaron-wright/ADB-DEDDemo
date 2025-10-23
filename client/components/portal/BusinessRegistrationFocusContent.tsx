@@ -95,7 +95,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "استجابات الوكلاء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. الاسم المعياري \"Marwa Restaurant\" متوافق.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على أي مفردات محظورة في النسختين العربية والإنجليزية.",
-        "• وكيل التشابه → فشل. تم العثور على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه 0.81 (SIMILARITY_CONFLICT).",
+        "• وكيل التشابه → فشل. تم العثور على ��جل مسجل \"Marwa Restaurant\" بنسبة تشابه 0.81 (SIMILARITY_CONFLICT).",
         "• وكيل التحويل الصوتي → ق��د الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع النشاط المرخّص: مطعم ومشروبات.",
         "• محرك القرار النهائي → مرفوض. تم تسجيل القرار بتاريخ 22-09-2025 الساعة 09:32 بالمرجع 452-889-552-2947.",
@@ -157,7 +157,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "استجابات الوكلاء (العربية):",
         "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأكد من الملاءمة الثقافية.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
-        "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
+        "• وكيل التشاب�� → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
@@ -1612,7 +1612,7 @@ export function BusinessRegistrationFocusContent({
     trimmedActiveEnglish.length > 0 || trimmedEnglishDraft.length > 0;
   const englishSummaryDisplay = hasDisplayedEnglishName
     ? trimmedActiveEnglish || trimmedEnglishDraft
-    : `Press space to insert "${PRIMARY_TRADE_NAME_EN}"`;
+    : "";
 
   const baseCtaClasses =
     "rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] disabled:cursor-not-allowed disabled:opacity-60";
