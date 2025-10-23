@@ -93,7 +93,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. الا��م المعياري \"Marwa Restaurant\" متوافق.",
+        "• مدقق النص / التدقيق الإملائي / الف��ص الثقافي → ناجح. الا��م المعياري \"Marwa Restaurant\" متوافق.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على أي مفردات محظورة في النسختين الع��بية والإنجليزية.",
         "• وكيل التشابه → فشل. تم ال��ثور على سجل مسجل \"Marwa Restaurant\" بنسبة تشابه ‎0.81‎ (SIMILARITY_CONFLICT).",
         "• وكيل التحويل الصوتي → قيد الانتظار. بانتظار إدخال النسخة العربية لاستكمال الفحص.",
@@ -127,7 +127,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        "• مدقق النص / التدقيق الإملائ�� / الفحص الثقافي → ناجح. تم توحيد \"بيت الختيار\" دون تعارضات ثقافية.",
+        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"بيت الختيار\" دون تعارضات ثقافية.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفرد��ت محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة ‎0.28‎ (أقل من الحد المطلوب).",
         "• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل \"بيت الختيار\" وفق القواعد الصوتية.",
@@ -155,7 +155,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأك�� من الملاءمة الثقافية.",
+        "• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد \"Marwa Restaurant\" والتأكد من الملاءمة الثقافية.",
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على ��صطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ ‎0.12‎ وهو أقل من حد التعارض ‎0.75‎.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل \"مطعم مروة\" وفق القواعد الصوتية.",
@@ -1141,14 +1141,15 @@ export function BusinessRegistrationFocusContent({
       setActiveEnglishTradeName(formattedEnglish);
       setActiveArabicTradeName(formattedArabic);
       setPendingSubmission({
-        english: formattedEnglish,
-        arabic: formattedArabic,
-        normalized: formattedEnglish.toUpperCase(),
-      });
-      setAutomationProgress(0);
-      setEscalatedStepIds(() => new Set<string>());
-      setSelectedActivityId(null);
-      setIsChecking(true);
+      english: formattedEnglish,
+      arabic: formattedArabic,
+      normalized: formattedEnglish.toUpperCase(),
+    });
+    setAutomationProgress(0);
+    setEscalatedStepIds(() => new Set<string>());
+    setSelectedActivityId(null);
+    setIsArabicSynced(true);
+    setIsChecking(true);
       setIsNameAvailable(false);
       setFailedStepIndex(null);
       setFailureReason(null);
