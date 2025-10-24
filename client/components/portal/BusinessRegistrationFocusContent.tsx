@@ -95,7 +95,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "تسلسل استجابات الوكلاء:",
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� النصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
-        "2. ��كيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
@@ -121,7 +121,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '1. Text normalizer / spell checker / cultural checker → Pass. Normalized "Bait El Khetyar" without cultural conflicts.',
         "2. Prohibited words agent → Pass. No prohibited lexicon detected in English or Arabic drafts.",
         "3. Similarity agent → Pass. Nearest registry match similarity score 0.28 (below threshold).",
-        '4. Transliteration agent → Pass. Arabic transliteration "بيت الختيار" verified against phonetic rules.',
+        '4. Transliteration agent → Pass. Arabic transliteration "بيت الخ��يار" verified against phonetic rules.',
         "5. Activity compatibility agent → Guidance. Proposed name signals a heritage retail concept, not the F&B restaurant activity currently selected.",
         "6. Final decision engine → Pending manual review. Escalation recommended or choose an aligned activity.",
         '7. Name suggester agent (rejected trade name) → Suggested alternatives: "Bait El Khetyar Restaurant", "Khetyar Dining House".',
@@ -132,7 +132,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
-        "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��لى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
+        "• وكيل توافق ال��شاط → إر��اد. الاسم يشير ��لى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
         '• وكيل اقتراح الاسم (الاسم ال��رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
@@ -156,7 +156,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        '• مدقق النص / التدقيق الإملائي / الفحص ا��ثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ��لثقافية.',
+        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ��لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
@@ -320,7 +320,7 @@ function buildFinalDecisionRejectionNarrative(
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
-    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لست واثقًا من الرفض الآلي لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية للتوجيه.",
+    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لست واثقًا من الرفض الآلي لذلك تم رفعه لمراجع دائرة التنمي�� الاقتصادية للتوجيه.",
     "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
   ];
 
@@ -769,7 +769,7 @@ const UPPERCASE_EXCEPTIONS = new Set([
 const DOUBLE_CHAR_MAP = new Map<string, string>([
   ["aa", "ا"],
   ["ae", "اي"],
-  ["ai", "اي"],
+  ["ai", "ا��"],
   ["ay", "اي"],
   ["ch", "تش"],
   ["dh", "ذ"],
@@ -2008,6 +2008,7 @@ const forceActivityMismatchRef = React.useRef(false);
     setHasPerformedCheck(Boolean(tradeName) || isTradeNameAvailable);
     setEscalatedStepIds(() => new Set<string>());
     setSelectedActivityId(null);
+    setPendingIterationDraft(null);
     if (reservationTimeoutRef.current) {
       window.clearTimeout(reservationTimeoutRef.current);
       reservationTimeoutRef.current = null;
