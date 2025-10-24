@@ -95,7 +95,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "تسلسل استجابات الوكلاء:",
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا��نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
-        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين العربية أو الإنجليزية.",
+        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين ��لعربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
@@ -149,7 +149,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '1. Text normalizer / spell checker / cultural checker → Passed. Normalized "Marwa Restaurant" and confirmed cultural compliance.',
         "2. Prohibited words agent �� Passed. No restricted terms detected across English and Arabic drafts.",
         "3. Similarity agent → Passed. Nearest registry match scored 0.12, below the 0.75 conflict threshold.",
-        '4. Transliteration agent → Passed. Arabic transliteration "مطعم مر��ة" validated against phonetic rules.',
+        '4. Transliteration agent → Passed. Arabic transliteration "مطعم مروة" validated against phonetic rules.',
         "5. Activity compatibility agent → Passed. Name aligns with the licensed Food & Beverage restaurant activity.",
         "6. Final decision engine → Approved 2025-09-22T09:32Z (confidence: high, score: 0.98).",
         "7. Name suggester agent (rejected trade name) → No alternatives required; current name authorized.",
