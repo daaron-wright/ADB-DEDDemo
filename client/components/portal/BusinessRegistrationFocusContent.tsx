@@ -127,7 +127,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) → Suggested alternatives: "Bait El Khetyar Restaurant", "Khetyar Dining House".',
       ].join("\n"),
       ar: [
-        "استجابات ��لوكلاء (العربية):",
+        "استجابات الوكلاء (العربية):",
         '• مدقق ا��نص / الت��قيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
@@ -203,6 +203,7 @@ const ACTIVITY_COMPATIBILITY_OPTIONS: ActivityOption[] = [
 ];
 
 const ACTIVITY_COMPATIBILITY_NAME = "BAIT EL KHETYAR";
+const FIXED_SIMILARITY_ITERATION_NAME = "Bait El Khetyar Heritage Kitchen";
 
 const CONFLICTING_TRADE_NAME_NORMALIZED =
   PRIMARY_TRADE_NAME_EN.trim().toUpperCase();
@@ -285,7 +286,7 @@ function buildSimilarityConflictNarrative(
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق النشاط → غير مقيم. في انتظار اسم تجاري فريد.",
-    `6. محرك القرار النهائي → مرفوض. مرج�� التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر��ح اسم مختلف.`,
+    `6. محرك القرار ال��هائي → مرفوض. مرج�� التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر��ح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (الاس�� المرفوض) → إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
@@ -315,7 +316,7 @@ function buildFinalDecisionRejectionNarrative(
 
   const arabicLines = [
     "استجابات الوكلاء (��لعربية):",
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثق��في → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
+    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
