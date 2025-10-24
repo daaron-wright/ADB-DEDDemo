@@ -274,7 +274,7 @@ function buildSimilarityConflictNarrative(
   const arabicLines = [
     "تسل��ل استجابات الوكلاء:",
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق الن��ي دون ��خالفات.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+    "2. وكيل الكلمات المحظورة → ن��جح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق النشاط → غير مقيم. في انتظار اسم تجاري فريد.",
@@ -1311,9 +1311,10 @@ export function BusinessRegistrationFocusContent({
   onPolarisPrompt,
 }: BusinessRegistrationFocusContentProps) {
   const { toast } = useToast();
-  const [tradeNameGuidance, setTradeNameGuidance] = React.useState<
-    string | null
-  >(null);
+const [tradeNameGuidance, setTradeNameGuidance] = React.useState<
+  string | null
+>(null);
+const forceActivityMismatchRef = React.useRef(false);
   const [currentFailureDetail, setCurrentFailureDetail] = React.useState<
     string | LocalizedAgentNarrative | null
   >(null);
