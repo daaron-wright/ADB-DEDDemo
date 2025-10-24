@@ -315,7 +315,7 @@ function buildFinalDecisionRejectionNarrative(
 
   const arabicLines = [
     "استجابات الوكلاء (��لعربية):",
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
+    `1. مدقق ا��نص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
@@ -1441,41 +1441,30 @@ const forceActivityMismatchRef = React.useRef(false);
     normalized: string;
   } | null>(null);
 
-  React.useEffect(() => {
-    if (!suggestedIterationName) {
-      return;
-    }
+  const applyIterationDraft = React.useCallback(
+    (nextEnglish: string) => {
+      const formattedIteration = formatTradeName(nextEnglish);
+      if (!formattedIteration) {
+        return;
+      }
 
-    const formattedIteration = formatTradeName(suggestedIterationName);
-    if (!formattedIteration) {
-      return;
-    }
+      const normalizedIteration = formattedIteration.toUpperCase();
+      const normalizedDraft = englishDraft.trim().toUpperCase();
 
-    const normalizedIteration = formattedIteration.toUpperCase();
-    const normalizedDraft = englishDraft.trim().toUpperCase();
+      if (normalizedIteration === normalizedDraft) {
+        return;
+      }
 
-    if (normalizedIteration === normalizedDraft) {
-      return;
-    }
+      const autoArabic = formatArabicName(transliterateToArabic(formattedIteration));
 
-    const autoArabic = formatArabicName(transliterateToArabic(formattedIteration));
-    const trimmedArabicDraft = arabicDraft.trim();
-
-    setEnglishDraft(formattedIteration);
-
-    if (
-      trimmedArabicDraft.length === 0 ||
-      currentFailureContext === "activity-mismatch" ||
-      trimmedArabicDraft === autoArabic
-    ) {
+      setEnglishDraft(formattedIteration);
       setArabicDraft(autoArabic);
       setIsArabicSynced(true);
-    } else {
-      setIsArabicSynced(trimmedArabicDraft === autoArabic);
-    }
+      setIsEditing(true);
+    },
+    [englishDraft],
+  );
 
-    setIsEditing(true);
-  }, [arabicDraft, currentFailureContext, englishDraft, suggestedIterationName]);
   const [isChecking, setIsChecking] = React.useState(false);
   const [hasPerformedCheck, setHasPerformedCheck] = React.useState(
     Boolean(tradeName) || isTradeNameAvailable,
