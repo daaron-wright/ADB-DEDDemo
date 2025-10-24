@@ -9067,6 +9067,8 @@ export function BusinessChatUI({
                               onSubmit={handleSendMessage}
                               placeholder={chatInputPlaceholder}
                               className="w-full"
+                              hotkeyPrompt={hotkeyDraftPrompt}
+                              onHotkeyInsert={handleHotkeyInsert}
                             />
                           </div>
                         ) : null}
