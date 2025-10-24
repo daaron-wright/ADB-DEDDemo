@@ -100,7 +100,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
         "6. محرك القرار النهائي → مرفو��. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبقًا�� يُرجى اقتراح بدي��.",
-        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة الخي��يار".',
+        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة ��لخي��يار".',
       ].join("\n"),
     },
   },
@@ -133,7 +133,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��ل�� مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
-        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متواف��.",
+        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اخ��يار نشاط متواف��.",
         '• وكيل اقتراح الاسم (الاسم ال��رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -162,7 +162,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
         "• مح��ك القر��ر ال��هائي → معت��د بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
-        "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل؛ الاسم الحالي معتمد.",
+        "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
       ].join("\n"),
     },
   },
@@ -779,7 +779,7 @@ const DOUBLE_CHAR_MAP = new Map<string, string>([
   ["ph", "ف"],
   ["qu", "قو"],
   ["sh", "ش"],
-  ["th", "ث"],
+  ["th", "��"],
   ["wh", "و"],
   ["oo", "و"],
   ["ee", "ي"],
@@ -831,7 +831,7 @@ const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
   ["bait", "بيت"],
   ["el", "ال"],
   ["al", "ال"],
-  ["khetyar", "الختيار"],
+  ["khetyar", "الختيا��"],
 ]);
 
 const ARABIC_CHAR_PATTERN = /[\u0600-\u06FF]/;
@@ -2122,65 +2122,6 @@ const forceActivityMismatchRef = React.useRef(false);
     currentFailureContext,
     suggestedIterationName,
   ]);
-
-  const runChecksWithNames = React.useCallback(
-    (englishName: string, arabicName: string) => {
-      const formattedEnglish = formatTradeName(englishName);
-      const formattedArabic = formatArabicName(arabicName);
-
-      if (!formattedEnglish || !formattedArabic) {
-        return false;
-      }
-
-      if (autoRerunTimeoutRef.current) {
-        window.clearTimeout(autoRerunTimeoutRef.current);
-        autoRerunTimeoutRef.current = null;
-      }
-
-      setCurrentFailureDetail(null);
-      setCurrentFailureContext(null);
-      setSuggestedIterationName(null);
-      setPendingIterationDraft(null);
-      setTradeNameGuidance(null);
-      setEnglishDraft(formattedEnglish);
-      setArabicDraft(formattedArabic);
-      setActiveEnglishTradeName(formattedEnglish);
-      setActiveArabicTradeName(formattedArabic);
-      const autoArabic = formatArabicName(
-        transliterateToArabic(formattedEnglish),
-      );
-      setIsArabicSynced(autoArabic === formattedArabic);
-      setPendingSubmission({
-        english: formattedEnglish,
-        arabic: formattedArabic,
-        normalized: formattedEnglish.toUpperCase(),
-      });
-      setAutomationProgress(0);
-      setEscalatedStepIds(() => new Set<string>());
-      setSelectedActivityId(null);
-      setIsChecking(true);
-      setIsNameAvailable(false);
-      setFailedStepIndex(null);
-      setFailureReason(null);
-
-      if (forceActivityMismatchRef.current) {
-        autoRerunPlanRef.current = {
-          english: formattedEnglish,
-          arabic: formattedArabic,
-          pendingFinal: true,
-        };
-      } else {
-        autoRerunPlanRef.current = null;
-      }
-
-      setHasPerformedCheck(true);
-      setIsEditing(true);
-      setActiveSlideId("trade-name");
-      onTradeNameChange?.(formattedEnglish);
-      return true;
-    },
-    [onTradeNameChange, setActiveSlideId],
-  );
 
   const handleChatDrivenTradeName = React.useCallback(
     (message: string) => {
