@@ -8189,6 +8189,7 @@ export function BusinessChatUI({
       const segments: string[] = [intro];
 
       if (detail.status === "approved") {
+        setHotkeyDraftPrompt(null);
         segments.push(
           ensureSentence(
             "Every agent now passes and the final decision is approved",
