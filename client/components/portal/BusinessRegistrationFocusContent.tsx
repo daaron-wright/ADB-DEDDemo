@@ -1930,6 +1930,7 @@ const forceActivityMismatchRef = React.useRef(false);
 
     return () => window.clearInterval(interval);
   }, [
+    applyIterationDraft,
     isChecking,
     pendingSubmission,
     activeEnglishTradeName,
@@ -1937,6 +1938,7 @@ const forceActivityMismatchRef = React.useRef(false);
     englishDraft,
     arabicDraft,
     approvedNameSet,
+    toast,
   ]);
 
   React.useEffect(() => {
