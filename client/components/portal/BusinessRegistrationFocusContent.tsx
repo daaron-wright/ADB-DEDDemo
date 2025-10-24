@@ -95,7 +95,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "تسلسل استجابات الوكلاء:",
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات (زمن المعالجة 653 ��للي ثانية).',
-        "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشاط → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
@@ -127,8 +127,8 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) → Suggested alternatives: "Bait El Khetyar Restaurant", "Khetyar Dining House".',
       ].join("\n"),
       ar: [
-        "است��ابات الوكلاء (العربية):",
-        '• مدقق النص / الت��قيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعارضات ثقافية.',
+        "استجابات الوكلاء (العربية):",
+        '• مدقق ا��نص / الت��قيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعارضات ثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
@@ -445,6 +445,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
     "no alternatives required",
     "اقتراح البدائل",
     "لا حاجة لبدائل",
+    "إرشاد",
   ],
 };
 
@@ -781,7 +782,7 @@ function sanitizeTradeNameCandidate(value: string) {
   const terminationIndex = trimmed.search(CHAT_NAME_TERMINATORS);
   const truncated = terminationIndex > 0 ? trimmed.slice(0, terminationIndex) : trimmed;
 
-  return truncated.replace(/^[\s"'��”'’]+|[\s"'“”'’.!,;:()\-]+$/g, "").trim();
+  return truncated.replace(/^[\s"'“”'’]+|[\s"'“”'’.!,;:()\-]+$/g, "").trim();
 }
 
 function extractLabeledSegment(source: string, label: string) {
