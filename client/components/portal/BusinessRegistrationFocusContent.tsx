@@ -95,7 +95,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "تسلسل استجابات الوكلاء:",
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� النصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
-        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين العربية أو الإنجليزية.",
+        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات مح��ور�� في النسختين العربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
@@ -1867,7 +1867,7 @@ const forceActivityMismatchRef = React.useRef(false);
             );
           } else if (normalizedName === CONFLICTING_TRADE_NAME_NORMALIZED) {
             forceActivityMismatchRef.current = true;
-            resolvedFailureReason = `We couldn’t reserve ${englishDisplay}. ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}) is already registered. Try a unique variation that aligns with your selected activity.`;
+            resolvedFailureReason = `We couldn��t reserve ${englishDisplay}. ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}) is already registered. Try a unique variation that aligns with your selected activity.`;
             const iterationSuggestion = FIXED_SIMILARITY_ITERATION_NAME;
             const conflictNarrative = buildSimilarityConflictNarrative(
               englishDisplay,
@@ -2144,9 +2144,24 @@ const forceActivityMismatchRef = React.useRef(false);
         return;
       }
 
-      const formattedEnglish = formatTradeName(english);
+      let formattedEnglish = formatTradeName(english);
       if (!formattedEnglish) {
         return;
+      }
+
+      const normalizedIncoming = formattedEnglish.toLowerCase();
+      if (
+        normalizedIncoming.includes("polaris") ||
+        normalizedIncoming.includes("rerun") ||
+        normalizedIncoming.includes("trade name")
+      ) {
+        const fallbackEnglish = englishDraft || activeEnglishTradeName || "";
+        const fallbackFormatted = formatTradeName(
+          fallbackEnglish || FIXED_SIMILARITY_ITERATION_NAME,
+        );
+        if (fallbackFormatted) {
+          formattedEnglish = fallbackFormatted;
+        }
       }
 
       const arabicSource =
