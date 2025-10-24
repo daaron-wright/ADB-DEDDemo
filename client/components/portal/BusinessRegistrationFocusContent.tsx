@@ -94,7 +94,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "تسلسل استجابات الوكلاء:",
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات (زمن المعالجة 653 ��للي ثانية).',
+        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. ا��تاز الاسم "بيت الختيار" التحقق النصي دون مخالفات (زمن المعالجة 653 ��للي ثانية).',
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
@@ -134,7 +134,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
-        '• وكيل اقتراح الاسم (الاسم ال��رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
+        '• وكيل اقتراح الاسم (الاسم ال��رفوض) → اقتر�� البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
   },
@@ -155,8 +155,8 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "7. Name suggester agent (rejected trade name) → No alternatives required; current name authorized.",
       ].join("\n"),
       ar: [
-        "استجابات الوكلاء (العربية):",
-        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. ت�� توحيد "Marwa Restaurant" والتأكد من الملاءمة ��لثقافية.',
+        "استجا��ات الوكلاء (العربية):",
+        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ��لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
@@ -273,7 +273,7 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     "تسل��ل استجابات الوكلاء:",
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق الن��ي دون ��خالفات.`,
+    `1. مدق�� النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق الن��ي دون ��خالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
@@ -755,7 +755,7 @@ const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
 ]);
 
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
-  ["marwa", "مرو��"],
+  ["marwa", "مروة"],
   ["marwah", "مروة"],
   ["restaurant", "مطعم"],
   ["bait", "بيت"],
@@ -1082,40 +1082,83 @@ function VerificationStepItem({
             <div className="space-y-2">
               {parsedNarrative.responses.map((item) => {
                 const outcomeMeta = AGENT_OUTCOME_META[item.status];
+                const normalizedTitle = item.title.toLowerCase();
+                const shouldShowActivitySelector =
+                  variant === "failed" &&
+                  activityOptions &&
+                  activityOptions.length > 0 &&
+                  item.status === "info" &&
+                  normalizedTitle.includes("activity compatibility agent");
+
                 return (
                   <div
                     key={`${item.order}-${item.title}`}
                     className={cn(
-                      "flex items-start gap-3 rounded-2xl border border-[#e6f2ed] bg-white/80 p-3 shadow-sm",
-                      isArabicNarrative && "flex-row-reverse text-right",
+                      "flex flex-col gap-2 rounded-2xl border border-[#e6f2ed] bg-white/80 p-3 shadow-sm",
+                      isArabicNarrative && "text-right",
                     )}
                   >
-                    <span
+                    <div
                       className={cn(
-                        "flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold",
-                        outcomeMeta.indicatorClassName,
+                        "flex items-start gap-3",
+                        isArabicNarrative && "flex-row-reverse",
                       )}
                     >
-                      {item.order}
-                    </span>
-                    <div className="flex flex-1 flex-col gap-2">
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <p className="text-sm font-semibold text-slate-900">
-                          {item.title}
-                        </p>
-                        <Badge
-                          className={cn(
-                            "rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
-                            outcomeMeta.badgeClassName,
-                          )}
-                        >
-                          {outcomeMeta.label}
-                        </Badge>
+                      <span
+                        className={cn(
+                          "flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold",
+                          outcomeMeta.indicatorClassName,
+                        )}
+                      >
+                        {item.order}
+                      </span>
+                      <div className="flex flex-1 flex-col gap-2">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <p className="text-sm font-semibold text-slate-900">
+                            {item.title}
+                          </p>
+                          <Badge
+                            className={cn(
+                              "rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
+                              outcomeMeta.badgeClassName,
+                            )}
+                          >
+                            {outcomeMeta.label}
+                          </Badge>
+                        </div>
+                        {item.detail ? (
+                          <p className="text-sm text-slate-600">{item.detail}</p>
+                        ) : null}
                       </div>
-                      {item.detail ? (
-                        <p className="text-sm text-slate-600">{item.detail}</p>
-                      ) : null}
                     </div>
+                    {shouldShowActivitySelector ? (
+                      <div
+                        className={cn(
+                          "flex flex-wrap gap-2",
+                          isArabicNarrative && "justify-end",
+                        )}
+                      >
+                        {activityOptions.map((option) => {
+                          const isActive = option.id === selectedActivityId;
+                          return (
+                            <Button
+                              key={option.id}
+                              type="button"
+                              variant="outline"
+                              onClick={() => onActivitySelect?.(option.id)}
+                              className={cn(
+                                "rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition",
+                                isActive
+                                  ? "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_18px_44px_-34px_rgba(15,118,110,0.45)]"
+                                  : "border-[#0f766e]/30 text-[#0f766e] hover:bg-[#0f766e]/10",
+                              )}
+                            >
+                              {option.label}
+                            </Button>
+                          );
+                        })}
+                      </div>
+                    ) : null}
                   </div>
                 );
               })}
