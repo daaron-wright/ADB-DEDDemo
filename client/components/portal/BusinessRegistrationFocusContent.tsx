@@ -95,7 +95,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "تسلسل استجابات الوكلاء:",
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات (زمن المعالجة 653 مللي ثانية).',
-        "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مف��دات محظورة في النسختين العربية أو الإنجليزية.",
+        "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشاط → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
@@ -128,7 +128,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        '• مدقق النص / الت��قيق الإملائي / الفحص ��لثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعارضات ثقافية.',
+        '• مدقق النص / الت��قيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعارضات ثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
@@ -157,7 +157,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ��لثقافية.',
-        "• ��كيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
+        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
@@ -1647,21 +1647,62 @@ export function BusinessRegistrationFocusContent({
           if (isSuccess) {
             setFailedStepIndex(null);
             setFailureReason(null);
+            setCurrentFailureDetail(null);
+            setCurrentFailureContext(null);
+            setSuggestedIterationName(null);
+            setTradeNameGuidance(
+              `All automation checks approved "${englishDisplay}". Continue with the reservation when ready.`,
+            );
           } else {
             if (normalizedName === CONFLICTING_TRADE_NAME_NORMALIZED) {
               resolvedFailureReason = `We couldn’t reserve ${englishDisplay}. ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}) is already registered. Try a unique variation that aligns with your selected activity.`;
+              const iterationSuggestion = suggestTradeNameIteration(englishDisplay);
+              const conflictNarrative = buildSimilarityConflictNarrative(
+                englishDisplay,
+                iterationSuggestion,
+              );
               setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
               setFailureReason(resolvedFailureReason);
+              setCurrentFailureDetail(conflictNarrative);
+              setCurrentFailureContext("similarity-conflict");
+              setSuggestedIterationName(
+                iterationSuggestion ? iterationSuggestion : null,
+              );
+              setTradeNameGuidance(
+                iterationSuggestion
+                  ? `Similarity agent flagged "${englishDisplay}" for matching "${PRIMARY_TRADE_NAME_EN}". Try "${iterationSuggestion}" or ask Polaris for another variation.`
+                  : `Similarity agent flagged "${englishDisplay}" for matching "${PRIMARY_TRADE_NAME_EN}". Add a unique qualifier, then re-run the checks.`,
+              );
             } else if (normalizedName === ACTIVITY_COMPATIBILITY_NAME) {
               resolvedFailureReason = `We couldn’t reserve ${englishDisplay}. Select the activity that best matches the heritage concept or adjust the trade name.`;
               setFailedStepIndex(ACTIVITY_FAILURE_STEP_INDEX);
               setFailureReason(resolvedFailureReason);
+              setCurrentFailureDetail(
+                TRADE_NAME_CHECKS[ACTIVITY_FAILURE_STEP_INDEX]?.failureDetail ?? null,
+              );
+              setCurrentFailureContext("activity-mismatch");
+              setSuggestedIterationName(null);
+              setTradeNameGuidance(
+                "Update the licensed activity or iterate on the name so it clearly reflects your Food & Beverage concept before retrying.",
+              );
             } else {
               resolvedFailureReason = normalizedName
                 ? `We couldn’t reserve ${englishDisplay}. Try a unique variation that aligns with your selected activity.`
                 : "Add English and Arabic trade names before running the automated checks.";
               setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
               setFailureReason(resolvedFailureReason);
+              setCurrentFailureDetail(
+                TRADE_NAME_CHECKS[DEFAULT_FAILURE_STEP_INDEX]?.failureDetail ?? null,
+              );
+              setCurrentFailureContext(
+                normalizedName ? "similarity-conflict" : "missing-input",
+              );
+              setSuggestedIterationName(null);
+              setTradeNameGuidance(
+                normalizedName
+                  ? "Try adding a geographic or specialty descriptor to differentiate the trade name, then rerun the checks."
+                  : "Enter both English and Arabic trade names before running the automated checks.",
+              );
             }
           }
 
