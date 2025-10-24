@@ -133,7 +133,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
-        "• ��حرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
+        "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
         '• وكيل اقتراح الاسم (الاسم ال��رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -147,7 +147,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       en: [
         "Agent responses sequence:",
         '1. Text normalizer / spell checker / cultural checker → Passed. Normalized "Marwa Restaurant" and confirmed cultural compliance.',
-        "2. Prohibited words agent → Passed. No restricted terms detected across English and Arabic drafts.",
+        "2. Prohibited words agent �� Passed. No restricted terms detected across English and Arabic drafts.",
         "3. Similarity agent → Passed. Nearest registry match scored 0.12, below the 0.75 conflict threshold.",
         '4. Transliteration agent → Passed. Arabic transliteration "مطعم مروة" validated against phonetic rules.',
         "5. Activity compatibility agent → Passed. Name aligns with the licensed Food & Beverage restaurant activity.",
@@ -280,7 +280,7 @@ function buildSimilarityConflictNarrative(
     "5. وكيل توافق النشاط → غير مقيم. في انتظار اسم تجاري فريد.",
     `6. محرك القرار النهائي → مرفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتراح اسم مختلف.`,
     hasIteration
-      ? `7. وكيل اقتراح الاسم (الاسم المرف��ض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
+      ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. يوصي Polaris بإضافة توصيف خاص أو جغرافي.",
   ];
 
@@ -763,7 +763,7 @@ const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
 ]);
 
 const ARABIC_CHAR_PATTERN = /[\u0600-\u06FF]/;
-const QUOTED_TEXT_PATTERN = /["“”']([^"“”']{2,})["“”']/g;
+const QUOTED_TEXT_PATTERN = /["“”']([^"“”']{2,})["���”']/g;
 const CHAT_NAME_TERMINATORS = /\b(?:instead|please|thanks|thank you|and then|and we|and i'll|because|so that|so we|so i)\b/i;
 const CHAT_NAME_TRIGGER_PATTERN = /\b(?:use|try|consider|switch to|update to|rename(?:\s+it)?\s+to|call it|let(?:'s)? go with|let(?:'s)? call it|let(?:'s)? use)\s+([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
 const CHAT_TRADE_NAME_FALLBACK_PATTERN = /\btrade\s*name\b[^A-Za-z0-9]*([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
@@ -1435,7 +1435,7 @@ const forceActivityMismatchRef = React.useRef(false);
         });
       }
     },
-    [toast],
+    [setTradeNameGuidance, toast],
   );
 
   React.useEffect(() => {
