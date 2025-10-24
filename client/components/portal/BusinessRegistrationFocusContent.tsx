@@ -156,7 +156,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ����لثقافية.',
+        '• مدقق النص / التدقيق الإ��لائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ����لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
@@ -589,7 +589,7 @@ function parseAgentNarrativeLine(
   line: string,
   fallbackOrder: number,
 ): ParsedAgentResponse | null {
-  const sanitizedLine = line.replace(/^•\s*/, "").trim();
+  const sanitizedLine = line.replace(/^��\s*/, "").trim();
   if (!sanitizedLine) {
     return null;
   }
@@ -2141,13 +2141,13 @@ const forceActivityMismatchRef = React.useRef(false);
       }
 
       const { english, arabic } = deriveTradeNamesFromMessage(message);
-      if (!english) {
-        return;
-      }
+      let formattedEnglish = formatTradeName(english ?? "");
 
-      let formattedEnglish = formatTradeName(english);
       if (!formattedEnglish) {
-        return;
+        formattedEnglish =
+          formatTradeName(activeEnglishTradeName) ||
+          formatTradeName(englishDraft) ||
+          FIXED_SIMILARITY_ITERATION_NAME;
       }
 
       const normalizedIncoming = formattedEnglish.toLowerCase();
@@ -2156,7 +2156,7 @@ const forceActivityMismatchRef = React.useRef(false);
         normalizedIncoming.includes("rerun") ||
         normalizedIncoming.includes("trade name")
       ) {
-        const fallbackEnglish = englishDraft || activeEnglishTradeName || "";
+        const fallbackEnglish = activeEnglishTradeName || englishDraft || "";
         const fallbackFormatted = formatTradeName(
           fallbackEnglish || FIXED_SIMILARITY_ITERATION_NAME,
         );
