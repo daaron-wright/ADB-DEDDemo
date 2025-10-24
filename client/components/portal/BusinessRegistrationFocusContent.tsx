@@ -95,7 +95,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "تسلسل استجابات الوكلاء:",
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� النصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
-        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين العربية أو الإنجليزية.",
+        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردا�� محظور�� في النسختين العربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
@@ -128,7 +128,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
+        '• مدقق ا��نص / الت��قي�� الإملائي / الف��ص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
@@ -157,7 +157,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ����لثقافية.',
-        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
+        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات مح��ورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
@@ -1588,12 +1588,31 @@ const forceActivityMismatchRef = React.useRef(false);
       );
       if (activity) {
         setTradeNameGuidance(
-          `Activity alignment updated to ${activity.label}. Ask Polaris to rerun the checks once you confirm the plan.`,
+          `Activity alignment updated to ${activity.label}. Polaris will push the final decision engine once the guidance finishes syncing.`,
         );
         toast({
           title: "Activity selected",
           description: `${activity.label} locked in for the next verification pass.`,
         });
+        const pendingPlan = autoRerunPlanRef.current;
+        if (pendingPlan?.pendingFinal) {
+          autoRerunPlanRef.current = null;
+          if (autoRerunTimeoutRef.current) {
+            window.clearTimeout(autoRerunTimeoutRef.current);
+          }
+          const nextEnglish = pendingPlan.english;
+          const nextArabic =
+            pendingPlan.arabic ||
+            formatArabicName(transliterateToArabic(pendingPlan.english));
+          autoRerunTimeoutRef.current = window.setTimeout(() => {
+            autoRerunTimeoutRef.current = null;
+            toast({
+              title: "Final decision engine re-run",
+              description: `Polaris is validating "${nextEnglish}" with the final decision engine.`,
+            });
+            runChecksWithNames(nextEnglish, nextArabic);
+          }, 900);
+        }
       }
     },
     [setTradeNameGuidance, toast],
@@ -1978,29 +1997,17 @@ const forceActivityMismatchRef = React.useRef(false);
             const activityGuidanceMessage = iterationCandidate
               ? `Activity compatibility agent flagged "${englishDisplay}" as heritage-focused. Align the licensed activity before rerunning; keep the trade name as "${FIXED_SIMILARITY_ITERATION_NAME}" when you retry.`
               : `Activity compatibility agent flagged the concept as heritage-focused. Align the licensed activity before rerunning; keep "${FIXED_SIMILARITY_ITERATION_NAME}" when you retry.`;
-            setTradeNameGuidance(activityGuidanceMessage);
-            const pendingPlan = autoRerunPlanRef.current;
-            if (pendingPlan?.pendingFinal) {
-              autoRerunPlanRef.current = null;
-              if (autoRerunTimeoutRef.current) {
-                window.clearTimeout(autoRerunTimeoutRef.current);
-              }
-              const nextEnglish = pendingPlan.english;
-              const nextArabic =
-                pendingPlan.arabic ||
-                formatArabicName(transliterateToArabic(pendingPlan.english));
-              setTradeNameGuidance(
-                `${activityGuidanceMessage} Polaris is escalating "${nextEnglish}" to the final decision engine.`,
-              );
-              autoRerunTimeoutRef.current = window.setTimeout(() => {
-                autoRerunTimeoutRef.current = null;
-                toast({
-                  title: "Final decision engine re-run",
-                  description: `Polaris is validating "${nextEnglish}" with the final decision engine.`,
-                });
-                runChecksWithNames(nextEnglish, nextArabic);
-              }, 900);
-            }
+            const planArabic = arabicDisplay
+              ? arabicDisplay
+              : formatArabicName(transliterateToArabic(englishDisplay));
+            autoRerunPlanRef.current = {
+              english: englishDisplay,
+              arabic: planArabic,
+              pendingFinal: true,
+            };
+            setTradeNameGuidance(
+              `${activityGuidanceMessage} Select the aligned activity tab so Polaris can re-run the final decision next.`,
+            );
           } else if (normalizedName) {
             forceActivityMismatchRef.current = false;
             resolvedFailureReason = `Final decision engine rejected ${englishDisplay}. ESCALATE TO DED REVIEWER for manual adjudication.`;
