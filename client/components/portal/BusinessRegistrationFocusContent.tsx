@@ -280,8 +280,8 @@ function buildSimilarityConflictNarrative(
   ];
 
   const arabicLines = [
-    "تس�����ل استجابات الوكلاء:",
-    `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا��م "${formattedAttempt}" الت��قق الن��ي دون ��خالفات.`,
+    "تسل���ل استجابات الوكلاء:",
+    `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا��م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
@@ -289,7 +289,7 @@ function buildSimilarityConflictNarrative(
     `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
     hasIteration
       ? `7. ��كيل اقتراح الاسم (الاسم المرفوض) → إ��شاد. البديل المقترح: "${sanitizedIteration}".`
-      : "7. وكيل اقتراح الاسم (الاس�� ��لمرفوض) �� إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
+      : "7. وكيل اقتراح الاسم (الاس�� المرفوض) �� إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
   ];
 
   return {
@@ -317,7 +317,7 @@ function buildFinalDecisionRejectionNarrative(
   const arabicLines = [
     "استجابات الوكلاء (��لعربية):",
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
+    "2. و��يل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
@@ -800,7 +800,7 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["j", "ج"],
   ["k", "��"],
   ["l", "ل"],
-  ["m", "م"],
+  ["m", "��"],
   ["n", "ن"],
   ["o", "و"],
   ["p", "ب"],
@@ -2201,8 +2201,14 @@ const forceActivityMismatchRef = React.useRef(false);
       if (!formattedEnglish) {
         const draftFallback = formatTradeName(englishDraft);
         const activeFallback = formatTradeName(activeEnglishTradeName);
+        const defaultFallback = formatTradeName(
+          FIXED_SIMILARITY_ITERATION_NAME,
+        );
         formattedEnglish =
-          draftFallback || activeFallback || FIXED_SIMILARITY_ITERATION_NAME;
+          draftFallback ||
+          activeFallback ||
+          defaultFallback ||
+          FIXED_SIMILARITY_ITERATION_NAME;
       }
 
       const normalizedIncoming = formattedEnglish.toLowerCase();
@@ -2213,9 +2219,12 @@ const forceActivityMismatchRef = React.useRef(false);
       ) {
         const draftFallback = formatTradeName(englishDraft);
         const activeFallback = formatTradeName(activeEnglishTradeName);
+        const defaultFallback = formatTradeName(
+          FIXED_SIMILARITY_ITERATION_NAME,
+        );
         const fallbackFormatted =
-          draftFallback || activeFallback || FIXED_SIMILARITY_ITERATION_NAME;
-        formattedEnglish = fallbackFormatted;
+          draftFallback || activeFallback || defaultFallback;
+        formattedEnglish = fallbackFormatted || FIXED_SIMILARITY_ITERATION_NAME;
       }
 
       const arabicSource =
