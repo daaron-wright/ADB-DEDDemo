@@ -8712,7 +8712,10 @@ const handleToggleActivity = useCallback((activityId: string) => {
                       <div className={conversationContainerClass}>
                         <div className={messageListClass}>
                           {journeyFocusView ? (
-                            <JourneyStageFocusView {...journeyFocusView} />
+                            <JourneyStageFocusView
+                              {...journeyFocusView}
+                              onPolarisPrompt={handlePolarisPrompt}
+                            />
                           ) : null}
                           {!journeyFocusView && showChatInterface ? (
                             <>
