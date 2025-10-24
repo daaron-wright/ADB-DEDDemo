@@ -156,12 +156,12 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ��لثقافية.',
+        '• مدقق الن�� / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ��لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
-        "• مح��ك القرار النهائي → معت��د بتاريخ 22-09-2025 الساعة 09:32 (درجة ��لثقة: عالية، النتيجة: 0.98).",
+        "• مح��ك القرار النهائي → معت��د بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -264,7 +264,7 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     "تسلسل استجابات الوكلاء:",
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناج��. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
+    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
@@ -412,7 +412,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
 };
 
 const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
-  passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
+  passed: ["pass", "passed", "approved", "ناجح", "مع��مد"],
   failed: ["fail", "failed", "فشل"],
   pending: ["pending manual review", "pending", "awaiting", "قيد الانتظار"],
   rejected: ["reject", "rejected", "مرفوض"],
@@ -1559,7 +1559,7 @@ export function BusinessRegistrationFocusContent({
   >(() => {
     const failureDetail =
       failedStepIndex !== null
-        ? (TRADE_NAME_CHECKS[failedStepIndex]?.failureDetail ?? null)
+        ? currentFailureDetail ?? TRADE_NAME_CHECKS[failedStepIndex]?.failureDetail ?? null
         : null;
 
     const decisionStatus: TradeNameCheckStatus = isChecking
