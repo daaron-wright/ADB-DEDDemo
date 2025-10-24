@@ -274,7 +274,7 @@ function buildSimilarityConflictNarrative(
   const arabicLines = [
     "تسل��ل استجابات الوكلاء:",
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق الن��ي دون ��خالفات.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردا�� محظورة في النسختين العربية أو الإنجليزية.",
+    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق النشاط → غير مقيم. في انتظار اسم تجاري فريد.",
@@ -1138,7 +1138,7 @@ function VerificationStepItem({
                           isArabicNarrative && "justify-end",
                         )}
                       >
-                        {activityOptions.map((option) => {
+                        {activityOptions?.map((option) => {
                           const isActive = option.id === selectedActivityId;
                           return (
                             <Button
