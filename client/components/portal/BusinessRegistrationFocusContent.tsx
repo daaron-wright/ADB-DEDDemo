@@ -94,12 +94,12 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "تسلسل استجابات الوكلاء:",
-        '1. مدقق النص / التدقيق الإملائ�� / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات (زمن المعالجة 653 ��للي ثانية).',
+        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات (زمن المعالجة 653 ��للي ثانية).',
         "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشاط → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
-        "6. محرك القرار النهائي → مرفوض. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبقًا، يُرجى اقتراح بديل.",
+        "6. محرك القرار النهائي → مرفوض. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبقًا، يُرجى اقتراح ��ديل.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة الخيريار".',
       ].join("\n"),
     },
@@ -308,6 +308,31 @@ function suggestTradeNameIteration(baseName: string): string {
   }
 
   return `${formatted} Signature`.replace(/\s+/g, " ").trim();
+}
+
+function suggestActivityAlignedTradeName(baseName: string): string {
+  const formatted = formatTradeName(baseName);
+  if (!formatted) {
+    return "";
+  }
+
+  const lower = formatted.toLowerCase();
+  const hasActivityKeyword = /(restaurant|dining|kitchen|culinary|cafe|café|eatery|bistro)/i.test(lower);
+
+  if (!hasActivityKeyword) {
+    return `${formatted} Restaurant`.replace(/\s+/g, " ").trim();
+  }
+
+  for (const descriptor of ACTIVITY_ALIGNMENT_DESCRIPTOR_SEQUENCE) {
+    if (!lower.includes(descriptor.toLowerCase())) {
+      return `${formatted} ${descriptor}`.replace(/\s+/g, " ").trim();
+    }
+  }
+
+  const fallback = suggestTradeNameIteration(formatted);
+  return fallback.toLowerCase() !== lower
+    ? fallback
+    : `${formatted} Dining Atelier`.replace(/\s+/g, " ").trim();
 }
 
 function buildChatDraftFromContext(
