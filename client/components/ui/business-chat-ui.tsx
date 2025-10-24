@@ -6379,6 +6379,7 @@ export function BusinessChatUI({
   >({});
   const feedbackTopicsNotifiedRef = useRef<Set<string>>(new Set());
   const [feedbackTotal, setFeedbackTotal] = useState(0);
+  const handleHotkeyInsert = useCallback(() => {}, []);
   const loginTriggerRef = useRef<HTMLElement | null>(null);
   const [shouldPromptLogin, setShouldPromptLogin] = useState(false);
   const [isInvestorLoginPending, setIsInvestorLoginPending] = useState(false);
