@@ -8214,13 +8214,16 @@ export function BusinessChatUI({
           );
         }
 
-        if (detail.draftPrompt?.trim()) {
+        const trimmedDraftPrompt = detail.draftPrompt?.trim();
+        if (trimmedDraftPrompt) {
+          setHotkeyDraftPrompt(trimmedDraftPrompt);
           segments.push(
             ensureSentence(
-              "I've pre-filled a chat message so you can submit the new variation to Polaris.",
+              "Press the space bar in the chat to load the suggested update before we rerun the checks.",
             ),
           );
         } else {
+          setHotkeyDraftPrompt(null);
           segments.push(
             ensureSentence(
               "Try another variation or pick one of the compliant suggestions in the verification panel",
@@ -8243,12 +8246,8 @@ export function BusinessChatUI({
         ];
       });
 
-      if (detail.draftPrompt?.trim()) {
-        setInteractionMode("chat");
-        setInputValue(detail.draftPrompt.trim());
-      } else {
-        setInputValue("");
-      }
+      setInteractionMode("chat");
+      setInputValue("");
 
       applyFollowUps([]);
     };
