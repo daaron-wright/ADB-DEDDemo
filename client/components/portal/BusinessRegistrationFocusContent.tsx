@@ -128,13 +128,13 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        '• مدقق ا��نص / الت��قيق الإملائي / الف���ص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
+        '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��ل�� مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشاط متواف��.",
-        '• وكيل اقتراح الاسم (الاسم ال��رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
+        '• وكيل اقتراح الاسم (الاسم ال���رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
   },
@@ -281,14 +281,14 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     "تسل���ل استجابات الوكلاء:",
-    `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقاف�� → ناجح. اجتاز الا��م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
+    `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا��م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق ال��شاط → غير مقيم. في انتظار اسم ��جاري فريد.",
     `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
     hasIteration
-      ? `7. ��كيل اقتراح الاسم (الاسم المرفوض) → إ��شاد. البديل المقترح: "${sanitizedIteration}".`
+      ? `7. ��كيل اقتراح الاسم (الاسم المرفوض) → إ��شاد. البديل المق��رح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (الاس�� المرفوض) �� إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
   ];
 
@@ -311,12 +311,12 @@ function buildFinalDecisionRejectionNarrative(
     "4. Transliteration agent → Passed. Arabic counterpart stays synchronized with phonetic rules.",
     "5. Activity compatibility agent → Guidance. Heritage positioning requires manual validation against the licensed activity plan.",
     "6. Final decision engine → Escalated for review. Not super confident in the automated rejection, so a DED reviewer will advise next steps.",
-    "7. Name suggester agent → Guidance. Prepare your supporting rationale before escalating to the reviewer.",
+    "7. Name suggester agent ��� Guidance. Prepare your supporting rationale before escalating to the reviewer.",
   ];
 
   const arabicLines = [
     "استجابات الوكلاء (��لعربية):",
-    `1. مدقق النص / التدقيق الإ��لائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
+    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
     "2. و��يل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
@@ -2226,11 +2226,11 @@ const forceActivityMismatchRef = React.useRef(false);
 
       const { english, arabic } = deriveTradeNamesFromMessage(message);
       const hasExplicitEnglish = Boolean(english);
-  let formattedEnglish = hasExplicitEnglish
-    ? formatTradeName(english ?? "")
-    : "";
+      let formattedEnglish = hasExplicitEnglish
+        ? formatTradeName(english ?? "")
+        : "";
 
-  if (!formattedEnglish) {
+      if (!formattedEnglish) {
         const draftFallback = formatTradeName(englishDraft);
         const activeFallback = formatTradeName(activeEnglishTradeName);
         const defaultFallback = formatTradeName(
