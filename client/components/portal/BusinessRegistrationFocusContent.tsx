@@ -94,7 +94,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "تسلسل استجابات الوكلاء:",
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات (زمن المعالجة 653 مللي ثانية).',
+        '1. مد��ق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات (زمن المعالجة 653 مللي ثانية).',
         "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
@@ -134,7 +134,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
-        '• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
+        '• وكيل ��قتراح الاسم (الاسم المرفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
   },
@@ -1550,20 +1550,6 @@ export function BusinessRegistrationFocusContent({
               setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
               setFailureReason(resolvedFailureReason);
             }
-          }
-
-          if (typeof window !== "undefined") {
-            window.dispatchEvent(
-              new CustomEvent("polarisTradeNameCheckComplete", {
-                detail: {
-                  status: isSuccess ? "approved" : "rejected",
-                  english: englishDisplay,
-                  arabic: arabicDisplay,
-                  failureReason: resolvedFailureReason,
-                  stageId: "trade-name-activities",
-                },
-              }),
-            );
           }
 
           setPendingSubmission(null);
