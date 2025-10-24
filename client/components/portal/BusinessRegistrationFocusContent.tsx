@@ -508,7 +508,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
     "لا حاجة لبدائل",
     "إرشاد",
   ],
-  escalated: ["escalated", "escalation", "تصعيد"],
+  escalated: ["escalated", "escalation", "تصعي��"],
 };
 
 const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
@@ -2213,6 +2213,7 @@ const forceActivityMismatchRef = React.useRef(false);
       }
 
       const { english, arabic } = deriveTradeNamesFromMessage(message);
+      const hasExplicitEnglish = Boolean(english);
       let formattedEnglish = formatTradeName(english ?? "");
 
       if (!formattedEnglish) {
@@ -2230,9 +2231,10 @@ const forceActivityMismatchRef = React.useRef(false);
 
       const normalizedIncoming = formattedEnglish.toLowerCase();
       if (
-        normalizedIncoming.includes("polaris") ||
-        normalizedIncoming.includes("rerun") ||
-        normalizedIncoming.includes("trade name")
+        !hasExplicitEnglish &&
+        (normalizedIncoming.includes("polaris") ||
+          normalizedIncoming.includes("rerun") ||
+          normalizedIncoming.includes("trade name"))
       ) {
         const draftFallback = formatTradeName(englishDraft);
         const activeFallback = formatTradeName(activeEnglishTradeName);
