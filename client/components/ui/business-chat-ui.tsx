@@ -7386,6 +7386,25 @@ export function BusinessChatUI({
     [toast, handleSendMessage],
   );
 
+  const handlePolarisPrompt = useCallback(
+    (prompt: string, options?: { submit?: boolean }) => {
+      const trimmed = prompt.trim();
+      if (!trimmed) {
+        return;
+      }
+
+      setInteractionMode("chat");
+
+      if (options?.submit) {
+        handleSendMessage(trimmed);
+        return;
+      }
+
+      setInputValue(trimmed);
+    },
+    [handleSendMessage],
+  );
+
   const handleAction = useCallback(
     (action: ConversationAction, label: string, actionId?: string) => {
       const trimmedLabel = label.trim();
