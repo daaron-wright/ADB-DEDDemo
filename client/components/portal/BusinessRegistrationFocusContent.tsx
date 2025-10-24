@@ -460,6 +460,7 @@ const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
     "no alternatives required",
     "اقتراح البد��ئل",
     "لا حاجة لبدائل",
+    "إرشاد",
   ],
 };
 
