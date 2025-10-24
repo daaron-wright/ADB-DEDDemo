@@ -160,7 +160,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
-        "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
+        "• محرك القرار ��لنهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -749,10 +749,23 @@ function VerificationStepItem({
   const isCompleted = step.status === "completed";
   const isCurrent = step.status === "current";
   const [detailLanguage, setDetailLanguage] = React.useState<"en" | "ar">("en");
+  const failureDetailKey = React.useMemo(() => {
+    if (typeof step.failureDetail === "string") {
+      return step.failureDetail;
+    }
+    return step.failureDetail?.en ?? "";
+  }, [step.failureDetail]);
+  const [polarisConversation, setPolarisConversation] = React.useState<
+    PolarisChatEntry[] | null
+  >(null);
 
   React.useEffect(() => {
     setDetailLanguage("en");
   }, [step.title, step.status]);
+
+  React.useEffect(() => {
+    setPolarisConversation(null);
+  }, [isFailed, failureDetailKey]);
 
   const detailVariantStyles = React.useMemo(
     () => ({
