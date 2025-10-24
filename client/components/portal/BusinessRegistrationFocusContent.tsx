@@ -160,7 +160,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
-        "• محرك القرار ��لنهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
+        "• محرك القرار النهائي → معت��د بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -936,6 +936,17 @@ function VerificationStepItem({
       : isCurrent
         ? "We're processing this check right now."
         : "This check runs automatically after the previous ones.";
+
+  const handlePolarisAsk = React.useCallback(() => {
+    const userMessage = `Polaris, the ${step.title} check failed. How can we iterate on this trade name?`;
+    const assistantMessage = generatePolarisGuidanceFromFailure(
+      step.failureDetail,
+    );
+    setPolarisConversation([
+      { role: "user", message: userMessage },
+      { role: "assistant", message: assistantMessage },
+    ]);
+  }, [step.failureDetail, step.title]);
 
   return (
     <div className="space-y-3 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4 shadow-[0_20px_48px_-36px_rgba(15,23,42,0.25)]">
