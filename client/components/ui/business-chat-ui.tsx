@@ -8197,7 +8197,13 @@ export function BusinessChatUI({
         ];
       });
 
-      setInputValue("");
+      if (detail.draftPrompt?.trim()) {
+        setInteractionMode("chat");
+        setInputValue(detail.draftPrompt.trim());
+      } else {
+        setInputValue("");
+      }
+
       applyFollowUps([]);
     };
 
