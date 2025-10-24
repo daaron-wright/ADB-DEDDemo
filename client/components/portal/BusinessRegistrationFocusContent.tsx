@@ -94,7 +94,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "تسلسل استجابات الوكلاء:",
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات (زمن المعالجة 653 ��للي ثانية).',
+        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� النصي دون مخالفات (زمن المعالجة 653 ��للي ثانية).',
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
@@ -280,7 +280,7 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     "تسل��ل استجابات الوكلاء:",
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق الن��ي دون ��خالفات.`,
+    `1. مدقق النص / التدقيق الإم��ائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق الن��ي دون ��خالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
@@ -832,7 +832,7 @@ function sanitizeTradeNameCandidate(value: string) {
   const terminationIndex = trimmed.search(CHAT_NAME_TERMINATORS);
   const truncated = terminationIndex > 0 ? trimmed.slice(0, terminationIndex) : trimmed;
 
-  return truncated.replace(/^[\s"'“”'’]+|[\s"'“”'’.!,;:()\-]+$/g, "").trim();
+  return truncated.replace(/^[\s"'“”'’]+|[\s"'“��'’.!,;:()\-]+$/g, "").trim();
 }
 
 function extractLabeledSegment(source: string, label: string) {
@@ -2706,32 +2706,42 @@ const forceActivityMismatchRef = React.useRef(false);
                 <AccordionContent className="px-5 pt-3 space-y-3">
                   {showVerificationSteps ? (
                     <div className="space-y-3">
-                      {automationSteps.map((step, index) => (
-                        <VerificationStepItem
-                          key={step.title}
-                          step={step}
-                          index={index}
-                          totalSteps={automationSteps.length}
-                          onEscalate={handleEscalation}
-                          isEscalated={escalatedStepIds.has(step.title)}
-                          activityOptions={
-                            failedStepIndex === ACTIVITY_FAILURE_STEP_INDEX
-                              ? ACTIVITY_COMPATIBILITY_OPTIONS
-                              : undefined
-                          }
-                          selectedActivityId={
-                            failedStepIndex === ACTIVITY_FAILURE_STEP_INDEX
-                              ? selectedActivityId
-                              : undefined
-                          }
-                          onActivitySelect={
-                            failedStepIndex === ACTIVITY_FAILURE_STEP_INDEX
-                              ? handleActivitySelect
-                              : undefined
-                          }
-                          onPolarisPrompt={onPolarisPrompt}
-                        />
-                      ))}
+                      {automationSteps.map((step, index) => {
+                        const showFinalDecisionEscalationControl =
+                          step.title === "Full decision flow" &&
+                          currentFailureContext === "final-decision" &&
+                          step.status === "failed";
+
+                        return (
+                          <VerificationStepItem
+                            key={step.title}
+                            step={step}
+                            index={index}
+                            totalSteps={automationSteps.length}
+                            onEscalate={handleEscalation}
+                            isEscalated={escalatedStepIds.has(step.title)}
+                            activityOptions={
+                              failedStepIndex === ACTIVITY_FAILURE_STEP_INDEX
+                                ? ACTIVITY_COMPATIBILITY_OPTIONS
+                                : undefined
+                            }
+                            selectedActivityId={
+                              failedStepIndex === ACTIVITY_FAILURE_STEP_INDEX
+                                ? selectedActivityId
+                                : undefined
+                            }
+                            onActivitySelect={
+                              failedStepIndex === ACTIVITY_FAILURE_STEP_INDEX
+                                ? handleActivitySelect
+                                : undefined
+                            }
+                            onPolarisPrompt={onPolarisPrompt}
+                            showFinalDecisionEscalationControl={
+                              showFinalDecisionEscalationControl
+                            }
+                          />
+                        );
+                      })}
                     </div>
                   ) : (
                     <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-5 text-sm text-slate-500">
