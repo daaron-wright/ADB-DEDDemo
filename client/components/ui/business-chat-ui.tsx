@@ -8264,7 +8264,13 @@ export function BusinessChatUI({
         handleTradeNameResult,
       );
     };
-  }, [applyFollowUps, buildMessage, journeyFocusView, setInteractionMode]);
+  }, [
+    applyFollowUps,
+    buildMessage,
+    journeyFocusView,
+    setHotkeyDraftPrompt,
+    setInteractionMode,
+  ]);
 
   useEffect(() => {
     const handleRetailLocationSelected = (event: Event) => {
