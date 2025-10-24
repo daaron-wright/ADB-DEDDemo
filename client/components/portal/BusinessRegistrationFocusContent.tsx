@@ -280,13 +280,13 @@ function buildSimilarityConflictNarrative(
   ];
 
   const arabicLines = [
-    "تسل��ل استجابات الوكلاء:",
+    "ت��ل��ل استجابات الوكلاء:",
     `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا��م "${formattedAttempt}" الت��قق الن��ي دون ��خالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق النشاط → غير مقيم. في انتظار اسم تجاري فريد.",
-    `6. محرك القرار ال��هائي → مرفوض. مرج�� التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر��ح اسم مختلف.`,
+    `6. محرك القرار النهائي → مرفوض. مرج�� التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر��ح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (الاس�� المرفوض) → إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
@@ -1463,8 +1463,6 @@ const forceActivityMismatchRef = React.useRef(false);
   const [pendingIterationDraft, setPendingIterationDraft] = React.useState<
     string | null
   >(null);
-  const [hasAppliedFirstSimilarityIteration, setHasAppliedFirstSimilarityIteration] =
-    React.useState(false);
 
   const applyIterationDraft = React.useCallback(
     (nextEnglish: string) => {
