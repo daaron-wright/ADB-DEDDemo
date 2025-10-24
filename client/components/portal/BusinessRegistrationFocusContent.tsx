@@ -133,7 +133,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��ل�� مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
-        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اخ��يار نشاط متواف��.",
+        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشاط متواف��.",
         '• وكيل اقتراح الاسم (الاسم ال��رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -288,7 +288,7 @@ function buildSimilarityConflictNarrative(
     "5. وكيل توافق ال��شاط → غير مقيم. في انتظار اسم ��جاري فريد.",
     `6. محرك القرار النهائي → مرفوض. مرج�� التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
     hasIteration
-      ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إ��شاد. البديل المقترح: "${sanitizedIteration}".`
+      ? `7. ��كيل اقتراح الاسم (الاسم المرفوض) → إ��شاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (الاس�� المرفوض) �� إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
   ];
 
@@ -1844,65 +1844,6 @@ const forceActivityMismatchRef = React.useRef(false);
   const completedVerificationSteps = automationSteps.filter(
     (step) => step.status === "completed",
   ).length;
-
-  const runChecksWithNames = React.useCallback(
-    (englishName: string, arabicName: string) => {
-      const formattedEnglish = formatTradeName(englishName);
-      const formattedArabic = formatArabicName(arabicName);
-
-      if (!formattedEnglish || !formattedArabic) {
-        return false;
-      }
-
-      if (autoRerunTimeoutRef.current) {
-        window.clearTimeout(autoRerunTimeoutRef.current);
-        autoRerunTimeoutRef.current = null;
-      }
-
-      setCurrentFailureDetail(null);
-      setCurrentFailureContext(null);
-      setSuggestedIterationName(null);
-      setPendingIterationDraft(null);
-      setTradeNameGuidance(null);
-      setEnglishDraft(formattedEnglish);
-      setArabicDraft(formattedArabic);
-      setActiveEnglishTradeName(formattedEnglish);
-      setActiveArabicTradeName(formattedArabic);
-      const autoArabic = formatArabicName(
-        transliterateToArabic(formattedEnglish),
-      );
-      setIsArabicSynced(autoArabic === formattedArabic);
-      setPendingSubmission({
-        english: formattedEnglish,
-        arabic: formattedArabic,
-        normalized: formattedEnglish.toUpperCase(),
-      });
-      setAutomationProgress(0);
-      setEscalatedStepIds(() => new Set<string>());
-      setSelectedActivityId(null);
-      setIsChecking(true);
-      setIsNameAvailable(false);
-      setFailedStepIndex(null);
-      setFailureReason(null);
-
-      if (forceActivityMismatchRef.current) {
-        autoRerunPlanRef.current = {
-          english: formattedEnglish,
-          arabic: formattedArabic,
-          pendingFinal: true,
-        };
-      } else {
-        autoRerunPlanRef.current = null;
-      }
-
-      setHasPerformedCheck(true);
-      setIsEditing(true);
-      setActiveSlideId("trade-name");
-      onTradeNameChange?.(formattedEnglish);
-      return true;
-    },
-    [onTradeNameChange, setActiveSlideId],
-  );
 
   React.useEffect(() => {
     if (!isChecking) {
