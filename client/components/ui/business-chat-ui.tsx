@@ -7356,6 +7356,7 @@ export function BusinessChatUI({
       openApplicantPortal,
       primaryQuickAction,
       setCurrentStep,
+      journeyFocusView,
     ],
   );
 
