@@ -161,7 +161,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
-        "• مح��ك القرار النهائي → معت��د بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
+        "• مح��ك القرار النهائي → معت��د بتاريخ 22-09-2025 الساع�� 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -280,7 +280,7 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     "تسل��ل استجابات الوكلاء:",
-    `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز ال����م "${formattedAttempt}" الت��قق الن��ي دون ��خالفات.`,
+    `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا��م "${formattedAttempt}" الت��قق الن��ي دون ��خالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
@@ -315,13 +315,13 @@ function buildFinalDecisionRejectionNarrative(
 
   const arabicLines = [
     "استجابات الوكلاء (��لعربية):",
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتم��د "${formattedAttempt}" دون مخالفات.`,
+    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → تم التصعيد للمراجعة. لست واثقًا من الرفض الآلي لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية للتوجيه.",
-    "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
+    "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداع��ة قبل التصعيد.",
   ];
 
   return {
@@ -1913,11 +1913,11 @@ const forceActivityMismatchRef = React.useRef(false);
             setCurrentFailureContext("final-decision");
             setSuggestedIterationName(null);
             setTradeNameGuidance(
-              `Final decision engine rejected "${englishDisplay}". ESCALATE TO DED REVIEWER to continue the process.`,
+              `Final decision engine isn’t fully confident rejecting "${englishDisplay}". I’ve escalated it to the DED reviewer for a manual call.`,
             );
             toast({
-              title: "ESCALATE TO DED REVIEWER",
-              description: `Polaris recommends escalating "${englishDisplay}" for manual adjudication.`,
+              title: "Escalated for reviewer guidance",
+              description: `Not fully confident in the automated rejection, so "${englishDisplay}" is with the DED reviewer.`,
             });
           } else {
             forceActivityMismatchRef.current = false;
