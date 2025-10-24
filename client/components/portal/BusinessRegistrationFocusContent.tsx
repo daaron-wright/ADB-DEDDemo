@@ -94,7 +94,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "تسلسل استجابات الوكلاء:",
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات (زمن المعالجة 653 مللي ثانية).',
+        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفا�� (زمن المعالجة 653 مللي ثانية).',
         "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
@@ -157,7 +157,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ��لثقافية.',
-        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
+        "• وكيل الكلمات المحظورة → ناجح. ل��� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
@@ -231,6 +231,108 @@ const APPROVED_TRADE_NAMES = [
   "PEARL HORIZON DINING SOLE LLC",
   "HORIZON COURTYARD DINING SOLE LLC",
 ] as const;
+
+const SIMILARITY_CONFLICT_SCORE = 0.81;
+const SIMILARITY_CONFLICT_REFERENCE = "SIMILARITY_CONFLICT";
+const ITERATION_DESCRIPTOR_FALLBACKS = [
+  "Heritage Kitchen",
+  "Culinary House",
+  "Dining Atelier",
+  "Gastronomy Studio",
+];
+
+function buildSimilarityConflictNarrative(
+  attemptedName: string,
+  iterationSuggestion: string,
+): LocalizedAgentNarrative {
+  const formattedAttempt = formatTradeName(attemptedName) || attemptedName;
+  const sanitizedIteration = formatTradeName(iterationSuggestion) || iterationSuggestion;
+  const hasIteration = Boolean(sanitizedIteration);
+
+  const englishLines = [
+    "Agent responses sequence:",
+    `1. Text normalizer / spell checker / cultural checker → Passed. "${formattedAttempt}" cleared text validation with zero violations.`,
+    "2. Prohibited words agent → Passed. No restricted vocabulary detected across English or Arabic drafts.",
+    `3. Similarity agent → Failed. Matched existing trade name "${PRIMARY_TRADE_NAME_EN}" with similarity score ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
+    "4. Transliteration agent → Paused. Conflict must resolve before Arabic confirmation.",
+    "5. Activity compatibility agent → Not evaluated. Waiting on a unique trade name.",
+    `6. Final decision engine → Rejected. Conflict reference ${SIMILARITY_CONFLICT_REFERENCE}; submit a differentiated variation.`,
+    hasIteration
+      ? `7. Name suggester agent (rejected trade name) → Guidance. Draft alternative: "${sanitizedIteration}".`
+      : "7. Name suggester agent (rejected trade name) → Guidance. Polaris recommends adding a geographic or specialty qualifier.",
+  ];
+
+  const arabicLines = [
+    "تسلسل استجابات الوكلاء:",
+    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
+    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+    `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
+    "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
+    "5. وكيل توافق النشاط → غير مقيم. في انتظار اسم تجاري فريد.",
+    `6. محرك القرار النهائي → مرفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتراح اسم مختلف.`,
+    hasIteration
+      ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
+      : "7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. يوصي Polaris بإضافة توصيف خاص أو جغرافي.",
+  ];
+
+  return {
+    en: englishLines.join("\n"),
+    ar: arabicLines.join("\n"),
+  };
+}
+
+function suggestTradeNameIteration(baseName: string): string {
+  const formatted = formatTradeName(baseName);
+  if (!formatted) {
+    return "";
+  }
+
+  if (/restaurant/i.test(formatted)) {
+    return formatted.replace(/restaurant/gi, "Heritage Kitchen").replace(/\s+/g, " ").trim();
+  }
+
+  const lower = formatted.toLowerCase();
+  for (const descriptor of ITERATION_DESCRIPTOR_FALLBACKS) {
+    if (!lower.includes(descriptor.toLowerCase())) {
+      return `${formatted} ${descriptor}`.replace(/\s+/g, " ").trim();
+    }
+  }
+
+  return `${formatted} Signature`.replace(/\s+/g, " ").trim();
+}
+
+function buildChatDraftFromContext(
+  status: "approved" | "rejected",
+  englishName: string,
+  context: "similarity-conflict" | "activity-mismatch" | "missing-input" | null,
+  iterationSuggestion: string | null,
+): string | null {
+  if (status !== "rejected") {
+    return null;
+  }
+
+  const formattedName = formatTradeName(englishName) || englishName;
+  const formattedIteration = iterationSuggestion
+    ? formatTradeName(iterationSuggestion) || iterationSuggestion
+    : null;
+
+  if (context === "similarity-conflict") {
+    if (formattedIteration) {
+      return `Polaris, let's rerun the trade name checks on "${formattedIteration}" so we avoid the similarity conflict with "${PRIMARY_TRADE_NAME_EN}".`;
+    }
+    return `Polaris, the similarity agent rejected "${formattedName}" because it conflicts with "${PRIMARY_TRADE_NAME_EN}". Suggest compliant alternatives with a unique qualifier.`;
+  }
+
+  if (context === "activity-mismatch") {
+    return `Polaris, help me adjust the trade name so it clearly fits the Food & Beverage restaurant activity before we rerun the checks.`;
+  }
+
+  if (context === "missing-input") {
+    return `Polaris, remind me what information I need to provide before we can rerun the trade name verification checks.`;
+  }
+
+  return null;
+}
 
 const TRADE_NAME_SUGGESTIONS: ReadonlyArray<TradeNameSuggestion> = [
   {
