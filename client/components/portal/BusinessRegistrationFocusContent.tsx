@@ -449,6 +449,80 @@ function parseAgentNarrative(text: string): ParsedAgentNarrative | null {
   return { heading, responses };
 }
 
+type PolarisChatEntry = {
+  role: "user" | "assistant";
+  message: string;
+};
+
+function extractEnglishNarrative(
+  detail?: string | LocalizedAgentNarrative,
+): string | null {
+  if (!detail) {
+    return null;
+  }
+
+  return typeof detail === "string" ? detail : detail.en;
+}
+
+function generatePolarisGuidanceFromFailure(
+  detail?: string | LocalizedAgentNarrative,
+): string {
+  const englishNarrative = extractEnglishNarrative(detail);
+  if (!englishNarrative) {
+    return "Polaris needs the agent transcript to recommend alternatives. Rerun the checks and try again.";
+  }
+
+  const parsed = parseAgentNarrative(englishNarrative);
+  if (!parsed) {
+    return "Polaris could not interpret the agent transcript. Consider adjusting the trade name and re-running the verification.";
+  }
+
+  const failureSignal = parsed.responses.find((response) =>
+    response.status === "failed" || response.status === "rejected",
+  );
+  const pendingSignal = parsed.responses.find(
+    (response) => response.status === "pending",
+  );
+  const guidanceSignal = parsed.responses.find((response) =>
+    response.status === "info" ||
+    response.title.toLowerCase().includes("name suggester"),
+  );
+
+  const insights: string[] = [];
+
+  if (failureSignal) {
+    const reasonDetail = failureSignal.detail ?? failureSignal.title;
+    insights.push(
+      `The ${failureSignal.title} reports ${reasonDetail.replace(/\s+/g, " ")}.`,
+    );
+  }
+
+  if (pendingSignal) {
+    const pendingDetail = pendingSignal.detail
+      ? pendingSignal.detail.replace(/\s+/g, " ")
+      : pendingSignal.title;
+    insights.push(
+      `We still have ${pendingSignal.title.toLowerCase()} pending: ${pendingDetail}.`,
+    );
+  }
+
+  if (guidanceSignal) {
+    const suggestionDetail = guidanceSignal.detail
+      ? guidanceSignal.detail.replace(/\s+/g, " ")
+      : guidanceSignal.title;
+    insights.push(`Consider ${suggestionDetail}.`);
+  } else {
+    insights.push(
+      "Try adding a unique qualifier or geographic cue to differentiate the name, then re-run the verification checks.",
+    );
+  }
+
+  return insights
+    .map((line) => line.replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    .join(" ");
+}
+
 const TRADE_NAME_PAYMENT_DISPLAY_AMOUNT = "65 AED";
 
 function createTradeNameReceiptDocument(): DocumentVaultItem {
