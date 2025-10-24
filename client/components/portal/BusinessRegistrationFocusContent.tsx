@@ -94,7 +94,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "تسلسل استجابات الوكلاء:",
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات (زمن المعالجة 653 ��للي ثانية).',
+        '1. مدقق النص / التدقيق الإملائ�� / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات (زمن المعالجة 653 ��للي ثانية).',
         "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
@@ -241,6 +241,15 @@ const ITERATION_DESCRIPTOR_FALLBACKS = [
   "Gastronomy Studio",
 ];
 
+const ACTIVITY_ALIGNMENT_DESCRIPTOR_SEQUENCE = [
+  "Restaurant",
+  "Dining House",
+  "Kitchen",
+  "Dining Room",
+  "Culinary Studio",
+  "Dining Collective",
+];
+
 function buildSimilarityConflictNarrative(
   attemptedName: string,
   iterationSuggestion: string,
@@ -263,7 +272,7 @@ function buildSimilarityConflictNarrative(
   ];
 
   const arabicLines = [
-    "تسلسل استجابات الوكلاء:",
+    "تسلسل استجابات الوكل��ء:",
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون ��خالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
