@@ -8099,6 +8099,103 @@ export function BusinessChatUI({
   }, [messages, currentStep]);
 
   useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const handleTradeNameResult = (event: Event) => {
+      const detail = (event as CustomEvent<{
+        status: "approved" | "rejected";
+        english?: string | null;
+        arabic?: string | null;
+        failureReason?: string | null;
+        stageId?: string | null;
+      }>).detail;
+
+      if (!detail) {
+        return;
+      }
+
+      const focusStageId =
+        journeyFocusView?.stage?.id ?? journeyFocusView?.timelineItem?.id ?? null;
+
+      if (detail.stageId && focusStageId && detail.stageId !== focusStageId) {
+        return;
+      }
+
+      const ensureSentence = (input: string) => {
+        const trimmed = input.trim();
+        if (!trimmed) {
+          return "";
+        }
+        return /[.!?]$/.test(trimmed) ? trimmed : `${trimmed}.`;
+      };
+
+      const normalizedEnglish = detail.english?.trim() ?? "";
+      const intro = ensureSentence(
+        normalizedEnglish
+          ? `I re-ran the agent checks on "${normalizedEnglish}"`
+          : "I re-ran the agent checks",
+      );
+
+      const segments: string[] = [intro];
+
+      if (detail.status === "approved") {
+        segments.push(
+          ensureSentence(
+            "Every agent now passes and the final decision is approved",
+          ),
+        );
+        segments.push(
+          ensureSentence(
+            "You can continue with the reservation workflow whenever you're ready",
+          ),
+        );
+      } else {
+        segments.push(ensureSentence("We're still blocked after the rerun"));
+        const reasonLine = detail.failureReason?.trim()
+          ? ensureSentence(detail.failureReason.trim())
+          : ensureSentence("The agents are still flagging a conflict");
+        segments.push(reasonLine);
+        segments.push(
+          ensureSentence(
+            "Try another variation or pick one of the compliant suggestions in the verification panel",
+          ),
+        );
+      }
+
+      const messageContent = segments.filter(Boolean).join(" ");
+
+      setMessages((previous) => {
+        const sanitized = previous.map((message) =>
+          message.actions ? { ...message, actions: undefined } : message,
+        );
+        return [
+          ...sanitized,
+          buildMessage(messageContent, true, {
+            stageId: detail.stageId ?? undefined,
+          }),
+        ];
+      });
+
+      setInputValue("");
+      applyFollowUps([]);
+    };
+
+    window.addEventListener(
+      "polarisTradeNameCheckComplete",
+      handleTradeNameResult,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "polarisTradeNameCheckComplete",
+        handleTradeNameResult,
+      );
+    };
+  }, [applyFollowUps, buildMessage, journeyFocusView]);
+
+  useEffect(() => {
     const handleRetailLocationSelected = (event: Event) => {
       const customEvent = event as CustomEvent;
       const {
