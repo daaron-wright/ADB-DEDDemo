@@ -99,7 +99,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
-        "6. محرك القرار النهائي → مرفو��. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبقًا، يُرجى اقتراح بدي��.",
+        "6. محرك القرار النهائي → مرفو��. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبقًا�� يُرجى اقتراح بدي��.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة الخي��يار".',
       ].join("\n"),
     },
@@ -321,7 +321,7 @@ function buildFinalDecisionRejectionNarrative(
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
-    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لست واثقًا من الرفض الآلي لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية للتوجيه.",
+    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لست واثقًا من الرفض الآلي لذلك تم رفعه لمراجع دائرة التنمية الاقت��ادية للتوجيه.",
     "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
   ];
 
@@ -1446,6 +1446,12 @@ const forceActivityMismatchRef = React.useRef(false);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const reservationTimeoutRef = React.useRef<number | null>(null);
   const verificationDispatchKeyRef = React.useRef<string | null>(null);
+  const autoRerunPlanRef = React.useRef<{
+    english: string;
+    arabic: string;
+    pendingFinal: boolean;
+  } | null>(null);
+  const autoRerunTimeoutRef = React.useRef<number | null>(null);
 
   const initialFormattedName = tradeName ? formatTradeName(tradeName) : "";
 
@@ -1910,11 +1916,32 @@ const forceActivityMismatchRef = React.useRef(false);
             );
             setCurrentFailureContext("activity-mismatch");
             setSuggestedIterationName(null);
-            setTradeNameGuidance(
-              iterationCandidate
-                ? `Activity compatibility agent flagged "${englishDisplay}" as heritage-focused. Align the licensed activity before rerunning; keep the trade name as "${FIXED_SIMILARITY_ITERATION_NAME}" when you retry.`
-                : `Activity compatibility agent flagged the concept as heritage-focused. Align the licensed activity before rerunning; keep "${FIXED_SIMILARITY_ITERATION_NAME}" when you retry.`,
-            );
+            const activityGuidanceMessage = iterationCandidate
+              ? `Activity compatibility agent flagged "${englishDisplay}" as heritage-focused. Align the licensed activity before rerunning; keep the trade name as "${FIXED_SIMILARITY_ITERATION_NAME}" when you retry.`
+              : `Activity compatibility agent flagged the concept as heritage-focused. Align the licensed activity before rerunning; keep "${FIXED_SIMILARITY_ITERATION_NAME}" when you retry.`;
+            setTradeNameGuidance(activityGuidanceMessage);
+            const pendingPlan = autoRerunPlanRef.current;
+            if (pendingPlan?.pendingFinal) {
+              autoRerunPlanRef.current = null;
+              if (autoRerunTimeoutRef.current) {
+                window.clearTimeout(autoRerunTimeoutRef.current);
+              }
+              const nextEnglish = pendingPlan.english;
+              const nextArabic =
+                pendingPlan.arabic ||
+                formatArabicName(transliterateToArabic(pendingPlan.english));
+              setTradeNameGuidance(
+                `${activityGuidanceMessage} Polaris is escalating "${nextEnglish}" to the final decision engine.`,
+              );
+              autoRerunTimeoutRef.current = window.setTimeout(() => {
+                autoRerunTimeoutRef.current = null;
+                toast({
+                  title: "Final decision engine re-run",
+                  description: `Polaris is validating "${nextEnglish}" with the final decision engine.`,
+                });
+                runChecksWithNames(nextEnglish, nextArabic);
+              }, 900);
+            }
           } else if (normalizedName) {
             forceActivityMismatchRef.current = false;
             resolvedFailureReason = `Final decision engine rejected ${englishDisplay}. ESCALATE TO DED REVIEWER for manual adjudication.`;
@@ -1969,12 +1996,17 @@ const forceActivityMismatchRef = React.useRef(false);
     arabicDraft,
     approvedNameSet,
     toast,
+    runChecksWithNames,
   ]);
 
   React.useEffect(() => {
     return () => {
       if (reservationTimeoutRef.current) {
         window.clearTimeout(reservationTimeoutRef.current);
+      }
+      if (autoRerunTimeoutRef.current) {
+        window.clearTimeout(autoRerunTimeoutRef.current);
+        autoRerunTimeoutRef.current = null;
       }
     };
   }, []);
@@ -2100,6 +2132,11 @@ const forceActivityMismatchRef = React.useRef(false);
         return false;
       }
 
+      if (autoRerunTimeoutRef.current) {
+        window.clearTimeout(autoRerunTimeoutRef.current);
+        autoRerunTimeoutRef.current = null;
+      }
+
       setCurrentFailureDetail(null);
       setCurrentFailureContext(null);
       setSuggestedIterationName(null);
@@ -2125,6 +2162,17 @@ const forceActivityMismatchRef = React.useRef(false);
       setIsNameAvailable(false);
       setFailedStepIndex(null);
       setFailureReason(null);
+
+      if (forceActivityMismatchRef.current) {
+        autoRerunPlanRef.current = {
+          english: formattedEnglish,
+          arabic: formattedArabic,
+          pendingFinal: true,
+        };
+      } else {
+        autoRerunPlanRef.current = null;
+      }
+
       setHasPerformedCheck(true);
       setIsEditing(true);
       setActiveSlideId("trade-name");
