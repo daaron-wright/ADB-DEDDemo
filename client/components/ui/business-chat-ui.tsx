@@ -7069,6 +7069,23 @@ export function BusinessChatUI({
 
       const normalizedText = normalizeMessageContent(trimmed);
 
+      const tradeNameStageId =
+        journeyFocusView?.stage?.id ?? journeyFocusView?.timelineItem?.id ?? null;
+
+      if (
+        tradeNameStageId === "trade-name-activities" &&
+        typeof window !== "undefined"
+      ) {
+        window.dispatchEvent(
+          new CustomEvent("polarisTradeNameChatSubmit", {
+            detail: {
+              message: trimmed,
+              stageId: tradeNameStageId,
+            },
+          }),
+        );
+      }
+
       let unlockedByMessage = false;
       if (
         !hasUnlockedQuickActions &&
