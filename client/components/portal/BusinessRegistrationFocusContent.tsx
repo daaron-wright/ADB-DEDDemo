@@ -1711,6 +1711,13 @@ export function BusinessRegistrationFocusContent({
                   : `Similarity agent flagged "${englishDisplay}" for matching "${PRIMARY_TRADE_NAME_EN}". Add a unique qualifier, then re-run the checks.`,
               );
             } else if (normalizedName === ACTIVITY_COMPATIBILITY_NAME) {
+              const activityAlignedSuggestion = suggestActivityAlignedTradeName(englishDisplay);
+              const sanitizedIteration = activityAlignedSuggestion.trim();
+              const iterationCandidate =
+                sanitizedIteration &&
+                sanitizedIteration.toUpperCase() !== normalizedName
+                  ? sanitizedIteration
+                  : "";
               resolvedFailureReason = `We couldn’t reserve ${englishDisplay}. Select the activity that best matches the heritage concept or adjust the trade name.`;
               setFailedStepIndex(ACTIVITY_FAILURE_STEP_INDEX);
               setFailureReason(resolvedFailureReason);
@@ -1718,9 +1725,11 @@ export function BusinessRegistrationFocusContent({
                 TRADE_NAME_CHECKS[ACTIVITY_FAILURE_STEP_INDEX]?.failureDetail ?? null,
               );
               setCurrentFailureContext("activity-mismatch");
-              setSuggestedIterationName(null);
+              setSuggestedIterationName(iterationCandidate || null);
               setTradeNameGuidance(
-                "Update the licensed activity or iterate on the name so it clearly reflects your Food & Beverage concept before retrying.",
+                iterationCandidate
+                  ? `Activity compatibility agent flagged "${englishDisplay}" as heritage-focused. Try "${iterationCandidate}" or select the matching activity before retrying.`
+                  : "Update the licensed activity or iterate on the name so it clearly reflects your Food & Beverage concept before retrying.",
               );
             } else {
               resolvedFailureReason = normalizedName
