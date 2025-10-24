@@ -131,7 +131,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضات ثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
-        '• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
+        '• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الص��تية.',
         "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
         '• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
@@ -160,7 +160,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
-        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
+        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط ال��طعم المرخّص.",
         "• محرك القرار النهائي → معت��د بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
@@ -753,16 +753,14 @@ function VerificationStepItem({
     }
     return step.failureDetail?.en ?? "";
   }, [step.failureDetail]);
-  const [polarisConversation, setPolarisConversation] = React.useState<
-    PolarisChatEntry[] | null
-  >(null);
+  const [showFailureNarrative, setShowFailureNarrative] = React.useState(false);
 
   React.useEffect(() => {
     setDetailLanguage("en");
   }, [step.title, step.status]);
 
   React.useEffect(() => {
-    setPolarisConversation(null);
+    setShowFailureNarrative(false);
   }, [isFailed, failureDetailKey]);
 
   const detailVariantStyles = React.useMemo(
