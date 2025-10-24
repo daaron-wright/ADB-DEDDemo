@@ -128,7 +128,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضات ثقافية.',
+        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعارضات ثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
@@ -157,7 +157,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
-        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
+        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
@@ -1666,6 +1666,95 @@ export function BusinessRegistrationFocusContent({
     },
     [onTradeNameChange, setActiveSlideId],
   );
+
+  const handleChatDrivenTradeName = React.useCallback(
+    (message: string) => {
+      if (!message || isChecking) {
+        return;
+      }
+
+      const { english, arabic } = deriveTradeNamesFromMessage(message);
+      if (!english) {
+        return;
+      }
+
+      const formattedEnglish = formatTradeName(english);
+      if (!formattedEnglish) {
+        return;
+      }
+
+      const arabicSource =
+        arabic && arabic.trim().length > 0
+          ? arabic
+          : transliterateToArabic(formattedEnglish);
+      const formattedArabic = formatArabicName(arabicSource);
+
+      if (!formattedArabic) {
+        return;
+      }
+
+      const normalizedExistingEnglish = activeEnglishTradeName
+        .trim()
+        .toUpperCase();
+      const normalizedIncomingEnglish = formattedEnglish.trim().toUpperCase();
+      const normalizedExistingArabic = activeArabicTradeName.trim();
+
+      if (
+        normalizedExistingEnglish === normalizedIncomingEnglish &&
+        normalizedExistingArabic === formattedArabic
+      ) {
+        return;
+      }
+
+      const succeeded = runChecksWithNames(formattedEnglish, formattedArabic);
+
+      if (succeeded) {
+        setTradeNameGuidance(
+          `Synced with your chat adjustment. Polaris is re-running the checks for "${formattedEnglish}".`,
+        );
+        toast({
+          title: "Re-running verification checks",
+          description: `Polaris is processing the updated trade name ${formattedEnglish}.`,
+        });
+      } else {
+        toast({
+          title: "Update incomplete",
+          description:
+            "Include both English and Arabic trade names before submitting your chat adjustment.",
+          variant: "destructive",
+        });
+      }
+    },
+    [
+      activeArabicTradeName,
+      activeEnglishTradeName,
+      isChecking,
+      runChecksWithNames,
+      setTradeNameGuidance,
+      toast,
+    ],
+  );
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const listener = (event: Event) => {
+      const detail = (event as CustomEvent<{ message?: string }>).detail;
+      if (!detail || typeof detail.message !== "string") {
+        return;
+      }
+
+      handleChatDrivenTradeName(detail.message);
+    };
+
+    window.addEventListener("polarisTradeNameChatSubmit", listener);
+
+    return () => {
+      window.removeEventListener("polarisTradeNameChatSubmit", listener);
+    };
+  }, [handleChatDrivenTradeName]);
 
   const handleRunChecks = React.useCallback(() => {
     if (isChecking) {
