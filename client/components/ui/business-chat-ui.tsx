@@ -6370,6 +6370,9 @@ export function BusinessChatUI({
     createInitialDialogueDocState,
   );
   const [inputValue, setInputValue] = useState("");
+  const [hotkeyDraftPrompt, setHotkeyDraftPrompt] = useState<string | null>(
+    null,
+  );
   const [hasFeedbackPrompted, setHasFeedbackPrompted] = useState(false);
   const [feedbackStats, setFeedbackStats] = useState<
     Record<string, { count: number; sample: string }>
