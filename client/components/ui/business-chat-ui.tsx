@@ -8110,6 +8110,8 @@ export function BusinessChatUI({
         arabic?: string | null;
         failureReason?: string | null;
         stageId?: string | null;
+        draftPrompt?: string | null;
+        iterationSuggestion?: string | null;
       }>).detail;
 
       if (!detail) {
