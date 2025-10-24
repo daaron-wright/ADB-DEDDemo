@@ -134,7 +134,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
-        '• وكيل اقتراح الاسم (الاسم ال��رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
+        '• وكيل اق��راح الاسم (الاسم ال��رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
   },
@@ -288,7 +288,7 @@ function buildSimilarityConflictNarrative(
     `6. محرك القرار النهائي → مرفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر��ح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
-      : "7. وكيل اقتراح الاسم (الاس�� المرفوض) → إرشاد. يوصي Polaris بإضافة توصيف خاص أو جغرافي.",
+      : "7. وكيل اقتراح الاسم (الاس�� المرفوض) ��� إرشاد. يوصي Polaris بإضافة توصيف خاص أو جغرافي.",
   ];
 
   return {
@@ -345,7 +345,12 @@ function suggestActivityAlignedTradeName(baseName: string): string {
 function buildChatDraftFromContext(
   status: "approved" | "rejected",
   englishName: string,
-  context: "similarity-conflict" | "activity-mismatch" | "missing-input" | null,
+  context:
+    | "similarity-conflict"
+    | "activity-mismatch"
+    | "missing-input"
+    | "final-decision"
+    | null,
   iterationSuggestion: string | null,
 ): string | null {
   if (status !== "rejected") {
