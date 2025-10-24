@@ -306,7 +306,7 @@ const NORMALIZED_QUICK_ACTION_UNLOCK_PROMPTS = new Set(
 );
 
 const TRADE_NAME_INTENT_PATTERN = /\btrade\s*name\b/i;
-const QUOTED_TRADE_NAME_PATTERN = /["“”']\s*([^"“”']{2,})\s*["“”']/;
+const QUOTED_TRADE_NAME_PATTERN = /["“”']\s*([^"“”']{2,})\s*["“���']/;
 const TRADE_NAME_COMMAND_PATTERN =
   /\b(?:use|try|consider|switch to|update to|rename(?:\s+it)?\s+to|call it|let(?:'s)?(?:\s+go with|\s+call|\s+use))\s+([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
 
@@ -7103,16 +7103,20 @@ export function BusinessChatUI({
 
       const tradeNameStageId =
         journeyFocusView?.stage?.id ?? journeyFocusView?.timelineItem?.id ?? null;
+      const tradeNameCandidate = extractTradeNameCandidate(trimmed);
+      const hasTradeNameIntent = TRADE_NAME_INTENT_PATTERN.test(trimmed);
+      const shouldDispatchTradeNameSubmit =
+        typeof window !== "undefined" &&
+        (tradeNameStageId === "trade-name-activities" ||
+          hasTradeNameIntent ||
+          Boolean(tradeNameCandidate));
 
-      if (
-        tradeNameStageId === "trade-name-activities" &&
-        typeof window !== "undefined"
-      ) {
+      if (shouldDispatchTradeNameSubmit) {
         window.dispatchEvent(
           new CustomEvent("polarisTradeNameChatSubmit", {
             detail: {
               message: trimmed,
-              stageId: tradeNameStageId,
+              stageId: tradeNameStageId ?? "trade-name-activities",
             },
           }),
         );
