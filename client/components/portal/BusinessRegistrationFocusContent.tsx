@@ -94,7 +94,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "تسلسل استجابات الوكلاء:",
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� النصي دون مخالفات (زمن المعالجة 653 ��للي ثانية).',
+        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� النصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
@@ -280,7 +280,7 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     "تسل��ل استجابات الوكلاء:",
-    `1. مدقق النص / التدقيق الإم��ائي / الفحص الثقافي → ناجح. اجتاز الاس�� "${formattedAttempt}" التحقق الن��ي دون ��خالفات.`,
+    `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق الن��ي دون ��خالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
@@ -1440,6 +1440,42 @@ const forceActivityMismatchRef = React.useRef(false);
     arabic: string;
     normalized: string;
   } | null>(null);
+
+  React.useEffect(() => {
+    if (!suggestedIterationName) {
+      return;
+    }
+
+    const formattedIteration = formatTradeName(suggestedIterationName);
+    if (!formattedIteration) {
+      return;
+    }
+
+    const normalizedIteration = formattedIteration.toUpperCase();
+    const normalizedDraft = englishDraft.trim().toUpperCase();
+
+    if (normalizedIteration === normalizedDraft) {
+      return;
+    }
+
+    const autoArabic = formatArabicName(transliterateToArabic(formattedIteration));
+    const trimmedArabicDraft = arabicDraft.trim();
+
+    setEnglishDraft(formattedIteration);
+
+    if (
+      trimmedArabicDraft.length === 0 ||
+      currentFailureContext === "activity-mismatch" ||
+      trimmedArabicDraft === autoArabic
+    ) {
+      setArabicDraft(autoArabic);
+      setIsArabicSynced(true);
+    } else {
+      setIsArabicSynced(trimmedArabicDraft === autoArabic);
+    }
+
+    setIsEditing(true);
+  }, [arabicDraft, currentFailureContext, englishDraft, suggestedIterationName]);
   const [isChecking, setIsChecking] = React.useState(false);
   const [hasPerformedCheck, setHasPerformedCheck] = React.useState(
     Boolean(tradeName) || isTradeNameAvailable,
