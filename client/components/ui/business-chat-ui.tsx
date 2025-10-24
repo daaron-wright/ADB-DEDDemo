@@ -1366,7 +1366,7 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
               </div>
             </div>
             <div className="text-right">
-              <div className="text-sm font-semibold text-blue-600">4.3���</div>
+              <div className="text-sm font-semibold text-blue-600">4.3★</div>
               <div className="text-xs text-slate-500">$$$</div>
             </div>
           </div>
@@ -3472,7 +3472,9 @@ const ChatInputField = ({
       !e.ctrlKey
     ) {
       e.preventDefault();
-      onChange(CHAT_INPUT_HOTKEY_PROMPT);
+      const prompt = hotkeyPrompt?.trim() || CHAT_INPUT_HOTKEY_PROMPT;
+      onChange(prompt);
+      onHotkeyInsert?.();
       return;
     }
 
