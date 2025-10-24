@@ -131,7 +131,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
-        "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
+        "• وكيل توافق ال��شاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
         '• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
@@ -1035,6 +1035,45 @@ function VerificationStepItem({
                 {isEscalated ? "Escalation sent" : "Escalate to backend user"}
               </button>
             ) : null}
+            <div className="space-y-2">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handlePolarisAsk}
+                className="rounded-full border-[#0f766e] text-[#0f766e] hover:bg-[#0f766e]/10"
+              >
+                {polarisConversation
+                  ? "Refresh Polaris guidance"
+                  : "Ask Polaris for alternatives"}
+              </Button>
+              {polarisConversation ? (
+                <div className="space-y-2 rounded-2xl border border-[#0f766e]/30 bg-[#f4f9f7] p-3">
+                  {polarisConversation.map((entry, entryIndex) => (
+                    <div
+                      key={`${entry.role}-${entryIndex}`}
+                      className={cn(
+                        "rounded-xl border px-3 py-2 text-sm",
+                        entry.role === "assistant"
+                          ? "border-[#0f766e]/40 bg-white text-slate-700 shadow-[0_16px_42px_-34px_rgba(15,118,110,0.45)]"
+                          : "border-slate-200 bg-slate-50 text-slate-600",
+                      )}
+                    >
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                        {entry.role === "assistant" ? "Polaris" : "You"}
+                      </span>
+                      <p className="mt-1 text-sm text-slate-700">
+                        {entry.message}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-xs text-slate-500">
+                  Ask Polaris for a quick summary of the failure and a safer
+                  alternative before you iterate on the name.
+                </p>
+              )}
+            </div>
           </div>
         ) : null}
         {isCompleted && step.successDetail
