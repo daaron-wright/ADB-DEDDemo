@@ -99,7 +99,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
-        "6. محرك القرار النهائي → مرفو��. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبقًا�� يُرجى اقتراح بدي��.",
+        "6. محرك القرار النهائي �� مرفو��. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبقًا�� يُرجى اقتراح بدي��.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة ��لخي��يار".',
       ].join("\n"),
     },
@@ -149,7 +149,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '1. Text normalizer / spell checker / cultural checker → Passed. Normalized "Marwa Restaurant" and confirmed cultural compliance.',
         "2. Prohibited words agent �� Passed. No restricted terms detected across English and Arabic drafts.",
         "3. Similarity agent → Passed. Nearest registry match scored 0.12, below the 0.75 conflict threshold.",
-        '4. Transliteration agent → Passed. Arabic transliteration "مطعم مروة" validated against phonetic rules.',
+        '4. Transliteration agent → Passed. Arabic transliteration "مطعم مر��ة" validated against phonetic rules.',
         "5. Activity compatibility agent → Passed. Name aligns with the licensed Food & Beverage restaurant activity.",
         "6. Final decision engine → Approved 2025-09-22T09:32Z (confidence: high, score: 0.98).",
         "7. Name suggester agent (rejected trade name) → No alternatives required; current name authorized.",
@@ -160,7 +160,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
-        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
+        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
         "• مح��ك القر��ر ال��هائي → معت��د بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
       ].join("\n"),
@@ -285,7 +285,7 @@ function buildSimilarityConflictNarrative(
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
-    "5. وكيل توافق النشاط → غير مقيم. في انتظار اسم ��جاري فريد.",
+    "5. وكيل توافق ال��شاط → غير مقيم. في انتظار اسم ��جاري فريد.",
     `6. محرك القرار النهائي → مرفوض. مرج�� التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إ��شاد. البديل المقترح: "${sanitizedIteration}".`
@@ -1825,6 +1825,65 @@ const forceActivityMismatchRef = React.useRef(false);
   const completedVerificationSteps = automationSteps.filter(
     (step) => step.status === "completed",
   ).length;
+
+  const runChecksWithNames = React.useCallback(
+    (englishName: string, arabicName: string) => {
+      const formattedEnglish = formatTradeName(englishName);
+      const formattedArabic = formatArabicName(arabicName);
+
+      if (!formattedEnglish || !formattedArabic) {
+        return false;
+      }
+
+      if (autoRerunTimeoutRef.current) {
+        window.clearTimeout(autoRerunTimeoutRef.current);
+        autoRerunTimeoutRef.current = null;
+      }
+
+      setCurrentFailureDetail(null);
+      setCurrentFailureContext(null);
+      setSuggestedIterationName(null);
+      setPendingIterationDraft(null);
+      setTradeNameGuidance(null);
+      setEnglishDraft(formattedEnglish);
+      setArabicDraft(formattedArabic);
+      setActiveEnglishTradeName(formattedEnglish);
+      setActiveArabicTradeName(formattedArabic);
+      const autoArabic = formatArabicName(
+        transliterateToArabic(formattedEnglish),
+      );
+      setIsArabicSynced(autoArabic === formattedArabic);
+      setPendingSubmission({
+        english: formattedEnglish,
+        arabic: formattedArabic,
+        normalized: formattedEnglish.toUpperCase(),
+      });
+      setAutomationProgress(0);
+      setEscalatedStepIds(() => new Set<string>());
+      setSelectedActivityId(null);
+      setIsChecking(true);
+      setIsNameAvailable(false);
+      setFailedStepIndex(null);
+      setFailureReason(null);
+
+      if (forceActivityMismatchRef.current) {
+        autoRerunPlanRef.current = {
+          english: formattedEnglish,
+          arabic: formattedArabic,
+          pendingFinal: true,
+        };
+      } else {
+        autoRerunPlanRef.current = null;
+      }
+
+      setHasPerformedCheck(true);
+      setIsEditing(true);
+      setActiveSlideId("trade-name");
+      onTradeNameChange?.(formattedEnglish);
+      return true;
+    },
+    [onTradeNameChange, setActiveSlideId],
+  );
 
   React.useEffect(() => {
     if (!isChecking) {
