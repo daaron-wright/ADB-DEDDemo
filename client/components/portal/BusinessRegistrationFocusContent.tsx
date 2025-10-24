@@ -128,7 +128,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعارضات ثقافية.',
+        '• مدقق النص / الت��قيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعارضات ثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
@@ -156,7 +156,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
+        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ��لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
@@ -1628,6 +1628,54 @@ export function BusinessRegistrationFocusContent({
       });
     }
   }, [isEditing]);
+
+  React.useEffect(() => {
+    if (isChecking || !hasPerformedCheck) {
+      return;
+    }
+
+    const status = isNameAvailable ? "approved" : "rejected";
+    const englishDisplay = activeEnglishTradeName || englishDraft || "";
+    const arabicDisplay = activeArabicTradeName || arabicDraft || "";
+    const failureDetail = status === "approved" ? null : failureReason ?? null;
+    const dispatchKey = [
+      status,
+      englishDisplay,
+      arabicDisplay,
+      failureDetail ?? "",
+    ].join("|");
+
+    if (verificationDispatchKeyRef.current === dispatchKey) {
+      return;
+    }
+
+    verificationDispatchKeyRef.current = dispatchKey;
+
+    if (typeof window !== "undefined") {
+      window.setTimeout(() => {
+        window.dispatchEvent(
+          new CustomEvent("polarisTradeNameCheckComplete", {
+            detail: {
+              status,
+              english: englishDisplay,
+              arabic: arabicDisplay,
+              failureReason: failureDetail,
+              stageId: "trade-name-activities",
+            },
+          }),
+        );
+      }, 0);
+    }
+  }, [
+    isChecking,
+    hasPerformedCheck,
+    isNameAvailable,
+    activeEnglishTradeName,
+    activeArabicTradeName,
+    englishDraft,
+    arabicDraft,
+    failureReason,
+  ]);
 
   const runChecksWithNames = React.useCallback(
     (englishName: string, arabicName: string) => {
