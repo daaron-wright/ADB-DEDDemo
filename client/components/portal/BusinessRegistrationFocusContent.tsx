@@ -274,7 +274,7 @@ function buildSimilarityConflictNarrative(
   const arabicLines = [
     "تسل��ل استجابات الوكلاء:",
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق الن��ي دون ��خالفات.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردا�� محظورة في النسختين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق النشاط → غير مقيم. في انتظار اسم تجاري فريد.",
@@ -1281,7 +1281,11 @@ function VerificationStepItem({
             </button>
             {showFailureNarrative ? (
               <div className="space-y-3">
-                {renderAgentNarrative(step.failureDetail, "failed")}
+                {renderAgentNarrative(step.failureDetail, "failed", {
+                  activityOptions,
+                  selectedActivityId,
+                  onActivitySelect,
+                })}
                 {onPolarisPrompt ? (
                   <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-[#0f766e]/25 bg-[#f4f9f7] px-4 py-3 text-xs text-[#0f766e]">
                     <span className="font-semibold uppercase tracking-[0.18em]">
