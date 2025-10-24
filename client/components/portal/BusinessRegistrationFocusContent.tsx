@@ -157,7 +157,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ��لثقافية.',
-        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على ��صطلحات محظورة في النسختين العربية والإنجليزية.",
+        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
@@ -280,7 +280,7 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     "تسل��ل استجابات الوكلاء:",
-    `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق الن��ي دون ��خالفات.`,
+    `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" الت��قق الن��ي دون ��خالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
@@ -317,7 +317,7 @@ function buildFinalDecisionRejectionNarrative(
     "استجابات الوكلاء (��لعربية):",
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
-    "3. وكيل التشابه → ناجح. تم تأكيد تم��ز الاسم في السجل.",
+    "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → مرفوض. ESCALATE TO DED REVIEWER لعرض الحالة على المراجع المختص.",
@@ -1877,6 +1877,9 @@ const forceActivityMismatchRef = React.useRef(false);
             );
             setCurrentFailureContext("activity-mismatch");
             setSuggestedIterationName(iterationCandidate || null);
+            if (iterationCandidate) {
+              applyIterationDraft(iterationCandidate);
+            }
             setTradeNameGuidance(
               iterationCandidate
                 ? `Activity compatibility agent flagged "${englishDisplay}" as heritage-focused. Open the Guidance tab, select the activity that matches your concept, or try "${iterationCandidate}" before rerunning.`
