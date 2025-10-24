@@ -935,7 +935,7 @@ function VerificationStepItem({
 
   const polarisPrompt = React.useMemo(() => {
     const guidance = generatePolarisGuidanceFromFailure(step.failureDetail);
-    return `Polaris, the ${step.title} check failed. ${guidance}`;
+    return `Polaris, the ${step.title} check failed. ${guidance} Please suggest compliant trade name alternatives.`;
   }, [step.failureDetail, step.title]);
 
   return (
