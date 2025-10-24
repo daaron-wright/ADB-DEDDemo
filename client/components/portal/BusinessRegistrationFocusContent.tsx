@@ -95,7 +95,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "تسلسل استجابات الوكلاء:",
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� النصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
-        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات مح��ور�� في النسختين العربية أو الإنجليزية.",
+        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين العربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
@@ -133,7 +133,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��لى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
-        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
+        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متواف��.",
         '• وكيل اقتراح الاسم (الاسم ال��رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -288,7 +288,7 @@ function buildSimilarityConflictNarrative(
     "5. وكيل توافق النشاط → غير مقيم. في انتظار اسم تجاري فريد.",
     `6. محرك القرار النهائي → مرفوض. مرج�� التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
     hasIteration
-      ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
+      ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إ��شاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (الاس�� المرفوض) → إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
   ];
 
@@ -821,6 +821,7 @@ const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
   ["marwah restaurant", MARWA_TRADE_NAME_AR],
   ["bait el khetyar", PRIMARY_TRADE_NAME_AR],
   ["bait al khetyar", PRIMARY_TRADE_NAME_AR],
+  ["bait el khetyar heritage kitchen", "بيت الختيار هيريتج كتشن"],
 ]);
 
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
@@ -1867,7 +1868,7 @@ const forceActivityMismatchRef = React.useRef(false);
             );
           } else if (normalizedName === CONFLICTING_TRADE_NAME_NORMALIZED) {
             forceActivityMismatchRef.current = true;
-            resolvedFailureReason = `We couldn��t reserve ${englishDisplay}. ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}) is already registered. Try a unique variation that aligns with your selected activity.`;
+            resolvedFailureReason = `We couldn’t reserve ${englishDisplay}. ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}) is already registered. Try a unique variation that aligns with your selected activity.`;
             const iterationSuggestion = FIXED_SIMILARITY_ITERATION_NAME;
             const conflictNarrative = buildSimilarityConflictNarrative(
               englishDisplay,
