@@ -133,7 +133,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
-        "• محرك القرار النهائي → قيد الانتظار ل��مراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
+        "• ��حرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
         '• وكيل اقتراح الاسم (الاسم ال��رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -273,14 +273,14 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     "تسل��ل استجابات الوكلاء:",
-    `1. مدقق النص / ال��دقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق الن��ي دون ��خالفات.`,
+    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق الن��ي دون ��خالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق النشاط → غير مقيم. في انتظار اسم تجاري فريد.",
     `6. محرك القرار النهائي → مرفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتراح اسم مختلف.`,
     hasIteration
-      ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
+      ? `7. وكيل اقتراح الاسم (الاسم المرف��ض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. يوصي Polaris بإضافة توصيف خاص أو جغرافي.",
   ];
 
@@ -1697,7 +1697,12 @@ const forceActivityMismatchRef = React.useRef(false);
 
           setIsChecking(false);
           setIsNameAvailable(isSuccess);
+          const shouldForceActivityMismatch =
+            forceActivityMismatchRef.current &&
+            normalizedName !== CONFLICTING_TRADE_NAME_NORMALIZED;
+
           if (isSuccess) {
+            forceActivityMismatchRef.current = false;
             setFailedStepIndex(null);
             setFailureReason(null);
             setCurrentFailureDetail(null);
@@ -1706,66 +1711,71 @@ const forceActivityMismatchRef = React.useRef(false);
             setTradeNameGuidance(
               `All automation checks approved "${englishDisplay}". Continue with the reservation when ready.`,
             );
+          } else if (normalizedName === CONFLICTING_TRADE_NAME_NORMALIZED) {
+            forceActivityMismatchRef.current = true;
+            resolvedFailureReason = `We couldn’t reserve ${englishDisplay}. ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}) is already registered. Try a unique variation that aligns with your selected activity.`;
+            const iterationSuggestion = suggestTradeNameIteration(englishDisplay);
+            const conflictNarrative = buildSimilarityConflictNarrative(
+              englishDisplay,
+              iterationSuggestion,
+            );
+            setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
+            setFailureReason(resolvedFailureReason);
+            setCurrentFailureDetail(conflictNarrative);
+            setCurrentFailureContext("similarity-conflict");
+            setSuggestedIterationName(
+              iterationSuggestion ? iterationSuggestion : null,
+            );
+            setTradeNameGuidance(
+              iterationSuggestion
+                ? `Similarity agent flagged "${englishDisplay}" for matching "${PRIMARY_TRADE_NAME_EN}". Try "${iterationSuggestion}" or ask Polaris for another variation.`
+                : `Similarity agent flagged "${englishDisplay}" for matching "${PRIMARY_TRADE_NAME_EN}". Add a unique qualifier, then re-run the checks.`,
+            );
+          } else if (
+            shouldForceActivityMismatch ||
+            normalizedName === ACTIVITY_COMPATIBILITY_NAME
+          ) {
+            forceActivityMismatchRef.current = false;
+            const activityAlignedSuggestion =
+              suggestActivityAlignedTradeName(englishDisplay);
+            const sanitizedIteration = activityAlignedSuggestion.trim();
+            const iterationCandidate =
+              sanitizedIteration &&
+              sanitizedIteration.toUpperCase() !== normalizedName
+                ? sanitizedIteration
+                : "";
+            resolvedFailureReason = `We couldn’t reserve ${englishDisplay}. Select the activity that best matches the heritage concept or adjust the trade name.`;
+            setFailedStepIndex(ACTIVITY_FAILURE_STEP_INDEX);
+            setFailureReason(resolvedFailureReason);
+            setCurrentFailureDetail(
+              TRADE_NAME_CHECKS[ACTIVITY_FAILURE_STEP_INDEX]?.failureDetail ?? null,
+            );
+            setCurrentFailureContext("activity-mismatch");
+            setSuggestedIterationName(iterationCandidate || null);
+            setTradeNameGuidance(
+              iterationCandidate
+                ? `Activity compatibility agent flagged "${englishDisplay}" as heritage-focused. Open the Guidance tab, select the activity that matches your concept, or try "${iterationCandidate}" before rerunning.`
+                : "Activity compatibility agent flagged the concept as heritage-focused. Open the Guidance tab and choose the activity that matches your plan before rerunning the checks.",
+            );
           } else {
-            if (normalizedName === CONFLICTING_TRADE_NAME_NORMALIZED) {
-              resolvedFailureReason = `We couldn’t reserve ${englishDisplay}. ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}) is already registered. Try a unique variation that aligns with your selected activity.`;
-              const iterationSuggestion = suggestTradeNameIteration(englishDisplay);
-              const conflictNarrative = buildSimilarityConflictNarrative(
-                englishDisplay,
-                iterationSuggestion,
-              );
-              setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
-              setFailureReason(resolvedFailureReason);
-              setCurrentFailureDetail(conflictNarrative);
-              setCurrentFailureContext("similarity-conflict");
-              setSuggestedIterationName(
-                iterationSuggestion ? iterationSuggestion : null,
-              );
-              setTradeNameGuidance(
-                iterationSuggestion
-                  ? `Similarity agent flagged "${englishDisplay}" for matching "${PRIMARY_TRADE_NAME_EN}". Try "${iterationSuggestion}" or ask Polaris for another variation.`
-                  : `Similarity agent flagged "${englishDisplay}" for matching "${PRIMARY_TRADE_NAME_EN}". Add a unique qualifier, then re-run the checks.`,
-              );
-            } else if (normalizedName === ACTIVITY_COMPATIBILITY_NAME) {
-              const activityAlignedSuggestion = suggestActivityAlignedTradeName(englishDisplay);
-              const sanitizedIteration = activityAlignedSuggestion.trim();
-              const iterationCandidate =
-                sanitizedIteration &&
-                sanitizedIteration.toUpperCase() !== normalizedName
-                  ? sanitizedIteration
-                  : "";
-              resolvedFailureReason = `We couldn’t reserve ${englishDisplay}. Select the activity that best matches the heritage concept or adjust the trade name.`;
-              setFailedStepIndex(ACTIVITY_FAILURE_STEP_INDEX);
-              setFailureReason(resolvedFailureReason);
-              setCurrentFailureDetail(
-                TRADE_NAME_CHECKS[ACTIVITY_FAILURE_STEP_INDEX]?.failureDetail ?? null,
-              );
-              setCurrentFailureContext("activity-mismatch");
-              setSuggestedIterationName(iterationCandidate || null);
-              setTradeNameGuidance(
-                iterationCandidate
-                  ? `Activity compatibility agent flagged "${englishDisplay}" as heritage-focused. Try "${iterationCandidate}" or select the matching activity before retrying.`
-                  : "Update the licensed activity or iterate on the name so it clearly reflects your Food & Beverage concept before retrying.",
-              );
-            } else {
-              resolvedFailureReason = normalizedName
-                ? `We couldn’t reserve ${englishDisplay}. Try a unique variation that aligns with your selected activity.`
-                : "Add English and Arabic trade names before running the automated checks.";
-              setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
-              setFailureReason(resolvedFailureReason);
-              setCurrentFailureDetail(
-                TRADE_NAME_CHECKS[DEFAULT_FAILURE_STEP_INDEX]?.failureDetail ?? null,
-              );
-              setCurrentFailureContext(
-                normalizedName ? "similarity-conflict" : "missing-input",
-              );
-              setSuggestedIterationName(null);
-              setTradeNameGuidance(
-                normalizedName
-                  ? "Try adding a geographic or specialty descriptor to differentiate the trade name, then rerun the checks."
-                  : "Enter both English and Arabic trade names before running the automated checks.",
-              );
-            }
+            forceActivityMismatchRef.current = false;
+            resolvedFailureReason = normalizedName
+              ? `We couldn’t reserve ${englishDisplay}. Try a unique variation that aligns with your selected activity.`
+              : "Enter both English and Arabic trade names before running the automated checks.";
+            setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
+            setFailureReason(resolvedFailureReason);
+            setCurrentFailureDetail(
+              TRADE_NAME_CHECKS[DEFAULT_FAILURE_STEP_INDEX]?.failureDetail ?? null,
+            );
+            setCurrentFailureContext(
+              normalizedName ? "similarity-conflict" : "missing-input",
+            );
+            setSuggestedIterationName(null);
+            setTradeNameGuidance(
+              normalizedName
+                ? "Try adding a geographic or specialty descriptor to differentiate the trade name, then rerun the checks."
+                : "Enter both English and Arabic trade names before running the automated checks.",
+            );
           }
 
           setPendingSubmission(null);
