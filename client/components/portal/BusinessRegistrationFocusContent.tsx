@@ -130,7 +130,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "استجابات الوكلاء (العربية):",
         '• مدقق ا��نص / الت��قيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
-        "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الح�� المطلوب).",
+        "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
@@ -159,7 +159,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ��لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
-        "• وكيل التحويل الصوتي → ناجح. ت��ت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
+        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
         "• مح��ك القرار النهائي → معت��د بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل؛ الاسم الحالي معتمد.",
@@ -288,7 +288,7 @@ function buildSimilarityConflictNarrative(
     `6. محرك القرار النهائي → مرفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر��ح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
-      : "7. وكيل اقتراح الاسم (الاس�� المرفوض) → إرشاد. يوصي Polaris بإضافة توصيف خاص أو جغرافي.",
+      : "7. وكيل اقتراح الاسم (الاس�� المرفوض) → إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
   ];
 
   return {
@@ -314,7 +314,7 @@ function buildFinalDecisionRejectionNarrative(
   ];
 
   const arabicLines = [
-    "استجابات الوكلاء (العربية):",
+    "استجابات الوكلاء (��لعربية):",
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
@@ -1358,6 +1358,29 @@ function VerificationStepItem({
                 Polaris through the chat input below.
               </p>
             )}
+            {isFailed && onEscalate ? (
+              <button
+                type="button"
+                onClick={() => onEscalate(step.title)}
+                disabled={isEscalated}
+                className={cn(
+                  "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-90",
+                  showFinalDecisionEscalationControl
+                    ? isEscalated
+                      ? "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_16px_34px_-22px_rgba(15,118,110,0.55)]"
+                      : "border-[#0f766e] bg-white text-[#0f766e] hover:bg-[#0f766e]/10"
+                    : isEscalated
+                      ? "border-rose-500 bg-rose-500 text-white shadow-[0_16px_34px_-22px_rgba(225,29,72,0.55)]"
+                      : "border-rose-400 bg-white text-rose-500 hover:bg-rose-50 active:bg-rose-100",
+                )}
+              >
+                {isEscalated
+                  ? "Escalation sent"
+                  : showFinalDecisionEscalationControl
+                    ? "Escalate to DED reviewer"
+                    : "Escalate to backend user"}
+              </button>
+            ) : null}
           </div>
         ) : null}
         {isCompleted && step.successDetail
