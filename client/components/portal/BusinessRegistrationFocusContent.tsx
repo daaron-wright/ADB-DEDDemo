@@ -157,7 +157,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ����لثقافية.',
-        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
+        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظور�� في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
@@ -282,7 +282,7 @@ function buildSimilarityConflictNarrative(
   const arabicLines = [
     "تسل���ل استجابات الوكلاء:",
     `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا��م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
+    "2. وكيل الكلمات المحظورة → ناجح. لم ي��م رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق ال��شاط → غير مقيم. في انتظار اسم ��جاري فريد.",
@@ -506,7 +506,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
     "no alternatives required",
     "اقتراح البدائل",
     "لا حاجة لبدائل",
-    "إرشاد",
+    "��رشاد",
   ],
   escalated: ["escalated", "escalation", "تصعيد"],
 };
@@ -1032,6 +1032,7 @@ function VerificationStepItem({
   onActivitySelect,
   onPolarisPrompt,
   showFinalDecisionEscalationControl = false,
+  shouldAutoOpenNarrative = false,
 }: {
   step: TradeNameVerificationStepWithStatus;
   index: number;
@@ -1043,6 +1044,7 @@ function VerificationStepItem({
   onActivitySelect?: (activityId: string) => void;
   onPolarisPrompt?: (prompt: string, options?: { submit?: boolean }) => void;
   showFinalDecisionEscalationControl?: boolean;
+  shouldAutoOpenNarrative?: boolean;
 }) {
   const isFailed = step.status === "failed";
   const isCompleted = step.status === "completed";
