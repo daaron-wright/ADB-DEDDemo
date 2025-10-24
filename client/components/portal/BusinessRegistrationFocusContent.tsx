@@ -94,7 +94,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "تسلسل استجابات الوكلاء:",
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا��نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
+        '1. مدقق النص / التدقيق الإملائي / الفحص الثقا��ي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا��نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين ��لعربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
@@ -133,7 +133,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��ل�� مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
-        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشاط متواف��.",
+        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشا�� متواف��.",
         '• وكيل اقتراح الاسم (الاسم ال��رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -152,7 +152,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '4. Transliteration agent → Passed. Arabic transliteration "مطعم مروة" validated against phonetic rules.',
         "5. Activity compatibility agent → Passed. Name aligns with the licensed Food & Beverage restaurant activity.",
         "6. Final decision engine → Approved 2025-09-22T09:32Z (confidence: high, score: 0.98).",
-        "7. Name suggester agent (rejected trade name) → No alternatives required; current name authorized.",
+        "7. Name suggester agent (rejected trade name) �� No alternatives required; current name authorized.",
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
@@ -162,7 +162,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
         "• مح��ك القر��ر ال��هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
-        "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
+        "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� ��لاسم الحالي معتمد.",
       ].join("\n"),
     },
   },
@@ -288,7 +288,7 @@ function buildSimilarityConflictNarrative(
     "5. وكيل توافق ال��شاط → غير مقيم. في انتظار اسم ��جاري فريد.",
     `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
     hasIteration
-      ? `7. ��كيل اقتراح الاسم (الاسم المرفوض) → إ��شاد. البديل المقترح: "${sanitizedIteration}".`
+      ? `7. ��كيل ا��تراح الاسم (الاسم المرفوض) → إ��شاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (الاس�� المرفوض) �� إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
   ];
 
@@ -876,6 +876,7 @@ function deriveTradeNamesFromMessage(message: string) {
   let arabic = extractLabeledSegment(trimmed, "arabic");
 
   const seen = new Set<string>();
+  const quotedCandidates: string[] = [];
   QUOTED_TEXT_PATTERN.lastIndex = 0;
   let quoteMatch: RegExpExecArray | null;
 
@@ -885,6 +886,7 @@ function deriveTradeNamesFromMessage(message: string) {
       continue;
     }
     seen.add(candidate);
+    quotedCandidates.push(candidate);
 
     if (containsArabicCharacters(candidate)) {
       if (!arabic) {
@@ -896,6 +898,19 @@ function deriveTradeNamesFromMessage(message: string) {
 
     if (english && arabic) {
       break;
+    }
+  }
+
+  if (
+    (!english || /\b(rerun|trade name|checks)\b/i.test(english)) &&
+    quotedCandidates.length
+  ) {
+    const prioritized = quotedCandidates.find(
+      (candidate) => !/\b(rerun|trade name|checks|polaris)\b/i.test(candidate),
+    );
+    const fallbackQuoted = prioritized ?? quotedCandidates[0];
+    if (fallbackQuoted && fallbackQuoted.length > 1) {
+      english = fallbackQuoted;
     }
   }
 
