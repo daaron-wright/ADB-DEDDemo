@@ -99,7 +99,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشاط → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
-        "6. محرك القرار النهائي → مرفوض. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبقًا، يُرجى اقتراح ��ديل.",
+        "6. محرك القرار النهائي → مرفوض. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبقًا، يُرجى اقتراح بديل.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة الخيريار".',
       ].join("\n"),
     },
@@ -272,8 +272,8 @@ function buildSimilarityConflictNarrative(
   ];
 
   const arabicLines = [
-    "تسلسل استجابات الوكل��ء:",
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون ��خالفات.`,
+    "تسل��ل استجابات الوكلاء:",
+    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق الن��ي دون ��خالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
@@ -358,6 +358,9 @@ function buildChatDraftFromContext(
   }
 
   if (context === "activity-mismatch") {
+    if (formattedIteration) {
+      return `Polaris, rerun the trade name checks on "${formattedIteration}" so the activity compatibility agent confirms it fits our Food & Beverage restaurant scope.`;
+    }
     return `Polaris, help me adjust the trade name so it clearly fits the Food & Beverage restaurant activity before we rerun the checks.`;
   }
 
