@@ -1366,7 +1366,7 @@ const CompetitorAnalysisCard = ({ className = "" }: { className?: string }) => {
               </div>
             </div>
             <div className="text-right">
-              <div className="text-sm font-semibold text-blue-600">4.3★</div>
+              <div className="text-sm font-semibold text-blue-600">4.3���</div>
               <div className="text-xs text-slate-500">$$$</div>
             </div>
           </div>
@@ -3443,12 +3443,16 @@ const ChatInputField = ({
   onSubmit,
   placeholder = "Ask me anything...",
   className = "",
+  hotkeyPrompt,
+  onHotkeyInsert,
 }: {
   value: string;
   onChange: (value: string) => void;
   onSubmit: (value: string) => void;
   placeholder?: string;
   className?: string;
+  hotkeyPrompt?: string | null;
+  onHotkeyInsert?: () => void;
 }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
