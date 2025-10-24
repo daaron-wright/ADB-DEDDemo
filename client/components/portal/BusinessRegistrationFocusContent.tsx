@@ -128,7 +128,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        '• مدقق ا��نص / الت��قيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعارضات ثقافية.',
+        '• مدقق ا��نص / الت��قيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
@@ -1844,24 +1844,36 @@ const forceActivityMismatchRef = React.useRef(false);
                 ? `Activity compatibility agent flagged "${englishDisplay}" as heritage-focused. Open the Guidance tab, select the activity that matches your concept, or try "${iterationCandidate}" before rerunning.`
                 : "Activity compatibility agent flagged the concept as heritage-focused. Open the Guidance tab and choose the activity that matches your plan before rerunning the checks.",
             );
+          } else if (normalizedName) {
+            forceActivityMismatchRef.current = false;
+            resolvedFailureReason = `Final decision engine rejected ${englishDisplay}. ESCALATE TO DED REVIEWER for manual adjudication.`;
+            const finalDecisionNarrative =
+              buildFinalDecisionRejectionNarrative(englishDisplay);
+            setFailedStepIndex(FINAL_DECISION_FAILURE_STEP_INDEX);
+            setFailureReason(resolvedFailureReason);
+            setCurrentFailureDetail(finalDecisionNarrative);
+            setCurrentFailureContext("final-decision");
+            setSuggestedIterationName(null);
+            setTradeNameGuidance(
+              `Final decision engine rejected "${englishDisplay}". ESCALATE TO DED REVIEWER to continue the process.`,
+            );
+            toast({
+              title: "ESCALATE TO DED REVIEWER",
+              description: `Polaris recommends escalating "${englishDisplay}" for manual adjudication.`,
+            });
           } else {
             forceActivityMismatchRef.current = false;
-            resolvedFailureReason = normalizedName
-              ? `We couldn’t reserve ${englishDisplay}. Try a unique variation that aligns with your selected activity.`
-              : "Enter both English and Arabic trade names before running the automated checks.";
+            resolvedFailureReason =
+              "Enter both English and Arabic trade names before running the automated checks.";
             setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
             setFailureReason(resolvedFailureReason);
             setCurrentFailureDetail(
               TRADE_NAME_CHECKS[DEFAULT_FAILURE_STEP_INDEX]?.failureDetail ?? null,
             );
-            setCurrentFailureContext(
-              normalizedName ? "similarity-conflict" : "missing-input",
-            );
+            setCurrentFailureContext("missing-input");
             setSuggestedIterationName(null);
             setTradeNameGuidance(
-              normalizedName
-                ? "Try adding a geographic or specialty descriptor to differentiate the trade name, then rerun the checks."
-                : "Enter both English and Arabic trade names before running the automated checks.",
+              "Add English and Arabic trade names before running the automated checks.",
             );
           }
 
