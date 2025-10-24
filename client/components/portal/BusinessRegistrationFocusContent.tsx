@@ -133,7 +133,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
-        "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
+        "• محرك القرار النهائي → قيد الانتظار ل��مراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
         '• وكيل اقتراح الاسم (الاسم ال��رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -273,8 +273,8 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     "تسل��ل استجابات الوكلاء:",
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق الن��ي دون ��خالفات.`,
-    "2. وكيل الكلمات المحظورة → ن��جح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+    `1. مدقق النص / ال��دقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق الن��ي دون ��خالفات.`,
+    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق النشاط → غير مقيم. في انتظار اسم تجاري فريد.",
@@ -1419,9 +1419,24 @@ const forceActivityMismatchRef = React.useRef(false);
     [toast],
   );
 
-  const handleActivitySelect = React.useCallback((activityId: string) => {
-    setSelectedActivityId(activityId);
-  }, []);
+  const handleActivitySelect = React.useCallback(
+    (activityId: string) => {
+      setSelectedActivityId(activityId);
+      const activity = ACTIVITY_COMPATIBILITY_OPTIONS.find(
+        (option) => option.id === activityId,
+      );
+      if (activity) {
+        setTradeNameGuidance(
+          `Activity alignment updated to ${activity.label}. Ask Polaris to rerun the checks once you confirm the plan.`,
+        );
+        toast({
+          title: "Activity selected",
+          description: `${activity.label} locked in for the next verification pass.`,
+        });
+      }
+    },
+    [toast],
+  );
 
   React.useEffect(() => {
     const english = englishDraft.trim();
