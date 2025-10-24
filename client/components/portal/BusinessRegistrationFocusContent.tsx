@@ -128,7 +128,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقا��ي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
+        '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
@@ -286,7 +286,7 @@ function buildSimilarityConflictNarrative(
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق النشاط → غير مقيم. في انتظار اسم تجاري فريد.",
-    `6. محرك القرار النهائي → مرفوض. مرج�� التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر��ح اسم مختلف.`,
+    `6. محرك القرار النهائي → مرفوض. مرج�� التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (الاس�� المرفوض) → إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
@@ -798,7 +798,7 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["h", "ه"],
   ["i", "ي"],
   ["j", "ج"],
-  ["k", "���"],
+  ["k", "��"],
   ["l", "ل"],
   ["m", "م"],
   ["n", "ن"],
@@ -1908,14 +1908,11 @@ const forceActivityMismatchRef = React.useRef(false);
               TRADE_NAME_CHECKS[ACTIVITY_FAILURE_STEP_INDEX]?.failureDetail ?? null,
             );
             setCurrentFailureContext("activity-mismatch");
-            setSuggestedIterationName(iterationCandidate || null);
-            if (iterationCandidate) {
-              setPendingIterationDraft(iterationCandidate);
-            }
+            setSuggestedIterationName(null);
             setTradeNameGuidance(
               iterationCandidate
-                ? `Activity compatibility agent flagged "${englishDisplay}" as heritage-focused. Open the Guidance tab, select the activity that matches your concept, or try "${iterationCandidate}" before rerunning.`
-                : "Activity compatibility agent flagged the concept as heritage-focused. Open the Guidance tab and choose the activity that matches your plan before rerunning the checks.",
+                ? `Activity compatibility agent flagged "${englishDisplay}" as heritage-focused. Align the licensed activity before rerunning; keep the trade name as "${FIXED_SIMILARITY_ITERATION_NAME}" when you retry.`
+                : `Activity compatibility agent flagged the concept as heritage-focused. Align the licensed activity before rerunning; keep "${FIXED_SIMILARITY_ITERATION_NAME}" when you retry.`,
             );
           } else if (normalizedName) {
             forceActivityMismatchRef.current = false;
