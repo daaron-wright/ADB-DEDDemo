@@ -98,7 +98,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
-        "5. وكيل توافق النشاط → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبات المرخّص.",
+        "5. وكيل توافق النشاط → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
         "6. محرك القرار النهائي → مرفوض. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبقًا، يُرجى اقتراح بديل.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة الخيريار".',
       ].join("\n"),
@@ -132,7 +132,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
-        "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
+        "• وكيل توافق ال��شاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
         '• وكيل اقتراح الاسم (الاسم المرفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
@@ -161,8 +161,8 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
-        "• محرك القرار النهائي → معت��د بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
-        "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
+        "• مح��ك القرار النهائي → معت��د بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
+        "• وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
     },
   },
@@ -622,6 +622,94 @@ const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
   ["al", "ال"],
   ["khetyar", "الختيار"],
 ]);
+
+const ARABIC_CHAR_PATTERN = /[\u0600-\u06FF]/;
+const QUOTED_TEXT_PATTERN = /["“”']([^"“”']{2,})["“”']/g;
+const CHAT_NAME_TERMINATORS = /\b(?:instead|please|thanks|thank you|and then|and we|and i'll|because|so that|so we|so i)\b/i;
+const CHAT_NAME_TRIGGER_PATTERN = /\b(?:use|try|consider|switch to|update to|rename(?:\s+it)?\s+to|call it|let(?:'s)? go with|let(?:'s)? call it|let(?:'s)? use)\s+([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
+const CHAT_TRADE_NAME_FALLBACK_PATTERN = /\btrade\s*name\b[^A-Za-z0-9]*([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
+
+function sanitizeTradeNameCandidate(value: string) {
+  if (!value) {
+    return "";
+  }
+
+  const trimmed = value.trim();
+  if (!trimmed) {
+    return "";
+  }
+
+  const terminationIndex = trimmed.search(CHAT_NAME_TERMINATORS);
+  const truncated = terminationIndex > 0 ? trimmed.slice(0, terminationIndex) : trimmed;
+
+  return truncated.replace(/^[\s"'“”'’]+|[\s"'“”'’.!,;:()\-]+$/g, "").trim();
+}
+
+function extractLabeledSegment(source: string, label: string) {
+  const pattern = new RegExp(`${label}\\s*[:\\-]\\s*["“”']?([^"“”'\\n]+)["“”']?`, "i");
+  const match = source.match(pattern);
+  return match ? sanitizeTradeNameCandidate(match[1]) : null;
+}
+
+function containsArabicCharacters(value: string) {
+  return ARABIC_CHAR_PATTERN.test(value);
+}
+
+function deriveTradeNamesFromMessage(message: string) {
+  const trimmed = message.trim();
+  if (!trimmed) {
+    return { english: null, arabic: null };
+  }
+
+  let english = extractLabeledSegment(trimmed, "english");
+  let arabic = extractLabeledSegment(trimmed, "arabic");
+
+  const seen = new Set<string>();
+  QUOTED_TEXT_PATTERN.lastIndex = 0;
+  let quoteMatch: RegExpExecArray | null;
+
+  while ((quoteMatch = QUOTED_TEXT_PATTERN.exec(trimmed))) {
+    const candidate = sanitizeTradeNameCandidate(quoteMatch[1]);
+    if (!candidate || seen.has(candidate)) {
+      continue;
+    }
+    seen.add(candidate);
+
+    if (containsArabicCharacters(candidate)) {
+      if (!arabic) {
+        arabic = candidate;
+      }
+    } else if (!english) {
+      english = candidate;
+    }
+
+    if (english && arabic) {
+      break;
+    }
+  }
+
+  if (!english) {
+    const triggerMatch = trimmed.match(CHAT_NAME_TRIGGER_PATTERN);
+    if (triggerMatch) {
+      english = sanitizeTradeNameCandidate(triggerMatch[1]);
+    }
+  }
+
+  if (!english) {
+    const fallbackMatch = trimmed.match(CHAT_TRADE_NAME_FALLBACK_PATTERN);
+    if (fallbackMatch) {
+      english = sanitizeTradeNameCandidate(fallbackMatch[1]);
+    }
+  }
+
+  const resolvedEnglish = english && english.length > 1 ? english : null;
+  const resolvedArabic = arabic && arabic.length > 1 ? arabic : null;
+
+  return {
+    english: resolvedEnglish,
+    arabic: resolvedArabic,
+  };
+}
 
 function normalizeUppercaseWord(word: string) {
   return word.replace(/[^a-zA-Z]/g, "").toUpperCase();
