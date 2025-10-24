@@ -6960,7 +6960,7 @@ const handlePolarisPrompt = useCallback(
 
     setInputValue(trimmed);
   },
-  [handleSendMessage],
+  [handleSendMessage, setInteractionMode, setInputValue],
 );
 
 const handleToggleActivity = useCallback((activityId: string) => {
