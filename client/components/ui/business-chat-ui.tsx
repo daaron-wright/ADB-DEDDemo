@@ -6941,8 +6941,8 @@ export function BusinessChatUI({
   ]);
 
   const handleInputChange = (value: string) => {
-  setInputValue(value);
-};
+    setInputValue(value);
+  };
 
   const handlePolarisPrompt = useCallback(
     (prompt: string, options?: { submit?: boolean }) => {
