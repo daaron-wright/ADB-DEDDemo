@@ -96,7 +96,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "تسلسل استجابات الوكلاء:",
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� النصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين العربية أو الإنجليزية.",
-        "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
+        "3. وكيل ��لتشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
         "6. محرك القرار النهائي �� مرفو��. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبقًا�� يُرجى ��قتراح بدي��.",
@@ -157,7 +157,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ����لثقافية.',
-        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
+        "• وكيل ��لكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
@@ -1429,6 +1429,14 @@ export function BusinessRegistrationFocusContent({
   onPolarisPrompt,
 }: BusinessRegistrationFocusContentProps) {
   const { toast } = useToast();
+  const enqueueToast = React.useCallback(
+    (options: Parameters<typeof toast>[0]) => {
+      window.setTimeout(() => {
+        toast(options);
+      }, 0);
+    },
+    [toast],
+  );
 const [tradeNameGuidance, setTradeNameGuidance] = React.useState<
   string | null
 >(null);
@@ -2025,7 +2033,7 @@ const forceActivityMismatchRef = React.useRef(false);
             setTradeNameGuidance(
               `Final decision engine isn’t fully confident rejecting "${englishDisplay}". I’ve escalated it to the DED reviewer for a manual call.`,
             );
-            toast({
+            enqueueToast({
               title: "Escalated for reviewer guidance",
               description: `Not fully confident in the automated rejection, so "${englishDisplay}" is with the DED reviewer.`,
             });
@@ -2065,7 +2073,7 @@ const forceActivityMismatchRef = React.useRef(false);
     englishDraft,
     arabicDraft,
     approvedNameSet,
-    toast,
+    enqueueToast,
     runChecksWithNames,
   ]);
 
