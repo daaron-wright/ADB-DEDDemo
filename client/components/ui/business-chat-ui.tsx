@@ -7113,15 +7113,8 @@ export function BusinessChatUI({
 
       const tradeNameStageId =
         journeyFocusView?.stage?.id ?? journeyFocusView?.timelineItem?.id ?? null;
-      const tradeNameCandidate = extractTradeNameCandidate(trimmed);
-      const hasTradeNameIntent = TRADE_NAME_INTENT_PATTERN.test(trimmed);
-      const shouldDispatchTradeNameSubmit =
-        typeof window !== "undefined" &&
-        (tradeNameStageId === "trade-name-activities" ||
-          hasTradeNameIntent ||
-          Boolean(tradeNameCandidate));
 
-      if (shouldDispatchTradeNameSubmit) {
+      if (typeof window !== "undefined") {
         window.dispatchEvent(
           new CustomEvent("polarisTradeNameChatSubmit", {
             detail: {
