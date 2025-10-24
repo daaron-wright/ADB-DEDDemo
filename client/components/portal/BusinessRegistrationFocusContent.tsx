@@ -128,7 +128,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
+        '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقا��ي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
@@ -798,7 +798,7 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["h", "ه"],
   ["i", "ي"],
   ["j", "ج"],
-  ["k", "��"],
+  ["k", "���"],
   ["l", "ل"],
   ["m", "م"],
   ["n", "ن"],
@@ -2106,7 +2106,6 @@ const forceActivityMismatchRef = React.useRef(false);
       setCurrentFailureContext(null);
       setSuggestedIterationName(null);
       setPendingIterationDraft(null);
-      setHasAppliedFirstSimilarityIteration(false);
       setTradeNameGuidance(null);
       setEnglishDraft(formattedEnglish);
       setArabicDraft(formattedArabic);
