@@ -129,7 +129,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         '• مدقق ا��نص / الت��قيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ثقافية.',
-        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
+        "• وكيل الكلمات المحظورة → ناجح. لم ي��م العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
@@ -318,7 +318,7 @@ function buildFinalDecisionRejectionNarrative(
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
-    "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
+    "4. وكيل التحويل الصوتي �� ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → مرفوض. ESCALATE TO DED REVIEWER لعرض الحالة على المراجع المختص.",
     "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
@@ -508,7 +508,7 @@ const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
     "suggested alternatives",
     "no alternatives required",
     "اقتراح البد��ئل",
-    "لا حاجة لبدائل",
+    "لا حاجة ل��دائل",
     "إرشاد",
   ],
 };
@@ -1422,6 +1422,42 @@ const forceActivityMismatchRef = React.useRef(false);
     null,
   );
   const { setDocuments } = useDocumentVault();
+
+  React.useEffect(() => {
+    if (!suggestedIterationName) {
+      return;
+    }
+
+    const formattedIteration = formatTradeName(suggestedIterationName);
+    if (!formattedIteration) {
+      return;
+    }
+
+    const normalizedIteration = formattedIteration.toUpperCase();
+    const normalizedDraft = englishDraft.trim().toUpperCase();
+
+    if (normalizedIteration === normalizedDraft) {
+      return;
+    }
+
+    const autoArabic = formatArabicName(transliterateToArabic(formattedIteration));
+    const trimmedArabicDraft = arabicDraft.trim();
+
+    setEnglishDraft(formattedIteration);
+
+    if (
+      trimmedArabicDraft.length === 0 ||
+      currentFailureContext === "activity-mismatch" ||
+      trimmedArabicDraft === autoArabic
+    ) {
+      setArabicDraft(autoArabic);
+      setIsArabicSynced(true);
+    } else {
+      setIsArabicSynced(trimmedArabicDraft === autoArabic);
+    }
+
+    setIsEditing(true);
+  }, [arabicDraft, currentFailureContext, englishDraft, setArabicDraft, setEnglishDraft, setIsArabicSynced, setIsEditing, suggestedIterationName]);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const reservationTimeoutRef = React.useRef<number | null>(null);
   const verificationDispatchKeyRef = React.useRef<string | null>(null);
