@@ -22,7 +22,7 @@ import {
   TRADE_NAME_RECEIPT_METADATA,
   TRADE_NAME_RECEIPT_IMAGE_URL,
 } from "./trade-name-constants";
-import { Check, X } from "lucide-react";
+import { Check, X, ChevronDown } from "lucide-react";
 
 interface BusinessRegistrationFocusContentProps {
   journeyNumber?: string;
@@ -34,6 +34,7 @@ interface BusinessRegistrationFocusContentProps {
   onTradeNameReservationSubmitted?: () => void;
   payAndIssueLabel?: string;
   payAndIssueToast?: string;
+  onPolarisPrompt?: (prompt: string, options?: { submit?: boolean }) => void;
 }
 
 type TradeNameCheckStatus = "completed" | "current" | "pending" | "failed";
@@ -128,7 +129,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضات ثقافية.',
-        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
+        "• وكيل الكلمات الم��ظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
@@ -156,7 +157,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
-        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
+        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات محظورة في النسختين العربية والإنجل��زية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
@@ -448,11 +449,6 @@ function parseAgentNarrative(text: string): ParsedAgentNarrative | null {
 
   return { heading, responses };
 }
-
-type PolarisChatEntry = {
-  role: "user" | "assistant";
-  message: string;
-};
 
 function extractEnglishNarrative(
   detail?: string | LocalizedAgentNarrative,
