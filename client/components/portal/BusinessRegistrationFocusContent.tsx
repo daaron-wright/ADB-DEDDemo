@@ -162,7 +162,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
         "• مح��ك القرار النهائي → معت��د بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
-        "• وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل؛ الاسم الحالي معتمد.",
+        "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
     },
   },
@@ -1527,6 +1527,7 @@ export function BusinessRegistrationFocusContent({
           const arabicDisplay = evaluationSource?.arabic ?? arabicDraft ?? "";
           const isSuccess =
             Boolean(normalizedName) && approvedNameSet.has(normalizedName);
+          let resolvedFailureReason: string | null = null;
 
           setIsChecking(false);
           setIsNameAvailable(isSuccess);
@@ -1535,24 +1536,36 @@ export function BusinessRegistrationFocusContent({
             setFailureReason(null);
           } else {
             if (normalizedName === CONFLICTING_TRADE_NAME_NORMALIZED) {
+              resolvedFailureReason = `We couldn’t reserve ${englishDisplay}. ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}) is already registered. Try a unique variation that aligns with your selected activity.`;
               setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
-              setFailureReason(
-                `We couldn’t reserve ${englishDisplay}. ${PRIMARY_TRADE_NAME_EN} (${PRIMARY_TRADE_NAME_AR}) is already registered. Try a unique variation that aligns with your selected activity.`,
-              );
+              setFailureReason(resolvedFailureReason);
             } else if (normalizedName === ACTIVITY_COMPATIBILITY_NAME) {
+              resolvedFailureReason = `We couldn’t reserve ${englishDisplay}. Select the activity that best matches the heritage concept or adjust the trade name.`;
               setFailedStepIndex(ACTIVITY_FAILURE_STEP_INDEX);
-              setFailureReason(
-                `We couldn’t reserve ${englishDisplay}. Select the activity that best matches the heritage concept or adjust the trade name.`,
-              );
+              setFailureReason(resolvedFailureReason);
             } else {
+              resolvedFailureReason = normalizedName
+                ? `We couldn’t reserve ${englishDisplay}. Try a unique variation that aligns with your selected activity.`
+                : "Add English and Arabic trade names before running the automated checks.";
               setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
-              setFailureReason(
-                normalizedName
-                  ? `We couldn’t reserve ${englishDisplay}. Try a unique variation that aligns with your selected activity.`
-                  : "Add English and Arabic trade names before running the automated checks.",
-              );
+              setFailureReason(resolvedFailureReason);
             }
           }
+
+          if (typeof window !== "undefined") {
+            window.dispatchEvent(
+              new CustomEvent("polarisTradeNameCheckComplete", {
+                detail: {
+                  status: isSuccess ? "approved" : "rejected",
+                  english: englishDisplay,
+                  arabic: arabicDisplay,
+                  failureReason: resolvedFailureReason,
+                  stageId: "trade-name-activities",
+                },
+              }),
+            );
+          }
+
           setPendingSubmission(null);
           setHasPerformedCheck(true);
           setActiveEnglishTradeName(englishDisplay);
