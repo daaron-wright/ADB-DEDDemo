@@ -280,7 +280,7 @@ function buildSimilarityConflictNarrative(
   ];
 
   const arabicLines = [
-    "تسل���ل استجابات الوكلاء:",
+    "تس�����ل استجابات الوكلاء:",
     `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا��م "${formattedAttempt}" الت��قق الن��ي دون ��خالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
@@ -289,7 +289,7 @@ function buildSimilarityConflictNarrative(
     `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
     hasIteration
       ? `7. ��كيل اقتراح الاسم (الاسم المرفوض) → إ��شاد. البديل المقترح: "${sanitizedIteration}".`
-      : "7. وكيل اقتراح الاسم (الاس�� المرفوض) �� إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
+      : "7. وكيل اقتراح الاسم (الاس�� ��لمرفوض) �� إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
   ];
 
   return {
@@ -2199,10 +2199,10 @@ const forceActivityMismatchRef = React.useRef(false);
       let formattedEnglish = formatTradeName(english ?? "");
 
       if (!formattedEnglish) {
+        const draftFallback = formatTradeName(englishDraft);
+        const activeFallback = formatTradeName(activeEnglishTradeName);
         formattedEnglish =
-          formatTradeName(activeEnglishTradeName) ||
-          formatTradeName(englishDraft) ||
-          FIXED_SIMILARITY_ITERATION_NAME;
+          draftFallback || activeFallback || FIXED_SIMILARITY_ITERATION_NAME;
       }
 
       const normalizedIncoming = formattedEnglish.toLowerCase();
@@ -2211,13 +2211,11 @@ const forceActivityMismatchRef = React.useRef(false);
         normalizedIncoming.includes("rerun") ||
         normalizedIncoming.includes("trade name")
       ) {
-        const fallbackEnglish = activeEnglishTradeName || englishDraft || "";
-        const fallbackFormatted = formatTradeName(
-          fallbackEnglish || FIXED_SIMILARITY_ITERATION_NAME,
-        );
-        if (fallbackFormatted) {
-          formattedEnglish = fallbackFormatted;
-        }
+        const draftFallback = formatTradeName(englishDraft);
+        const activeFallback = formatTradeName(activeEnglishTradeName);
+        const fallbackFormatted =
+          draftFallback || activeFallback || FIXED_SIMILARITY_ITERATION_NAME;
+        formattedEnglish = fallbackFormatted;
       }
 
       const arabicSource =
