@@ -130,7 +130,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "استجابات الوكلاء (العربية):",
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضات ثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
-        "• وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
+        "• و��يل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق النشاط → فشل. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
@@ -160,7 +160,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
-        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
+        "• وكيل توافق النشاط → ��اجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
         "• محرك القرار النهائي → معت��د بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
@@ -1010,6 +1010,63 @@ function VerificationStepItem({
                 })}
               </div>
             ) : null}
+            <div className="space-y-3">
+              <button
+                type="button"
+                onClick={() => setShowFailureNarrative((previous) => !previous)}
+                className="flex w-full items-center justify-between gap-2 rounded-2xl border border-[#0f766e]/30 bg-white px-4 py-3 text-left text-sm font-semibold text-[#0f766e] shadow-[0_18px_40px_-34px_rgba(15,118,110,0.35)] transition hover:border-[#0f766e]/45 hover:bg-[#0f766e]/5"
+              >
+                <span>View agent reasoning</span>
+                <ChevronDown
+                  className={cn(
+                    "h-4 w-4 text-[#0f766e] transition-transform",
+                    showFailureNarrative && "rotate-180",
+                  )}
+                />
+              </button>
+              {showFailureNarrative ? (
+                <div className="space-y-3">
+                  {renderAgentNarrative(step.failureDetail, "failed")}
+                  {onPolarisPrompt ? (
+                    <button
+                      type="button"
+                      onClick={() => onPolarisPrompt(polarisPrompt, { submit: false })}
+                      className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:text-[#0c6059]"
+                    >
+                      Draft this question in chat
+                    </button>
+                  ) : null}
+                </div>
+              ) : (
+                <p className="text-xs text-slate-500">
+                  Tap to review the detailed agent transcript, then forward it to
+                  Polaris through the chat input below.
+                </p>
+              )}
+            </div>
+            {activityOptions && activityOptions.length ? (
+              <div className="flex flex-wrap gap-2">
+                {activityOptions.map((option) => {
+                  const isActive = option.id === selectedActivityId;
+                  return (
+                    <Button
+                      key={option.id}
+                      type="button"
+                      variant="outline"
+                      onClick={() => onActivitySelect?.(option.id)}
+                      className={cn(
+                        "rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition",
+                        isActive
+                          ? "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_18px_44px_-34px_rgba(15,118,110,0.45)]"
+                          : "border-[#0f766e]/30 text-[#0f766e] hover:bg-[#0f766e]/10",
+                      )}
+                    >
+                      {option.label}
+                    </Button>
+                  );
+                })}
+              </div>
+            ) : null}
             {onEscalate ? (
               <button
                 type="button"
@@ -1025,45 +1082,6 @@ function VerificationStepItem({
                 {isEscalated ? "Escalation sent" : "Escalate to backend user"}
               </button>
             ) : null}
-            <div className="space-y-2">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handlePolarisAsk}
-                className="rounded-full border-[#0f766e] text-[#0f766e] hover:bg-[#0f766e]/10"
-              >
-                {polarisConversation
-                  ? "Refresh Polaris guidance"
-                  : "Ask Polaris for alternatives"}
-              </Button>
-              {polarisConversation ? (
-                <div className="space-y-2 rounded-2xl border border-[#0f766e]/30 bg-[#f4f9f7] p-3">
-                  {polarisConversation.map((entry, entryIndex) => (
-                    <div
-                      key={`${entry.role}-${entryIndex}`}
-                      className={cn(
-                        "rounded-xl border px-3 py-2 text-sm",
-                        entry.role === "assistant"
-                          ? "border-[#0f766e]/40 bg-white text-slate-700 shadow-[0_16px_42px_-34px_rgba(15,118,110,0.45)]"
-                          : "border-slate-200 bg-slate-50 text-slate-600",
-                      )}
-                    >
-                      <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">
-                        {entry.role === "assistant" ? "Polaris" : "You"}
-                      </span>
-                      <p className="mt-1 text-sm text-slate-700">
-                        {entry.message}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-xs text-slate-500">
-                  Ask Polaris for a quick summary of the failure and a safer
-                  alternative before you iterate on the name.
-                </p>
-              )}
-            </div>
           </div>
         ) : null}
         {isCompleted && step.successDetail
