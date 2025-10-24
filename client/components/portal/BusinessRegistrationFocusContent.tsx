@@ -130,7 +130,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "استجابات الوكلاء (العربية):",
         '• مدقق ا��نص / الت��قيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
-        "• وكيل التشابه → ناجح. أ��رب تشاب�� مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
+        "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الح�� المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير إلى مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "• محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُنصح بالتصعيد أو اختيار نشاط متوافق.",
@@ -159,7 +159,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ��لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
-        "• وكي�� التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
+        "• وكيل التحويل الصوتي → ناجح. ت��ت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخّص.",
         "• مح��ك القرار النهائي → معت��د بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل؛ الاسم الحالي معتمد.",
@@ -1358,21 +1358,6 @@ function VerificationStepItem({
                 Polaris through the chat input below.
               </p>
             )}
-            {onEscalate ? (
-              <button
-                type="button"
-                onClick={() => onEscalate(step.title)}
-                disabled={isEscalated}
-                className={cn(
-                  "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-90",
-                  isEscalated
-                    ? "border-rose-500 bg-rose-500 text-white shadow-[0_16px_34px_-22px_rgba(225,29,72,0.55)]"
-                    : "border-rose-400 bg-white text-rose-500 hover:bg-rose-50 active:bg-rose-100",
-                )}
-              >
-                {isEscalated ? "Escalation sent" : "Escalate to backend user"}
-              </button>
-            ) : null}
           </div>
         ) : null}
         {isCompleted && step.successDetail
