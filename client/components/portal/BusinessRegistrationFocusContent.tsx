@@ -94,7 +94,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "تسلسل استجابات الوكلاء:",
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتا�� الاسم "بيت الختيار" التحق�� النصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
+        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� النصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
@@ -156,7 +156,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ��لثقافية.',
+        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ��ل��قافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
@@ -288,7 +288,7 @@ function buildSimilarityConflictNarrative(
     `6. محرك القرار النهائي → مرفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر��ح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
-      : "7. وكيل اقتراح الاسم (الاس�� المرفوض) → إرشاد. ����صي Polaris بإضافة توصيف خاص أو جغرافي.",
+      : "7. وكيل اقتراح الاسم (الاس�� المرفوض) → إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
   ];
 
   return {
@@ -309,7 +309,7 @@ function buildFinalDecisionRejectionNarrative(
     "3. Similarity agent → Passed. Polaris confirmed this variation is unique in the registry.",
     "4. Transliteration agent → Passed. Arabic counterpart stays synchronized with phonetic rules.",
     "5. Activity compatibility agent → Guidance. Heritage positioning requires manual validation against the licensed activity plan.",
-    "6. Final decision engine → Rejected. ESCALATE TO DED REVIEWER for manual adjudication and supporting document review.",
+    "6. Final decision engine → Escalated for review. Not super confident in the automated rejection, so a DED reviewer will advise next steps.",
     "7. Name suggester agent → Guidance. Prepare your supporting rationale before escalating to the reviewer.",
   ];
 
