@@ -986,64 +986,43 @@ function VerificationStepItem({
         </div>
         {isFailed && step.failureDetail ? (
           <div className="space-y-3">
-            {renderAgentNarrative(step.failureDetail, "failed")}
-            {activityOptions && activityOptions.length ? (
-              <div className="flex flex-wrap gap-2">
-                {activityOptions.map((option) => {
-                  const isActive = option.id === selectedActivityId;
-                  return (
-                    <Button
-                      key={option.id}
-                      type="button"
-                      variant="outline"
-                      onClick={() => onActivitySelect?.(option.id)}
-                      className={cn(
-                        "rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition",
-                        isActive
-                          ? "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_18px_44px_-34px_rgba(15,118,110,0.45)]"
-                          : "border-[#0f766e]/30 text-[#0f766e] hover:bg-[#0f766e]/10",
-                      )}
-                    >
-                      {option.label}
-                    </Button>
-                  );
-                })}
-              </div>
-            ) : null}
-            <div className="space-y-3">
-              <button
-                type="button"
-                onClick={() => setShowFailureNarrative((previous) => !previous)}
-                className="flex w-full items-center justify-between gap-2 rounded-2xl border border-[#0f766e]/30 bg-white px-4 py-3 text-left text-sm font-semibold text-[#0f766e] shadow-[0_18px_40px_-34px_rgba(15,118,110,0.35)] transition hover:border-[#0f766e]/45 hover:bg-[#0f766e]/5"
-              >
-                <span>View agent reasoning</span>
-                <ChevronDown
-                  className={cn(
-                    "h-4 w-4 text-[#0f766e] transition-transform",
-                    showFailureNarrative && "rotate-180",
-                  )}
-                />
-              </button>
-              {showFailureNarrative ? (
-                <div className="space-y-3">
-                  {renderAgentNarrative(step.failureDetail, "failed")}
-                  {onPolarisPrompt ? (
+            <button
+              type="button"
+              onClick={() => setShowFailureNarrative((previous) => !previous)}
+              className="flex w-full items-center justify-between gap-2 rounded-2xl border border-[#0f766e]/30 bg-white px-4 py-3 text-left text-sm font-semibold text-[#0f766e] shadow-[0_18px_40px_-34px_rgba(15,118,110,0.35)] transition hover:border-[#0f766e]/45 hover:bg-[#0f766e]/5"
+            >
+              <span>View agent reasoning</span>
+              <ChevronDown
+                className={cn(
+                  "h-4 w-4 text-[#0f766e] transition-transform",
+                  showFailureNarrative && "rotate-180",
+                )}
+              />
+            </button>
+            {showFailureNarrative ? (
+              <div className="space-y-3">
+                {renderAgentNarrative(step.failureDetail, "failed")}
+                {onPolarisPrompt ? (
+                  <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-[#0f766e]/25 bg-[#f4f9f7] px-4 py-3 text-xs text-[#0f766e]">
+                    <span className="font-semibold uppercase tracking-[0.18em]">
+                      Send follow-up via chat
+                    </span>
                     <button
                       type="button"
-                      onClick={() => onPolarisPrompt(polarisPrompt, { submit: false })}
-                      className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:text-[#0c6059]"
+                      onClick={() => onPolarisPrompt(polarisPrompt)}
+                      className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#0f766e]/10"
                     >
-                      Draft this question in chat
+                      Draft in chat
                     </button>
-                  ) : null}
-                </div>
-              ) : (
-                <p className="text-xs text-slate-500">
-                  Tap to review the detailed agent transcript, then forward it to
-                  Polaris through the chat input below.
-                </p>
-              )}
-            </div>
+                  </div>
+                ) : null}
+              </div>
+            ) : (
+              <p className="text-xs text-slate-500">
+                Tap to review the detailed agent transcript, then forward it to
+                Polaris through the chat input below.
+              </p>
+            )}
             {activityOptions && activityOptions.length ? (
               <div className="flex flex-wrap gap-2">
                 {activityOptions.map((option) => {
