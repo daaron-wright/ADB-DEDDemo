@@ -99,7 +99,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
-        "6. محرك القرار النهائي �� مرفو��. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبقًا�� يُرجى ��قتراح بدي��.",
+        "6. محرك القرار النهائي �� مرفو��. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبق��ا�� يُرجى ��قتراح بدي��.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة ��لخي��يار".',
       ].join("\n"),
     },
@@ -321,7 +321,7 @@ function buildFinalDecisionRejectionNarrative(
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
-    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لست واثقًا من الرفض الآلي لذلك تم رفعه لمراجع دائرة التنمية الاقت��ادية للتوجيه.",
+    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لست واثقًا من الرفض الآل�� لذلك تم رفعه لمراجع دائرة التنمية الاقت��ادية للتوجيه.",
     "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
   ];
 
@@ -520,7 +520,7 @@ const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
     "guidance",
     "suggested alternatives",
     "no alternatives required",
-    "اقتراح البد��ئل",
+    "اقتراح البد���ئل",
     "لا حاجة لبدائل",
     "إرشاد",
   ],
@@ -835,7 +835,7 @@ const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
 ]);
 
 const ARABIC_CHAR_PATTERN = /[\u0600-\u06FF]/;
-const QUOTED_TEXT_PATTERN = /["“”']([^"“”']{2,})["���”']/g;
+const QUOTED_TEXT_PATTERN = /"([^"]{2,})"|“([^”]{2,})”|'([^']{2,})'|‘([^’]{2,})’/g;
 const CHAT_NAME_TERMINATORS = /\b(?:instead|please|thanks|thank you|and then|and we|and i'll|because|so that|so we|so i)\b/i;
 const CHAT_NAME_TRIGGER_PATTERN = /\b(?:use|try|consider|switch to|update to|rename(?:\s+it)?\s+to|call it|let(?:'s)? go with|let(?:'s)? call it|let(?:'s)? use)\s+([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
 const CHAT_TRADE_NAME_FALLBACK_PATTERN = /\btrade\s*name\b[^A-Za-z0-9]*([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
@@ -881,7 +881,9 @@ function deriveTradeNamesFromMessage(message: string) {
   let quoteMatch: RegExpExecArray | null;
 
   while ((quoteMatch = QUOTED_TEXT_PATTERN.exec(trimmed))) {
-    const candidate = sanitizeTradeNameCandidate(quoteMatch[1]);
+    const candidateRaw =
+      quoteMatch[1] ?? quoteMatch[2] ?? quoteMatch[3] ?? quoteMatch[4] ?? "";
+    const candidate = sanitizeTradeNameCandidate(candidateRaw);
     if (!candidate || seen.has(candidate)) {
       continue;
     }
