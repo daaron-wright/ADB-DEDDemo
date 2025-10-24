@@ -305,6 +305,38 @@ const NORMALIZED_QUICK_ACTION_UNLOCK_PROMPTS = new Set(
   QUICK_ACTION_UNLOCK_PROMPTS.map((prompt) => normalizeMessageContent(prompt)),
 );
 
+const TRADE_NAME_INTENT_PATTERN = /\btrade\s*name\b/i;
+const QUOTED_TRADE_NAME_PATTERN = /["“”']\s*([^"“”']{2,})\s*["“”']/;
+const TRADE_NAME_COMMAND_PATTERN =
+  /\b(?:use|try|consider|switch to|update to|rename(?:\s+it)?\s+to|call it|let(?:'s)?(?:\s+go with|\s+call|\s+use))\s+([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
+
+const sanitizeTradeNameCandidate = (value: string) =>
+  value.replace(/^[\s"'“”']+|[\s"'“”'.,!?]+$/g, "").trim();
+
+const extractTradeNameCandidate = (message: string): string | null => {
+  if (!message.trim()) {
+    return null;
+  }
+
+  const quotedMatch = message.match(QUOTED_TRADE_NAME_PATTERN);
+  if (quotedMatch) {
+    const candidate = sanitizeTradeNameCandidate(quotedMatch[1] ?? "");
+    if (candidate.length > 1) {
+      return candidate;
+    }
+  }
+
+  const commandMatch = TRADE_NAME_COMMAND_PATTERN.exec(message);
+  if (commandMatch) {
+    const candidate = sanitizeTradeNameCandidate(commandMatch[1] ?? "");
+    if (candidate.length > 1) {
+      return candidate;
+    }
+  }
+
+  return null;
+};
+
 const buildQuickActionIntroMessage = (label: string) =>
   `I've unlocked quick actions for you—start with "${label}" to open the market intelligence workspace. After you've explored the demand hotspots, ask me about budgets or competition so we can plan the next steps together.`;
 
