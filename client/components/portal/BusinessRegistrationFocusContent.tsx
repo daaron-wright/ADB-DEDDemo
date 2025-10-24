@@ -156,7 +156,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ��لثقافية.',
+        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. ت�� توحيد "Marwa Restaurant" والتأكد من الملاءمة ��لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
@@ -755,7 +755,7 @@ const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
 ]);
 
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
-  ["marwa", "مروة"],
+  ["marwa", "مرو��"],
   ["marwah", "مروة"],
   ["restaurant", "مطعم"],
   ["bait", "بيت"],
@@ -1023,18 +1023,26 @@ function VerificationStepItem({
   );
 
   const renderAgentNarrative = (
-    detail: string | LocalizedAgentNarrative,
-    variant: "failed" | "success",
-  ) => {
-    const styles = detailVariantStyles[variant];
-    const isLocalized = typeof detail !== "string";
-    const narrativeText =
-      typeof detail === "string" ? detail : detail[detailLanguage];
+  detail: string | LocalizedAgentNarrative,
+  variant: "failed" | "success",
+  narrativeOptions?: {
+    activityOptions?: ActivityOption[];
+    selectedActivityId?: string | null;
+    onActivitySelect?: (activityId: string) => void;
+  },
+) => {
+  const styles = detailVariantStyles[variant];
+  const isLocalized = typeof detail !== "string";
+  const narrativeText =
+    typeof detail === "string" ? detail : detail[detailLanguage];
 
-    const parsedNarrative = parseAgentNarrative(narrativeText);
-    const isArabicNarrative = isLocalized && detailLanguage === "ar";
+  const { activityOptions, selectedActivityId, onActivitySelect } =
+    narrativeOptions ?? {};
 
-    return (
+  const parsedNarrative = parseAgentNarrative(narrativeText);
+  const isArabicNarrative = isLocalized && detailLanguage === "ar";
+
+  return (
       <div className={cn("space-y-2 rounded-xl", styles.container)}>
         {isLocalized ? (
           <div className="flex items-center justify-between gap-2">
