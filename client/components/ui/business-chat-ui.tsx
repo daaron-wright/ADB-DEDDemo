@@ -8159,11 +8159,28 @@ export function BusinessChatUI({
           ? ensureSentence(detail.failureReason.trim())
           : ensureSentence("The agents are still flagging a conflict");
         segments.push(reasonLine);
-        segments.push(
-          ensureSentence(
-            "Try another variation or pick one of the compliant suggestions in the verification panel",
-          ),
-        );
+
+        if (detail.iterationSuggestion?.trim()) {
+          segments.push(
+            ensureSentence(
+              `I drafted "${detail.iterationSuggestion.trim()}" as a unique variation to try next.`,
+            ),
+          );
+        }
+
+        if (detail.draftPrompt?.trim()) {
+          segments.push(
+            ensureSentence(
+              "I've pre-filled a chat message so you can submit the new variation to Polaris.",
+            ),
+          );
+        } else {
+          segments.push(
+            ensureSentence(
+              "Try another variation or pick one of the compliant suggestions in the verification panel",
+            ),
+          );
+        }
       }
 
       const messageContent = segments.filter(Boolean).join(" ");
