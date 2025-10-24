@@ -6941,10 +6941,29 @@ export function BusinessChatUI({
   ]);
 
   const handleInputChange = (value: string) => {
-    setInputValue(value);
-  };
+  setInputValue(value);
+};
 
-  const handleToggleActivity = useCallback((activityId: string) => {
+const handlePolarisPrompt = useCallback(
+  (prompt: string, options?: { submit?: boolean }) => {
+    const trimmed = prompt.trim();
+    if (!trimmed) {
+      return;
+    }
+
+    setInteractionMode("chat");
+
+    if (options?.submit) {
+      handleSendMessage(trimmed);
+      return;
+    }
+
+    setInputValue(trimmed);
+  },
+  [handleSendMessage],
+);
+
+const handleToggleActivity = useCallback((activityId: string) => {
     setSelectedActivityIds((prev) =>
       prev.includes(activityId)
         ? prev.filter((id) => id !== activityId)
