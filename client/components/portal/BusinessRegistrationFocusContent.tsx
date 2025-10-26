@@ -128,7 +128,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح���ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
-        "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��ل�� م��هوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
+        "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��ل�� م��هوم تراثي للبيع بالتجزئة ��ليس نشاط مطعم ومشروبات الحالي.",
         "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشاط متواف��.",
         '• وكيل اقتراح الاسم (الاسم ال���رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
@@ -401,7 +401,7 @@ function buildSimilarityConflictNarrative(
     `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا���م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات مح��ورة في النسختين العربية أ���� الإنجليزية.",
     `3. و���يل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
-    "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
+    "4. وكيل ال��حويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق ال��ش��ط → غير مقيم. في انتظار اسم ��جاري فريد.",
     `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
     hasIteration
@@ -630,7 +630,7 @@ const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
   failed: ["fail", "failed", "فشل"],
   pending: ["pending manual review", "pending", "awaiting", "قيد الانتظار"],
-  rejected: ["reject", "rejected", "مرفوض"],
+  rejected: ["reject", "rejected", "مرفو��"],
   info: [
     "guidance",
     "suggested alternatives",
@@ -709,13 +709,13 @@ function parseAgentNarrativeLine(
     return null;
   }
 
-  const arrowIndex = sanitizedLine.indexOf("→");
-  if (arrowIndex === -1) {
+  const delimiterMatch = sanitizedLine.match(/^(.*?)\s*(?:→|—)\s*(.*)$/);
+  if (!delimiterMatch) {
     return null;
   }
 
-  const titleSegment = sanitizedLine.slice(0, arrowIndex).trim();
-  const statusSegment = sanitizedLine.slice(arrowIndex + 1).trim();
+  const titleSegment = delimiterMatch[1].trim();
+  const statusSegment = (delimiterMatch[2] ?? "").trim();
   const orderMatch = titleSegment.match(/^(\d+)\.\s*(.+)$/);
   const parsedOrder = orderMatch
     ? Number.parseInt(orderMatch[1], 10)
@@ -751,7 +751,7 @@ function parseAgentNarrative(text: string): ParsedAgentNarrative | null {
   const responses: ParsedAgentResponse[] = [];
 
   lines.forEach((line, index) => {
-    if (!line.includes("→")) {
+    if (!line.includes("→") && !line.includes("—")) {
       if (!heading) {
         heading = line.replace(/^•\s*/, "");
       }
