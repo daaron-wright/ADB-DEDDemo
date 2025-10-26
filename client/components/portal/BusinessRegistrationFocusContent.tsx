@@ -93,7 +93,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
-        "2. وكيل الكلمات المحظورة → ناجح. لم ��تم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+        "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
         "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا لموازنته مع النشاط المرخ��ص.",
@@ -398,9 +398,9 @@ function buildSimilarityConflictNarrative(
   ];
 
   const arabicLines = [
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق ال��صي دون مخالفات.`,
+    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
-    `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
+    `3. وكيل التشابه → ف��ل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مرفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتراح اسم مختلف.`,
@@ -432,7 +432,7 @@ function buildFinalDecisionRejectionNarrative(
 
   const arabicLines = [
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة ��ي المسودة.",
+    "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
@@ -627,7 +627,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
 };
 
 const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
-  passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
+  passed: ["pass", "passed", "approved", "ناجح", "م��تمد"],
   failed: ["fail", "failed", "فشل"],
   pending: ["pending manual review", "pending", "awaiting", "قيد الانتظار"],
   rejected: ["reject", "rejected", "مرفو��"],
@@ -1432,7 +1432,7 @@ const VerificationStepItem = React.forwardRef<
               </p>
             ) : null}
             <div className="space-y-2">
-              {parsedNarrative.responses.map((item) => {
+              {responsesToRender.map((item) => {
                 const outcomeMeta = AGENT_OUTCOME_META[item.status];
                 const normalizedTitle = item.title.toLowerCase();
                 const shouldShowActivitySelector =
