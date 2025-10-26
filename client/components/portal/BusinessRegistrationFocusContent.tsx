@@ -457,11 +457,14 @@ const TRADE_NAME_STAGE_MESSAGES: ReadonlyArray<{
     friendlyDetail:
       "Polaris checks for reserved, restricted, or sensitive terms in the English and Arabic versions.",
     startTitle: "Scanning for restricted words",
-    startDescription: "Polaris is making sure no restricted terms appear in the name.",
+    startDescription:
+      "Polaris is making sure no restricted terms appear in the name.",
     completeTitle: "No restricted wording found",
-    completeDescription: "Nothing sensitive or reserved showed up in the trade name.",
+    completeDescription:
+      "Nothing sensitive or reserved showed up in the trade name.",
     failureTitle: "Restricted wording detected",
-    failureDescription: "Swap or soften the flagged wording, then run the checks again.",
+    failureDescription:
+      "Swap or soften the flagged wording, then run the checks again.",
   },
   {
     friendlyTitle: "Compare with registered names",
@@ -481,11 +484,13 @@ const TRADE_NAME_STAGE_MESSAGES: ReadonlyArray<{
     friendlyDetail:
       "Polaris pairs the Arabic transliteration with the English pronunciation so they move together.",
     startTitle: "Matching Arabic and English",
-    startDescription: "Polaris is keeping the Arabic spelling in sync with the English.",
+    startDescription:
+      "Polaris is keeping the Arabic spelling in sync with the English.",
     completeTitle: "Languages stay in sync",
     completeDescription: "Arabic and English versions read and sound aligned.",
     failureTitle: "Arabic and English need alignment",
-    failureDescription: "Tweak the spellings so they pronounce the same way, then rerun.",
+    failureDescription:
+      "Tweak the spellings so they pronounce the same way, then rerun.",
   },
   {
     friendlyTitle: "Confirm activity fit",
@@ -493,7 +498,8 @@ const TRADE_NAME_STAGE_MESSAGES: ReadonlyArray<{
     friendlyDetail:
       "Polaris looks at the story your name tells and makes sure it matches the activity you selected.",
     startTitle: "Checking the activity fit",
-    startDescription: "Polaris is confirming the name matches your chosen activity.",
+    startDescription:
+      "Polaris is confirming the name matches your chosen activity.",
     completeTitle: "Activity looks aligned",
     completeDescription: "The name fits the activity you picked.",
     failureTitle: "Activity needs an update",
@@ -510,7 +516,8 @@ const TRADE_NAME_STAGE_MESSAGES: ReadonlyArray<{
     completeTitle: "All checks passed",
     completeDescription: "You’re clear to reserve the trade name.",
     failureTitle: "Needs a reviewer",
-    failureDescription: "Polaris is escalating this trade name to a DED reviewer for another look.",
+    failureDescription:
+      "Polaris is escalating this trade name to a DED reviewer for another look.",
   },
   {
     friendlyTitle: "Suggest next-best names",
@@ -522,7 +529,8 @@ const TRADE_NAME_STAGE_MESSAGES: ReadonlyArray<{
     completeTitle: "Suggested names ready",
     completeDescription: "Alternative names are ready whenever you need them.",
     failureTitle: "Couldn't prepare suggestions",
-    failureDescription: "Refine the current name or adjust activities to unlock new suggestions.",
+    failureDescription:
+      "Refine the current name or adjust activities to unlock new suggestions.",
   },
 ];
 
@@ -561,7 +569,8 @@ function buildSimilarityConflictNarrative(
   iterationSuggestion: string,
 ): LocalizedAgentNarrative {
   const formattedAttempt = formatTradeName(attemptedName) || attemptedName;
-  const sanitizedIteration = formatTradeName(iterationSuggestion) || iterationSuggestion;
+  const sanitizedIteration =
+    formatTradeName(iterationSuggestion) || iterationSuggestion;
   const hasIteration = Boolean(sanitizedIteration);
 
   const englishLines = [
@@ -632,7 +641,10 @@ function suggestTradeNameIteration(baseName: string): string {
   }
 
   if (/restaurant/i.test(formatted)) {
-    return formatted.replace(/restaurant/gi, "Heritage Kitchen").replace(/\s+/g, " ").trim();
+    return formatted
+      .replace(/restaurant/gi, "Heritage Kitchen")
+      .replace(/\s+/g, " ")
+      .trim();
   }
 
   const lower = formatted.toLowerCase();
@@ -652,7 +664,8 @@ function suggestActivityAlignedTradeName(baseName: string): string {
   }
 
   const lower = formatted.toLowerCase();
-  const hasActivityKeyword = /(restaurant|dining|kitchen|culinary|cafe|café|eatery|bistro)/i.test(lower);
+  const hasActivityKeyword =
+    /(restaurant|dining|kitchen|culinary|cafe|café|eatery|bistro)/i.test(lower);
 
   if (!hasActivityKeyword) {
     return `${formatted} Restaurant`.replace(/\s+/g, " ").trim();
@@ -971,9 +984,7 @@ function interpretNarrativeForStages(
   detail: string | LocalizedAgentNarrative | null,
   fallbackStatus: TradeNameCheckStatus,
   previousOutcomes?: AgentOutcome[],
-):
-  | { statuses: TradeNameCheckStatus[]; outcomes: AgentOutcome[] }
-  | null {
+): { statuses: TradeNameCheckStatus[]; outcomes: AgentOutcome[] } | null {
   const englishNarrative = extractEnglishNarrative(detail ?? undefined);
   if (!englishNarrative) {
     return null;
@@ -1025,17 +1036,19 @@ function generatePolarisGuidanceFromFailure(
     return "Polaris could not interpret the agent transcript. Consider adjusting the trade name and re-running the verification.";
   }
 
-  const failureSignal = parsed.responses.find((response) =>
-    response.status === "failed" ||
-    response.status === "rejected" ||
-    response.status === "escalated",
+  const failureSignal = parsed.responses.find(
+    (response) =>
+      response.status === "failed" ||
+      response.status === "rejected" ||
+      response.status === "escalated",
   );
   const pendingSignal = parsed.responses.find(
     (response) => response.status === "pending",
   );
-  const guidanceSignal = parsed.responses.find((response) =>
-    response.status === "info" ||
-    response.title.toLowerCase().includes("name suggester"),
+  const guidanceSignal = parsed.responses.find(
+    (response) =>
+      response.status === "info" ||
+      response.title.toLowerCase().includes("name suggester"),
   );
 
   const insights: string[] = [];
@@ -1087,10 +1100,11 @@ function summarizeAgentFailureDetail(
     return null;
   }
 
-  const failureSignal = parsed.responses.find((response) =>
-    response.status === "failed" ||
-    response.status === "rejected" ||
-    response.status === "escalated",
+  const failureSignal = parsed.responses.find(
+    (response) =>
+      response.status === "failed" ||
+      response.status === "rejected" ||
+      response.status === "escalated",
   );
 
   if (failureSignal) {
@@ -1112,9 +1126,10 @@ function summarizeAgentFailureDetail(
     return `${pendingSignal.title} is still pending: ${detailText}`;
   }
 
-  const guidanceSignal = parsed.responses.find((response) =>
-    response.status === "info" ||
-    response.title.toLowerCase().includes("name suggester"),
+  const guidanceSignal = parsed.responses.find(
+    (response) =>
+      response.status === "info" ||
+      response.title.toLowerCase().includes("name suggester"),
   );
   if (guidanceSignal) {
     const detailText = guidanceSignal.detail
@@ -1232,10 +1247,14 @@ const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
 ]);
 
 const ARABIC_CHAR_PATTERN = /[\u0600-\u06FF]/;
-const QUOTED_TEXT_PATTERN = /"([^"]{2,})"|“([^”]{2,})”|'([^']{2,})'|‘([^’]{2,})��/g;
-const CHAT_NAME_TERMINATORS = /\b(?:instead|please|thanks|thank you|and then|and we|and i'll|because|so that|so we|so i)\b/i;
-const CHAT_NAME_TRIGGER_PATTERN = /\b(?:use|try|consider|switch to|update to|rename(?:\s+it)?\s+to|call it|let(?:'s)? go with|let(?:'s)? call it|let(?:'s)? use)\s+([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
-const CHAT_TRADE_NAME_FALLBACK_PATTERN = /\btrade\s*name\b[^A-Za-z0-9]*([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
+const QUOTED_TEXT_PATTERN =
+  /"([^"]{2,})"|“([^”]{2,})”|'([^']{2,})'|‘([^’]{2,})��/g;
+const CHAT_NAME_TERMINATORS =
+  /\b(?:instead|please|thanks|thank you|and then|and we|and i'll|because|so that|so we|so i)\b/i;
+const CHAT_NAME_TRIGGER_PATTERN =
+  /\b(?:use|try|consider|switch to|update to|rename(?:\s+it)?\s+to|call it|let(?:'s)? go with|let(?:'s)? call it|let(?:'s)? use)\s+([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
+const CHAT_TRADE_NAME_FALLBACK_PATTERN =
+  /\btrade\s*name\b[^A-Za-z0-9]*([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
 const HERITAGE_ITERATION_TRIGGER_START_PATTERN =
   /polaris,\s*let['’]s rerun the trade name checks on\s*"bait el khetyar heritage kitchen"/i;
 const HERITAGE_ITERATION_TRIGGER_CONFLICT_PATTERN =
@@ -1252,13 +1271,17 @@ function sanitizeTradeNameCandidate(value: string) {
   }
 
   const terminationIndex = trimmed.search(CHAT_NAME_TERMINATORS);
-  const truncated = terminationIndex > 0 ? trimmed.slice(0, terminationIndex) : trimmed;
+  const truncated =
+    terminationIndex > 0 ? trimmed.slice(0, terminationIndex) : trimmed;
 
   return truncated.replace(/^[\s"'��”‘’]+|[\s"'“”‘’.!,;:()\-]+$/g, "").trim();
 }
 
 function extractLabeledSegment(source: string, label: string) {
-  const pattern = new RegExp(`${label}\\s*[:\\-]\\s*["“']?([^"“”'\\n]+)["“”']?`, "i");
+  const pattern = new RegExp(
+    `${label}\\s*[:\\-]\\s*["“']?([^"“”'\\n]+)["“”']?`,
+    "i",
+  );
   const match = source.match(pattern);
   return match ? sanitizeTradeNameCandidate(match[1]) : null;
 }
@@ -1474,8 +1497,10 @@ const VerificationStepItem = React.forwardRef<
   const isFailed = step.status === "failed";
   const isCompleted = step.status === "completed";
   const isCurrent = step.status === "current";
-  const hasActivityOptions = Boolean(activityOptions && activityOptions.length > 0);
-    const detailVariantStyles = React.useMemo(
+  const hasActivityOptions = Boolean(
+    activityOptions && activityOptions.length > 0,
+  );
+  const detailVariantStyles = React.useMemo(
     () => ({
       failed: {
         container:
@@ -1516,7 +1541,7 @@ const VerificationStepItem = React.forwardRef<
     const narrativeSegment =
       typeof step.failureDetail === "string"
         ? step.failureDetail
-        : step.failureDetail?.en ?? "";
+        : (step.failureDetail?.en ?? "");
     if (!step.rawDetail) {
       return narrativeSegment;
     }
@@ -1535,13 +1560,18 @@ const VerificationStepItem = React.forwardRef<
     setShowFailureNarrative(
       Boolean(shouldAutoOpenNarrative && isFailed && hasFailureNarrative),
     );
-  }, [failureNarrativeKey, hasFailureNarrative, isFailed, shouldAutoOpenNarrative]);
+  }, [
+    failureNarrativeKey,
+    hasFailureNarrative,
+    isFailed,
+    shouldAutoOpenNarrative,
+  ]);
 
   const successNarrativeKey = React.useMemo(() => {
     const narrativeSegment =
       typeof step.successDetail === "string"
         ? step.successDetail
-        : step.successDetail?.en ?? "";
+        : (step.successDetail?.en ?? "");
     if (!step.rawDetail) {
       return narrativeSegment;
     }
@@ -1560,7 +1590,12 @@ const VerificationStepItem = React.forwardRef<
     setShowSuccessNarrative(
       Boolean(shouldAutoOpenNarrative && isCompleted && hasSuccessNarrative),
     );
-  }, [hasSuccessNarrative, isCompleted, shouldAutoOpenNarrative, successNarrativeKey]);
+  }, [
+    hasSuccessNarrative,
+    isCompleted,
+    shouldAutoOpenNarrative,
+    successNarrativeKey,
+  ]);
 
   const showActivitySelectorsInline = isFailed && hasActivityOptions;
 
@@ -1595,7 +1630,9 @@ const VerificationStepItem = React.forwardRef<
         ? rawDetail.trim().length > 0
         : Boolean(rawDetail);
 
-    const parsedNarrative = narrativeText ? parseAgentNarrative(narrativeText) : null;
+    const parsedNarrative = narrativeText
+      ? parseAgentNarrative(narrativeText)
+      : null;
     const hasNarrative = Boolean(parsedNarrative);
 
     if (!hasNarrative && !hasRawDetail) {
@@ -1716,7 +1753,9 @@ const VerificationStepItem = React.forwardRef<
                               </Badge>
                             </div>
                             {item.detail ? (
-                              <p className="text-sm text-slate-600">{item.detail}</p>
+                              <p className="text-sm text-slate-600">
+                                {item.detail}
+                              </p>
                             ) : null}
                           </div>
                         </div>
@@ -1805,16 +1844,12 @@ const VerificationStepItem = React.forwardRef<
           : "0%";
 
   const failureSummary = React.useMemo(
-    () =>
-      summarizeAgentFailureDetail(
-        step.failureDetail,
-        step.title,
-      ),
+    () => summarizeAgentFailureDetail(step.failureDetail, step.title),
     [step.failureDetail, step.title],
   );
 
   const helperMessage = isFailed
-    ? failureSummary ?? "Enter a different trade name before continuing."
+    ? (failureSummary ?? "Enter a different trade name before continuing.")
     : isCompleted
       ? "This check passed successfully."
       : isCurrent
@@ -2112,10 +2147,10 @@ export function BusinessRegistrationFocusContent({
     },
     [toast],
   );
-const [tradeNameGuidance, setTradeNameGuidance] = React.useState<
-  string | null
->(null);
-const forceActivityMismatchRef = React.useRef(false);
+  const [tradeNameGuidance, setTradeNameGuidance] = React.useState<
+    string | null
+  >(null);
+  const forceActivityMismatchRef = React.useRef(false);
   const [currentFailureDetail, setCurrentFailureDetail] = React.useState<
     string | LocalizedAgentNarrative | null
   >(null);
@@ -2126,9 +2161,9 @@ const forceActivityMismatchRef = React.useRef(false);
     | "final-decision"
     | null
   >(null);
-  const [suggestedIterationName, setSuggestedIterationName] = React.useState<string | null>(
-    null,
-  );
+  const [suggestedIterationName, setSuggestedIterationName] = React.useState<
+    string | null
+  >(null);
   const { setDocuments } = useDocumentVault();
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const reservationTimeoutRef = React.useRef<number | null>(null);
@@ -2181,7 +2216,9 @@ const forceActivityMismatchRef = React.useRef(false);
         return;
       }
 
-      const autoArabic = formatArabicName(transliterateToArabic(formattedIteration));
+      const autoArabic = formatArabicName(
+        transliterateToArabic(formattedIteration),
+      );
 
       setEnglishDraft(formattedIteration);
       setArabicDraft(autoArabic);
@@ -2257,12 +2294,12 @@ const forceActivityMismatchRef = React.useRef(false);
 
   const showVerificationSteps = hasPerformedCheck || isChecking;
 
-  const [stageStatuses, setStageStatuses] = React.useState<TradeNameCheckStatus[]>(
-    () => TRADE_NAME_CHECKS.map(() => "pending" as TradeNameCheckStatus),
-  );
-  const [agentOutcomeByStage, setAgentOutcomeByStage] = React.useState<AgentOutcome[]>(
-    () => TRADE_NAME_CHECKS.map(() => "pending" as AgentOutcome),
-  );
+  const [stageStatuses, setStageStatuses] = React.useState<
+    TradeNameCheckStatus[]
+  >(() => TRADE_NAME_CHECKS.map(() => "pending" as TradeNameCheckStatus));
+  const [agentOutcomeByStage, setAgentOutcomeByStage] = React.useState<
+    AgentOutcome[]
+  >(() => TRADE_NAME_CHECKS.map(() => "pending" as AgentOutcome));
 
   const stageProgressRef = React.useRef<{
     currentIndex: number;
@@ -2390,15 +2427,21 @@ const forceActivityMismatchRef = React.useRef(false);
       setStageStatuses((previous) =>
         previous.map((status, index) => {
           if (index < stageIndex) {
-            return (status === "failed" ? "failed" : "completed") as TradeNameCheckStatus;
+            return (
+              status === "failed" ? "failed" : "completed"
+            ) as TradeNameCheckStatus;
           }
           if (index === stageIndex) {
-            return (status === "failed" ? "failed" : "current") as TradeNameCheckStatus;
+            return (
+              status === "failed" ? "failed" : "current"
+            ) as TradeNameCheckStatus;
           }
           if (status === "failed") {
             return "failed" as TradeNameCheckStatus;
           }
-          return (status === "pending" ? "current" : status) as TradeNameCheckStatus;
+          return (
+            status === "pending" ? "current" : status
+          ) as TradeNameCheckStatus;
         }),
       );
 
@@ -2411,7 +2454,12 @@ const forceActivityMismatchRef = React.useRef(false);
       tracker.currentIndex = stageIndex;
       announceStageStart(stageIndex);
     }
-  }, [announceStageComplete, announceStageStart, automationProgress, isChecking]);
+  }, [
+    announceStageComplete,
+    announceStageStart,
+    automationProgress,
+    isChecking,
+  ]);
 
   const canSubmitReservation = React.useMemo(
     () =>
@@ -2705,8 +2753,9 @@ const forceActivityMismatchRef = React.useRef(false);
 
   const finalDecisionStepDefinition = React.useMemo(
     () =>
-      TRADE_NAME_CHECKS.find((step) => step.title === "Final decision engine") ??
-      null,
+      TRADE_NAME_CHECKS.find(
+        (step) => step.title === "Final decision engine",
+      ) ?? null,
     [],
   );
   const finalDecisionSuccessDetail =
@@ -2721,7 +2770,9 @@ const forceActivityMismatchRef = React.useRef(false);
   >(() => {
     const failureDetail =
       failedStepIndex !== null
-        ? currentFailureDetail ?? TRADE_NAME_CHECKS[failedStepIndex]?.failureDetail ?? null
+        ? (currentFailureDetail ??
+          TRADE_NAME_CHECKS[failedStepIndex]?.failureDetail ??
+          null)
         : null;
 
     const decisionStatus: TradeNameCheckStatus = isChecking
@@ -2765,8 +2816,7 @@ const forceActivityMismatchRef = React.useRef(false);
           status: stageStatuses[index] ?? "pending",
           outcome: agentOutcomeByStage[index] ?? ("pending" as AgentOutcome),
           summary:
-            TRADE_NAME_STAGE_MESSAGES[index]?.friendlySummary ??
-            stage.summary,
+            TRADE_NAME_STAGE_MESSAGES[index]?.friendlySummary ?? stage.summary,
         })),
       };
 
@@ -2793,8 +2843,8 @@ const forceActivityMismatchRef = React.useRef(false);
         decisionStatus === "completed"
           ? "All agents approved the trade name."
           : decisionStatus === "failed"
-          ? "Review the agent log to resolve the flagged issue."
-          : "Polaris is walking through each check and narrating what happens.",
+            ? "Review the agent log to resolve the flagged issue."
+            : "Polaris is walking through each check and narrating what happens.",
       summary: "Plain-English view of how Polaris is progressing.",
       status: decisionStatus,
       progress: normalizedProgress,
@@ -2819,7 +2869,7 @@ const forceActivityMismatchRef = React.useRef(false);
         showVerificationSteps;
 
       const failureDetailForStage = isFailureStage
-        ? currentFailureDetail ?? stage.failureDetail
+        ? (currentFailureDetail ?? stage.failureDetail)
         : undefined;
       const successDetailForStage =
         status === "completed" && stage.successDetail
@@ -2828,10 +2878,12 @@ const forceActivityMismatchRef = React.useRef(false);
 
       const rawDetailForStage =
         status === "completed"
-          ? stage.rawDetailSuccess ?? stage.rawDetail
+          ? (stage.rawDetailSuccess ?? stage.rawDetail)
           : status === "failed"
-            ? stage.rawDetailFailure ?? stage.rawDetail
-            : stage.rawDetail ?? stage.rawDetailSuccess ?? stage.rawDetailFailure;
+            ? (stage.rawDetailFailure ?? stage.rawDetail)
+            : (stage.rawDetail ??
+              stage.rawDetailSuccess ??
+              stage.rawDetailFailure);
 
       return {
         title: stage.title,
@@ -2962,7 +3014,9 @@ const forceActivityMismatchRef = React.useRef(false);
             );
             if (!successUpdated) {
               setStageStatuses(
-                TRADE_NAME_CHECKS.map(() => "completed" as TradeNameCheckStatus),
+                TRADE_NAME_CHECKS.map(
+                  () => "completed" as TradeNameCheckStatus,
+                ),
               );
               setAgentOutcomeByStage(
                 TRADE_NAME_CHECKS.map(() => "passed" as AgentOutcome),
@@ -3022,7 +3076,11 @@ const forceActivityMismatchRef = React.useRef(false);
                 }),
               );
             }
-            for (let index = 0; index < DEFAULT_FAILURE_STEP_INDEX; index += 1) {
+            for (
+              let index = 0;
+              index < DEFAULT_FAILURE_STEP_INDEX;
+              index += 1
+            ) {
               announceStageComplete(index);
             }
             announceStageFailure(DEFAULT_FAILURE_STEP_INDEX);
@@ -3044,7 +3102,8 @@ const forceActivityMismatchRef = React.useRef(false);
                 : "";
             resolvedFailureReason = `${englishDisplay} leans toward a heritage concept, while the licensed activity is set to a restaurant. Pick the activity that tells the right story or adjust the name.`;
             const activityFailureDetail =
-              TRADE_NAME_CHECKS[ACTIVITY_FAILURE_STEP_INDEX]?.failureDetail ?? null;
+              TRADE_NAME_CHECKS[ACTIVITY_FAILURE_STEP_INDEX]?.failureDetail ??
+              null;
             setFailedStepIndex(ACTIVITY_FAILURE_STEP_INDEX);
             setFailureReason(resolvedFailureReason);
             setCurrentFailureDetail(activityFailureDetail);
@@ -3078,7 +3137,11 @@ const forceActivityMismatchRef = React.useRef(false);
                 }),
               );
             }
-            for (let index = 0; index < ACTIVITY_FAILURE_STEP_INDEX; index += 1) {
+            for (
+              let index = 0;
+              index < ACTIVITY_FAILURE_STEP_INDEX;
+              index += 1
+            ) {
               announceStageComplete(index);
             }
             announceStageFailure(ACTIVITY_FAILURE_STEP_INDEX);
@@ -3135,11 +3198,16 @@ const forceActivityMismatchRef = React.useRef(false);
                 }),
               );
             }
-            for (let index = 0; index < FINAL_DECISION_FAILURE_STEP_INDEX; index += 1) {
+            for (
+              let index = 0;
+              index < FINAL_DECISION_FAILURE_STEP_INDEX;
+              index += 1
+            ) {
               announceStageComplete(index);
             }
             announceStageFailure(FINAL_DECISION_FAILURE_STEP_INDEX);
-            stageProgressRef.current.currentIndex = FINAL_DECISION_FAILURE_STEP_INDEX;
+            stageProgressRef.current.currentIndex =
+              FINAL_DECISION_FAILURE_STEP_INDEX;
             setTradeNameGuidance(
               `Polaris isn’t confident approving "${englishDisplay}", so a DED reviewer is stepping in for the final decision.`,
             );
@@ -3154,18 +3222,21 @@ const forceActivityMismatchRef = React.useRef(false);
             setFailedStepIndex(DEFAULT_FAILURE_STEP_INDEX);
             setFailureReason(resolvedFailureReason);
             setCurrentFailureDetail(
-              TRADE_NAME_CHECKS[DEFAULT_FAILURE_STEP_INDEX]?.failureDetail ?? null,
+              TRADE_NAME_CHECKS[DEFAULT_FAILURE_STEP_INDEX]?.failureDetail ??
+                null,
             );
             setCurrentFailureContext("missing-input");
             setSuggestedIterationName(null);
             setStageStatuses((previous) =>
-              previous.map((_, index) =>
-                (index === 0 ? "failed" : "current") as TradeNameCheckStatus,
+              previous.map(
+                (_, index) =>
+                  (index === 0 ? "failed" : "current") as TradeNameCheckStatus,
               ),
             );
             setAgentOutcomeByStage((previous) =>
-              previous.map((outcome, index) =>
-                (index === 0 ? "failed" : "pending") as AgentOutcome,
+              previous.map(
+                (outcome, index) =>
+                  (index === 0 ? "failed" : "pending") as AgentOutcome,
               ),
             );
             announceStageFailure(0);
@@ -3295,7 +3366,8 @@ const forceActivityMismatchRef = React.useRef(false);
     const status = isNameAvailable ? "approved" : "rejected";
     const englishDisplay = activeEnglishTradeName || englishDraft || "";
     const arabicDisplay = activeArabicTradeName || arabicDraft || "";
-    const failureDetail = status === "approved" ? null : failureReason ?? null;
+    const failureDetail =
+      status === "approved" ? null : (failureReason ?? null);
     const draftPrompt = buildChatDraftFromContext(
       status,
       englishDisplay,
@@ -3658,12 +3730,14 @@ const forceActivityMismatchRef = React.useRef(false);
     hasEnglishDraft && hasPerformedCheck && !isNameAvailable;
   const trimmedActiveEnglish = activeEnglishTradeName.trim();
   const hasTradeNameDetails =
-    trimmedEnglishDraft.length > 0 || (!isEditing && trimmedActiveEnglish.length > 0);
-  const englishSummaryDisplay = trimmedEnglishDraft.length > 0
-    ? trimmedEnglishDraft
-    : !isEditing
-      ? trimmedActiveEnglish
-      : "";
+    trimmedEnglishDraft.length > 0 ||
+    (!isEditing && trimmedActiveEnglish.length > 0);
+  const englishSummaryDisplay =
+    trimmedEnglishDraft.length > 0
+      ? trimmedEnglishDraft
+      : !isEditing
+        ? trimmedActiveEnglish
+        : "";
   const hasDisplayedEnglishName = englishSummaryDisplay.length > 0;
 
   const handleEnglishHotkey = React.useCallback(
@@ -4060,7 +4134,8 @@ const forceActivityMismatchRef = React.useRef(false);
                       <div className="rounded-2xl border border-[#eef5f2] bg-[#f8fbf9] p-4">
                         <div className="space-y-3">
                           {stageTimeline.map((stage) => {
-                            const statusMeta = STAGE_STATUS_BADGE_META[stage.status];
+                            const statusMeta =
+                              STAGE_STATUS_BADGE_META[stage.status];
                             const outcome =
                               agentOutcomeByStage[stage.index] ??
                               (stage.status === "completed"
@@ -4079,7 +4154,9 @@ const forceActivityMismatchRef = React.useRef(false);
                               <button
                                 key={`timeline-${stage.index}`}
                                 type="button"
-                                onClick={() => handleStageNavigation(stage.index)}
+                                onClick={() =>
+                                  handleStageNavigation(stage.index)
+                                }
                                 aria-controls={targetStepId}
                                 className="flex w-full items-start gap-3 rounded-xl border border-transparent px-2 py-2 text-left transition hover:border-[#0f766e]/30 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40"
                               >
