@@ -153,7 +153,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
-        "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+        "2. وكيل الكلمات المحظورة → ناجح. لم ��تم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه ��� فشل. تمت مطابقة الاسم المسجل "بيت الختيار" بد��جة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل ا��تعارض قبل تأكيد النسخة العربية.",
         "5. وكيل توافق النشاط → إرشاد. ننتظر اسمً�� تجاريًا فريدًا لموازنته مع النشاط المرخ��ص.",
@@ -280,7 +280,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا����. تمت المصادقة على التحو���ل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق ا��نشاط → ناجح. الاسم يتوافق مع نشاط ال��طعم المر���ّص.",
-        "• مح��ك القر��ر ا������هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية�� النتيجة: 0.98).",
+        "• مح��ك القر��ر ا������هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا���ثقة: عالية�� النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبد��ئل�� الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -597,7 +597,7 @@ function buildFinalDecisionRejectionNarrative(
   const formattedAttempt = formatTradeName(attemptedName) || attemptedName;
 
   const englishLines = [
-    `1. Text normalizer / spell checker / cultural checker — PASSED. "${formattedAttempt}" cleared text validation with zero violations.`,
+    `1. Text normalizer / spell checker / cultural checker �� PASSED. "${formattedAttempt}" cleared text validation with zero violations.`,
     "2. Prohibited words agent — PASSED. No restricted vocabulary detected across English or Arabic drafts.",
     "3. Similarity agent — PASSED. Polaris confirmed this variation is unique in the registry.",
     "4. Transliteration agent — PASSED. Arabic counterpart stays synchronized with phonetic rules.",
@@ -1630,96 +1630,123 @@ const VerificationStepItem = React.forwardRef<
       }
     })();
 
-    return (
-      <div className={cn("space-y-2 rounded-xl", styles.container)}>
-        <span className={styles.label}>{agentResponsesLabel}</span>
-        {parsedNarrative?.heading ? (
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-            {parsedNarrative.heading}
-          </p>
-        ) : null}
-        {parsedNarrative ? (
-          <div className="space-y-2">
-            {responsesToRender.map((item) => {
-              const outcomeMeta = AGENT_OUTCOME_META[item.status];
-              const normalizedTitle = item.title.toLowerCase();
-              const shouldShowActivitySelector =
-                variant === "failed" &&
-                activityOptions &&
-                activityOptions.length > 0 &&
-                normalizedTitle.includes("activity compatibility agent");
+    const accordionDefaultValue = hasNarrative
+      ? ["agent-responses"]
+      : hasRawDetail
+        ? ["raw-detail"]
+        : undefined;
 
-              return (
-                <div
-                  key={`${item.order}-${item.title}`}
-                  className="flex flex-col gap-2 rounded-2xl border border-[#e6f2ed] bg-white/80 p-3 shadow-sm"
-                >
-                  <div className="flex items-start gap-3">
-                    <span
-                      className={cn(
-                        "flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold",
-                        outcomeMeta.indicatorClassName,
-                      )}
-                    >
-                      {item.order}
-                    </span>
-                    <div className="flex flex-1 flex-col gap-2">
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <p className="text-sm font-semibold text-slate-900">
-                          {item.title}
-                        </p>
-                        <Badge
-                          className={cn(
-                            "rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
-                            outcomeMeta.badgeClassName,
-                          )}
-                        >
-                          {outcomeMeta.label}
-                        </Badge>
-                      </div>
-                      {item.detail ? (
-                        <p className="text-sm text-slate-600">{item.detail}</p>
-                      ) : null}
-                    </div>
-                  </div>
-                  {shouldShowActivitySelector ? (
-                    <div className="flex flex-wrap gap-2">
-                      {activityOptions?.map((option) => {
-                        const isActive = option.id === selectedActivityId;
-                        return (
-                          <Button
-                            key={option.id}
-                            type="button"
-                            variant="outline"
-                            onClick={() => onActivitySelect?.(option.id)}
+    return (
+      <div className={cn("space-y-3 rounded-xl p-3", styles.container)}>
+        <span className={styles.label}>{agentResponsesLabel}</span>
+        <Accordion
+          type="multiple"
+          defaultValue={accordionDefaultValue}
+          className="space-y-2"
+        >
+          {parsedNarrative ? (
+            <AccordionItem
+              value="agent-responses"
+              className="overflow-hidden rounded-2xl border border-[#e6f2ed] bg-white/80 shadow-sm"
+            >
+              <AccordionTrigger className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-600 hover:no-underline">
+                <span>Structured reasoning</span>
+              </AccordionTrigger>
+              <AccordionContent className="space-y-2 px-4 pb-4">
+                {parsedNarrative.heading ? (
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                    {parsedNarrative.heading}
+                  </p>
+                ) : null}
+                <div className="space-y-2">
+                  {responsesToRender.map((item) => {
+                    const outcomeMeta = AGENT_OUTCOME_META[item.status];
+                    const normalizedTitle = item.title.toLowerCase();
+                    const shouldShowActivitySelector =
+                      variant === "failed" &&
+                      activityOptions &&
+                      activityOptions.length > 0 &&
+                      normalizedTitle.includes("activity compatibility agent");
+
+                    return (
+                      <div
+                        key={`${item.order}-${item.title}`}
+                        className="flex flex-col gap-2 rounded-2xl border border-[#e6f2ed] bg-white/80 p-3 shadow-sm"
+                      >
+                        <div className="flex items-start gap-3">
+                          <span
                             className={cn(
-                              "rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition",
-                              isActive
-                                ? "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_18px_44px_-34px_rgba(15,118,110,0.45)]"
-                                : "border-[#0f766e]/30 text-[#0f766e] hover:bg-[#0f766e]/10",
+                              "flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold",
+                              outcomeMeta.indicatorClassName,
                             )}
                           >
-                            {option.label}
-                          </Button>
-                        );
-                      })}
-                    </div>
-                  ) : null}
+                            {item.order}
+                          </span>
+                          <div className="flex flex-1 flex-col gap-2">
+                            <div className="flex flex-wrap items-center justify-between gap-2">
+                              <p className="text-sm font-semibold text-slate-900">
+                                {item.title}
+                              </p>
+                              <Badge
+                                className={cn(
+                                  "rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
+                                  outcomeMeta.badgeClassName,
+                                )}
+                              >
+                                {outcomeMeta.label}
+                              </Badge>
+                            </div>
+                            {item.detail ? (
+                              <p className="text-sm text-slate-600">{item.detail}</p>
+                            ) : null}
+                          </div>
+                        </div>
+                        {shouldShowActivitySelector ? (
+                          <div className="flex flex-wrap gap-2">
+                            {activityOptions?.map((option) => {
+                              const isActive = option.id === selectedActivityId;
+                              return (
+                                <Button
+                                  key={option.id}
+                                  type="button"
+                                  variant="outline"
+                                  onClick={() => onActivitySelect?.(option.id)}
+                                  className={cn(
+                                    "rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition",
+                                    isActive
+                                      ? "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_18px_44px_-34px_rgba(15,118,110,0.45)]"
+                                      : "border-[#0f766e]/30 text-[#0f766e] hover:bg-[#0f766e]/10",
+                                  )}
+                                >
+                                  {option.label}
+                                </Button>
+                              );
+                            })}
+                          </div>
+                        ) : null}
+                      </div>
+                    );
+                  })}
                 </div>
-              );
-            })}
-          </div>
-        ) : null}
-        {hasRawDetail ? (
-          <div className="rounded-2xl bg-slate-950/80 p-3 text-xs text-slate-100 shadow-inner">
-            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-300">
-              Raw agent response
-            </p>
-            <pre className="whitespace-pre-wrap break-words font-mono text-[11px] leading-relaxed">
-              {formattedRawDetail}
-            </pre>
-          </div>
-        ) : null}
+              </AccordionContent>
+            </AccordionItem>
+          ) : null}
+          {hasRawDetail ? (
+            <AccordionItem
+              value="raw-detail"
+              className="overflow-hidden rounded-2xl border border-slate-800/40 bg-slate-950/80 text-slate-100 shadow-inner"
+            >
+              <AccordionTrigger className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-300 hover:no-underline">
+                <span>Raw agent response</span>
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pb-4 text-xs">
+                <pre className="whitespace-pre-wrap break-words font-mono text-[11px] leading-relaxed">
+                  {formattedRawDetail}
+                </pre>
+              </AccordionContent>
+            </AccordionItem>
+          ) : null}
+        </Accordion>
       </div>
     );
   };
