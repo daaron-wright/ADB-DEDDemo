@@ -150,7 +150,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "7. Name suggester agent (rejected trade name) — PASSED. No alternatives required; current name authorized.",
       ].join("\n"),
       ar: [
-        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
+        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة �����لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
@@ -401,7 +401,7 @@ function buildSimilarityConflictNarrative(
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
-    "4. وكيل التحويل الصوتي → متوقف ��ؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
+    "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مرفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتراح اسم مختلف.`,
     hasIteration
@@ -1396,30 +1396,7 @@ const VerificationStepItem = React.forwardRef<
 
   return (
       <div className={cn("space-y-2 rounded-xl", styles.container)}>
-        {isLocalized ? (
-          <div className="flex items-center justify-between gap-2">
-            <span className={styles.label}>{agentResponsesLabel}</span>
-            <div className={styles.toggleWrap}>
-              {(["en", "ar"] as const).map((lang) => {
-                const isActive = detailLanguage === lang;
-                return (
-                  <button
-                    key={lang}
-                    type="button"
-                    onClick={() => setDetailLanguage(lang)}
-                    className={cn(
-                      isActive ? styles.toggleActive : styles.toggleInactive,
-                    )}
-                  >
-                    {lang === "en" ? "EN" : "AR"}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        ) : (
-          <span className={styles.label}>{agentResponsesLabel}</span>
-        )}
+        <span className={styles.label}>{agentResponsesLabel}</span>
         {parsedNarrative && responsesToRender ? (
           <div
             className={cn(
