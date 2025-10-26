@@ -142,7 +142,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     successDetail: {
       en: [
         '1. Text normalizer / spell checker / cultural checker — PASSED. Normalized "Marwa Restaurant" and confirmed cultural compliance.',
-        "2. Prohibited words agent �� Passed. No restricted terms detected across English and Arabic drafts.",
+        "2. Prohibited words agent — PASSED. No restricted terms detected across English and Arabic drafts.",
         "3. Similarity agent — PASSED. Nearest registry match scored 0.12, below the 0.75 conflict threshold.",
         '4. Transliteration agent — PASSED. Arabic transliteration "مطعم مروة" validated against phonetic rules.',
         "5. Activity compatibility agent — PASSED. Name aligns with the licensed Food & Beverage restaurant activity.",
@@ -399,7 +399,7 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا���م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات مح��ورة في النسختين العربية أ�� الإنجليزية.",
+    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات مح��ورة في النسختين العربية أ���� الإنجليزية.",
     `3. و���يل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق ال��ش��ط → غير مقيم. في انتظار اسم ��جاري فريد.",
