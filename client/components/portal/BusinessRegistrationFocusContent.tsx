@@ -147,7 +147,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       en: [
         "Agent responses sequence:",
         '1. Text normalizer / spell checker / cultural checker → Passed. Normalized "Marwa Restaurant" and confirmed cultural compliance.',
-        "2. Prohibited words agent ���� Passed. No restricted terms detected across English and Arabic drafts.",
+        "2. Prohibited words agent �� Passed. No restricted terms detected across English and Arabic drafts.",
         "3. Similarity agent → Passed. Nearest registry match scored 0.12, below the 0.75 conflict threshold.",
         '4. Transliteration agent → Passed. Arabic transliteration "مطعم مروة" validated against phonetic rules.',
         "5. Activity compatibility agent → Passed. Name aligns with the licensed Food & Beverage restaurant activity.",
@@ -444,7 +444,7 @@ function buildFinalDecisionRejectionNarrative(
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
     "2. و��يل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
-    "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
+    "4. وكيل التحويل الصوتي → ناجح. النسخة الع��بية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → تم التصعيد للمراجعة. لست واثقًا من الرفض الآل�� لذلك تم رفعه لمراجع دائرة التنمية الاقت��ادية للتوجيه.",
     "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
@@ -2526,6 +2526,13 @@ const forceActivityMismatchRef = React.useRef(false);
     setCurrentFailureContext(null);
     setSuggestedIterationName(null);
     setTradeNameGuidance(null);
+    setStageStatuses(TRADE_NAME_CHECKS.map(() => "pending"));
+    const tracker = stageProgressRef.current;
+    tracker.currentIndex = -1;
+    tracker.started.clear();
+    tracker.completed.clear();
+    tracker.failed.clear();
+    tracker.activeRunId = null;
   }, [tradeName, isTradeNameAvailable, progressPercent]);
 
   React.useEffect(() => {
