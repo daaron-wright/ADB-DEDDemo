@@ -277,7 +277,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنجليزية.",
-        "• وكيل الت��ابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
+        "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخَّص.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
@@ -584,7 +584,7 @@ function buildSimilarityConflictNarrative(
     "5. وكي�� توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اق��راح اسم مختلف.`,
     hasIteration
-      ? `7. وكيل اقتراح الاسم (ا��اسم المرفوض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
+      ? `7. وكيل اقتراح الاسم (ا��اسم المرفو��) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (ال��سم المرفوض) → إرشاد. توصي Polaris بإضافة توصيف خاص أ�� جغرافي.",
   ];
 
@@ -3589,11 +3589,14 @@ const forceActivityMismatchRef = React.useRef(false);
   const shouldShowSuggestionSection =
     hasEnglishDraft && hasPerformedCheck && !isNameAvailable;
   const trimmedActiveEnglish = activeEnglishTradeName.trim();
-  const hasDisplayedEnglishName =
-    trimmedActiveEnglish.length > 0 || trimmedEnglishDraft.length > 0;
-  const englishSummaryDisplay = hasDisplayedEnglishName
-    ? trimmedActiveEnglish || trimmedEnglishDraft
-    : "";
+  const hasTradeNameDetails =
+    trimmedEnglishDraft.length > 0 || (!isEditing && trimmedActiveEnglish.length > 0);
+  const englishSummaryDisplay = trimmedEnglishDraft.length > 0
+    ? trimmedEnglishDraft
+    : !isEditing
+      ? trimmedActiveEnglish
+      : "";
+  const hasDisplayedEnglishName = englishSummaryDisplay.length > 0;
 
   const handleEnglishHotkey = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -3705,7 +3708,7 @@ const forceActivityMismatchRef = React.useRef(false);
                 >
                   {englishSummaryDisplay}
                 </h4>
-                {activeArabicTradeName ? (
+                {hasTradeNameDetails && activeArabicTradeName ? (
                   <p
                     className="text-base font-semibold text-[#0f766e]"
                     dir="rtl"
