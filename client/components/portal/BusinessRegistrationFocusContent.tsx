@@ -95,7 +95,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "تسلسل استجابات الوكلاء:",
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا��نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
-        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين ��لعربية أو الإنجليزية.",
+        "2. وكيل ا��كلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين ��لعربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
@@ -127,7 +127,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) → Suggested alternatives: "Bait El Khetyar Restaurant", "Khetyar Dining House".',
       ].join("\n"),
       ar: [
-        "استجابات الوكلاء (العربية):",
+        "استجابات الوكلاء (��لعربية):",
         '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
@@ -407,7 +407,7 @@ function buildSimilarityConflictNarrative(
   const arabicLines = [
     "تسل���ل استجابات الوكلاء:",
     `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا��م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظ��رة في النسختين العربية أ�� الإنجليزية.",
+    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق ال��شاط → غير مقيم. في انتظار اسم ��جاري فريد.",
@@ -442,7 +442,7 @@ function buildFinalDecisionRejectionNarrative(
   const arabicLines = [
     "استجابات الوكلاء (��لعربية):",
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
-    "2. و��يل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة ف�� المسودة.",
+    "2. و��يل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
@@ -929,7 +929,7 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["n", "ن"],
   ["o", "و"],
   ["p", "ب"],
-  ["q", "��"],
+  ["q", "ق"],
   ["r", "ر"],
   ["s", "س"],
   ["t", "ت"],
@@ -2304,7 +2304,7 @@ const forceActivityMismatchRef = React.useRef(false);
               sanitizedIteration.toUpperCase() !== normalizedName
                 ? sanitizedIteration
                 : "";
-            resolvedFailureReason = `We couldn’t reserve ${englishDisplay}. Select the activity that best matches the heritage concept or adjust the trade name.`;
+            resolvedFailureReason = `${englishDisplay} leans toward a heritage concept, while the licensed activity is set to a restaurant. Pick the activity that tells the right story or adjust the name.`;
             setFailedStepIndex(ACTIVITY_FAILURE_STEP_INDEX);
             setFailureReason(resolvedFailureReason);
             setCurrentFailureDetail(
@@ -2312,9 +2312,26 @@ const forceActivityMismatchRef = React.useRef(false);
             );
             setCurrentFailureContext("activity-mismatch");
             setSuggestedIterationName(null);
+            setStageStatuses((previous) =>
+              previous.map((_, index) => {
+                if (index < ACTIVITY_FAILURE_STEP_INDEX) {
+                  return "completed";
+                }
+                if (index === ACTIVITY_FAILURE_STEP_INDEX) {
+                  return "failed";
+                }
+                return "pending";
+              }),
+            );
+            for (let index = 0; index < ACTIVITY_FAILURE_STEP_INDEX; index += 1) {
+              announceStageComplete(index);
+            }
+            announceStageFailure(ACTIVITY_FAILURE_STEP_INDEX);
+            stageProgressRef.current.currentIndex = ACTIVITY_FAILURE_STEP_INDEX;
+            stageProgressRef.current.activeRunId = null;
             const activityGuidanceMessage = iterationCandidate
-              ? `Activity compatibility agent flagged "${englishDisplay}" as heritage-focused. Align the licensed activity before rerunning; keep the trade name as "${FIXED_SIMILARITY_ITERATION_NAME}" when you retry.`
-              : `Activity compatibility agent flagged the concept as heritage-focused. Align the licensed activity before rerunning; keep "${FIXED_SIMILARITY_ITERATION_NAME}" when you retry.`;
+              ? `Polaris heard heritage vibes in "${englishDisplay}". Keep "${FIXED_SIMILARITY_ITERATION_NAME}" and align the licensed activity before rerunning.`
+              : `Polaris heard heritage vibes in "${englishDisplay}". Align the licensed activity or keep "${FIXED_SIMILARITY_ITERATION_NAME}" before we rerun.`;
             const planArabic = arabicDisplay
               ? arabicDisplay
               : formatArabicName(transliterateToArabic(englishDisplay));
