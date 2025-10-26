@@ -159,7 +159,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ����لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
-        "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
+        "• وكيل التحويل الصوتي ��� نا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
         "• مح��ك القر��ر ال��هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
@@ -406,7 +406,7 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     "تسل���ل استجابات الوكلاء:",
-    `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا���م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
+    `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجت��ز الا���م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
@@ -1941,11 +1941,11 @@ const forceActivityMismatchRef = React.useRef(false);
       );
       if (activity) {
         setTradeNameGuidance(
-          `Activity alignment updated to ${activity.label}. Polaris will push the final decision engine once the guidance finishes syncing.`,
+          `Activity locked to ${activity.label}. I’ll re-run the final decision check as soon as the guidance syncs.`,
         );
-        toast({
+        enqueueToast({
           title: "Activity selected",
-          description: `${activity.label} locked in for the next verification pass.`,
+          description: `${activity.label} is set for the next verification pass.`,
         });
         const pendingPlan = autoRerunPlanRef.current;
         if (pendingPlan?.pendingFinal) {
@@ -1959,8 +1959,8 @@ const forceActivityMismatchRef = React.useRef(false);
             formatArabicName(transliterateToArabic(pendingPlan.english));
           autoRerunTimeoutRef.current = window.setTimeout(() => {
             autoRerunTimeoutRef.current = null;
-            toast({
-              title: "Final decision engine re-run",
+            enqueueToast({
+              title: "Final decision re-run",
               description: `Polaris is validating "${nextEnglish}" with the final decision engine.`,
             });
             runChecksWithNames(nextEnglish, nextArabic);
@@ -1968,7 +1968,7 @@ const forceActivityMismatchRef = React.useRef(false);
         }
       }
     },
-    [runChecksWithNames, setTradeNameGuidance, toast],
+    [enqueueToast, runChecksWithNames, setTradeNameGuidance],
   );
 
   React.useEffect(() => {
