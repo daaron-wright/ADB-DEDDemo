@@ -156,7 +156,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجاب��ت الوكلاء (العربية):",
-        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ����لثقافية.',
+        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ����ل��قافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
@@ -2532,7 +2532,9 @@ const forceActivityMismatchRef = React.useRef(false);
     setCurrentFailureContext(null);
     setSuggestedIterationName(null);
     setTradeNameGuidance(null);
-    setStageStatuses(TRADE_NAME_CHECKS.map(() => "pending"));
+    setStageStatuses(
+      TRADE_NAME_CHECKS.map(() => "pending" as TradeNameCheckStatus),
+    );
     const tracker = stageProgressRef.current;
     tracker.currentIndex = -1;
     tracker.started.clear();
