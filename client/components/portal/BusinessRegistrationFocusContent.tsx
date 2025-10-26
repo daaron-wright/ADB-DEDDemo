@@ -127,7 +127,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) → Suggested alternatives: "Bait El Khetyar Restaurant", "Khetyar Dining House".',
       ].join("\n"),
       ar: [
-        "استجابات الوكلاء (العربية):",
+        "استجابات ��لوكلاء (العربية):",
         '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
@@ -446,7 +446,7 @@ function buildFinalDecisionRejectionNarrative(
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة الع��بية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
-    "6. محرك القرار النهائي → ��م التصعيد للمر��جعة. لست واثقًا من الرفض الآل�� لذلك تم رفعه لمراجع دائرة التنمية الاقت��ادية للتوجيه.",
+    "6. محرك القرار النهائي → ��م التصعيد للمراجعة. لست واثقًا من الرفض الآل���� لذلك تم رفعه لمراجع دائرة التنمية الاقت��ادية للتوجيه.",
     "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
   ];
 
@@ -2416,7 +2416,6 @@ const forceActivityMismatchRef = React.useRef(false);
             }
             announceStageFailure(FINAL_DECISION_FAILURE_STEP_INDEX);
             stageProgressRef.current.currentIndex = FINAL_DECISION_FAILURE_STEP_INDEX;
-            stageProgressRef.current.activeRunId = null;
             setTradeNameGuidance(
               `Polaris isn’t confident approving "${englishDisplay}", so a DED reviewer is stepping in for the final decision.`,
             );
