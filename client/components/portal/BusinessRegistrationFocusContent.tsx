@@ -70,8 +70,14 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     title: "Text normalizer / spell checker / cultural checker",
     description:
       "We tidy spelling, spacing, and cultural phrasing so the name feels natural before anything else runs.",
-    summary:
-      "Polishes wording and tone first.",
+    summary: "Polishes wording and tone first.",
+    rawDetail: {
+      success: true,
+      normalized: "Bait El Khetyar",
+      language: "english",
+      adjustments: ["spacing", "diacritic_normalization"],
+      warnings: [],
+    },
   },
   {
     title: "Prohibited words agent",
@@ -128,12 +134,12 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضات ثقافية.',
-        "2. وكيل الكلما�� المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العربية.",
+        "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العربية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التح��يل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
         "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من المراجع.",
-        '7. وكيل اقتراح الاسم (الاسم المر��وض) → إرشاد. الب��ائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
+        '7. وكيل اقتراح الاسم (الاسم المر��وض) → إرشاد. الب��ائل المق��رحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
   },
@@ -155,7 +161,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
-        "• وكيل التشابه �� ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
+        "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحو��ل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق ا��نشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
         "• مح��ك القر��ر ا����هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية، النتيجة: 0.98).",
