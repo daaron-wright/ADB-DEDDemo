@@ -133,7 +133,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��ل�� مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
-        "�� محرك القرار النهائي → قيد الانتظار للمرا��عة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشاط متواف��.",
+        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشاط متواف��.",
         '• وكيل اقتراح الاسم (الاسم ال���رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -2168,22 +2168,56 @@ const forceActivityMismatchRef = React.useRef(false);
             ? Math.max(baseProgress / 100, 0.06)
             : 0;
 
-    return [
-      {
-        title: "Full decision flow",
-        description:
-          decisionStatus === "completed"
-            ? "All agents approved the trade name."
-            : decisionStatus === "failed"
-              ? "Review the agent log to resolve the flagged issue."
-              : "Polaris is orchestrating each agent’s checks.",
-        summary: "Consolidated view of every agent verdict.",
-        status: decisionStatus,
-        progress: normalizedProgress,
-        failureDetail: failureDetail ?? undefined,
-        successDetail: finalDecisionSuccessDetail ?? undefined,
-      },
-    ];
+    const decisionStep: TradeNameVerificationStepWithStatus = {
+      title: "Full decision flow",
+      description:
+        decisionStatus === "completed"
+          ? "All agents approved the trade name."
+          : decisionStatus === "failed"
+            ? "Review the agent log to resolve the flagged issue."
+            : "Polaris is orchestrating each agent’s checks.",
+      summary: "Plain-English view of how Polaris is progressing.",
+      status: decisionStatus,
+      progress: normalizedProgress,
+      failureDetail: failureDetail ?? undefined,
+      successDetail: finalDecisionSuccessDetail ?? undefined,
+    };
+
+    const stageSteps = TRADE_NAME_CHECKS.map((stage, index) => {
+      const status = stageStatuses[index] ?? "pending";
+      const messages = TRADE_NAME_STAGE_MESSAGES[index];
+      const stageProgressValue =
+        status === "completed" || status === "failed"
+          ? 1
+          : status === "current"
+            ? 0.6
+            : 0;
+      const isFailureStage =
+        !isChecking &&
+        !isNameAvailable &&
+        failedStepIndex === index &&
+        showVerificationSteps;
+
+      const failureDetailForStage = isFailureStage
+        ? currentFailureDetail ?? stage.failureDetail
+        : undefined;
+      const successDetailForStage =
+        status === "completed" && stage.successDetail
+          ? stage.successDetail
+          : undefined;
+
+      return {
+        title: stage.title,
+        description: messages?.friendlyDetail ?? stage.description,
+        summary: messages?.friendlySummary ?? stage.summary,
+        status,
+        progress: stageProgressValue,
+        failureDetail: failureDetailForStage,
+        successDetail: successDetailForStage,
+      } satisfies TradeNameVerificationStepWithStatus;
+    });
+
+    return [decisionStep, ...stageSteps];
   }, [
     automationProgress,
     currentFailureDetail,
@@ -2192,6 +2226,7 @@ const forceActivityMismatchRef = React.useRef(false);
     isChecking,
     isNameAvailable,
     showVerificationSteps,
+    stageStatuses,
   ]);
 
   const completedVerificationSteps = automationSteps.filter(
