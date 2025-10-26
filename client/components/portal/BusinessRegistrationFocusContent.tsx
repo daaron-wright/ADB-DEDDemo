@@ -95,7 +95,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "تسلسل استجابات الوكلاء:",
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا����نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
-        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين ��لعربية أو الإن��ليزية.",
+        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين ��لعربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
@@ -128,7 +128,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم ت��حيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
+        '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
@@ -161,7 +161,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
-        "• مح��ك القر��ر ال��هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
+        "• مح��ك القر��ر ال��هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة الثقة: عالية، ا��نتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -408,10 +408,10 @@ function buildSimilarityConflictNarrative(
     "تسل���ل استجابات الوكلاء:",
     `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا���م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
-    `3. و��يل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
+    `3. و��يل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تش��به ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق ال��ش��ط → غير مقيم. في انتظار اسم ��جاري فريد.",
-    `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مخت��ف.`,
+    `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
     hasIteration
       ? `7. ��كيل اقتراح الاسم (الاسم المرفوض) → إ��شاد. البديل المق��رح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (الاس�� المرفوض) �� إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
@@ -435,7 +435,7 @@ function buildFinalDecisionRejectionNarrative(
     "3. Similarity agent → Passed. Polaris confirmed this variation is unique in the registry.",
     "4. Transliteration agent → Passed. Arabic counterpart stays synchronized with phonetic rules.",
     "5. Activity compatibility agent → Guidance. Heritage positioning requires manual validation against the licensed activity plan.",
-    "6. Final decision engine �� Escalated for review. Not super confident in the automated rejection, so a DED reviewer will advise next steps.",
+    "6. Final decision engine → Escalated for review. Not super confident in the automated rejection, so a DED reviewer will advise next steps.",
     "7. Name suggester agent ��� Guidance. Prepare your supporting rationale before escalating to the reviewer.",
   ];
 
@@ -444,10 +444,10 @@ function buildFinalDecisionRejectionNarrative(
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
     "2. و��يل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
-    "4. وكيل التحويل الصوتي → ناجح. النسخة الع��بية متوافقة مع القواعد الصوتية.",
+    "4. وكيل التحويل الصوتي → ناجح. النسخة الع���بية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → ��م التصعيد للمراجعة. لست واثقًا من الرفض الآل�� لذلك تم رفعه لمراجع دائرة التنمية الاقت��ادية للتوجيه.",
-    "7. وكيل اقتراح الاسم → إرش��د. جهز المبررات الداعمة قبل التصعيد.",
+    "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
   ];
 
   return {
@@ -982,7 +982,7 @@ function sanitizeTradeNameCandidate(value: string) {
 }
 
 function extractLabeledSegment(source: string, label: string) {
-  const pattern = new RegExp(`${label}\\s*[:\\-]\\s*["“”']?([^"“”'\\n]+)["��”']?`, "i");
+  const pattern = new RegExp(`${label}\\s*[:\\-]\\s*["“”']?([^"“”'\\n]+)["“”']?`, "i");
   const match = source.match(pattern);
   return match ? sanitizeTradeNameCandidate(match[1]) : null;
 }
@@ -1714,13 +1714,11 @@ const forceActivityMismatchRef = React.useRef(false);
     started: Set<number>;
     completed: Set<number>;
     failed: Set<number>;
-    activeRunId: number | null;
   }>({
     currentIndex: -1,
     started: new Set(),
     completed: new Set(),
     failed: new Set(),
-    activeRunId: null,
   });
 
   const announceStageStart = React.useCallback(
