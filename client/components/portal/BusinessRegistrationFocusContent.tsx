@@ -220,7 +220,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     summary: "Matches the name to your activity.",
     failureDetail: {
       en: [
-        '1. Text normalizer / spell checker / cultural checker ��� PASSED. Normalized "Bait El Khetyar" without cultural conflicts.',
+        '1. Text normalizer / spell checker / cultural checker — PASSED. Normalized "Bait El Khetyar" without cultural conflicts.',
         "2. Prohibited words agent — PASSED. No prohibited lexicon detected in English or Arabic drafts.",
         "3. Similarity agent — PASSED. Nearest registry match similarity score 0.28 (below threshold).",
         '4. Transliteration agent — PASSED. Arabic transliteration "بيت الختيار" verified against phonetic rules.',
@@ -574,7 +574,7 @@ function buildSimilarityConflictNarrative(
   ];
 
   const arabicLines = [
-    `1. مدقق ��لنص / التدقيق ال��ملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
+    `1. مدقق ��لنص / التدقيق ال��ملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق ��لنصي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختي�� العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت م��ابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل ا����حويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
