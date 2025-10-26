@@ -157,7 +157,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضات ثقافية.',
-        "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العربية.",
+        "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنج��يزية أو العربية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التح��يل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
@@ -2450,6 +2450,29 @@ const forceActivityMismatchRef = React.useRef(false);
             ? Math.max(baseProgress / 100, 0.06)
             : 0;
 
+    const decisionRawDetail = showVerificationSteps
+      ? {
+          status: decisionStatus,
+          rawProgressPercent: clampProgress(baseProgress),
+          normalizedProgressPercent: Number(
+            (normalizedProgress * 100).toFixed(2),
+          ),
+          failedStepIndex,
+          failureNarrative: failureDetail
+            ? extractEnglishNarrative(failureDetail ?? undefined)
+            : null,
+          stages: TRADE_NAME_CHECKS.map((stage, index) => ({
+            order: index + 1,
+            title: stage.title,
+            status: stageStatuses[index] ?? "pending",
+            outcome: agentOutcomeByStage[index] ?? ("pending" as AgentOutcome),
+            summary:
+              TRADE_NAME_STAGE_MESSAGES[index]?.friendlySummary ??
+              stage.summary,
+          })),
+        }
+      : undefined;
+
     const decisionStep: TradeNameVerificationStepWithStatus = {
       title: "Full decision flow",
       description:
@@ -2463,6 +2486,7 @@ const forceActivityMismatchRef = React.useRef(false);
       progress: normalizedProgress,
       failureDetail: failureDetail ?? undefined,
       successDetail: finalDecisionSuccessDetail ?? undefined,
+      rawDetail: decisionRawDetail,
     };
 
     const stageSteps = TRADE_NAME_CHECKS.map((stage, index) => {
