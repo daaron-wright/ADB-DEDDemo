@@ -66,21 +66,21 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
   {
     title: "Text normalizer / spell checker / cultural checker",
     description:
-      "Normalizes characters, corrects spelling, and screens for cultural or linguistic sensitivities in one pass.",
+      "We tidy spelling, spacing, and cultural phrasing so the name feels natural before anything else runs.",
     summary:
-      "Cleans the name and applies cultural guardrails before deeper analysis.",
+      "Polishes wording and tone first.",
   },
   {
     title: "Prohibited words agent",
     description:
-      "Scans for explicit, implicit, or obfuscated restricted terms across the full trade name.",
-    summary: "Blocks restricted or sensitive words from the name.",
+      "We scan the full name for restricted, sensitive, or reserved wording so nothing slips through.",
+    summary: "Keeps forbidden phrases out.",
   },
   {
     title: "Similarity agent",
     description:
-      "Compares the proposed name against the full registry to prevent confusingly similar matches.",
-    summary: "Prevents duplicates or confusingly similar business names.",
+      "We compare the proposed name against the registry to avoid confusing or duplicate matches.",
+    summary: "Stops look-alike trade names.",
     failureDetail: {
       en: [
         "Agent responses sequence:",
@@ -97,7 +97,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا��نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين ��لعربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
-        "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
+        "4. وكيل التحويل ال��وتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
         "6. محرك القرار النهائي �� مرفو��. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبق��ا�� يُرجى ��قتراح بدي��.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة ��لخي��يار".',
@@ -107,14 +107,14 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
   {
     title: "Transliteration agent",
     description:
-      "Verifies Arabic and English spellings align phonetically and visually.",
-    summary: "Keeps translations synchronized across both languages.",
+      "We sync the Arabic spelling with the English pronunciation so both versions sound right.",
+    summary: "Keeps Arabic and English aligned.",
   },
   {
     title: "Activity compatibility agent",
     description:
-      "Checks the proposed name against your selected activity list to ensure compliance.",
-    summary: "Confirms the name fits the licensed activity scope.",
+      "We confirm the name fits the licensed activity you selected so expectations stay clear.",
+    summary: "Matches the name to your activity.",
     failureDetail: {
       en: [
         "Agent responses sequence:",
@@ -141,8 +141,8 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
   {
     title: "Final decision engine",
     description:
-      "Aggregates every agent output, surfaces blockers, and records the approval decision trail.",
-    summary: "Combines all agent signals into a single go / no-go result.",
+      "We combine every agent verdict into one clear approval decision and share the reasoning trail.",
+    summary: "Wraps up every agent’s signal.",
     successDetail: {
       en: [
         "Agent responses sequence:",
@@ -159,7 +159,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ����لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
-        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
+        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد ��لصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
         "• مح��ك القر��ر ال��هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
@@ -169,8 +169,8 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
   {
     title: "Name suggester agent (rejected trade name)",
     description:
-      "Generates compliant alternatives, reruns the full agent pipeline, and highlights the best option to pursue next.",
-    summary: "Keeps the journey moving with agent-reviewed fallback names.",
+      "We prepare compliant backup names and preview how they would move through the pipeline next.",
+    summary: "Keeps you moving with fallback ideas.",
   },
 ];
 
