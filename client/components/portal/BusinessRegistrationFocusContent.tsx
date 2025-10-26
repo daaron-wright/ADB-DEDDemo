@@ -94,13 +94,13 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "تسلسل استجابات الوكلاء:",
-        '1. مدقق النص / التدقيق الإملائي / الف��ص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا��نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
+        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا��نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين ��لعربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
         "6. محرك القرار النهائي �� مرفو��. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبق��ا�� يُرجى ��قتراح بدي��.",
-        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة ��ل��ي��يار".',
+        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة ��لخي��يار".',
       ].join("\n"),
     },
   },
@@ -133,7 +133,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��ل�� مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
-        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار ن��اط متواف��.",
+        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشاط متواف��.",
         '• وكيل اقتراح الاسم (الاسم ال���رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -147,7 +147,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       en: [
         "Agent responses sequence:",
         '1. Text normalizer / spell checker / cultural checker → Passed. Normalized "Marwa Restaurant" and confirmed cultural compliance.',
-        "2. Prohibited words agent �� Passed. No restricted terms detected across English and Arabic drafts.",
+        "2. Prohibited words agent ���� Passed. No restricted terms detected across English and Arabic drafts.",
         "3. Similarity agent → Passed. Nearest registry match scored 0.12, below the 0.75 conflict threshold.",
         '4. Transliteration agent → Passed. Arabic transliteration "مطعم مروة" validated against phonetic rules.',
         "5. Activity compatibility agent → Passed. Name aligns with the licensed Food & Beverage restaurant activity.",
@@ -409,7 +409,7 @@ function buildSimilarityConflictNarrative(
     `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا��م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
-    "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب م��الجة التعارض قبل التأكيد.",
+    "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق ال��شاط → غير مقيم. في انتظار اسم ��جاري فريد.",
     `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
     hasIteration
@@ -3252,6 +3252,48 @@ const forceActivityMismatchRef = React.useRef(false);
                 <AccordionContent className="px-5 pt-3 space-y-3">
                   {showVerificationSteps ? (
                     <div className="space-y-3">
+                      <div className="rounded-2xl border border-[#eef5f2] bg-[#f8fbf9] p-4">
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                          Plain-language progress
+                        </p>
+                        <div className="mt-3 space-y-3">
+                          {stageTimeline.map((stage) => {
+                            const statusMeta = STAGE_STATUS_BADGE_META[stage.status];
+                            return (
+                              <div
+                                key={`timeline-${stage.index}`}
+                                className="flex items-start gap-3"
+                              >
+                                <span
+                                  className={cn(
+                                    "mt-1 inline-flex h-2.5 w-2.5 rounded-full",
+                                    statusMeta.dotClassName,
+                                  )}
+                                  aria-hidden
+                                />
+                                <div className="flex flex-1 flex-col gap-1 text-left">
+                                  <div className="flex flex-wrap items-center gap-2">
+                                    <span className="text-sm font-semibold text-slate-900">
+                                      {stage.friendlyTitle}
+                                    </span>
+                                    <span
+                                      className={cn(
+                                        "inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em]",
+                                        statusMeta.badgeClassName,
+                                      )}
+                                    >
+                                      {statusMeta.label}
+                                    </span>
+                                  </div>
+                                  <p className="text-xs text-slate-600">
+                                    {stage.friendlySummary}
+                                  </p>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
                       {automationSteps.map((step, index) => {
                         const showFinalDecisionEscalationControl =
                           step.title === "Full decision flow" &&
