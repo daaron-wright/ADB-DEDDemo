@@ -128,7 +128,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العربية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
-        "5. وكيل توافق النشاط → فشل. الاسم يوحي ��مفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
+        "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
         "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من المراجع.",
         '7. وكيل اقتراح الاسم (الاسم المر��وض) → إرشاد. الب��ائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
@@ -150,7 +150,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "7. Name suggester agent (rejected trade name) — PASSED. No alternatives required; current name authorized.",
       ].join("\n"),
       ar: [
-        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
+        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� ا��ملاءمة ����لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
         "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحو��ل «مطعم مروة» وفق القواعد الصوتية.",
@@ -1671,11 +1671,13 @@ export function BusinessRegistrationFocusContent({
     (stageIndex: number, phase: "start" | "complete" | "failure" = "start") => {
       const messages = TRADE_NAME_STAGE_MESSAGES[stageIndex];
       const description = messages
-        ? phase === "failure"
-          ? messages.failureDescription
-          : phase === "complete"
-            ? messages.completeDescription
-            : messages.startDescription
+        ? `${messages.friendlyTitle} • ${
+            phase === "failure"
+              ? messages.failureDescription
+              : phase === "complete"
+                ? messages.completeDescription
+                : messages.startDescription
+          }`
         : "Polaris is reviewing the trade name.";
       const variant = phase === "failure" ? "destructive" : "default";
 
