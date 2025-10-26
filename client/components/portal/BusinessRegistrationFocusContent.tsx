@@ -153,7 +153,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
-        "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+        "2. وكيل الكلمات ال��حظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. ��مت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
         "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا لموازنته مع النشاط المرخَّص.",
@@ -229,7 +229,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Suggested alternatives: "Bait El Khetyar Restaurant", "Khetyar Dining House".',
       ].join("\n"),
       ar: [
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضات ثقافية.',
+        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تع��رضات ثقافية.',
         "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العر��ية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
@@ -611,7 +611,7 @@ function buildFinalDecisionRejectionNarrative(
     "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
-    "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
+    "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من ��طة النشاط.",
     "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الرفض الآلي، لذلك تم رفعه لمراجع ��ائرة التنمية الاقتصادية لتحديد الإجراء.",
     "7. وكيل اقتراح الاسم → إرشاد. جهّز المبررات الداعمة قبل التصعيد.",
   ];
@@ -2090,10 +2090,17 @@ const forceActivityMismatchRef = React.useRef(false);
   const [activeEnglishTradeName, setActiveEnglishTradeName] =
     React.useState(initialFormattedName);
   const [activeArabicTradeName, setActiveArabicTradeName] = React.useState("");
-  const [englishDraft, setEnglishDraft] = React.useState(initialFormattedName);
+  const [englishDraft, setEnglishDraft] = React.useState("");
+  const hasActivatedTradeNameRef = React.useRef(false);
   const [arabicDraft, setArabicDraft] = React.useState("");
   const [isArabicSynced, setIsArabicSynced] = React.useState(false);
   const [isEditing, setIsEditing] = React.useState(true);
+
+  React.useEffect(() => {
+    if (englishDraft.trim().length > 0) {
+      hasActivatedTradeNameRef.current = true;
+    }
+  }, [englishDraft]);
   const [pendingSubmission, setPendingSubmission] = React.useState<{
     english: string;
     arabic: string;
@@ -3155,7 +3162,11 @@ const forceActivityMismatchRef = React.useRef(false);
   React.useEffect(() => {
     const formatted = tradeName ? formatTradeName(tradeName) : "";
     setActiveEnglishTradeName(formatted);
-    setEnglishDraft(formatted);
+    if (!formatted) {
+      hasActivatedTradeNameRef.current = false;
+    }
+    const nextEnglishDraft = hasActivatedTradeNameRef.current ? formatted : "";
+    setEnglishDraft(nextEnglishDraft);
     setActiveArabicTradeName("");
     setArabicDraft("");
     setIsArabicSynced(false);
@@ -3710,8 +3721,9 @@ const forceActivityMismatchRef = React.useRef(false);
                 variant="outline"
                 onClick={() => {
                   if (!isEditing) {
-                    const restoredEnglish =
-                      activeEnglishTradeName || englishDraft || "";
+                    const restoredEnglish = hasActivatedTradeNameRef.current
+                      ? activeEnglishTradeName || englishDraft || ""
+                      : englishDraft || "";
                     setEnglishDraft(restoredEnglish);
                     const restoredArabic = activeArabicTradeName || "";
                     setArabicDraft(restoredArabic);
