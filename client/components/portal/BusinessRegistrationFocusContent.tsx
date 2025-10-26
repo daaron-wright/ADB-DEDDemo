@@ -129,7 +129,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
-        "• وكيل الكلمات المحظورة → ناجح. لم يتم العث��ر على مفردات محظورة في النسخ الإنجليزية أو العربية.",
+        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��ل�� مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
@@ -160,7 +160,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
-        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
+        "• وكيل توافق الن��اط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
         "• مح��ك القر��ر ال��هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
       ].join("\n"),
@@ -407,14 +407,14 @@ function buildSimilarityConflictNarrative(
   const arabicLines = [
     "تسل���ل استجابات الوكلاء:",
     `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا��م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
+    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مف��دات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق ال��شاط → غير مقيم. في انتظار اسم ��جاري فريد.",
     `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
     hasIteration
       ? `7. ��كيل اقتراح الاسم (الاسم المرفوض) → إ��شاد. البديل المق��رح: "${sanitizedIteration}".`
-      : "7. وكيل اقتراح الا��م (الاس�� المرفوض) �� إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
+      : "7. وكيل اقتراح الاسم (الاس�� المرفوض) �� إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
   ];
 
   return {
@@ -442,7 +442,7 @@ function buildFinalDecisionRejectionNarrative(
   const arabicLines = [
     "استجابات الوكلاء (��لعربية):",
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
-    "2. و��يل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
+    "2. و��يل الكلمات المحظورة → ناجح. لا توجد مفردات ��حظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
@@ -631,7 +631,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
     "no alternatives required",
     "اقتراح البدائل",
     "لا حاجة لبدائل",
-    "إرشاد",
+    "إ��شاد",
   ],
   escalated: ["escalated", "escalation", "تصعي��"],
 };
@@ -2241,8 +2241,15 @@ const forceActivityMismatchRef = React.useRef(false);
             setCurrentFailureDetail(null);
             setCurrentFailureContext(null);
             setSuggestedIterationName(null);
+            setStageStatuses(TRADE_NAME_CHECKS.map(() => "completed"));
+            const finalStageIndex = TRADE_NAME_CHECKS.length - 1;
+            for (let index = 0; index <= finalStageIndex; index += 1) {
+              announceStageComplete(index);
+            }
+            stageProgressRef.current.currentIndex = finalStageIndex;
+            stageProgressRef.current.activeRunId = null;
             setTradeNameGuidance(
-              `All automation checks approved "${englishDisplay}". Continue with the reservation when ready.`,
+              `Great news — "${englishDisplay}" cleared every check. You're ready to reserve it when you're set.`,
             );
           } else if (normalizedName === CONFLICTING_TRADE_NAME_NORMALIZED) {
             forceActivityMismatchRef.current = true;
