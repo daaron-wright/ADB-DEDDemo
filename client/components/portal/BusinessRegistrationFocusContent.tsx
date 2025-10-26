@@ -97,7 +97,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا��نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين ��لعربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
-        "4. وكيل التحويل ال��وتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
+        "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
         "6. محرك القرار النهائي �� مرفو��. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبق��ا�� يُرجى ��قتراح بدي��.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة ��لخي��يار".',
@@ -133,7 +133,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��ل�� مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
-        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشاط متواف��.",
+        "�� محرك ا��قرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشاط متواف��.",
         '• وكيل اقتراح الاسم (الاسم ال���رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -155,11 +155,11 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "7. Name suggester agent (rejected trade name) → No alternatives required; current name authorized.",
       ].join("\n"),
       ar: [
-        "استجابات الوكلاء (العربية):",
+        "است��ابات الوكلاء (العربية):",
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ����لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
-        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد ��لصوتية.",
+        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
         "• مح��ك القر��ر ال��هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
@@ -257,6 +257,131 @@ const ACTIVITY_ALIGNMENT_DESCRIPTOR_SEQUENCE = [
   "Culinary Studio",
   "Dining Collective",
 ];
+
+const TRADE_NAME_STAGE_MESSAGES: ReadonlyArray<{
+  friendlyTitle: string;
+  friendlySummary: string;
+  friendlyDetail: string;
+  startTitle: string;
+  startDescription: string;
+  completeTitle: string;
+  completeDescription: string;
+  failureTitle: string;
+  failureDescription: string;
+}> = [
+  {
+    friendlyTitle: "Polish the name wording",
+    friendlySummary: "We tidy the spelling and tone before anything else runs.",
+    friendlyDetail:
+      "Polaris smooths spacing, punctuation, and cultural phrasing so the name feels natural.",
+    startTitle: "Polishing the name",
+    startDescription: "Polaris is smoothing spelling and cultural nuances.",
+    completeTitle: "Name polished",
+    completeDescription: "Wording looks clear and culturally appropriate.",
+    failureTitle: "Wording needs a quick edit",
+    failureDescription:
+      "Adjust the spelling or phrasing so it lands clearly, then rerun the checks.",
+  },
+  {
+    friendlyTitle: "Screen for restricted wording",
+    friendlySummary: "We keep sensitive or prohibited phrases out.",
+    friendlyDetail:
+      "Polaris checks for reserved, restricted, or sensitive terms in the English and Arabic versions.",
+    startTitle: "Scanning for restricted words",
+    startDescription: "Polaris is making sure no restricted terms appear in the name.",
+    completeTitle: "No restricted wording found",
+    completeDescription: "Nothing sensitive or reserved showed up in the trade name.",
+    failureTitle: "Restricted wording detected",
+    failureDescription: "Swap or soften the flagged wording, then run the checks again.",
+  },
+  {
+    friendlyTitle: "Compare with registered names",
+    friendlySummary: "We avoid confusing look-alike trade names.",
+    friendlyDetail:
+      "Polaris looks across the registry to make sure the name stands apart from existing businesses.",
+    startTitle: "Checking for similar names",
+    startDescription: "Polaris is scanning the registry for close matches.",
+    completeTitle: "No confusing matches",
+    completeDescription: "You’re clear of conflicting trade names.",
+    failureTitle: "Too similar to an existing name",
+    failureDescription: `Polaris found a close match. Adjust the name or try "${FIXED_SIMILARITY_ITERATION_NAME}".`,
+  },
+  {
+    friendlyTitle: "Sync Arabic and English",
+    friendlySummary: "We keep both languages sounding aligned.",
+    friendlyDetail:
+      "Polaris pairs the Arabic transliteration with the English pronunciation so they move together.",
+    startTitle: "Matching Arabic and English",
+    startDescription: "Polaris is keeping the Arabic spelling in sync with the English.",
+    completeTitle: "Languages stay in sync",
+    completeDescription: "Arabic and English versions read and sound aligned.",
+    failureTitle: "Arabic and English need alignment",
+    failureDescription: "Tweak the spellings so they pronounce the same way, then rerun.",
+  },
+  {
+    friendlyTitle: "Confirm activity fit",
+    friendlySummary: "We check that the name fits the licensed activity.",
+    friendlyDetail:
+      "Polaris looks at the story your name tells and makes sure it matches the activity you selected.",
+    startTitle: "Checking the activity fit",
+    startDescription: "Polaris is confirming the name matches your chosen activity.",
+    completeTitle: "Activity looks aligned",
+    completeDescription: "The name fits the activity you picked.",
+    failureTitle: "Activity needs an update",
+    failureDescription:
+      "Choose the activity that matches the concept or adjust the name before rerunning.",
+  },
+  {
+    friendlyTitle: "Wrap up the decision",
+    friendlySummary: "We combine every agent verdict into one result.",
+    friendlyDetail:
+      "Polaris reviews every agent signal and writes a single go / no-go recommendation with reasons.",
+    startTitle: "Bringing the results together",
+    startDescription: "Polaris is combining every agent’s verdict.",
+    completeTitle: "All checks passed",
+    completeDescription: "You’re clear to reserve the trade name.",
+    failureTitle: "Needs a reviewer",
+    failureDescription: "Polaris is escalating this trade name to a DED reviewer for another look.",
+  },
+  {
+    friendlyTitle: "Suggest next-best names",
+    friendlySummary: "We prepare backup ideas if this name is blocked.",
+    friendlyDetail:
+      "Polaris drafts compliant alternatives and previews how they would move through the checks.",
+    startTitle: "Gathering fallback names",
+    startDescription: "Polaris is preparing compliant backup suggestions.",
+    completeTitle: "Suggested names ready",
+    completeDescription: "Alternative names are ready whenever you need them.",
+    failureTitle: "Couldn’t prepare suggestions",
+    failureDescription: "Refine the current name or adjust activities to unlock new suggestions.",
+  },
+];
+
+const STAGE_STATUS_BADGE_META: Record<
+  TradeNameCheckStatus,
+  { label: string; badgeClassName: string; dotClassName: string }
+> = {
+  completed: {
+    label: "Done",
+    badgeClassName: "border-[#94d2c2] bg-[#dff2ec] text-[#0b7d6f]",
+    dotClassName: "bg-[#0f766e]",
+  },
+  current: {
+    label: "In progress",
+    badgeClassName: "border-[#0f766e]/40 bg-[#0f766e]/10 text-[#0f766e]",
+    dotClassName: "bg-[#0f766e] animate-pulse",
+  },
+  pending: {
+    label: "Up next",
+    badgeClassName: "border-slate-200 bg-white text-slate-400",
+    dotClassName: "bg-slate-300",
+  },
+  failed: {
+    label: "Needs action",
+    badgeClassName: "border-rose-200 bg-rose-50 text-rose-600",
+    dotClassName: "bg-rose-500 animate-pulse",
+  },
+};
 
 function buildSimilarityConflictNarrative(
   attemptedName: string,
