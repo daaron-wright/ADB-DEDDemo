@@ -159,7 +159,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ����لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
-        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
+        "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
         "• مح��ك القر��ر ال��هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
@@ -406,7 +406,7 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     "تسل���ل استجابات الوكلاء:",
-    `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا��م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
+    `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا���م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
@@ -624,7 +624,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
   failed: ["fail", "failed", "ف��ل"],
   pending: ["pending", "awaiting", "قيد الانتظار"],
-  rejected: ["reject", "rejected", "مرفوض"],
+  rejected: ["reject", "rejected", "مرفو��"],
   info: [
     "guidance",
     "suggested alternatives",
@@ -2665,14 +2665,14 @@ const forceActivityMismatchRef = React.useRef(false);
 
       if (succeeded) {
         setTradeNameGuidance(
-          `Synced with your chat adjustment. Polaris is re-running the checks for "${formattedEnglish}".`,
+          `Thanks for the update — I'm re-running the checks for "${formattedEnglish}" right away.`,
         );
-        toast({
-          title: "Re-running verification checks",
-          description: `Polaris is processing the updated trade name ${formattedEnglish}.`,
+        enqueueToast({
+          title: "Checks restarted",
+          description: `Polaris is reviewing "${formattedEnglish}" with your latest update.`,
         });
       } else {
-        toast({
+        enqueueToast({
           title: "Update incomplete",
           description:
             "Include both English and Arabic trade names before submitting your chat adjustment.",
