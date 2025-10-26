@@ -93,7 +93,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا����نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
-        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور��� في النسختين ��لعربية أو الإنجليزي��.",
+        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد م��ردات محظور��� في النسختين ��لعربية أو الإنجليزي��.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
@@ -124,7 +124,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Suggested alternatives: "Bait El Khetyar Restaurant", "Khetyar Dining House".',
       ].join("\n"),
       ar: [
-        '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توح��د "ب��ت الخ��يار" دون تعا��ضات ث��افية.',
+        '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. ��م توح��د "ب��ت الخ��يار" دون تعا��ضات ث��افية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح���ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
@@ -3459,10 +3459,15 @@ const forceActivityMismatchRef = React.useRef(false);
                               stage.status === "current" && !isChecking
                                 ? "bg-[#0f766e]"
                                 : statusMeta.dotClassName;
+                            const targetStepId = `automation-step-${stage.index + 1}`;
+
                             return (
-                              <div
+                              <button
                                 key={`timeline-${stage.index}`}
-                                className="flex items-start gap-3"
+                                type="button"
+                                onClick={() => handleStageNavigation(stage.index)}
+                                aria-controls={targetStepId}
+                                className="flex w-full items-start gap-3 rounded-xl border border-transparent px-2 py-2 text-left transition hover:border-[#0f766e]/30 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f766e]/40"
                               >
                                 <span
                                   className={cn(
@@ -3489,7 +3494,7 @@ const forceActivityMismatchRef = React.useRef(false);
                                     {stage.friendlySummary}
                                   </p>
                                 </div>
-                              </div>
+                              </button>
                             );
                           })}
                         </div>
