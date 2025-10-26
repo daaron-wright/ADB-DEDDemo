@@ -156,7 +156,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "2. وكيل الكلمات ال��حظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. ��مت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
-        "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا لموازنته مع النشاط المرخَّص.",
+        "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا ��ريدًا لموازنته مع النشاط المرخَّص.",
         "6. محرك القرار النهائي → مرفوض. مرجع التعارض SIMILARITY_CONFLICT؛ يُرجى اقتراح اسم مختلف.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. الخيار الموصى به: "ساحة الختيار".',
       ].join("\n"),
@@ -233,7 +233,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العر��ية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
-        "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراث�� للبيع بالتجزئة وليس نشاط المطعم الحالي.",
+        "5. وكيل توافق النشاط → ف��ل. الاسم يوحي بمفهوم تراث�� للبيع بالتجزئة وليس نشاط المطعم الحالي.",
         "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من المراجع.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البدائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
@@ -276,7 +276,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
-        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
+        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخَّص.",
@@ -582,7 +582,7 @@ function buildSimilarityConflictNarrative(
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكي�� توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
-    `6. محرك القرار النهائي → مفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتراح اسم مختلف.`,
+    `6. محرك القرار النهائي → مفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اق��راح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (ال��سم المرفوض) → إرشاد. توصي Polaris بإضافة توصيف خاص أو جغرافي.",
@@ -792,7 +792,7 @@ const AGENT_OUTCOME_META: Record<
 const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
   failed: ["fail", "failed", "فشل"],
-  pending: ["pending", "awaiting", "قيد الانتظار"],
+  pending: ["pending", "awaiting", "قيد الا��تظار"],
   rejected: ["reject", "rejected", "مرفوض"],
   info: [
     "guidance",
@@ -1224,7 +1224,7 @@ const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
   ["marwa", "موة"],
   ["marwah", "مروة"],
-  ["restaurant", "مطعم"],
+  ["restaurant", "��طعم"],
   ["bait", "بيت"],
   ["el", "ال"],
   ["al", "ال"],
@@ -1471,7 +1471,7 @@ const VerificationStepItem = React.forwardRef<
   const isCompleted = step.status === "completed";
   const isCurrent = step.status === "current";
   const hasActivityOptions = Boolean(activityOptions && activityOptions.length > 0);
-  const detailVariantStyles = React.useMemo(
+    const detailVariantStyles = React.useMemo(
     () => ({
       failed: {
         container:
@@ -1571,6 +1571,7 @@ const VerificationStepItem = React.forwardRef<
     displayOptions?: {
       focusTitle?: string;
       rawDetail?: AgentRawDetail;
+      hideStructuredResponses?: boolean;
     },
   ) => {
     const styles = detailVariantStyles[variant];
@@ -1581,6 +1582,9 @@ const VerificationStepItem = React.forwardRef<
     const focusTitleNormalized = displayOptions?.focusTitle
       ? displayOptions.focusTitle.trim().toLowerCase()
       : null;
+    const shouldHideStructuredResponses = Boolean(
+      displayOptions?.hideStructuredResponses,
+    );
     const rawDetail = displayOptions?.rawDetail;
     const hasRawDetail =
       typeof rawDetail === "string"
@@ -1591,6 +1595,10 @@ const VerificationStepItem = React.forwardRef<
     const hasNarrative = Boolean(parsedNarrative);
 
     if (!hasNarrative && !hasRawDetail) {
+      return null;
+    }
+
+    if (shouldHideStructuredResponses && !hasRawDetail) {
       return null;
     }
 
@@ -1650,7 +1658,7 @@ const VerificationStepItem = React.forwardRef<
           defaultValue={accordionDefaultValue}
           className="space-y-2"
         >
-          {parsedNarrative ? (
+          {parsedNarrative && !shouldHideStructuredResponses ? (
             <AccordionItem
               value="agent-responses"
               className="overflow-hidden rounded-2xl border border-[#e6f2ed] bg-white/80 shadow-sm"
