@@ -566,7 +566,7 @@ function buildSimilarityConflictNarrative(
     "2. Prohibited words agent — PASSED. No restricted vocabulary detected across English or Arabic drafts.",
     `3. Similarity agent — FAILED. Matched existing trade name "${PRIMARY_TRADE_NAME_EN}" with similarity score ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. Transliteration agent — GUIDANCE. Conflict must resolve before Arabic confirmation.",
-    "5. Activity compatibility agent ��� GUIDANCE. Waiting on a unique trade name.",
+    "5. Activity compatibility agent ���� GUIDANCE. Waiting on a unique trade name.",
     `6. Final decision engine — REJECTED. Conflict reference ${SIMILARITY_CONFLICT_REFERENCE}; submit a differentiated variation.`,
     hasIteration
       ? `7. Name suggester agent (rejected trade name) — GUIDANCE. Draft alternative: "${sanitizedIteration}".`
@@ -578,7 +578,7 @@ function buildSimilarityConflictNarrative(
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختي�� العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت م��ابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل ا����حويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العر��ية.",
-    "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
+    "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا ��جاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مرفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتراح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقترا�� الاسم (الاسم المرف��ض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
@@ -612,7 +612,7 @@ function buildFinalDecisionRejectionNarrative(
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحق��ً�� يدويًا من خطة النشاط.",
-    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من ال����ض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاق��صادية لتحديد الإجراء.",
+    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من ال����ض الآلي، لذلك تم رفعه لمراجع دائرة التنمية ا��اق��صادية لتحديد الإجراء.",
     "7. وكيل اقتراح الاسم → إرشاد. ج��ز المبررات الدا��مة قبل التصعيد.",
   ];
 
@@ -788,9 +788,9 @@ const AGENT_OUTCOME_META: Record<
 
 const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
-  failed: ["fail", "failed", "ف����ل"],
-  pending: ["pending", "awaiting", "ق��د الانتظار"],
-  rejected: ["reject", "rejected", "��رف����"],
+  failed: ["fail", "failed", "فشل"],
+  pending: ["pending", "awaiting", "قيد الانتظار"],
+  rejected: ["reject", "rejected", "مرفوض"],
   info: [
     "guidance",
     "suggested alternatives",
@@ -799,20 +799,20 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
     "لا حاجة لبدائل",
     "إرشاد",
   ],
-  escalated: ["escalated", "escalation", "تصع����"],
+  escalated: ["escalated", "escalation", "تصعيد"],
 };
 
 const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
   failed: ["fail", "failed", "فشل"],
   pending: ["pending manual review", "pending", "awaiting", "قيد الانتظار"],
-  rejected: ["reject", "rejected", "مرفو��"],
+  rejected: ["reject", "rejected", "مرفوض"],
   info: [
     "guidance",
     "suggested alternatives",
     "no alternatives required",
-    "اقتراح البد���ئل",
-    "ل�� حاجة لبدائل",
+    "اقتراح البدائل",
+    "لا حاجة لبدائل",
     "إرشاد",
   ],
   escalated: ["escalated", "escalation", "تصعيد"],
