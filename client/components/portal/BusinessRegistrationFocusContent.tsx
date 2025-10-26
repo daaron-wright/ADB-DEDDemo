@@ -585,7 +585,7 @@ function buildSimilarityConflictNarrative(
     `6. محرك القرار النهائي → مفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتراح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
-      : "7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. توصي Polaris بإضافة توصيف خاص أو جغرافي.",
+      : "7. وكيل اقتراح الاسم (ال��سم المرفوض) → إرشاد. توصي Polaris بإضافة توصيف خاص أو جغرافي.",
   ];
 
   return {
@@ -799,7 +799,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
     "suggested alternatives",
     "no alternatives required",
     "اقتراح البدائل",
-    "لا حاجة لبدائل",
+    "لا ح��جة لبدائل",
     "إرشاد",
   ],
   escalated: ["escalated", "escalation", "تصعيد"],
@@ -1470,6 +1470,7 @@ const VerificationStepItem = React.forwardRef<
   const isFailed = step.status === "failed";
   const isCompleted = step.status === "completed";
   const isCurrent = step.status === "current";
+  const hasActivityOptions = Boolean(activityOptions && activityOptions.length > 0);
   const detailVariantStyles = React.useMemo(
     () => ({
       failed: {
@@ -1556,6 +1557,8 @@ const VerificationStepItem = React.forwardRef<
       Boolean(shouldAutoOpenNarrative && isCompleted && hasSuccessNarrative),
     );
   }, [hasSuccessNarrative, isCompleted, shouldAutoOpenNarrative, successNarrativeKey]);
+
+  const showActivitySelectorsInline = isFailed && hasActivityOptions;
 
   const renderAgentNarrative = (
     detail: string | LocalizedAgentNarrative | undefined,
@@ -1669,6 +1672,7 @@ const VerificationStepItem = React.forwardRef<
                       variant === "failed" &&
                       activityOptions &&
                       activityOptions.length > 0 &&
+                      !showActivitySelectorsInline &&
                       normalizedTitle.includes("activity compatibility agent");
 
                     return (
@@ -1861,6 +1865,37 @@ const VerificationStepItem = React.forwardRef<
         <div className="rounded-xl bg-[#0f766e]/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
           {helperMessage}
         </div>
+        {showActivitySelectorsInline && onActivitySelect ? (
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+              Align the licensed activity
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {activityOptions?.map((option) => {
+                const isActive = option.id === selectedActivityId;
+                return (
+                  <Button
+                    key={option.id}
+                    type="button"
+                    variant="outline"
+                    onClick={() => onActivitySelect(option.id)}
+                    className={cn(
+                      "rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition",
+                      isActive
+                        ? "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_18px_44px_-34px_rgba(15,118,110,0.45)]"
+                        : "border-[#0f766e]/30 text-[#0f766e] hover:bg-[#0f766e]/10",
+                    )}
+                  >
+                    {option.label}
+                  </Button>
+                );
+              })}
+            </div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+              Polaris reruns the final check after you pick the right activity.
+            </p>
+          </div>
+        ) : null}
         {isFailed && hasFailureNarrative ? (
           <div className="space-y-3">
             <button
