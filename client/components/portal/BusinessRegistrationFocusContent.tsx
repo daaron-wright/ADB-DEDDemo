@@ -234,7 +234,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "3. وكيل ��لتشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التح��يل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
-        "6. ��حرك ��لقرار النهائي → بانتظار ال��راجعة اليدوية. يرجى اختيار نشاط ��توافق أو طلب تأكيد من المراجع.",
+        "6. ��حرك القرار النهائي → بانتظار ال��راجعة اليدوية. يرجى اختيار نشاط ��توافق أو طلب تأكيد من المراجع.",
         '7. وكيل اقتراح الاسم (الاسم المر����وض) → إرشاد. الب��ائل المقترحة: "Bait El Khetyar Restaurant" ��"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -280,7 +280,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا����. تمت المصادقة على التحو���ل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق ا��نشاط → ناجح. الاسم يتوافق مع نشاط ال��طعم المر���ّص.",
-        "• مح��ك القر��ر ا������هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية�� النتيجة: 0.98).",
+        "• مح��ك القر��ر ا������هائي → معت���د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية�� النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبد��ئل�� الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -575,7 +575,7 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     `1. مدقق ��لنص / التدقيق ال��ملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختي�� العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت م��ابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل ا����حويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
@@ -790,7 +790,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
   failed: ["fail", "failed", "ف����ل"],
   pending: ["pending", "awaiting", "ق��د الانتظار"],
-  rejected: ["reject", "rejected", "���رف����"],
+  rejected: ["reject", "rejected", "��رف����"],
   info: [
     "guidance",
     "suggested alternatives",
@@ -1221,7 +1221,7 @@ const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
   ["marwa", "مر��ة"],
   ["marwah", "مروة"],
-  ["restaurant", "مطع��"],
+  ["restaurant", "مطعم"],
   ["bait", "بيت"],
   ["el", "ال"],
   ["al", "ا��"],
@@ -1737,7 +1737,7 @@ const VerificationStepItem = React.forwardRef<
               className="overflow-hidden rounded-2xl border border-slate-800/40 bg-slate-950/80 text-slate-100 shadow-inner"
             >
               <AccordionTrigger className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-300 hover:no-underline">
-                <span>Raw agent response</span>
+                <span>Agent response</span>
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4 text-xs">
                 <pre className="whitespace-pre-wrap break-words font-mono text-[11px] leading-relaxed">
