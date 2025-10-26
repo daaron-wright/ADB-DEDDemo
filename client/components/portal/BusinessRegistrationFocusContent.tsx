@@ -399,7 +399,7 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     `1. مدقق النص / التدقيق ال��ملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+    "2. وكيل الك��مات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
@@ -1053,7 +1053,7 @@ const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
 ]);
 
 const ARABIC_CHAR_PATTERN = /[\u0600-\u06FF]/;
-const QUOTED_TEXT_PATTERN = /"([^"]{2,})"|“([^��]{2,})”|'([^']{2,})'|‘([^’]{2,})’/g;
+const QUOTED_TEXT_PATTERN = /"([^"]{2,})"|“([^��]{2,})”|'([^']{2,})'|‘([^’]{2,})���/g;
 const CHAT_NAME_TERMINATORS = /\b(?:instead|please|thanks|thank you|and then|and we|and i'll|because|so that|so we|so i)\b/i;
 const CHAT_NAME_TRIGGER_PATTERN = /\b(?:use|try|consider|switch to|update to|rename(?:\s+it)?\s+to|call it|let(?:'s)? go with|let(?:'s)? call it|let(?:'s)? use)\s+([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
 const CHAT_TRADE_NAME_FALLBACK_PATTERN = /\btrade\s*name\b[^A-Za-z0-9]*([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
@@ -3490,10 +3490,7 @@ const forceActivityMismatchRef = React.useRef(false);
                   {showVerificationSteps ? (
                     <div className="space-y-3">
                       <div className="rounded-2xl border border-[#eef5f2] bg-[#f8fbf9] p-4">
-                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                          Plain-language progress
-                        </p>
-                        <div className="mt-3 space-y-3">
+                        <div className="space-y-3">
                           {stageTimeline.map((stage) => {
                             const statusMeta = STAGE_STATUS_BADGE_META[stage.status];
                             const outcome =
