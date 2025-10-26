@@ -154,7 +154,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
-        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
+        "• وكيل توافق النشاط → ناجح. الاس�� يتوافق مع نشاط المطعم المر��ّص.",
         "• مح��ك القر��ر ال��هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
       ].join("\n"),
@@ -390,7 +390,7 @@ function buildSimilarityConflictNarrative(
     "2. Prohibited words agent — PASSED. No restricted vocabulary detected across English or Arabic drafts.",
     `3. Similarity agent — FAILED. Matched existing trade name "${PRIMARY_TRADE_NAME_EN}" with similarity score ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. Transliteration agent — GUIDANCE. Conflict must resolve before Arabic confirmation.",
-    "5. Activity compatibility agent → Not evaluated. Waiting on a unique trade name.",
+    "5. Activity compatibility agent — GUIDANCE. Waiting on a unique trade name.",
     `6. Final decision engine — REJECTED. Conflict reference ${SIMILARITY_CONFLICT_REFERENCE}; submit a differentiated variation.`,
     hasIteration
       ? `7. Name suggester agent (rejected trade name) — GUIDANCE. Draft alternative: "${sanitizedIteration}".`
@@ -434,7 +434,7 @@ function buildFinalDecisionRejectionNarrative(
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
     "2. و��يل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
-    "4. وكيل التحويل الصوتي → ناجح. ال��سخة الع��بية متوافقة مع القواعد الصوتية.",
+    "4. وكيل التحويل الصوتي �� ناجح. النسخة الع��بية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → ��م التصعيد للمراجعة. لست واثقًا من الرفض الآل�� لذلك تم رفعه لمراجع دائرة التنمية الاقت��ادية للتوجيه.",
     "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
@@ -927,7 +927,7 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["v", "ف"],
   ["w", "و"],
   ["x", "كس"],
-  ["y", "ي"],
+  ["y", "��"],
   ["z", "ز"],
 ]);
 
