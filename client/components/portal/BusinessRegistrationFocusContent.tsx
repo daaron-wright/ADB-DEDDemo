@@ -151,7 +151,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
-        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم ��لعثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
+        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
@@ -771,6 +771,56 @@ function parseAgentNarrative(text: string): ParsedAgentNarrative | null {
   responses.sort((a, b) => a.order - b.order);
 
   return { heading, responses };
+}
+
+function mapAgentOutcomeToStageStatus(
+  outcome: AgentOutcome,
+): TradeNameCheckStatus {
+  switch (outcome) {
+    case "passed":
+      return "completed";
+    case "failed":
+    case "rejected":
+    case "escalated":
+      return "failed";
+    default:
+      return "current";
+  }
+}
+
+function interpretNarrativeForStages(
+  detail: string | LocalizedAgentNarrative | null,
+  fallbackStatus: TradeNameCheckStatus,
+  previousOutcomes?: AgentOutcome[],
+):
+  | { statuses: TradeNameCheckStatus[]; outcomes: AgentOutcome[] }
+  | null {
+  const englishNarrative = extractEnglishNarrative(detail ?? undefined);
+  if (!englishNarrative) {
+    return null;
+  }
+
+  const parsed = parseAgentNarrative(englishNarrative);
+  if (!parsed) {
+    return null;
+  }
+
+  const statuses = TRADE_NAME_CHECKS.map(() => fallbackStatus);
+  const outcomes = TRADE_NAME_CHECKS.map(
+    (_, index) => previousOutcomes?.[index] ?? ("pending" as AgentOutcome),
+  );
+
+  parsed.responses.forEach((response) => {
+    const normalizedIndex = Math.min(
+      TRADE_NAME_CHECKS.length - 1,
+      Math.max(0, response.order - 1),
+    );
+    const outcome = response.status;
+    outcomes[normalizedIndex] = outcome;
+    statuses[normalizedIndex] = mapAgentOutcomeToStageStatus(outcome);
+  });
+
+  return { statuses, outcomes };
 }
 
 function extractEnglishNarrative(
