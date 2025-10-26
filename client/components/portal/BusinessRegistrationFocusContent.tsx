@@ -83,7 +83,6 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     summary: "Stops look-alike trade names.",
     failureDetail: {
       en: [
-        "",
         '1. Text normalizer / spell checker / cultural checker → Passed. "Bait El Khetyar" cleared text validation with zero violations (processed in 653 ms).',
         "2. Prohibited words agent → Passed. No restricted vocabulary detected across English or Arabic drafts.",
         "3. Similarity agent → Passed. Registry lookup returned zero conflicting matches.",
@@ -93,7 +92,6 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) → Guidance. Recommended option: "Khetyar\'s Courtyard".',
       ].join("\n"),
       ar: [
-        "",
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا����نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور��� في النسختين ��لعربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
@@ -117,7 +115,6 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     summary: "Matches the name to your activity.",
     failureDetail: {
       en: [
-        "",
         '1. Text normalizer / spell checker / cultural checker → Pass. Normalized "Bait El Khetyar" without cultural conflicts.',
         "2. Prohibited words agent → Pass. No prohibited lexicon detected in English or Arabic drafts.",
         "3. Similarity agent → Pass. Nearest registry match similarity score 0.28 (below threshold).",
@@ -127,7 +124,6 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) → Suggested alternatives: "Bait El Khetyar Restaurant", "Khetyar Dining House".',
       ].join("\n"),
       ar: [
-        "",
         '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
@@ -145,7 +141,6 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     summary: "Wraps up every agent’s signal.",
     successDetail: {
       en: [
-        "",
         '1. Text normalizer / spell checker / cultural checker → Passed. Normalized "Marwa Restaurant" and confirmed cultural compliance.',
         "2. Prohibited words agent �� Passed. No restricted terms detected across English and Arabic drafts.",
         "3. Similarity agent → Passed. Nearest registry match scored 0.12, below the 0.75 conflict threshold.",
@@ -155,7 +150,6 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "7. Name suggester agent (rejected trade name) → No alternatives required; current name authorized.",
       ].join("\n"),
       ar: [
-        "",
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
@@ -392,7 +386,6 @@ function buildSimilarityConflictNarrative(
   const hasIteration = Boolean(sanitizedIteration);
 
   const englishLines = [
-    "",
     `1. Text normalizer / spell checker / cultural checker → Passed. "${formattedAttempt}" cleared text validation with zero violations.`,
     "2. Prohibited words agent → Passed. No restricted vocabulary detected across English or Arabic drafts.",
     `3. Similarity agent → Failed. Matched existing trade name "${PRIMARY_TRADE_NAME_EN}" with similarity score ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
@@ -405,7 +398,6 @@ function buildSimilarityConflictNarrative(
   ];
 
   const arabicLines = [
-    "",
     `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا���م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. و��يل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
@@ -429,7 +421,6 @@ function buildFinalDecisionRejectionNarrative(
   const formattedAttempt = formatTradeName(attemptedName) || attemptedName;
 
   const englishLines = [
-    "",
     `1. Text normalizer / spell checker / cultural checker → Passed. "${formattedAttempt}" cleared text validation with zero violations.`,
     "2. Prohibited words agent → Passed. No restricted vocabulary detected across English or Arabic drafts.",
     "3. Similarity agent → Passed. Polaris confirmed this variation is unique in the registry.",
@@ -440,7 +431,6 @@ function buildFinalDecisionRejectionNarrative(
   ];
 
   const arabicLines = [
-    "",
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
     "2. و��يل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
