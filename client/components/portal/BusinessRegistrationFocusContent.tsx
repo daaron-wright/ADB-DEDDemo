@@ -157,7 +157,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضات ثقافية.',
-        "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنج��يزية أو العربية.",
+        "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العربية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التح��يل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
@@ -673,7 +673,7 @@ const AGENT_OUTCOME_META: Record<
 const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
   failed: ["fail", "failed", "ف����ل"],
-  pending: ["pending", "awaiting", "ق��د الانتظار"],
+  pending: ["pending", "awaiting", "ق����د الانتظار"],
   rejected: ["reject", "rejected", "مرف����"],
   info: [
     "guidance",
@@ -2534,6 +2534,7 @@ const forceActivityMismatchRef = React.useRef(false);
     isNameAvailable,
     showVerificationSteps,
     stageStatuses,
+    agentOutcomeByStage,
   ]);
 
   const stageTimeline = React.useMemo(
