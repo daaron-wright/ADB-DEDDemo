@@ -162,7 +162,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '4. وكيل التح��يل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
         "6. محرك القرار النهائي → بانتظار ال��راجعة اليدوية. يرجى اختيار نشاط ��توافق أو طلب تأكيد من المراجع.",
-        '7. وكيل اقتراح الاسم (الاسم المر��وض) → إرشاد. الب��ائل المقترحة: "Bait El Khetyar Restaurant" ��"Khetyar Dining House".',
+        '7. وكيل اقتراح الاسم (الاسم المر����وض) → إرشاد. الب��ائل المقترحة: "Bait El Khetyar Restaurant" ��"Khetyar Dining House".',
       ].join("\n"),
     },
     rawDetail: {
@@ -195,7 +195,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحو���ل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق ا��نشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر���ّص.",
-        "• مح��ك القر��ر ا������هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية، النتيجة: 0.98).",
+        "• مح��ك القر��ر ا������هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية�� النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -458,7 +458,7 @@ function buildSimilarityConflictNarrative(
   ];
 
   const arabicLines = [
-    `1. مدقق النص / التدقيق ال��ملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
+    `1. مدقق ��لنص / التدقيق ال��ملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت م��ابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل ا��تحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
@@ -491,7 +491,7 @@ function buildFinalDecisionRejectionNarrative(
   ];
 
   const arabicLines = [
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
+    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اع��ماد "${formattedAttempt}" دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
@@ -674,7 +674,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
   failed: ["fail", "failed", "ف����ل"],
   pending: ["pending", "awaiting", "ق��د الانتظار"],
-  rejected: ["reject", "rejected", "مرفو��"],
+  rejected: ["reject", "rejected", "مرف����"],
   info: [
     "guidance",
     "suggested alternatives",
@@ -683,7 +683,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
     "لا حاجة لبدائل",
     "إرشاد",
   ],
-  escalated: ["escalated", "escalation", "تصعي��"],
+  escalated: ["escalated", "escalation", "تصع����"],
 };
 
 const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
@@ -1108,7 +1108,7 @@ const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
   ["restaurant", "مطعم"],
   ["bait", "بيت"],
   ["el", "ال"],
-  ["al", "ال"],
+  ["al", "ا��"],
   ["khetyar", "الختيا��"],
 ]);
 
@@ -1690,7 +1690,7 @@ const VerificationStepItem = React.forwardRef<
         <div className="rounded-xl bg-[#0f766e]/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
           {helperMessage}
         </div>
-        {isFailed && step.failureDetail ? (
+        {isFailed && hasFailureNarrative ? (
           <div className="space-y-3">
             <button
               type="button"
