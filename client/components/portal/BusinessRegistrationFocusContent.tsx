@@ -153,7 +153,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
-        "2. وكيل الكلمات المحظورة → ناجح. لم ��تم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+        "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه ��� فشل. تمت مطابقة الاسم المسجل "بيت الختيار" بد��جة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل ا��تعارض قبل تأكيد النسخة العربية.",
         "5. وكيل توافق النشاط → إرشاد. ننتظر اسمً�� تجاريًا فريدًا لموازنته مع النشاط المرخ��ص.",
@@ -279,8 +279,8 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• و��يل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
         "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا����. تمت المصادقة على التحو���ل «مطعم مروة» وفق القواعد الصوتية.",
-        "• وكيل توافق ا��نشاط → ناجح. الاسم يتوافق مع نشاط ال��طعم المر���ّص.",
-        "• مح��ك القر��ر ا������هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا���ثقة: عالية�� النتيجة: 0.98).",
+        "• وكيل توافق ا��نشاط ��� ناجح. الاسم يتوافق مع نشاط ال��طعم المر���ّص.",
+        "• مح��ك القر��ر ا������هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية�� النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبد��ئل�� الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -597,7 +597,7 @@ function buildFinalDecisionRejectionNarrative(
   const formattedAttempt = formatTradeName(attemptedName) || attemptedName;
 
   const englishLines = [
-    `1. Text normalizer / spell checker / cultural checker �� PASSED. "${formattedAttempt}" cleared text validation with zero violations.`,
+    `1. Text normalizer / spell checker / cultural checker — PASSED. "${formattedAttempt}" cleared text validation with zero violations.`,
     "2. Prohibited words agent — PASSED. No restricted vocabulary detected across English or Arabic drafts.",
     "3. Similarity agent — PASSED. Polaris confirmed this variation is unique in the registry.",
     "4. Transliteration agent — PASSED. Arabic counterpart stays synchronized with phonetic rules.",
@@ -1923,16 +1923,37 @@ const VerificationStepItem = React.forwardRef<
             ) : null}
           </div>
         ) : null}
-        {isCompleted && hasSuccessNarrative
-          ? renderAgentNarrative(
-              step.successDetail,
-              "success",
-              undefined,
-              step.title === "Full decision flow"
-                ? { rawDetail: step.rawDetail }
-                : { focusTitle: step.title, rawDetail: step.rawDetail },
-            )
-          : null}
+        {isCompleted && hasSuccessNarrative ? (
+          <div className="space-y-3">
+            <button
+              type="button"
+              onClick={() => setShowSuccessNarrative((previous) => !previous)}
+              className="flex w-full items-center justify-between gap-2 rounded-2xl border border-[#94d2c2] bg-[#dff2ec]/70 px-4 py-3 text-left text-sm font-semibold text-[#0f766e] shadow-[0_18px_40px_-34px_rgba(15,118,110,0.35)] transition hover:border-[#0f766e]/45 hover:bg-[#dff2ec]/90"
+            >
+              <span>View agent reasoning</span>
+              <ChevronDown
+                className={cn(
+                  "h-4 w-4 text-[#0f766e] transition-transform",
+                  showSuccessNarrative && "rotate-180",
+                )}
+              />
+            </button>
+            {showSuccessNarrative ? (
+              renderAgentNarrative(
+                step.successDetail,
+                "success",
+                undefined,
+                step.title === "Full decision flow"
+                  ? { rawDetail: step.rawDetail }
+                  : { focusTitle: step.title, rawDetail: step.rawDetail },
+              )
+            ) : (
+              <p className="text-xs text-slate-500">
+                Tap to review the agent transcript for this completed step.
+              </p>
+            )}
+          </div>
+        ) : null}
       </div>
     </div>
   );
