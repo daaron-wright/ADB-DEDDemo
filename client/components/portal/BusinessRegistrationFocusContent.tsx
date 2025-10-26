@@ -116,15 +116,18 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
     },
     rawDetail: {
-      text: "Bait El Khetyar",
-      language: "english",
-      nearest_match: {
-        name: "Bait Al Khetyar",
-        registry_id: "TL-58291",
+      success: true,
+      message: "Registry comparison cleared.",
+      data: {
+        text: "Marwa Restaurant",
+        language: "english",
+        nearest_match: null,
+        similarity_score: 0.12,
+        conflict_threshold: 0.75,
+        validation_passed: true,
+        confidence_score: 0.92,
+        method: "Registry vector search + LLM acoustic delta",
       },
-      similarity_score: 0.81,
-      conflict_threshold: 0.75,
-      conflict_code: "SIMILARITY_CONFLICT",
     },
   },
   {
@@ -158,7 +161,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضات ثقافية.',
         "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العربية.",
-        "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
+        "3. وكيل الت��ابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التح��يل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
         "6. محرك القرار النهائي → بانتظار ال��راجعة اليدوية. يرجى اختيار نشاط ��توافق أو طلب تأكيد من المراجع.",
@@ -191,7 +194,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
-        "• و��يل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
+        "• و��يل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات ����ظورة في النسختين العربية والإنج��يزية.",
         "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحو���ل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق ا��نشاط → ناجح. الاسم يتوافق مع نشاط ال��طعم المر���ّص.",
@@ -1082,7 +1085,7 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["n", "ن"],
   ["o", "و"],
   ["p", "ب"],
-  ["q", "ق"],
+  ["q", "��"],
   ["r", "ر"],
   ["s", "س"],
   ["t", "ت"],
@@ -3391,7 +3394,7 @@ const forceActivityMismatchRef = React.useRef(false);
                 </h3>
                 <p className="text-sm text-slate-600">
                   Review the current trade name status and run the automated
-                  verification when you’re ready to move forward.
+                  verification when you��re ready to move forward.
                 </p>
               </div>
               <p className="text-sm text-slate-600">
