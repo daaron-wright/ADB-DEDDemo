@@ -496,7 +496,7 @@ function buildFinalDecisionRejectionNarrative(
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
-    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الر��ض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإجراء.",
+    "6. محرك القرار النهائي → ��م التصعيد للمراجعة. لسنا واثقين من الر��ض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإجراء.",
     "7. وكيل اقتراح الاسم → إرشاد. ج��ز المبررات الداعمة قبل التصعيد.",
   ];
 
@@ -1396,134 +1396,171 @@ const VerificationStepItem = React.forwardRef<
   );
 
   const renderAgentNarrative = (
-  detail: string | LocalizedAgentNarrative,
-  variant: "failed" | "success",
-  narrativeOptions?: {
-    activityOptions?: ActivityOption[];
-    selectedActivityId?: string | null;
-    onActivitySelect?: (activityId: string) => void;
-  },
-  displayOptions?: {
-    focusTitle?: string;
-  },
-) => {
-  const styles = detailVariantStyles[variant];
-  const narrativeText = extractEnglishNarrative(detail);
+    detail: string | LocalizedAgentNarrative,
+    variant: "failed" | "success",
+    narrativeOptions?: {
+      activityOptions?: ActivityOption[];
+      selectedActivityId?: string | null;
+      onActivitySelect?: (activityId: string) => void;
+    },
+    displayOptions?: {
+      focusTitle?: string;
+      rawDetail?: AgentRawDetail;
+    },
+  ) => {
+    const styles = detailVariantStyles[variant];
+    const narrativeText = extractEnglishNarrative(detail);
 
-  const { activityOptions, selectedActivityId, onActivitySelect } =
-    narrativeOptions ?? {};
-  const focusTitleNormalized = displayOptions?.focusTitle
-    ? displayOptions.focusTitle.trim().toLowerCase()
-    : null;
+    const { activityOptions, selectedActivityId, onActivitySelect } =
+      narrativeOptions ?? {};
+    const focusTitleNormalized = displayOptions?.focusTitle
+      ? displayOptions.focusTitle.trim().toLowerCase()
+      : null;
+    const rawDetail = displayOptions?.rawDetail;
+    const hasRawDetail =
+      typeof rawDetail === "string"
+        ? rawDetail.trim().length > 0
+        : Boolean(rawDetail);
 
-  const parsedNarrative = narrativeText ? parseAgentNarrative(narrativeText) : null;
+    const parsedNarrative = narrativeText ? parseAgentNarrative(narrativeText) : null;
+    const hasNarrative = Boolean(parsedNarrative);
 
-  if (!parsedNarrative) {
-    return null;
-  }
-
-  const agentResponsesLabel = displayOptions?.focusTitle
-    ? `Agent response — ${displayOptions.focusTitle}`
-    : "Agent responses";
-
-  const baseline = parsedNarrative.responses;
-
-  const responsesToRender = (() => {
-    if (!focusTitleNormalized) {
-      return baseline;
+    if (!hasNarrative && !hasRawDetail) {
+      return null;
     }
 
-    const filtered = baseline.filter((response) => {
-      const normalizedTitle = response.title.toLowerCase();
-      return (
-        normalizedTitle.includes(focusTitleNormalized) ||
-        focusTitleNormalized.includes(normalizedTitle) ||
-        (focusTitleNormalized.includes("final decision") &&
-          normalizedTitle.includes("final decision"))
-      );
-    });
+    const agentResponsesLabel = displayOptions?.focusTitle
+      ? `Agent response — ${displayOptions.focusTitle}`
+      : "Agent responses";
 
-    return filtered.length > 0 ? filtered : baseline;
-  })();
+    const baseline = parsedNarrative?.responses ?? [];
 
-  return (
+    const responsesToRender = (() => {
+      if (!parsedNarrative) {
+        return [];
+      }
+
+      if (!focusTitleNormalized) {
+        return baseline;
+      }
+
+      const filtered = baseline.filter((response) => {
+        const normalizedTitle = response.title.toLowerCase();
+        return (
+          normalizedTitle.includes(focusTitleNormalized) ||
+          focusTitleNormalized.includes(normalizedTitle) ||
+          (focusTitleNormalized.includes("final decision") &&
+            normalizedTitle.includes("final decision"))
+        );
+      });
+
+      return filtered.length > 0 ? filtered : baseline;
+    })();
+
+    const formattedRawDetail = React.useMemo(() => {
+      if (!hasRawDetail) {
+        return "";
+      }
+      if (typeof rawDetail === "string") {
+        return rawDetail.trim();
+      }
+      try {
+        return JSON.stringify(rawDetail ?? {}, null, 2);
+      } catch (error) {
+        return String(rawDetail);
+      }
+    }, [hasRawDetail, rawDetail]);
+
+    return (
       <div className={cn("space-y-2 rounded-xl", styles.container)}>
         <span className={styles.label}>{agentResponsesLabel}</span>
-        {parsedNarrative.heading ? (
+        {parsedNarrative?.heading ? (
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
             {parsedNarrative.heading}
           </p>
         ) : null}
-        <div className="space-y-2">
-          {responsesToRender.map((item) => {
-            const outcomeMeta = AGENT_OUTCOME_META[item.status];
-            const normalizedTitle = item.title.toLowerCase();
-            const shouldShowActivitySelector =
-              variant === "failed" &&
-              activityOptions &&
-              activityOptions.length > 0 &&
-              normalizedTitle.includes("activity compatibility agent");
+        {parsedNarrative ? (
+          <div className="space-y-2">
+            {responsesToRender.map((item) => {
+              const outcomeMeta = AGENT_OUTCOME_META[item.status];
+              const normalizedTitle = item.title.toLowerCase();
+              const shouldShowActivitySelector =
+                variant === "failed" &&
+                activityOptions &&
+                activityOptions.length > 0 &&
+                normalizedTitle.includes("activity compatibility agent");
 
-            return (
-              <div
-                key={`${item.order}-${item.title}`}
-                className="flex flex-col gap-2 rounded-2xl border border-[#e6f2ed] bg-white/80 p-3 shadow-sm"
-              >
-                <div className="flex items-start gap-3">
-                  <span
-                    className={cn(
-                      "flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold",
-                      outcomeMeta.indicatorClassName,
-                    )}
-                  >
-                    {item.order}
-                  </span>
-                  <div className="flex flex-1 flex-col gap-2">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <p className="text-sm font-semibold text-slate-900">
-                        {item.title}
-                      </p>
-                      <Badge
-                        className={cn(
-                          "rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
-                          outcomeMeta.badgeClassName,
-                        )}
-                      >
-                        {outcomeMeta.label}
-                      </Badge>
-                    </div>
-                    {item.detail ? (
-                      <p className="text-sm text-slate-600">{item.detail}</p>
-                    ) : null}
-                  </div>
-                </div>
-                {shouldShowActivitySelector ? (
-                  <div className="flex flex-wrap gap-2">
-                    {activityOptions?.map((option) => {
-                      const isActive = option.id === selectedActivityId;
-                      return (
-                        <Button
-                          key={option.id}
-                          type="button"
-                          variant="outline"
-                          onClick={() => onActivitySelect?.(option.id)}
+              return (
+                <div
+                  key={`${item.order}-${item.title}`}
+                  className="flex flex-col gap-2 rounded-2xl border border-[#e6f2ed] bg-white/80 p-3 shadow-sm"
+                >
+                  <div className="flex items-start gap-3">
+                    <span
+                      className={cn(
+                        "flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold",
+                        outcomeMeta.indicatorClassName,
+                      )}
+                    >
+                      {item.order}
+                    </span>
+                    <div className="flex flex-1 flex-col gap-2">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <p className="text-sm font-semibold text-slate-900">
+                          {item.title}
+                        </p>
+                        <Badge
                           className={cn(
-                            "rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition",
-                            isActive
-                              ? "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_18px_44px_-34px_rgba(15,118,110,0.45)]"
-                              : "border-[#0f766e]/30 text-[#0f766e] hover:bg-[#0f766e]/10",
+                            "rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
+                            outcomeMeta.badgeClassName,
                           )}
                         >
-                          {option.label}
-                        </Button>
-                      );
-                    })}
+                          {outcomeMeta.label}
+                        </Badge>
+                      </div>
+                      {item.detail ? (
+                        <p className="text-sm text-slate-600">{item.detail}</p>
+                      ) : null}
+                    </div>
                   </div>
-                ) : null}
-              </div>
-            );
-          })}
-        </div>
+                  {shouldShowActivitySelector ? (
+                    <div className="flex flex-wrap gap-2">
+                      {activityOptions?.map((option) => {
+                        const isActive = option.id === selectedActivityId;
+                        return (
+                          <Button
+                            key={option.id}
+                            type="button"
+                            variant="outline"
+                            onClick={() => onActivitySelect?.(option.id)}
+                            className={cn(
+                              "rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition",
+                              isActive
+                                ? "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_18px_44px_-34px_rgba(15,118,110,0.45)]"
+                                : "border-[#0f766e]/30 text-[#0f766e] hover:bg-[#0f766e]/10",
+                            )}
+                          >
+                            {option.label}
+                          </Button>
+                        );
+                      })}
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
+        {hasRawDetail ? (
+          <div className="rounded-2xl bg-slate-950/80 p-3 text-xs text-slate-100 shadow-inner">
+            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-300">
+              Raw agent payload
+            </p>
+            <pre className="whitespace-pre-wrap break-words font-mono text-[11px] leading-relaxed">
+              {formattedRawDetail}
+            </pre>
+          </div>
+        ) : null}
       </div>
     );
   };
