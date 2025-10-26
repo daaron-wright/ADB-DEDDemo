@@ -94,7 +94,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
         "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
-        '3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "بيت الختيا��" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
+        '3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
         "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا لموازنته مع النشاط المرخ��ص.",
         "6. محرك القرار النهائي → مرفوض. مرجع التعارض SIMILARITY_CONFLICT؛ يُرجى اقتراح اسم مختلف.",
@@ -402,11 +402,11 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     `1. مدقق النص / التدقيق ال��ملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد ��فردات محظورة في النسختين العربية أو الإنجليزية.",
+    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل ا��تحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
-    `6. محرك القرار النهائي → مرفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتراح اسم مختلف.`,
+    `6. محرك القرار النهائي → مرفوض. ��رجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتراح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. توصي Polaris بإضافة توصيف خاص أو جغرافي.",
@@ -440,7 +440,7 @@ function buildFinalDecisionRejectionNarrative(
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الرفض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإجراء.",
-    "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
+    "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة ق��ل التصعيد.",
   ];
 
   return {
@@ -615,7 +615,7 @@ const AGENT_OUTCOME_META: Record<
 
 const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
-  failed: ["fail", "failed", "ف����ل"],
+  failed: ["fail", "failed", "ف�����ل"],
   pending: ["pending", "awaiting", "ق��د الانتظار"],
   rejected: ["reject", "rejected", "مرفو��"],
   info: [
@@ -1664,6 +1664,51 @@ export function BusinessRegistrationFocusContent({
   onPolarisPrompt,
 }: BusinessRegistrationFocusContentProps) {
   const { toast } = useToast();
+  type ToastHandle = ReturnType<typeof toast>;
+  const thinkingToastRef = React.useRef<ToastHandle | null>(null);
+
+  const updateThinkingToast = React.useCallback(
+    (stageIndex: number, phase: "start" | "complete" | "failure" = "start") => {
+      const messages = TRADE_NAME_STAGE_MESSAGES[stageIndex];
+      const description = messages
+        ? phase === "failure"
+          ? messages.failureDescription
+          : phase === "complete"
+            ? messages.completeDescription
+            : messages.startDescription
+        : "Polaris is reviewing the trade name.";
+      const variant = phase === "failure" ? "destructive" : "default";
+
+      if (thinkingToastRef.current) {
+        thinkingToastRef.current.update({
+          id: thinkingToastRef.current.id,
+          title: "Thinking",
+          description,
+          variant,
+          duration: THINKING_TOAST_DURATION_MS,
+          open: true,
+        });
+        return;
+      }
+
+      thinkingToastRef.current = toast({
+        title: "Thinking",
+        description,
+        variant,
+        duration: THINKING_TOAST_DURATION_MS,
+      });
+    },
+    [toast],
+  );
+
+  const clearThinkingToast = React.useCallback(() => {
+    if (!thinkingToastRef.current) {
+      return;
+    }
+    thinkingToastRef.current.dismiss();
+    thinkingToastRef.current = null;
+  }, []);
+
   const enqueueToast = React.useCallback(
     (options: Parameters<typeof toast>[0]) => {
       if (typeof window === "undefined") {
