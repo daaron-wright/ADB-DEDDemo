@@ -88,7 +88,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "3. Similarity agent — PASSED. Registry lookup returned zero conflicting matches.",
         "4. Transliteration agent — PASSED. Buckwalter phonetic check confirmed the Arabic rendering with 0.95 confidence.",
         "5. Activity compatibility agent — PASSED. Licensed Food & Beverage activity remains aligned.",
-        "6. Final decision engine — REJECTED. Standard notice RTN-08: this trade name is already assigned; please submit an alternative.",
+        "6. Final decision engine �� REJECTED. Standard notice RTN-08: this trade name is already assigned; please submit an alternative.",
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Recommended option: "Khetyar\'s Courtyard".',
       ].join("\n"),
       ar: [
@@ -1200,19 +1200,7 @@ function clampProgress(value: number) {
   return Math.min(Math.max(value, 0), 100);
 }
 
-function VerificationStepItem({
-  step,
-  index,
-  totalSteps,
-  onEscalate,
-  isEscalated = false,
-  activityOptions,
-  selectedActivityId,
-  onActivitySelect,
-  onPolarisPrompt,
-  showFinalDecisionEscalationControl = false,
-  shouldAutoOpenNarrative = false,
-}: {
+type VerificationStepItemProps = {
   step: TradeNameVerificationStepWithStatus;
   index: number;
   totalSteps: number;
@@ -1224,7 +1212,29 @@ function VerificationStepItem({
   onPolarisPrompt?: (prompt: string, options?: { submit?: boolean }) => void;
   showFinalDecisionEscalationControl?: boolean;
   shouldAutoOpenNarrative?: boolean;
-}) {
+  sectionId?: string;
+};
+
+const VerificationStepItem = React.forwardRef<
+  HTMLDivElement,
+  VerificationStepItemProps
+>(function VerificationStepItem(
+  {
+    step,
+    index,
+    totalSteps,
+    onEscalate,
+    isEscalated = false,
+    activityOptions,
+    selectedActivityId,
+    onActivitySelect,
+    onPolarisPrompt,
+    showFinalDecisionEscalationControl = false,
+    shouldAutoOpenNarrative = false,
+    sectionId,
+  },
+  ref,
+) {
   const isFailed = step.status === "failed";
   const isCompleted = step.status === "completed";
   const isCurrent = step.status === "current";
@@ -1474,7 +1484,12 @@ function VerificationStepItem({
   }, [step.failureDetail, step.title]);
 
   return (
-    <div className="space-y-3 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4 shadow-[0_20px_48px_-36px_rgba(15,23,42,0.25)]">
+    <div
+      ref={ref}
+      id={sectionId}
+      tabIndex={-1}
+      className="space-y-3 rounded-2xl border border-[#e6f2ed] bg-white/95 p-4 shadow-[0_20px_48px_-36px_rgba(15,23,42,0.25)]"
+    >
       <div className="flex flex-col gap-3">
         <div className="flex w-full items-center gap-3">
           <span className={indicatorClasses} aria-hidden>
@@ -1593,7 +1608,7 @@ function VerificationStepItem({
       </div>
     </div>
   );
-}
+});
 
 export function BusinessRegistrationFocusContent({
   journeyNumber = "0987654321",
