@@ -94,7 +94,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا����نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور��� في النسختين ��لعربية أو الإنجليزية.",
-        "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
+        "3. وكيل التشابه → ناجح. لم يتم العثور ع��ى أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
         "6. محرك القرار النهائي �� مرفو��. إشعار RTN-08 ال��عياري: تم تسجيل هذا ال��سم التجاري مسبق��ا�� يُرجى ��قتراح بدي��.",
@@ -130,7 +130,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• وكيل التحويل الصوتي → ناجح. تم التح���ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��ل�� م��هوم تراثي للبيع بالتجزئة ��ليس نشاط مطعم ومشروبات الحالي.",
         "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشاط متواف��.",
-        '• وكيل اقتراح الاسم (الاسم ا�����رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
+        '• وكيل اقتراح الاسم (الاسم ال���رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
   },
@@ -150,9 +150,9 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "7. Name suggester agent (rejected trade name) — PASSED. No alternatives required; current name authorized.",
       ].join("\n"),
       ar: [
-        '• مدقق النص / التدقي�� الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
+        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
-        "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
+        "• وكيل التشابه → ناجح. أقرب تشابه ف�� السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
         "• مح��ك القر��ر ال��هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
@@ -403,7 +403,7 @@ function buildSimilarityConflictNarrative(
     `3. و���يل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل ال��حويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق ال��ش��ط → غير مقيم. في انتظار اسم ��جاري فريد.",
-    `6. محرك القرار النهائي → مرفوض. مرج�� ال��عا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
+    `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
     hasIteration
       ? `7. ��كيل اقتراح الاسم (الاسم المرفوض) → إ��شاد. البديل المق��رح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (الاس�� المرفوض) �� إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
@@ -437,7 +437,7 @@ function buildFinalDecisionRejectionNarrative(
     "4. وكيل التحويل الصوتي → ناجح. النسخة الع��بية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → ��م التصعيد للمراجعة. لست واثقًا من الرفض الآل�� لذلك تم رفعه لمراجع دائرة التنمية الاقت��ادية للتوجيه.",
-    "7. وكيل اقتراح الاسم → إرشاد. جهز المبر��ات الداعمة قبل التصعيد.",
+    "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
   ];
 
   return {
@@ -612,7 +612,7 @@ const AGENT_OUTCOME_META: Record<
 
 const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
-  failed: ["fail", "failed", "ف����ل"],
+  failed: ["fail", "failed", "ف��ل"],
   pending: ["pending", "awaiting", "قيد الانتظار"],
   rejected: ["reject", "rejected", "مرفو��"],
   info: [
@@ -959,7 +959,7 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["d", "د"],
   ["e", "ي"],
   ["f", "ف"],
-  ["g", "ج"],
+  ["g", "��"],
   ["h", "ه"],
   ["i", "ي"],
   ["j", "ج"],
@@ -991,7 +991,7 @@ const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
 
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
   ["marwa", "مر��ة"],
-  ["marwah", "مرو��"],
+  ["marwah", "مروة"],
   ["restaurant", "مطعم"],
   ["bait", "بيت"],
   ["el", "ال"],
@@ -2396,17 +2396,34 @@ const forceActivityMismatchRef = React.useRef(false);
             if (iterationSuggestion) {
               setPendingIterationDraft(iterationSuggestion);
             }
-            setStageStatuses((previous) =>
-              previous.map((_, index) => {
-                if (index < DEFAULT_FAILURE_STEP_INDEX) {
-                  return "completed" as TradeNameCheckStatus;
-                }
-                if (index === DEFAULT_FAILURE_STEP_INDEX) {
-                  return "failed" as TradeNameCheckStatus;
-                }
-                return "pending" as TradeNameCheckStatus;
-              }),
+            const conflictUpdated = updateStagesFromNarrative(
+              conflictNarrative,
+              "current",
             );
+            if (!conflictUpdated) {
+              setStageStatuses((previous) =>
+                previous.map((_, index) => {
+                  if (index < DEFAULT_FAILURE_STEP_INDEX) {
+                    return "completed" as TradeNameCheckStatus;
+                  }
+                  if (index === DEFAULT_FAILURE_STEP_INDEX) {
+                    return "failed" as TradeNameCheckStatus;
+                  }
+                  return "current" as TradeNameCheckStatus;
+                }),
+              );
+              setAgentOutcomeByStage((previous) =>
+                previous.map((outcome, index) => {
+                  if (index < DEFAULT_FAILURE_STEP_INDEX) {
+                    return "passed" as AgentOutcome;
+                  }
+                  if (index === DEFAULT_FAILURE_STEP_INDEX) {
+                    return "failed" as AgentOutcome;
+                  }
+                  return outcome;
+                }),
+              );
+            }
             for (let index = 0; index < DEFAULT_FAILURE_STEP_INDEX; index += 1) {
               announceStageComplete(index);
             }
