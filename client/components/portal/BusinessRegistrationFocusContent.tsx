@@ -506,7 +506,7 @@ const TRADE_NAME_STAGE_MESSAGES: ReadonlyArray<{
     friendlyDetail:
       "Polaris reviews every agent signal and writes a single go / no-go recommendation with reasons.",
     startTitle: "Bringing the results together",
-    startDescription: "Polaris is combining every agent’s verdict.",
+    startDescription: "Polaris is combining every agent��s verdict.",
     completeTitle: "All checks passed",
     completeDescription: "You’re clear to reserve the trade name.",
     failureTitle: "Needs a reviewer",
@@ -3527,6 +3527,21 @@ const forceActivityMismatchRef = React.useRef(false);
       }
 
       const formattedEnglish = formatTradeName(suggestion.english);
+      if (
+        formattedEnglish === FIXED_SIMILARITY_ITERATION_NAME &&
+        !isHeritageIterationAuthorized
+      ) {
+        setTradeNameGuidance(
+          'Send "Polaris, let\'s rerun the trade name checks on "Bait El Khetyar Heritage Kitchen" so we avoid the similarity conflict with "Bait El Khetyar"." before applying this variation.',
+        );
+        enqueueToast({
+          title: "Hold on",
+          description:
+            'Trigger that dialogue with Polaris before using "Bait El Khetyar Heritage Kitchen".',
+        });
+        return;
+      }
+
       const transliteratedArabic = formatArabicName(
         transliterateToArabic(formattedEnglish),
       );
