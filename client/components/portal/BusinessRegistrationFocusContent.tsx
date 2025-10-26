@@ -566,7 +566,7 @@ function buildSimilarityConflictNarrative(
     "2. Prohibited words agent — PASSED. No restricted vocabulary detected across English or Arabic drafts.",
     `3. Similarity agent — FAILED. Matched existing trade name "${PRIMARY_TRADE_NAME_EN}" with similarity score ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. Transliteration agent — GUIDANCE. Conflict must resolve before Arabic confirmation.",
-    "5. Activity compatibility agent ����� GUIDANCE. Waiting on a unique trade name.",
+    "5. Activity compatibility agent — GUIDANCE. Waiting on a unique trade name.",
     `6. Final decision engine — REJECTED. Conflict reference ${SIMILARITY_CONFLICT_REFERENCE}; submit a differentiated variation.`,
     hasIteration
       ? `7. Name suggester agent (rejected trade name) — GUIDANCE. Draft alternative: "${sanitizedIteration}".`
@@ -610,7 +610,7 @@ function buildFinalDecisionRejectionNarrative(
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اع��ماد "${formattedAttempt}" دون مخالفات.`,
     "2. وكيل ا��كلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
-    "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
+    "4. وكيل التحويل الصوتي → ناجح. ا��نسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحق��ً�� يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من ال����ض الآلي، لذلك تم رفعه لمراجع دائرة التنم��ة ا��اق��صادية لتحديد الإجراء.",
     "7. وكيل اقتراح الاسم → إرشاد. ج��ز المبررات الدا��مة قبل التصعيد.",
