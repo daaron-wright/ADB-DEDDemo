@@ -235,7 +235,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '4. وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → ف��ل. الاسم يوحي بمفهوم تراث�� للبيع بالتجزئة وليس نشاط المطعم الحالي.",
         "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من المراجع.",
-        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البدائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
+        '7. وكيل اقتراح الاس�� (الاسم المرفوض) → إرشاد. البدائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
     rawDetailSuccess: {
@@ -277,8 +277,8 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنجليزية.",
-        "• وكيل الت��ابه → ناجح. أقر���� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
-        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق القواعد الصوتية.",
+        "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
+        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مر��ة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخَّص.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
@@ -577,15 +577,15 @@ function buildSimilarityConflictNarrative(
   ];
 
   const arabicLines = [
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
+    `1. مدقق ��لنص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النستين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكي�� توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اق��راح اسم مختلف.`,
     hasIteration
-      ? `7. وكيل اقتراح الاسم (ا��اسم المر��و��) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
-      : "7. وكيل اقتراح الاسم (ال��سم المرفوض) → إرشاد. توصي Polaris بإضافة توصيف خاص أ�� جغرافي.",
+      ? `7. وكيل اقتراح الاسم (ا��اسم المرفو��) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
+      : "7. وكيل اقتراح الاسم (ال��سم المرفوض) → إرشاد. توصي Polaris بإضافة توصيف خا�� أ�� جغرافي.",
   ];
 
   return {
@@ -606,7 +606,7 @@ function buildFinalDecisionRejectionNarrative(
     "4. Transliteration agent — PASSED. Arabic counterpart stays synchronized with phonetic rules.",
     "5. Activity compatibility agent — GUIDANCE. Heritage positioning requires manual validation against the licensed activity plan.",
     "6. Final decision engine — ESCALATED. Not super confident in the automated rejection, so a DED reviewer will advise next steps.",
-    "7. Name suggester agent �� GUIDANCE. Prepare your supporting rationale before escalating to the reviewer.",
+    "7. Name suggester agent — GUIDANCE. Prepare your supporting rationale before escalating to the reviewer.",
   ];
 
   const arabicLines = [
@@ -2150,6 +2150,8 @@ const forceActivityMismatchRef = React.useRef(false);
   const [arabicDraft, setArabicDraft] = React.useState("");
   const [isArabicSynced, setIsArabicSynced] = React.useState(false);
   const [isEditing, setIsEditing] = React.useState(true);
+  const [isHeritageIterationAuthorized, setIsHeritageIterationAuthorized] =
+    React.useState(false);
 
   React.useEffect(() => {
     if (englishDraft.trim().length > 0) {
