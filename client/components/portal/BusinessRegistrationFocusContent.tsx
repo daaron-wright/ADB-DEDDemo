@@ -153,8 +153,8 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
-        "2. وكيل الكلمات المحظورة → ناجح. لم ��تم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
-        '3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "بيت الختيار" بد��جة تشابه 0.81 (SIMILARITY_CONFLICT).',
+        "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+        '3. وكيل التشابه ��� فشل. تمت مطابقة الاسم المسجل "بيت الختيار" بد��جة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل ا��تعارض قبل تأكيد النسخة العربية.",
         "5. وكيل توافق النشاط → إرشاد. ننتظر اسمً�� تجاريًا فريدًا لموازنته مع النشاط المرخ��ص.",
         "6. محرك القرار النهائي → مرفوض. مرجع التعارض SIMILARITY_CONFLICT؛ يُرجى اقتراح اسم مختلف.",
@@ -230,7 +230,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضات ثقافية.',
-        "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العربية.",
+        "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين ا��إنجليزية أو العربية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التح��يل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
@@ -281,7 +281,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحو���ل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق ا��نشاط → ناجح. الاسم يتوافق مع نشاط ال��طعم المر���ّص.",
         "• مح��ك القر��ر ا������هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية�� النتيجة: 0.98).",
-        "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
+        "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبد��ئل�� الاسم الحالي معتمد.",
       ].join("\n"),
     },
     rawDetailSuccess: {
@@ -611,7 +611,7 @@ function buildFinalDecisionRejectionNarrative(
     "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
-    "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
+    "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققً�� يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الر��ض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإجراء.",
     "7. وكيل اقتراح الاسم → إرشاد. ج��ز المبررات الداعمة قبل التصعيد.",
   ];
@@ -812,7 +812,7 @@ const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
     "suggested alternatives",
     "no alternatives required",
     "اقتراح البد���ئل",
-    "لا حاجة لبدائل",
+    "ل�� حاجة لبدائل",
     "إرشاد",
   ],
   escalated: ["escalated", "escalation", "تصعيد"],
@@ -2555,12 +2555,18 @@ const forceActivityMismatchRef = React.useRef(false);
     ? "Full agent decision flow with localized transcripts."
     : "Run automated checks to populate the decision flow.";
 
-  const finalDecisionSuccessDetail = React.useMemo(
+  const finalDecisionStepDefinition = React.useMemo(
     () =>
-      TRADE_NAME_CHECKS.find((step) => step.title === "Final decision engine")
-        ?.successDetail ?? null,
+      TRADE_NAME_CHECKS.find((step) => step.title === "Final decision engine") ??
+      null,
     [],
   );
+  const finalDecisionSuccessDetail =
+    finalDecisionStepDefinition?.successDetail ?? null;
+  const finalDecisionSuccessRawDetail =
+    finalDecisionStepDefinition?.rawDetailSuccess ?? null;
+  const finalDecisionFailureRawDetail =
+    finalDecisionStepDefinition?.rawDetailFailure ?? null;
 
   const automationSteps = React.useMemo<
     TradeNameVerificationStepWithStatus[]
