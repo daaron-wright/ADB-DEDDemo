@@ -128,7 +128,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العربية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
-        "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
+        "5. وكيل توافق ا��نشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
         "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من المراجع.",
         '7. وكيل اقتراح الاسم (الاسم المر��وض) → إرشاد. الب��ائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
@@ -155,7 +155,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
-        "• مح��ك القر��ر ال��هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية، النتيجة: 0.98).",
+        "• مح��ك القر��ر ال��هائي → معت��د ��تاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية، النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -406,7 +406,7 @@ function buildSimilarityConflictNarrative(
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل ا��تحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
-    `6. محرك القرار النهائي → مرفوض. ��رجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتراح اسم مختلف.`,
+    `6. محرك القرار النهائي → مرفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتراح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. توصي Polaris بإضافة توصيف خاص أو جغرافي.",
@@ -440,7 +440,7 @@ function buildFinalDecisionRejectionNarrative(
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الرفض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإجراء.",
-    "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة ق��ل التصعيد.",
+    "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
   ];
 
   return {
@@ -615,7 +615,7 @@ const AGENT_OUTCOME_META: Record<
 
 const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
-  failed: ["fail", "failed", "ف�����ل"],
+  failed: ["fail", "failed", "ف����ل"],
   pending: ["pending", "awaiting", "ق��د الانتظار"],
   rejected: ["reject", "rejected", "مرفو��"],
   info: [
@@ -1878,12 +1878,9 @@ const forceActivityMismatchRef = React.useRef(false);
       }
 
       tracker.started.add(index);
-      enqueueToast({
-        title: messages.startTitle,
-        description: messages.startDescription,
-      });
+      updateThinkingToast(index, "start");
     },
-    [enqueueToast],
+    [updateThinkingToast],
   );
 
   const announceStageComplete = React.useCallback(
@@ -1899,12 +1896,9 @@ const forceActivityMismatchRef = React.useRef(false);
       }
 
       tracker.completed.add(index);
-      enqueueToast({
-        title: messages.completeTitle,
-        description: messages.completeDescription,
-      });
+      updateThinkingToast(index, "complete");
     },
-    [enqueueToast],
+    [updateThinkingToast],
   );
 
   const announceStageFailure = React.useCallback(
@@ -1920,13 +1914,9 @@ const forceActivityMismatchRef = React.useRef(false);
       }
 
       tracker.failed.add(index);
-      enqueueToast({
-        title: messages.failureTitle,
-        description: messages.failureDescription,
-        variant: "destructive",
-      });
+      updateThinkingToast(index, "failure");
     },
-    [enqueueToast],
+    [updateThinkingToast],
   );
 
   const updateStagesFromNarrative = React.useCallback(
