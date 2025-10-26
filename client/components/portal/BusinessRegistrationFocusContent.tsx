@@ -279,7 +279,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظو��ة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنجلي��ية.",
         "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق القواعد الصوتية.",
-        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخَّص.",
+        "• وكيل توافق النشاط → ناجح. ال��سم يتوافق مع نشاط المطعم المرخَّص.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
@@ -506,7 +506,7 @@ const TRADE_NAME_STAGE_MESSAGES: ReadonlyArray<{
     friendlyDetail:
       "Polaris reviews every agent signal and writes a single go / no-go recommendation with reasons.",
     startTitle: "Bringing the results together",
-    startDescription: "Polaris is combining every agent��s verdict.",
+    startDescription: "Polaris is combining every agent’s verdict.",
     completeTitle: "All checks passed",
     completeDescription: "You’re clear to reserve the trade name.",
     failureTitle: "Needs a reviewer",
@@ -3565,7 +3565,14 @@ const forceActivityMismatchRef = React.useRef(false);
       setTradeNameGuidance(null);
       onTradeNameChange?.(formattedEnglish);
     },
-    [isChecking, onTradeNameChange, setActiveSlideId, setTradeNameGuidance],
+    [
+      enqueueToast,
+      isChecking,
+      isHeritageIterationAuthorized,
+      onTradeNameChange,
+      setActiveSlideId,
+      setTradeNameGuidance,
+    ],
   );
 
   const handleSelectApprovedTradeName = React.useCallback(() => {
