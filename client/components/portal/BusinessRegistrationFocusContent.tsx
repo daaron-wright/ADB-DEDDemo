@@ -158,7 +158,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
         "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا ��ريدًا لموازنته مع النشاط المرخَّص.",
         "6. محرك القرار النهائ�� → مرفوض. مرجع التعارض SIMILARITY_CONFLICT؛ يُرجى اقتراح اسم مختلف.",
-        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. الخيار الموصى به: "ساحة الختيار".',
+        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. الخيار الموص�� به: "ساحة الختيار".',
       ].join("\n"),
     },
     rawDetailSuccess: {
@@ -280,7 +280,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخَّص.",
-        "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
+        "�� محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -612,7 +612,7 @@ function buildFinalDecisionRejectionNarrative(
   const arabicLines = [
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتم��د "${formattedAttempt}" دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
-    "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
+    "3. وكيل التش��به → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ��اجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من ��طة النشاط.",
     "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الرفض الآلي، لذلك تم رفعه لمراجع ��ائرة التنمية الاقتصادية لتحديد الإجراء.",
@@ -3353,6 +3353,14 @@ const forceActivityMismatchRef = React.useRef(false);
         return;
       }
 
+      const heritageTriggerMatched =
+        HERITAGE_ITERATION_TRIGGER_START_PATTERN.test(message) &&
+        HERITAGE_ITERATION_TRIGGER_CONFLICT_PATTERN.test(message);
+
+      if (heritageTriggerMatched && !isHeritageIterationAuthorized) {
+        setIsHeritageIterationAuthorized(true);
+      }
+
       const { english, arabic } = deriveTradeNamesFromMessage(message);
       const hasExplicitEnglish = Boolean(english);
       let formattedEnglish = hasExplicitEnglish
@@ -3389,6 +3397,24 @@ const forceActivityMismatchRef = React.useRef(false);
         formattedEnglish = fallbackFormatted || FIXED_SIMILARITY_ITERATION_NAME;
       }
 
+      const iterationIsProtected =
+        formattedEnglish === FIXED_SIMILARITY_ITERATION_NAME;
+      if (
+        iterationIsProtected &&
+        !isHeritageIterationAuthorized &&
+        !heritageTriggerMatched
+      ) {
+        setTradeNameGuidance(
+          'Send "Polaris, let\'s rerun the trade name checks on "Bait El Khetyar Heritage Kitchen" so we avoid the similarity conflict with "Bait El Khetyar"." before applying this variation.',
+        );
+        enqueueToast({
+          title: "Hold on",
+          description:
+            'Trigger that dialogue with Polaris before using "Bait El Khetyar Heritage Kitchen".',
+        });
+        return;
+      }
+
       const arabicSource =
         arabic && arabic.trim().length > 0
           ? arabic
@@ -3404,6 +3430,13 @@ const forceActivityMismatchRef = React.useRef(false);
         .trim()
         .toUpperCase();
       const normalizedExistingArabic = activeArabicTradeName.trim();
+
+      if (
+        normalizedIncomingEnglish === normalizedExistingEnglish &&
+        formattedArabic === normalizedExistingArabic
+      ) {
+        return;
+      }
 
       const succeeded = runChecksWithNames(formattedEnglish, formattedArabic);
 
@@ -3427,10 +3460,13 @@ const forceActivityMismatchRef = React.useRef(false);
     [
       activeArabicTradeName,
       activeEnglishTradeName,
+      englishDraft,
+      enqueueToast,
       isChecking,
+      isHeritageIterationAuthorized,
       runChecksWithNames,
+      setIsHeritageIterationAuthorized,
       setTradeNameGuidance,
-      toast,
     ],
   );
 
