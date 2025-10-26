@@ -129,7 +129,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
-        "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من المراجع.",
+        "6. محرك القرار النهائي → بانتظار المراجعة ال��دوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من المراجع.",
         '7. وكيل اقتراح الاسم (الاسم المر��وض) → إرشاد. الب��ائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -156,7 +156,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحو��ل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
         "• مح��ك القر��ر ا����هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية، النتيجة: 0.98).",
-        "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
+        "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائ���� الاسم الحالي معتمد.",
       ].join("\n"),
     },
   },
@@ -439,7 +439,7 @@ function buildFinalDecisionRejectionNarrative(
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
-    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الرفض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإجراء.",
+    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسن�� واثقين من الرفض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإجراء.",
     "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
   ];
 
@@ -2440,12 +2440,11 @@ const forceActivityMismatchRef = React.useRef(false);
     const totalStages = TRADE_NAME_STAGE_MESSAGES.length;
     const progressStep = totalStages > 0 ? 100 / totalStages : 100;
 
-    const interval = window.setInterval(
-      () => {
-        setAutomationProgress((previous) => {
-        const next = Math.min(previous + progressStep, 100);
+    const interval = window.setInterval(() => {
+      setAutomationProgress((previous) => {
+        const nextValue = Math.min(previous + progressStep, 100);
 
-        if (next >= 100) {
+        if (nextValue >= 100) {
           window.clearInterval(interval);
 
           const evaluationSource =
@@ -2707,9 +2706,9 @@ const forceActivityMismatchRef = React.useRef(false);
           setActiveArabicTradeName(arabicDisplay);
         }
 
-        return next;
+        return nextValue;
       });
-    }, 420);
+    }, STAGE_ADVANCE_INTERVAL_MS);
 
     return () => window.clearInterval(interval);
   }, [
