@@ -84,6 +84,11 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     description:
       "We scan the full name for restricted, sensitive, or reserved wording so nothing slips through.",
     summary: "Keeps forbidden phrases out.",
+    rawDetail: {
+      success: true,
+      violations: [],
+      screened_terms: ["bait", "khetyar"],
+    },
   },
   {
     title: "Similarity agent",
@@ -139,7 +144,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '4. وكيل التح��يل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
         "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من المراجع.",
-        '7. وكيل اقتراح الاسم (الاسم المر��وض) → إرشاد. الب��ائل المق��رحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
+        '7. وكيل اقتراح الاسم (الاسم المر��وض) → إرشاد. الب��ائل المقترحة: "Bait El Khetyar Restaurant" ��"Khetyar Dining House".',
       ].join("\n"),
     },
   },
@@ -450,7 +455,7 @@ function buildFinalDecisionRejectionNarrative(
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الرفض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإجراء.",
-    "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
+    "7. وكيل اقتراح الاسم → إرشاد. ج��ز المبررات الداعمة قبل التصعيد.",
   ];
 
   return {
