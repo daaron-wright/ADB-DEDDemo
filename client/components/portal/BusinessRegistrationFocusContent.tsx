@@ -98,7 +98,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين ��لعربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
-        "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
+        "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشا�� المطاعم والمشروبا�� المرخّص.",
         "6. محرك القرار النهائي �� مرفو��. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبق��ا�� يُرجى ��قتراح بدي��.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة ��لخي��يار".',
       ].join("\n"),
@@ -131,9 +131,9 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
-        '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
+        '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت ال��تيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��ل�� مفهوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
-        "�� محرك ا��قرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشاط متواف��.",
+        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشاط متواف��.",
         '• وكيل اقتراح الاسم (الاسم ال���رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -155,7 +155,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "7. Name suggester agent (rejected trade name) → No alternatives required; current name authorized.",
       ].join("\n"),
       ar: [
-        "است��ابات الوكلاء (العربية):",
+        "استجابات الوكلاء (العربية):",
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة ����لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
@@ -407,7 +407,7 @@ function buildSimilarityConflictNarrative(
   const arabicLines = [
     "تسل���ل استجابات الوكلاء:",
     `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا��م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
+    "2. وكيل الكلمات المحظورة → ناجح. لم يت�� رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق ال��شاط → غير مقيم. في انتظار اسم ��جاري فريد.",
@@ -637,7 +637,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
 };
 
 const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
-  passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
+  passed: ["pass", "passed", "approved", "ناج��", "معتمد"],
   failed: ["fail", "failed", "فشل"],
   pending: ["pending manual review", "pending", "awaiting", "قيد الانتظار"],
   rejected: ["reject", "rejected", "مرفوض"],
@@ -1704,6 +1704,143 @@ const forceActivityMismatchRef = React.useRef(false);
   );
 
   const showVerificationSteps = hasPerformedCheck || isChecking;
+
+  const [stageStatuses, setStageStatuses] = React.useState<TradeNameCheckStatus[]>(
+    () => TRADE_NAME_CHECKS.map(() => "pending" as TradeNameCheckStatus),
+  );
+
+  const stageProgressRef = React.useRef<{
+    currentIndex: number;
+    started: Set<number>;
+    completed: Set<number>;
+    failed: Set<number>;
+    activeRunId: number | null;
+  }>({
+    currentIndex: -1,
+    started: new Set(),
+    completed: new Set(),
+    failed: new Set(),
+    activeRunId: null,
+  });
+
+  const announceStageStart = React.useCallback(
+    (index: number) => {
+      const messages = TRADE_NAME_STAGE_MESSAGES[index];
+      if (!messages) {
+        return;
+      }
+
+      const tracker = stageProgressRef.current;
+      if (tracker.started.has(index)) {
+        return;
+      }
+
+      tracker.started.add(index);
+      enqueueToast({
+        title: messages.startTitle,
+        description: messages.startDescription,
+      });
+    },
+    [enqueueToast],
+  );
+
+  const announceStageComplete = React.useCallback(
+    (index: number) => {
+      const messages = TRADE_NAME_STAGE_MESSAGES[index];
+      if (!messages) {
+        return;
+      }
+
+      const tracker = stageProgressRef.current;
+      if (tracker.completed.has(index)) {
+        return;
+      }
+
+      tracker.completed.add(index);
+      enqueueToast({
+        title: messages.completeTitle,
+        description: messages.completeDescription,
+      });
+    },
+    [enqueueToast],
+  );
+
+  const announceStageFailure = React.useCallback(
+    (index: number) => {
+      const messages = TRADE_NAME_STAGE_MESSAGES[index];
+      if (!messages) {
+        return;
+      }
+
+      const tracker = stageProgressRef.current;
+      if (tracker.failed.has(index)) {
+        return;
+      }
+
+      tracker.failed.add(index);
+      enqueueToast({
+        title: messages.failureTitle,
+        description: messages.failureDescription,
+        variant: "destructive",
+      });
+    },
+    [enqueueToast],
+  );
+
+  const beginStageRun = React.useCallback(() => {
+    const tracker = stageProgressRef.current;
+    tracker.currentIndex = 0;
+    tracker.started = new Set();
+    tracker.completed = new Set();
+    tracker.failed = new Set();
+    tracker.activeRunId = Date.now();
+
+    setStageStatuses(
+      TRADE_NAME_CHECKS.map((_, index) =>
+        index === 0 ? ("current" as TradeNameCheckStatus) : "pending",
+      ),
+    );
+    announceStageStart(0);
+  }, [announceStageStart]);
+
+  React.useEffect(() => {
+    if (!isChecking) {
+      return;
+    }
+
+    const totalStages = TRADE_NAME_CHECKS.length;
+    if (totalStages === 0) {
+      return;
+    }
+
+    const stageIndex = Math.min(
+      Math.floor((automationProgress / 100) * totalStages),
+      totalStages - 1,
+    );
+    const tracker = stageProgressRef.current;
+
+    if (stageIndex > tracker.currentIndex) {
+      const previousIndex = tracker.currentIndex;
+      setStageStatuses((previous) =>
+        previous.map((status, index) => {
+          if (index < stageIndex) {
+            return "completed";
+          }
+          if (index === stageIndex) {
+            return "current";
+          }
+          return status === "failed" ? "failed" : "pending";
+        }),
+      );
+
+      if (previousIndex >= 0) {
+        announceStageComplete(previousIndex);
+      }
+
+      tracker.currentIndex = stageIndex;
+      announceStageStart(stageIndex);
+    }
+  }, [announceStageComplete, announceStageStart, automationProgress, isChecking]);
 
   const canSubmitReservation = React.useMemo(
     () =>
