@@ -93,7 +93,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا����نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
-        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور���� في النسختين ��لعربية أو الإنجليزي��.",
+        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور��� في النسختين ��لعربية أو الإنجليزي��.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
@@ -124,7 +124,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Suggested alternatives: "Bait El Khetyar Restaurant", "Khetyar Dining House".',
       ].join("\n"),
       ar: [
-        '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توح��د "����ت الختيار" دون تعا��ضات ث��افية.',
+        '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توح��د "ب��ت الخ��يار" دون تعا��ضات ث��افية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح���ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
@@ -151,7 +151,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
-        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على ��صطلحات محظورة في النسختين العربية والإنج��يزية.",
+        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
@@ -406,7 +406,7 @@ function buildSimilarityConflictNarrative(
     `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
     hasIteration
       ? `7. ��كيل اقتراح الاسم (الاسم المرفوض) → إ��شاد. البديل المق��رح: "${sanitizedIteration}".`
-      : "7. وك��ل اقتراح الاسم (الاس�� المرفوض) �� إرشاد. ��وصي Polaris بإضافة توصيف ��اص أو جغرافي.",
+      : "7. وكيل اقتراح الاسم (الاس�� المرفوض) �� إرشاد. ��وصي Polaris بإضافة توصيف ��اص أو جغرافي.",
   ];
 
   return {
@@ -1000,7 +1000,7 @@ const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
 ]);
 
 const ARABIC_CHAR_PATTERN = /[\u0600-\u06FF]/;
-const QUOTED_TEXT_PATTERN = /"([^"]{2,})"|“([^”]{2,})”|'([^']{2,})'|‘([^’]{2,})’/g;
+const QUOTED_TEXT_PATTERN = /"([^"]{2,})"|“([^��]{2,})”|'([^']{2,})'|‘([^’]{2,})’/g;
 const CHAT_NAME_TERMINATORS = /\b(?:instead|please|thanks|thank you|and then|and we|and i'll|because|so that|so we|so i)\b/i;
 const CHAT_NAME_TRIGGER_PATTERN = /\b(?:use|try|consider|switch to|update to|rename(?:\s+it)?\s+to|call it|let(?:'s)? go with|let(?:'s)? call it|let(?:'s)? use)\s+([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
 const CHAT_TRADE_NAME_FALLBACK_PATTERN = /\btrade\s*name\b[^A-Za-z0-9]*([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
@@ -3499,10 +3499,15 @@ const forceActivityMismatchRef = React.useRef(false);
                           step.title === "Full decision flow" &&
                           currentFailureContext === "final-decision" &&
                           step.status === "failed";
+                        const stepDomId = `automation-step-${index}`;
 
                         return (
                           <VerificationStepItem
                             key={step.title}
+                            ref={(element) => {
+                              stepRefs.current[index] = element;
+                            }}
+                            sectionId={stepDomId}
                             step={step}
                             index={index}
                             totalSteps={automationSteps.length}
