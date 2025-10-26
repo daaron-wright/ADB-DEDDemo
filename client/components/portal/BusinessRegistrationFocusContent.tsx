@@ -234,7 +234,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "3. وكيل ��لتشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التح��يل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
-        "6. ��حرك القرار النهائي → بانتظار ال��راجعة اليدوية. يرجى اختيار نشاط ��توافق أو طلب تأكيد من المراجع.",
+        "6. ��حرك ��لقرار النهائي → بانتظار ال��راجعة اليدوية. يرجى اختيار نشاط ��توافق أو طلب تأكيد من المراجع.",
         '7. وكيل اقتراح الاسم (الاسم المر����وض) → إرشاد. الب��ائل المقترحة: "Bait El Khetyar Restaurant" ��"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -279,7 +279,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• و��يل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
         "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا����. تمت المصادقة على التحو���ل «مطعم مروة» وفق القواعد الصوتية.",
-        "• وكيل توافق ا��نشاط ��� ناجح. الاسم يتوافق مع نشاط ال��طعم المر���ّص.",
+        "• وكيل توافق ا��نشاط → ناجح. الاسم يتوافق مع نشاط ال��طعم المر���ّص.",
         "• مح��ك القر��ر ا������هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية�� النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبد��ئل�� الاسم الحالي معتمد.",
       ].join("\n"),
@@ -790,7 +790,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
   failed: ["fail", "failed", "ف����ل"],
   pending: ["pending", "awaiting", "ق��د الانتظار"],
-  rejected: ["reject", "rejected", "��رف����"],
+  rejected: ["reject", "rejected", "���رف����"],
   info: [
     "guidance",
     "suggested alternatives",
@@ -1221,7 +1221,7 @@ const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
   ["marwa", "مر��ة"],
   ["marwah", "مروة"],
-  ["restaurant", "مطعم"],
+  ["restaurant", "مطع��"],
   ["bait", "بيت"],
   ["el", "ال"],
   ["al", "ا��"],
@@ -1637,7 +1637,7 @@ const VerificationStepItem = React.forwardRef<
         : undefined;
 
     return (
-      <div className={cn("space-y-3 rounded-xl p-3", styles.container)}>
+      <div className={cn("space-y-3 rounded-xl", styles.container)}>
         <span className={styles.label}>{agentResponsesLabel}</span>
         <Accordion
           type="multiple"
