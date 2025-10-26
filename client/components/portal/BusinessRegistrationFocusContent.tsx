@@ -88,13 +88,13 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "3. Similarity agent — PASSED. Registry lookup returned zero conflicting matches.",
         "4. Transliteration agent — PASSED. Buckwalter phonetic check confirmed the Arabic rendering with 0.95 confidence.",
         "5. Activity compatibility agent — PASSED. Licensed Food & Beverage activity remains aligned.",
-        "6. Final decision engine → Rejected. Standard notice RTN-08: this trade name is already assigned; please submit an alternative.",
+        "6. Final decision engine — REJECTED. Standard notice RTN-08: this trade name is already assigned; please submit an alternative.",
         '7. Name suggester agent (rejected trade name) → Guidance. Recommended option: "Khetyar\'s Courtyard".',
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا����نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور��� في النسختين ��لعربية أو الإنجليزية.",
-        "3. وكيل التش��به → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
+        "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
         "6. محرك القرار النهائي �� مرفو��. إشعار RTN-08 ال��عياري: تم تسجيل هذا ال��سم التجاري مسبق��ا�� يُرجى ��قتراح بدي��.",
@@ -152,7 +152,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
-        "• وكيل التشابه → ناجح. ��قرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
+        "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
         "• مح��ك القر��ر ال��هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
@@ -391,7 +391,7 @@ function buildSimilarityConflictNarrative(
     `3. Similarity agent — FAILED. Matched existing trade name "${PRIMARY_TRADE_NAME_EN}" with similarity score ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. Transliteration agent → Paused. Conflict must resolve before Arabic confirmation.",
     "5. Activity compatibility agent → Not evaluated. Waiting on a unique trade name.",
-    `6. Final decision engine → Rejected. Conflict reference ${SIMILARITY_CONFLICT_REFERENCE}; submit a differentiated variation.`,
+    `6. Final decision engine — REJECTED. Conflict reference ${SIMILARITY_CONFLICT_REFERENCE}; submit a differentiated variation.`,
     hasIteration
       ? `7. Name suggester agent (rejected trade name) → Guidance. Draft alternative: "${sanitizedIteration}".`
       : "7. Name suggester agent (rejected trade name) → Guidance. Polaris recommends adding a geographic or specialty qualifier.",
@@ -434,7 +434,7 @@ function buildFinalDecisionRejectionNarrative(
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
     "2. و��يل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
-    "4. وكيل التحويل الصوتي → ناجح. النسخة الع��بية متوافقة مع القواعد الصوتية.",
+    "4. وكيل التحويل الصوتي → ناجح. الن��خة الع��بية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → ��م التصعيد للمراجعة. لست واثقًا من الرفض الآل�� لذلك تم رفعه لمراجع دائرة التنمية الاقت��ادية للتوجيه.",
     "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
