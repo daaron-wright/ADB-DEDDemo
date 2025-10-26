@@ -280,8 +280,8 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخَّص.",
-        "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
-        "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
+        "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 السا��ة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
+        "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي ��عتمد.",
       ].join("\n"),
     },
     rawDetailSuccess: {
@@ -578,7 +578,7 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النستين العربية أو الإنجليزية.",
+    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات مح��ورة في النستين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكي�� توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
@@ -1873,37 +1873,6 @@ const VerificationStepItem = React.forwardRef<
         <div className="rounded-xl bg-[#0f766e]/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
           {helperMessage}
         </div>
-        {showActivitySelectorsInline && onActivitySelect ? (
-          <div className="space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-              Align the licensed activity
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {activityOptions?.map((option) => {
-                const isActive = option.id === selectedActivityId;
-                return (
-                  <Button
-                    key={option.id}
-                    type="button"
-                    variant="outline"
-                    onClick={() => onActivitySelect(option.id)}
-                    className={cn(
-                      "rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition",
-                      isActive
-                        ? "border-[#0f766e] bg-[#0f766e] text-white shadow-[0_18px_44px_-34px_rgba(15,118,110,0.45)]"
-                        : "border-[#0f766e]/30 text-[#0f766e] hover:bg-[#0f766e]/10",
-                    )}
-                  >
-                    {option.label}
-                  </Button>
-                );
-              })}
-            </div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
-              Polaris reruns the final check after you pick the right activity.
-            </p>
-          </div>
-        ) : null}
         {showActivitySelectorsInline && onActivitySelect ? (
           <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
