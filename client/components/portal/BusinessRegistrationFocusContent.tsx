@@ -234,7 +234,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "3. وكيل ��لتشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التح��يل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
-        "6. محرك القرار النهائي → بانتظار ال��راجعة اليدوية. يرجى اختيار نشاط ��توافق أو طلب تأكيد من المراجع.",
+        "6. ��حرك القرار النهائي → بانتظار ال��راجعة اليدوية. يرجى اختيار نشاط ��توافق أو طلب تأكيد من المراجع.",
         '7. وكيل اقتراح الاسم (الاسم المر����وض) → إرشاد. الب��ائل المقترحة: "Bait El Khetyar Restaurant" ��"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -278,7 +278,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
         "• و��يل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
         "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
-        "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحو���ل «مطعم مروة» وفق القواعد الصوتية.",
+        "• وكيل التحويل الصوتي → نا����. تمت المصادقة على التحو���ل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق ا��نشاط → ناجح. الاسم يتوافق مع نشاط ال��طعم المر���ّص.",
         "• مح��ك القر��ر ا������هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية�� النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبد��ئل�� الاسم الحالي معتمد.",
@@ -581,7 +581,7 @@ function buildSimilarityConflictNarrative(
     "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مرفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتراح اسم مختلف.`,
     hasIteration
-      ? `7. وكيل اقتراح الاسم (الاسم المرف��ض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
+      ? `7. وكيل اقترا�� الاسم (الاسم المرف��ض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. توصي Polaris بإضافة توصيف خاص أو جغرافي.",
   ];
 
@@ -790,7 +790,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
   failed: ["fail", "failed", "ف����ل"],
   pending: ["pending", "awaiting", "ق��د الانتظار"],
-  rejected: ["reject", "rejected", "مرف����"],
+  rejected: ["reject", "rejected", "��رف����"],
   info: [
     "guidance",
     "suggested alternatives",
@@ -1528,6 +1528,31 @@ const VerificationStepItem = React.forwardRef<
       Boolean(shouldAutoOpenNarrative && isFailed && hasFailureNarrative),
     );
   }, [failureNarrativeKey, hasFailureNarrative, isFailed, shouldAutoOpenNarrative]);
+
+  const successNarrativeKey = React.useMemo(() => {
+    const narrativeSegment =
+      typeof step.successDetail === "string"
+        ? step.successDetail
+        : step.successDetail?.en ?? "";
+    if (!step.rawDetail) {
+      return narrativeSegment;
+    }
+    try {
+      return `${narrativeSegment}::${JSON.stringify(step.rawDetail)}`;
+    } catch {
+      return `${narrativeSegment}::${String(step.rawDetail)}`;
+    }
+  }, [step.rawDetail, step.successDetail]);
+
+  const [showSuccessNarrative, setShowSuccessNarrative] = React.useState(() =>
+    Boolean(shouldAutoOpenNarrative && isCompleted && hasSuccessNarrative),
+  );
+
+  React.useEffect(() => {
+    setShowSuccessNarrative(
+      Boolean(shouldAutoOpenNarrative && isCompleted && hasSuccessNarrative),
+    );
+  }, [hasSuccessNarrative, isCompleted, shouldAutoOpenNarrative, successNarrativeKey]);
 
   const renderAgentNarrative = (
     detail: string | LocalizedAgentNarrative | undefined,
