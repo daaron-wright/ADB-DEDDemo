@@ -152,8 +152,8 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Recommended option: "Khetyar\'s Courtyard".',
       ].join("\n"),
       ar: [
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. ا��تاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
-        "2. وكيل الكلمات المح��ورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
+        "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
         "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا لموازنته مع النشاط المرخَّص.",
@@ -229,7 +229,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Suggested alternatives: "Bait El Khetyar Restaurant", "Khetyar Dining House".',
       ].join("\n"),
       ar: [
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضا�� ثقافية.',
+        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضات ثقافية.',
         "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العربية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
@@ -518,7 +518,7 @@ const TRADE_NAME_STAGE_MESSAGES: ReadonlyArray<{
     startDescription: "Polaris is preparing compliant backup suggestions.",
     completeTitle: "Suggested names ready",
     completeDescription: "Alternative names are ready whenever you need them.",
-    failureTitle: "Couldn’t prepare suggestions",
+    failureTitle: "Couldn���t prepare suggestions",
     failureDescription: "Refine the current name or adjust activities to unlock new suggestions.",
   },
 ];
@@ -612,7 +612,7 @@ function buildFinalDecisionRejectionNarrative(
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
-    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الرفض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإج��اء.",
+    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الرفض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإجراء.",
     "7. وكيل اقتراح الاسم → إرشاد. جهّز المبررات الداعمة قبل التصعيد.",
   ];
 
@@ -864,7 +864,7 @@ function stripStatusPhrase(detail: string, outcome: AgentOutcome) {
   const prefixes = AGENT_STATUS_STRIP_PREFIXES[outcome];
 
   for (const prefix of prefixes) {
-    const regex = new RegExp(`^${escapeRegExp(prefix)}\\b[\\s.:;,-–��]*`, "i");
+    const regex = new RegExp(`^${escapeRegExp(prefix)}\\b[\\s.:;,-–]*`, "i");
     if (regex.test(result)) {
       result = result.replace(regex, "").trim();
       break;
@@ -885,7 +885,7 @@ function parseAgentNarrativeLine(
     return null;
   }
 
-  const delimiterMatch = sanitizedLine.match(/^(.*?)\s*(?:��|—)\s*(.*)$/);
+  const delimiterMatch = sanitizedLine.match(/^(.*?)\s*(?:|—)\s*(.*)$/);
   if (!delimiterMatch) {
     return null;
   }
@@ -1251,7 +1251,7 @@ function sanitizeTradeNameCandidate(value: string) {
 }
 
 function extractLabeledSegment(source: string, label: string) {
-  const pattern = new RegExp(`${label}\\s*[:\\-]\\s*["“���']?([^"“”'\\n]+)["“”']?`, "i");
+  const pattern = new RegExp(`${label}\\s*[:\\-]\\s*["“']?([^"“”'\\n]+)["“”']?`, "i");
   const match = source.match(pattern);
   return match ? sanitizeTradeNameCandidate(match[1]) : null;
 }
