@@ -147,7 +147,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "2. Prohibited words agent — PASSED. No restricted vocabulary detected across English or Arabic drafts.",
         '3. Similarity agent — FAILED. Matched existing trade name "Bait Al Khetyar" with similarity score 0.81 (SIMILARITY_CONFLICT).',
         "4. Transliteration agent — ON HOLD. Conflict must be resolved before Arabic confirmation.",
-        "5. Activity compatibility agent ��� GUIDANCE. Waiting on a unique trade name to verify against the licensed activity.",
+        "5. Activity compatibility agent — GUIDANCE. Waiting on a unique trade name to verify against the licensed activity.",
         "6. Final decision engine — REJECTED. Conflict reference SIMILARITY_CONFLICT; submit a differentiated variation.",
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Recommended option: "Khetyar\'s Courtyard".',
       ].join("\n"),
@@ -279,7 +279,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• و��يل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
         "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا����. تمت المصادقة على التحو���ل «مطعم مروة» وفق القواعد الصوتية.",
-        "• وكيل توافق ا��نشاط → ناجح. الاسم يتوافق مع نشاط ال��طعم المر���ّص.",
+        "• وكيل توافق ا����شاط → ناجح. الاسم يتوافق مع نشاط ال��طعم المر���ّص.",
         "• مح��ك القر��ر ا������هائي → معت���د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية�� النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبد��ئل�� الاسم الحالي معتمد.",
       ].join("\n"),
@@ -608,7 +608,7 @@ function buildFinalDecisionRejectionNarrative(
 
   const arabicLines = [
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اع��ماد "${formattedAttempt}" دون مخالفات.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
+    "2. وكيل الكلمات الم��ظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققً�� يدويًا من خطة النشاط.",
