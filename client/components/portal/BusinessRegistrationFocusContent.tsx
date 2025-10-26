@@ -153,7 +153,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. ا��تاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
-        "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+        "2. وكيل الكلمات المح��ورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
         "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا لموازنته مع النشاط المرخَّص.",
@@ -229,7 +229,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Suggested alternatives: "Bait El Khetyar Restaurant", "Khetyar Dining House".',
       ].join("\n"),
       ar: [
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضات ثقافية.',
+        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضا�� ثقافية.',
         "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العربية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
@@ -602,18 +602,18 @@ function buildFinalDecisionRejectionNarrative(
     "3. Similarity agent — PASSED. Polaris confirmed this variation is unique in the registry.",
     "4. Transliteration agent — PASSED. Arabic counterpart stays synchronized with phonetic rules.",
     "5. Activity compatibility agent — GUIDANCE. Heritage positioning requires manual validation against the licensed activity plan.",
-    "6. Final decision engine �� ESCALATED. Not super confident in the automated rejection, so a DED reviewer will advise next steps.",
+    "6. Final decision engine — ESCALATED. Not super confident in the automated rejection, so a DED reviewer will advise next steps.",
     "7. Name suggester agent — GUIDANCE. Prepare your supporting rationale before escalating to the reviewer.",
   ];
 
   const arabicLines = [
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اع��ماد "${formattedAttempt}" دون مخالفات.`,
-    "2. وكيل ا��كلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
+    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
+    "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
-    "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحق��ً�� يدويًا من خطة النشاط.",
-    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من ال����ض الآلي، لذلك تم رفعه لمراجع دائرة التنم��ة ا��اق��صادية لتحديد الإجراء.",
-    "7. وكيل اقتراح الاسم → إرشاد. ج��ز المبررات الدا��مة قبل التصعيد.",
+    "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
+    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الرفض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإج��اء.",
+    "7. وكيل اقتراح الاسم → إرشاد. جهّز المبررات الداعمة قبل التصعيد.",
   ];
 
   return {
