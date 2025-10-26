@@ -110,7 +110,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "بيت الختيار" بد��جة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل ا��تعارض قبل تأكيد النسخة العربية.",
-        "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا لموازنته مع النشاط المرخ��ص.",
+        "5. وكيل توافق النشاط → إرشاد. ننتظر اسمً�� تجاريًا فريدًا لموازنته مع النشاط المرخ��ص.",
         "6. محرك القرار النهائي → مرفوض. مرجع التعارض SIMILARITY_CONFLICT؛ يُرجى اقتراح اسم مختلف.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. الخيار الموصى به: "ساحة الختيار".',
       ].join("\n"),
@@ -191,7 +191,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
-        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
+        "• و��يل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
         "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحو���ل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق ا��نشاط → ناجح. الاسم يتوافق مع نشاط ال��طعم المر���ّص.",
@@ -2064,7 +2064,7 @@ const forceActivityMismatchRef = React.useRef(false);
 
   const beginStageRun = React.useCallback(() => {
     const tracker = stageProgressRef.current;
-    tracker.currentIndex = 0;
+    tracker.currentIndex = -1;
     tracker.started = new Set();
     tracker.completed = new Set();
     tracker.failed = new Set();
@@ -2075,8 +2075,7 @@ const forceActivityMismatchRef = React.useRef(false);
     setAgentOutcomeByStage(
       TRADE_NAME_CHECKS.map(() => "pending" as AgentOutcome),
     );
-    announceStageStart(0);
-  }, [announceStageStart]);
+  }, []);
 
   React.useEffect(() => {
     if (!isChecking) {
