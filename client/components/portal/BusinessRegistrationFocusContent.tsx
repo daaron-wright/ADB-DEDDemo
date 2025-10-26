@@ -98,7 +98,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
         "6. محرك القرار النهائي �� مرفو��. إشعار RTN-08 ال��عياري: تم تسجيل هذا ال��سم التجاري مسبق��ا�� يُرجى ��قتراح بدي��.",
-        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة ��لخي��يار".',
+        '7. وكيل اقتراح الاسم (��لاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة ��لخي��يار".',
       ].join("\n"),
     },
   },
@@ -129,7 +129,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح���ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��ل�� م��هوم تراثي للبيع بالتجزئة ��ليس نشاط مطعم ومشروبات الحالي.",
-        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشاط متواف��.",
+        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��ص�� بالتصعيد أو اخ��يار نشاط متواف��.",
         '• وكيل اقتراح الاسم (الاسم ال���رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -402,7 +402,7 @@ function buildSimilarityConflictNarrative(
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات مح��ورة في النسختين العربية أ���� الإنجليزية.",
     `3. و���يل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل ال��حويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
-    "5. وكيل توافق ال��ش��ط → غير مقيم. في انتظار اسم ��جاري فريد.",
+    "5. وكيل توافق ال��ش��ط → غي�� مقيم. في انتظار اسم ��جاري فريد.",
     `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
     hasIteration
       ? `7. ��كيل اقتراح الاسم (الاسم المرفوض) → إ��شاد. البديل المق��رح: "${sanitizedIteration}".`
@@ -436,7 +436,7 @@ function buildFinalDecisionRejectionNarrative(
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة الع��بية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
-    "6. محرك القرار النهائي → ��م التصعيد للمراجعة. لست واثقًا من الرفض الآل�� لذلك تم رفعه لمراجع دائرة التنمية الاقت��ادية للتوجيه.",
+    "6. محرك القرار النهائي → ��م التصعيد للمراجعة. لست واثقًا من الرفض الآل�� لذلك تم رفعه لمراج�� دائرة التنمية الاقت��ادية للتوجيه.",
     "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
   ];
 
@@ -892,6 +892,59 @@ function generatePolarisGuidanceFromFailure(
     .map((line) => line.replace(/\s+/g, " ").trim())
     .filter(Boolean)
     .join(" ");
+}
+
+function summarizeAgentFailureDetail(
+  detail: string | LocalizedAgentNarrative | undefined,
+  fallbackTitle: string,
+): string | null {
+  const englishNarrative = extractEnglishNarrative(detail);
+  if (!englishNarrative) {
+    return null;
+  }
+
+  const parsed = parseAgentNarrative(englishNarrative);
+  if (!parsed) {
+    return null;
+  }
+
+  const failureSignal = parsed.responses.find((response) =>
+    response.status === "failed" ||
+    response.status === "rejected" ||
+    response.status === "escalated",
+  );
+
+  if (failureSignal) {
+    const detailText = failureSignal.detail
+      ? failureSignal.detail.replace(/\s+/g, " ").trim()
+      : "";
+    return detailText
+      ? `${failureSignal.title} flagged: ${detailText}`
+      : `${failureSignal.title} flagged this step.`;
+  }
+
+  const pendingSignal = parsed.responses.find(
+    (response) => response.status === "pending",
+  );
+  if (pendingSignal) {
+    const detailText = pendingSignal.detail
+      ? pendingSignal.detail.replace(/\s+/g, " ").trim()
+      : pendingSignal.title;
+    return `${pendingSignal.title} is still pending: ${detailText}`;
+  }
+
+  const guidanceSignal = parsed.responses.find((response) =>
+    response.status === "info" ||
+    response.title.toLowerCase().includes("name suggester"),
+  );
+  if (guidanceSignal) {
+    const detailText = guidanceSignal.detail
+      ? guidanceSignal.detail.replace(/\s+/g, " ").trim()
+      : guidanceSignal.title;
+    return `${guidanceSignal.title}: ${detailText}`;
+  }
+
+  return `Resolve the issue flagged by ${fallbackTitle}.`;
 }
 
 const TRADE_NAME_PAYMENT_DISPLAY_AMOUNT = "65 AED";
