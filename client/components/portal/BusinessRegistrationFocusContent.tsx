@@ -1402,7 +1402,6 @@ const VerificationStepItem = React.forwardRef<
               variant === "failed" &&
               activityOptions &&
               activityOptions.length > 0 &&
-              item.status === "info" &&
               normalizedTitle.includes("activity compatibility agent");
 
             return (
