@@ -151,7 +151,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
-        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
+        "• وكيل الكلمات ال��حظورة → ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
         "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
@@ -1604,22 +1604,6 @@ const VerificationStepItem = React.forwardRef<
                     ? undefined
                     : { focusTitle: step.title },
                 )}
-                {onPolarisPrompt &&
-                !activityOptions &&
-                step.title !== "Full decision flow" ? (
-                  <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-[#0f766e]/25 bg-[#f4f9f7] px-4 py-3 text-xs text-[#0f766e]">
-                    <span className="font-semibold uppercase tracking-[0.18em]">
-                      Send follow-up via chat
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => onPolarisPrompt(polarisPrompt)}
-                      className="inline-flex items-center gap-2 rounded-full border border-[#0f766e] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#0f766e]/10"
-                    >
-                      Draft in chat
-                    </button>
-                  </div>
-                ) : null}
               </div>
             ) : (
               <p className="text-xs text-slate-500">
