@@ -152,7 +152,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Recommended option: "Khetyar\'s Courtyard".',
       ].join("\n"),
       ar: [
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
+        '1. م��قق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
         "2. وكيل الكلمات ال��حظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. ��مت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
@@ -577,7 +577,7 @@ function buildSimilarityConflictNarrative(
   ];
 
   const arabicLines = [
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
+    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق ��لنصي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النستين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
@@ -1218,7 +1218,7 @@ const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
   ["marwah restaurant", MARWA_TRADE_NAME_AR],
   ["bait el khetyar", PRIMARY_TRADE_NAME_AR],
   ["bait al khetyar", PRIMARY_TRADE_NAME_AR],
-  ["bait el khetyar heritage kitchen", "بيت الخت��ار هيريتج كتشن"],
+  ["bait el khetyar heritage kitchen", "بيت الختيار هيريتج كتشن"],
 ]);
 
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
@@ -1607,7 +1607,7 @@ const VerificationStepItem = React.forwardRef<
     }
 
     const agentResponsesLabel = displayOptions?.focusTitle
-      ? `Agent response — ${displayOptions.focusTitle}`
+      ? `Agent response �� ${displayOptions.focusTitle}`
       : "Agent responses";
 
     const baseline = parsedNarrative?.responses ?? [];
