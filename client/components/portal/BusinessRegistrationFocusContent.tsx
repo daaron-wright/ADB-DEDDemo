@@ -110,7 +110,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "بيت الختيار" بد��جة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل ا��تعارض قبل تأكيد النسخة العربية.",
-        "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريد��ا لموازنته مع النشاط المرخ��ص.",
+        "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا لموازنته مع النشاط المرخ��ص.",
         "6. محرك القرار النهائي → مرفوض. مرجع التعارض SIMILARITY_CONFLICT؛ يُرجى اقتراح اسم مختلف.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. الخيار الموصى به: "ساحة الختيار".',
       ].join("\n"),
@@ -191,9 +191,9 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
-        "• وكيل الكلمات المحظورة �� ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
+        "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
         "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
-        "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحو��ل «مطعم مروة» وفق القواعد الصوتية.",
+        "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحو���ل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق ا��نشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
         "• مح��ك القر��ر ا����هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية، النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
@@ -486,7 +486,7 @@ function buildFinalDecisionRejectionNarrative(
     "3. Similarity agent — PASSED. Polaris confirmed this variation is unique in the registry.",
     "4. Transliteration agent — PASSED. Arabic counterpart stays synchronized with phonetic rules.",
     "5. Activity compatibility agent — GUIDANCE. Heritage positioning requires manual validation against the licensed activity plan.",
-    "6. Final decision engine — ESCALATED. Not super confident in the automated rejection, so a DED reviewer will advise next steps.",
+    "6. Final decision engine �� ESCALATED. Not super confident in the automated rejection, so a DED reviewer will advise next steps.",
     "7. Name suggester agent — GUIDANCE. Prepare your supporting rationale before escalating to the reviewer.",
   ];
 
@@ -1738,7 +1738,14 @@ const VerificationStepItem = React.forwardRef<
           </div>
         ) : null}
         {isCompleted && step.successDetail
-          ? renderAgentNarrative(step.successDetail, "success")
+          ? renderAgentNarrative(
+              step.successDetail,
+              "success",
+              undefined,
+              step.title === "Full decision flow"
+                ? { rawDetail: step.rawDetail }
+                : { focusTitle: step.title, rawDetail: step.rawDetail },
+            )
           : null}
       </div>
     </div>
