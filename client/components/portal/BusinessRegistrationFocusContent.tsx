@@ -106,7 +106,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Recommended option: "Khetyar\'s Courtyard".',
       ].join("\n"),
       ar: [
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
+        '1. مدقق النص / التدقيق الإملائي / الف��ص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
         "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "بيت الختيار" بد��جة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل ا��تعارض قبل تأكيد النسخة العربية.",
@@ -194,7 +194,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
         "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحو���ل «مطعم مروة» وفق القواعد الصوتية.",
-        "• وكيل توافق ا��نشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر���ّص.",
+        "• وكيل توافق ا��نشاط → ناجح. الاسم يتوا��ق مع نشاط المطعم المر���ّص.",
         "• مح��ك القر��ر ا������هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية�� النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
       ].join("\n"),
@@ -673,7 +673,7 @@ const AGENT_OUTCOME_META: Record<
 const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
   failed: ["fail", "failed", "ف����ل"],
-  pending: ["pending", "awaiting", "ق����د الانتظار"],
+  pending: ["pending", "awaiting", "ق��د الانتظار"],
   rejected: ["reject", "rejected", "مرف����"],
   info: [
     "guidance",
@@ -1398,7 +1398,7 @@ const VerificationStepItem = React.forwardRef<
     }
     try {
       return `${narrativeSegment}::${JSON.stringify(step.rawDetail)}`;
-    } catch (error) {
+    } catch {
       return `${narrativeSegment}::${String(step.rawDetail)}`;
     }
   }, [step.failureDetail, step.rawDetail]);
