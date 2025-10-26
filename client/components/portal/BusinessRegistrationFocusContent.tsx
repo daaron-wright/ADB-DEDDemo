@@ -1755,7 +1755,7 @@ const VerificationStepItem = React.forwardRef<
             ) : null}
           </div>
         ) : null}
-        {isCompleted && step.successDetail
+        {isCompleted && hasSuccessNarrative
           ? renderAgentNarrative(
               step.successDetail,
               "success",
