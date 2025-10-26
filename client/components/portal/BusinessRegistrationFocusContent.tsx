@@ -585,7 +585,7 @@ function buildSimilarityConflictNarrative(
     `6. محرك القرار النهائي → مفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اق��راح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقتراح الاسم (ا��اسم المرفوض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
-      : "7. وكيل اقتراح الاسم (ال��سم المرفوض) → إرشاد. توصي Polaris بإضافة توصيف خاص أو جغرافي.",
+      : "7. وكيل اقتراح الاسم (ال��سم المرفوض) → إرشاد. توصي Polaris بإضافة توصيف خاص أ�� جغرافي.",
   ];
 
   return {
@@ -610,7 +610,7 @@ function buildFinalDecisionRejectionNarrative(
   ];
 
   const arabicLines = [
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
+    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتم��د "${formattedAttempt}" دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ��اجح. النسخة العربية متوافقة مع القواعد الصوتية.",
@@ -802,7 +802,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
     "لا ح��جة لبدائل",
     "إرشاد",
   ],
-  escalated: ["escalated", "escalation", "تصعيد"],
+  escalated: ["escalated", "escalation", "تصعي��"],
 };
 
 const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
@@ -1848,9 +1848,7 @@ const VerificationStepItem = React.forwardRef<
           <div className="flex flex-1 flex-col gap-1">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="text-sm font-semibold text-slate-900">
-                {index === 0
-                  ? "Decision Flow"
-                  : `Step ${index + 1}/${totalSteps}: ${step.title}`}
+                {index === 0 ? "Decision Flow" : step.title}
               </p>
               <span className={statusBadgeClasses}>{statusLabel}</span>
             </div>
