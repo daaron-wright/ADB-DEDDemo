@@ -152,7 +152,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Recommended option: "Khetyar\'s Courtyard".',
       ].join("\n"),
       ar: [
-        '1. مدقق النص / التدقيق الإملائي / ا��فحص الثقافي → ناجح. اتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
+        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
         "2. وكيل الكلمات ال��حظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. ��مت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
@@ -280,7 +280,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخَّص.",
-        "• محرك القرار النهائي → معتمد ��تاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
+        "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -612,7 +612,7 @@ function buildFinalDecisionRejectionNarrative(
   const arabicLines = [
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
-    "3. وكيل التشابه → ناجح. تم تأكيد تميز الاس�� في السجل.",
+    "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من ��طة النشاط.",
     "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الرفض الآلي، لذلك تم رفعه لمراجع ��ائرة التنمية الاقتصادية لتحديد الإجراء.",
@@ -2875,6 +2875,13 @@ const forceActivityMismatchRef = React.useRef(false);
           const shouldForceActivityMismatch =
             forceActivityMismatchRef.current &&
             normalizedName !== CONFLICTING_TRADE_NAME_NORMALIZED;
+          const selectedActivity = selectedActivityId;
+          const isRestaurantActivitySelected =
+            !selectedActivity || selectedActivity === RESTAURANT_ACTIVITY_ID;
+          const shouldApplyActivityMismatch =
+            shouldForceActivityMismatch ||
+            (normalizedName === ACTIVITY_COMPATIBILITY_NAME &&
+              isRestaurantActivitySelected);
 
           if (isSuccess) {
             forceActivityMismatchRef.current = false;
@@ -2959,10 +2966,7 @@ const forceActivityMismatchRef = React.useRef(false);
                 ? `Polaris spotted that "${englishDisplay}" matches "${PRIMARY_TRADE_NAME_EN}". Let's use "${iterationSuggestion}" or ask for another variation before we rerun.`
                 : `Polaris spotted that "${englishDisplay}" matches "${PRIMARY_TRADE_NAME_EN}". Add a unique qualifier and rerun the checks.`,
             );
-          } else if (
-            shouldForceActivityMismatch ||
-            normalizedName === ACTIVITY_COMPATIBILITY_NAME
-          ) {
+          } else if (shouldApplyActivityMismatch) {
             forceActivityMismatchRef.current = false;
             const activityAlignedSuggestion =
               suggestActivityAlignedTradeName(englishDisplay);
