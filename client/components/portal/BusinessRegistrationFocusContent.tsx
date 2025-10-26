@@ -401,7 +401,7 @@ function buildSimilarityConflictNarrative(
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
-    "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
+    "4. وكيل التحويل الصوتي → متوقف مؤقتًا. ��جب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مرفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتراح اسم مختلف.`,
     hasIteration
@@ -436,7 +436,7 @@ function buildFinalDecisionRejectionNarrative(
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
-    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الرفض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإجراء.",
+    "6. محرك القرار النهائي → تم التصعيد للمرا��عة. لسنا واثقين من الرفض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإجراء.",
     "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
   ];
 
@@ -1348,6 +1348,9 @@ const VerificationStepItem = React.forwardRef<
     selectedActivityId?: string | null;
     onActivitySelect?: (activityId: string) => void;
   },
+  displayOptions?: {
+    focusTitle?: string;
+  },
 ) => {
   const styles = detailVariantStyles[variant];
   const isLocalized = typeof detail !== "string";
@@ -1356,6 +1359,9 @@ const VerificationStepItem = React.forwardRef<
 
   const { activityOptions, selectedActivityId, onActivitySelect } =
     narrativeOptions ?? {};
+  const focusTitleNormalized = displayOptions?.focusTitle
+    ? displayOptions.focusTitle.trim().toLowerCase()
+    : null;
 
   const parsedNarrative = parseAgentNarrative(narrativeText);
   const isArabicNarrative = isLocalized && detailLanguage === "ar";
