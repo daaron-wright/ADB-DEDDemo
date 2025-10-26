@@ -94,13 +94,13 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "تسلسل استجابات الوكلاء:",
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا����نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
+        '1. مدقق النص / التدقيق الإملائي / الفحص ��لثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا����نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين ��لعربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
         "6. محرك القرار النهائي �� مرفو��. إشعار RTN-08 ال��عياري: تم تسجيل هذا الاسم التجاري مسبق��ا�� يُرجى ��قتراح بدي��.",
-        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة ��لخي��يار".',
+        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة ����لخي��يار".',
       ].join("\n"),
     },
   },
@@ -129,11 +129,11 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "استجابات الوكلاء (العربية):",
         '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
-        "�� وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
+        "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��ل�� م��هوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
-        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشاط متواف��.",
+        "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ����ار نشاط متواف��.",
         '• وكيل اقتراح الاسم (الاسم ال���رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -445,7 +445,7 @@ function buildFinalDecisionRejectionNarrative(
     "2. و��يل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة الع��بية متوافقة مع القواعد الصوتية.",
-    "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
+    "5. وكيل توافق النشاط → إرشاد. النهج الترا��ي يتطلب تحققًا يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → ��م التصعيد للمراجعة. لست واثقًا من الرفض الآل�� لذلك تم رفعه لمراجع دائرة التنمية الاقت��ادية للتوجيه.",
     "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
   ];
@@ -2323,12 +2323,12 @@ const forceActivityMismatchRef = React.useRef(false);
             setStageStatuses((previous) =>
               previous.map((_, index) => {
                 if (index < DEFAULT_FAILURE_STEP_INDEX) {
-                  return "completed";
+                  return "completed" as TradeNameCheckStatus;
                 }
                 if (index === DEFAULT_FAILURE_STEP_INDEX) {
-                  return "failed";
+                  return "failed" as TradeNameCheckStatus;
                 }
-                return "pending";
+                return "pending" as TradeNameCheckStatus;
               }),
             );
             for (let index = 0; index < DEFAULT_FAILURE_STEP_INDEX; index += 1) {
@@ -2366,12 +2366,12 @@ const forceActivityMismatchRef = React.useRef(false);
             setStageStatuses((previous) =>
               previous.map((_, index) => {
                 if (index < ACTIVITY_FAILURE_STEP_INDEX) {
-                  return "completed";
+                  return "completed" as TradeNameCheckStatus;
                 }
                 if (index === ACTIVITY_FAILURE_STEP_INDEX) {
-                  return "failed";
+                  return "failed" as TradeNameCheckStatus;
                 }
-                return "pending";
+                return "pending" as TradeNameCheckStatus;
               }),
             );
             for (let index = 0; index < ACTIVITY_FAILURE_STEP_INDEX; index += 1) {
@@ -2407,12 +2407,12 @@ const forceActivityMismatchRef = React.useRef(false);
             setStageStatuses((previous) =>
               previous.map((_, index) => {
                 if (index < FINAL_DECISION_FAILURE_STEP_INDEX) {
-                  return "completed";
+                  return "completed" as TradeNameCheckStatus;
                 }
                 if (index === FINAL_DECISION_FAILURE_STEP_INDEX) {
-                  return "failed";
+                  return "failed" as TradeNameCheckStatus;
                 }
-                return "pending";
+                return "pending" as TradeNameCheckStatus;
               }),
             );
             for (let index = 0; index < FINAL_DECISION_FAILURE_STEP_INDEX; index += 1) {
@@ -2440,7 +2440,9 @@ const forceActivityMismatchRef = React.useRef(false);
             setCurrentFailureContext("missing-input");
             setSuggestedIterationName(null);
             setStageStatuses((previous) =>
-              previous.map((_, index) => (index === 0 ? "failed" : "pending")),
+              previous.map((_, index) =>
+                (index === 0 ? "failed" : "pending") as TradeNameCheckStatus,
+              ),
             );
             announceStageFailure(0);
             stageProgressRef.current.currentIndex = 0;
