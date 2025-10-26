@@ -1800,24 +1800,34 @@ export function BusinessRegistrationFocusContent({
         : "Polaris is reviewing the trade name.";
       const variant = phase === "failure" ? "destructive" : "default";
 
-      if (thinkingToastRef.current) {
-        thinkingToastRef.current.update({
-          id: thinkingToastRef.current.id,
+      const applyUpdate = () => {
+        const handle = thinkingToastRef.current;
+        if (handle) {
+          handle.update({
+            id: handle.id,
+            title: "Thinking",
+            description,
+            variant,
+            duration: THINKING_TOAST_DURATION_MS,
+            open: true,
+          });
+          return;
+        }
+
+        thinkingToastRef.current = toast({
           title: "Thinking",
           description,
           variant,
           duration: THINKING_TOAST_DURATION_MS,
-          open: true,
         });
+      };
+
+      if (typeof window === "undefined") {
+        applyUpdate();
         return;
       }
 
-      thinkingToastRef.current = toast({
-        title: "Thinking",
-        description,
-        variant,
-        duration: THINKING_TOAST_DURATION_MS,
-      });
+      window.setTimeout(applyUpdate, 0);
     },
     [toast],
   );
@@ -1826,8 +1836,23 @@ export function BusinessRegistrationFocusContent({
     if (!thinkingToastRef.current) {
       return;
     }
-    thinkingToastRef.current.dismiss();
-    thinkingToastRef.current = null;
+
+    const dismissToast = () => {
+      const handle = thinkingToastRef.current;
+      if (!handle) {
+        return;
+      }
+
+      handle.dismiss();
+      thinkingToastRef.current = null;
+    };
+
+    if (typeof window === "undefined") {
+      dismissToast();
+      return;
+    }
+
+    window.setTimeout(dismissToast, 0);
   }, []);
 
   const enqueueToast = React.useCallback(
