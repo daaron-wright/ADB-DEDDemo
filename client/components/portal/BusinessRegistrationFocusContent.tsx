@@ -277,7 +277,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنجليزية.",
-        "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
+        "• وكيل الت��ابه → ناجح. أقر���� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المرخَّص.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
@@ -584,7 +584,7 @@ function buildSimilarityConflictNarrative(
     "5. وكي�� توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اق��راح اسم مختلف.`,
     hasIteration
-      ? `7. وكيل اقتراح الاسم (ا��اسم المرفو��) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
+      ? `7. وكيل اقتراح الاسم (ا��اسم المر��و��) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (ال��سم المرفوض) → إرشاد. توصي Polaris بإضافة توصيف خاص أ�� جغرافي.",
   ];
 
@@ -606,7 +606,7 @@ function buildFinalDecisionRejectionNarrative(
     "4. Transliteration agent — PASSED. Arabic counterpart stays synchronized with phonetic rules.",
     "5. Activity compatibility agent — GUIDANCE. Heritage positioning requires manual validation against the licensed activity plan.",
     "6. Final decision engine — ESCALATED. Not super confident in the automated rejection, so a DED reviewer will advise next steps.",
-    "7. Name suggester agent — GUIDANCE. Prepare your supporting rationale before escalating to the reviewer.",
+    "7. Name suggester agent �� GUIDANCE. Prepare your supporting rationale before escalating to the reviewer.",
   ];
 
   const arabicLines = [
@@ -1236,6 +1236,10 @@ const QUOTED_TEXT_PATTERN = /"([^"]{2,})"|“([^”]{2,})”|'([^']{2,})'|‘([^
 const CHAT_NAME_TERMINATORS = /\b(?:instead|please|thanks|thank you|and then|and we|and i'll|because|so that|so we|so i)\b/i;
 const CHAT_NAME_TRIGGER_PATTERN = /\b(?:use|try|consider|switch to|update to|rename(?:\s+it)?\s+to|call it|let(?:'s)? go with|let(?:'s)? call it|let(?:'s)? use)\s+([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
 const CHAT_TRADE_NAME_FALLBACK_PATTERN = /\btrade\s*name\b[^A-Za-z0-9]*([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
+const HERITAGE_ITERATION_TRIGGER_START_PATTERN =
+  /polaris,\s*let['’]s rerun the trade name checks on\s*"bait el khetyar heritage kitchen"/i;
+const HERITAGE_ITERATION_TRIGGER_CONFLICT_PATTERN =
+  /similarity conflict with\s*"bait el khetyar"/i;
 
 function sanitizeTradeNameCandidate(value: string) {
   if (!value) {
