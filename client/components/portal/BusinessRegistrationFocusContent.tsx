@@ -1605,7 +1605,7 @@ const VerificationStepItem = React.forwardRef<
                     ? undefined
                     : { focusTitle: step.title },
                 )}
-                {onPolarisPrompt ? (
+                {onPolarisPrompt && !activityOptions ? (
                   <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-[#0f766e]/25 bg-[#f4f9f7] px-4 py-3 text-xs text-[#0f766e]">
                     <span className="font-semibold uppercase tracking-[0.18em]">
                       Send follow-up via chat
