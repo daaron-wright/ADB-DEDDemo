@@ -161,7 +161,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التح��يل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
-        "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من المراجع.",
+        "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط ��توافق أو طلب تأكيد من المراجع.",
         '7. وكيل اقتراح الاسم (الاسم المر��وض) → إرشاد. الب��ائل المقترحة: "Bait El Khetyar Restaurant" ��"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -195,7 +195,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحو���ل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق ا��نشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
-        "• مح��ك القر��ر ا����هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية، النتيجة: 0.98).",
+        "• مح��ك القر��ر ا������هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة ا��ثقة: عالية، النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -1135,7 +1135,7 @@ function sanitizeTradeNameCandidate(value: string) {
 }
 
 function extractLabeledSegment(source: string, label: string) {
-  const pattern = new RegExp(`${label}\\s*[:\\-]\\s*["“”']?([^"“”'\\n]+)["“”']?`, "i");
+  const pattern = new RegExp(`${label}\\s*[:\\-]\\s*["“���']?([^"“”'\\n]+)["“”']?`, "i");
   const match = source.match(pattern);
   return match ? sanitizeTradeNameCandidate(match[1]) : null;
 }
@@ -1396,7 +1396,7 @@ const VerificationStepItem = React.forwardRef<
   );
 
   const renderAgentNarrative = (
-    detail: string | LocalizedAgentNarrative,
+    detail: string | LocalizedAgentNarrative | undefined,
     variant: "failed" | "success",
     narrativeOptions?: {
       activityOptions?: ActivityOption[];
