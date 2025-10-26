@@ -83,11 +83,11 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     summary: "Stops look-alike trade names.",
     failureDetail: {
       en: [
-        '1. Text normalizer / spell checker / cultural checker → Passed. "Bait El Khetyar" cleared text validation with zero violations (processed in 653 ms).',
-        "2. Prohibited words agent → Passed. No restricted vocabulary detected across English or Arabic drafts.",
-        "3. Similarity agent → Passed. Registry lookup returned zero conflicting matches.",
-        "4. Transliteration agent → Passed. Buckwalter phonetic check confirmed the Arabic rendering with 0.95 confidence.",
-        "5. Activity compatibility agent → Passed. Licensed Food & Beverage activity remains aligned.",
+        '1. Text normalizer / spell checker / cultural checker — PASSED. "Bait El Khetyar" cleared text validation with zero violations (processed in 653 ms).',
+        "2. Prohibited words agent — PASSED. No restricted vocabulary detected across English or Arabic drafts.",
+        "3. Similarity agent — PASSED. Registry lookup returned zero conflicting matches.",
+        "4. Transliteration agent — PASSED. Buckwalter phonetic check confirmed the Arabic rendering with 0.95 confidence.",
+        "5. Activity compatibility agent — PASSED. Licensed Food & Beverage activity remains aligned.",
         "6. Final decision engine → Rejected. Standard notice RTN-08: this trade name is already assigned; please submit an alternative.",
         '7. Name suggester agent (rejected trade name) → Guidance. Recommended option: "Khetyar\'s Courtyard".',
       ].join("\n"),
@@ -127,7 +127,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
-        '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
+        '• وكيل التحويل الصوتي → ناجح. تم التح��ق من ال��حويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��ل�� م��هوم تراثي للبيع بالتجزئة وليس نشاط مطعم ومشروبات الحالي.",
         "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشاط متواف��.",
         '• وكيل اقتراح الاسم (الاسم ال���رفوض) → اقترح البدائل: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
@@ -141,11 +141,11 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     summary: "Wraps up every agent’s signal.",
     successDetail: {
       en: [
-        '1. Text normalizer / spell checker / cultural checker → Passed. Normalized "Marwa Restaurant" and confirmed cultural compliance.',
+        '1. Text normalizer / spell checker / cultural checker — PASSED. Normalized "Marwa Restaurant" and confirmed cultural compliance.',
         "2. Prohibited words agent �� Passed. No restricted terms detected across English and Arabic drafts.",
-        "3. Similarity agent → Passed. Nearest registry match scored 0.12, below the 0.75 conflict threshold.",
-        '4. Transliteration agent → Passed. Arabic transliteration "مطعم مروة" validated against phonetic rules.',
-        "5. Activity compatibility agent → Passed. Name aligns with the licensed Food & Beverage restaurant activity.",
+        "3. Similarity agent — PASSED. Nearest registry match scored 0.12, below the 0.75 conflict threshold.",
+        '4. Transliteration agent — PASSED. Arabic transliteration "مطعم مروة" validated against phonetic rules.',
+        "5. Activity compatibility agent — PASSED. Name aligns with the licensed Food & Beverage restaurant activity.",
         "6. Final decision engine → Approved 2025-09-22T09:32Z (confidence: high, score: 0.98).",
         "7. Name suggester agent (rejected trade name) → No alternatives required; current name authorized.",
       ].join("\n"),
@@ -154,7 +154,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
-        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
+        "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نش��ط المطعم المر��ّص.",
         "• مح��ك القر��ر ال��هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
       ].join("\n"),
@@ -386,8 +386,8 @@ function buildSimilarityConflictNarrative(
   const hasIteration = Boolean(sanitizedIteration);
 
   const englishLines = [
-    `1. Text normalizer / spell checker / cultural checker → Passed. "${formattedAttempt}" cleared text validation with zero violations.`,
-    "2. Prohibited words agent → Passed. No restricted vocabulary detected across English or Arabic drafts.",
+    `1. Text normalizer / spell checker / cultural checker — PASSED. "${formattedAttempt}" cleared text validation with zero violations.`,
+    "2. Prohibited words agent — PASSED. No restricted vocabulary detected across English or Arabic drafts.",
     `3. Similarity agent → Failed. Matched existing trade name "${PRIMARY_TRADE_NAME_EN}" with similarity score ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. Transliteration agent → Paused. Conflict must resolve before Arabic confirmation.",
     "5. Activity compatibility agent → Not evaluated. Waiting on a unique trade name.",
@@ -400,7 +400,7 @@ function buildSimilarityConflictNarrative(
   const arabicLines = [
     `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا���م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
-    `3. و��يل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
+    `3. و��يل ال��شابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق ال��ش��ط → غير مقيم. في انتظار اسم ��جاري فريد.",
     `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
@@ -421,10 +421,10 @@ function buildFinalDecisionRejectionNarrative(
   const formattedAttempt = formatTradeName(attemptedName) || attemptedName;
 
   const englishLines = [
-    `1. Text normalizer / spell checker / cultural checker → Passed. "${formattedAttempt}" cleared text validation with zero violations.`,
-    "2. Prohibited words agent → Passed. No restricted vocabulary detected across English or Arabic drafts.",
-    "3. Similarity agent → Passed. Polaris confirmed this variation is unique in the registry.",
-    "4. Transliteration agent → Passed. Arabic counterpart stays synchronized with phonetic rules.",
+    `1. Text normalizer / spell checker / cultural checker — PASSED. "${formattedAttempt}" cleared text validation with zero violations.`,
+    "2. Prohibited words agent — PASSED. No restricted vocabulary detected across English or Arabic drafts.",
+    "3. Similarity agent — PASSED. Polaris confirmed this variation is unique in the registry.",
+    "4. Transliteration agent — PASSED. Arabic counterpart stays synchronized with phonetic rules.",
     "5. Activity compatibility agent → Guidance. Heritage positioning requires manual validation against the licensed activity plan.",
     "6. Final decision engine → Escalated for review. Not super confident in the automated rejection, so a DED reviewer will advise next steps.",
     "7. Name suggester agent ��� Guidance. Prepare your supporting rationale before escalating to the reviewer.",
