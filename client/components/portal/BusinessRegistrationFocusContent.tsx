@@ -101,7 +101,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "2. Prohibited words agent — PASSED. No restricted vocabulary detected across English or Arabic drafts.",
         '3. Similarity agent — FAILED. Matched existing trade name "Bait Al Khetyar" with similarity score 0.81 (SIMILARITY_CONFLICT).',
         "4. Transliteration agent — ON HOLD. Conflict must be resolved before Arabic confirmation.",
-        "5. Activity compatibility agent — GUIDANCE. Waiting on a unique trade name to verify against the licensed activity.",
+        "5. Activity compatibility agent ��� GUIDANCE. Waiting on a unique trade name to verify against the licensed activity.",
         "6. Final decision engine — REJECTED. Conflict reference SIMILARITY_CONFLICT; submit a differentiated variation.",
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Recommended option: "Khetyar\'s Courtyard".',
       ].join("\n"),
@@ -147,7 +147,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     summary: "Matches the name to your activity.",
     failureDetail: {
       en: [
-        '1. Text normalizer / spell checker / cultural checker — PASSED. Normalized "Bait El Khetyar" without cultural conflicts.',
+        '1. Text normalizer / spell checker / cultural checker ��� PASSED. Normalized "Bait El Khetyar" without cultural conflicts.',
         "2. Prohibited words agent — PASSED. No prohibited lexicon detected in English or Arabic drafts.",
         "3. Similarity agent — PASSED. Nearest registry match similarity score 0.28 (below threshold).",
         '4. Transliteration agent — PASSED. Arabic transliteration "بيت الختيار" verified against phonetic rules.',
@@ -496,7 +496,7 @@ function buildFinalDecisionRejectionNarrative(
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
-    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الرفض ال��لي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإجراء.",
+    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الر��ض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإجراء.",
     "7. وكيل اقتراح الاسم → إرشاد. ج��ز المبررات الداعمة قبل التصعيد.",
   ];
 
@@ -2434,6 +2434,7 @@ const forceActivityMismatchRef = React.useRef(false);
         progress: stageProgressValue,
         failureDetail: failureDetailForStage,
         successDetail: successDetailForStage,
+        rawDetail: stage.rawDetail,
       } as TradeNameVerificationStepWithStatus;
     });
 
