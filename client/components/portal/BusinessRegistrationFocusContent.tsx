@@ -94,7 +94,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا����نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور��� في النسختين ��لعربية أو الإنجليزية.",
-        "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقارب��.",
+        "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
         "6. محرك القرار النهائي �� مرفو��. إشعار RTN-08 ال��عياري: تم تسجيل هذا ال��سم التجاري مسبق��ا�� يُرجى ��قتراح بدي��.",
@@ -126,7 +126,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توح��د "ب��ت الختيار" دون تعا��ضات ث��افية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
-        "• وكيل التشا��ه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
+        "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح���ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "• وكيل توافق ال��شاط → إرشاد. الاسم يشير ��ل�� م��هوم تراثي للبيع بالتجزئة ��ليس نشاط مطعم ومشروبات الحالي.",
         "�� محرك القرار النهائي → قيد الانتظار للمراجعة اليدوية. يُ��صح بالتصعيد أو اخ��يار نشاط متواف��.",
@@ -153,7 +153,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
-        "• وكيل التحويل الصوتي → ��ا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
+        "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ناجح. الاسم يتوافق مع نشاط المطعم المر��ّص.",
         "• مح��ك القر��ر ال��هائي → معت��د بتاريخ 22-09-2025 ال��اعة 09:32 (درجة الثقة: عالية، النتيجة: 0.98).",
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
@@ -1018,7 +1018,7 @@ function sanitizeTradeNameCandidate(value: string) {
   const terminationIndex = trimmed.search(CHAT_NAME_TERMINATORS);
   const truncated = terminationIndex > 0 ? trimmed.slice(0, terminationIndex) : trimmed;
 
-  return truncated.replace(/^[\s"'“”'’]+|[\s"'“��'’.!,;:()\-]+$/g, "").trim();
+  return truncated.replace(/^[\s"'“”'’]+|[\s"'����'’.!,;:()\-]+$/g, "").trim();
 }
 
 function extractLabeledSegment(source: string, label: string) {
@@ -2512,17 +2512,34 @@ const forceActivityMismatchRef = React.useRef(false);
             setCurrentFailureDetail(finalDecisionNarrative);
             setCurrentFailureContext("final-decision");
             setSuggestedIterationName(null);
-            setStageStatuses((previous) =>
-              previous.map((_, index) => {
-                if (index < FINAL_DECISION_FAILURE_STEP_INDEX) {
-                  return "completed" as TradeNameCheckStatus;
-                }
-                if (index === FINAL_DECISION_FAILURE_STEP_INDEX) {
-                  return "failed" as TradeNameCheckStatus;
-                }
-                return "pending" as TradeNameCheckStatus;
-              }),
+            const finalDecisionUpdated = updateStagesFromNarrative(
+              finalDecisionNarrative,
+              "current",
             );
+            if (!finalDecisionUpdated) {
+              setStageStatuses((previous) =>
+                previous.map((_, index) => {
+                  if (index < FINAL_DECISION_FAILURE_STEP_INDEX) {
+                    return "completed" as TradeNameCheckStatus;
+                  }
+                  if (index === FINAL_DECISION_FAILURE_STEP_INDEX) {
+                    return "failed" as TradeNameCheckStatus;
+                  }
+                  return "current" as TradeNameCheckStatus;
+                }),
+              );
+              setAgentOutcomeByStage((previous) =>
+                previous.map((outcome, index) => {
+                  if (index < FINAL_DECISION_FAILURE_STEP_INDEX) {
+                    return "passed" as AgentOutcome;
+                  }
+                  if (index === FINAL_DECISION_FAILURE_STEP_INDEX) {
+                    return "rejected" as AgentOutcome;
+                  }
+                  return outcome;
+                }),
+              );
+            }
             for (let index = 0; index < FINAL_DECISION_FAILURE_STEP_INDEX; index += 1) {
               announceStageComplete(index);
             }
