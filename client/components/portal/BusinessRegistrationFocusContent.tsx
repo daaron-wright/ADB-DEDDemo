@@ -92,7 +92,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Recommended option: "Khetyar\'s Courtyard".',
       ].join("\n"),
       ar: [
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق الن��ي دون مخالفات.',
+        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
         "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
@@ -128,7 +128,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العربية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
-        "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
+        "5. وكيل توافق النش��ط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
         "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من المراجع.",
         '7. وكيل اقتراح الاسم (الاسم المر��وض) → إرشاد. البدائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
@@ -1375,11 +1375,13 @@ const VerificationStepItem = React.forwardRef<
       return null;
     }
 
+    const baseline = parsedNarrative.responses;
+
     if (!focusTitleNormalized) {
-      return parsedNarrative.responses;
+      return baseline;
     }
 
-    const filtered = parsedNarrative.responses.filter((response) => {
+    const filtered = baseline.filter((response) => {
       const normalizedTitle = response.title.toLowerCase();
       return (
         normalizedTitle.includes(focusTitleNormalized) ||
@@ -1389,7 +1391,7 @@ const VerificationStepItem = React.forwardRef<
       );
     });
 
-    return filtered.length > 0 ? filtered : parsedNarrative.responses;
+    return filtered.length > 0 ? filtered : baseline;
   }, [parsedNarrative, focusTitleNormalized]);
 
   return (
