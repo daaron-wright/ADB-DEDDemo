@@ -127,7 +127,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضات ثقافية.',
         "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العربية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
-        '4. وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
+        '4. وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
         "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من المراجع.",
         '7. وكيل اقتراح الاسم (الاسم المر��وض) → إرشاد. الب��ائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
@@ -399,7 +399,7 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     `1. مدقق النص / التدقيق ال��ملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
-    "2. وكيل الك��مات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
@@ -1053,7 +1053,7 @@ const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
 ]);
 
 const ARABIC_CHAR_PATTERN = /[\u0600-\u06FF]/;
-const QUOTED_TEXT_PATTERN = /"([^"]{2,})"|“([^��]{2,})”|'([^']{2,})'|‘([^’]{2,})���/g;
+const QUOTED_TEXT_PATTERN = /"([^"]{2,})"|“([^��]{2,})”|'([^']{2,})'|‘([^’]{2,})’/g;
 const CHAT_NAME_TERMINATORS = /\b(?:instead|please|thanks|thank you|and then|and we|and i'll|because|so that|so we|so i)\b/i;
 const CHAT_NAME_TRIGGER_PATTERN = /\b(?:use|try|consider|switch to|update to|rename(?:\s+it)?\s+to|call it|let(?:'s)? go with|let(?:'s)? call it|let(?:'s)? use)\s+([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
 const CHAT_TRADE_NAME_FALLBACK_PATTERN = /\btrade\s*name\b[^A-Za-z0-9]*([A-Za-z0-9][A-Za-z0-9\s'&()\-]{2,})/i;
@@ -3546,10 +3546,14 @@ const forceActivityMismatchRef = React.useRef(false);
                         </div>
                       </div>
                       {automationSteps.map((step, index) => {
+                        const isActivityStep =
+                          step.title === "Activity compatibility agent";
                         const showFinalDecisionEscalationControl =
                           step.title === "Full decision flow" &&
                           currentFailureContext === "final-decision" &&
                           step.status === "failed";
+                        const shouldShowActivityOptions =
+                          isActivityStep && step.status === "failed";
                         const stepDomId = `automation-step-${index}`;
 
                         return (
@@ -3565,17 +3569,17 @@ const forceActivityMismatchRef = React.useRef(false);
                             onEscalate={handleEscalation}
                             isEscalated={escalatedStepIds.has(step.title)}
                             activityOptions={
-                              failedStepIndex === ACTIVITY_FAILURE_STEP_INDEX
+                              shouldShowActivityOptions
                                 ? ACTIVITY_COMPATIBILITY_OPTIONS
                                 : undefined
                             }
                             selectedActivityId={
-                              failedStepIndex === ACTIVITY_FAILURE_STEP_INDEX
+                              shouldShowActivityOptions
                                 ? selectedActivityId
                                 : undefined
                             }
                             onActivitySelect={
-                              failedStepIndex === ACTIVITY_FAILURE_STEP_INDEX
+                              shouldShowActivityOptions
                                 ? handleActivitySelect
                                 : undefined
                             }
@@ -3583,10 +3587,7 @@ const forceActivityMismatchRef = React.useRef(false);
                             showFinalDecisionEscalationControl={
                               showFinalDecisionEscalationControl
                             }
-                            shouldAutoOpenNarrative={
-                              failedStepIndex === ACTIVITY_FAILURE_STEP_INDEX &&
-                              step.title === "Activity compatibility agent"
-                            }
+                            shouldAutoOpenNarrative={shouldShowActivityOptions}
                           />
                         );
                       })}
