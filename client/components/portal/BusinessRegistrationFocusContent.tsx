@@ -96,7 +96,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور��� في النسختين ��لعربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
-        "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
+        "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمش��وبا�� المرخّص.",
         "6. محرك القرار النهائي �� مرفو��. إشعار RTN-08 ال��عياري: تم تسجيل هذا ال��سم التجاري مسبق��ا�� يُرجى ��قتراح بدي��.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة ��لخي��يار".',
       ].join("\n"),
@@ -400,7 +400,7 @@ function buildSimilarityConflictNarrative(
   const arabicLines = [
     `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا���م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات مح��ورة في النسختين العربية أ���� الإنجليزية.",
-    `3. و���يل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
+    `3. و���يل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرج�� تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل ال��حويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق ال��ش��ط → غير مقيم. في انتظار اسم ��جاري فريد.",
     `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
@@ -435,7 +435,7 @@ function buildFinalDecisionRejectionNarrative(
     "2. و��يل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة الع��بية متوافقة مع القواعد الصوتية.",
-    "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
+    "5. وكيل توافق النشا�� → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → ��م التصعيد للمراجعة. لست واثقًا من الرفض الآل�� لذلك تم رفعه لمراجع دائرة التنمية الاقت��ادية للتوجيه.",
     "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
   ];
@@ -635,7 +635,7 @@ const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
     "guidance",
     "suggested alternatives",
     "no alternatives required",
-    "اقتراح البد���ئل",
+    "اقتراح البد���ئ��",
     "لا حاجة لبدائل",
     "إرشاد",
   ],
@@ -1018,7 +1018,7 @@ function sanitizeTradeNameCandidate(value: string) {
   const terminationIndex = trimmed.search(CHAT_NAME_TERMINATORS);
   const truncated = terminationIndex > 0 ? trimmed.slice(0, terminationIndex) : trimmed;
 
-  return truncated.replace(/^[\s"'“”'’]+|[\s"'����'’.!,;:()\-]+$/g, "").trim();
+  return truncated.replace(/^[\s"'“”'’]+|[\s"'“��'’.!,;:()\-]+$/g, "").trim();
 }
 
 function extractLabeledSegment(source: string, label: string) {
@@ -2565,7 +2565,12 @@ const forceActivityMismatchRef = React.useRef(false);
             setSuggestedIterationName(null);
             setStageStatuses((previous) =>
               previous.map((_, index) =>
-                (index === 0 ? "failed" : "pending") as TradeNameCheckStatus,
+                (index === 0 ? "failed" : "current") as TradeNameCheckStatus,
+              ),
+            );
+            setAgentOutcomeByStage((previous) =>
+              previous.map((outcome, index) =>
+                (index === 0 ? "failed" : "pending") as AgentOutcome,
               ),
             );
             announceStageFailure(0);
