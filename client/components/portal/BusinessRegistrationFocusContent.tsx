@@ -230,7 +230,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضات ثقافية.',
-        "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين ا��إنجليزية أو العربية.",
+        "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين ا��إنجليزية أو ��لعربية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التح��يل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
@@ -275,7 +275,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "7. Name suggester agent (rejected trade name) — PASSED. No alternatives required; current name authorized.",
       ].join("\n"),
       ar: [
-        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
+        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحي�� "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
         "• و��يل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنج��يزية.",
         "• وكيل التشابه �� ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحو���ل «مطعم مروة» وفق القواعد الصوتية.",
@@ -611,7 +611,7 @@ function buildFinalDecisionRejectionNarrative(
     "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
-    "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققً�� يدويًا من خطة النشاط.",
+    "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققً�� يدويًا ��ن خطة النشاط.",
     "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الر��ض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإجراء.",
     "7. وكيل اقتراح الاسم → إرشاد. ج��ز المبررات الداعمة قبل التصعيد.",
   ];
@@ -812,7 +812,7 @@ const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
     "suggested alternatives",
     "no alternatives required",
     "اقتراح البد���ئل",
-    "ل�� حاجة لبدائل",
+    "ل�� حاجة ��بدائل",
     "إرشاد",
   ],
   escalated: ["escalated", "escalation", "تصعيد"],
@@ -2596,28 +2596,48 @@ const forceActivityMismatchRef = React.useRef(false);
             ? Math.max(baseProgress / 100, 0.06)
             : 0;
 
-    const decisionRawDetail = showVerificationSteps
-      ? {
-          status: decisionStatus,
-          rawProgressPercent: clampProgress(baseProgress),
-          normalizedProgressPercent: Number(
-            (normalizedProgress * 100).toFixed(2),
-          ),
-          failedStepIndex,
-          failureNarrative: failureDetail
-            ? extractEnglishNarrative(failureDetail ?? undefined)
-            : null,
-          stages: TRADE_NAME_CHECKS.map((stage, index) => ({
-            order: index + 1,
-            title: stage.title,
-            status: stageStatuses[index] ?? "pending",
-            outcome: agentOutcomeByStage[index] ?? ("pending" as AgentOutcome),
-            summary:
-              TRADE_NAME_STAGE_MESSAGES[index]?.friendlySummary ??
-              stage.summary,
-          })),
-        }
-      : undefined;
+    const decisionRawDetail = (() => {
+      if (!showVerificationSteps) {
+        return undefined;
+      }
+
+      const aggregated = {
+        status: decisionStatus,
+        rawProgressPercent: clampProgress(baseProgress),
+        normalizedProgressPercent: Number(
+          (normalizedProgress * 100).toFixed(2),
+        ),
+        failedStepIndex,
+        failureNarrative: failureDetail
+          ? extractEnglishNarrative(failureDetail ?? undefined)
+          : null,
+        stages: TRADE_NAME_CHECKS.map((stage, index) => ({
+          order: index + 1,
+          title: stage.title,
+          status: stageStatuses[index] ?? "pending",
+          outcome: agentOutcomeByStage[index] ?? ("pending" as AgentOutcome),
+          summary:
+            TRADE_NAME_STAGE_MESSAGES[index]?.friendlySummary ??
+            stage.summary,
+        })),
+      };
+
+      if (decisionStatus === "completed") {
+        return {
+          ...aggregated,
+          decision: finalDecisionSuccessRawDetail ?? null,
+        };
+      }
+
+      if (decisionStatus === "failed") {
+        return {
+          ...aggregated,
+          decision: finalDecisionFailureRawDetail ?? null,
+        };
+      }
+
+      return aggregated;
+    })();
 
     const decisionStep: TradeNameVerificationStepWithStatus = {
       title: "Full decision flow",
