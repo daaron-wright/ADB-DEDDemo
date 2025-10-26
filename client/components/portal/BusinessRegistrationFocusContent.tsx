@@ -73,7 +73,29 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     description:
       "We tidy spelling, spacing, and cultural phrasing so the name feels natural before anything else runs.",
     summary: "Polishes wording and tone first.",
-    rawDetail: {
+    rawDetailSuccess: {
+      success: true,
+      message: "Text validation completed.",
+      data: {
+        is_valid: true,
+        total_violations: 0,
+        violations: [],
+        validation_summary: {
+          english_checked: true,
+          arabic_checked: true,
+          fuzzy_matching_enabled: true,
+          fuzzy_threshold: 80,
+          semantic_matching_enabled: true,
+          ilm_judge_enabled: true,
+          processing_time_ms: 646.7037200927734,
+          suggested_next_agent: "Prohibited words agent",
+        },
+        text: "Marwa Restaurant",
+        language: "english",
+        normalized: "Marwa Restaurant",
+      },
+    },
+    rawDetailFailure: {
       success: true,
       normalized: "Bait El Khetyar",
       language: "english",
@@ -112,7 +134,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "بيت الختيار" بد��جة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل ا��تعارض قبل تأكيد النسخة العربية.",
-        "5. وكيل توافق النشاط → إرشاد. ننتظر ��سمً�� تجاريًا فريدًا لموازنته مع النشاط المرخ��ص.",
+        "5. وكيل توافق النشاط → إرشاد. ننتظر اسمً�� تجاريًا فريدًا لموازنته مع النشاط المرخ��ص.",
         "6. محرك القرار النهائي → مرفوض. مرجع التعارض SIMILARITY_CONFLICT؛ يُرجى اقتراح اسم مختلف.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. الخيار الموصى به: "ساحة الختيار".',
       ].join("\n"),
@@ -153,7 +175,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     failureDetail: {
       en: [
         '1. Text normalizer / spell checker / cultural checker ��� PASSED. Normalized "Bait El Khetyar" without cultural conflicts.',
-        "2. Prohibited words agent — PASSED. No prohibited lexicon detected in English or Arabic drafts.",
+        "2. Prohibited words agent ��� PASSED. No prohibited lexicon detected in English or Arabic drafts.",
         "3. Similarity agent — PASSED. Nearest registry match similarity score 0.28 (below threshold).",
         '4. Transliteration agent — PASSED. Arabic transliteration "بيت الختيار" verified against phonetic rules.',
         "5. Activity compatibility agent — FAILED. Name signals a heritage retail concept, not the currently selected restaurant activity.",
@@ -161,10 +183,10 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Suggested alternatives: "Bait El Khetyar Restaurant", "Khetyar Dining House".',
       ].join("\n"),
       ar: [
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون ��عارضات ثقافية.',
+        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "بيت الختيار" دون تعارضات ثقافية.',
         "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العربية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
-        '4. وكيل التح��يل الصوتي → ناجح. تم التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
+        '4. وكيل التح��يل الصوتي → ناجح. ��م التحقق من التحويل "بيت الختي��ر" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → فشل. الاسم يوحي بمفهوم تراثي للبيع بالتجزئة وليس نشاط المطعم الحالي.",
         "6. محرك القرار النهائي → بانتظار ال��راجعة اليدوية. يرجى اختيار نشاط ��توافق أو طلب تأكيد من المراجع.",
         '7. وكيل اقتراح الاسم (الاسم المر����وض) → إرشاد. الب��ائل المقترحة: "Bait El Khetyar Restaurant" ��"Khetyar Dining House".',
@@ -464,10 +486,10 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     `1. مدقق ��لنص / التدقيق ال��ملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليز��ة.",
+    "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت م��ابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل ا��تحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
-    "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
+    "5. وكيل توافق النشاط → إرشا��. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مرفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتراح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقتراح الاسم (الاسم المرف��ض) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
@@ -499,7 +521,7 @@ function buildFinalDecisionRejectionNarrative(
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اع��ماد "${formattedAttempt}" دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
-    "4. وكيل التحويل الصوتي → ن��جح. النسخة العربية متوافقة مع القواعد الصوتية.",
+    "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من الر��ض الآلي، لذلك تم رفعه لمراجع دائرة التنمية الاقتصادية لتحديد الإجراء.",
     "7. وكيل اقتراح الاسم → إرشاد. ج��ز المبررات الداعمة قبل التصعيد.",
