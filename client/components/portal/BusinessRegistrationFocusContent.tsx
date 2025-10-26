@@ -95,10 +95,10 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "تسلسل استجابات الوكلاء:",
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا��نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
-        "2. وكيل ا��كلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين ��لعربية أو الإنجليزية.",
+        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين ��لعربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
-        "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
+        "5. وكيل توافق النشا�� → ��اجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
         "6. محرك القرار النهائي �� مرفو��. إشعار RTN-08 المعياري: تم تسجيل هذا الاسم التجاري مسبق��ا�� يُرجى ��قتراح بدي��.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة ��لخي��يار".',
       ].join("\n"),
@@ -127,7 +127,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) → Suggested alternatives: "Bait El Khetyar Restaurant", "Khetyar Dining House".',
       ].join("\n"),
       ar: [
-        "استجابات الوكلاء (��لعربية):",
+        "استجابات الوكلاء (العربية):",
         '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
@@ -406,7 +406,7 @@ function buildSimilarityConflictNarrative(
 
   const arabicLines = [
     "تسل���ل استجابات الوكلاء:",
-    `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا��م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
+    `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا��م "${formattedAttempt}" الت��قق الن��ي دون ���خالفا��.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أ�� الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
@@ -441,7 +441,7 @@ function buildFinalDecisionRejectionNarrative(
 
   const arabicLines = [
     "استجابات الوكلاء (��لعربية):",
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
+    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخ��لفات.`,
     "2. و��يل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
@@ -923,7 +923,7 @@ const SINGLE_CHAR_MAP = new Map<string, string>([
   ["h", "ه"],
   ["i", "ي"],
   ["j", "ج"],
-  ["k", "��"],
+  ["k", "����"],
   ["l", "ل"],
   ["m", "��"],
   ["n", "ن"],
@@ -2345,7 +2345,7 @@ const forceActivityMismatchRef = React.useRef(false);
             );
           } else if (normalizedName) {
             forceActivityMismatchRef.current = false;
-            resolvedFailureReason = `Final decision engine rejected ${englishDisplay}. ESCALATE TO DED REVIEWER for manual adjudication.`;
+            resolvedFailureReason = `Polaris needs a DED reviewer to make the final call on ${englishDisplay}.`;
             const finalDecisionNarrative =
               buildFinalDecisionRejectionNarrative(englishDisplay);
             setFailedStepIndex(FINAL_DECISION_FAILURE_STEP_INDEX);
@@ -2353,8 +2353,25 @@ const forceActivityMismatchRef = React.useRef(false);
             setCurrentFailureDetail(finalDecisionNarrative);
             setCurrentFailureContext("final-decision");
             setSuggestedIterationName(null);
+            setStageStatuses((previous) =>
+              previous.map((_, index) => {
+                if (index < FINAL_DECISION_FAILURE_STEP_INDEX) {
+                  return "completed";
+                }
+                if (index === FINAL_DECISION_FAILURE_STEP_INDEX) {
+                  return "failed";
+                }
+                return "pending";
+              }),
+            );
+            for (let index = 0; index < FINAL_DECISION_FAILURE_STEP_INDEX; index += 1) {
+              announceStageComplete(index);
+            }
+            announceStageFailure(FINAL_DECISION_FAILURE_STEP_INDEX);
+            stageProgressRef.current.currentIndex = FINAL_DECISION_FAILURE_STEP_INDEX;
+            stageProgressRef.current.activeRunId = null;
             setTradeNameGuidance(
-              `Final decision engine isn’t fully confident rejecting "${englishDisplay}". I’ve escalated it to the DED reviewer for a manual call.`,
+              `Polaris isn’t confident approving "${englishDisplay}", so a DED reviewer is stepping in for the final decision.`,
             );
             enqueueToast({
               title: "Escalated for reviewer guidance",
