@@ -153,9 +153,9 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
-        "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+        "2. وكيل الكلمات المحظورة → ناجح. لم ��تم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "بيت الختيار" بد��جة تشابه 0.81 (SIMILARITY_CONFLICT).',
-        "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل ا��تعارض ��بل تأكيد النسخة العربية.",
+        "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل ا��تعارض قبل تأكيد النسخة العربية.",
         "5. وكيل توافق النشاط → إرشاد. ننتظر اسمً�� تجاريًا فريدًا لموازنته مع النشاط المرخ��ص.",
         "6. محرك القرار النهائي → مرفوض. مرجع التعارض SIMILARITY_CONFLICT؛ يُرجى اقتراح اسم مختلف.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. الخيار الموصى به: "ساحة الختيار".',
@@ -284,7 +284,38 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "��� وكيل اقتراح الاسم (الاسم المرفوض) → ل�� حاجة لبدائل�� الاسم الحالي معتمد.",
       ].join("\n"),
     },
-    rawDetail: {
+    rawDetailSuccess: {
+      success: true,
+      message: "Trade name validation completed: approved.",
+      data: {
+        status: "approved",
+        transaction_id: "bb845c78-641b-45bf-9688-189f3ad7d1f1-202510221652",
+        standard_comments: [],
+        business_name_en: "Marwa Restaurant",
+        business_name_ar: "مطعم مروة",
+        validation_checks: {
+          prohibited_words: {
+            passed: true,
+            total_violations: 0,
+          },
+          similarity: {
+            passed: true,
+            similarity_score: 0.12,
+            threshold: 0.75,
+          },
+          transliteration: {
+            passed: true,
+            method: "Buckwalter + CAMeL Tools",
+          },
+          activity_alignment: {
+            passed: true,
+            mode: "A",
+            confidence_score: 0.91,
+          },
+        },
+      },
+    },
+    rawDetailFailure: {
       status: "rejected",
       confidence: 0.41,
       trigger: "similarity_conflict",
