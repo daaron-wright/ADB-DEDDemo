@@ -450,7 +450,7 @@ function buildSimilarityConflictNarrative(
     "2. Prohibited words agent — PASSED. No restricted vocabulary detected across English or Arabic drafts.",
     `3. Similarity agent — FAILED. Matched existing trade name "${PRIMARY_TRADE_NAME_EN}" with similarity score ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. Transliteration agent — GUIDANCE. Conflict must resolve before Arabic confirmation.",
-    "5. Activity compatibility agent — GUIDANCE. Waiting on a unique trade name.",
+    "5. Activity compatibility agent ��� GUIDANCE. Waiting on a unique trade name.",
     `6. Final decision engine — REJECTED. Conflict reference ${SIMILARITY_CONFLICT_REFERENCE}; submit a differentiated variation.`,
     hasIteration
       ? `7. Name suggester agent (rejected trade name) — GUIDANCE. Draft alternative: "${sanitizedIteration}".`
@@ -1351,20 +1351,6 @@ const VerificationStepItem = React.forwardRef<
   const isFailed = step.status === "failed";
   const isCompleted = step.status === "completed";
   const isCurrent = step.status === "current";
-  const failureDetailKey = React.useMemo(() => {
-    if (typeof step.failureDetail === "string") {
-      return step.failureDetail;
-    }
-    return step.failureDetail?.en ?? "";
-  }, [step.failureDetail]);
-  const [showFailureNarrative, setShowFailureNarrative] = React.useState(() =>
-    Boolean(shouldAutoOpenNarrative && isFailed),
-  );
-
-  React.useEffect(() => {
-    setShowFailureNarrative(Boolean(shouldAutoOpenNarrative && isFailed));
-  }, [failureDetailKey, isFailed, shouldAutoOpenNarrative]);
-
   const detailVariantStyles = React.useMemo(
     () => ({
       failed: {
