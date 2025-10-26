@@ -93,7 +93,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
-        "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+        "2. وكيل الكلمات المحظورة → ناجح. لم ��تم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
         "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا لموازنته مع النشاط المرخ��ص.",
@@ -398,7 +398,7 @@ function buildSimilarityConflictNarrative(
   ];
 
   const arabicLines = [
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
+    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق ال��صي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
@@ -432,7 +432,7 @@ function buildFinalDecisionRejectionNarrative(
 
   const arabicLines = [
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتماد "${formattedAttempt}" دون مخالفات.`,
-    "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة في المسودة.",
+    "2. وكيل الكلمات المحظورة → ناجح. لا توجد مفردات محظورة ��ي المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ناجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
@@ -1396,7 +1396,7 @@ const VerificationStepItem = React.forwardRef<
       <div className={cn("space-y-2 rounded-xl", styles.container)}>
         {isLocalized ? (
           <div className="flex items-center justify-between gap-2">
-            <span className={styles.label}>Agent responses</span>
+            <span className={styles.label}>{agentResponsesLabel}</span>
             <div className={styles.toggleWrap}>
               {(["en", "ar"] as const).map((lang) => {
                 const isActive = detailLanguage === lang;
@@ -1415,8 +1415,10 @@ const VerificationStepItem = React.forwardRef<
               })}
             </div>
           </div>
-        ) : null}
-        {parsedNarrative ? (
+        ) : (
+          <span className={styles.label}>{agentResponsesLabel}</span>
+        )}
+        {parsedNarrative && responsesToRender ? (
           <div
             className={cn(
               "space-y-3",
