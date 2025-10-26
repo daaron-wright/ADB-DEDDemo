@@ -95,7 +95,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         "تسلسل استجابات الوكلاء:",
         '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحق�� ا����نصي دون مخالفات (زمن ��لمعالجة 653 ��للي ثانية).',
-        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين ��لعربية أو الإنجليزية.",
+        "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور�� في النسختين ��ل��ربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
         "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
@@ -128,7 +128,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         "استجابات الوكلاء (العربية):",
-        '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقافي → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
+        '• مدقق ا��نص / الت��قيق الإملائي / الف��ص الثقاف�� → ناجح. تم توحيد "ب��ت الختيار" دون تعا��ضات ث��افية.',
         "• وكيل الكلمات المحظورة → ناجح. لم يتم العثور على مفردات محظورة في النسخ الإنجليزية أو العربية.",
         "• وكيل التشابه → ناجح. أ��رب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '• وكيل التحويل الصوتي → ناجح. تم التح��ق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
@@ -411,7 +411,7 @@ function buildSimilarityConflictNarrative(
     `3. و��يل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق ال��ش��ط → غير مقيم. في انتظار اسم ��جاري فريد.",
-    `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
+    `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر����ح اسم مختلف.`,
     hasIteration
       ? `7. ��كيل اقتراح الاسم (الاسم المرفوض) → إ��شاد. البديل المق��رح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (الاس�� المرفوض) �� إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
@@ -447,7 +447,7 @@ function buildFinalDecisionRejectionNarrative(
     "4. وكيل التحويل الصوتي → ناجح. النسخة الع��بية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من خطة النشاط.",
     "6. محرك القرار النهائي → ��م التصعيد للمراجعة. لست واثقًا من الرفض الآل�� لذلك تم رفعه لمراجع دائرة التنمية الاقت��ادية للتوجيه.",
-    "7. وكيل اقتراح الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
+    "7. وكيل اقترا�� الاسم → إرشاد. جهز المبررات الداعمة قبل التصعيد.",
   ];
 
   return {
@@ -621,7 +621,7 @@ const AGENT_OUTCOME_META: Record<
 };
 
 const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
-  passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
+  passed: ["pass", "passed", "approved", "ناجح", "معت��د"],
   failed: ["fail", "failed", "ف��ل"],
   pending: ["pending", "awaiting", "قيد الانتظار"],
   rejected: ["reject", "rejected", "مرفو��"],
@@ -951,7 +951,7 @@ const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
 
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
   ["marwa", "مروة"],
-  ["marwah", "مروة"],
+  ["marwah", "مرو��"],
   ["restaurant", "مطعم"],
   ["bait", "بيت"],
   ["el", "ال"],
@@ -2720,10 +2720,10 @@ const forceActivityMismatchRef = React.useRef(false);
 
     if (!englishDraft.trim() || !arabicDraft.trim()) {
       setIsEditing(true);
-      toast({
-        title: "Add trade names",
+      enqueueToast({
+        title: "Add both trade names",
         description:
-          "Provide both English and Arabic names before running the checks.",
+          "Please include the English and Arabic versions before running the checks.",
         variant: "destructive",
       });
       return;
@@ -2733,19 +2733,19 @@ const forceActivityMismatchRef = React.useRef(false);
     const succeeded = runChecksWithNames(englishDraft, arabicDraft);
 
     if (!succeeded) {
-      toast({
-        title: "Invalid trade name",
+      enqueueToast({
+        title: "Check the trade name formatting",
         description:
-          "Enter valid characters for both the English and Arabic names.",
+          "Make sure both versions use valid characters before running the checks.",
         variant: "destructive",
       });
     }
   }, [
     arabicDraft,
+    enqueueToast,
     englishDraft,
     isChecking,
     runChecksWithNames,
-    toast,
     setTradeNameGuidance,
   ]);
 
