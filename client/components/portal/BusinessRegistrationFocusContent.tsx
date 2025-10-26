@@ -96,7 +96,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "2. وكيل الكلمات ��لمحظورة → ناجح. لم يتم رصد مفردات محظور��� في النسختين ��لعربية أو الإنجليزية.",
         "3. وكيل التشابه → ناجح. لم يتم العثور على أسماء تجارية متعارضة؛ سج�� المطابقة أظهر صفراً من النتائج ا��متقاربة.",
         "4. وكيل التحويل الصوتي → ناجح. أكد محرك Buckwalter التوافق الصوتي للنسخة العربية بدرجة ثقة 0.95.",
-        "5. وكيل توافق النشا�� → ناجح. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
+        "5. وكيل توافق النشا�� → ناج��. الاسم ما ��زال متوافقاً مع نشاط المطاعم والمشروبا�� المرخّص.",
         "6. محرك القرار النهائي �� مرفو��. إشعار RTN-08 ال��عياري: تم تسجيل هذا ال��سم التجاري مسبق��ا�� يُرجى ��قتراح بدي��.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. من البدائل الموصى بها: "ساحة ��لخي��يار".',
       ].join("\n"),
@@ -144,13 +144,13 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '1. Text normalizer / spell checker / cultural checker — PASSED. Normalized "Marwa Restaurant" and confirmed cultural compliance.',
         "2. Prohibited words agent — PASSED. No restricted terms detected across English and Arabic drafts.",
         "3. Similarity agent — PASSED. Nearest registry match scored 0.12, below the 0.75 conflict threshold.",
-        '4. Transliteration agent — PASSED. Arabic transliteration "مطعم مروة" validated against phonetic rules.',
+        '4. Transliteration agent �� PASSED. Arabic transliteration "مطعم مروة" validated against phonetic rules.',
         "5. Activity compatibility agent — PASSED. Name aligns with the licensed Food & Beverage restaurant activity.",
         "6. Final decision engine — APPROVED 2025-09-22T09:32Z (confidence: high, score: 0.98).",
         "7. Name suggester agent (rejected trade name) — PASSED. No alternatives required; current name authorized.",
       ].join("\n"),
       ar: [
-        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ن��جح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
+        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد م�� الملاءمة ����لثقافية.',
         "• وكيل الكلمات المحظورة → ناجح. ل�� يتم العثور على مصطلحات محظورة في النسختين العربية والإنجليزية.",
         "• وكيل التشابه → ناجح. أقرب تشابه في السجل بلغ 0.12 وهو أقل من حد ال��عارض 0.75.",
         "• وكيل التحويل الصوتي → نا��ح. تمت المصادقة على التحويل «مطعم مروة» وفق القواعد الصوتية.",
@@ -400,10 +400,10 @@ function buildSimilarityConflictNarrative(
   const arabicLines = [
     `1. مدقق النص / التدقيق الإم��ائي / ��لفحص الثقافي → ناجح. اجتاز الا���م "${formattedAttempt}" الت��قق الن��ي دون ��خالفا��.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات مح��ورة في النسختين العربية أ���� الإنجليزية.",
-    `3. و���يل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
+    `3. و���يل التشابه → ��شل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل ال��حويل الصوتي → متوقف مؤقتًا. يجب معالجة التعارض قبل التأكيد.",
     "5. وكيل توافق ال��ش��ط → غير مقيم. في انتظار اسم ��جاري فريد.",
-    `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُ��جى اقتر���ح اسم مختلف.`,
+    `6. محرك القرار النهائي → مرفوض. مرج�� التعا��ض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتر���ح اسم مختلف.`,
     hasIteration
       ? `7. ��كيل اقتراح الاسم (الاسم المرفوض) → إ��شاد. البديل المق��رح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (الاس�� المرفوض) �� إرشاد. ��وصي Polaris بإضافة توصيف خاص أو جغرافي.",
@@ -3408,7 +3408,11 @@ const forceActivityMismatchRef = React.useRef(false);
                             const statusMeta = STAGE_STATUS_BADGE_META[stage.status];
                             const outcome =
                               agentOutcomeByStage[stage.index] ??
-                              (isChecking ? "pending" : "pending");
+                              (stage.status === "completed"
+                                ? "passed"
+                                : stage.status === "failed"
+                                  ? "failed"
+                                  : "pending");
                             const outcomeMeta = AGENT_OUTCOME_META[outcome];
                             return (
                               <div
