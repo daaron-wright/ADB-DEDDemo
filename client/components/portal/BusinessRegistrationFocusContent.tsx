@@ -92,7 +92,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Recommended option: "Khetyar\'s Courtyard".',
       ].join("\n"),
       ar: [
-        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
+        '1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "بيت الختيار" التحقق الن��ي دون مخالفات.',
         "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
@@ -400,7 +400,7 @@ function buildSimilarityConflictNarrative(
   const arabicLines = [
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق النصي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
-    `3. وكيل التشابه → ف��ل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
+    `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكيل توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مرفوض. مرجع التعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اقتراح اسم مختلف.`,
@@ -627,7 +627,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
 };
 
 const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
-  passed: ["pass", "passed", "approved", "ناجح", "م��تمد"],
+  passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
   failed: ["fail", "failed", "فشل"],
   pending: ["pending manual review", "pending", "awaiting", "قيد الانتظار"],
   rejected: ["reject", "rejected", "مرفو��"],
@@ -1647,11 +1647,18 @@ const VerificationStepItem = React.forwardRef<
             </button>
             {showFailureNarrative ? (
               <div className="space-y-3">
-                {renderAgentNarrative(step.failureDetail, "failed", {
-                  activityOptions,
-                  selectedActivityId,
-                  onActivitySelect,
-                })}
+                {renderAgentNarrative(
+                  step.failureDetail,
+                  "failed",
+                  {
+                    activityOptions,
+                    selectedActivityId,
+                    onActivitySelect,
+                  },
+                  step.title === "Full decision flow"
+                    ? undefined
+                    : { focusTitle: step.title },
+                )}
                 {onPolarisPrompt ? (
                   <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-[#0f766e]/25 bg-[#f4f9f7] px-4 py-3 text-xs text-[#0f766e]">
                     <span className="font-semibold uppercase tracking-[0.18em]">
