@@ -155,7 +155,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '1. م��قق النص / التدقيق الإملائي / الفحص ا��ثقافي → ناجح. اتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
         "2. وكيل الكلمات ال��حظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. ��مت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
-        "4. وكيل التحويل ا��صوتي → متو��ف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
+        "4. وكيل التحويل ا��صوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
         "5. وكيل توافق النشاط �� إرشاد. ننتظر اسمًا تجاريًا ��ريدًا لموازنته مع النشاط المرخَّص.",
         "6. محرك القرار النهائ�� → مرفوض. مرجع التعارض SIMILARITY_CONFLICT؛ يُرجى اقتراح اسم مختلف.",
         '7. وكيل اقتراح الاسم (الاس�� المرفوض) → إرشاد. الخيار الموصى به: "ساحة الختيار".',
@@ -254,7 +254,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → ف��ل. الاسم يوحي بمفهوم تراث�� للبيع بالتجزئة وليس نشاط المطعم الحالي.",
-        "6. محرك القرار النهائي → بانتظار المراج��ة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من ��لمراجع.",
+        "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من ��لمراجع.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البدائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -335,10 +335,10 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
-        "• وكيل الكلمات المحظو��ة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنجلي��ية.",
+        "�� وكيل الكلمات المحظو��ة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنجلي��ية.",
         "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق ��لقواعد الصوتية.",
-        "• وكيل توافق النشاط �� ��اجح. الاسم يتوافق مع نشاط المطعم المرخَّ��.",
+        "• وكيل توافق النشاط → ��اجح. الاسم يتوافق مع نشاط المطعم المرخَّ��.",
         "• ��حرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
         "• وكيل اقتراح الا��م (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
@@ -652,7 +652,7 @@ function buildSimilarityConflictNarrative(
     "5. وكي�� توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مفوض. مرجع ا��تعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اق��راح اسم مختلف.`,
     hasIteration
-      ? `7. وكيل اقتراح الاسم (ا��اسم المرفو��) → إرشاد. ��لبديل المقترح: "${sanitizedIteration}".`
+      ? `7. وكيل اقتراح الاسم (ا��اسم المرفو��) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (ال��سم المرفوض) → إرشاد. توصي Polaris بإضافة ��وصيف خاص أ�� جغرافي.",
   ];
 
@@ -886,7 +886,7 @@ const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
     "guidance",
     "suggested alternatives",
     "no alternatives required",
-    "اقتراح البدائل",
+    "اقتراح البدا��ل",
     "لا حاجة لبدائل",
     "إرشاد",
   ],
@@ -1171,15 +1171,23 @@ function summarizeAgentFailureDetail(
       ? failureSignal.detail.replace(/\s+/g, " ").trim()
       : "";
     if (detailText) {
+      const containsSimilarityConflict = /similarity/i.test(detailText);
+      const actionCallout =
+        'RERUN THE TRADE NAME CHECKS ON "BAIT EL KHETYAR HERITAGE KITCHEN" TO AVOID THE SIMILARITY CONFLICT WITH "BAIT EL KHETYAR".';
+
+      if (containsSimilarityConflict) {
+        return (
+          '"BAIT EL KHETYAR" IS SIMILAR TO ANOTHER TRADE NAME IN THE SYSTEM.\n' +
+          actionCallout
+        );
+      }
+
       const sanitizedDetail = detailText
         .split(/\s*\n\s*/)
         .map((segment) => segment.trim())
         .filter((segment) => segment && !/^flagged:/i.test(segment))
         .join(" ")
         .trim();
-
-      const actionCallout =
-        'Rerun the trade name checks on "Bait El Khetyar Heritage Kitchen" to avoid the similarity conflict with "Bait El Khetyar".';
 
       if (sanitizedDetail) {
         return `${sanitizedDetail}\n${actionCallout}`;
