@@ -155,7 +155,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '1. م��قق النص / التدقيق الإملائي / الفحص ا��ثقافي → ناجح. اتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
         "2. وكيل الكلمات ال��حظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. ��مت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
-        "4. وكيل التحويل ا��صوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
+        "4. وكيل التحويل ا����صوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
         "5. وكيل توافق النشاط �� إرشاد. ننتظر اسمًا تجاريًا ��ريدًا لموازنته مع النشاط المرخَّص.",
         "6. محرك القرار النهائ�� → مرفوض. مرجع التعارض SIMILARITY_CONFLICT؛ يُرجى اقتراح اسم مختلف.",
         '7. وكيل اقتراح الاسم (الاس�� المرفوض) → إرشاد. الخيار الموصى به: "ساحة الختيار".',
@@ -1190,10 +1190,24 @@ function summarizeAgentFailureDetail(
         .trim();
 
       if (sanitizedDetail) {
+        if (/activity/i.test(fallbackTitle)) {
+          const activityCallout =
+            "CONFIRM THE LICENSED ACTIVITY TO MAKE SURE POLARIS CAN CLEAR THE ACTIVITY COMPATIBILITY CHECK.";
+          return `${activityCallout}\n${sanitizedDetail}`;
+        }
+
         return `${sanitizedDetail}\n${actionCallout}`;
       }
 
+      if (/activity/i.test(fallbackTitle)) {
+        return "CONFIRM THE LICENSED ACTIVITY TO MAKE SURE POLARIS CAN CLEAR THE ACTIVITY COMPATIBILITY CHECK.";
+      }
+
       return actionCallout;
+    }
+
+    if (/activity/i.test(fallbackTitle)) {
+      return "CONFIRM THE LICENSED ACTIVITY TO MAKE SURE POLARIS CAN CLEAR THE ACTIVITY COMPATIBILITY CHECK.";
     }
 
     return `${failureSignal.title} flagged this step.`;
