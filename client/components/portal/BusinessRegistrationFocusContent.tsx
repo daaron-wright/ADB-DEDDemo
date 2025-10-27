@@ -252,11 +252,50 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
     },
     rawDetailFailure: {
       trade_name: "Bait El Khetyar",
-      selected_activity: "Food & Beverage Restaurant",
-      detected_concept: "heritage retail",
-      alignment_confidence: 0.38,
-      needs_manual_review: true,
-      suggested_activity: "Heritage Retail Concept",
+      language: "english",
+      results: [
+        {
+          activity_description: "restaurant",
+          compatibility_score: 0.21726406422649577,
+          is_consistent: false,
+          reason: "Weak semantic alignment (score=0.22, threshold=1.00)",
+          model: "text-embedding-3-small",
+          provider: "openai",
+          threshold: 1,
+        },
+      ],
+      total_activities: 1,
+      consistent_activities: 0,
+      inconsistent_activities: 1,
+      threshold_used: 1,
+      llm_judgment: {
+        overall_compatible: true,
+        decision: "approve",
+        confidence: 0.85,
+        reasoning:
+          "Approve. At least one activity (restaurant) is clearly compatible with the trade name. No DED special-rule violations detected (no multiple activities, reserved keywords, nationality restrictions, suspended activities, or legal-form indicators present). The low algorithmic semantic score appears to be a false negative due to Arabic phrasing; manual assessment finds the name appropriate for a restaurant in the UAE context. Recommend approval; applicant may be advised to include an English descriptor (e.g., 'Restaurant') on signage or application if they want clearer identification for non-Arabic customers.",
+        activity_judgments: {
+          restaurant: {
+            is_compatible: true,
+            compatibility_score: 0.78,
+            issues: [
+              {
+                type: "ambiguous",
+                severity: "low",
+                description:
+                  "The name 'Bait El Khetyar' uses Arabic wording (Bait = بيت) and does not explicitly include the word 'restaurant' in English; non-Arabic speakers may not immediately recognize it as a food establishment.",
+              },
+            ],
+            strengths: [
+              "The word 'Bait' (بيت) literally means 'house' and is commonly used in Arabic-region restaurant names to denote a dining place (e.g., 'House of...')",
+              "'Culturally resonant' name that suggests traditional or home-style cuisine, appropriate for a restaurant concept in the UAE",
+              "Name is not deceptive or suggestive of regulated professional services; it aligns with hospitality/food sector expectations",
+            ],
+            reasoning:
+              "Manual review shows good semantic and cultural fit for a restaurant. Although the semantic_score is low (0.217) — a likely false negative from the vector search — 'Bait' (بيت) signals a place/house and is frequently used in restaurant names across the region. 'El Khetyar' conveys a traditional/folk tone that fits dining branding. The only minor concern is ambiguity for non-Arabic-speaking customers, but this does not make the name misleading for a restaurant activity.",
+          },
+        },
+      },
     },
   },
   {
@@ -278,7 +317,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
         "• وكيل الكلمات المحظو��ة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنجلي��ية.",
         "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
-        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق القواعد الصوتية.",
+        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق ��لقواعد الصوتية.",
         "• وكيل توافق النشاط → ��اجح. الاسم يتوافق مع نشاط المطعم المرخَّ��.",
         "• ��حرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
@@ -594,7 +633,7 @@ function buildSimilarityConflictNarrative(
     `6. محرك القرار النهائي → مفوض. مرجع ا��تعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اق��راح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقتراح الاسم (ا��اسم المرفو��) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
-      : "7. وكيل اقتراح الاسم (ال��سم المرفوض) → إرشاد. توصي Polaris بإضافة توصيف خاص أ�� جغرافي.",
+      : "7. وكيل اقتراح الاسم (ال��سم المرفوض) → إرشاد. توصي Polaris بإضافة ��وصيف خاص أ�� جغرافي.",
   ];
 
   return {
@@ -805,7 +844,7 @@ const AGENT_OUTCOME_META: Record<
 const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "معتمد"],
   failed: ["fail", "failed", "فشل"],
-  pending: ["pending", "awaiting", "قيد الا��تظار"],
+  pending: ["pending", "awaiting", "قيد الا����ظار"],
   rejected: ["reject", "rejected", "مرفوض"],
   info: [
     "guidance",
