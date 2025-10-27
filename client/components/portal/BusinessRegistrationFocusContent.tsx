@@ -185,6 +185,26 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       similarity_score: 0.81,
       conflict_threshold: 0.75,
       conflict_code: "SIMILARITY_CONFLICT",
+      results: [
+        {
+          name: "Bait El Khetyar - Abu Dhabi",
+          similarity: 0.81,
+          method: "fuzzy",
+          reason:
+            "Distinctive anchor 'Bait El Khetyar' is identical in both names; candidate only adds a location qualifier ('Abu Dhabi'), no differing industry indicators — likely to cause confusion.",
+          language: "english",
+          provider: "openai",
+          model: "text-embedding-3-small",
+          threshold: 0.75,
+          llm_validated: true,
+          llm_decision: "similar",
+          llm_confidence: 0.92,
+          llm_model: "gpt-5-mini",
+          llm_reason:
+            "Distinctive anchor 'Bait El Khetyar' is identical in both names; candidate only adds a location qualifier ('Abu Dhabi'), no differing industry indicators — likely to cause confusion.",
+        },
+      ],
+      total_results: 1,
     },
   },
   {
@@ -320,7 +340,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق ��لقواعد الصوتية.",
         "• وكيل توافق النشاط → ��اجح. الاسم يتوافق مع نشاط المطعم المرخَّ��.",
         "• ��حرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
-        "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
+        "• وكيل اقتراح الا��م (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
     },
     rawDetailSuccess: {
@@ -661,7 +681,7 @@ function buildFinalDecisionRejectionNarrative(
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتم��د "${formattedAttempt}" دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناج��. لا توجد مفردات محظو��ة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
-    "4. وكيل التحويل الصوتي → ��اجح. النسخة العربية متوافقة مع القواعد الصوتية.",
+    "4. وكيل التحويل الصوتي → ��اجح. الن��خة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من ��طة النشاط.",
     "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من ا��رفض الآلي، لذلك تم رفعه لمراجع ��ائرة التنمية الاقتصادية لتحديد الإجراء.",
     "7. وكيل اقتراح الاسم → إرشاد. جهّز المبررات الداعمة قبل التصعيد.",
@@ -1728,7 +1748,7 @@ const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
 ]);
 
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
-  ["marwa", "موة"],
+  ["marwa", "م��ة"],
   ["marwah", "مروة"],
   ["restaurant", "��طعم"],
   ["bait", "بيت"],
