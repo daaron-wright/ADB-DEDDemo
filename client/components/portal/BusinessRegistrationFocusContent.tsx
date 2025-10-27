@@ -591,7 +591,7 @@ function buildSimilarityConflictNarrative(
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكي�� توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
-    `6. محرك القرار النهائي → مفوض. مرجع ا��تعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اق��راح اسم مختلف.`,
+    `6. محرك القرار النهائي → مفوض. مرجع ا��تعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ ي��رجى اق��راح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقتراح الاسم (ا��اسم المرفو��) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (ال��سم المرفوض) → إرشاد. توصي Polaris بإضافة توصيف خاص أ�� جغرافي.",
@@ -1844,10 +1844,11 @@ const VerificationStepItem = React.forwardRef<
       displayOptions?.hideStructuredResponses,
     );
     const rawDetail = displayOptions?.rawDetail;
-    const hasRawDetail =
-      typeof rawDetail === "string"
-        ? rawDetail.trim().length > 0
-        : Boolean(rawDetail);
+    const rawDetailSummary = summarizeAgentRawDetail(
+      rawDetail,
+      displayOptions?.focusTitle ?? null,
+    );
+    const hasRawSummary = rawDetailSummary.length > 0;
 
     const parsedNarrative = narrativeText
       ? parseAgentNarrative(narrativeText)
