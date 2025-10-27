@@ -1170,9 +1170,13 @@ function summarizeAgentFailureDetail(
     const detailText = failureSignal.detail
       ? failureSignal.detail.replace(/\s+/g, " ").trim()
       : "";
-    return detailText
-      ? `${failureSignal.title} flagged: ${detailText}`
-      : `${failureSignal.title} flagged this step.`;
+    if (detailText) {
+      const actionCallout =
+        'Rerun the trade name checks on "Bait El Khetyar Heritage Kitchen" to avoid the similarity conflict with "Bait El Khetyar".';
+      return `${failureSignal.title} flagged: ${detailText}\n${actionCallout}`;
+    }
+
+    return `${failureSignal.title} flagged this step.`;
   }
 
   const pendingSignal = parsed.responses.find(
