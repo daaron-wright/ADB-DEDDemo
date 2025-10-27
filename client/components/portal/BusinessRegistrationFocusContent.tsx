@@ -155,7 +155,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '1. م��قق النص / التدقيق الإملائي / الفحص ا��ثقافي → ناجح. اتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
         "2. وكيل الكلمات ال��حظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. ��مت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
-        "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
+        "4. وكيل التحويل ا��صوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
         "5. وكيل توافق النشاط �� إرشاد. ننتظر اسمًا تجاريًا ��ريدًا لموازنته مع النشاط المرخَّص.",
         "6. محرك القرار النهائ�� → مرفوض. مرجع التعارض SIMILARITY_CONFLICT؛ يُرجى اقتراح اسم مختلف.",
         '7. وكيل اقتراح الاسم (الاس�� المرفوض) → إرشاد. الخيار الموصى به: "ساحة الختيار".',
@@ -512,7 +512,7 @@ const TRADE_NAME_STAGE_MESSAGES: ReadonlyArray<{
     friendlyDetail:
       "Polaris reviews every agent signal and writes a single go / no-go recommendation with reasons.",
     startTitle: "Bringing the results together",
-    startDescription: "Polaris is combining every agent��s verdict.",
+    startDescription: "Polaris is combining every agent’s verdict.",
     completeTitle: "All checks passed",
     completeDescription: "You’re clear to reserve the trade name.",
     failureTitle: "Needs a reviewer",
@@ -589,7 +589,7 @@ function buildSimilarityConflictNarrative(
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق ��لنصي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النستين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
-    "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يج�� حل التعارض قبل تأكيد النسخة العربية.",
+    "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكي�� توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مفوض. مرجع ا��تعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اق��راح اسم مختلف.`,
     hasIteration
@@ -1534,15 +1534,20 @@ function summarizeActivityRawDetail(
         }
 
         if (Array.isArray(issuesValue) && issuesValue.length > 0) {
-          const firstIssue = issuesValue.find((item) => isPlainObject(item));
-          if (firstIssue) {
-            const issueDescription = getRecordString(
-              firstIssue as Record<string, unknown>,
-              "description",
-            );
-            if (issueDescription) {
-              sentences.push(`Minor concern: ${issueDescription}`);
-            }
+          const summarizedIssues = issuesValue
+            .map((item) => {
+              if (!isPlainObject(item)) {
+                return "";
+              }
+              const description = getRecordString(
+                item as Record<string, unknown>,
+                "description",
+              );
+              return description ? description : "";
+            })
+            .filter(Boolean);
+          if (summarizedIssues.length > 0) {
+            sentences.push(`Minor concerns: ${summarizedIssues.join("; ")}.`);
           }
         }
       });
