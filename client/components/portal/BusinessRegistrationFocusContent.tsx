@@ -1141,6 +1141,225 @@ function summarizeAgentFailureDetail(
   return `Resolve the issue flagged by ${fallbackTitle}.`;
 }
 
+function capitalizeWord(segment: string): string {
+  if (!segment) {
+    return "";
+  }
+
+  return segment.charAt(0).toUpperCase() + segment.slice(1).toLowerCase();
+}
+
+function toStartCase(label: string): string {
+  return label
+    .split(/[_\s]+/)
+    .filter(Boolean)
+    .map(capitalizeWord)
+    .join(" ");
+}
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function wrapInSmartQuotes(value: string): string {
+  return `\u201c${value}\u201d`;
+}
+
+function formatNumericValue(value: number): string {
+  if (!Number.isFinite(value)) {
+    return String(value);
+  }
+
+  if (Math.abs(value - Math.round(value)) < 0.001) {
+    return Math.round(value).toString();
+  }
+
+  return value.toFixed(2).replace(/\.00$/, "");
+}
+
+function getRecordString(
+  record: Record<string, unknown>,
+  key: string,
+): string | null {
+  const value = record[key];
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    return trimmed.length > 0 ? trimmed : null;
+  }
+
+  return null;
+}
+
+function getRecordNumber(
+  record: Record<string, unknown>,
+  key: string,
+): number | null {
+  const value = record[key];
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return value;
+  }
+
+  if (typeof value === "string") {
+    const parsed = Number(value);
+    if (Number.isFinite(parsed)) {
+      return parsed;
+    }
+  }
+
+  return null;
+}
+
+function formatUnknownValue(value: unknown, depth = 0): string {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return formatNumericValue(value);
+  }
+
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    return trimmed ? wrapInSmartQuotes(trimmed) : "";
+  }
+
+  if (typeof value === "boolean") {
+    return value ? "yes" : "no";
+  }
+
+  if (Array.isArray(value)) {
+    const parts = value
+      .map((item) => formatUnknownValue(item, depth + 1))
+      .filter(Boolean);
+    return parts.length > 0 ? parts.join(", ") : "";
+  }
+
+  if (isPlainObject(value) && depth < 2) {
+    const nested = describeRecordEntries(value, depth + 1);
+    return nested.length > 0 ? nested.join("; ") : "";
+  }
+
+  if (value === null || value === undefined) {
+    return "";
+  }
+
+  return String(value);
+}
+
+function describeRecordEntries(
+  record: Record<string, unknown>,
+  depth = 0,
+): string[] {
+  return Object.entries(record).flatMap(([key, value]) => {
+    if (value === null || value === undefined) {
+      return [];
+    }
+
+    const label = toStartCase(key);
+
+    if (isPlainObject(value) && depth < 2) {
+      const nested = describeRecordEntries(value, depth + 1);
+      if (nested.length === 0) {
+        return [];
+      }
+
+      return [`${label}: ${nested.join("; ")}`];
+    }
+
+    if (Array.isArray(value)) {
+      const parts = value
+        .map((item) => formatUnknownValue(item, depth + 1))
+        .filter(Boolean);
+
+      if (parts.length === 0) {
+        return [];
+      }
+
+      return [`${label}: ${parts.join(", ")}`];
+    }
+
+    const formatted = formatUnknownValue(value, depth + 1);
+    if (!formatted) {
+      return [];
+    }
+
+    return [`${label}: ${formatted}`];
+  });
+}
+
+function summarizeSimilarityRawDetail(
+  detail: Record<string, unknown>,
+): string[] {
+  const sentences: string[] = [];
+  const proposed = getRecordString(detail, "text");
+  const language = getRecordString(detail, "language");
+  const nearestMatchValue = detail.nearest_match;
+  const nearestMatch = isPlainObject(nearestMatchValue)
+    ? nearestMatchValue
+    : null;
+  const nearestName = nearestMatch ? getRecordString(nearestMatch, "name") : null;
+  const registryId = nearestMatch
+    ? getRecordString(nearestMatch, "registry_id")
+    : null;
+  const similarityScore = getRecordNumber(detail, "similarity_score");
+  const threshold = getRecordNumber(detail, "conflict_threshold");
+  const conflictCode = getRecordString(detail, "conflict_code");
+
+  if (proposed && nearestName) {
+    const languageSuffix = language ? ` (${language.toLowerCase()})` : "";
+    const registrySuffix = registryId ? ` (${registryId})` : "";
+    sentences.push(
+      `Polaris compared ${wrapInSmartQuotes(proposed)}${languageSuffix} with registry record ${wrapInSmartQuotes(nearestName)}${registrySuffix}.`,
+    );
+  }
+
+  if (similarityScore !== null) {
+    if (threshold !== null) {
+      sentences.push(
+        `Similarity score ${formatNumericValue(similarityScore)} exceeds the allowable limit of ${formatNumericValue(
+          threshold,
+        )}, so the trade name conflicts with an existing registration.`,
+      );
+    } else {
+      sentences.push(
+        `Similarity score ${formatNumericValue(similarityScore)} indicates a conflict with an existing registration.`,
+      );
+    }
+  }
+
+  if (conflictCode) {
+    const readableConflict = toStartCase(conflictCode);
+    sentences.push(`${readableConflict} was raised as the conflict reason.`);
+  }
+
+  return sentences.length > 0 ? sentences : describeRecordEntries(detail);
+}
+
+function summarizeAgentRawDetail(
+  rawDetail: AgentRawDetail,
+  focusTitle?: string | null,
+): string[] {
+  if (!rawDetail) {
+    return [];
+  }
+
+  if (typeof rawDetail === "string") {
+    const trimmed = rawDetail.trim();
+    return trimmed ? [trimmed] : [];
+  }
+
+  if (!isPlainObject(rawDetail)) {
+    return [];
+  }
+
+  const normalizedFocus = focusTitle ? focusTitle.trim().toLowerCase() : "";
+
+  if (normalizedFocus.includes("similarity")) {
+    const similaritySummary = summarizeSimilarityRawDetail(rawDetail);
+    if (similaritySummary.length > 0) {
+      return similaritySummary;
+    }
+  }
+
+  return describeRecordEntries(rawDetail);
+}
+
 const TRADE_NAME_PAYMENT_DISPLAY_AMOUNT = "65 AED";
 
 function createTradeNameReceiptDocument(): DocumentVaultItem {
