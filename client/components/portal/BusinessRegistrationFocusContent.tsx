@@ -152,10 +152,10 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Recommended option: "Khetyar\'s Courtyard".',
       ].join("\n"),
       ar: [
-        '1. م��ق�� النص / التدقيق الإملائي / الفحص ا��ثقافي → ناجح. اتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
+        '1. م��قق النص / التدقيق الإملائي / الفحص ا��ثقافي → ناجح. اتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
         "2. وكيل ��لكلمات ال��حظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. ��مت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
-        "4. وكيل التحويل ا����صوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
+        "4. وكيل التحويل ا����صوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد ��لنسخة العربية.",
         "5. وكيل توافق النشاط �� إرشاد. ننتظر اسمًا تجاريًا ��ريدًا لموازنته مع النشاط المرخَّص.",
         "6. محرك القرار النهائ�� → مرفوض. مرجع التعارض SIMILARITY_CONFLICT؛ يُرجى اقتراح اسم مختلف.",
         '7. وكيل اقتراح الاسم (الاس�� المرفوض) → إرشاد. الخيار الموصى به: "ساحة الختيار".',
@@ -250,7 +250,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفح�� الثقافي → ناجح. تم توحيد "بيت الختيار" دون تع��رضات ثقافية.',
-        "2. وكيل الكلمات المحظورة �� ناجح. لا توجد مفردات محظورة في النسختين ��لإنجليزية أو العر��ية.",
+        "2. وكيل الكلمات المحظورة �� ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العر��ية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل ال��حويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → ف��ل. الاسم يوحي بمفهوم تراث�� للبيع بالتجزئة وليس نشاط المطعم الحالي.",
@@ -683,7 +683,7 @@ function buildFinalDecisionRejectionNarrative(
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ��اجح. الن��خة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من ��طة النشاط.",
-    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من ا���رفض الآلي، لذلك تم رفعه لمراجع ��ائرة التنمية الاقتصادية لتحديد الإجراء.",
+    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من ا��رفض الآلي، لذلك تم رفعه لمراجع ��ائرة التنمية الاقتصادية لتحديد الإجراء.",
     "7. وكيل اقتراح الاسم → إرشاد. جهّز المبررات الداعمة قبل التصعيد.",
   ];
 
@@ -1190,24 +1190,10 @@ function summarizeAgentFailureDetail(
         .trim();
 
       if (sanitizedDetail) {
-        if (/activity/i.test(fallbackTitle)) {
-          const activityCallout =
-            "CONFIRM THE LICENSED ACTIVITY TO MAKE SURE POLARIS CAN CLEAR THE ACTIVITY COMPATIBILITY CHECK.";
-          return `${activityCallout}\n${sanitizedDetail}`;
-        }
-
         return `${sanitizedDetail}\n${actionCallout}`;
       }
 
-      if (/activity/i.test(fallbackTitle)) {
-        return "CONFIRM THE LICENSED ACTIVITY TO MAKE SURE POLARIS CAN CLEAR THE ACTIVITY COMPATIBILITY CHECK.";
-      }
-
       return actionCallout;
-    }
-
-    if (/activity/i.test(fallbackTitle)) {
-      return "CONFIRM THE LICENSED ACTIVITY TO MAKE SURE POLARIS CAN CLEAR THE ACTIVITY COMPATIBILITY CHECK.";
     }
 
     return `${failureSignal.title} flagged this step.`;
