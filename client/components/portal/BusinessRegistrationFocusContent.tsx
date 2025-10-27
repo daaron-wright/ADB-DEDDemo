@@ -155,7 +155,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '1. م��قق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
         "2. وكيل الكلمات ال��حظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. ��مت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
-        "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
+        "4. وكيل ال��حويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
         "5. وكيل توافق النشاط �� إرشاد. ننتظر اسمًا تجاريًا ��ريدًا لموازنته مع النشاط المرخَّص.",
         "6. محرك القرار النهائ�� → مرفوض. مرجع التعارض SIMILARITY_CONFLICT؛ يُرجى اقتراح اسم مختلف.",
         '7. وكيل اقتراح الاسم (الاس�� المرفوض) → إرشاد. الخيار الموصى به: "ساحة الختيار".',
@@ -276,8 +276,8 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
-        "• وكيل الكلمات المحظو����ة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنجلي��ية.",
-        "• وكيل الت��ابه → ناجح. أقر�� تشابه ف�� السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
+        "• وكيل الكلمات المحظو��ة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنجلي��ية.",
+        "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ��اجح. الاسم يتوافق مع نشاط المطعم المرخَّ��.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
@@ -589,7 +589,7 @@ function buildSimilarityConflictNarrative(
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق ��لنصي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النستين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
-    "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
+    "4. وكيل التحويل الصوتي → متوقف مؤق��ًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكي�� توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مفوض. مرجع ا��تعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اق��راح اسم مختلف.`,
     hasIteration
@@ -1452,7 +1452,7 @@ const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
   ["marwah restaurant", MARWA_TRADE_NAME_AR],
   ["bait el khetyar", PRIMARY_TRADE_NAME_AR],
   ["bait al khetyar", PRIMARY_TRADE_NAME_AR],
-  ["bait el khetyar heritage kitchen", "��يت الختيار هيريتج كتشن"],
+  ["bait el khetyar heritage kitchen", "بيت الختيار هيريتج كتشن"],
 ]);
 
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
@@ -1886,8 +1886,17 @@ const VerificationStepItem = React.forwardRef<
         : undefined;
 
     return (
-      <div className={cn("space-y-3 rounded-xl", styles.container)}>
-        <span className={styles.label}>{agentResponsesLabel}</span>
+      <div className={cn("space-y-3", styles.container)}>
+        <div className="flex flex-col gap-2">
+          <span className={styles.label}>{agentResponsesLabel}</span>
+          {hasRawSummary ? (
+            <div className="space-y-2 rounded-2xl border border-[#e6f2ed] bg-white px-4 py-3 text-[13px] leading-relaxed text-slate-600 shadow-[0_18px_44px_-34px_rgba(15,23,42,0.14)]">
+              {rawDetailSummary.map((sentence, sentenceIndex) => (
+                <p key={`raw-detail-inline-${sentenceIndex}`}>{sentence}</p>
+              ))}
+            </div>
+          ) : null}
+        </div>
         <Accordion
           type="multiple"
           defaultValue={accordionDefaultValue}
