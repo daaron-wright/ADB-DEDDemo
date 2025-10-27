@@ -155,7 +155,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '1. م��قق النص / التدقيق الإملائي / الفحص ا��ثقافي → ناجح. اتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
         "2. وكيل الكلمات ال��حظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. ��مت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
-        "4. وكيل التحويل الصوت�� → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
+        "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
         "5. وكيل توافق النشاط �� إرشاد. ننتظر اسمًا تجاريًا ��ريدًا لموازنته مع النشاط المرخَّص.",
         "6. محرك القرار النهائ�� → مرفوض. مرجع التعارض SIMILARITY_CONFLICT؛ يُرجى اقتراح اسم مختلف.",
         '7. وكيل اقتراح الاسم (الاس�� المرفوض) → إرشاد. الخيار الموصى به: "ساحة الختيار".',
@@ -275,7 +275,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "7. Name suggester agent (rejected trade name) — PASSED. No alternatives required; current name authorized.",
       ].join("\n"),
       ar: [
-        '• مدقق النص / التدقيق الإملائي / الفحص الث��افي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
+        '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
         "• وكيل الكلمات المحظو��ة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنجلي��ية.",
         "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق القواعد الصوتية.",
@@ -577,7 +577,7 @@ function buildSimilarityConflictNarrative(
     `1. Text normalizer / spell checker / cultural checker — PASSED. "${formattedAttempt}" cleared text validation with zero violations.`,
     "2. Prohibited words agent — PASSED. No restricted vocabulary detected across English or Arabic drafts.",
     `3. Similarity agent — FAILED. Matched existing trade name "${PRIMARY_TRADE_NAME_EN}" with similarity score ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
-    "4. Transliteration agent — GUIDANCE. Conflict must resolve before Arabic confirmation.",
+    "4. Transliteration agent ��� GUIDANCE. Conflict must resolve before Arabic confirmation.",
     "5. Activity compatibility agent — GUIDANCE. Waiting on a unique trade name.",
     `6. Final decision engine  REJECTED. Conflict reference ${SIMILARITY_CONFLICT_REFERENCE}; submit a differentiated variation.`,
     hasIteration
@@ -589,7 +589,7 @@ function buildSimilarityConflictNarrative(
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق ��لنصي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النستين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
-    "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأ��يد النسخة العربية.",
+    "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكي�� توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مفوض. مرجع ا��تعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اق��راح اسم مختلف.`,
     hasIteration
@@ -624,7 +624,7 @@ function buildFinalDecisionRejectionNarrative(
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ��اجح. النسخة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من ��طة النشاط.",
-    "6. محرك القرار النهائي → تم التصعيد ل��مراجعة. لسنا واثقين من الرفض الآلي، لذلك تم رفعه لمراجع ��ائرة التنمية الاقتصادية لتحديد الإجراء.",
+    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من ا��رفض الآلي، لذلك تم رفعه لمراجع ��ائرة التنمية الاقتصادية لتحديد الإجراء.",
     "7. وكيل اقتراح الاسم → إرشاد. جهّز المبررات الداعمة قبل التصعيد.",
   ];
 
@@ -831,7 +831,7 @@ const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
     "لا حاجة لبدائل",
     "إرشاد",
   ],
-  escalated: ["escalated", "escalation", "تصعيد"],
+  escalated: ["escalated", "escalation", "��صعيد"],
 };
 
 function escapeRegExp(value: string) {
@@ -1362,12 +1362,11 @@ function summarizeSimilarityRawDetail(
       }
 
       if (llmDecision) {
-        const confidenceDisplay =
-          llmConfidence !== null
-            ? ` with ${formatNumericValue(llmConfidence * 100)}% confidence`
-            : "";
+        const confidenceDisplay = formatPercentage(llmConfidence);
         sentences.push(
-          `Polaris confirmed the conflict via LLM review, which classified the names as ${llmDecision.toLowerCase()}${confidenceDisplay}.`,
+          `Polaris confirmed the conflict via LLM review, which classified the names as ${llmDecision.toLowerCase()}${
+            confidenceDisplay ? ` with ${confidenceDisplay} confidence` : ""
+          }.`,
         );
       }
 
@@ -1394,6 +1393,158 @@ function summarizeSimilarityRawDetail(
   if (conflictCode) {
     const readableConflict = toStartCase(conflictCode);
     sentences.push(`${readableConflict} was raised as the conflict reason.`);
+  }
+
+  return sentences.length > 0 ? sentences : describeRecordEntries(detail);
+}
+
+function summarizeActivityRawDetail(
+  detail: Record<string, unknown>,
+): string[] {
+  const sentences: string[] = [];
+  const tradeName = getRecordString(detail, "trade_name");
+  const language = getRecordString(detail, "language");
+  const resultsValue = detail.results;
+  const results = Array.isArray(resultsValue) ? resultsValue : [];
+  const totalActivities = getRecordNumber(detail, "total_activities");
+  const consistentActivities = getRecordNumber(detail, "consistent_activities");
+  const inconsistentActivities = getRecordNumber(detail, "inconsistent_activities");
+  const thresholdUsed = getRecordNumber(detail, "threshold_used");
+  const primaryResult = results.length > 0 && isPlainObject(results[0]) ? results[0] : null;
+
+  if (tradeName) {
+    const activityDescription = primaryResult
+      ? getRecordString(primaryResult, "activity_description")
+      : null;
+    const languageSuffix = language ? ` (${language.toLowerCase()})` : "";
+    if (activityDescription) {
+      sentences.push(
+        `Polaris reviewed ${wrapInSmartQuotes(tradeName)}${languageSuffix} for the ${activityDescription.toLowerCase()} activity.`,
+      );
+    } else {
+      sentences.push(
+        `Polaris reviewed ${wrapInSmartQuotes(tradeName)}${languageSuffix} against your selected activity.`,
+      );
+    }
+  }
+
+  if (primaryResult) {
+    const activityDescription = getRecordString(primaryResult, "activity_description");
+    const compatibilityScore = getRecordNumber(primaryResult, "compatibility_score");
+    const resultThreshold = getRecordNumber(primaryResult, "threshold");
+    const isConsistentValue = primaryResult.is_consistent;
+    const reason = getRecordString(primaryResult, "reason");
+
+    if (compatibilityScore !== null) {
+      const thresholdDisplay = formatNumericValue(
+        resultThreshold ?? thresholdUsed ?? 0,
+      );
+      const scoreDisplay = formatNumericValue(compatibilityScore);
+      const activityLabel = activityDescription
+        ? activityDescription.toLowerCase()
+        : "selected";
+      sentences.push(
+        `Automated semantic analysis scored the ${activityLabel} activity at ${scoreDisplay} against a required ${thresholdDisplay}, flagging weak alignment.`,
+      );
+    }
+
+    if (reason) {
+      sentences.push(reason);
+    }
+
+    if (typeof isConsistentValue === "boolean") {
+      if (isConsistentValue) {
+        sentences.push("Automated checks marked the activity as consistent with the trade name.");
+      } else {
+        sentences.push(
+          "Automated checks marked the activity as inconsistent, so Polaris requested a manual review.",
+        );
+      }
+    }
+  }
+
+  if (
+    totalActivities !== null &&
+    consistentActivities !== null &&
+    inconsistentActivities !== null
+  ) {
+    sentences.push(
+      `${formatNumericValue(consistentActivities)} of ${formatNumericValue(
+        totalActivities,
+      )} activities appeared consistent in the automated scan, while ${formatNumericValue(
+        inconsistentActivities,
+      )} were flagged for closer review.`,
+    );
+  }
+
+  const llmJudgmentValue = detail.llm_judgment;
+  const llmJudgment = isPlainObject(llmJudgmentValue) ? llmJudgmentValue : null;
+
+  if (llmJudgment) {
+    const llmDecision = getRecordString(llmJudgment, "decision");
+    const llmConfidence = getRecordNumber(llmJudgment, "confidence");
+    const llmReasoning = getRecordString(llmJudgment, "reasoning");
+
+    if (llmDecision) {
+      const confidenceDisplay = formatPercentage(llmConfidence);
+      sentences.push(
+        `Polaris issued an ${llmDecision.toLowerCase()} decision${
+          confidenceDisplay ? ` with ${confidenceDisplay} confidence` : ""
+        } after manual review.`,
+      );
+    }
+
+    if (llmReasoning) {
+      sentences.push(llmReasoning);
+    }
+
+    const activityJudgmentsValue = llmJudgment.activity_judgments;
+    if (isPlainObject(activityJudgmentsValue)) {
+      const activityEntries = Object.entries(activityJudgmentsValue);
+      activityEntries.forEach(([activityKey, activityValue]) => {
+        if (!isPlainObject(activityValue)) {
+          return;
+        }
+        const issuesValue = activityValue.issues;
+        const strengthsValue = activityValue.strengths;
+        const activityReasoning = getRecordString(activityValue, "reasoning");
+        const compatibilityScore = getRecordNumber(activityValue, "compatibility_score");
+
+        if (compatibilityScore !== null) {
+          sentences.push(
+            `${toStartCase(activityKey)} received a manual compatibility score of ${formatNumericValue(
+              compatibilityScore,
+            )}.`,
+          );
+        }
+
+        if (activityReasoning) {
+          sentences.push(activityReasoning);
+        }
+
+        if (Array.isArray(strengthsValue) && strengthsValue.length > 0) {
+          const firstStrength = strengthsValue
+            .map((item) => (typeof item === "string" ? item.trim() : ""))
+            .filter(Boolean)[0];
+          if (firstStrength) {
+            sentences.push(`Strength noted: ${firstStrength}`);
+          }
+        }
+
+        if (Array.isArray(issuesValue) && issuesValue.length > 0) {
+          const firstIssue = issuesValue.find((item) => isPlainObject(item));
+          if (firstIssue) {
+            const issueDescription = getRecordString(
+              firstIssue as Record<string, unknown>,
+              "description",
+            );
+            if (issueDescription) {
+              sentences.push(`Minor concern: ${issueDescription}`);
+            }
+          }
+        }
+      });
+    }
   }
 
   return sentences.length > 0 ? sentences : describeRecordEntries(detail);
