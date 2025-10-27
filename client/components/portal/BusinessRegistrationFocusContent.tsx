@@ -235,7 +235,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '4. وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → ف��ل. الاسم يوحي بمفهوم تراث�� للبيع بالتجزئة وليس نشاط المطعم الحالي.",
         "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من المراجع.",
-        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البدائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
+        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. ال��دائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
     rawDetailSuccess: {
@@ -591,7 +591,7 @@ function buildSimilarityConflictNarrative(
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكي�� توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
-    `6. محرك القرار النهائي → مفوض. مرجع ا��تعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ ي��رجى اق��راح اسم مختلف.`,
+    `6. محرك القرار النهائي → مفوض. مرجع ا��تعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اق��راح اسم مختلف.`,
     hasIteration
       ? `7. وكيل اقتراح الاسم (ا��اسم المرفو��) → إرشاد. البديل المقترح: "${sanitizedIteration}".`
       : "7. وكيل اقتراح الاسم (ال��سم المرفوض) → إرشاد. توصي Polaris بإضافة توصيف خاص أ�� جغرافي.",
@@ -813,7 +813,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
     "no alternatives required",
     "اقتراح البدائل",
     "لا ح��جة لبدائل",
-    "إرشاد",
+    "��رشاد",
   ],
   escalated: ["escalated", "escalation", "تصعي��"],
 };
@@ -1855,11 +1855,11 @@ const VerificationStepItem = React.forwardRef<
       : null;
     const hasNarrative = Boolean(parsedNarrative);
 
-    if (!hasNarrative && !hasRawDetail) {
+    if (!hasNarrative && !hasRawSummary) {
       return null;
     }
 
-    if (shouldHideStructuredResponses && !hasRawDetail) {
+    if (shouldHideStructuredResponses && !hasRawSummary) {
       return null;
     }
 
