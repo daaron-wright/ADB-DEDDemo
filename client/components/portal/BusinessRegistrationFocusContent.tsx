@@ -278,9 +278,9 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
         "• وكيل الكلمات المحظو��ة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنجلي��ية.",
         "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
-        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق ا��قواعد الصوتية.",
+        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ��اجح. الاسم يتوافق مع نشاط المطعم المرخَّ��.",
-        "• ��حرك القرار النهائي → مع��مد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
+        "• ��حرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -512,7 +512,7 @@ const TRADE_NAME_STAGE_MESSAGES: ReadonlyArray<{
     friendlyDetail:
       "Polaris reviews every agent signal and writes a single go / no-go recommendation with reasons.",
     startTitle: "Bringing the results together",
-    startDescription: "Polaris is combining every agent’s verdict.",
+    startDescription: "Polaris is combining every agent��s verdict.",
     completeTitle: "All checks passed",
     completeDescription: "You’re clear to reserve the trade name.",
     failureTitle: "Needs a reviewer",
@@ -589,7 +589,7 @@ function buildSimilarityConflictNarrative(
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق ��لنصي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النستين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
-    "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
+    "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يج�� حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكي�� توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مفوض. مرجع ا��تعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اق��راح اسم مختلف.`,
     hasIteration
@@ -619,7 +619,7 @@ function buildFinalDecisionRejectionNarrative(
   ];
 
   const arabicLines = [
-    `1. مدقق النص / التدقيق الإملائي / ا��فحص الثقافي → ناجح. تم اعتم��د "${formattedAttempt}" دون مخالفات.`,
+    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتم��د "${formattedAttempt}" دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناج��. لا توجد مفردات محظو��ة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ��اجح. النسخة العربية متوافقة مع القواعد الصوتية.",
@@ -1523,11 +1523,13 @@ function summarizeActivityRawDetail(
         }
 
         if (Array.isArray(strengthsValue) && strengthsValue.length > 0) {
-          const firstStrength = strengthsValue
+          const summarizedStrengths = strengthsValue
             .map((item) => (typeof item === "string" ? item.trim() : ""))
-            .filter(Boolean)[0];
-          if (firstStrength) {
-            sentences.push(`Strength noted: ${firstStrength}`);
+            .filter(Boolean);
+          if (summarizedStrengths.length > 0) {
+            sentences.push(
+              `Strengths: ${summarizedStrengths.join("; ")}.`,
+            );
           }
         }
 
