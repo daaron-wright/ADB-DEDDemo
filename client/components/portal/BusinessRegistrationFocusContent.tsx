@@ -872,7 +872,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
     "no alternatives required",
     "اقتراح البدائل",
     "لا ح��جة لبدائل",
-    "إرشاد",
+    "إرشا��",
   ],
   escalated: ["escalated", "escalation", "تصعي��"],
 };
@@ -1461,7 +1461,7 @@ function summarizeSimilarityRawDetail(
       if (llmDecision) {
         const confidenceDisplay = formatPercentage(llmConfidence);
         sentences.push(
-          `Polaris confirmed the conflict via LLM review, which classified the names as ${llmDecision.toLowerCase()}${
+          `Polaris confirmed the conflict via agent review, which classified the names as ${llmDecision.toLowerCase()}${
             confidenceDisplay ? ` with ${confidenceDisplay} confidence` : ""
           }.`,
         );
