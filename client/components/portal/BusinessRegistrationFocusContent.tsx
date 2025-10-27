@@ -235,7 +235,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '4. وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → ف��ل. الاسم يوحي بمفهوم تراث�� للبيع بالتجزئة وليس نشاط المطعم الحالي.",
         "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من المراجع.",
-        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. ال��دائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
+        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البدائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
     rawDetailSuccess: {
@@ -813,7 +813,7 @@ const AGENT_OUTCOME_KEYWORDS: Record<AgentOutcome, string[]> = {
     "no alternatives required",
     "اقتراح البدائل",
     "لا ح��جة لبدائل",
-    "��رشاد",
+    "إرشاد",
   ],
   escalated: ["escalated", "escalation", "تصعي��"],
 };
@@ -1889,20 +1889,6 @@ const VerificationStepItem = React.forwardRef<
       });
 
       return filtered.length > 0 ? filtered : baseline;
-    })();
-
-    const formattedRawDetail = (() => {
-      if (!hasRawDetail) {
-        return "";
-      }
-      if (typeof rawDetail === "string") {
-        return rawDetail.trim();
-      }
-      try {
-        return JSON.stringify(rawDetail ?? {}, null, 2);
-      } catch (error) {
-        return String(rawDetail);
-      }
     })();
 
     const accordionDefaultValue = hasNarrative
