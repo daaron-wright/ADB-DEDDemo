@@ -156,7 +156,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "2. وكيل الكلمات ال��حظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. ��مت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
-        "5. وكيل توافق النشاط �� إرشاد. ننتظر اسمًا تجاريًا ��ريدًا لموازنته مع النشاط المرخَّص.",
+        "5. وكيل توافق النشاط �� إرشاد. ننتظر اسمًا تجاريًا ��ريدًا ل��وازنته مع النشاط المرخَّص.",
         "6. محرك القرار النهائ�� → مرفوض. مرجع التعارض SIMILARITY_CONFLICT؛ يُرجى اقتراح اسم مختلف.",
         '7. وكيل اقتراح الاسم (الاس�� المرفوض) → إرشاد. الخيار الموصى به: "ساحة الختيار".',
       ].join("\n"),
@@ -234,7 +234,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → ف��ل. الاسم يوحي بمفهوم تراث�� للبيع بالتجزئة وليس نشاط المطعم الحالي.",
-        "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من ��لمراجع.",
+        "6. محرك القرار النهائي → بانتظار ا��مراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من ��لمراجع.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البدائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -277,10 +277,10 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ar: [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
         "• وكيل الكلمات المحظو��ة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنجلي��ية.",
-        "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
+        "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 و��و أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ��اجح. الاسم يتوافق مع نشاط المطعم المرخَّ��.",
-        "• محرك القرار النهائ�� → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
+        "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -586,7 +586,7 @@ function buildSimilarityConflictNarrative(
   ];
 
   const arabicLines = [
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق ��لنصي دون مخ��لفات.`,
+    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق ��لنصي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النستين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة الاسم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
@@ -1289,6 +1289,8 @@ function summarizeSimilarityRawDetail(
   const sentences: string[] = [];
   const proposed = getRecordString(detail, "text");
   const language = getRecordString(detail, "language");
+  const resultsValue = detail.results;
+  const results = Array.isArray(resultsValue) ? resultsValue : [];
   const nearestMatchValue = detail.nearest_match;
   const nearestMatch = isPlainObject(nearestMatchValue)
     ? nearestMatchValue
@@ -1309,7 +1311,61 @@ function summarizeSimilarityRawDetail(
     );
   }
 
-  if (similarityScore !== null) {
+  if (results.length > 0) {
+    const primaryResult = results[0];
+    if (isPlainObject(primaryResult)) {
+      const resultName = getRecordString(primaryResult, "name");
+      const resultSimilarity = getRecordNumber(primaryResult, "similarity");
+      const resultMethod = getRecordString(primaryResult, "method");
+      const resultReason = getRecordString(primaryResult, "reason");
+      const llmDecision = getRecordString(primaryResult, "llm_decision");
+      const llmConfidence = getRecordNumber(primaryResult, "llm_confidence");
+      const llmReason = getRecordString(primaryResult, "llm_reason");
+
+      if (resultName && !nearestName) {
+        sentences.push(
+          `Polaris compared ${wrapInSmartQuotes(proposed ?? "the candidate name")}${language ? ` (${language.toLowerCase()})` : ""} with the nearest registry record ${wrapInSmartQuotes(resultName)}.`,
+        );
+      }
+
+      if (resultSimilarity !== null || similarityScore !== null) {
+        const similarityDisplay = formatNumericValue(
+          resultSimilarity ?? similarityScore ?? 0,
+        );
+        if (threshold !== null) {
+          sentences.push(
+            `${resultMethod ? `${toStartCase(resultMethod)} analysis` : "Similarity analysis"} scored ${similarityDisplay}, exceeding the allowable limit of ${formatNumericValue(
+              threshold,
+            )}, so the trade name conflicts with an existing registration.`,
+          );
+        } else {
+          sentences.push(
+            `${resultMethod ? `${toStartCase(resultMethod)} analysis` : "Similarity analysis"} scored ${similarityDisplay}, signaling a conflict with an existing registration.`,
+          );
+        }
+      }
+
+      if (resultReason) {
+        sentences.push(resultReason);
+      }
+
+      if (llmDecision) {
+        const confidenceDisplay =
+          llmConfidence !== null
+            ? ` with ${formatNumericValue(llmConfidence * 100)}% confidence`
+            : "";
+        sentences.push(
+          `Polaris confirmed the conflict via LLM review, which classified the names as ${llmDecision.toLowerCase()}${confidenceDisplay}.`,
+        );
+      }
+
+      if (llmReason) {
+        sentences.push(llmReason);
+      }
+    }
+  }
+
+  if (similarityScore !== null && results.length === 0) {
     if (threshold !== null) {
       sentences.push(
         `Similarity score ${formatNumericValue(similarityScore)} exceeds the allowable limit of ${formatNumericValue(
