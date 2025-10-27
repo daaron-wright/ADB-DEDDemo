@@ -276,8 +276,8 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
-        "• وكيل الكلمات المحظو��ة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنجلي��ية.",
-        "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
+        "• وكيل الكلمات المحظو����ة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنجلي��ية.",
+        "• وكيل الت��ابه → ناجح. أقر�� تشابه ف�� السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق القواعد الصوتية.",
         "• وكيل توافق النشاط → ��اجح. الاسم يتوافق مع نشاط المطعم المرخَّ��.",
         "• محرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
@@ -1452,7 +1452,7 @@ const TRANSLITERATION_PHRASE_OVERRIDES = new Map<string, string>([
   ["marwah restaurant", MARWA_TRADE_NAME_AR],
   ["bait el khetyar", PRIMARY_TRADE_NAME_AR],
   ["bait al khetyar", PRIMARY_TRADE_NAME_AR],
-  ["bait el khetyar heritage kitchen", "بيت الختيار هيريتج كتشن"],
+  ["bait el khetyar heritage kitchen", "��يت الختيار هيريتج كتشن"],
 ]);
 
 const TRANSLITERATION_WORD_OVERRIDES = new Map<string, string>([
@@ -1723,27 +1723,15 @@ const VerificationStepItem = React.forwardRef<
     () => ({
       failed: {
         container:
-          "border-[#0f766e]/30 bg-white px-3 py-2 text-sm text-[#0f766e]",
+          "border border-[#e6f2ed] bg-white px-4 py-4 text-sm text-slate-600 shadow-[0_18px_44px_-34px_rgba(15,23,42,0.18)]",
         label:
           "text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]",
-        toggleWrap:
-          "inline-flex items-center gap-1 rounded-full border border-[#0f766e]/30 bg-white/80 p-1",
-        toggleActive:
-          "min-w-[36px] rounded-full px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] bg-[#0f766e] text-white shadow-[0_8px_20px_-10px_rgba(15,118,110,0.45)]",
-        toggleInactive:
-          "min-w-[36px] rounded-full px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#0f766e]/10",
       },
       success: {
         container:
-          "border-[#94d2c2] bg-[#dff2ec]/90 px-3 py-2 text-sm text-[#0f766e]",
+          "border border-[#e6f2ed] bg-white px-4 py-4 text-sm text-slate-600 shadow-[0_18px_44px_-34px_rgba(15,23,42,0.18)]",
         label:
           "text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]",
-        toggleWrap:
-          "inline-flex items-center gap-1 rounded-full border border-[#94d2c2] bg-white/80 p-1",
-        toggleActive:
-          "min-w-[36px] rounded-full px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] bg-[#0f766e] text-white shadow-[0_8px_20px_-10px_rgba(15,118,110,0.45)]",
-        toggleInactive:
-          "min-w-[36px] rounded-full px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e] transition hover:bg-[#0f766e]/10",
       },
     }),
     [],
