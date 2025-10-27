@@ -278,9 +278,9 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '• مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
         "• وكيل الكلمات المحظو��ة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النسختين العربية والإنجلي��ية.",
         "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
-        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق القواعد الصوتية.",
+        "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق ا��قواعد الصوتية.",
         "• وكيل توافق النشاط → ��اجح. الاسم يتوافق مع نشاط المطعم المرخَّ��.",
-        "• ��حرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
+        "• ��حرك القرار النهائي → مع��مد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
         "• وكيل اقتراح الاسم (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -619,7 +619,7 @@ function buildFinalDecisionRejectionNarrative(
   ];
 
   const arabicLines = [
-    `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. تم اعتم��د "${formattedAttempt}" دون مخالفات.`,
+    `1. مدقق النص / التدقيق الإملائي / ا��فحص الثقافي → ناجح. تم اعتم��د "${formattedAttempt}" دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناج��. لا توجد مفردات محظو��ة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ��اجح. النسخة العربية متوافقة مع القواعد الصوتية.",
@@ -1563,11 +1563,6 @@ function summarizeAgentRawDetail(
     return trimmed ? [trimmed] : [];
   }
 
-  if (typeof rawDetail === "string") {
-    const trimmed = rawDetail.trim();
-    return trimmed ? [trimmed] : [];
-  }
-
   if (!isPlainObject(rawDetail)) {
     return [];
   }
@@ -1578,6 +1573,13 @@ function summarizeAgentRawDetail(
     const similaritySummary = summarizeSimilarityRawDetail(rawDetail);
     if (similaritySummary.length > 0) {
       return similaritySummary;
+    }
+  }
+
+  if (normalizedFocus.includes("activity")) {
+    const activitySummary = summarizeActivityRawDetail(rawDetail);
+    if (activitySummary.length > 0) {
+      return activitySummary;
     }
   }
 
