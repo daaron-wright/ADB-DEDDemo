@@ -4191,6 +4191,9 @@ export function BusinessRegistrationFocusContent({
                         </div>
                       </div>
                       {automationSteps.map((step, index) => {
+                        if (index === 0) {
+                          return null;
+                        }
                         const isActivityStep =
                           step.title === "Activity compatibility agent";
                         const showFinalDecisionEscalationControl =
