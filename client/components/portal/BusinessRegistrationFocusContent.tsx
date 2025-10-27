@@ -234,7 +234,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل التحويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → ف��ل. الاسم يوحي بمفهوم تراث�� للبيع بالتجزئة وليس نشاط المطعم الحالي.",
-        "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من المراجع.",
+        "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من ��لمراجع.",
         '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البدائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
@@ -1995,7 +1995,7 @@ const VerificationStepItem = React.forwardRef<
               </AccordionContent>
             </AccordionItem>
           ) : null}
-          {hasRawDetail ? (
+          {hasRawSummary ? (
             <AccordionItem
               value="raw-detail"
               className="overflow-hidden rounded-2xl border border-slate-800/40 bg-slate-950/80 text-slate-100 shadow-inner"
@@ -2003,10 +2003,12 @@ const VerificationStepItem = React.forwardRef<
               <AccordionTrigger className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-300 hover:no-underline">
                 <span>Agent response</span>
               </AccordionTrigger>
-              <AccordionContent className="px-4 pb-4 text-xs">
-                <pre className="whitespace-pre-wrap break-words font-mono text-[11px] leading-relaxed">
-                  {formattedRawDetail}
-                </pre>
+              <AccordionContent className="space-y-2 px-4 pb-4 text-sm leading-relaxed text-slate-100">
+                {rawDetailSummary.map((sentence, sentenceIndex) => (
+                  <p key={`raw-detail-${sentenceIndex}`} className="text-slate-100">
+                    {sentence}
+                  </p>
+                ))}
               </AccordionContent>
             </AccordionItem>
           ) : null}
