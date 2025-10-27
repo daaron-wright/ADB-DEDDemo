@@ -1390,7 +1390,9 @@ function summarizeSimilarityRawDetail(
   const nearestMatch = isPlainObject(nearestMatchValue)
     ? nearestMatchValue
     : null;
-  const nearestName = nearestMatch ? getRecordString(nearestMatch, "name") : null;
+  const nearestName = nearestMatch
+    ? getRecordString(nearestMatch, "name")
+    : null;
   const registryId = nearestMatch
     ? getRecordString(nearestMatch, "registry_id")
     : null;
@@ -1481,9 +1483,7 @@ function summarizeSimilarityRawDetail(
   return sentences.length > 0 ? sentences : describeRecordEntries(detail);
 }
 
-function summarizeActivityRawDetail(
-  detail: Record<string, unknown>,
-): string[] {
+function summarizeActivityRawDetail(detail: Record<string, unknown>): string[] {
   const sentences: string[] = [];
   const tradeName = getRecordString(detail, "trade_name");
   const language = getRecordString(detail, "language");
@@ -1491,9 +1491,13 @@ function summarizeActivityRawDetail(
   const results = Array.isArray(resultsValue) ? resultsValue : [];
   const totalActivities = getRecordNumber(detail, "total_activities");
   const consistentActivities = getRecordNumber(detail, "consistent_activities");
-  const inconsistentActivities = getRecordNumber(detail, "inconsistent_activities");
+  const inconsistentActivities = getRecordNumber(
+    detail,
+    "inconsistent_activities",
+  );
   const thresholdUsed = getRecordNumber(detail, "threshold_used");
-  const primaryResult = results.length > 0 && isPlainObject(results[0]) ? results[0] : null;
+  const primaryResult =
+    results.length > 0 && isPlainObject(results[0]) ? results[0] : null;
 
   if (tradeName) {
     const activityDescription = primaryResult
@@ -1512,8 +1516,14 @@ function summarizeActivityRawDetail(
   }
 
   if (primaryResult) {
-    const activityDescription = getRecordString(primaryResult, "activity_description");
-    const compatibilityScore = getRecordNumber(primaryResult, "compatibility_score");
+    const activityDescription = getRecordString(
+      primaryResult,
+      "activity_description",
+    );
+    const compatibilityScore = getRecordNumber(
+      primaryResult,
+      "compatibility_score",
+    );
     const resultThreshold = getRecordNumber(primaryResult, "threshold");
     const isConsistentValue = primaryResult.is_consistent;
     const reason = getRecordString(primaryResult, "reason");
@@ -1537,7 +1547,9 @@ function summarizeActivityRawDetail(
 
     if (typeof isConsistentValue === "boolean") {
       if (isConsistentValue) {
-        sentences.push("Automated checks marked the activity as consistent with the trade name.");
+        sentences.push(
+          "Automated checks marked the activity as consistent with the trade name.",
+        );
       } else {
         sentences.push(
           "Automated checks marked the activity as inconsistent, so Polaris requested a manual review.",
@@ -1591,7 +1603,10 @@ function summarizeActivityRawDetail(
         const issuesValue = activityValue.issues;
         const strengthsValue = activityValue.strengths;
         const activityReasoning = getRecordString(activityValue, "reasoning");
-        const compatibilityScore = getRecordNumber(activityValue, "compatibility_score");
+        const compatibilityScore = getRecordNumber(
+          activityValue,
+          "compatibility_score",
+        );
 
         if (compatibilityScore !== null) {
           sentences.push(
@@ -1610,9 +1625,7 @@ function summarizeActivityRawDetail(
             .map((item) => (typeof item === "string" ? item.trim() : ""))
             .filter(Boolean);
           if (summarizedStrengths.length > 0) {
-            sentences.push(
-              `Strengths: ${summarizedStrengths.join("; ")}.`,
-            );
+            sentences.push(`Strengths: ${summarizedStrengths.join("; ")}.`);
           }
         }
 
@@ -1670,7 +1683,7 @@ function summarizeAgentRawDetail(
     const activitySummary = summarizeActivityRawDetail(rawDetail);
     if (activitySummary.length > 0) {
       const callout =
-        'CONFIRM THE LICENSED ACTIVITY TO MAKE SURE POLARIS CAN CLEAR THE ACTIVITY COMPATIBILITY CHECK.';
+        "CONFIRM THE LICENSED ACTIVITY TO MAKE SURE POLARIS CAN CLEAR THE ACTIVITY COMPATIBILITY CHECK.";
       return [callout, ...activitySummary];
     }
   }
