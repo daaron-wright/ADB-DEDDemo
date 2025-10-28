@@ -44,6 +44,10 @@ import {
   JourneyStageFocusView,
   type JourneyStageFocusViewProps,
 } from "@/components/portal/JourneyStageFocusView";
+import {
+  PRIMARY_TRADE_NAME_EN,
+  HERITAGE_VARIATION_TRADE_NAME_EN,
+} from "@/components/portal/trade-name-constants";
 import { budgetSummaryRows } from "@/components/ui/budget-ranges-data";
 import { Textarea } from "@/components/ui/textarea";
 import { usePersistentState } from "@/hooks/use-persistent-state";
