@@ -341,7 +341,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     keyDatesHeading: "التواري�� الرئيسية",
     keyDates: {
-      submitted: "تم التقديم",
+      submitted: "تم ��لتقديم",
       lastUpdated: "آخر تحديث",
     },
     heroBadge: "رحلة ا��مستثمر",
@@ -359,11 +359,11 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       submissionId: "معرّف الرحلة",
       lastUpdate: "آخر تحديث",
     },
-    nextActionHeading: "الإ���راء التال��",
-    nextActionButton: "انتقل�� إلى ��لإجراء التالي",
+    nextActionHeading: "الإ��راء التال��",
+    nextActionButton: "انتقل���� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيق��م مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فو�� تسجيل ��قدك.",
+      "سيق��م مساعد الذكاء الاصطناعي تلقائ��ًا بجلب عقد الإيجار من نظام بلدية أبوظبي فو�� تسجيل ��قدك.",
     businessAITitle: "بولاريس",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أ��شطة في رخصة تجارية واحدة.",
@@ -409,7 +409,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       activeStage: "المرحلة النشطة",
       yourNextStep: "خطوت�� التالية",
       tasksCompleteMessage:
-        "تم إكمال كل المها�� لهذه ا��مرحلة. راقب�� تحديثات الأتمتة.",
+        "تم إكمال كل المهام لهذه ا��مرحلة. راقب�� تحديثات الأتمتة.",
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "اف��حي المهمة ال��ال��ة",
       reviewStage: "اس��عرضي المرحلة",
@@ -427,7 +427,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "مرحب��ا بكِ—شاركي��ا تفاصيل فكرتك ��نصمم معًا رحلة ا��ترخيص التي تطلق مشروعك التجاري.",
       startCta: "ابدئي الاس��بيان مع الذكاء الاصطناعي",
       resumeCta: "افتحي مساحة الاستبيان",
-      completeCta: "أتم�� الاستبيان",
+      completeCta: "أتمي الاستبيان",
       pendingLicenseLabel: "متاح بعد الاستبيان",
       pendingSubmissionLabel: "0987654321",
       chatIntro:
@@ -445,7 +445,7 @@ const journeyStages: JourneyStage[] = [
       detail: "",
     },
     description:
-      "Complete Polaris's intake so your workspace matches your concept.",
+      "Complete Al Yah's intake so your workspace matches your concept.",
     state: "current",
     statusDetail: "",
     tasks: [
