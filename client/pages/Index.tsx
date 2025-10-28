@@ -142,6 +142,75 @@ export default function Index() {
   const gradientRef = useRef<HTMLDivElement>(null);
   const hasCategoryFocusRef = useRef(false);
 
+  const dispatchVoiceCall = useCallback(
+    (detail: VoiceCallEventDetail) => {
+      if (typeof window === "undefined") {
+        return;
+      }
+
+      window.dispatchEvent(
+        new CustomEvent<VoiceCallEventDetail>("alYahVoiceCallRequested", {
+          detail,
+        }),
+      );
+    },
+    [],
+  );
+
+  const clearVoiceOverlay = useCallback(() => {
+    if (voiceOverlayTimeoutRef.current !== null && typeof window !== "undefined") {
+      window.clearTimeout(voiceOverlayTimeoutRef.current);
+    }
+    voiceOverlayTimeoutRef.current = null;
+    setVoiceOverlayMessage(null);
+  }, []);
+
+  const showVoiceOverlay = useCallback(
+    (message: string) => {
+      if (typeof window !== "undefined" && voiceOverlayTimeoutRef.current !== null) {
+        window.clearTimeout(voiceOverlayTimeoutRef.current);
+      }
+      setVoiceOverlayMessage(message);
+      if (typeof window !== "undefined") {
+        voiceOverlayTimeoutRef.current = window.setTimeout(() => {
+          setVoiceOverlayMessage(null);
+          voiceOverlayTimeoutRef.current = null;
+        }, 4200);
+      }
+    },
+    [],
+  );
+
+  const triggerVoiceCall = useCallback(() => {
+    const now = Date.now();
+    if (now - lastVoiceCallTimestampRef.current < 800) {
+      return;
+    }
+
+    lastVoiceCallTimestampRef.current = now;
+    showVoiceOverlay(VOICE_CALL_OVERLAY_MESSAGE);
+    setLauncherExpanded(false);
+
+    const voiceDetail: VoiceCallEventDetail = {
+      prompt: VOICE_CALL_PROMPT,
+      announcement: VOICE_CALL_ANNOUNCEMENT,
+      timestamp: now,
+    };
+
+    pendingVoiceCallRef.current = voiceDetail;
+
+    setChatState((previous) => ({
+      isOpen: true,
+      category: previous.category ?? "general",
+      initialMessage: previous.initialMessage,
+    }));
+
+    if (chatState.isOpen) {
+      dispatchVoiceCall(voiceDetail);
+      pendingVoiceCallRef.current = null;
+    }
+  }, [chatState.isOpen, dispatchVoiceCall, showVoiceOverlay]);
+
   const ambientOrbs = useMemo(
     () => [
       {
