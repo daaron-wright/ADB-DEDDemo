@@ -1798,7 +1798,7 @@ const CuisinePopularityBreakout = ({
                     <AIBusinessOrb className="h-16 w-16" />
                     <div>
                       <div className="text-white text-lg font-semibold">
-                        Polaris
+                        Al Yah
                       </div>
                       <div className="flex items-center gap-1">
                         {[
@@ -2049,7 +2049,7 @@ const CompetitorAnalysisBreakout = ({
                     <AIBusinessOrb className="h-16 w-16" />
                     <div>
                       <div className="text-white text-lg font-semibold">
-                        Polaris
+                        Al Yah
                       </div>
                       <div className="flex items-center gap-1">
                         {[
@@ -2324,7 +2324,7 @@ const GapAnalysisBreakout = ({
                     <AIBusinessOrb className="h-16 w-16" />
                     <div>
                       <div className="text-white text-lg font-semibold">
-                        Polaris
+                        Al Yah
                       </div>
                       <div className="flex items-center gap-1">
                         {[
