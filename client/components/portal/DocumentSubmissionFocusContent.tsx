@@ -343,7 +343,7 @@ export function DocumentSubmissionFocusContent({
       ? "Every document is stored with the latest updates."
       : "Documents update automatically whenever you finish a stage.";
 
-  const renderPolarisGuidanceContent = React.useCallback(
+  const renderAlYahGuidanceContent = React.useCallback(
     (variant: "card" | "inline" = "card") => {
       const content = showMoaAssistant ? (
         <>
@@ -579,7 +579,7 @@ export function DocumentSubmissionFocusContent({
                 title="Al Yah guidance"
                 subtitle="Custom MOA simulation and ADJD routing"
               >
-                {renderPolarisGuidanceContent("inline")}
+                {renderAlYahGuidanceContent("inline")}
               </CollapsibleCard>
               <CollapsibleCard
                 value="certifications"
@@ -631,7 +631,7 @@ export function DocumentSubmissionFocusContent({
         id: "moa",
         heading: "Al Yah guidance",
         description: moaSubtitle,
-        content: renderPolarisGuidanceContent(),
+        content: renderAlYahGuidanceContent(),
       },
       {
         id: "payment",
@@ -749,7 +749,7 @@ export function DocumentSubmissionFocusContent({
       vaultStatusHeading,
       vaultSubtitle,
       activeDocument,
-      renderPolarisGuidanceContent,
+      renderAlYahGuidanceContent,
     ],
   );
 
