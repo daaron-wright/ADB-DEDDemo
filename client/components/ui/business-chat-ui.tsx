@@ -6970,7 +6970,7 @@ export function BusinessChatUI({
   const stagePanelMessage =
     followUpRecommendations.length > 0
       ? (followUpRecommendations[0]?.description ??
-        "Choose what you����d like to explore next.")
+        "Choose what you�����d like to explore next.")
       : (stageBlueprint?.message ?? "");
 
   useEffect(() => {
@@ -8180,7 +8180,7 @@ export function BusinessChatUI({
     const trimmedInitial = initialMessage?.trim();
     const hasInitialPrompt = Boolean(trimmedInitial);
     const defaultGreeting =
-      "Welcome, Layla. Im Polaris—here to keep momentum going. Tell me more about your business concept.";
+      "Welcome, Shamma. Im Polaris—here to keep momentum going. Tell me more about your business concept.";
     const conversationSeedKey = `default-${trimmedInitial ?? ""}-${initialUnlocksQuickActions ? "unlock" : "basic"}`;
 
     if (conversationSeedKeyRef.current === conversationSeedKey) {
