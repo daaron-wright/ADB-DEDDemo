@@ -77,7 +77,7 @@ export interface JourneyStageFocusViewProps {
   onTradeNameReservationSubmitted?: () => void;
   tradeNamePayAndIssueLabel?: string;
   tradeNamePayAndIssueToast?: string;
-  onPolarisPrompt?: (prompt: string, options?: { submit?: boolean }) => void;
+  onAlYahPrompt?: (prompt: string, options?: { submit?: boolean }) => void;
   onLicenseIssued?: () => void;
   growthUnlocked?: boolean;
   onComplianceReturn?: () => void;
@@ -178,7 +178,7 @@ export function JourneyStageFocusView({
   onTradeNameReservationSubmitted,
   tradeNamePayAndIssueLabel,
   tradeNamePayAndIssueToast,
-  onPolarisPrompt,
+  onAlYahPrompt,
   onLicenseIssued,
   growthUnlocked = false,
   onComplianceReturn,
@@ -381,7 +381,7 @@ export function JourneyStageFocusView({
             onTradeNameReservationSubmitted={onTradeNameReservationSubmitted}
             payAndIssueLabel={tradeNamePayAndIssueLabel}
             payAndIssueToast={tradeNamePayAndIssueToast}
-            onPolarisPrompt={onPolarisPrompt}
+            onAlYahPrompt={onAlYahPrompt}
           />
         ) : (
           renderGuidanceSummary(
