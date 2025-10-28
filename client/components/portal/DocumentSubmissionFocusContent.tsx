@@ -457,7 +457,7 @@ export function DocumentSubmissionFocusContent({
       ) : (
         <div className="space-y-3">
           <p className="text-sm text-slate-600">
-            Reopen the guidance if you want Polaris to rerun the custom MOA simulation.
+            Reopen the guidance if you want Al Yah to rerun the custom MOA simulation.
           </p>
           <Button
             type="button"
@@ -576,7 +576,7 @@ export function DocumentSubmissionFocusContent({
             >
               <CollapsibleCard
                 value="moa-guidance"
-                title="Polaris guidance"
+                title="Al Yah guidance"
                 subtitle="Custom MOA simulation and ADJD routing"
               >
                 {renderPolarisGuidanceContent("inline")}
@@ -629,7 +629,7 @@ export function DocumentSubmissionFocusContent({
       },
       {
         id: "moa",
-        heading: "Polaris guidance",
+        heading: "Al Yah guidance",
         description: moaSubtitle,
         content: renderPolarisGuidanceContent(),
       },
