@@ -6467,6 +6467,24 @@ export function BusinessChatUI({
   const [hotkeyDraftPrompt, setHotkeyDraftPrompt] = useState<string | null>(
     null,
   );
+  const focusStageId =
+    journeyFocusView?.stage?.id ??
+    journeyFocusView?.timelineItem?.id ??
+    null;
+  const additionalChatHotkeys = useMemo<ChatInputHotkeyMapping[]>(() => {
+    if (focusStageId !== "trade-name-activities") {
+      return [];
+    }
+
+    return [
+      {
+        key: " ",
+        prompt: TRADE_NAME_RERUN_PROMPT,
+        modifiers: { shift: true, alt: false, meta: false, ctrl: false },
+        requireEmptyInput: true,
+      },
+    ];
+  }, [focusStageId]);
   const [hasFeedbackPrompted, setHasFeedbackPrompted] = useState(false);
   const [feedbackStats, setFeedbackStats] = useState<
     Record<string, { count: number; sample: string }>
