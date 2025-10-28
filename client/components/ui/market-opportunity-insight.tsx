@@ -181,7 +181,7 @@ export const MarketOpportunityInsight: React.FC<MarketOpportunityInsightProps> =
 
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-[0.22em] text-[#0F766E]">
-              Priority zones surfaced by Polaris
+              Priority zones surfaced by Al Yah
             </h4>
             <ul className="mt-2 space-y-2 text-sm text-slate-600">
               {PRIORITY_ZONES.map((zone) => (
