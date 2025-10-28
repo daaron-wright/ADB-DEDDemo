@@ -8714,7 +8714,7 @@ export function BusinessChatUI({
             {isSidePanel && (
               <motion.button
                 type="button"
-                aria-label="Close Polaris chat"
+                aria-label="Close Al Yah chat"
                 onClick={onClose}
                 className="absolute inset-0 z-40 bg-slate-950/40"
                 initial={{ opacity: 0 }}
