@@ -256,7 +256,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '4. وكيل ال��حويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → ف��ل. الاسم يوحي بمفهوم تراث�� للبيع بالتجزئة وليس نشاط المطعم الحالي.",
         "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من ��لمراجع.",
-        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البدائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
+        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البدائل ��لمقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
     rawDetailSuccess: {
@@ -340,7 +340,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق ��لقواعد الصوتية.",
         "• وكيل توافق النشاط → ��اجح. الاسم يتوافق مع نشاط المطعم المرخَّ��.",
-        "• ��حرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
+        "• ��حرك القرار النهائي → معتمد بتاري�� 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
         "• وكيل اقتراح الا��م (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -3969,9 +3969,12 @@ export function BusinessRegistrationFocusContent({
       }
 
       const normalizedIncoming = formattedEnglish.toLowerCase();
+      const referencesAssistant =
+        normalizedIncoming.includes("al yah") ||
+        normalizedIncoming.replace(/\s+/g, "").includes("alyah");
       if (
         !hasExplicitEnglish &&
-        (normalizedIncoming.includes("polaris") ||
+        (referencesAssistant ||
           normalizedIncoming.includes("rerun") ||
           normalizedIncoming.includes("trade name"))
       ) {
