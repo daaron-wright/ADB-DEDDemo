@@ -94,7 +94,7 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
               Review competitor evidence
             </button>
             <p className="max-w-xs text-xs leading-relaxed text-slate-500">
-              Polaris keeps the competitor landscape refreshed, so this gap statement updates as new operators appear or pricing shifts.
+              Al Yah keeps the competitor landscape refreshed, so this gap statement updates as new operators appear or pricing shifts.
             </p>
           </div>
         </div>
