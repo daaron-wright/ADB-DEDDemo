@@ -7,7 +7,7 @@ export const ENTREPRENEUR_PROFILE = {
 } as const;
 
 export const AI_ASSISTANT_PROFILE = {
-  name: "Polaris",
+  name: "Al Yah",
   title: "Guiding your Abu Dhabi investment journey",
   avatar:
     "https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fef8618bdb236478ca82d3dd91027a173?format=webp&width=800",
