@@ -122,6 +122,15 @@ export default function Index() {
   const alYahAvatarAlt = AI_ASSISTANT_PROFILE.name;
   const hasAlYahAvatar = alYahAvatarUrl.length > 0;
 
+  const [voiceOverlayMessage, setVoiceOverlayMessage] = useState<string | null>(
+    null,
+  );
+  const voiceOverlayTimeoutRef = useRef<number | null>(null);
+  const pendingVoiceCallRef = useRef<VoiceCallEventDetail | null>(null);
+  const lastVoiceCallTimestampRef = useRef<number>(0);
+  const metaKeyActiveRef = useRef(false);
+  const metaKeyComboUsedRef = useRef(false);
+
   const focusPointRef = useRef<{ x: number; y: number }>({
     ...FALLBACK_FOCUS,
   });
