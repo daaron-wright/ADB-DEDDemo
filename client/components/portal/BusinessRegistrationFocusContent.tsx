@@ -35,7 +35,7 @@ interface BusinessRegistrationFocusContentProps {
   onTradeNameReservationSubmitted?: () => void;
   payAndIssueLabel?: string;
   payAndIssueToast?: string;
-  onPolarisPrompt?: (prompt: string, options?: { submit?: boolean }) => void;
+  onAlYahPrompt?: (prompt: string, options?: { submit?: boolean }) => void;
 }
 
 type TradeNameCheckStatus = "completed" | "current" | "pending" | "failed";
@@ -154,7 +154,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. م��قق النص / التدقيق الإملائي / الفحص ا��ثقافي → ناجح. اتاز الاسم "بيت الختيار" التحقق النصي دون مخالفات.',
-        "2. وكيل ��لكلمات ال��حظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
+        "2. وكيل ��لك��مات ال��حظورة → ناجح. لم يتم رصد مفردات محظورة في النسختين العربية أو الإنجليزية.",
         '3. وكيل التشابه → فشل. ��مت مطابقة الاسم المسجل "بيت الختيار" بدرجة تشابه 0.81 (SIMILARITY_CONFLICT).',
         "4. وكيل التحويل ا����صوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد ��لنسخة العربية.",
         "5. وكيل توافق النشاط �� إرشاد. ننتظر اسمًا تجاريًا ��ريدًا لموازنته مع النشاط المرخَّص.",
@@ -256,7 +256,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '4. وكيل ال��حويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → ف��ل. الاسم يوحي بمفهوم تراث�� للبيع بالتجزئة وليس نشاط المطعم الحالي.",
         "6. محرك القرار النهائي → بانتظار المراجعة اليدوية. يرجى اختيار نشاط متوافق أو طلب تأكيد من ��لمراجع.",
-        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البدائل ��لمقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
+        '7. وكيل اقتراح الاسم (الاسم المرفوض) → إرشاد. البدائل المقترحة: "Bait El Khetyar Restaurant" و"Khetyar Dining House".',
       ].join("\n"),
     },
     rawDetailSuccess: {
@@ -340,7 +340,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق ��لقواعد الصوتية.",
         "• وكيل توافق النشاط → ��اجح. الاسم يتوافق مع نشاط المطعم المرخَّ��.",
-        "• ��حرك القرار النهائي → معتمد بتاري�� 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
+        "• ��حرك القرار النهائي → معتمد بتاريخ 22-09-2025 الساعة 09:32 (درجة الثقة: عالية، ال��تيجة: 0.98).",
         "• وكيل اقتراح الا��م (الاسم المرفوض) → لا حاجة لبدائل؛ الاسم الحالي معتمد.",
       ].join("\n"),
     },
@@ -649,7 +649,7 @@ function buildSimilarityConflictNarrative(
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق ��لنصي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النستين العربية أو الإنجليزية.",
     `3. وكيل التشابه → فشل. تمت مطابقة ال��سم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
-    "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
+    "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل ت��كيد النسخة العربية.",
     "5. وكي�� توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مفوض. مرجع ا��تعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اق��راح اسم مختلف.`,
     hasIteration
@@ -685,7 +685,7 @@ function buildFinalDecisionRejectionNarrative(
     "4. وكيل التحويل الصوتي → ��اجح. الن��خة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققً�� يدويًا من ��طة ال��شاط.",
     "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من ا��رفض الآلي، لذلك تم رفعه لمراجع ��ائرة التنمية الاقتصادية لتحديد الإجراء.",
-    "7. وكيل اقتراح الاسم → إرشاد. جهّز المبرر��ت الداعمة قبل التصعيد.",
+    "7. وكيل اقتراح الاسم → إرش��د. جهّز المبرر��ت الداعمة قبل التصعيد.",
   ];
 
   return {
@@ -2019,7 +2019,7 @@ type VerificationStepItemProps = {
   activityOptions?: ActivityOption[];
   selectedActivityId?: string | null;
   onActivitySelect?: (activityId: string) => void;
-  onPolarisPrompt?: (prompt: string, options?: { submit?: boolean }) => void;
+  onAlYahPrompt?: (prompt: string, options?: { submit?: boolean }) => void;
   showFinalDecisionEscalationControl?: boolean;
   shouldAutoOpenNarrative?: boolean;
   sectionId?: string;
@@ -2038,7 +2038,7 @@ const VerificationStepItem = React.forwardRef<
     activityOptions,
     selectedActivityId,
     onActivitySelect,
-    onPolarisPrompt,
+    onAlYahPrompt,
     showFinalDecisionEscalationControl = false,
     shouldAutoOpenNarrative = false,
     sectionId,
@@ -2575,7 +2575,7 @@ export function BusinessRegistrationFocusContent({
   onTradeNameReservationSubmitted,
   payAndIssueLabel,
   payAndIssueToast,
-  onPolarisPrompt,
+  onAlYahPrompt,
 }: BusinessRegistrationFocusContentProps) {
   const { toast } = useToast();
   type ToastHandle = ReturnType<typeof toast>;
@@ -4750,7 +4750,7 @@ export function BusinessRegistrationFocusContent({
                                 ? handleActivitySelect
                                 : undefined
                             }
-                            onPolarisPrompt={onPolarisPrompt}
+                            onAlYahPrompt={onAlYahPrompt}
                             showFinalDecisionEscalationControl={
                               showFinalDecisionEscalationControl
                             }
