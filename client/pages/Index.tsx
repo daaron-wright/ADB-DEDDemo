@@ -416,11 +416,13 @@ export default function Index() {
 
   useEffect(() => {
     return () => {
+      isComponentMountedRef.current = false;
       if (voiceOverlayTimeoutRef.current !== null && typeof window !== "undefined") {
         window.clearTimeout(voiceOverlayTimeoutRef.current);
       }
+      stopVoiceNarration();
     };
-  }, []);
+  }, [stopVoiceNarration]);
 
   useEffect(() => {
     if (typeof window === "undefined") {
