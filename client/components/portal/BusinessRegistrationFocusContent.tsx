@@ -335,8 +335,8 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "7. Name suggester agent (rejected trade name) — PASSED. No alternatives required; current name authorized.",
       ].join("\n"),
       ar: [
-        '• مدقق النص / التدقيق الإملائي / ��لفحص ا��ثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
-        "• وكيل الكلمات المحظو��ة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النس��تين العربية والإنجلي��ية.",
+        '• مدقق النص / التدقيق الإملائي / ��لفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
+        "• وكيل الكلمات المحظو��ة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النس����تين العربية والإنجلي��ية.",
         "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق ��لقواعد الصوتية.",
         "• وكيل توافق النشاط → ��اجح. الاسم يتوافق مع نشاط المطعم المرخَّ��.",
@@ -648,7 +648,7 @@ function buildSimilarityConflictNarrative(
   const arabicLines = [
     `1. مدقق النص / التدقيق الإملائي / الفحص الثقافي → ناجح. اجتاز الاسم "${formattedAttempt}" التحقق ��لنصي دون مخالفات.`,
     "2. وكيل الكلمات المحظورة → ناجح. لم يتم رصد مفردات محظورة في النستين العربية أو الإنجليزية.",
-    `3. وكيل التشابه → فشل. تمت مطابقة ال��سم ا��مسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
+    `3. وكيل التشابه → فشل. تمت مطابقة ال��سم المسجل "${PRIMARY_TRADE_NAME_AR}" بدرجة تشابه ${SIMILARITY_CONFLICT_SCORE.toFixed(2)} (${SIMILARITY_CONFLICT_REFERENCE}).`,
     "4. وكيل التحويل الصوتي → متوقف مؤقتًا. يجب حل التعارض قبل تأكيد النسخة العربية.",
     "5. وكي�� توافق النشاط → إرشاد. ننتظر اسمًا تجاريًا فريدًا قبل التقييم.",
     `6. محرك القرار النهائي → مفوض. مرجع ا��تعارض ${SIMILARITY_CONFLICT_REFERENCE}؛ يُرجى اق��راح اسم مختلف.`,
@@ -684,8 +684,8 @@ function buildFinalDecisionRejectionNarrative(
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ��اجح. الن��خة العربية متوافقة مع القواعد الصوتية.",
     "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من ��طة ال��شاط.",
-    "6. محرك القرار النهائي → تم التصعي�� للمراجعة. لسنا واثقين من ا��رفض الآلي، لذلك تم رفعه لمراجع ��ائرة التنمية الاقتصادية لتحديد الإجراء.",
-    "7. وكيل اقتراح الاسم → إرشاد. جهّز المبررات الداعمة قبل التصعيد.",
+    "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من ا��رفض الآلي، لذلك تم رفعه لمراجع ��ائرة التنمية الاقتصادية لتحديد الإجراء.",
+    "7. وكيل اقتراح الاسم → إرشاد. جهّز المبرر��ت الداعمة قبل التصعيد.",
   ];
 
   return {
@@ -882,7 +882,7 @@ const AGENT_STATUS_STRIP_PREFIXES: Record<AgentOutcome, string[]> = {
   passed: ["pass", "passed", "approved", "ناجح", "م��تمد"],
   failed: ["fail", "failed", "فشل"],
   pending: ["pending manual review", "pending", "awaiting", "قيد الانتظار"],
-  rejected: ["reject", "rejected", "م��فوض"],
+  rejected: ["reject", "rejected", "مرفوض"],
   info: [
     "guidance",
     "suggested alternatives",
@@ -2592,7 +2592,7 @@ export function BusinessRegistrationFocusContent({
                 ? messages.completeDescription
                 : messages.startDescription
           }`
-        : "Polaris is reviewing the trade name.";
+        : "Al Yah is reviewing the trade name.";
       const variant = phase === "failure" ? "destructive" : "default";
 
       const applyUpdate = () => {
