@@ -15,8 +15,7 @@ import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 
 const FALLBACK_FOCUS = { x: 640, y: 360 };
 
-const VOICE_CALL_OVERLAY_MESSAGE =
-  "Al Yah narration activated. Sit back while I guide you through the welcome experience.";
+const VOICE_CALL_OVERLAY_MESSAGE = "Al Yah Voice Narration Active.";
 const VOICE_CONNECTING_MESSAGE =
   "Al Yah is preparing a guided narration for you…";
 const VOICE_NARRATION_AUDIO_URL =
