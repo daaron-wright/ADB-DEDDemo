@@ -24,10 +24,7 @@ export function createServer() {
 
   app.post("/api/generate", handleGenerate);
   app.post("/api/voice/narration", handleVoiceNarration);
-  app.post(
-    "/api/trade-license/validate",
-    handleValidateActivityCompatibility,
-  );
+  app.post("/api/trade-license/validate", handleValidateActivityCompatibility);
 
   return app;
 }

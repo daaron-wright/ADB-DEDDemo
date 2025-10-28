@@ -39,7 +39,11 @@ type AnimatedVoiceAvatarProps = {
   hasAvatar: boolean;
 };
 
-function AnimatedVoiceAvatar({ avatarUrl, avatarAlt, hasAvatar }: AnimatedVoiceAvatarProps) {
+function AnimatedVoiceAvatar({
+  avatarUrl,
+  avatarAlt,
+  hasAvatar,
+}: AnimatedVoiceAvatarProps) {
   return (
     <div className="relative flex h-12 w-12 flex-shrink-0 items-center justify-center">
       <motion.span
@@ -150,11 +154,17 @@ function VoiceCallOverlay({
               />
               <div className="flex-1 flex flex-col items-center justify-center text-center">
                 {hasMessage ? (
-                  <p className="text-sm font-semibold text-slate-700 text-center" aria-live="polite">
+                  <p
+                    className="text-sm font-semibold text-slate-700 text-center"
+                    aria-live="polite"
+                  >
                     {trimmedMessage}
                   </p>
                 ) : (
-                  <p className="text-sm font-semibold text-slate-700 text-center" aria-live="polite">
+                  <p
+                    className="text-sm font-semibold text-slate-700 text-center"
+                    aria-live="polite"
+                  >
                     Al Yah Voice Narration
                   </p>
                 )}
@@ -238,7 +248,10 @@ export default function Index() {
     }
 
     if (voiceNarrationObjectUrlRef.current) {
-      if (typeof URL !== "undefined" && typeof URL.revokeObjectURL === "function") {
+      if (
+        typeof URL !== "undefined" &&
+        typeof URL.revokeObjectURL === "function"
+      ) {
         URL.revokeObjectURL(voiceNarrationObjectUrlRef.current);
       }
       voiceNarrationObjectUrlRef.current = null;
@@ -249,7 +262,10 @@ export default function Index() {
   }, []);
 
   const clearVoiceOverlay = useCallback(() => {
-    if (voiceOverlayTimeoutRef.current !== null && typeof window !== "undefined") {
+    if (
+      voiceOverlayTimeoutRef.current !== null &&
+      typeof window !== "undefined"
+    ) {
       window.clearTimeout(voiceOverlayTimeoutRef.current);
     }
     voiceOverlayTimeoutRef.current = null;
@@ -268,7 +284,10 @@ export default function Index() {
 
   const showVoiceOverlay = useCallback(
     (message: string, options: VoiceOverlayOptions = {}) => {
-      if (typeof window !== "undefined" && voiceOverlayTimeoutRef.current !== null) {
+      if (
+        typeof window !== "undefined" &&
+        voiceOverlayTimeoutRef.current !== null
+      ) {
         window.clearTimeout(voiceOverlayTimeoutRef.current);
       }
       setVoiceOverlayMessage(message);
@@ -283,25 +302,106 @@ export default function Index() {
     [],
   );
 
-  const startVoiceNarration = useCallback(async (): Promise<VoiceNarrationResult> => {
-    if (typeof window === "undefined") {
-      return {
-        success: false,
-        errorMessage: "Voice narration requires a supported browser environment.",
-      };
-    }
+  const startVoiceNarration =
+    useCallback(async (): Promise<VoiceNarrationResult> => {
+      if (typeof window === "undefined") {
+        return {
+          success: false,
+          errorMessage:
+            "Voice narration requires a supported browser environment.",
+        };
+      }
 
-    stopVoiceNarration();
-    voiceNarrationLoadingRef.current = true;
+      stopVoiceNarration();
+      voiceNarrationLoadingRef.current = true;
 
-    const hasStaticNarrationAudio =
-      typeof VOICE_NARRATION_AUDIO_URL === "string" && VOICE_NARRATION_AUDIO_URL.length > 0;
+      const hasStaticNarrationAudio =
+        typeof VOICE_NARRATION_AUDIO_URL === "string" &&
+        VOICE_NARRATION_AUDIO_URL.length > 0;
 
-    try {
-      if (hasStaticNarrationAudio) {
-        const audioElement = new Audio(VOICE_NARRATION_AUDIO_URL);
-        audioElement.preload = "auto";
-        audioElement.crossOrigin = "anonymous";
+      try {
+        if (hasStaticNarrationAudio) {
+          const audioElement = new Audio(VOICE_NARRATION_AUDIO_URL);
+          audioElement.preload = "auto";
+          audioElement.crossOrigin = "anonymous";
+          audioElement.onended = () => {
+            stopVoiceNarration();
+            voiceOverlayTimeoutRef.current = null;
+            if (isComponentMountedRef.current) {
+              setVoiceOverlayMessage(null);
+            }
+          };
+          audioElement.onerror = () => {
+            stopVoiceNarration();
+            voiceOverlayTimeoutRef.current = null;
+            narrationHasPlayedRef.current = false;
+            if (isComponentMountedRef.current) {
+              showVoiceOverlay(
+                "Voice narration encountered a playback issue. Please try again.",
+              );
+            }
+          };
+
+          voiceNarrationAudioRef.current = audioElement;
+
+          try {
+            await audioElement.play();
+            voiceNarrationActiveRef.current = true;
+            return { success: true };
+          } catch {
+            stopVoiceNarration();
+            narrationHasPlayedRef.current = false;
+            return {
+              success: false,
+              errorMessage:
+                "Voice narration couldn’t begin playback. Please ensure audio output is available.",
+            };
+          }
+        }
+
+        const controller = new AbortController();
+        voiceNarrationAbortControllerRef.current = controller;
+
+        const response = await fetch("/api/voice/narration", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ text: VOICE_NARRATION_SCRIPT }),
+          signal: controller.signal,
+        });
+
+        voiceNarrationAbortControllerRef.current = null;
+
+        if (!response.ok) {
+          let errorMessage =
+            "Voice narration isn’t available right now. Please try again soon.";
+
+          try {
+            const payload = await response.json();
+            if (payload?.code === "missing_api_key") {
+              errorMessage =
+                "Voice narration isn’t configured yet. Please add an ElevenLabs API key to proceed.";
+            } else if (typeof payload?.error === "string") {
+              errorMessage = payload.error;
+            }
+          } catch {
+            /* ignore json parsing failure */
+          }
+
+          stopVoiceNarration();
+          narrationHasPlayedRef.current = false;
+          return { success: false, errorMessage };
+        }
+
+        const arrayBuffer = await response.arrayBuffer();
+        const contentType =
+          response.headers.get("Content-Type") ?? "audio/mpeg";
+        const audioBlob = new Blob([arrayBuffer], { type: contentType });
+        const objectUrl = URL.createObjectURL(audioBlob);
+        voiceNarrationObjectUrlRef.current = objectUrl;
+
+        const audioElement = new Audio(objectUrl);
         audioElement.onended = () => {
           stopVoiceNarration();
           voiceOverlayTimeoutRef.current = null;
@@ -335,101 +435,24 @@ export default function Index() {
               "Voice narration couldn’t begin playback. Please ensure audio output is available.",
           };
         }
-      }
-
-      const controller = new AbortController();
-      voiceNarrationAbortControllerRef.current = controller;
-
-      const response = await fetch("/api/voice/narration", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ text: VOICE_NARRATION_SCRIPT }),
-        signal: controller.signal,
-      });
-
-      voiceNarrationAbortControllerRef.current = null;
-
-      if (!response.ok) {
-        let errorMessage =
-          "Voice narration isn’t available right now. Please try again soon.";
-
-        try {
-          const payload = await response.json();
-          if (payload?.code === "missing_api_key") {
-            errorMessage =
-              "Voice narration isn’t configured yet. Please add an ElevenLabs API key to proceed.";
-          } else if (typeof payload?.error === "string") {
-            errorMessage = payload.error;
-          }
-        } catch {
-          /* ignore json parsing failure */
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          narrationHasPlayedRef.current = false;
+          return { success: false };
         }
 
-        stopVoiceNarration();
-        narrationHasPlayedRef.current = false;
-        return { success: false, errorMessage };
-      }
-
-      const arrayBuffer = await response.arrayBuffer();
-      const contentType = response.headers.get("Content-Type") ?? "audio/mpeg";
-      const audioBlob = new Blob([arrayBuffer], { type: contentType });
-      const objectUrl = URL.createObjectURL(audioBlob);
-      voiceNarrationObjectUrlRef.current = objectUrl;
-
-      const audioElement = new Audio(objectUrl);
-      audioElement.onended = () => {
-        stopVoiceNarration();
-        voiceOverlayTimeoutRef.current = null;
-        if (isComponentMountedRef.current) {
-          setVoiceOverlayMessage(null);
-        }
-      };
-      audioElement.onerror = () => {
-        stopVoiceNarration();
-        voiceOverlayTimeoutRef.current = null;
-        narrationHasPlayedRef.current = false;
-        if (isComponentMountedRef.current) {
-          showVoiceOverlay(
-            "Voice narration encountered a playback issue. Please try again.",
-          );
-        }
-      };
-
-      voiceNarrationAudioRef.current = audioElement;
-
-      try {
-        await audioElement.play();
-        voiceNarrationActiveRef.current = true;
-        return { success: true };
-      } catch {
+        console.error("Voice narration request failed:", error);
         stopVoiceNarration();
         narrationHasPlayedRef.current = false;
         return {
           success: false,
           errorMessage:
-            "Voice narration couldn’t begin playback. Please ensure audio output is available.",
+            "Voice narration request failed. Please check your connection and try again.",
         };
+      } finally {
+        voiceNarrationLoadingRef.current = false;
       }
-    } catch (error) {
-      if (error instanceof DOMException && error.name === "AbortError") {
-        narrationHasPlayedRef.current = false;
-        return { success: false };
-      }
-
-      console.error("Voice narration request failed:", error);
-      stopVoiceNarration();
-      narrationHasPlayedRef.current = false;
-      return {
-        success: false,
-        errorMessage:
-          "Voice narration request failed. Please check your connection and try again.",
-      };
-    } finally {
-      voiceNarrationLoadingRef.current = false;
-    }
-  }, [showVoiceOverlay, stopVoiceNarration]);
+    }, [showVoiceOverlay, stopVoiceNarration]);
 
   const triggerVoiceCall = useCallback(async () => {
     if (narrationHasPlayedRef.current) {
@@ -627,7 +650,10 @@ export default function Index() {
   useEffect(() => {
     return () => {
       isComponentMountedRef.current = false;
-      if (voiceOverlayTimeoutRef.current !== null && typeof window !== "undefined") {
+      if (
+        voiceOverlayTimeoutRef.current !== null &&
+        typeof window !== "undefined"
+      ) {
         window.clearTimeout(voiceOverlayTimeoutRef.current);
       }
       stopVoiceNarration();
@@ -673,7 +699,6 @@ export default function Index() {
       window.removeEventListener("blur", handleWindowBlur);
     };
   }, [triggerVoiceCall]);
-
 
   const handleSignOut = () => {
     navigate("/portal/applicant");

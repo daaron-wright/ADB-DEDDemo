@@ -58,10 +58,14 @@ export const handleVoiceNarration: RequestHandler = async (req, res) => {
 
     const { text, voiceId, modelId, outputFormat, voiceSettings } =
       narrationRequestSchema.parse(req.body);
-    const resolvedVoiceId = voiceId ?? process.env.ELEVENLABS_VOICE_ID ?? DEFAULT_VOICE_ID;
-    const resolvedModelId = modelId ?? process.env.ELEVENLABS_MODEL_ID ?? DEFAULT_MODEL_ID;
+    const resolvedVoiceId =
+      voiceId ?? process.env.ELEVENLABS_VOICE_ID ?? DEFAULT_VOICE_ID;
+    const resolvedModelId =
+      modelId ?? process.env.ELEVENLABS_MODEL_ID ?? DEFAULT_MODEL_ID;
     const resolvedOutputFormat =
-      outputFormat ?? getEnvOutputFormat(process.env.ELEVENLABS_OUTPUT_FORMAT) ?? DEFAULT_OUTPUT_FORMAT;
+      outputFormat ??
+      getEnvOutputFormat(process.env.ELEVENLABS_OUTPUT_FORMAT) ??
+      DEFAULT_OUTPUT_FORMAT;
 
     const voiceSettingsOverrides: Partial<typeof DEFAULT_VOICE_SETTINGS> = {};
     if (voiceSettings?.stability !== undefined) {
@@ -82,7 +86,8 @@ export const handleVoiceNarration: RequestHandler = async (req, res) => {
       ...voiceSettingsOverrides,
     };
 
-    const acceptHeader = OUTPUT_CONTENT_TYPES[resolvedOutputFormat] ?? "audio/mpeg";
+    const acceptHeader =
+      OUTPUT_CONTENT_TYPES[resolvedOutputFormat] ?? "audio/mpeg";
 
     const elevenLabsResponse = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${resolvedVoiceId}`,
@@ -112,7 +117,8 @@ export const handleVoiceNarration: RequestHandler = async (req, res) => {
     }
 
     const audioBuffer = Buffer.from(await elevenLabsResponse.arrayBuffer());
-    const responseContentType = elevenLabsResponse.headers.get("content-type") ?? acceptHeader;
+    const responseContentType =
+      elevenLabsResponse.headers.get("content-type") ?? acceptHeader;
     res.setHeader("Content-Type", responseContentType);
     res.setHeader("Cache-Control", "no-store");
     res.setHeader("X-Voice-Model", resolvedModelId);
@@ -129,14 +135,21 @@ export const handleVoiceNarration: RequestHandler = async (req, res) => {
     }
 
     console.error("Voice narration error:", error);
-    res.status(500).json({ error: "Unexpected voice narration failure", code: "internal_error" });
+    res
+      .status(500)
+      .json({
+        error: "Unexpected voice narration failure",
+        code: "internal_error",
+      });
   }
 };
 
 const isOutputFormat = (value: string): value is OutputFormat =>
   ALLOWED_OUTPUT_FORMATS.includes(value as OutputFormat);
 
-const getEnvOutputFormat = (value?: string | null): OutputFormat | undefined => {
+const getEnvOutputFormat = (
+  value?: string | null,
+): OutputFormat | undefined => {
   if (!value) {
     return undefined;
   }

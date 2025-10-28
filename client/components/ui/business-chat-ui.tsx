@@ -592,8 +592,7 @@ const QUICK_ACTION_RECOMMENDATION_DETAILS: Record<
     nextStep: "handoff",
   },
   "handoff-open-portal": {
-    description:
-      "Jump to the applicant workspace timeline synced with Al Yah.",
+    description: "Jump to the applicant workspace timeline synced with Al Yah.",
     icon: MapPin,
   },
   "handoff-automation": {
@@ -3481,8 +3480,9 @@ const ChatInputField = ({
     }
   };
 
-  const defaultHotkeyPrompt =
-    (hotkeyPrompt?.trim() || CHAT_INPUT_HOTKEY_PROMPT).trim();
+  const defaultHotkeyPrompt = (
+    hotkeyPrompt?.trim() || CHAT_INPUT_HOTKEY_PROMPT
+  ).trim();
 
   const matchesKey = (
     event: React.KeyboardEvent<HTMLInputElement>,
@@ -3490,9 +3490,7 @@ const ChatInputField = ({
   ) => {
     if (key === " ") {
       return (
-        event.key === " " ||
-        event.code === "Space" ||
-        event.key === "Spacebar"
+        event.key === " " || event.code === "Space" || event.key === "Spacebar"
       );
     }
 
@@ -3505,10 +3503,7 @@ const ChatInputField = ({
   ) => {
     if (!modifiers) {
       return (
-        !event.shiftKey &&
-        !event.altKey &&
-        !event.metaKey &&
-        !event.ctrlKey
+        !event.shiftKey && !event.altKey && !event.metaKey && !event.ctrlKey
       );
     }
 
@@ -6468,9 +6463,7 @@ export function BusinessChatUI({
     null,
   );
   const focusStageId =
-    journeyFocusView?.stage?.id ??
-    journeyFocusView?.timelineItem?.id ??
-    null;
+    journeyFocusView?.stage?.id ?? journeyFocusView?.timelineItem?.id ?? null;
   const additionalChatHotkeys = useMemo<ChatInputHotkeyMapping[]>(() => {
     if (focusStageId !== "trade-name-activities") {
       return [];
