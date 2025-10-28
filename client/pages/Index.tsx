@@ -222,6 +222,7 @@ export default function Index() {
     }
 
     stopVoiceNarration();
+    voiceNarrationLoadingRef.current = true;
 
     try {
       const controller = new AbortController();
