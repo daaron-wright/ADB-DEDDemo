@@ -247,6 +247,7 @@ export default function Index() {
 
     if (narrationStarted) {
       showVoiceOverlay(VOICE_CALL_OVERLAY_MESSAGE, { persist: true });
+      setLauncherExpanded(false);
     } else {
       showVoiceOverlay(
         "Voice narration isn’t supported in this browser. Please use a compatible environment.",
