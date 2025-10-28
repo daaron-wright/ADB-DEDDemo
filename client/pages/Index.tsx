@@ -211,49 +211,100 @@ export default function Index() {
     [],
   );
 
-  const startVoiceNarration = useCallback(() => {
-    if (
-      typeof window === "undefined" ||
-      !("speechSynthesis" in window) ||
-      typeof SpeechSynthesisUtterance === "undefined"
-    ) {
-      return false;
-    }
-
-    const { speechSynthesis } = window;
-    if (!speechSynthesis) {
-      return false;
+  const startVoiceNarration = useCallback(async (): Promise<VoiceNarrationResult> => {
+    if (typeof window === "undefined") {
+      return {
+        success: false,
+        errorMessage: "Voice narration requires a supported browser environment.",
+      };
     }
 
     stopVoiceNarration();
 
-    const utterance = new SpeechSynthesisUtterance(VOICE_NARRATION_SCRIPT);
-    utterance.rate = 1.02;
-    utterance.pitch = 1.05;
-    utterance.volume = 0.95;
-    utterance.onend = () => {
-      voiceNarrationActiveRef.current = false;
-      voiceNarrationUtteranceRef.current = null;
-      voiceOverlayTimeoutRef.current = null;
-      if (isComponentMountedRef.current) {
-        setVoiceOverlayMessage(null);
-      }
-    };
-    utterance.onerror = () => {
-      voiceNarrationActiveRef.current = false;
-      voiceNarrationUtteranceRef.current = null;
-      if (isComponentMountedRef.current) {
-        showVoiceOverlay(
-          "Voice narration is unavailable right now. Please try again in a supported browser.",
-        );
-      }
-    };
+    try {
+      const controller = new AbortController();
+      voiceNarrationAbortControllerRef.current = controller;
 
-    voiceNarrationUtteranceRef.current = utterance;
-    voiceNarrationActiveRef.current = true;
-    speechSynthesis.cancel();
-    speechSynthesis.speak(utterance);
-    return true;
+      const response = await fetch("/api/voice/narration", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: VOICE_NARRATION_SCRIPT }),
+        signal: controller.signal,
+      });
+
+      voiceNarrationAbortControllerRef.current = null;
+
+      if (!response.ok) {
+        let errorMessage =
+          "Voice narration isn’t available right now. Please try again soon.";
+
+        try {
+          const payload = await response.json();
+          if (payload?.code === "missing_api_key") {
+            errorMessage =
+              "Voice narration isn’t configured yet. Please add an ElevenLabs API key to proceed.";
+          } else if (typeof payload?.error === "string") {
+            errorMessage = payload.error;
+          }
+        } catch {
+          /* ignore json parsing failure */
+        }
+
+        stopVoiceNarration();
+        return { success: false, errorMessage };
+      }
+
+      const arrayBuffer = await response.arrayBuffer();
+      const contentType = response.headers.get("Content-Type") ?? "audio/mpeg";
+      const audioBlob = new Blob([arrayBuffer], { type: contentType });
+      const objectUrl = URL.createObjectURL(audioBlob);
+      voiceNarrationObjectUrlRef.current = objectUrl;
+
+      const audioElement = new Audio(objectUrl);
+      audioElement.onended = () => {
+        stopVoiceNarration();
+        if (isComponentMountedRef.current) {
+          setVoiceOverlayMessage(null);
+        }
+      };
+      audioElement.onerror = () => {
+        stopVoiceNarration();
+        if (isComponentMountedRef.current) {
+          showVoiceOverlay(
+            "Voice narration encountered a playback issue. Please try again.",
+          );
+        }
+      };
+
+      voiceNarrationAudioRef.current = audioElement;
+
+      try {
+        await audioElement.play();
+        voiceNarrationActiveRef.current = true;
+        return { success: true };
+      } catch {
+        stopVoiceNarration();
+        return {
+          success: false,
+          errorMessage:
+            "Voice narration couldn’t begin playback. Please ensure audio output is available.",
+        };
+      }
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") {
+        return { success: false };
+      }
+
+      console.error("Voice narration request failed:", error);
+      stopVoiceNarration();
+      return {
+        success: false,
+        errorMessage:
+          "Voice narration request failed. Please check your connection and try again.",
+      };
+    }
   }, [showVoiceOverlay, stopVoiceNarration]);
 
   const triggerVoiceCall = useCallback(() => {
