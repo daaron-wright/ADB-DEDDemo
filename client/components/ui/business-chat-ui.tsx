@@ -2790,7 +2790,7 @@ const DashboardView = ({
             <div className="flex items-center gap-4 mb-6">
               <AIBusinessOrb className="h-16 w-16" />
               <div>
-                <h3 className="text-white text-lg font-semibold">Polaris</h3>
+                <h3 className="text-white text-lg font-semibold">Al Yah</h3>
                 <motion.div
                   className="flex items-center gap-1 mt-2"
                   animate={{
@@ -3285,7 +3285,7 @@ const DiscoveryCompilationCard = ({
           <div className="flex items-center gap-2 mb-8">
             <AIBusinessOrb className="h-16 w-16" />
             <div className="flex-1">
-              <h3 className="text-white text-lg font-semibold mb-2">Polaris</h3>
+              <h3 className="text-white text-lg font-semibold mb-2">Al Yah</h3>
               <motion.div
                 className="flex items-center gap-1"
                 animate={{
