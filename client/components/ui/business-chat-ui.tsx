@@ -6496,6 +6496,7 @@ export function BusinessChatUI({
     Record<string, { count: number; sample: string }>
   >({});
   const feedbackTopicsNotifiedRef = useRef<Set<string>>(new Set());
+  const voiceModeLastTimestampRef = useRef(0);
   const [feedbackTotal, setFeedbackTotal] = useState(0);
   const handleHotkeyInsert = useCallback(() => {}, []);
   const loginTriggerRef = useRef<HTMLElement | null>(null);
