@@ -3442,6 +3442,18 @@ const DiscoveryCompilationCard = ({
   );
 };
 
+type ChatInputHotkeyMapping = {
+  key: string;
+  prompt: string;
+  requireEmptyInput?: boolean;
+  modifiers?: {
+    shift?: boolean;
+    alt?: boolean;
+    meta?: boolean;
+    ctrl?: boolean;
+  };
+};
+
 const ChatInputField = ({
   value,
   onChange,
