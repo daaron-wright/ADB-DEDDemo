@@ -294,7 +294,8 @@ const NORMALIZED_SUGGESTED_TOPICS_TRIGGER = normalizeMessageContent(
   SUGGESTED_TOPICS_TRIGGER_MESSAGE,
 );
 
-const CHAT_INPUT_HOTKEY_PROMPT = "I'm interested in starting an Emerati-fusion restaurant";
+const CHAT_INPUT_HOTKEY_PROMPT =
+  "I'm interested in starting an Emerati-fusion restaurant";
 
 const QUICK_ACTION_UNLOCK_PROMPTS = [
   "I'm interested in starting an Emirati-fusion restaurant",
@@ -7112,7 +7113,9 @@ export function BusinessChatUI({
       const normalizedText = normalizeMessageContent(trimmed);
 
       const tradeNameStageId =
-        journeyFocusView?.stage?.id ?? journeyFocusView?.timelineItem?.id ?? null;
+        journeyFocusView?.stage?.id ??
+        journeyFocusView?.timelineItem?.id ??
+        null;
 
       if (typeof window !== "undefined") {
         window.dispatchEvent(
@@ -8143,22 +8146,26 @@ export function BusinessChatUI({
     }
 
     const handleTradeNameResult = (event: Event) => {
-      const detail = (event as CustomEvent<{
-        status: "approved" | "rejected";
-        english?: string | null;
-        arabic?: string | null;
-        failureReason?: string | null;
-        stageId?: string | null;
-        draftPrompt?: string | null;
-        iterationSuggestion?: string | null;
-      }>).detail;
+      const detail = (
+        event as CustomEvent<{
+          status: "approved" | "rejected";
+          english?: string | null;
+          arabic?: string | null;
+          failureReason?: string | null;
+          stageId?: string | null;
+          draftPrompt?: string | null;
+          iterationSuggestion?: string | null;
+        }>
+      ).detail;
 
       if (!detail) {
         return;
       }
 
       const focusStageId =
-        journeyFocusView?.stage?.id ?? journeyFocusView?.timelineItem?.id ?? null;
+        journeyFocusView?.stage?.id ??
+        journeyFocusView?.timelineItem?.id ??
+        null;
 
       if (detail.stageId && focusStageId && detail.stageId !== focusStageId) {
         return;
