@@ -7673,7 +7673,7 @@ export function BusinessChatUI({
           return [
             ...updated,
             buildMessage(
-              "Congratulations, Layla. Your concept is highly viable. Ready for me to carry this into the formal application with the investor workspace?",
+              "Congratulations, Shamma. Your concept is highly viable. Ready for me to carry this into the formal application with the investor workspace?",
               true,
               {
                 actions: [
