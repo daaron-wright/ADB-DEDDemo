@@ -202,7 +202,7 @@ export const MarketOpportunityInsight: React.FC<MarketOpportunityInsightProps> =
               Visualise trends
             </h4>
             <p className="text-sm text-slate-600">
-              Layla hovers to view the year-over-year change for tourism, social buzz, and F&amp;B gross output.
+              Shamma hovers to view the year-over-year change for tourism, social buzz, and F&amp;B gross output.
             </p>
           </div>
           <div className="text-xs text-slate-500">
