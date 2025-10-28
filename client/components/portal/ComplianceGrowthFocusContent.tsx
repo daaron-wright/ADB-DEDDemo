@@ -394,7 +394,7 @@ const DEFAULT_VIDEO_LIBRARY: VideoEvidence[] = [
     durationLabel: "04:18",
     capturedOn: "2024-03-21T09:20:00.000Z",
     status: "synced",
-    source: "Polaris field kit",
+    source: "Al Yah field kit",
     note: "Exterior signage capture with calibrated lux readings and multilingual text checks.",
     frames: SIGNBOARD_FRAME_IMAGE_SETS[0].map((frame) => ({ ...frame })),
   },
@@ -1281,7 +1281,7 @@ export function ComplianceGrowthFocusContent({
                 defaultExpanded
               />
               <p className="text-xs text-slate-500">
-                Polaris keeps these captures synced with the inspector
+                Al Yah keeps these captures synced with the inspector
                 workspace. Expand the tab to browse full-resolution frames and
                 recent analyzed snippets.
               </p>
