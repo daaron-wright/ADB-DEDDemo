@@ -153,7 +153,11 @@ function VoiceCallOverlay({
                   <p className="text-sm font-semibold text-slate-700" aria-live="polite">
                     {trimmedMessage}
                   </p>
-                ) : null}
+                ) : (
+                  <p className="text-sm font-semibold text-slate-700" aria-live="polite">
+                    Al Yah Voice Narration
+                  </p>
+                )}
               </div>
               <button
                 type="button"
