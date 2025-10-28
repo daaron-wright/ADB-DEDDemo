@@ -6970,7 +6970,7 @@ export function BusinessChatUI({
   const stagePanelMessage =
     followUpRecommendations.length > 0
       ? (followUpRecommendations[0]?.description ??
-        "Choose what you�����d like to explore next.")
+        "Choose what you�������d like to explore next.")
       : (stageBlueprint?.message ?? "");
 
   useEffect(() => {
@@ -8405,7 +8405,7 @@ export function BusinessChatUI({
               : "this Corniche opportunity";
 
           const celebration = buildMessage(
-            `Congratulations, Layla — this concept is reading as highly viable. I’ve bookmarked ${locationLabel} so we can keep momentum and move straight into your trade name reservation.`,
+            `Congratulations, Shamma — this concept is reading as highly viable. I’ve bookmarked ${locationLabel} so we can keep momentum and move straight into your trade name reservation.`,
             true,
           );
 
