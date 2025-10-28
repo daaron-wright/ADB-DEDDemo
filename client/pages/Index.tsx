@@ -137,6 +137,7 @@ export default function Index() {
   const voiceNarrationAudioRef = useRef<HTMLAudioElement | null>(null);
   const voiceNarrationAbortControllerRef = useRef<AbortController | null>(null);
   const voiceNarrationObjectUrlRef = useRef<string | null>(null);
+  const voiceNarrationLoadingRef = useRef(false);
   const voiceNarrationActiveRef = useRef(false);
   const isComponentMountedRef = useRef(true);
 
