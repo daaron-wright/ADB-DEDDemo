@@ -441,7 +441,11 @@ export default function Index() {
     const { success, errorMessage } = await startVoiceNarration();
 
     if (success) {
-      showVoiceOverlay(VOICE_CALL_OVERLAY_MESSAGE, { persist: true });
+      if (VOICE_CALL_OVERLAY_MESSAGE) {
+        showVoiceOverlay(VOICE_CALL_OVERLAY_MESSAGE, { persist: true });
+      } else {
+        clearVoiceOverlay();
+      }
       setLauncherExpanded(false);
       return;
     }
