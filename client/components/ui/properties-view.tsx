@@ -128,11 +128,11 @@ const ChatInterface = () => {
       className="absolute bottom-16 right-20 w-[351px] h-[206px]"
     >
       <div className="bg-white/14 backdrop-blur-md rounded-3xl border border-white/20 p-4 h-full">
-        {/* Polaris Header */}
+        {/* Al Yah Header */}
         <div className="flex items-center gap-2 mb-4">
           <AIBusinessOrb className="h-16 w-16" />
           <div className="flex-1">
-            <h3 className="text-white text-lg font-bold">Polaris</h3>
+            <h3 className="text-white text-lg font-bold">Al Yah</h3>
           </div>
           <SoundVisualization />
         </div>
