@@ -1,4 +1,4 @@
-import { PolarisIcon } from "@/components/ui/polaris-icon";
+import { AlYahIcon } from "@/components/ui/polaris-icon";
 import { cn } from "@/lib/utils";
 
 interface AIBusinessOrbProps {
@@ -26,7 +26,7 @@ export function AIBusinessOrb({
           {label}
         </span>
       ) : (
-        <PolarisIcon className="h-full w-full" scale={1.65} />
+        <AlYahIcon className="h-full w-full" scale={1.65} />
       )}
     </span>
   );
