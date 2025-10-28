@@ -112,7 +112,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before we display your license summary, let's confirm the right legal structure, business activities, and physical space requirements together. Once we complete this intake, I'll publish your license type and submission ID.",
-  ar: "قبل أن أعرض تفاصيل الترخيص، ��عينا نؤكد معًا الشكل القانوني الأنسب، وأ��شطة العمل، ومتطل���ات المسا��ة. بمجرد إ��هاء ه��ا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
+  ar: "قبل أن أعرض تفاصيل ا��ترخيص، ��عينا نؤكد معًا الشكل القانوني الأنسب، وأ��شطة العمل، ومتطل���ات المسا��ة. بمجرد إ��هاء ه��ا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
 };
 
 type QuestionnaireProgress = "not_started" | "in_progress" | "completed";
@@ -345,7 +345,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       lastUpdated: "آخر تحديث",
     },
     heroBadge: "رحلة ا��مستثمر",
-    heroTitle: "رحلتك مدع��مة بالذكاء ا��اصطناعي",
+    heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
       `اكتشفي مسارًا و��ضحًا لدرا��ة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، شاهدي كيف يحول ${name} و��س��ث������ر��ن آ����ون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
     heroButton: "استكشفي خيارا��� إضافية",
@@ -363,7 +363,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيق��م مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فو�� تسجيل ��قدك.",
+      "سيق��م م��اعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فو�� تسجيل ��قدك.",
     businessAITitle: "بولاريس",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أ��شطة في رخصة تجارية واحدة.",
@@ -394,7 +394,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يع��ل طلبك ال����ع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإ��خال ا��شركاء، وتأ��ي�� العقار، والحصول على الم��افقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك ال����ع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإ��خال ا��شركاء، وتأ��ي�� العقار، والحصول على الم��افقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الموافقات الموح��ة لـ ADAFSA وبلدية أبوظبي.",
@@ -411,7 +411,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       tasksCompleteMessage:
         "تم إكمال كل المهام لهذه ا��مرحلة. راقب�� تحديثات الأتمتة.",
       automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
-      openNextTask: "اف��حي المهمة ال��ال��ة",
+      openNextTask: "اف��حي ال��همة ال��ال��ة",
       reviewStage: "اس��عرضي المرحلة",
       timelineAriaLabel: "التنقل ��ين مراحل ا��رحلة",
     },
@@ -431,7 +431,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       pendingLicenseLabel: "متاح بعد الاستبيان",
       pendingSubmissionLabel: "0987654321",
       chatIntro:
-        "لنؤكد بعض التفاصيل معًا. ��ع�� إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الرحلة.",
+        "لنؤكد بعض التفاصيل معًا. ��عد ��نهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الرحلة.",
     },
   },
 };
@@ -514,7 +514,7 @@ const journeyStages: JourneyStage[] = [
         id: "document-submissions-in-progress",
         status: "in_progress",
         label: "Submission of documents in progress",
-        detail: "Polaris queued ADJD and ADAFSA filings.",
+        detail: "Al Yah queued ADJD and ADAFSA filings.",
         timestamp: isoDate(daysFromToday(-1)),
       },
       {
