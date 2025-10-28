@@ -133,6 +133,18 @@ export const handleVoiceNarration: RequestHandler = async (req, res) => {
   }
 };
 
+const isOutputFormat = (value: string): value is OutputFormat =>
+  ALLOWED_OUTPUT_FORMATS.includes(value as OutputFormat);
+
+const getEnvOutputFormat = (value?: string | null): OutputFormat | undefined => {
+  if (!value) {
+    return undefined;
+  }
+
+  const trimmed = value.trim();
+  return trimmed ? (isOutputFormat(trimmed) ? trimmed : undefined) : undefined;
+};
+
 async function safeReadJson(response: Response) {
   try {
     return await response.clone().json();
