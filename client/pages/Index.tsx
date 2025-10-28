@@ -763,6 +763,15 @@ export default function Index() {
               and simplify business setup.
             </p>
 
+            <VoiceCallOverlay
+              isVisible={Boolean(voiceOverlayMessage)}
+              avatarUrl={alYahAvatarUrl}
+              avatarAlt={alYahAvatarAlt}
+              hasAvatar={hasAlYahAvatar}
+              message={voiceOverlayMessage ?? ""}
+              onDismiss={clearVoiceOverlay}
+            />
+
             {!chatState.isOpen ? (
               <motion.div
                 drag
