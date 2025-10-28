@@ -312,7 +312,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
         "This is your starting point to shape the right licensing pathway for your business.",
       description:
         "Welcome—share your concept with us and we’ll co-create the licensing workflow that brings your business to life.",
-      startCta: "Start questionnaire with Polaris",
+      startCta: "Start questionnaire with Al Yah",
       resumeCta: "Open questionnaire workspace",
       completeCta: "Mark questionnaire as complete",
       pendingLicenseLabel: "Available after questionnaire",
