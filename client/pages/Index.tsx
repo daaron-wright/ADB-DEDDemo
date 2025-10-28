@@ -421,6 +421,10 @@ export default function Index() {
   }, [showVoiceOverlay, stopVoiceNarration]);
 
   const triggerVoiceCall = useCallback(async () => {
+    if (narrationHasPlayedRef.current) {
+      return;
+    }
+
     const now = Date.now();
     if (now - lastVoiceCallTimestampRef.current < 800) {
       return;
@@ -436,11 +440,8 @@ export default function Index() {
     const { success, errorMessage } = await startVoiceNarration();
 
     if (success) {
-      if (VOICE_CALL_OVERLAY_MESSAGE) {
-        showVoiceOverlay(VOICE_CALL_OVERLAY_MESSAGE, { persist: true });
-      } else {
-        clearVoiceOverlay();
-      }
+      narrationHasPlayedRef.current = true;
+      showVoiceOverlay(VOICE_CALL_OVERLAY_MESSAGE, { persist: true });
       setLauncherExpanded(false);
       return;
     }
