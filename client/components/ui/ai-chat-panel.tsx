@@ -50,7 +50,7 @@ const AIChatPanel: React.FC<AIChatPanelProps> = ({ className = "" }) => {
             <AIBusinessOrb className="h-16 w-16 flex-shrink-0" />
             <div className="flex-1">
               <span className="font-['DM_Sans'] text-lg font-semibold leading-[160%] tracking-[0.058px] text-slate-900">
-                Polaris
+                Al Yah
               </span>
             </div>
             <div className="flex items-center justify-center gap-[2.061px]">
