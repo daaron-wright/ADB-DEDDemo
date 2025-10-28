@@ -17,6 +17,8 @@ const FALLBACK_FOCUS = { x: 640, y: 360 };
 
 const VOICE_CALL_OVERLAY_MESSAGE =
   "Al Yah narration activated. Sit back while I guide you through the welcome experience.";
+const VOICE_CONNECTING_MESSAGE =
+  "Al Yah is preparing a guided narration for you…";
 const VOICE_OVERLAY_DURATION_MS = 9000;
 const VOICE_NARRATION_SCRIPT =
   "Salaam Shamma. I’m Al Yah, here to narrate this welcome journey. Ahead you’ll see our AI Native Business hub, the quick actions I can unlock for Corniche, and curated opportunities to explore. When you’re ready, ask me to open a workspace and I’ll orchestrate the next steps for you.";
