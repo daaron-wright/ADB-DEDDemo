@@ -148,13 +148,13 @@ function VoiceCallOverlay({
                 avatarAlt={avatarAlt}
                 hasAvatar={hasAvatar}
               />
-              <div className="flex-1 pt-0.5">
+              <div className="flex-1 pt-0.5 flex flex-col items-center text-center">
                 {hasMessage ? (
-                  <p className="text-sm font-semibold text-slate-700" aria-live="polite">
+                  <p className="text-sm font-semibold text-slate-700 text-center" aria-live="polite">
                     {trimmedMessage}
                   </p>
                 ) : (
-                  <p className="text-sm font-semibold text-slate-700" aria-live="polite">
+                  <p className="text-sm font-semibold text-slate-700 text-center" aria-live="polite">
                     Al Yah Voice Narration
                   </p>
                 )}
