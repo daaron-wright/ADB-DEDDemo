@@ -185,12 +185,6 @@ interface BusinessChatUIProps {
   showQuickActions?: boolean;
 }
 
-interface VoiceCallEventDetail {
-  prompt?: string;
-  announcement?: string;
-  timestamp?: number;
-}
-
 type ChatView = "basic" | "investor-journey" | "discover-experience";
 type ModalView =
   | "chat"
@@ -6496,7 +6490,6 @@ export function BusinessChatUI({
     Record<string, { count: number; sample: string }>
   >({});
   const feedbackTopicsNotifiedRef = useRef<Set<string>>(new Set());
-  const voiceModeLastTimestampRef = useRef(0);
   const [feedbackTotal, setFeedbackTotal] = useState(0);
   const handleHotkeyInsert = useCallback(() => {}, []);
   const loginTriggerRef = useRef<HTMLElement | null>(null);
@@ -8514,57 +8507,6 @@ export function BusinessChatUI({
     openRetailLocations,
     openViabilitySummary,
   ]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const handleVoiceCallRequested = (event: Event) => {
-      const detail =
-        (event as CustomEvent<VoiceCallEventDetail>).detail ?? {};
-      const timestamp = detail.timestamp ?? Date.now();
-
-      if (timestamp <= voiceModeLastTimestampRef.current) {
-        return;
-      }
-
-      voiceModeLastTimestampRef.current = timestamp;
-      setInteractionMode("voice");
-      setAdvisorPanelOpen(false);
-      setModalView("chat");
-      setView("basic");
-
-      const prompt = detail.prompt?.trim();
-      if (prompt) {
-        setInputValue(prompt);
-      }
-
-      const announcement = detail.announcement?.trim();
-      if (announcement) {
-        window.requestAnimationFrame(() => {
-          setMessages((previous) => {
-            const sanitized = previous.map((message) =>
-              message.actions ? { ...message, actions: undefined } : message,
-            );
-            return [...sanitized, buildMessage(announcement, true)];
-          });
-        });
-      }
-    };
-
-    window.addEventListener(
-      "alYahVoiceCallRequested",
-      handleVoiceCallRequested,
-    );
-
-    return () => {
-      window.removeEventListener(
-        "alYahVoiceCallRequested",
-        handleVoiceCallRequested,
-      );
-    };
-  }, [buildMessage]);
 
   if (!isOpen) return null;
 
