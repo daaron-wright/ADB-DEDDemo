@@ -147,21 +147,41 @@ export default function Index() {
   const gradientRef = useRef<HTMLDivElement>(null);
   const hasCategoryFocusRef = useRef(false);
 
+  const stopVoiceNarration = useCallback(() => {
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+      return;
+    }
+
+    const { speechSynthesis } = window;
+    if (speechSynthesis && voiceNarrationUtteranceRef.current) {
+      speechSynthesis.cancel();
+    }
+
+    voiceNarrationUtteranceRef.current = null;
+    voiceNarrationActiveRef.current = false;
+  }, []);
+
   const clearVoiceOverlay = useCallback(() => {
     if (voiceOverlayTimeoutRef.current !== null && typeof window !== "undefined") {
       window.clearTimeout(voiceOverlayTimeoutRef.current);
     }
     voiceOverlayTimeoutRef.current = null;
     setVoiceOverlayMessage(null);
-  }, []);
+    stopVoiceNarration();
+  }, [stopVoiceNarration]);
+
+  type VoiceOverlayOptions = {
+    persist?: boolean;
+  };
 
   const showVoiceOverlay = useCallback(
-    (message: string) => {
+    (message: string, options: VoiceOverlayOptions = {}) => {
       if (typeof window !== "undefined" && voiceOverlayTimeoutRef.current !== null) {
         window.clearTimeout(voiceOverlayTimeoutRef.current);
       }
       setVoiceOverlayMessage(message);
-      if (typeof window !== "undefined") {
+
+      if (!options.persist && typeof window !== "undefined") {
         voiceOverlayTimeoutRef.current = window.setTimeout(() => {
           setVoiceOverlayMessage(null);
           voiceOverlayTimeoutRef.current = null;
@@ -171,6 +191,51 @@ export default function Index() {
     [],
   );
 
+  const startVoiceNarration = useCallback(() => {
+    if (
+      typeof window === "undefined" ||
+      !("speechSynthesis" in window) ||
+      typeof SpeechSynthesisUtterance === "undefined"
+    ) {
+      return false;
+    }
+
+    const { speechSynthesis } = window;
+    if (!speechSynthesis) {
+      return false;
+    }
+
+    stopVoiceNarration();
+
+    const utterance = new SpeechSynthesisUtterance(VOICE_NARRATION_SCRIPT);
+    utterance.rate = 1.02;
+    utterance.pitch = 1.05;
+    utterance.volume = 0.95;
+    utterance.onend = () => {
+      voiceNarrationActiveRef.current = false;
+      voiceNarrationUtteranceRef.current = null;
+      voiceOverlayTimeoutRef.current = null;
+      if (isComponentMountedRef.current) {
+        setVoiceOverlayMessage(null);
+      }
+    };
+    utterance.onerror = () => {
+      voiceNarrationActiveRef.current = false;
+      voiceNarrationUtteranceRef.current = null;
+      if (isComponentMountedRef.current) {
+        showVoiceOverlay(
+          "Voice narration is unavailable right now. Please try again in a supported browser.",
+        );
+      }
+    };
+
+    voiceNarrationUtteranceRef.current = utterance;
+    voiceNarrationActiveRef.current = true;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utterance);
+    return true;
+  }, [showVoiceOverlay, stopVoiceNarration]);
+
   const triggerVoiceCall = useCallback(() => {
     const now = Date.now();
     if (now - lastVoiceCallTimestampRef.current < 800) {
@@ -178,8 +243,16 @@ export default function Index() {
     }
 
     lastVoiceCallTimestampRef.current = now;
-    showVoiceOverlay(VOICE_CALL_OVERLAY_MESSAGE);
-  }, [showVoiceOverlay]);
+    const narrationStarted = startVoiceNarration();
+
+    if (narrationStarted) {
+      showVoiceOverlay(VOICE_CALL_OVERLAY_MESSAGE, { persist: true });
+    } else {
+      showVoiceOverlay(
+        "Voice narration isn’t supported in this browser. Please use a compatible environment.",
+      );
+    }
+  }, [showVoiceOverlay, startVoiceNarration]);
 
   const ambientOrbs = useMemo(
     () => [
