@@ -325,8 +325,8 @@ export function DocumentSubmissionFocusContent({
 
   const vaultSubtitle = `${completedDocuments}/${totalDocuments} documents ready`;
   const moaSubtitle = showMoaAssistant
-    ? "Polaris guidance for notarisation"
-    : "Polaris simulation ready — reopen anytime";
+    ? "Al Yah guidance for notarisation"
+    : "Al Yah simulation ready — reopen anytime";
   const paymentSubtitle = hasPaid ? "Paid via AD Pay" : "AED 3,120 via AD Pay";
   const licenceSubtitle = licenseDetails
     ? "Stored in AD Locker"
@@ -338,7 +338,7 @@ export function DocumentSubmissionFocusContent({
       ? "Vault up to date"
       : "Sync in progress";
   const vaultStatusDescription = isVaultProcessing
-    ? "Polaris is syncing new files from your journey stages."
+    ? "Al Yah is syncing new files from your journey stages."
     : allDocumentsCompleted
       ? "Every document is stored with the latest updates."
       : "Documents update automatically whenever you finish a stage.";
@@ -348,7 +348,7 @@ export function DocumentSubmissionFocusContent({
       const content = showMoaAssistant ? (
         <>
           <p className="text-sm text-slate-600">
-            Polaris is simulating edits on your custom memorandum and preparing the ADJD review submission. Review the draft before we forward it.
+            Al Yah is simulating edits on your custom memorandum and preparing the ADJD review submission. Review the draft before we forward it.
           </p>
           <div className="rounded-3xl border border-[#0f766e]/20 bg-[#0f766e]/5 p-4 text-sm text-[#0f766e]">
             <ul className="space-y-2">
@@ -358,7 +358,7 @@ export function DocumentSubmissionFocusContent({
               </li>
               <li className="flex items-start gap-2">
                 <Check className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={3} />
-                Polaris forwards the custom MOA to ADJD for review and tracks responses.
+                Al Yah forwards the custom MOA to ADJD for review and tracks responses.
               </li>
             </ul>
           </div>
@@ -391,7 +391,7 @@ export function DocumentSubmissionFocusContent({
                   htmlFor="moa-editor-notes"
                   className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500"
                 >
-                  Polaris simulation notes
+                  Al Yah simulation notes
                 </label>
                 <Textarea
                   id="moa-editor-notes"
@@ -401,7 +401,7 @@ export function DocumentSubmissionFocusContent({
                   className="resize-none border-slate-200 bg-white text-sm leading-relaxed text-slate-700"
                 />
                 <p className="text-xs text-slate-500">
-                  Polaris tracks translation checks and review requirements for ADJD submission.
+                  Al Yah tracks translation checks and review requirements for ADJD submission.
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-3">
@@ -413,7 +413,7 @@ export function DocumentSubmissionFocusContent({
                 >
                   {hasAppliedPolarisRevision
                     ? "Simulation prepared"
-                    : "Simulate Polaris edits"}
+                    : "Simulate Al Yah edits"}
                 </Button>
                 <Button
                   type="button"
