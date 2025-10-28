@@ -1,18 +1,18 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-export interface PolarisIconProps extends React.SVGAttributes<SVGSVGElement> {
+export interface AlYahIconProps extends React.SVGAttributes<SVGSVGElement> {
   variant?: "default" | "badge";
   scale?: number;
 }
 
-export function PolarisIcon({
+export function AlYahIcon({
   className,
   variant = "default",
   scale = 1.65,
   style,
   ...props
-}: PolarisIconProps) {
+}: AlYahIconProps) {
   const sizeClasses = variant === "badge" ? "h-14 w-14" : "h-16 w-16";
   const transformValue =
     scale !== 1
