@@ -251,7 +251,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
       ].join("\n"),
       ar: [
         '1. مدقق النص / التدقيق الإملائي / الفح�� الثقافي → ناجح. تم توحيد "بيت الختيار" دون ��ع��رضات ثقافية.',
-        "2. وك��ل الكلمات المحظورة �� ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العر��ية.",
+        "2. وكيل الكلمات المحظورة �� ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العر��ية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل ال��حويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
         "5. وكيل توافق النشاط → ف��ل. الاسم يوحي بمفهوم تراث�� للبيع بالتجزئة وليس نشاط المطعم الحالي.",
@@ -335,7 +335,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         "7. Name suggester agent (rejected trade name) — PASSED. No alternatives required; current name authorized.",
       ].join("\n"),
       ar: [
-        '• مدقق ��لنص / التدقيق الإملائي / ��لفحص الثقافي → ناجح. تم توحيد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
+        '• مدقق النص / التدقيق الإملائي / ��لفحص الثقافي → ناجح. تم تو��يد "Marwa Restaurant" والتأكد من الملاءمة الثقافية.',
         "• وكيل الكلمات المحظو��ة → ناجح. لم يتم العثور على مصطلحات م��ظورة في النس����تين العربية والإنجلي��ية.",
         "• وكيل الت��ابه → ناجح. أقر�� تشابه في السجل بلغ 0.12 وهو أقل من حد التعارض 0.75.",
         "• وكيل التحويل الصوتي → ناجح. تمت المصادقة ��لى التحويل «مطعم مروة» وفق ��لقواعد الصوتية.",
@@ -3908,7 +3908,7 @@ export function BusinessRegistrationFocusContent({
     if (typeof window !== "undefined") {
       window.setTimeout(() => {
         window.dispatchEvent(
-          new CustomEvent("polarisTradeNameCheckComplete", {
+          new CustomEvent("alYahTradeNameCheckComplete", {
             detail: {
               status,
               english: englishDisplay,
