@@ -188,11 +188,11 @@ export const ReportSummaryPage: React.FC<ReportSummaryPageProps> = ({
           {/* Chat UI */}
           <div className="absolute right-20 top-44 w-[454px] h-[613px]">
             <div className="bg-white/14 backdrop-blur-sm rounded-3xl border border-white/20 h-full p-6">
-              {/* Polaris Header */}
+              {/* Al Yah Header */}
               <div className="flex items-center gap-3 mb-6">
                 <AIBusinessOrb className="h-16 w-16" />
                 <div className="flex-1">
-                  <h3 className="text-white text-lg font-bold">Polaris</h3>
+                  <h3 className="text-white text-lg font-bold">Al Yah</h3>
                   <SoundVisualization />
                 </div>
               </div>
