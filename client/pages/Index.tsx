@@ -415,6 +415,7 @@ export default function Index() {
 
       console.error("Voice narration request failed:", error);
       stopVoiceNarration();
+      narrationHasPlayedRef.current = false;
       return {
         success: false,
         errorMessage:
