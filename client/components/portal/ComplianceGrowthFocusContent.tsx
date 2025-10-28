@@ -459,7 +459,7 @@ export function ComplianceGrowthFocusContent({
   const [localPolicyUpdateAcknowledged, setLocalPolicyUpdateAcknowledged] =
     React.useState(false);
   const [feedbackNotes, setFeedbackNotes] = React.useState("");
-  const [contactEmail, setContactEmail] = React.useState("layla@marwah.ae");
+  const [contactEmail, setContactEmail] = React.useState("shamma@marwah.ae");
   const [feedbackAcknowledgement, setFeedbackAcknowledgement] = React.useState<{
     id: string;
     title: string;
