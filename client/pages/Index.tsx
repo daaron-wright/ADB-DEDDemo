@@ -307,24 +307,29 @@ export default function Index() {
     }
   }, [showVoiceOverlay, stopVoiceNarration]);
 
-  const triggerVoiceCall = useCallback(() => {
+  const triggerVoiceCall = useCallback(async () => {
     const now = Date.now();
     if (now - lastVoiceCallTimestampRef.current < 800) {
       return;
     }
 
     lastVoiceCallTimestampRef.current = now;
-    const narrationStarted = startVoiceNarration();
+    showVoiceOverlay(VOICE_CONNECTING_MESSAGE, { persist: true });
 
-    if (narrationStarted) {
+    const { success, errorMessage } = await startVoiceNarration();
+
+    if (success) {
       showVoiceOverlay(VOICE_CALL_OVERLAY_MESSAGE, { persist: true });
       setLauncherExpanded(false);
-    } else {
-      showVoiceOverlay(
-        "Voice narration isn’t supported in this browser. Please use a compatible environment.",
-      );
+      return;
     }
-  }, [showVoiceOverlay, startVoiceNarration]);
+
+    if (errorMessage) {
+      showVoiceOverlay(errorMessage);
+    } else {
+      clearVoiceOverlay();
+    }
+  }, [clearVoiceOverlay, showVoiceOverlay, startVoiceNarration]);
 
   const ambientOrbs = useMemo(
     () => [
