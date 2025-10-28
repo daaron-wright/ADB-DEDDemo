@@ -54,9 +54,33 @@ export const handleVoiceNarration: RequestHandler = async (req, res) => {
       });
     }
 
-    const { text, voiceId, modelId } = narrationRequestSchema.parse(req.body);
+    const { text, voiceId, modelId, outputFormat, voiceSettings } =
+      narrationRequestSchema.parse(req.body);
     const resolvedVoiceId = voiceId ?? process.env.ELEVENLABS_VOICE_ID ?? DEFAULT_VOICE_ID;
     const resolvedModelId = modelId ?? process.env.ELEVENLABS_MODEL_ID ?? DEFAULT_MODEL_ID;
+    const resolvedOutputFormat =
+      outputFormat ?? getEnvOutputFormat(process.env.ELEVENLABS_OUTPUT_FORMAT) ?? DEFAULT_OUTPUT_FORMAT;
+
+    const voiceSettingsOverrides: Partial<typeof DEFAULT_VOICE_SETTINGS> = {};
+    if (voiceSettings?.stability !== undefined) {
+      voiceSettingsOverrides.stability = voiceSettings.stability;
+    }
+    if (voiceSettings?.similarityBoost !== undefined) {
+      voiceSettingsOverrides.similarity_boost = voiceSettings.similarityBoost;
+    }
+    if (voiceSettings?.style !== undefined) {
+      voiceSettingsOverrides.style = voiceSettings.style;
+    }
+    if (voiceSettings?.useSpeakerBoost !== undefined) {
+      voiceSettingsOverrides.use_speaker_boost = voiceSettings.useSpeakerBoost;
+    }
+
+    const resolvedVoiceSettings = {
+      ...DEFAULT_VOICE_SETTINGS,
+      ...voiceSettingsOverrides,
+    };
+
+    const acceptHeader = OUTPUT_CONTENT_TYPES[resolvedOutputFormat] ?? "audio/mpeg";
 
     const elevenLabsResponse = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${resolvedVoiceId}`,
@@ -65,17 +89,13 @@ export const handleVoiceNarration: RequestHandler = async (req, res) => {
         headers: {
           "xi-api-key": apiKey,
           "Content-Type": "application/json",
-          Accept: "audio/mpeg",
+          Accept: acceptHeader,
         },
         body: JSON.stringify({
           text,
           model_id: resolvedModelId,
-          voice_settings: {
-            stability: 0.45,
-            similarity_boost: 0.82,
-            style: 0.6,
-            use_speaker_boost: true,
-          },
+          output_format: resolvedOutputFormat,
+          voice_settings: resolvedVoiceSettings,
         }),
       },
     );
@@ -90,10 +110,12 @@ export const handleVoiceNarration: RequestHandler = async (req, res) => {
     }
 
     const audioBuffer = Buffer.from(await elevenLabsResponse.arrayBuffer());
-    res.setHeader("Content-Type", "audio/mpeg");
+    const responseContentType = elevenLabsResponse.headers.get("content-type") ?? acceptHeader;
+    res.setHeader("Content-Type", responseContentType);
     res.setHeader("Cache-Control", "no-store");
     res.setHeader("X-Voice-Model", resolvedModelId);
     res.setHeader("X-Voice-Id", resolvedVoiceId);
+    res.setHeader("X-Voice-Output-Format", resolvedOutputFormat);
     res.send(audioBuffer);
   } catch (error) {
     if (error instanceof z.ZodError) {
