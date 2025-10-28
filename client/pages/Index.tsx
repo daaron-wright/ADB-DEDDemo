@@ -310,7 +310,7 @@ export default function Index() {
     const category = businessCategories.find(
       (cat) => cat.id === chatState.category,
     );
-    return category ? `${category.subtitle} for ${category.title}` : "Polaris";
+    return category ? `${category.subtitle} for ${category.title}` : "Al Yah";
   };
 
   const pageRef = useRef<HTMLDivElement>(null);
