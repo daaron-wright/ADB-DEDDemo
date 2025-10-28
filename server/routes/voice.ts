@@ -9,7 +9,9 @@ const ALLOWED_OUTPUT_FORMATS = [
   "pcm_44100",
 ] as const;
 
-const OUTPUT_CONTENT_TYPES: Record<(typeof ALLOWED_OUTPUT_FORMATS)[number], string> = {
+type OutputFormat = (typeof ALLOWED_OUTPUT_FORMATS)[number];
+
+const OUTPUT_CONTENT_TYPES: Record<OutputFormat, string> = {
   mp3_44100_192: "audio/mpeg",
   mp3_44100_128: "audio/mpeg",
   mp3_44100_64: "audio/mpeg",
@@ -36,7 +38,7 @@ const narrationRequestSchema = z.object({
 
 const DEFAULT_VOICE_ID = "21m00Tcm4TlvDq8ikWAM"; // Rachel
 const DEFAULT_MODEL_ID = "eleven_multilingual_v2";
-const DEFAULT_OUTPUT_FORMAT: (typeof ALLOWED_OUTPUT_FORMATS)[number] = "mp3_44100_192";
+const DEFAULT_OUTPUT_FORMAT: OutputFormat = "mp3_44100_192";
 const DEFAULT_VOICE_SETTINGS = {
   stability: 0.32,
   similarity_boost: 0.9,
