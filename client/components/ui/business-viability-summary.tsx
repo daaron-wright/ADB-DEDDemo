@@ -81,7 +81,7 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
               <ul className="space-y-2 text-sm leading-relaxed text-slate-600">
                 <li>• Corniche and Saadiyat competitors cluster around prix-fixe hotel dining with limited immersive storytelling.</li>
                 <li>• Marketplace chatter shows 22% unmet demand for chef-led tasting rooms with concierge-level service.</li>
-                <li>• Shamma&apos;s concept packages coastal provenance, terrace rituals, and omakase-style flights—directly filling the gap Polaris surfaced.</li>
+                <li>• Shamma&apos;s concept packages coastal provenance, terrace rituals, and omakase-style flights—directly filling the gap Al Yah surfaced.</li>
               </ul>
             </div>
           </div>
