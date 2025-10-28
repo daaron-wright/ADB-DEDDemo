@@ -8180,7 +8180,7 @@ export function BusinessChatUI({
     const trimmedInitial = initialMessage?.trim();
     const hasInitialPrompt = Boolean(trimmedInitial);
     const defaultGreeting =
-      "Welcome, Shamma. Im Polaris—here to keep momentum going. Tell me more about your business concept.";
+      "Welcome, Shamma. Im Al Yah—here to keep momentum going. Tell me more about your business concept.";
     const conversationSeedKey = `default-${trimmedInitial ?? ""}-${initialUnlocksQuickActions ? "unlock" : "basic"}`;
 
     if (conversationSeedKeyRef.current === conversationSeedKey) {
