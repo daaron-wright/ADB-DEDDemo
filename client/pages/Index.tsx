@@ -308,6 +308,7 @@ export default function Index() {
         audioElement.onerror = () => {
           stopVoiceNarration();
           voiceOverlayTimeoutRef.current = null;
+          narrationHasPlayedRef.current = false;
           if (isComponentMountedRef.current) {
             showVoiceOverlay(
               "Voice narration encountered a playback issue. Please try again.",
