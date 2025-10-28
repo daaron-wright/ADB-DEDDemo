@@ -31,7 +31,7 @@ const filterOptions: Array<{
     id: "relevant",
     label: "Relevant to my business concept (Emirati Fusion)",
     description:
-      "Pins that mirror Layla's experiential Emirati fusion positioning.",
+      "Pins that mirror Shamma's experiential Emirati fusion positioning.",
   },
   {
     id: "highDemand",
@@ -219,7 +219,7 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                 </h3>
                 <p className="text-xs text-white/70">
                   Pins surface Investor Compass insight for waterfront
-                  competitors meeting Layla&apos;s filters.
+                  competitors meeting Shamma&apos;s filters.
                 </p>
               </div>
               <div className="text-right text-xs text-white/70">
@@ -314,7 +314,7 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                   Surface white space
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Select the attributes that matter most to Layla&apos;s concept
+                  Select the attributes that matter most to Shamma&apos;s concept
                   to narrow in on comparable venues.
                 </p>
               </div>
