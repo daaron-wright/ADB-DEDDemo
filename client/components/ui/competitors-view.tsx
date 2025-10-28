@@ -253,7 +253,7 @@ const ChatInterface = () => {
       <div className="flex items-center gap-4 mb-6">
         <AIBusinessOrb className="h-16 w-16" />
         <div className="flex-1">
-          <h3 className="text-white text-lg font-semibold">Polaris</h3>
+          <h3 className="text-white text-lg font-semibold">Al Yah</h3>
         </div>
         <SoundVisualization />
       </div>
