@@ -1,14 +1,48 @@
 import { RequestHandler } from "express";
 import { z } from "zod";
 
+const ALLOWED_OUTPUT_FORMATS = [
+  "mp3_44100_192",
+  "mp3_44100_128",
+  "mp3_44100_64",
+  "ogg_48000",
+  "pcm_44100",
+] as const;
+
+const OUTPUT_CONTENT_TYPES: Record<(typeof ALLOWED_OUTPUT_FORMATS)[number], string> = {
+  mp3_44100_192: "audio/mpeg",
+  mp3_44100_128: "audio/mpeg",
+  mp3_44100_64: "audio/mpeg",
+  ogg_48000: "audio/ogg",
+  pcm_44100: "audio/wav",
+};
+
+const voiceSettingsSchema = z
+  .object({
+    stability: z.number().min(0).max(1).optional(),
+    similarityBoost: z.number().min(0).max(1).optional(),
+    style: z.number().min(0).max(1).optional(),
+    useSpeakerBoost: z.boolean().optional(),
+  })
+  .strict();
+
 const narrationRequestSchema = z.object({
   text: z.string().min(1, "Narration text is required"),
   voiceId: z.string().min(1).optional(),
   modelId: z.string().min(1).optional(),
+  outputFormat: z.enum(ALLOWED_OUTPUT_FORMATS).optional(),
+  voiceSettings: voiceSettingsSchema.optional(),
 });
 
 const DEFAULT_VOICE_ID = "21m00Tcm4TlvDq8ikWAM"; // Rachel
 const DEFAULT_MODEL_ID = "eleven_multilingual_v2";
+const DEFAULT_OUTPUT_FORMAT: (typeof ALLOWED_OUTPUT_FORMATS)[number] = "mp3_44100_192";
+const DEFAULT_VOICE_SETTINGS = {
+  stability: 0.32,
+  similarity_boost: 0.9,
+  style: 0.58,
+  use_speaker_boost: true,
+};
 
 export const handleVoiceNarration: RequestHandler = async (req, res) => {
   try {
