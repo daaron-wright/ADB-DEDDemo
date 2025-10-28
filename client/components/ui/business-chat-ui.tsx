@@ -6443,7 +6443,7 @@ export function BusinessChatUI({
   isOpen,
   onClose,
   category,
-  title = "Polaris",
+  title = "Al Yah",
   initialMessage,
   mode = "modal",
   journeyFocusView = null,
