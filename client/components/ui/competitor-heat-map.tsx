@@ -294,7 +294,7 @@ const CompetitorHeatMap: React.FC<CompetitorHeatMapProps> = ({ onBack }) => {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="rounded-2xl border border-white/25 bg-black/45 px-5 py-4 text-center text-sm text-white/80 backdrop-blur">
                     {showRelevantGap
-                      ? "No Emirati fusion venues appear on the Corniche map yet. Layla's concept fills this white space."
+                      ? "No Emirati fusion venues appear on the Corniche map yet. Shamma's concept fills this white space."
                       : "No competitors match the selected filters. Reset filters to view the full landscape."}
                   </div>
                 </div>
