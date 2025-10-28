@@ -553,10 +553,10 @@ export default function Index() {
                   <div className="w-[280px] rounded-[28px] border border-white/35 bg-white/18 p-4 shadow-[0_40px_90px_-55px_rgba(15,23,42,0.4)] backdrop-blur-2xl sm:w-[320px]">
                     <div className="flex items-start gap-3">
                       <div className="relative flex h-11 w-11 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border border-[#0F766E]/15 bg-white shadow-[0_12px_30px_-18px_rgba(22,101,76,0.45)]">
-                        {hasPolarisAvatar ? (
+                        {hasAlYahAvatar ? (
                           <img
-                            src={polarisAvatarUrl}
-                            alt={polarisAvatarAlt}
+                            src={alYahAvatarUrl}
+                            alt={alYahAvatarAlt}
                             className="h-full w-full object-contain p-1.5"
                           />
                         ) : (
@@ -653,11 +653,11 @@ export default function Index() {
                     className="inline-flex h-16 w-16 items-center justify-center rounded-full border border-[#0F766E] bg-white shadow-[0_26px_70px_-40px_rgba(15,23,42,0.35)] transition hover:bg-[#f7fffb] hover:shadow-[0_30px_80px_-45px_rgba(15,23,42,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E]/40"
                     aria-label="Show Al Yah quick actions"
                   >
-                    {hasPolarisAvatar ? (
+                    {hasAlYahAvatar ? (
                       <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-[#0F766E]/15 bg-white">
                         <img
-                          src={polarisAvatarUrl}
-                          alt={polarisAvatarAlt}
+                          src={alYahAvatarUrl}
+                          alt={alYahAvatarAlt}
                           className="h-full w-full object-contain p-2"
                         />
                       </span>
