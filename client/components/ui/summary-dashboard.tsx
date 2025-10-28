@@ -407,7 +407,7 @@ export function SummaryDashboard({
 
         {/* Main Content */}
         <div className="relative z-10 p-8 h-[calc(100vh-87px)] overflow-y-auto">
-          {/* Polaris Header */}
+          {/* Al Yah Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
