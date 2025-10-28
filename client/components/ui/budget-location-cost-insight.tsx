@@ -90,7 +90,7 @@ export const BudgetLocationCostInsight: React.FC<BudgetLocationCostInsightProps>
           Model operating costs before committing to the Corniche lease
         </h3>
         <p className="text-sm text-slate-600">
-          Polaris pulls Bayut-aligned listings so Layla can validate operating cost ranges, service charges, and fit-out
+          Polaris pulls Bayut-aligned listings so Shamma can validate operating cost ranges, service charges, and fit-out
           reserves for each shortlisted location along the Corniche and neighbouring districts.
         </p>
       </header>
