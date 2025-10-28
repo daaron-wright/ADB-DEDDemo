@@ -371,6 +371,67 @@ export default function Index() {
     };
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (voiceOverlayTimeoutRef.current !== null && typeof window !== "undefined") {
+        window.clearTimeout(voiceOverlayTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Meta") {
+        metaKeyActiveRef.current = true;
+        metaKeyComboUsedRef.current = false;
+      } else if (metaKeyActiveRef.current) {
+        metaKeyComboUsedRef.current = true;
+      }
+    };
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.key === "Meta") {
+        if (!metaKeyComboUsedRef.current) {
+          triggerVoiceCall();
+        }
+        metaKeyActiveRef.current = false;
+        metaKeyComboUsedRef.current = false;
+      }
+    };
+
+    const handleWindowBlur = () => {
+      metaKeyActiveRef.current = false;
+      metaKeyComboUsedRef.current = false;
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
+    window.addEventListener("blur", handleWindowBlur);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+      window.removeEventListener("blur", handleWindowBlur);
+    };
+  }, [triggerVoiceCall]);
+
+  useEffect(() => {
+    if (!chatState.isOpen) {
+      return;
+    }
+
+    if (!pendingVoiceCallRef.current) {
+      return;
+    }
+
+    dispatchVoiceCall(pendingVoiceCallRef.current);
+    pendingVoiceCallRef.current = null;
+  }, [chatState.isOpen, dispatchVoiceCall]);
+
   const handleSignOut = () => {
     navigate("/portal/applicant");
   };
