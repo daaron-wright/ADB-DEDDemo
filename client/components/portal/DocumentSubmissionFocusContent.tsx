@@ -176,7 +176,7 @@ export function DocumentSubmissionFocusContent({
     [handleSelectDocument],
   );
 
-  const handleApplyPolarisRevision = React.useCallback(() => {
+  const handleApplyAlYahRevision = React.useCallback(() => {
     setMoaClauseDraft(POLARIS_RECOMMENDED_MOA_CLAUSE);
     setHasAppliedPolarisRevision(true);
     setMoaEditorNotes(
@@ -407,7 +407,7 @@ export function DocumentSubmissionFocusContent({
               <div className="flex flex-wrap items-center gap-3">
                 <Button
                   type="button"
-                  onClick={handleApplyPolarisRevision}
+                  onClick={handleApplyAlYahRevision}
                   disabled={isFinalisingMoa}
                   className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
                 >
@@ -485,7 +485,7 @@ export function DocumentSubmissionFocusContent({
       );
     },
     [
-      handleApplyPolarisRevision,
+      handleApplyAlYahRevision,
       handleCompleteMoa,
       handleResetMoaRevision,
       hasAppliedPolarisRevision,
@@ -729,7 +729,7 @@ export function DocumentSubmissionFocusContent({
       allDocumentsCompleted,
       documents,
       handleDocumentClick,
-      handleApplyPolarisRevision,
+      handleApplyAlYahRevision,
       handleCompleteMoa,
       handleInitiatePayment,
       handleResetMoaRevision,
