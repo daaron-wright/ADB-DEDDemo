@@ -26,7 +26,7 @@ const summaryPoints = [
 ];
 
 const nextSteps = [
-  "Reserve the trade name Polaris suggested",
+  "Reserve the trade name Al Yah suggested",
   "Auto-fill the investor workspace and checklist",
   "Sync Bayut spaces to the applicant portal for due diligence",
 ];
