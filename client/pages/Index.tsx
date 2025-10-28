@@ -204,6 +204,7 @@ export default function Index() {
   const voiceNarrationObjectUrlRef = useRef<string | null>(null);
   const voiceNarrationLoadingRef = useRef(false);
   const voiceNarrationActiveRef = useRef(false);
+  const narrationHasPlayedRef = useRef(false);
   const isComponentMountedRef = useRef(true);
 
   const focusPointRef = useRef<{ x: number; y: number }>({
