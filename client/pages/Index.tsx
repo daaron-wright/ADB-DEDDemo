@@ -189,6 +189,11 @@ export default function Index() {
     persist?: boolean;
   };
 
+  type VoiceNarrationResult = {
+    success: boolean;
+    errorMessage?: string;
+  };
+
   const showVoiceOverlay = useCallback(
     (message: string, options: VoiceOverlayOptions = {}) => {
       if (typeof window !== "undefined" && voiceOverlayTimeoutRef.current !== null) {
