@@ -124,7 +124,7 @@ export function DocumentSubmissionFocusContent({
   const [moaEditorNotes, setMoaEditorNotes] = React.useState<string>(
     "Polaris is ready to simulate bilingual clauses and prepare the ADJD review packet.",
   );
-  const [hasAppliedAlYahRevision, setHasAppliedPolarisRevision] =
+  const [hasAppliedAlYahRevision, setHasAppliedAlYahRevision] =
     React.useState(false);
 
   const activeDocument = React.useMemo(
@@ -178,7 +178,7 @@ export function DocumentSubmissionFocusContent({
 
   const handleApplyAlYahRevision = React.useCallback(() => {
     setMoaClauseDraft(POLARIS_RECOMMENDED_MOA_CLAUSE);
-    setHasAppliedPolarisRevision(true);
+    setHasAppliedAlYahRevision(true);
     setMoaEditorNotes(
       "Polaris simulated bilingual clauses and prepared the ADJD review packet.",
     );
@@ -190,7 +190,7 @@ export function DocumentSubmissionFocusContent({
     setMoaEditorNotes(
       "Polaris is ready to simulate bilingual clauses and prepare the ADJD review packet.",
     );
-    setHasAppliedPolarisRevision(false);
+    setHasAppliedAlYahRevision(false);
   }, []);
 
   const handleCompleteMoa = React.useCallback(() => {
@@ -380,7 +380,7 @@ export function DocumentSubmissionFocusContent({
                   value={moaClauseDraft}
                   onChange={(event) => {
                     setMoaClauseDraft(event.target.value);
-                    setHasAppliedPolarisRevision(false);
+                    setHasAppliedAlYahRevision(false);
                   }}
                   rows={10}
                   className="min-h-[200px] resize-none border-[#0f766e]/20 bg-[#f9fbfa] text-sm leading-relaxed text-slate-700"
@@ -493,7 +493,7 @@ export function DocumentSubmissionFocusContent({
       moaClauseDraft,
       moaEditorNotes,
       setActiveSlideId,
-      setHasAppliedPolarisRevision,
+      setHasAppliedAlYahRevision,
       setMoaClauseDraft,
       setMoaEditorNotes,
       setShowMoaAssistant,
