@@ -113,7 +113,7 @@ const GapAnalysisView: React.FC<GapAnalysisViewProps> = ({
               <div className="rounded-2xl border border-[#d8e4df] bg-white/90 p-6 shadow-[0_12px_32px_-26px_rgba(11,64,55,0.3)]">
                 <div className="space-y-1">
                   <div className="text-sm font-semibold text-slate-900">
-                    Polaris
+                    Al Yah
                   </div>
                   <div className="text-xs uppercase tracking-[0.2em] text-[#0E766E]">
                     Gap analysis
