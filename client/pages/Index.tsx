@@ -134,7 +134,9 @@ export default function Index() {
   const lastVoiceCallTimestampRef = useRef<number>(0);
   const metaKeyActiveRef = useRef(false);
   const metaKeyComboUsedRef = useRef(false);
-  const voiceNarrationUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const voiceNarrationAudioRef = useRef<HTMLAudioElement | null>(null);
+  const voiceNarrationAbortControllerRef = useRef<AbortController | null>(null);
+  const voiceNarrationObjectUrlRef = useRef<string | null>(null);
   const voiceNarrationActiveRef = useRef(false);
   const isComponentMountedRef = useRef(true);
 
