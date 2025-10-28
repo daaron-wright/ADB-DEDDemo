@@ -59,7 +59,7 @@ const competitors: CompetitorPoint[] = [
     rating: 4.1,
     socialMentions: 540,
     summary:
-      "Tourist-heavy casual spot. Concept diverges from Layla's fine dining positioning but informs volume baselines.",
+      "Tourist-heavy casual spot. Concept diverges from Shamma's fine dining positioning but informs volume baselines.",
     highlights: ["High tourist mix", "Strong proximity to family attractions"],
   },
   {
@@ -81,7 +81,7 @@ const filterDefinitions: Array<{ id: FilterId; label: string; description: strin
   {
     id: "relevant",
     label: "Relevant to my concept",
-    description: "Keep concepts aligned to Layla's waterfront fine dining positioning.",
+    description: "Keep concepts aligned to Shamma's waterfront fine dining positioning.",
   },
   {
     id: "premium",
@@ -129,7 +129,7 @@ export const CompetitiveLandscapeInsight: React.FC<CompetitiveLandscapeInsightPr
         </p>
         <h3 className="text-xl font-semibold text-slate-900">Filter the Corniche competition before budgeting</h3>
         <p className="text-sm text-slate-600">
-          Layla selects the Corniche cluster and applies checkboxes to surface concepts that mirror her positioning.
+          Shamma selects the Corniche cluster and applies checkboxes to surface concepts that mirror her positioning.
           Polaris instantly removes outliers and spotlights the remaining white space on the investor compass.
         </p>
       </header>
