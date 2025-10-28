@@ -21,7 +21,7 @@ const VOICE_CONNECTING_MESSAGE =
   "Al Yah is preparing a guided narration for you…";
 const VOICE_OVERLAY_DURATION_MS = 9000;
 const VOICE_NARRATION_SCRIPT =
-  "Salaam Shamma. I’m Al Yah, here to narrate this welcome journey. Ahead you’ll see our AI Native Business hub, the quick actions I can unlock for Corniche, and curated opportunities to explore. When you’re ready, ask me to open a workspace and I’ll orchestrate the next steps for you.";
+  "Salaam Shamma. I��m Al Yah, here to narrate this welcome journey. Ahead you’ll see our AI Native Business hub, the quick actions I can unlock for Corniche, and curated opportunities to explore. When you’re ready, ask me to open a workspace and I’ll orchestrate the next steps for you.";
 
 type VoiceCallOverlayProps = {
   isVisible: boolean;
@@ -307,6 +307,8 @@ export default function Index() {
         errorMessage:
           "Voice narration request failed. Please check your connection and try again.",
       };
+    } finally {
+      voiceNarrationLoadingRef.current = false;
     }
   }, [showVoiceOverlay, stopVoiceNarration]);
 
