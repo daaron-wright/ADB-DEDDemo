@@ -341,11 +341,11 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     keyDatesHeading: "التواري�� الرئيسية",
     keyDates: {
-      submitted: "تم ��لتقديم",
+      submitted: "تم التقديم",
       lastUpdated: "آخر تحديث",
     },
     heroBadge: "رحلة ا��مستثمر",
-    heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
+    heroTitle: "رحلتك مدع��مة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
       `اكتشفي مسارًا و��ضحًا لدرا��ة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، شاهدي كيف يحول ${name} و��س��ث������ر��ن آ����ون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
     heroButton: "استكشفي خيارا��� إضافية",
@@ -360,10 +360,10 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       lastUpdate: "آخر تحديث",
     },
     nextActionHeading: "الإ��راء التال��",
-    nextActionButton: "انتقل���� إلى ��لإجراء التالي",
+    nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيق��م مساعد الذكاء الاصطناعي تلقائ��ًا بجلب عقد الإيجار من نظام بلدية أبوظبي فو�� تسجيل ��قدك.",
+      "سيق��م مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فو�� تسجيل ��قدك.",
     businessAITitle: "بولاريس",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أ��شطة في رخصة تجارية واحدة.",
@@ -394,7 +394,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك ال����ع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإ��خال ا��شركاء، وتأ��ي�� العقار، والحصول على الم��افقات اللاحقة لمطعم على الكورنيش.",
+        "يع��ل طلبك ال����ع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإ��خال ا��شركاء، وتأ��ي�� العقار، والحصول على الم��افقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الموافقات الموح��ة لـ ADAFSA وبلدية أبوظبي.",
@@ -431,7 +431,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       pendingLicenseLabel: "متاح بعد الاستبيان",
       pendingSubmissionLabel: "0987654321",
       chatIntro:
-        "لنؤكد بعض التفاصيل معًا. ��عد إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الرحلة.",
+        "لنؤكد بعض التفاصيل معًا. ��ع�� إنهاء هذا الاستبيان، سأعرض نوع الترخيص ومعرّف الرحلة.",
     },
   },
 };
@@ -508,7 +508,7 @@ const journeyStages: JourneyStage[] = [
     },
     description: "Upload the remaining ADAFSA and ADM documents.",
     state: "current",
-    statusDetail: "Polaris is routing filings.",
+    statusDetail: "Al Yah is routing filings.",
     statusTransitions: [
       {
         id: "document-submissions-in-progress",
