@@ -236,7 +236,7 @@ const MODAL_MIN_DIMENSIONS: React.CSSProperties = {
 };
 
 const ACKNOWLEDGEMENT_MESSAGE =
-  "Got it — I’m opening your business license workspace and syncing the automation checklist for you now.";
+  "Got it ��� I’m opening your business license workspace and syncing the automation checklist for you now.";
 
 const HEAT_MAP_PROMPT =
   "Where are existing establishments located for specific activities (on a heat map)?";
@@ -8365,13 +8365,13 @@ export function BusinessChatUI({
     };
 
     window.addEventListener(
-      "polarisTradeNameCheckComplete",
+      "alYahTradeNameCheckComplete",
       handleTradeNameResult,
     );
 
     return () => {
       window.removeEventListener(
-        "polarisTradeNameCheckComplete",
+        "alYahTradeNameCheckComplete",
         handleTradeNameResult,
       );
     };
