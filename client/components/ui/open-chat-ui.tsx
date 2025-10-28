@@ -244,7 +244,7 @@ const queryClient = new QueryClient();
 export function OpenChatUI({
   isOpen,
   onClose,
-  title = "Polaris",
+  title = "Al Yah",
   businessCategories,
   onCategoryClick,
   mode = "general",
