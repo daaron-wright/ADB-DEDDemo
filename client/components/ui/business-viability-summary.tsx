@@ -43,7 +43,7 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
           Step 4 · Business viability summary
         </p>
         <h3 className="text-xl font-semibold text-slate-900">
-          Layla&apos;s ideation journey is complete—time to move into application
+          Shamma&apos;s ideation journey is complete—time to move into application
         </h3>
         <p className="text-sm text-slate-600">
           Polaris consolidates the findings, generates a business-plan ready export, and keeps the chat experience as the
@@ -71,17 +71,17 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
             </span>
             <div className="space-y-2">
               <h4 className="text-base font-semibold text-slate-900">
-                Competitive gap aligns with Layla&apos;s Corniche dining house
+                Competitive gap aligns with Shamma&apos;s Corniche dining house
               </h4>
               <p className="text-sm leading-relaxed text-slate-600">
                 Our competitor sweep found that only a handful of premium venues along the Corniche offer curated late-evening tasting journeys.
-                Layla&apos;s waterfront concept brings the experiential dining layer missing between Shurfa Bay and Villa Toscana, unlocking high-spend
+                Shamma&apos;s waterfront concept brings the experiential dining layer missing between Shurfa Bay and Villa Toscana, unlocking high-spend
                 demand from luxury tourists and office executives seeking post-9&nbsp;PM reservations.
               </p>
               <ul className="space-y-2 text-sm leading-relaxed text-slate-600">
                 <li>• Corniche and Saadiyat competitors cluster around prix-fixe hotel dining with limited immersive storytelling.</li>
                 <li>• Marketplace chatter shows 22% unmet demand for chef-led tasting rooms with concierge-level service.</li>
-                <li>• Layla&apos;s concept packages coastal provenance, terrace rituals, and omakase-style flights—directly filling the gap Polaris surfaced.</li>
+                <li>• Shamma&apos;s concept packages coastal provenance, terrace rituals, and omakase-style flights—directly filling the gap Polaris surfaced.</li>
               </ul>
             </div>
           </div>
