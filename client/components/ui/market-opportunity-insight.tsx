@@ -128,7 +128,7 @@ export const MarketOpportunityInsight: React.FC<MarketOpportunityInsightProps> =
           Step 1 · Market opportunity & demographics
         </p>
         <h3 className="text-xl font-semibold text-slate-900">
-          Interactive demand intelligence for Layla&apos;s Corniche concept
+          Interactive demand intelligence for Shamma&apos;s Corniche concept
         </h3>
         <p className="text-sm text-slate-600">
           Polaris visualises the total addressable market and demographic depth before highlighting the most
@@ -158,7 +158,7 @@ export const MarketOpportunityInsight: React.FC<MarketOpportunityInsightProps> =
             </h4>
             <p className="mt-1 text-xs text-slate-500">
               Ranges reconcile Tawtheeq contracts, DCT visitation, and employment filings. Values are presented as
-              bands so Layla can stress-test upside and downside scenarios.
+              bands so Shamma can stress-test upside and downside scenarios.
             </p>
           </div>
 
