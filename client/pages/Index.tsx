@@ -364,6 +364,7 @@ export default function Index() {
         }
 
         stopVoiceNarration();
+        narrationHasPlayedRef.current = false;
         return { success: false, errorMessage };
       }
 
