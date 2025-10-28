@@ -167,7 +167,9 @@ export default function Index() {
     }
 
     if (voiceNarrationObjectUrlRef.current) {
-      URL.revokeObjectURL(voiceNarrationObjectUrlRef.current);
+      if (typeof URL !== "undefined" && typeof URL.revokeObjectURL === "function") {
+        URL.revokeObjectURL(voiceNarrationObjectUrlRef.current);
+      }
       voiceNarrationObjectUrlRef.current = null;
     }
 
