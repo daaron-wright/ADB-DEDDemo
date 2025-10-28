@@ -268,6 +268,7 @@ export default function Index() {
       const audioElement = new Audio(objectUrl);
       audioElement.onended = () => {
         stopVoiceNarration();
+        voiceOverlayTimeoutRef.current = null;
         if (isComponentMountedRef.current) {
           setVoiceOverlayMessage(null);
         }
