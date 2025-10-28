@@ -127,6 +127,9 @@ function VoiceCallOverlay({
   message,
   onDismiss,
 }: VoiceCallOverlayProps) {
+  const trimmedMessage = message.trim();
+  const hasMessage = trimmedMessage.length > 0;
+
   return (
     <AnimatePresence>
       {isVisible ? (
@@ -146,20 +149,11 @@ function VoiceCallOverlay({
                 hasAvatar={hasAvatar}
               />
               <div className="flex-1 pt-0.5">
-                <p className="text-sm font-semibold text-slate-700" aria-live="polite">
-                  {message}
-                </p>
-                <div className="mt-3 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
-                  <span className="relative flex h-2 w-2 items-center justify-center">
-                    <span className="absolute inline-flex h-2 w-2 rounded-full bg-[#0F766E]" />
-                    <motion.span
-                      className="absolute inline-flex h-2 w-2 rounded-full bg-[#0F766E]/50"
-                      animate={{ scale: [1, 1.8, 1], opacity: [0.9, 0.2, 0.9] }}
-                      transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                  </span>
-                  Voice channel active
-                </div>
+                {hasMessage ? (
+                  <p className="text-sm font-semibold text-slate-700" aria-live="polite">
+                    {trimmedMessage}
+                  </p>
+                ) : null}
               </div>
               <button
                 type="button"
