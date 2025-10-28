@@ -152,16 +152,25 @@ export default function Index() {
   const hasCategoryFocusRef = useRef(false);
 
   const stopVoiceNarration = useCallback(() => {
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) {
-      return;
+    if (voiceNarrationAbortControllerRef.current) {
+      voiceNarrationAbortControllerRef.current.abort();
+      voiceNarrationAbortControllerRef.current = null;
     }
 
-    const { speechSynthesis } = window;
-    if (speechSynthesis && voiceNarrationUtteranceRef.current) {
-      speechSynthesis.cancel();
+    const audio = voiceNarrationAudioRef.current;
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.onended = null;
+      audio.onerror = null;
+      voiceNarrationAudioRef.current = null;
     }
 
-    voiceNarrationUtteranceRef.current = null;
+    if (voiceNarrationObjectUrlRef.current) {
+      URL.revokeObjectURL(voiceNarrationObjectUrlRef.current);
+      voiceNarrationObjectUrlRef.current = null;
+    }
+
     voiceNarrationActiveRef.current = false;
   }, []);
 
