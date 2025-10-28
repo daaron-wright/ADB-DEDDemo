@@ -503,7 +503,7 @@ export default function Index() {
             {/* Welcome heading */}
             <div className="flex items-center justify-center">
               <span className="text-black text-3xl font-semibold tracking-tight">
-                Marhaba, Layla
+                Marhaba, Shamma
               </span>
             </div>
 
@@ -566,7 +566,7 @@ export default function Index() {
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center justify-between gap-3">
                           <span className="text-sm font-semibold text-slate-900">
-                            Hi, Layla
+                            Hi, Shamma
                           </span>
                           <span className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-700">
                             <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.32)] animate-pulse" />
