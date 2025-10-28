@@ -3480,19 +3480,93 @@ const ChatInputField = ({
     }
   };
 
+  const defaultHotkeyPrompt =
+    (hotkeyPrompt?.trim() || CHAT_INPUT_HOTKEY_PROMPT).trim();
+
+  const matchesKey = (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    key: string,
+  ) => {
+    if (key === " ") {
+      return (
+        event.key === " " ||
+        event.code === "Space" ||
+        event.key === "Spacebar"
+      );
+    }
+
+    return event.key.toLowerCase() === key.toLowerCase();
+  };
+
+  const matchesModifiers = (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    modifiers?: ChatInputHotkeyMapping["modifiers"],
+  ) => {
+    if (!modifiers) {
+      return (
+        !event.shiftKey &&
+        !event.altKey &&
+        !event.metaKey &&
+        !event.ctrlKey
+      );
+    }
+
+    const {
+      shift = false,
+      alt = false,
+      meta = false,
+      ctrl = false,
+    } = modifiers;
+
+    return (
+      event.shiftKey === shift &&
+      event.altKey === alt &&
+      event.metaKey === meta &&
+      event.ctrlKey === ctrl
+    );
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const isSpaceKey = e.key === " " || e.code === "Space";
-    if (
-      isSpaceKey &&
-      value.trim().length === 0 &&
-      !e.shiftKey &&
-      !e.altKey &&
-      !e.metaKey &&
-      !e.ctrlKey
-    ) {
+    const hotkeysToEvaluate: ChatInputHotkeyMapping[] = [
+      {
+        key: " ",
+        prompt: defaultHotkeyPrompt,
+        requireEmptyInput: true,
+        modifiers: {
+          shift: false,
+          alt: false,
+          meta: false,
+          ctrl: false,
+        },
+      },
+      ...additionalHotkeys,
+    ];
+
+    for (const hotkey of hotkeysToEvaluate) {
+      const trimmedPrompt = hotkey.prompt.trim();
+      if (!trimmedPrompt) {
+        continue;
+      }
+
+      const requireEmpty =
+        hotkey.requireEmptyInput !== undefined
+          ? hotkey.requireEmptyInput
+          : true;
+
+      if (requireEmpty && value.trim().length > 0) {
+        continue;
+      }
+
+      if (!matchesKey(e, hotkey.key)) {
+        continue;
+      }
+
+      if (!matchesModifiers(e, hotkey.modifiers)) {
+        continue;
+      }
+
       e.preventDefault();
-      const prompt = hotkeyPrompt?.trim() || CHAT_INPUT_HOTKEY_PROMPT;
-      onChange(prompt);
+      onChange(trimmedPrompt);
       onHotkeyInsert?.();
       return;
     }
@@ -6877,7 +6951,7 @@ export function BusinessChatUI({
   const stagePanelMessage =
     followUpRecommendations.length > 0
       ? (followUpRecommendations[0]?.description ??
-        "Choose what you���d like to explore next.")
+        "Choose what you����d like to explore next.")
       : (stageBlueprint?.message ?? "");
 
   useEffect(() => {
