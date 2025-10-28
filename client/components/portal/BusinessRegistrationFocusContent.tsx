@@ -16,6 +16,7 @@ import type { DocumentVaultItem } from "./document-vault-types";
 import {
   PRIMARY_TRADE_NAME_EN,
   PRIMARY_TRADE_NAME_AR,
+  HERITAGE_VARIATION_TRADE_NAME_EN,
   MARWA_TRADE_NAME_EN,
   MARWA_TRADE_NAME_AR,
   TRADE_NAME_RECEIPT_DOCUMENT_ID,
@@ -249,7 +250,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Suggested alternatives: "Bait El Khetyar Restaurant", "Khetyar Dining House".',
       ].join("\n"),
       ar: [
-        '1. مدقق النص / التدقيق الإملائي / الفح�� الثقافي → ناجح. تم توحيد "بيت الختيار" دون تع��رضات ثقافية.',
+        '1. مدقق النص / التدق��ق الإملائي / الفح�� الثقافي → ناجح. تم توحيد "بيت الختيار" دون تع��رضات ثقافية.',
         "2. وكيل الكلمات المحظورة �� ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العر��ية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل ال��حويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
