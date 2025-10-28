@@ -2778,7 +2778,7 @@ const DashboardView = ({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
         {/* Left Column */}
         <div className="space-y-6">
-          {/* Polaris Chat Interface */}
+          {/* Al Yah Chat Interface */}
           <motion.div
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
