@@ -146,7 +146,7 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
           name: "Footfall and spend index",
           coverage: "Quarterly",
           highlight:
-            "Polaris weighted score for tourism and residential catchments",
+            "Al Yah weighted score for tourism and residential catchments",
         },
       ],
       generatedAt: new Date().toISOString(),
@@ -236,7 +236,7 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                     <div className="space-y-3 text-sm leading-relaxed text-slate-600">
                       <p>
                         Generate a tailored business plan for your selected
-                        location with Polaris insights on costs and next steps.
+                        location with Al Yah insights on costs and next steps.
                       </p>
                       <button
                         type="button"
@@ -277,7 +277,7 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
                     <div className="space-y-3 text-sm leading-relaxed text-slate-600">
                       <p>
                         Access curated DED datasets covering licensing history,
-                        inspection benchmarks, and Polaris footfall indices for
+                        inspection benchmarks, and Al Yah footfall indices for
                         your shortlisted spot.
                       </p>
                       <button
@@ -322,11 +322,11 @@ const RetailLocationsView: React.FC<RetailLocationsViewProps> = ({
             >
               <div className="text-center lg:text-left">
                 <h2 className="text-2xl font-bold text-slate-900 mb-4">
-                  Great news—Polaris has everything it needs for your
+                  Great news—Al Yah has everything it needs for your
                   shortlisted spot.
                 </h2>
                 <p className="text-slate-600 mb-8">
-                  We&apos;ll hop back into the chat so Polaris can celebrate the
+                  We&apos;ll hop back into the chat so Al Yah can celebrate the
                   win, share a quick viability update, and check if you want us
                   to reserve the trade name and fast-track the application.
                 </p>
