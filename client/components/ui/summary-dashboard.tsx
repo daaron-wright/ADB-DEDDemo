@@ -416,7 +416,7 @@ export function SummaryDashboard({
           >
             <AIBusinessOrb className="h-16 w-16" />
             <div className="flex-1">
-              <h2 className="text-white text-lg font-semibold">Polaris</h2>
+              <h2 className="text-white text-lg font-semibold">Al Yah</h2>
             </div>
             <SoundVisualization />
           </motion.div>
