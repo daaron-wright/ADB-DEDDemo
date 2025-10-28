@@ -8515,6 +8515,57 @@ export function BusinessChatUI({
     openViabilitySummary,
   ]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const handleVoiceCallRequested = (event: Event) => {
+      const detail =
+        (event as CustomEvent<VoiceCallEventDetail>).detail ?? {};
+      const timestamp = detail.timestamp ?? Date.now();
+
+      if (timestamp <= voiceModeLastTimestampRef.current) {
+        return;
+      }
+
+      voiceModeLastTimestampRef.current = timestamp;
+      setInteractionMode("voice");
+      setAdvisorPanelOpen(false);
+      setModalView("chat");
+      setView("basic");
+
+      const prompt = detail.prompt?.trim();
+      if (prompt) {
+        setInputValue(prompt);
+      }
+
+      const announcement = detail.announcement?.trim();
+      if (announcement) {
+        window.requestAnimationFrame(() => {
+          setMessages((previous) => {
+            const sanitized = previous.map((message) =>
+              message.actions ? { ...message, actions: undefined } : message,
+            );
+            return [...sanitized, buildMessage(announcement, true)];
+          });
+        });
+      }
+    };
+
+    window.addEventListener(
+      "alYahVoiceCallRequested",
+      handleVoiceCallRequested,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "alYahVoiceCallRequested",
+        handleVoiceCallRequested,
+      );
+    };
+  }, [buildMessage]);
+
   if (!isOpen) return null;
 
   let modalOverlay: React.ReactNode = null;
