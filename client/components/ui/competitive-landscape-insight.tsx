@@ -192,7 +192,7 @@ export const CompetitiveLandscapeInsight: React.FC<CompetitiveLandscapeInsightPr
               {!visibleCompetitors.length ? (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="rounded-3xl border border-white/25 bg-black/65 px-5 py-4 text-sm font-semibold text-white/80">
-                    Filters removed all competitors. Corniche reveals a clear white space for Layla&apos;s concept.
+                    Filters removed all competitors. Corniche reveals a clear white space for Shamma&apos;s concept.
                   </div>
                 </div>
               ) : null}
@@ -215,7 +215,7 @@ export const CompetitiveLandscapeInsight: React.FC<CompetitiveLandscapeInsightPr
               Checkbox filters
             </h4>
             <p className="text-xs text-slate-500">
-              Layla toggles filters to remove irrelevant operators. No toggles here—only deliberate checkbox
+              Shamma toggles filters to remove irrelevant operators. No toggles here—only deliberate checkbox
               selections to focus the investor lens.
             </p>
           </div>
@@ -336,7 +336,7 @@ export const CompetitiveLandscapeInsight: React.FC<CompetitiveLandscapeInsightPr
               </div>
             ) : (
               <p className="text-sm text-slate-600">
-                No competitors match the current filters. Layla can claim this white space with a Corniche launch.
+                No competitors match the current filters. Shamma can claim this white space with a Corniche launch.
               </p>
             )}
           </div>
