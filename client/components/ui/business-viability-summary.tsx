@@ -46,7 +46,7 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
           Shamma&apos;s ideation journey is complete—time to move into application
         </h3>
         <p className="text-sm text-slate-600">
-          Polaris consolidates the findings, generates a business-plan ready export, and keeps the chat experience as the
+          Al Yah consolidates the findings, generates a business-plan ready export, and keeps the chat experience as the
           primary call to action for the next phase.
         </p>
       </header>
