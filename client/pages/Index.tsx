@@ -174,6 +174,7 @@ export default function Index() {
       voiceNarrationObjectUrlRef.current = null;
     }
 
+    voiceNarrationLoadingRef.current = false;
     voiceNarrationActiveRef.current = false;
   }, []);
 
