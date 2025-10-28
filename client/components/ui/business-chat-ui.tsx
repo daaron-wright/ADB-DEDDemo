@@ -1792,7 +1792,7 @@ const CuisinePopularityBreakout = ({
                   "w-full h-full bg-white/14 backdrop-blur-md",
                 )}
               >
-                {/* Polaris Header */}
+                {/* Al Yah Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <AIBusinessOrb className="h-16 w-16" />
@@ -2043,7 +2043,7 @@ const CompetitorAnalysisBreakout = ({
                   "w-full h-full bg-white/14 backdrop-blur-md",
                 )}
               >
-                {/* Polaris Header */}
+                {/* Al Yah Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <AIBusinessOrb className="h-16 w-16" />
@@ -2318,7 +2318,7 @@ const GapAnalysisBreakout = ({
                   "w-full h-full bg-white/14 backdrop-blur-md",
                 )}
               >
-                {/* Polaris Header */}
+                {/* Al Yah Header */}
                 <div className="p-4">
                   <div className="flex items-center gap-3 mb-4">
                     <AIBusinessOrb className="h-16 w-16" />
@@ -3280,7 +3280,7 @@ const DiscoveryCompilationCard = ({
           "sm:rounded-3xl",
         )}
       >
-        {/* Polaris Header */}
+        {/* Al Yah Header */}
         <div className="flex flex-col p-6 pb-8">
           <div className="flex items-center gap-2 mb-8">
             <AIBusinessOrb className="h-16 w-16" />
