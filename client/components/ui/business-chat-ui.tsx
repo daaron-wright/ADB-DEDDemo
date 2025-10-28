@@ -9190,6 +9190,7 @@ export function BusinessChatUI({
                               className="w-full"
                               hotkeyPrompt={hotkeyDraftPrompt}
                               onHotkeyInsert={handleHotkeyInsert}
+                              additionalHotkeys={additionalChatHotkeys}
                             />
                           </div>
                         ) : null}
