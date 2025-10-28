@@ -7230,7 +7230,7 @@ export function BusinessChatUI({
 
       if (typeof window !== "undefined") {
         window.dispatchEvent(
-          new CustomEvent("polarisTradeNameChatSubmit", {
+          new CustomEvent("alYahTradeNameChatSubmit", {
             detail: {
               message: trimmed,
               stageId: tradeNameStageId ?? "trade-name-activities",
