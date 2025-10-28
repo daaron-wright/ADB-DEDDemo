@@ -3462,6 +3462,7 @@ const ChatInputField = ({
   className = "",
   hotkeyPrompt,
   onHotkeyInsert,
+  additionalHotkeys = [],
 }: {
   value: string;
   onChange: (value: string) => void;
@@ -3470,6 +3471,7 @@ const ChatInputField = ({
   className?: string;
   hotkeyPrompt?: string | null;
   onHotkeyInsert?: () => void;
+  additionalHotkeys?: ChatInputHotkeyMapping[];
 }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
