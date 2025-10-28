@@ -156,28 +156,12 @@ function VoiceCallOverlay({
         >
           <div className="pointer-events-auto rounded-3xl border border-white/60 bg-white/90 p-4 shadow-[0_40px_80px_-48px_rgba(15,23,42,0.55)] backdrop-blur-xl">
             <div className="flex items-start gap-3">
-              <div className="relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border border-[#0F766E]/25 bg-white shadow-[0_18px_40px_-28px_rgba(15,118,110,0.55)]">
-                {hasAvatar ? (
-                  <motion.img
-                    key="voice-avatar"
-                    src={avatarUrl}
-                    alt={avatarAlt}
-                    className="h-full w-full object-contain p-1.5"
-                    animate={{ scale: [1, 1.08, 1], rotate: [-3, 3, -3] }}
-                    transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                ) : (
-                  <motion.div
-                    initial={false}
-                    animate={{ scale: [1, 1.08, 1], rotate: [-3, 3, -3] }}
-                    transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-                    className="flex h-full w-full items-center justify-center"
-                  >
-                    <Headset className="h-5 w-5 text-[#0F766E]" aria-hidden="true" />
-                  </motion.div>
-                )}
-              </div>
-              <div className="flex-1">
+              <AnimatedVoiceAvatar
+                avatarUrl={avatarUrl}
+                avatarAlt={avatarAlt}
+                hasAvatar={hasAvatar}
+              />
+              <div className="flex-1 pt-0.5">
                 <p className="text-sm font-semibold text-slate-700" aria-live="polite">
                   {message}
                 </p>
