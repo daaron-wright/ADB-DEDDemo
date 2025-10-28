@@ -9017,7 +9017,7 @@ export function BusinessChatUI({
                           {journeyFocusView ? (
                             <JourneyStageFocusView
                               {...journeyFocusView}
-                              onPolarisPrompt={handleAlYahPrompt}
+                              onAlYahPrompt={handleAlYahPrompt}
                             />
                           ) : null}
                           {!journeyFocusView && showChatInterface ? (
