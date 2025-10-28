@@ -410,6 +410,7 @@ export default function Index() {
       }
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") {
+        narrationHasPlayedRef.current = false;
         return { success: false };
       }
 
