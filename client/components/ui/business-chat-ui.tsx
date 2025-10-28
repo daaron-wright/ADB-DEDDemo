@@ -907,7 +907,7 @@ const CONVERSATION_STEPS: Array<{ id: ConversationStep; label: string }> = [
 ];
 
 const DEFAULT_CHAT_PLACEHOLDER =
-  "Layla, describe the concept you want to open next so I can map the steps.";
+  "Shamma, describe the concept you want to open next so I can map the steps.";
 
 const STEP_CHAT_PLACEHOLDERS: Record<ConversationStep, string> = {
   intro:
@@ -1439,7 +1439,7 @@ const CompetitorAnalysisSummaryTile = () => {
                 Next steps
               </p>
               <ul className="mt-2 space-y-2 text-sm leading-relaxed text-slate-600">
-                <li>��� Review detailed competitor pricing analysis</li>
+                <li>���� Review detailed competitor pricing analysis</li>
                 <li>• Analyze menu positioning gaps</li>
                 <li>• Schedule site visits for concept validation</li>
               </ul>
