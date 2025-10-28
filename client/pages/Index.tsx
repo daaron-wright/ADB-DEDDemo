@@ -142,13 +142,13 @@ function VoiceCallOverlay({
           className="pointer-events-none fixed bottom-32 right-6 z-[45] w-[min(320px,calc(100vw-48px))]"
         >
           <div className="pointer-events-auto rounded-3xl border border-white/60 bg-white/90 p-4 shadow-[0_40px_80px_-48px_rgba(15,23,42,0.55)] backdrop-blur-xl">
-            <div className="flex items-start gap-3">
+            <div className="flex items-center gap-3">
               <AnimatedVoiceAvatar
                 avatarUrl={avatarUrl}
                 avatarAlt={avatarAlt}
                 hasAvatar={hasAvatar}
               />
-              <div className="flex-1 pt-0.5 flex flex-col items-center text-center">
+              <div className="flex-1 flex flex-col items-center justify-center text-center">
                 {hasMessage ? (
                   <p className="text-sm font-semibold text-slate-700 text-center" aria-live="polite">
                     {trimmedMessage}
