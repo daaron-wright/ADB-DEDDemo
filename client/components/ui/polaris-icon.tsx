@@ -37,7 +37,7 @@ export function AlYahIcon({
     >
       <defs>
         <radialGradient
-          id="polarisMonoCore"
+          id="alYahMonoCore"
           cx="50%"
           cy="50%"
           r="55%"
@@ -48,7 +48,7 @@ export function AlYahIcon({
           <stop offset="100%" stopColor="#111111" />
         </radialGradient>
         <linearGradient
-          id="polarisMonoArc"
+          id="alYahMonoArc"
           x1="12%"
           y1="18%"
           x2="88%"
@@ -59,12 +59,12 @@ export function AlYahIcon({
           <stop offset="55%" stopColor="#D9D9D9" stopOpacity="0.6" />
           <stop offset="100%" stopColor="#7C7C7C" stopOpacity="0.35" />
         </linearGradient>
-        <radialGradient id="polarisMonoHighlight" cx="36%" cy="28%" r="32%">
+        <radialGradient id="alYahMonoHighlight" cx="36%" cy="28%" r="32%">
           <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.9" />
           <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
         </radialGradient>
         <filter
-          id="polarisMonoGlow"
+          id="alYahMonoGlow"
           x="-20%"
           y="-20%"
           width="140%"
@@ -78,15 +78,15 @@ export function AlYahIcon({
         </filter>
       </defs>
 
-      <g filter="url(#polarisMonoGlow)">
-        <circle cx="32" cy="32" r="27" fill="url(#polarisMonoCore)" />
+      <g filter="url(#alYahMonoGlow)">
+        <circle cx="32" cy="32" r="27" fill="url(#alYahMonoCore)" />
       </g>
 
-      <circle cx="23" cy="23" r="14" fill="url(#polarisMonoHighlight)" />
+      <circle cx="23" cy="23" r="14" fill="url(#alYahMonoHighlight)" />
 
       <path
         d="M13.2 31.6c3.1-10.4 14.7-16 25.2-12.3 9.5 3.4 14.2 13 10.2 20.9-3.7 7.4-13.1 10.6-20.4 6.7"
-        stroke="url(#polarisMonoArc)"
+        stroke="url(#alYahMonoArc)"
         strokeWidth="3.8"
         strokeLinecap="round"
         strokeLinejoin="round"
