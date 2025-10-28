@@ -250,7 +250,7 @@ const TRADE_NAME_CHECKS: ReadonlyArray<TradeNameVerificationStep> = [
         '7. Name suggester agent (rejected trade name) — GUIDANCE. Suggested alternatives: "Bait El Khetyar Restaurant", "Khetyar Dining House".',
       ].join("\n"),
       ar: [
-        '1. مدقق النص / التدق��ق الإملائي / الفح�� الثقافي → ناجح. تم توحيد "بيت الختيار" دون تع��رضات ثقافية.',
+        '1. مدقق النص / التدقيق الإملائي / الفح�� الثقافي → ناجح. تم توحيد "بيت الختيار" دون تع��رضات ثقافية.',
         "2. وكيل الكلمات المحظورة �� ناجح. لا توجد مفردات محظورة في النسختين الإنجليزية أو العر��ية.",
         "3. وكيل التشابه → ناجح. أقرب تشابه مسجل بنسبة 0.28 (أقل من الحد المطلوب).",
         '4. وكيل ال��حويل الصوتي → ناجح. تم التحقق من التحويل "بيت الختيار" وفق القواعد الصوتية.',
@@ -432,7 +432,7 @@ const ACTIVITY_COMPATIBILITY_OPTIONS: ActivityOption[] = [
 ];
 
 const ACTIVITY_COMPATIBILITY_NAME = "BAIT EL KHETYAR";
-const FIXED_SIMILARITY_ITERATION_NAME = "Bait El Khetyar Heritage Kitchen";
+const FIXED_SIMILARITY_ITERATION_NAME = HERITAGE_VARIATION_TRADE_NAME_EN;
 
 const CONFLICTING_TRADE_NAME_NORMALIZED =
   PRIMARY_TRADE_NAME_EN.trim().toUpperCase();
@@ -683,7 +683,7 @@ function buildFinalDecisionRejectionNarrative(
     "2. وكيل الكلمات المحظورة → ناج��. لا توجد مفردات محظو��ة في المسودة.",
     "3. وكيل التشابه → ناجح. تم تأكيد تميز الاسم في السجل.",
     "4. وكيل التحويل الصوتي → ��اجح. الن��خة العربية متوافقة مع القواعد الصوتية.",
-    "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من ��طة النشاط.",
+    "5. وكيل توافق النشاط → إرشاد. النهج التراثي يتطلب تحققًا يدويًا من ��طة ال��شاط.",
     "6. محرك القرار النهائي → تم التصعيد للمراجعة. لسنا واثقين من ا��رفض الآلي، لذلك تم رفعه لمراجع ��ائرة التنمية الاقتصادية لتحديد الإجراء.",
     "7. وكيل اقتراح الاسم → إرشاد. جهّز المبررات الداعمة قبل التصعيد.",
   ];
