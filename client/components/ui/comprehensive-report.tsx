@@ -158,7 +158,7 @@ const CuisinePopularityCard: React.FC = () => {
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#0E766E]">
-            Polaris summary
+            Al Yah summary
           </span>
           <h2 className="mt-2 text-2xl font-semibold text-slate-900">
             Popularity of cuisines in Abu Dhabi
