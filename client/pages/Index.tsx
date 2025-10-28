@@ -15,6 +15,92 @@ import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 
 const FALLBACK_FOCUS = { x: 640, y: 360 };
 
+const VOICE_CALL_OVERLAY_MESSAGE =
+  "Connecting you with Al Yah's voice guidance so we can narrate the next steps together.";
+const VOICE_CALL_PROMPT =
+  "Al Yah, guide me through this step with voice so I can follow along hands-free.";
+const VOICE_CALL_ANNOUNCEMENT =
+  "Switching to voice so I can stay with you in real time. Feel free to speak or type whenever you need anything.";
+
+interface VoiceCallEventDetail {
+  prompt?: string;
+  announcement?: string;
+  timestamp: number;
+}
+
+type VoiceCallOverlayProps = {
+  isVisible: boolean;
+  avatarUrl: string;
+  avatarAlt: string;
+  hasAvatar: boolean;
+  message: string;
+  onDismiss: () => void;
+};
+
+function VoiceCallOverlay({
+  isVisible,
+  avatarUrl,
+  avatarAlt,
+  hasAvatar,
+  message,
+  onDismiss,
+}: VoiceCallOverlayProps) {
+  return (
+    <AnimatePresence>
+      {isVisible ? (
+        <motion.div
+          key="voice-call-overlay"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 24 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          className="pointer-events-none fixed bottom-32 right-6 z-[45] w-[min(320px,calc(100vw-48px))]"
+        >
+          <div className="pointer-events-auto rounded-3xl border border-white/60 bg-white/90 p-4 shadow-[0_40px_80px_-48px_rgba(15,23,42,0.55)] backdrop-blur-xl">
+            <div className="flex items-start gap-3">
+              <div className="relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border border-[#0F766E]/25 bg-white shadow-[0_18px_40px_-28px_rgba(15,118,110,0.55)]">
+                {hasAvatar ? (
+                  <img
+                    src={avatarUrl}
+                    alt={avatarAlt}
+                    className="h-full w-full object-contain p-1.5"
+                  />
+                ) : (
+                  <Headset className="h-5 w-5 text-[#0F766E]" aria-hidden="true" />
+                )}
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-slate-700" aria-live="polite">
+                  {message}
+                </p>
+                <div className="mt-3 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#0F766E]">
+                  <span className="relative flex h-2 w-2 items-center justify-center">
+                    <span className="absolute inline-flex h-2 w-2 rounded-full bg-[#0F766E]" />
+                    <motion.span
+                      className="absolute inline-flex h-2 w-2 rounded-full bg-[#0F766E]/50"
+                      animate={{ scale: [1, 1.8, 1], opacity: [0.9, 0.2, 0.9] }}
+                      transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                  </span>
+                  Voice channel active
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={onDismiss}
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E]/40"
+                aria-label="Dismiss voice guidance overlay"
+              >
+                <X className="h-4 w-4" aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  );
+}
+
 export default function Index() {
   const [chatState, setChatState] = useState<{
     isOpen: boolean;
