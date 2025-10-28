@@ -112,7 +112,7 @@ type PortalLanguage = "en" | "ar";
 
 const BUSINESS_AI_INTRO_MESSAGES: Record<PortalLanguage, string> = {
   en: "Before we display your license summary, let's confirm the right legal structure, business activities, and physical space requirements together. Once we complete this intake, I'll publish your license type and submission ID.",
-  ar: "قبل أن أعرض تفاصيل الترخيص، ��عينا نؤكد معًا الشكل القانوني الأنسب، وأ��شطة العمل، ومتطل���ات المسا��ة. بمجرد إ��هاء ه��ا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
+  ar: "قبل أن أعرض تفاصيل الترخيص، ��عينا نؤكد ��عًا الشكل القانوني الأنسب، وأ��شطة العمل، ومتطل���ات المسا��ة. بمجرد إ��هاء ه��ا الاستبيان، سأعرض نوع الترخيص ومعرّف الطلب.",
 };
 
 type QuestionnaireProgress = "not_started" | "in_progress" | "completed";
@@ -250,7 +250,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     applicationSummaryHeading: "Application summary",
     applicationSummaryNote:
       "Your AI assistant will automatically pull the tenancy contract from ADM as soon as you register your lease.",
-    businessAITitle: "Polaris",
+    businessAITitle: "Al Yah",
     businessActivityGuidance:
       "You can select multiple business activities for a restaurant, provided they fall under the same business group. You can list a maximum of 10 activities on a single trade license.",
     businessActivityGuidanceLabel:
@@ -363,7 +363,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     nextActionButton: "انتقل�� إلى ��لإجراء التالي",
     applicationSummaryHeading: "ملخص الطلب",
     applicationSummaryNote:
-      "سيق��م مساعد الذكاء الاصطناعي تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فو�� تسجيل ��قدك.",
+      "سيق��م مساعد الذكاء الاصطناع�� تلقائيًا بجلب عقد الإيجار من نظام بلدية أبوظبي فو�� تسجيل ��قدك.",
     businessAITitle: "بولاريس",
     businessActivityGuidance:
       "يمكنك اختيار عدة أنشطة تجارية للمطعم، بشرط أن تنتمي إلى نف�� مجموعة الأعما��. يمكنك إدراج ما يصل إلى 10 أ��شطة في رخصة تجارية واحدة.",
@@ -394,7 +394,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك ال����ع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإ��خال ا��شركاء، وتأ��ي�� العقار، والحصول على الم��افقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك ال����ع��م ������لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإ��خال ا��شركاء، وتأ��ي�� العقار، والحصول على الم��افقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الموافقات الموح��ة لـ ADAFSA وبلدية أبوظبي.",
