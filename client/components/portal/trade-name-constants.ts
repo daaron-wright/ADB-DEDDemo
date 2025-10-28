@@ -1,5 +1,6 @@
 export const PRIMARY_TRADE_NAME_EN = "Bait El Khetyar";
 export const PRIMARY_TRADE_NAME_AR = "بيت الختيار";
+export const HERITAGE_VARIATION_TRADE_NAME_EN = "Bait El Khetyar Heritage Kitchen";
 
 export const MARWA_TRADE_NAME_EN = "Marwa Restaurant";
 export const MARWA_TRADE_NAME_AR = "مطعم مروة";
