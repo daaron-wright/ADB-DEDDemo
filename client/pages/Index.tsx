@@ -313,7 +313,47 @@ export default function Index() {
     stopVoiceNarration();
     voiceNarrationLoadingRef.current = true;
 
+    const hasStaticNarrationAudio =
+      typeof VOICE_NARRATION_AUDIO_URL === "string" && VOICE_NARRATION_AUDIO_URL.length > 0;
+
     try {
+      if (hasStaticNarrationAudio) {
+        const audioElement = new Audio(VOICE_NARRATION_AUDIO_URL);
+        audioElement.preload = "auto";
+        audioElement.crossOrigin = "anonymous";
+        audioElement.onended = () => {
+          stopVoiceNarration();
+          voiceOverlayTimeoutRef.current = null;
+          if (isComponentMountedRef.current) {
+            setVoiceOverlayMessage(null);
+          }
+        };
+        audioElement.onerror = () => {
+          stopVoiceNarration();
+          voiceOverlayTimeoutRef.current = null;
+          if (isComponentMountedRef.current) {
+            showVoiceOverlay(
+              "Voice narration encountered a playback issue. Please try again.",
+            );
+          }
+        };
+
+        voiceNarrationAudioRef.current = audioElement;
+
+        try {
+          await audioElement.play();
+          voiceNarrationActiveRef.current = true;
+          return { success: true };
+        } catch {
+          stopVoiceNarration();
+          return {
+            success: false,
+            errorMessage:
+              "Voice narration couldn’t begin playback. Please ensure audio output is available.",
+          };
+        }
+      }
+
       const controller = new AbortController();
       voiceNarrationAbortControllerRef.current = controller;
 
