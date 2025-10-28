@@ -374,7 +374,7 @@ export function BusinessLicensingFocusContent({
             </div>
             <div className="min-w-[180px] space-y-1">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                Polaris assistant
+                Al Yah assistant
               </p>
               <p className="text-lg font-semibold text-slate-900">{rightPanelToken.headline}</p>
             </div>
