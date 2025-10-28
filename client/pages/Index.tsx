@@ -32,6 +32,109 @@ type VoiceCallOverlayProps = {
   onDismiss: () => void;
 };
 
+type AnimatedVoiceAvatarProps = {
+  avatarUrl: string;
+  avatarAlt: string;
+  hasAvatar: boolean;
+};
+
+function AnimatedVoiceAvatar({ avatarUrl, avatarAlt, hasAvatar }: AnimatedVoiceAvatarProps) {
+  return (
+    <div className="relative flex h-12 w-12 flex-shrink-0 items-center justify-center">
+      <motion.span
+        aria-hidden="true"
+        className="absolute inset-0 rounded-full bg-[#0F766E]/12"
+        animate={{ scale: [1, 1.18, 1], opacity: [0.35, 0.6, 0.35] }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          repeatType: "mirror",
+          ease: [0.45, 0, 0.55, 1],
+        }}
+      />
+      <motion.span
+        aria-hidden="true"
+        className="absolute inset-0 rounded-full border border-[#0F766E]/30"
+        animate={{ scale: [1, 1.26, 1], opacity: [0.48, 0.18, 0.48] }}
+        transition={{
+          duration: 3.4,
+          repeat: Infinity,
+          repeatType: "mirror",
+          ease: [0.43, 0, 0.57, 1],
+        }}
+      />
+      <motion.div
+        aria-hidden="true"
+        className="absolute inset-0 rounded-full shadow-[0_18px_40px_-28px_rgba(15,118,110,0.55)]"
+        animate={{ scale: [1, 1.08, 1], opacity: [0.62, 0.85, 0.62] }}
+        transition={{
+          duration: 4.2,
+          repeat: Infinity,
+          repeatType: "mirror",
+          ease: "easeInOut",
+        }}
+      />
+      <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-[#0F766E]/24 bg-white">
+        {hasAvatar ? (
+          <motion.img
+            key="voice-avatar"
+            src={avatarUrl}
+            alt={avatarAlt}
+            className="h-full w-full object-contain p-1"
+            animate={{
+              scale: [1, 1.045, 0.99, 1.032, 1],
+              rotate: [-3, -0.4, 2.6, -1.8, 0.2],
+              y: [0, -1.1, 0.6, -0.8, 0],
+            }}
+            transition={{
+              duration: 3.8,
+              repeat: Infinity,
+              repeatType: "loop",
+              ease: [0.35, 0, 0.65, 1],
+            }}
+          />
+        ) : (
+          <motion.div
+            aria-hidden="true"
+            className="flex h-full w-full items-center justify-center"
+            animate={{
+              scale: [1, 1.08, 0.98, 1.04, 1],
+              rotate: [-3, -0.4, 2.4, -1.4, 0],
+              y: [0, -1.2, 0.6, -0.9, 0],
+            }}
+            transition={{
+              duration: 3.8,
+              repeat: Infinity,
+              repeatType: "loop",
+              ease: [0.35, 0, 0.65, 1],
+            }}
+          >
+            <Headset className="h-5 w-5 text-[#0F766E]" aria-hidden="true" />
+          </motion.div>
+        )}
+      </div>
+      <div className="pointer-events-none absolute -bottom-2 flex w-8 justify-between">
+        {[0, 1, 2].map((index) => (
+          <motion.span
+            key={`voice-wave-${index}`}
+            className="w-1 rounded-full bg-[#0F766E]/75"
+            style={{ height: "0.55rem" }}
+            animate={{ height: ["0.55rem", "1.08rem", "0.55rem"], opacity: [0.55, 0.95, 0.55] }}
+            transition={{
+              duration: 1.1 + index * 0.18,
+              repeat: Infinity,
+              repeatType: "mirror",
+              ease: "easeInOut",
+              delay: index * 0.12,
+            }}
+            aria-hidden="true"
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function VoiceCallOverlay({
   isVisible,
   avatarUrl,
