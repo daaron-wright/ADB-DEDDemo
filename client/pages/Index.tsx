@@ -527,7 +527,7 @@ export default function Index() {
     const handleKeyUp = (event: KeyboardEvent) => {
       if (event.key === "Meta") {
         if (!metaKeyComboUsedRef.current) {
-          triggerVoiceCall();
+          void triggerVoiceCall();
         }
         metaKeyActiveRef.current = false;
         metaKeyComboUsedRef.current = false;
