@@ -334,7 +334,7 @@ export default function Index() {
     }
   };
 
-  const openPolarisChat = useCallback((prompt?: string | null) => {
+  const openAlYahChat = useCallback((prompt?: string | null) => {
     setChatState({
       isOpen: true,
       category: "general",
