@@ -113,7 +113,7 @@ function AnimatedVoiceAvatar({ avatarUrl, avatarAlt, hasAvatar }: AnimatedVoiceA
           </motion.div>
         )}
       </div>
-      <div className="pointer-events-none absolute -bottom-2 flex w-8 justify-between">
+      <div className="pointer-events-none absolute -bottom-1 flex w-8 justify-between">
         {[0, 1, 2].map((index) => (
           <motion.span
             key={`voice-wave-${index}`}
