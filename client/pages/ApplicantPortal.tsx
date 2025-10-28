@@ -344,7 +344,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       submitted: "تم التقديم",
       lastUpdated: "آخر تحديث",
     },
-    heroBadge: "رحلة المستثمر",
+    heroBadge: "رحلة ا��مستثمر",
     heroTitle: "رحلتك مدعومة بالذكاء ا��اصطناعي",
     heroDescription: (name: string) =>
       `اكتشفي مسارًا و��ضحًا لدرا��ة إم��انات السوق، وتخطيط الموافقات الأساسية، وتحضير ملف عملك بمساندة الذكاء الاصطناعي. في بضع مراحل فق���، شاهدي كيف يحول ${name} و��س��ث������ر��ن آ����ون أفكارهم إلى ��طاعم مزده��ة في أبوظبي.`,
@@ -1000,8 +1000,8 @@ export default function ApplicantPortal() {
       | undefined
   )?.user;
 
-  const profileName = "Layla";
-  const firstName = "Layla";
+  const profileName = "Shamma";
+  const firstName = "Shamma";
   const languageCopy = PORTAL_LANGUAGE_COPY[language];
   const businessAIIntroMessage = BUSINESS_AI_INTRO_MESSAGES[language];
   const workspaceHeroTitle = languageCopy.workspaceTitle(firstName);
