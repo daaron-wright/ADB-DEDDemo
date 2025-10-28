@@ -132,6 +132,9 @@ export default function Index() {
   const lastVoiceCallTimestampRef = useRef<number>(0);
   const metaKeyActiveRef = useRef(false);
   const metaKeyComboUsedRef = useRef(false);
+  const voiceNarrationUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const voiceNarrationActiveRef = useRef(false);
+  const isComponentMountedRef = useRef(true);
 
   const focusPointRef = useRef<{ x: number; y: number }>({
     ...FALLBACK_FOCUS,
