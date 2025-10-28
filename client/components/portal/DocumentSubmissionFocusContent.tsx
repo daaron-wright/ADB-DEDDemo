@@ -36,10 +36,10 @@ type LicenseDetails = {
 const INITIAL_MOA_CLAUSE_DRAFT = `Custom Article 7 — Capital contributions & profit distribution
 
 Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise.`;
-const POLARIS_RECOMMENDED_MOA_CLAUSE = `Custom Article 7 — Capital contributions & profit distribution
+const AL_YAH_RECOMMENDED_MOA_CLAUSE = `Custom Article 7 — Capital contributions & profit distribution
 المادة 7 — المساهمات الرأسمالية وتوزيع الأرباح
 
-Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise. Distributions shall be supported by audited management accounts and bilingual notices issued at least five (5) working days in advance. Polaris simulation includes bilingual notices and an ADJD review cover letter.`;
+Each shareholder contributes AED 375,000, establishing AED 1,500,000 in paid-up capital. Profits are distributed quarterly in proportion to equity unless unanimously resolved otherwise. Distributions shall be supported by audited management accounts and bilingual notices issued at least five (5) working days in advance. Al Yah simulation includes bilingual notices and an ADJD review cover letter.`;
 
 const ADJD_SOURCE_LABEL = "Abu Dhabi Judicial Department (ADJD)";
 const ADJD_REVIEW_DETAIL = "Submitted for ADJD review • Pending approval";
@@ -177,7 +177,7 @@ export function DocumentSubmissionFocusContent({
   );
 
   const handleApplyAlYahRevision = React.useCallback(() => {
-    setMoaClauseDraft(POLARIS_RECOMMENDED_MOA_CLAUSE);
+    setMoaClauseDraft(AL_YAH_RECOMMENDED_MOA_CLAUSE);
     setHasAppliedAlYahRevision(true);
     setMoaEditorNotes(
       "Polaris simulated bilingual clauses and prepared the ADJD review packet.",
