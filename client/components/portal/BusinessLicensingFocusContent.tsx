@@ -390,7 +390,7 @@ export function BusinessLicensingFocusContent({
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">Your first actions</p>
-                <p className="text-base font-semibold text-slate-900">What Polaris needs from you</p>
+                <p className="text-base font-semibold text-slate-900">What Al Yah needs from you</p>
               </div>
               <Button
                 type="button"
