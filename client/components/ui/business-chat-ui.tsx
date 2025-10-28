@@ -911,11 +911,11 @@ const DEFAULT_CHAT_PLACEHOLDER =
 
 const STEP_CHAT_PLACEHOLDERS: Record<ConversationStep, string> = {
   intro:
-    "Ask Polaris about market signals, competition, or budget to kick off your plan.",
+    "Ask Al Yah about market signals, competition, or budget to kick off your plan.",
   summary:
     "Ask for a recap or clarify any insight before we move into the application phase.",
   handoff:
-    "Let Polaris know which approvals to automate or what to queue in your workspace next.",
+    "Let Al Yah know which approvals to automate or what to queue in your workspace next.",
 };
 
 const MODAL_CHAT_PLACEHOLDERS: Partial<Record<ModalView, string>> = {
@@ -923,7 +923,7 @@ const MODAL_CHAT_PLACEHOLDERS: Partial<Record<ModalView, string>> = {
   "budget-ranges":
     "Request adjustments to assumptions or compare cost ranges for this concept.",
   "gap-analysis":
-    "Ask Polaris to translate these gaps into actions or request supporting data.",
+    "Ask Al Yah to translate these gaps into actions or request supporting data.",
   "retail-locations":
     "Request more detail on a property or ask for additional listings.",
   "competitor-map":
@@ -934,15 +934,15 @@ const MODAL_CHAT_PLACEHOLDERS: Partial<Record<ModalView, string>> = {
 
 const JOURNEY_STAGE_CHAT_PLACEHOLDERS: Record<string, string> = {
   questionnaire:
-    "Ask Polaris to pre-fill answers, validate documents, or explain what's next in the questionnaire.",
+    "Ask Al Yah to pre-fill answers, validate documents, or explain what's next in the questionnaire.",
   "trade-name-activities":
-    "Ask for trade name checks, activity guidance, or how Polaris can auto-complete this section.",
+    "Ask for trade name checks, activity guidance, or how Al Yah can auto-complete this section.",
   "document-submissions":
-    "Tell Polaris which documents you want reviewed or auto-attached for this submission.",
+    "Tell Al Yah which documents you want reviewed or auto-attached for this submission.",
   inspections:
-    "Ask Polaris to prepare inspection checklists or coordinate booking support.",
+    "Ask Al Yah to prepare inspection checklists or coordinate booking support.",
   "compliance-growth":
-    "Ask Polaris to watch compliance tasks or recommend growth actions while you operate.",
+    "Ask Al Yah to watch compliance tasks or recommend growth actions while you operate.",
 };
 
 const HEAT_MAP_THUMBNAIL_URL =
