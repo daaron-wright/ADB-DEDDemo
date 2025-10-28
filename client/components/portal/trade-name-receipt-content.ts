@@ -24,9 +24,9 @@ export const CONTRACT_MAIN_SECTIONS: readonly ContractSection[] = [
   {
     heading: "Ownership & representatives",
     english:
-      "Owner and Manager: BASEM LAYLA AL MANSOURI · Nationality: United Arab Emirates · Emirates ID: 784192598709191. The receipt confirms the owner’s authority to represent the business for the reserved trade name.",
+      "Owner and Manager: BASEM SHAMMA AL MANSOURI · Nationality: United Arab Emirates · Emirates ID: 784192598709191. The receipt confirms the owner’s authority to represent the business for the reserved trade name.",
     arabic:
-      "المالك والمدير: ليلى المنصوري · الجنسية: الإمارات العربية المتحدة · رقم الهوية الإماراتية: 784192598709191. يؤكد الإيصال سلطة المالك في تمثيل المنشأة للاسم التجاري المحجوز.",
+      "المالك والمدير: شمّة المنصوري · الجنسية: الإمارات العربية المتحدة · رقم الهوية الإماراتية: 784192598709191. يؤكد الإيصال سلطة المالك في تمثيل المنشأة للاسم التجاري المحجوز.",
   },
   {
     heading: "Economic activity",
@@ -40,6 +40,6 @@ export const CONTRACT_MAIN_SECTIONS: readonly ContractSection[] = [
     english:
       "ADRA reserves the right to amend the trade name if it does not comply with reservation conditions. Initial approval was also submitted to the General Directorate of Residence and Foreigners Affairs. ADPAY charges are free up to AED 50, with processing fee plus VAT applied to higher amounts.",
     arabic:
-      "تحتفظ هيئة التسجيل والترخيص في أبوظبي بالحق في تعديل الاسم التجاري إذا لم يلتزم بشروط الحجز. تم تقديم الموافقة المبدئية إلى الإدارة العامة للإقامة وشؤون الأجانب. رسوم أدباي مجانية للمبالغ حتى 50 درهمًا، ويتم تطبيق رسوم معالجة بالإضافة إلى ضريبة القيمة المضافة على المبالغ الأعلى.",
+      "تحتفظ هيئة التسجيل والترخيص في أبوظبي بالحق في تعديل الاسم التجاري إذا لم يلتزم بشروط الحجز. تم تقديم الموافقة المبدئية إلى الإدارة العامة للإقامة وشؤون الأجانب. رسوم أ��باي مجانية للمبالغ حتى 50 درهمًا، ويتم تطبيق رسوم معالجة بالإضافة إلى ضريبة القيمة المضافة على المبالغ الأعلى.",
   },
 ];
