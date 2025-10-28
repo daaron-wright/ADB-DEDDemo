@@ -394,7 +394,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
     },
     applicationSummaries: {
       "APP-48291":
-        "يعمل طلبك ال����ع��م ب����لذكا�� الاصطناعي على تنسيق حجز الاسم التجاري، وإ��خال ا��شركاء، وتأ��ي�� العقار، والحصول على الم��افقات اللاحقة لمطعم على الكورنيش.",
+        "يعمل طلبك ال����ع��م ب����لذكا�� الاصط��اعي على تنسيق حجز الاسم التجاري، وإ��خال ا��شركاء، وتأ��ي�� العقار، والحصول على الم��افقات اللاحقة لمطعم على الكورنيش.",
     },
     applicationNextActions: {
       "APP-48291": "قدمي حزمة الموافقات الموح��ة لـ ADAFSA وبلدية أبوظبي.",
@@ -410,7 +410,7 @@ const PORTAL_LANGUAGE_COPY: Record<PortalLanguage, PortalLanguageCopy> = {
       yourNextStep: "خطوت�� التالية",
       tasksCompleteMessage:
         "تم إكمال كل المهام لهذه ا��مرحلة. راقب�� تحديثات الأتمتة.",
-      automationMessage: "ا��أتمتة ��تولى بقية العمل نيابةً عنك.",
+      automationMessage: "ا��أتمتة تتولى بقية العمل نيابةً عنك.",
       openNextTask: "اف��حي المهمة ال��ال��ة",
       reviewStage: "اس��عرضي المرحلة",
       timelineAriaLabel: "التنقل ��ين مراحل ا��رحلة",
@@ -2770,7 +2770,7 @@ export default function ApplicantPortal() {
           <span className="sr-only">{languageCopy.chatCta}</span>
           <img
             src="https://cdn.builder.io/api/v1/image/assets%2F4f55495a54b1427b9bd40ba1c8f3c8aa%2Fe09a49bae3bf4c05a9f1cac0580f528a?format=webp&width=800"
-            alt="Polaris"
+            alt="Al Yah"
             className="h-9 w-9 object-contain"
           />
         </button>
