@@ -16,17 +16,8 @@ import { AI_ASSISTANT_PROFILE } from "@/lib/profile";
 const FALLBACK_FOCUS = { x: 640, y: 360 };
 
 const VOICE_CALL_OVERLAY_MESSAGE =
-  "Connecting you with Al Yah's voice guidance so we can narrate the next steps together.";
-const VOICE_CALL_PROMPT =
-  "Al Yah, guide me through this step with voice so I can follow along hands-free.";
-const VOICE_CALL_ANNOUNCEMENT =
-  "Switching to voice so I can stay with you in real time. Feel free to speak or type whenever you need anything.";
-
-interface VoiceCallEventDetail {
-  prompt?: string;
-  announcement?: string;
-  timestamp: number;
-}
+  "Al Yah narration activated. Sit back while I guide you through the welcome experience.";
+const VOICE_OVERLAY_DURATION_MS = 9000;
 
 type VoiceCallOverlayProps = {
   isVisible: boolean;
@@ -60,13 +51,23 @@ function VoiceCallOverlay({
             <div className="flex items-start gap-3">
               <div className="relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border border-[#0F766E]/25 bg-white shadow-[0_18px_40px_-28px_rgba(15,118,110,0.55)]">
                 {hasAvatar ? (
-                  <img
+                  <motion.img
+                    key="voice-avatar"
                     src={avatarUrl}
                     alt={avatarAlt}
                     className="h-full w-full object-contain p-1.5"
+                    animate={{ scale: [1, 1.08, 1], rotate: [-3, 3, -3] }}
+                    transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
                   />
                 ) : (
-                  <Headset className="h-5 w-5 text-[#0F766E]" aria-hidden="true" />
+                  <motion.div
+                    initial={false}
+                    animate={{ scale: [1, 1.08, 1], rotate: [-3, 3, -3] }}
+                    transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                    className="flex h-full w-full items-center justify-center"
+                  >
+                    <Headset className="h-5 w-5 text-[#0F766E]" aria-hidden="true" />
+                  </motion.div>
                 )}
               </div>
               <div className="flex-1">
@@ -126,7 +127,6 @@ export default function Index() {
     null,
   );
   const voiceOverlayTimeoutRef = useRef<number | null>(null);
-  const pendingVoiceCallRef = useRef<VoiceCallEventDetail | null>(null);
   const lastVoiceCallTimestampRef = useRef<number>(0);
   const metaKeyActiveRef = useRef(false);
   const metaKeyComboUsedRef = useRef(false);
@@ -141,21 +141,6 @@ export default function Index() {
   const queuedFocusPoint = useRef<{ x: number; y: number } | null>(null);
   const gradientRef = useRef<HTMLDivElement>(null);
   const hasCategoryFocusRef = useRef(false);
-
-  const dispatchVoiceCall = useCallback(
-    (detail: VoiceCallEventDetail) => {
-      if (typeof window === "undefined") {
-        return;
-      }
-
-      window.dispatchEvent(
-        new CustomEvent<VoiceCallEventDetail>("alYahVoiceCallRequested", {
-          detail,
-        }),
-      );
-    },
-    [],
-  );
 
   const clearVoiceOverlay = useCallback(() => {
     if (voiceOverlayTimeoutRef.current !== null && typeof window !== "undefined") {
@@ -175,7 +160,7 @@ export default function Index() {
         voiceOverlayTimeoutRef.current = window.setTimeout(() => {
           setVoiceOverlayMessage(null);
           voiceOverlayTimeoutRef.current = null;
-        }, 4200);
+        }, VOICE_OVERLAY_DURATION_MS);
       }
     },
     [],
@@ -189,27 +174,7 @@ export default function Index() {
 
     lastVoiceCallTimestampRef.current = now;
     showVoiceOverlay(VOICE_CALL_OVERLAY_MESSAGE);
-    setLauncherExpanded(false);
-
-    const voiceDetail: VoiceCallEventDetail = {
-      prompt: VOICE_CALL_PROMPT,
-      announcement: VOICE_CALL_ANNOUNCEMENT,
-      timestamp: now,
-    };
-
-    pendingVoiceCallRef.current = voiceDetail;
-
-    setChatState((previous) => ({
-      isOpen: true,
-      category: previous.category ?? "general",
-      initialMessage: previous.initialMessage,
-    }));
-
-    if (chatState.isOpen) {
-      dispatchVoiceCall(voiceDetail);
-      pendingVoiceCallRef.current = null;
-    }
-  }, [chatState.isOpen, dispatchVoiceCall, showVoiceOverlay]);
+  }, [showVoiceOverlay]);
 
   const ambientOrbs = useMemo(
     () => [
@@ -419,18 +384,6 @@ export default function Index() {
     };
   }, [triggerVoiceCall]);
 
-  useEffect(() => {
-    if (!chatState.isOpen) {
-      return;
-    }
-
-    if (!pendingVoiceCallRef.current) {
-      return;
-    }
-
-    dispatchVoiceCall(pendingVoiceCallRef.current);
-    pendingVoiceCallRef.current = null;
-  }, [chatState.isOpen, dispatchVoiceCall]);
 
   const handleSignOut = () => {
     navigate("/portal/applicant");
