@@ -247,7 +247,7 @@ export function JourneyOrchestrationPanel({
     : "";
   const vaultStatusDescription = vaultContext
     ? vaultProcessing
-      ? "Polaris is syncing new files from your journey stages."
+      ? "Al Yah is syncing new files from your journey stages."
       : vaultContext.allDocumentsCompleted
         ? "Every document is stored with the latest updates."
         : "Documents update automatically whenever you finish a stage."
