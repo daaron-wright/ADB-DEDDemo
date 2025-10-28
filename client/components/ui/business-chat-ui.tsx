@@ -7557,7 +7557,7 @@ export function BusinessChatUI({
     [toast, handleSendMessage],
   );
 
-  const handlePolarisPrompt = useCallback(
+  const handleAlYahPrompt = useCallback(
     (prompt: string, options?: { submit?: boolean }) => {
       const trimmed = prompt.trim();
       if (!trimmed) {
@@ -9017,7 +9017,7 @@ export function BusinessChatUI({
                           {journeyFocusView ? (
                             <JourneyStageFocusView
                               {...journeyFocusView}
-                              onPolarisPrompt={handlePolarisPrompt}
+                              onPolarisPrompt={handleAlYahPrompt}
                             />
                           ) : null}
                           {!journeyFocusView && showChatInterface ? (
