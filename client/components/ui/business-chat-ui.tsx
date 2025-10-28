@@ -300,6 +300,7 @@ const NORMALIZED_SUGGESTED_TOPICS_TRIGGER = normalizeMessageContent(
 
 const CHAT_INPUT_HOTKEY_PROMPT =
   "I'm interested in starting an Emerati-fusion restaurant";
+const TRADE_NAME_RERUN_PROMPT = `Polaris, let's rerun the trade name checks on "${HERITAGE_VARIATION_TRADE_NAME_EN}" so we avoid the similarity conflict with "${PRIMARY_TRADE_NAME_EN}".`;
 
 const QUICK_ACTION_UNLOCK_PROMPTS = [
   "I'm interested in starting an Emirati-fusion restaurant",
