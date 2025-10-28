@@ -994,7 +994,7 @@ export default function Index() {
             </p>
 
             <VoiceCallOverlay
-              isVisible={Boolean(voiceOverlayMessage)}
+              isVisible={voiceOverlayMessage !== null}
               avatarUrl={alYahAvatarUrl}
               avatarAlt={alYahAvatarAlt}
               hasAvatar={hasAlYahAvatar}
