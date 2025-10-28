@@ -154,7 +154,7 @@ export function TradeNameReceiptDetail() {
           </a>
         </Button>
         <p className="text-xs text-slate-500">
-          Polaris saved the signed receipt exactly as issued by ADRA. Open it
+          Al Yah saved the signed receipt exactly as issued by ADRA. Open it
           above to view or download the original file.
         </p>
       </div>
