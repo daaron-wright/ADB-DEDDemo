@@ -1049,8 +1049,8 @@ export function PreOperationalInspectionFocusContent({
                         </p>
                         <p className="text-sm text-slate-600">
                           {hasInspectionApproval
-                            ? "Polaris confirmed coverage across every capture. Proceed to compliance when you're ready."
-                            : `Polaris is stepping through ${galleryLength} synced captures automatically.`}
+                            ? "Al Yah confirmed coverage across every capture. Proceed to compliance when you're ready."
+                            : `Al Yah is stepping through ${galleryLength} synced captures automatically.`}
                         </p>
                       </div>
                       {hasInspectionApproval ? (
