@@ -135,7 +135,7 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
             <MessageCircle className="h-4 w-4" aria-hidden="true" />
           </span>
           <div className="space-y-2">
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#0F766E]">Polaris conversational handoff</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#0F766E]">Al Yah conversational handoff</p>
             <div className="rounded-2xl border border-[#e2ece8] bg-[#f8fbfa] px-4 py-3 text-sm leading-relaxed text-slate-700">
               "Congratulations, Shamma. Your concept is highly viable. Ready for me to carry this into the formal
               application with the investor workspace?"
@@ -162,7 +162,7 @@ export const BusinessViabilitySummary: React.FC<BusinessViabilitySummaryProps> =
           </button>
         </div>
         <p className="text-xs text-slate-500">
-          Choosing the affirmative option above triggers the application workspace handoff in Polaris and syncs Shamma&apos;s
+          Choosing the affirmative option above triggers the application workspace handoff in Al Yah and syncs Shamma&apos;s
           progress with the formal applicant portal.
         </p>
       </section>
