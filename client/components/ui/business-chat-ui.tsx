@@ -185,6 +185,12 @@ interface BusinessChatUIProps {
   showQuickActions?: boolean;
 }
 
+interface VoiceCallEventDetail {
+  prompt?: string;
+  announcement?: string;
+  timestamp?: number;
+}
+
 type ChatView = "basic" | "investor-journey" | "discover-experience";
 type ModalView =
   | "chat"
