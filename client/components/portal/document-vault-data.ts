@@ -36,7 +36,7 @@ export const INITIAL_DOCUMENTS: DocumentVaultItem[] = [
     source: DOCUMENT_VAULT_SOURCE_LABEL,
     sourceDetail: DOCUMENT_VAULT_SOURCE_LABEL,
     status: "requires_action",
-    actionLabel: "Review with Polaris",
+    actionLabel: "Review with Al Yah",
     integrationBadge: "ADJD",
     isExpanded: true,
     previewImageUrl: MOA_PREVIEW_IMAGE_URL,
