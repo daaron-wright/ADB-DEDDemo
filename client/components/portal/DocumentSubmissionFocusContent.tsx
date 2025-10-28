@@ -124,7 +124,7 @@ export function DocumentSubmissionFocusContent({
   const [moaEditorNotes, setMoaEditorNotes] = React.useState<string>(
     "Polaris is ready to simulate bilingual clauses and prepare the ADJD review packet.",
   );
-  const [hasAppliedPolarisRevision, setHasAppliedPolarisRevision] =
+  const [hasAppliedAlYahRevision, setHasAppliedPolarisRevision] =
     React.useState(false);
 
   const activeDocument = React.useMemo(
@@ -411,7 +411,7 @@ export function DocumentSubmissionFocusContent({
                   disabled={isFinalisingMoa}
                   className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {hasAppliedPolarisRevision
+                  {hasAppliedAlYahRevision
                     ? "Simulation prepared"
                     : "Simulate Al Yah edits"}
                 </Button>
@@ -431,12 +431,12 @@ export function DocumentSubmissionFocusContent({
             <Button
               type="button"
               onClick={handleCompleteMoa}
-              disabled={isFinalisingMoa || !hasAppliedPolarisRevision}
+              disabled={isFinalisingMoa || !hasAppliedAlYahRevision}
               className="rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.5)] hover:bg-[#0c6059] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isFinalisingMoa
                 ? "Sending to ADJD..."
-                : hasAppliedPolarisRevision
+                : hasAppliedAlYahRevision
                   ? "Send to ADJD for review"
                   : "Simulate edits to continue"}
             </Button>
@@ -488,7 +488,7 @@ export function DocumentSubmissionFocusContent({
       handleApplyAlYahRevision,
       handleCompleteMoa,
       handleResetMoaRevision,
-      hasAppliedPolarisRevision,
+      hasAppliedAlYahRevision,
       isFinalisingMoa,
       moaClauseDraft,
       moaEditorNotes,
@@ -733,7 +733,7 @@ export function DocumentSubmissionFocusContent({
       handleCompleteMoa,
       handleInitiatePayment,
       handleResetMoaRevision,
-      hasAppliedPolarisRevision,
+      hasAppliedAlYahRevision,
       hasPaid,
       isFinalisingMoa,
       isPaying,
