@@ -590,7 +590,7 @@ export default function Index() {
 
                     <button
                       type="button"
-                      onClick={() => openPolarisChat()}
+                      onClick={() => openAlYahChat()}
                       className="mt-4 inline-flex w-full items-center justify-between rounded-2xl border border-white/25 bg-white/14 px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-emerald-200/60 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
                     >
                       <span>Open Al Yah workspace</span>
@@ -605,7 +605,7 @@ export default function Index() {
                         <button
                           key={action.id}
                           type="button"
-                          onClick={() => openPolarisChat(action.prompt)}
+                          onClick={() => openAlYahChat(action.prompt)}
                           className="group inline-flex w-full items-center justify-between rounded-2xl border border-white/20 bg-white/12 px-4 py-3 text-sm font-medium text-slate-800 transition hover:border-emerald-200/55 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/30"
                         >
                           <span className="flex items-center gap-2 text-left">
@@ -635,7 +635,7 @@ export default function Index() {
                       <button
                         type="button"
                         onClick={() =>
-                          openPolarisChat(
+                          openAlYahChat(
                             "I'd like to speak with someone from the call centre about my business setup.",
                           )
                         }
