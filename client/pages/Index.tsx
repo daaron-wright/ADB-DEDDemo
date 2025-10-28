@@ -570,7 +570,7 @@ export default function Index() {
                           </span>
                           <span className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-700">
                             <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.32)] animate-pulse" />
-                            Polaris Live
+                            Al Yah Live
                           </span>
                         </div>
                         <p className="mt-1 text-xs text-slate-600">
@@ -582,7 +582,7 @@ export default function Index() {
                         type="button"
                         onClick={() => setLauncherExpanded(false)}
                         className="inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/20 text-slate-500 transition hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
-                        aria-label="Collapse Polaris quick actions"
+                        aria-label="Collapse Al Yah quick actions"
                       >
                         <X className="h-4 w-4" aria-hidden="true" />
                       </button>
@@ -593,7 +593,7 @@ export default function Index() {
                       onClick={() => openPolarisChat()}
                       className="mt-4 inline-flex w-full items-center justify-between rounded-2xl border border-white/25 bg-white/14 px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-emerald-200/60 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/40"
                     >
-                      <span>Open Polaris workspace</span>
+                      <span>Open Al Yah workspace</span>
                       <ArrowUpRight
                         className="h-4 w-4 text-emerald-600"
                         aria-hidden="true"
@@ -630,7 +630,7 @@ export default function Index() {
                       side="top"
                       sideOffset={10}
                       className="aegov-tooltip max-w-xs rounded-xl border border-white/30 bg-white/90 px-3 py-2 text-xs text-slate-700 shadow-[0_20px_45px_-28px_rgba(15,23,42,0.3)] backdrop-blur-xl"
-                      content="Prefer a person? We'll alert the TAMM call centre and keep your Polaris workspace synced."
+                      content="Prefer a person? We'll alert the TAMM call centre and keep your Al Yah workspace synced."
                     >
                       <button
                         type="button"
@@ -651,7 +651,7 @@ export default function Index() {
                     type="button"
                     onClick={() => setLauncherExpanded(true)}
                     className="inline-flex h-16 w-16 items-center justify-center rounded-full border border-[#0F766E] bg-white shadow-[0_26px_70px_-40px_rgba(15,23,42,0.35)] transition hover:bg-[#f7fffb] hover:shadow-[0_30px_80px_-45px_rgba(15,23,42,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E]/40"
-                    aria-label="Show Polaris quick actions"
+                    aria-label="Show Al Yah quick actions"
                   >
                     {hasPolarisAvatar ? (
                       <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-[#0F766E]/15 bg-white">
@@ -666,7 +666,7 @@ export default function Index() {
                         <span className="h-6 w-6 rounded-full bg-[#0F766E]/40" />
                       </span>
                     )}
-                    <span className="sr-only">Show Polaris quick actions</span>
+                    <span className="sr-only">Show Al Yah quick actions</span>
                   </button>
                 )}
               </motion.div>
