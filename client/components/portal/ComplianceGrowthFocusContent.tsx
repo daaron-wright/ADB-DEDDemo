@@ -450,6 +450,7 @@ export function ComplianceGrowthFocusContent({
   onPolicyUpdateAcknowledged,
 }: ComplianceGrowthFocusContentProps) {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [activeSlideId, setActiveSlideId] =
     React.useState<StageSlide["id"]>("compliance");
   const [complianceItems, setComplianceItems] = React.useState<
