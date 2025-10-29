@@ -608,6 +608,16 @@ export function ComplianceGrowthFocusContent({
   }, [pendingVideo, resetPendingVideo]);
 
   const handleSubmitVideoEvidence = React.useCallback(() => {
+    if (!hasConfirmedStreamingLocation) {
+      toast({
+        title: "Confirm streaming location",
+        description:
+          "Verify the venue before uploading compliance footage.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!pendingVideo) {
       toast({
         title: "Add a walkthrough video",
