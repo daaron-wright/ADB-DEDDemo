@@ -302,7 +302,7 @@ const GROWTH_OPPORTUNITIES: GrowthOpportunity[] = [
     id: "second-location",
     title: "Plan second location",
     subtitle:
-      "Clone compliant documentation and run Polaris feasibility modeling.",
+      "Clone compliant documentation and run Al Yah feasibility modeling.",
     buttonLabel: "Start expansion plan",
   },
 ];
@@ -729,7 +729,7 @@ export function ComplianceGrowthFocusContent({
       toast({
         title: "DED is reviewing your feedback",
         description:
-          "Polaris flagged your low-risk pathway request for policy review. Updates will appear in this workspace.",
+          "Al Yah flagged your low-risk pathway request for policy review. Updates will appear in this workspace.",
       });
       setFeedbackStatus("responded");
       feedbackAcknowledgementTimerRef.current = window.setTimeout(() => {
@@ -737,7 +737,7 @@ export function ComplianceGrowthFocusContent({
           id: "ded-implementation",
           title: "DED implemented your feedback",
           message:
-            "DED confirmed the low-risk fast path updates for qualifying F&B concepts. Polaris will surface new automation steps shortly.",
+            "DED confirmed the low-risk fast path updates for qualifying F&B concepts. Al Yah will surface new automation steps shortly.",
         });
       }, 10000);
       return;
@@ -781,7 +781,7 @@ export function ComplianceGrowthFocusContent({
     {
       id: "compliance",
       heading: "Compliance overview",
-      description: `${compliantCount}/${complianceItems.length} obligations are fully compliant. Polaris monitors the rest automatically.`,
+      description: `${compliantCount}/${complianceItems.length} obligations are fully compliant. Al Yah monitors the rest automatically.`,
       content: (
         <div className="space-y-5">
           <div className="rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_26px_60px_-50px_rgba(15,23,42,0.35)]">
@@ -808,12 +808,12 @@ export function ComplianceGrowthFocusContent({
                   Stay compliant after launch
                 </h3>
                 <p className="text-sm text-slate-600">
-                  Polaris watches every renewal, inspection, and dependency so
+                  Al Yah watches every renewal, inspection, and dependency so
                   you focus on operating the restaurant.
                 </p>
               </div>
               <p className="text-sm text-slate-600">
-                Polaris keeps obligations in sync across every authority. When
+                Al Yah keeps obligations in sync across every authority. When
                 something needs your attention, it moves to the top of this
                 list.
               </p>
@@ -962,7 +962,7 @@ export function ComplianceGrowthFocusContent({
                                 ))}
                               </ul>
                               <div className="rounded-xl border border-[#94d2c2]/70 bg-[#f5faf7] px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
-                                Polaris keeps Golden Visa eligibility in sync
+                                Al Yah keeps Golden Visa eligibility in sync
                                 with residency checks.
                               </div>
                             </div>
@@ -1018,7 +1018,7 @@ export function ComplianceGrowthFocusContent({
       id: "automation",
       heading: "Signboard verification automation",
       description:
-        "See how Polaris validates your evidence and routes it to inspectors.",
+        "See how Al Yah validates your evidence and routes it to inspectors.",
       content: (
         <Tabs
           value={automationTab}
@@ -1057,7 +1057,7 @@ export function ComplianceGrowthFocusContent({
                         Add another walkthrough
                       </span>
                       <span className="mt-1 text-sm text-slate-600">
-                        Polaris encrypts each submission and forwards it to
+                        Al Yah encrypts each submission and forwards it to
                         inspectors once frames clear automation checks.
                       </span>
                     </div>
@@ -1109,7 +1109,7 @@ export function ComplianceGrowthFocusContent({
                             </Button>
                           </div>
                           <p className="text-xs text-slate-500">
-                            Polaris encrypts the footage and extracts annotated
+                            Al Yah encrypts the footage and extracts annotated
                             frames before inspectors review it.
                           </p>
                         </div>
