@@ -708,7 +708,7 @@ export function ComplianceGrowthFocusContent({
     setTimeout(() => {
       setIsSubmittingVideo(false);
     }, 600);
-  }, [pendingVideo, resetPendingVideo, toast]);
+  }, [hasConfirmedStreamingLocation, pendingVideo, resetPendingVideo, toast]);
 
   React.useEffect(() => {
     return () => {
