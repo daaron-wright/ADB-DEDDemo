@@ -1225,7 +1225,7 @@ export function ComplianceGrowthFocusContent({
                       Sign board verification
                     </h4>
                     <Badge className="rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
-                      {`${Math.round(SIGNBOARD_QUALITY_SUMMARY.confidence * 100)}% confidence`}
+                      Pass
                     </Badge>
                   </AccordionTrigger>
                   <AccordionContent className="space-y-4 px-6 pb-6 pt-0">
