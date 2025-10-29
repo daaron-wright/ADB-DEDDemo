@@ -1382,7 +1382,7 @@ export function ComplianceGrowthFocusContent({
                                 }
                                 setActiveOpportunityMessage({
                                   id: opportunity.id,
-                                  message: `${opportunity.title} is underway. Polaris will guide you through each step.`,
+                                  message: `${opportunity.title} is underway. Al Yah will guide you through each step.`,
                                 });
                               }}
                             >
