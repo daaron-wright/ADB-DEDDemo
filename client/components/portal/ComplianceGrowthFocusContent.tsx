@@ -1417,6 +1417,30 @@ export function ComplianceGrowthFocusContent({
             </AccordionItem>
           </Accordion>
 
+          <div className="space-y-4 rounded-3xl border border-[#d8e4df] bg-gradient-to-br from-[#f5faf7] via-white to-[#f5faf7] p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
+            <div className="space-y-2">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f766e]">
+                Ideation opportunity
+              </p>
+              <h4 className="text-lg font-semibold text-slate-900">
+                Explore Yas Island momentum
+              </h4>
+              <p className="text-sm text-slate-600">
+                Yas Island offers very similar market opportunities to grow Marwa’s brand. Would you like to explore?
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <Button
+                type="button"
+                onClick={handleExploreYasIsland}
+                className="inline-flex items-center gap-2 rounded-full bg-[#0f766e] px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_36px_-28px_rgba(15,118,110,0.45)] hover:bg-[#0c5f58]"
+              >
+                Explore Yas Island
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Button>
+            </div>
+          </div>
+
           <div className="space-y-3 rounded-3xl border border-[#d8e4df] bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.22)]">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
