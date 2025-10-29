@@ -1224,7 +1224,7 @@ export function ComplianceGrowthFocusContent({
                     <h4 className="text-base font-semibold text-slate-900">
                       Sign board verification
                     </h4>
-                    <Badge className="rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
+                    <Badge className="ml-auto rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
                       Pass
                     </Badge>
                   </AccordionTrigger>
