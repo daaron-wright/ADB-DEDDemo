@@ -611,8 +611,7 @@ export function ComplianceGrowthFocusContent({
     if (!hasConfirmedStreamingLocation) {
       toast({
         title: "Confirm streaming location",
-        description:
-          "Verify the venue before uploading compliance footage.",
+        description: "Verify the venue before uploading compliance footage.",
         variant: "destructive",
       });
       return;
@@ -1107,7 +1106,9 @@ export function ComplianceGrowthFocusContent({
                             </p>
                           </div>
                           <p className="text-xs text-slate-500">
-                            Streaming is limited to confirmed venues to protect compliance evidence. Confirm this location to enable live walkthrough uploads.
+                            Streaming is limited to confirmed venues to protect
+                            compliance evidence. Confirm this location to enable
+                            live walkthrough uploads.
                           </p>
                           <Button
                             type="button"
@@ -1149,8 +1150,8 @@ export function ComplianceGrowthFocusContent({
                                     {pendingVideo.name}
                                   </p>
                                   <p className="text-xs text-slate-500">
-                                    {formatFileSize(pendingVideo.size)} • Ready for
-                                    submission
+                                    {formatFileSize(pendingVideo.size)} • Ready
+                                    for submission
                                   </p>
                                 </div>
                                 <Button
@@ -1164,8 +1165,8 @@ export function ComplianceGrowthFocusContent({
                                 </Button>
                               </div>
                               <p className="text-xs text-slate-500">
-                                Al Yah encrypts the footage and extracts annotated
-                                frames before inspectors review it.
+                                Al Yah encrypts the footage and extracts
+                                annotated frames before inspectors review it.
                               </p>
                             </div>
                           ) : (
@@ -1338,9 +1339,9 @@ export function ComplianceGrowthFocusContent({
                 defaultExpanded
               />
               <p className="text-xs text-slate-500">
-                Al Yah keeps these captures synced with the inspector
-                workspace. Expand the tab to browse full-resolution frames and
-                recent analyzed snippets.
+                Al Yah keeps these captures synced with the inspector workspace.
+                Expand the tab to browse full-resolution frames and recent
+                analyzed snippets.
               </p>
             </div>
           </TabsContent>
@@ -1405,7 +1406,8 @@ export function ComplianceGrowthFocusContent({
                       Explore Yas Island momentum
                     </h5>
                     <p>
-                      Yas Island offers very similar market opportunities to grow Marwa’s brand. Would you like to explore?
+                      Yas Island offers very similar market opportunities to
+                      grow Marwa’s brand. Would you like to explore?
                     </p>
                   </div>
                   <div className="flex flex-wrap items-center gap-3">
