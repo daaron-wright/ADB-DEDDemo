@@ -299,7 +299,6 @@ const GROWTH_OPPORTUNITIES: GrowthOpportunity[] = [
       "Onboard catering permits, vehicle endorsements, and staffing support.",
     buttonLabel: "Configure catering",
   },
-  // Reserved for future opportunities
 ];
 
 const MAX_VIDEO_SIZE_BYTES = 2 * 1024 * 1024 * 1024;
