@@ -547,6 +547,10 @@ export function ComplianceGrowthFocusContent({
     setActiveSlideId("automation");
   }, [onComplianceReturn, setAutomationTab, setActiveSlideId]);
 
+  const handleExploreYasIsland = React.useCallback(() => {
+    navigate("/", { state: { focus: "ideation" } });
+  }, [navigate]);
+
   const resetPendingVideo = React.useCallback(() => {
     setPendingVideo(null);
     if (fileInputRef.current) {
