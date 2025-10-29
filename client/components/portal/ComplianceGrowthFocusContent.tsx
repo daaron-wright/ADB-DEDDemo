@@ -284,6 +284,13 @@ const TEXT_VERIFICATION_RESULTS: TextVerificationRow[] = [
   },
 ];
 
+const STREAMING_LOCATION = {
+  name: "Marwah Restaurant — Corniche",
+  coordinates: "24.4957° N, 54.3705° E",
+  address: "Corniche Road, Al Zahiyah, Abu Dhabi",
+  country: "United Arab Emirates",
+};
+
 const GROWTH_OPPORTUNITIES: GrowthOpportunity[] = [
   {
     id: "delivery-expansion",
