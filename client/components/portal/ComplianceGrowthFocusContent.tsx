@@ -1510,7 +1510,7 @@ export function ComplianceGrowthFocusContent({
                       className="mt-0.5 h-4 w-4 text-[#0f766e]"
                       strokeWidth={3}
                     />
-                    Polaris drafts an execution plan with dependencies and
+                    Al Yah drafts an execution plan with dependencies and
                     approvals.
                   </li>
                   <li className="flex items-start gap-2">
@@ -1559,7 +1559,7 @@ function InspectionEvidenceLibrarySection({
                 INSPECTION EVIDENCE LIBRARY
               </p>
               <p className="text-xs text-slate-500">
-                Curated captures Polaris validated for inspector review.
+                Curated captures Al Yah validated for inspector review.
               </p>
             </div>
             <Badge className="rounded-full border border-[#94d2c2] bg-[#dff2ec] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b7d6f]">
@@ -1588,7 +1588,7 @@ function InspectionEvidenceLibrarySection({
               ))}
             </div>
             <p className="text-xs text-slate-500">
-              Polaris retains the full-resolution captures inside the inspection
+              Al Yah retains the full-resolution captures inside the inspection
               evidence vault.
             </p>
             {evidenceGallery.length > 0 ? (
