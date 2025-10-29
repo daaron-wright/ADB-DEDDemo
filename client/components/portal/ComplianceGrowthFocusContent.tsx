@@ -617,7 +617,7 @@ export function ComplianceGrowthFocusContent({
       capturedOn,
       status: "queued",
       source: "Workspace upload",
-      note: "Polaris is extracting frames and forwarding the footage to inspectors.",
+      note: "Al Yah is extracting frames and forwarding the footage to inspectors.",
     };
 
     setVideoLibrary((previous) => {
