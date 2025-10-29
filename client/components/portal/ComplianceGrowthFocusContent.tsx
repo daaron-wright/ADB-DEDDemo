@@ -560,6 +560,10 @@ export function ComplianceGrowthFocusContent({
     }
   }, []);
 
+  const handleConfirmStreamingLocation = React.useCallback(() => {
+    setHasConfirmedStreamingLocation(true);
+  }, []);
+
   const handleVideoSelect = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0];
