@@ -27,6 +27,7 @@ import {
   Sparkles,
   UploadCloud,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import {
   MARWA_DISPLAY_NAME_AR,
   MARWA_DISPLAY_NAME_EN,
